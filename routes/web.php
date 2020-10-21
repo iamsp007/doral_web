@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.login');
+});
+
+Route::get('/register', function () {
+    return view('pages.register');
+});
+
+Route::get('/resetpassword', function () {
+    return view('pages.resetpassword');
 });

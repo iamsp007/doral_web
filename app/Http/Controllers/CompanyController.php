@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\company;
 use Illuminate\Http\Request;
+use Exception;
 
 class CompanyController extends Controller
 {
@@ -35,7 +36,48 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $status = 0;
+        $message = "";
+        try {
+            if(empty($request->email)) {
+                throw new Exception("Please Enter Email");
+            }
+            $data = array(
+                'data'=>array(
+                    'name' => $request->company,
+                    'refferal_id' => $request->referralType,
+                    'email' => $request->email
+                )
+            );
+
+            $Data = json_encode($data);
+            $url = 'http://127.0.0.1:8001/api/company/store';
+            $ch = curl_init($url);
+            curl_setopt_array($ch, array(
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_POSTFIELDS => $Data,
+            CURLOPT_TIMEOUT => 40
+            ));
+            
+            $curlResponse = curl_exec($ch);
+            curl_close($ch);
+            $responseArray = json_decode($curlResponse, true);
+            if($responseArray['status'] == 1) {
+                $status = 1;
+            }
+            $message = $responseArray['message'];
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
+
+        $response = [
+            'status' => $status,
+            'message' => $message
+        ];
+
+        return response()->json($response, 201);
     }
 
     /**

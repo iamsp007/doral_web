@@ -24,20 +24,20 @@
                                 <label for="referralType" class="label d-block">Your Referral Type</label>
                                 <select class="form-control js-example-matcher-start select" name="referralType"
                                     id="referralType">
-                                    <option value="Insurance">Insurance</option>
-                                    <option value="Home Care">Home Care</option>
-                                    <option value="Others">Others</option>
+                                    <option value="1">Insurance</option>
+                                    <option value="2">Home Care</option>
+                                    <option value="3">Others</option>
                                 </select>
                             </div>
-                            <form id="ReferralTypeInsurance" method="post">
+                            <form id="ReferralTypeInsurance">
                                 <div id="insurance">
                                     <!-- Company Name -->
                                     <div class="form-group">
                                         <label for="company" class="label">Company Name</label>
                                         <select class="form-control  hsbc" name="company" id="company">
-                                            <option value="">Company 1</option>
-                                            <option value="">Company 2</option>
-                                            <option value="">Company 3</option>
+                                            <option value="Company 1">Company 1</option>
+                                            <option value="Company 2">Company 2</option>
+                                            <option value="Company 3">Company 3</option>
                                         </select>
                                     </div>
                                     <!-- Email -->
@@ -45,13 +45,16 @@
                                         <label for="email" class="label">Email</label>
                                         <input type="email" class="form-control" id="email" name="email">
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-pink btn-block"
-                                        name="signup">Create Your Account</button>
+                                    <div class="form-group">
+                                        <span id="response"></label>
+                                    </div>
+                                    <button type="button" class="btn btn-primary btn-pink btn-block"
+                                        name="signup" id="register">Create Your Account</button>
                                 </div>
                             </form>
                             <div id="homecare">
                             </div>
-                            <form id="ReferralTypeOther" method="post">
+                            <form id="ReferralTypeOther">
                                 <div id="other">
                                     <div class="row">
                                         <div class="col col-xl-6 col-lg-6 col-md-6 col-sm-6">
@@ -93,4 +96,39 @@
         </div>
     </div>
 </div>
+<script>
+        $(document).ready(function () {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $("#register").click(function() {
+                var referralType = $("#referralType").val();
+                var company = $("#company").val();
+                var email = $("#email").val();
+
+                $.ajax({
+                    method: 'POST',
+                    url: '/companyregister',
+                    data: {referralType, company, email},
+                    success: function( response ){
+                        if(response.status == 1)
+                            $("#response").css('color', 'green'); 
+                        else 
+                            $("#response").css('color', 'red');    
+                        $("#response").text(response.message);
+                        console.log( response );
+                    },
+                    error: function( e ) {
+                        console.log(e);
+                    }
+                });
+                
+            });
+
+        });
+</script>    
 @stop

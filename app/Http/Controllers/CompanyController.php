@@ -133,6 +133,57 @@ class CompanyController extends Controller
     }
 
     /**
+     * Reset Password
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resetpassword(Request $request)
+    {
+        $status = 0;
+        $message = "";
+        try {
+            if(empty($request->email)) {
+                throw new Exception("Please Enter Email");
+            }
+            $data = array(
+                'data'=>array(
+                    'email' => $request->email
+                )
+            );
+
+            $Data = json_encode($data);
+            $url = 'http://127.0.0.1:8001/api/company/resetpassword';
+            $ch = curl_init($url);
+            curl_setopt_array($ch, array(
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_POSTFIELDS => $Data,
+            CURLOPT_TIMEOUT => 40
+            ));
+            
+            $curlResponse = curl_exec($ch);
+            curl_close($ch);
+            $responseArray = json_decode($curlResponse, true);
+            //dd($responseArray);
+            if($responseArray['status'] == 1) {
+                $status = 1;
+            }
+            $message = $responseArray['message'];
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
+
+        $response = [
+            'status' => $status,
+            'message' => $message
+        ];
+
+        return response()->json($response, 201);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\company  $company

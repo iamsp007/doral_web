@@ -27,6 +27,7 @@ Route::get('/resetpassword', function () {
 
 // Login / Register
 Route::post('companyregister', 'App\Http\Controllers\CompanyController@store');
+Route::post('companylogin', 'App\Http\Controllers\CompanyController@login');
 
 // Email Template Route
 Route::get('emaillist', 'App\Http\Controllers\EmailTemplateController@index');

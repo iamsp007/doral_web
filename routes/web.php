@@ -24,3 +24,9 @@ Route::get('/register', function () {
 Route::get('/resetpassword', function () {
     return view('pages.resetpassword');
 });
+
+// Login / Register
+Route::post('companyregister', 'App\Http\Controllers\CompanyController@store');
+
+// Email Template Route
+Route::get('emaillist', 'App\Http\Controllers\EmailTemplateController@index');

@@ -12,15 +12,25 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+\Illuminate\Support\Facades\Auth::routes(['verify' => true]);
 
-Route::get('/', function () {
-    return view('pages.login');
-});
 
-Route::get('/register', function () {
-    return view('pages.register');
-});
+//Route::get('/', function () {
+//    return view('pages.login');
+//});
 
-Route::get('/resetpassword', function () {
-    return view('pages.resetpassword');
-});
+//Route::get('/register', function () {
+//    return view('pages.register');
+//});
+//
+//Route::get('/resetpassword', function () {
+//    return view('pages.resetpassword');
+//});
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
+    return view('dashboard');
+})->name('dashboard');
+//
+//Auth::routes();
+//
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

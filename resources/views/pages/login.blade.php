@@ -80,7 +80,7 @@
                     data: {email, password},
                     success: function( response ){
                         if(response.status == 1)
-                            $("#response").css('color', 'green'); 
+                            window.location = "/referral/dashboard"; 
                         else 
                             $("#response").css('color', 'red');    
                         $("#response").text(response.message);

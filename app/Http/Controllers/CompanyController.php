@@ -15,7 +15,44 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $status = 0;
+        $message = "";
+        $record = [];
+        try {
+            $apiToken = session('token');
+            
+            $headerValue = array(
+                'Content-Type: application/json',
+                'X-Requested-With: XMLHttpRequest',
+                'Access-Control-Allow-Origin: http://localhost',
+                'Authorization: Bearer '.$apiToken
+            );
+
+            $url = 'http://127.0.0.1:8001/api/auth/company';
+            $ch = curl_init($url);
+            curl_setopt_array($ch, array(
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_TIMEOUT => 40,
+            CURLOPT_HTTPHEADER => $headerValue
+            ));
+            
+            $curlResponse = curl_exec($ch);
+            curl_close($ch);    
+
+            $responseArray = json_decode($curlResponse, true);
+            //dd($responseArray);
+            if($responseArray['status']) {
+                $status = 1;
+                $record = $responseArray['data'];
+            }
+            $message = $responseArray['message'];
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
+        //dd($record);
+        return View('pages.admin.referral-approval')->with('record',$record);
     }
 
     /**
@@ -45,24 +82,32 @@ class CompanyController extends Controller
             $data = array(
                 'data'=>array(
                     'name' => $request->company,
-                    'refferal_id' => $request->referralType,
+                    'referral_id' => $request->referralType,
                     'email' => $request->email
                 )
             );
 
+            $headerValue = array(
+                'Content-Type: application/json',
+                'X-Requested-With: XMLHttpRequest',
+                'Access-Control-Allow-Origin: http://localhost'
+            );
+
             $Data = json_encode($data);
-            $url = 'http://127.0.0.1:8001/api/company/store';
+            $url = 'http://127.0.0.1:8001/api/auth/company/store';
             $ch = curl_init($url);
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_POSTFIELDS => $Data,
-            CURLOPT_TIMEOUT => 40
+            CURLOPT_TIMEOUT => 40,
+            CURLOPT_HTTPHEADER => $headerValue
             ));
             
             $curlResponse = curl_exec($ch);
             curl_close($ch);
+            //dd($curlResponse);
             $responseArray = json_decode($curlResponse, true);
-            if($responseArray['status'] == 1) {
+            if($responseArray['status']) {
                 $status = 1;
             }
             $message = $responseArray['message'];
@@ -101,20 +146,27 @@ class CompanyController extends Controller
                 )
             );
 
+            $headerValue = array(
+                'Content-Type: application/json',
+                'X-Requested-With: XMLHttpRequest',
+                'Access-Control-Allow-Origin: http://localhost'
+            );
+
             $Data = json_encode($data);
-            $url = 'http://127.0.0.1:8001/api/company/login';
+            $url = 'http://127.0.0.1:8001/api/auth/company/login';
             $ch = curl_init($url);
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_POSTFIELDS => $Data,
-            CURLOPT_TIMEOUT => 40
+            CURLOPT_TIMEOUT => 40,
+            CURLOPT_HTTPHEADER => $headerValue
             ));
             
             $curlResponse = curl_exec($ch);
             curl_close($ch);
             $responseArray = json_decode($curlResponse, true);
             //dd($responseArray);
-            if($responseArray['status'] == 1) {
+            if($responseArray['status']) {
                 $status = 1;
             }
             $message = $responseArray['message'];
@@ -226,5 +278,124 @@ class CompanyController extends Controller
     public function destroy(company $company)
     {
         //
+    }
+
+    /**
+     * Update Status
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStatus(Request $request)
+    {
+        $status = 0;
+        $message = "";
+        $record = [];
+        try {
+            $apiToken = session('token');
+            $headerValue = array(
+                'Content-Type: application/json',
+                'X-Requested-With: XMLHttpRequest',
+                'Access-Control-Allow-Origin: http://localhost',
+                'Authorization: Bearer '.$apiToken
+            );
+
+            $data = array(
+                'data'=>array(
+                    'company_id' => $request->company_id,
+                    'status' => $request->status
+                )
+            );
+            $Data = json_encode($data);
+
+            $url = 'http://127.0.0.1:8001/api/auth/company/updatestatus';
+            $ch = curl_init($url);
+            curl_setopt_array($ch, array(
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_TIMEOUT => 40,
+            CURLOPT_POSTFIELDS => $Data,
+            CURLOPT_HTTPHEADER => $headerValue
+            ));
+            
+            $curlResponse = curl_exec($ch);
+            curl_close($ch);    
+
+            $responseArray = json_decode($curlResponse, true);
+            //dd($responseArray);
+            if($responseArray['status']) {
+                $status = 1;
+                $record = $responseArray['data'];
+            }
+            $message = $responseArray['message'];
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
+
+        $response = [
+            'status' => $status,
+            'message' => $message
+        ];
+
+        return response()->json($response, 201);
+    }
+
+    /**
+     * Profile View
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function profile(Request $request)
+    {
+        $status = 0;
+        $message = "";
+        $record = [];
+        try {
+            $apiToken = session('token');
+            $headerValue = array(
+                'Content-Type: application/json',
+                'X-Requested-With: XMLHttpRequest',
+                'Access-Control-Allow-Origin: http://localhost',
+                'Authorization: Bearer '.$apiToken
+            );
+
+            $data = array(
+                'data'=>array(
+                    'company_id' => $request->company_id
+                )
+            );
+            $Data = json_encode($data);
+
+            $url = 'http://127.0.0.1:8001/api/auth/company/updatestatus';
+            $ch = curl_init($url);
+            curl_setopt_array($ch, array(
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_TIMEOUT => 40,
+            CURLOPT_POSTFIELDS => $Data,
+            CURLOPT_HTTPHEADER => $headerValue
+            ));
+            
+            $curlResponse = curl_exec($ch);
+            curl_close($ch);    
+
+            $responseArray = json_decode($curlResponse, true);
+            //dd($responseArray);
+            if($responseArray['status']) {
+                $status = 1;
+                $record = $responseArray['data'];
+            }
+            $message = $responseArray['message'];
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
+
+        $response = [
+            'status' => $status,
+            'message' => $message
+        ];
+
+        return response()->json($response, 201);
     }
 }

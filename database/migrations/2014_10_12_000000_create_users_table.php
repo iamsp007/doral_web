@@ -15,21 +15,15 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->date('dob');
-            $table->bigInteger('phone');
-            $table->enum('type', ['employee', 'patient'])->comment('If user is Patient: patient, Employee:employee');;
-            $table->foreignId('employee_id')->index('employee_id')->comment('Referance with Employee Table');
-            $table->foreignId('patient_id')->index('patient_id')->comment('REferance with Patients Table');            
+            $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('status', ['active', 'inactive', 'applicant', 'employee']);
             $table->rememberToken();
-            $table->enum('level', ['easy', 'hard']);
-            $table->timestamps();           
-        });        
+            $table->foreignId('current_team_id')->nullable();
+            $table->text('profile_photo_path')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

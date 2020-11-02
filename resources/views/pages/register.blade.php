@@ -34,16 +34,12 @@
                                     <!-- Company Name -->
                                     <div class="form-group">
                                         <label for="company" class="label">Company Name</label>
-                                        <select class="form-control  hsbc" name="company" id="company">
-                                            <option value="Company 1">Company 1</option>
-                                            <option value="Company 2">Company 2</option>
-                                            <option value="Company 3">Company 3</option>
-                                        </select>
+                                        <input type="email" class="form-control" id="company" name="company" placeholder="Company Name">
                                     </div>
                                     <!-- Email -->
                                     <div class="form-group">
                                         <label for="email" class="label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                     </div>
                                     <div class="form-group">
                                         <span id="response"></label>
@@ -52,41 +48,7 @@
                                         name="signup" id="register">Create Your Account</button>
                                 </div>
                             </form>
-                            <div id="homecare">
-                            </div>
-                            <form id="ReferralTypeOther">
-                                <div id="other">
-                                    <div class="row">
-                                        <div class="col col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                            <!-- First Name -->
-                                            <div class="form-group">
-                                                <label for="fname" class="label">First Name</label>
-                                                <input type="text" class="form-control " id="fname"
-                                                    name="fname">
-                                            </div>
-                                        </div>
-                                        <div class="col col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                            <!-- Last Name -->
-                                            <div class="form-group">
-                                                <label for="lname" class="label">Last Name</label>
-                                                <input type="text" class="form-control " id="lname"
-                                                    name="lname">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Email -->
-                                    <div class="form-group">
-                                        <label for="email1" class="label">Email</label>
-                                        <input type="email" class="form-control " id="email1" name="email1">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-pink btn-block"
-                                        name="signup">Create Your Account</button>
-                                </div>
-                            </form>
-                            <!-- Submit Btn -->
-                            <div class="d-flex align-items-center justify-content-center mt-2 t3">Already a
-                                Dolar member?<a href="/" class="ml-2 underline">Sign In
-                                    here</a></div>
+                            
                         </div>
                     </div>
                     <div class="btm_back"></div>

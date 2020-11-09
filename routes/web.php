@@ -63,6 +63,8 @@ Route::get('/admin/employee', function () {
     return view('pages.admin.employee');
 });
 
+Route::get('admin/employee-add', 'App\Http\Controllers\EmployeeController@index');
+
 /*Route::get('/admin/referral-profile', function () {
     return view('pages.admin.referral-profile');
 });*/
@@ -93,3 +95,7 @@ Route::get('/referral/md-order', function () {
 Route::get('/referral/employee-pre-physical', function () {
     return view('pages.referral.employee-pre-physical');
 });
+
+
+# Referral-Patient api
+Route::post('/referral/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');

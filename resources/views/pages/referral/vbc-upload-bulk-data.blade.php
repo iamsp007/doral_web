@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <a href="javascript:void(0)" class="btn btn-primary btn-pink mt-3">Upload Files</a>
+            <button type="button" class="btn btn-primary btn-pink mt-3 uploadFile">Upload Files</button>
         </div>
         <div class="uploaded-file-listing">
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -160,4 +160,42 @@
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function () {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(".uploadFile").click(function() {
+        var file_name = $("#file-1").val();
+        $.ajax({
+            method: 'POST',
+            url: '/referral/vbc-upload-bulk-data-store',
+            data: {file_name},
+            success: function( response ){
+                if(response.status == 1) {
+                    window.location = "/referral/dashboard"; 
+                }
+                else {
+                    $(".alert").show();
+                    $("#response").text(response.message);
+                    setTimeout(function(){ 
+                        $(".alert").hide();
+                    }, 1000);    
+                }
+                
+                console.log( response );
+            },
+            error: function( e ) {
+                console.log(e);
+            }
+        });
+        
+    });
+
+});
+</script>   
 @stop

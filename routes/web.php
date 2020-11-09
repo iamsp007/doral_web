@@ -63,14 +63,17 @@ Route::get('/admin/employee', function () {
     return view('pages.admin.employee');
 });
 
-Route::get('/admin/referral-profile', function () {
+/*Route::get('/admin/referral-profile', function () {
     return view('pages.admin.referral-profile');
-});
+});*/
 
 Route::get('/admin/referral-approval', 'App\Http\Controllers\CompanyController@index');
 Route::post('/admin/referral-status', 'App\Http\Controllers\CompanyController@updateStatus');
+Route::get('/admin/referral-profile/{id}', 'App\Http\Controllers\CompanyController@profile');
 Route::post('/admin/loginaccess', 'App\Http\Controllers\Admin\HomeController@login');
 Route::get('/admin/dashboard', 'App\Http\Controllers\Admin\HomeController@index');
+
+Route::get('/admin/logout', 'App\Http\Controllers\Admin\HomeController@logout');
 
 
 // Referral Panel
@@ -79,6 +82,9 @@ Route::get('/referral/dashboard', function () {
 });
 Route::get('/referral/vbc', function () {
     return view('pages.referral.vbc');
+});
+Route::get('/referral/vbc-upload-bulk-data', function () {
+    return view('pages.referral.vbc-upload-bulk-data');
 });
 Route::get('/referral/md-order', function () {
     return view('pages.referral.md-order');

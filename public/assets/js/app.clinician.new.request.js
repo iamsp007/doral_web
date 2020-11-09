@@ -3,28 +3,114 @@ $(function () {
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
+            labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+            datasets: [
+                {
+                    label: 'VBP',
+                    backgroundColor: [
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557'
+                    ],
+                    borderColor: [
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557',
+                        '#FF6557'
+                    ],
+                    borderWidth: 1,
+                    barPercentage: 0.8,
+                    minBarLength: 2,
+                    data: [15, 5, 50, 45, 80, 20, 35, 66, 11, 23, 77, 33]
+                },
+                {
+                    label: 'MD ORDER',
+                    backgroundColor: [
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF'
+                    ],
+                    borderColor: [
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF',
+                        '#0363FF'
+                    ],
+                    borderWidth: 1,
+                    barPercentage: 0.8,
+                    minBarLength: 2,
+                    data: [5, 15, 1, 22.5, 65, 35, 66.8, 44.2, 0.5, 88, 12, 18]
+                },
+                {
+                    label: 'Employee Pre-Physical',
+                    backgroundColor: [
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B'
+                    ],
+                    borderColor: [
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B',
+                        '#00756B'
+                    ],
+                    borderWidth: 1,
+                    barPercentage: 0.8,
+                    minBarLength: 2,
+                    data: [8, 9, 12, 25, 15, 35, 66, 44, 0.5, 22, 2, 18]
+                }
+            ]
         },
         options: {
             scales: {
@@ -33,6 +119,14 @@ $(function () {
                         beginAtZero: true
                     }
                 }]
+            },
+            legend: {
+                position: "bottom",
+                display: true,
+                labels: {
+                    fontColor: '#00756B',
+                    fontSize: 12
+                }
             }
         }
     });

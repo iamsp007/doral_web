@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="../assets/css/fonts/Montserrat.css">
 <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="../assets/css/line-awesome.min.css">
+<link rel="stylesheet" href="../assets/css/daterangepicker.min.css">
+<link rel="stylesheet" href="../assets/css/datatables.css">
 <link rel="stylesheet" href="../assets/css/style.min.css">
 <link rel="stylesheet" href="../assets/css/responsive.min.css">
 <title>Welcome to Doral</title>

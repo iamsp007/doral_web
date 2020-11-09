@@ -2,6 +2,18 @@
 @section('content')
 <div class="app-roles">
     <div class="pt-2">
+        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
+            <strong>Success!</strong> <span id="successResponse"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
+            <strong>Error!</strong> <span id="errorResponse"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+        </div>
         <table id="employee-table" class="table">
             <thead>
                 <tr>
@@ -30,535 +42,17 @@
                             <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
                                 data-toggle="tooltip" data-placement="left"
                                 title="Edit User" id="{{$raw['id']}}">Reject</button>
-                            <a href="/admin/referral-profile" 
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
+                            <a href="{{ url('/admin/referral-profile/'.$raw['id']) }}" class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
                                 data-placement="left" title="Edit User">View
                                 Profile</a>
+
+
                         </div>
                     </td>
                 </tr>
                 @endforeach
                 @endif
-                <!--<tr>
-                    <td><input type="checkbox"></td>
-                    <td>Home Care</td>
-                    <td>Doral Pvt Ltd</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Ohters</td>
-                    <td>Doral LLC</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Insurance</td>
-                    <td>Doral Corporation</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Home Care</td>
-                    <td>Doral Pvt Ltd</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Ohters</td>
-                    <td>Doral LLC</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Insurance</td>
-                    <td>Doral Corporation</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Home Care</td>
-                    <td>Doral Pvt Ltd</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Ohters</td>
-                    <td>Doral LLC</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Insurance</td>
-                    <td>Doral Corporation</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Home Care</td>
-                    <td>Doral Pvt Ltd</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Ohters</td>
-                    <td>Doral LLC</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Insurance</td>
-                    <td>Doral Corporation</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Home Care</td>
-                    <td>Doral Pvt Ltd</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Ohters</td>
-                    <td>Doral LLC</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Insurance</td>
-                    <td>Doral Corporation</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Home Care</td>
-                    <td>Doral Pvt Ltd</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Ohters</td>
-                    <td>Doral LLC</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Insurance</td>
-                    <td>Doral Corporation</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Home Care</td>
-                    <td>Doral Pvt Ltd</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Ohters</td>
-                    <td>Doral LLC</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Insurance</td>
-                    <td>Doral Corporation</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Home Care</td>
-                    <td>Doral Pvt Ltd</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Ohters</td>
-                    <td>Doral LLC</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Insurance</td>
-                    <td>Doral Corporation</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Home Care</td>
-                    <td>Doral Pvt Ltd</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Ohters</td>
-                    <td>Doral LLC</td>
-                    <td>example@example.com</td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="javascript:void(0)"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left" title="View User">Accept</a>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left"
-                                title="Edit User">Reject</button>
-                            <a href="referral_user_profile.html"
-                                class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="Edit User">View
-                                Profile</a>
-                        </div>
-                    </td>
-                </tr>-->
+                
             </tbody>
         </table>
     </div>
@@ -581,10 +75,22 @@
                 url: '/admin/referral-status',
                 data: {company_id, status},
                 success: function( response ){
-                    if(response.status == 1)
-                        alert(response.message)
-                    else 
-                        alert(response.message)
+                    if(response.status == 1) {
+                        $(".alert-success").show();
+                        $(".alert-danger").hide();
+                        $("#successResponse").text(response.message); 
+                        setTimeout(function(){ 
+                            $(".alert-success").hide();
+                        }, 1000);
+                    }
+                    else {
+                        $(".alert-danger").show();
+                        $(".alert-success").hide();
+                        $("#errorResponse").text(response.message);
+                        setTimeout(function(){ 
+                            $(".alert-danger").hide();
+                        }, 1000);
+                    }
                     console.log( response );
                 },
                 error: function( e ) {
@@ -603,10 +109,22 @@
                 url: '/admin/referral-status',
                 data: {company_id, status},
                 success: function( response ){
-                    if(response.status == 1)
-                        alert(response.message)
-                    else 
-                        alert(response.message)
+                    if(response.status == 1) {
+                        $(".alert-success").show();
+                        $(".alert-danger").hide();
+                        $("#successResponse").text(response.message); 
+                        setTimeout(function(){ 
+                            $(".alert-success").hide();
+                        }, 1000);
+                    }
+                    else {
+                        $(".alert-danger").show();
+                        $(".alert-success").hide();
+                        $("#errorResponse").text(response.message);
+                        setTimeout(function(){ 
+                            $(".alert-danger").hide();
+                        }, 1000);
+                    }
                     console.log( response );
                 },
                 error: function( e ) {
@@ -615,24 +133,6 @@
             });
             
         });
-
-        /*$(".profile").click(function() {
-            var company_id = $(this).attr('id'); 
-
-            $.ajax({
-                method: 'POST',
-                url: '/admin/referral-profile',
-                data: {company_id},
-                success: function( response ){
-                    console.log( response );
-                },
-                error: function( e ) {
-                    console.log(e);
-                }
-            });
-            
-        });*/
-
     });
 </script> 
 @stop

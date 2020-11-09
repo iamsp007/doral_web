@@ -19,7 +19,7 @@
             <div class="block">
                 <div>
                     <!-- Logo Start -->
-                    <a href="/admin/login" title="Welcome to Doral"  class="logo">
+                    <a href="/admin/" title="Welcome to Doral"  class="logo">
                         <img src="../assets/img/logo-white.svg" alt="Welcome to Doral" srcset="../assets/img/logo-white.svg">
                     </a>
                     <!-- Logo End -->
@@ -75,20 +75,20 @@
                                                 name="password">
                                             <!-- <small id="passwordHelp" class="form-text text-muted mt-2">Assistive Text</small> -->
                                         </div>
-                                        <!-- Error Messaage -->
-                                        <div class="form-group">
-                                            <div class="d-flex justify-content-between">
-                                                <label for="password" class="label" id="error"></label>
-                                            </div>
-                                            
-                                        </div>
+                                        
                                         <!-- Submit Btn -->
                                         <button type="button" class="btn btn-primary btn-pink btn-block"
                                             name="signup" id="login">Login</button>
-                                        <div class="d-flex align-items-center justify-content-center mt-2 t3">New
-                                            here?<a href="register.html" class="ml-2 underline">Create Doral
-                                                Account</a></div>
+                                        
                                     </form>
+                                    
+                                    <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
+                                        <strong>Error!</strong> <span id="error"></span>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="btm_back"></div>
@@ -236,7 +236,7 @@
                     if(response.status == 1)
                         window.location = "/admin/dashboard";
                     else 
-                        $("#error").css('color', 'red');    
+                        $(".alert").show();    
                     $("#error").text(response.message);
                     console.log( response );
                 },

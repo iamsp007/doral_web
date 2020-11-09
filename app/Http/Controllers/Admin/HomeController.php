@@ -72,5 +72,13 @@ class HomeController extends Controller
         return response()->json($response, 201);
     }
 
+    public function logout() {
+
+        session(['token' => null]);
+        //dd(session('token'));
+        return redirect('/admin');
+
+    }
+
     
 }

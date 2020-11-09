@@ -41,13 +41,22 @@
                                         <label for="email" class="label">Email</label>
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                     </div>
-                                    <div class="form-group">
-                                        <span id="response"></label>
-                                    </div>
                                     <button type="button" class="btn btn-primary btn-pink btn-block"
                                         name="signup" id="register">Create Your Account</button>
                                 </div>
                             </form>
+                            <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
+                                <strong>Success!</strong> <span id="successResponse"></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
+                                <strong>Error!</strong> <span id="errorResponse"></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
                             
                         </div>
                     </div>
@@ -77,11 +86,23 @@
                     url: '/companyregister',
                     data: {referralType, company, email},
                     success: function( response ){
-                        if(response.status == 1)
-                            $("#response").css('color', 'green'); 
-                        else 
-                            $("#response").css('color', 'red');    
-                        $("#response").text(response.message);
+                        if(response.status == 1) {
+                            $(".alert-success").show();
+                            $(".alert-danger").hide();
+                            $("#successResponse").text(response.message); 
+                            setTimeout(function(){ 
+                                $(".alert-success").hide();
+                            }, 1000);
+                        }
+                        else {
+                            $(".alert-danger").show();
+                            $(".alert-success").hide();
+                            $("#errorResponse").text(response.message);
+                            setTimeout(function(){ 
+                                $(".alert-danger").hide();
+                            }, 1000);
+                        }
+                        
                         console.log( response );
                     },
                     error: function( e ) {

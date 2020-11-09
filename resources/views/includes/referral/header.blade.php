@@ -1,3 +1,7 @@
+@if(!empty(session('token'))) 
+	<script>window.location = "/";</script>
+@endif
+
 <div class="app-header">
 	<div class="nav">
 		<button class="navbar-toggler d-none" type="button" data-toggle="collapse"
@@ -36,6 +40,24 @@
 </div>
 <div class="app-title-box">
 	<div class="app-title">
+		@if(Request::segment(2) == 'vbc' || Request::segment(2) == 'vbc-upload-bulk-data')
+		<img src="../assets/img/icons/computer-icon.svg" class="vbcIcon mr-2">
+		@endif
 		{{ucfirst(str_replace("-", " ",Request::segment(2)))}}
+		@if(Request::segment(2) == 'vbc')
+		- Total Patient Data(10)
+		@endif
 	</div>
+	@if(Request::segment(2) == 'vbc' || Request::segment(2) == 'vbc-upload-bulk-data')
+	<div class="d-flex">
+        <a href="javascript:void(0)" class="single-upload-btn mr-2">
+            <img src="../assets/img/icons/single-upload-icon.svg" class="icon mr-2" />
+            Single Upload</a>
+        @if(Request::segment(2) == 'vbc')    
+        <a href="/referral/vbc-upload-bulk-data" class="bulk-upload-btn">
+            <img src="../assets/img/icons/bulk-upload-icon.svg" class="icon mr-2" />
+            Bulk Upload</a>
+        @endif    
+    </div>
+	@endif
 </div>

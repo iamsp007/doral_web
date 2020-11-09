@@ -1,3 +1,6 @@
+@if(session('token') === null) 
+	<script>window.location = "/admin";</script>
+@endif
 <div class="app-header">
 	<div class="nav">
 		<button class="navbar-toggler d-none" type="button" data-toggle="collapse"
@@ -27,7 +30,7 @@
 					</div>
 					<div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
 						<a class="dropdown-item" href="#">Profile</a>
-						<a class="dropdown-item" href="#">Logout</a>
+						<a class="dropdown-item" href="/admin/logout">Logout</a>
 					</div>
 				</div>
 			</li>

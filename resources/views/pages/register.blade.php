@@ -57,7 +57,7 @@
                                   <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="btm_back"></div>
@@ -67,7 +67,13 @@
         </div>
     </div>
 </div>
-<script>
+@endsection
+
+@push('css')
+
+@endpush
+@push('js')
+    <script>
         $(document).ready(function () {
 
             $.ajaxSetup({
@@ -89,8 +95,8 @@
                         if(response.status == 1) {
                             $(".alert-success").show();
                             $(".alert-danger").hide();
-                            $("#successResponse").text(response.message); 
-                            setTimeout(function(){ 
+                            $("#successResponse").text(response.message);
+                            setTimeout(function(){
                                 $(".alert-success").hide();
                             }, 1000);
                         }
@@ -98,20 +104,20 @@
                             $(".alert-danger").show();
                             $(".alert-success").hide();
                             $("#errorResponse").text(response.message);
-                            setTimeout(function(){ 
+                            setTimeout(function(){
                                 $(".alert-danger").hide();
                             }, 1000);
                         }
-                        
+
                         console.log( response );
                     },
                     error: function( e ) {
                         console.log(e);
                     }
                 });
-                
+
             });
 
         });
-</script>    
-@stop
+    </script>
+@endpush

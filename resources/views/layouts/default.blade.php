@@ -3,6 +3,7 @@
 
 <head>
     @include('includes.head')
+    @stack('css')
 </head>
 
 <body>
@@ -18,6 +19,7 @@
     @include('includes.footer')
     <!-- Footer Section End -->
     @include('includes.script')
+    @stack('js')
 </body>
 
 </html>

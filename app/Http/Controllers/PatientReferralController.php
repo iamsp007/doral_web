@@ -41,7 +41,7 @@ class PatientReferralController extends Controller
             $message = $responseArray['message'];*/
 
             //  ---------------
-            $url = 'http://127.0.0.1:8001/api/patient-referral/store';
+            $url = CurlFunction::getURL().'/api/auth/patient-referral/store';
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
@@ -67,6 +67,7 @@ class PatientReferralController extends Controller
                 )
             );
             $data = json_encode($data);
+            //dd($data);
 
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);

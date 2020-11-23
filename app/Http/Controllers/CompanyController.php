@@ -14,6 +14,7 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         $status = 0;
@@ -21,7 +22,7 @@ class CompanyController extends Controller
         $record = [];
         try {
             $apiToken = session('token');
-            $url = 'http://127.0.0.1:8001/api/auth/company';
+            $url = CurlFunction::getURL().'/api/auth/company';
             $curlResponse = CurlFunction::withTokenGet($url, $apiToken);
             $responseArray = json_decode($curlResponse, true);
             //dd($responseArray);
@@ -71,7 +72,7 @@ class CompanyController extends Controller
                 )
             );
 
-            $url = 'http://127.0.0.1:8001/api/auth/company/store';
+            $url = CurlFunction::getURL().'/api/auth/company/store';
             $curlResponse = CurlFunction::withOutToken($url, $data);
             $responseArray = json_decode($curlResponse, true);
             if($responseArray['status']) {
@@ -113,7 +114,7 @@ class CompanyController extends Controller
                 )
             );
 
-            $url = 'http://127.0.0.1:8001/api/auth/company/login';
+            $url = CurlFunction::getURL().'/api/auth/company/login';
             $curlResponse = CurlFunction::withOutToken($url, $data);
             $responseArray = json_decode($curlResponse, true);
             //dd($responseArray);
@@ -156,7 +157,7 @@ class CompanyController extends Controller
             );
 
             $Data = json_encode($data);
-            $url = 'http://127.0.0.1:8001/api/company/resetpassword';
+            $url = CurlFunction::getURL().'/api/company/resetpassword';
             $ch = curl_init($url);
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
@@ -251,7 +252,7 @@ class CompanyController extends Controller
                 )
             );
             
-            $url = 'http://127.0.0.1:8001/api/auth/company/updatestatus';
+            $url = CurlFunction::getURL().'/api/auth/company/updatestatus';
             $curlResponse = CurlFunction::withTokenPost($url, $data, $apiToken);
             $responseArray = json_decode($curlResponse, true);
             //dd($responseArray);
@@ -293,7 +294,7 @@ class CompanyController extends Controller
                 'Authorization: Bearer '.$apiToken
             );
 
-            $url = 'http://127.0.0.1:8001/api/auth/company/show/'.$id;
+            $url = CurlFunction::getURL().'/api/auth/company/show/'.$id;
             $ch = curl_init($url);
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CurlModel\CurlFunction;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -38,7 +39,7 @@ class HomeController extends Controller
             );
 
             $Data = json_encode($data);
-            $url = 'http://127.0.0.1:8001/api/auth/login';
+            $url = CurlFunction::getURL().'/api/auth/login';
             $ch = curl_init($url);
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,

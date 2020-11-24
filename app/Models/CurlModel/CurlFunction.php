@@ -6,13 +6,14 @@ class CurlFunction
 {
     public static function getURL() {
 
-        if(strpos(request()->getHost(), '127.0.0.1') !== false) {
-            return 'http://127.0.0.1:8001';
-        } else if( strpos(request()->getHost(), '3.131.51.140') !== false) {
-            return 'http://api.doralhealthconnect.com';
-        } else {
-            return 'http://127.0.0.1:8001';
-        }
+//        if(strpos(request()->getHost(), '127.0.0.1') !== false) {
+//            return 'http://127.0.0.1:8001';
+//        } else if( strpos(request()->getHost(), '3.131.51.140') !== false) {
+//            return 'http://api.doralhealthconnect.com';
+//        } else {
+//            return 'http://127.0.0.1:8001';
+//        }
+        return 'http://api.doralhealthconnect.com';
 
     }
     public static function withOutToken($url, $data) {

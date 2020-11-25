@@ -90,9 +90,12 @@ Route::get('/referral/md-order', function () {
     return view('pages.referral.md-order');
 });
 
-Route::get('/referral/employee-pre-physical', function () {
+Route::get('/referral/employee-pre-physical', 'App\Http\Controllers\PatientReferralController@index');
+Route::get('/referral/employee-pre-physical-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@index1');
+
+/*Route::get('/referral/employee-pre-physical', function () {
     return view('pages.referral.employee-pre-physical');
-});
+});*/
 
 //Route::get('/caregiver/1', function () {
 //    return view('pages.caregiver');
@@ -102,4 +105,5 @@ Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeControll
 
 
 # Referral-Patient api
-Route::post('/referral/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
+//Route::post('/referral/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
+Route::post('/referral/employee-pre-physical-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');

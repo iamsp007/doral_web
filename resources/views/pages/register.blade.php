@@ -24,66 +24,40 @@
                                 <label for="referralType" class="label d-block">Your Referral Type</label>
                                 <select class="form-control js-example-matcher-start select" name="referralType"
                                     id="referralType">
-                                    <option value="Insurance">Insurance</option>
-                                    <option value="Home Care">Home Care</option>
-                                    <option value="Others">Others</option>
+                                    <option value="1">Insurance</option>
+                                    <option value="2">Home Care</option>
+                                    <option value="3">Others</option>
                                 </select>
                             </div>
-                            <form id="ReferralTypeInsurance" method="post">
+                            <form id="ReferralTypeInsurance">
                                 <div id="insurance">
                                     <!-- Company Name -->
                                     <div class="form-group">
                                         <label for="company" class="label">Company Name</label>
-                                        <select class="form-control  hsbc" name="company" id="company">
-                                            <option value="">Company 1</option>
-                                            <option value="">Company 2</option>
-                                            <option value="">Company 3</option>
-                                        </select>
+                                        <input type="email" class="form-control" id="company" name="company" placeholder="Company Name">
                                     </div>
                                     <!-- Email -->
                                     <div class="form-group">
                                         <label for="email" class="label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-pink btn-block"
-                                        name="signup">Create Your Account</button>
+                                    <button type="button" class="btn btn-primary btn-pink btn-block"
+                                        name="signup" id="register">Create Your Account</button>
                                 </div>
                             </form>
-                            <div id="homecare">
+                            <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
+                                <strong>Success!</strong> <span id="successResponse"></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
                             </div>
-                            <form id="ReferralTypeOther" method="post">
-                                <div id="other">
-                                    <div class="row">
-                                        <div class="col col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                            <!-- First Name -->
-                                            <div class="form-group">
-                                                <label for="fname" class="label">First Name</label>
-                                                <input type="text" class="form-control " id="fname"
-                                                    name="fname">
-                                            </div>
-                                        </div>
-                                        <div class="col col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                            <!-- Last Name -->
-                                            <div class="form-group">
-                                                <label for="lname" class="label">Last Name</label>
-                                                <input type="text" class="form-control " id="lname"
-                                                    name="lname">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Email -->
-                                    <div class="form-group">
-                                        <label for="email1" class="label">Email</label>
-                                        <input type="email" class="form-control " id="email1" name="email1">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-pink btn-block"
-                                        name="signup">Create Your Account</button>
-                                </div>
-                            </form>
-                            <!-- Submit Btn -->
-                            <div class="d-flex align-items-center justify-content-center mt-2 t3">Already a
-                                Dolar member?<a href="/" class="ml-2 underline">Sign In
-                                    here</a></div>
+                            <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
+                                <strong>Error!</strong> <span id="errorResponse"></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="btm_back"></div>
@@ -93,4 +67,51 @@
         </div>
     </div>
 </div>
+<script>
+        $(document).ready(function () {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $("#register").click(function() {
+                var referralType = $("#referralType").val();
+                var company = $("#company").val();
+                var email = $("#email").val();
+
+                $.ajax({
+                    method: 'POST',
+                    url: '/companyregister',
+                    data: {referralType, company, email},
+                    success: function( response ){
+                        if(response.status == 1) {
+                            $(".alert-success").show();
+                            $(".alert-danger").hide();
+                            $("#successResponse").text(response.message); 
+                            setTimeout(function(){ 
+                                $(".alert-success").hide();
+                            }, 1000);
+                        }
+                        else {
+                            $(".alert-danger").show();
+                            $(".alert-success").hide();
+                            $("#errorResponse").text(response.message);
+                            setTimeout(function(){ 
+                                $(".alert-danger").hide();
+                            }, 1000);
+                        }
+                        
+                        console.log( response );
+                    },
+                    error: function( e ) {
+                        console.log(e);
+                    }
+                });
+                
+            });
+
+        });
+</script>    
 @stop

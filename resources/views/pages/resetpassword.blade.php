@@ -24,7 +24,7 @@
                                     Enter your user account's verified email address and we will send you a
                                     password reset link.</small>
                             </p>
-                            <form class="mt-3" id="resetPasswordForm" method="post">
+                            <form class="mt-3" id="resetPasswordForm">
                                 <!-- Username -->
                                 <div class="form-group">
                                     <label for="emailaddress" class="label">Email</label>
@@ -32,8 +32,11 @@
                                         name="emailaddress" aria-describedby="emailHelp">
                                     <!-- <small id="usernameHelp" class="form-text text-muted mt-2">Assistive Text</small> -->
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-pink btn-block"
-                                    name="signup">Send password reset email</button>
+                                <div class="form-group">
+                                    <span id="response"></label>
+                                </div>
+                                <button type="button" class="btn btn-primary btn-pink btn-block"
+                                    name="signup" id="resetpassword">Send password reset email</button>
                                 <div class="d-flex align-items-center justify-content-center mt-2 t3">Already a
                                     Dolar member?<a href="/" class="ml-2 underline">Sign In
                                         here</a></div>
@@ -47,4 +50,37 @@
         </div>
     </div>
 </div>
+<script>
+        $(document).ready(function () {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $("#resetpassword").click(function() {
+                var email = $("#emailaddress").val();
+                
+                $.ajax({
+                    method: 'POST',
+                    url: '/companyresetpassword',
+                    data: {email},
+                    success: function( response ){
+                        if(response.status == 1)
+                            $("#response").css('color', 'green'); 
+                        else 
+                            $("#response").css('color', 'red');    
+                        $("#response").text(response.message);
+                        console.log( response );
+                    },
+                    error: function( e ) {
+                        console.log(e);
+                    }
+                });
+                
+            });
+
+        });
+</script> 
 @stop

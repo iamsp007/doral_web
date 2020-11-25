@@ -82,12 +82,10 @@ Route::get('/admin/logout', 'App\Http\Controllers\Admin\HomeController@logout');
 Route::get('/referral/dashboard', function () {
     return view('pages.referral.dashboard');
 });
-Route::get('/referral/vbc', function () {
-    return view('pages.referral.vbc');
-});
-Route::get('/referral/vbc-upload-bulk-data', function () {
-    return view('pages.referral.vbc-upload-bulk-data');
-});
+
+Route::get('/referral/vbc', 'App\Http\Controllers\PatientReferralController@index1');
+Route::get('/referral/vbc-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@index');
+
 Route::get('/referral/md-order', function () {
     return view('pages.referral.md-order');
 });

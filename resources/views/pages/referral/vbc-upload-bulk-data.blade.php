@@ -30,6 +30,7 @@
             </div>
         </div>
         <div class="upload-your-files">
+            <form method="post" id="upload_form" enctype="multipart/form-data">
             <h1>Upload your files</h1>
             <p>Upload from your computer (.xls, .xlsx, .csv,.pdf)</p>
             <div class="upload-files">
@@ -38,7 +39,7 @@
                     <h1 class="_title">Drag & Drop</h1>
                     <p>Or</p>
                     <div class="mt-3">
-                        <input type="file" name="file-1[]" id="file-1" class="inputfile inputfile-1"
+                        <input type="file" name="file-1" id="file-1" class="inputfile inputfile-1"
                             data-multiple-caption="{count} files selected" multiple />
                         <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="17" viewBox="0 0 20 17">
@@ -48,7 +49,8 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary btn-pink mt-3 uploadFile">Upload Files</button>
+            <button type="submit" class="btn btn-primary btn-pink mt-3 uploadFile">Upload Files</button>
+            </form>
         </div>
         <div class="uploaded-file-listing">
             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -74,87 +76,22 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if(isset($record) && count($record) > 0)
+                    @foreach($record['patientReferral'] as $raw)
                     <tr>
                         <td><input type="checkbox" /></td>
-                        <td class="text-green">Airi Satou</td>
+                        <td class="text-green">{{$raw['first_name']}} {{$raw['middle_name']}} {{$raw['last_name']}}</td>
                         <td width="20%">Curabitur dignissim tortor.</td>
                         <td>VBC</td>
-                        <td>Sunday, 4 October 2020</td>
+                        <td>{{ date('F d Y', strtotime($raw['created_at'])) }} <!--Sunday, 4 October 2020--></td>
                         <td class="text-green">Success</span></td>
                         <td width="9%"><a href="javascript:void(0)"><img
                                     src="../assets/img/icons/delete-icon.svg"
                                     class="action-delete" /></a>
                         </td>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td class="text-green">Alex Doe</td>
-                        <td>Curabitur dignissim tortor.</td>
-                        <td>VBC</td>
-                        <td>Sunday, 4 October 2020</td>
-                        <td class="text-green">Success</span></td>
-                        <td><a href="javascript:void(0)"><img src="../assets/img/icons/delete-icon.svg"
-                                    class="action-delete" /></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td class="text-green">Angelica Ramos</td>
-                        <td>Donec commodo vel nisl mattis gravida.</td>
-                        <td>MD Order</td>
-                        <td>Tuesday, 10 September 2020</td>
-                        <td class="text-green">Success</span></td>
-                        <td><a href="javascript:void(0)"><img src="../assets/img/icons/delete-icon.svg"
-                                    class="action-delete" /></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td class="text-green">Ashton Cox</td>
-                        <td>Leo tortor tristique tellus, ut vehicula.</td>
-                        <td>Employee Physical</td>
-                        <td>Friday, 28 March 2019</td>
-                        <td class="text-green">Success</span></td>
-                        <td><a href="javascript:void(0)"><img src="../assets/img/icons/delete-icon.svg"
-                                    class="action-delete" /></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td class="text-green">Bradley Greer</td>
-                        <td>Metus venenatis, pellentesque nibh a.</td>
-                        <td>MD Order</td>
-                        <td>Friday, 28 December 2020</td>
-                        <td class="text-green">Success</span></td>
-                        <td><a href="javascript:void(0)"><img src="../assets/img/icons/delete-icon.svg"
-                                    class="action-delete" /></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td class="text-green">Brenden Wagner</td>
-                        <td>Mauris molestie justo eu erat mollis.</td>
-                        <td>VBP</td>
-                        <td>Friday, 20 September 2020</td>
-                        <td class="text-green">Success</span></td>
-                        <td><a href="javascript:void(0)"><img src="../assets/img/icons/delete-icon.svg"
-                                    class="action-delete" /></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td class="text-green">Brielle Williamson</td>
-                        <td>estibulum interdum suscipit purus tincidunt.</td>
-                        <td>Employee Physical</td>
-                        <td>Monday, 12 January 2020</td>
-                        <td class="text-green">Success</span></td>
-                        <td>
-                            <a href=""><img src="../assets/img/icons/delete-icon.svg"
-                                    class="action-delete" /></a>
-                            <a href=""><img src="../assets/img/icons/download-icon.svg"
-                                    class="action-download" /></a>
-                        </td>
-                    </tr>
+                    @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -169,7 +106,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".uploadFile").click(function() {
+    /*$(".uploadFile").click(function() {
         var file_name = $("#file-1").val();
         $.ajax({
             method: 'POST',
@@ -194,7 +131,27 @@ $(document).ready(function () {
             }
         });
         
-    });
+    });*/
+
+    $('#upload_form').on('submit', function(event){
+      event.preventDefault();
+      $.ajax({
+       url:'/referral/vbc-upload-bulk-data-store',
+       method:"POST",
+       data:new FormData(this),
+       dataType:'JSON',
+       contentType: false,
+       cache: false,
+       processData: false,
+       success:function(data)
+       {
+        $('#message').css('display', 'block');
+        $('#message').html(data.message);
+        $('#message').addClass(data.class_name);
+        $('#uploaded_image').html(data.uploaded_image);
+       }
+      })
+     });
 
 });
 </script>   

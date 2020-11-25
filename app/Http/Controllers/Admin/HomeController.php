@@ -28,7 +28,7 @@ class HomeController extends Controller
                 throw new Exception("Please Enter Username");
             }
             $data = array(
-                    'email' => $request->email,
+                    'username' => $request->email,
                     'password' => $request->password
             );
 

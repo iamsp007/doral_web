@@ -75,6 +75,7 @@ class CompanyController extends Controller
             $url = CurlFunction::getURL().'/api/auth/company/store';
             $curlResponse = CurlFunction::withOutToken($url, $data);
             $responseArray = json_decode($curlResponse, true);
+            dd($responseArray);
             if($responseArray['status']) {
                 $status = 1;
             }

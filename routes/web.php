@@ -96,6 +96,12 @@ Route::get('/referral/employee-pre-physical', function () {
     return view('pages.referral.employee-pre-physical');
 });
 
+//Route::get('/caregiver/1', function () {
+//    return view('pages.caregiver');
+//});
+Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
+Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
+
 
 # Referral-Patient api
 Route::post('/referral/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');

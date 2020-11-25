@@ -80,6 +80,12 @@ class HomeController extends Controller
         return redirect('/admin');
 
     }
-
-    
+    public function caregiverResponse()
+    {
+       return view('pages.caregiver');
+    }
+    public function caregiverResponseSubmit(Request $request)
+    {
+        dd($request->all());
+    }
 }

@@ -46,7 +46,7 @@ class CurlFunction
             'Authorization: Bearer '.$token
         );
 
-        $url = 'http://127.0.0.1:8001/api/auth/company';
+        //$url = 'http://127.0.0.1:8001/api/auth/company';
         $url = 'http://api.doralhealthconnect.com/api/auth/company'; 
         $ch = curl_init($url);
         curl_setopt_array($ch, array(

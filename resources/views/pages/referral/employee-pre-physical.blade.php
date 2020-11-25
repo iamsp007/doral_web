@@ -20,7 +20,7 @@
                 <td><input type="checkbox"/></td>
                 <td class="text-green">{{$raw['first_name']}} {{$raw['middle_name']}} {{$raw['last_name']}}</td>
                 <td>Curabitur dignissim tortor.</td>
-                <td>VBC</td>
+                <td>Employee Pre Physical</td>
                 <td>{{ date('F d Y', strtotime($raw['created_at'])) }}</td>
                 <td width="22%"><span class="status-pending">Success</span></td>
                 <td width="8%"><a href="javascript:void(0)"><img src="../assets/img/icons/delete-icon.svg"

@@ -19,7 +19,7 @@
                         <div class="p50">
                             <h1 class="t2"><img src="assets/img/icons/doctor.svg" alt=""
                                     srcset="assets/img/icons/doctor.svg" class="mr-2">Login</h1>
-                            <form class="mt-4 pt-2" id="loginForm" method="post">
+                            <form class="mt-4 pt-2" id="loginForm">
                                 <!-- Username -->
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between">
@@ -43,12 +43,18 @@
                                     <!-- <small id="passwordHelp" class="form-text text-muted mt-2">Assistive Text</small> -->
                                 </div>
                                 <!-- Submit Btn -->
-                                <button type="submit" class="btn btn-primary btn-pink btn-block"
-                                    name="signup">Login</button>
+                                <button type="button" class="btn btn-primary btn-pink btn-block"
+                                    name="signup" id="login">Login</button>
                                 <div class="d-flex align-items-center justify-content-center mt-2 t3">New
                                     here?<a href="/register" class="ml-2 underline">Create Doral
                                         Account</a></div>
                             </form>
+                            <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
+                                <strong>Error!</strong> <span id="response"></span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="btm_back"></div>
@@ -58,4 +64,44 @@
         </div>
     </div>
 </div>
+<script>
+        $(document).ready(function () {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $("#login").click(function() {
+                var email = $("#username").val();
+                var password = $("#password").val();
+                
+                $.ajax({
+                    method: 'POST',
+                    url: '/companylogin',
+                    data: {email, password},
+                    success: function( response ){
+                        if(response.status == 1) {
+                            window.location = "/referral/dashboard"; 
+                        }
+                        else {
+                            $(".alert").show();
+                            $("#response").text(response.message);
+                            setTimeout(function(){ 
+                                $(".alert").hide();
+                            }, 1000);    
+                        }
+                        
+                        console.log( response );
+                    },
+                    error: function( e ) {
+                        console.log(e);
+                    }
+                });
+                
+            });
+
+        });
+</script> 
 @stop

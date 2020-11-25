@@ -98,6 +98,7 @@ Route::get('/referral/employee-pre-physical', function () {
 //    return view('pages.caregiver');
 //});
 Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
+Route::get('/caregiver/2', 'App\Http\Controllers\Admin\HomeController@clinicianResponse');
 Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
 
 

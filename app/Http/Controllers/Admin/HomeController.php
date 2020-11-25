@@ -84,6 +84,10 @@ class HomeController extends Controller
     {
        return view('pages.caregiver');
     }
+    public function clinicianResponse()
+    {
+       return view('pages.clinician');
+    }
     public function caregiverResponseSubmit(Request $request)
     {
         dd($request->all());

@@ -1,12 +1,18 @@
-<script src="assets/js/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
+
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery.validate.min.js"></script>
 <script src="assets/js/login.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+
 <script>
     SITEURL = 'http://127.0.0.1:8080/';
+    $(document).ready(function() {
+        $(".btn").click(function() {
+            $("#largeModal").modal("show");
+        });
+    });
     jQuery(document).ready(function($) {
         var calendar = $('#calendar').fullCalendar({
             editable: true,
@@ -18,16 +24,23 @@
             displayEventTime: true,
             editable: true,
             eventColor: 'green',
+            slotDuration: '00:15:00',
+            defaultView:'agendaWeek',
+            firstDay: 1,
+            slotEventOverlap:false,
+            agendaEventMinHeight:1,
+            weekends: true,
             header: {
                 left: 'prev,next today custom1',
                 center: 'title',
-                right: 'month,basicWeek,basicDay'
+                right: 'month,agendaWeek,agendaDay'
             },
             customButtons: {
                 custom1: {
-                    text: 'custom!',
+                    text: 'Add Appointment',
                     click: function() {
-                        alert('clicked the custom button!');
+                        $("#largeModal").modal("show");
+                        
                     }
                 }
             },
@@ -145,7 +158,7 @@
                         }
                     });
                 }
-            }                      
+            }
         });
     });
 </script>

@@ -41,7 +41,7 @@
                     <div class="mt-3">
                         <input type="file" name="file_name" id="file_name" class="inputfile inputfile-1"
                             data-multiple-caption="{count} files selected" multiple />
-                        <input type="hidden" name="service_id" id="service_id" value="3">    
+                        <input type="hidden" name="service_id" id="service_id" value="2">    
                         <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="17" viewBox="0 0 20 17">
                                 <path
@@ -107,11 +107,10 @@ $(document).ready(function () {
         }
     });
 
-
     $('#upload_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
-       url:'/referral/employee-pre-physical-upload-bulk-data-store',
+       url:'/referral/md-order-upload-bulk-data-store',
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',

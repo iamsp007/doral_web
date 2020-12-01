@@ -40,21 +40,31 @@
 </div>
 <div class="app-title-box">
 	<div class="app-title">
-		@if(Request::segment(2) == 'employee-pre-physical' || Request::segment(2) == 'employee-pre-physical-upload-bulk-data')
+		@if(Request::segment(2) == 'employee-pre-physical' || Request::segment(2) == 'employee-pre-physical-upload-bulk-data' || Request::segment(2) == 'vbc' || Request::segment(2) == 'vbc-upload-bulk-data' || Request::segment(2) == 'md-order' || Request::segment(2) == 'md-order-upload-bulk-data')
 		<img src="../assets/img/icons/computer-icon.svg" class="vbcIcon mr-2">
 		@endif
 		{{ucfirst(str_replace("-", " ",Request::segment(2)))}}
-		@if(Request::segment(2) == 'employee-pre-physical')
+		@if(Request::segment(2) == 'employee-pre-physical' || Request::segment(2) == 'vbc' || Request::segment(2) == 'md-order')
 		- Total Patient Data(10)
 		@endif
 	</div>
-	@if(Request::segment(2) == 'employee-pre-physical' || Request::segment(2) == 'employee-pre-physical-upload-bulk-data')
+	@if(Request::segment(2) == 'employee-pre-physical' || Request::segment(2) == 'employee-pre-physical-upload-bulk-data' || Request::segment(2) == 'vbc' || Request::segment(2) == 'vbc-upload-bulk-data' || Request::segment(2) == 'md-order' || Request::segment(2) == 'md-order-upload-bulk-data')
 	<div class="d-flex">
         <a href="javascript:void(0)" class="single-upload-btn mr-2">
             <img src="../assets/img/icons/single-upload-icon.svg" class="icon mr-2" />
             Single Upload</a>
         @if(Request::segment(2) == 'employee-pre-physical')    
         <a href="/referral/employee-pre-physical-upload-bulk-data" class="bulk-upload-btn">
+            <img src="../assets/img/icons/bulk-upload-icon.svg" class="icon mr-2" />
+            Bulk Upload</a>
+        @endif
+        @if(Request::segment(2) == 'vbc')    
+        <a href="/referral/vbc-upload-bulk-data" class="bulk-upload-btn">
+            <img src="../assets/img/icons/bulk-upload-icon.svg" class="icon mr-2" />
+            Bulk Upload</a>
+        @endif
+        @if(Request::segment(2) == 'md-order')    
+        <a href="/referral/md-order-upload-bulk-data" class="bulk-upload-btn">
             <img src="../assets/img/icons/bulk-upload-icon.svg" class="icon mr-2" />
             Bulk Upload</a>
         @endif    

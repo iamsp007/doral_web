@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-\Illuminate\Support\Facades\Auth::routes(['verify' => true]);
+
+// Clincian Route
 
 
 
@@ -45,7 +46,7 @@ Route::get('/resetpassword', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Auth::routes();*/
+*/
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -107,3 +108,25 @@ Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeControll
 # Referral-Patient api
 //Route::post('/referral/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
 Route::post('/referral/employee-pre-physical-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
+
+Route::group(['prefix'=>'/clinician'],function (){
+    \Illuminate\Support\Facades\Auth::routes();
+    Route::group(['middleware'=>'auth'],function (){
+        Route::get('/','\App\Http\Controllers\Clincian\DashboardController@index')->name('clinician.dashboard');
+        Route::get('/patient-list','\App\Http\Controllers\Clincian\PatientController@index')->name('clinician.patientList');
+        Route::get('/getPatientList','\App\Http\Controllers\Clincian\PatientController@getPatientList')->name('clinician.patientList.ajax');
+        Route::get('/roadl','\App\Http\Controllers\Clincian\RoadLController@index')->name('clinician.roadl');
+        Route::post('/patient-request-list','\App\Http\Controllers\Clincian\RoadLController@getPatientRequestList')->name('clinician.roadl.patientRequestList');
+    });
+});
+
+// Admin Route
+Route::group(['prefix'=>'/admin'],function (){
+    \Illuminate\Support\Facades\Auth::routes();
+    Route::group(['middleware'=>'auth'],function (){
+        Route::get('/','\App\Http\Controllers\Clincian\DashboardController@index')->name('admin.dashboard');
+        Route::get('/patient-list','\App\Http\Controllers\Clincian\PatientController@index')->name('admin.patientList');
+        Route::get('/getPatientList','\App\Http\Controllers\Clincian\PatientController@getPatientList')->name('admin.patientList.ajax');
+        Route::get('/roadl','\App\Http\Controllers\Clincian\DashboardController@index')->name('admin.roadl');
+    });
+});

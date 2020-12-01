@@ -75,7 +75,7 @@ class CompanyController extends Controller
             $url = CurlFunction::getURL().'/api/auth/company/store';
             $curlResponse = CurlFunction::withOutToken($url, $data);
             $responseArray = json_decode($curlResponse, true);
-            dd($responseArray);
+            //dd($responseArray);
             if($responseArray['status']) {
                 $status = 1;
             }
@@ -118,9 +118,10 @@ class CompanyController extends Controller
             $url = CurlFunction::getURL().'/api/auth/company/login';
             $curlResponse = CurlFunction::withOutToken($url, $data);
             $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
+            //dd($responseArray['data']['Company']['referal_id']);
             if($responseArray['status']) {
                 $status = 1;
+                session(['referral_id' => $responseArray['data']['Company']['referal_id']]);
             }
             $message = $responseArray['message'];
 

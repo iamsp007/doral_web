@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/clincian/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('css/clincian/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/clincian/line-awesome.css') }}">
 
     <link rel="stylesheet" href="{{ asset('css/clincian/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/clincian/responsive.css') }}">
@@ -14,6 +15,7 @@
     <title>@yield('title','Welcome to Doral')</title>
 </head>
 <body >
+<input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
 <section class="app">
     <section class="app-aside navbar navbar-dark">
         <div class="sidebar" id="collapsibleNavbar">
@@ -28,7 +30,7 @@
                    id="closeMenu"></i>
             </div>
             <ul class="sidenav">
-                <li><a class="{{ \Request::is('clinician/dashboard')?'nav active':'nav' }}" href="{{ route('clinician.dashboard') }}">Dashboard<span class="dot"></span></a></li>
+                <li><a class="{{ \Request::is('clinician')?'nav active':'nav' }}" href="{{ route('clinician.dashboard') }}">Dashboard<span class="dot"></span></a></li>
                 <li><a class="{{ \Request::is('clinician/patient-list')?'nav active':'nav' }}" href="{{ route('clinician.patientList') }}">Patient List<span class="dot"></span></a></li>
                 <li><a class="{{ \Request::is('clinician/roadl')?'nav active':'nav' }}" href="{{ route('clinician.roadl') }}">RoadL<span class="dot"></span></a></li>
             </ul>
@@ -66,11 +68,11 @@
                                     </a>
                                 </div>
                                 <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ url('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"
                                     >Logout</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -93,7 +95,7 @@
 <script src="{{ asset('js/clincian/jquery.min.js') }}"></script>
 <script src="{{ asset('js/clincian/popper.min.js') }}"></script>
 <script src="{{ asset('js/clincian/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/clincian/app.common.min.js') }}"></script>
+<script src="{{ asset('js/clincian/app.common.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

@@ -1,3 +1,4 @@
+var base_url = $('#base_url').val();
 $(document).ready(function (){
    $.ajax({
        headers: {
@@ -13,7 +14,6 @@ $(document).ready(function (){
                if (value.patient_detail){
                    name=value.patient_detail.first_name+' '+value.patient_detail.last_name;
                }
-               console.log(value.clincial_id)
                html+='' +
                    '<li>\n' +
                    '            <div class="app-card raduis_5 mt-2">\n' +
@@ -36,7 +36,7 @@ $(document).ready(function (){
                    '                            <div class="dropdown user-dropdown">\n' +
                    '                                <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"\n' +
                    '                                   aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i\n' +
-                   '                                        class="las la-ellipsis-v la-2x"></i></a>\n' +
+                   '                                        class="las la-ellipsis-v la-2x"/></a>\n' +
                    '                                <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">\n' +
                    '                                    <a class="dropdown-item" href="#">View Profile</a>\n' +
                    '                                </div>\n' +
@@ -99,7 +99,6 @@ $(document).ready(function (){
            });
            html+='</ul>';
            $('#patient-request').html(html);
-           console.log(response)
        },
        error:function (error) {
            console.log(error)
@@ -108,9 +107,9 @@ $(document).ready(function (){
 });
 
 function onStartBroadCast(id) {
-    alert('Start BroadCast '+id);
+    window.location.href=base_url+'clinician/start-roadl';
 }
 
 function onRunningBroadCast(id) {
-    alert('Running BroadCast ');
+    window.location.href=base_url+'clinician/start-roadl';
 }

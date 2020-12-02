@@ -109,21 +109,23 @@ Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeControll
 //Route::post('/referral/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
 Route::post('/referral/employee-pre-physical-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
 
+
 Route::group(['prefix'=>'/clinician'],function (){
     \Illuminate\Support\Facades\Auth::routes();
-    Route::group(['middleware'=>'auth'],function (){
+    Route::group(['middleware'=>['auth','CheckRoleMiddleWare:clinician']],function (){
         Route::get('/','\App\Http\Controllers\Clincian\DashboardController@index')->name('clinician.dashboard');
         Route::get('/patient-list','\App\Http\Controllers\Clincian\PatientController@index')->name('clinician.patientList');
         Route::get('/getPatientList','\App\Http\Controllers\Clincian\PatientController@getPatientList')->name('clinician.patientList.ajax');
         Route::get('/roadl','\App\Http\Controllers\Clincian\RoadLController@index')->name('clinician.roadl');
+        Route::get('/start-roadl','\App\Http\Controllers\Clincian\RoadLController@startRoadLRequest')->name('clinician.start.roadl');
         Route::post('/patient-request-list','\App\Http\Controllers\Clincian\RoadLController@getPatientRequestList')->name('clinician.roadl.patientRequestList');
     });
 });
 
 // Admin Route
 Route::group(['prefix'=>'/admin'],function (){
-    \Illuminate\Support\Facades\Auth::routes();
-    Route::group(['middleware'=>'auth'],function (){
+//    \Illuminate\Support\Facades\Auth::routes();
+    Route::group(['middleware'=>['auth','CheckRoleMiddleWare:admin']],function (){
         Route::get('/','\App\Http\Controllers\Clincian\DashboardController@index')->name('admin.dashboard');
         Route::get('/patient-list','\App\Http\Controllers\Clincian\PatientController@index')->name('admin.patientList');
         Route::get('/getPatientList','\App\Http\Controllers\Clincian\PatientController@getPatientList')->name('admin.patientList.ajax');

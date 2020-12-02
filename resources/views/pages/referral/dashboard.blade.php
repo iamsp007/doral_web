@@ -15,7 +15,7 @@
         <div class="card-body">
             <div class="card_head">
                 <div>
-                    Total 71,52,225
+                    -
                 </div>
                 <div>
                     <div id="reportrange" data-bind="daterangepicker: dateRange"
@@ -46,7 +46,7 @@
                 <div class="card-body">
                     <div class="card_head">
                         <div>
-                            Total 71,52,225
+                            -
                         </div>
                         <div>
                             <div id="reportrange" data-bind="daterangepicker: dateRange"
@@ -77,7 +77,7 @@
                 <div class="card-body">
                     <div class="card_head">
                         <div>
-                            Total 71,52,225
+                            -
                         </div>
                         <div>
                             <div id="reportrange" data-bind="daterangepicker: dateRange"
@@ -111,7 +111,7 @@
                 <div class="card-body">
                     <div class="card_head">
                         <div>
-                            Total 71,52,225
+                            -
                         </div>
                         <div>
                             <div id="reportrange" data-bind="daterangepicker: dateRange"
@@ -142,7 +142,7 @@
                 <div class="card-body">
                     <div class="card_head">
                         <div>
-                            Total 71,52,225
+                            -
                         </div>
                         <div>
                             <div id="reportrange" data-bind="daterangepicker: dateRange"
@@ -176,7 +176,7 @@
                 <div class="card-body">
                     <div class="card_head">
                         <div>
-                            Total 71,52,225
+                            -
                         </div>
                         <div>
                             <div id="reportrange" data-bind="daterangepicker: dateRange"

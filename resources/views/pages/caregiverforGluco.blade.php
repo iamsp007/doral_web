@@ -61,20 +61,19 @@
                                          <!-- Reason -->
                                          <div class="form-group">
                                                 <label class="label">Reason we approached:</label>
-                                                <p class="t5">Your patient's blood pressure is slightly higher than regular kindly follow recommend actions below</p>
+                                                <p class="t5">Your patient's sugar is slightly lower than regular kindly follow recommend actions below</p>
                                                 
                                         </div>
                                           <!-- Recommendation -->
                                           <div class="form-group">
                                             <label for="recommendation" class="label">Recommendation:</label>
-                                            <p class="t5"><b class="f-20">&bull;</b> Play calm music</p>
-                                            <p class="t5"><b class="f-20">&bull;</b> Offer water to patient</p>
-                                            <p class="t5"><b class="f-20">&bull;</b> Engage Patient Pleasant conversation</p>
-                                            <p class="t5"><b class="f-20">&bull;</b> Ensure Patient medication was taken today</p>
+                                            <p class="t5"><b class="f-20">&bull;</b> Please ensure that patient drinks sweet juice</p>
+                                            <p class="t5"><b class="f-20">&bull;</b> Please ensure that patient is not standing or walking</p>
+                                            <p class="t5"><b class="f-20">&bull;</b> Please ensure that patient does not take insulin or glucose medication until levels have returned to normal.</p>
                                            
                                     </div>
                                           <!-- Recommendation -->
-                                        <div class="form-group">
+<!--                                        <div class="form-group">
                                             <label for="recommendation" class="label">Please select your action taken.</label>
                                             <select class="form-group recommendation">
                                                  <option disabled selected>--Select--</option>
@@ -83,7 +82,7 @@
                                                 <option>Engage Patient Pleasant conversation</option>
                                                 <option>Ensure Patient medication was taken today</option>
                                             </select>
-                                    </div>
+                                    </div>-->
 <!--                                        Reason 
                                        <div class="form-group">
                                         <label class="label">Caregiver Recommendation:</label>

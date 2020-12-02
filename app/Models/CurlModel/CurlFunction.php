@@ -6,14 +6,14 @@ class CurlFunction
 {
     public static function getURL() {
 
-        /*if(strpos(request()->getHost(), '127.0.0.1') !== false) {
+        if(strpos(request()->getHost(), '127.0.0.1') !== false) {
         return 'http://127.0.0.1:8001';
-        } else if( strpos(request()->getHost(), '3.131.51.140') !== false) {
+        } else if( strpos(request()->getHost(), 'doralhealthconnect.com') !== false) {
         return 'http://api.doralhealthconnect.com';
         } else {
         return 'http://127.0.0.1:8001';
-        }*/
-        return 'http://api.doralhealthconnect.com';
+        }
+        //return 'http://api.doralhealthconnect.com';
 
     }
     public static function withOutToken($url, $data) {
@@ -46,8 +46,8 @@ class CurlFunction
             'Authorization: Bearer '.$token
         );
 
-        //$url = 'http://127.0.0.1:8001/api/auth/company';
-        $url = 'http://api.doralhealthconnect.com/api/auth/company'; 
+        $url = 'http://127.0.0.1:8001/api/auth/company';
+        //$url = 'http://api.doralhealthconnect.com/api/auth/company'; 
         $ch = curl_init($url);
         curl_setopt_array($ch, array(
         CURLOPT_RETURNTRANSFER => TRUE,

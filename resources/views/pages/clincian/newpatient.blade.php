@@ -74,7 +74,8 @@
                     status:status
                 },
                 success:function (response) {
-                    console.log(response)
+                    alert(response.message)
+                    window.location.reload();
                 },
                 error:function (error) {
                     console.log(error)

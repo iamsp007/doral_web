@@ -40,15 +40,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script>
-        // var socket = io('ws://localhost:3001', {transports: ['websocket']});
-        // socket.on('connect', function () {
-        //     console.log('send-location!');
-        //     socket.emit('send-location', { message: 'Hello Mr.Server!' });
-        // });
-        //
-        // socket.on('receive-location', function (data) {
-        //     console.log(data,"receive-location");
-        // });
+
         $('#patient-table').DataTable({
             processing: true,
             serverSide: true,
@@ -62,7 +54,7 @@
                 {data:'detail.gender',name:'detail.gender',"bSortable": true},
                 {data:'detail.dob',name:'detail.dob',"bSortable": true},
                 {data:'detail.status',name:'detail.status',"bSortable": true},
-                {data:'detail.created_at',name:'detail.created_at',"bSortable": true}
+                {data:'detail.created_at',name:'detail.created_at',"bSortable": true},
                 {data:'action',name:'action',"bSortable": true}
             ],
             "order": [[ 0, "desc" ]]
@@ -74,7 +66,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url:"{{ route('clinician.changePatientStatus') }}",
+                url:"{{  route('clinician.changePatientStatus') }}",
                 method:'POST',
                 dataType:'json',
                 data:{
@@ -87,7 +79,7 @@
                 error:function (error) {
                     console.log(error)
                 }
-            })
+            });
         }
     </script>
 @endpush

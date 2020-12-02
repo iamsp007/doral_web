@@ -2,7 +2,7 @@
 
 @section('title','Clinician Patient List')
 @section('pageTitleSection')
-    Patient
+    New Patient Request
 @endsection
 
 @section('content')
@@ -52,9 +52,8 @@
         $('#patient-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{  route('clinician.patientList.ajax') }}",
+            ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
-                {data:'id',name:'id',"bSortable": true},
                 {data:'referral_id',name:'referral_id',"bSortable": true},
                 {data:'first_name',name:'first_name',"bSortable": true},
                 {data:'last_name',name:'last_name',"bSortable": true},
@@ -64,8 +63,31 @@
                 {data:'detail.dob',name:'detail.dob',"bSortable": true},
                 {data:'detail.status',name:'detail.status',"bSortable": true},
                 {data:'detail.created_at',name:'detail.created_at',"bSortable": true}
+                {data:'action',name:'action',"bSortable": true}
             ],
             "order": [[ 0, "desc" ]]
         });
+
+        function changePatientStatus(element,status) {
+            var id=$(element).attr('data-id');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:"{{ route('clinician.changePatientStatus') }}",
+                method:'POST',
+                dataType:'json',
+                data:{
+                    id:id,
+                    status:status
+                },
+                success:function (response) {
+                    console.log(response)
+                },
+                error:function (error) {
+                    console.log(error)
+                }
+            })
+        }
     </script>
 @endpush

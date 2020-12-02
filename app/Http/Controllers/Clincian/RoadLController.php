@@ -26,4 +26,9 @@ class RoadLController extends Controller
 
         return response()->json($patientList,200);
     }
+
+    public function startRoadLRequest(Request $request){
+
+        return view($this->view_path.'roadL_view');
+    }
 }

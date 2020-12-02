@@ -141,7 +141,6 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/clincian/line-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('css/clincian/daterangepicker.css') }}">
 @endpush
 

@@ -83,7 +83,7 @@
                     data: {email, password},
                     success: function( response ){
                         if(response.status == 1) {
-                            window.location = "/referral/dashboard"; 
+                            window.location = "/referral/employee-pre-physical"; 
                         }
                         else {
                             $(".alert").show();

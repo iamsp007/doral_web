@@ -234,7 +234,7 @@
                 data: {email, password},
                 success: function( response ){
                     if(response.status == 1)
-                        window.location = "/admin/dashboard";
+                        window.location = "/admin/referral-approval";
                     else 
                         $(".alert").show();    
                     $("#error").text(response.message);

@@ -76,6 +76,7 @@ Route::post('/admin/loginaccess', 'App\Http\Controllers\Admin\HomeController@log
 Route::get('/admin/dashboard', 'App\Http\Controllers\Admin\HomeController@index');
 
 Route::get('/admin/logout', 'App\Http\Controllers\Admin\HomeController@logout');
+Route::get('/referral/logout', 'App\Http\Controllers\Admin\HomeController@logout');
 
 
 // Referral Panel
@@ -102,6 +103,8 @@ Route::get('/referral/employee-pre-physical-upload-bulk-data', 'App\Http\Control
 //});
 Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
 Route::get('/caregiver/2', 'App\Http\Controllers\Admin\HomeController@clinicianResponse');
+Route::get('/caregiver/3', 'App\Http\Controllers\Admin\HomeController@caregiverforGluco');
+Route::get('/caregiver/4', 'App\Http\Controllers\Admin\HomeController@caregiverforGlucoHigh');
 Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
 
 

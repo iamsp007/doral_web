@@ -70,6 +70,7 @@
                                             <p class="t5"><b class="f-20">&bull;</b> Play calm music</p>
                                             <p class="t5"><b class="f-20">&bull;</b> Offer water to patient</p>
                                             <p class="t5"><b class="f-20">&bull;</b> Engage Patient Pleasant conversation</p>
+                                            <p class="t5"><b class="f-20">&bull;</b> Ensure Patient medication was taken today</p>
                                            
                                     </div>
                                           <!-- Recommendation -->
@@ -80,6 +81,7 @@
                                                 <option>Play calm music</option>
                                                 <option>Offer water to patient</option>
                                                 <option>Engage Patient Pleasant conversation</option>
+                                                <option>Ensure Patient medication was taken today</option>
                                             </select>
                                     </div>
 <!--                                        Reason 

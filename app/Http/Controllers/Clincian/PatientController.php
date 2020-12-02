@@ -42,7 +42,8 @@ class PatientController extends Controller
 
         $patientList = PatientReferral::with('detail')
             ->whereHas('detail',function ($q){
-                $q->whereIn('status',['pending','reject']);
+                $q->where('status','=','pending')
+                    ->orWhere('status','=','reject');
             })->get();
         return DataTables::of($patientList)
             ->addIndexColumn()

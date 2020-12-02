@@ -9,9 +9,9 @@
 		id="closeMenu"></i>
 </div>
 <ul class="sidenav">
-	<li><a href="/admin/dashboard" class="active">Dashboard <span class="dot"></span></a></li>
-	<li><a href="/admin/roles">Roles & Permission<span class="dot"></span></a></li>
-	<li><a href="/admin/employee">Employee<span class="dot"></span></a></li>
-	<li><a href="/admin/referral-approval">Referral Approval<span class="dot"></span></a></li>
+	<li><a <?php if(request()->segment(count(request()->segments())) == 'dashboard') {?> class="active" <?php } ?>href="/admin/dashboard">Dashboard <span class="dot"></span></a></li>
+	<li><a <?php if(request()->segment(count(request()->segments())) == 'roles') {?> class="active" <?php } ?>href="/admin/roles">Roles & Permission<span class="dot"></span></a></li>
+	<li><a <?php if(request()->segment(count(request()->segments())) == 'employee') {?> class="active" <?php } ?>href="/admin/employee">Employee<span class="dot"></span></a></li>
+	<li><a <?php if(request()->segment(count(request()->segments())) == 'referral-approval') {?> class="active" <?php } ?>href="/admin/referral-approval">Referral Approval<span class="dot"></span></a></li>
 	<li><a href="/admin/logout">Log Out<span class="dot"></span></a></li>
 </ul>

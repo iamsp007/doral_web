@@ -68,7 +68,7 @@ class PatientController extends Controller
            'status'=>'required'
         ]);
         $status='active';
-        if ($request->status===1){
+        if ($request->status===0){
             $status='reject';
         }
 

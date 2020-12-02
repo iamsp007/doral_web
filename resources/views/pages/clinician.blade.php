@@ -61,50 +61,45 @@
                                          <!-- Reason -->
                                          <div class="form-group">
                                                 <label class="label">Reason we approached:</label>
-                                                <p class="t5">Your patient's blood pressure is slightly higher than regular kindly follow recommend actions below</p>
+                                                <p class="t5">Your patient's blood pressure is higher than regular. Need immediate attention.</p><br>
+                                                <p class="t5">Kindly approach patient if you think pt's care plan need attention at these readings</p>
                                                 
                                         </div>
                                           <!-- Recommendation -->
-                                          <div class="form-group">
+<!--                                          <div class="form-group">
                                             <label for="recommendation" class="label">Recommendation:</label>
                                             <p class="t5"><b class="f-20">&bull;</b> Play calm music</p>
                                             <p class="t5"><b class="f-20">&bull;</b> Offer water to patient</p>
                                             <p class="t5"><b class="f-20">&bull;</b> Engage Patient Pleasant conversation</p>
-                                            <p class="t5"><b class="f-20">&bull;</b> Ensure Patient medication was taken today</p>
                                            
-                                    </div>
+                                    </div>-->
                                           <!-- Recommendation -->
-                                        <div class="form-group">
+<!--                                        <div class="form-group">
                                             <label for="recommendation" class="label">Please select your action taken.</label>
                                             <select class="form-group recommendation">
                                                  <option disabled selected>--Select--</option>
                                                 <option>Play calm music</option>
                                                 <option>Offer water to patient</option>
                                                 <option>Engage Patient Pleasant conversation</option>
-                                                <option>Ensure Patient medication was taken today</option>
                                             </select>
-                                    </div>
-<!--                                        Reason 
-                                       <div class="form-group">
+                                    </div>-->
+<!--                                       <div class="form-group">
                                         <label class="label">Caregiver Recommendation:</label>
                                         <p class="t5">Observe patient closely. If you see following symptoms:</p>
                                        
-                                    </div>
-                                
-                                  Reason 
+                                    </div>-->
                                  <div class="form-group">
                                     <label class="label">what are the symptoms you see:</label>
                                     <div class="input-group-prepend mr-2">
                                         <select class="select" multiple id="department">
                                             <option>Is patient sweating Heavy?</option>
-                                            <option>Is patient complaining Dizzines or Vomiting?</option>
-                                            <option>Patient Head hurts?</option>
-                                            <option>Patient feeling of lightheadedness or dizziness, or other signs?</option>
+                                            <option>Is patient complaining lightheadedness or Vomiting?</option>
+                                            <option>Is Patient Head hurts?</option>
+                                            <option>Is Patient feeling of lightheadedness or dizziness, or other signs?</option>
                                             
                                         </select>
                                     </div>
-                                   
-                            </div>-->
+                                </div>
                                        
                                         <!-- Submit Btn -->
                                         <button type="button" class="btn btn-primary btn-pink btn-block"

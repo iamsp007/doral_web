@@ -9,9 +9,9 @@
         id="closeMenu"></i>
 </div>
 <ul class="sidenav">
-    <li><a class="active" href="/referral/dashboard">Dashboard <span class="dot"></span></a></li>
-    <li><a href="/referral/vbc">VBC<span class="dot"></span></a></li>
-    <li><a href="/referral/md-order">MD Order<span class="dot"></span></a></li>
-    <li><a href="/referral/employee-pre-physical">Employee Pre-Physical<span class="dot"></span></a></li>
+    <li><a <?php if(request()->segment(count(request()->segments())) == 'dashboard') {?> class="active" <?php } ?>href="/referral/dashboard">Dashboard<span class="dot"></span></a></li>
+    <li><a <?php if(request()->segment(count(request()->segments())) == 'vbc') {?> class="active" <?php } ?>href="/referral/vbc">VBC<span class="dot"></span></a></li>
+    <li><a <?php if(request()->segment(count(request()->segments())) == 'md-order') {?> class="active" <?php } ?>href="/referral/md-order">MD Order<span class="dot"></span></a></li>
+    <li><a <?php if(request()->segment(count(request()->segments())) == 'employee-pre-physical' || request()->segment(count(request()->segments())) == 'employee-pre-physical-upload-bulk-data') {?> class="active" <?php } ?> href="/referral/employee-pre-physical">Employee Pre-Physical<span class="dot"></span></a></li>
     <li><a href="/referral/logout">Log Out<span class="dot"></span></a></li>
 </ul>

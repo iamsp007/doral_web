@@ -46,12 +46,12 @@
 	</div>
 	@if(Request::segment(2) == 'employee')
 	<div class="d-flex">
-        <a href="/admin/employee-add" class="btn-green-outline"><i class="las la-user-circle icon1"></i>Add New Employee</a>
+        <a href="{{ route('admin.employee-add') }}" class="btn-green-outline"><i class="las la-user-circle icon1"></i>Add New Employee</a>
     </div>
 	@endif
 	@if(Request::segment(2) == 'employee-add')
 	<div class="d-flex">
-        <a href="/admin/employee" class="btn-green-outline"><i class="las la-user-circle icon1"></i>View Employee</a>
+        <a href="{{ route('admin.employee') }}" class="btn-green-outline"><i class="las la-user-circle icon1"></i>View Employee</a>
     </div>
 	@endif
 </div>

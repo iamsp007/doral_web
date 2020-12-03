@@ -91,7 +91,7 @@
                         <td>{{ date('F d Y', strtotime($raw['created_at'])) }} <!--Sunday, 4 October 2020--></td>
                         <td class="text-green">Success</span></td>
                         <td width="9%"><a href="javascript:void(0)"><img
-                                    src="../assets/img/icons/delete-icon.svg"
+                                    src="{{asset('assets/img/icons/delete-icon.svg')}}"
                                     class="action-delete" /></a>
                         </td>
                     </tr>

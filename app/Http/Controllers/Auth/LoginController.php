@@ -69,6 +69,8 @@ class LoginController extends Controller
                 $this->redirectTo=RouteServiceProvider::CLINICIAL_HOME;
             }elseif (Auth::user()->type==='admin'){
                 $this->redirectTo=RouteServiceProvider::ADMIN_HOME;
+            }elseif (Auth::user()->type==='employee'){
+                $this->redirectTo=RouteServiceProvider::REFERRAL_HOME;
             }else{
                 $this->redirectTo=RouteServiceProvider::HOME;
             }

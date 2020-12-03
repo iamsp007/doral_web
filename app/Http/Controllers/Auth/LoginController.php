@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,9 +62,16 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-        $request->merge(['status'=>'active','type'=>'Clinician']);
+        $request->merge(['status'=>'active']);
 
         if ($this->attemptLogin($request)) {
+            if (Auth::user()->type==='clinician'){
+                $this->redirectTo=RouteServiceProvider::CLINICIAL_HOME;
+            }elseif (Auth::user()->type==='admin'){
+                $this->redirectTo=RouteServiceProvider::ADMIN_HOME;
+            }else{
+                $this->redirectTo=RouteServiceProvider::HOME;
+            }
             return $this->sendLoginResponse($request);
         }
 
@@ -73,5 +81,15 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'email';
     }
 }

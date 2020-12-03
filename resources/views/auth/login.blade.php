@@ -1,73 +1,81 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+    <div class="middle">
+        <div class="container">
+            <div class="innerSpace">
+                <h1 class="t1 fadeIn">Stay Connected With Absulate Distance!</h1>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-7">
+                    <div class="lside">
+                        <img src="{{ asset('assets/img/login_img.png') }}" alt="" srcset="{{ asset('assets/img/login_img.png') }}">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-5">
+                    <div class="login">
+                        <div class="top_back"></div>
+                        <div class="mid">
+                            <div class="p50">
+                                <h1 class="t2"><img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
+                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('Referral Login')}}</h1>
+                                <form method="POST" action="{{ route('login') }}" class="mt-4 pt-2" id="loginForm">
+                                    @csrf
+                                    @if($errors->any())
+                                        @foreach ($errors->all() as $error)
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ $error }}
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                    <div class="form-group">
+                                        <div class="d-flex justify-content-between">
+                                            <label for="username" class="label">Username</label>
+                                        </div>
+                                        <input type="text" class="form-control form-control-lg" id="username"
+                                               name="email" aria-describedby="emailHelp">
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        <!-- <small id="usernameHelp" class="form-text text-muted mt-2">Assistive Text</small> -->
+                                    </div>
+                                    <!-- Passowrd -->
+                                    <div class="form-group">
+                                        <div class="d-flex justify-content-between">
+                                            <label for="password" class="label">Password</label>
+                                            @if(Route::has('password.request'))
+                                                <a href="{{ route('password.request') }}" target="_blank"
+                                                   class="t3 forgot">{{ __('Forgot') }}</a>
+                                            @endif
+                                        </div>
+                                        <input type="password" class="form-control form-control-lg" id="password"
+                                               name="password">
+                                        @error('password')
+                                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
+                                            <strong>Error!</strong> {{ $message }}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                    @enderror
+                                        <!-- <small id="passwordHelp" class="form-text text-muted mt-2">Assistive Text</small> -->
+                                    </div>
+                                    <!-- Submit Btn -->
+                                    <button type="submit" class="btn btn-primary btn-pink btn-block"
+                                            name="signup" id="login">{{ __('Login') }}</button>
+                                    @if (Route::has('register'))
+                                        <div class="d-flex align-items-center justify-content-center mt-2 t3">New
+                                            here?<a href="{{ route('register') }}" class="ml-2 underline">Create Doral
+                                                Account</a></div>
+                                    @endif
+                                </form>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

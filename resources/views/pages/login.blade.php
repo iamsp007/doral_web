@@ -6,11 +6,7 @@
             <h1 class="t1 fadeIn">Stay Connected With Absulate Distance!</h1>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-7">
-                <div class="lside">
-                    <img src="assets/img/login_img.png" alt="" srcset="assets/img/login_img.png">
-                </div>
-            </div>
+
             <div class="col-12 col-sm-5">
                 <!-- Login Form Start -->
                 <div class="login">
@@ -76,32 +72,32 @@
             $("#login").click(function() {
                 var email = $("#username").val();
                 var password = $("#password").val();
-                
+
                 $.ajax({
                     method: 'POST',
                     url: '/companylogin',
                     data: {email, password},
                     success: function( response ){
                         if(response.status == 1) {
-                            window.location = "/referral/employee-pre-physical"; 
+                            window.location = "/referral/employee-pre-physical";
                         }
                         else {
                             $(".alert").show();
                             $("#response").text(response.message);
-                            setTimeout(function(){ 
+                            setTimeout(function(){
                                 $(".alert").hide();
-                            }, 1000);    
+                            }, 1000);
                         }
-                        
+
                         console.log( response );
                     },
                     error: function( e ) {
                         console.log(e);
                     }
                 });
-                
+
             });
 
         });
-</script> 
+</script>
 @stop

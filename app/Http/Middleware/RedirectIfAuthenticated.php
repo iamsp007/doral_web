@@ -33,11 +33,7 @@ class RedirectIfAuthenticated
                 }
                 return redirect(RouteServiceProvider::ADMIN_HOME);
             }else{
-                $path=explode('/',$request->path());
-                if (in_array(Auth::user()->type,$path)){
-                    return $next($request);
-                }
-                return redirect(RouteServiceProvider::HOME);
+                return $next($request);
             }
         }
 //        $guards = empty($guards) ? [null] : $guards;

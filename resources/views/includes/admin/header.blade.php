@@ -1,6 +1,3 @@
-@if(session('token') === null) 
-	<script>window.location = "/admin";</script>
-@endif
 <div class="app-header">
 	<div class="nav">
 		<button class="navbar-toggler d-none" type="button" data-toggle="collapse"
@@ -23,14 +20,20 @@
 				<div class="dropdown user-dropdown">
 					<div class="user dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
-						<span>Hi, Sean</span>
+						<span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
 						<a href="javascript:void(0)">
 							<i class="las la-user-circle la-3x ml-2"></i>
 						</a>
 					</div>
 					<div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
 						<a class="dropdown-item" href="#">Profile</a>
-						<a class="dropdown-item" href="/admin/logout">Logout</a>
+                        <a class="dropdown-item" href="{{ url('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                        >Logout</a>
+                        <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
 					</div>
 				</div>
 			</li>

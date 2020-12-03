@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index() {
         return view('pages.admin.dashboard');
     }
-    
+
     /**
      * Login Admin
      *
@@ -47,11 +47,11 @@ class HomeController extends Controller
             CURLOPT_TIMEOUT => 40,
             CURLOPT_HTTPHEADER => $headerValue
             ));
-            
+
             $curlResponse = curl_exec($ch);
-            
+
             curl_close($ch);
-            
+
             $responseArray = json_decode($curlResponse, true);
             //dd($responseArray);
             if($responseArray['message'] == 'Login Successfully!') {

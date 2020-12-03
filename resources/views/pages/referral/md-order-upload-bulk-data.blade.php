@@ -69,9 +69,11 @@
                     <tr>
                         <th><input type="checkbox" class="selectall" /></th>
                         <th>Patient Name</th>
-                        <th>Description</th>
-                        <th>Services</th>
-                        <th>Uploaded Date</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                        <th>Zip Code</th>
+                        <th>Created Date</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -82,12 +84,14 @@
                     <tr>
                         <td><input type="checkbox" /></td>
                         <td class="text-green">{{$raw['first_name']}} {{$raw['middle_name']}} {{$raw['last_name']}}</td>
-                        <td width="20%">Curabitur dignissim tortor.</td>
-                        <td>Employee Pre Physical</td>
+                        <td>{{$raw['gender']}}</td>
+                        <td>{{$raw['phone1']}}</td>
+                        <td>{{$raw['city']}}-{{$raw['state']}}</td>
+                        <td>{{$raw['Zip']}}</td>
                         <td>{{ date('F d Y', strtotime($raw['created_at'])) }} <!--Sunday, 4 October 2020--></td>
                         <td class="text-green">Success</span></td>
                         <td width="9%"><a href="javascript:void(0)"><img
-                                    src="../assets/img/icons/delete-icon.svg"
+                                    src="{{asset('assets/img/icons/delete-icon.svg')}}"
                                     class="action-delete" /></a>
                         </td>
                     </tr>

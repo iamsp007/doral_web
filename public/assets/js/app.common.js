@@ -30,5 +30,10 @@ $(function () {
     // Close Menu Slide in out effect
     $('#closeMenu').on('click', function () {
         sidebar.removeClass('slide-in').addClass('slide-out');
-    })
+    })    
+    // notification details 
+
+$("#more-best").click(function(){
+    $(".more-menu.bell").toggleClass("showmenu");
+});
 });

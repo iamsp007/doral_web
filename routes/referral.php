@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix'=>'/referral','middleware'=>['auth','check']],function (){
+Route::group(['prefix'=>'/referral'],function (){
 //    \Illuminate\Support\Facades\Auth::routes();
     Route::get('/dashboard', function () {
         return view('pages.referral.dashboard');

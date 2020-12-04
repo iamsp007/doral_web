@@ -22,6 +22,8 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','check']],function (){
     });*/
 
     Route::get('/referral-approval', 'App\Http\Controllers\CompanyController@index')->name('admin.referral.approval');
+    Route::get('/referral-active', 'App\Http\Controllers\CompanyController@active')->name('admin.referral.active');
+    Route::get('/referral-rejected', 'App\Http\Controllers\CompanyController@rejected')->name('admin.referral.rejected');
     Route::post('/referral-status', 'App\Http\Controllers\CompanyController@updateStatus');
     Route::get('/referral-profile/{id}', 'App\Http\Controllers\CompanyController@profile');
     Route::post('/loginaccess', 'App\Http\Controllers\Admin\HomeController@login');

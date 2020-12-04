@@ -21,9 +21,9 @@ class CompanyController extends Controller
         $message = "";
         $record = [];
         try {
-            $apiToken = session('token');
-            $url = CurlFunction::getURL().'/api/auth/company';
-            $curlResponse = CurlFunction::withTokenGet($url, $apiToken);
+            //$apiToken = session('token');
+            $url = CurlFunction::getURL().'/api/auth/company/1';
+            $curlResponse = CurlFunction::withOutTokenGet($url);
             $responseArray = json_decode($curlResponse, true);
             //dd($responseArray);
             if($responseArray['status']) {
@@ -36,7 +36,66 @@ class CompanyController extends Controller
             $status = 0;
             $message = $e->getMessage();
         }
-        //dd($record);
+        return View('pages.admin.referral-approval')->with('record',$record);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function active()
+    {
+        $status = 0;
+        $message = "";
+        $record = [];
+        try {
+            //$apiToken = session('token');
+            $url = CurlFunction::getURL().'/api/auth/company/2';
+            $curlResponse = CurlFunction::withOutTokenGet($url);
+            $responseArray = json_decode($curlResponse, true);
+            //dd($responseArray);
+            if($responseArray['status']) {
+                $status = 1;
+                $record = $responseArray['data'];
+            }
+            $message = $responseArray['message'];
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
+        return View('pages.admin.referral-approval')->with('record',$record);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function rejected()
+    {
+        $status = 0;
+        $message = "";
+        $record = [];
+        try {
+            //$apiToken = session('token');
+            $url = CurlFunction::getURL().'/api/auth/company/3';
+            $curlResponse = CurlFunction::withOutTokenGet($url);
+            $responseArray = json_decode($curlResponse, true);
+            //dd($responseArray);
+            if($responseArray['status']) {
+                $status = 1;
+                $record = $responseArray['data'];
+            }
+            $message = $responseArray['message'];
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
         return View('pages.admin.referral-approval')->with('record',$record);
     }
 
@@ -241,23 +300,23 @@ class CompanyController extends Controller
      */
     public function updateStatus(Request $request)
     {
+        //dd($request->all());
         $status = 0;
         $message = "";
         $record = [];
         try {
-            $apiToken = session('token');
-            
+            //$apiToken = session('token');
             $data = array(
                 'data'=>array(
-                    'company_id' => $request->company_id,
+                    'Company_id' => $request->company_id,
                     'status' => $request->status
                 )
             );
             
             $url = CurlFunction::getURL().'/api/auth/company/updatestatus';
-            $curlResponse = CurlFunction::withTokenPost($url, $data, $apiToken);
+            $curlResponse = CurlFunction::withOutToken($url, $data);
             $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
+            dd($responseArray);
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data'];
@@ -288,12 +347,12 @@ class CompanyController extends Controller
         $message = "";
         $record = [];
         try {
-            $apiToken = session('token');
+            ///$apiToken = session('token');
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
                 'Access-Control-Allow-Origin: http://localhost',
-                'Authorization: Bearer '.$apiToken
+                /*'Authorization: Bearer '.$apiToken*/
             );
 
             $url = CurlFunction::getURL().'/api/auth/company/show/'.$id;
@@ -311,7 +370,7 @@ class CompanyController extends Controller
             //dd($responseArray);
             if($responseArray['status']) {
                 $status = 1;
-                $record = $responseArray['data']['company'];
+                $record = $responseArray['data']['Company'];
                 return view('pages.admin.referral-profile')->with('record',$record);
             }
             $message = $responseArray['message'];

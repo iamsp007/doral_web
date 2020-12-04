@@ -33,7 +33,7 @@ class RedirectIfAuthenticated
                 }
 
                 return redirect(RouteServiceProvider::ADMIN_HOME);
-            }elseif (Auth::user()->type==='employee'){
+            }elseif (Auth::user()->type==='referral'){
                 $path=explode('/',$request->path());
                 if (in_array(Auth::user()->type,$path)){
                     return $next($request);

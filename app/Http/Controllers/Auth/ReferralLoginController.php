@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
-class LoginController extends Controller
+class ReferralLoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -29,8 +31,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::REFERRAL_HOME;
 
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm()
+    {
+        return view('auth.referral-login');
+    }
     /**
      * Create a new controller instance.
      *
@@ -63,15 +74,8 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
         $request->merge(['status'=>'active']);
-
+        $user = Company::where(['email'=>$request->email,'status'=>'active'])->first();
         if ($this->attemptLogin($request)) {
-            if (Auth::user()->type==='clinician'){
-                $this->redirectTo=RouteServiceProvider::CLINICIAL_HOME;
-            }elseif (Auth::user()->type==='admin'){
-                $this->redirectTo=RouteServiceProvider::ADMIN_HOME;
-            }else{
-                $this->redirectTo=RouteServiceProvider::HOME;
-            }
             return $this->sendLoginResponse($request);
         }
 
@@ -91,5 +95,17 @@ class LoginController extends Controller
     public function username()
     {
         return 'email';
+    }
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
+    {
+        return $this->guard('referral')->attempt(
+            $this->credentials($request), $request->filled('remember')
+        );
     }
 }

@@ -11,12 +11,16 @@ class PatientRequest extends Model
     protected $table='patient_requests';
     protected $primaryKey='id';
 
-    public function patientDetail(){
+    public function detail(){
 
         return $this->hasOne(User::class,'id','user_id');
     }
+    public function patientDetail(){
+
+        return $this->hasOne(Patient::class,'user_id','user_id');
+    }
 
     public function ccrm(){
-        return $this->hasOne(CCRMReading::class,'user_id','user_id');
+        return $this->hasMany(CCRMReading::class,'user_id','user_id');
     }
 }

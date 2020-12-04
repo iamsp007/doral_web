@@ -41,7 +41,7 @@
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script>
 
-        $('#patient-table').DataTable({
+       var table = $('#patient-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
@@ -58,6 +58,11 @@
                 {data:'action',name:'action',"bSortable": true}
             ],
             "order": [[ 0, "desc" ]]
+        });
+        $('#patient-table tbody').on('click', 'tr', function () {
+            var rowData = table.row(this).data();
+            window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;
+            console.log(rowData.id);
         });
 
         function changePatientStatus(element,status) {

@@ -36,10 +36,10 @@
                     <div>
                         @guest
                             @if(\Request::is('login'))
-                                <a href="{{ route('register') }}" class="text-uppercase sign-up">{{ __('SIGN UN') }} <img
+                                <a href="{{ route('referral.register') }}" class="text-uppercase sign-up">{{ __('SIGN UN') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
-                            @elseif(\Request::is('register'))
+                            @elseif(\Request::is('referral/register'))
                                 <a class="text-uppercase sign-up" href="{{ route('login') }}">{{ __('SIGN IN') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>

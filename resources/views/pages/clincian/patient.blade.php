@@ -10,6 +10,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>Patient ID</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -49,13 +50,13 @@
         // socket.on('receive-location', function (data) {
         //     console.log(data,"receive-location");
         // });
-        $('#patient-table').DataTable({
+        var table = $('#patient-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{  route('clinician.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id',"bSortable": true},
-                {data:'referral_id',name:'referral_id',"bSortable": true},
+                {data:'patient_id',name:'patient_id',"bSortable": true},
                 {data:'first_name',name:'first_name',"bSortable": true},
                 {data:'last_name',name:'last_name',"bSortable": true},
                 {data:'detail.email',name:'detail.email',"bSortable": true},
@@ -66,6 +67,11 @@
                 {data:'detail.created_at',name:'detail.created_at',"bSortable": true}
             ],
             "order": [[ 0, "desc" ]]
+        });
+        $('#patient-table tbody').on('click', 'tr', function () {
+            var rowData = table.row(this).data();
+            window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;
+            console.log(rowData.id);
         });
     </script>
 @endpush

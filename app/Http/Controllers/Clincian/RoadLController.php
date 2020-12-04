@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Clincian;
 use App\Http\Controllers\Controller;
 use App\Models\PatientRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoadLController extends Controller
 {
@@ -29,6 +30,10 @@ class RoadLController extends Controller
 
     public function startRoadLRequest(Request $request){
 
-        return view($this->view_path.'roadL_view');
+        $patientRequestList = PatientRequest::with('patientDetail','ccrm')
+            ->where([['clincial_id','=',Auth::user()->id],['is_active','=','1']])
+            ->get();
+
+        return view($this->view_path.'roadL_view',compact('patientRequestList'));
     }
 }

@@ -38,6 +38,27 @@ class CurlFunction
         return $curlResponse;
 	}
 
+    public static function withOutTokenGet($url) {
+        $headerValue = array(
+            'Content-Type: application/json',
+            'X-Requested-With: XMLHttpRequest',
+            'Access-Control-Allow-Origin: http://localhost'
+        );
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, array(
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_TIMEOUT => 40,
+        CURLOPT_HTTPHEADER => $headerValue
+        ));
+        
+        $curlResponse = curl_exec($ch);
+        //dd($curlResponse);
+        curl_close($ch);
+
+        return $curlResponse;
+    }
+
 	public static function withTokenGet($url, $token) {
 		$headerValue = array(
             'Content-Type: application/json',

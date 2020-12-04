@@ -11,11 +11,13 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','check']],function (){
         return view('pages.admin.roles');
     })->name('admin.roles');
 
-    Route::get('/employee', function () {
-        return view('pages.admin.employee');
-    })->name('admin.employee');
 
-    Route::get('/employee-add', 'App\Http\Controllers\EmployeeController@index');
+    /*Route::get('/employee', function () {
+        return view('pages.admin.employee');
+    })->name('admin.employee');*/
+
+    Route::get('/employee', 'App\Http\Controllers\EmployeeController@index')->name('admin.employee');
+    Route::get('/employee-add', 'App\Http\Controllers\EmployeeController@employeeAdd')->name('admin.employee-add');
 
     /*Route::get('/admin/referral-profile', function () {
         return view('pages.admin.referral-profile');

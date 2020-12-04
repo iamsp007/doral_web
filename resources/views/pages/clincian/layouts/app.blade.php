@@ -22,8 +22,8 @@
             <div class="block">
                 <!-- Logo Start -->
                 <a href="javascript:void(0)" title="Welcome to Doral">
-                    <img src="../assets/img/logo-white.svg" alt="Welcome to Doral"
-                         srcset="../assets/img/logo-white.svg" class="img-fluid">
+                    <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral"
+                         srcset="{{ asset('assets/img/logo-white.svg') }}" class="img-fluid">
                 </a>
                 <!-- Logo End -->
                 <i class="las la-times-circle white d-block d-xl-none d-lg-none d-md-none d-sm-none"
@@ -33,7 +33,7 @@
                 <li><a class="{{ \Request::is('clinician')?'nav active':'nav' }}" href="{{ route('clinician.dashboard') }}">Dashboard<span class="dot"></span></a></li>
                 <li><a class="{{ \Request::is('clinician/patient-list')?'nav active':'nav' }}" href="{{ route('clinician.patientList') }}">Patient List<span class="dot"></span></a></li>
                 <li><a class="{{ \Request::is('clinician/new-patient-list')?'nav active':'nav' }}" href="{{ route('clinician.new.patientList') }}">New Patient List<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('clinician/roadl')?'nav active':'nav' }}" href="{{ route('clinician.roadl') }}">RoadL<span class="dot"></span></a></li>
+                <li><a class="{{ \Request::is('clinician/start-roadl')?'nav active':'nav' }}" href="{{ route('clinician.start.roadl') }}">RoadL<span class="dot"></span></a></li>
             </ul>
         </div>
         <!-- Left Section End -->
@@ -86,6 +86,7 @@
                 <div class="app-title">
                     @yield('pageTitleSection')
                 </div>
+                @yield('upload-btn')
             </div>
         </header>
         <section class="app-body">

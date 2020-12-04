@@ -7,68 +7,74 @@
 
 @section('content')
     <ul>
-        <li>
-            <div class="app-card raduis_5">
-                <div class="app-broadcasting">
-                    <div class="lside">
-                        <div>
-                            <img src="../assets/img/user/01.png" class="user_photo" alt=""
-                                 srcset="../assets/img/user/01.png">
-                        </div>
-                        <div class="content">
-                            <h1 class="_t11">Shashikant Parmar</h1>
-                            <p class="address">1797 Pitkin Avenue Brooklyn,
-                                NY 11212</p>
-                            <p class="emergency_contact mb-2"> Emergency Contact
-                                <a href="tel:9966246684" class="primary_tel">9966246684</a></p>
-                            <p class="contact"><a href="tel:8866246684" class="secondary_tel">8866246684</a>
-                            </p>
-                        </div>
-                        <!-- <a href="javascript:void(0)"><i class="las la-ellipsis-v la-2x"></i></a> -->
-                        <div id="_dropdown">
-                            <div class="dropdown user-dropdown">
-                                <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i
-                                        class="las la-ellipsis-v la-2x"></i></a>
-                                <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">View Profile</a>
+        @if(count($patientRequestList)>0)
+            @foreach($patientRequestList as $key=>$value)
+                <li>
+                    <div class="app-card raduis_5 mb-2">
+                        <div class="app-broadcasting">
+                            <div class="lside">
+                                <div>
+                                    <img src="{{ asset('assets/img/user/01.png') }}" class="user_photo" alt=""
+                                         srcset="{{ asset('assets/img/user/01.png') }}">
+                                </div>
+                                <div class="content">
+                                    <h1 class="_t11">{!! $value->detail->first_name !!} {!! $value->detail->last_name !!} </h1>
+                                    <p class="address">{!! $value->patientDetail->address1 !!}</p>
+                                    <p class="emergency_contact mb-2"> Emergency Contact
+                                        <a href="tel:9966246684" class="primary_tel">{!! $value->patientDetail->emg_phone !!}</a></p>
+                                    <p class="contact"><a href="tel:8866246684" class="secondary_tel">{!! $value->detail->phone !!}</a>
+                                    </p>
+                                </div>
+                                <!-- <a href="javascript:void(0)"><i class="las la-ellipsis-v la-2x"></i></a> -->
+                                <div id="_dropdown">
+                                    <div class="dropdown user-dropdown">
+                                        <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i
+                                                class="las la-ellipsis-v la-2x"></i></a>
+                                        <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">View Profile</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rside">
+                                <div class="_lside">
+                                    <ul class="specification">
+                                        @if(count($value->ccrm)>0)
+                                            @foreach($patientRequestList->ccrm as $ckey=>$cvalue)
+                                                <li class="blood">
+                                                    <img src="{{ asset('assets/img/icons/pressure.svg') }}"
+                                                         class="mr-2" alt="">
+                                                    {!! $cvalue->reading_type !!} : {!! $cvalue->reading_value !!}
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
+                                <div class="_rside">
+                                    <ul class="actionBar">
+                                        <li>
+                                            <div class="search-clinician">
+                                                <input type="text" class="form-control clinician" name="animal"
+                                                       id="searchField" placeholder="Assign Manually">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-start-call">Start
+                                                Call<span></span></button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="btn btn-emergency">emergency
+                                                (911)<span></span></button>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="rside">
-                        <div class="_lside">
-                            <ul class="specification">
-                                <li class="blood"><img src="../assets/img/icons/pressure.svg" class="mr-2"
-                                                       alt="">Blood Pressure : 250</li>
-                                <li class="sugar"><img src="../assets/img/icons/sugar.svg" class="mr-2"
-                                                       alt="">Blood Sugar : 250</li>
-                                <li class="caregiver"><img src="../assets/img/icons/caregiver.svg"
-                                                           class="mr-2" alt="">Caregiver : Akshita</li>
-                            </ul>
-                        </div>
-                        <div class="_rside">
-                            <ul class="actionBar">
-                                <li>
-                                    <div class="search-clinician">
-                                        <input type="text" class="form-control clinician" name="animal"
-                                               id="searchField" placeholder="Assign Manually">
-                                    </div>
-                                </li>
-                                <li>
-                                    <button type="button" class="btn btn-start-call">Start
-                                        Call<span></span></button>
-                                </li>
-                                <li>
-                                    <button type="button" class="btn btn-emergency">emergency
-                                        (911)<span></span></button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
+                </li>
+            @endforeach
+        @endif
     </ul>
     <div id="floating-panel">
         <b>Mode of Travel: </b>

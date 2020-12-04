@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clincian;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use App\Models\PatientReferral;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,6 +37,13 @@ class PatientController extends Controller
             ->get();
         return DataTables::of($patientList)
             ->make(true);
+    }
+
+    public function getPatientDetail(Request $request,$patient_id){
+
+        $patient_detail = PatientReferral::find($patient_id);
+//        dd($patient_detail);
+        return view($this->view_path.'patient-detail',compact('patient_detail'));
     }
 
     public function getNewPatientList(){

@@ -18,8 +18,8 @@
                         <div class="mid">
                             <div class="p50">
                                 <h1 class="t2"><img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
-                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('Login')}}</h1>
-                                <form method="POST" action="{{ route('login') }}" class="mt-4 pt-2" id="loginForm">
+                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('Referral Login')}}</h1>
+                                <form method="POST" action="{{ route('referral.login') }}" class="mt-4 pt-2" id="loginForm">
                                     @csrf
                                     @if($errors->any())
                                         @foreach ($errors->all() as $error)

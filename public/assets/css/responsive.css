@@ -35,6 +35,13 @@
     .footer .block .step{width: 100%;}
     .footer .ftrLogo{display: block;margin-bottom: 25px;}
     /* Footer End */
+    /* caregiver response start */
+    .caregiver_response{position: relative;}
+    .caregiver_response .top_back{display:none}
+    .caregiver_response .mid{width: 100%;border-radius: 15px;border: solid var(--primary-color);background:var(--white);box-shadow: 0px 2px 2px rgba(100,100,100,0.5);}
+    .caregiver_response .btm_back{display:none}
+    .caregiver_response .mid .p50{padding:30px;}  
+    /* caregiver response End */
 }
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
@@ -52,9 +59,12 @@
     .app .app-aside .sidebar .block{display:flex;align-items:flex-start;justify-content:space-between;margin:0;padding:20px;}
     .app .app-content .app-title-box{width: 100%;position: fixed;right: 0;top:59px;padding:10px 10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;-webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,0.12);-moz-box-shadow: 0 0 8px 0 rgba(0,0,0,0.12);box-shadow: 0 0 8px 0 rgba(0,0,0,0.12);}
     .app .app-content .app-title-box .app-title{color:var(--sidebar-color);font-size: 16px;font-weight:400;padding:4px 0;margin:0;}
+
 }
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
+    .app .app-content .app-body .patient-details-content .tab-content .demographics-detail .demo-border {width: 260px;margin-bottom: 10px;}
+    .app .app-content .app-body .patient-details-content .tab-content .demographics-detail ul{display: block;}
 }
 /* Large devices (desktops, 992px and up) */
 /* iPad mini in landscape */
@@ -106,6 +116,10 @@
     .login .mid{width: 100%;border-radius: 15px;border: solid #00afbf;background:var(--white);box-shadow: 0px 2px 2px rgba(100,100,100,0.5);}
     .login .btm_back{position: absolute;bottom: -40px;right: -40px;z-index: -1;background: url(../img/polygon.png);width: 106px;height: 100px;}
     .login .mid .p50{padding: 50px;}
+    .caregiver_response .top_back{width: 70px;height:70px;border: solid 4px #ff0000;border-radius: 100px;position: absolute;left: -20px;top: -20px;z-index: -1;}
+    .caregiver_response .mid{width: 100%;border-radius: 15px;border: solid #00afbf;background:var(--white);box-shadow: 0px 2px 2px rgba(100,100,100,0.5);}
+    .caregiver_response .btm_back{position: absolute;bottom: -40px;right: -40px;z-index: -1;background: url(../img/polygon.png);width: 106px;height: 100px;}
+    .caregiver_response .mid .p50{padding: 50px;}
     .forgot{color: #00afbf; font-weight: 600;}
     small{font-size:12px}
     .label{margin-bottom: 10px;font-weight: 600;font-size: 14px;}

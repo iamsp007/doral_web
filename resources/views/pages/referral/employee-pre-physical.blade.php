@@ -27,7 +27,7 @@
                 <td>{{$raw['Zip']}}</td>
                 <td>{{ date('F d Y', strtotime($raw['created_at'])) }}</td>
                 <td><span class="status-pending">Success</span></td>
-                <td width="8%"><a href="javascript:void(0)"><img src="../assets/img/icons/delete-icon.svg"
+                <td width="8%"><a href="javascript:void(0)"><img src="{{asset('assets/img/icons/delete-icon.svg')}}"
                             class="action-delete" /></a>
                 </td>
             </tr>

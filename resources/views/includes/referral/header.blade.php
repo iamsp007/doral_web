@@ -20,7 +20,13 @@
 				<div class="dropdown user-dropdown">
 					<div class="user dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
-						<span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                        @if(\Illuminate\Support\Facades\Auth::guard('referral')->check())
+                            <span>Hi, {{ Auth::guard('referral')->user()->name }}</span>
+                        @elseif(\Illuminate\Support\Facades\Auth::guard('company')->check())
+                            <span>Hi, {{ Auth::guard('referral')->user()->name }}</span>
+                        @else
+                            <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                        @endif
 						<a href="javascript:void(0)">
 							<i class="las la-user-circle la-3x ml-2"></i>
 						</a>
@@ -55,21 +61,21 @@
         <a href="javascript:void(0)" class="single-upload-btn mr-2">
             <img src="{{asset('assets/img/icons/single-upload-icon.svg')}}" class="icon mr-2" />
             Single Upload</a>
-        @if(Request::segment(2) == 'employee-pre-physical')    
+        @if(Request::segment(2) == 'employee-pre-physical')
         <a href="{{ route('referral.employee-pre-physical-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{asset('assets/img/icons/bulk-upload-icon.svg')}}" class="icon mr-2" />
             Bulk Upload</a>
         @endif
-        @if(Request::segment(2) == 'vbc')    
+        @if(Request::segment(2) == 'vbc')
         <a href="{{ route('referral/vbc-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{asset('assets/img/icons/bulk-upload-icon.svg')}}" class="icon mr-2" />
             Bulk Upload</a>
         @endif
-        @if(Request::segment(2) == 'md-order')    
+        @if(Request::segment(2) == 'md-order')
         <a href="{{ route('referral/md-order-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{asset('assets/img/icons/bulk-upload-icon.svg')}}" class="icon mr-2" />
             Bulk Upload</a>
-        @endif    
+        @endif
     </div>
 	@endif
 </div>

@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'referrals',
         ],
+        'company' => [
+            'driver' => 'session',
+            'provider' => 'referrals',
+        ],
 
         'api' => [
             'driver' => 'token',

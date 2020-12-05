@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class ReferralLoginController extends Controller
 {
@@ -50,6 +51,7 @@ class ReferralLoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:referral')->except('logout');
     }
 
     /**
@@ -73,12 +75,17 @@ class ReferralLoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-        $request->merge(['status'=>'active']);
-        $user = Company::where(['email'=>$request->email,'status'=>'active'])->first();
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
-        }
+        $request->merge(['status'=>'Active']);
 
+        if (Auth::guard('referral')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+            if (Auth::guard('referral')->user()->status==='Active'){
+                return $this->sendLoginResponse($request);
+            }
+            Auth::guard('referral')->logout();
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.referralactive')],
+            ]);
+        }
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
@@ -107,5 +114,24 @@ class ReferralLoginController extends Controller
         return $this->guard('referral')->attempt(
             $this->credentials($request), $request->filled('remember')
         );
+    }
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            return $response;
+        }
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect()->intended($this->redirectPath());
     }
 }

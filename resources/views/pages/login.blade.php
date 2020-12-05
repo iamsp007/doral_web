@@ -13,8 +13,8 @@
                     <div class="top_back"></div>
                     <div class="mid">
                         <div class="p50">
-                            <h1 class="t2"><img src="assets/img/icons/doctor.svg" alt=""
-                                    srcset="assets/img/icons/doctor.svg" class="mr-2">Login</h1>
+                            <h1 class="t2"><img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
+                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">Login</h1>
                             <form class="mt-4 pt-2" id="loginForm">
                                 <!-- Username -->
                                 <div class="form-group">

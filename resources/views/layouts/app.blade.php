@@ -29,18 +29,26 @@
                     <div>
                         <!-- Logo Start -->
                         <a href="/" title="{{ config('app.name', 'Laravel') }}"  class="logo">
-                            <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral" srcset="assets/img/logo-white.svg">
+                            <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}">
                         </a>
                         <!-- Logo End -->
                     </div>
                     <div>
                         @guest
-                            @if(\Request::is('login'))
+                            @if(\Request::is('provider/login'))
                                 <a href="{{ route('referral.register') }}" class="text-uppercase sign-up">{{ __('SIGN UN') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @elseif(\Request::is('referral/register'))
-                                <a class="text-uppercase sign-up" href="{{ route('login') }}">{{ __('SIGN IN') }} <img
+                                <a class="text-uppercase sign-up" href="{{ route('referral.login') }}">{{ __('SIGN IN') }} <img
+                                        src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
+                                        class="ml-2"></a>
+                            @elseif(\Request::is('register'))
+                                <a class="text-uppercase sign-up" href="{{ route('referral.login') }}">{{ __('SIGN IN') }} <img
+                                        src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
+                                        class="ml-2"></a>
+                            @elseif(\Request::is('login'))
+                                <a class="text-uppercase sign-up" href="{{ route('referral.register') }}">{{ __('SIGN UN') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @endif

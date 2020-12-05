@@ -108,8 +108,6 @@ class BaseClient
             }
         } catch (\Exception $e){
 
-
-
         }
     }
 

@@ -79,6 +79,8 @@ class ReferralLoginController extends Controller
 
         if (Auth::guard('referral')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
             if (Auth::guard('referral')->user()->status==='Active'){
+                cache(['USERNAME' => $request->email]);
+                cache(['PASSWORD'=>$request->password]);
                 return $this->sendLoginResponse($request);
             }
             Auth::guard('referral')->logout();

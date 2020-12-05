@@ -9,12 +9,12 @@ class PatientReferral extends Model
 {
     use HasFactory;
     protected $fillable = array('referral_id', 'first_name', 'last_name', 'dob', 'middle_name', 'gender', 'patient_id', 'medicaid_number', 'medicare_number', 'ssn', 'start_date', 'from_date', 'to_date', 'address_1', 'address_2', 'city', 'state', 'county', 'Zip', 'phone1', 'phone2', 'eng_name', 'eng_addres', 'emg_phone', 'emg_relationship');
-    
+
     protected $guarded = [];
 
     /**
-     * Insert the User data from the Employee / Patient 
-     * 
+     * Insert the User data from the Employee / Patient
+     *
      */
     public static function insert($request)
     {
@@ -26,5 +26,9 @@ class PatientReferral extends Model
             echo $e->getMessage();
             return false;
         }
+    }
+
+    public function detail(){
+        return $this->hasOne(User::class,'id','patient_id');
     }
 }

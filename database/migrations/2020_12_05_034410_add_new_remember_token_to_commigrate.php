@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesTable extends Migration
+class AddNewRememberTokenToCommigrate extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->enum('status', ['Active', 'inactive']);
-            $table->timestamps();
+        Schema::table('companies', function (Blueprint $table) {
+            $table->rememberToken();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::table('companies', function (Blueprint $table) {
+
+        });
     }
 }

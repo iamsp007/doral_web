@@ -19,14 +19,41 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        if (Auth::check()){
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+            if (Auth::user()->type==='clinician'){
+                $path=explode('/',$request->path());
+                if (in_array(Auth::user()->type,$path)){
+                    return $next($request);
+                }
+                return redirect(RouteServiceProvider::CLINICIAL_HOME);
+            }elseif (Auth::user()->type==='admin'){
+                $path=explode('/',$request->path());
+                if (in_array(Auth::user()->type,$path)){
+                    return $next($request);
+                }
+
+                return redirect(RouteServiceProvider::ADMIN_HOME);
+            }elseif (Auth::user()->type==='referral'){
+                $path=explode('/',$request->path());
+                if (in_array(Auth::user()->type,$path)){
+                    return $next($request);
+                }
+
+                return redirect(RouteServiceProvider::REFERRAL_HOME);
+            }else{
+
+                return $next($request);
             }
         }
 
+//        $guards = empty($guards) ? [null] : $guards;
+//        foreach ($guards as $guard) {
+//            if (Auth::guard($guard)->check()) {
+//                return redirect(RouteServiceProvider::HOME);
+//            }
+//        }
+//
         return $next($request);
     }
 }

@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'referral' => [
+            'driver' => 'session',
+            'provider' => 'referrals',
+        ],
+        'company' => [
+            'driver' => 'session',
+            'provider' => 'referrals',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -70,6 +78,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'referrals' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Company::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -98,6 +110,10 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+        'referrals' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Company::class,
         ],
     ],
 

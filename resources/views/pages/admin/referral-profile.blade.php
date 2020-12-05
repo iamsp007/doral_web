@@ -1,6 +1,5 @@
 @extends('layouts.admin.default')
 @section('content')
-
 <div class="row">
     <div class="col-12 col-sm-4">
         <div class="app-card">
@@ -17,10 +16,31 @@
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-end align-items-center">
-                    <button type="submit" class="btn btn-primary btn-sm btn-green mr-2"
+                    @if($record[0]['status'] == 'active')
+                            <button type="button"
+                                class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                                data-toggle="tooltip" data-placement="left">Accepted
+                            </button>
+                            @endif
+                            @if($record[0]['status'] == 'reject')
+                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
+                                data-toggle="tooltip" data-placement="left">Rejected
+                            </button>
+                            @endif
+                            @if($record[0]['status'] == 'pending')
+                                <button type="button"
+                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
+                                data-toggle="tooltip" data-placement="left" id="{{$record[0]['id']}}" >Accept
+                                </button>
+                                <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
+                                data-toggle="tooltip" data-placement="left"
+                                id="{{$record[0]['id']}}">Reject
+                                </button> 
+                            @endif
+                    <!--<button type="submit" class="btn btn-primary btn-sm btn-green mr-2"
                         name="save_next">Accept</button>
                     <button type="submit" class="btn btn-primary btn-sm btn-pink"
-                        name="save_next">Reject</button>
+                        name="save_next">Reject</button>-->
                 </div>
             </div>
         </div>

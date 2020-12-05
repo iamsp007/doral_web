@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="../assets/css/fonts/Montserrat.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/style.min.css">
+    <link rel="stylesheet" href="../assets/css/caregiver.min.css">
     <link rel="stylesheet" href="../assets/css/responsive.min.css">
+    <link rel="stylesheet" href="../assets/css/tail.select-default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <title>Doral Health Connect | Caregiver</title>
 </head>
 
@@ -41,7 +44,7 @@
                             <div class="top_back"></div>
                             <div class="mid">
                                 <div class="p50">
-                                   <h1 class="t2">Caregiver Response : </h1>
+                                   <h1 class="t2">Note</h1>
                                    <hr class="hr_border">
                                    <form class="mt-4" id="ResponseForm" method="get">
                                         <!-- Patient Name -->
@@ -54,21 +57,55 @@
                                                 <label class="label">Generated Time:</label>
                                                 <p class="t5">12.00AM</p>
                                         </div>
-                                         <!-- Solved Time -->
-                                         <div class="form-group">
-                                                <label class="label">Solved Time:</label>
-                                                <p class="t5">1:00AM</p>
-                                         </div>
+                                       
                                          <!-- Reason -->
                                          <div class="form-group">
-                                                <label class="label">Reason:</label>
-                                                <p class="t5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
+                                                <label class="label">Reason we approached:</label>
+                                                <p class="t5">Your patient's blood pressure is slightly higher than regular kindly follow recommend actions below</p>
+                                                
                                         </div>
-                                         <!-- Response -->
-                                         <div class="form-group">
-                                                <label class="label">Detail Note:</label>
-                                                <textarea class="form-control form-control-green" rows="5" id="response"></textarea>
-                                        </div>
+                                          <!-- Recommendation -->
+                                          <div class="form-group">
+                                            <label for="recommendation" class="label">Recommendation:</label>
+                                            <p class="t5"><b class="f-20">&bull;</b> Play calm music</p>
+                                            <p class="t5"><b class="f-20">&bull;</b> Offer water to patient</p>
+                                            <p class="t5"><b class="f-20">&bull;</b> Engage Patient Pleasant conversation</p>
+                                            <p class="t5"><b class="f-20">&bull;</b> Ensure Patient medication was taken today</p>
+                                           
+                                    </div>
+                                          <!-- Recommendation -->
+                                        <div class="form-group">
+                                            <label for="recommendation" class="label">Please select your action taken.</label>
+                                            <select class="form-group recommendation">
+                                                 <option disabled selected>--Select--</option>
+                                                <option>Play calm music</option>
+                                                <option>Offer water to patient</option>
+                                                <option>Engage Patient Pleasant conversation</option>
+                                                <option>Ensure Patient medication was taken today</option>
+                                            </select>
+                                    </div>
+<!--                                        Reason 
+                                       <div class="form-group">
+                                        <label class="label">Caregiver Recommendation:</label>
+                                        <p class="t5">Observe patient closely. If you see following symptoms:</p>
+                                       
+                                    </div>
+                                
+                                  Reason 
+                                 <div class="form-group">
+                                    <label class="label">what are the symptoms you see:</label>
+                                    <div class="input-group-prepend mr-2">
+                                        <select class="select" multiple id="department">
+                                            <option>Is patient sweating Heavy?</option>
+                                            <option>Is patient complaining Dizzines or Vomiting?</option>
+                                            <option>Patient Head hurts?</option>
+                                            <option>Patient feeling of lightheadedness or dizziness, or other signs?</option>
+                                            
+                                        </select>
+                                    </div>
+                                   
+                            </div>-->
+                                       
                                         <!-- Submit Btn -->
                                         <button type="button" class="btn btn-primary btn-pink btn-block"
                                                 name="signup" id="caregiverResponse">Submit</button>
@@ -88,6 +125,9 @@
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/jquery.validate.min.js"></script>
     <script src="../assets/js/login.min.js"></script>
+    <script src="../assets/js/tail.select-full.min.js"></script>
+    <script src="../assets/js/app.common.min.js"></script>
+    <script src="../assets/js/app.clinician.caregiver.min.js"></script>
     <script>
         $(document).ready(function () {
 
@@ -98,7 +138,7 @@
             });
 
             $("#caregiverResponse").click(function () {
-                window.location = "/";
+                window.location = "http://doralhealthconnect.com";
 //                var response = $("#response").val();
 //                $.ajax({
 //                    method: 'POST',

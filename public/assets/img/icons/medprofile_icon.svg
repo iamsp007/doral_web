@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="25px" height="25px" viewbox="0 0 25 25" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L21 0L21 21L0 21L0 0Z" id="path_1" />
+    <path d="M0 0L20.9735 0L20.9735 21L0 21L0 0L0 0L0 0Z" id="path_2" />
+    <rect width="25" height="25" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+    <clipPath id="mask_2">
+      <use xlink:href="#path_2" />
+    </clipPath>
+  </defs>
+  <g id="Pixelbook" clip-path="url(#clip_1)">
+    <use xlink:href="#artboard_1" stroke="none" fill="#FFFFFF" />
+    <g id="medprofile_icon" transform="translate(2 2)">
+      <g id="Mask-group">
+        <path d="M0 0L21 0L21 21L0 21L0 0Z" id="artboard_1" fill="none" fill-rule="evenodd" stroke="none" />
+        <g clip-path="url(#mask_1)">
+          <g id="Pixelbook">
+            <path d="M0 0L21 0L21 21L0 21L0 0Z" id="artboard_1" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+            <g id="medprofile_icon">
+              <g id="Insurance-7">
+                <g id="nurse">
+                  <path d="M0 0L20.9735 0L20.9735 21L0 21L0 0L0 0L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+                  <g id="Mask-group">
+                    <path d="M0 0L20.9735 0L20.9735 21L0 21L0 0L0 0L0 0Z" id="path_2" fill="none" fill-rule="evenodd" stroke="none" />
+                    <g id="Mask-group">
+                      <path d="M0 0L20.9735 0L20.9735 21L0 21L0 0L0 0L0 0Z" id="path_1" fill="none" fill-rule="evenodd" stroke="none" />
+                      <g clip-path="url(#mask_2)">
+                        <g id="Group" transform="translate(1.7437867 0)">
+                          <g id="Group">
+                            <g id="surface1">
+                              <path d="M0 1.39546C0.135842 5.10319 2.42729 8.05373 5.23945 8.05373C6.6891 8.05373 8.0022 7.26935 8.95112 6.00172C9.91342 4.65568 10.446 3.04978 10.4789 1.39546L5.23945 0L0 1.39546L0 1.39546L0 1.39546Z" transform="translate(3.514455 7.3533597)" id="Shape" fill="#00DDC2" fill-rule="evenodd" stroke="none" />
+                              <path d="M11.8179 4.90216C12.2282 4.92497 12.5802 4.61218 12.6056 4.20198L12.6056 1.40066L6.30283 0L0 1.40066L0 4.20198C0.0256203 4.61218 0.377403 4.92497 0.787888 4.90216L11.8179 4.90216L11.8179 4.90216L11.8179 4.90216ZM6.30283 3.85174L6.30283 2.45109L6.30283 3.85174L6.30283 3.85174L6.30283 3.85174Z" transform="translate(2.451183 0.3501781)" id="Shape#1" fill="#FFE477" fill-rule="evenodd" stroke="none" />
+                              <path d="M1.05056 5.59458L1.05056 8.40378C1.05056 12.4584 3.56401 15.7571 6.65306 15.7571C8.16887 15.7571 9.58666 14.9784 10.6448 13.5653C11.7219 12.0622 12.2866 10.2526 12.2556 8.40378L12.2556 5.59458C12.8251 5.57656 13.2837 5.12145 13.3062 4.55218L13.3062 1.75086C13.3063 1.58658 13.1923 1.44441 13.0319 1.40865L6.72907 0.00812929C6.67896 -0.00270976 6.62715 -0.00270976 6.57705 0.00812929L0.274219 1.40878C0.113882 1.44441 0 1.58658 0 1.75086L0 4.55218C0.0223823 5.12145 0.48101 5.57656 1.05056 5.59458L1.05056 5.59458L1.05056 5.59458L1.05056 5.59458ZM6.74349 7.0148C6.68423 6.99903 6.62201 6.99903 6.56274 7.0148L1.75095 8.29876L1.75095 5.6026L11.5553 5.6026L11.5553 8.29876L6.74349 7.0148L6.74349 7.0148L6.74349 7.0148ZM10.0846 13.1451C9.16137 14.3782 7.94312 15.0568 6.6531 15.0568C4.10221 15.0568 2.00235 12.3981 1.77374 9.01555L6.6531 7.71583L11.5329 9.01597C11.4575 10.5029 10.9547 11.9367 10.0846 13.1451L10.0846 13.1451L10.0846 13.1451L10.0846 13.1451ZM0.700228 2.03099L6.65297 0.708741L12.6056 2.03099L12.6056 4.55218C12.5763 4.76671 12.3839 4.92071 12.168 4.90227L1.13802 4.90227C0.922085 4.92071 0.729649 4.76671 0.700228 4.55218L0.700228 2.03099L0.700228 2.03099L0.700228 2.03099Z" transform="translate(2.100942 0)" id="Shape#2" fill="#007C88" fill-rule="evenodd" stroke="none" />
+                              <path d="M1.05056 2.80132L1.7509 2.80132L1.7509 1.7509L2.80132 1.7509L2.80132 1.05056L1.7509 1.05056L1.7509 0L1.05056 0L1.05056 1.05056L0 1.05056L0 1.7509L1.05056 1.7509L1.05056 2.80132L1.05056 2.80132L1.05056 2.80132Z" transform="translate(7.3532944 1.4006487)" id="Shape#3" fill="#007C88" fill-rule="evenodd" stroke="none" />
+                              <path d="M13.5139 0L13.133 0.587574C15.3236 1.99963 16.6914 4.38835 16.8002 6.99231L0.707662 6.99231C0.816477 4.38835 2.18419 1.99963 4.37486 0.587574L3.99393 0C1.49978 1.6083 -0.00505485 4.37485 1.26171e-05 7.34255C1.26171e-05 7.53582 0.15669 7.69264 0.350107 7.69264L17.1578 7.69264C17.3511 7.69264 17.5078 7.53582 17.5078 7.34255C17.5129 4.37485 16.008 1.6083 13.5139 0L13.5139 0L13.5139 0L13.5139 0Z" transform="translate(0 13.316951)" id="Shape#4" fill="#007C88" fill-rule="evenodd" stroke="none" />
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

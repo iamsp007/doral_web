@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index() {
         return view('pages.admin.dashboard');
     }
-    
+
     /**
      * Login Admin
      *
@@ -47,13 +47,13 @@ class HomeController extends Controller
             CURLOPT_TIMEOUT => 40,
             CURLOPT_HTTPHEADER => $headerValue
             ));
-            
+
             $curlResponse = curl_exec($ch);
-            
+
             curl_close($ch);
-            
+
             $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
+            dd($responseArray);
             if($responseArray['message'] == 'Login Successfully!') {
                 $status = 1;
                 session(['token' => $responseArray['data']['access_token']]);
@@ -83,6 +83,18 @@ class HomeController extends Controller
     public function caregiverResponse()
     {
        return view('pages.caregiver');
+    }
+    public function clinicianResponse()
+    {
+       return view('pages.clinician');
+    }
+    public function caregiverforGluco()
+    {
+       return view('pages.caregiverforGluco');
+    }
+    public function caregiverforGlucoHigh()
+    {
+       return view('pages.caregiverforGlucoHigh');
     }
     public function caregiverResponseSubmit(Request $request)
     {

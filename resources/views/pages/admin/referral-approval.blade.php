@@ -47,7 +47,7 @@
                                 data-toggle="tooltip" data-placement="left">Rejected
                             </button>
                             @endif
-                            @if($raw['status'] == 'pending')
+                            @if($raw['status'] == 'Pending')
                                 <button type="button"
                                 class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
                                 data-toggle="tooltip" data-placement="left" id="{{$raw['id']}}" >Accept
@@ -55,7 +55,7 @@
                                 <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
                                 data-toggle="tooltip" data-placement="left"
                                 id="{{$raw['id']}}">Reject
-                                </button> 
+                                </button>
                             @endif
                             <a href="{{ url('/admin/referral-profile/'.$raw['id']) }}" class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
                                 data-placement="left" title="View Profile">View
@@ -67,7 +67,7 @@
                 </tr>
                 @endforeach
                 @endif
-                
+
             </tbody>
         </table>
     </div>
@@ -82,19 +82,19 @@
         });
 
         $(".acceptid").click(function() {
-            var company_id = $(this).attr('id'); 
+            var company_id = $(this).attr('id');
             var status = "active";
-            
+
             $.ajax({
                 method: 'POST',
-                url: '/admin/referral-status',
+                url: '{{ route('admin.updateStatus') }}',
                 data: {company_id, status},
                 success: function( response ){
                     if(response.status == 1) {
                         $(".alert-success").show();
                         $(".alert-danger").hide();
-                        $("#successResponse").text(response.message); 
-                        setTimeout(function(){ 
+                        $("#successResponse").text(response.message);
+                        setTimeout(function(){
                             $(".alert-success").hide();
                         }, 1000);
                     }
@@ -102,7 +102,7 @@
                         $(".alert-danger").show();
                         $(".alert-success").hide();
                         $("#errorResponse").text(response.message);
-                        setTimeout(function(){ 
+                        setTimeout(function(){
                             $(".alert-danger").hide();
                         }, 1000);
                     }
@@ -112,13 +112,13 @@
                     console.log(e);
                 }
             });
-            
+
         });
 
         $(".rejectid").click(function() {
-            var company_id = $(this).attr('id'); 
+            var company_id = $(this).attr('id');
             var status = "reject";
-            //alert(company_id);  
+            //alert(company_id);
             $.ajax({
                 method: 'POST',
                 url: '/admin/referral-status',
@@ -127,8 +127,8 @@
                     if(response.status == 1) {
                         $(".alert-success").show();
                         $(".alert-danger").hide();
-                        $("#successResponse").text(response.message); 
-                        setTimeout(function(){ 
+                        $("#successResponse").text(response.message);
+                        setTimeout(function(){
                             $(".alert-success").hide();
                         }, 1000);
                     }
@@ -136,7 +136,7 @@
                         $(".alert-danger").show();
                         $(".alert-success").hide();
                         $("#errorResponse").text(response.message);
-                        setTimeout(function(){ 
+                        setTimeout(function(){
                             $(".alert-danger").hide();
                         }, 1000);
                     }
@@ -146,8 +146,8 @@
                     console.log(e);
                 }
             });
-            
+
         });
     });
-</script> 
+</script>
 @stop

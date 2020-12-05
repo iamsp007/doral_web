@@ -16,33 +16,43 @@
 					<span class="number">6</span>
 				</a>
 			</li>
-			<li>
-				<div class="dropdown user-dropdown">
-					<div class="user dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">
-                        @if(\Illuminate\Support\Facades\Auth::guard('referral')->check())
-                            <span>Hi, {{ Auth::guard('referral')->user()->name }}</span>
-                        @elseif(\Illuminate\Support\Facades\Auth::guard('company')->check())
-                            <span>Hi, {{ Auth::guard('referral')->user()->name }}</span>
-                        @else
-                            <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
-                        @endif
-						<a href="javascript:void(0)">
-							<i class="las la-user-circle la-3x ml-2"></i>
-						</a>
-					</div>
-					<div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">Profile</a>
-						<a class="dropdown-item" href="{{ url('logout') }}"
-                           onclick="event.preventDefault();
+            @guest
+                <li>
+                    <div class="dropdown user-dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="{{ route('login') }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Login
+                        </a>
+                    </div>
+                </li>
+            @else
+                <li>
+                    <div class="dropdown user-dropdown">
+                        <div class="user dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                             aria-haspopup="true" aria-expanded="false">
+                            @if(\Illuminate\Support\Facades\Auth::guard('referral')->check())
+                                <span>Hi, {{ Auth::guard('referral')->user()->name }}</span>
+                            @elseif(\Illuminate\Support\Facades\Auth::guard('company')->check())
+                                <span>Hi, {{ Auth::guard('referral')->user()->name }}</span>
+                            @else
+                                <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                            @endif
+                            <a href="javascript:void(0)">
+                                <i class="las la-user-circle la-3x ml-2"></i>
+                            </a>
+                        </div>
+                        <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="{{ url('logout') }}"
+                               onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"
-                        >Logout</a>
-                        <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-					</div>
-				</div>
-			</li>
+                            >Logout</a>
+                            <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            @endguest
 		</ul>
 	</div>
 </div>

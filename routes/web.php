@@ -27,6 +27,12 @@ use Illuminate\Support\Facades\Route;
 //});
 
 // Login / Register
+Route::get('/page/not/found',function($closure){
+    // second parameter is optional.
+    abort(404,'Page not found');
+    abort(403);
+});
+
 Route::post('companyregister', 'App\Http\Controllers\CompanyController@store');
 Route::post('companylogin', 'App\Http\Controllers\CompanyController@login');
 Route::post('companyresetpassword', 'App\Http\Controllers\CompanyController@resetpassword');

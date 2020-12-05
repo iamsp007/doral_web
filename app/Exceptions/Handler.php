@@ -34,4 +34,19 @@ class Handler extends ExceptionHandler
     {
         //
     }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $e
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, \Throwable $e)
+    {
+        if ($e instanceof \ReflectionException OR $e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) //Si la ruta no existe, mostar view 404.
+            return response(view('errors.404'), 404);
+        return parent::render($request, $e);
+    }
+
 }

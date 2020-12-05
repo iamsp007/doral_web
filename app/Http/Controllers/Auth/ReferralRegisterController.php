@@ -43,7 +43,7 @@ class ReferralRegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::REFERRAL_HOME;
+    protected $redirectTo = RouteServiceProvider::REFERRAL_LOGIN;
 
     /**
      * Create a new controller instance.
@@ -65,10 +65,10 @@ class ReferralRegisterController extends Controller
     {
 //        dd($request->all());
         $this->validator($request->all())->validate();
-
+        $request->merge(['password'=>'test123','status'=>'Pending','name'=>$request->company]);
         event(new Registered($user = $this->create($request->all())));
 
-        $this->guard('referral')->login($user);
+//        $this->guard('referral')->login($user);
 
         if ($response = $this->registered($request, $user)) {
             return $response;
@@ -102,11 +102,11 @@ class ReferralRegisterController extends Controller
     protected function create(array $data)
     {
         return Company::create([
-            'name' => 'Doral Health Care',
+            'name' => $data['name'],
             'email' => $data['email'],
             'referal_id' => $data['referralType'],
-            'status' => 'Pending',
-            'password' => Hash::make('test123'),
+            'status' => $data['status'],
+            'password' => Hash::make($data['password']),
         ]);
     }
 }

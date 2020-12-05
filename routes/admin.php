@@ -15,7 +15,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','check']],function (){
         return view('pages.admin.employee');
     })->name('admin.employee');
 
-    Route::get('/employee-add', 'App\Http\Controllers\EmployeeController@index');
+    Route::get('/employee-add', 'App\Http\Controllers\EmployeeController@index')->name('admin.employee-add');
 
     /*Route::get('/admin/referral-profile', function () {
         return view('pages.admin.referral-profile');

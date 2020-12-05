@@ -19,7 +19,7 @@
                         <div class="mid">
                             <div class="p50">
                                 <h1 class="t2"><img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
-                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">Sign Up</h1>
+                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">Referral Registration</h1>
 
                                 <form method="POST" action="{{ route('referral.register') }}">
                                     @csrf

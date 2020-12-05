@@ -16,18 +16,18 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('address1', 100);
-            $table->string('address2', 100);
-            $table->string('zip', 8);
-            $table->string('email', 70);
-            $table->bigInteger('phone');
-            $table->string('npi', 30);
-            $table->foreignId('np_id')->index('np_id');
+            $table->string('address1', 100)->nullable();
+            $table->string('address2', 100)->nullable();
+            $table->string('zip', 8)->nullable();
+            $table->string('email', 70)->unique();
+            $table->bigInteger('phone')->nullable();
+            $table->string('npi', 30)->nullable();
+            $table->foreignId('np_id')->index('np_id')->nullable();
             $table->foreignId('referal_id')->index('referal_id');
             $table->string('password');
-            $table->foreignId('employee_id');
-            $table->string('verification_comment', 500);
-            $table->enum('status', ['Approve', 'Reject', 'Pending', 'Active']);
+            $table->foreignId('employee_id')->nullable();
+            $table->string('verification_comment', 500)->nullable();
+            $table->enum('status', ['Approve', 'Reject', 'Pending', 'Active'])->default('Pending');
             $table->timestamps();
         });
     }

@@ -39,8 +39,9 @@
                     <h1 class="_title">Drag & Drop</h1>
                     <p>Or</p>
                     <div class="mt-3">
-                        <input type="file" name="file-1" id="file-1" class="inputfile inputfile-1"
+                        <input type="file" name="file_name" id="file_name" class="inputfile inputfile-1"
                             data-multiple-caption="{count} files selected" multiple />
+                        <input type="hidden" name="service_id" id="service_id" value="1">    
                         <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="17" viewBox="0 0 20 17">
                                 <path
@@ -68,9 +69,11 @@
                     <tr>
                         <th><input type="checkbox" class="selectall" /></th>
                         <th>Patient Name</th>
-                        <th>Description</th>
-                        <th>Services</th>
-                        <th>Uploaded Date</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                        <th>Zip Code</th>
+                        <th>Created Date</th>
                         <th>Status</th>
                         <th></th>
                     </tr>
@@ -81,12 +84,14 @@
                     <tr>
                         <td><input type="checkbox" /></td>
                         <td class="text-green">{{$raw['first_name']}} {{$raw['middle_name']}} {{$raw['last_name']}}</td>
-                        <td width="20%">Curabitur dignissim tortor.</td>
-                        <td>VBC</td>
+                        <td>{{$raw['gender']}}</td>
+                        <td>{{$raw['phone1']}}</td>
+                        <td>{{$raw['city']}}-{{$raw['state']}}</td>
+                        <td>{{$raw['Zip']}}</td>
                         <td>{{ date('F d Y', strtotime($raw['created_at'])) }} <!--Sunday, 4 October 2020--></td>
                         <td class="text-green">Success</span></td>
                         <td width="9%"><a href="javascript:void(0)"><img
-                                    src="../assets/img/icons/delete-icon.svg"
+                                    src="{{asset('assets/img/icons/delete-icon.svg')}}"
                                     class="action-delete" /></a>
                         </td>
                     </tr>
@@ -106,32 +111,6 @@ $(document).ready(function () {
         }
     });
 
-    /*$(".uploadFile").click(function() {
-        var file_name = $("#file-1").val();
-        $.ajax({
-            method: 'POST',
-            url: '/referral/vbc-upload-bulk-data-store',
-            data: {file_name},
-            success: function( response ){
-                if(response.status == 1) {
-                    window.location = "/referral/dashboard"; 
-                }
-                else {
-                    $(".alert").show();
-                    $("#response").text(response.message);
-                    setTimeout(function(){ 
-                        $(".alert").hide();
-                    }, 1000);    
-                }
-                
-                console.log( response );
-            },
-            error: function( e ) {
-                console.log(e);
-            }
-        });
-        
-    });*/
 
     $('#upload_form').on('submit', function(event){
       event.preventDefault();

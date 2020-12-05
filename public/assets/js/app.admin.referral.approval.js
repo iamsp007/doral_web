@@ -7,4 +7,5 @@ $(function () {
         }],
         "pageLength": 10
     });
+    $('[data-toggle="tooltip"]').tooltip(); 
 });

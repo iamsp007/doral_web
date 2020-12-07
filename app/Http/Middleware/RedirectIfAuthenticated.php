@@ -34,13 +34,6 @@ class RedirectIfAuthenticated
                 }
 
                 return redirect(RouteServiceProvider::ADMIN_HOME);
-            }elseif (Auth::user()->type==='referral'){
-                $path=explode('/',$request->path());
-                if (in_array(Auth::user()->type,$path)){
-                    return $next($request);
-                }
-
-                return redirect(RouteServiceProvider::REFERRAL_HOME);
             }elseif (Auth::user()->type==='co-ordinate'){
                 $path=explode('/',$request->path());
                 if (in_array(Auth::user()->type,$path)){
@@ -52,6 +45,13 @@ class RedirectIfAuthenticated
 
                 return $next($request);
             }
+        }elseif (Auth::guard('referral')->check()){
+            $path=explode('/',$request->path());
+            if (in_array('referral',$path)){
+                return $next($request);
+            }
+
+            return redirect(RouteServiceProvider::REFERRAL_HOME);
         }
 
 //        $guards = empty($guards) ? [null] : $guards;

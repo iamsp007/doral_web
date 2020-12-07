@@ -62,7 +62,7 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-        $request->merge(['status'=>$request->email]);
+        $request->merge(['status'=>'active']);
         if ($this->attemptLogin($request)) {
             cache(['USERNAME' => $request->email]);
             cache(['PASSWORD'=>$request->password]);
@@ -70,6 +70,8 @@ class LoginController extends Controller
                 $this->redirectTo=RouteServiceProvider::CLINICIAL_HOME;
             }elseif (Auth::user()->type==='admin'){
                 $this->redirectTo=RouteServiceProvider::ADMIN_HOME;
+            }elseif (Auth::user()->type==='co-ordinate'){
+                $this->redirectTo=RouteServiceProvider::COORDINATE_HOME;
             }else{
                 $this->redirectTo=RouteServiceProvider::HOME;
             }

@@ -41,13 +41,21 @@
                                 class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
                                 data-toggle="tooltip" data-placement="left">Accepted
                             </button>
-                            @endif
-                            @if($raw['status'] == 'reject')
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left">Rejected
+                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
+                                data-toggle="tooltip" data-placement="left"
+                                id="{{$raw['id']}}">Reject
                             </button>
                             @endif
-                            @if($raw['status'] == 'Pending')
+                            @if($raw['status'] == 'reject')
+                                <button type="button"
+                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
+                                data-toggle="tooltip" data-placement="left" id="{{$raw['id']}}" >Accept
+                                </button>
+                                <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
+                                    data-toggle="tooltip" data-placement="left">Rejected
+                                </button>
+                            @endif
+                            @if($raw['status'] == 'pending')
                                 <button type="button"
                                 class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
                                 data-toggle="tooltip" data-placement="left" id="{{$raw['id']}}" >Accept
@@ -82,9 +90,9 @@
         });
 
         $(".acceptid").click(function() {
+
             var company_id = $(this).attr('id');
             var status = "active";
-
             $.ajax({
                 method: 'POST',
                 url: '{{ route('admin.updateStatus') }}',

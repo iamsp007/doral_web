@@ -31,7 +31,7 @@
                     <td>{{$raw['employeement_type']}}</td>
                     <td>
                         <div class="d-flex">
-                            <a href="employee_user_profile.html"
+                            <a href="{{ url('/admin/employee-view/'.$raw['id']) }}"
                                 class="btn btn-primary btn-view shadow-sm btn--sm mr-2"
                                 data-toggle="tooltip" data-placement="left" title="View User"><i
                                     class="las la-binoculars"></i></a>

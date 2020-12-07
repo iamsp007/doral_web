@@ -293,12 +293,15 @@ class CompanyController extends Controller
         $record = [];
         try {
             $data = array(
-                'Company_id' => $request->company_id,
-                'status' => $request->status
+                'data' => [
+                    'Company_id' => $request->company_id,
+                    'status' => $request->status
+                ]
             );
+
             $adminServices = new AdminService();
             $responseArray = $adminServices->updatestatus($data);
-            dd($responseArray);
+            
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data'];
@@ -329,26 +332,9 @@ class CompanyController extends Controller
         $message = "";
         $record = [];
         try {
-            ///$apiToken = session('token');
-            $headerValue = array(
-                'Content-Type: application/json',
-                'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost',
-                /*'Authorization: Bearer '.$apiToken*/
-            );
+            $adminServices = new AdminService();
+            $responseArray = $adminServices->getProfile($id);
 
-            $url = CurlFunction::getURL().'/api/auth/company/show/'.$id;
-            $ch = curl_init($url);
-            curl_setopt_array($ch, array(
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
-            ));
-
-            $curlResponse = curl_exec($ch);
-            curl_close($ch);
-
-            $responseArray = json_decode($curlResponse, true);
             //dd($responseArray);
             if($responseArray['status']) {
                 $status = 1;

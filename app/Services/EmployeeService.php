@@ -13,7 +13,7 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 
-class AdminService
+class EmployeeService
 {
 
     protected $client;
@@ -23,12 +23,12 @@ class AdminService
         $this->client = new BaseClient(env('API_URL'), env('API_URL'));
     }
 
-    public function getCompanyReferral($type){
+    public function getEmployee() {
         try {
 
             $response = $this->client->request(
                 'GET',
-                '/auth/company/'.$type,
+                '/auth/employee',
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -49,12 +49,12 @@ class AdminService
         }
     }
 
-    public function storeCompany($data){
+    public function storeEmployee($data){
         try {
 
             $response = $this->client->request(
                 'POST',
-                '/auth/company/store',
+                '/auth/employee/store',
                 [
                     'json'=>$data,
                     'headers' => [
@@ -102,12 +102,38 @@ class AdminService
         }
     }
 
-    public function getProfile($type){
+    public function getProfile($type) {
         try {
 
             $response = $this->client->request(
                 'GET',
-                '/auth/company/show/'.$type,
+                '/auth/employee/show/'.$type,
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+
+            $data = json_decode($response,true);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function removeEmployee($type) {
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/employee/remove/'.$type,
                 [
                     'headers' => [
                         'Accept' => 'application/json',

@@ -17,12 +17,20 @@
             <div class="card-body">
                 <div class="d-flex justify-content-end align-items-center">
                     @if($record[0]['status'] == 'active')
-                            <button type="button"
-                                class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left">Accepted
-                            </button>
+                                <button type="button"
+                                    class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                                    data-toggle="tooltip" data-placement="left">Accepted
+                                </button>
+                                <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
+                                    data-toggle="tooltip" data-placement="left"
+                                    id="{{$record[0]['id']}}">Reject
+                                </button> 
                             @endif
                             @if($record[0]['status'] == 'reject')
+                            <button type="button"
+                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
+                                data-toggle="tooltip" data-placement="left" id="{{$record[0]['id']}}" >Accept
+                            </button>
                             <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
                                 data-toggle="tooltip" data-placement="left">Rejected
                             </button>

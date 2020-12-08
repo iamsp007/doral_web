@@ -110,8 +110,8 @@ class EmployeeController extends Controller
             //dd($responseArray);
             if($responseArray['status']) {
                 $status = 1;
-                //$record = $responseArray['data']['id'];
-                $record = 1;
+                $record = $responseArray['data']['Employee_id'];
+                //$record = 1;
             }
             $message = $responseArray['message'];
             $response = [

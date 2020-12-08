@@ -266,8 +266,9 @@ class PatientReferralController extends Controller
 
             $data = array(
                     'file_name' => $filePath,
-                    'referral_id' => $referral_id,
-                    'service_id' => $request->service_id
+                    'referral_id' => 1,
+                    'service_id' => $request->service_id,
+                    'file_type' => $request->r1
             );
             //$data = json_encode($data);
             //dd($data);

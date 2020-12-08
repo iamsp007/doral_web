@@ -77,12 +77,12 @@
             Bulk Upload</a>
         @endif
         @if(Request::segment(2) == 'vbc')
-        <a href="{{ route('referral/vbc-upload-bulk-data') }}" class="bulk-upload-btn">
+        <a href="{{ route('referral.vbc-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{asset('assets/img/icons/bulk-upload-icon.svg')}}" class="icon mr-2" />
             Bulk Upload</a>
         @endif
         @if(Request::segment(2) == 'md-order')
-        <a href="{{ route('referral/md-order-upload-bulk-data') }}" class="bulk-upload-btn">
+        <a href="{{ route('referral.md-order-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{asset('assets/img/icons/bulk-upload-icon.svg')}}" class="icon mr-2" />
             Bulk Upload</a>
         @endif

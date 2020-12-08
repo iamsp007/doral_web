@@ -76,82 +76,237 @@
             @endforeach
         @endif
     </ul>
-    <div id="floating-panel">
-        <b>Mode of Travel: </b>
-        <select id="mode">
-            <option value="DRIVING">Driving</option>
-            <option value="WALKING">Walking</option>
-            <option value="BICYCLING">Bicycling</option>
-            <option value="TRANSIT">Transit</option>
-        </select>
-    </div>
     <div id="map"></div>
+    <div id="pano"></div>
+    <div id="marker-popup" style="display: none;">
+        <div id="modal-popup">
+            <button style="height: 100px; width: 300px;background-color: #4aac27;">Accept</button>
+            <button style="height: 100px; width: 300px;background-color: red">Reject</button>
+        </div>
+    </div>
 @endsection
 
 @push('styles')
-    <style>
+    <style type="text/css">
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
         #map {
-            height: 100%;
+            width: 50px !important;
+            position: inherit !important;
         }
-        #floating-panel {
-            position: absolute;
-            top: 10px;
-            left: 25%;
-            z-index: 5;
-            background-color: #fff;
-            padding: 5px;
-            border: 1px solid #999;
-            text-align: center;
-            font-family: 'Roboto','sans-serif';
-            line-height: 30px;
-            padding-left: 10px;
+        #pano {
+            float: left;
+            height: 100%;
+            width: 50%;
         }
     </style>
 @endpush
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-{{--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>--}}
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script>
-        navigator.geolocation.getCurrentPosition(showPosition);
+        socket.on('receive-location', function (data) {
+            console.log(data,"receive-location");
+        });
+        socket.emit('send-location', { latitude: '15.552255',longitude: '16.055222' });
 
-        function showPosition(position) {
-            function initMap(){
-                var directionsDisplay = new google.maps.DirectionsRenderer;
-                var directionsService = new google.maps.DirectionsService;
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 3,
-                    center: {lat: 14.77, lng: -12.447}
-                });
-                directionsDisplay.setMap(map);
+        // Initialize and add the map
+        const locations = [
+            { lat: 21.9290, lng: 69.7838,lable:'Sunil' },
+            { lat: 23.0225, lng: 72.5714,lable:'Shashikant' },
+            { lat: 22.4707, lng: 70.0577,lable:'Ramesh' },
+        ];
 
-                calculateAndDisplayRoute(directionsService, directionsDisplay);
-                document.getElementById('mode').addEventListener('change', function() {
-                    calculateAndDisplayRoute(directionsService, directionsDisplay);
-                });
-            }
+        function initMap() {
+            if (navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    console.log(position,"position")
+                    const directionsService = new google.maps.DirectionsService();
+                    const directionsRenderer = new google.maps.DirectionsRenderer();
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 8,
+                        center: { lat: position.coords.latitude, lng: position.coords.longitude },
+                        mapTypeId: "terrain",
+                    });
 
-            function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-                var selectedMode = document.getElementById('mode').value;
-                directionsService.route({
+                    const cityCircle = new google.maps.Circle({
+                        strokeColor: "#FF0000",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: "#FF0000",
+                        fillOpacity: 0.35,
+                        map,
+                        center: { lat: position.coords.latitude, lng: position.coords.longitude },
+                        radius: Math.sqrt(1) * 100,
+                    });
 
-                    origin: {lat: position.coords.latitude ,lng: position.coords.longitude},  // Haight.
-                    destination: {lat: 14.768, lng: -12.511},  // Ocean Beach.
-                    // Note that Javascript allows us to access the constant
-                    // using square brackets and a string value as its
-                    // "property."
-                    travelMode: google.maps.TravelMode[selectedMode]
-                }, function(response, status) {
-                    if (status == google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    } else {
-                        window.alert('Directions request failed due to ' + status);
+                    map.panTo({
+                        lat: position.coords.latitude, lng: position.coords.longitude
+                    })
+
+                    // Create an array of alphabetical characters used to label the markers.
+                    const labels = "Sunil Karmur";
+                    const contentString ='<div id="modal-popup">'+
+                        '<button style="height: 100px; width: 300px;background-color: #4aac27;">Accept</button>'+
+                    '<button style="height: 100px; width: 300px;background-color: red">Reject</button>'+
+                '</div>';
+
+                    const infowindow = new google.maps.InfoWindow({
+                        content: contentString,
+                    });
+
+                    // Add some markers to the map.
+                    // Note: The code uses the JavaScript Array.prototype.map() method to
+                    // create an array of markers based on a given "locations" array.
+                    // The map() method here has nothing to do with the Google Maps API.
+                    const markers = locations.map((location, i) => {
+                        if (i===1 || i===locations.length){
+                            console.log(i,locations.length)
+                        }
+                        var marker = new google.maps.Marker({
+                            position: location,
+                            label: location.lable,
+                        });
+
+                        marker.addListener("click", () => {
+                            infowindow.open(map, marker);
+                        });
+                        return marker;
+                    });
+
+                    // Add a marker clusterer to manage the markers.
+                    new MarkerClusterer(map, markers, {
+                        imagePath:
+                            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                    });
+
+                    google.maps.event.addListener(markers,'click',function() {
+                        var pos = map.getZoom();
+                        map.setZoom(14);
+                        map.setCenter(marker.getPosition());
+                        window.setTimeout(function() {map.setZoom(pos);},3000);
+                    });
+                    directionsRenderer.setMap(map);
+                    var origin = locations[0].lat+','+locations[0].lng;
+                    var destination = locations[2].lat+','+locations[2].lng;
+                    if (locations.length>0){
+                        origin = locations[0].lat+','+locations[0].lng;
+                        destination = locations[locations.length-1].lat+','+locations[locations.length-1].lng;
                     }
-                });
+
+                    calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination);
+                }, function (error) {
+                    console.log(error,"error")
+                }, {maximumAge:10000, timeout:5000, enableHighAccuracy: true});
             }
+            else
+            {
+                alert('It seems like Geolocation, which is required for this page, is not enabled in your browser.');
+            }
+
         }
+        //
+        function directionInitMap() {
+            var latitude = '21.9347';
+            var longitude = '69.6393';
+            var origin = latitude+','+longitude
+            var destination = latitude+','+longitude
+            navigator.geolocation.watchPosition(function (position) {
+                origin = position.coords.latitude+','+position.coords.longitude;
+                const directionsService = new google.maps.DirectionsService();
+                const directionsRenderer = new google.maps.DirectionsRenderer();
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 14,
+                    center: { lat: position.coords.latitude, lng: position.coords.longitude },
+                });
+                const locations = [
+                    { lat: position.coords.latitude, lng: position.coords.longitude,lable:'Sunil' },
+                    { lat: latitude, lng: longitude,lable:'Shashikant' }
+                ];
+                var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+                const panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById("pano"),
+                    {
+                        position: { lat: position.coords.latitude, lng: position.coords.longitude },
+                        pov: {
+                            heading: 34,
+                            pitch: 20,
+                        },
+                    }
+                );
+                map.setStreetView(panorama);
+
+                const labels = "Sunil Karmur";
+                const contentString ='<div id="modal-popup">'+
+                    '<button style="height: 100px; width: 300px;background-color: #4aac27;">Accept</button>'+
+                    '<button style="height: 100px; width: 300px;background-color: red">Reject</button>'+
+                    '</div>';
+
+                const infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                });
+
+                // Add some markers to the map.
+                // Note: The code uses the JavaScript Array.prototype.map() method to
+                // create an array of markers based on a given "locations" array.
+                // The map() method here has nothing to do with the Google Maps API.
+                const markers = locations.map((location, i) => {
+                    var marker = new google.maps.Marker({
+                        position: location,
+                        label: location.lable,
+                    });
+
+                    marker.addListener("click", () => {
+                        infowindow.open(map, marker);
+                    });
+                    return marker;
+                });
+
+                // Add a marker clusterer to manage the markers.
+                new MarkerClusterer(map, markers, {
+                    imagePath:
+                        "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                });
+
+                // google.maps.event.addListener(markers,'click',function() {
+                //     var pos = map.getZoom();
+                //     map.setZoom(20);
+                //     map.setCenter(marker.getPosition());
+                //     window.setTimeout(function() {map.setZoom(pos);},3000);
+                // });
+
+                directionsRenderer.setMap(map);
+                calculateAndDisplayRoute(directionsService, directionsRenderer,locations[0],locations[1]);
+            },function (error) {
+                console.log(error)
+            })
+        }
+        //
+        function calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination) {
+            // var start = latitude+','+longitude;
+            // var end = '21.9290,69.7838';
+            // console.log(start)
+            var request = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+            };
+            directionsService.route(request,
+                (response, status) => {
+                    if (status === "OK") {
+                        directionsRenderer.setDirections(response);
+                    } else {
+                        window.alert("Directions request failed due to " + status);
+                    }
+                }
+            );
+        }
+
     </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSkdSlcQB9fgwBaHnbNlS7OEFf67kDpbo&callback=initMap">
-    </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdb6t1uHzeJgQadBsAUhcrpCwkIooWT5Y&callback=initMap&libraries=&v=weekly"
+        defer
+    ></script>
+
 @endpush

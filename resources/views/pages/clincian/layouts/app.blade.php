@@ -98,6 +98,10 @@
 <script src="{{ asset('js/clincian/popper.min.js') }}"></script>
 <script src="{{ asset('js/clincian/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/clincian/app.common.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+<script src="{{ asset('js/socket.js') }}"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
 @stack('scripts')
 </body>
 </html>

@@ -12,24 +12,6 @@
 @endsection
 
 @push('styles')
-    <style>
-        #map {
-            height: 100%;
-        }
-        #floating-panel {
-            position: absolute;
-            top: 10px;
-            left: 25%;
-            z-index: 5;
-            background-color: #fff;
-            padding: 5px;
-            border: 1px solid #999;
-            text-align: center;
-            font-family: 'Roboto','sans-serif';
-            line-height: 30px;
-            padding-left: 10px;
-        }
-    </style>
 @endpush
 
 @push('scripts')

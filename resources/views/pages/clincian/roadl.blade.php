@@ -41,7 +41,7 @@
                                 <div class="_lside">
                                     <ul class="specification">
                                         @if(count($value->ccrm)>0)
-                                            @foreach($patientRequestList->ccrm as $ckey=>$cvalue)
+                                            @foreach($value->ccrm as $ckey=>$cvalue)
                                                 <li class="blood">
                                                     <img src="{{ asset('assets/img/icons/pressure.svg') }}"
                                                          class="mr-2" alt="">

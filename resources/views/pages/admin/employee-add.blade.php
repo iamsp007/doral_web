@@ -5,10 +5,20 @@
     <div class="pt-2">
         <div class="roles-block">
             <div class="tab-content">
-                <!--<form id="upload_form" enctype="multipart/form-data" method="post">-->
-                <!-- Personal Details -->
                 <div class="tab-pane active" id="profile" role="tabpanel">
                     <div class="card">
+                        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
+                            <strong>Success!</strong> <span id="successResponse"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
+                            <strong>Error!</strong> <span id="errorResponse"></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
                         <div class="card-header card-header-2">Personal Details</div>
                         <div class="card-body">
                             <form name="personal_details" class="personal_details_form" novalidate id="upload_form" enctype="multipart/form-data" method="post">
@@ -209,7 +219,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-12 col-sm-4">
-                                                <input type="hidden" id="employeeId">
+                                                <input type="hidden" id="employeeId" name="employeeId">
                                                 <label for="emplist" class="label">Designations</label>
                                                 <select class="form-control form-control-sm designations" name="designations">
                                                     @foreach($record as $row)
@@ -583,7 +593,7 @@
                 <a class="list-group-item list-group-item-action active" data-toggle="tab"
                     href="#profile" role="tab">Personal Details</a>
                 <a class="list-group-item list-group-item-action" data-toggle="tab" href="#messages"
-                    role="tab">Work Profile</a>
+                    role="tab" id="workTab">Work Profile</a>
                 <a class="list-group-item list-group-item-action" data-toggle="tab"
                     href="#add-permissoin" role="tab" style="pointer-events: none">Add Permission</a>
             </div>
@@ -613,12 +623,28 @@ $(document).ready(function () {
        contentType: false,
        cache: false,
        processData: false,
-       success:function(data)
+       success:function(response)
        {
-        $('#message').css('display', 'block');
-        $('#message').html(data.message);
-        $('#message').addClass(data.class_name);
-        $('#uploaded_image').html(data.uploaded_image);
+        if(response.status == 1) {
+            $(".alert-success").show();
+            $(".alert-danger").hide();
+            $("#successResponse").text(response.message);
+            //alert(response.dataV);
+            $("#employeeId").val(response.dataV);
+            //$("#workTab").unbind('click', false);
+            setTimeout(function(){
+                $(".alert-success").hide();
+            }, 1000);
+        }
+        else {
+            $(".alert-danger").show();
+            $(".alert-success").hide();
+            $("#errorResponse").text(response.message);
+            setTimeout(function(){
+                $(".alert-danger").hide();
+            }, 1000);
+        }
+        console.log( response );
        }
       })
      });
@@ -627,7 +653,7 @@ $(document).ready(function () {
       event.preventDefault();
       //console.log(new FormData(this));
       $.ajax({
-       url:'/admin/employee-store',
+       url:'/admin/employee-work',
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',

@@ -35,7 +35,7 @@ class EmployeeController extends Controller
     public function employeeAdd() {
         $status = 0;
         $message = "";
-        $record = [];
+        $record = 0;
         try {
             $services = new DesignationService();
             $responseArray = $services->getDesignation();
@@ -57,7 +57,7 @@ class EmployeeController extends Controller
         $fileName = request()->file('uploadphoto');
         $status = 0;
         $message = "";
-        $record = [];
+        $record = 0;
         try {
 
             $url = CurlFunction::getURL().'/api/auth/employee/store';
@@ -107,14 +107,19 @@ class EmployeeController extends Controller
             }
              
             $responseArray = json_decode($curlResponse, true);
-            dd($responseArray);
+            //dd($responseArray);
             if($responseArray['status']) {
                 $status = 1;
-                $record = $responseArray['data']['employee'];
-                //dd($record);
-                return view('pages.admin.employee-view')->with('record',$record);
+                //$record = $responseArray['data']['id'];
+                $record = 1;
             }
             $message = $responseArray['message'];
+            $response = [
+                'status' => $status,
+                'message' => $message,
+                'dataV' => $record
+            ];
+            return response()->json($response, 201);
 
         } catch(Exception $e) {
             $status = 0;
@@ -126,11 +131,67 @@ class EmployeeController extends Controller
             'message' => $message,
             'data' => $record
         ];
-
+        //dd($response);
         return redirect('/admin/employee');
+    }
 
+    public function employeeWork(Request $request) {
 
-        return view('pages.admin.employee-store');
+        $status = 0;
+        $message = "";
+        $record = [];
+        try {
+            $data = [
+                    'designation_id' => $request->designations,
+                    'experience' => $request->experience,
+                    'current_job_location' => $request->joblocation,
+                    'employeement_type' => $request->employement_type, 
+                    'language_known' => $request->languageKnown,
+                    'employee_id' => $request->employeeId
+            ];
+            $Data = json_encode($data, true);
+            $url = CurlFunction::getURL().'/api/auth/employee/work';
+            $headerValue = array(
+                'Content-Type: application/json',
+                'X-Requested-With: XMLHttpRequest',
+                'Access-Control-Allow-Origin: http://localhost'
+            );
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $Data);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);
+            $curlResponse = curl_exec($ch);
+            dd($curlResponse);
+            if(curl_errno($ch)) {
+                throw new Exception(curl_error($ch));
+            }
+            $responseArray = json_decode($curlResponse, true);
+            if($responseArray['status']) {
+                $status = 1;
+                //$record = $responseArray['data']['id'];
+                $record = 1;
+            }
+            $message = $responseArray['message'];
+            $response = [
+                'status' => $status,
+                'message' => $message
+            ];
+            return redirect('/admin/employee');
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+            dd($message);
+        }
+
+        $response = [
+            'status' => $status,
+            'message' => $message
+        ];
+        //dd($response);
+        return redirect('/admin/employee');
     }
 
     /**

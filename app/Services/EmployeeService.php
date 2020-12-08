@@ -49,12 +49,12 @@ class EmployeeService
         }
     }
 
-    public function storeEmployee($data){
+    public function employeeWork($data){
         try {
 
             $response = $this->client->request(
                 'POST',
-                '/auth/employee/store',
+                '/auth/employee/work',
                 [
                     'json'=>$data,
                     'headers' => [
@@ -66,9 +66,8 @@ class EmployeeService
                 ]
             );
 
-
             $response = $response->getBody()->getContents();
-
+            dd($response);
             $data = json_decode($response,true);
             return $data;
         }catch (\Exception $exception){

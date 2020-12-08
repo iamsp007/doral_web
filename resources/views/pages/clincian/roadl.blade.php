@@ -45,7 +45,7 @@
                                                 <li class="blood">
                                                     <img src="{{ asset('assets/img/icons/pressure.svg') }}"
                                                          class="mr-2" alt="">
-                                                    {!! $cvalue->reading_type !!} : {!! $cvalue->reading_value !!}
+                                                        {!! $cvalue->reading_type !!} : {!! $cvalue->reading_value !!}
                                                 </li>
                                             @endforeach
                                         @endif
@@ -66,6 +66,8 @@
                                         <li>
                                             @if($value->clincial_id===null)
                                                 <a href="{{ route('clinician.start.roadl',['patient_request_id'=>$value->id]) }}" class="btn btn-start-call">Start BroadCast<span></span></a>
+                                            @elseif($value->status==='complete')
+                                                <a href="{{ route('clinician.start.running',['patient_request_id'=>$value->id]) }}" class="btn btn-start-call">Running BroadCast<span></span></a>
                                             @else
                                                 <a href="{{ route('clinician.start.running',['patient_request_id'=>$value->id]) }}" class="btn btn-start-call">Running BroadCast<span></span></a>
                                             @endif

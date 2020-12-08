@@ -8,8 +8,8 @@ Route::post('/register','\App\Http\Controllers\Auth\ReferralRegisterController@r
 
 Route::group(['prefix'=>'/referral'],function (){
 //    \Illuminate\Support\Facades\Auth::routes();
-    Route::group(['middleware'=>['auth','check']],function (){
-        Route::get('/', function () {
+    Route::group(['middleware'=>['auth:referral','check']],function (){
+        Route::get('/dashboard', function () {
             return view('pages.referral.dashboard');
         })->name('referral.dashboard');
 

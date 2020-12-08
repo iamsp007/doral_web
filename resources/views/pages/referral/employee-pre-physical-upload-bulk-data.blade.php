@@ -3,34 +3,38 @@
 <div class="app-vbc">
     <div class="choose-file-type">
         <h1>Choose File Type</h1>
+        <form method="post" id="upload_form" enctype="multipart/form-data">
         <div class="category-type">
             <div class="box">
                 <figure>
-                    <img src="../assets/img/icons/demographic-files-icon.svg" class="iconSize" />
+                    <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
                 </figure>
-                <label>Demographic files</label>
+                <input type="radio" name='r1' value="1">Demographic files</input>
             </div>
             <div class="box">
                 <figure>
-                    <img src="../assets/img/icons/clinical-history.svg" class="iconSize" />
+                    <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
                 </figure>
-                <label>Clinical History</label>
+                <input type="radio" name='r1' value="2">Clinical History</input>
+                <!--<label>Clinical History</label>-->
             </div>
             <div class="box">
                 <figure>
-                    <img src="../assets/img/icons/order-due-dates-icon.svg" class="iconSize" />
+                    <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
                 </figure>
-                <label>Order Due Dates</label>
+                <input type="radio" name='r1' value="3">Order Due Dates</input>
+                <!---<label>Order Due Dates</label>-->
             </div>
             <div class="box">
                 <figure>
-                    <img src="../assets/img/icons/md-order-icon.svg" class="iconSize" />
+                    <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
                 </figure>
-                <label>MD Order</label>
+                <input type="radio" name='r1' value="4">MD Order</input>
+                <!--<label>MD Order</label>--->
             </div>
         </div>
         <div class="upload-your-files">
-            <form method="post" id="upload_form" enctype="multipart/form-data">
+            
             <h1>Upload your files</h1>
             <p>Upload from your computer (.xls, .xlsx, .csv,.pdf)</p>
             <div class="upload-files">
@@ -51,16 +55,20 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-pink mt-3 uploadFile">Upload Files</button>
-            </form>
+            
         </div>
+        </form>
         <div class="uploaded-file-listing">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h1 class="_t10">Uploaded files </h1>
                 </div>
                 <div>
-                    <select name="" class="form-control form-control-sm" id="">
-                        <option value="">Demographic Files</option>
+                    <select name="fileSelect" class="form-control form-control-sm" id="fileSelect">
+                        <option value="1">Demographic Files</option>
+                        <option value="2">Clinical History</option>
+                        <option value="3">Order Due Dates</option>
+                        <option value="4">MD Order</option>
                     </select>
                 </div>
             </div>
@@ -69,6 +77,7 @@
                     <tr>
                         <th><input type="checkbox" class="selectall" /></th>
                         <th>Patient Name</th>
+                        <th>File</th>
                         <th>Gender</th>
                         <th>Phone</th>
                         <th>City</th>
@@ -84,6 +93,17 @@
                     <tr>
                         <td><input type="checkbox" /></td>
                         <td class="text-green">{{$raw['first_name']}} {{$raw['middle_name']}} {{$raw['last_name']}}</td>
+                        <td>
+                            @if($raw['file_type'] == 1)
+                            Demographic files
+                            @elseif($raw['file_type'] == 2)
+                            Clinical History
+                            @elseif($raw['file_type'] == 3)
+                            Order Due Dates
+                            @elseif($raw['file_type'] == 3)
+                            MD Order
+                            @endif
+                        </td>
                         <td>{{$raw['gender']}}</td>
                         <td>{{$raw['phone1']}}</td>
                         <td>{{$raw['city']}}-{{$raw['state']}}</td>
@@ -132,6 +152,12 @@ $(document).ready(function () {
        }
       })
      });
+
+    $("#fileSelect").change(function(event) {
+        event.preventDefault();
+
+        alert($(this).val());
+    })
 
 });
 </script>   

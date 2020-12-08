@@ -222,11 +222,10 @@
                                                 <input type="hidden" id="employeeId" name="employeeId">
                                                 <label for="emplist" class="label">Designations</label>
                                                 <select class="form-control form-control-sm designations" name="designations">
-                                                    @foreach($record as $row)
-                                                        @foreach($row as $r)
-                                                        <option value="{{$r['id']}}">{{$r['name']}}</option>
-                                                        @endforeach
-                                                    @endforeach
+                                                    <option value="1">Nurse Practioner</option>
+                                                    <option value="2">Medical Assistant</option>
+                                                    <option value="3">Physician</option>
+                                                    <option value="4">Special assistant</option>
                                                 </select>
                                             </div>
                                             <div class="col-12 col-sm-4">

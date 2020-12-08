@@ -16,6 +16,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','check']],function (){
     Route::get('/employee', 'App\Http\Controllers\EmployeeController@index')->name('admin.employee');
     Route::get('/employee-add', 'App\Http\Controllers\EmployeeController@employeeAdd')->name('admin.employee-add');
     Route::post('/employee-store', 'App\Http\Controllers\EmployeeController@employeeStore')->name('admin.employee-store');
+    Route::post('/employee-work', 'App\Http\Controllers\EmployeeController@employeeWork')->name('admin.employee-work');
     Route::get('/employee-view/{id}', 'App\Http\Controllers\EmployeeController@profile')->name('admin.employee-view');
     Route::get('/employee-remove/{id}', 'App\Http\Controllers\EmployeeController@removeEmployee')->name('admin.employee-remove');
 

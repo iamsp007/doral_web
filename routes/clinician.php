@@ -13,6 +13,8 @@ Route::group(['prefix'=>'/clinician','middleware'=>'check'],function (){
         Route::get('/getNewPatientList','\App\Http\Controllers\Clincian\PatientController@getNewPatientList')->name('clinician.new.patientList.ajax');
         Route::get('/roadl','\App\Http\Controllers\Clincian\RoadLController@index')->name('clinician.roadl');
         Route::get('/start-roadl','\App\Http\Controllers\Clincian\RoadLController@startRoadLRequest')->name('clinician.start.roadl');
+        Route::get('/running-roadl/{patient_request_id}','\App\Http\Controllers\Clincian\RoadLController@runningRoadLRequest')->name('clinician.start.running');
         Route::post('/patient-request-list','\App\Http\Controllers\Clincian\RoadLController@getPatientRequestList')->name('clinician.roadl.patientRequestList');
+        Route::post('/patient-roladl-proccess','\App\Http\Controllers\Clincian\RoadLController@getRoadLProccess')->name('clinician.roadl.process');
     });
 });

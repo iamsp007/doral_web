@@ -10,7 +10,7 @@
                     <th>Fullname</th>
                     <th>DOB</th>
                     <!--<th>Blood Group</th>-->
-                    <th>Designation</th>
+                    <th>Role</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Permission</th>
@@ -26,16 +26,13 @@
                     <td>{{$raw['dob']}}</td>
                     <!--<td>B+</td>-->
                     <td>
-                        @if($raw['designation_id'] == 1)
-                        Nurse Practioner
-                        @elseif($raw['designation_id'] == 2)
-                        Medical Assistant
-                        @elseif($raw['designation_id'] == 3)
-                        Physician
-                        @elseif($raw['designation_id'] == 4)
-                        Special assistant
+                        @if($raw['role_id'] == 2)
+                        Admin
+                        @elseif($raw['role_id'] == 4)
+                        Co-ordinator
+                        @elseif($raw['role_id'] == 5)
+                        Supervisor
                         @endif
-                        
                     </td>
                     <td>{{$raw['email']}}</td>
                     <td>{{$raw['phone']}}</td>

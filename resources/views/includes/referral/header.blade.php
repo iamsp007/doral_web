@@ -63,14 +63,14 @@
 		@endif
 		{{ucfirst(str_replace("-", " ",Request::segment(2)))}}
 		@if(Request::segment(2) == 'employee-pre-physical' || Request::segment(2) == 'vbc' || Request::segment(2) == 'md-order')
-		- Total Patient Data(10)
+		- Total Patient Data
 		@endif
 	</div>
 	@if(Request::segment(2) == 'employee-pre-physical' || Request::segment(2) == 'employee-pre-physical-upload-bulk-data' || Request::segment(2) == 'vbc' || Request::segment(2) == 'vbc-upload-bulk-data' || Request::segment(2) == 'md-order' || Request::segment(2) == 'md-order-upload-bulk-data')
 	<div class="d-flex">
-        <a href="javascript:void(0)" class="single-upload-btn mr-2">
+        <!--<a href="javascript:void(0)" class="single-upload-btn mr-2">
             <img src="{{asset('assets/img/icons/single-upload-icon.svg')}}" class="icon mr-2" />
-            Single Upload</a>
+            Single Upload</a>-->
         @if(Request::segment(2) == 'employee-pre-physical')
         <a href="{{ route('referral.employee-pre-physical-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{asset('assets/img/icons/bulk-upload-icon.svg')}}" class="icon mr-2" />

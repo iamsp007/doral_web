@@ -58,7 +58,7 @@
             
         </div>
         </form>
-        <div class="uploaded-file-listing">
+        <!--<div class="uploaded-file-listing">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h1 class="_t10">Uploaded files (04)</h1>
@@ -108,7 +108,7 @@
                         <td>{{$raw['phone1']}}</td>
                         <td>{{$raw['city']}}-{{$raw['state']}}</td>
                         <td>{{$raw['Zip']}}</td>
-                        <td>{{ date('F d Y', strtotime($raw['created_at'])) }} <!--Sunday, 4 October 2020--></td>
+                        <td>{{ date('F d Y', strtotime($raw['created_at'])) }}</td>
                         <td class="text-green">Success</span></td>
                         <td width="9%"><a href="javascript:void(0)"><img
                                     src="{{asset('assets/img/icons/delete-icon.svg')}}"
@@ -119,7 +119,7 @@
                     @endif
                 </tbody>
             </table>
-        </div>
+        </div>-->
     </div>
 </div>
 <script>
@@ -147,6 +147,7 @@ $(document).ready(function () {
         $('#message').html(data.message);
         $('#message').addClass(data.class_name);
         $('#uploaded_image').html(data.uploaded_image);
+        window.location = "/referral/md-order";
        }
       })
      });

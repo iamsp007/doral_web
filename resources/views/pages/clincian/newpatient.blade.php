@@ -10,12 +10,14 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>Patient ID</th>
             <th>First Name</th>
+            <th>Middle Name</th>
             <th>Last Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
             <th>Gender</th>
-            <th>Date Of Birth</th>
+            <th>Address 1</th>
+            <th>Address 2</th>
+            <th>City</th>
             <th>Status</th>
             <th>Created At</th>
             <th width="280px">Action</th>
@@ -46,15 +48,17 @@
             serverSide: true,
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
-                {data:'referral_id',name:'referral_id',"bSortable": true},
+                {data:'id',name:'id',"bSortable": true},
+                {data:'patient_id',name:'patient_id',"bSortable": true},
                 {data:'first_name',name:'first_name',"bSortable": true},
+                {data:'middle_name',name:'middle_name',"bSortable": true},
                 {data:'last_name',name:'last_name',"bSortable": true},
-                {data:'detail.email',name:'detail.email',"bSortable": true},
-                {data:'detail.phone',name:'detail.phone',"bSortable": true},
-                {data:'detail.gender',name:'detail.gender',"bSortable": true},
-                {data:'detail.dob',name:'detail.dob',"bSortable": true},
-                {data:'detail.status',name:'detail.status',"bSortable": true},
-                {data:'detail.created_at',name:'detail.created_at',"bSortable": true},
+                {data:'gender',name:'gender',"bSortable": true},
+                {data:'address_1',name:'address_1',"bSortable": true},
+                {data:'address_2',name:'address_2',"bSortable": true},
+                {data:'city',name:'city',"bSortable": true},
+                {data:'status',name:'status',"bSortable": true},
+                {data:'created_at',name:'created_at',"bSortable": true},
                 {data:'action',name:'action',"bSortable": true}
             ],
             "order": [[ 0, "desc" ]]

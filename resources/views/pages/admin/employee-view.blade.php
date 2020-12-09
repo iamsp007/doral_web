@@ -119,7 +119,17 @@
                             <ul class="form-data">
                                 <li>
                                     <label class="label">Designation:</label>
-                                    <p class="t5">{{$record[0]['designation_id']}}</p>
+                                    <p class="t5">
+                                        @if($record[0]['designation_id'] == 1)
+                                        Nurse Practioner
+                                        @elseif($record[0]['designation_id'] == 2)
+                                        Medical Assistant
+                                        @elseif($record[0]['designation_id'] == 3)
+                                        Physician
+                                        @elseif($record[0]['designation_id'] == 4)
+                                        Special assistant
+                                        @endif
+                                    </p>
                                 </li>
                                 
                                 <li>
@@ -147,7 +157,17 @@
                             </div>
                             <div class="user-info">
                                 <h1 class="title">{{ $record[0]['first_name']}} {{ $record[0]['last_name'] }}</h1>
-                                <p>Software Destroyer</p>
+                                <p>
+                                    @if($record[0]['designation_id'] == 1)
+                                    Nurse Practioner
+                                    @elseif($record[0]['designation_id'] == 2)
+                                    Medical Assistant
+                                    @elseif($record[0]['designation_id'] == 3)
+                                    Physician
+                                    @elseif($record[0]['designation_id'] == 4)
+                                    Special assistant
+                                    @endif
+                                </p>
                                 <p>{{$record[0]['state']}} - {{$record[0]['country']}}</p>
                             </div>
                         </div>

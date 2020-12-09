@@ -107,7 +107,7 @@ class EmployeeController extends Controller
             }
              
             $responseArray = json_decode($curlResponse, true);
-            dd($responseArray);
+            //dd($responseArray);
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data']['Employee_id'];
@@ -142,7 +142,7 @@ class EmployeeController extends Controller
         $record = [];
         try {
             $data = [
-                    'designation_id' => $request->designations,
+                    'role_id' => $request->role_id,
                     'experience' => $request->experience,
                     'current_job_location' => $request->joblocation,
                     'employeement_type' => $request->employement_type, 
@@ -163,7 +163,7 @@ class EmployeeController extends Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, $Data);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);
             $curlResponse = curl_exec($ch);
-            dd($curlResponse);
+            //dd($curlResponse);
             if(curl_errno($ch)) {
                 throw new Exception(curl_error($ch));
             }
@@ -183,7 +183,7 @@ class EmployeeController extends Controller
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
-            dd($message);
+            //dd($message);
         }
 
         $response = [

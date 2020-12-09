@@ -220,12 +220,11 @@
                                         <div class="row">
                                             <div class="col-12 col-sm-4">
                                                 <input type="hidden" id="employeeId" name="employeeId">
-                                                <label for="emplist" class="label">Designations</label>
-                                                <select class="form-control form-control-sm designations" name="designations">
-                                                    <option value="1">Nurse Practioner</option>
-                                                    <option value="2">Medical Assistant</option>
-                                                    <option value="3">Physician</option>
-                                                    <option value="4">Special assistant</option>
+                                                <label for="emplist" class="label">Role</label>
+                                                <select class="form-control form-control-sm designations" name="role_id">
+                                                    <option value="2">Admin</option>
+                                                    <option value="4">Co-ordinator</option>
+                                                    <option value="5">Supervisor</option>
                                                 </select>
                                             </div>
                                             <div class="col-12 col-sm-4">

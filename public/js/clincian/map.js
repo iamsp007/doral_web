@@ -1,8 +1,17 @@
 var base_url = $('#base_url').val();
-socket.on('receive-location', function (data) {
-console.log(data,"receive-location")
+
+const markers = [];
+
+Socket.on("connection", socket => {
+    for(let i = 0; i < markers.length; i++) {
+        socket.emit("send-location", markers[i]);
+    }
+    socket.on("send-location", data => {
+        markers.push(data);
+        socket.emit("send-location", data);
+    });
 });
-socket.emit('send-location', { latitude: '15.552255',longitude: '16.055222' });
+
 var patient_request_id = $('#patient_request_id').val();
 // Initialize and add the map
 function getRoadLProcess(callback) {

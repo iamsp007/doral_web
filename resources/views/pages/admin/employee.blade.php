@@ -10,7 +10,7 @@
                     <th>Fullname</th>
                     <th>DOB</th>
                     <!--<th>Blood Group</th>-->
-                    <th>Designation</th>
+                    <th>Role</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Permission</th>

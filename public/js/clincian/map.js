@@ -188,6 +188,12 @@ function initMap(postLatLng=null) {
         getRoadLProcess((locations,origin,destination)=>{
             console.log(locations,origin,destination)
             if (locations.length>0){
+                if (origin===''){
+                    origin = locations[0].lat+','+locations[0].lng;
+                }
+                if (destination===''){
+                    destination = locations[locations.length-1].lat+','+locations[locations.length-1].lng;
+                }
                 // var origin = locations[0].lat+','+locations[0].lng;
                 // var destination = locations[2].lat+','+locations[2].lng;
                 // origin = locations[0].lat+','+locations[0].lng;

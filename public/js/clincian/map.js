@@ -6,42 +6,40 @@ var base_url = $('#base_url').val();
 var patient_request_id = $('#patient_request_id').val();
 // Initialize and add the map
 function getRoadLProcess(callback) {
-    setInterval(function () {
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url:base_url+'clinician/patient-roladl-proccess',
-            data:{
-                patient_request_id:patient_request_id
-            },
-            method:'POST',
-            dataType:'json',
-            success:function (response) {
-                var origin='';
-                var destination='';
-                var locations=[];
-                response.map( (resp)=> {
-                    if (resp.status==='start'){
-                        origin=resp.latitude+', '+resp.longitude
-                    }else if (resp.status==='complete'){
-                        destination=resp.latitude+', '+resp.longitude;
-                    }else {
-                        locations.push( {
-                            location:resp.latitude+', '+resp.longitude,
-                            lat:resp.latitude,
-                            lng:resp.longitude,
-                            lable:resp.status
-                        })
-                    }
-                });
-                callback(locations,origin,destination)
-            },
-            error:function (error) {
-                console.log(error)
-            }
-        })
-    },10000)
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:base_url+'clinician/patient-roladl-proccess',
+        data:{
+            patient_request_id:patient_request_id
+        },
+        method:'POST',
+        dataType:'json',
+        success:function (response) {
+            var origin='';
+            var destination='';
+            var locations=[];
+            response.map( (resp)=> {
+                if (resp.status==='start'){
+                    origin=resp.latitude+', '+resp.longitude
+                }else if (resp.status==='complete'){
+                    destination=resp.latitude+', '+resp.longitude;
+                }else {
+                    locations.push( {
+                        location:resp.latitude+', '+resp.longitude,
+                        lat:resp.latitude,
+                        lng:resp.longitude,
+                        lable:resp.status
+                    })
+                }
+            });
+            callback(locations,origin,destination)
+        },
+        error:function (error) {
+            console.log(error)
+        }
+    })
 }
 var postLatLong={ lat: 25.552255, lng:  69.552255 };
 

@@ -65,12 +65,11 @@
                                     <!-- Submit Btn -->
                                     <button type="submit" class="btn btn-primary btn-pink btn-block"
                                             name="signup" id="login">{{ __('Login') }}</button>
-                                    @if (Route::has('register'))
-                                        <div class="d-flex align-items-center justify-content-center mt-2 t3">New
-                                            here?<a href="{{ route('register') }}" class="ml-2 underline">Create Doral
-                                                Account</a></div>
-                                    @endif
+                                       
                                 </form>
+                                <div class="d-flex align-items-center justify-content-center mt-2 t3">New
+                                            here?<a href="{{ route('referral.register') }}" class="ml-2 underline">Create Referral
+                                                Account</a></div>     
                             </div>
                         </div>
                     </div>

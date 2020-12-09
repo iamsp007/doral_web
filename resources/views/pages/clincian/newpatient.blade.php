@@ -16,7 +16,6 @@
             <th>Last Name</th>
             <th>Gender</th>
             <th>Address 1</th>
-            <th>Address 2</th>
             <th>City</th>
             <th>Status</th>
             <th>Created At</th>
@@ -55,7 +54,6 @@
                 {data:'last_name',name:'last_name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
                 {data:'address_1',name:'address_1',"bSortable": true},
-                {data:'address_2',name:'address_2',"bSortable": true},
                 {data:'city',name:'city',"bSortable": true},
                 {data:'status',name:'status',"bSortable": true},
                 {data:'created_at',name:'created_at',"bSortable": true},

@@ -31,7 +31,15 @@
                 @foreach($record['companies'] as $raw)
                 <tr>
                     <td><input type="checkbox"></td>
-                    <td>{{$raw['referal_id']}}</td>
+                    <td>
+                        @if($raw['referal_id'] == 1)
+                        Insurance
+                        @elseif($raw['referal_id'] == 2)
+                        Home Care
+                        @elseif($raw['referal_id'] == 3)
+                        Others
+                        @endif
+                    </td>
                     <td>{{$raw['name']}}</td>
                     <td>{{$raw['email']}}</td>
                     <td>

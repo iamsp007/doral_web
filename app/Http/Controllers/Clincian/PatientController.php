@@ -53,7 +53,7 @@ class PatientController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row){
 
-                if ($row->detail->status==='pending'){
+                if ($row->status==='pending'){
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->patient_id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm" onclick="changePatientStatus(this,1)">Accept</a>';
 
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->patient_id.'" data-original-title="Delete" class="btn btn-danger btn-sm" onclick="changePatientStatus(this,0)">Reject</a>';

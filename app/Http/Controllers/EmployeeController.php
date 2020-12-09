@@ -107,7 +107,7 @@ class EmployeeController extends Controller
             }
              
             $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
+            dd($responseArray);
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data']['Employee_id'];

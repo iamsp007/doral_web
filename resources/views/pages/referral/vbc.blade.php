@@ -30,7 +30,7 @@
                     Clinical History
                     @elseif($raw['file_type'] == 3)
                     Order Due Dates
-                    @elseif($raw['file_type'] == 3)
+                    @elseif($raw['file_type'] == 4)
                     MD Order
                     @endif
                 </td>

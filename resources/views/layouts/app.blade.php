@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.min.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>{{ config('app.name', 'Welcome to Doral') }}</title>
+    <title>{{ config('app.name', 'Doral Health Connect') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -28,8 +28,8 @@
                 <div class="block">
                     <div>
                         <!-- Logo Start -->
-                        <a href="/" title="{{ config('app.name', 'Laravel') }}"  class="logo">
-                            <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}">
+                        <a href="/" title="{{ config('app.name', 'Doral Health Connect') }}"  class="logo">
+                            <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Doral Health Connect" srcset="{{ asset('assets/img/logo-white.svg') }}">
                         </a>
                         <!-- Logo End -->
                     </div>

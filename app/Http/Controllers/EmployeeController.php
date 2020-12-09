@@ -142,7 +142,7 @@ class EmployeeController extends Controller
         $record = [];
         try {
             $data = [
-                    'designation_id' => $request->designations,
+                    'role_id' => $request->role_id,
                     'experience' => $request->experience,
                     'current_job_location' => $request->joblocation,
                     'employeement_type' => $request->employement_type, 

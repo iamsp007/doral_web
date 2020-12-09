@@ -18,7 +18,7 @@
                         <div class="mid">
                             <div class="p50">
                                 <h1 class="t2"><img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
-                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('Login')}}</h1>
+                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('Doral Login')}}</h1>
                                 <form method="POST" action="{{ route('login') }}" class="mt-4 pt-2" id="loginForm">
                                     @csrf
                                     @if($errors->any())
@@ -32,7 +32,7 @@
                                         <div class="d-flex justify-content-between">
                                             <label for="username" class="label">Username</label>
                                         </div>
-                                        <input type="text" class="form-control form-control-lg" id="username"
+                                        <input autocomplete="off" type="text" class="form-control form-control-lg" id="username"
                                                name="email" aria-describedby="emailHelp">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -50,7 +50,7 @@
                                                    class="t3 forgot">{{ __('Forgot') }}</a>
                                             @endif
                                         </div>
-                                        <input type="password" class="form-control form-control-lg" id="password"
+                                        <input autocomplete="off" type="password" class="form-control form-control-lg" id="password"
                                                name="password">
                                         @error('password')
                                         <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
@@ -65,7 +65,7 @@
                                     <!-- Submit Btn -->
                                     <button type="submit" class="btn btn-primary btn-pink btn-block"
                                             name="signup" id="login">{{ __('Login') }}</button>
-                                    @if (Route::has('register'))
+                                    @if (Route::has('/login'))
                                         <div class="d-flex align-items-center justify-content-center mt-2 t3">New
                                             here?<a href="{{ route('register') }}" class="ml-2 underline">Create Doral
                                                 Account</a></div>

@@ -25,7 +25,18 @@
                     <td class="text-green">{{$raw['first_name']}} {{$raw['last_name']}} </td>
                     <td>{{$raw['dob']}}</td>
                     <!--<td>B+</td>-->
-                    <td>{{$raw['designation_id']}}</td>
+                    <td>
+                        @if($raw['designation_id'] == 1)
+                        Nurse Practioner
+                        @elseif($raw['designation_id'] == 2)
+                        Medical Assistant
+                        @elseif($raw['designation_id'] == 3)
+                        Physician
+                        @elseif($raw['designation_id'] == 4)
+                        Special assistant
+                        @endif
+                        
+                    </td>
                     <td>{{$raw['email']}}</td>
                     <td>{{$raw['phone']}}</td>
                     <td>{{$raw['employeement_type']}}</td>

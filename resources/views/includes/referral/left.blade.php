@@ -13,6 +13,9 @@
     <li><a class="{{ \Request::is('referral/vbc')?'active':'' }} nav" href="{{ route('referral.vbc') }}">VBC <span class="dot"></span></a></li>
     <li><a class="{{ \Request::is('referral/md-order')?'active':'' }} nav" href="{{ route('referral.md-order') }}">MD Order <span class="dot"></span></a></li>
     <li><a class="{{ \Request::is('referral/employee-pre-physical')?'active':'' }} nav" href="{{ route('referral.employee-pre-physical') }}">Employee Pre-Physical<span class="dot"></span></a></li>
+   
+
+
     <li>
         <a href="{{ url('logout') }}" class="nav"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
@@ -22,3 +25,6 @@
         </form>
     </li>
 </ul>
+
+<li><a class="{{ \Request::is('referral/employee-pre-physical')?'active':'' }} nav" href="{{ route('referral.employee-pre-physical') }}">Employee Pre-Physical<span class="dot"></span></a></li>
+

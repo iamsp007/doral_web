@@ -158,14 +158,12 @@
                             <div class="user-info">
                                 <h1 class="title">{{ $record[0]['first_name']}} {{ $record[0]['last_name'] }}</h1>
                                 <p>
-                                    @if($record[0]['designation_id'] == 1)
-                                    Nurse Practioner
-                                    @elseif($record[0]['designation_id'] == 2)
-                                    Medical Assistant
-                                    @elseif($record[0]['designation_id'] == 3)
-                                    Physician
-                                    @elseif($record[0]['designation_id'] == 4)
-                                    Special assistant
+                                    @if($record[0]['role_id'] == 2)
+                                    Admin
+                                    @elseif($record[0]['role_id'] == 4)
+                                    Co-ordinator
+                                    @elseif($record[0]['role_id'] == 5)
+                                    Supervisor
                                     @endif
                                 </p>
                                 <p>{{$record[0]['state']}} - {{$record[0]['country']}}</p>

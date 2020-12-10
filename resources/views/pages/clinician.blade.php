@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="stylesheet" href="../assets/css/fonts/Montserrat.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/style.min.css">
-    <link rel="stylesheet" href="../assets/css/caregiver.min.css">
-    <link rel="stylesheet" href="../assets/css/responsive.min.css">
-    <link rel="stylesheet" href="../assets/css/tail.select-default.min.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/caregiver.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <title>Doral Health Connect | Caregiver</title>
 </head>
@@ -23,8 +23,8 @@
                 <div>
                     <!-- Logo Start -->
                     <a href="../landing/index.html" title="Welcome to Doral"  class="logo">
-                        <img src="../assets/img/logo-white.svg" alt="Welcome to Doral"
-                            srcset="../assets/img/logo-white.svg">
+                        <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral"
+                            srcset="{{ asset('assets/img/logo-white.svg') }}">
                     </a>
                     <!-- Logo End -->
                 </div>
@@ -50,6 +50,8 @@
                                         <!-- Patient Name -->
                                         <div class="form-group">
                                                 <label for="patient_name" class="label">Patient Name:</label>
+                                                <input type="hidden" value="1" name="patientId" id="patientId">
+                                                <input type="hidden" value="caregiver/2" name="url" id="url">
                                                 <p class="t5">John Doe</p>
                                         </div>
                                         <!-- Generated Time -->
@@ -91,7 +93,7 @@
                                  <div class="form-group">
                                     <label class="label">what are the symptoms you see:</label>
                                     <div class="input-group-prepend mr-2">
-                                        <select class="select" multiple id="department">
+                                        <select class="select" multiple id="department" name="department">
                                             <option>Is patient sweating Heavy?</option>
                                             <option>Is patient complaining lightheadedness or Vomiting?</option>
                                             <option>Is Patient Head hurts?</option>
@@ -116,13 +118,13 @@
         </div>
     </section>
     <!-- Middle Section End -->
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <script src="../assets/js/jquery.validate.min.js"></script>
-    <script src="../assets/js/login.min.js"></script>
-    <script src="../assets/js/tail.select-full.min.js"></script>
-    <script src="../assets/js/app.common.min.js"></script>
-    <script src="../assets/js/app.clinician.caregiver.min.js"></script>
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/login.min.js') }}"></script>
+    <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app.clinician.caregiver.min.js') }}"></script>
     <script>
         $(document).ready(function () {
 
@@ -133,28 +135,29 @@
             });
 
             $("#caregiverResponse").click(function () {
-                window.location = "http://doralhealthconnect.com";
-//                var response = $("#response").val();
-//                $.ajax({
-//                    method: 'POST',
-//                    url: '/caregiverResponseSubmit',
-//                    data: {response},
-//                    success: function (response) {
-//                        if (response.status == 1) {
-//                            window.location = "/";
-//                        } else {
-//                            $(".alert").show();
-//                            $("#response").text(response.message);
-//                            setTimeout(function () {
-//                                $(".alert").hide();
-//                            }, 1000);
-//                        }
-//                        console.log(response);
-//                    },
-//                    error: function (e) {
-//                        console.log(e);
-//                    }
-//                });
+                var patientId = $("#patientId").val();
+                var actionTaken = $("#department").val();
+                var url = $("#url").val();
+                   $.ajax({
+                    method: 'POST',
+                    url: '/caregiverResponseSubmit',
+                    data: {patientId, actionTaken, url},
+                    success: function (response) {
+                        if (response.status == 1) {
+                            window.location = "/";
+                        } else {
+                            $(".alert").show();
+                            $("#response").text(response.message);
+                            setTimeout(function () {
+                                $(".alert").hide();
+                            }, 1000);
+                        }
+                        console.log(response);
+                    },
+                       error: function (e) {
+                        console.log(e);
+                    }
+                });
 
             });
 

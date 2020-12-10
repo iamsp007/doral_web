@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Models\CurlModel\CurlFunction;
 
 class AppointmentController extends Controller
 {
@@ -14,7 +15,28 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $status = 0;
+        $message = "";
+        $record = [];
+        try {
+            print_r($_SESSION);exit;
+            $apiToken = session('token');
+            dd($apiToken);
+            $url = CurlFunction::getURL().'/api/auth/appointment';
+            $curlResponse = CurlFunction::withTokenGet($url, $apiToken);
+            $responseArray = json_decode($curlResponse, true);
+            //dd($responseArray);
+            if($responseArray['status']) {
+                $status = 1;
+                $record = $responseArray['data'];
+            }
+            $message = $responseArray['message'];
+
+        } catch(\Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
+        return View('pages.admin.employee')->with('record',$record);
         return view('calendar');
     }
 
@@ -25,7 +47,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.appoinment.create');
     }
 
     /**

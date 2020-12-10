@@ -27,15 +27,11 @@
                     </div>
                     <div class="modal-body">
                         <p>Add the <code>.modal-lg</code> class on <code>.modal-dialog</code> to create this large modal.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">OK</button>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>
-
+        
         @yield('content')
     </section>
     <!-- Middle Section End -->

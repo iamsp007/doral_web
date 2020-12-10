@@ -59,10 +59,9 @@ class LoginController extends Controller
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
-
             return $this->sendLockoutResponse($request);
         }
-        $request->merge(['status'=>$request->email]);
+        $request->merge(['status'=>'active']);
         if ($this->attemptLogin($request)) {
             cache(['USERNAME' => $request->email]);
             cache(['PASSWORD'=>$request->password]);

@@ -70,6 +70,9 @@ a:hover{text-decoration:none}
 .sidenav::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 2px rgba(0,0,0,0.3);box-shadow:inset 0 0 2px rgba(0,0,0,0.3);border-radius:100px;background-color:var(--secondary-color)}
 .sidenav::-webkit-scrollbar{width:5px;background-color:var(--secondary-color)}
 .sidenav::-webkit-scrollbar-thumb{border-radius:100px;-webkit-box-shadow:inset 0 0 2px rgba(0,0,0,.3);box-shadow:inset 0 0 2px rgba(0,0,0,.3); background: linear-gradient(55deg, #0daaa0 0%, #1ebfd1 51%, #2898c0 85%);}
+.detail::-webkit-scrollbar-track{border-radius:100px;background-color:#ECECEC}
+.detail::-webkit-scrollbar{width:3px;height: 10px;background-color:#ECECEC;margin-left: 5px;}
+.detail::-webkit-scrollbar-thumb{border-radius:100px;background-color:var(--black)}
 /* Scrollbar Style */
 /* animation Style */
 @-webkit-keyframes bell-shake {from {-webkit-transform: scale3d(1, 1, 1);transform: scale3d(1, 1, 1);}10%,20% {-webkit-transform: scale3d(.95, .95, .95) rotate3d(0, 0, 1, -10deg);transform: scale3d(.95, .95, .95) rotate3d(0, 0, 1, -10deg);}30%,50%,70%,90% {-webkit-transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, 10deg);transform: scale3d(1, 1, 1) rotate3d(0, 0, 1, 10deg);}40%,60%,80% {-webkit-transform: rotate3d(0, 0, 1, -10deg);transform: rotate3d(0, 0, 1, -10deg);}to {-webkit-transform: scale3d(1, 1, 1);transform: scale3d(1, 1, 1);}}
@@ -215,9 +218,9 @@ small{font-size:12px}
 .app .app-content .app-header-block .app-header .navbar-toggler-icon{display:inline-block;width:inherit;height:inherit;vertical-align:inherit;content:"";background:no-repeat center center;background-size:100% 100%}
 .white{color:var(--white)}
 #closeMenu{cursor:pointer}
-.app .app-content .app-title-box{width:calc(100% - 14.5rem);position:fixed;z-index:1;right:0;top:59px;padding:10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;-webkit-box-shadow:0 0 8px 0 rgba(0,0,0,0.35);-moz-box-shadow:0 0 8px 0 rgba(0,0,0,0.35);box-shadow:0 0 8px 0 rgba(0,0,0,0.35);}
+.app .app-content .app-title-box{width:calc(100% - 14.5rem);position:fixed;z-index:1;right:0;top:59px;padding:10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;  box-shadow: 0px 2px 4px rgba(100,100,100,0.2);}
 .app .app-content .app-title-box .app-title{color:var(--sidebar-color);font-size:16px;font-weight:600;padding:4px 0;margin:0;display:flex;justify-content: flex-start;align-items: center;animation: 2.75s ease-in-out 1 normal both running fadeIn;}
-.app .app-content .app-body{padding:7.5rem 1rem 1rem;margin:0;overflow-x: hidden;animation: 2s ease-in-out 1 normal both running fadeInUp;}
+.app .app-content .app-body{padding:7.5rem 1rem 1rem;margin:0;overflow-x: hidden;animation: 2s ease-in-out 1 normal both running fadeInUp;height: 100vh;}
 .app .dropdown-menu{z-index:1.0E+19!important}
 .app .app-content .app-body .app-card{border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #d0d0d0;display:block;background-color:#fff;min-height:160px}
 .app .app-content .app-body .app-card .app-card-body{display:flex;justify-content:space-between}
@@ -500,12 +503,12 @@ small{font-size:12px}
 .app .app-content .app-body .patient-details-content .tab-content .app-card{border-radius: 4px;box-shadow: none !important;border:none}
 .app .app-content .app-body .patient-details-content .tab-content .card-header {font-size: 16px;font-weight: 500;background-color: rgb(255 255 255 / 3%)!important;color: var(--secondary-color);padding: 0;}
 .app .app-content .app-body .patient-details-content .tab-content  hr{background-color: #22d4e4;    margin: 12px 0;}
-.app .app-content .app-body .patient-details-content .tab-content .circle-icon{width: 40px;height: 40px;border: 1px solid #e4e4e4;border-radius: 50%;line-height: 40px;text-align: center;font-size: 21px;color:#006c76;margin-right: 10px;}
-.app .app-content .app-body .patient-details-content .tab-content .circle-icon:hover{border: 1px solid #006c76;font-size: 23px;}
+.app .app-content .app-body .patient-details-content .tab-content .circle-icon{width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;line-height: 40px;text-align: center;font-size: 21px;color:#00B9C9;margin-right: 10px;background: #f8f8f8;}
+.app .app-content .app-body .patient-details-content .tab-content .circle-icon:hover{border: 1px solid #006c76;font-size: 23px;color:#006c76}
 .app .app-content .app-body .patient-details-content .tab-content .card-header ._icon{width: 40px;border: 1px solid #e4e4e4;border-radius: 50%;padding: 6px;}
 .app .app-content .app-body .patient-details-content .tab-content .card-header ._icon:hover{border: 1px solid #006c76;padding: 4px;}
-.app .app-content .app-body .patient-details-content .tab-content ._title{font-size: 12px;color: #adadad;line-height: 13px;margin-bottom: 6px;}
-.app .app-content .app-body .patient-details-content .tab-content ._detail{font-size: 14px;color: var(--secondary-color);line-height: 20px;    text-align: justify;}
+.app .app-content .app-body .patient-details-content .tab-content ._title{font-size: 11px;color: #505050;margin-bottom: 6px;font-weight:500}
+.app .app-content .app-body .patient-details-content .tab-content ._detail{font-size: 14px;color: var(--secondary-color);text-align: justify;font-weight:600}
 .app .app-content .app-body .patient-details-content .tab-content ._detail span{font-weight: 600;}
 .app .app-content .app-body .patient-details-content .tab-content .card-body{padding: 0;}
 .patient-profile-title{color: var(--black);font-size: 14px;font-weight: 600;margin-bottom: 15px;margin-top: 35px;}
@@ -513,3 +516,204 @@ small{font-size:12px}
 /* Modal popup css Start */
 .modal-header .modal-title{font-size: 1.25rem!important;}
 /* Modal popup css End */
+/* Clinician Dashboard page css Start */
+.app .app-content .app-body .app-clinician-dashboard{margin:10px 10px 0 10px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-nav{display: flex;flex-wrap: wrap;padding-left: 0;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-nav li a{margin-right: 10px;padding: 0 12px;border-bottom: 1px solid #009FAD;display: block;line-height: 25px;font-size: 12px;font-weight: 400;color: #009FAD; box-sizing: border-box;transition: .4s;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-nav li a:hover{background-color: #FFECEF;border-radius: 3px;border-bottom:none;color:#FC0023;font-weight: 500;animation: 0.75s ease-in-out 1 normal both running fadeIn;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-nav li a.active{background-color: #FFECEF;border-radius: 3px;border-bottom:none;color:#FC0023;font-weight: 500;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content{padding: 20px 0;animation: 2s ease-in-out 1 normal both running fadeInUp;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .tab-pane{animation: 2.75s ease-in-out 1 normal both running fadeIn;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail{background-color: #FC0023;border-radius: 15px;text-align: center;box-shadow: 0px 2px 15px #e0e0e0;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .img-50{width:50px;border-radius:50%;border: 2px solid #FFFFFF;overflow: hidden;margin:0 auto}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .patient-name{margin-top: 10px;color: #fff;font-weight: 600;font-size: 14px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .emergency-detail{background-color: #fff;border-radius: 15px;border: 1px solid rgba(255, 0, 0, 0.3);}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .emergency-detail .title{font-size: 12px;color: #000000;font-weight: 600;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .emergency-detail .counts{font-size: 13px;color: #FC0023;font-weight: 600;line-height: 20px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl ul{display: flex;justify-content: space-between;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl ul li{width: 200px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .emergency-detail .roadl-btn{border-radius:4px;border:solid 1px #FC0023;font-size:14px;color:var(--secondary-color);font-weight:700;text-align:center;text-transform:uppercase;margin-top:10px;display: block;padding: 7px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .emergency-detail .roadl-btn:hover{background-color: #FC0023;color:#fff;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .emergency-detail .roadl-btn span{color:  #FC0023;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .emergency-detail .roadl-btn:hover span{color:  #fff;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .request-roadl .patient-detail .p-20{padding: 20px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports{border-radius: 15px;box-shadow: 0px 2px 10px #cbcbcb;margin-top: 20px;border: solid 1px #a0a0a0;display: flex;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .nav{padding-right: 20px;display: block;padding:20px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .reports-nav li a{border-radius:10px;border:solid 1px #eaeaea;font-size:13px;color:#000;font-weight:500;text-align:center;display: block;padding: 7px;display: flex;align-items: center;width: 200px;margin-bottom: 10px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .reports-nav li a.active {color:var(--secondary-color);font-weight: 600;border:solid 1px var(--secondary-color);}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .reports-nav li a:hover {color:var(--secondary-color);font-weight: 600;border:solid 1px var(--secondary-color);}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .reports-nav .img-20{width: 20px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content{border-left:solid 1px #a0a0a0;border-radius: 10px 0 0 10px;padding: 20px 20px 20px 30px;width:100%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .reports-title{color: #000000;font-weight: 400;font-size: 17px;padding-bottom: 15px;}
+/* level 3 */
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail{height: 276px;overflow-y: scroll;padding-right: 5px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-3{border-radius:4px;border:solid 2px #fc0023;padding: 7px 8px;display: flex;align-items: center;margin-bottom: 8px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-3 .img-30{width:30px;height: 30px;border-radius:50%;overflow: hidden;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-3 .patient-name{color: #fc0023;font-weight: 500;font-size: 14px;padding-left: 10px;width: 24%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-3 .title{font-size: 11px;color: #fc0023;font-weight: 500;width: 35%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-3 .Level-3-btn{height: 25px;border-radius:4px;border:solid 1px #FC0023;background-color: #FC0023;font-size:14px;color:var(--white);font-weight:600;text-align:center;text-transform:uppercase;display: block;width: 92px;height: 25px;line-height: 25px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-3 .Level-3-btn:hover{background-color: #fff;color:#FC0023;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-3 .level3-btn{height: 25px;border-radius:4px;border:solid 1px #FC0023;background-color: #FC0023;font-size:12px;color:var(--white);font-weight:600;text-align:center;text-transform:uppercase;display: block;padding: 0 12px;margin-left: 8px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-3 .level3-btn:hover{background-color: #fff;color:#FC0023;}
+/* level 2 */
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-2{border-radius:4px;border:solid 2px #f99f2c;padding: 7px 8px;display: flex;align-items: center;margin-bottom: 8px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-2 .img-30{width:30px;height: 30px;border-radius:50%;overflow: hidden;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-2 .patient-name{color: #f99f2c;font-weight: 500;font-size: 14px;padding-left: 10px;width: 24%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-2 .title{font-size: 11px;color: #f99f2c;font-weight: 500;width: 35%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-2 .Level-2-btn{height: 25px;border-radius:4px;border:solid 1px #ffcb6c;background-color: #ffcb6c;font-size:14px;color:var(--black);font-weight:600;text-align:center;text-transform:uppercase;display: block;width: 92px;height: 25px;line-height: 25px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-2 .Level-2-btn:hover{background-color: #fff;color:#000;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-2 .level2-btn{height: 25px;border-radius:4px;border:solid 1px #f99f2c;background-color: #f99f2c;font-size:12px;color:var(--white);font-weight:600;text-align:center;text-transform:uppercase;display: block;padding: 0 12px;margin-left: 8px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-2 .level2-btn:hover{background-color: #fff;color:#f99f2c;}
+/* level  */
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-1{border-radius:4px;border:solid 2px #FFCB6C;padding: 7px 8px;display: flex;align-items: center;margin-bottom: 8px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-1 .img-30{width:30px;height: 30px;border-radius:50%;overflow: hidden;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-1 .patient-name{color: #FFCB6C;font-weight: 500;font-size: 14px;padding-left: 10px;width: 24%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-1 .title{font-size: 11px;color: #FFCB6C;font-weight: 500;width: 35%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-1 .Level-1-btn{height: 25px;border-radius:4px;border:solid 1px #FFCB6C;background-color: #FFCB6C;font-size:14px;color:var(--black);font-weight:600;text-align:center;text-transform:uppercase;display: block;width: 92px;height: 25px;line-height: 25px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-1 .Level-1-btn:hover{background-color: #fff;color:#000;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-1 .level1-btn{height: 25px;border-radius:4px;border:solid 1px #FFCB6C;background-color: #FFCB6C;font-size:12px;color:var(--white);font-weight:600;text-align:center;text-transform:uppercase;display: block;padding: 0 12px;margin-left: 8px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .Level-1 .level1-btn:hover{background-color: #fff;color:#FFCB6C;}
+/* elevated */
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .elevated{border-radius:4px;border:solid 2px #FFDA46;padding: 7px 8px;display: flex;align-items: center;margin-bottom: 8px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .elevated .img-30{width:30px;height: 30px;border-radius:50%;overflow: hidden;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .elevated .patient-name{color: #FFDA46;font-weight: 500;font-size: 14px;padding-left: 10px;width: 24%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .elevated .title{font-size: 11px;color: #FFDA46;font-weight: 500;width: 61%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .elevated .elevated-btn{height: 25px;border-radius:4px;border:solid 1px #FFDA46;background-color: #FFDA46;font-size:14px;color:var(--black);font-weight:600;text-align:center;text-transform:uppercase;display: block;width: 92px;height: 25px;line-height: 25px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .elevated .elevated-btn:hover{background-color: #fff;color:#000;}
+/* normal */
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .normal{border-radius:4px;border:solid 2px #A5BC39;padding: 7px 8px;display: flex;align-items: center;margin-bottom: 8px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .normal .img-30{width:30px;height: 30px;border-radius:50%;overflow: hidden;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .normal .patient-name{color: #A5BC39;font-weight: 500;font-size: 14px;padding-left: 10px;width: 24%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .normal .title{font-size: 11px;color: #A5BC39;font-weight: 500;width: 61%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .normal .normal-btn{height: 25px;border-radius:4px;border:solid 1px #D3E09A;background-color: #D3E09A;font-size:14px;color:var(--black);font-weight:600;text-align:center;text-transform:uppercase;display: block;width: 92px;height: 25px;line-height: 25px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .reports .content .detail .normal .normal-btn:hover{background-color: #fff;color:#000;}
+/* Appointment */
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment{border-radius: 15px;box-shadow: 0px 2px 10px #cbcbcb;margin-top: 20px;border: solid 1px #a0a0a0;display: flex;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .appointment-date-calender{width: 350px;padding: 20px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content{border-left:solid 1px #a0a0a0;border-radius: 10px 0 0 10px;padding: 20px 20px 20px 30px;width:100%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .appointment-title{color: #006C76;font-weight: 600;font-size: 17px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .appointment-date{color: #006C76;font-weight: 600;font-size: 14px;text-align: right;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail{height : 270px;overflow-y: scroll;padding-right: 5px;}
+/* appointment detail */ 
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block{border-radius:4px;border:solid 1px #a0a0a0;padding: 7px 8px;display: flex;align-items: center;margin-bottom: 8px;justify-content: space-between; box-shadow: 0px 2px 5px #f0f0f0;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .img-30{width:30px;height:30px;border-radius:50%;overflow: hidden;border:solid 1px #f0f0f0;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .patient-name{color: #323232;font-weight: 600;font-size: 14px;padding-left: 8px;width: 19%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .title{font-size: 12px;color: #353030;font-weight: 600;width: 36%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .title span{color: var(--secondary-color);}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .timing{font-size: 12px;color: #0c122a;font-weight: 600;display: flex;align-items: center;width: 20%;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .timing .clock{color: var(--secondary-color);font-weight: 600;margin-right: 3px;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .patient-chart-btn{height: 25px;border-radius:4px;border:solid 1px var(--secondary-color);background-color: #ffffff;font-size:12px;color:var(--secondary-color);font-weight:600;text-align:center;display: block;padding: 0 12px;margin-left: 8px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .patient-chart-btn:hover{background-color:  var(--secondary-color);color:#ffffff;}
+/* complete-televisit */
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card {border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #ACACAC;display:block;background-color:#fff;min-height:auto;}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body{display:flex;justify-content:space-between;padding:20px;}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body .left-side{width:calc(100% - 80px);}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body .left-side ._t1{font-size:12px;font-weight:600;color:#515151}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body .left-side ._t1 span{color:#0E7500;}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body .left-side ._t2{font-size:50px;font-weight:600;color:#0E7500;margin-top: 4px;}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body .left-side .view-btn{height: 30px;border-radius:4px;border:solid 1px #0E7500;font-size:12px;color:#0E7500;background-color: #fff;font-weight:600;text-align:center;display: block;padding: 0 10px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body .left-side .view-btn:hover{background-color: #0E7500;color:#fff}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body .right-side{display:flex;align-items:center;justify-content:center;}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body .right-side .bg-circle{width: 80px;height: 80px;border: 1px solid #e2e2e2;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
+.app .app-content .app-body .app-clinician-dashboard .complete-televisit .app-card .app-card-body .right-side .bg-circle img{width:50px;position: absolute;}
+/* Upcoming Appointment */
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card {border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #ACACAC;display:block;background-color:#fff;min-height:auto;}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body{display:flex;justify-content:space-between;padding:20px;}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body .left-side{width:calc(100% - 80px);}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body .left-side ._t1{font-size:12px;font-weight:600;color:#515151}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body .left-side ._t1 span{color:#0039E6;}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body .left-side ._t2{font-size:50px;font-weight:600;color:#0039E6;margin-top: 4px;}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body .left-side .view-btn{height: 30px;border-radius:4px;border:solid 1px #0039E6;font-size:12px;color:#0039E6;background-color: #fff;font-weight:600;text-align:center;display: block;padding: 0 10px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body .left-side .view-btn:hover{background-color: #0039E6;color:#fff}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body .right-side{display:flex;align-items:center;justify-content:center;}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body .right-side .bg-circle{width: 80px;height: 80px;border: 1px solid #e2e2e2;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
+.app .app-content .app-body .app-clinician-dashboard .upcoming-apt .app-card .app-card-body .right-side .bg-circle img{width:50px;position: absolute;}
+/* Cancel Televisit */
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card {border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #ACACAC;display:block;background-color:#fff;min-height:auto;}
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card .app-card-body{display:flex;justify-content:space-between;padding:20px;}
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card .app-card-body .left-side{width:calc(100% - 80px);}
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card .app-card-body .left-side ._t1{font-size:12px;font-weight:600;color:#515151}
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card .app-card-body .left-side ._t2{font-size:50px;font-weight:600;color:#C91100;margin-top: 4px;}
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card .app-card-body .left-side .view-btn{height: 30px;border-radius:4px;border:solid 1px #C91100;font-size:12px;color:#C91100;background-color: #fff;font-weight:600;text-align:center;display: block;padding: 0 10px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card .app-card-body .left-side .view-btn:hover{background-color: #C91100;color:#fff}
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card .app-card-body .right-side{display:flex;align-items:center;justify-content:center;}
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card .app-card-body .right-side .bg-circle{width: 80px;height: 80px;border: 1px solid #e2e2e2;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
+.app .app-content .app-body .app-clinician-dashboard .cnl-televisit .app-card .app-card-body .right-side .bg-circle img{width:50px;position: absolute;}
+/* Case Management: RPM */
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card {border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #ACACAC;display:block;background-color:#fff;min-height:auto;}
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card .app-card-body{display:flex;justify-content:space-between;padding:20px;}
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card .app-card-body .left-side{width:calc(100% - 80px);}
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card .app-card-body .left-side ._t1{font-size:12px;font-weight:600;color:#515151}
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card .app-card-body .left-side ._t2{font-size:50px;font-weight:600;color:#9F299F;margin-top: 4px;}
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card .app-card-body .left-side .view-btn{height: 30px;border-radius:4px;border:solid 1px #9F299F;font-size:12px;color:#9F299F;background-color: #fff;font-weight:600;text-align:center;display: block;padding: 0 10px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card .app-card-body .left-side .view-btn:hover{background-color: #9F299F;color:#fff}
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card .app-card-body .right-side{display:flex;align-items:center;justify-content:center;}
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card .app-card-body .right-side .bg-circle{width: 80px;height: 80px;border: 1px solid #e2e2e2;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
+.app .app-content .app-body .app-clinician-dashboard .cm-rpm .app-card .app-card-body .right-side .bg-circle img{width:50px;position: absolute;}
+/* Case Management: CCM */
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card {border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #ACACAC;display:block;background-color:#fff;min-height:auto;}
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card .app-card-body{display:flex;justify-content:space-between;padding:20px;}
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card .app-card-body .left-side{width:calc(100% - 80px);}
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card .app-card-body .left-side ._t1{font-size:12px;font-weight:600;color:#515151}
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card .app-card-body .left-side ._t2{font-size:50px;font-weight:600;color:#AD4800;margin-top: 4px;}
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card .app-card-body .left-side .view-btn{height: 30px;border-radius:4px;border:solid 1px #AD4800;font-size:12px;color:#AD4800;background-color: #fff;font-weight:600;text-align:center;display: block;padding: 0 10px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card .app-card-body .left-side .view-btn:hover{background-color: #AD4800;color:#fff}
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card .app-card-body .right-side{display:flex;align-items:center;justify-content:center;}
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card .app-card-body .right-side .bg-circle{width: 80px;height: 80px;border: 1px solid #e2e2e2;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
+.app .app-content .app-body .app-clinician-dashboard .cm-ccm .app-card .app-card-body .right-side .bg-circle img{width:50px;position: absolute;}
+/* Waiting Room */
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card {border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #ACACAC;display:block;background-color:#fff;min-height:auto;}
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card .app-card-body{display:flex;justify-content:space-between;padding:20px;}
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card .app-card-body .left-side{width:calc(100% - 80px);}
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card .app-card-body .left-side ._t1{font-size:12px;font-weight:600;color:#515151}
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card .app-card-body .left-side ._t2{font-size:50px;font-weight:600;color:#FF0C6C;margin-top: 4px;}
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card .app-card-body .left-side .view-btn{height: 30px;border-radius:4px;border:solid 1px #FF0C6C;font-size:12px;color:#FF0C6C;background-color: #fff;font-weight:600;text-align:center;display: block;padding: 0 10px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card .app-card-body .left-side .view-btn:hover{background-color: #FF0C6C;color:#fff}
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card .app-card-body .right-side{display:flex;align-items:center;justify-content:center;}
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card .app-card-body .right-side .bg-circle{width: 80px;height: 80px;border: 1px solid #e2e2e2;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
+.app .app-content .app-body .app-clinician-dashboard .waiting-room .app-card .app-card-body .right-side .bg-circle img{width:50px;position: absolute;}
+/* Insurance Expired */
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card {border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #ACACAC;display:block;background-color:#fff;min-height:auto;}
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card .app-card-body{display:flex;justify-content:space-between;padding:20px;}
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card .app-card-body .left-side{width:calc(100% - 80px);}
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card .app-card-body .left-side ._t1{font-size:12px;font-weight:600;color:#515151}
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card .app-card-body .left-side ._t2{font-size:50px;font-weight:600;color:#555555;margin-top: 4px;}
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card .app-card-body .left-side .view-btn{height: 30px;border-radius:4px;border:solid 1px #FF104B;font-size:12px;color:#FF104B;background-color: #fff;font-weight:600;text-align:center;display: block;padding: 0 10px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card .app-card-body .left-side .view-btn:hover{background-color: #FF104B;color:#fff}
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card .app-card-body .right-side{display:flex;align-items:center;justify-content:center;}
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card .app-card-body .right-side .bg-circle{width: 80px;height: 80px;border: 1px solid #e2e2e2;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
+.app .app-content .app-body .app-clinician-dashboard .ins-expired .app-card .app-card-body .right-side .bg-circle img{width:50px;position: absolute;}
+/* signature */
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card{box-shadow:none;border:none;min-height:auto;}
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card .app-card-body{display:flex;justify-content:space-between;padding:20px;box-shadow:none;border:none;}
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card .app-card-body .left-side{width:calc(100% - 80px);}
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card .app-card-body .left-side ._t1{font-size:12px;font-weight:600;color:#515151}
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card .app-card-body .left-side ._t2{font-size:50px;font-weight:600;color:#555555;margin-top: 4px;}
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card .app-card-body .left-side .view-btn{height: 30px;border-radius:4px;border:solid 1px #FF104B;font-size:12px;color:#FF104B;background-color: #fff;font-weight:600;text-align:center;display: block;padding: 0 10px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card .app-card-body .left-side .view-btn:hover{background-color: #FF104B;color:#fff}
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card .app-card-body .right-side{display:flex;align-items:center;justify-content:center;}
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card .app-card-body .right-side .bg-circle{width: 80px;height: 80px;border: 1px solid #e2e2e2;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
+.app .app-content .app-body .app-clinician-dashboard .signature .auth-signature .app-card .app-card-body .right-side .bg-circle img{width:50px;position: absolute;}
+/* New Signature */
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card{box-shadow:none;border:none;min-height:auto;background-color: #FFFEF2;}
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card .app-card-body{display:flex;justify-content:space-between;padding:20px;}
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card .app-card-body .left-side{width:calc(100% - 80px);}
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card .app-card-body .left-side ._t1{font-size:12px;font-weight:600;color:#515151}
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card .app-card-body .left-side ._t2{font-size:50px;font-weight:600;color:#555555;margin-top: 4px;}
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card .app-card-body .left-side .view-btn{height: 30px;border-radius:4px;border:solid 1px #FF104B;font-size:12px;color:#FF104B;background-color: #fff;font-weight:600;text-align:center;display: block;padding: 0 10px;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card .app-card-body .left-side .view-btn:hover{background-color: #FF104B;color:#fff}
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card .app-card-body .right-side{display:flex;align-items:center;justify-content:center;}
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card .app-card-body .right-side .bg-circle{width: 80px;height: 80px;border: 1px solid #e2e2e2;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;background-color: #FFF;}
+.app .app-content .app-body .app-clinician-dashboard .signature .new-signature .app-card .app-card-body .right-side .bg-circle img{width:50px;position: absolute;}
+.app .app-content .app-body .app-clinician-dashboard .signature{border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #ACACAC;display:block;background-color:#fff;min-height:auto;}
+.app .app-content .app-body .app-clinician-dashboard .effect:hover .app-card .app-card-body .left-side ._t1{opacity: 0;animation: fadeInUp 1s ease-in-out 0s forwards;animation-delay: 1s;}
+.app .app-content .app-body .app-clinician-dashboard .effect:hover .app-card .app-card-body .left-side ._t2{opacity: 0;animation: fadeInUp 1s ease-in-out 0s forwards;animation-delay: 2s;}
+.app .app-content .app-body .app-clinician-dashboard .effect:hover .app-card .app-card-body .left-side .view-btn{opacity: 0;animation: fadeInUp 1s ease-in-out 0s forwards;animation-delay: 3s;}
+.app .app-content .app-body .app-clinician-dashboard .effect:hover .app-card .app-card-body .right-side .bg-circle{border: 1px solid #0E7500;animation: 1s ease-in-out 1 normal both running fadeIn;}
+.app .app-content .app-body .app-clinician-dashboard .effect:hover .app-card .app-card-body .right-side .bg-circle img{animation: 2.75s ease-in-out 1 normal both running fadeIn;}
+/* Clinician Dashboard page css End */
+@keyframes slide{0%{transform: translate3d(0, 0, 0);}100%{transform: translate3d(-1692px, 0, 0);}}
+._card{padding: 0;margin:0;border:1px solid #d8d8d8;border-radius:5px;}
+._card ._card_header{padding:10px;font-weight:500;font-size:13px;border-bottom:1px solid #d8d8d8;display:flex;justify-content: space-between;align-items: center;background-color: #fcfcfc;border-radius:5px;}
+._card ._card_body{padding:10px;font-size:12px;}
+._insurance_company{font-weight:600;color:var(--sidebar-color)}

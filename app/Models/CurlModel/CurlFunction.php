@@ -10,7 +10,7 @@ class CurlFunction
     {
 
         if (strpos(request()->getHost(), '127.0.0.1') !== false) {
-            return 'http://127.0.0.1:8000';
+            return 'http://127.0.0.1:8001';
         } else if (strpos(request()->getHost(), 'doralhealthconnect.com') !== false) {
             return 'http://api.doralhealthconnect.com';
         } else {

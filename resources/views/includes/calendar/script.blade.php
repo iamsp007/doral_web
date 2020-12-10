@@ -114,34 +114,32 @@
                 }
             },
             select: function(start, end, allDay) {
-                var title = prompt('Event Title:');
 
-                if (title) {
-                    var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
+                var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
+                var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
 
-                    $.ajax({
-                        url: "{{ route('appointment.create') }}",
-                        //data: 'title=' + title + '&start=' + start + '&end=' + end,
-                        type: "get",
-                        success: function(data) {
-                            $("#largeModal .modal-body").html(data);
-                            $("#largeModal .modal-title").html("Book Appoinment");
-                            //displayMessage("Added Successfully");
-                            //$('#calendar').fullCalendar('removeEvents');
-                            //$('#calendar').fullCalendar('refetchEvents');
-                            $("#largeModal").modal("show");
-                        }
-                    });
-                    calendar.fullCalendar('renderEvent', {
-                            title: title,
-                            start: start,
-                            end: end,
-                            allDay: allDay
-                        },
-                        true
-                    );
-                }
+                $.ajax({
+                    url: "{{ route('appointment.create') }}",
+                    //data: 'title=' + title + '&start=' + start + '&end=' + end,
+                    type: "get",
+                    success: function(data) {
+                        $("#largeModal .modal-body").html(data);
+                        $("#largeModal .modal-title").html("Book Appoinment");
+                        //displayMessage("Added Successfully");
+                        //$('#calendar').fullCalendar('removeEvents');
+                        //$('#calendar').fullCalendar('refetchEvents');
+                        $("#largeModal").modal("show");
+                    }
+                });
+                calendar.fullCalendar('renderEvent', {
+                        title: title,
+                        start: start,
+                        end: end,
+                        allDay: allDay
+                    },
+                    true
+                );
+
                 calendar.fullCalendar('unselect');
             },
             eventDrop: function(event, delta) {

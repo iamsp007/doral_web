@@ -36,7 +36,6 @@ class AppointmentController extends Controller
             $status = 0;
             $message = $e->getMessage();
         }
-        return View('pages.admin.employee')->with('record',$record);
         return view('calendar');
     }
 

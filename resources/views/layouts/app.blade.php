@@ -36,7 +36,7 @@
                     <div>
                         @guest
                             @if(\Request::is('provider/login'))
-                                <a href="{{ route('referral.register') }}" class="text-uppercase sign-up">{{ __('SIGN UN') }} <img
+                                <a href="{{ route('login') }}" class="text-uppercase sign-up">{{ __('DORAL SIGN IN') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @elseif(\Request::is('referral/register'))
@@ -44,11 +44,11 @@
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @elseif(\Request::is('register'))
-                                <a class="text-uppercase sign-up" href="{{ route('referral.login') }}">{{ __('SIGN IN') }} <img
+                                <a class="text-uppercase sign-up" href="{{ route('referral.login') }}">{{ __('REFERRAL SIGN IN') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @elseif(\Request::is('login'))
-                                <a class="text-uppercase sign-up" href="{{ route('referral.register') }}">{{ __('SIGN UN') }} <img
+                                <a class="text-uppercase sign-up" href="{{ route('referral.login') }}">{{ __('REFERRAL SIGN IN') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @endif

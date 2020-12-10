@@ -20,7 +20,7 @@
         </a>
         <ul class="sub collapse" id="products">
             <li>
-                <a class="{{ \Request::is('admin/referral-approval')?'active':'' }} _nav" href="{{ route('admin.referral.approval') }}">Approval <span class="dot"></span></a>
+                <a class="{{ \Request::is('admin/referral-approval')?'active':'' }} _nav" href="{{ route('admin.referral.approval') }}">Approval Request<span class="dot"></span></a>
             </li>
             <li>
                 <a class="{{ \Request::is('admin/referral-active')?'active':'' }} _nav" href="{{ route('admin.referral.active') }}">Active <span class="dot"></span></a>

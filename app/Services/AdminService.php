@@ -76,7 +76,7 @@ class AdminService
         }
     }
 
-    public function updatestatus($data){
+    public function updatestatus($data) {
         try {
 
             $response = $this->client->request(
@@ -95,6 +95,32 @@ class AdminService
 
 
             $response = $response->getBody()->getContents();
+            $data = json_decode($response,true);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function getProfile($type){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/company/show/'.$type,
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+
             $data = json_decode($response,true);
             return $data;
         }catch (\Exception $exception){

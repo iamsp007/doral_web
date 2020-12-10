@@ -1,304 +1,191 @@
 @extends('layouts.admin.default')
 @section('content')
-<div class="app-roles">
-    
-    <div class="pt-2">
-        <div class="roles-block">
-            <div class="tab-content">
-                <div class="tab-pane active" id="profile" role="tabpanel">
-                    <div class="card">
-                        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
-                            <strong>Success!</strong> <span id="successResponse"></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
+<div class="row">
+    <div class="col-12 col-sm-5">
+        <div class="accordion" id="profileAccordion">
+            <!-- Perfosnal Information Start Here -->
+            <div class="app-card" style="min-height: auto;">
+                <div class="card-header pt-3 pb-3" id="step1">
+                    <div class="d-flex justify-content-between" data-toggle="collapse" data-target="#collapseInfo" aria-expanded="true"
+                        aria-controls="collapseInfo">
+                        Personal Information
+                        <i class="las la-plus"></i>
+                    </div>
+                </div>
+                <div class="card-body collapse" id="collapseInfo" aria-labelledby="collapseInfo"
+                    data-parent="#profileAccordion">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <ul class="form-data">
+                                <li>
+                                    <label class="label">First Name:</label>
+                                    <p class="t5">{{$record[0]['first_name']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Date of Birth:</label>
+                                    <p class="t5">{{$record[0]['dob']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Address:</label>
+                                    <p class="t5">{{$record[0]['address1']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">State/Province:</label>
+                                    <p class="t5">{{$record[0]['state']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Country:</label>
+                                    <p class="t5">{{$record[0]['country']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Primary No:</label>
+                                    <p class="t5">{{$record[0]['phone']}} </p>
+                                </li>
+                                <li>
+                                    <label class="label">Marital Status:</label>
+                                    <p class="t5">{{$record[0]['marital_status']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Blood Group:</label>
+                                    <p class="t5">{{$record[0]['blood_group']}}</p>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
-                            <strong>Error!</strong> <span id="errorResponse"></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="card-header card-header-2">Personal Details</div>
-                        <div class="card-body">
-                            <form name="personal_details" class="personal_details_form" novalidate id="upload_form" enctype="multipart/form-data" method="post">
-                                
-                                <div class="form-group">
-                                    <div class="row">
-                                        <!-- First Name -->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="firstname" class="label">First Name</label>
-                                            <input type="text" class="form-control fname" id="firstname"
-                                                value="" name="firstname"
-                                                aria-describedby="firstnameHelp">
-                                            <div class="invalid-feedback d-none"></div>
-                                        </div>
-                                        <!-- Last Name -->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="lastname" class="label">Last Name</label>
-                                            <input type="text" class="form-control lname" id="lastname"
-                                                value="" name="lastname"
-                                                aria-describedby="lastnameHelp">
-                                            <div class="invalid-feedback d-none"></div>
-                                        </div>
-                                        <!-- Date Of Birth -->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="dob" class="label">Date of Birth</label>
-                                            <input type="text" class="form-control" id="dob"
-                                                name="dob" aria-describedby="dobHelp">
-                                            <div class="invalid-feedback d-none"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-4">
-                                            <label for="gender" class="label">Gender</label>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio"
-                                                    id="maleRadio" value="Male" name="gender">
-                                                <label class="form-check-label"
-                                                    for="maleRadio">Male</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio"
-                                                    id="femaleRadio" value="Female" name="gender">
-                                                <label class="form-check-label"
-                                                    for="femaleRadio">Female</label>
-                                            </div>
-                                            <div class="invalid-feedback d-none"></div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <label for="address" class="label">Address</label>
-                                            <input type="text" class="form-control" id="address"
-                                                value="" name="address" aria-describedby="address">
-                                            <div class="invalid-feedback d-none"></div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <label for="address" class="label">City</label>
-                                            <input type="text" class="form-control" id="city" value=""
-                                                name="city" aria-describedby="city">
-                                            <div class="invalid-feedback d-none"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group">
-                                    <div class="row">
-                                        <!-- State/Province -->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="stateprovince"
-                                                class="label">State/Province</label>
-                                            <input type="text" class="form-control" id="stateprovince"
-                                                name="stateprovince"
-                                                aria-describedby="stateprovinceHelp" value="">
-                                            <small id="stateprovinceHelp"
-                                                class="form-text text-muted mt-2">Assistive
-                                                Text</small>
-                                        </div>
-                                        <!-- Zip/Postal Code -->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="zipcode" class="label">Zip/Postal
-                                                Code</label>
-                                            <input type="text" class="form-control" id="zipcode"
-                                                name="zipcode" aria-describedby="zipcodeHelp" value="">
-                                            <small id="zipcodeHelp"
-                                                class="form-text text-muted mt-2">Assistive
-                                                Text</small>
-                                        </div>
-                                        <!--Country-->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="country_list" class="label">Country</label>
-                                            <select class="form-control country_list" name="country" id="country">
-                                                <option>India</option>
-                                                <option>USA</option>
-                                                <option>UK</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <!--Home Telephone-->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="hometelephone" class="label">Home
-                                                Telephone</label>
-                                            <input type="text" class="form-control" id="hometelephone"
-                                                name="hometelephone"
-                                                aria-describedby="hometelephoneHelp">
-                                        </div>
-                                        <!--Mobile-->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="mobile" class="label">Primary No</label>
-                                            <input type="text" class="form-control" id="mobile"
-                                                name="mobile" aria-describedby="mobileHelp">
-                                        </div>
-                                        <!--Work Telephone-->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="worktelephone" class="label">Alternate
-                                                No</label>
-                                            <input type="text" class="form-control" id="worktelephone"
-                                                name="worktelephone"
-                                                aria-describedby="worktelephoneHelp">
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <!--Email-->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="nationality" class="label">Email</label>
-                                            <input type="text" class="form-control" id="email"
-                                                name="email"
-                                                aria-describedby="emailHelp">
-                                        </div>
-                                        <!--Marital Status-->
-                                        <div class="col-12 col-sm-4">
-                                            <label for="maritalstatus" class="label">Marital
-                                                Status</label>
-                                            <select class="form-control marital_status"
-                                                name="marital_status" id="marital_status">
-                                                <option value="Married">Married</option>
-                                                <option value="Un-Married">Un-Married</option>
-                                            </select>
-                                            <small id="maritalstatusHelp"
-                                                class="form-text text-muted mt-2">Assistive
-                                                Text</small>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
-                                            <label for="bloodtypeId" class="label">Blood
-                                                Group</label>
-                                            <select class="form-control blood_group" name="blood_group"
-                                                id="blood_group">
-                                                <option value="" disabled>-- Select --</option>
-                                                <option>A+</option>
-                                                <option>B+</option>
-                                                <option>O</option>
-                                                <option>O+</option>
-                                            </select>
-                                            <small id="bloodtypeIdHelp"
-                                                class="form-text text-muted mt-2">Assistive
-                                                Text</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <label for="uploadphoto" class="label">Upload Your
-                                                Photo</label>
-                                            <input type="file" class="form-control"
-                                                style="height: inherit;" id="uploadphoto"
-                                                name="uploadphoto" aria-describedby="uploadphoto">
-                                            <div class="invalid-feedback d-none"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <button type="submit" class="btn btn-primary btn-sm btn-pink mr-2"
-                                    name="save_next">Save & Next</button>
-                                <button type="button" class="btn btn-secondary btn-sm text-uppercase"
-                                    name="cancel">Cancel</button>
-                            </form>
+                        <div class="col-12 col-sm-6">
+                            <ul class="form-data">
+                                <li>
+                                    <label class="label">Last Name:</label>
+                                    <p class="t5">{{$record[0]['last_name']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Gender:</label>
+                                    <p class="t5">{{$record[0]['gender']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">City:</label>
+                                    <p class="t5">{{$record[0]['city']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Zip/Postal Code:</label>
+                                    <p class="t5">{{$record[0]['zip']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Home Telephone:</label>
+                                    <p class="t5">{{$record[0]['home_phone']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Alternate No:</label>
+                                    <p class="t5">{{$record[0]['alternate_phone']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Email:</label>
+                                    <p class="t5">{{$record[0]['email']}}</p>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <!-- Personal Details End -->
-                <!-- Contact Details Start-->
-                <div class="tab-pane" id="messages" role="tabpanel">
-                    <div class="role_space">
-                        <div class="card">
-                            <div class="card-header card-header-2">Work Profile</div>
-                            <div class="card-body">
+            </div>
+            <!-- Perfosnal Information End Here -->
+            <!-- Work Profile Start Here -->
+            <div class="app-card mt-2" style="min-height: auto;">
+                <div class="card-header pt-3 pb-3" id="step2">
+                    <div class="d-flex justify-content-between" data-toggle="collapse" data-target="#collapseWork" aria-expanded="true"
+                        aria-controls="collapseOne">
+                        Work Profile
+                        <i class="las la-plus"></i>
+                    </div>
+                </div>
+                <div class="card-body collapse show" id="collapseWork" aria-labelledby="collapseWork"
+                    data-parent="#profileAccordion">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <ul class="form-data">
+                                <li>
+                                    <label class="label">Current Job Location:</label>
+                                    <p class="t5">{{$record[0]['current_job_location']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Language Known:</label>
+                                    <p class="t5">{{$record[0]['language_known']}}</p>
+                                </li>
+                                <li>
+                                    <label class="label">Employment type:</label>
+                                    <p class="t5">{{$record[0]['employeement_type']}}</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <ul class="form-data">
+                                <li>
+                                    <label class="label">Role:</label>
+                                    <p class="t5">
+                                        @if($record[0]['role_id'] == 2)
+                                        Admin
+                                        @elseif($record[0]['role_id'] == 4)
+                                        Co-ordinator
+                                        @elseif($record[0]['role_id'] == 5)
+                                        Supervisor
+                                        @endif
+                                    </p>
+                                </li>
                                 
-                                    <form novalidate id="upload_work_form" method="post">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-4">
-                                                <input type="hidden" id="employeeId" name="employeeId">
-                                                <label for="emplist" class="label">Role</label>
-                                                <select class="form-control form-control-sm designations" name="role_id">
-                                                    <option value="2">Admin</option>
-                                                    <option value="4">Co-ordinator</option>
-                                                    <option value="5">Supervisor</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-12 col-sm-4">
-                                                <label for="twk" class="label">Total Work
-                                                    Experience</label>
-                                                <select class="form-control form-control-sm emplist" name="experience">
-                                                    @for($i=0; $i<=40; $i++)
-                                                    <option value="{{$i}}">{{$i}}</option>
-                                                    @endfor
-                                            
-                                                </select>
-                                            </div>
-                                            <div class="col-12 col-sm-4">
-                                                <label for="clist" class="label">Current Job
-                                                    Location</label>
-                                                <select class="form-control form-control-sm clist" name="joblocation">
-                                                    <option>United State </option>
-                                                    <option>India</option>
-                                                    <option>London</option>
-                                                </select>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-4">
-                                                <label for="emplist" class="label">Employment
-                                                    type</label>
-                                                <select class="form-control form-control-sm emplist" name="employement_type">
-                                                    <option>Full-time</option>
-                                                    <option>Part-time</option>
-                                                    <option>Self-employed</option>
-                                                    <option>Freelance</option>
-                                                    <option>Contract</option>
-                                                    <option>Internship</option>
-                                                    <option>Apprenticeship</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-12 col-sm-4">
-                                                <label for="LanguageKnown" class="label">Language
-                                                    Known</label>
-                                                <select
-                                                    class="form-control form-control-sm LanguageKnown" name="languageKnown">
-                                                    <option>Hindi</option>
-                                                    <option>English</option>
-                                                    <option>Gujarati</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-12 col-sm-4"></div>
-                                            
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-sm btn-pink mr-2"
-                                        name="save">Save</button>
-                                    <button type="submit"
-                                        class="btn btn-secondary btn-sm text-uppercase"
-                                        name="cancel2">Cancel</button>
-                                    </form>    
+                                <li>
+                                    <label class="label">Total Work Experience:</label>
+                                    <p class="t5">{{$record[0]['experience']}}</p>
+                                </li>
                                 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Work Profile End Here -->
+        </div>
+    </div>
+    <div class="col-12 col-sm-7">
+        <div class="row">
+            <div class="col-12">
+                <div class="app-card">
+                    <div class="user-photo">
+                        <div class="userContent">
+                            <div>
+                                <img src="{{asset('assets/img/user/01.png') }}" class="user_photo" alt=""
+                                    srcset="{{asset('assets/img/user/01.png') }}">
+                            </div>
+                            <div class="user-info">
+                                <h1 class="title">{{ $record[0]['first_name']}} {{ $record[0]['last_name'] }}</h1>
+                                <p>
+                                    @if($record[0]['role_id'] == 2)
+                                    Admin
+                                    @elseif($record[0]['role_id'] == 4)
+                                    Co-ordinator
+                                    @elseif($record[0]['role_id'] == 5)
+                                    Supervisor
+                                    @endif
+                                </p>
+                                <p>{{$record[0]['state']}} - {{$record[0]['country']}}</p>
                             </div>
                         </div>
                     </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <button type="submit" class="btn btn-primary btn-sm btn-pink"
+                                name="save_next">Edit
+                                Profle</button>
+                        </div>
+                    </div>
                 </div>
-                <!-- Contact Details End-->
-                <!-- Add Permissions Start Here -->
-                <div class="tab-pane" id="add-permissoin" role="tabpanel">
-                    <div class="role_space">
-                        <h1 class="user-title">Assigned Roles to Shashikant Parmar</h1>
-                        <div class="row accordion_block">
+                <!-- Permission Start Here -->
+                <div class="app-card mt-4" style="min-height: auto;">
+                    <div class="card-header pt-3 pb-3">
+                        Permissions
+                    </div>
+                    <div class="card-body">
+                        <div class="row accordion gutter">
                             <div class="col-12 col-sm-4">
                                 <div class="card user-role-card role-card">
-                                    <div class="card-header" id="headingZero">
+                                    <div class="card-header user-card-header" id="headingZero">
                                         <div
                                             class="custom-control custom-checkbox custom-control-header">
                                             <input type="checkbox" class="custom-control-input"
@@ -393,7 +280,7 @@
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="card user-role-card role-card-2">
-                                    <div class="card-header" id="headingTwo">
+                                    <div class="card-header user-card-header" id="headingTwo">
                                         <div
                                             class="custom-control custom-checkbox custom-control-header">
                                             <input type="checkbox" class="custom-control-input"
@@ -488,7 +375,7 @@
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="card user-role-card role-card-3">
-                                    <div class="card-header" id="headingThird">
+                                    <div class="card-header user-card-header" id="headingThird">
                                         <div
                                             class="custom-control custom-checkbox custom-control-header">
                                             <input type="checkbox" class="custom-control-input"
@@ -584,91 +471,9 @@
                         </div>
                     </div>
                 </div>
-            <!--</form>-->
-                <!-- Add Permissions End Here -->
-            </div>
-            <div class="list-group" id="myList" role="tablist">
-                <a class="list-group-item list-group-item-action active" data-toggle="tab"
-                    href="#profile" role="tab">Personal Details</a>
-                <a class="list-group-item list-group-item-action" data-toggle="tab" href="#messages"
-                    role="tab" id="workTab">Work Profile</a>
-                <a class="list-group-item list-group-item-action" data-toggle="tab"
-                    href="#add-permissoin" role="tab" style="pointer-events: none">Add Permission</a>
+                <!-- Permission End Here -->
             </div>
         </div>
     </div>
-
 </div>
-
-<script>
-$(document).ready(function () {
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-
-    $('#upload_form').on('submit', function(event){
-      event.preventDefault();
-      //console.log(new FormData(this));
-      $.ajax({
-       url:'/admin/employee-store',
-       method:"POST",
-       data:new FormData(this),
-       dataType:'JSON',
-       contentType: false,
-       cache: false,
-       processData: false,
-       success:function(response)
-       {
-        if(response.status == 1) {
-            $(".alert-success").show();
-            $(".alert-danger").hide();
-            $("#successResponse").text(response.message);
-            //alert(response.dataV);
-            $("#employeeId").val(response.dataV);
-            //$("#workTab").unbind('click', false);
-            setTimeout(function(){
-                $(".alert-success").hide();
-            }, 1000);
-        }
-        else {
-            $(".alert-danger").show();
-            $(".alert-success").hide();
-            $("#errorResponse").text(response.message);
-            setTimeout(function(){
-                $(".alert-danger").hide();
-            }, 1000);
-        }
-        console.log( response );
-       }
-      })
-     });
-
-    $('#upload_work_form').on('submit', function(event){
-      event.preventDefault();
-      //console.log(new FormData(this));
-      $.ajax({
-       url:'/admin/employee-work',
-       method:"POST",
-       data:new FormData(this),
-       dataType:'JSON',
-       contentType: false,
-       cache: false,
-       processData: false,
-       success:function(data)
-       {
-        $('#message').css('display', 'block');
-        $('#message').html(data.message);
-        $('#message').addClass(data.class_name);
-        $('#uploaded_image').html(data.uploaded_image);
-       }
-      })
-     });
-
-});
-</script>   
-            
 @stop

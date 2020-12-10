@@ -9,12 +9,15 @@
         id="closeMenu"></i>
 </div>
 <ul class="sidenav">
-    <li><a class="{{ \Request::is('referral/dashboard')?'active':'' }}" href="{{ route('referral.dashboard') }}">Dashboard <span class="dot"></span></a></li>
-    <li><a class="{{ \Request::is('referral/vbc')?'active':'' }}" href="{{ route('referral.vbc') }}">VBC <span class="dot"></span></a></li>
-    <li><a class="{{ \Request::is('referral/md-order')?'active':'' }}" href="{{ route('referral.md-order') }}">MD Order <span class="dot"></span></a></li>
-    <li><a class="{{ \Request::is('referral/employee-pre-physical')?'active':'' }}" href="{{ route('referral.employee-pre-physical') }}">Employee Pre-Physical<span class="dot"></span></a></li>
+    <li><a class="{{ \Request::is('referral/dashboard')?'active':'' }} nav" href="{{ route('referral.dashboard') }}">Dashboard <span class="dot"></span></a></li>
+    <li><a class="{{ \Request::is('referral/vbc')?'active':'' }} nav" href="{{ route('referral.vbc') }}">VBC <span class="dot"></span></a></li>
+    <li><a class="{{ \Request::is('referral/md-order')?'active':'' }} nav" href="{{ route('referral.md-order') }}">MD Order <span class="dot"></span></a></li>
+    <li><a class="{{ \Request::is('referral/employee-pre-physical')?'active':'' }} nav" href="{{ route('referral.employee-pre-physical') }}">Employee Pre-Physical<span class="dot"></span></a></li>
+   
+
+
     <li>
-        <a href="{{ url('logout') }}"
+        <a href="{{ url('logout') }}" class="nav"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
         >Logout <span class="dot"></span></a>
         <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
@@ -22,3 +25,6 @@
         </form>
     </li>
 </ul>
+
+<li><a class="{{ \Request::is('referral/employee-pre-physical')?'active':'' }} nav" href="{{ route('referral.employee-pre-physical') }}">Employee Pre-Physical<span class="dot"></span></a></li>
+

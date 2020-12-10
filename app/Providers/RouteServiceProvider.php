@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/';
     public const LOGIN = '/login';
     public const ADMIN_HOME = '/admin/dashboard';
+    public const COORDINATE_HOME = '/co-ordinate/dashboard';
     public const REFERRAL_HOME = '/referral/dashboard';
     public const REFERRAL_LOGIN = '/provider/login';
     public const CLINICIAL_HOME = '/clinician/';

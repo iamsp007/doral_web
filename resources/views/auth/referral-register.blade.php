@@ -70,6 +70,8 @@
                                                 name="signup" id="register">Create Your Account</button>
                                     </div>
                                 </form>
+                                <div class="d-flex align-items-center justify-content-center mt-2 t3">Already member?<a href="{{ route('referral.login') }}" class="ml-2 underline">Login Referral
+                                                Account</a></div>  
                                 <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
                                     <strong>Success!</strong> <span id="successResponse"></span>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

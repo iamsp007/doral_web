@@ -31,7 +31,15 @@
                 @foreach($record['companies'] as $raw)
                 <tr>
                     <td><input type="checkbox"></td>
-                    <td>{{$raw['referal_id']}}</td>
+                    <td>
+                        @if($raw['referal_id'] == 1)
+                        Insurance
+                        @elseif($raw['referal_id'] == 2)
+                        Home Care
+                        @elseif($raw['referal_id'] == 3)
+                        Others
+                        @endif
+                    </td>
                     <td>{{$raw['name']}}</td>
                     <td>{{$raw['email']}}</td>
                     <td>
@@ -41,13 +49,21 @@
                                 class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
                                 data-toggle="tooltip" data-placement="left">Accepted
                             </button>
-                            @endif
-                            @if($raw['status'] == 'reject')
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left">Rejected
+                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
+                                data-toggle="tooltip" data-placement="left"
+                                id="{{$raw['id']}}">Reject
                             </button>
                             @endif
-                            @if($raw['status'] == 'Pending')
+                            @if($raw['status'] == 'reject')
+                                <button type="button"
+                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
+                                data-toggle="tooltip" data-placement="left" id="{{$raw['id']}}" >Accept
+                                </button>
+                                <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
+                                    data-toggle="tooltip" data-placement="left">Rejected
+                                </button>
+                            @endif
+                            @if($raw['status'] == 'pending')
                                 <button type="button"
                                 class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
                                 data-toggle="tooltip" data-placement="left" id="{{$raw['id']}}" >Accept
@@ -82,9 +98,9 @@
         });
 
         $(".acceptid").click(function() {
+
             var company_id = $(this).attr('id');
             var status = "active";
-
             $.ajax({
                 method: 'POST',
                 url: '{{ route('admin.updateStatus') }}',

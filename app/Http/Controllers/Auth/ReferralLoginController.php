@@ -75,10 +75,11 @@ class ReferralLoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-        $request->merge(['status'=>'Active']);
+        $request->merge(['status'=>'active']);
 
         if (Auth::guard('referral')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-            if (Auth::guard('referral')->user()->status==='Active'){
+           // dd(Auth::guard('referral')->user());
+            if (Auth::guard('referral')->user()->status===$request->status){
                 cache(['USERNAME' => $request->email]);
                 cache(['PASSWORD'=>$request->password]);
                 return $this->sendLoginResponse($request);

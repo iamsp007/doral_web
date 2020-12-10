@@ -76,82 +76,33 @@
             @endforeach
         @endif
     </ul>
-    <div id="floating-panel">
-        <b>Mode of Travel: </b>
-        <select id="mode">
-            <option value="DRIVING">Driving</option>
-            <option value="WALKING">Walking</option>
-            <option value="BICYCLING">Bicycling</option>
-            <option value="TRANSIT">Transit</option>
-        </select>
-    </div>
     <div id="map"></div>
 @endsection
 
 @push('styles')
-    <style>
+    <style type="text/css">
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
         #map {
-            height: 100%;
+            /*width:820px !important;*/
+            height: 500px !important;
+            position: relative !important;
+            overflow: scroll;
         }
-        #floating-panel {
-            position: absolute;
-            top: 10px;
-            left: 25%;
-            z-index: 5;
-            background-color: #fff;
-            padding: 5px;
-            border: 1px solid #999;
-            text-align: center;
-            font-family: 'Roboto','sans-serif';
-            line-height: 30px;
-            padding-left: 10px;
+        #pano {
+            float: left;
+            height: 100%;
+            width: 50%;
         }
     </style>
 @endpush
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-{{--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>--}}
-    <script>
-        navigator.geolocation.getCurrentPosition(showPosition);
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="{{ asset('js/clincian/map.js') }}"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
+        defer
+    ></script>
 
-        function showPosition(position) {
-            function initMap(){
-                var directionsDisplay = new google.maps.DirectionsRenderer;
-                var directionsService = new google.maps.DirectionsService;
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 3,
-                    center: {lat: 14.77, lng: -12.447}
-                });
-                directionsDisplay.setMap(map);
-
-                calculateAndDisplayRoute(directionsService, directionsDisplay);
-                document.getElementById('mode').addEventListener('change', function() {
-                    calculateAndDisplayRoute(directionsService, directionsDisplay);
-                });
-            }
-
-            function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-                var selectedMode = document.getElementById('mode').value;
-                directionsService.route({
-
-                    origin: {lat: position.coords.latitude ,lng: position.coords.longitude},  // Haight.
-                    destination: {lat: 14.768, lng: -12.511},  // Ocean Beach.
-                    // Note that Javascript allows us to access the constant
-                    // using square brackets and a string value as its
-                    // "property."
-                    travelMode: google.maps.TravelMode[selectedMode]
-                }, function(response, status) {
-                    if (status == google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(response);
-                    } else {
-                        window.alert('Directions request failed due to ' + status);
-                    }
-                });
-            }
-        }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSkdSlcQB9fgwBaHnbNlS7OEFf67kDpbo&callback=initMap">
-    </script>
 @endpush

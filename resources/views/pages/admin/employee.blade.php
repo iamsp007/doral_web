@@ -10,7 +10,7 @@
                     <th>Fullname</th>
                     <th>DOB</th>
                     <!--<th>Blood Group</th>-->
-                    <th>Designation</th>
+                    <th>Role</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Permission</th>
@@ -25,13 +25,21 @@
                     <td class="text-green">{{$raw['first_name']}} {{$raw['last_name']}} </td>
                     <td>{{$raw['dob']}}</td>
                     <!--<td>B+</td>-->
-                    <td>{{$raw['designation_id']}}</td>
+                    <td>
+                        @if($raw['role_id'] == 2)
+                        Admin
+                        @elseif($raw['role_id'] == 4)
+                        Co-ordinator
+                        @elseif($raw['role_id'] == 5)
+                        Supervisor
+                        @endif
+                    </td>
                     <td>{{$raw['email']}}</td>
                     <td>{{$raw['phone']}}</td>
                     <td>{{$raw['employeement_type']}}</td>
                     <td>
                         <div class="d-flex">
-                            <a href="employee_user_profile.html"
+                            <a href="{{ url('/admin/employee-view/'.$raw['id']) }}"
                                 class="btn btn-primary btn-view shadow-sm btn--sm mr-2"
                                 data-toggle="tooltip" data-placement="left" title="View User"><i
                                     class="las la-binoculars"></i></a>

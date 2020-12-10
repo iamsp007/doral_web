@@ -25,10 +25,10 @@
             editable: true,
             eventColor: 'green',
             slotDuration: '00:15:00',
-            defaultView:'agendaWeek',
+            defaultView: 'agendaWeek',
             firstDay: 1,
-            slotEventOverlap:false,
-            agendaEventMinHeight:1,
+            slotEventOverlap: false,
+            agendaEventMinHeight: 1,
             weekends: true,
             header: {
                 left: 'prev,next today custom1',
@@ -39,8 +39,19 @@
                 custom1: {
                     text: 'Add Appointment',
                     click: function() {
-                        $("#largeModal").modal("show");
-                        
+                        $.ajax({
+                            url: "{{ route('appointment.create') }}",
+                            //data: 'title=' + title + '&start=' + start + '&end=' + end,
+                            type: "get",
+                            success: function(data) {
+                                $("#largeModal .modal-body").html(data);
+                                $("#largeModal .modal-title").html("Book Appoinment");
+                                //displayMessage("Added Successfully");
+                                //$('#calendar').fullCalendar('removeEvents');
+                                //$('#calendar').fullCalendar('refetchEvents');
+                                $("#largeModal").modal("show");
+                            }
+                        });
                     }
                 }
             },
@@ -104,20 +115,22 @@
             },
             select: function(start, end, allDay) {
                 var title = prompt('Event Title:');
-                alert("Select");
 
                 if (title) {
                     var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
                     var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
 
                     $.ajax({
-                        url: SITEURL + "/fullcalendareventmaster/create",
-                        data: 'title=' + title + '&start=' + start + '&end=' + end,
-                        type: "POST",
+                        url: "{{ route('appointment.create') }}",
+                        //data: 'title=' + title + '&start=' + start + '&end=' + end,
+                        type: "get",
                         success: function(data) {
-                            displayMessage("Added Successfully");
-                            $('#calendar').fullCalendar('removeEvents');
-                            $('#calendar').fullCalendar('refetchEvents');
+                            $("#largeModal .modal-body").html(data);
+                            $("#largeModal .modal-title").html("Book Appoinment");
+                            //displayMessage("Added Successfully");
+                            //$('#calendar').fullCalendar('removeEvents');
+                            //$('#calendar').fullCalendar('refetchEvents');
+                            $("#largeModal").modal("show");
                         }
                     });
                     calendar.fullCalendar('renderEvent', {

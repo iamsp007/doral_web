@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 use App\Models\CurlModel\CurlFunction;
 
@@ -19,7 +20,9 @@ class AppointmentController extends Controller
         $message = "";
         $record = [];
         try {
-            print_r($_SESSION);exit;
+            $adminService = new class AdminService();
+            $responseArray = $adminService->getAllAppointment();
+            dd($responseArray);
             $apiToken = session('token');
             dd($apiToken);
             $url = CurlFunction::getURL().'/api/auth/appointment';

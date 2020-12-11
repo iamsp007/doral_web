@@ -1,13 +1,16 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 // Admin Route
-Route::group(['prefix'=>'/admin','middleware'=>['auth','check']],function (){
-//    \Illuminate\Support\Facades\Auth::routes();
+Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'check']], function () {
+    //    \Illuminate\Support\Facades\Auth::routes();
     Route::get('/roles', function () {
         return view('pages.admin.roles');
     })->name('admin.roles');
 
+    Route::get('calender', 'App\Http\Controllers\AppointmentController@index');
+    Route::get('calender/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
 
     /*Route::get('/employee', function () {
         return view('pages.admin.employee');
@@ -32,5 +35,5 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','check']],function (){
     Route::post('/loginaccess', 'App\Http\Controllers\Admin\HomeController@login');
     Route::get('/dashboard', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.dashboard');
 
-//    Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
+    //    Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
 });

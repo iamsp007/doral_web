@@ -50,9 +50,16 @@ Route::get('/resetpassword', function () {
 
 /*Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
     return view('dashboard');
-})->name('dashboard');
+})->name('dashboard');*/
 
-*/
+Route::get('calender', 'App\Http\Controllers\AppointmentController@index');
+Route::get('calender/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
+//
+//Auth::routes();
+//
+/*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Auth::routes();*/
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

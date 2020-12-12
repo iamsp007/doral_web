@@ -22,6 +22,7 @@ class RoadLController extends Controller
 
         $clinicianService = new ClinicianService();
         $response = $clinicianService->getPatientRequestList();
+        $patientRequestList=array();
         if ($response->status===true){
             $patientRequestList = $response->data;
         }

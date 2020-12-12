@@ -2,80 +2,11 @@
 
 @section('title','Patient RoadL Request Map')
 @section('pageTitleSection')
-    RoadL
+    Near By clinician Listing
 @endsection
 
 @section('content')
-    <ul>
-        @if(count($patientRequestList)>0)
-            @foreach($patientRequestList as $key=>$value)
-                <li>
-                    <div class="app-card raduis_5 mb-2">
-                        <div class="app-broadcasting">
-                            <div class="lside">
-                                <div>
-                                    <img src="{{ asset('assets/img/user/01.png') }}" class="user_photo" alt=""
-                                         srcset="{{ asset('assets/img/user/01.png') }}">
-                                </div>
-                                <div class="content">
-                                    <h1 class="_t11">{!! $value->detail->first_name !!} {!! $value->detail->last_name !!} </h1>
-                                    <p class="address">{!! $value->patientDetail->address1 !!}</p>
-                                    <p class="emergency_contact mb-2"> Emergency Contact
-                                        <a href="tel:9966246684" class="primary_tel">{!! $value->patientDetail->emg_phone !!}</a></p>
-                                    <p class="contact"><a href="tel:8866246684" class="secondary_tel">{!! $value->detail->phone !!}</a>
-                                    </p>
-                                </div>
-                                <!-- <a href="javascript:void(0)"><i class="las la-ellipsis-v la-2x"></i></a> -->
-                                <div id="_dropdown">
-                                    <div class="dropdown user-dropdown">
-                                        <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
-                                           aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i
-                                                class="las la-ellipsis-v la-2x"></i></a>
-                                        <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">View Profile</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rside">
-                                <div class="_lside">
-                                    <ul class="specification">
-                                        @if(count($value->ccrm)>0)
-                                            @foreach($value->ccrm as $ckey=>$cvalue)
-                                                <li class="blood">
-                                                    <img src="{{ asset('assets/img/icons/pressure.svg') }}"
-                                                         class="mr-2" alt="">
-                                                    {!! $cvalue->reading_type !!} : {!! $cvalue->reading_value !!}
-                                                </li>
-                                            @endforeach
-                                        @endif
-                                    </ul>
-                                </div>
-                                <div class="_rside">
-                                    <ul class="actionBar">
-                                        <li>
-                                            <div class="search-clinician">
-                                                <input type="text" class="form-control clinician" name="animal"
-                                                       id="searchField" placeholder="Assign Manually">
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <button type="button" class="btn btn-start-call">Start
-                                                Call<span></span></button>
-                                        </li>
-                                        <li>
-                                            <button type="button" class="btn btn-emergency">emergency
-                                                (911)<span></span></button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            @endforeach
-        @endif
-    </ul>
+    <input type="hidden" name="patient_request_id" id="patient_request_id" value="{{ $patient_request_id }}">
     <div id="map"></div>
 @endsection
 
@@ -99,7 +30,119 @@
 
 @push('scripts')
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="{{ asset('js/clincian/map.js') }}"></script>
+{{--    <script src="{{ asset('js/clincian/map.js') }}"></script>--}}
+    <script>
+        var patient_request_id = $('#patient_request_id').val();
+        function getNearByClinicianList(callback) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:base_url+'clinician/get-near-by-clinician-list/'+patient_request_id,
+                method:'GET',
+                dataType:'json',
+                success:function (response) {
+                    if (response.clinicianList.length>0){
+                        callback(response.clinicianList,response.patientDetail)
+                    }else {
+                        callback([],response.patientDetail)
+                    }
+                },
+                error: function (request, status, error) {
+                    var response = JSON.parse(request.responseText);
+                    window.location.href = '{{ env("APP_URL") }}'+"clinician/running-roadl/"+patient_request_id;
+
+                }
+            })
+        }
+
+        if (navigator.geolocation){
+            navigator.geolocation.getCurrentPosition((position => {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 8,
+                    center: {lat:latitude,lng:longitude},
+                    disableDefaultUI: true,
+                    mapTypeControl: true,
+                    zoomControl: true,
+                    zoomControlOptions: {
+                        position: google.maps.ControlPosition.LEFT_CENTER,
+                    },
+                    scaleControl: true,
+                    streetViewControl: true,
+                    streetViewControlOptions: {
+                        position: google.maps.ControlPosition.LEFT_TOP,
+                    },
+                    rotateControl: true,
+                    fullscreenControl: true,
+                    heading: 90,
+                    tilt: 45,
+                });
+
+                getNearByClinicianList( (response,patientDetail)=> {
+                    console.log(response,patientDetail)
+
+                    var cmarker = new google.maps.Marker({
+                        zoom: 20,
+                        map: map,
+                        position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
+                        title: 'Your current location',
+                    });
+
+                    var circle = new google.maps.Circle({
+                        map: map,
+                        zoom: 20,
+                        position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
+                        radius: ((20 * 1000)*0.62137),    // 5 miles in metres
+                        fillColor: '#5aba5c',
+                        label: 'My Location',
+                        title: 'My Location',
+                    });
+                    circle.bindTo('center', cmarker, 'position');
+
+                    const markers = response.map((resp,i)=> {
+                        const contentString =
+                            '<div id="content">' +
+                            '<div id="siteNotice">' +
+                            "</div>" +
+                            '<h1 id="firstHeading" class="firstHeading">'+resp.first_name+' '+resp.last_name+'</h1>' +
+                            '<div id="bodyContent">' +
+                            '<input type="button" onclick="clinicianAcceptReject('+resp.id+',1)" class="btn btn-primary" name="accept" id="accept" value="Accept">'+
+                            '<input type="button" onclick="clinicianAcceptReject('+resp.id+',0)" class="btn btn-danger" name="decline" id="decline" value="Decline">'+
+                            "</div>" +
+                            "</div>";
+
+                        const infowindow = new google.maps.InfoWindow({
+                            content: contentString,
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(resp.latitude,resp.longitude),
+                            label: resp.first_name+' '+resp.last_name,
+                        });
+
+                        marker.addListener("click", () => {
+                            infowindow.open(map, marker);
+                        });
+
+                        return marker;
+                    });
+                    // map.markers.push(markers);
+                    var mc = new MarkerClusterer(map, markers, {
+                        imagePath:
+                            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                    });
+                })
+            }),(error)=>{
+
+            },{enableHighAccuracy:true,maximumAge:3000,timeout:5000});
+        }
+        function clinicianAcceptReject(userId,status) {
+            alert(userId)
+        }
+    </script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
         defer

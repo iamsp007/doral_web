@@ -2,15 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Services/ClinicianService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/BaseClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/BaseClient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoadLController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoadLController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/DesignationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/DesignationService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/EmployeeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/EmployeeService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/socket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/admin/employee-view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/admin/employee-view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/direction_view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/direction_view.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Appointment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Appointment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/CaregiverService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/CaregiverService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_08_074338_create_appointments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_08_074338_create_appointments_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointment.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointment.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointment_cal.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointment_cal.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/blood-pressure.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/blood-pressure.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/blood-sugar.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/blood-sugar.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/call-waiting.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/call-waiting.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/cm-home.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/cm-home.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/contract.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/contract.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/ekg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/ekg.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/flat.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/flat.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/house-insurance.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/house-insurance.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pulse.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pulse.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/smartphone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/smartphone.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/weight.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/weight.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/x-ray.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/x-ray.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/calendar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calendar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/includes/calendar/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/calendar/head.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/includes/calendar/script.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/calendar/script.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/calendar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/calendar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/appoinment/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/appoinment/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_view.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" afterDir="false" />
@@ -169,12 +188,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../socket" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Services" />
       <recent name="$PROJECT_DIR$/resources/views/pages/clincian" />
       <recent name="$PROJECT_DIR$/resources/views/auth" />
     </key>
@@ -216,6 +236,11 @@
       <workItem from="1607150432093" duration="613000" />
       <workItem from="1607395151843" duration="5093000" />
       <workItem from="1607401200739" duration="20175000" />
+      <workItem from="1607740852966" duration="8559000" />
+      <workItem from="1607750483642" duration="21000" />
+      <workItem from="1607753456206" duration="11541000" />
+      <workItem from="1607775414516" duration="1055000" />
+      <workItem from="1607779267985" duration="324000" />
     </task>
     <servers />
   </component>

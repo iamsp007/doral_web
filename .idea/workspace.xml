@@ -2,38 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Services/ClinicianService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/emails/layouts/app.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/emails/referral.welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/doral_web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/doral_web.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/BaseClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/BaseClient.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AppointmentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoadLController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoadLController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Appointment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Appointment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/CaregiverService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/CaregiverService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_08_074338_create_appointments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_08_074338_create_appointments_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointment.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointment.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointment_cal.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointment_cal.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/blood-pressure.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/blood-pressure.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/blood-sugar.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/blood-sugar.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/call-waiting.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/call-waiting.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/cm-home.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/cm-home.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/contract.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/contract.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/ekg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/ekg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/flat.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/flat.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/house-insurance.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/house-insurance.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pulse.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pulse.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/smartphone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/smartphone.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/weight.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/weight.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/x-ray.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/x-ray.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/calendar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/calendar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/calendar/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/calendar/head.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/calendar/script.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/calendar/script.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/calendar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/calendar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/appoinment/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/appoinment/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralLoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralLoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CompanyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CompanyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PatientReferralController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PatientReferralController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Company.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Company.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/admin/referral-approval.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/admin/referral-approval.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/referral/vbc-upload-bulk-data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/referral/vbc-upload-bulk-data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/clinician.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinician.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/referral.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/referral.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +170,7 @@
       <path value="$PROJECT_DIR$/vendor/livewire/livewire" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
       <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-oracle" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
     </include_path>
   </component>
   <component name="ProjectId" id="1jExBQGjb0JrI2cHx9rLuxWcHW8" />
@@ -188,7 +182,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -241,6 +235,9 @@
       <workItem from="1607753456206" duration="11541000" />
       <workItem from="1607775414516" duration="1055000" />
       <workItem from="1607779267985" duration="324000" />
+      <workItem from="1607790377672" duration="4909000" />
+      <workItem from="1607852255770" duration="10953000" />
+      <workItem from="1607864744351" duration="599000" />
     </task>
     <servers />
   </component>

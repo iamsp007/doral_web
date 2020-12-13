@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -61,20 +62,31 @@ class LoginController extends Controller
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
-        $request->merge(['status'=>'active']);
-        if ($this->attemptLogin($request)) {
-            cache(['USERNAME' => $request->email]);
-            cache(['PASSWORD'=>$request->password]);
-            if (Auth::user()->type==='clinician'){
-                $this->redirectTo=RouteServiceProvider::CLINICIAL_HOME;
-            }elseif (Auth::user()->type==='admin'){
-                $this->redirectTo=RouteServiceProvider::ADMIN_HOME;
-            }elseif (Auth::user()->type==='co-ordinate'){
-                $this->redirectTo=RouteServiceProvider::COORDINATE_HOME;
-            }else{
-                $this->redirectTo=RouteServiceProvider::HOME;
+        $request->only('email','password');
+//        $request->merge(['status'=>'1']);
+
+        if (Auth::attempt($this->credentials($request))) {
+            if (Auth::user()->status==='1'){
+                cache(['USERNAME' => $request->email]);
+                cache(['PASSWORD'=>$request->password]);
+                if (Auth::user()->hasRole('clinician')){
+                    $this->redirectTo=RouteServiceProvider::CLINICIAL_HOME;
+                }elseif (Auth::user()->hasRole('admin')){
+                    $this->redirectTo=RouteServiceProvider::ADMIN_HOME;
+                }elseif (Auth::user()->hasRole('co-ordinate')){
+                    $this->redirectTo=RouteServiceProvider::COORDINATE_HOME;
+                }else{
+                    $this->redirectTo=RouteServiceProvider::HOME;
+                }
+                return $this->sendLoginResponse($request);
             }
-            return $this->sendLoginResponse($request);
+
+            $status = Auth::user()->status;
+
+            Auth::logout();
+            throw ValidationException::withMessages([
+                $this->username() => [$status==='0'?trans('auth.activate'):($status==='2'?trans('auth.inactivate'):trans('auth.reject'))],
+            ]);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -115,5 +127,16 @@ class LoginController extends Controller
         return $request->wantsJson()
             ? new JsonResponse([], 204)
             : redirect('/');
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        return $request->only($this->username(), 'password','status');
     }
 }

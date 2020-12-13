@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix'=>'/clinician','middleware'=>'check'],function (){
+Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],function (){
 
     Route::group(['middleware'=>['auth']],function (){
         Route::get('/','\App\Http\Controllers\Clincian\DashboardController@index')->name('clinician.dashboard');

@@ -21,22 +21,22 @@ class RedirectIfAuthenticated
     {
         if (Auth::check()){
 
-            if (Auth::user()->type==='clinician'){
+            if (Auth::user()->hasRole('clinician')){
                 $path=explode('/',$request->path());
-                if (in_array(Auth::user()->type,$path)){
+                if (in_array('clinician',$path)){
                     return $next($request);
                 }
                 return redirect(RouteServiceProvider::CLINICIAL_HOME);
-            }elseif (Auth::user()->type==='admin'){
+            }elseif (Auth::user()->hasRole('admin')){
                 $path=explode('/',$request->path());
-                if (in_array(Auth::user()->type,$path)){
+                if (in_array('admin',$path)){
                     return $next($request);
                 }
 
                 return redirect(RouteServiceProvider::ADMIN_HOME);
-            }elseif (Auth::user()->type==='co-ordinate'){
+            }elseif (Auth::user()->hasRole('co-ordinate')){
                 $path=explode('/',$request->path());
-                if (in_array(Auth::user()->type,$path)){
+                if (in_array('co-ordinate',$path)){
                     return $next($request);
                 }
 

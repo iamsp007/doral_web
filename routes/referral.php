@@ -6,7 +6,7 @@ Route::post('/provider/login','\App\Http\Controllers\Auth\ReferralLoginControlle
 Route::get('/register','\App\Http\Controllers\Auth\ReferralRegisterController@showRegistrationForm')->name('referral.showRegistrationForm');
 Route::post('/register','\App\Http\Controllers\Auth\ReferralRegisterController@register')->name('referral.register');
 
-Route::group(['prefix'=>'/referral'],function (){
+Route::group(['prefix'=>'/referral','middleware'=>['role:referral']],function (){
 //    \Illuminate\Support\Facades\Auth::routes();
     Route::group(['middleware'=>['auth:referral','check']],function (){
         Route::get('/dashboard', function () {
@@ -21,7 +21,7 @@ Route::group(['prefix'=>'/referral'],function (){
         Route::get('/employee-pre-physical-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@employeePrePhysicalUploadBulk')->name('referral.employee-pre-physical-upload-bulk-data');
 
         # Referral-Patient api
-        Route::post('/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
+        Route::post('/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store')->name('referral.vbc-upload-bulk-data-store');
         Route::post('/md-order-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
         Route::post('/employee-pre-physical-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
         Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\Clincian\PatientController@getPatientDetail')->name('referral.patient.detail');

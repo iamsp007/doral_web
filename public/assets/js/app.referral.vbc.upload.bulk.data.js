@@ -1,7 +1,7 @@
 $(function () {
     $('#uploaded_files').DataTable();
-    $('.category-type .box').click(function () {
-        $('.category-type .box').removeClass("selected");
+    $('.category-type .box input:radio[name=vbc_select]').change(function () {
+        $('.category-type .box input:radio[name=vbc_select]').removeClass("selected");
         $(this).addClass("selected");
         $('.upload-your-files').slideDown();
     });

@@ -31,7 +31,7 @@
                     @elseif($raw['file_type'] == 3)
                     Compliance Due Dates
                     @elseif($raw['file_type'] == 4)
-                    MD Order
+                    Previous MD Order
                     @endif
                 </td>
                 <td>{{$raw['gender']}}</td>

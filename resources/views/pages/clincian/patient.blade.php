@@ -51,7 +51,7 @@
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.id + '>' + data + '</a>';
+                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + data + '</a>';
                         return data;
                     }
                 },

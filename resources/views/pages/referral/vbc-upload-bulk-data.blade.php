@@ -9,29 +9,29 @@
                 <figure>
                     <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="1">Demographic files</input>
+                <input type="radio" name='r1' value="1">Demographic Info</input>
             </div>
             <div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="2">Clinical History</input>
+                <input type="radio" name='r1' value="2">Clinical Info</input>
                 <!--<label>Clinical History</label>-->
             </div>
-            <div class="box">
+            <!--<div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
                 </figure>
                 <input type="radio" name='r1' value="3">Order Due Dates</input>
-                <!---<label>Order Due Dates</label>-->
+                <label>Order Due Dates</label>
             </div>
             <div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
                 </figure>
                 <input type="radio" name='r1' value="4">MD Order</input>
-                <!--<label>MD Order</label>--->
-            </div>
+                <label>MD Order</label>
+            </div>-->
         </div>
         <div class="upload-your-files">
 

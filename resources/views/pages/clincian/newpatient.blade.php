@@ -9,8 +9,9 @@
     <table class="display responsive nowrap" style="width:100%" id="patient-table" >
         <thead>
         <tr>
+            <th></th>
             <th>ID</th>
-            <th>User ID</th>
+            <th>Patient ID</th>
             <th>First Name</th>
             <th>Middle Name</th>
             <th>Last Name</th>
@@ -30,7 +31,7 @@
 @push('styles')
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet">
+    <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
@@ -39,7 +40,7 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
        var table = $('#patient-table').DataTable({
             processing: true,
@@ -47,13 +48,14 @@
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id',"bSortable": true},
-                {data:'user_id',name:'user_id',"bSortable": true},
+                {data:'patient_id',name:'patient_id',"bSortable": true},
                 {
                     data:'first_name',
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.id + '">' + data + '</a>';
+                        console.log(row)
+                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.myid + '">' + data + '</a>';
                         return data;
                     }
                 },
@@ -67,15 +69,17 @@
                 {data:'action',name:'action',"bSortable": true}
             ],
             "order": [[ 0, "desc" ]],
-           columnDefs: [ {
-               orderable: false,
-               className: 'select-checkbox',
-               targets:   0
-           } ],
-           select: {
-               style:    'os',
-               selector: 'td:first-child'
-           },
+           'columnDefs': [
+               {
+                   'targets': 0,
+                   'checkboxes': {
+                       'selectRow': true
+                   }
+               }
+           ],
+           'select': {
+               'style': 'multi'
+           }
         });
         {{--$('#patient-table tbody').on('click', 'tr', function () {--}}
         {{--    var rowData = table.row(this).data();--}}

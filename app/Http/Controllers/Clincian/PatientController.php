@@ -31,7 +31,9 @@ class PatientController extends Controller
     public function getPatientList(){
 
         $patientList = PatientReferral::with('detail')
-            ->whereIn('status',['accept'])
+            ->whereHas('detail',function ($q){
+                $q->where('status','=','1');
+            })
             ->get();
         return DataTables::of($patientList)
             ->make(true);
@@ -47,13 +49,15 @@ class PatientController extends Controller
     public function getNewPatientList(){
 
         $patientList = PatientReferral::with('detail')
-            ->whereIn('status',['pending'])
+            ->whereHas('detail',function ($q){
+                $q->where('status','=','0');
+            })
             ->get();
         return DataTables::of($patientList)
             ->addIndexColumn()
             ->addColumn('action', function($row){
 
-                if ($row->status==='pending'){
+                if ($row->status==='0'){
                     $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm" onclick="changePatientStatus(this,1)">Accept</a>';
 
                     $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm" onclick="changePatientStatus(this,0)">Reject</a>';

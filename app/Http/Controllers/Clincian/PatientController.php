@@ -30,7 +30,7 @@ class PatientController extends Controller
 
     public function getPatientList(){
 
-        $patientList = PatientReferral::with('detail')
+        $patientList = PatientReferral::with('detail','service','filetype')
             ->whereHas('detail',function ($q){
                 $q->where('status','=','1');
             })
@@ -48,7 +48,7 @@ class PatientController extends Controller
 
     public function getNewPatientList(){
 
-        $patientList = PatientReferral::with('detail')
+        $patientList = PatientReferral::with('detail','service','filetype')
             ->whereHas('detail',function ($q){
                 $q->where('status','=','0');
             })

@@ -10,10 +10,9 @@
         <thead>
         <tr>
             <th></th>
-            <th>ID</th>
-            <th>User ID</th>
+            <th>Service Id</th>
+            <th>File Type</th>
             <th>First Name</th>
-            <th>Middle Name</th>
             <th>Last Name</th>
             <th>Gender</th>
             <th>Address 1</th>
@@ -21,7 +20,6 @@
             <th>City</th>
             <th>Status</th>
             <th>Created At</th>
-            <th width="280px">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -49,18 +47,17 @@
             ajax: "{{  route('clinician.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
-                {data:'id',name:'id',"bSortable": true},
-                {data:'user_id',name:'user_id',"bSortable": true},
+                {data:'service.name',name:'service.name'},
+                {data:'filetype.name',name:'filetype.name'},
                 {
                     data:'first_name',
                     name:'first_name',
                     "bSortable": true,
                     "render": function(data, type, row, meta){
-                        data = '<a href={{ url('/clinician/patient-detail/') }}' + row.id + '">' + data + '</a>';
+                        data = '<a href={{ url('/clinician/patient-detail/') }}' + row.id + '>' + data + '</a>';
                         return data;
                     }
                 },
-                {data:'middle_name',name:'middle_name',"bSortable": true},
                 {data:'last_name',name:'last_name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
                 {data:'address_1',name:'address_1',"bSortable": true},

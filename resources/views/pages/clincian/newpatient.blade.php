@@ -10,8 +10,8 @@
         <thead>
         <tr>
             <th></th>
-            <th>ID</th>
-            <th>User ID</th>
+            <th>Service Id</th>
+            <th>File Type</th>
             <th>First Name</th>
             <th>Middle Name</th>
             <th>Last Name</th>
@@ -48,14 +48,14 @@
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
-                {data:'id',name:'id',"bSortable": true},
-                {data:'user_id',name:'user_id',"bSortable": true},
+                {data:'service.name',name:'service.name',"bSortable": true},
+                {data:'filetype.name',name:'filetype.name',"bSortable": true},
                 {
                     data:'first_name',
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.id + '">' + data + '</a>';
+                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.id + '>' + data + '</a>';
                         return data;
                     }
                 },

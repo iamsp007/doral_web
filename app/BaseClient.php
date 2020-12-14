@@ -27,12 +27,22 @@ class BaseClient
 
         if (cache('ADMIN_SSO_TOKEN')) {
 
-            $this->client = new Client(['headers' => ['Authorization' => cache('ADMIN_SSO_TOKEN')]]);
+            $this->client = new Client(['headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Access-Control-Allow-Origin' => 'http://localhost',
+                'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
 
         } else {
 
             $this->acquireToken();
-            $this->client = new Client(['headers' => ['Authorization' => cache('ADMIN_SSO_TOKEN')]]);
+            $this->client = new Client(['headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Access-Control-Allow-Origin' => 'http://localhost',
+                'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
 
         }
 
@@ -104,7 +114,7 @@ class BaseClient
             $response  = json_decode($r->getBody()->getContents());
 
             if ($response->status===true){
-                cache(['ADMIN_SSO_TOKEN' => $response->data->access_token]);
+                cache(['ADMIN_SSO_TOKEN' => $response->data->token_type.' '.$response->data->access_token],60);
             }
         } catch (\Exception $e){
 

@@ -44,10 +44,6 @@ return [
             'driver' => 'session',
             'provider' => 'referrals',
         ],
-        'company' => [
-            'driver' => 'session',
-            'provider' => 'referrals',
-        ],
 
         'api' => [
             'driver' => 'token',
@@ -112,8 +108,10 @@ return [
             'throttle' => 60,
         ],
         'referrals' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Company::class,
+            'provider' => 'referrals',
+            'table' => 'companies',
+            'expire' => 60,
+            'throttle' => 60,
         ],
     ],
 

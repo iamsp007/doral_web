@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/clincian/fonts/Montserrat.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/clincian/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/clincian/line-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('css/clincian/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/clincian/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>
 </head>
@@ -94,14 +94,14 @@
         </section>
     </section>
 </section>
-<script src="{{ asset('js/clincian/jquery.min.js') }}"></script>
-<script src="{{ asset('js/clincian/popper.min.js') }}"></script>
-<script src="{{ asset('js/clincian/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/clincian/app.common.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-<script src="{{ asset('js/socket.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/popper.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/app.common.js') }}"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
+<script>
+    var base_url = $('#base_url').val();
+</script>
 @stack('scripts')
 </body>
 </html>

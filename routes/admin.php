@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 
 // Admin Route
-Route::group(['prefix'=>'/admin','middleware'=>['auth','check']],function (){
+Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (){
 //    \Illuminate\Support\Facades\Auth::routes();
     Route::get('/roles', function () {
         return view('pages.admin.roles');

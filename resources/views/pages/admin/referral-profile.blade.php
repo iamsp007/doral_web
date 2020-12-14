@@ -67,7 +67,15 @@
                                 <ul class="form-data">
                                     <li>
                                         <label class="label">Referral Type:</label>
-                                        <p class="t5">{{$record[0]['referal_id']}}</p>
+                                        <p class="t5">
+                                            @if($record[0]['referal_id'] == 1)
+                                            Insurance
+                                            @elseif($record[0]['referal_id'] == 2)
+                                            Home Care
+                                            @elseif($record[0]['referal_id'] == 3)
+                                            Others
+                                            @endif
+                                        </p>
                                     </li>
                                     <li>
                                         <label class="label">Company Name:</label>

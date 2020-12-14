@@ -9,29 +9,16 @@
                 <figure>
                     <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="1">Demographic Info</input>
+                <input type="radio" id="demographic" name='vbc_select' value="1" class="mt-3">
+                <label for="demographic">Demographic Info</label>
             </div>
             <div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="2">Clinical Info</input>
-                <!--<label>Clinical History</label>-->
+                <input type="radio" id="demographic" name='vbc_select' value="2" class="mt-3">
+                <label for="demographic">Clinical Info</label>
             </div>
-            <!--<div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" name='r1' value="3">Order Due Dates</input>
-                <label>Order Due Dates</label>
-            </div>
-            <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" name='r1' value="4">MD Order</input>
-                <label>MD Order</label>
-            </div>-->
         </div>
         <div class="upload-your-files">
 
@@ -58,68 +45,6 @@
 
         </div>
         </form>
-        <!--<div class="uploaded-file-listing">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h1 class="_t10">Uploaded files (04)</h1>
-                </div>
-                <div>
-                    <select name="fileSelect" class="form-control form-control-sm" id="fileSelect">
-                        <option value="1">Demographic Files</option>
-                        <option value="2">Clinical History</option>
-                        <option value="3">Order Due Dates</option>
-                        <option value="4">MD Order</option>
-                    </select>
-                </div>
-            </div>
-            <table id="vbc" class="table" style="width:100%">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" class="selectall" /></th>
-                        <th>Patient Name</th>
-                        <th>File</th>
-                        <th>Gender</th>
-                        <th>Phone</th>
-                        <th>City</th>
-                        <th>Zip Code</th>
-                        <th>Created Date</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if(isset($record) && count($record) > 0)
-                    @foreach($record['patientReferral'] as $raw)
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td class="text-green">{{$raw['first_name']}} {{$raw['middle_name']}} {{$raw['last_name']}}</td>
-                        <td>
-                            @if($raw['file_type'] == 1)
-                            Demographic files
-                            @elseif($raw['file_type'] == 2)
-                            Clinical History
-                            @elseif($raw['file_type'] == 3)
-                            Order Due Dates
-                            @elseif($raw['file_type'] == 3)
-                            MD Order
-                            @endif
-                        </td>
-                        <td>{{$raw['gender']}}</td>
-                        <td>{{$raw['phone1']}}</td>
-                        <td>{{$raw['city']}}-{{$raw['state']}}</td>
-                        <td>{{$raw['Zip']}}</td>
-                        <td>{{ date('F d Y', strtotime($raw['created_at'])) }} </td>
-                        <td class="text-green">Success</span></td>
-                        <td width="9%"><a href="javascript:void(0)"><img
-                                    src="{{asset('assets/img/icons/delete-icon.svg')}}"
-                                    class="action-delete" /></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                    @endif
-                </tbody>
-            </table>
-        </div>-->
     </div>
 </div>
 <script>

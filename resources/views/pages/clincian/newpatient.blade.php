@@ -46,7 +46,15 @@
             columns:[
                 {data:'id',name:'id',"bSortable": true},
                 {data:'patient_id',name:'patient_id',"bSortable": true},
-                {data:'first_name',name:'first_name',"bSortable": true},
+                {
+                    data:'first_name',
+                    name:'first_name',
+                    "bSortable": true,
+                    render:function(data, type, row, meta){
+                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.id + '">' + data + '</a>';
+                        return data;
+                    }
+                },
                 {data:'middle_name',name:'middle_name',"bSortable": true},
                 {data:'last_name',name:'last_name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
@@ -58,11 +66,11 @@
             ],
             "order": [[ 0, "desc" ]]
         });
-        $('#patient-table tbody').on('click', 'tr', function () {
-            var rowData = table.row(this).data();
-            window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;
-            console.log(rowData.id);
-        });
+        {{--$('#patient-table tbody').on('click', 'tr', function () {--}}
+        {{--    var rowData = table.row(this).data();--}}
+        {{--    window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;--}}
+        {{--    console.log(rowData.id);--}}
+        {{--});--}}
 
         function changePatientStatus(element,status) {
             var id=$(element).attr('data-id');

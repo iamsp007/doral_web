@@ -1,5 +1,7 @@
 @extends('emails.layouts.app')
 @section('title','Welcome Your Name')
 @section('content')
-    Welcome Referral Mail
+    <h1>{{ $details['name'] }}</h1>
+    <p>{{ $details['email'] }}</p>
+    <p>Thank you</p>
 @endsection

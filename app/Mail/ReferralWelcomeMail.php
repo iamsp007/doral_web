@@ -11,16 +11,16 @@ class ReferralWelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $email;
+    public $details;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct($details)
     {
         //
-        $this->email = $email;
+        $this->details = $details;
     }
 
     /**
@@ -30,7 +30,7 @@ class ReferralWelcomeMail extends Mailable
      */
     public function build()
     {
-        \Log::info($this->email);
-        return $this->from($this->email)->view('emails.referral.welcome');
+        return $this->subject('Welcome Doral')
+            ->view('emails.referralWelcome');
     }
 }

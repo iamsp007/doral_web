@@ -21,6 +21,11 @@
                                                     srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('Referral Login')}}</h1>
                                 <form method="POST" action="{{ route('referral.login') }}" class="mt-4 pt-2" id="loginForm">
                                     @csrf
+                                    @if(session()->has('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session()->get('success') }}
+                                        </div>
+                                    @endif
                                     @if($errors->any())
                                         @foreach ($errors->all() as $error)
                                             <div class="alert alert-danger" role="alert">
@@ -65,11 +70,11 @@
                                     <!-- Submit Btn -->
                                     <button type="submit" class="btn btn-primary btn-pink btn-block"
                                             name="signup" id="login">{{ __('Login') }}</button>
-                                       
+
                                 </form>
                                 <div class="d-flex align-items-center justify-content-center mt-2 t3">New
                                             here?<a href="{{ route('referral.register') }}" class="ml-2 underline">Create Referral
-                                                Account</a></div>     
+                                                Account</a></div>
                             </div>
                         </div>
                     </div>

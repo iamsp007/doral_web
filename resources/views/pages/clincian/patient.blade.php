@@ -32,7 +32,7 @@
 @push('styles')
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet">
+    <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
@@ -41,7 +41,7 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
         var table = $('#patient-table').DataTable({
             processing: true,
@@ -70,20 +70,17 @@
                 {data:'created_at',name:'created_at',"bSortable": true}
             ],
             "order": [[ 0, "desc" ]],
-            columnDefs: [ {
-                orderable: false,
-                className: 'select-checkbox',
-                targets:   0
-            } ],
-            select: {
-                style:    'os',
-                selector: 'td:first-child'
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
             },
         });
-        {{--$('#patient-table tbody').on('click', 'tr', function () {--}}
-        {{--    var rowData = table.row(this).data();--}}
-        {{--    window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;--}}
-        {{--    console.log(rowData.id);--}}
-        {{--});--}}
     </script>
 @endpush

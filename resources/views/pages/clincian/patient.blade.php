@@ -10,16 +10,15 @@
         <thead>
         <tr>
             <th></th>
-            <th>Service Id</th>
-            <th>File Type</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Service</th>
+            <th>File Type</th>
             <th>Gender</th>
-            <th>Address 1</th>
-            <th>Address 2</th>
-            <th>City</th>
+            <th>Date Of Birth</th>
+            <th>Zip Code</th>
+            <th>City - State</th>
             <th>Status</th>
-            <th>Created At</th>
         </tr>
         </thead>
         <tbody>
@@ -47,24 +46,52 @@
             ajax: "{{  route('clinician.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
-                {data:'service.name',name:'service.name'},
-                {data:'filetype.name',name:'filetype.name'},
                 {
                     data:'first_name',
                     name:'first_name',
                     "bSortable": true,
-                    "render": function(data, type, row, meta){
-                        data = '<a href={{ url('/clinician/patient-detail/') }}' + row.id + '>' + data + '</a>';
+                    render:function(data, type, row, meta){
+                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.id + '>' + data + '</a>';
                         return data;
                     }
                 },
                 {data:'last_name',name:'last_name',"bSortable": true},
+                {data:'service.name',name:'service.name',"bSortable": true},
+                {data:'filetype.name',name:'filetype.name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
-                {data:'address_1',name:'address_1',"bSortable": true},
-                {data:'address_2',name:'address_2',"bSortable": true},
-                {data:'city',name:'city',"bSortable": true},
-                {data:'status',name:'status',"bSortable": true},
-                {data:'created_at',name:'created_at',"bSortable": true}
+                {
+                    data:'dob',
+                    name:'dob',
+                    "bSortable": true
+                },
+                {data:'Zip',name:'Zip',"bSortable": true},
+                {
+                    data:'city',
+                    name:'city',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+
+                        return row.city+ ' - '+row.state;
+                    }
+                },
+                {
+                    data:'status',
+                    name:'status',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+                        if (row.status==="pending"){
+
+                            return <span class="status-pending">'+row.status+'</span>
+                        }else if (row.status==="accept"){
+
+                            return <span class="status-accepted">'+row.status+'</span>
+                        }else if (row.status==="rescheduled"){
+
+                            return <span class="status-rescheduled">'+row.status+'</span>
+                        }
+                        return row.status;
+                    }
+                }
             ],
             "order": [[ 0, "desc" ]],
             'columnDefs': [

@@ -85,7 +85,7 @@ class PatientController extends Controller
             $patient->status=$status;
             if($patient->save()){
                 if ($status==="accept"){
-                    $users = User::find($patient->patient_id);
+                    $users = User::find($patient->user_id);
                     if ($users){
                         $users->status = '1';
                         $users->save();

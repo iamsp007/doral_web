@@ -51,8 +51,7 @@
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        console.log(row)
-                        data = '<a href={{ url('/clinician/patient-detail/') }}' + row.myid + '">' + data + '</a>';
+                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.id + '">' + data + '</a>';
                         return data;
                     }
                 },
@@ -67,11 +66,11 @@
             ],
             "order": [[ 0, "desc" ]]
         });
-        $('#patient-table tbody').on('click', 'tr', function () {
-            var rowData = table.row(this).data();
-            window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;
-            console.log(rowData.id);
-        });
+        {{--$('#patient-table tbody').on('click', 'tr', function () {--}}
+        {{--    var rowData = table.row(this).data();--}}
+        {{--    window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;--}}
+        {{--    console.log(rowData.id);--}}
+        {{--});--}}
 
         function changePatientStatus(element,status) {
             var id=$(element).attr('data-id');

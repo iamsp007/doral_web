@@ -18,7 +18,6 @@
             <th>Date Of Birth</th>
             <th>Zip Code</th>
             <th>City - State</th>
-            <th>Created At</th>
             <th width="280px">Action</th>
         </tr>
         </thead>
@@ -40,7 +39,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.js"></script>
     <script>
        var table = $('#patient-table').DataTable({
             processing: true,
@@ -64,11 +62,7 @@
                 {
                     data:'dob',
                     name:'dob',
-                    "bSortable": true,
-                    render:function (data, type, row, meta) {
-                        var string = moment(row.dob, 'MM/DD/YYYY').format("MM DD YYYY")
-                        return string
-                    }
+                    "bSortable": true
                 },
                 {data:'Zip',name:'Zip',"bSortable": true},
                 {
@@ -78,15 +72,6 @@
                     render:function (data, type, row, meta) {
 
                         return row.city+ ' - '+row.state;
-                    }
-                },
-                {
-                    data:'created_at',
-                    name:'created_at',
-                    "bSortable": true,
-                    render:function (data, type, row, meta) {
-                        var string = moment(row.created_at, 'MM/DD/YYYY').format("MM DD YYYY")
-                        return string
                     }
                 },
                 {data:'action',name:'action',"bSortable": true}

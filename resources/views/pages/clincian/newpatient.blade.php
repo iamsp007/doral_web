@@ -10,15 +10,14 @@
         <thead>
         <tr>
             <th></th>
-            <th>Service Id</th>
-            <th>File Type</th>
             <th>First Name</th>
-            <th>Middle Name</th>
             <th>Last Name</th>
+            <th>Service</th>
+            <th>File Type</th>
             <th>Gender</th>
-            <th>Address 1</th>
-            <th>City</th>
-            <th>Status</th>
+            <th>Date Of Birth</th>
+            <th>Zip Code</th>
+            <th>City - State</th>
             <th>Created At</th>
             <th width="280px">Action</th>
         </tr>
@@ -41,6 +40,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.js"></script>
     <script>
        var table = $('#patient-table').DataTable({
             processing: true,
@@ -48,8 +48,6 @@
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
-                {data:'service.name',name:'service.name',"bSortable": true},
-                {data:'filetype.name',name:'filetype.name',"bSortable": true},
                 {
                     data:'first_name',
                     name:'first_name',
@@ -59,13 +57,38 @@
                         return data;
                     }
                 },
-                {data:'middle_name',name:'middle_name',"bSortable": true},
                 {data:'last_name',name:'last_name',"bSortable": true},
+                {data:'service.name',name:'service.name',"bSortable": true},
+                {data:'filetype.name',name:'filetype.name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
-                {data:'address_1',name:'address_1',"bSortable": true},
-                {data:'city',name:'city',"bSortable": true},
-                {data:'status',name:'status',"bSortable": true},
-                {data:'created_at',name:'created_at',"bSortable": true},
+                {
+                    data:'dob',
+                    name:'dob',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+                        var string = moment(row.dob, 'MM/DD/YYYY').format("MM DD YYYY")
+                        return string
+                    }
+                },
+                {data:'Zip',name:'Zip',"bSortable": true},
+                {
+                    data:'city',
+                    name:'city',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+
+                        return row.city+ ' - '+row.state;
+                    }
+                },
+                {
+                    data:'created_at',
+                    name:'created_at',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+                        var string = moment(row.created_at, 'MM/DD/YYYY').format("MM DD YYYY")
+                        return string
+                    }
+                },
                 {data:'action',name:'action',"bSortable": true}
             ],
             "order": [[ 1, "desc" ]],

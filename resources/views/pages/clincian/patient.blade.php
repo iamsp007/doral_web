@@ -81,13 +81,13 @@
                     render:function (data, type, row, meta) {
                         if (row.status==="pending"){
 
-                            return <span class="status-pending">'+row.status+'</span>
+                            return '<span class="status-pending">'+row.status+'</span>';
                         }else if (row.status==="accept"){
 
-                            return <span class="status-accepted">'+row.status+'</span>
+                            return '<span class="status-accepted">'+row.status+'</span>'
                         }else if (row.status==="rescheduled"){
 
-                            return <span class="status-rescheduled">'+row.status+'</span>
+                            return '<span class="status-rescheduled">'+row.status+'</span>';
                         }
                         return row.status;
                     }

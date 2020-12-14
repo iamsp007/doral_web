@@ -11,7 +11,7 @@
         <tr>
             <th></th>
             <th>ID</th>
-            <th>Patient ID</th>
+            <th>User ID</th>
             <th>First Name</th>
             <th>Middle Name</th>
             <th>Last Name</th>
@@ -29,17 +29,15 @@
 @endsection
 
 @push('styles')
-    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
+{{--    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">--}}
+{{--    <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">--}}
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>--}}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
        var table = $('#patient-table').DataTable({
@@ -48,7 +46,8 @@
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id',"bSortable": true},
-                {data:'patient_id',name:'patient_id',"bSortable": true},
+                {data:'id',name:'id',"bSortable": true},
+                {data:'user_id',name:'user_id',"bSortable": true},
                 {
                     data:'first_name',
                     name:'first_name',
@@ -68,7 +67,7 @@
                 {data:'created_at',name:'created_at',"bSortable": true},
                 {data:'action',name:'action',"bSortable": true}
             ],
-            "order": [[ 0, "desc" ]],
+            "order": [[ 1, "desc" ]],
            'columnDefs': [
                {
                    'targets': 0,

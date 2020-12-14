@@ -11,7 +11,7 @@
         <tr>
             <th></th>
             <th>ID</th>
-            <th>Patient ID</th>
+            <th>User ID</th>
             <th>First Name</th>
             <th>Middle Name</th>
             <th>Last Name</th>
@@ -47,7 +47,7 @@
             ajax: "{{  route('clinician.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id',"bSortable": true},
-                {data:'patient_id',name:'patient_id',"bSortable": true},
+                {data:'user_id',name:'user_id',"bSortable": true},
                 {
                     data:'first_name',
                     name:'first_name',

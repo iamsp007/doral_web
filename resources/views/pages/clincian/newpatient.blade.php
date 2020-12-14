@@ -10,7 +10,7 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Patient ID</th>
+            <th>User ID</th>
             <th>First Name</th>
             <th>Middle Name</th>
             <th>Last Name</th>
@@ -45,7 +45,7 @@
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id',"bSortable": true},
-                {data:'patient_id',name:'patient_id',"bSortable": true},
+                {data:'user_id',name:'user_id',"bSortable": true},
                 {
                     data:'first_name',
                     name:'first_name',
@@ -64,7 +64,16 @@
                 {data:'created_at',name:'created_at',"bSortable": true},
                 {data:'action',name:'action',"bSortable": true}
             ],
-            "order": [[ 0, "desc" ]]
+            "order": [[ 0, "desc" ]],
+           columnDefs: [ {
+               orderable: false,
+               className: 'select-checkbox',
+               targets:   0
+           } ],
+           select: {
+               style:    'os',
+               selector: 'td:first-child'
+           },
         });
         {{--$('#patient-table tbody').on('click', 'tr', function () {--}}
         {{--    var rowData = table.row(this).data();--}}

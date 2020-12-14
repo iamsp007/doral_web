@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\CurlModel\CurlFunction;
 use Illuminate\Http\Request;
+use App\Services\CaregiverService;
 use Exception;
 
 class HomeController extends Controller
@@ -98,6 +99,33 @@ class HomeController extends Controller
     }
     public function caregiverResponseSubmit(Request $request)
     {
-        dd($request->all());
+        $status = 0;
+        $message = "";
+        $record = [];
+        try {
+            $data = array(
+                'patientId' => $request->patientId,
+                'actionTaken' => $request->actionTaken,
+                'url' => $request->url
+            );
+
+            $services = new CaregiverService();
+            $responseArray = $services->storeAction($data);
+            if($responseArray['status']) {
+                $status = 1;
+                $record = $responseArray['data'];
+            }
+            $message = $responseArray['message'];
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
+        $response = [
+            'status' => $status,
+            'message' => $message
+        ];
+
+        return response()->json($response, 201);
     }
 }

@@ -33,7 +33,7 @@
                                             <label for="username" class="label">Username</label>
                                         </div>
                                         <input autocomplete="off" type="text" class="form-control form-control-lg" id="username"
-                                               name="email" aria-describedby="emailHelp">
+                                               name="email" aria-describedby="emailHelp" value="shashikant@hcbspro.com">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -51,7 +51,7 @@
                                             @endif
                                         </div>
                                         <input autocomplete="off" type="password" class="form-control form-control-lg" id="password"
-                                               name="password">
+                                               name="password" value="password">
                                         @error('password')
                                         <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
                                             <strong>Error!</strong> {{ $message }}

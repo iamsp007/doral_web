@@ -32,7 +32,7 @@ class PatientController extends Controller
 
         $patientList = PatientReferral::with('detail')
             ->whereHas('detail',function ($q){
-                $q->where('status','=','active');
+                $q->where('status','=','1');
             })
             ->get();
         return DataTables::of($patientList)
@@ -50,17 +50,17 @@ class PatientController extends Controller
 
         $patientList = PatientReferral::with('detail')
             ->whereHas('detail',function ($q){
-                $q->where('status','=','pending')
-                    ->orWhere('status','=','reject');
-            })->get();
+                $q->where('status','=','0');
+            })
+            ->get();
         return DataTables::of($patientList)
             ->addIndexColumn()
             ->addColumn('action', function($row){
 
-                if ($row->detail->status==='pending'){
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->patient_id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm" onclick="changePatientStatus(this,1)">Accept</a>';
+                if ($row->status==='0'){
+                    $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm" onclick="changePatientStatus(this,1)">Accept</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->patient_id.'" data-original-title="Delete" class="btn btn-danger btn-sm" onclick="changePatientStatus(this,0)">Reject</a>';
+                    $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm" onclick="changePatientStatus(this,0)">Reject</a>';
 
                     return $btn;
                 }
@@ -75,16 +75,22 @@ class PatientController extends Controller
            'id'=>'required',
            'status'=>'required'
         ]);
-        $status='active';
+        $status='accept';
         if ($request->status==0){
             $status='reject';
         }
 
-        $patient = User::find($request->id);
+        $patient = PatientReferral::find($request->id);
         if ($patient){
             $patient->status=$status;
             if($patient->save()){
-
+                if ($status==="accept"){
+                    $users = User::find($patient->patient_id);
+                    if ($users){
+                        $users->status = '1';
+                        $users->save();
+                    }
+                }
                 return response()->json(['message'=>'Change Patient Status Successfully!'],200);
             }
         }

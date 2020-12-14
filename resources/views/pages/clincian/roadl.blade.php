@@ -19,9 +19,9 @@
                                 </div>
                                 <div class="content">
                                     <h1 class="_t11">{!! $value->detail->first_name !!} {!! $value->detail->last_name !!} </h1>
-                                    <p class="address">{!! !empty($value->patientDetail)?$value->patientDetail->address1:'' !!}</p>
+                                    <p class="address">{!! !empty($value->patient_detail)?$value->patient_detail->address1:'' !!}</p>
                                     <p class="emergency_contact mb-2"> Emergency Contact
-                                        <a href="tel:9966246684" class="primary_tel">{!! !empty($value->patientDetail)?$value->patientDetail->emg_phone:'' !!}</a></p>
+                                        <a href="tel:9966246684" class="primary_tel">{!! !empty($value->patient_detail)?$value->patient_detail->emg_phone:'' !!}</a></p>
                                     <p class="contact"><a href="tel:8866246684" class="secondary_tel">{!! $value->detail->phone !!}</a>
                                     </p>
                                 </div>

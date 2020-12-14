@@ -9,32 +9,32 @@
                 <figure>
                     <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="1">Demographic files</input>
+                <input type="radio" name='r1' value="1">Demographic Info</input>
             </div>
             <div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="2">Clinical History</input>
+                <input type="radio" name='r1' value="2">Clinical Info</input>
                 <!--<label>Clinical History</label>-->
             </div>
-            <div class="box">
+            <!--<div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
                 </figure>
                 <input type="radio" name='r1' value="3">Order Due Dates</input>
-                <!---<label>Order Due Dates</label>-->
+                <label>Order Due Dates</label>
             </div>
             <div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
                 </figure>
                 <input type="radio" name='r1' value="4">MD Order</input>
-                <!--<label>MD Order</label>--->
-            </div>
+                <label>MD Order</label>
+            </div>-->
         </div>
         <div class="upload-your-files">
-            
+
             <h1>Upload your files</h1>
             <p>Upload from your computer (.xls, .xlsx, .csv,.pdf)</p>
             <div class="upload-files">
@@ -45,7 +45,7 @@
                     <div class="mt-3">
                         <input type="file" name="file_name" id="file_name" class="inputfile inputfile-1"
                             data-multiple-caption="{count} files selected" multiple />
-                        <input type="hidden" name="service_id" id="service_id" value="1">    
+                        <input type="hidden" name="service_id" id="service_id" value="1">
                         <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="17" viewBox="0 0 20 17">
                                 <path
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-pink mt-3 uploadFile">Upload Files</button>
-            
+
         </div>
         </form>
         <!--<div class="uploaded-file-listing">
@@ -136,7 +136,7 @@ $(document).ready(function () {
       event.preventDefault();
       //var fileType = $('input[name="r1"]:checked').val();
       $.ajax({
-       url:'/referral/vbc-upload-bulk-data-store',
+       url:'{{ route('referral.vbc-upload-bulk-data-store') }}',
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',
@@ -145,15 +145,16 @@ $(document).ready(function () {
        processData: false,
        success:function(data)
        {
-        $('#message').css('display', 'block');
-        $('#message').html(data.message);
-        $('#message').addClass(data.class_name);
-        $('#uploaded_image').html(data.uploaded_image);
-        window.location = "/referral/vbc";
+
+        {{--$('#message').css('display', 'block');--}}
+        {{--$('#message').html(data.message);--}}
+        {{--$('#message').addClass(data.class_name);--}}
+        {{--$('#uploaded_image').html(data.uploaded_image);--}}
+        {{--window.location = "{{ route('referral.vbc') }}";--}}
        }
       })
      });
 
 });
-</script>   
+</script>
 @stop

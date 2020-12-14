@@ -29,12 +29,13 @@ class CompanyController extends Controller
                 $record = $responseArray['data'];
             }
             $message = $responseArray['message'];
+            return View('pages.admin.referral-approval')->with('record',$record);
 
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
         }
-        return View('pages.admin.referral-approval')->with('record',$record);
+        return redirect()->back()->with('errors','Something Went Wrong!');
     }
 
     /**
@@ -301,7 +302,7 @@ class CompanyController extends Controller
 
             $adminServices = new AdminService();
             $responseArray = $adminServices->updatestatus($data);
-            
+
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data'];

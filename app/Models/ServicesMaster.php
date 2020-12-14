@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ServicesMaster extends Model
 {
     use HasFactory;
+
+    protected $table='services_master';
 }

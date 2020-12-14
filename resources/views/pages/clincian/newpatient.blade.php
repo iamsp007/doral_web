@@ -74,7 +74,7 @@
                         return row.city+ ' - '+row.state;
                     }
                 },
-                {data:'action',name:'action',"bSortable": true}
+                {data:'action',name:'action'}
             ],
             "order": [[ 1, "desc" ]],
            'columnDefs': [

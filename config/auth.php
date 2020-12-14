@@ -108,8 +108,10 @@ return [
             'throttle' => 60,
         ],
         'referrals' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Company::class,
+            'provider' => 'referrals',
+            'table' => 'companies',
+            'expire' => 60,
+            'throttle' => 60,
         ],
     ],
 

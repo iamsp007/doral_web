@@ -68,8 +68,16 @@ class ReferralRegisterController extends Controller
         $this->validator($request->all())->validate();
         $request->merge(['password'=>'test123','name'=>$request->company]);
         event(new Registered($user = $this->create($request->all())));
+        $details = [
+            'name' => $request->company,
+            'email' => $request->email
+        ];
+        try {
+            \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
+        }catch (\Exception $exception){
+            \Log::info($exception->getMessage());
+        }
 
-        event(new ReferralWelcomeMail($request->email));
 //        $this->guard('referral')->login($user);
 
         if ($response = $this->registered($request, $user)) {
@@ -78,7 +86,7 @@ class ReferralRegisterController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 201)
-            : redirect($this->redirectPath());
+            : redirect($this->redirectPath())->with('success','Company Registration Successfully!');
     }
     /**
      * Get a validator for an incoming registration request.

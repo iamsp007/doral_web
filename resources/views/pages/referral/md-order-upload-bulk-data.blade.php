@@ -1,7 +1,34 @@
 @extends('layouts.referral.default')
 @section('content')
+
 <div class="app-vbc">
-    <div class="choose-file-type">
+    <section class="app-body bg_grey section1">
+        <div class="app-vbc">
+            <div class="add-new-patient">
+                <div class="patient_img_65"><img src="../assets/img/icons/form.svg" class="img_65"/></div>
+                <h1 class="pt-4">Select your form</h1>
+                <div class="category-type pt-4">
+                    <div class="box">
+                        <label>HCSP - M11Q</label>
+                    </div>
+                    <div class="box">
+                        <label>DOH-4359 (2010)</label>
+                    </div>
+                    <div class="box">
+                        <label>HCSP - M11Q</label>
+                    </div>
+                    <div class="box">
+                        <label>DOH-4359 (2010)</label>
+                    </div>
+                </div>
+                <div class="d-flex pt-4 justify-content-center">
+                    <button type="submit" class="continue-btn mr-2" name="Continue">Continue</button>
+                        <button type="submit" class="cancel-btn" name="Cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="choose-file-type section2" style="display: none;">
         <h1>Choose File Type</h1>
         <form method="post" id="upload_form" enctype="multipart/form-data">
         <div class="category-type">
@@ -9,27 +36,27 @@
                 <figure>
                     <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="1">Demographic files</input>
+                <input type="radio" name='r1' value="1">Demographic Info</input>
             </div>
             <div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="2">Clinical History</input>
+                <input type="radio" name='r1' value="2">Clinical Info</input>
                 <!--<label>Clinical History</label>-->
             </div>
             <div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="3">Order Due Dates</input>
+                <input type="radio" name='r1' value="3">Compliance Due Dates</input>
                 <!---<label>Order Due Dates</label>-->
             </div>
             <div class="box">
                 <figure>
                     <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
                 </figure>
-                <input type="radio" name='r1' value="4">MD Order</input>
+                <input type="radio" name='r1' value="4">Previous MD Order</input>
                 <!--<label>MD Order</label>--->
             </div>
         </div>

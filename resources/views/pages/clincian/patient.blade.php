@@ -9,6 +9,7 @@
     <table class="display responsive nowrap" style="width:100%" id="patient-table">
         <thead>
         <tr>
+            <th></th>
             <th>ID</th>
             <th>Patient ID</th>
             <th>First Name</th>
@@ -47,7 +48,16 @@
             columns:[
                 {data:'id',name:'id',"bSortable": true},
                 {data:'patient_id',name:'patient_id',"bSortable": true},
-                {data:'first_name',name:'first_name',"bSortable": true},
+                {
+                    data:'first_name',
+                    name:'first_name',
+                    "bSortable": true,
+                    "render": function(data, type, row, meta){
+                        console.log(row)
+                        data = '<a href={{ url('/clinician/patient-detail/') }}' + row.myid + '">' + data + '</a>';
+                        return data;
+                    }
+                },
                 {data:'middle_name',name:'middle_name',"bSortable": true},
                 {data:'last_name',name:'last_name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
@@ -57,12 +67,21 @@
                 {data:'status',name:'status',"bSortable": true},
                 {data:'created_at',name:'created_at',"bSortable": true}
             ],
-            "order": [[ 0, "desc" ]]
+            "order": [[ 0, "desc" ]],
+            columnDefs: [ {
+                orderable: false,
+                className: 'select-checkbox',
+                targets:   0
+            } ],
+            select: {
+                style:    'os',
+                selector: 'td:first-child'
+            },
         });
-        $('#patient-table tbody').on('click', 'tr', function () {
-            var rowData = table.row(this).data();
-            window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;
-            console.log(rowData.id);
-        });
+        {{--$('#patient-table tbody').on('click', 'tr', function () {--}}
+        {{--    var rowData = table.row(this).data();--}}
+        {{--    window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;--}}
+        {{--    console.log(rowData.id);--}}
+        {{--});--}}
     </script>
 @endpush

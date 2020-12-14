@@ -84,7 +84,13 @@ class PatientController extends Controller
         if ($patient){
             $patient->status=$status;
             if($patient->save()){
-
+                if ($status==="accept"){
+                    $users = User::find($patient->patient_id);
+                    if ($users){
+                        $users->status = '1';
+                        $users->save();
+                    }
+                }
                 return response()->json(['message'=>'Change Patient Status Successfully!'],200);
             }
         }

@@ -47,7 +47,7 @@
             serverSide: true,
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
-                {data:'id',name:'id',"bSortable": true},
+                {data:'id',name:'id'},
                 {data:'id',name:'id',"bSortable": true},
                 {data:'user_id',name:'user_id',"bSortable": true},
                 {
@@ -55,8 +55,7 @@
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        console.log(row)
-                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.myid + '">' + data + '</a>';
+                        data = '<a href={{ url('/clinician/patient-detail/') }}/' + row.id + '">' + data + '</a>';
                         return data;
                     }
                 },

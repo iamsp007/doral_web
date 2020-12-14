@@ -29,6 +29,6 @@ class PatientReferral extends Model
     }
 
     public function detail(){
-        return $this->hasOne(User::class,'id','patient_id');
+        return $this->hasOne(User::class,'id','user_id');
     }
 }

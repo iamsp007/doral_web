@@ -6,6 +6,7 @@
 @endsection
 
 @section('content')
+    <button class="btn btn-primary" onclick="allSelectedAccept()">Accept</button>
     <table class="display responsive nowrap" style="width:100%" id="patient-table" >
         <thead>
         <tr>
@@ -87,11 +88,6 @@
                'style': 'multi'
            }
         });
-        {{--$('#patient-table tbody').on('click', 'tr', function () {--}}
-        {{--    var rowData = table.row(this).data();--}}
-        {{--    window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;--}}
-        {{--    console.log(rowData.id);--}}
-        {{--});--}}
 
         function changePatientStatus(element,status) {
             var id=$(element).attr('data-id');
@@ -103,12 +99,39 @@
                 method:'POST',
                 dataType:'json',
                 data:{
-                    id:id,
+                    id:[id],
                     status:status
                 },
                 success:function (response) {
-                    alert(response.message)
-                    window.location.reload();
+                    table.ajax.reload();
+                },
+                error:function (error) {
+                    console.log(error)
+                }
+            });
+        }
+
+        function allSelectedAccept() {
+            var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+            var ids=[];
+            $.each(rows_selected, function(index, rowId){
+                // Create a hidden element
+                ids.push(rowId)
+            });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:"{{  route('clinician.changePatientStatus') }}",
+                method:'POST',
+                dataType:'json',
+                data:{
+                    id:ids,
+                    status:1
+                },
+                success:function (response) {
+                    table.ajax.reload();
                 },
                 error:function (error) {
                     console.log(error)

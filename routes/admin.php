@@ -31,6 +31,9 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
     Route::get('/referral-profile/{id}', 'App\Http\Controllers\CompanyController@profile');
     Route::post('/loginaccess', 'App\Http\Controllers\Admin\HomeController@login');
     Route::get('/dashboard', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.dashboard');
+    Route::get('/', function (){
+        return redirect()->route('admin.dashboard');
+    })->name('admin.home');
 
 //    Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
 });

@@ -34,6 +34,37 @@ a:hover{text-decoration:none}
 .inputfile-1 + label{color:#fff;background-color:var(--sidebar-color)}
 .inputfile-1:focus + label,.inputfile-1.has-focus + label,.inputfile-1 + label:hover{background-color:var(--sidebar-color)}
 /* file uploader button end here*/
+/* Radio Button */
+.control{display:block;position:relative;padding-top:4px;cursor:pointer;font-size:16px}
+.control input{position:absolute;z-index:-1;opacity:0}
+.control_indicator{position:absolute;top:2px;right:0;height:20px;width:20px;background:#fff;border:1px solid #B4B4B4;border-radius:50%}
+.control:hover .control_indicator{border:1px solid #007C88;}
+.control:hover input  .control_indicator,.control input:focus  .control_indicator{background:#fff;border:1px solid #007C88}
+.control input:checked ~ .control_indicator{border:1px solid #007C88}
+.control:hover input:not([disabled]):checked  .control_indicator,.control input:checked:focus  .control_indicator{background:#fff;}
+.control input:disabled ~ .control_indicator{background:#B4B4B4;opacity:.6;pointer-events:none;border:1px solid #B4B4B4}
+.control_indicator:after{box-sizing:unset;content:'';position:absolute;display:none}
+.control-radio .control_indicator{border-radius:50%}
+.control-radio .control_indicator:after{left:5px;top:5px;height:8px;width:8px;border-radius:50%;background:#007C88;transition:background 250ms}
+.control input ~ .control_indicator:after{display:block;background:#B4B4B4}
+.control input:hover ~ .control_indicator:after{display:block;background:#007C88;}
+.control input:checked ~ .control_indicator:after{display:block;background:#007C88}
+.control-radio input:disabled ~ .control_indicator:after{background:#7b7b7b}
+.control-radio .control_indicator::before{content:'';display:block;position:absolute;left:0;top:0;width:2rem;height:2rem;margin-left:-0.4rem;margin-top:-0.4rem;background:#2aa1c0;border-radius:3rem;opacity:.6;z-index:99999;transform:scale(0)}
+@keyframes s-ripple {
+0%{opacity:0;transform:scale(0)}
+20%{transform:scale(1)}
+100%{opacity:.01;transform:scale(1)}
+}
+@keyframes s-ripple-dup {
+0%{transform:scale(0)}
+30%{transform:scale(1)}
+60%{transform:scale(1)}
+100%{opacity:0;transform:scale(1)}
+}
+.control-radio input + .control_indicator::before{animation:s-ripple 250ms ease-out}
+.control-radio input:checked + .control_indicator::before{animation-name:s-ripple-dup}
+/* Radio Button */
 /* Pagination */
 .pagination{display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem}
 .page-link{position:relative;display:block;padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#07737A;background-color:#fff;border:1px solid #07737A;font-weight: 600;}
@@ -185,7 +216,7 @@ small{font-size:12px}
 .app .app-aside .sidebar{width:14.5rem;padding:0;margin:0;background:var(--sidebar-color);align-items:center;}
 .app .app-aside .sidebar .block{display:flex;align-items:flex-start;justify-content:space-between;margin:0;padding:20px;position:relative;animation: 1.75s ease-in-out 1 normal both running fadeInUp;}
 .app .app-aside .sidebar .block #closeMenu{position:absolute;right:15px;top:15px;font-size:25px}
-.app .app-aside .sidebar .sidenav{padding-right:15px;overflow-y: scroll;height: 520px;animation: 1.75s ease-in-out 1 normal both running fadeInUp;}
+.app .app-aside .sidebar .sidenav{padding-right:15px;overflow-y: scroll;height: 100vh;animation: 1.75s ease-in-out 1 normal both running fadeInUp;}
 .app .app-aside .sidebar .sidenav li{padding:0;margin:0 0 10px;position: relative;}
 .app .app-aside .sidebar .sidenav li .nav{padding:0 0 0 18px;margin:0;display:block;font-size:14px;color:#fff;text-decoration:none;display:flex;justify-content:space-between;align-items:center;width:100%;height:40px;line-height:40px;background:#007C88;-webkit-border-radius:0 100px 100px 0;-moz-border-radius:0 100px 100px 0;border-radius:0 100px 100px 0;}
 .app .app-aside .sidebar .sidenav li .nav:hover{background:#fff;-webkit-border-radius:0 100px 100px 0;-moz-border-radius:0 100px 100px 0;border-radius:0 100px 100px 0;color:#006c76;text-decoration:none;animation-name: nav_animation;animation-duration: 3s;}
@@ -314,9 +345,9 @@ small{font-size:12px}
 .app .app-content .app-body .app-vbc .choose-file-type .category-type .box{padding:20px;border-radius:15px;background:#fff;box-shadow:0 0 8px rgba(100,100,100,0.2);margin:0 15px;text-align:center;width: calc(100% / 5);margin-bottom: 35px;}
 .app .app-content .app-body .app-vbc .choose-file-type .category-type .box .iconSize{max-width: 100%;}
 .app .app-content .app-body .app-vbc .choose-file-type .category-type .box figure{background: #fff;border: 1px dashed #808080;width:100px;padding: 20px;border-radius: 100px;margin: 0 auto;}
-.app .app-content .app-body .app-vbc .choose-file-type .category-type .box label{display:block;color:#5B5B5B;font-size:14px;font-weight:700;text-align:center;text-transform:uppercase;padding-top:10px;background-size:16px;}
+.app .app-content .app-body .app-vbc .choose-file-type .category-type .box ._title3{display:block;color:#5B5B5B;font-size:14px;font-weight:700;text-align:center;text-transform:uppercase;padding-top:20px;background-size:16px;}
 .app .app-content .app-body .app-vbc .choose-file-type .category-type .box.selected{background:#f9f9f9;box-shadow:0 0 8px rgba(100,100,100,0.5)}
-.app .app-content .app-body .app-vbc .choose-file-type .category-type .box.selected label{color:#006c76;background-size:16px}
+.app .app-content .app-body .app-vbc .choose-file-type .category-type .box.selected ._title3{color:#006c76;background-size:16px}
 .app .app-content .app-body .app-vbc .upload-your-files{display:none;text-align:center;padding:50px 25px;border-radius:2px;border:dashed 2px gray;background:#fbfeff;margin: 0 60px;}
 .app .app-content .app-body .app-vbc .upload-your-files h1{color:#616161;font-size:25px;font-weight:700;text-align:center;padding:0 0 15px}
 .app .app-content .app-body .app-vbc .upload-your-files p{font-size:15px;font-weight:400;}
@@ -721,15 +752,17 @@ small{font-size:12px}
 ._insurance_company{font-weight:600;color:var(--sidebar-color)}
 /* VBC Add new patient */
 .app .app-content .bg_grey{background-color: #F1F2F4;}
-.app .app-content .app-body .app-vbc .add-new-patient{display:flex;flex-direction: column;align-items: center;height: calc(100% - 113px);}
 .app .app-content .app-body .app-vbc .add-new-patient .icon{width:80px;display: block;margin:0 auto;}
-.app .app-content .app-body .app-vbc .add-new-patient h1{color:#000000;font-size:14px;font-weight:500;text-align:center;}
+.app .app-content .app-body .app-vbc .add-new-patient ._title1{color:#000000;font-size:18px;font-weight:500;text-align:center;}
+.app .app-content .app-body .app-vbc .add-new-patient ._title2{color:#006C76;font-size:24px;font-weight:700;text-align:center;}
 .app .app-content .app-body .app-vbc .add-new-patient .category-type{display:flex; flex-wrap: wrap;justify-content: center;}
 .app .app-content .app-body .app-vbc .add-new-patient .category-type .box{padding:15px;border-radius:15px;background:#fff;box-shadow:0px 2px 23px #d8d8d8;margin:0 15px;text-align:center;width: 220px;border: 1px solid #fff;}
-.app .app-content .app-body .app-vbc .add-new-patient .category-type .box label{display:flex;color:#5B5B5B;font-size:14px;line-height:20px;font-weight:500;text-align:center;text-transform:uppercase;background:url(../img/radio-btn-grey.svg) no-repeat top right;background-size:16px;justify-content: center;align-items: center;height: 100px;}
+.app .app-content .app-body .app-vbc .add-new-patient .category-type .box .block{display: flex;justify-content: center;align-items: center;height: 100px;}
+.app .app-content .app-body .app-vbc .add-new-patient .category-type .box ._title3{color:#5D5D5D;font-size: 16px;line-height: 19px;display: flex;justify-content: center;align-items: center;height: 150px;}
 .app .app-content .app-body .app-vbc .add-new-patient .category-type .box.selected{background:#fff;box-shadow:0 0 8px rgba(100,100,100,0.5);border: 1px solid #006c76;}
-.app .app-content .app-body .app-vbc .add-new-patient .category-type .box.selected label{color:#006c76;font-weight:600;background:url(../img/radio-btn-green.svg) no-repeat top right;background-size:16px;}
+.app .app-content .app-body .app-vbc .add-new-patient .category-type .box.selected ._title3{color:#006c76;font-weight:600;}
 .app .app-content .app-body .app-vbc .add-new-patient .continue-btn{height: 35px;border-radius:4px;border:solid 1px #FF0C6C;font-size:12px;color:#FF0C6C;background-color: #fff;font-weight:600;text-align:center;display: block;width: 100px;text-transform: uppercase;}
 .app .app-content .app-body .app-vbc .add-new-patient .continue-btn:hover{background-color: #FF0C6C;color:#fff}
 .app .app-content .app-body .app-vbc .add-new-patient .cancel-btn{height: 35px;border-radius:4px;border:solid 1px #006c76;font-size:12px;color:#fff;background-color: #006c76;font-weight:600;text-align:center;display: block;width: 100px;text-transform: uppercase;}
 .app .app-content .app-body .app-vbc .add-new-patient .cancel-btn:hover{background-color: #fff;color:#006c76}
+.app .app-content .app-body.content_v_center{display: flex;align-items: center;justify-content: center;}

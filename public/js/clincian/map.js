@@ -1,4 +1,4 @@
-var base_url = $('#base_url').val();
+// var base_url = $('#base_url').val();
 // socket.on('receive-location', function (data) {
 // console.log(data,"receive-location")
 // });
@@ -17,24 +17,19 @@ function getRoadLProcess(callback) {
         method:'POST',
         dataType:'json',
         success:function (response) {
-            var origin='';
-            var destination='';
+            var origin=response.latitude+', '+response.longitude;
+            var destination=response.destination.latitude+', '+response.destination.longitude;;
             var locations=[];
-            response.map( (resp)=> {
-                if (resp.status==='start'){
-                    origin=resp.latitude+', '+resp.longitude
-                }else if (resp.status==='complete'){
-                    destination=resp.latitude+', '+resp.longitude;
-                }else {
-                    locations.push( {
-                        location:resp.latitude+', '+resp.longitude,
-                        lat:resp.latitude,
-                        lng:resp.longitude,
-                        lable:resp.status
-                    })
-                }
+
+            response.routes.map( (resp)=> {
+                locations.push( {
+                    location:resp.latitude+', '+resp.longitude,
+                    lat:resp.latitude,
+                    lng:resp.longitude,
+                    lable:resp.user.first_name+' '+resp.user.last_name
+                })
             });
-            callback(locations,origin,destination)
+            callback(locations,origin,destination,{lat:response.latitude,lng:response.longitude})
         },
         error:function (error) {
             console.log(error)
@@ -90,19 +85,7 @@ function initMap(postLatLng=null) {
             tilt: 45,
         });
 
-        var cmarker = new google.maps.Marker({
-            zoom: 14,
-            map: map,
-            position: new google.maps.LatLng(postLatLong.lat,postLatLong.lng),
-            title: 'Your current location',
-        });
 
-        var circle = new google.maps.Circle({
-            map: map,
-            radius: 25000,    // 5 miles in metres
-            fillColor: '#5aba5c'
-        });
-        circle.bindTo('center', cmarker, 'position');
 
         // Create an array of alphabetical characters used to label the markers.
         const labels = "Sunil Karmur";
@@ -132,29 +115,7 @@ function initMap(postLatLng=null) {
         const infowindow = new google.maps.InfoWindow({
             content: contentString,
         });
-        const infoWindow = new google.maps.InfoWindow();
 
-        const locationButton = document.createElement("button");
-        locationButton.textContent = "Pan to Current Location";
-        locationButton.classList.add("custom-map-control-button");
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-        locationButton.addEventListener("click", () => {
-            if (navigator.geolocation){
-                navigator.geolocation.getCurrentPosition((position)=>{
-                    const pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    };
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent("Location found.");
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-
-                },(error)=>{
-
-                },{enableHighAccuracy:true,maximumAge:2000})
-            }
-        })
 
         const markers = locations.map((location, i) => {
             var marker = new google.maps.Marker({
@@ -183,8 +144,23 @@ function initMap(postLatLng=null) {
         });
         directionsRenderer.setMap(map);
         var patient_request_id = $('#patient_request_id').val();
-        getRoadLProcess((locations,origin,destination)=>{
+        getRoadLProcess((locations,origin,destination,patient=null)=>{
             console.log(locations,origin,destination)
+
+            var cmarker = new google.maps.Marker({
+                zoom: 14,
+                map: map,
+                position: new google.maps.LatLng(patient.lat,patient.lng),
+                title: 'Your current location',
+            });
+
+            var circle = new google.maps.Circle({
+                map: map,
+                radius: 25000,    // 5 miles in metres
+                fillColor: '#5aba5c'
+            });
+            circle.bindTo('center', cmarker, 'position');
+
             if (locations.length>0){
                 if (origin===''){
                     origin = locations[0].lat+','+locations[0].lng;
@@ -192,10 +168,7 @@ function initMap(postLatLng=null) {
                 if (destination===''){
                     destination = locations[locations.length-1].lat+','+locations[locations.length-1].lng;
                 }
-                // var origin = locations[0].lat+','+locations[0].lng;
-                // var destination = locations[2].lat+','+locations[2].lng;
-                // origin = locations[0].lat+','+locations[0].lng;
-                // destination = locations[locations.length-1].lat+','+locations[locations.length-1].lng;
+
                 calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,locations);
             }else {
                 alert('No Data Found')

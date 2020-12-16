@@ -1,36 +1,96 @@
 @extends('layouts.referral.default')
 @section('content')
+
 <div class="app-vbc">
-    <div class="choose-file-type">
+    <section class="app-body bg_grey section1">
+        <div class="app-vbc p-0">
+            <div class="add-new-patient">
+                <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
+                <h1 class="pt-4 _title1">Select your form</h1>
+                <div class="category-type pt-4 control-group">
+                    <div class="box">
+                        <label class="control control-radio block">
+                            <span class="_title3">HCSP - M11Q</span>
+                            <input type="radio" value="1" name="formName" class="formName" />
+                            <div class="control_indicator"></div>
+                        </label>
+                        <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+                    </div>
+                    <div class="box">
+                        <label class="control control-radio block">
+                            <span class="_title3">DOH-4359 (2010)</span>
+                            <input type="radio" value="2" name="formName" class="formName" />
+                            <div class="control_indicator"></div>
+                        </label>
+                        <!--<input type="radio" value="2" name="formName" class="formName"/><br/>DOH-4359 (2010)-->
+                    </div>
+                    <div class="box">
+                        <label class="control control-radio block">
+                            <span class="_title3">HCSP - M12Q</span>
+                            <input type="radio" value="3" name="formName" class="formName" />
+                            <div class="control_indicator"></div>
+                        </label>
+                        <!--<input type="radio" value="3" name="formName" class="formName"/><br/>HCSP - M12Q-->
+                    </div>
+                    <div class="box">
+                        <label class="control control-radio block">
+                            <span class="_title3">DOH-4359 (2011)</span>
+                            <input type="radio" value="4" name="formName" class="formName" />
+                            <div class="control_indicator"></div>
+                        </label>
+                        <!--<input type="radio" value="4" name="formName" class="formName"/><br/>DOH-4359 (2011)-->
+                    </div>
+                </div>
+                <div class="d-flex pt-4 justify-content-center">
+                    <button type="button" class="continue-btn mr-2 openSection2" name="Continue">Continue</button>
+                        <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="choose-file-type section2" style="display: none;">
         <h1>Choose File Type</h1>
         <form method="post" id="upload_form" enctype="multipart/form-data">
-        <div class="category-type">
+        <div class="category-type control-group">
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" name='r1' value="1">Demographic files</input>
+                <label class="control control-radio block">
+                    <figure>
+                        <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="1">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Demographic Info</span>
+                </label>
             </div>
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" name='r1' value="2">Clinical History</input>
-                <!--<label>Clinical History</label>-->
+                <label class="control control-radio block">
+                   <figure>
+                        <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="2">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Clinical Info</span>
+                </label>
             </div>
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" name='r1' value="3">Order Due Dates</input>
-                <!---<label>Order Due Dates</label>-->
+                <label class="control control-radio block">
+                    <figure>
+                        <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="3">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Compliance Due Dates</span>
+                </label>
             </div>
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" name='r1' value="4">MD Order</input>
-                <!--<label>MD Order</label>--->
+                <label class="control control-radio block">
+                    <figure>
+                        <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="4">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Previous MD Order</span>
+                </label>
             </div>
         </div>
         <div class="upload-your-files">
@@ -40,12 +100,13 @@
             <div class="upload-files">
                 <div class="upload_icon"></div>
                 <div>
+                    <input type="hidden" name="service_id" id="service_id" value="2"> 
+                    <input type="hidden" name="formSelect" id="formSelect">
                     <h1 class="_title">Drag & Drop</h1>
                     <p>Or</p>
                     <div class="mt-3">
                         <input type="file" name="file_name" id="file_name" class="inputfile inputfile-1"
-                            data-multiple-caption="{count} files selected" multiple />
-                        <input type="hidden" name="service_id" id="service_id" value="2">    
+                            data-multiple-caption="{count} files selected" multiple />   
                         <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="17" viewBox="0 0 20 17">
                                 <path
@@ -58,68 +119,7 @@
             
         </div>
         </form>
-        <!--<div class="uploaded-file-listing">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h1 class="_t10">Uploaded files (04)</h1>
-                </div>
-                <div>
-                    <select name="fileSelect" class="form-control form-control-sm" id="fileSelect">
-                        <option value="1">Demographic Files</option>
-                        <option value="2">Clinical History</option>
-                        <option value="3">Order Due Dates</option>
-                        <option value="4">MD Order</option>
-                    </select>
-                </div>
-            </div>
-            <table id="vbc" class="table" style="width:100%">
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" class="selectall" /></th>
-                        <th>Patient Name</th>
-                        <th>File</th>
-                        <th>Gender</th>
-                        <th>Phone</th>
-                        <th>City</th>
-                        <th>Zip Code</th>
-                        <th>Created Date</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if(isset($record) && count($record) > 0)
-                    @foreach($record['patientReferral'] as $raw)
-                    <tr>
-                        <td><input type="checkbox" /></td>
-                        <td class="text-green">{{$raw['first_name']}} {{$raw['middle_name']}} {{$raw['last_name']}}</td>
-                        <td>
-                            @if($raw['file_type'] == 1)
-                            Demographic files
-                            @elseif($raw['file_type'] == 2)
-                            Clinical History
-                            @elseif($raw['file_type'] == 3)
-                            Order Due Dates
-                            @elseif($raw['file_type'] == 3)
-                            MD Order
-                            @endif
-                        </td>
-                        <td>{{$raw['gender']}}</td>
-                        <td>{{$raw['phone1']}}</td>
-                        <td>{{$raw['city']}}-{{$raw['state']}}</td>
-                        <td>{{$raw['Zip']}}</td>
-                        <td>{{ date('F d Y', strtotime($raw['created_at'])) }}</td>
-                        <td class="text-green">Success</span></td>
-                        <td width="9%"><a href="javascript:void(0)"><img
-                                    src="{{asset('assets/img/icons/delete-icon.svg')}}"
-                                    class="action-delete" /></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                    @endif
-                </tbody>
-            </table>
-        </div>-->
+        
     </div>
 </div>
 <script>
@@ -131,10 +131,18 @@ $(document).ready(function () {
         }
     });
 
+    $(".openSection2").click(function() {
+        var formName = $(".formName:checked").val();
+        $("#formSelect").val(formName);
+        $(".section1").hide();
+        $(".section2").show();
+
+    });
+
     $('#upload_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
-       url:'/referral/md-order-upload-bulk-data-store',
+       url:'{{ route('referral.md-order-upload-bulk-data-store') }}',
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',
@@ -143,11 +151,7 @@ $(document).ready(function () {
        processData: false,
        success:function(data)
        {
-        $('#message').css('display', 'block');
-        $('#message').html(data.message);
-        $('#message').addClass(data.class_name);
-        $('#uploaded_image').html(data.uploaded_image);
-        window.location = "/referral/md-order";
+        window.location = "{{ route('referral.md-order') }}";
        }
       })
      });

@@ -27,10 +27,23 @@ class BaseClient
         $this->oAuthServer = $oAuthServer;
 
         if (cache('ADMIN_SSO_TOKEN')) {
-            $this->client = new Client(['headers' => ['Authorization' => cache('ADMIN_SSO_TOKEN')]]);
+
+            $this->client = new Client(['headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Access-Control-Allow-Origin' => 'http://localhost',
+                'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
+
         } else {
             $this->acquireToken();
-            $this->client = new Client(['headers' => ['Authorization' => cache('ADMIN_SSO_TOKEN')]]);
+            $this->client = new Client(['headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Access-Control-Allow-Origin' => 'http://localhost',
+                'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
+
         }
     }
 

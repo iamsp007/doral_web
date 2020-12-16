@@ -22,13 +22,24 @@ class RedirectIfAuthenticated
         if (Auth::check()){
 
             if (Auth::user()->hasRole('clinician')){
-                return $next($request);
+                $path=explode('/',$request->path());
+                if (in_array('clinician',$path)){
+                    return $next($request);
+                }
+                return redirect(RouteServiceProvider::CLINICIAL_HOME);
             }elseif (Auth::user()->hasRole('admin')){
-                return $next($request);
+                $path=explode('/',$request->path());
+                if (in_array('admin',$path)){
+                    return $next($request);
+                }
+                return redirect(RouteServiceProvider::ADMIN_HOME);
             }elseif (Auth::user()->hasRole('co-ordinate')){
-                return $next($request);
+                $path=explode('/',$request->path());
+                if (in_array('co-ordinate',$path)){
+                    return $next($request);
+                }
+                return redirect(RouteServiceProvider::COORDINATE_HOME);
             }else{
-
                 return $next($request);
             }
         }elseif (Auth::guard('referral')->check()){

@@ -6,6 +6,7 @@
 @endsection
 
 @section('content')
+    <button class="btn btn-primary" onclick="allSelectedAccept()">Accept</button>
     <table class="display responsive nowrap" style="width:100%" id="patient-table" >
         <thead>
         <tr>
@@ -33,10 +34,8 @@
 @endpush
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>--}}
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
@@ -74,12 +73,14 @@
                         return row.city+ ' - '+row.state;
                     }
                 },
-                {data:'action',name:'action'}
+                {data:'action',name:'action',"bSortable": false}
             ],
             "order": [[ 1, "desc" ]],
            'columnDefs': [
                {
                    'targets': 0,
+                   orderable: false,
+                   className: 'select-checkbox',
                    'checkboxes': {
                        'selectRow': true
                    }
@@ -87,15 +88,15 @@
            ],
            'select': {
                'style': 'multi'
-           }
-        });
-        {{--$('#patient-table tbody').on('click', 'tr', function () {--}}
-        {{--    var rowData = table.row(this).data();--}}
-        {{--    window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;--}}
-        {{--    console.log(rowData.id);--}}
-        {{--});--}}
+           },
+           buttons: [
+               { extend: "create"},
+               { extend: "edit" },
+               { extend: "remove" }
+           ]
+       });;
 
-        function changePatientStatus(element,status) {
+       function changePatientStatus(element,status) {
             var id=$(element).attr('data-id');
             $.ajax({
                 headers: {
@@ -105,15 +106,42 @@
                 method:'POST',
                 dataType:'json',
                 data:{
-                    id:id,
+                    id:[id],
                     status:status
                 },
                 success:function (response) {
-                    alert(response.message)
-                    window.location.reload();
+                    table.ajax.reload();
                 },
                 error:function (error) {
                     console.log(error)
+                }
+            });
+        }
+
+        function allSelectedAccept() {
+            var rows_selected = table.column(0).checkboxes.selected();
+            // Iterate over all selected checkboxes
+            var ids=[];
+            $.each(rows_selected, function(index, rowId){
+                // Create a hidden element
+                ids.push(rowId)
+            });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:"{{  route('clinician.changePatientStatus') }}",
+                method:'POST',
+                dataType:'json',
+                data:{
+                    id:ids,
+                    status:1
+                },
+                success:function (response) {
+                    table.ajax.reload();
+                },
+                error:function (error) {
+                    console.log(error.message)
                 }
             });
         }

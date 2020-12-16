@@ -29,7 +29,6 @@ class BaseClient
         if (cache('ADMIN_SSO_TOKEN')) {
             $this->client = new Client(['headers' => ['Authorization' => cache('ADMIN_SSO_TOKEN')]]);
         } else {
-            dd("123");
             $this->acquireToken();
             $this->client = new Client(['headers' => ['Authorization' => cache('ADMIN_SSO_TOKEN')]]);
         }

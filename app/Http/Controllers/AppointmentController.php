@@ -20,26 +20,28 @@ class AppointmentController extends Controller
         $message = "";
         $record = [];
         try {
-            $adminService = new class AdminService();
-            $responseArray = $adminService->getAllAppointment();
-            dd($responseArray);
-            $apiToken = session('token');
-            dd($apiToken);
-            $url = CurlFunction::getURL().'/api/auth/appointment';
-            $curlResponse = CurlFunction::withTokenGet($url, $apiToken);
-            $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
+            $employeeServices = new EmployeeService();
+            $responseArray = $employeeServices->getAllAppointment();
             if($responseArray['status']) {
                 $status = 1;
-                $record = $responseArray['data'];
+                $record = $responseArray['data'];                
+                $appointments = [];
+                foreach($record['appointments'] as $key => $val) {
+                    $appointment[$key]['title'] = $val['title'];
+                    $appointment[$key]['start'] = $val['start_datetime'];
+                    $appointment[$key]['end'] = $val['end_datetime'];
+                    $appointment[$key]['color'] = '';
+                    $appointment[$key]['url'] = '';
+                }
             }
             $message = $responseArray['message'];
-
+            $appointment = json_encode($appointment);             
         } catch(\Exception $e) {
             $status = 0;
             $message = $e->getMessage();
+            
         }
-        return view('calendar');
+        return view('pages.appoinment.calendar')->with(['record'=> $appointment, 'message'=>$message]);
     }
 
     /**

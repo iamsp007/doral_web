@@ -196,7 +196,6 @@ class EmployeeService
                 ]
             );
             $response = $response->getBody()->getContents();
-            dd($response);
             $data = json_decode($response, true);
             return $data;
         } catch (\Exception $exception) {

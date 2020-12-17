@@ -34,10 +34,10 @@
                                             <div>
                                                 <ul class="panel nav justify-content-end d-flex align-items-center">
 
-                                                    <li><a href="#Provider" class="active mr-2" data-toggle="pill" role="tab" aria-selected="true">Provider</a>
+                                                    <li><a href="#Provider" onclick="changeLoginRole('1')" class="active mr-2" data-toggle="pill" role="tab" aria-selected="true">Provider</a>
                                                         <input type="radio" name="loginType" value="1" style="display: none;" />
                                                     </li>
-                                                    <li><a href="#Payer" data-toggle="pill" role="tab" class="" aria-selected="false">Payer</a> 
+                                                    <li><a href="#Payer" onclick="changeLoginRole('2')"  data-toggle="pill" role="tab" class="" aria-selected="false">Payer</a>
                                                         <input type="radio" name="loginType" value="2" style="display: none;" /></li>
                                                 </ul>
                                             </div>
@@ -94,3 +94,15 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        function changeLoginRole(type) {
+            if (type==='1'){
+                $('#loginForm').attr('action','{{ route('login') }}');
+            }else {
+                $('#loginForm').attr('action','{{ route('referral.login') }}');
+            }
+            console.log(type)
+        }
+    </script>
+@endpush

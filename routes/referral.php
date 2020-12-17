@@ -22,8 +22,8 @@ Route::group(['prefix'=>'/referral','middleware'=>['role:referral']],function ()
 
         # Referral-Patient api
         Route::post('/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store')->name('referral.vbc-upload-bulk-data-store');
-        Route::post('/md-order-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
-        Route::post('/employee-pre-physical-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store');
+        Route::post('/md-order-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store')->name('referral.md-order-upload-bulk-data-store');
+        Route::post('/employee-pre-physical-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store')->name('referral.employee-pre-physical-upload-bulk-data-store');
         Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\Clincian\PatientController@getPatientDetail')->name('referral.patient.detail');
         Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
     });

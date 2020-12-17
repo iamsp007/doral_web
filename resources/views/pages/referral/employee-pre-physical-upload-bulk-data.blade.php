@@ -4,29 +4,39 @@
     <div class="choose-file-type">
         <h1>Choose File Type</h1>
         <form method="post" id="upload_form" enctype="multipart/form-data">
-        <div class="category-type">
+        <div class="category-type control-group">
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" id="demographic" name='vbc_select' value="1" class="mt-3">
-                <label for="demographic">Demographic Info</label>
+                <label class="control control-radio block">
+                    <figure>
+                        <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="1">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Demographic Info</span>
+                </label>
             </div>
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" id="demographic" name='vbc_select' value="2" class="mt-3">
-                <label for="demographic">Clinical Info</label>
+                <label class="control control-radio block">
+                   <figure>
+                        <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="2">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Clinical Info</span>
+                </label>
             </div>
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" id="demographic" name='vbc_select' value="3" class="mt-3">
-                <label for="demographic">Compliance Due Dates</label>
+                <label class="control control-radio block">
+                    <figure>
+                        <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="3">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Compliance Due Dates</span>
+                </label>
             </div>
         </div>
+
         <div class="upload-your-files">
             
             <h1>Upload your files</h1>
@@ -34,12 +44,12 @@
             <div class="upload-files">
                 <div class="upload_icon"></div>
                 <div>
+                    <input type="hidden" name="service_id" id="service_id" value="3">
                     <h1 class="_title">Drag & Drop</h1>
                     <p>Or</p>
                     <div class="mt-3">
                         <input type="file" name="file_name" id="file_name" class="inputfile inputfile-1"
-                            data-multiple-caption="{count} files selected" multiple />
-                        <input type="hidden" name="service_id" id="service_id" value="3">    
+                            data-multiple-caption="{count} files selected" multiple />    
                         <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="17" viewBox="0 0 20 17">
                                 <path
@@ -67,7 +77,7 @@ $(document).ready(function () {
     $('#upload_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
-       url:'/referral/employee-pre-physical-upload-bulk-data-store',
+       url:'{{ route('referral.employee-pre-physical-upload-bulk-data-store') }}',
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',
@@ -76,11 +86,7 @@ $(document).ready(function () {
        processData: false,
        success:function(data)
        {
-        $('#message').css('display', 'block');
-        $('#message').html(data.message);
-        $('#message').addClass(data.class_name);
-        $('#uploaded_image').html(data.uploaded_image);
-        window.location = "/referral/employee-pre-physical";
+        window.location = "{{ route('referral.employee-pre-physical') }}";
        }
       })
      });

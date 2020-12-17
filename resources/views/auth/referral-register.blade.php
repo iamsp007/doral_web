@@ -19,7 +19,7 @@
                         <div class="mid">
                             <div class="p50">
                                 <h1 class="t2"><img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
-                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">Referral Registration</h1>
+                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">Referral SIGN UP</h1>
 
                                 <form method="POST" action="{{ route('referral.register') }}">
                                     @csrf
@@ -70,8 +70,7 @@
                                                 name="signup" id="register">Create Your Account</button>
                                     </div>
                                 </form>
-                                <div class="d-flex align-items-center justify-content-center mt-2 t3">Already member?<a href="{{ route('referral.login') }}" class="ml-2 underline">Login Referral
-                                                Account</a></div>  
+                                <div class="d-flex align-items-center justify-content-center mt-2 t3">Already member?<a href="{{ route('login') }}" class="ml-2 underline">Login Account</a></div>  
                                 <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
                                     <strong>Success!</strong> <span id="successResponse"></span>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

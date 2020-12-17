@@ -1,8 +1,11 @@
-var socket = io('ws://localhost:3001', {
+var socket = io('http://socket.doralhealthconnect.com', {
     token: 1,
     transports: ['websocket']
 });
 socket.on('connect', function () {
-    console.log('send-location!');
     socket.emit('send-location', { message: 'Hello Mr.Server!' });
+
+    socket.on('receive-location',function (data) {
+        console.log(data,"receive-location")
+    })
 });

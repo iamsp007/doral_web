@@ -48,7 +48,7 @@
                                             <label for="username" class="label">Username</label>
                                         </div>
                                         <input autocomplete="off" type="text" class="form-control form-control-lg" id="username"
-                                               name="email" aria-describedby="emailHelp" value="shashikant@hcbspro.com">
+                                               name="email" aria-describedby="emailHelp" value="admin@doral.com">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

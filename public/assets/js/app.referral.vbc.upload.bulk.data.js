@@ -5,6 +5,10 @@ $(function () {
         $(this).addClass("selected");
         $('.upload-your-files').slideDown();
     });
+    $('.box .control input:radio[name=radio]').change(function(){
+        $('.box.selected').removeClass('selected');
+        $(this).closest('.box').addClass('selected');
+    });
     $('#vbc').DataTable({
         "order": [],
         'columnDefs': [{

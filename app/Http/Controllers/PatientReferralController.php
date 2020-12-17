@@ -275,8 +275,9 @@ class PatientReferralController extends Controller
             //dd($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 600); 
             $curlResponse = curl_exec($ch);
-            dd($curlResponse);
+            //dd($curlResponse);
             $responseArray = json_decode($curlResponse, true);
             if(curl_errno($ch)) {
                 throw new Exception(curl_error($ch));

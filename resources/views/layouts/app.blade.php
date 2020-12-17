@@ -23,6 +23,9 @@
 {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 </head>
 <body>
+    <div id="loader-wrapper">
+        <div class="pulse"></div>
+    </div>
     <div id="app">
         <header class="header">
             <div class="container">

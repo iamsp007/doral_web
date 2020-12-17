@@ -247,6 +247,9 @@ class PatientReferralController extends Controller
         try {
             //  ---------------
             $url = CurlFunction::getURL().'/api/auth/patient-referral/store';
+            if($request->service_id == 2 && $request->vbc_select == 3)
+            $url = CurlFunction::getURL().'/api/auth/patient-referral/storecert';
+            //dd($url);
             $headerValue = array(
                 'X-Requested-With: XMLHttpRequest',
                 'Access-Control-Allow-Origin: http://localhost'

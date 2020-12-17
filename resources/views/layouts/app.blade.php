@@ -17,6 +17,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    @stack('css')
 
     <!-- Styles -->
 {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
@@ -88,5 +89,6 @@
     </div>
     @include('includes.footer')
     @include('includes.script')
+    @stack('scripts')
 </body>
 </html>

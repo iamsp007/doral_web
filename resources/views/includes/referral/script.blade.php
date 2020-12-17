@@ -11,3 +11,6 @@
 <!--<script src="../assets/js/app.referral.vbc.min.js"></script>-->
 <script src="{{asset('assets/js/jquery.custom-file-input.js')}}"></script>
 <script src="{{asset('assets/js/app.referral.vbc.upload.bulk.data.min.js')}}"></script>
+<script>
+    $("#loader-wrapper").hide();
+</script>

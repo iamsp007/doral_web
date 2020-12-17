@@ -25,6 +25,7 @@ a:hover{text-decoration:none}
 .gutter > [class*="col-"] {padding-right: 5px;padding-left: 5px;}
 .raduis_5{border-radius: 5px!important;}
 .f-15{font-size: 15px;}
+.button-control{display: none; animation: 1.75s ease-in-out 1 normal both running fadeIn;}
 /* file uploader button start here*/
 .js .inputfile{width:.1px;height:.1px;opacity:0;overflow:hidden;position:absolute;z-index:-1}
 .inputfile + label{max-width:100%;font-size:18px;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;display:inline-block;overflow:hidden;padding:8px 10px;border-radius: 5px;color: var(--white);}
@@ -136,6 +137,9 @@ a:hover{text-decoration:none}
 .btn-outline-green{color:var(--sidebar-color);border-color:var(--sidebar-color)}
 .btn-outline-green:hover{color:#fff;background-color:var(--sidebar-color);border-color:#007bff}
 .btn-outline-green:not(:disabled):not(.disabled).active,.btn-outline-green:not(:disabled):not(.disabled):active,.show>.btn-outline-green.dropdown-toggle{color:#fff;background-color:var(--sidebar-color);border-color:var(--sidebar-color)}
+.btn-outline-pink{color:var(--pink);border-color:var(--pink)}
+.btn-outline-pink:hover{color:#fff;background-color:var(--pink);border-color:#fff}
+.btn-outline-pink:not(:disabled):not(.disabled).active,.btn-outline-green:not(:disabled):not(.disabled):active,.show>.btn-outline-green.dropdown-toggle{color:#fff;background-color:var(--sidebar-color);border-color:var(--sidebar-color)}
 .btn-group-sm>.btn,.btn-sm{font-size:13px}
 .btn-view{color:var(--white);font-size:14px;font-weight:500;background-color:var(--view);text-transform:uppercase;border-color:var(--view)}
 .btn-view:hover{animation-name:fadeIn;animation-duration:4s;animation-timing-function:normal;animation-delay:0;animation-iteration-count:1;animation-direction:normal;animation-fill-mode:none;color:#fff;background-color: #0069d9;}
@@ -503,24 +507,24 @@ small{font-size:12px}
 /* .app .app-content .app-body {padding:8.2rem 1.5rem 1rem;margin:0;overflow-x: hidden;} */
 .app .app-content .app-body ._overhidden{overflow: hidden;}
 .app .app-content .app-body .patient-details{position: relative;margin-top: 6px;display: flex;justify-content: space-between;}
-.app .app-content .app-body  .patient-details-aside{margin:0;padding:0;opacity:1;display:block!important;z-index:9999;box-shadow: 0 0 8px 0 rgba(0,0,0,.30);overflow: hidden;border-radius: 4px;width: 250px;}
-.app .app-content .app-body  .patient-details-aside .sidebar{padding:0;margin:0;background:#ffffff;align-items:center;height:100%}
-.app .app-content .app-body  .patient-details-aside .sidebar .block{display:flex;margin:0;position:relative;margin-bottom: 55px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .block .img-100{width:70px;height:70px;border-radius:50px;position:absolute;left: 0;top: 35%;right: 0;margin: 0 auto;}
-.app .app-content .app-body  .patient-details-aside .sidebar .block .height-83{height:58px;background: var(--sidebar-color);width:100%;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-name{color:var(--sidebar-color);font-size:14px;font-weight:600;margin:0;text-align: center;line-height: 18px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .pdetail{width: 100%;margin: 0px 20px 0 20px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .pdetail .nav{width:100%;line-height:26px;background:var(--white);border:1px solid #007C88;-webkit-border-radius:100px 100px 100px 100px;-moz-border-radius:100px 100px 100px 100px;border-radius:100px 100px 100px 100px;margin-top:6px;justify-content: center;font-size: 11px;padding: 0 12px;color:#000;font-weight: 400;}
-.app .app-content .app-body  .patient-details-aside .sidebar .pdetail .nav .pdata{color:#00717c;font-weight: 600;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav{margin: 30px 15px 0px 15px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li{width: 100%;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li ._icon{width: 28px;border: 1px solid #adadad;border-radius: 50%;padding: 3px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li ._icon:hover{border: 1px solid #00717c;padding: 2px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li a{display: block;line-height: 25px;font-size: 14px;font-weight: 400;color: #000;box-sizing: border-box;transition: .4s;display: flex;align-items: center;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li a:hover{color:#00717c;font-weight: 500;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li .active{color: #006C76;font-weight: 500;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li:hover a{padding-left: 20px;}
-.app .app-content .app-body  .patient-details-content{width: calc(100% - 278px);box-shadow: 0 0 8px 0 rgba(0,0,0,.3);background-color: #fff;border-radius: 4px;padding: .75rem 1.25rem;}
+.app .app-content .app-body .patient-details-aside{margin:0;padding:0;opacity:1;display:block!important;z-index:9999;box-shadow: 0 0 8px 0 rgba(0,0,0,.30);overflow: hidden;border-radius: 8px;width: 250px;}
+.app .app-content .app-body .patient-details-aside .sidebar{padding:0;margin:0;background:#ffffff;align-items:center;height:100%}
+.app .app-content .app-body .patient-details-aside .sidebar .block{display:flex;margin:0;position:relative;margin-bottom: 45px;}
+.app .app-content .app-body .patient-details-aside .sidebar .block .img-100{width:70px;height:70px;border-radius:50px;position:absolute;left: 0;top: 35%;right: 0;margin: 0 auto;}
+.app .app-content .app-body .patient-details-aside .sidebar .block .height-83{height:58px;background: var(--sidebar-color);width:100%;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-name{color:var(--sidebar-color);font-size:14px;font-weight:600;margin:0;text-align: center;line-height: 18px;}
+.app .app-content .app-body .patient-details-aside .sidebar .pdetail{width: 100%;margin: 0px 20px 0 20px;}
+.app .app-content .app-body .patient-details-aside .sidebar .pdetail .nav{width:100%;line-height:26px;background:var(--white);border:1px solid #007C88;-webkit-border-radius:100px 100px 100px 100px;-moz-border-radius:100px 100px 100px 100px;border-radius:100px 100px 100px 100px;margin-top:6px;justify-content: center;font-size: 11px;padding: 0 12px;color:#000;font-weight: 400;}
+.app .app-content .app-body .patient-details-aside .sidebar .pdetail .nav .pdata{color:#00717c;font-weight: 600;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav{margin: 30px 15px 0px 15px;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li{width: 100%;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li ._icon{width: 28px;border: 1px solid #adadad;border-radius: 50%;padding: 3px;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li ._icon:hover{border: 1px solid #00717c;padding: 2px;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li a{display: block;line-height: 25px;font-size: 14px;font-weight: 400;color: #000;box-sizing: border-box;transition: .4s;display: flex;align-items: center;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li a:hover{color:#00717c;font-weight: 500;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li .active{color: #006C76;font-weight: 500;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li:hover a{padding-left: 20px;}
+.app .app-content .app-body .patient-details-content{width: calc(100% - 278px);box-shadow: 0 0 8px 0 rgba(0,0,0,.3);background-color: #fff;border-radius: 8px;padding: .75rem 1.25rem;}
 .app .app-content .app-body .patient-details-content>.tab-pane {display: block;}
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link{background-color: #fff;}
 /* demographics css Start */
@@ -766,3 +770,69 @@ small{font-size:12px}
 .app .app-content .app-body .app-vbc .add-new-patient .cancel-btn{height: 35px;border-radius:4px;border:solid 1px #006c76;font-size:12px;color:#fff;background-color: #006c76;font-weight:600;text-align:center;display: block;width: 100px;text-transform: uppercase;}
 .app .app-content .app-body .app-vbc .add-new-patient .cancel-btn:hover{background-color: #fff;color:#006c76}
 .app .app-content .app-body.content_v_center{display: flex;align-items: center;justify-content: center;}
+/* Referral Patient Detail */
+.app .app-content .app-body .patient-details{position: relative;margin-top: 6px;display: flex;justify-content: space-between;}
+.app .app-content .app-body .patient-aside{margin:0;padding:0;opacity:1;display:block!important;z-index:9999;overflow: hidden;width: 250px;}
+.app .app-content .app-body .patient-aside .sidebar{padding:0;margin:0;background:hsl(0, 0%, 100%);align-items:center;height:100%}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block{box-shadow: 0px 0px 10px rgba(100,100,100,0.25);border: solid 1px #9b9b9b;border-radius: 8px;margin: 0 20px 0 6px;overflow: hidden;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .block{display:flex;margin:0;position:relative;margin-bottom: 45px;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .block .img-100{width:70px;height:70px;border-radius:50px;position:absolute;left: 0;top: 35%;right: 0;margin: 0 auto;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .block .height-83{height:58px;background: var(--sidebar-color);width:100%;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .patient-name{color:var(--sidebar-color);font-size:14px;font-weight:600;margin:0;text-align: center;line-height: 18px;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .pdetail{width: 100%;margin: 0px 20px 0 20px;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .pdetail .nav{width:100%;line-height:26px;background:var(--white);border:1px solid #007C88;-webkit-border-radius:100px 100px 100px 100px;-moz-border-radius:100px 100px 100px 100px;border-radius:100px 100px 100px 100px;margin-top:6px;justify-content: center;font-size: 11px;padding: 0 12px;color:#000;font-weight: 400;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .pdetail .nav .pdata{color:#00717c;font-weight: 600;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav{margin: 30px 0px 0 6px;right: -7px;position: absolute;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li{width: 100%;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li ._icon{width: 25px;margin-right: 20px;}
+/* .app .app-content .app-body .patient-aside .sidebar .patient-nav li ._icon:hover{border: 1px solid #00717c;padding: 2px;} */
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li a{display: block;line-height: 25px;font-size: 14px;font-weight: 400;color: #000;box-sizing: border-box;transition: .4s;display: flex;align-items: center;justify-content: space-between;padding: 6px 10px;border-radius: 7px;border-left: 3px solid #D8D8D8;margin-bottom: 15px;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li a:hover{color:#00717c;font-weight: 500;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li .active{color: #006C76;font-weight: 500;border:1px solid #006C76;border-left: 3px solid #006C76;}
+/* .app .app-content .app-body .patient-aside .sidebar .patient-nav li:hover a{padding-left: 20px;} */
+.app .app-content .app-body .patient-content{width: calc(100% - 250px);box-shadow: 0px 0px 10px rgba(100,100,100,0.25);border: solid 1px #008591;background-color: #fff;border-radius: 8px;padding: .75rem 1.25rem;height: 100vh;}
+.app .app-content .app-body .patient-content>.tab-pane {display: block;}
+.panel .btn{width: 100px;border-radius:none!important;font-size: 14px;}
+/* Common Login page */
+.login .mid .panel{display: flex;flex-wrap: wrap;padding-left: 0;}
+.login .mid .panel li a{border-radius: 3px;color:#FC0023;padding: 0 12px;display: block;line-height: 30px;font-size: 12px;font-weight: 500;color: #009FAD; box-sizing: border-box;transition: .4s;align-items: center;width: 100px;text-align: center;height: 30px;border:1px solid val(--pink);border:1px solid;}
+.login .mid .panel li a:hover{background-color: #FFECEF;border-radius: 3px;border-bottom:none;color:#FC0023;font-weight: 500;animation: 0.75s ease-in-out 1 normal both running fadeIn;border:1px solid;}
+.login .mid .panel li a.active{border-radius: 3px;border-bottom:none;color:#FC0023;font-weight: 500;border:1px solid;}
+.login .mid .panel .panel-content{padding: 20px 0;animation: 2s ease-in-out 1 normal both running fadeInUp;}
+.login .mid .panel .panel-content .tab-pane{animation: 2.75s ease-in-out 1 normal both running fadeIn;}
+
+/* timeline start */
+.timeline{position:relative;width:100%;}
+.timeline:before{background-color:#00D2E6;content:'';margin-left:-1px;position:absolute;top:0;left:2em;width:5px;height:100%;border-radius: 5px;}
+.timeline-event{position:relative;}
+.timeline-event .timeline-connect-event{background: #00D2E6;width: 15%;height: 4px;position: absolute;top: 24%;z-index: -1;}
+.timeline-event:hover .timeline-event-icon{background-color:#006C76;color:#fff}
+.timeline-event:hover .timeline-event-thumbnail{-moz-box-shadow:inset 40em 0 0 0 #006C76;-webkit-box-shadow:inset 40em 0 0 0 #006C76;box-shadow:inset 40em 0 0 0 #006C76;color:#fff}
+.timeline-event-copy{padding:3em 1.5em 0;position:relative;top:-1.875em;left:4em;width:97%}
+.timeline-event-copy p:not(.timeline-event-thumbnail){padding-bottom:1.2em}
+.timeline-event-icon{background:#fff;outline:10px solid transparent;display:block;margin:.9em .5em .5em -.5em;position:absolute;top:0;left:.5em;width:3em;height:3em;border-radius:50%;display:flex;justify-content:center;align-items:center;color:#006C76;border:2px solid #006C76;font-weight:800;font-size:18px}
+.timeline-event-thumbnail{-moz-transition:box-shadow .5s ease-in .1s;-o-transition:box-shadow .5s ease-in .1s;-webkit-transition:box-shadow .5s ease-in;-webkit-transition-delay:.1s;transition-delay:.1s;transition:box-shadow .5s ease-in .1s;color:#006C76;font-size:18px;background-color:#fff;-moz-box-shadow:inset 0 0 0 0 #006C76;-webkit-box-shadow:inset 0 0 0 0 #006C76;box-shadow:inset 0 0 0 0 #006C76;display:inline-block;margin-bottom:1.2em;padding:15px;border-radius:30px;border:2px solid #006C76}
+.timeline-container{border:2px solid #00D2E6;border-radius:10px;padding: 15px;width: 100%;}
+/* timeline End */
+#loader-wrapper{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;background-color:var(--black);opacity:.6}
+.pulse{height:100px;width:200px;overflow:hidden;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;z-index:1}
+.pulse:after{content:'';display:block;background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200px 100px" enable-background="new 0 0 200px 100px" xml:space="preserve"><polyline fill="none" stroke-width="3px" stroke="white" points="2.4,58.7 70.8,58.7 76.1,46.2 81.1,58.7 89.9,58.7 93.8,66.5 102.8,22.7 110.6,78.7 115.3,58.7 126.4,58.7 134.4,54.7 142.4,58.7 197.8,58.7 "/></svg>') 0 0 repeat;width:100%;height:100%;position:absolute;-webkit-animation:2s pulse linear infinite;-moz-animation:2s pulse linear infinite;-o-animation:2s pulse linear infinite;animation:2s pulse linear infinite;clip:rect(0,0,100px,0)}
+.pulse:before{content:'';position:absolute;z-index:-1;left:2px;right:2px;bottom:0;top:16px;margin:auto;height:3px}
+@-webkit-keyframes pulse {
+  0%{clip:rect(0,0,100px,0);opacity:.4}
+  4%{clip:rect(0,66.66667px,100px,0);opacity:.6}
+  15%{clip:rect(0,133.33333px,100px,0);opacity:.8}
+  20%{clip:rect(0,300px,100px,0);opacity:1}
+  80%{clip:rect(0,300px,100px,0);opacity:0}
+  90%{clip:rect(0,300px,100px,0);opacity:0}
+  100%{clip:rect(0,300px,100px,0);opacity:0}
+  }
+  @keyframes pulse {
+  0%{clip:rect(0,0,100px,0)}
+  4%{clip:rect(0,66.66667px,100px,0)}
+  15%{clip:rect(0,133.33333px,100px,0)}
+  20%{clip:rect(0,300px,100px,0);opacity:1}
+  80%{clip:rect(0,300px,100px,0);opacity:0}
+  90%{opacity:0}
+  100%{clip:rect(0,300px,100px,0);opacity:0}
+  }

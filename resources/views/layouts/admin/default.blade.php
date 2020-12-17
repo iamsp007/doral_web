@@ -6,6 +6,9 @@
 </head>
 
 <body>
+    <div id="loader-wrapper">
+        <div class="pulse"></div>
+    </div>
     <section class="app">
         <section class="app-aside navbar navbar-dark">
             <div class="sidebar" id="collapsibleNavbar">

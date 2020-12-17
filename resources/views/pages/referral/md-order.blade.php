@@ -11,6 +11,7 @@
                 <th>Phone</th>
                 <th>City</th>
                 <th>Zip Code</th>
+                <th>Due Date</th>
                 <th>Created Date</th>
                 <th>Status</th>
                 <th></th>
@@ -38,6 +39,13 @@
                 <td>{{$raw['phone1']}}</td>
                 <td>{{$raw['city']}}-{{$raw['state']}}</td>
                 <td>{{$raw['Zip']}}</td>
+                <td>
+                    @if($raw['cert_next_date'] == '')
+                    --
+                    @else
+                    {{date('F d Y', strtotime($raw['cert_next_date']))}}
+                    @endif
+                </td>
                 <td>{{ date('F d Y', strtotime($raw['created_at'])) }}</td>
                 <td><span class="status-pending">{{$raw['status']}}</span></td>
                 <td width="8%"><a href="javascript:void(0)"><img src="{{asset('assets/img/icons/delete-icon.svg')}}"

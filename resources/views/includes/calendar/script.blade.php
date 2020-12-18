@@ -8,6 +8,7 @@
 
 <script>
     SITEURL = 'http://127.0.0.1:8080/';
+    var appointment = appointment;
     $(document).ready(function() {
         $(".btn").click(function() {
             $("#largeModal").modal("show");
@@ -55,56 +56,7 @@
                     }
                 }
             },
-            events: [{
-                    title: 'All Day Event',
-                    start: '2020-11-01'
-                },
-                {
-                    title: 'Long Event',
-                    start: '2020-10-07',
-                    end: '2020-11-10',
-                    color: 'purple' // override!
-                },
-                {
-                    groupId: '999',
-                    title: 'Repeating Event',
-                    start: '2020-11-09T16:00:00'
-                },
-                {
-                    groupId: '999',
-                    title: 'Repeating Event',
-                    start: '2020-11-16T16:00:00'
-                },
-                {
-                    title: 'Conference',
-                    start: '2020-11-11',
-                    end: '2020-11-13',
-                    color: 'purple' // override!
-                },
-                {
-                    title: 'Meeting',
-                    start: '2020-11-12T10:30:00',
-                    end: '2020-11-12T12:30:00'
-                },
-                {
-                    title: 'Lunch',
-                    start: '2020-11-12T12:00:00'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2020-11-12T14:30:00'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: '2020-11-13T07:00:00',
-                    allDay: false
-                },
-                {
-                    title: 'Click for Google',
-                    url: 'http://google.com/',
-                    start: '2020-11-28'
-                }
-            ],
+            events: appointment,
             //events: SITEURL + "calendar",
             eventRender: function(event, element, view) {
                 if (event.allDay === 'true') {

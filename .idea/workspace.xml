@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Mail/ReferralWelcomeMail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/ReferralWelcomeMail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/permission.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/permission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_13_100243_create_permission_tables.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_13_100243_create_permission_tables.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/referral-login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/referral-login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/emails/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/emails/referral.welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/referralWelcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/footer.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -168,7 +156,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -226,6 +214,8 @@
       <workItem from="1607864744351" duration="599000" />
       <workItem from="1607872525476" duration="700000" />
       <workItem from="1607913006562" duration="5791000" />
+      <workItem from="1608122589214" duration="420000" />
+      <workItem from="1608127352629" duration="638000" />
     </task>
     <servers />
   </component>

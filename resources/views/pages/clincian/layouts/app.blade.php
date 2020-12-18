@@ -15,6 +15,9 @@
     <title>@yield('title','Welcome to Doral')</title>
 </head>
 <body >
+    <div id="loader-wrapper">
+        <div class="pulse"></div>
+    </div>
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
 <section class="app">
     <section class="app-aside navbar navbar-dark">
@@ -99,8 +102,13 @@
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/app.common.js') }}"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+<script src="{{ asset('js/socket.js') }}"></script>
 <script>
     var base_url = $('#base_url').val();
+</script>
+<script>
+    $("#loader-wrapper").hide();
 </script>
 @stack('scripts')
 </body>

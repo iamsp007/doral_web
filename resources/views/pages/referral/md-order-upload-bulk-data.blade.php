@@ -2,63 +2,95 @@
 @section('content')
 
 <div class="app-vbc">
-    <section class="app-body bg_grey section1">
-        <div class="app-vbc">
-            <div class="add-new-patient">
-                <div class="patient_img_65"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img_65"/></div>
-                <h1 class="pt-4">Select your form</h1>
-                <div class="category-type pt-4">
-                    <div class="box">
-                        <input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q
-                    </div>
-                    <div class="box">
-                        <input type="radio" value="2" name="formName" class="formName"/><br/>DOH-4359 (2010)
-                    </div>
-                    <div class="box">
-                        <input type="radio" value="3" name="formName" class="formName"/><br/>HCSP - M12Q
-                    </div>
-                    <div class="box">
-                        <input type="radio" value="4" name="formName" class="formName"/><br/>DOH-4359 (2011)
-                    </div>
-                </div>
-                <div class="d-flex pt-4 justify-content-center">
-                    <button type="button" class="continue-btn mr-2 openSection2" name="Continue">Continue</button>
-                        <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
-                </div>
+    <!--<section class="app-body content_v_center section1">
+        <div class="app-vbc p-0">-->
+    <div class="add-new-patient section1">
+        <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
+        <h1 class="pt-4 _title1">Select your form</h1>
+        <div class="category-type pt-4 control-group">
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">HCSP - M11Q</span>
+                    <input type="radio" value="1" name="formName" class="formName" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+            </div>
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">DOH-4359 (2010)</span>
+                    <input type="radio" value="2" name="formName" class="formName" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="2" name="formName" class="formName"/><br/>DOH-4359 (2010)-->
+            </div>
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">HCSP - M12Q</span>
+                    <input type="radio" value="3" name="formName" class="formName" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="3" name="formName" class="formName"/><br/>HCSP - M12Q-->
+            </div>
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">DOH-4359 (2011)</span>
+                    <input type="radio" value="4" name="formName" class="formName" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="4" name="formName" class="formName"/><br/>DOH-4359 (2011)-->
             </div>
         </div>
-    </section>
+        <div class="d-flex pt-4 justify-content-center">
+            <button type="button" class="continue-btn mr-2 openSection2" name="Continue">Continue</button>
+                <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
+        </div>
+    </div>
+        <!--</div>
+    </section>-->
     <div class="choose-file-type section2" style="display: none;">
         <h1>Choose File Type</h1>
         <form method="post" id="upload_form" enctype="multipart/form-data">
-        <div class="category-type">
+        <div class="category-type control-group">
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" id="demographic" name='vbc_select' value="1" class="mt-3">
-                <label for="demographic">Demographic Info</label>
+                <label class="control control-radio block">
+                    <figure>
+                        <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="1">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Demographic Info</span>
+                </label>
             </div>
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" id="demographic" name='vbc_select' value="2" class="mt-3">
-                <label for="demographic">Clinical Info</label>
+                <label class="control control-radio block">
+                   <figure>
+                        <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="2">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Clinical Info</span>
+                </label>
             </div>
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" id="demographic" name='vbc_select' value="3" class="mt-3">
-                <label for="demographic">Compliance Due Dates</label>
+                <label class="control control-radio block">
+                    <figure>
+                        <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="3">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Compliance Due Dates</span>
+                </label>
             </div>
             <div class="box">
-                <figure>
-                    <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
-                </figure>
-                <input type="radio" id="demographic" name='vbc_select' value="4" class="mt-3">
-                <label for="demographic">Previous MD Order</label>
+                <label class="control control-radio block">
+                    <figure>
+                        <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="4">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Previous MD Order</span>
+                </label>
             </div>
         </div>
         <div class="upload-your-files">
@@ -68,13 +100,13 @@
             <div class="upload-files">
                 <div class="upload_icon"></div>
                 <div>
+                    <input type="hidden" name="service_id" id="service_id" value="2"> 
+                    <input type="hidden" name="formSelect" id="formSelect">
                     <h1 class="_title">Drag & Drop</h1>
                     <p>Or</p>
                     <div class="mt-3">
                         <input type="file" name="file_name" id="file_name" class="inputfile inputfile-1"
-                            data-multiple-caption="{count} files selected" multiple />
-                        <input type="hidden" name="service_id" id="service_id" value="2"> 
-                        <input type="hidden" name="formSelect" id="formSelect">   
+                            data-multiple-caption="{count} files selected" multiple />   
                         <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="17" viewBox="0 0 20 17">
                                 <path
@@ -110,7 +142,7 @@ $(document).ready(function () {
     $('#upload_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
-       url:'/referral/md-order-upload-bulk-data-store',
+       url:'{{ route('referral.md-order-upload-bulk-data-store') }}',
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',
@@ -119,11 +151,7 @@ $(document).ready(function () {
        processData: false,
        success:function(data)
        {
-        $('#message').css('display', 'block');
-        $('#message').html(data.message);
-        $('#message').addClass(data.class_name);
-        $('#uploaded_image').html(data.uploaded_image);
-        window.location = "/referral/md-order";
+        window.location = "{{ route('referral.md-order') }}";
        }
       })
      });

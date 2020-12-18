@@ -10,18 +10,15 @@
         <thead>
         <tr>
             <th></th>
-            <th>ID</th>
-            <th>Patient ID</th>
             <th>First Name</th>
-            <th>Middle Name</th>
             <th>Last Name</th>
+            <th>Service</th>
+            <th>File Type</th>
             <th>Gender</th>
-            <th>Address 1</th>
-            <th>Address 2</th>
-            <th>City</th>
+            <th>Date Of Birth</th>
+            <th>Zip Code</th>
+            <th>City - State</th>
             <th>Status</th>
-            <th>Created At</th>
-            <th width="280px">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -32,56 +29,79 @@
 @push('styles')
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
+    <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
         var table = $('#patient-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{  route('clinician.patientList.ajax') }}",
             columns:[
-                {data:'id',name:'id',"bSortable": true},
-                {data:'patient_id',name:'patient_id',"bSortable": true},
+                {data:'id',name:'id'},
                 {
                     data:'first_name',
                     name:'first_name',
                     "bSortable": true,
-                    "render": function(data, type, row, meta){
-                        console.log(row)
-                        data = '<a href={{ url('/clinician/patient-detail/') }}' + row.myid + '">' + data + '</a>';
+                    render:function(data, type, row, meta){
+                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + data + '</a>';
                         return data;
                     }
                 },
-                {data:'middle_name',name:'middle_name',"bSortable": true},
                 {data:'last_name',name:'last_name',"bSortable": true},
+                {data:'service.name',name:'service.name',"bSortable": true},
+                {data:'filetype.name',name:'filetype.name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
-                {data:'address_1',name:'address_1',"bSortable": true},
-                {data:'address_2',name:'address_2',"bSortable": true},
-                {data:'city',name:'city',"bSortable": true},
-                {data:'status',name:'status',"bSortable": true},
-                {data:'created_at',name:'created_at',"bSortable": true}
+                {
+                    data:'dob',
+                    name:'dob',
+                    "bSortable": true
+                },
+                {data:'Zip',name:'Zip',"bSortable": true},
+                {
+                    data:'city',
+                    name:'city',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+
+                        return row.city+ ' - '+row.state;
+                    }
+                },
+                {
+                    data:'status',
+                    name:'status',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+                        if (row.status==="pending"){
+
+                            return '<span class="status-pending">'+row.status+'</span>';
+                        }else if (row.status==="accept"){
+
+                            return '<span class="status-accepted">'+row.status+'</span>'
+                        }else if (row.status==="rescheduled"){
+
+                            return '<span class="status-rescheduled">'+row.status+'</span>';
+                        }
+                        return row.status;
+                    }
+                }
             ],
             "order": [[ 0, "desc" ]],
-            columnDefs: [ {
-                orderable: false,
-                className: 'select-checkbox',
-                targets:   0
-            } ],
-            select: {
-                style:    'os',
-                selector: 'td:first-child'
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
             },
         });
-        {{--$('#patient-table tbody').on('click', 'tr', function () {--}}
-        {{--    var rowData = table.row(this).data();--}}
-        {{--    window.location.href='{{ url('/clinician/patient-detail/') }}/'+rowData.id;--}}
-        {{--    console.log(rowData.id);--}}
-        {{--});--}}
     </script>
 @endpush

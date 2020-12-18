@@ -32,17 +32,14 @@ class RedirectIfAuthenticated
                 if (in_array('admin',$path)){
                     return $next($request);
                 }
-
                 return redirect(RouteServiceProvider::ADMIN_HOME);
             }elseif (Auth::user()->hasRole('co-ordinate')){
                 $path=explode('/',$request->path());
                 if (in_array('co-ordinate',$path)){
                     return $next($request);
                 }
-
                 return redirect(RouteServiceProvider::COORDINATE_HOME);
             }else{
-
                 return $next($request);
             }
         }elseif (Auth::guard('referral')->check()){

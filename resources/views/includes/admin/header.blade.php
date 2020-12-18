@@ -16,11 +16,11 @@
 					<span class="number">6</span>
 				</a>
 			</li>
+			<li class="p-0"><span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span></li>
 			<li>
 				<div class="dropdown user-dropdown">
 					<div class="user dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
-						<span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
 						<a href="javascript:void(0)">
 							<i class="las la-user-circle la-3x ml-2"></i>
 						</a>

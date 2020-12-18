@@ -7,6 +7,7 @@ use App\Models\CurlModel\CurlFunction;
 use Illuminate\Http\Request;
 use Exception;
 use CURLFile;
+use Auth;
 
 class PatientReferralController extends Controller
 {
@@ -240,7 +241,8 @@ class PatientReferralController extends Controller
     }
     public function store(Request $request)
     {
-        $referral_id = session('referral_id');
+        $user = Auth::user();
+        $referral_id = $user->referal_id;
         $fileName = request()->file('file_name');
         $status = 0;
         $message = "";
@@ -269,7 +271,7 @@ class PatientReferralController extends Controller
 
             $data = array(
                     'file_name' => $filePath,
-                    'referral_id' => 1,
+                    'referral_id' => $referral_id,
                     'service_id' => $request->service_id,
                     'file_type' => $request->vbc_select,
                     'form_id' => isset($request->formSelect) ? $request->formSelect : NULL

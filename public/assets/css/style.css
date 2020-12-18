@@ -13,6 +13,10 @@ a:hover{text-decoration:none}
 .form-control{border-color:var(--form-control-border-color);font-size:12px}
 .form-control:focus,.form-control:active,.form-control:visited,.form-control:link{font-size:12px}
 .form-control-green{border-color:var(--sidebar-color)}
+.tail-select .select-label .label-inner{padding-top: 8px;padding-bottom: 8px;}
+.input-group-text-custom{display: -ms-flexbox;display: flex;-ms-flex-align: center;align-items: center;padding: 2px .75rem;margin-bottom: 0;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;text-align: center;white-space: nowrap;background-color: #fafafa;border: 1px solid var(--form-control-border-color);border-right:1px solid transparent;border-radius: .25rem;-webkit-border-top-right-radius: 0;-webkit-border-bottom-right-radius: 0;-moz-border-radius-topright: 0;-moz-border-radius-bottomright: 0;border-top-right-radius: 0;border-bottom-right-radius: 0;margin-right: -1px;}
+.input-group-text-custom-1{display: -ms-flexbox;display: flex;-ms-flex-align: center;align-items: center;padding: 2px .75rem;margin-bottom: 0;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;text-align: center;white-space: nowrap;background-color: #fafafa;border: 1px solid var(--form-control-border-color);border-left:1px solid transparent;border-radius: .25rem;-webkit-border-top-right-radius: 0;-webkit-border-top-right-radius: 5px;-webkit-border-bottom-right-radius: 5px;-moz-border-radius-topright: 5px;-moz-border-radius-bottomright: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 5px;margin-left: -1px;}
+.input-group-text-custom-2{display: -ms-flexbox;display: flex;-ms-flex-align: center;align-items: center;padding: 2px .75rem;margin-bottom: 0;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;text-align: center;white-space: nowrap;background-color: #fafafa;border: 1px solid var(--form-control-border-color);border-radius: .25rem;padding:8px;display:flex;justify-content: center;}
 .table td,.table th{vertical-align:middle;border-top:1px solid #dee2e6}
 .border-green{border-color:var(--sidebar-color)!important}
 .border-green .card-header{background-color:var(--third-color);border-radius:5px}
@@ -23,8 +27,12 @@ a:hover{text-decoration:none}
 .invalid{border: 1px solid rgb(255, 0, 0);}
 .gutter {margin-right: 0;margin-left: 0;}
 .gutter > [class*="col-"] {padding-right: 5px;padding-left: 5px;}
+.nogutter {margin-right: 0;margin-left: 0;}
+.nogutter > [class*="col-"] {padding-right: 0;padding-left: 10px;}
+.nogutter > [class*="col-"]:first-child {padding-right: 0;padding-left: 0;}
 .raduis_5{border-radius: 5px!important;}
 .f-15{font-size: 15px;}
+textarea{resize:none;}
 /* file uploader button start here*/
 .js .inputfile{width:.1px;height:.1px;opacity:0;overflow:hidden;position:absolute;z-index:-1}
 .inputfile + label{max-width:100%;font-size:18px;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;display:inline-block;overflow:hidden;padding:8px 10px;border-radius: 5px;color: var(--white);}
@@ -34,6 +42,65 @@ a:hover{text-decoration:none}
 .inputfile-1 + label{color:#fff;background-color:var(--sidebar-color)}
 .inputfile-1:focus + label,.inputfile-1.has-focus + label,.inputfile-1 + label:hover{background-color:var(--sidebar-color)}
 /* file uploader button end here*/
+/* Radio Button */
+.control{display:block;position:relative;padding-top:4px;cursor:pointer;font-size:16px}
+.control input{position:absolute;z-index:-1;opacity:0}
+.control_indicator{position:absolute;top:2px;right:0;height:20px;width:20px;background:#fff;border:1px solid #B4B4B4;border-radius:50%}
+.control:hover .control_indicator{border:1px solid #007C88;}
+.control:hover input  .control_indicator,.control input:focus  .control_indicator{background:#fff;border:1px solid #007C88}
+.control input:checked ~ .control_indicator{border:1px solid #007C88}
+.control:hover input:not([disabled]):checked  .control_indicator,.control input:checked:focus  .control_indicator{background:#fff;}
+.control input:disabled ~ .control_indicator{background:#B4B4B4;opacity:.6;pointer-events:none;border:1px solid #B4B4B4}
+.control_indicator:after{box-sizing:unset;content:'';position:absolute;display:none}
+.control-radio .control_indicator{border-radius:50%}
+.control-radio .control_indicator:after{left:5px;top:5px;height:8px;width:8px;border-radius:50%;background:#007C88;transition:background 250ms}
+.control input ~ .control_indicator:after{display:block;background:#B4B4B4}
+.control input:hover ~ .control_indicator:after{display:block;background:#007C88;}
+.control input:checked ~ .control_indicator:after{display:block;background:#007C88}
+.control-radio input:disabled ~ .control_indicator:after{background:#7b7b7b}
+.control-radio .control_indicator::before{content:'';display:block;position:absolute;left:0;top:0;width:2rem;height:2rem;margin-left:-0.4rem;margin-top:-0.4rem;background:#2aa1c0;border-radius:3rem;opacity:.6;z-index:99999;transform:scale(0)}
+@keyframes s-ripple {
+0%{opacity:0;transform:scale(0)}
+20%{transform:scale(1)}
+100%{opacity:.01;transform:scale(1)}
+}
+@keyframes s-ripple-dup {
+0%{transform:scale(0)}
+30%{transform:scale(1)}
+60%{transform:scale(1)}
+100%{opacity:0;transform:scale(1)}
+}
+.control-radio input + .control_indicator::before{animation:s-ripple 250ms ease-out}
+.control-radio input:checked + .control_indicator::before{animation-name:s-ripple-dup}
+/* Radio Button */
+/* Loader control */
+#loader-wrapper{position:fixed;top:0;left:0;width:100%;height:100vh;z-index:99999;}
+#loader-wrapper .overlay{position: absolute; width:100%;height:100%;z-index:1000;background-color:var(--black);opacity:.7;}
+.pulse{height:100px;width:200px;overflow:hidden;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;z-index:9999}
+.pulse:after{content:'';display:block;background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200px 100px" enable-background="new 0 0 200px 100px" xml:space="preserve"><polyline fill="none" stroke-width="3px" stroke="white" points="2.4,58.7 70.8,58.7 76.1,46.2 81.1,58.7 89.9,58.7 93.8,66.5 102.8,22.7 110.6,78.7 115.3,58.7 126.4,58.7 134.4,54.7 142.4,58.7 197.8,58.7 "/></svg>') 0 0 repeat;width:100%;height:100%;position:absolute;-webkit-animation:2s pulse linear infinite;-moz-animation:2s pulse linear infinite;-o-animation:2s pulse linear infinite;animation:2s pulse linear infinite;clip:rect(0,0,100px,0);}
+.pulse:before{content:'';position:absolute;z-index:-1;left:2px;right:2px;bottom:0;top:16px;margin:auto;height:3px;}
+.loaded #pulse {opacity: 1;-webkit-transition: all 0.3s ease-out;  transition: all 0.3s ease-out;}
+.loaded #loader-wrapper {visibility: hidden;-webkit-transform: translateY(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */-ms-transform: translateY(-100%);  /* IE 9 */transform: translateY(-100%);  /* Firefox 16+, IE 10+, Opera */-webkit-transition: all 0.3s 1s ease-out;  transition: all 0.3s 1s ease-out;}
+.blurry {color: transparent;filter: blur(3px);-webkit-filter: blur(3px);}
+@-webkit-keyframes pulse {
+0%{clip:rect(0,0,100px,0);opacity:.4}
+4%{clip:rect(0,66.66667px,100px,0);opacity:.6}
+15%{clip:rect(0,133.33333px,100px,0);opacity:.8}
+20%{clip:rect(0,300px,100px,0);opacity:1}
+80%{clip:rect(0,300px,100px,0);opacity:0}
+90%{clip:rect(0,300px,100px,0);opacity:0}
+100%{clip:rect(0,300px,100px,0);opacity:0}
+}
+@keyframes pulse {
+0%{clip:rect(0,0,100px,0)}
+4%{clip:rect(0,66.66667px,100px,0)}
+15%{clip:rect(0,133.33333px,100px,0)}
+20%{clip:rect(0,300px,100px,0);opacity:1}
+80%{clip:rect(0,300px,100px,0);opacity:0}
+90%{opacity:0}
+100%{clip:rect(0,300px,100px,0);opacity:0}
+}
+/* Loader control */
 /* Pagination */
 .pagination{display:-ms-flexbox;display:flex;padding-left:0;list-style:none;border-radius:.25rem}
 .page-link{position:relative;display:block;padding:.5rem .75rem;margin-left:-1px;line-height:1.25;color:#07737A;background-color:#fff;border:1px solid #07737A;font-weight: 600;}
@@ -96,6 +163,7 @@ a:hover{text-decoration:none}
 @-webkit-keyframes slide-out {0%{-webkit-transform:translateX(0%)}100%{-webkit-transform:translateX(-100%)}}
 /* animation Style */
 /* Button Style */
+.button-control{animation: 2s ease-in-out 1 normal both running fadeIn;}
 .btn-pink{color:var(--white);font-size:14px;font-weight:500;background-color:var(--pink);text-transform:uppercase;border-color:var(--pink)}
 .btn-pink:hover{animation-name:fadeIn;animation-duration:4s;animation-timing-function:normal;animation-delay:0;animation-iteration-count:1;animation-direction:normal;animation-fill-mode:none}
 .btn--sm{padding:.1rem .8rem;font-weight:500;font-size:14px}
@@ -105,6 +173,9 @@ a:hover{text-decoration:none}
 .btn-outline-green{color:var(--sidebar-color);border-color:var(--sidebar-color)}
 .btn-outline-green:hover{color:#fff;background-color:var(--sidebar-color);border-color:#007bff}
 .btn-outline-green:not(:disabled):not(.disabled).active,.btn-outline-green:not(:disabled):not(.disabled):active,.show>.btn-outline-green.dropdown-toggle{color:#fff;background-color:var(--sidebar-color);border-color:var(--sidebar-color)}
+.btn-outline-pink{color:var(--pink);border-color:var(--pink)}
+.btn-outline-pink:hover{color:#fff;background-color:var(--pink);border-color:#fff}
+.btn-outline-pink:not(:disabled):not(.disabled).active,.btn-outline-green:not(:disabled):not(.disabled):active,.show>.btn-outline-green.dropdown-toggle{color:#fff;background-color:var(--sidebar-color);border-color:var(--sidebar-color)}
 .btn-group-sm>.btn,.btn-sm{font-size:13px}
 .btn-view{color:var(--white);font-size:14px;font-weight:500;background-color:var(--view);text-transform:uppercase;border-color:var(--view)}
 .btn-view:hover{animation-name:fadeIn;animation-duration:4s;animation-timing-function:normal;animation-delay:0;animation-iteration-count:1;animation-direction:normal;animation-fill-mode:none;color:#fff;background-color: #0069d9;}
@@ -185,7 +256,7 @@ small{font-size:12px}
 .app .app-aside .sidebar{width:14.5rem;padding:0;margin:0;background:var(--sidebar-color);align-items:center;}
 .app .app-aside .sidebar .block{display:flex;align-items:flex-start;justify-content:space-between;margin:0;padding:20px;position:relative;animation: 1.75s ease-in-out 1 normal both running fadeInUp;}
 .app .app-aside .sidebar .block #closeMenu{position:absolute;right:15px;top:15px;font-size:25px}
-.app .app-aside .sidebar .sidenav{padding-right:15px;overflow-y: scroll;height: 520px;animation: 1.75s ease-in-out 1 normal both running fadeInUp;}
+.app .app-aside .sidebar .sidenav{padding-right:15px;overflow-y: scroll;height: 100vh;animation: 1.75s ease-in-out 1 normal both running fadeInUp;}
 .app .app-aside .sidebar .sidenav li{padding:0;margin:0 0 10px;position: relative;}
 .app .app-aside .sidebar .sidenav li .nav{padding:0 0 0 18px;margin:0;display:block;font-size:14px;color:#fff;text-decoration:none;display:flex;justify-content:space-between;align-items:center;width:100%;height:40px;line-height:40px;background:#007C88;-webkit-border-radius:0 100px 100px 0;-moz-border-radius:0 100px 100px 0;border-radius:0 100px 100px 0;}
 .app .app-aside .sidebar .sidenav li .nav:hover{background:#fff;-webkit-border-radius:0 100px 100px 0;-moz-border-radius:0 100px 100px 0;border-radius:0 100px 100px 0;color:#006c76;text-decoration:none;animation-name: nav_animation;animation-duration: 3s;}
@@ -314,9 +385,9 @@ small{font-size:12px}
 .app .app-content .app-body .app-vbc .choose-file-type .category-type .box{padding:20px;border-radius:15px;background:#fff;box-shadow:0 0 8px rgba(100,100,100,0.2);margin:0 15px;text-align:center;width: calc(100% / 5);margin-bottom: 35px;}
 .app .app-content .app-body .app-vbc .choose-file-type .category-type .box .iconSize{max-width: 100%;}
 .app .app-content .app-body .app-vbc .choose-file-type .category-type .box figure{background: #fff;border: 1px dashed #808080;width:100px;padding: 20px;border-radius: 100px;margin: 0 auto;}
-.app .app-content .app-body .app-vbc .choose-file-type .category-type .box label{display:block;color:#5B5B5B;font-size:14px;font-weight:700;text-align:center;text-transform:uppercase;padding-top:10px;background-size:16px;}
+.app .app-content .app-body .app-vbc .choose-file-type .category-type .box ._title3{display:block;color:#5B5B5B;font-size:14px;font-weight:700;text-align:center;text-transform:uppercase;padding-top:20px;background-size:16px;}
 .app .app-content .app-body .app-vbc .choose-file-type .category-type .box.selected{background:#f9f9f9;box-shadow:0 0 8px rgba(100,100,100,0.5)}
-.app .app-content .app-body .app-vbc .choose-file-type .category-type .box.selected label{color:#006c76;background-size:16px}
+.app .app-content .app-body .app-vbc .choose-file-type .category-type .box.selected ._title3{color:#006c76;background-size:16px}
 .app .app-content .app-body .app-vbc .upload-your-files{display:none;text-align:center;padding:50px 25px;border-radius:2px;border:dashed 2px gray;background:#fbfeff;margin: 0 60px;}
 .app .app-content .app-body .app-vbc .upload-your-files h1{color:#616161;font-size:25px;font-weight:700;text-align:center;padding:0 0 15px}
 .app .app-content .app-body .app-vbc .upload-your-files p{font-size:15px;font-weight:400;}
@@ -472,24 +543,24 @@ small{font-size:12px}
 /* .app .app-content .app-body {padding:8.2rem 1.5rem 1rem;margin:0;overflow-x: hidden;} */
 .app .app-content .app-body ._overhidden{overflow: hidden;}
 .app .app-content .app-body .patient-details{position: relative;margin-top: 6px;display: flex;justify-content: space-between;}
-.app .app-content .app-body  .patient-details-aside{margin:0;padding:0;opacity:1;display:block!important;z-index:9999;box-shadow: 0 0 8px 0 rgba(0,0,0,.30);overflow: hidden;border-radius: 4px;width: 250px;}
-.app .app-content .app-body  .patient-details-aside .sidebar{padding:0;margin:0;background:#ffffff;align-items:center;height:100%}
-.app .app-content .app-body  .patient-details-aside .sidebar .block{display:flex;margin:0;position:relative;margin-bottom: 55px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .block .img-100{width:70px;height:70px;border-radius:50px;position:absolute;left: 0;top: 35%;right: 0;margin: 0 auto;}
-.app .app-content .app-body  .patient-details-aside .sidebar .block .height-83{height:58px;background: var(--sidebar-color);width:100%;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-name{color:var(--sidebar-color);font-size:14px;font-weight:600;margin:0;text-align: center;line-height: 18px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .pdetail{width: 100%;margin: 0px 20px 0 20px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .pdetail .nav{width:100%;line-height:26px;background:var(--white);border:1px solid #007C88;-webkit-border-radius:100px 100px 100px 100px;-moz-border-radius:100px 100px 100px 100px;border-radius:100px 100px 100px 100px;margin-top:6px;justify-content: center;font-size: 11px;padding: 0 12px;color:#000;font-weight: 400;}
-.app .app-content .app-body  .patient-details-aside .sidebar .pdetail .nav .pdata{color:#00717c;font-weight: 600;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav{margin: 30px 15px 0px 15px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li{width: 100%;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li ._icon{width: 28px;border: 1px solid #adadad;border-radius: 50%;padding: 3px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li ._icon:hover{border: 1px solid #00717c;padding: 2px;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li a{display: block;line-height: 25px;font-size: 14px;font-weight: 400;color: #000;box-sizing: border-box;transition: .4s;display: flex;align-items: center;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li a:hover{color:#00717c;font-weight: 500;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li .active{color: #006C76;font-weight: 500;}
-.app .app-content .app-body  .patient-details-aside .sidebar .patient-nav li:hover a{padding-left: 20px;}
-.app .app-content .app-body  .patient-details-content{width: calc(100% - 278px);box-shadow: 0 0 8px 0 rgba(0,0,0,.3);background-color: #fff;border-radius: 4px;padding: .75rem 1.25rem;}
+.app .app-content .app-body .patient-details-aside{margin:0;padding:0;opacity:1;display:block!important;z-index:9999;box-shadow: 0 0 8px 0 rgba(0,0,0,.30);overflow: hidden;border-radius: 8px;width: 250px;}
+.app .app-content .app-body .patient-details-aside .sidebar{padding:0;margin:0;background:#ffffff;align-items:center;height:100%}
+.app .app-content .app-body .patient-details-aside .sidebar .block{display:flex;margin:0;position:relative;margin-bottom: 45px;}
+.app .app-content .app-body .patient-details-aside .sidebar .block .img-100{width:70px;height:70px;border-radius:50px;position:absolute;left: 0;top: 35%;right: 0;margin: 0 auto;}
+.app .app-content .app-body .patient-details-aside .sidebar .block .height-83{height:58px;background: var(--sidebar-color);width:100%;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-name{color:var(--sidebar-color);font-size:14px;font-weight:600;margin:0;text-align: center;line-height: 18px;}
+.app .app-content .app-body .patient-details-aside .sidebar .pdetail{width: 100%;margin: 0px 20px 0 20px;}
+.app .app-content .app-body .patient-details-aside .sidebar .pdetail .nav{width:100%;line-height:26px;background:var(--white);border:1px solid #007C88;-webkit-border-radius:100px 100px 100px 100px;-moz-border-radius:100px 100px 100px 100px;border-radius:100px 100px 100px 100px;margin-top:6px;justify-content: center;font-size: 11px;padding: 0 12px;color:#000;font-weight: 400;}
+.app .app-content .app-body .patient-details-aside .sidebar .pdetail .nav .pdata{color:#00717c;font-weight: 600;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav{margin: 30px 15px 0px 15px;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li{width: 100%;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li ._icon{width: 28px;border: 1px solid #adadad;border-radius: 50%;padding: 3px;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li ._icon:hover{border: 1px solid #00717c;padding: 2px;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li a{display: block;line-height: 25px;font-size: 14px;font-weight: 400;color: #000;box-sizing: border-box;transition: .4s;display: flex;align-items: center;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li a:hover{color:#00717c;font-weight: 500;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li .active{color: #006C76;font-weight: 500;}
+.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li:hover a{padding-left: 20px;}
+.app .app-content .app-body .patient-details-content{width: calc(100% - 278px);box-shadow: 0 0 8px 0 rgba(0,0,0,.3);background-color: #fff;border-radius: 8px;padding: .75rem 1.25rem;}
 .app .app-content .app-body .patient-details-content>.tab-pane {display: block;}
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link{background-color: #fff;}
 /* demographics css Start */
@@ -721,15 +792,61 @@ small{font-size:12px}
 ._insurance_company{font-weight:600;color:var(--sidebar-color)}
 /* VBC Add new patient */
 .app .app-content .bg_grey{background-color: #F1F2F4;}
-.app .app-content .app-body .app-vbc .add-new-patient{display:flex;flex-direction: column;align-items: center;height: calc(100% - 113px);}
 .app .app-content .app-body .app-vbc .add-new-patient .icon{width:80px;display: block;margin:0 auto;}
-.app .app-content .app-body .app-vbc .add-new-patient h1{color:#000000;font-size:14px;font-weight:500;text-align:center;}
+.app .app-content .app-body .app-vbc .add-new-patient ._title1{color:#000000;font-size:18px;font-weight:500;text-align:center;}
+.app .app-content .app-body .app-vbc .add-new-patient ._title2{color:#006C76;font-size:24px;font-weight:700;text-align:center;}
 .app .app-content .app-body .app-vbc .add-new-patient .category-type{display:flex; flex-wrap: wrap;justify-content: center;}
 .app .app-content .app-body .app-vbc .add-new-patient .category-type .box{padding:15px;border-radius:15px;background:#fff;box-shadow:0px 2px 23px #d8d8d8;margin:0 15px;text-align:center;width: 220px;border: 1px solid #fff;}
-.app .app-content .app-body .app-vbc .add-new-patient .category-type .box label{display:flex;color:#5B5B5B;font-size:14px;line-height:20px;font-weight:500;text-align:center;text-transform:uppercase;background:url(../img/radio-btn-grey.svg) no-repeat top right;background-size:16px;justify-content: center;align-items: center;height: 100px;}
+.app .app-content .app-body .app-vbc .add-new-patient .category-type .box .block{display: flex;justify-content: center;align-items: center;height: 100px;}
+.app .app-content .app-body .app-vbc .add-new-patient .category-type .box ._title3{color:#5D5D5D;font-size: 16px;line-height: 19px;display: flex;justify-content: center;align-items: center;height: 150px;}
 .app .app-content .app-body .app-vbc .add-new-patient .category-type .box.selected{background:#fff;box-shadow:0 0 8px rgba(100,100,100,0.5);border: 1px solid #006c76;}
-.app .app-content .app-body .app-vbc .add-new-patient .category-type .box.selected label{color:#006c76;font-weight:600;background:url(../img/radio-btn-green.svg) no-repeat top right;background-size:16px;}
+.app .app-content .app-body .app-vbc .add-new-patient .category-type .box.selected ._title3{color:#006c76;font-weight:600;}
 .app .app-content .app-body .app-vbc .add-new-patient .continue-btn{height: 35px;border-radius:4px;border:solid 1px #FF0C6C;font-size:12px;color:#FF0C6C;background-color: #fff;font-weight:600;text-align:center;display: block;width: 100px;text-transform: uppercase;}
 .app .app-content .app-body .app-vbc .add-new-patient .continue-btn:hover{background-color: #FF0C6C;color:#fff}
 .app .app-content .app-body .app-vbc .add-new-patient .cancel-btn{height: 35px;border-radius:4px;border:solid 1px #006c76;font-size:12px;color:#fff;background-color: #006c76;font-weight:600;text-align:center;display: block;width: 100px;text-transform: uppercase;}
 .app .app-content .app-body .app-vbc .add-new-patient .cancel-btn:hover{background-color: #fff;color:#006c76}
+.app .app-content .app-body.content_v_center{display: flex;align-items: center;justify-content: center;}
+/* Referral Patient Detail */
+.app .app-content .app-body .patient-details{position: relative;margin-top: 6px;display: flex;justify-content: space-between;}
+.app .app-content .app-body .patient-aside{margin:0;padding:0;opacity:1;display:block!important;z-index:9999;overflow: hidden;width: 250px;}
+.app .app-content .app-body .patient-aside .sidebar{padding:0;margin:0;background:hsl(0, 0%, 100%);align-items:center;height:100%}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block{box-shadow: 0px 0px 10px rgba(100,100,100,0.25);border: solid 1px #9b9b9b;border-radius: 8px;margin: 0 20px 0 6px;overflow: hidden;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .block{display:flex;margin:0;position:relative;margin-bottom: 45px;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .block .img-100{width:70px;height:70px;border-radius:50px;position:absolute;left: 0;top: 35%;right: 0;margin: 0 auto;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .block .height-83{height:58px;background: var(--sidebar-color);width:100%;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .patient-name{color:var(--sidebar-color);font-size:14px;font-weight:600;margin:0;text-align: center;line-height: 18px;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .pdetail{width: 100%;margin: 0px 20px 0 20px;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .pdetail .nav{width:100%;line-height:26px;background:var(--white);border:1px solid #007C88;-webkit-border-radius:100px 100px 100px 100px;-moz-border-radius:100px 100px 100px 100px;border-radius:100px 100px 100px 100px;margin-top:6px;justify-content: center;font-size: 11px;padding: 0 12px;color:#000;font-weight: 400;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block .pdetail .nav .pdata{color:#00717c;font-weight: 600;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav{margin: 30px 0px 0 6px;right: -7px;position: absolute;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li{width: 100%;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li ._icon{width: 25px;margin-right: 20px;}
+/* .app .app-content .app-body .patient-aside .sidebar .patient-nav li ._icon:hover{border: 1px solid #00717c;padding: 2px;} */
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li a{display: block;line-height: 25px;font-size: 14px;font-weight: 400;color: #000;box-sizing: border-box;transition: .4s;display: flex;align-items: center;justify-content: space-between;padding: 6px 10px;border-radius: 7px;border-left: 3px solid #D8D8D8;margin-bottom: 15px;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li a:hover{color:#00717c;font-weight: 500;}
+.app .app-content .app-body .patient-aside .sidebar .patient-nav li .active{color: #006C76;font-weight: 500;border:1px solid #006C76;border-left: 3px solid #006C76;}
+/* .app .app-content .app-body .patient-aside .sidebar .patient-nav li:hover a{padding-left: 20px;} */
+.app .app-content .app-body .patient-content{width: calc(100% - 250px);box-shadow: 0px 0px 10px rgba(100,100,100,0.25);border: solid 1px #008591;background-color: #fff;border-radius: 8px;padding: .75rem 1.25rem;height: 100vh;}
+.app .app-content .app-body .patient-content>.tab-pane {display: block;}
+.panel .btn{width: 100px;border-radius:none!important;font-size: 14px;}
+/* Common Login page */
+.login .mid .panel{display: flex;flex-wrap: wrap;padding-left: 0;}
+.login .mid .panel li a{border-radius: 3px;color:#FC0023;padding: 0 12px;display: block;line-height: 30px;font-size: 12px;font-weight: 500;color: #009FAD; box-sizing: border-box;transition: .4s;align-items: center;width: 100px;text-align: center;height: 30px;border:1px solid val(--pink);border:1px solid;}
+.login .mid .panel li a:hover{background-color: #FFECEF;border-radius: 3px;border-bottom:none;color:#FC0023;font-weight: 500;animation: 0.75s ease-in-out 1 normal both running fadeIn;border:1px solid;}
+.login .mid .panel li a.active{border-radius: 3px;border-bottom:none;color:#FC0023;font-weight: 500;border:1px solid;}
+.login .mid .panel .panel-content{padding: 20px 0;animation: 2s ease-in-out 1 normal both running fadeInUp;}
+.login .mid .panel .panel-content .tab-pane{animation: 2.75s ease-in-out 1 normal both running fadeIn;}
+/* timeline start */
+.timeline{position:relative;width:100%;}
+.timeline:before{background-color:#00D2E6;content:'';margin-left:-1px;position:absolute;top:0;left:2em;width:5px;height:100%;border-radius: 5px;}
+.timeline-event{position:relative;}
+.timeline-event .timeline-connect-event{background: #00D2E6;width: 15%;height: 4px;position: absolute;top: 24%;z-index: -1;}
+.timeline-event:hover .timeline-event-icon{background-color:#006C76;color:#fff}
+.timeline-event:hover .timeline-event-thumbnail{-moz-box-shadow:inset 40em 0 0 0 #006C76;-webkit-box-shadow:inset 40em 0 0 0 #006C76;box-shadow:inset 40em 0 0 0 #006C76;color:#fff}
+.timeline-event-copy{padding:3em 1.5em 0;position:relative;top:-1.875em;left:4em;width:97%}
+.timeline-event-copy p:not(.timeline-event-thumbnail){padding-bottom:1.2em}
+.timeline-event-icon{background:#fff;outline:10px solid transparent;display:block;margin:.9em .5em .5em -.5em;position:absolute;top:0;left:.5em;width:3em;height:3em;border-radius:50%;display:flex;justify-content:center;align-items:center;color:#006C76;border:2px solid #006C76;font-weight:800;font-size:18px}
+.timeline-event-thumbnail{-moz-transition:box-shadow .5s ease-in .1s;-o-transition:box-shadow .5s ease-in .1s;-webkit-transition:box-shadow .5s ease-in;-webkit-transition-delay:.1s;transition-delay:.1s;transition:box-shadow .5s ease-in .1s;color:#006C76;font-size:18px;background-color:#fff;-moz-box-shadow:inset 0 0 0 0 #006C76;-webkit-box-shadow:inset 0 0 0 0 #006C76;box-shadow:inset 0 0 0 0 #006C76;display:inline-block;margin-bottom:1.2em;padding:15px;border-radius:30px;border:2px solid #006C76}
+.timeline-event-thumbnail:before{background-color:#00D2E6;content:'';margin-left:-1px;position:absolute;top:15px;left:0;width:5px;height:100px;border-radius: 5px;  transform: rotate(90deg);z-index: -1;}
+.timeline-container{border:2px solid #00D2E6;border-radius:10px;padding: 15px;width: 100%;}
+/* timeline End */

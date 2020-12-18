@@ -7,6 +7,7 @@ use App\Models\CurlModel\CurlFunction;
 use Illuminate\Http\Request;
 use Exception;
 use CURLFile;
+use Auth;
 
 class PatientReferralController extends Controller
 {
@@ -240,13 +241,17 @@ class PatientReferralController extends Controller
     }
     public function store(Request $request)
     {
-        $referral_id = session('referral_id');
+        $user = Auth::user();
+        $referral_id = $user->referal_id;
         $fileName = request()->file('file_name');
         $status = 0;
         $message = "";
         try {
             //  ---------------
             $url = CurlFunction::getURL().'/api/auth/patient-referral/store';
+            if($request->service_id == 2 && $request->vbc_select == 3)
+            $url = CurlFunction::getURL().'/api/auth/patient-referral/storecert';
+            //dd($url);
             $headerValue = array(
                 'X-Requested-With: XMLHttpRequest',
                 'Access-Control-Allow-Origin: http://localhost'
@@ -266,7 +271,7 @@ class PatientReferralController extends Controller
 
             $data = array(
                     'file_name' => $filePath,
-                    'referral_id' => 1,
+                    'referral_id' => $referral_id,
                     'service_id' => $request->service_id,
                     'file_type' => $request->vbc_select,
                     'form_id' => isset($request->formSelect) ? $request->formSelect : NULL
@@ -275,8 +280,9 @@ class PatientReferralController extends Controller
             //dd($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 600); 
             $curlResponse = curl_exec($ch);
-            dd($curlResponse);
+            //dd($curlResponse);
             $responseArray = json_decode($curlResponse, true);
             if(curl_errno($ch)) {
                 throw new Exception(curl_error($ch));

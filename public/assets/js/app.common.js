@@ -32,9 +32,36 @@ $(function () {
         sidebar.removeClass('slide-in').addClass('slide-out');
     })
     // notification details 
-
     $("#more-best").click(function () {
         $(".more-menu.bell").toggleClass("showmenu");
     });
     $('[data-toggle="tooltip"]').tooltip();
+    // Loader
+    $('.loader-wrapper').hide();
+    function loader() {
+        $('.loader-wrapper').show();
+        $('body').addClass('loaded').addClass('blurry');
+    }
+    $(window).on('load', loader);
+    setInterval(() => {
+        $('.loader-wrapper').hide();
+        $('body').removeClass('loaded').removeClass('blurry');
+    }, 1500);
+    setInterval(() => {
+        $('body').removeClass('loaded').removeClass('blurry');
+    }, 500); 
+    // Accept-reject control
+    $('input[type="checkbox"]').click(function () {
+        if ($(this).is(":checked")) {
+            $(".button-control").show();
+
+        } else {
+            $(".button-control").hide();
+        }
+
+    });
+    $('.reject-item').click(function () {
+        $(".button-control").hide();
+        $('#employee-table td input:checkbox').not(this).prop('checked', false);
+    });
 });

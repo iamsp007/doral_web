@@ -27,7 +27,7 @@ class AppointmentController extends Controller
             $responseArray = json_decode($curlResponse, true);
             //dd($responseArray);
             if($responseArray['status']) {
-                $status = 1;
+                $status = 1;    
                 $record = $responseArray['data'];
             }
             $message = $responseArray['message'];

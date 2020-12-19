@@ -73,8 +73,10 @@ class LoginController extends Controller
                     $this->redirectTo=RouteServiceProvider::CLINICIAL_HOME;
                 }elseif (Auth::user()->hasRole('admin')){
                     $this->redirectTo=RouteServiceProvider::ADMIN_HOME;
-                }elseif (Auth::user()->hasRole('co-ordinate')){
+                }elseif (Auth::user()->hasRole('co-ordinator')){
                     $this->redirectTo=RouteServiceProvider::COORDINATE_HOME;
+                }elseif (Auth::user()->hasRole('supervisor')){
+                    $this->redirectTo=RouteServiceProvider::SUPERVISOR_HOME;
                 }else{
                     $this->redirectTo=RouteServiceProvider::HOME;
                 }

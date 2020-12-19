@@ -21,16 +21,19 @@ class RoomController extends Controller
 
         // Find the virtual class associated by provided id
         $user = Auth::user();
-        $virtualClass = VirtualRoom::where(['user_id'=>Auth::user()->id])->first();
+        $virtualClass = VirtualRoom::find($id);
 
-        // Gets the session ID
-        $sessionId = $virtualClass->session_id;
-        // Instantiates new OpenTok object
-        $opentok = new OpenTok(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
-        // Generates token for client as a publisher that lasts for one week
-        $token = $opentok->generateToken($sessionId, ['expireTime' => time() + (7 * 24 * 60 * 60)]);
+        if ($virtualClass){
+            // Gets the session ID
+            $sessionId = $virtualClass->session_id;
+            // Instantiates new OpenTok object
+            $opentok = new OpenTok(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
+            // Generates token for client as a publisher that lasts for one week
+            $token = $opentok->generateToken($sessionId, ['expireTime' => time() + (7 * 24 * 60 * 60)]);
 
-        // Open the classroom with all needed info for clients to connect
-        return view($this->view_path.'room',compact('token', 'user', 'sessionId'));
+            // Open the classroom with all needed info for clients to connect
+            return view($this->view_path.'room',compact('token', 'user', 'sessionId'));
+        }
+        return redirect()->route('clinician.dashboard')->with('success','Something Went Wrong!');
     }
 }

@@ -52,7 +52,7 @@
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @elseif(\Request::is('login'))
-                                <a class="text-uppercase sign-up" href="{{ route('referral.register') }}">{{ __('SIGN UP') }} <img
+                                <a class="text-uppercase sign-up" href="{{ route('referral.register') }}">{{ __(' REFERRAL SIGN UP') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @endif

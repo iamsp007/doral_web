@@ -10,7 +10,7 @@
         <div class="category-type pt-4 control-group">
             <div class="box">
                 <label class="control control-radio block">
-                    <span class="_title3">HCSP - M11Q</span>
+                    <span class="_title3">M11Q</span>
                     <input type="radio" value="1" name="formName" class="formName" />
                     <div class="control_indicator"></div>
                 </label>

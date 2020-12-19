@@ -109,8 +109,6 @@ class BaseClient
 
                 ]
             ]);
-
-
             $response  = json_decode($r->getBody()->getContents());
 
             if ($response->status===true){

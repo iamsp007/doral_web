@@ -6,7 +6,8 @@
 </head>
 
 <body>
-    <div id="loader-wrapper">
+    <div id="loader-wrapper" class="loader-wrapper">
+        <div class="overlay"></div>
         <div class="pulse"></div>
     </div>
     <section class="app">

@@ -28,15 +28,7 @@ class ReferralService
 
             $response = $this->client->request(
                 'GET',
-                '/auth/company/'.$type,
-                [
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
-                ]
+                '/auth/company/'.$type
             );
 
 

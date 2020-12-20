@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\PatientReferral;
 use App\Models\CurlModel\CurlFunction;
 use Illuminate\Http\Request;
-use App\Services\ReferralService;
 use Exception;
 use CURLFile;
 use Auth;
@@ -17,12 +16,6 @@ class PatientReferralController extends Controller
         $message = "";
         $record = [];
         try {
-            $adminServices = new ReferralService();
-            $responseArray = $adminServices->getCompanyReferral(1);
-            dd($responseArray);
-            /*$adminServices = new AdminService();
-            $responseArray = $adminServices->getCompanyReferral(1);*/
-            
             $url = CurlFunction::getURL().'/api/auth/patient-referral/1';
 
             $headerValue = array(

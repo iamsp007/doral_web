@@ -74,4 +74,64 @@ class ClinicianService
 
         }
     }
+
+    public function getPatientList($data){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/get-patient-list',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function getNewPatientList($data){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/get-new-patient-list',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
+
+    public function changePatientStatus($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/change-patient-status',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
 }

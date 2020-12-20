@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.min.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>{{ config('app.name', 'Doral Health Connect') }}</title>
+    <title>{{ config('app.name', 'Welcome to Doral') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -32,8 +32,8 @@
                 <div class="block">
                     <div>
                         <!-- Logo Start -->
-                        <a href="/" title="{{ config('app.name', 'Doral Health Connect') }}"  class="logo">
-                            <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Doral Health Connect" srcset="{{ asset('assets/img/logo-white.svg') }}">
+                        <a href="/" title="{{ config('app.name', 'Laravel') }}"  class="logo">
+                            <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}">
                         </a>
                         <!-- Logo End -->
                     </div>
@@ -52,7 +52,7 @@
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @elseif(\Request::is('login'))
-                                <a class="text-uppercase sign-up" href="{{ route('referral.register') }}">{{ __(' REFERRAL SIGN UP') }} <img
+                                <a class="text-uppercase sign-up" href="{{ route('referral.register') }}">{{ __('SIGN UP') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @endif

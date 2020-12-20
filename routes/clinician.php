@@ -1,8 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\Clincian\PatientController@getPatientDetail')->name('clinician.patient.detail');
-Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],function (){
+Route::group(['prefix'=>'/clinician','middleware'=>['auth','role:co-ordinator|clinician']],function (){
 
     Route::group(['middleware'=>['auth']],function (){
         Route::get('/','\App\Http\Controllers\Clincian\DashboardController@index')->name('clinician.dashboard');
@@ -17,5 +16,8 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
         Route::get('/running-roadl/{patient_request_id}','\App\Http\Controllers\Clincian\RoadLController@runningRoadLRequest')->name('clinician.start.running');
         Route::post('/patient-request-list','\App\Http\Controllers\Clincian\RoadLController@getPatientRequestList')->name('clinician.roadl.patientRequestList');
         Route::post('/patient-roladl-proccess','\App\Http\Controllers\Clincian\RoadLController@getRoadLProccess')->name('clinician.roadl.process');
+        Route::get("/room/{id}", '\App\Http\Controllers\Clincian\RoomController@showClassRoom')
+            ->where('id', '[0-9]+')
+            ->name('room');
     });
 });

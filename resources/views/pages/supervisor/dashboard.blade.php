@@ -1,4 +1,4 @@
-@extends('pages.coordinator.layouts.app')
+@extends('pages.supervisor.layouts.app')
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')

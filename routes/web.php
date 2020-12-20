@@ -82,3 +82,6 @@ Route::get('/caregiver/3', 'App\Http\Controllers\Admin\HomeController@caregiverf
 Route::get('/caregiver/4', 'App\Http\Controllers\Admin\HomeController@caregiverforGlucoHigh');
 Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
 
+Route::group(['middleware'=>['auth','role:co-ordinator|clinician|supervisor']],function (){
+    Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\Clincian\PatientController@getPatientDetail')->name('clinician.patient.detail');
+});

@@ -50,6 +50,7 @@ class PatientController extends Controller
         $clinicianService = new ClinicianService();
         $response = $clinicianService->getNewPatientList($request->all());
         if ($response->status===true){
+
             return DataTables::of($response->data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){

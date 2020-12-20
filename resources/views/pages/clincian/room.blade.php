@@ -111,7 +111,7 @@
                     alert('Connected to the session.');
                     connectionCount = 1;
 
-                    if (session.capabilities.publish == 1) {
+                    if (session.capabilities.publish == 2) {
                         session.publish(publisher);
                     } else {
 
@@ -125,7 +125,7 @@
         function disconnect() {
             window.location.reload();
         }
-connect()
+
 
     </script>
 @endpush

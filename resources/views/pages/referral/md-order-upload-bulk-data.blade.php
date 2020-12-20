@@ -10,7 +10,7 @@
         <div class="category-type pt-4 control-group">
             <div class="box">
                 <label class="control control-radio block">
-                    <span class="_title3">M11Q</span>
+                    <span style="font-size: 35px;" class="_title3">M11Q</span>
                     <input type="radio" value="1" name="formName" class="formName" />
                     <div class="control_indicator"></div>
                 </label>
@@ -18,7 +18,7 @@
             </div>
             <div class="box">
                 <label class="control control-radio block">
-                    <span class="_title3">DOH-4359 (2010)</span>
+                    <span style="font-size: 35px;" class="_title3">DOH-4359</span>
                     <input type="radio" value="2" name="formName" class="formName" />
                     <div class="control_indicator"></div>
                 </label>
@@ -26,7 +26,7 @@
             </div>
             <div class="box">
                 <label class="control control-radio block">
-                    <span class="_title3">HCSP - M12Q</span>
+                    <span style="font-size: 35px;" class="_title3">MD-485</span>
                     <input type="radio" value="3" name="formName" class="formName" />
                     <div class="control_indicator"></div>
                 </label>
@@ -34,7 +34,7 @@
             </div>
             <div class="box">
                 <label class="control control-radio block">
-                    <span class="_title3">DOH-4359 (2011)</span>
+                    <span style="font-size: 35px;" class="_title3">CFEEC</span>
                     <input type="radio" value="4" name="formName" class="formName" />
                     <div class="control_indicator"></div>
                 </label>

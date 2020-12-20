@@ -13,7 +13,7 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 
-class ReferralService
+class AdminService
 {
 
     protected $client;

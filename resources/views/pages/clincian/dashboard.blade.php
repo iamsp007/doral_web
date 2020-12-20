@@ -1,4 +1,4 @@
-@extends('pages.coordinator.layouts.app')
+@extends('pages.clincian.layouts.app')
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')
@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="app-clinician-dashboard">
-
+        
         <ul class="clinician-nav nav">
             <li><a href="#bloodPressure" class="active" data-toggle="pill" role="tab">Blood Pressure</a>
             </li>
@@ -18,7 +18,7 @@
         </ul>
         <div class="clinician-content tab-content" id="v-pills-tabContent">
             <div class="tab-pane show active" id="bloodPressure" role="tabpanel"
-                 aria-labelledby="v-pills-bloodPressure-tab">
+                aria-labelledby="v-pills-bloodPressure-tab">
                 <div class="request-roadl">
                     <ul class=" owl-carousel owl-theme">
                         <li class="item">
@@ -26,7 +26,7 @@
                                 <div class="p-20">
                                     <div class="img-50">
                                         <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                             srcset="../assets/img/user/01.png" class="img-fluid">
+                                            srcset="../assets/img/user/01.png" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -44,7 +44,7 @@
                                 <div class="p-20">
                                     <div class="img-50">
                                         <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                             srcset="../assets/img/user/01.png" class="img-fluid">
+                                            srcset="../assets/img/user/01.png" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -62,7 +62,7 @@
                                 <div class="p-20">
                                     <div class="img-50">
                                         <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                             srcset="../assets/img/user/01.png" class="img-fluid">
+                                            srcset="../assets/img/user/01.png" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -80,7 +80,7 @@
                                 <div class="p-20">
                                     <div class="img-50">
                                         <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                             srcset="../assets/img/user/01.png" class="img-fluid">
+                                            srcset="../assets/img/user/01.png" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -98,7 +98,7 @@
                                 <div class="p-20">
                                     <div class="img-50">
                                         <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                             srcset="../assets/img/user/01.png" class="img-fluid">
+                                            srcset="../assets/img/user/01.png" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -117,10 +117,10 @@
                     <ul class="reports-nav nav">
                         <li>
                             <a href="#bloodPressuredailyupdate" class="active" data-toggle="pill"
-                               role="tab">
+                                role="tab">
                                 <span>
                                     <img src="../assets/img/icons/blood-pressure.svg" alt=""
-                                         srcset="../assets/img/icons/blood-pressure.svg" class="img-fluid">
+                                        srcset="../assets/img/icons/blood-pressure.svg" class="img-fluid">
                                 </span>
                                 Blood Pressure
                             </a>
@@ -129,7 +129,7 @@
                             <a href="#bloodSugardailyupdate" data-toggle="pill" role="tab">
                                 <span>
                                     <img src="../assets/img/icons/blood-sugar.svg" alt=""
-                                         srcset="../assets/img/icons/blood-sugar.svg" class="img-fluid">
+                                        srcset="../assets/img/icons/blood-sugar.svg" class="img-fluid">
                                 </span>
                                 Blood Sugar
                             </a>
@@ -138,7 +138,7 @@
                             <a href="#pulseOxymeterdailyupdate" data-toggle="pill" role="tab">
                                 <span>
                                     <img src="../assets/img/icons/pulse.svg" alt=""
-                                         srcset="../assets/img/icons/pulse.svg" class="img-fluid">
+                                        srcset="../assets/img/icons/pulse.svg" class="img-fluid">
                                 </span>
                                 Pulse Oxymeter
                             </a>
@@ -147,7 +147,7 @@
                             <a href="#weightdailyupdate" data-toggle="pill" role="tab">
                                 <span>
                                     <img src="../assets/img/icons/weight.svg" alt=""
-                                         srcset="../assets/img/icons/weight.svg" class="img-fluid">
+                                        srcset="../assets/img/icons/weight.svg" class="img-fluid">
                                 </span>
                                 Weight
                             </a>
@@ -156,7 +156,7 @@
                             <a href="#EKGdailyupdate" data-toggle="pill" role="tab">
                                 <span>
                                     <img src="../assets/img/icons/ekg.svg" alt=""
-                                         srcset="../assets/img/icons/EKG.svg" class="img-fluid">
+                                        srcset="../assets/img/icons/EKG.svg" class="img-fluid">
                                 </span>
                                 EKG
                             </a>
@@ -165,7 +165,7 @@
                     <div class="content tab-content" id="v-pills-tabContent">
                         <!-- Blood Pressure Tab Start -->
                         <div class="tab-pane show active" id="bloodPressuredailyupdate" role="tabpanel"
-                             aria-labelledby="bloodPressuredailyupdate">
+                            aria-labelledby="bloodPressuredailyupdate">
                             <div>
                                 <h1 class="reports-title">Todays Blood Pressure</h1>
                                 <div class="detail">
@@ -174,9 +174,9 @@
                                             <div class="Level-3">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Edword Norton</h1>
                                                 <h3 class="title">Diastolic Blood Pressure: 150 High</h3>
@@ -189,9 +189,9 @@
                                             <div class="Level-2">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">John Jeo</h1>
                                                 <h3 class="title">Systolic Blood Pressure: 140 High</h3>
@@ -204,9 +204,9 @@
                                             <div class="Level-1">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Invanka</h1>
                                                 <h3 class="title">Daistolic Blood Pressure: 90 High</h3>
@@ -219,23 +219,23 @@
                                             <div class="elevated">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Angelina</h1>
                                                 <h3 class="title">Systolic Blood Pressure: 120</h3>
                                                 <a href="javascript:void(0)"
-                                                   class="elevated-btn">Elevated</a>
+                                                    class="elevated-btn">Elevated</a>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="normal">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Clinton</h1>
                                                 <h3 class="title">Systolic Blood Pressure: 80</h3>
@@ -246,9 +246,9 @@
                                             <div class="Level-3">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Edword Norton</h1>
                                                 <h3 class="title">Diastolic Blood Pressure: 150 High</h3>
@@ -261,9 +261,9 @@
                                             <div class="Level-2">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">John Jeo</h1>
                                                 <h3 class="title">Systolic Blood Pressure: 140 High</h3>
@@ -276,9 +276,9 @@
                                             <div class="Level-1">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Invanka</h1>
                                                 <h3 class="title">Daistolic Blood Pressure: 90 High</h3>
@@ -291,23 +291,23 @@
                                             <div class="elevated">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Angelina</h1>
                                                 <h3 class="title">Systolic Blood Pressure: 120</h3>
                                                 <a href="javascript:void(0)"
-                                                   class="elevated-btn">Elevated</a>
+                                                    class="elevated-btn">Elevated</a>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="normal">
                                                 <div class="img-30">
                                                     <img src="../assets/img/user/01.png"
-                                                         alt="Welcome to Doral"
-                                                         srcset="../assets/img/user/01.png"
-                                                         class="img-fluid">
+                                                        alt="Welcome to Doral"
+                                                        srcset="../assets/img/user/01.png"
+                                                        class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Clinton</h1>
                                                 <h3 class="title">Systolic Blood Pressure: 80</h3>
@@ -320,20 +320,20 @@
                         </div>
                         <!-- Blood Sugar Tab Start -->
                         <div class="tab-pane show" id="bloodSugardailyupdate" role="tabpanel"
-                             aria-labelledby="v-pills-home-tab">111
+                            aria-labelledby="v-pills-home-tab">111
                         </div>
                         <!-- Pulse Oximeter Tab Start -->
                         <div class="tab-pane show" id="pulseOxymeterdailyupdate" role="tabpanel"
-                             aria-labelledby="v-pills-home-tab">
+                            aria-labelledby="v-pills-home-tab">
                             222
                         </div>
                         <!-- Weight Tab Start -->
                         <div class="tab-pane show" id="weightdailyupdate" role="tabpanel"
-                             aria-labelledby="v-pills-home-tab">333
+                            aria-labelledby="v-pills-home-tab">333
                         </div>
                         <!-- EKG Tab Start -->
                         <div class="tab-pane show" id="EKGdailyupdate" role="tabpanel"
-                             aria-labelledby="v-pills-home-tab">444
+                            aria-labelledby="v-pills-home-tab">444
                         </div>
                     </div>
                 </div>
@@ -352,7 +352,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Edword Norton</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -367,7 +367,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">John Jeo</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -382,7 +382,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Invanka</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -397,7 +397,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">John Abraham</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -412,7 +412,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Tom Poter</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -427,7 +427,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Edword Norton</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -442,7 +442,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">John Jeo</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -457,7 +457,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Invanka</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -472,7 +472,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">John Abraham</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -487,7 +487,7 @@
                                     <div class="block">
                                         <div class="img-30">
                                             <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                                 srcset="../assets/img/user/01.png" class="img-fluid">
+                                                srcset="../assets/img/user/01.png" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Tom Poter</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -517,7 +517,7 @@
                                     <div class="right-side">
                                         <div class="bg-circle">
                                             <img src="../assets/img/icons/smartphone.svg" alt=""
-                                                 srcset="../assets/img/icons/smartphone.svg">
+                                                srcset="../assets/img/icons/smartphone.svg">
                                         </div>
                                     </div>
                                 </div>
@@ -538,7 +538,7 @@
                                     <div class="right-side">
                                         <div class="bg-circle">
                                             <img src="../assets/img/icons/appointment.svg" alt=""
-                                                 srcset="../assets/img/icons/appointment.svg">
+                                                srcset="../assets/img/icons/appointment.svg">
                                         </div>
                                     </div>
                                 </div>
@@ -559,7 +559,7 @@
                                     <div class="right-side">
                                         <div class="bg-circle">
                                             <img src="../assets/img/icons/appointment_cal.svg" alt=""
-                                                 srcset="../assets/img/icons/appointment_cal.svg">
+                                                srcset="../assets/img/icons/appointment_cal.svg">
                                         </div>
                                     </div>
                                 </div>
@@ -582,7 +582,7 @@
                                     <div class="right-side">
                                         <div class="bg-circle">
                                             <img src="../assets/img/icons/cm-home.svg" alt=""
-                                                 srcset="../assets/img/icons/cm-home.svg">
+                                                srcset="../assets/img/icons/cm-home.svg">
                                         </div>
                                     </div>
                                 </div>
@@ -603,7 +603,7 @@
                                     <div class="right-side">
                                         <div class="bg-circle">
                                             <img src="../assets/img/icons/x-ray.svg" alt=""
-                                                 srcset="../assets/img/icons/x-ray.svg">
+                                                srcset="../assets/img/icons/x-ray.svg">
                                         </div>
                                     </div>
                                 </div>
@@ -624,7 +624,7 @@
                                     <div class="right-side">
                                         <div class="bg-circle">
                                             <img src="../assets/img/icons/call-waiting.svg" alt=""
-                                                 srcset="../assets/img/icons/call-waiting.svg">
+                                                srcset="../assets/img/icons/call-waiting.svg">
                                         </div>
                                     </div>
                                 </div>
@@ -647,7 +647,7 @@
                                     <div class="right-side">
                                         <div class="bg-circle">
                                             <img src="../assets/img/icons/house-insurance.svg" alt=""
-                                                 srcset="../assets/img/icons/house-insurance.svg">
+                                                srcset="../assets/img/icons/house-insurance.svg">
                                         </div>
                                     </div>
                                 </div>
@@ -666,12 +666,12 @@
                                                     <div class="_t1">Done Authenticate Signature</div>
                                                     <h1 class="_t2">100</h1>
                                                     <button type="submit" class="view-btn mt-1"
-                                                            name="signup">VIEW All</button>
+                                                        name="signup">VIEW All</button>
                                                 </div>
                                                 <div class="right-side">
                                                     <div class="bg-circle">
                                                         <img src="../assets/img/icons/contract.svg" alt=""
-                                                             srcset="../assets/img/icons/contract.svg">
+                                                            srcset="../assets/img/icons/contract.svg">
                                                     </div>
                                                 </div>
                                             </div>
@@ -687,12 +687,12 @@
                                                     <div class="_t1">New Signature</div>
                                                     <h1 class="_t2">5</h1>
                                                     <button type="submit" class="view-btn mt-1"
-                                                            name="signup">TAKE ACTION</button>
+                                                        name="signup">TAKE ACTION</button>
                                                 </div>
                                                 <div class="right-side">
                                                     <div class="bg-circle">
                                                         <img src="../assets/img/icons/contract.svg" alt=""
-                                                             srcset="../assets/img/icons/contract.svg">
+                                                            srcset="../assets/img/icons/contract.svg">
                                                     </div>
                                                 </div>
                                             </div>
@@ -710,7 +710,7 @@
                 </div>
             </div>
             <div class="tab-pane" id="pulseOxymeter" role="tabpanel"
-                 aria-labelledby="v-pills-pulseOxymeter-tab">
+                aria-labelledby="v-pills-pulseOxymeter-tab">
                 <div class="request-roadl">
                     Pulse Oxymeter
                 </div>

@@ -121,7 +121,6 @@
             });
 
         }
-
         function disconnect() {
             window.location.reload();
         }

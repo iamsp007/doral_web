@@ -1,7 +1,7 @@
 @extends('layouts.referral.default')
 @section('content')
 <div class="app-vbc">
-<table id="vbc" table class="display responsive nowrap" style="width:100%">
+<table id="occupational" table class="display responsive nowrap" style="width:100%">
     <thead>
         <tr>
             <th></th>
@@ -30,10 +30,10 @@
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
-        $('#vbc').DataTable( {
+        $('#occupational').DataTable( {
             processing: true,
             serverSide: true,
-            ajax: "{{  route('referral.vbc-get-data') }}",
+            ajax: "{{  route('referral.occupational-health-get-data') }}",
             columns: [
                 {data:'id',name:'id'},
                 {

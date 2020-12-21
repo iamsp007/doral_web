@@ -6,7 +6,10 @@
 @endsection
 
 @section('content')
-    <button class="btn btn-primary" onclick="allSelectedAccept()">Accept</button>
+<div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
+        <button type="button" onclick="allSelectedAccept('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
+        <button type="button" onclick="allSelectedAccept('2')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
+    </div>
     <table class="display responsive nowrap" style="width:100%" id="patient-table" >
         <thead>
         <tr>

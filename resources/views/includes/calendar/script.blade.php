@@ -8,7 +8,8 @@
 
 <script>
     SITEURL = 'http://127.0.0.1:8080/';
-    var appointment = appointment;
+    appointments = @php echo json_encode( $appointments ); @endphp;
+    console.log( appointments );
     $(document).ready(function() {
         $(".btn").click(function() {
             $("#largeModal").modal("show");
@@ -26,7 +27,8 @@
             editable: true,
             eventColor: 'green',
             slotDuration: '00:15:00',
-            defaultView: 'agendaWeek',
+            //defaultView: 'agendaWeek',
+            defaultView: 'month',
             firstDay: 1,
             slotEventOverlap: false,
             agendaEventMinHeight: 1,
@@ -34,9 +36,10 @@
             header: {
                 left: 'prev,next today custom1',
                 center: 'title',
-                right: 'month,agendaWeek,agendaDay'
+                //right: 'month,agendaWeek,agendaDay'
+                right: 'month,agendaDay'
             },
-            customButtons: {
+            /*customButtons: {
                 custom1: {
                     text: 'Add Appointment',
                     click: function() {
@@ -55,8 +58,8 @@
                         });
                     }
                 }
-            },
-            events: appointment,
+            },*/
+            events: appointments,
             //events: SITEURL + "calendar",
             eventRender: function(event, element, view) {
                 if (event.allDay === 'true') {
@@ -68,11 +71,13 @@
             select: function(start, end, allDay) {
 
                 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-
+                var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");                
+                var patient_id = 1;
+                var provider_pa_ma = 1;
+                var provider = 1;
                 $.ajax({
                     url: "{{ route('appointment.create') }}",
-                    //data: 'title=' + title + '&start=' + start + '&end=' + end,
+                    data: 'start=' + start + '&end=' + end +'&patient_id='+ patient_id +'&provider_pa_ma='+ provider_pa_ma +'&provider='+ provider,
                     type: "get",
                     success: function(data) {
                         $("#largeModal .modal-body").html(data);
@@ -124,4 +129,6 @@
             }
         });
     });
+    
+    
 </script>

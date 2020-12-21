@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
+    @stack('styles')
     @include('includes.referral.head')
+
 </head>
 
 <body>
@@ -28,6 +30,7 @@
         </section>
     </section>
     @include('includes.referral.script')
+    @stack('scripts')
 </body>
 
 </html>

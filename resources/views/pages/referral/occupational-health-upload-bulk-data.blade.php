@@ -77,7 +77,7 @@ $(document).ready(function () {
     $('#upload_form').on('submit', function(event){
       event.preventDefault();
       $.ajax({
-       url:'{{ route('referral.employee-pre-physical-upload-bulk-data-store') }}',
+       url:'{{ route('referral.occupational-health-upload-bulk-data-store') }}',
        method:"POST",
        data:new FormData(this),
        dataType:'JSON',
@@ -86,7 +86,7 @@ $(document).ready(function () {
        processData: false,
        success:function(data)
        {
-        window.location = "{{ route('referral.employee-pre-physical') }}";
+        window.location = "{{ route('referral.occupational-health') }}";
        }
       })
      });

@@ -141,7 +141,7 @@ $(document).ready(function () {
 
     $('#upload_form').on('submit', function(event){
       event.preventDefault();
-      $(".loader-wrapper").show();
+      //$(".loader-wrapper").show();
       $.ajax({
        url:'{{ route('referral.md-order-upload-bulk-data-store') }}',
        method:"POST",
@@ -152,8 +152,8 @@ $(document).ready(function () {
        processData: false,
        success:function(data)
        {
-        $(".loader-wrapper").hide();
-        window.location = "{{ route('referral.md-order') }}";
+        //$(".loader-wrapper").hide();
+        //window.location = "{{ route('referral.md-order') }}";
        }
       })
      });

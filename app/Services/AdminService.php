@@ -153,4 +153,29 @@ class AdminService
 
         }
     }
+    public function getNewPatientListForAppointment(){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/getNewPatientListForAppointment',
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+
+            $data = json_decode($response,true);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
 }

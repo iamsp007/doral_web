@@ -35,7 +35,7 @@
             <ul class="sidenav">
                 <li><a class="{{ \Request::is('co-ordinator')?'nav active':'nav' }}" href="{{ route('coordinator.dashboard') }}">Dashboard<span class="dot"></span></a></li>
                 <li><a class="{{ \Request::is('co-ordinator/patient-list-show')?'nav active':'nav' }}" href="{{ route('coordinator.patientListShow') }}">Patient List<span class="dot"></span></a></li>
-{{--                <li><a class="{{ \Request::is('supervisor/new-patient-list')?'nav active':'nav' }}" href="{{ route('clinician.new.patientList') }}">New Patient List<span class="dot"></span></a></li>--}}
+                <li><a class="{{ \Request::is('co-ordinator/new-patient-list-show')?'nav active':'nav' }}" href="{{ route('coordinator.newPatientListShow') }}">New Patient List<span class="dot"></span></a></li>
 {{--                <li><a class="{{ \Request::is('supervisor/roadl')?'nav active':'nav' }}" href="{{ route('clinician.roadl') }}">RoadL<span class="dot"></span></a></li>--}}
             </ul>
         </div>

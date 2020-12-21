@@ -52,8 +52,11 @@ Route::get('/resetpassword', function () {
     return view('dashboard');
 })->name('dashboard');*/
 
-Route::get('calender', 'App\Http\Controllers\AppointmentController@index');
-Route::get('calender/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
+/*Route::get('calender', 'App\Http\Controllers\AppointmentController@index');
+Route::get('calender/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');*/
+Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
+Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
+
 //
 //Auth::routes();
 //

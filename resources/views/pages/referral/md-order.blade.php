@@ -11,6 +11,7 @@
                 <th>Phone</th>
                 <th>City</th>
                 <th>Zip Code</th>
+                <th>Due Date</th>
                 <th>Created Date</th>
                 <th>Status</th>
                 <th></th>
@@ -25,19 +26,26 @@
                 <td class="text-green"><a href='{{ url("/referral/patient-detail/$raw[id]") }}'>{{$raw['first_name']}} {{$raw['middle_name']}} {{$raw['last_name']}}</a></td>
                 <td>
                     @if($raw['file_type'] == 1)
-                    Demographic files
+                    Demographic Info
                     @elseif($raw['file_type'] == 2)
-                    Clinical History
+                    Clinical Info
                     @elseif($raw['file_type'] == 3)
-                    Order Due Dates
+                    Compliance Due Dates
                     @elseif($raw['file_type'] == 4)
-                    MD Order
+                    Previous MD Order
                     @endif
                 </td>
                 <td>{{$raw['gender']}}</td>
                 <td>{{$raw['phone1']}}</td>
                 <td>{{$raw['city']}}-{{$raw['state']}}</td>
                 <td>{{$raw['Zip']}}</td>
+                <td>
+                    @if($raw['cert_next_date'] == '')
+                    --
+                    @else
+                    {{date('F d Y', strtotime($raw['cert_next_date']))}}
+                    @endif
+                </td>
                 <td>{{ date('F d Y', strtotime($raw['created_at'])) }}</td>
                 <td><span class="status-pending">{{$raw['status']}}</span></td>
                 <td width="8%"><a href="javascript:void(0)"><img src="{{asset('assets/img/icons/delete-icon.svg')}}"

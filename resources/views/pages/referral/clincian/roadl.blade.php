@@ -1,6 +1,6 @@
 @extends('pages.clincian.layouts.app')
 
-@section('title','Patient RoadL Request Map')
+@section('title','Patient RoadL Request')
 @section('pageTitleSection')
     RoadL
 @endsection
@@ -19,9 +19,9 @@
                                 </div>
                                 <div class="content">
                                     <h1 class="_t11">{!! $value->detail->first_name !!} {!! $value->detail->last_name !!} </h1>
-                                    <p class="address">{!! $value->patientDetail->address1 !!}</p>
+                                    <p class="address">{!! !empty($value->patient_detail)?$value->patient_detail->address1:'' !!}</p>
                                     <p class="emergency_contact mb-2"> Emergency Contact
-                                        <a href="tel:9966246684" class="primary_tel">{!! $value->patientDetail->emg_phone !!}</a></p>
+                                        <a href="tel:9966246684" class="primary_tel">{!! !empty($value->patient_detail)?$value->patient_detail->emg_phone:'' !!}</a></p>
                                     <p class="contact"><a href="tel:8866246684" class="secondary_tel">{!! $value->detail->phone !!}</a>
                                     </p>
                                 </div>
@@ -41,11 +41,11 @@
                                 <div class="_lside">
                                     <ul class="specification">
                                         @if(count($value->ccrm)>0)
-                                            @foreach($patientRequestList->ccrm as $ckey=>$cvalue)
+                                            @foreach($value->ccrm as $ckey=>$cvalue)
                                                 <li class="blood">
                                                     <img src="{{ asset('assets/img/icons/pressure.svg') }}"
                                                          class="mr-2" alt="">
-                                                    {!! $cvalue->reading_type !!} : {!! $cvalue->reading_value !!}
+                                                        {!! $cvalue->reading_type !!} : {!! $cvalue->reading_value !!}
                                                 </li>
                                             @endforeach
                                         @endif
@@ -64,6 +64,15 @@
                                                 Call<span></span></button>
                                         </li>
                                         <li>
+                                            @if($value->clincial_id===null)
+                                                <a href="{{ route('clinician.start.roadl',['patient_request_id'=>$value->id]) }}" class="btn btn-start-call">Start BroadCast<span></span></a>
+                                            @elseif($value->status==='complete')
+{{--                                                <a  class="btn btn-start-call">Running BroadCast<span></span></a>--}}
+                                            @else
+                                                <a href="{{ route('clinician.start.running',['patient_request_id'=>$value->id]) }}" class="btn btn-start-call">Running BroadCast<span></span></a>
+                                            @endif
+                                        </li>
+                                        <li>
                                             <button type="button" class="btn btn-emergency">emergency
                                                 (911)<span></span></button>
                                         </li>
@@ -76,33 +85,16 @@
             @endforeach
         @endif
     </ul>
-    <div id="map"></div>
 @endsection
 
 @push('styles')
-    <style type="text/css">
-        /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-        #map {
-            /*width:820px !important;*/
-            height: 500px !important;
-            position: relative !important;
-            overflow: scroll;
-        }
-        #pano {
-            float: left;
-            height: 100%;
-            width: 50%;
-        }
-    </style>
 @endpush
 
 @push('scripts')
-    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="{{ asset('js/clincian/map.js') }}"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
-        defer
-    ></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+{{--    <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>--}}
+    <script>
+        var patientRequestList='{{ route('clinician.roadl.patientRequestList') }}';
+    </script>
+    <script src="{{ asset('js/clincian/roadl.js') }}"></script>
 @endpush

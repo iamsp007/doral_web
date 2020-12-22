@@ -44,7 +44,7 @@
                     <td>{{$raw['email']}}</td>
                     <td>
                         <div class="d-flex">
-                            @if($raw['status'] == 'active')
+                            @if($raw['status'] == '1')
                             <button type="button"
                                 class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
                                 data-toggle="tooltip" data-placement="left">Accepted
@@ -54,7 +54,7 @@
                                 id="{{$raw['id']}}">Reject
                             </button>
                             @endif
-                            @if($raw['status'] == 'reject')
+                            @if($raw['status'] == '3')
                                 <button type="button"
                                 class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
                                 data-toggle="tooltip" data-placement="left" id="{{$raw['id']}}" >Accept
@@ -63,7 +63,7 @@
                                     data-toggle="tooltip" data-placement="left">Rejected
                                 </button>
                             @endif
-                            @if($raw['status'] == 'pending')
+                            @if($raw['status'] == '0')
                                 <button type="button"
                                 class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
                                 data-toggle="tooltip" data-placement="left" id="{{$raw['id']}}" >Accept
@@ -100,7 +100,7 @@
         $(".acceptid").click(function() {
 
             var company_id = $(this).attr('id');
-            var status = "active";
+            var status = "1";
             $.ajax({
                 method: 'POST',
                 url: '{{ route('admin.updateStatus') }}',
@@ -111,7 +111,7 @@
                         $(".alert-danger").hide();
                         $("#successResponse").text(response.message);
                         setTimeout(function(){
-                            $(".alert-success").hide();
+                           window.location.reload();
                         }, 1000);
                     }
                     else {
@@ -119,7 +119,7 @@
                         $(".alert-success").hide();
                         $("#errorResponse").text(response.message);
                         setTimeout(function(){
-                            $(".alert-danger").hide();
+                            window.location.reload();
                         }, 1000);
                     }
                     console.log( response );
@@ -133,11 +133,11 @@
 
         $(".rejectid").click(function() {
             var company_id = $(this).attr('id');
-            var status = "reject";
+            var status = "3";
             //alert(company_id);
             $.ajax({
                 method: 'POST',
-                url: '/admin/referral-status',
+                url: '{{ route("admin.updateStatus") }}',
                 data: {company_id, status},
                 success: function( response ){
                     if(response.status == 1) {

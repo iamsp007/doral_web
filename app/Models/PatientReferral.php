@@ -29,6 +29,14 @@ class PatientReferral extends Model
     }
 
     public function detail(){
-        return $this->hasOne(User::class,'id','patient_id');
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
+    public function service(){
+        return $this->hasOne(ServicesMaster::class,'id','service_id');
+    }
+
+    public function filetype(){
+        return $this->hasOne(FileTypeMaster::class,'id','file_type');
     }
 }

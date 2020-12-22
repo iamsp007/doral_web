@@ -30,8 +30,10 @@ class PatientController extends Controller
 
     public function getPatientList(){
 
-        $patientList = PatientReferral::with('detail')
-            ->whereIn('status',['accept'])
+        $patientList = PatientReferral::with('detail','service','filetype')
+            ->whereHas('detail',function ($q){
+                $q->where('status','=','1');
+            })
             ->get();
         return DataTables::of($patientList)
             ->make(true);
@@ -46,14 +48,16 @@ class PatientController extends Controller
 
     public function getNewPatientList(){
 
-        $patientList = PatientReferral::with('detail')
-            ->whereIn('status',['pending'])
+        $patientList = PatientReferral::with('detail','service','filetype')
+            ->whereHas('detail',function ($q){
+                $q->where('status','=','0');
+            })
             ->get();
         return DataTables::of($patientList)
             ->addIndexColumn()
             ->addColumn('action', function($row){
 
-                if ($row->status==='pending'){
+                if ($row->detail->status==='0'){
                     $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm" onclick="changePatientStatus(this,1)">Accept</a>';
 
                     $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm" onclick="changePatientStatus(this,0)">Reject</a>';
@@ -76,14 +80,29 @@ class PatientController extends Controller
             $status='reject';
         }
 
-        $patient = PatientReferral::find($request->id);
-        if ($patient){
-            $patient->status=$status;
-            if($patient->save()){
+        $updatePatient = PatientReferral::whereIn('id',$request->id)->update(['status'=>$status]);
 
-                return response()->json(['message'=>'Change Patient Status Successfully!'],200);
+        $ids = $request->id;
+
+        if (count($ids)>0){
+            $message='';
+            foreach ($ids as $id) {
+                $patient = PatientReferral::find($id);
+                if ($patient){
+                    $patient->status = $status;
+                    if ($status==="accept") {
+                        $users = User::find($patient->user_id);
+                        if ($users){
+                            $users->status = '1';
+                            $users->save();
+                        }
+                    }
+                    $patient->save();
+                    $message='Change Patient Status Successfully';
+                }
             }
+            return response()->json(['message'=>$message],200);
         }
-        return response()->json(['message'=>'Something Went Wrong!'],422);
+        return response()->json(['message'=>'No Patient Referral Ids Found'],422);
     }
 }

@@ -75,18 +75,19 @@ class ReferralLoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-        $request->merge(['status'=>'active']);
 
         if (Auth::guard('referral')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-           // dd(Auth::guard('referral')->user());
-            if (Auth::guard('referral')->user()->status===$request->status){
+            if (Auth::guard('referral')->user()->status==='1'){
                 cache(['USERNAME' => $request->email]);
                 cache(['PASSWORD'=>$request->password]);
                 return $this->sendLoginResponse($request);
             }
+
+            $status = Auth::guard('referral')->user()->status;
+
             Auth::guard('referral')->logout();
             throw ValidationException::withMessages([
-                $this->username() => [trans('auth.referralactive')],
+                $this->username() => [$status==='0'?trans('auth.activate'):($status==='2'?trans('auth.inactivate'):trans('auth.reject'))],
             ]);
         }
         // If the login attempt was unsuccessful we will increment the number of attempts

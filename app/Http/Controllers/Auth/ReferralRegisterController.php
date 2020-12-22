@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ReferralWelcomeMail;
 use App\Models\Company;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
@@ -12,6 +13,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
 
 class ReferralRegisterController extends Controller
 {
@@ -63,10 +65,18 @@ class ReferralRegisterController extends Controller
      */
     public function register(Request $request)
     {
-//        dd($request->all());
         $this->validator($request->all())->validate();
-        $request->merge(['password'=>'test123','status'=>'Pending','name'=>$request->company]);
+        $request->merge(['password'=>'test123','name'=>$request->company]);
         event(new Registered($user = $this->create($request->all())));
+        $details = [
+            'name' => $request->company,
+            'email' => $request->email
+        ];
+        try {
+            \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
+        }catch (\Exception $exception){
+            \Log::info($exception->getMessage());
+        }
 
 //        $this->guard('referral')->login($user);
 
@@ -76,7 +86,7 @@ class ReferralRegisterController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 201)
-            : redirect($this->redirectPath());
+            : redirect($this->redirectPath())->with('success','Company Registration Successfully!');
     }
     /**
      * Get a validator for an incoming registration request.
@@ -89,7 +99,7 @@ class ReferralRegisterController extends Controller
         return Validator::make($data, [
             'referralType' => ['required'],
             'company' => ['required'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:companies']
         ]);
     }
 
@@ -101,12 +111,12 @@ class ReferralRegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Company::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'referal_id' => $data['referralType'],
-            'status' => $data['status'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $company = new Company();
+        $company->name = $data['name'];
+        $company->email = $data['email'];
+        $company->referal_id = $data['referralType'];
+        $company->password = Hash::make($data['password']);
+        $company->assignRole('referral')->syncPermissions(Permission::all());
+        return $company->save();
     }
 }

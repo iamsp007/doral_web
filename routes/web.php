@@ -63,7 +63,7 @@ Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@cre
 /*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();*/
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('check')->name('home');
 
 
 

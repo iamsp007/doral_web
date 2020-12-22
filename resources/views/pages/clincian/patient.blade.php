@@ -1,24 +1,30 @@
-@extends('layouts.referral.default')
+@extends('pages.clincian.layouts.app')
+
+@section('title','Clinician Patient List')
+@section('pageTitleSection')
+    Patient
+@endsection
+
 @section('content')
-<div class="app-vbc">
-<table id="vbc" table class="display responsive nowrap" style="width:100%">
-    <thead>
+    <table class="display responsive nowrap" style="width:100%" id="patient-table">
+        <thead>
         <tr>
             <th></th>
-            <th>Name</th>
-            <th>Last Name</th>
+            <th>Full Name</th>
+            <th>Service</th>
+            <th>File Type</th>
             <th>Gender</th>
-            <th>Phone</th>
-            <th>City</th>
+            <th>Date Of Birth</th>
             <th>Zip Code</th>
-            <th>Due Date</th>
-            <th>Created Date</th>
+            <th>City - State</th>
             <th>Status</th>
         </tr>
-    </thead>
-</table>
-</div>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 @endsection
+
 @push('styles')
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
@@ -30,11 +36,11 @@
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
-        $('#vbc').DataTable( {
+        var table = $('#patient-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{  route('referral.vbc-get-data') }}",
-            columns: [
+            ajax: "{{  route('clinician.patientList.ajax') }}",
+            columns:[
                 {data:'id',name:'id'},
                 {
                     data:'first_name',
@@ -45,9 +51,16 @@
                         return data;
                     }
                 },
-                {data:'last_name',name:'last_name',"bSortable": true},
+//                {data:'last_name',name:'last_name',"bSortable": true},
+                {data:'service.name',name:'service.name',"bSortable": true},
+                {data:'filetype.name',name:'filetype.name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
-                {data:'phone1',name:'phone1',"bSortable": true},
+                {
+                    data:'dob',
+                    name:'dob',
+                    "bSortable": true
+                },
+                {data:'Zip',name:'Zip',"bSortable": true},
                 {
                     data:'city',
                     name:'city',
@@ -56,17 +69,6 @@
 
                         return row.city+ ' - '+row.state;
                     }
-                },
-                {data:'Zip',name:'Zip',"bSortable": true},
-                {
-                    data:'cert_next_date',
-                    name:'cert_next_date',
-                    "bSortable": true
-                },
-                {
-                    data:'created_at',
-                    name:'created_at',
-                    "bSortable": true
                 },
                 {
                     data:'status',
@@ -99,6 +101,6 @@
             'select': {
                 'style': 'multi'
             },
-        } );
+        });
     </script>
 @endpush

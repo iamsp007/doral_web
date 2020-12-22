@@ -71,6 +71,7 @@ $(document).ready(function () {
 
     $('#upload_form').on('submit', function(event){
       event.preventDefault();
+      $(".loader-wrapper").show();
       $.ajax({
        url:'{{ route('referral.vbc-upload-bulk-data-store') }}',
        method:"POST",
@@ -81,6 +82,7 @@ $(document).ready(function () {
        processData: false,
        success:function(data)
        {
+        $(".loader-wrapper").hide();
         window.location = "{{ route('referral.vbc') }}";
        }
       })

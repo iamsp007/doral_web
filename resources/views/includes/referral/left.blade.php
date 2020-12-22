@@ -12,7 +12,7 @@
     <li><a class="{{ \Request::is('referral/dashboard')?'active':'' }} nav" href="{{ route('referral.dashboard') }}">Dashboard <span class="dot"></span></a></li>
     <li><a class="{{ \Request::is('referral/vbc')?'active':'' }} nav" href="{{ route('referral.vbc') }}">VBC <span class="dot"></span></a></li>
     <li><a class="{{ \Request::is('referral/md-order')?'active':'' }} nav" href="{{ route('referral.md-order') }}">MD Order <span class="dot"></span></a></li>
-    <li><a class="{{ \Request::is('referral/employee-pre-physical')?'active':'' }} nav" href="{{ route('referral.employee-pre-physical') }}">Employee Pre-Physical<span class="dot"></span></a></li>
+    <li><a class="{{ \Request::is('referral/occupational-health')?'active':'' }} nav" href="{{ route('referral.occupational-health') }}">Occupational Health<span class="dot"></span></a></li>
    
 
 
@@ -25,6 +25,4 @@
         </form>
     </li>
 </ul>
-
-<li><a class="{{ \Request::is('referral/employee-pre-physical')?'active':'' }} nav" href="{{ route('referral.employee-pre-physical') }}">Employee Pre-Physical<span class="dot"></span></a></li>
 

@@ -1,6 +1,6 @@
-@extends('pages.clincian.layouts.app')
+@extends('pages.coordinator.layouts.app')
 
-@section('title','Clinician Patient List')
+@section('title','Coordinator Patient List')
 @section('pageTitleSection')
     Patient
 @endsection
@@ -10,7 +10,8 @@
         <thead>
         <tr>
             <th></th>
-            <th>Full Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Service</th>
             <th>File Type</th>
             <th>Gender</th>
@@ -39,7 +40,7 @@
         var table = $('#patient-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{  route('clinician.patientList.ajax') }}",
+            ajax: "{{  route('coordinator.getNewPatientList') }}",
             columns:[
                 {data:'id',name:'id'},
                 {
@@ -51,7 +52,7 @@
                         return data;
                     }
                 },
-//                {data:'last_name',name:'last_name',"bSortable": true},
+                {data:'last_name',name:'last_name',"bSortable": true},
                 {data:'service.name',name:'service.name',"bSortable": true},
                 {data:'filetype.name',name:'filetype.name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},

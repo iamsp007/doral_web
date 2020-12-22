@@ -40,7 +40,7 @@
         var table = $('#patient-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{  route('coordinator.patientList') }}",
+            ajax: "{{  route('coordinator.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
                 {

@@ -10,7 +10,7 @@
         <thead>
         <tr>
             <th></th>
-            <th>Full Name</th>
+            <th>Patient Name</th>
             <th>Service</th>
             <th>File Type</th>
             <th>Gender</th>
@@ -47,7 +47,7 @@
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + data + '</a>';
+                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + row.first_name +' '+ row.last_name + '</a>';
                         return data;
                     }
                 },

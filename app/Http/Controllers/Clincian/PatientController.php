@@ -29,6 +29,11 @@ class PatientController extends Controller
         return view($this->view_path.'newpatient');
     }
 
+    public function scheduleAppointmentRquest(){
+
+        return view($this->view_path.'schedule');
+    }
+
     public function getPatientList(Request $request){
         $clinicianService = new ClinicianService();
         $response = $clinicianService->getPatientList($request->all());
@@ -49,25 +54,36 @@ class PatientController extends Controller
 
         $clinicianService = new ClinicianService();
         $response = $clinicianService->getNewPatientList($request->all());
+        $data=[];
         if ($response->status===true){
-
-            return DataTables::of($response->data)
-                ->addIndexColumn()
-                ->addColumn('action', function($row){
-
-                    if ($row->detail->status==='0'){
-                        $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm" onclick="changePatientStatus(this,1)">Accept</a>';
-
-                        $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm" onclick="changePatientStatus(this,0)">Reject</a>';
-
-                        return $btn;
-                    }
-                    return '';
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+            $data=$response->data;
         }
-        return DataTables::of($response)
+        return  DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+
+                if ($row->detail->status==='0'){
+                    $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm" onclick="changePatientStatus(this,1)">Accept</a>';
+
+                    $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm" onclick="changePatientStatus(this,0)">Reject</a>';
+
+                    return $btn;
+                }
+                return '';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function scheduleAppoimentList(Request $request){
+
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->scheduleAppoimentList($request->all());
+        $data=[];
+        if ($response->status===true){
+            $data=$response->data;
+        }
+        return  DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
 

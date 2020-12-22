@@ -115,6 +115,26 @@ class ClinicianService
         }
     }
 
+    public function scheduleAppoimentList($data){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/get-schedule-appoiment-list',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
+
     public function changePatientStatus($data){
         try {
 

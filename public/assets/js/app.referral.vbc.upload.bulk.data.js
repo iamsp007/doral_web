@@ -1,9 +1,13 @@
 $(function () {
     $('#uploaded_files').DataTable();
-    $('.category-type .box').click(function () {
-        $('.category-type .box').removeClass("selected");
+    $('.category-type .box input:radio[name=vbc_select]').change(function () {
+        $('.category-type .box input:radio[name=vbc_select]').removeClass("selected");
         $(this).addClass("selected");
         $('.upload-your-files').slideDown();
+    });
+    $('.box .control input:radio[name=radio]').change(function(){
+        $('.box.selected').removeClass('selected');
+        $(this).closest('.box').addClass('selected');
     });
     $('#vbc').DataTable({
         "order": [],

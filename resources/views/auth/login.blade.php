@@ -18,7 +18,7 @@
                         <div class="mid">
                             <div class="p50">
                                 <h1 class="t2"><img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
-                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('Doral Login')}}</h1>
+                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('SIGN IN')}}</h1>
                                 <form method="POST" action="{{ route('login') }}" class="mt-4 pt-2" id="loginForm">
                                     @csrf
                                     @if($errors->any())
@@ -28,12 +28,27 @@
                                             </div>
                                         @endforeach
                                     @endif
+                                    <div class="mb-3 mt-2 ">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>Select Role:</div>
+                                            <div>
+                                                <ul class="panel nav justify-content-end d-flex align-items-center">
+
+                                                    <li><a href="#Provider" onclick="changeLoginRole('1')" class="active mr-2" data-toggle="pill" role="tab" aria-selected="true">Provider</a>
+                                                        <input type="radio" name="loginType" value="1" style="display: none;" />
+                                                    </li>
+                                                    <li><a href="#Payer" onclick="changeLoginRole('2')"  data-toggle="pill" role="tab" class="" aria-selected="false">Payer</a>
+                                                        <input type="radio" name="loginType" value="2" style="display: none;" /></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <div class="d-flex justify-content-between">
                                             <label for="username" class="label">Username</label>
                                         </div>
                                         <input autocomplete="off" type="text" class="form-control form-control-lg" id="username"
-                                               name="email" aria-describedby="emailHelp">
+                                               name="email" aria-describedby="emailHelp" value="admin@doral.com">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -51,7 +66,7 @@
                                             @endif
                                         </div>
                                         <input autocomplete="off" type="password" class="form-control form-control-lg" id="password"
-                                               name="password">
+                                               name="password" value="password">
                                         @error('password')
                                         <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
                                             <strong>Error!</strong> {{ $message }}
@@ -79,3 +94,15 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        function changeLoginRole(type) {
+            if (type==='1'){
+                $('#loginForm').attr('action','{{ route('login') }}');
+            }else {
+                $('#loginForm').attr('action','{{ route('referral.login') }}');
+            }
+            console.log(type)
+        }
+    </script>
+@endpush

@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoadLController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoadLController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/DesignationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/DesignationService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/EmployeeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/EmployeeService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/socket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/admin/employee-view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/admin/employee-view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/direction_view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/direction_view.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/clinician.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinician.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/patient.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/patient.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,6 +149,7 @@
       <path value="$PROJECT_DIR$/vendor/livewire/livewire" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
       <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-oracle" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
     </include_path>
   </component>
   <component name="ProjectId" id="1jExBQGjb0JrI2cHx9rLuxWcHW8" />
@@ -169,12 +161,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../socket" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Services" />
       <recent name="$PROJECT_DIR$/resources/views/pages/clincian" />
       <recent name="$PROJECT_DIR$/resources/views/auth" />
     </key>
@@ -216,6 +209,18 @@
       <workItem from="1607150432093" duration="613000" />
       <workItem from="1607395151843" duration="5093000" />
       <workItem from="1607401200739" duration="20175000" />
+      <workItem from="1607740852966" duration="8559000" />
+      <workItem from="1607750483642" duration="21000" />
+      <workItem from="1607753456206" duration="11541000" />
+      <workItem from="1607775414516" duration="1055000" />
+      <workItem from="1607779267985" duration="324000" />
+      <workItem from="1607790377672" duration="4909000" />
+      <workItem from="1607852255770" duration="10953000" />
+      <workItem from="1607864744351" duration="599000" />
+      <workItem from="1607872525476" duration="700000" />
+      <workItem from="1607913006562" duration="5791000" />
+      <workItem from="1608122589214" duration="420000" />
+      <workItem from="1608127352629" duration="638000" />
     </task>
     <servers />
   </component>

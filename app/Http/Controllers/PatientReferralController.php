@@ -247,6 +247,9 @@ class PatientReferralController extends Controller
         try {
             //  ---------------
             $url = CurlFunction::getURL().'/api/auth/patient-referral/store';
+            if($request->service_id == 2 && $request->vbc_select == 3)
+            $url = CurlFunction::getURL().'/api/auth/patient-referral/storecert';
+            //dd($url);
             $headerValue = array(
                 'X-Requested-With: XMLHttpRequest',
                 'Access-Control-Allow-Origin: http://localhost'
@@ -268,18 +271,21 @@ class PatientReferralController extends Controller
                     'file_name' => $filePath,
                     'referral_id' => 1,
                     'service_id' => $request->service_id,
-                    'file_type' => $request->r1
+                    'file_type' => $request->vbc_select,
+                    'form_id' => isset($request->formSelect) ? $request->formSelect : NULL
             );
             //$data = json_encode($data);
             //dd($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 600); 
             $curlResponse = curl_exec($ch);
+            //dd($curlResponse);
             $responseArray = json_decode($curlResponse, true);
             if(curl_errno($ch)) {
                 throw new Exception(curl_error($ch));
             }
-             dd($responseArray);
+
             if($responseArray['status']) {
                 $status = 1;
             }

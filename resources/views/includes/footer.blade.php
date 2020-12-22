@@ -4,7 +4,7 @@
             <div class="col-12 col-sm-2">
                 <!-- Logo Start -->
                 <a href="/" title="Welcome to Doral">
-                    <img src="assets/img/logo-white.svg" alt="Welcome to Doral" srcset="assets/img/logo-white.svg">
+                    <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}">
                 </a>
                 <!-- Logo End -->
             </div>
@@ -59,31 +59,31 @@
                     <ul class="socialIcons">
                         <li>
                             <a href="javascript:void(0)" title="Facebook">
-                                <img src="assets/img/icons/fb.svg" alt="" srcset="assets/img/icons/fb.svg">
+                                <img src="{{ asset('assets/img/icons/fb.svg') }}" alt="" srcset="{{ asset('assets/img/icons/fb.svg') }}">
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)" title="Instagram">
-                                <img src="assets/img/icons/instagram.svg" alt=""
-                                    srcset="assets/img/icons/instagram.svg">
+                                <img src="{{ asset('assets/img/icons/instagram.svg') }}" alt=""
+                                    srcset="{{ asset('assets/img/icons/instagram.svg') }}">
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)" title="LinkedIn">
-                                <img src="assets/img/icons/linkedin.svg" alt=""
-                                    srcset="assets/img/icons/linkedin.svg">
+                                <img src="{{ asset('assets/img/icons/linkedin.svg') }}" alt=""
+                                    srcset="{{ asset('assets/img/icons/linkedin.svg') }}">
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)" title="Twitter">
-                                <img src="assets/img/icons/twitter.svg" alt=""
-                                    srcset="assets/img/icons/twitter.svg">
+                                <img src="{{ asset('assets/img/icons/twitter.svg') }}" alt=""
+                                    srcset="{{ asset('assets/img/icons/twitter.svg') }}">
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)" title="Youtube">
-                                <img src="assets/img/icons/youtube.svg" alt=""
-                                    srcset="assets/img/icons/youtube.svg">
+                                <img src="{{ asset('assets/img/icons/youtube.svg') }}" alt=""
+                                    srcset="{{ asset('assets/img/icons/youtube.svg') }}">
                             </a>
                         </li>
                     </ul>

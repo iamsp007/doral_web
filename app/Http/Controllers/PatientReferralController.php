@@ -61,7 +61,20 @@ class PatientReferralController extends Controller
             $curlResponse = curl_exec($ch);
             $response = json_decode($curlResponse);
             curl_close($ch);
-            return DataTables::of($response->data)->make(true);
+            return DataTables::of($response->data)
+            ->editColumn('created_at', function ($contact){
+                if($contact->created_at!='')
+                return date('m-d-Y', strtotime($contact->created_at) );
+                else
+                return '--';    
+            })
+            ->editColumn('cert_next_date', function ($contact){
+                if($contact->cert_next_date!='')
+                return date('m-d-Y', strtotime($contact->cert_next_date) );
+                else
+                return '--';    
+            })
+            ->make(true);
 
 
         } catch(Exception $e) {
@@ -108,7 +121,7 @@ class PatientReferralController extends Controller
         $message = "";
         $record = [];
         try {
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/3';
+            $url = CurlFunction::getURL().'/api/auth/patient-occupational/3';
 
             $headerValue = array(
                 'Content-Type: application/json',
@@ -128,7 +141,20 @@ class PatientReferralController extends Controller
             //dd($responseArray->data);
             curl_close($ch);
             
-            return DataTables::of($response->data)->make(true);
+            return DataTables::of($response->data)
+            ->editColumn('created_at', function ($contact){
+                if($contact->created_at!='')
+                return date('m-d-Y', strtotime($contact->created_at) );
+                else
+                return '--';    
+            })
+            ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob) );
+                else
+                return '--';    
+            })
+            ->make(true);
 
 
         } catch(Exception $e) {
@@ -214,7 +240,7 @@ class PatientReferralController extends Controller
         $message = "";
         try {
             //  ---------------
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/storeoccupational';
+            $url = CurlFunction::getURL().'/api/auth/patient-occupational/storeoccupational';
             //dd($url);
             $headerValue = array(
                 'X-Requested-With: XMLHttpRequest',
@@ -241,7 +267,7 @@ class PatientReferralController extends Controller
                     'form_id' => isset($request->formSelect) ? $request->formSelect : NULL
             );
             //$data = json_encode($data);
-            //dd($data);
+            //dd($url);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);
             curl_setopt($ch, CURLOPT_TIMEOUT, 600); 

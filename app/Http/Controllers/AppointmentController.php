@@ -51,7 +51,6 @@ class AppointmentController extends Controller
      */
     public function create( Request $request )
     {
-        Session::put('token', "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5MjQ0NDU4NC0wNzk1LTQwNDYtYTBjMi0zMTM2M2U4OGJjZjciLCJqdGkiOiI1YzI3MDdlNjVhYjdjN2JlZmRmMjIyNjE4OTBlYzNkZDg5ODA2MDc5MTFlYzljNDRjZWVhMjgwZjQ0M2I1NThhN2NlM2M2ZmI3OWEzOTExMyIsImlhdCI6MTYwODU1MTYwNCwibmJmIjoxNjA4NTUxNjA0LCJleHAiOjE2MjQyNzY0MDMsInN1YiI6IjUiLCJzY29wZXMiOltdfQ.gs674amqrywbSLQnc8fyh3C-2DvqNgD8JDguWGixlbdz-2W-KV9q96GfnmNy331BnNEXA5iTNQbzvo3Zomg1hFOpkc_ZiLJxVOSA4sMD_z2N0gkEav1SXg85l7s1iFsL_DfboEnzA1-11WuBQrzLqG94Ytd7WtplLGSiuTK3S5VIVZlPYobgzQ9NVnpBhKQOz8XSncCXXYhjLE1JF1VCJsxcMKzXVrRi9cYOsu2Zwtl7z17zAwdpL_5SDl2BlpiT9PH0RX0MCrYSWlgquKxUFcxBy8W-rT-_XZeVPUn7v7k80QmM6pjgTHTdb7QrrlDwXgc2ldDybuzHI03evjnrGz1n5Lq4QjTTG9H53DzIXmMygUxTN4nDrozPrjZcz4udffigOMwJrCslNgmZEholimgA_YIZkY4WBYocaYislYy7n4ipEfA5OJ4D1DxAIxIV6mzwASegUTch_GwWk8DoJS3EW6EfFtlqIaYl_MvCQ1bVRYAotlf86ST3LD_LpLnJuEIxDOkzcxck8t3o9Z_pYQ5Kss5n6m5agCDTx9K-lyHjqEpaEwv5JOxy9vAL1pDBJYGr7Ewlk93PmY5SrBTDw6XnmiieI48UU-6EQ7oPw1mD_JrRVf5r6NqA_06XjN3A9V1QwT7_IxZjVzAlnoCQAkmVsDSwSjif94W-Cmz9bvM");
         $all_get = $request->all();
         $services = [];
         try {

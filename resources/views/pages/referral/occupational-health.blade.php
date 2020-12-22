@@ -5,13 +5,13 @@
     <thead>
         <tr>
             <th></th>
-            <th>Name</th>
+            <th>First Name</th>
             <th>Last Name</th>
-            <th>Gender</th>
+            <th>Caregiver Code</th>
+            <th>SSN</th>
             <th>Phone</th>
-            <th>City</th>
-            <th>Zip Code</th>
-            <th>Due Date</th>
+            <th>Email</th>
+            <th>DOB</th>
             <th>Created Date</th>
             <th>Status</th>
         </tr>
@@ -31,6 +31,7 @@
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
         $('#occupational').DataTable( {
+            "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">',
             processing: true,
             serverSide: true,
             ajax: "{{  route('referral.occupational-health-get-data') }}",
@@ -46,21 +47,13 @@
                     }
                 },
                 {data:'last_name',name:'last_name',"bSortable": true},
-                {data:'gender',name:'gender',"bSortable": true},
+                {data:'caregiver_code',name:'caregiver_code',"bSortable": true},
+                {data:'ssn',name:'ssn',"bSortable": true},
                 {data:'phone1',name:'phone1',"bSortable": true},
+                {data:'email',name:'email',"bSortable": true},
                 {
-                    data:'city',
-                    name:'city',
-                    "bSortable": true,
-                    render:function (data, type, row, meta) {
-
-                        return row.city+ ' - '+row.state;
-                    }
-                },
-                {data:'Zip',name:'Zip',"bSortable": true},
-                {
-                    data:'cert_next_date',
-                    name:'cert_next_date',
+                    data:'dob',
+                    name:'dob',
                     "bSortable": true
                 },
                 {
@@ -87,10 +80,11 @@
                     }
                 }
             ],
-            "order": [[ 0, "desc" ]],
+            "order": [],
             'columnDefs': [
                 {
-                    'targets': 0,
+                    'targets': [0],
+                    "orderable": false,
                     'checkboxes': {
                         'selectRow': true
                     }

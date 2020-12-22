@@ -28,20 +28,19 @@
                                             </div>
                                         @endforeach
                                     @endif
-                                    <div class="mb-3 mt-2 ">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>Select Role:</div>
-                                            <div>
-                                                <ul class="panel nav justify-content-end d-flex align-items-center">
-
-                                                    <li><a href="#Provider" onclick="changeLoginRole('1')" class="active mr-2" data-toggle="pill" role="tab" aria-selected="true">Provider</a>
-                                                        <input type="radio" name="loginType" value="1" style="display: none;" />
-                                                    </li>
-                                                    <li><a href="#Payer" onclick="changeLoginRole('2')"  data-toggle="pill" role="tab" class="" aria-selected="false">Payer</a>
-                                                        <input type="radio" name="loginType" value="2" style="display: none;" /></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                    <div class="form-group mt-4 pt-2">
+                                        <label for="referralType" class="label d-block">Your Role</label>
+                                        <select onchange="changeLoginRole(this.value)" class="form-control js-example-matcher-start select" name="referralType"
+                                                id="referralType">
+                                            <option value="1">Provider</option>
+                                            <option value="2">Home Care</option>
+                                            <option value="2">Insurance</option>
+                                        </select>
+                                        @error('referralType')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="d-flex justify-content-between">

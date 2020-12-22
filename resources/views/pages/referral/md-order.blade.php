@@ -1,61 +1,107 @@
 @extends('layouts.referral.default')
 @section('content')
 <div class="app-vbc">
-    <table id="vbc" class="table" style="width:100%">
+    
+    <table id="md" table class="display responsive nowrap" style="width:100%">
         <thead>
             <tr>
-                <th><input type="checkbox" class="selectall"/></th>
-                <th>Patient Name</th>
-                <th>File</th>
-                <th>Gender</th>
+                <th></th>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Patient ID</th>
                 <th>Phone</th>
                 <th>City</th>
                 <th>Zip Code</th>
                 <th>Due Date</th>
                 <th>Created Date</th>
                 <th>Status</th>
-                <th></th>
             </tr>
         </thead>
-        <tbody>
-            @if(isset($record) && count($record) > 0)
-            @foreach($record['patientReferral'] as $raw)
-            <tr>
-                <tr>
-                <td><input type="checkbox"/></td>
-                <td class="text-green"><a href='{{ url("/referral/patient-detail/$raw[id]") }}'>{{$raw['first_name']}} {{$raw['middle_name']}} {{$raw['last_name']}}</a></td>
-                <td>
-                    @if($raw['file_type'] == 1)
-                    Demographic Info
-                    @elseif($raw['file_type'] == 2)
-                    Clinical Info
-                    @elseif($raw['file_type'] == 3)
-                    Compliance Due Dates
-                    @elseif($raw['file_type'] == 4)
-                    Previous MD Order
-                    @endif
-                </td>
-                <td>{{$raw['gender']}}</td>
-                <td>{{$raw['phone1']}}</td>
-                <td>{{$raw['city']}}-{{$raw['state']}}</td>
-                <td>{{$raw['Zip']}}</td>
-                <td>
-                    @if($raw['cert_next_date'] == '')
-                    --
-                    @else
-                    {{date('F d Y', strtotime($raw['cert_next_date']))}}
-                    @endif
-                </td>
-                <td>{{ date('F d Y', strtotime($raw['created_at'])) }}</td>
-                <td><span class="status-pending">{{$raw['status']}}</span></td>
-                <td width="8%"><a href="javascript:void(0)"><img src="{{asset('assets/img/icons/delete-icon.svg')}}"
-                            class="action-delete" /></a>
-                </td>
-            </tr>
-            </tr>
-            @endforeach
-            @endif
-        </tbody>
     </table>
 </div>
-@stop
+@endsection
+@push('styles')
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
+    <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+@endpush
+
+@push('scripts')
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+    <script>
+        $('#md').DataTable( {
+            "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">',
+            processing: true,
+            serverSide: true,
+            ajax: "{{  route('referral.md-order-get-data') }}",
+            columns: [
+                {data:'id',name:'id'},
+                {
+                    data:'first_name',
+                    name:'first_name',
+                    "bSortable": true,
+                    render:function(data, type, row, meta){
+                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + data + '</a>';
+                        return data;
+                    }
+                },
+                {data:'last_name',name:'last_name',"bSortable": true},
+                {data:'patient_id',name:'patient_id',"bSortable": true},
+                {data:'phone1',name:'phone1',"bSortable": true},
+                {
+                    data:'city',
+                    name:'city',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+
+                        return row.city+ ' - '+row.state;
+                    }
+                },
+                {data:'Zip',name:'Zip',"bSortable": true},
+                {
+                    data:'cert_next_date',
+                    name:'cert_next_date',
+                    "bSortable": true
+                },
+                {
+                    data:'created_at',
+                    name:'created_at',
+                    "bSortable": true
+                },
+                {
+                    data:'status',
+                    name:'status',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+                        if (row.status==="pending"){
+
+                            return '<span class="status-pending">'+row.status+'</span>';
+                        }else if (row.status==="accept"){
+
+                            return '<span class="status-accepted">'+row.status+'</span>'
+                        }else if (row.status==="rescheduled"){
+
+                            return '<span class="status-rescheduled">'+row.status+'</span>';
+                        }
+                        return row.status;
+                    }
+                }
+            ],
+            "order": [],
+            'columnDefs': [
+                {
+                    'targets': [0],
+                    "orderable": false,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+        } );
+    </script>
+@endpush

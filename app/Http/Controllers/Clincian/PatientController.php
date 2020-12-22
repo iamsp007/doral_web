@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Patient;
 use App\Models\PatientReferral;
 use App\Models\User;
+use App\Services\ClinicianService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -28,15 +29,13 @@ class PatientController extends Controller
         return view($this->view_path.'newpatient');
     }
 
-    public function getPatientList(){
-
-        $patientList = PatientReferral::with('detail','service','filetype')
-            ->whereHas('detail',function ($q){
-                $q->where('status','=','1');
-            })
-            ->get();
-        return DataTables::of($patientList)
-            ->make(true);
+    public function getPatientList(Request $request){
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->getPatientList($request->all());
+        if ($response->status===true){
+            return DataTables::of($response->data)->make(true);
+        }
+        return DataTables::of($response)->make(true);
     }
 
     public function getPatientDetail(Request $request,$patient_id){
@@ -46,14 +45,29 @@ class PatientController extends Controller
         return view($this->view_path.'patient-detail',compact('patient_detail'));
     }
 
-    public function getNewPatientList(){
+    public function getNewPatientList(Request $request){
 
-        $patientList = PatientReferral::with('detail','service','filetype')
-            ->whereHas('detail',function ($q){
-                $q->where('status','=','0');
-            })
-            ->get();
-        return DataTables::of($patientList)
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->getNewPatientList($request->all());
+        if ($response->status===true){
+
+            return DataTables::of($response->data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+
+                    if ($row->detail->status==='0'){
+                        $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm" onclick="changePatientStatus(this,1)">Accept</a>';
+
+                        $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm" onclick="changePatientStatus(this,0)">Reject</a>';
+
+                        return $btn;
+                    }
+                    return '';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return DataTables::of($response)
             ->addIndexColumn()
             ->addColumn('action', function($row){
 
@@ -71,38 +85,11 @@ class PatientController extends Controller
     }
 
     public function changePatientStatus(Request $request){
-        $this->validate($request,[
-           'id'=>'required',
-           'status'=>'required'
-        ]);
-        $status='accept';
-        if ($request->status==0){
-            $status='reject';
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->changePatientStatus($request->all());
+        if ($response->status===true){
+            return response()->json($response,200);
         }
-
-        $updatePatient = PatientReferral::whereIn('id',$request->id)->update(['status'=>$status]);
-
-        $ids = $request->id;
-
-        if (count($ids)>0){
-            $message='';
-            foreach ($ids as $id) {
-                $patient = PatientReferral::find($id);
-                if ($patient){
-                    $patient->status = $status;
-                    if ($status==="accept") {
-                        $users = User::find($patient->user_id);
-                        if ($users){
-                            $users->status = '1';
-                            $users->save();
-                        }
-                    }
-                    $patient->save();
-                    $message='Change Patient Status Successfully';
-                }
-            }
-            return response()->json(['message'=>$message],200);
-        }
-        return response()->json(['message'=>'No Patient Referral Ids Found'],422);
+        return response()->json($response,422);
     }
 }

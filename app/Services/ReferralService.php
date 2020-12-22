@@ -13,7 +13,7 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 
-class AdminService
+class ReferralService
 {
 
     protected $client;
@@ -23,12 +23,12 @@ class AdminService
         $this->client = new BaseClient(env('API_URL'), env('API_URL'));
     }
 
-    public function getCompanyReferral($type){
+    public function getPatient($type){
         try {
 
             $response = $this->client->request(
                 'GET',
-                '/auth/company/'.$type,
+                '/auth/patient-referral/'.$type,
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -41,6 +41,7 @@ class AdminService
 
 
             $response = $response->getBody()->getContents();
+            dd($response);
 
             $data = json_decode($response,true);
             return $data;

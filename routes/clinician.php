@@ -8,6 +8,7 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
         Route::get('/','\App\Http\Controllers\Clincian\DashboardController@index')->name('clinician.dashboard');
         Route::get('/patient-list','\App\Http\Controllers\Clincian\PatientController@index')->name('clinician.patientList');
         Route::get('/new-patient-list','\App\Http\Controllers\Clincian\PatientController@newPatientRquest')->name('clinician.new.patientList');
+        Route::get('/scheduled-appointment','\App\Http\Controllers\Clincian\PatientController@newPatientRquest')->name('clinician.new.patientList');
         Route::get('/get-near-by-clinician-list/{patient_request_id}','\App\Http\Controllers\Clincian\RoadLController@getNearByClinicianList')->name('clinician.getNearByClinicianList');
         Route::post('/changePatientStatus','\App\Http\Controllers\Clincian\PatientController@changePatientStatus')->name('clinician.changePatientStatus');
         Route::get('/getPatientList','\App\Http\Controllers\Clincian\PatientController@getPatientList')->name('clinician.patientList.ajax');
@@ -17,5 +18,8 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
         Route::get('/running-roadl/{patient_request_id}','\App\Http\Controllers\Clincian\RoadLController@runningRoadLRequest')->name('clinician.start.running');
         Route::post('/patient-request-list','\App\Http\Controllers\Clincian\RoadLController@getPatientRequestList')->name('clinician.roadl.patientRequestList');
         Route::post('/patient-roladl-proccess','\App\Http\Controllers\Clincian\RoadLController@getRoadLProccess')->name('clinician.roadl.process');
+        Route::get("/room/{id}", '\App\Http\Controllers\Clincian\RoomController@showClassRoom')
+            ->where('id', '[0-9]+')
+            ->name('room');
     });
 });

@@ -5,6 +5,7 @@ use Session;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\CurlModel\CurlFunction;
+use App\Services\EmployeeService;
 
 class AppointmentController extends Controller
 {
@@ -20,7 +21,9 @@ class AppointmentController extends Controller
         $message = "";
         $appointments = [];
         try {
-            $apiToken = session('token');                        
+            $apiToken = session('token');   
+            $employeeServices = new EmployeeService();
+            $responseArray = $employeeServices->getAllAppointment();
             $url = CurlFunction::getURL().'/api/auth/appointment';
             $curlResponse = CurlFunction::withTokenGet($url, $apiToken);
             $responseArray = json_decode($curlResponse, true);            

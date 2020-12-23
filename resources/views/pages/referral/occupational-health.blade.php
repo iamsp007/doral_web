@@ -5,8 +5,7 @@
     <thead>
         <tr>
             <th></th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Name</th>
             <th>Caregiver Code</th>
             <th>SSN</th>
             <th>Phone</th>
@@ -42,11 +41,10 @@
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + data + '</a>';
+                        data = '<a href={{ url('/referral/patient-detail/') }}/' + row.id + '>' + data + '</a>';
                         return data;
                     }
                 },
-                {data:'last_name',name:'last_name',"bSortable": true},
                 {data:'caregiver_code',name:'caregiver_code',"bSortable": true},
                 {data:'ssn',name:'ssn',"bSortable": true},
                 {data:'phone1',name:'phone1',"bSortable": true},
@@ -85,9 +83,9 @@
                 {
                     'targets': [0],
                     "orderable": false,
-                    'checkboxes': {
+                    /*'checkboxes': {
                         'selectRow': true
-                    }
+                    }*/
                 }
             ],
             'select': {

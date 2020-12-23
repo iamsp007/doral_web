@@ -7,7 +7,6 @@
             <tr>
                 <th></th>
                 <th>Name</th>
-                <th>Last Name</th>
                 <th>Patient ID</th>
                 <th>Phone</th>
                 <th>City</th>
@@ -43,11 +42,10 @@
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + data + '</a>';
+                        data = '<a href={{ url('/referral/patient-detail/') }}/' + row.id + '>' + data + '</a>';
                         return data;
                     }
                 },
-                {data:'last_name',name:'last_name',"bSortable": true},
                 {data:'patient_id',name:'patient_id',"bSortable": true},
                 {data:'phone1',name:'phone1',"bSortable": true},
                 {
@@ -94,9 +92,9 @@
                 {
                     'targets': [0],
                     "orderable": false,
-                    'checkboxes': {
+                    /*'checkboxes': {
                         'selectRow': true
-                    }
+                    }*/
                 }
             ],
             'select': {

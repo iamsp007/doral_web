@@ -8,8 +8,9 @@
 
 <script>
     SITEURL = 'http://127.0.0.1:8080/';
-    appointments = @php echo json_encode( $appointments ); @endphp;
-    console.log( appointments );
+    appointments = @php echo json_encode($appointments);
+    @endphp;
+    console.log(appointments);
     $(document).ready(function() {
         $(".btn").click(function() {
             $("#largeModal").modal("show");
@@ -33,6 +34,7 @@
             slotEventOverlap: false,
             agendaEventMinHeight: 1,
             weekends: true,
+            slotLabelFormat:"HH:mm",
             header: {
                 left: 'prev,next today custom1',
                 center: 'title',
@@ -71,13 +73,13 @@
             select: function(start, end, allDay) {
 
                 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");                
+                var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                 var patient_id = 1;
                 var provider_pa_ma = 1;
                 var provider = 1;
                 $.ajax({
                     url: "{{ route('appointment.create') }}",
-                    data: 'start=' + start + '&end=' + end +'&patient_id='+ patient_id +'&provider_pa_ma='+ provider_pa_ma +'&provider='+ provider,
+                    data: 'start=' + start + '&end=' + end + '&patient_id=' + patient_id + '&provider_pa_ma=' + provider_pa_ma + '&provider=' + provider,
                     type: "get",
                     success: function(data) {
                         $("#largeModal .modal-body").html(data);
@@ -129,6 +131,4 @@
             }
         });
     });
-    
-    
 </script>

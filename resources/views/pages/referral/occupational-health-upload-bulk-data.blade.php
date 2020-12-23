@@ -35,6 +35,16 @@
                     <span class="_title3">Compliance Due Dates</span>
                 </label>
             </div>
+            <div class="box">
+                <label class="control control-radio block">
+                    <figure>
+                        <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
+                    </figure>
+                    <input type="radio" id="demographic" name='vbc_select' value="5">
+                    <div class="control_indicator"></div>
+                    <span class="_title3">Wage Parity</span>
+                </label>
+            </div>
         </div>
 
         <div class="upload-your-files">

@@ -128,6 +128,40 @@
                 }
             }
         });
+
+        $( "body" ).on("click","#btn_create_appointment",function( e ){            
+            
+            e.preventDefault();
+            var frm_data = $("#create_appointment_frm").serialize();
+            console.log( frm_data );//$( this ).serialize() );
+        
+            SITEURL = "http://localhost/project/doral_web/public";
+            $.ajax({
+                url: SITEURL + '/appointment/store',
+                data: frm_data,
+                type: "POST",
+                success: function(response) {
+                    displayMessage("Updated Successfully");
+                }
+            });
+
+            /*calendar.fullCalendar('renderEvent', {
+                    title: "test",
+                    start: start,
+                    end: end,
+                    allDay: allDay
+                },
+                true
+            );*/
+            /*$.ajax({
+                url: SITEURL + '/fullcalendareventmaster/update',
+                data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
+                type: "POST",
+                success: function(response) {
+                    displayMessage("Updated Successfully");
+                }
+            });*/
+        });
     });
     
     

@@ -62,6 +62,9 @@ class PatientReferralController extends Controller
             $response = json_decode($curlResponse);
             curl_close($ch);
             return DataTables::of($response->data)
+            ->editColumn('first_name', function ($contact){
+                return $contact->first_name." ".$contact->last_name;  
+            })
             ->editColumn('created_at', function ($contact){
                 if($contact->created_at!='')
                 return date('m-d-Y', strtotime($contact->created_at) );
@@ -142,6 +145,9 @@ class PatientReferralController extends Controller
             curl_close($ch);
             
             return DataTables::of($response->data)
+            ->editColumn('first_name', function ($contact){
+                return $contact->first_name." ".$contact->last_name;  
+            })
             ->editColumn('created_at', function ($contact){
                 if($contact->created_at!='')
                 return date('m-d-Y', strtotime($contact->created_at) );

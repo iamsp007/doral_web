@@ -1,5 +1,5 @@
-<form id="create_appointment" name="create_appointment" >
-    <!-- //onsubmit="return false;"  -->
+<form id="create_appointment_frm" name="create_appointment_frm" onsubmit="return false;">
+    @csrf
     <input type="hidden" id="patient_id" name="patient_id" value="{{ $patient_id }}" >
     <input type="hidden" id="provider_pa_ma" name="provider_pa_ma" value=" {{ $provider_pa_ma }}" >
     <input type="hidden" id="provider" name="provider" value="{{ $provider }}" >
@@ -45,5 +45,5 @@
         <textarea type="text" class="form-control" id="note" name="note" placeholder="Note" rows="3" cols="50"></textarea>
     </div>
    
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" name="btn_create_appointment" id="btn_create_appointment" class="btn btn-primary">Submit</button>
 </form>

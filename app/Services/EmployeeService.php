@@ -65,9 +65,7 @@ class EmployeeService
                     ]
                 ]
             );
-
             $response = $response->getBody()->getContents();
-            dd($response);
             $data = json_decode($response, true);
             return $data;
         } catch (\Exception $exception) {
@@ -195,11 +193,96 @@ class EmployeeService
                     ]
                 ]
             );
-            $response = $response->getBody()->getContents();
-            dd($response);
+            $response = $response->getBody()->getContents();            
             $data = json_decode($response, true);
             return $data;
         } catch (\Exception $exception) {
         }
     }
+    //auth/service
+    public function getAllService()
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/auth/service',
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+            $response = $response->getBody()->getContents();            
+            $data = json_decode($response, true);
+            return $data;
+        } catch (\Exception $exception) {
+        }
+    }
+    
+    //storeAppointment
+    public function storeAppointment( $post_data )
+    {
+        try {
+            $appointmentData = array(
+                "title"=> $post_data["title"] ,
+                "book_datetime" => date("Y-m-d H:i:s"),
+                "start_datetime" => $post_data["start_datetime"] ,
+                "end_datetime" => $post_data["end_datetime"] ,
+                "booked_user_id" => "1",
+                "patient_id" => $post_data["patient_id"] ,
+                "provider1" => $post_data["provider_pa_ma"] ,
+                "provider2" => $post_data["provider"] ,
+                "service_id" => $post_data["service_id"] ,
+                "appointment_url" => "url"  
+            );
+            $post_param = json_encode( $appointmentData );
+            $response = $this->client->postWithData(
+                'POST',
+                '/auth/appointment/store',
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+
+            //$appointmentData
+            $response = $response->getBody()->getContents();            
+            $data = json_decode($response, true);
+            return $data;
+        } catch (\Exception $exception) {
+        }
+    }
+
+    
+    //auth/service
+    public function getAllPatient()
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/auth/getNewPatientListForAppointment',
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+            $response = $response->getBody()->getContents();            
+            $data = json_decode($response, true);
+            return $data;
+        } catch (\Exception $exception) {
+        }
+    }
+
+
 }

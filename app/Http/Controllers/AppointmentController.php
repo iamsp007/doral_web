@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Session;
 use App\Models\Appointment;
-use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 use App\Models\CurlModel\CurlFunction;
+use App\Services\EmployeeService;
 
 class AppointmentController extends Controller
 {
@@ -16,32 +16,31 @@ class AppointmentController extends Controller
      */
     public function index()
     {
+        
         $status = 0;
         $message = "";
-        $record = [];
+        $appointments = [];        
         try {
             $employeeServices = new EmployeeService();
             $responseArray = $employeeServices->getAllAppointment();
-            if($responseArray['status']) {
+            if($responseArray['status'] && isset( $responseArray['data']['appointments'] )) {
                 $status = 1;
-                $record = $responseArray['data'];                
-                $appointments = [];
-                foreach($record['appointments'] as $key => $val) {
-                    $appointment[$key]['title'] = $val['title'];
-                    $appointment[$key]['start'] = $val['start_datetime'];
-                    $appointment[$key]['end'] = $val['end_datetime'];
-                    $appointment[$key]['color'] = '';
-                    $appointment[$key]['url'] = '';
+                foreach ($responseArray['data']['appointments'] as $app_key => $app_row) {
+                    $appointments[ $app_key ]['title'] = $app_row['title'];
+                    $appointments[ $app_key ]['start'] = $app_row['start_datetime'];
+                    $appointments[ $app_key ]['end'] = $app_row['end_datetime'];
                 }
             }
             $message = $responseArray['message'];
-            $appointment = json_encode($appointment);             
+
         } catch(\Exception $e) {
             $status = 0;
             $message = $e->getMessage();
-            
         }
-        return view('pages.appoinment.calendar')->with(['record'=> $appointment, 'message'=>$message]);
+        $data =array(
+            'appointments' => $appointments
+        );        
+        return view('calendar')->with( $data );
     }
 
     /**
@@ -49,9 +48,26 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create( Request $request )
     {
-        return view('pages.appoinment.create');
+        $all_get = $request->all();
+        $services = [];
+        try {
+            $employeeServices = new EmployeeService();
+            $responseArray = $employeeServices->getAllService();
+            if( isset( $responseArray[0] ) && $responseArray[0] && isset( $responseArray[2]['services'] )) {                
+                foreach ($responseArray[2]['services'] as $ser_key => $ser_row) {
+                    $services[ $ser_key ]['id'] = $ser_row['id'];
+                    $services[ $ser_key ]['name'] = $ser_row['name'];
+                }
+            }                        
+        } catch(\Exception $e) {            
+            $message = $e->getMessage();
+        }
+
+        $data = $all_get;
+        $data['services'] = $services;
+        return view('pages.appoinment.create')->with( $data );
     }
 
     /**
@@ -62,7 +78,9 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post_data = $request->all();
+        $employeeServices = new EmployeeService();
+        $responseArray = $employeeServices->storeAppointment( $post_data );
     }
 
     /**

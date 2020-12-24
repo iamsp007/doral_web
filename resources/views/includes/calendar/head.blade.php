@@ -11,3 +11,9 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.print.css" media="print" />
 <title>Welcome to Doral</title>
+
+<style type="text/css">
+	#calendar {
+	    cursor: pointer !important;
+	}
+</style>

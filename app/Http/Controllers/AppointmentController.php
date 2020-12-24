@@ -87,7 +87,7 @@ class AppointmentController extends Controller
             'title' => 'required',
             'start_datetime' => 'required',
             'end_datetime' => 'required',
-            //'booked_user_id' => 'required',
+            
             'patient_id' => 'required',
             'provider_pa_ma' => 'required', 
             'provider' => 'required',

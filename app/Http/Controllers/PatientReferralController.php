@@ -49,6 +49,7 @@ class PatientReferralController extends Controller
             ));
 
             $curlResponse = curl_exec($ch);
+            dd($curlResponse);
             $response = json_decode($curlResponse);
             dd($response);
             curl_close($ch);

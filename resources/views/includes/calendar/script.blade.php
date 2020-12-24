@@ -5,14 +5,10 @@
 <script src="{{ asset( 'assets/js/bootstrap.min.js' ) }}"></script>
 <script src="{{ asset( 'assets/js/jquery.validate.min.js' ) }}"></script>
 <script src="{{ asset( 'assets/js/login.min.js' ) }}"></script>
-
 <script>
     
     var SITEURL = "@php echo url('/');@endphp";    
     var appointments = @php echo json_encode($appointments);@endphp;
-    
-
-    console.log(appointments);
     $(document).ready(function() {
         $(".btn").click(function() {
             $("#largeModal").modal("show");
@@ -22,27 +18,44 @@
         var calendar = $('#calendar').fullCalendar({
             editable: true,
             selectable: true,
+            
             selectHelper: true,
             navLinks: true, // can click day/week names to navigate views
             editable: true,
-            eventLimit: true, // allow "more" link when too many events
+            eventLimit: 48, // allow "more" link when too many events
             displayEventTime: true,
             editable: true,
             eventColor: 'green',
-            slotDuration: '00:15:00',
+            slotDuration: '00:30:00',            
             //defaultView: 'agendaWeek',
             defaultView: 'month',
             firstDay: 1,
             slotEventOverlap: false,
             agendaEventMinHeight: 1,
             weekends: true,
+            slotLabelInterval: 30,
             slotLabelFormat:"HH:mm",
+            //selectOverlap:true,
+
             header: {
                 left: 'prev,next today custom1',
                 center: 'title',
                 //right: 'month,agendaWeek,agendaDay'
                 right: 'month,agendaDay'
             },
+            dayClick: function(date, jsEvent, view) {
+
+                /*alert('Clicked on: ' + date.format());
+                alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+                alert('Current view: ' + view.name);
+                // change the day's background color just for fun
+                $(this).css('background-color', 'red');*/
+                $('#calendar').fullCalendar('gotoDate', date);
+                $('#calendar').fullCalendar('changeView', 'agendaDay');
+                //$('#calendar').fullCalendar( 'unselect' );
+                 $('#calendar').fullCalendar('render');
+            },
+
             /*customButtons: {
                 custom1: {
                     text: 'Add Appointment',
@@ -72,30 +85,36 @@
                     event.allDay = false;
                 }
             },
-            select: function(start, end, allDay) {                
+            select: function(start, end, allDay) {
+
 
                 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
                 var patient_id = @php echo $patientId; @endphp;
-                
-                var provider_pa_ma = 1;
-                var provider = 1;
-                $.ajax({
-                    url: "{{ route('appointment.create') }}",
-                    data: 'start=' + start + '&end=' + end + '&patient_id=' + patient_id + '&provider_pa_ma=' + provider_pa_ma + '&provider=' + provider,
-                    type: "get",
-                    success: function(data) {
-                        $("#largeModal .modal-body").html(data);
-                        $("#largeModal .modal-title").html("Book Appoinment");
-                        //displayMessage("Added Successfully");
-                        //$('#calendar').fullCalendar('removeEvents');
-                        //$('#calendar').fullCalendar('refetchEvents');
-                        $("#largeModal").modal("show");
+                var d2 = new Date( start );
+                var d1 = new Date( end );
+                var diffMs = ( d2- d1);
+                var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);                
+                if( diffMins != 0 ){
+                    
+                    var provider_pa_ma = 1;
+                    var provider = 1;
+                    $.ajax({
+                        url: "{{ route('appointment.create') }}",
+                        data: 'start=' + start + '&end=' + end + '&patient_id=' + patient_id + '&provider_pa_ma=' + provider_pa_ma + '&provider=' + provider,
+                        type: "get",
+                        success: function(data) {
+                            $("#largeModal .modal-body").html(data);
+                            $("#largeModal .modal-title").html("Book Appoinment");
+                            //displayMessage("Added Successfully");
+                            //$('#calendar').fullCalendar('removeEvents');
+                            //$('#calendar').fullCalendar('refetchEvents');
+                            $("#largeModal").modal("show");
 
-                    }
-                });                
-
-                calendar.fullCalendar('unselect');
+                        }
+                    });
+                }
+                //calendar.fullCalendar('unselect');
             },
             eventDrop: function(event, delta) {
                 alert( "test" );

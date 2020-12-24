@@ -38,7 +38,7 @@ class PatientReferralController extends Controller
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
 
             $ch = curl_init($url);
@@ -60,14 +60,14 @@ class PatientReferralController extends Controller
         return view('pages.referral.md-order-upload-bulk-data');
     }
     public function mdOrder() {
-        $service = new ReferralService();
+        /*$service = new ReferralService();
         $response = $service->commonReferralService("/auth/patient-referral/",2);
         if ($response->status===true){
             return DataTables::of($response->data)->make(true);
         }
-        return DataTables::of($response)->make(true);
+        return DataTables::of($response)->make(true);*/
 
-        /*$status = 0;
+        $status = 0;
         $message = "";
         $record = [];
         try {
@@ -76,7 +76,7 @@ class PatientReferralController extends Controller
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
 
             $ch = curl_init($url);
@@ -111,7 +111,7 @@ class PatientReferralController extends Controller
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
-        }*/
+        }
         
     }
     public function vbcGetData() {
@@ -124,7 +124,7 @@ class PatientReferralController extends Controller
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
 
             $ch = curl_init($url);
@@ -157,7 +157,7 @@ class PatientReferralController extends Controller
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
 
             $ch = curl_init($url);
@@ -213,7 +213,7 @@ class PatientReferralController extends Controller
             //dd($url);
             $headerValue = array(
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -278,7 +278,7 @@ class PatientReferralController extends Controller
             //dd($url);
             $headerValue = array(
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -328,6 +328,13 @@ class PatientReferralController extends Controller
         ];
 
         return response()->json($response, 201);
+    }
+    public function getOrigin() {
+        if (strpos(request()->getHost(), '127.0.0.1') !== false) {
+            return 'http://localhost';
+        } else {            
+            return 'https://api.doralhealthconnect.com';
+        }
     }
 
 }

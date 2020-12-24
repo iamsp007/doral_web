@@ -23,21 +23,9 @@ class ReferralService
         $this->client = new BaseClient(env('API_URL'), env('API_URL'));
     }
 
-    public function commonReferralService($type,$url) {
+    public function commonReferralService($url,$type=NULL) {
         try {
-
-//            $response = $this->client->request(
-//                'GET',
-//                '.'.$url.'.'.$type,
-//                [
-//                    'headers' => [
-//                        'Accept' => 'application/json',
-//                        'Content-Type' => 'application/json',
-//                        'X-Requested-With' => 'XMLHttpRequest',
-//                        'Access-Control-Allow-Origin' => 'https://api.doralhealthconnect.com'
-//                    ]
-//                ]
-//            );
+            
             $response = $this->client->request(
                 'POST',
                 '.'.$url.'.'.$type

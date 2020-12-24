@@ -26,19 +26,22 @@ class ReferralService
     public function commonReferralService($type,$url) {
         try {
 
+//            $response = $this->client->request(
+//                'GET',
+//                '.'.$url.'.'.$type,
+//                [
+//                    'headers' => [
+//                        'Accept' => 'application/json',
+//                        'Content-Type' => 'application/json',
+//                        'X-Requested-With' => 'XMLHttpRequest',
+//                        'Access-Control-Allow-Origin' => 'https://api.doralhealthconnect.com'
+//                    ]
+//                ]
+//            );
             $response = $this->client->request(
-                'GET',
-                '.'.$url.'.'.$type,
-                [
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'https://api.doralhealthconnect.com'
-                    ]
-                ]
+                'POST',
+                '.'.$url.'.'.$type
             );
-
 
             $response = $response->getBody()->getContents();
             dd($response);

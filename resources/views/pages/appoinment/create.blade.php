@@ -1,3 +1,16 @@
+<div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
+    <strong>Success!</strong> <span id="successResponse"></span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
+    <strong>Error!</strong> <span id="errorResponse"></span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+</div>
+        
 <form id="create_appointment_frm" name="create_appointment_frm" onsubmit="return false;">
     @csrf
     <input type="hidden" id="patient_id" name="patient_id" value="{{ $patient_id }}" >

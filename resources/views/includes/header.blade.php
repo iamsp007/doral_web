@@ -4,7 +4,7 @@
             <div>
                 <!-- Logo Start -->
                 <a href="/" title="Welcome to Doral"  class="logo">
-                    <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral" srcset="assets/img/logo-white.svg">
+                    <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}">
                 </a>
                 <!-- Logo End -->
             </div>
@@ -19,7 +19,7 @@
 
                 @endphp
                 <a href="{{ $url }}" class="text-uppercase sign-up">{{ $label }} <img
-                        src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="assets/img/icons/sign-up.svg"
+                        src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                         class="ml-2"></a>
             </div>
         </div>

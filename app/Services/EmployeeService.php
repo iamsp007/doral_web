@@ -238,26 +238,25 @@ class EmployeeService
                 "service_id" => $post_data["service_id"] ,
                 "appointment_url" => "url"  
             );
-            $post_param = json_encode( $appointmentData );
-            $response = $this->client->postWithData(
+            $response = $this->client->request(
                 'POST',
                 '/auth/appointment/store',
                 [
+                    'json' => $appointmentData,
                     'headers' => [
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json',
                         'X-Requested-With' => 'XMLHttpRequest',
                         'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
+                    ],
+                    //'data' => $appointmentData
                 ]
-            );
-
-            //$appointmentData
-            $response = $response->getBody()->getContents();            
+            );            
+            $response = $response->getBody()->getContents();
             $data = json_decode($response, true);
             return $data;
         } catch (\Exception $exception) {
-        }
+        }        
     }
 
     

@@ -45,7 +45,8 @@ class PatientReferralController extends Controller
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
+            CURLOPT_HTTPHEADER => $headerValue,
+            CURLOPT_CAPATH => '/etc/ssl/certs'
             ));
 
             $curlResponse = curl_exec($ch);

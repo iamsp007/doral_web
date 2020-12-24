@@ -2,14 +2,16 @@
 <script src="//cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/fullcalendar.min.js"></script>
 
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/jquery.validate.min.js"></script>
-<script src="assets/js/login.min.js"></script>
+<script src="{{ asset( 'assets/js/bootstrap.min.js' ) }}"></script>
+<script src="{{ asset( 'assets/js/jquery.validate.min.js' ) }}"></script>
+<script src="{{ asset( 'assets/js/login.min.js' ) }}"></script>
 
 <script>
-    SITEURL = 'http://127.0.0.1:8080/';
-    appointments = @php echo json_encode($appointments);
-    @endphp;
+    
+    var SITEURL = "@php echo url('/');@endphp";    
+    var appointments = @php echo json_encode($appointments);@endphp;
+    
+
     console.log(appointments);
     $(document).ready(function() {
         $(".btn").click(function() {
@@ -70,11 +72,12 @@
                     event.allDay = false;
                 }
             },
-            select: function(start, end, allDay) {
+            select: function(start, end, allDay) {                
 
                 var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-                var patient_id = 1;
+                var patient_id = @php echo $patientId; @endphp;
+                
                 var provider_pa_ma = 1;
                 var provider = 1;
                 $.ajax({
@@ -88,20 +91,14 @@
                         //$('#calendar').fullCalendar('removeEvents');
                         //$('#calendar').fullCalendar('refetchEvents');
                         $("#largeModal").modal("show");
+
                     }
-                });
-                calendar.fullCalendar('renderEvent', {
-                        title: title,
-                        start: start,
-                        end: end,
-                        allDay: allDay
-                    },
-                    true
-                );
+                });                
 
                 calendar.fullCalendar('unselect');
             },
             eventDrop: function(event, delta) {
+                alert( "test" );
                 var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
                 $.ajax({
@@ -114,7 +111,7 @@
                 });
             },
             eventClick: function(event) {
-                var deleteMsg = confirm("Do you really want to delete?");
+                /*var deleteMsg = confirm("Do you really want to delete?");
                 if (deleteMsg) {
                     $.ajax({
                         type: "POST",
@@ -127,42 +124,51 @@
                             }
                         }
                     });
-                }
+                }*/
             }
         });
-
-        $( "body" ).on("click","#btn_create_appointment",function( e ){            
-            
-            e.preventDefault();
-            var frm_data = $("#create_appointment_frm").serialize();
-            console.log( frm_data );//$( this ).serialize() );
         
-            SITEURL = "http://localhost/project/doral_web/public";
+        $( "body" ).on("click","#btn_create_appointment",function( e ){
+
+            e.preventDefault();
+
+            $( '#btn_create_appointment' ).attr('disabled','disabled');
+            var frm_data = $("#create_appointment_frm").serialize();            
             $.ajax({
                 url: SITEURL + '/appointment/store',
                 data: frm_data,
                 type: "POST",
                 success: function(response) {
-                    displayMessage("Updated Successfully");
+
+                    if( response.data !== undefined && response.data.appointment !== undefined && response.data.appointment.title !== undefined ){
+                        calendar.fullCalendar('renderEvent', {
+                                title: response.data.appointment.title,
+                                start: response.data.appointment.start_datetime,
+                                end: response.data.appointment.end_datetime
+                            },
+                            true
+                        );
+                        $(".alert-success").show();
+                        $(".alert-danger").hide();                        
+
+                        $("#successResponse").text('Inserted Successfully');
+                        setTimeout(function(){
+                           $("#largeModal").modal("hide");
+                        }, 2000);                        
+                        //displayMessage("Inserted Successfully");
+                    }else{
+                        
+                        $(".alert-danger").show();
+                        $("#errorResponse").text('Required appointment title');
+                        $(".alert-success").hide();
+                        setTimeout(function(){                            
+                            $(".alert-danger").hide();
+                        }, 5000);
+                    }
+                    $( '#btn_create_appointment' ).removeAttr("disabled");
                 }
             });
-
-            /*calendar.fullCalendar('renderEvent', {
-                    title: "test",
-                    start: start,
-                    end: end,
-                    allDay: allDay
-                },
-                true
-            );*/
-            /*$.ajax({
-                url: SITEURL + '/fullcalendareventmaster/update',
-                data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
-                type: "POST",
-                success: function(response) {
-                    displayMessage("Updated Successfully");
-                }
-            });*/
         });
+        
     });
 </script>

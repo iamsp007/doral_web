@@ -7,9 +7,7 @@ Patient
 
 @section('content')
 
-<div class="dataTables_filter" style="margin-bottom: 10px;">
-    <a href="{{ url('/appointment') }}" style="float:right;">Book Appointment</a>
-</div>
+
 
 <table class="display responsive nowrap" style="width:100%" id="patient-table">
     <thead>
@@ -103,7 +101,7 @@ Patient
                 name: 'status',
                 "bSortable": true,
                 render: function(data, type, row, meta) {
-                    appoinment = '<a href="{{ route("appointment.show-appointment", 1)}}">Book Appoinment</span>';
+                    appoinment = '<a href="{{ route("appointment.show-appointment",1 )}}">Book Appoinment</span>';
                     if (row.status === "pending") {
 
                         return '<span class="status-pending">' + row.status + '</span>' + appoinment;

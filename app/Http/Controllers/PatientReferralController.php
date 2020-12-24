@@ -34,13 +34,13 @@ class PatientReferralController extends Controller
         $record = [];
         try {
             $url = CurlFunction::getURL().'/api/auth/mdforms';
-            echo $url;
+            //echo $url;
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
                 'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
-            print_r($headerValue);
+            //print_r($headerValue);
             $ch = curl_init($url);
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
@@ -50,9 +50,9 @@ class PatientReferralController extends Controller
             ));
 
             $curlResponse = curl_exec($ch);
-            dd($curlResponse);
+            //dd($curlResponse);
             $response = json_decode($curlResponse);
-            dd($response);
+            //dd($response);
             curl_close($ch);
             return view('pages.referral.md-order-upload-bulk-data')->with('data', $response->data);
 
@@ -86,7 +86,8 @@ class PatientReferralController extends Controller
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
+            CURLOPT_HTTPHEADER => $headerValue,
+            CURLOPT_SSL_VERIFYPEER => false
             ));
 
             $curlResponse = curl_exec($ch);
@@ -134,7 +135,8 @@ class PatientReferralController extends Controller
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
+            CURLOPT_HTTPHEADER => $headerValue,
+            CURLOPT_SSL_VERIFYPEER => false
             ));
 
             $curlResponse = curl_exec($ch);
@@ -167,7 +169,8 @@ class PatientReferralController extends Controller
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
+            CURLOPT_HTTPHEADER => $headerValue,
+            CURLOPT_SSL_VERIFYPEER => false
             ));
 
             $curlResponse = curl_exec($ch);
@@ -222,6 +225,7 @@ class PatientReferralController extends Controller
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
             //If the function curl_file_create exists
             if(function_exists('curl_file_create')){
@@ -287,7 +291,7 @@ class PatientReferralController extends Controller
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             //If the function curl_file_create exists
             if(function_exists('curl_file_create')){
                 $filePath = curl_file_create($fileName->getpathname(), $fileName->getClientMimeType(), $fileName->getClientOriginalName());

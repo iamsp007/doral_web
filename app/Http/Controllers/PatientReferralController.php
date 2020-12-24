@@ -61,7 +61,7 @@ class PatientReferralController extends Controller
     }
     public function mdOrder() {
         $service = new ReferralService();
-        $response = $service->getPatient(2,"/auth/patient-referral/");
+        $response = $service->commonReferralService(2,"/auth/patient-referral/");
         if ($response->status===true){
             return DataTables::of($response->data)->make(true);
         }

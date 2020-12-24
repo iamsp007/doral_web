@@ -23,7 +23,7 @@ class ReferralService
         $this->client = new BaseClient(env('API_URL'), env('API_URL'));
     }
 
-    public function getPatient($type){
+    public function getPatient($type) {
         try {
 
             $response = $this->client->request(

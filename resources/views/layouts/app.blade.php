@@ -32,7 +32,7 @@
                 <div class="block">
                     <div>
                         <!-- Logo Start -->
-                        <a href="/" title="{{ config('app.name', 'Laravel') }}"  class="logo">
+                        <a href="/" title="{{ config('app.name', 'Doral Health Connect') }}"  class="logo">
                             <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}">
                         </a>
                         <!-- Logo End -->

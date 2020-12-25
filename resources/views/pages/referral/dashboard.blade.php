@@ -193,4 +193,9 @@
         </div>
     </div>
 </div>
-@stop
+@endsection
+
+@push('scripts')
+<script src="{{asset('assets/js/Chart.min.js') }}"></script>
+<script src="{{asset('assets/js/app.referral.dashboard.min.js') }}"></script>
+@endpush

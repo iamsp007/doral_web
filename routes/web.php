@@ -25,15 +25,14 @@ Route::get('/', function () {
 // Email Template Route
 Route::get('emaillist', 'App\Http\Controllers\EmailTemplateController@index');
 
-Route::get('calender', 'App\Http\Controllers\AppointmentController@index');
-Route::get('calender/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
-//
-//Auth::routes();
-//
-/*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();*/
 
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
+});
+
+Route::group(['middleware'=>['auth','role:admin|supervisor|referral|clinician|co-ordinator']],function (){
+    Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
+    Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
+    Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
 });

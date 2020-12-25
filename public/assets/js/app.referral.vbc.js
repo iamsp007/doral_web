@@ -14,4 +14,29 @@ $(function () {
     $(".selectall").click(function () {
         $('#vbc td input:checkbox').not(this).prop('checked', this.checked);
     });
+
+    
+    // if($('.table').is(":checked"))   
+    // $(".accept-reject").show();
+    // else
+    // $(".accept-reject").hide();
+    // console.log(this);
+
+    // $('input[type="checkbox"]').click(function(){
+    //     // $(".accept-reject").show();
+    //     if(this.checked)
+    //     $(".accept-reject").show();
+    //     else
+    //     $(".accept-reject").hide();
+    // });
+    $('input[type="checkbox"]').click(function(){
+        console.log(this);
+        if ($(this).is(":checked")) {
+            $(".accept-reject").show();
+            
+        } else {
+            $(".accept-reject").hide();
+        }
+
+    });
 });

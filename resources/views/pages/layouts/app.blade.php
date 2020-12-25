@@ -33,11 +33,14 @@
                    id="closeMenu"></i>
             </div>
             <ul class="sidenav">
-                <li><a class="{{ \Request::is('clinician')?'nav active':'nav' }}" href="{{ route('clinician.dashboard') }}">Dashboard<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('clinician/patient-list')?'nav active':'nav' }}" href="{{ route('clinician.patientList') }}">Patient List<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('clinician/new-patient-list')?'nav active':'nav' }}" href="{{ route('clinician.new.patientList') }}">New Patient List<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('clinician/scheduled-appointment')?'nav active':'nav' }}" href="{{ route('clinician.scheduleAppoimentList') }}">Appointment<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('clinician/roadl')?'nav active':'nav' }}" href="{{ route('clinician.roadl') }}">RoadL<span class="dot"></span></a></li>
+                @foreach(config('menu.clinician') as $key=>$value)
+                    <li><a class="{{ \Request::is($value['route'])?'nav active':'nav' }}" href="{{ $value['url'] }}">{{ $value['name'] }}<span class="dot"></span></a></li>
+                @endforeach
+
+{{--                <li><a class="{{ \Request::is('clinician/patient-list')?'nav active':'nav' }}" href="{{ route('clinician.patientList') }}">Patient List<span class="dot"></span></a></li>--}}
+{{--                <li><a class="{{ \Request::is('clinician/new-patient-list')?'nav active':'nav' }}" href="{{ route('clinician.new.patientList') }}">New Patient List<span class="dot"></span></a></li>--}}
+{{--                <li><a class="{{ \Request::is('clinician/scheduled-appointment')?'nav active':'nav' }}" href="{{ route('clinician.scheduleAppoimentList') }}">Appointment<span class="dot"></span></a></li>--}}
+{{--                <li><a class="{{ \Request::is('clinician/roadl')?'nav active':'nav' }}" href="{{ route('clinician.roadl') }}">RoadL<span class="dot"></span></a></li>--}}
             </ul>
         </div>
         <!-- Left Section End -->

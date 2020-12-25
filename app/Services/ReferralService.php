@@ -23,7 +23,24 @@ class ReferralService
         $this->client = new BaseClient(env('API_URL'), env('API_URL'));
     }
 
-    public function getPatient($type){
+    public function commonReferralService($url,$type=NULL) {
+        try {
+            
+            $response = $this->client->request(
+                'POST',
+                '.'.$url.'.'.$type
+            );
+
+            $response = $response->getBody()->getContents();
+            dd($response);
+
+            $data = json_decode($response,true);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+    public function getPatient($type) {
         try {
 
             $response = $this->client->request(

@@ -29,11 +29,42 @@ class PatientReferralController extends Controller
         return view('pages.referral.occupational-health-upload-bulk-data');
     }
     public function mdOrderUploadBulk() {
+        $status = 0;
+        $message = "";
+        $record = [];
+        try {
+            $url = CurlFunction::getURL().'/api/auth/mdforms';
+            //echo $url;
+            $headerValue = array(
+                'Content-Type: application/json',
+                'X-Requested-With: XMLHttpRequest',
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
+            );
+            //print_r($headerValue);
+            $ch = curl_init($url);
+            curl_setopt_array($ch, array(
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_TIMEOUT => 40,
+            CURLOPT_HTTPHEADER => $headerValue,
+            CURLOPT_SSL_VERIFYPEER => false
+            ));
+
+            $curlResponse = curl_exec($ch);
+            //dd($curlResponse);
+            $response = json_decode($curlResponse);
+            //dd($response);
+            curl_close($ch);
+            return view('pages.referral.md-order-upload-bulk-data')->with('data', $response->data);
+
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
         return view('pages.referral.md-order-upload-bulk-data');
     }
     public function mdOrder() {
         /*$service = new ReferralService();
-        $response = $service->getPatient(2);
+        $response = $service->commonReferralService("/auth/patient-referral/",2);
         if ($response->status===true){
             return DataTables::of($response->data)->make(true);
         }
@@ -48,20 +79,24 @@ class PatientReferralController extends Controller
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
 
             $ch = curl_init($url);
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
+            CURLOPT_HTTPHEADER => $headerValue,
+            CURLOPT_SSL_VERIFYPEER => false
             ));
 
             $curlResponse = curl_exec($ch);
             $response = json_decode($curlResponse);
             curl_close($ch);
             return DataTables::of($response->data)
+            ->editColumn('first_name', function ($contact){
+                return $contact->first_name." ".$contact->last_name;  
+            })
             ->editColumn('created_at', function ($contact){
                 if($contact->created_at!='')
                 return date('m-d-Y', strtotime($contact->created_at) );
@@ -93,14 +128,15 @@ class PatientReferralController extends Controller
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
 
             $ch = curl_init($url);
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
+            CURLOPT_HTTPHEADER => $headerValue,
+            CURLOPT_SSL_VERIFYPEER => false
             ));
 
             $curlResponse = curl_exec($ch);
@@ -126,14 +162,15 @@ class PatientReferralController extends Controller
             $headerValue = array(
                 'Content-Type: application/json',
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
 
             $ch = curl_init($url);
             curl_setopt_array($ch, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
+            CURLOPT_HTTPHEADER => $headerValue,
+            CURLOPT_SSL_VERIFYPEER => false
             ));
 
             $curlResponse = curl_exec($ch);
@@ -142,6 +179,9 @@ class PatientReferralController extends Controller
             curl_close($ch);
             
             return DataTables::of($response->data)
+            ->editColumn('first_name', function ($contact){
+                return $contact->first_name." ".$contact->last_name;  
+            })
             ->editColumn('created_at', function ($contact){
                 if($contact->created_at!='')
                 return date('m-d-Y', strtotime($contact->created_at) );
@@ -179,12 +219,13 @@ class PatientReferralController extends Controller
             //dd($url);
             $headerValue = array(
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
             //If the function curl_file_create exists
             if(function_exists('curl_file_create')){
@@ -244,13 +285,13 @@ class PatientReferralController extends Controller
             //dd($url);
             $headerValue = array(
                 'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+                'Access-Control-Allow-Origin: '.$this->getOrigin()
             );
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             //If the function curl_file_create exists
             if(function_exists('curl_file_create')){
                 $filePath = curl_file_create($fileName->getpathname(), $fileName->getClientMimeType(), $fileName->getClientOriginalName());
@@ -294,6 +335,13 @@ class PatientReferralController extends Controller
         ];
 
         return response()->json($response, 201);
+    }
+    public function getOrigin() {
+        if (strpos(request()->getHost(), '127.0.0.1') !== false) {
+            return 'http://localhost';
+        } else {            
+            return 'https://api.doralhealthconnect.com';
+        }
     }
 
 }

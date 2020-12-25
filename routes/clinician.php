@@ -21,5 +21,6 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
         Route::get("/room/{id}", '\App\Http\Controllers\Clincian\RoomController@showClassRoom')
             ->where('id', '[0-9]+')
             ->name('room');
+        Route::get('/start-meeting/{appointment_id}','\App\Http\Controllers\Clincian\RoomController@sendVideoMeetingNotification')->name('start.meeting');
     });
 });

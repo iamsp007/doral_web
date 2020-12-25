@@ -81,11 +81,7 @@ class PatientController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 if (!empty($row->meeting) && $row->meeting!==null){
-                    if ($row->provider1_details->id===Auth::user()->id){
-                        $btn = '<a href="'.$row->meeting->start_url.'" target="_blank" class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Start Meeting" aria-describedby="tooltip910346"><i class="las la-video"></i></a>';
-                    }else{
-                        $btn = '<a href="'.$row->meeting->join_url.'" target="_blank" class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Start Meeting" aria-describedby="tooltip910346"><i class="las la-video"></i></a>';
-                    }
+                    $btn = '<a href="'.route('start.meeting',['appointment_id'=>$row->id]).'" target="_blank" class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Start Meeting" aria-describedby="tooltip910346"><i class="las la-video"></i></a>';
                     $btn .= '<a href="'.route('patient.detail',['patient_id'=>$row->patients->id]).'" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
 
                     return $btn;

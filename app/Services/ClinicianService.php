@@ -151,4 +151,24 @@ class ClinicianService
 
         }
     }
+
+    public function sendVideoMeetingNotification($appointment_id){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/send-video-meeting-notification',
+                [
+                    'json'=>array('appointment_id'=>$appointment_id)
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
 }

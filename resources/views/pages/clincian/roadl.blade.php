@@ -19,9 +19,9 @@
                                 </div>
                                 <div class="content">
                                     <h1 class="_t11">{!! $value->detail->first_name !!} {!! $value->detail->last_name !!} </h1>
-                                    <p class="address">{!! !empty($value->patient_detail)?$value->patient_detail->address1:'' !!}</p>
+                                    <p class="address">{!! !empty($value->patient_detail) ?!empty($value->patient_detail->address1)?$value->patient_detail->address1:'-':'' !!}</p>
                                     <p class="emergency_contact mb-2"> Emergency Contact
-                                        <a href="tel:9966246684" class="primary_tel">{!! !empty($value->patient_detail)?$value->patient_detail->emg_phone:'' !!}</a></p>
+                                        <a href="tel:9966246684" class="primary_tel">{!! $value->detail->phone !!}</a></p>
                                     <p class="contact"><a href="tel:8866246684" class="secondary_tel">{!! $value->detail->phone !!}</a>
                                     </p>
                                 </div>
@@ -37,10 +37,10 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(count($value->ccrm)>0)
                             <div class="rside">
                                 <div class="_lside">
                                     <ul class="specification">
-                                        @if(count($value->ccrm)>0)
                                             @foreach($value->ccrm as $ckey=>$cvalue)
                                                 <li class="blood">
                                                     <img src="{{ asset('assets/img/icons/pressure.svg') }}"
@@ -48,9 +48,9 @@
                                                         {!! $cvalue->reading_type !!} : {!! $cvalue->reading_value !!}
                                                 </li>
                                             @endforeach
-                                        @endif
                                     </ul>
                                 </div>
+                                @endif
                                 <div class="_rside">
                                     <ul class="actionBar">
                                         <li>

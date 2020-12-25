@@ -135,7 +135,7 @@ $(function () {
     // Chart for Total No Of Accepted Patients Files Start
     var _char1 = document.getElementsByClassName('accepted');
     var ch1 = new Chart(_char1, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
             datasets: [
@@ -172,7 +172,8 @@ $(function () {
                     borderWidth: 1,
                     barPercentage: 0.8,
                     minBarLength: 2,
-                    data: [15, 5, 50, 45, 80, 20, 35, 66, 11, 23, 77, 33]
+                    data: [15, 5, 50, 45, 80, 20, 35, 66, 11, 23, 77, 33],
+                    fill: false
                 },
                 {
                     label: 'MD ORDER',
@@ -207,7 +208,8 @@ $(function () {
                     borderWidth: 1,
                     barPercentage: 0.8,
                     minBarLength: 2,
-                    data: [5, 15, 1, 22.5, 65, 35, 66.8, 44.2, 0.5, 88, 12, 18]
+                    data: [5, 15, 1, 22.5, 65, 35, 66.8, 44.2, 0.5, 88, 12, 18],
+                    fill: false
                 },
                 {
                     label: 'Employee Pre-Physical',
@@ -242,7 +244,8 @@ $(function () {
                     borderWidth: 1,
                     barPercentage: 0.8,
                     minBarLength: 2,
-                    data: [8, 9, 12, 25, 15, 35, 66, 44, 0.5, 22, 2, 18]
+                    data: [8, 9, 12, 25, 15, 35, 66, 44, 0.5, 22, 2, 18],
+                    fill: false
                 }
             ]
         },
@@ -262,14 +265,14 @@ $(function () {
                     fontColor: '#00756B',
                     fontSize: 12
                 }
-            }
+            },
         }
     });
     // Chart for Total No Of Accepted Patients Files End
     // Chart for Total No Of Accepted Patients Files Start
     var _char2 = document.getElementsByClassName('pending');
     var ch2 = new Chart(_char2, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
             datasets: [
@@ -306,7 +309,8 @@ $(function () {
                     borderWidth: 1,
                     barPercentage: 0.8,
                     minBarLength: 2,
-                    data: [15, 5, 50, 45, 80, 20, 35, 66, 11, 23, 77, 33]
+                    data: [15, 5, 50, 45, 80, 20, 35, 66, 11, 23, 77, 33],
+                    fill: false
                 },
                 {
                     label: 'MD ORDER',
@@ -341,7 +345,8 @@ $(function () {
                     borderWidth: 1,
                     barPercentage: 0.8,
                     minBarLength: 2,
-                    data: [5, 15, 1, 22.5, 65, 35, 66.8, 44.2, 0.5, 88, 12, 18]
+                    data: [5, 15, 1, 22.5, 65, 35, 66.8, 44.2, 0.5, 88, 12, 18],
+                    fill: false
                 },
                 {
                     label: 'Employee Pre-Physical',
@@ -376,7 +381,8 @@ $(function () {
                     borderWidth: 1,
                     barPercentage: 0.8,
                     minBarLength: 2,
-                    data: [8, 9, 12, 25, 15, 35, 66, 44, 0.5, 22, 2, 18]
+                    data: [8, 9, 12, 25, 15, 35, 66, 44, 0.5, 22, 2, 18],
+                    fill: false
                 }
             ]
         },
@@ -384,8 +390,15 @@ $(function () {
             responsive: true,
             scales: {
                 yAxes: [{
+                    beginAtZero: true,
+                    gridLines: {
+                        drawBorder: false,
+                        color: ['#FF6557', '#0363FF', '#00756B', '#FF6557', '#0363FF', '#00756B', '#FF6557', '#0363FF', '#00756B', '#FF6557', '#0363FF', '#00756B']
+                    },
                     ticks: {
-                        beginAtZero: true
+                        min: 0,
+                        max: 100,
+                        stepSize: 10
                     }
                 }]
             },
@@ -396,12 +409,12 @@ $(function () {
                     fontColor: '#00756B',
                     fontSize: 12
                 }
-            }
+            },
         }
     });
     // Chart for Total No Of Accepted Patients Files End
     // Chart for Total No Of Accepted Patients Files Start
-    var _char3 = document.getElementsByClassName('cancel');
+    var _char3 = document.getElementById('cancel');
     var ch3 = new Chart(_char3, {
         type: 'bar',
         data: {

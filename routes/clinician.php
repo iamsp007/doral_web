@@ -1,7 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\Clincian\PatientController@getPatientDetail')->name('clinician.patient.detail');
 Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],function (){
 
     Route::group(['middleware'=>['auth']],function (){

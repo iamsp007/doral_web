@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Session;
+use Session,Auth;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\CurlModel\CurlFunction;
@@ -14,7 +14,7 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( $patientId )
     {
         
         $status = 0;
@@ -29,8 +29,10 @@ class AppointmentController extends Controller
                     $appointments[ $app_key ]['title'] = $app_row['title'];
                     $appointments[ $app_key ]['start'] = $app_row['start_datetime'];
                     $appointments[ $app_key ]['end'] = $app_row['end_datetime'];
+                    
                 }
             }
+
             $message = $responseArray['message'];
 
         } catch(\Exception $e) {
@@ -38,7 +40,8 @@ class AppointmentController extends Controller
             $message = $e->getMessage();
         }
         $data =array(
-            'appointments' => $appointments
+            'appointments' => $appointments,
+            'patientId' => $patientId,
         );        
         return view('calendar')->with( $data );
     }
@@ -78,9 +81,31 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        $post_data = $request->all();
-        $employeeServices = new EmployeeService();
-        $responseArray = $employeeServices->storeAppointment( $post_data );
+        
+        
+        /*$request->validate([
+            'title' => 'required',
+            'start_datetime' => 'required',
+            'end_datetime' => 'required',
+            
+            'patient_id' => 'required',
+            'provider_pa_ma' => 'required', 
+            'provider' => 'required',
+            'service_id' => 'required'            
+        ]);*/
+        try {
+            $post_data = $request->all();
+            $employeeServices = new EmployeeService();
+            return $responseArray = $employeeServices->storeAppointment( $post_data );
+        } catch (\Exception $e) {            
+            $response = array(
+                "status" => false,
+                "code" => 200,
+                "message" => $e->getMessage(),
+                "data" => [],
+            );
+            return response()->json($response, 200);
+        }
     }
 
     /**

@@ -32,7 +32,7 @@ class BaseClient
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'X-Requested-With' => 'XMLHttpRequest',
-                'Access-Control-Allow-Origin' => 'http://localhost',
+                'Access-Control-Allow-Origin' => 'https://api.doralhealthconnect.com',
                 'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
 
         } else {
@@ -42,7 +42,7 @@ class BaseClient
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
                 'X-Requested-With' => 'XMLHttpRequest',
-                'Access-Control-Allow-Origin' => 'http://localhost',
+                'Access-Control-Allow-Origin' => 'https://api.doralhealthconnect.com',
                 'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
 
         }
@@ -83,7 +83,7 @@ class BaseClient
         $clientId = cache('USERNAME');
         $clientSecret = cache('PASSWORD');
         $grantType = "client_credentials";
-
+        
         try {
 
             $this->client = new Client();
@@ -98,7 +98,7 @@ class BaseClient
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
                     'X-Requested-With' => 'XMLHttpRequest',
-                    'Access-Control-Allow-Origin' => 'http://localhost'
+                    'Access-Control-Allow-Origin' => 'https://api.doralhealthconnect.com'
 
                 ]
             ]);

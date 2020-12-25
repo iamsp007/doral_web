@@ -8,10 +8,10 @@
 </head>
 
 <body>
-    <div id="loader-wrapper" class="loader-wrapper">
+    <!--<div id="loader-wrapper" class="loader-wrapper" style="display: none">
         <div class="overlay"></div>
         <div class="pulse"></div>
-    </div>
+    </div>-->
     <section class="app">
         <section class="app-aside navbar navbar-dark">
             <div class="sidebar" id="collapsibleNavbar">

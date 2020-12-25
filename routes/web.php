@@ -17,43 +17,20 @@ use Illuminate\Support\Facades\Route;
 
 
 \Illuminate\Support\Facades\Auth::routes();
-//Route::get('/', function () {
-//    return view('pages.login');
-//});
-
-
-//Route::get('/resetpassword', function () {
-//    return view('pages.resetpassword');
-//});
-
-// Login / Register
-Route::get('/page/not/found',function($closure){
-    // second parameter is optional.
-    abort(404,'Page not found');
-    abort(403);
+Route::get('/', function () {
+    return redirect()->route('home');
 });
 
-Route::post('companyregister', 'App\Http\Controllers\CompanyController@store');
-Route::post('companylogin', 'App\Http\Controllers\CompanyController@login');
-Route::post('companyresetpassword', 'App\Http\Controllers\CompanyController@resetpassword');
 
 // Email Template Route
 Route::get('emaillist', 'App\Http\Controllers\EmailTemplateController@index');
 
-//Route::get('/register', function () {
-//    return view('pages.register');
-//});
 
-Route::get('/resetpassword', function () {
-    return view('pages.resetpassword');
+Route::group(['middleware'=>'auth'],function (){
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
 });
 
-/*Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
-    return view('dashboard');
-})->name('dashboard');*/
-
-/*Route::get('calender', 'App\Http\Controllers\AppointmentController@index');
-Route::get('calender/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');*/
 //Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
 Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
 Route::get('appointment/{pId}', 'App\Http\Controllers\AppointmentController@index')->name('appointment.show-appointment');
@@ -88,3 +65,8 @@ Route::get('/caregiver/3', 'App\Http\Controllers\Admin\HomeController@caregiverf
 Route::get('/caregiver/4', 'App\Http\Controllers\Admin\HomeController@caregiverforGlucoHigh');
 Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
 
+Route::group(['middleware'=>['auth','role:admin|supervisor|referral|clinician|co-ordinator']],function (){
+    Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
+    Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
+    Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
+});

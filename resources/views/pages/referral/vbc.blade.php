@@ -6,7 +6,6 @@
         <tr>
             <th></th>
             <th>Name</th>
-            <th>Last Name</th>
             <th>Gender</th>
             <th>Phone</th>
             <th>City</th>
@@ -31,6 +30,7 @@
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
         $('#vbc').DataTable( {
+            "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">',
             processing: true,
             serverSide: true,
             ajax: "{{  route('referral.vbc-get-data') }}",
@@ -41,11 +41,10 @@
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + data + '</a>';
+                        data = '<a href={{ url('/referral/patient-detail/') }}/' + row.id + '>' + data + '</a>';
                         return data;
                     }
                 },
-                {data:'last_name',name:'last_name',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
                 {data:'phone1',name:'phone1',"bSortable": true},
                 {
@@ -87,10 +86,11 @@
                     }
                 }
             ],
-            "order": [[ 0, "desc" ]],
+            "order": [],
             'columnDefs': [
                 {
-                    'targets': 0,
+                    'targets': [0],
+                    "orderable": false,
                     'checkboxes': {
                         'selectRow': true
                     }

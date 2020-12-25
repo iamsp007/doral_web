@@ -1,4 +1,4 @@
-@extends('pages.clincian.layouts.app')
+@extends('pages.layouts.app')
 
 @section('title','Patient Detail')
 @section('pageTitleSection')
@@ -27,12 +27,12 @@
                class="img-fluid img-100">
          </div>
          <div>
-            <h1 class="patient-name mb-1">{{ $patient_detail->first_name }} {!! $patient_detail->last_name !!}</h1>
+            <h1 class="patient-name mb-1">{{ $details->first_name }} {!! $details->last_name !!}</h1>
             <div class="d-flex justify-content-center">
                <ul class="pdetail">
                   <li class="nav">Admission ID:&nbsp; <span class="pdata">8965465</span></li>
-                  <li class="nav">Gender:&nbsp; <span class="pdata">{!! $patient_detail->gender !!}</span></li>
-                  <li class="nav">DOB:&nbsp; <span class="pdata">{!! $patient_detail->dob !!}</span></li>
+                  <li class="nav">Gender:&nbsp; <span class="pdata">{!! $details->gender !!}</span></li>
+                  <li class="nav">DOB:&nbsp; <span class="pdata">{!! $details->dob !!}</span></li>
                </ul>
             </div>
          </div>
@@ -100,7 +100,7 @@
                                  </div>
                                  <div>
                                     <h3 class="_title">Phone</h3>
-                                    <h1 class="_detail">{!! $patient_detail->phone1 !!}</h1>
+                                    <h1 class="_detail">{!! $details->phone1 !!}</h1>
                                  </div>
                               </div>
                            </div>
@@ -111,7 +111,7 @@
                                  </div>
                                  <div>
                                     <h3 class="_title">Email</h3>
-                                    <h1 class="_detail">{!! $patient_detail->email !!}</h1>
+                                    <h1 class="_detail">{!! $details->email !!}</h1>
                                  </div>
                               </div>
                            </div>
@@ -123,7 +123,7 @@
                                     </div>
                                     <div>
                                        <h3 class="_title">Start Date</h3>
-                                       <h1 class="_detail">{!! $patient_detail->start_date !!}</h1>
+                                       <h1 class="_detail">{!! $details->start_date !!}</h1>
                                     </div>
                                  </div>
                               </div>
@@ -228,7 +228,7 @@
                                  </div>
                                  <div>
                                     <h3 class="_title">Address 1</h3>
-                                    <h1 class="_detail">{!! $patient_detail->address_1 !!}, {!! $patient_detail->city !!}, <span>{!! $patient_detail->Zip !!}</span>
+                                    <h1 class="_detail">{!! $details->address_1 !!}, {!! $details->city !!}, <span>{!! $details->Zip !!}</span>
                                        <a class="btn btn-info btn-sm ml-2" data-toggle="collapse"
                                           href="#collapseExample"><i class="las la-map-marker"></i>View
                                           Map</a>

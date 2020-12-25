@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PatientReferral;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware(['auth','check']);
+    protected $view_path='pages.';
+
+    public function __construct(){
+
     }
 
     /**
@@ -24,5 +22,12 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+
+    public function getPatientDetail(Request $request,$patient_id){
+
+        $details = User::with('patientDetail')->find($patient_id);
+        return view($this->view_path.'patient-detail',compact('details'));
     }
 }

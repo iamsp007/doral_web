@@ -61,4 +61,8 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function patientDetail(){
+        return $this->hasOne(PatientReferral::class,'user_id','id')->with(['service','filetype']);
+    }
+
 }

@@ -4,42 +4,21 @@
 <div class="app-vbc">
     <!--<section class="app-body content_v_center section1">
         <div class="app-vbc p-0">-->
+           
     <div class="add-new-patient section1">
         <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
         <h1 class="pt-4 _title1">Select your form</h1>
         <div class="category-type pt-4 control-group">
+            @foreach($data->mdforms as $value)
             <div class="box">
                 <label class="control control-radio block">
-                    <span class="_title3">HCSP - M11Q</span>
-                    <input type="radio" value="1" name="formName" class="formName" />
+                    <span class="_title3">{{$value->name}}</span>
+                    <input type="radio" value="{{$value->id}}" name="formName" class="formName" />
                     <div class="control_indicator"></div>
                 </label>
                 <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
             </div>
-            <div class="box">
-                <label class="control control-radio block">
-                    <span class="_title3">DOH-4359 (2010)</span>
-                    <input type="radio" value="2" name="formName" class="formName" />
-                    <div class="control_indicator"></div>
-                </label>
-                <!--<input type="radio" value="2" name="formName" class="formName"/><br/>DOH-4359 (2010)-->
-            </div>
-            <div class="box">
-                <label class="control control-radio block">
-                    <span class="_title3">HCSP - M12Q</span>
-                    <input type="radio" value="3" name="formName" class="formName" />
-                    <div class="control_indicator"></div>
-                </label>
-                <!--<input type="radio" value="3" name="formName" class="formName"/><br/>HCSP - M12Q-->
-            </div>
-            <div class="box">
-                <label class="control control-radio block">
-                    <span class="_title3">DOH-4359 (2011)</span>
-                    <input type="radio" value="4" name="formName" class="formName" />
-                    <div class="control_indicator"></div>
-                </label>
-                <!--<input type="radio" value="4" name="formName" class="formName"/><br/>DOH-4359 (2011)-->
-            </div>
+            @endforeach
         </div>
         <div class="d-flex pt-4 justify-content-center">
             <button type="button" class="continue-btn mr-2 openSection2" name="Continue">Continue</button>

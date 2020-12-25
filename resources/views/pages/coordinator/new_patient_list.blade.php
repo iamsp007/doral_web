@@ -6,6 +6,11 @@
 @endsection
 
 @section('content')
+
+    <div class="dataTables_filter" style="margin-bottom: 10px;" >        
+            <a href="{{ url('/appointment') }}" style="float:right;" >Book Appointment</a> 
+    </div>
+    
     <table class="display responsive nowrap" style="width:100%" id="patient-table">
         <thead>
         <tr>

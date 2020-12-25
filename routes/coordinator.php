@@ -8,4 +8,7 @@ Route::group(['prefix'=>'/co-ordinator','middleware'=>['auth','role:co-ordinator
     Route::get('/get-patient-list','\App\Http\Controllers\Coordinator\CoordinatorController@getPatientList')->name('coordinator.patientList');
     Route::get('/new-patient-list-show','\App\Http\Controllers\Coordinator\CoordinatorController@newPatientListShow')->name('coordinator.newPatientListShow');
     Route::get('/get-new-patient-list','\App\Http\Controllers\Coordinator\CoordinatorController@getNewPatientList')->name('coordinator.getNewPatientList');
+
+    Route::get('/appointment/{pid}','\App\Http\Controllers\Coordinator\AppointmentController@index')->name('coordinator.appointment');
+    
 });

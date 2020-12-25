@@ -109,35 +109,5 @@ class BaseClient
             }
         } catch (\Exception $e) {
         }
-    }
-
-    public function postWithData($method, $uri = '', array $options = [],$post_param = [] )
-    {
-
-        $uri = $this->baseUrl . $uri;
-
-        try {
-
-            return $response =  $this->client->request($method, $uri, $options)->send( $post_param );
-
-        } catch (ClientException $e) {
-
-            if (401 == $e->getCode()) {
-
-                $this->acquireToken();
-                
-                $options['headers']['Authorization'] = cache('ADMIN_SSO_TOKEN');
-
-                try {
-                    return $this->client->request($method, $uri, $options)->send( $post_param );
-                } catch (ClientException $e) {
-
-                    return $e->getResponse();
-                }
-            } else {
-
-                return $e->getResponse();
-            }
-        }
-    }
+    } 
 }

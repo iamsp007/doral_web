@@ -1,4 +1,5 @@
 $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
     var sidebar = $('.sidebar'),
         navbarToggler = $('.navbar-toggler');
     function responsiveView() {
@@ -58,7 +59,6 @@ $(function () {
         } else {
             $(".button-control").hide();
         }
-
     });
     $('.reject-item').click(function () {
         $(".button-control").hide();

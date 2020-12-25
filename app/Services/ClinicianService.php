@@ -120,10 +120,7 @@ class ClinicianService
 
             $response = $this->client->request(
                 'GET',
-                '/get-schedule-appoiment-list',
-                [
-                    'json'=>$data
-                ]
+                '/auth/appointment'
             );
 
 

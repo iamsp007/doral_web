@@ -15,12 +15,11 @@
         <tr>
             <th></th>
             <th>Patient Name</th>
-            <th>Service</th>
-            <th>File Type</th>
             <th>Gender</th>
+            <th>Cause Of Appointment</th>
             <th>Date Of Birth</th>
-            <th>Zip Code</th>
-            <th>City - State</th>
+            <th>Duration</th>
+            <th>Status</th>
             <th width="280px">Action</th>
         </tr>
         </thead>
@@ -40,6 +39,7 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+    <script src="{{ asset('js/clincian/app.clinician.appointment_cancelled.js') }}"></script>
     <script>
        var table = $('#patient-table').DataTable({
             processing: true,
@@ -48,32 +48,54 @@
             columns:[
                 {data:'id',name:'id'},
                 {
-                    data:'first_name',
-                    name:'first_name',
+                    data:'patients.first_name',
+                    name:'patients.first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + row.first_name +' '+ row.last_name + '</a>';
+                        data = '<a class="text-green" href={{ url('/patient-detail/') }}/' + row.patients.id + '>' + row.patients.first_name +' '+ row.patients.last_name + '</a>';
                         return data;
                     }
                 },
-                {data:'service.name',name:'service.name',"bSortable": true},
-                {data:'filetype.name',name:'filetype.name',"bSortable": true},
-                {data:'gender',name:'gender',"bSortable": true},
                 {
-                    data:'dob',
-                    name:'dob',
-                    "bSortable": true
-                },
-                {data:'Zip',name:'Zip',"bSortable": true},
-                {
-                    data:'city',
-                    name:'city',
-                    "bSortable": true,
-                    render:function (data, type, row, meta) {
-
-                        return row.city+ ' - '+row.state;
+                    data:'patients.gender',
+                    name:'patients.gender',
+                    bSortable: true,
+                    render:function(data, type, row, meta){
+                        if (data==="1"){
+                            return 'Male';
+                        }else if (data==="2"){
+                            return 'Female';
+                        }
+                        return 'Other';
                     }
                 },
+                {data:'service.name',name:'service.name',"bSortable": true},
+                {
+                    data:'patients.dob',
+                    name:'patients.dob',
+                    bSortable: true,
+                    render:function(data, type, row, meta){
+                        if (data){
+                            return '<div class="text-info">'
+                                +'<i class="las la-clock circle-icon f-15"></i>'+data
+                            +'</div>';
+                        }
+                        return '-';
+                    }
+                },
+                {
+                    data:'meeting',
+                    name:'meeting',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+                        if (row.meeting){
+
+                            return '<div class="blink_me"><div id="countdown1">'+row.meeting.duration+'!</div></div>';
+                        }
+                        return '-';
+                    }
+                },
+                {data:'status',name:'status',"bSortable": true},
                 {data:'action',name:'action',"bSortable": false}
             ],
             "order": [[ 1, "desc" ]],
@@ -95,7 +117,7 @@
                { extend: "edit" },
                { extend: "remove" }
            ]
-       });;
+       });
 
        function changePatientStatus(element,status) {
             var id=$(element).attr('data-id');

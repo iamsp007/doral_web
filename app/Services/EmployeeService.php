@@ -231,33 +231,32 @@ class EmployeeService
                 "book_datetime" => date("Y-m-d H:i:s"),
                 "start_datetime" => $post_data["start_datetime"] ,
                 "end_datetime" => $post_data["end_datetime"] ,
-                "booked_user_id" => "1",
+                "booked_user_id" => auth()->user()->id,
                 "patient_id" => $post_data["patient_id"] ,
                 "provider1" => $post_data["provider_pa_ma"] ,
                 "provider2" => $post_data["provider"] ,
                 "service_id" => $post_data["service_id"] ,
                 "appointment_url" => "url"  
             );
-            $post_param = json_encode( $appointmentData );
-            $response = $this->client->postWithData(
+            $response = $this->client->request(
                 'POST',
                 '/auth/appointment/store',
                 [
+                    'json' => $appointmentData,
                     'headers' => [
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json',
                         'X-Requested-With' => 'XMLHttpRequest',
                         'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
+                    ],
+                    //'data' => $appointmentData
                 ]
-            );
-
-            //$appointmentData
-            $response = $response->getBody()->getContents();            
+            );            
+            $response = $response->getBody()->getContents();
             $data = json_decode($response, true);
             return $data;
         } catch (\Exception $exception) {
-        }
+        }        
     }
 
     

@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/calendar/lib/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     @stack('styles')
@@ -36,7 +37,10 @@
                 <li><a class="{{ \Request::is('co-ordinator')?'nav active':'nav' }}" href="{{ route('coordinator.dashboard') }}">Dashboard<span class="dot"></span></a></li>
                 <li><a class="{{ \Request::is('co-ordinator/patient-list-show')?'nav active':'nav' }}" href="{{ route('coordinator.patientListShow') }}">Patient List<span class="dot"></span></a></li>
                 <li><a class="{{ \Request::is('co-ordinator/new-patient-list-show')?'nav active':'nav' }}" href="{{ route('coordinator.newPatientListShow') }}">New Patient List<span class="dot"></span></a></li>
-{{--                <li><a class="{{ \Request::is('supervisor/roadl')?'nav active':'nav' }}" href="{{ route('clinician.roadl') }}">RoadL<span class="dot"></span></a></li>--}}
+
+                <li>
+                    <a class="{{ \Request::is('co-ordinator/appointment/1')?'nav active':'nav' }}" href="{{ route('coordinator.appointment',1) }}">Calendar<span class="dot"></span></a>
+                </li> 
             </ul>
         </div>
         <!-- Left Section End -->
@@ -101,10 +105,15 @@
         </section>
     </section>
 </section>
+@yield('popup')
+
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/js/app.common.js') }}"></script>
+<script src="{{ asset('assets/js/moment.min.js') }}"></script>
+<script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+<script src="{{ asset('assets/js/app.common.js') }}"></script>    
+<script src="{{ asset('assets/calendar/lib/main.js') }}"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
 <script src="{{ asset('js/socket.js') }}"></script>

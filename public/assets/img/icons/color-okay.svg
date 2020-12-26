@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="32px" height="32px" viewbox="0 0 32 32" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="Color-Okay-Symbol">
+    <g id="Yes">
+      <g id="Group">
+        <path d="M0 31.0345L0 0L31.0345 0L31.0345 31.0345L0 31.0345Z" id="Shape" fill="none" fill-rule="evenodd" stroke="none" />
+        <g id="Group" transform="translate(1.0344828 1.0344827)">
+          <path d="M12.8483 20.5572L6.13862 13.8476L8.13724 11.849L12.8483 16.56L24.84 4.56827C22.1276 1.85586 18.4159 0 14.2759 0C6.42414 0 0 6.42414 0 14.2759C0 22.1276 6.42414 28.5517 14.2759 28.5517C22.1276 28.5517 28.5517 22.1276 28.5517 14.2759C28.5517 11.5634 27.8379 9.13655 26.5531 6.99517L12.8483 20.5572Z" id="Shape" fill="#008591" fill-rule="evenodd" stroke="none" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

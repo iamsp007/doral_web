@@ -53,4 +53,19 @@ class RoomController extends Controller
         }
         return redirect()->back()->with('error',$response->message);
     }
+
+    public function startVideoMeetingNotification(Request $request,$patient_request_id){
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->startVideoMeetingNotification($patient_request_id);
+        $data=[];
+        if ($response->status===true){
+            $url='';
+            if ($response->data->meeting){
+                $url=$response->data->meeting->start_url;
+                return redirect()->to($url);
+            }
+            return redirect()->back()->with('error','No Meeting Exists');
+        }
+        return redirect()->back()->with('error',$response->message);
+    }
 }

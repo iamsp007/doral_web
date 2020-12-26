@@ -91,7 +91,7 @@ class AppointmentController extends Controller
     {
 
         try {
-            $post_data = $request->all();            
+            $post_data = $request->all(); 
             $employeeServices = new EmployeeService();
             return $responseArray = $employeeServices->storeAppointment( $post_data );
             

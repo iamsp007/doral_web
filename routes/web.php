@@ -27,7 +27,7 @@ Route::get('emaillist', 'App\Http\Controllers\EmailTemplateController@index');
 
 
 Route::group(['middleware'=>'auth'],function (){
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('check');
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
 });
 
@@ -43,7 +43,7 @@ Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@sto
 /*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();*/
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('check')->name('home');
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('check')->name('home');
 
 
 

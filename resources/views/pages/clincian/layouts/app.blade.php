@@ -33,11 +33,23 @@
                    id="closeMenu"></i>
             </div>
             <ul class="sidenav">
-                <li><a class="{{ \Request::is('clinician')?'nav active':'nav' }}" href="{{ route('clinician.dashboard') }}">Dashboard<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('clinician/patient-list')?'nav active':'nav' }}" href="{{ route('clinician.patientList') }}">Patient List<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('clinician/new-patient-list')?'nav active':'nav' }}" href="{{ route('clinician.new.patientList') }}">New Patient List<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('clinician/scheduled-appointment')?'nav active':'nav' }}" href="{{ route('clinician.scheduleAppoimentList') }}">Appointment<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('clinician/roadl')?'nav active':'nav' }}" href="{{ route('clinician.roadl') }}">RoadL<span class="dot"></span></a></li>
+                @foreach(config('menu.clinician') as $key=>$value)
+                    @if(isset($value['menu']))
+                        <li id="dropdown">
+                            <a class="nav" data-toggle="collapse" href="#{{ $value['url'] }}">{{ $value['name'] }}<i
+                                    class="las la-angle-down _arrow"></i></a>
+                            <ul class="sub collapse" id="{{ $value['url'] }}">
+                                @foreach($value['menu'] as $skey=>$svalue)
+                                    <li>
+                                        <a class="_nav" href="{{ $svalue['url'] }}">{{ $svalue['name'] }}<span class="dot"></span></a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        <li><a class="{{ \Request::is($value['route'])?'nav active':'nav' }}" href="{{ $value['url'] }}">{{ $value['name'] }}<span class="dot"></span></a></li>
+                    @endif
+                @endforeach
             </ul>
         </div>
         <!-- Left Section End -->

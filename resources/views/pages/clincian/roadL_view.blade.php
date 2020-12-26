@@ -1,4 +1,4 @@
-@extends('pages.clincian.layouts.app')
+@extends('pages.layouts.app')
 
 @section('title','Patient RoadL Request Map')
 @section('pageTitleSection')

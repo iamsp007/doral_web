@@ -1,8 +1,8 @@
 @extends('pages.layouts.app')
 
-@section('title','Schedule Appointment List')
+@section('title','Cancel Appointment List')
 @section('pageTitleSection')
-    Schedule Appointment List
+    Cancel Appointment List
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
-       var scheduleAppointmentAjax = "{{  route('clinician.scheduleAppoimentList.ajax') }}";
+       var scheduleAppointmentAjax = "{{  route('clinician.cancelAppoimentList.ajax') }}";
        var patient_detail_url = "{{  url('/patient-detail/') }}";
     </script>
 <script src="{{ asset('js/clincian/app.clinician.appointment_cancelled.js') }}"></script>

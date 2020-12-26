@@ -35,6 +35,11 @@ class PatientController extends Controller
         return view($this->view_path.'schedule');
     }
 
+    public function cancelAppointmentRquest(){
+
+        return view($this->view_path.'cancel-schedule');
+    }
+
     public function getPatientList(Request $request){
         $clinicianService = new ClinicianService();
         $response = $clinicianService->getPatientList($request->all());
@@ -75,14 +80,37 @@ class PatientController extends Controller
         $response = $clinicianService->scheduleAppoimentList($request->all());
         $data=[];
         if ($response->status===true){
-            $data=$response->data->appointments;
+            $data=$response->data;
         }
         return  DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 if (!empty($row->meeting) && $row->meeting!==null){
-                    $btn = '<a href="'.route('start.meeting',['appointment_id'=>$row->id]).'" target="_blank" class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Start Meeting" aria-describedby="tooltip910346"><i class="las la-video"></i></a>';
-                    $btn .= '<a href="'.route('patient.detail',['patient_id'=>$row->patients->id]).'" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
+                    $btn = '<a href="'.route('start.meeting',['appointment_id'=>$row->id]).'" id="meeting-btn-'.$row->id.'" target="_blank" class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Start Video" data-original-title="Start Meeting" aria-describedby="tooltip910346" style="display: none"><i class="las la-video"></i></a>';
+                    $btn .= '<a href="'.route('patient.detail',['patient_id'=>$row->patients->id]).'" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
+
+                    return $btn;
+                }
+                return '';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function cancelAppoimentList(Request $request){
+
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->cancelAppoimentList($request->all());
+        $data=[];
+        if ($response->status===true){
+            $data=$response->data;
+        }
+        return  DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('action', function($row){
+                if (!empty($row->meeting) && $row->meeting!==null){
+                    $btn = '<a href="'.route('start.meeting',['appointment_id'=>$row->id]).'" id="meeting-btn-'.$row->id.'" target="_blank" class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Start Video" data-original-title="Start Meeting" aria-describedby="tooltip910346" style="display: none"><i class="las la-video"></i></a>';
+                    $btn .= '<a href="'.route('patient.detail',['patient_id'=>$row->patients->id]).'" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
 
                     return $btn;
                 }

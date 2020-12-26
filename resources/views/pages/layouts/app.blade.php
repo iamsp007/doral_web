@@ -65,7 +65,11 @@
                             <span class="navbar-toggler-icon">
                                 <i class="las la-bars white"></i>
                             </span></button>
-                    <h1 class="title">Clinician</h1>
+                    <h1 class="title">
+                        @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
+                            {{ $value }}
+                        @endforeach
+                    </h1>
                 </div>
                 <div>
                     <ul class="menus">

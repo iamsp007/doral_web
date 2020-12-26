@@ -43,7 +43,7 @@ Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@sto
 /*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();*/
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('check')->name('home');
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('check')->name('home');
 
 
 

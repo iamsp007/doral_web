@@ -8,7 +8,9 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
         Route::get('/patient-list','\App\Http\Controllers\Clincian\PatientController@index')->name('clinician.patientList');
         Route::get('/new-patient-list','\App\Http\Controllers\Clincian\PatientController@newPatientRquest')->name('clinician.new.patientList');
         Route::get('/scheduled-appointment','\App\Http\Controllers\Clincian\PatientController@scheduleAppointmentRquest')->name('clinician.scheduleAppoimentList');
+        Route::get('/cancelled-appointment','\App\Http\Controllers\Clincian\PatientController@cancelAppointmentRquest')->name('clinician.cancelAppointmentRquest');
         Route::get('/scheduled-appointment-ajax','\App\Http\Controllers\Clincian\PatientController@scheduleAppoimentList')->name('clinician.scheduleAppoimentList.ajax');
+        Route::get('/cancel-appointment-ajax','\App\Http\Controllers\Clincian\PatientController@cancelAppoimentList')->name('clinician.cancelAppoimentList.ajax');
         Route::get('/get-near-by-clinician-list/{patient_request_id}','\App\Http\Controllers\Clincian\RoadLController@getNearByClinicianList')->name('clinician.getNearByClinicianList');
         Route::post('/changePatientStatus','\App\Http\Controllers\Clincian\PatientController@changePatientStatus')->name('clinician.changePatientStatus');
         Route::get('/getPatientList','\App\Http\Controllers\Clincian\PatientController@getPatientList')->name('clinician.patientList.ajax');
@@ -22,5 +24,6 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
             ->where('id', '[0-9]+')
             ->name('room');
         Route::get('/start-meeting/{appointment_id}','\App\Http\Controllers\Clincian\RoomController@sendVideoMeetingNotification')->name('start.meeting');
+        Route::get('/start-call/{patient_request_id}','\App\Http\Controllers\Clincian\RoomController@startVideoMeetingNotification')->name('start.call');
     });
 });

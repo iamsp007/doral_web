@@ -38,9 +38,7 @@
                 <li><a class="{{ \Request::is('co-ordinator/patient-list-show')?'nav active':'nav' }}" href="{{ route('coordinator.patientListShow') }}">Patient List<span class="dot"></span></a></li>
                 <li><a class="{{ \Request::is('co-ordinator/new-patient-list-show')?'nav active':'nav' }}" href="{{ route('coordinator.newPatientListShow') }}">New Patient List<span class="dot"></span></a></li>
 
-                <li>
-                    <a class="{{ \Request::is('co-ordinator/appointment/1')?'nav active':'nav' }}" href="{{ route('coordinator.appointment',1) }}">Calendar<span class="dot"></span></a>
-                </li> 
+                
             </ul>
         </div>
         <!-- Left Section End -->

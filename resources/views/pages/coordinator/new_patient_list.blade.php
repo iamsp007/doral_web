@@ -101,17 +101,18 @@ Patient
                 name: 'status',
                 "bSortable": true,
                 render: function(data, type, row, meta) {
-                    appoinment = '<a href="{{ route("appointment.show-appointment",1 )}}">Book Appoinment</span>';
-                    if (row.status === "pending") {
 
+                    var appoinment = '<a href="@php echo url("/co-ordinator/appointment/")@endphp/'+ row.id +'" >Book Appoinment</a>';
+                    if (row.status === "pending") {
                         return '<span class="status-pending">' + row.status + '</span>' + appoinment;
                     } else if (row.status === "accept") {
-
-                        return '<span class="status-accepted">' + row.status + '</span>' + appoinment;
+                        
+                        return '<span class="status-accepted">' + row.status + '</span>'+ appoinment;
                     } else if (row.status === "rescheduled") {
 
                         return '<span class="status-rescheduled">' + row.status + '</span>' + appoinment;
                     }
+
                     return row.status;
                 }
             }

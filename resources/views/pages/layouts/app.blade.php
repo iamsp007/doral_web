@@ -34,13 +34,22 @@
             </div>
             <ul class="sidenav">
                 @foreach(config('menu.clinician') as $key=>$value)
-                    <li><a class="{{ \Request::is($value['route'])?'nav active':'nav' }}" href="{{ $value['url'] }}">{{ $value['name'] }}<span class="dot"></span></a></li>
+                    @if(isset($value['menu']))
+                        <li id="dropdown">
+                            <a class="nav" data-toggle="collapse" href="#{{ $value['url'] }}">{{ $value['name'] }}<i
+                                    class="las la-angle-down _arrow"></i></a>
+                            <ul class="sub collapse" id="{{ $value['url'] }}">
+                                @foreach($value['menu'] as $skey=>$svalue)
+                                    <li>
+                                        <a class="_nav" href="{{ $svalue['url'] }}">{{ $svalue['name'] }}<span class="dot"></span></a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        <li><a class="{{ \Request::is($value['route'])?'nav active':'nav' }}" href="{{ $value['url'] }}">{{ $value['name'] }}<span class="dot"></span></a></li>
+                    @endif
                 @endforeach
-
-{{--                <li><a class="{{ \Request::is('clinician/patient-list')?'nav active':'nav' }}" href="{{ route('clinician.patientList') }}">Patient List<span class="dot"></span></a></li>--}}
-{{--                <li><a class="{{ \Request::is('clinician/new-patient-list')?'nav active':'nav' }}" href="{{ route('clinician.new.patientList') }}">New Patient List<span class="dot"></span></a></li>--}}
-{{--                <li><a class="{{ \Request::is('clinician/scheduled-appointment')?'nav active':'nav' }}" href="{{ route('clinician.scheduleAppoimentList') }}">Appointment<span class="dot"></span></a></li>--}}
-{{--                <li><a class="{{ \Request::is('clinician/roadl')?'nav active':'nav' }}" href="{{ route('clinician.roadl') }}">RoadL<span class="dot"></span></a></li>--}}
             </ul>
         </div>
         <!-- Left Section End -->
@@ -56,7 +65,11 @@
                             <span class="navbar-toggler-icon">
                                 <i class="las la-bars white"></i>
                             </span></button>
-                    <h1 class="title">Clinician</h1>
+                    <h1 class="title">
+                        @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
+                            {{ $value }}
+                        @endforeach
+                    </h1>
                 </div>
                 <div>
                     <ul class="menus">

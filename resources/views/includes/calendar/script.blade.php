@@ -150,11 +150,11 @@
         $( "body" ).on("click","#btn_create_appointment",function( e ){
 
             e.preventDefault();
-
-            $( '#btn_create_appointment' ).attr('disabled','disabled');
+            alert( "asdf" );
+            /*$( '#btn_create_appointment' ).attr('disabled','disabled');
             var frm_data = $("#create_appointment_frm").serialize();            
             $.ajax({
-                url: SITEURL + '/appointment/store',
+                url: SITEURL + '/co-ordinator/appointment/store',
                 data: frm_data,
                 type: "POST",
                 success: function(response) {
@@ -186,7 +186,7 @@
                     }
                     $( '#btn_create_appointment' ).removeAttr("disabled");
                 }
-            });
+            });*/
         });
         
     });

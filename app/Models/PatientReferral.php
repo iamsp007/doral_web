@@ -33,10 +33,14 @@ class PatientReferral extends Model
     }
 
     public function service(){
-        return $this->hasOne(ServicesMaster::class,'id','service_id');
+        return $this->hasOne(Services::class,'id','service_id');
     }
 
     public function filetype(){
         return $this->hasOne(FileTypeMaster::class,'id','file_type');
     }
+    public static function getAccepted(){
+        return PatientReferral::with('service','filetype')->where('status','accept')->get();
+    }
+    
 }

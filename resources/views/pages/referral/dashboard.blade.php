@@ -1,4 +1,9 @@
-@extends('layouts.referral.default')
+@extends('pages.layouts.app')
+
+@section('title','Welcome to Doral')
+@section('pageTitleSection')
+    Dashboard
+@endsection
 @section('content')
 <div class="app-referral-dashboard">
     <!-- Total No Of Uploaded Files Start -->

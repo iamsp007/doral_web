@@ -1,10 +1,15 @@
-@extends('layouts.referral.default')
+@extends('pages.layouts.app')
+
+@section('title','Welcome to Doral')
+@section('pageTitleSection')
+    MD Order - Bulk Patient Upload
+@endsection
 @section('content')
 
 <div class="app-vbc">
     <!--<section class="app-body content_v_center section1">
         <div class="app-vbc p-0">-->
-           
+
     <div class="add-new-patient section1">
         <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
         <h1 class="pt-4 _title1">Select your form</h1>
@@ -73,19 +78,19 @@
             </div>
         </div>
         <div class="upload-your-files">
-            
+
             <h1>Upload your files</h1>
             <p>Upload from your computer (.xls, .xlsx, .csv,.pdf)</p>
             <div class="upload-files">
                 <div class="upload_icon"></div>
                 <div>
-                    <input type="hidden" name="service_id" id="service_id" value="2"> 
+                    <input type="hidden" name="service_id" id="service_id" value="2">
                     <input type="hidden" name="formSelect" id="formSelect">
                     <h1 class="_title">Drag & Drop</h1>
                     <p>Or</p>
                     <div class="mt-3">
                         <input type="file" name="file_name" id="file_name" class="inputfile inputfile-1"
-                            data-multiple-caption="{count} files selected" multiple />   
+                            data-multiple-caption="{count} files selected" multiple />
                         <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="17" viewBox="0 0 20 17">
                                 <path
@@ -95,48 +100,53 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-pink mt-3 uploadFile">Upload Files</button>
-            
+
         </div>
         </form>
-        
+
     </div>
 </div>
-<script>
-$(document).ready(function () {
+@endsection
+@push('scripts')
+    <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="{{asset('assets/js/app.referral.vbc.upload.bulk.data.min.js')}}"></script>
+    <script>
+        $(document).ready(function () {
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-    $(".openSection2").click(function() {
-        var formName = $(".formName:checked").val();
-        $("#formSelect").val(formName);
-        $(".section1").hide();
-        $(".section2").show();
+            $(".openSection2").click(function() {
+                var formName = $(".formName:checked").val();
+                $("#formSelect").val(formName);
+                $(".section1").hide();
+                $(".section2").show();
 
-    });
+            });
 
-    $('#upload_form').on('submit', function(event){
-      event.preventDefault();
-      $(".loader-wrapper").show();
-      $.ajax({
-       url:'{{ route('referral.md-order-upload-bulk-data-store') }}',
-       method:"POST",
-       data:new FormData(this),
-       dataType:'JSON',
-       contentType: false,
-       cache: false,
-       processData: false,
-       success:function(data)
-       {
-        $(".loader-wrapper").hide();
-        window.location = "{{ route('referral.md-order') }}";
-       }
-      })
-     });
+            $('#upload_form').on('submit', function(event){
+                event.preventDefault();
+                $(".loader-wrapper").show();
+                $.ajax({
+                    url:'{{ route('referral.md-order-upload-bulk-data-store') }}',
+                    method:"POST",
+                    data:new FormData(this),
+                    dataType:'JSON',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success:function(data)
+                    {
+                        $(".loader-wrapper").hide();
+                        window.location = "{{ route('referral.md-order') }}";
+                    }
+                })
+            });
 
-});
-</script>   
-@stop
+        });
+    </script>
+@endpush

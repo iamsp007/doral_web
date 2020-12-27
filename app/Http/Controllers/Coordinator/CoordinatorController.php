@@ -54,7 +54,7 @@ class CoordinatorController extends Controller
             return response()->json($data,200);
         }*/
 
-        $data = PatientReferral::getAccepted();        
+        $data = PatientReferral::getAccepted();
         return DataTables::of($data)->make(true);
         //return response()->json($data);
 

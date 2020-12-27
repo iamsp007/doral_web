@@ -2,9 +2,9 @@
 
 return [
     'clinician'=>[
-        ['name'=>'Dashboard','url'=>url('clinician'),'route'=>'clinician'],
-        ['name'=>'Patient List','url'=>url('clinician/patient-list'),'route'=>'clinician/patient-list'],
-        ['name'=>'New Patient List','url'=>url('clinician/new-patient-list'),'route'=>'clinician/new-patient-list'],
+        ['name'=>'Dashboard','url'=>env('APP_URL').'clinician','route'=>'clinician'],
+        ['name'=>'Patient List','url'=>env('APP_URL').'clinician/patient-list','route'=>'clinician/patient-list'],
+        ['name'=>'New Patient List','url'=>env('APP_URL').'clinician/new-patient-list','route'=>'clinician/new-patient-list'],
         [
             'name'=>'Appointment',
             'url'=>'appointment-request',
@@ -12,12 +12,12 @@ return [
             'menu'=>[
                 [
                     'name'=>'Schedule',
-                    'url'=>url('clinician/scheduled-appointment'),
+                    'url'=>env('APP_URL').'clinician/scheduled-appointment',
                     'route'=>'clinician/scheduled-appointment'
                 ],
                 [
                     'name'=>'Cancelled',
-                    'url'=>url('clinician/cancelled-appointment'),
+                    'url'=>env('APP_URL').'clinician/cancelled-appointment',
                     'route'=>'clinician/cancelled-appointment'
                 ]
             ]
@@ -29,12 +29,12 @@ return [
             'menu'=>[
                 [
                     'name'=>'RoadL Requests',
-                    'url'=>url('clinician/roadl'),
+                    'url'=>env('APP_URL').'clinician/roadl',
                     'route'=>'clinician/roadl'
                 ],
                 [
                     'name'=>'Reschedule Requests',
-                    'url'=>url('clinician/roadl'),
+                    'url'=>env('APP_URL').'clinician/roadl',
                     'route'=>'clinician/roadl'
                 ]
             ]

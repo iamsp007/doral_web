@@ -1,4 +1,9 @@
-@extends('layouts.referral.default')
+@extends('pages.layouts.app')
+
+@section('title','Welcome to Doral')
+@section('pageTitleSection')
+    VBC - Bulk Patient Upload
+@endsection
 @section('content')
 
 <div class="app-vbc">
@@ -28,7 +33,7 @@
             </div>
         </div>
 
-        
+
         <div class="upload-your-files">
 
             <h1>Upload your files</h1>
@@ -42,7 +47,7 @@
                     <div class="mt-3">
                         <input type="file" name="file_name" id="file_name" class="inputfile inputfile-1"
                             data-multiple-caption="{count} files selected" multiple />
-              
+
                         <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                 height="17" viewBox="0 0 20 17">
                                 <path

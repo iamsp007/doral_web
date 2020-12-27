@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="64px" height="64px" viewbox="0 0 64 64" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L35 0L35 35L0 35L0 0Z" id="path_1" />
+    <rect width="64" height="64" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Quad-HD-Copy" clip-path="url(#clip_1)">
+    <g id="telehealth" transform="translate(4 4)">
+      <path d="M0 27.5C0 12.3122 12.3122 0 27.5 0C42.6878 0 55 12.3122 55 27.5C55 42.6878 42.6878 55 27.5 55C12.3122 55 0 42.6878 0 27.5Z" id="Ellipse" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="2" />
+      <g id="medical-app" transform="translate(10 10)">
+        <path d="M0 0L35 0L35 35L0 35L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+        <g clip-path="url(#mask_1)">
+          <g id="Group" transform="translate(3.6029358 0)">
+            <path d="M16.4706 0L0 0L0 14.5791L2.7208 12.3529L16.4706 12.3529L16.4706 0ZM9.26471 9.26471L7.20589 9.26471L7.20589 7.20588L5.14706 7.20588L5.14706 5.14706L7.20589 5.14706L7.20589 3.08824L9.26471 3.08824L9.26471 5.14706L11.3235 5.14706L11.3235 7.20588L9.26471 7.20588L9.26471 9.26471Z" transform="translate(11.323532 6.17647)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+            <path d="M11.0047 17.5L9.26471 17.5L9.26471 0L0 0L0 19.5588L20.6742 19.5588L20.6742 14.4118L14.7792 14.4118L11.0047 17.5Z" transform="translate(0 6.17647)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+            <path d="M20.5882 4.11765L20.5882 3.36878C20.5882 1.51125 19.077 0 17.2195 0L3.36878 0C1.51125 0 0 1.51125 0 3.36878L0 4.11765L20.5882 4.11765Z" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+            <path d="M0 0L0 3.8371C0 5.69464 1.51124 7.20588 3.36878 7.20588L17.3054 7.20588C19.163 7.20588 20.6742 5.69464 20.6742 3.8371L20.6742 0L0 0ZM12.3529 4.46079L8.2357 4.46079L8.2357 2.40196L12.3529 2.40196L12.3529 4.46079Z" transform="translate(0 27.794117)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -110,7 +110,8 @@ Patient
                 render: function(data, type, row, meta) {
 
                     var appoinment = '<a href="@php echo url("/co-ordinator/appointment/")@endphp/' + row.id + '" >Book Appoinment</a>';
-                    if (row.status === "pending") {
+                    return appoinment;
+                    /*if (row.status === "pending") {
                         return '<span class="status-pending">' + row.status + '</span>' + appoinment;
                     } else if (row.status === "accept") {
 
@@ -118,7 +119,7 @@ Patient
                     } else if (row.status === "rescheduled") {
 
                         return '<span class="status-rescheduled">' + row.status + '</span>' + appoinment;
-                    }
+                    }*/
 
                     return row.status;
                 }

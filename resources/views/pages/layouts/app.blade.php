@@ -72,9 +72,9 @@
         </div>
         <!-- Left Section End -->
     </section>
-    <section class="app-content">
+    <section class="app-content _new">
         <!-- Right section Start-->
-        <header class="app-header-block">
+        <header class="app-header-block _fullwidth">
             <div class="app-header">
                 <div class="nav">
                     <button class="navbar-toggler d-none" type="button" data-toggle="collapse"
@@ -124,7 +124,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="app-title-box">
+            <div class="app-title-box _full">
                 <div class="app-title">
                     @yield('pageTitleSection')
                 </div>

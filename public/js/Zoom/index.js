@@ -13,7 +13,7 @@ $.ajax({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    url:'http://localhost/doral_web/public/zoom-generate_signature',
+    url:base_url+'zoom-generate_signature',
     method:'POST',
     dataType:'json',
     success:function (response) {

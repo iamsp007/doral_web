@@ -70,3 +70,6 @@ Route::group(['middleware'=>['auth','role:admin|supervisor|referral|clinician|co
     Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
 });
+
+Route::post('/start','\App\Http\Controllers\Clincian\RoomController@startArchive');
+Route::post('/zoom-generate_signature','\App\Http\Controllers\Clincian\RoomController@zoomGenerateSignature');

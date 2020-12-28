@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/js/Zoom/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/clincian/host.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/pages/Zoom/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/pages/voice/layout/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/room.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/room.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/voice/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/voice/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/clinician.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinician.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-    </list>
+    <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -249,7 +238,7 @@
       <workItem from="1608910986352" duration="4645000" />
       <workItem from="1608953362231" duration="701000" />
       <workItem from="1608958036593" duration="13204000" />
-      <workItem from="1609130480191" duration="6040000" />
+      <workItem from="1609130480191" duration="6341000" />
     </task>
     <servers />
   </component>

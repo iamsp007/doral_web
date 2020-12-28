@@ -37,6 +37,9 @@ function startMeeting(meetingNumber){
                     meetConfig.apiKey = response.apiKey;
                     beginJoin(signature,meetConfig)
                 },
+                error:function (error) {
+                    console.log(error)
+                }
             });
         },
         error:function (error) {

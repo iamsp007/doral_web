@@ -1,4 +1,4 @@
-@extends('pages.clincian.layouts.app')
+@extends('pages.layouts.app')
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')
@@ -6,24 +6,94 @@
 @endsection
 
 @section('content')
-    <div id="videos">
-        <button class="btn btn-primary" onclick="connect()">Start</button>
-        <button class="btn btn-danger" onclick="disconnect()">END</button>
-        <div id="subscriber mt-5"></div>
-        <div id="publisher"></div>
+    <div class="container bump-me">
+
+        <div class="body-content">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Host</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="subscribers"><div id="publisher"></div></div>
+                </div>
+                <div class="panel-footer">
+                    <form class="archive-options">
+                        <fieldset class="archive-options-fields">
+                            <div class="form-group">
+                                <p class="help-block">Archive Options:</p>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="hasAudio" checked> Audio
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="hasVideo" checked> Video
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <p class="help-block">Output Mode:</p>
+                                <label class="radio-inline">
+                                    <input type="radio" name="outputMode" value="composed" checked> Composed
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="outputMode" value="individual"> Individual
+                                </label>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <button class="btn btn-danger start">Start archiving</button>
+                    <button class="btn btn-success stop">Stop archiving</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Instructions</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Click <strong>Start archiving</strong> to begin archiving this session.
+                    All publishers in the session will be included, and all publishers that
+                    join the session will be included as well.
+                </p>
+                <p>
+                    Click <strong>Stop archiving</strong> to end archiving this session.
+                    You can then go to <a href="/history">past archives</a> to
+                    view your archive (once its status changes to available).
+                </p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>When</th>
+                        <th>You will see</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="vertical-align: middle;">Archiving is started</td>
+                        <td><img src="img/archiving-on-message.png"></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle;">Archiving remains on</td>
+                        <td><img src="img/archiving-on-idle.png"></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle;">Archiving is stopped</td>
+                        <td><img src="img/archiving-off.png"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection
 @push('styles')
     <style>
-        body, html {
-            background-color: gray;
-            height: 100%;
-        }
-
         #videos {
             position: relative;
-            width: 100%;
-            height: 100%;
+            width: 10%;
+            height: 10%;
             margin-left: auto;
             margin-right: auto;
         }
@@ -32,15 +102,15 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
+            width: 50%;
+            height: 50%;
             z-index: 10;
         }
 
         #publisher {
             position: absolute;
-            width: 360px;
-            height: 240px;
+            width: 100px;
+            height: 100px;
             bottom: 10px;
             left: 10px;
             z-index: 100;
@@ -52,79 +122,10 @@
 @endpush
 @push('scripts')
     <script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
-    <script type="text/javascript">
-        var session;
-        var connectionCount = 0;
-        var apiKey = "{{env('VONAGE_API_KEY')}}";
-        var sessionId = "{{$sessionId}}";
-        var token = "{{$token}}";
-        var publisher;
-
-        function connect() {
-            // Replace apiKey and sessionId with your own values:
-
-            session = OT.initSession(apiKey, sessionId);
-            session.on("streamCreated", function (event) {
-                console.log("New stream in the session: " + event.stream.streamId);
-                session.subscribe(event.stream, 'subscriber', {
-                    insertMode: 'append',
-                    width: '100%',
-                    height: '100%'
-                });
-            });
-
-            session.on({
-                connectionCreated: function (event) {
-                    connectionCount++;
-                    alert(connectionCount + ' connections.');
-                },
-                connectionDestroyed: function (event) {
-                    connectionCount--;
-                    alert(connectionCount + ' connections.');
-                },
-                sessionDisconnected: function sessionDisconnectHandler(event) {
-                    // The event is defined by the SessionDisconnectEvent class
-                    alert('Disconnected from the session.');
-                    document.getElementById('disconnectBtn').style.display = 'none';
-                    if (event.reason == 'networkDisconnected') {
-                        alert('Your network connection terminated.')
-                    }
-                }
-            });
-
-            var publisher = OT.initPublisher('publisher', {
-                insertMode: 'append',
-                width: '100%',
-                height: '100%'
-            }, error => {
-                if (error) {
-                    alert(error.message);
-                }
-            });
-
-            // Replace token with your own value:
-            session.connect(token, function (error) {
-                if (error) {
-                    alert('Unable to connect: ', error.message);
-                } else {
-                    // document.getElementById('disconnectBtn').style.display = 'block';
-                    alert('Connected to the session.');
-                    connectionCount = 1;
-
-                    if (session.capabilities.publish == 2) {
-                        session.publish(publisher);
-                    } else {
-
-                        alert("You cannot publish an audio-video stream.");
-                    }
-                }
-            });
-
-        }
-        function disconnect() {
-            window.location.reload();
-        }
-
-
+    <script>
+        var sessionId = "{{ $sessionId }}";
+        var apiKey = "{{ env('VONAGE_API_KEY') }}";
+        var token = "{{ $token }}";
     </script>
+    <script src="{{ asset('js/clincian/host.js') }}"></script>
 @endpush

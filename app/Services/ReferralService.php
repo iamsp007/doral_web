@@ -9,6 +9,7 @@
 namespace App\Services;
 
 use App\BaseClient;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
@@ -25,7 +26,7 @@ class ReferralService
 
     public function commonReferralService($url,$type=NULL) {
         try {
-            
+
             $response = $this->client->request(
                 'POST',
                 '.'.$url.'.'.$type
@@ -115,6 +116,55 @@ class ReferralService
             $response = $response->getBody()->getContents();
             $data = json_decode($response,true);
             return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function mdOrder($type){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/patient-referral/'.$type
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function mdOrderUploadBulk(){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/mdforms'
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function store($data){
+        try {
+//            $file_path = $data['file_name']->getPathname();
+//            $file_mime = $data['file_name']->getmimeType();
+//            $file_org  = $data['file_name']->getClientOriginalName();
+//
+//
+//            $response = $response->getBody()->getContents();
+//            $data = json_decode($response);
+//            return $data;
         }catch (\Exception $exception){
 
         }

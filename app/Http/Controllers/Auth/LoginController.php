@@ -69,17 +69,6 @@ class LoginController extends Controller
             if (Auth::user()->status==='1'){
                 cache(['USERNAME' => $request->email]);
                 cache(['PASSWORD'=>$request->password]);
-                if (Auth::user()->hasRole('clinician')){
-                    $this->redirectTo=RouteServiceProvider::CLINICIAL_HOME;
-                }elseif (Auth::user()->hasRole('admin')){
-                    $this->redirectTo=RouteServiceProvider::ADMIN_HOME;
-                }elseif (Auth::user()->hasRole('co-ordinator')){
-                    $this->redirectTo=RouteServiceProvider::COORDINATE_HOME;
-                }elseif (Auth::user()->hasRole('supervisor')){
-                    $this->redirectTo=RouteServiceProvider::SUPERVISOR_HOME;
-                }else{
-                    $this->redirectTo=RouteServiceProvider::HOME;
-                }
                 return $this->sendLoginResponse($request);
             }
 

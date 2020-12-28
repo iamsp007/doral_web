@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="64px" height="64px" viewbox="0 0 64 64" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L55 0L55 55L0 55L0 0Z" id="path_1" />
+    <rect width="64" height="64" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Quad-HD-Copy" clip-path="url(#clip_1)">
+    <g id="logout-(1)" transform="translate(4 4)">
+      <path d="M0 0L55 0L55 55L0 55L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+      <g clip-path="url(#mask_1)">
+        <g id="Group" transform="translate(16.02681 21.737717)">
+          <g id="Group">
+            <path d="M38.2926 4.44518L32.4077 0.296331C31.3414 -0.455299 29.8677 0.310082 29.8677 1.61332L29.8677 4.15084L1.61144 4.15084C0.721554 4.15084 0 4.87229 0 5.76228C0 6.65227 0.721554 7.37361 1.61144 7.37361L29.8675 7.37361L29.8675 9.91102C29.8675 11.2229 31.349 11.974 32.4074 11.228L38.2922 7.07916C39.1909 6.44602 39.2091 5.09272 38.2926 4.44518L38.2926 4.44518Z" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+        <g id="Group" transform="translate(0 2.4059296)">
+          <g id="Group">
+            <path d="M46.242 35.4406C45.4719 34.9953 44.486 35.2582 44.0403 36.0286C40.2552 42.5724 33.1796 46.9654 25.0941 46.9654C13.0343 46.9654 3.22276 37.1539 3.22276 25.0941C3.22276 13.0342 13.0342 3.22276 25.0941 3.22276C33.185 3.22276 40.2573 7.61986 44.0402 14.1593C44.4858 14.9297 45.4719 15.1926 46.2419 14.7473C47.0122 14.3017 47.2754 13.3159 46.8299 12.5456C42.4765 5.01982 34.3459 0 25.0941 0C11.2245 0 0 11.2233 0 25.0941C0 38.9636 11.2233 50.1881 25.0941 50.1881C34.3499 50.1881 42.4785 45.1648 46.83 37.6423C47.2755 36.872 47.0123 35.8863 46.242 35.4406L46.242 35.4406Z" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

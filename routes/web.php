@@ -27,7 +27,7 @@ Route::get('emaillist', 'App\Http\Controllers\EmailTemplateController@index');
 
 
 Route::group(['middleware'=>'auth'],function (){
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('check');
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
 });
 
@@ -43,7 +43,7 @@ Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@sto
 /*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();*/
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('check')->name('home');
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('check')->name('home');
 
 
 
@@ -70,3 +70,6 @@ Route::group(['middleware'=>['auth','role:admin|supervisor|referral|clinician|co
     Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
 });
+
+Route::post('/start','\App\Http\Controllers\Clincian\RoomController@startArchive');
+Route::post('/zoom-generate_signature','\App\Http\Controllers\Clincian\RoomController@zoomGenerateSignature');

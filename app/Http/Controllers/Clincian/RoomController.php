@@ -59,7 +59,7 @@ class RoomController extends Controller
     public function zoomGenerateSignature(Request $request){
         $api_key = env('ZOOM_API_KEY');
         $api_secret = env('ZOOM_API_SECRET');
-        $meeting_number=123456789;
+        $meeting_number=$request->meeting_number;
         $role=1;
 
         $time = time() * 1000 - 30000;//time in milliseconds (or close enough)
@@ -76,6 +76,7 @@ class RoomController extends Controller
             'meetingNumber'=>$meeting_number,
             'userName'=>'Sunil',
             'apiKey'=>$api_key,
+            'api_secret'=>$api_secret,
             'userEmail'=>'aaa@gmail.com',
             'passWord'=>'passWord',
             ],200);
@@ -93,6 +94,8 @@ class RoomController extends Controller
                 }else{
                     $url=$response->data->meeting->join_url;
                 }
+                $meeting_number = $response->data->meeting->meeting_id;
+                return view('pages.Zoom.index',compact('meeting_number'));
                 return redirect()->to($url);
             }
             return redirect()->back()->with('error','No Meeting Exists');
@@ -108,6 +111,8 @@ class RoomController extends Controller
             $url='';
             if ($response->data->meeting){
                 $url=$response->data->meeting->start_url;
+                $meeting_number = $response->data->meeting->meeting_id;
+                return view('pages.Zoom.index',compact('meeting_number'));
                 return redirect()->to($url);
             }
             return redirect()->back()->with('error','No Meeting Exists');

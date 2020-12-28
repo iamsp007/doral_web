@@ -1,4 +1,4 @@
-@extends('pages.clincian.layouts.app')
+@extends('pages.layouts.app')
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')
@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="app-clinician-dashboard">
-        
+
         <ul class="clinician-nav nav">
             <li><a href="#bloodPressure" class="active" data-toggle="pill" role="tab">Blood Pressure</a>
             </li>

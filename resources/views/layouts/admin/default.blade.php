@@ -28,6 +28,7 @@
         </section>
     </section>
     @include('includes.admin.script')
+    @stack('scripts')
 </body>
 
 </html>

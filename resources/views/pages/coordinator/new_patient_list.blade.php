@@ -13,7 +13,7 @@ Patient
     <thead>
         <tr>
             <th></th>
-            <th>First Name</th>
+            <th>Patient Name</th>
             <th>Last Name</th>
             <th>Service</th>
             <th>File Type</th>
@@ -21,7 +21,7 @@ Patient
             <th>Date Of Birth</th>
             <th>Zip Code</th>
             <th>City - State</th>
-            <th>Status</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -49,7 +49,7 @@ Patient
                 name: 'id'
             },
             {
-                data: 'first_name',
+                data: 'full_name',
                 name: 'first_name',
                 "bSortable": true,
                 render: function(data, type, row, meta) {
@@ -80,7 +80,14 @@ Patient
             {
                 data: 'dob',
                 name: 'dob',
-                "bSortable": true
+                "bSortable": true,
+                render: function(data, type, row, meta) {
+                    const D = new Date(row.dob);    
+                    var mon = D.getMonth() + 1 // 10 (PS: +1 since Month is 0-based)
+                    var dat = D.getDate() // 30
+                    var yer = D.getFullYear() // 2020
+                    return mon+"-"+dat+"-"+yer;
+                }
             },
             {
                 data: 'Zip',
@@ -101,9 +108,10 @@ Patient
                 name: 'status',
                 "bSortable": true,
                 render: function(data, type, row, meta) {
-                    appoinment = '<a href="{{ route("appointment.show-appointment",1 )}}">Book Appoinment</span>';
-                    if (row.status === "pending") {
 
+                    var appoinment = '<a href="@php echo url("/co-ordinator/appointment/")@endphp/' + row.id + '" >Book Appoinment</a>';
+                    return appoinment;
+                    /*if (row.status === "pending") {
                         return '<span class="status-pending">' + row.status + '</span>' + appoinment;
                     } else if (row.status === "accept") {
 
@@ -111,7 +119,8 @@ Patient
                     } else if (row.status === "rescheduled") {
 
                         return '<span class="status-rescheduled">' + row.status + '</span>' + appoinment;
-                    }
+                    }*/
+
                     return row.status;
                 }
             }
@@ -121,9 +130,16 @@ Patient
         ],
         'columnDefs': [{
             'targets': 0,
+            'visible': false,
             'checkboxes': {
                 'selectRow': true
             }
+        }, {
+            'targets': 2,
+            'visible': false,
+        }, {
+            'targets': 4,
+            'visible': false,
         }],
         'select': {
             'style': 'multi'

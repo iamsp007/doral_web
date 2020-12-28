@@ -3,7 +3,7 @@
 @section('content')
     <!-- added on import -->
     <div id="zmmtg-root"></div>
-    <div id="aria-notify-area"></div
+    <div id="aria-notify-area"></div>
 
         <!-- added on meeting init -->
     <div class="ReactModalPortal"></div>
@@ -21,17 +21,19 @@
 
 @push('scripts')
     <!-- import ZoomMtg dependencies -->
-    <script src="https://source.zoom.us/1.8.5/lib/vendor/react.min.js"></script>
-    <script src="https://source.zoom.us/1.8.5/lib/vendor/react-dom.min.js"></script>
-    <script src="https://source.zoom.us/1.8.5/lib/vendor/redux.min.js"></script>
-    <script src="https://source.zoom.us/1.8.5/lib/vendor/redux-thunk.min.js"></script>
-    <script src="https://source.zoom.us/1.8.5/lib/vendor/lodash.min.js"></script>
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/redux-thunk.min.js"></script>
+{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/jquery.min.js"></script>--}}
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/lodash.min.js"></script>
 
-    <!-- import ZoomMtg -->
-    <script src="https://source.zoom.us/zoom-meeting-1.8.5.min.js"></script>
-    <script>
-
-    </script>
+    <script src="https://source.zoom.us/zoom-meeting-1.8.3.min.js"></script>
     <!-- import local .js file -->
+    <script src="{{ asset('js/Zoom/tool.js') }}"></script>
+    <script src="{{ asset('js/Zoom/vconsole.min.js') }}"></script>
     <script src="{{ asset('js/Zoom/index.js') }}"></script>
+    <script>
+        startMeeting('{{ $meeting_number }}');
+    </script>
 @endpush

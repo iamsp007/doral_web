@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/dropzone.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/dropzone.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/dropzone.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/dropzone.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/referral/vbc-upload-bulk-data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/referral/vbc-upload-bulk-data.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -247,6 +242,7 @@
       <workItem from="1608958036593" duration="13204000" />
       <workItem from="1609130480191" duration="21458000" />
       <workItem from="1609171251574" duration="6209000" />
+      <workItem from="1609212098428" duration="2662000" />
     </task>
     <servers />
   </component>

@@ -1,4 +1,4 @@
-@extends('layouts.admin.default')
+@extends('pages.layouts.app')
 @section('content')
 
 @stop

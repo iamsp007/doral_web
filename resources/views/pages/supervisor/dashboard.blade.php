@@ -1,9 +1,9 @@
-@extends('pages.supervisor.layouts.app')
-
-@section('title','Welcome to Doral')
+@extends('pages.layouts.app')
+@section('title','Dashboard')
 @section('pageTitleSection')
-    Dashboard
+    Supervisor - Dashboard
 @endsection
+
 
 @section('content')
     <div class="app-clinician-dashboard">

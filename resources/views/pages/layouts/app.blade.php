@@ -21,54 +21,68 @@
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
 <section class="app">
     <section class="app-aside navbar navbar-dark">
-        <div class="sidebar _shrink slide-out" id="collapsibleNavbar">
-            <ul class="cbp-vimenu">
-                <li class="logo"><a href="#" class="icon-logo"></a></li>
-                @php
-                    $file='menu.admin';
-                @endphp
-                @hasrole('clinician')
+        <div class="sidebar _shrink sort-sidebar" id="collapsibleNavbar">
+            <div>
+                <div class="logo">
+                    <a href="#" class="icon-logo"></a>
+                </div>   
+                <ul class="cbp-vimenu">
                     @php
-                      $file='menu.clinician';
+                        $file='menu.admin';
                     @endphp
-                @endrole
-                @hasrole('referral')
-                    @php
-                      $file='menu.referral';
-                    @endphp
-                @endrole
-                @hasrole('supervisor')
-                    @php
-                      $file='menu.supervisor';
-                    @endphp
-                @endrole
-                @hasrole('co-ordinator')
-                    @php
-                      $file='menu.co-ordinator';
-                    @endphp
-                @endrole
-                @foreach(config($file) as $key=>$value)
-                    @if(isset($value['menu']))
-                        <li class="parent">
-                            <a href="#{{ $value['url'] }}">
-                                <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" srcset="{{ asset('assets/img/icons/'.$value['icon']) }}" class="icon">
-                            </a>
-                            <ul class="child">
-                                <li class="arrow--4"></li>
-                                @foreach($value['menu'] as $skey=>$svalue)
-                                    <li><a href="{{ $svalue['url'] }}">{{ $svalue['name'] }}</a></li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    @else
-                        <li data-toggle="tooltip" data-placement="right" title="{{ $value['name'] }}">
-                            <a class="{{ \Request::is($value['route'])?'active':'' }}" href="{{ $value['url'] }}">
-                                <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" srcset="{{ asset('assets/img/icons/'.$value['icon']) }}" class="icon">
+                    @hasrole('clinician')
+                        @php
+                          $file='menu.clinician';
+                        @endphp
+                    @endrole
+                    @hasrole('referral')
+                        @php
+                          $file='menu.referral';
+                        @endphp
+                    @endrole
+                    @hasrole('supervisor')
+                        @php
+                          $file='menu.supervisor';
+                        @endphp
+                    @endrole
+                    @hasrole('co-ordinator')
+                        @php
+                          $file='menu.co-ordinator';
+                        @endphp
+                    @endrole
+                    @foreach(config($file) as $key=>$value)
+                    
+                        @if(!isset($value['menu']))
+                        <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
+                            <a href="{{ $value['url'] }}">
+                                <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">
+                                <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="" class="icon noselected">
                             </a>
                         </li>
-                    @endif
-                @endforeach
-            </ul>
+                        @else
+                            <li class="parent">
+                                <a href="{{ $value['url'] }}">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}"
+                                        class="icon noselected">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon selected">
+                                </a>
+                                <ul class="child">
+                                    <li class="arrow--4"></li>
+                                    @foreach($value['menu'] as $skey=>$svalue)
+                                        <li><a href="{{ $svalue['url'] }}">{{ $svalue['name'] }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+<!--                            <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
+                                <a href="{{ $value['url'] }}">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon noselected">
+                                </a>
+                            </li>-->
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
         </div>
         <!-- Left Section End -->
     </section>

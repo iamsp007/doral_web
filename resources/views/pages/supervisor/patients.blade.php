@@ -1,9 +1,9 @@
-@extends('pages.supervisor.layouts.app')
-
-@section('title','Supervisor Patient List')
+@extends('pages.layouts.app')
+@section('title','Doral Patients')
 @section('pageTitleSection')
-    Patients
+    Patients List
 @endsection
+
 
 @section('content')
 <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">

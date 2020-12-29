@@ -142,9 +142,7 @@ class PatientReferralController extends Controller
     {
         $user = \Illuminate\Support\Facades\Auth::guard('referral')->user();
         $referral_id = $user->referal_id;
-        $fileName = request()->file('file_name');
-        $status = 0;
-        $message = "";
+
         try {
             $file_path = $request->file('file_name')->getPathname();
             $file_mime = $request->file('file_name')->getmimeType();
@@ -205,7 +203,7 @@ class PatientReferralController extends Controller
 
     public function storeOccupational(Request $request)
     {
-        $user = Auth::user();
+        $user = \Illuminate\Support\Facades\Auth::guard('referral')->user();
         $referral_id = $user->referal_id;
         $fileName = request()->file('file_name');
         $status = 0;

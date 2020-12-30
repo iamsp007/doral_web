@@ -22,17 +22,18 @@ class SupervisorService
 
             $response = $this->supervisor->request(
                 'GET',
-                '/get-patient-list',
+                '/auth/getNewPatientList',
                 [
                     'json'=>$data
                 ]
             );
 
             $response = $response->getBody()->getContents();
+            //dd($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
+            dd($exception->getMessage());
         }
     }
 }

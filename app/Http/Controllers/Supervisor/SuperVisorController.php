@@ -26,9 +26,15 @@ class SuperVisorController extends Controller
     public function getPatients(Request $request){
         $supervisorService = new SupervisorService();
         $response = $supervisorService->getPatientList($request->all());
-        dd($response);
+        //dd($response);
         if ($response->status===true){
-            return DataTables::of($response->data)->make(true);
+            return DataTables::of($response->data)
+            ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob));
+                else
+                return '--';
+            })->make(true);
         }
         return DataTables::of($response)->make(true);
     }

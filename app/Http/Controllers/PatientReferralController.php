@@ -187,18 +187,21 @@ class PatientReferralController extends Controller
             $resp = json_decode($response->getBody()->getContents());
             $status = $resp->status===true?1:0;
             $message = $resp->message;
-
+            $response = [
+                'status' => $status,
+                'message' => $message,
+                'date' => $resp->date
+            ];
+            return response()->json($response,$status===1?200:422);
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
+            $response = [
+                'status' => $status,
+                'message' => $message
+            ];
         }
-
-        $response = [
-            'status' => $status,
-            'message' => $message
-        ];
-
-        return response()->json($response, 201);
+        return response()->json($response, 422);
     }
 
     public function storeOccupational(Request $request)

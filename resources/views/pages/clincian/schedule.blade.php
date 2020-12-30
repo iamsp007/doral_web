@@ -22,7 +22,6 @@
         <tbody>
         </tbody>
     </table>
-    <div id="countdown-example"></div>
 @endsection
 
 @push('styles')

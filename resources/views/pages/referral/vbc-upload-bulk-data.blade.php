@@ -14,7 +14,7 @@
                         <figure>
                             <img src="{{ asset('assets/img/icons/demographic-files-icon.svg') }}" class="iconSize" />
                         </figure>
-                        <input type="radio" name="vbc_select" value="1" />
+                        <input onchange="chooseFile(this)" type="radio" name="vbc_select" value="1" />
                         <div class="control_indicator"></div>
                         <span class="_title3">Demographic files</span>
                     </label>
@@ -24,7 +24,7 @@
                         <figure>
                             <img src="{{ asset('assets/img/icons/clinical-history.svg') }}" class="iconSize" />
                         </figure>
-                        <input type="radio" name="vbc_select" value="2" />
+                        <input type="radio" onchange="chooseFile(this)" name="vbc_select" value="2" />
                         <div class="control_indicator"></div>
                         <span class="_title3">Clinical History</span>
                     </label>
@@ -34,7 +34,7 @@
                         <figure>
                             <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
                         </figure>
-                        <input type="radio" name="vbc_select" />
+                        <input type="radio" onchange="chooseFile(this)" name="vbc_select" value="3" />
                         <div class="control_indicator"></div>
                         <span class="_title3"> Order Due Dates</span>
                     </label>
@@ -44,7 +44,7 @@
                         <figure>
                             <img src="{{ asset('assets/img/icons/md-order-icon.svg') }}" class="iconSize" />
                         </figure>
-                        <input type="radio" name="vbc_select" />
+                        <input type="radio" onchange="chooseFile(this)" name="vbc_select" value="4" />
                         <div class="control_indicator"></div>
                         <span class="_title3">Order Due Dates MD Order</span>
                     </label>
@@ -115,6 +115,7 @@
     <script src="{{ asset('js/dropzone.js') }}"></script>
     <script src="{{ asset('assets/js/app.referral.vbc.upload.bulk.data.min.js') }}"></script>
     <script>
+        var fileType = $('input[name="vbc_select"]').val();
         var myDropzone = new Dropzone("#dropzone-file-vbc", {
             url:'{{ route('referral.vbc-upload-bulk-data-store') }}',
             headers: {
@@ -122,56 +123,59 @@
             },
             method:'POST',
             params:{
-                vbc_select:$('input[name="vbc_select"]').val(),
+                vbc_select:fileType,
                 service_id:1
             },
-            autoProcessQueue: true,
-            uploadMultiple: false,
             maxFiles: 1,
+            autoProcessQueue: true,
+            progress:true,
             accept: function(file, done) {
                 console.log("uploaded");
                 done();
             },
             init: function() {
                 this.on("maxfilesexceeded", function(file){
-                    alert('Only one file allowed');
+                    $.toast({
+                        heading: 'Error',
+                        text: 'Only one file allowed',
+                        showHideTransition: 'fade',
+                        icon: 'error'
+                    })
                     return false
+                });
+                this.on("success", function(file, responseText) {
+                    $.toast({
+                        heading: responseText.status===0?'Error':'Success',
+                        text: responseText.message,
+                        showHideTransition: 'slide',
+                        icon: responseText.status===0?'error':'success'
+                    })
+                    setTimeout(function () {
+                       // window.location.reload();
+                    },3000)
                 });
             },
             paramName: 'file_name',
             clickable: true,
             acceptedFiles: ".xls,.xlsx,.csv",
-            addRemoveLinks: true
+            addRemoveLinks: true,
+            error:function (file, error) {
+                if (file && error) {
+                    var msgEl = $(file.previewElement).find('.dz-error-message');
+                    msgEl.text(error.message?error.message:error);
+                    msgEl.show();
+                    msgEl.css("opacity", 1);
+                }else {
+                    var msgEl = $(file.previewElement).find('.dz-error-message');
+                    msgEl.text(error);
+                    msgEl.show();
+                    msgEl.css("opacity", 1);
+                }
+            }
         });
-
-        $(document).ready(function () {
-
-            {{--$.ajaxSetup({--}}
-            {{--    headers: {--}}
-            {{--        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
-            {{--    }--}}
-            {{--});--}}
-
-
-            {{--$('#upload_form').on('submit', function(event){--}}
-            {{--    event.preventDefault();--}}
-            {{--    $(".loader-wrapper").show();--}}
-            {{--    $.ajax({--}}
-            {{--        url:'{{ route('referral.vbc-upload-bulk-data-store') }}',--}}
-            {{--        method:"POST",--}}
-            {{--        data:new FormData(this),--}}
-            {{--        dataType:'JSON',--}}
-            {{--        contentType: false,--}}
-            {{--        cache: false,--}}
-            {{--        processData: false,--}}
-            {{--        success:function(data)--}}
-            {{--        {--}}
-            {{--            $(".loader-wrapper").hide();--}}
-            {{--            window.location = "{{ route('referral.vbc') }}";--}}
-            {{--        }--}}
-            {{--    })--}}
-            {{--});--}}
-
-        });
+        function chooseFile(event) {
+            fileType = $(event).val();
+            console.log(fileType)
+        }
     </script>
 @endpush

@@ -183,14 +183,13 @@ class PatientReferralController extends Controller
                     ]
                 ]
             );
-
             $resp = json_decode($response->getBody()->getContents());
             $status = $resp->status===true?1:0;
             $message = $resp->message;
             $response = [
                 'status' => $status,
                 'message' => $message,
-                'date' => $resp->date
+                'data' => $resp->data
             ];
             return response()->json($response,$status===1?200:422);
         } catch(Exception $e) {

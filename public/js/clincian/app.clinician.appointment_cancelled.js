@@ -83,7 +83,22 @@ $(function () {
         // },1000)
 
     }
+
 });
+$('.app-video').hide();
+$('.scheduled-call').on('click', function () {
+    console.log(123456)
+    $('.app-video').addClass('scale-up-center');
+    setTimeout(() => {
+        $('.app-video').show();
+        $('.app-video').removeClass('scale-down-center');
+    }, 1000);
+})
+$('.closeAppointment').on('click', function () {
+    $('.app-video').removeClass('scale-up-center');
+    $('.app-video').hide();
+    $('.app-video').addClass('scale-down-center');
+})
 function countdown(element, minutes, seconds) {
     // Fetch the display element
     var el = document.getElementById(element);

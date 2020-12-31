@@ -16,7 +16,7 @@
                         </figure>
                         <input onchange="chooseFile(this)" type="radio" name="vbc_select" value="1" />
                         <div class="control_indicator"></div>
-                        <span class="_title3">Demographic files</span>
+                        <span class="_title3">Demographic Info</span>
                     </label>
                 </div>
                 <div class="box">
@@ -26,10 +26,10 @@
                         </figure>
                         <input type="radio" onchange="chooseFile(this)" name="vbc_select" value="2" />
                         <div class="control_indicator"></div>
-                        <span class="_title3">Clinical History</span>
+                        <span class="_title3">Clinical Info</span>
                     </label>
                 </div>
-                <div class="box">
+                <!--<div class="box">
                     <label class="control control-radio block">
                         <figure>
                             <img src="{{ asset('assets/img/icons/order-due-dates-icon.svg') }}" class="iconSize" />
@@ -48,7 +48,7 @@
                         <div class="control_indicator"></div>
                         <span class="_title3">Order Due Dates MD Order</span>
                     </label>
-                </div>
+                </div>-->
             </div>
             <div class="upload-your-files dropzone" id="dropzone-file-vbc">
                 <h1>Upload your files</h1>
@@ -68,34 +68,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="uploaded-file-listing">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div>
-                        <h1 class="_t10">Uploaded files (04)</h1>
-                    </div>
-                    <div>
-                        <select name="" class="form-control form-control-sm" id="">
-                            <option value="">Demographic Files</option>
-                        </select>
-                    </div>
-                </div>
-                <table id="vbc" class="table" style="width:100%">
-                    <thead>
-                        <tr>
-                        <th><input type="checkbox" class="selectall" /></th>
-                        <th>Patient Name</th>
-                        <th>Description</th>
-                        <th>Services</th>
-                        <th>Uploaded Date</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

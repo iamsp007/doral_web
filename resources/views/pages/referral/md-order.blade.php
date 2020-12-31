@@ -22,13 +22,14 @@
     <table id="md" table class="display responsive nowrap" style="width:100%">
         <thead>
             <tr>
-                <th>Patient Name</th>
-                <th>User ID</th>
-                <th>Phone</th>
-                <th>City - State</th>
-                <th>Zip Code</th>
+                <th></th>
+                <th>Name</th>
+                <th>SSN</th>
+                <th>Gender</th>
+                <th>City</th>
+                <th>DOB</th>
                 <th>Due Date</th>
-                <th>Uploaded Date</th>
+                <th>Created Date</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -52,6 +53,7 @@
             serverSide: true,
             ajax: "{{  route('referral.md-order-get-data') }}",
             columns: [
+                {data:'id',name:'id'},
                 {
                     data:'first_name',
                     name:'first_name',
@@ -61,8 +63,8 @@
                         return data;
                     }
                 },
-                {data:'patient_id',name:'patient_id',"bSortable": true},
-                {data:'phone1',name:'phone1',"bSortable": true},
+                {data:'ssn',name:'ssn',"bSortable": true},
+                {data:'gender',name:'gender',"bSortable": true},
                 {
                     data:'city',
                     name:'city',
@@ -72,7 +74,7 @@
                         return row.city+ ' - '+row.state;
                     }
                 },
-                {data:'Zip',name:'Zip',"bSortable": true},
+                {data:'dob',name:'dob',"bSortable": true},
                 {
                     data:'cert_next_date',
                     name:'cert_next_date',

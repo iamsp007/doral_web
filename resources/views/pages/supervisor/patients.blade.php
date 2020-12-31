@@ -19,8 +19,9 @@
             <th>File Type</th>
             <th>Gender</th>
             <th>Date Of Birth</th>
-            <th>Zip Code</th>
-            <th>City - State</th>
+            <!--<th>Zip Code</th>
+            <th>City - State</th>-->
+            <th width="280px">Status</th>
             <th width="280px">Action</th>
         </tr>
         </thead>
@@ -63,7 +64,7 @@
                     name:'dob',
                     "bSortable": true
                 },
-                {data:'Zip',name:'Zip',"bSortable": true},
+                /*{data:'Zip',name:'Zip',"bSortable": true},
                 {
                     data:'city',
                     name:'city',
@@ -72,8 +73,25 @@
 
                         return row.city+ ' - '+row.state;
                     }
-                },
-                {data:'action',name:'action',"bSortable": false}
+                },*/
+                {
+                    data:'status',
+                    name:'status',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+                        if (row.status==="pending"){
+
+                            return '<span class="status-pending">'+row.status+'</span>';
+                        }else if (row.status==="accept"){
+
+                            return '<span class="status-accepted">'+row.status+'</span>'
+                        }else if (row.status==="rescheduled"){
+
+                            return '<span class="status-rescheduled">'+row.status+'</span>';
+                        }
+                        return row.status;
+                    }
+                }
             ],
             "order": [[ 1, "desc" ]],
            'columnDefs': [

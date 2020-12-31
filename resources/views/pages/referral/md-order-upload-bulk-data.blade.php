@@ -142,7 +142,7 @@
                     success:function(data)
                     {
                         $(".loader-wrapper").hide();
-                        window.location = "{{ route('referral.md-order') }}";
+                        {{--window.location = "{{ route('referral.md-order') }}";--}}
                     }
                 })
             });

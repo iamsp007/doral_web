@@ -124,7 +124,7 @@
                     })
                     setTimeout(function () {
                        // window.location.reload();
-                    },3000)
+                    },30000)
                 });
             },
             paramName: 'file_name',

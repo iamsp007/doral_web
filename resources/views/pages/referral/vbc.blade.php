@@ -22,10 +22,10 @@
         <tr>
             <th></th>
             <th>Name</th>
+            <th>SSN</th>
             <th>Gender</th>
-            <th>Phone</th>
             <th>City</th>
-            <th>Zip Code</th>
+            <th>DOB</th>
             <th>Due Date</th>
             <th>Created Date</th>
             <th>Status</th>
@@ -61,8 +61,8 @@
                         return data;
                     }
                 },
+                {data:'ssn',name:'ssn',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
-                {data:'phone1',name:'phone1',"bSortable": true},
                 {
                     data:'city',
                     name:'city',
@@ -72,7 +72,7 @@
                         return row.city+ ' - '+row.state;
                     }
                 },
-                {data:'Zip',name:'Zip',"bSortable": true},
+                {data:'dob',name:'dob',"bSortable": true},
                 {
                     data:'cert_next_date',
                     name:'cert_next_date',

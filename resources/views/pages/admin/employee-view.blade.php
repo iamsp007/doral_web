@@ -1,4 +1,5 @@
-@extends('layouts.admin.default')
+@extends('pages.layouts.app')
+
 @section('content')
 <div class="row">
     <div class="col-12 col-sm-5">

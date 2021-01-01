@@ -1,8 +1,7 @@
-@extends('pages.coordinator.layouts.app')
-
-@section('title','Welcome to Doral')
+@extends('pages.layouts.app')
+@section('title','Book Appointment')
 @section('pageTitleSection')
-    Appointment
+    Book Appointment
 @endsection
 
 @section('content')

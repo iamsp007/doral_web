@@ -120,7 +120,24 @@ class ClinicianService
 
             $response = $this->client->request(
                 'GET',
-                '/auth/appointment'
+                '/get-schedule-appoiment-list'
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
+
+    public function cancelAppoimentList($data){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/get-cancel-appoiment-list'
             );
 
 
@@ -162,8 +179,24 @@ class ClinicianService
                     'json'=>array('appointment_id'=>$appointment_id)
                 ]
             );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
 
+        }
+    }
 
+    public function startVideoMeetingNotification($patient_request_id){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/start-video-meeting-notification',
+                [
+                    'json'=>array('patient_request_id'=>$patient_request_id)
+                ]
+            );
             $response = $response->getBody()->getContents();
             $data = json_decode($response);
             return $data;

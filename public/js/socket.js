@@ -1,4 +1,4 @@
-var socket = io('http://socket.doralhealthconnect.com', {
+var socket = io('https://socket.doralhealthconnect.com', {
     token: 1,
     transports: ['websocket']
 });

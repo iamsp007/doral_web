@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>
 </head>
@@ -21,42 +22,74 @@
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
 <section class="app">
     <section class="app-aside navbar navbar-dark">
-        <div class="sidebar" id="collapsibleNavbar">
-            <div class="block">
-                <!-- Logo Start -->
-                <a href="javascript:void(0)" title="Welcome to Doral">
-                    <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral"
-                         srcset="{{ asset('assets/img/logo-white.svg') }}" class="img-fluid">
-                </a>
-                <!-- Logo End -->
-                <i class="las la-times-circle white d-block d-xl-none d-lg-none d-md-none d-sm-none"
-                   id="closeMenu"></i>
-            </div>
-            <ul class="sidenav">
-                @foreach(config('menu.clinician') as $key=>$value)
-                    @if(isset($value['menu']))
-                        <li id="dropdown">
-                            <a class="nav" data-toggle="collapse" href="#{{ $value['url'] }}">{{ $value['name'] }}<i
-                                    class="las la-angle-down _arrow"></i></a>
-                            <ul class="sub collapse" id="{{ $value['url'] }}">
-                                @foreach($value['menu'] as $skey=>$svalue)
-                                    <li>
-                                        <a class="_nav" href="{{ $svalue['url'] }}">{{ $svalue['name'] }}<span class="dot"></span></a>
-                                    </li>
-                                @endforeach
-                            </ul>
+        <div class="sidebar _shrink sort-sidebar" id="collapsibleNavbar">
+            <div>
+                <div class="logo">
+                    <a href="#" class="icon-logo"></a>
+                </div>
+                <ul class="cbp-vimenu">
+                    @php
+                        $file='menu.admin';
+                    @endphp
+                    @hasrole('clinician')
+                        @php
+                          $file='menu.clinician';
+                        @endphp
+                    @endrole
+                    @hasrole('referral')
+                        @php
+                          $file='menu.referral';
+                        @endphp
+                    @endrole
+                    @hasrole('supervisor')
+                        @php
+                          $file='menu.supervisor';
+                        @endphp
+                    @endrole
+                    @hasrole('co-ordinator')
+                        @php
+                          $file='menu.co-ordinator';
+                        @endphp
+                    @endrole
+                    @foreach(config($file) as $key=>$value)
+
+                        @if(!isset($value['menu']))
+                        <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
+                            <a href="{{ $value['url'] }}">
+                                <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">
+                                <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="" class="icon noselected">
+                            </a>
                         </li>
-                    @else
-                        <li><a class="{{ \Request::is($value['route'])?'nav active':'nav' }}" href="{{ $value['url'] }}">{{ $value['name'] }}<span class="dot"></span></a></li>
-                    @endif
-                @endforeach
-            </ul>
+                        @else
+                            <li class="parent">
+                                <a href="{{ $value['url'] }}">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}"
+                                        class="icon noselected">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon selected">
+                                </a>
+                                <ul class="child">
+                                    <li class="arrow--4"></li>
+                                    @foreach($value['menu'] as $skey=>$svalue)
+                                        <li><a href="{{ $svalue['url'] }}">{{ $svalue['name'] }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+<!--                            <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
+                                <a href="{{ $value['url'] }}">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon noselected">
+                                </a>
+                            </li>-->
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
         </div>
         <!-- Left Section End -->
     </section>
-    <section class="app-content">
+    <section class="app-content _new">
         <!-- Right section Start-->
-        <header class="app-header-block">
+        <header class="app-header-block _fullwidth">
             <div class="app-header">
                 <div class="nav">
                     <button class="navbar-toggler d-none" type="button" data-toggle="collapse"
@@ -65,7 +98,11 @@
                             <span class="navbar-toggler-icon">
                                 <i class="las la-bars white"></i>
                             </span></button>
-                    <h1 class="title">Clinician</h1>
+                    <h1 class="title">
+                        @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
+                            {{ $value }}
+                        @endforeach
+                    </h1>
                 </div>
                 <div>
                     <ul class="menus">
@@ -79,7 +116,11 @@
                             <div class="dropdown user-dropdown">
                                 <div class="user dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
                                      aria-haspopup="true" aria-expanded="false">
-                                    <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                                    @hasrole('referral')
+                                        <span>Hi, {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                                    @else
+                                        <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                                    @endrole
                                     <a href="javascript:void(0)">
                                         <i class="las la-user-circle la-3x ml-2"></i>
                                     </a>
@@ -98,7 +139,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="app-title-box">
+            <div class="app-title-box _full">
                 <div class="app-title">
                     @yield('pageTitleSection')
                 </div>
@@ -110,12 +151,15 @@
         </section>
     </section>
 </section>
+@yield('app-video')
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/app.common.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
 <script src="{{ asset('js/socket.js') }}"></script>
 <script>
     var base_url = $('#base_url').val();

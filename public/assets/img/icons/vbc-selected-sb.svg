@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="64px" height="64px" viewbox="0 0 64 64" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <rect width="64" height="64" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="Quad-HD-Copy" clip-path="url(#clip_1)">
+    <g id="vbs-service" transform="translate(4 4)">
+      <path d="M0 27.5C0 12.3122 12.3122 0 27.5 0C42.6878 0 55 12.3122 55 27.5C55 42.6878 42.6878 55 27.5 55C12.3122 55 0 42.6878 0 27.5Z" id="Ellipse" fill="none" fill-rule="evenodd" stroke="#006C76" stroke-width="2" />
+      <g id="V" fill="#006C76" transform="translate(14 6)">
+        <path d="M27.216 9.4L16.308 34.6L10.548 34.6L-0.324 9.4L5.976 9.4L13.644 27.4L21.42 9.4L27.216 9.4Z" />
+      </g>
+    </g>
+  </g>
+</svg>

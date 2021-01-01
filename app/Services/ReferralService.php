@@ -139,7 +139,7 @@ class ReferralService
     }
 
     public function mdOrderUploadBulk(){
-        echo env('API_URL');
+        //echo env('API_URL');
         try {
 
             $response = $this->client->request(
@@ -149,7 +149,7 @@ class ReferralService
 
 
             $response = $response->getBody()->getContents();
-            dd($response);
+            //dd($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){

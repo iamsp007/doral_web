@@ -30,14 +30,14 @@ class PatientReferralController extends Controller
         return view('pages.referral.occupational-health-upload-bulk-data');
     }
     public function mdOrderUploadBulk() {
-        echo env('API_URL');
+        //echo env('API_URL');
         $status = 0;
         $message = "";
         $record = [];
         try {
-            echo "1";
+            //echo "1";
             $referralservice = new ReferralService();
-            echo "2";
+            //echo "2";
             $response = $referralservice->mdOrderUploadBulk();
             if ($response->status===true){
                 return view('pages.referral.md-order-upload-bulk-data')->with('data', $response->data);
@@ -47,9 +47,9 @@ class PatientReferralController extends Controller
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
-            dd($message);
+            //dd($message);
         }
-        dd('test');
+        //dd('test');
         return view('pages.referral.md-order-upload-bulk-data');
     }
     public function mdOrder() {

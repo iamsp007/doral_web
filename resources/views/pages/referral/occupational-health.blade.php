@@ -1,4 +1,20 @@
-@extends('layouts.referral.default')
+@extends('pages.layouts.app')
+
+@section('title','Welcome to Doral')
+@section('pageTitleSection')
+    Occupational Health - Total Patient Data
+@endsection
+
+@section('upload-btn')
+    <div class="d-flex">
+        {{--        <a href="javascript:void(0)" class="single-upload-btn mr-2">--}}
+        {{--            <img src="../assets/img/icons/single-upload-icon.svg" class="icon mr-2" />--}}
+        {{--            New Patient</a>--}}
+        <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn">
+            <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+            Bulk Patient Upload</a>
+    </div>
+@endsection
 @section('content')
 <div class="app-vbc">
 <table id="occupational" table class="display responsive nowrap" style="width:100%">
@@ -6,11 +22,11 @@
         <tr>
             <th></th>
             <th>Name</th>
-            <th>Caregiver Code</th>
             <th>SSN</th>
-            <th>Phone</th>
-            <th>Email</th>
+            <th>Gender</th>
+            <th>City</th>
             <th>DOB</th>
+            <th>Due Date</th>
             <th>Created Date</th>
             <th>Status</th>
         </tr>
@@ -45,13 +61,25 @@
                         return data;
                     }
                 },
-                {data:'caregiver_code',name:'caregiver_code',"bSortable": true},
                 {data:'ssn',name:'ssn',"bSortable": true},
-                {data:'phone1',name:'phone1',"bSortable": true},
-                {data:'email',name:'email',"bSortable": true},
+                {data:'gender',name:'gender',"bSortable": true},
+                {
+                    data:'city',
+                    name:'city',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+
+                        return row.city+ ' - '+row.state;
+                    }
+                },
                 {
                     data:'dob',
                     name:'dob',
+                    "bSortable": true
+                },
+                {
+                    data:'cert_next_date',
+                    name:'cert_next_date',
                     "bSortable": true
                 },
                 {

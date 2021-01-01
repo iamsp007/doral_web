@@ -19,6 +19,7 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
+
         if (Auth::check()){
             if (Auth::user()->hasRole('clinician')){
                 $path=explode('/',$request->path());

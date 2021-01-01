@@ -1,4 +1,8 @@
-@extends('layouts.admin.default')
+@extends('pages.layouts.app')
+@section('title','Admin - Referral Profile')
+@section('pageTitleSection')
+    Referral Profile
+@endsection
 @section('content')
 <div class="row">
     <div class="col-12 col-sm-4">

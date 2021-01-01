@@ -1,8 +1,8 @@
-@extends('pages.coordinator.layouts.app')
+@extends('pages.layouts.app')
 
-@section('title','Welcome to Doral')
+@section('title','Co-Ordinator Dashboard')
 @section('pageTitleSection')
-    Dashboard
+    Co-Ordinator Dashboard
 @endsection
 
 @section('content')

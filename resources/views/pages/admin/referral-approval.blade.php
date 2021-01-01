@@ -1,4 +1,8 @@
-@extends('layouts.admin.default')
+@extends('pages.layouts.app')
+@section('title','Admin - Referrals')
+@section('pageTitleSection')
+    Admin - Refrrals
+@endsection
 @section('content')
 <div class="app-roles">
     <div class="pt-2">
@@ -88,82 +92,85 @@
         </table>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
+@endsection
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+@push('scripts')
+    <script>
+        $(document).ready(function () {
 
-        $(".acceptid").click(function() {
-
-            var company_id = $(this).attr('id');
-            var status = "1";
-            $.ajax({
-                method: 'POST',
-                url: '{{ route('admin.updateStatus') }}',
-                data: {company_id, status},
-                success: function( response ){
-                    if(response.status == 1) {
-                        $(".alert-success").show();
-                        $(".alert-danger").hide();
-                        $("#successResponse").text(response.message);
-                        setTimeout(function(){
-                           window.location.reload();
-                        }, 1000);
-                    }
-                    else {
-                        $(".alert-danger").show();
-                        $(".alert-success").hide();
-                        $("#errorResponse").text(response.message);
-                        setTimeout(function(){
-                            window.location.reload();
-                        }, 1000);
-                    }
-                    console.log( response );
-                },
-                error: function( e ) {
-                    console.log(e);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-        });
+            $(".acceptid").click(function() {
 
-        $(".rejectid").click(function() {
-            var company_id = $(this).attr('id');
-            var status = "3";
-            //alert(company_id);
-            $.ajax({
-                method: 'POST',
-                url: '{{ route("admin.updateStatus") }}',
-                data: {company_id, status},
-                success: function( response ){
-                    if(response.status == 1) {
-                        $(".alert-success").show();
-                        $(".alert-danger").hide();
-                        $("#successResponse").text(response.message);
-                        setTimeout(function(){
-                            $(".alert-success").hide();
-                        }, 1000);
-                    }
-                    else {
-                        $(".alert-danger").show();
-                        $(".alert-success").hide();
-                        $("#errorResponse").text(response.message);
-                        setTimeout(function(){
+                var company_id = $(this).attr('id');
+                var status = "1";
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ route('admin.updateStatus') }}',
+                    data: {company_id, status},
+                    success: function( response ){
+                        if(response.status == 1) {
+                            $(".alert-success").show();
                             $(".alert-danger").hide();
-                        }, 1000);
+                            $("#successResponse").text(response.message);
+                            setTimeout(function(){
+                                window.location.reload();
+                            }, 1000);
+                        }
+                        else {
+                            $(".alert-danger").show();
+                            $(".alert-success").hide();
+                            $("#errorResponse").text(response.message);
+                            setTimeout(function(){
+                                window.location.reload();
+                            }, 1000);
+                        }
+                        console.log( response );
+                    },
+                    error: function( e ) {
+                        console.log(e);
                     }
-                    console.log( response );
-                },
-                error: function( e ) {
-                    console.log(e);
-                }
+                });
+
             });
 
+            $(".rejectid").click(function() {
+                var company_id = $(this).attr('id');
+                var status = "3";
+                //alert(company_id);
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ route("admin.updateStatus") }}',
+                    data: {company_id, status},
+                    success: function( response ){
+                        if(response.status == 1) {
+                            $(".alert-success").show();
+                            $(".alert-danger").hide();
+                            $("#successResponse").text(response.message);
+                            setTimeout(function(){
+                                $(".alert-success").hide();
+                            }, 1000);
+                        }
+                        else {
+                            $(".alert-danger").show();
+                            $(".alert-success").hide();
+                            $("#errorResponse").text(response.message);
+                            setTimeout(function(){
+                                $(".alert-danger").hide();
+                            }, 1000);
+                        }
+                        console.log( response );
+                    },
+                    error: function( e ) {
+                        console.log(e);
+                    }
+                });
+
+            });
         });
-    });
-</script>
-@stop
+    </script>
+@endpush

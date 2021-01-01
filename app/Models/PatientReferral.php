@@ -40,7 +40,7 @@ class PatientReferral extends Model
         return $this->hasOne(FileTypeMaster::class,'id','file_type');
     }
     public static function getAccepted(){
-        return PatientReferral::with('service','filetype')->where('status','accept')->get();
+        return PatientReferral::select("*", \DB::raw("CONCAT(first_name,' ',last_name) as full_name"))->with('service','filetype')->where('status','accept')->get();
     }
     
 }

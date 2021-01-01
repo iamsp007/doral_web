@@ -1,4 +1,20 @@
-@extends('layouts.referral.default')
+@extends('pages.layouts.app')
+
+@section('title','Welcome to Doral')
+@section('pageTitleSection')
+    VBC - Patient Data
+@endsection
+
+@section('upload-btn')
+    <div class="d-flex">
+        {{--        <a href="javascript:void(0)" class="single-upload-btn mr-2">--}}
+        {{--            <img src="../assets/img/icons/single-upload-icon.svg" class="icon mr-2" />--}}
+        {{--            New Patient</a>--}}
+        <a href="{{ route('referral.vbc-upload-bulk-data') }}" class="bulk-upload-btn">
+            <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+            Bulk Patient Upload</a>
+    </div>
+@endsection
 @section('content')
 <div class="app-vbc">
 <table id="vbc" table class="display responsive nowrap" style="width:100%">
@@ -6,10 +22,10 @@
         <tr>
             <th></th>
             <th>Name</th>
+            <th>SSN</th>
             <th>Gender</th>
-            <th>Phone</th>
             <th>City</th>
-            <th>Zip Code</th>
+            <th>DOB</th>
             <th>Due Date</th>
             <th>Created Date</th>
             <th>Status</th>
@@ -45,8 +61,8 @@
                         return data;
                     }
                 },
+                {data:'ssn',name:'ssn',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
-                {data:'phone1',name:'phone1',"bSortable": true},
                 {
                     data:'city',
                     name:'city',
@@ -56,7 +72,7 @@
                         return row.city+ ' - '+row.state;
                     }
                 },
-                {data:'Zip',name:'Zip',"bSortable": true},
+                {data:'dob',name:'dob',"bSortable": true},
                 {
                     data:'cert_next_date',
                     name:'cert_next_date',

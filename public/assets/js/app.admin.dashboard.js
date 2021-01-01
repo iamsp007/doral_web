@@ -1,42 +1,35 @@
 $(function () {
-    var np = $('_np'),
-    physio = $('._physio');
-    var x = document.getElementById("mySelect").value;
-    document.getElementById("demo").innerHTML = "You selected: " + x;
-    np.show();
-    physio.hide();
+    var create = $('._create'),
+        delet = $('._delete'),
+        update = $('._update');
+    var np = $('._np'),
+        physio = $('._physio'),
+        sa = $('._sa');
+    // Designation list
     tail.select(".designation_list", {
         search: !0,
         placeholder: "Select Designation"
     });
-    // $('.designation_list').change(function(){
-    //     $('.left-side').hide();
-    //     $('#' + $(this).val()).show();
-    //   });
-    $('.designation_list').on('change', function (item, state) {
-        var countries = [];
-        $.each($('.designation_list option:selected'), function () {
-            countries.push(this.value);
-        });
-        var text = "";
-        var i;
-        for (i = 0; i < countries.length; i++) {
-            text +=
-                countries[i]
-        }
-        if (text == "Physiotherapy") {
-            // alert('Physiotherapy')
-            np.hide()
-            physio.show();
-        }
-       else if (text == "Nurse Practitioner") {
-            // alert('Nurse Practitioner')
-            physio.hide(),
-            np.show()
-        }
-    })
+    np.show();
+    physio.hide();
+    sa.hide();
+    $(".designation_list").on("change", function () {
+        "Physiotherapy" == $(".designation_list").val() ? (np.hide(), physio.show(),sa.hide()) : 
+        ("Nurse Practitioner" == $(".designation_list").val()) ? (np.show(), physio.hide(),sa.hide()) :     
+        (sa.show(),np.hide(), physio.hide());
+        console.log('hi')
+    });
+    // Permission list
+    tail.select(".permission_list", {
+        search: !0,
+        placeholder: "Select Designation"
+    });
+    create.show();
+    delet.hide();
+    update.hide();
+    $(".permission_list").on("change", function () {
+        "Delete" == $(".permission_list").val() ? (create.hide(), delet.show(),update.hide()) : 
+        ("Update" == $(".permission_list").val()) ? (create.hide(), delet.hide(),update.show()) :     
+        (update.hide(),create.show(), delet.hide())
+    });
 });
-// function myFunction() {
-//     var x = document.getElementsByClassName("designation_list").value;
-//     document.getElementsByClassName("_np").innerHTML = "You selected: " + x;
-//   }

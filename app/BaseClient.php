@@ -54,14 +54,13 @@ class BaseClient
         $uri = $this->baseUrl . $uri;
 
         try {
-
             return $response =  $this->client->request($method, $uri, $options);
         } catch (ClientException $e) {
 
             if (401 == $e->getCode()) {
 
                 $this->acquireToken();
-                
+
                 $options['headers']['Authorization'] = cache('ADMIN_SSO_TOKEN');
 
                 try {
@@ -109,5 +108,5 @@ class BaseClient
             }
         } catch (\Exception $e) {
         }
-    } 
+    }
 }

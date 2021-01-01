@@ -22,11 +22,11 @@
         <tr>
             <th></th>
             <th>Name</th>
-            <th>Caregiver Code</th>
             <th>SSN</th>
-            <th>Phone</th>
-            <th>Email</th>
+            <th>Gender</th>
+            <th>City</th>
             <th>DOB</th>
+            <th>Due Date</th>
             <th>Created Date</th>
             <th>Status</th>
         </tr>
@@ -61,13 +61,25 @@
                         return data;
                     }
                 },
-                {data:'caregiver_code',name:'caregiver_code',"bSortable": true},
                 {data:'ssn',name:'ssn',"bSortable": true},
-                {data:'phone1',name:'phone1',"bSortable": true},
-                {data:'email',name:'email',"bSortable": true},
+                {data:'gender',name:'gender',"bSortable": true},
+                {
+                    data:'city',
+                    name:'city',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+
+                        return row.city+ ' - '+row.state;
+                    }
+                },
                 {
                     data:'dob',
                     name:'dob',
+                    "bSortable": true
+                },
+                {
+                    data:'cert_next_date',
+                    name:'cert_next_date',
                     "bSortable": true
                 },
                 {

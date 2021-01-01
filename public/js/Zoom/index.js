@@ -1,59 +1,54 @@
-
-ZoomMtg.setZoomJSLib('https://dmogdx0jrul3u.cloudfront.net/1.8.5/lib', '/av');
-
-// For Global use source.zoom.us:
 ZoomMtg.setZoomJSLib('https://source.zoom.us/1.8.5/lib', '/av');
-// In China use jssdk.zoomus.cn:
-ZoomMtg.setZoomJSLib('https://jssdk.zoomus.cn/1.8.5/lib', '/av');
 
 ZoomMtg.preLoadWasm();
-ZoomMtg.prepareJssdk()
+ZoomMtg.prepareJssdk();
 
 const zoomMeeting = document.getElementById("zmmtg-root")
-function startMeeting(meetingNumber){
+function startMeeting(meetConfig){
     $("#loader-wrapper").show();
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url:base_url+'zoom-generate_signature',
         method:'POST',
-        data:{
-            meeting_number:meetingNumber
-        },
+        data:meetConfig,
         dataType:'json',
         success:function (response) {
-            // console.log(response)
-            const meetConfig = {
-                apiKey: response.apiKey,
-                meetingNumber: response.meetingNumber,
-                leaveUrl: base_url+'clinician/scheduled-appointment',
-                webEndpoint: base_url+'clinician',
-                userName: response.userName,
-                userEmail: response.userEmail,
-                role: 0 // 1 for host; 0 for attendee
-            };
-            var signature = ZoomMtg.generateSignature({
-                meetingNumber: meetConfig.meetingNumber,
-                apiKey: meetConfig.apiKey,
-                apiSecret: response.api_secret,
-                role: meetConfig.role,
-                success: function (res) {
-                    // console.log(res);
-                    meetConfig.signature = res.result;
-                    meetConfig.apiKey = response.apiKey;
-
-                    const simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11]))
-                    simd().then((res) => {
-                        console.log("simd check", res);
+            console.log(response)
+            ZoomMtg.init({
+                leaveUrl: 'http://localhost/doral_web/public/clinician/scheduled-appointment',
+                isSupportAV: true,
+                success: function(resp) {
+                    console.log(resp)
+                    ZoomMtg.join({
+                        meetingNumber: response.meetingNumber,
+                        userName: 'Sunil Karmur',
+                        signature: response.signature,
+                        apiKey: response.api_key,
+                        userEmail: 'response.userEmail',
+                        role:response.role,
+                        success: function (res) {
+                            console.log("join meeting success");
+                            console.log("get attendeelist");
+                            ZoomMtg.getAttendeeslist({});
+                            ZoomMtg.getCurrentUser({
+                                success: function (res) {
+                                    console.log("success getCurrentUser", res.result.currentUser);
+                                },
+                            });
+                        },
+                        error: function (res) {
+                            console.log(res,"test");
+                        },
                     });
-
-                    beginJoin(signature,meetConfig)
                 },
-                error:function (error) {
-                    console.log(error)
+                error(res) {
+                    console.log(res)
                 }
-            });
+            })
+
         },
         error:function (error) {
             console.log(error)
@@ -67,15 +62,14 @@ function beginJoin(signature,meetingConfig) {
         debug:true,
         leaveUrl: meetingConfig.leaveUrl,
         webEndpoint: meetingConfig.webEndpoint,
-        success: function () {
-            console.log(meetingConfig);
+        success: function (resp) {
+            console.log(resp);
             ZoomMtg.join({
                 meetingNumber: meetingConfig.meetingNumber,
                 userName: meetingConfig.userName,
-                signature: meetingConfig.signature,
+                signature: signature,
                 apiKey: meetingConfig.apiKey,
                 userEmail: meetingConfig.userEmail,
-                passWord: meetingConfig.passWord,
                 success: function (res) {
                     console.log("join meeting success");
                     console.log("get attendeelist");

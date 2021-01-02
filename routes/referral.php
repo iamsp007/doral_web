@@ -6,9 +6,9 @@ Route::post('/provider/login','\App\Http\Controllers\Auth\ReferralLoginControlle
 Route::get('/register','\App\Http\Controllers\Auth\ReferralRegisterController@showRegistrationForm')->name('referral.showRegistrationForm');
 Route::post('/register','\App\Http\Controllers\Auth\ReferralRegisterController@register')->name('referral.register');
 
-Route::group(['prefix'=>'/referral','middleware'=>['role:referral']],function (){
+Route::group(['prefix'=>'/referral'],function (){
 //    \Illuminate\Support\Facades\Auth::routes();
-    Route::group(['middleware'=>['auth:referral','check']],function (){
+    Route::group(['middleware'=>['auth:referral','role:referral']],function (){
         Route::get('/dashboard', function () {
             return view('pages.referral.dashboard');
         })->name('referral.dashboard');

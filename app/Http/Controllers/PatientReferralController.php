@@ -61,6 +61,12 @@ class PatientReferralController extends Controller
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
             })
+            ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob) );
+                else
+                return '--';
+            })
             ->editColumn('created_at', function ($contact){
                 if($contact->created_at!='')
                 return date('m-d-Y', strtotime($contact->created_at) );
@@ -93,7 +99,29 @@ class PatientReferralController extends Controller
                 $record = $response->data;
             }
 
-            return DataTables::of($record)->make(true);
+            return DataTables::of($record)
+            ->editColumn('first_name', function ($contact){
+                return $contact->first_name." ".$contact->last_name;
+            })
+            ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob) );
+                else
+                return '--';
+            })
+            ->editColumn('created_at', function ($contact){
+                if($contact->created_at!='')
+                return date('m-d-Y', strtotime($contact->created_at) );
+                else
+                return '--';
+            })
+            ->editColumn('cert_next_date', function ($contact){
+                if($contact->cert_next_date!='')
+                return date('m-d-Y', strtotime($contact->cert_next_date) );
+                else
+                return '--';
+            })
+            ->make(true);
 
 
         } catch(Exception $e) {
@@ -128,6 +156,12 @@ class PatientReferralController extends Controller
                 else
                 return '--';
             })
+            ->editColumn('cert_next_date', function ($contact){
+                if($contact->cert_next_date!='')
+                return date('m-d-Y', strtotime($contact->cert_next_date) );
+                else
+                return '--';
+            })
             ->make(true);
 
 
@@ -142,9 +176,7 @@ class PatientReferralController extends Controller
     {
         $user = \Illuminate\Support\Facades\Auth::guard('referral')->user();
         $referral_id = $user->referal_id;
-        $fileName = request()->file('file_name');
-        $status = 0;
-        $message = "";
+
         try {
             $file_path = $request->file('file_name')->getPathname();
             $file_mime = $request->file('file_name')->getmimeType();
@@ -185,94 +217,23 @@ class PatientReferralController extends Controller
                     ]
                 ]
             );
-
             $resp = json_decode($response->getBody()->getContents());
             $status = $resp->status===true?1:0;
             $message = $resp->message;
-
+            $response = [
+                'status' => $status,
+                'message' => $message,
+                'data' => $resp->data
+            ];
+            return response()->json($response,$status===1?200:422);
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
+            $response = [
+                'status' => $status,
+                'message' => $message
+            ];
         }
-
-        $response = [
-            'status' => $status,
-            'message' => $message
-        ];
-
-        return response()->json($response, 201);
+        return response()->json($response, 422);
     }
-
-    public function storeOccupational(Request $request)
-    {
-        $user = Auth::user();
-        $referral_id = $user->referal_id;
-        $fileName = request()->file('file_name');
-        $status = 0;
-        $message = "";
-        try {
-            //  ---------------
-            $url = CurlFunction::getURL().'/api/auth/patient-occupational/storeoccupational';
-            //dd($url);
-            $headerValue = array(
-                'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: '.$this->getOrigin()
-            );
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            //If the function curl_file_create exists
-            if(function_exists('curl_file_create')){
-                $filePath = curl_file_create($fileName->getpathname(), $fileName->getClientMimeType(), $fileName->getClientOriginalName());
-            } else{
-                $filePath = '@' . realpath($fileName->getClientOriginalName());
-                curl_setopt($ch, CURLOPT_SAFE_UPLOAD, false);
-            }
-
-            $data = array(
-                    'file_name' => $filePath,
-                    'referral_id' => $referral_id,
-                    'service_id' => $request->service_id,
-                    'file_type' => $request->vbc_select,
-                    'form_id' => isset($request->formSelect) ? $request->formSelect : NULL
-            );
-            //$data = json_encode($data);
-            //dd($url);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 600);
-            $curlResponse = curl_exec($ch);
-            dd($curlResponse);
-            $responseArray = json_decode($curlResponse, true);
-            if(curl_errno($ch)) {
-                throw new Exception(curl_error($ch));
-            }
-
-            if($responseArray['status']) {
-                $status = 1;
-            }
-            $message = $responseArray['message'];
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-
-        $response = [
-            'status' => $status,
-            'message' => $message
-        ];
-
-        return response()->json($response, 201);
-    }
-    public function getOrigin() {
-        if (strpos(request()->getHost(), '127.0.0.1') !== false) {
-            return 'http://localhost';
-        } else {
-            return 'https://api.doralhealthconnect.com';
-        }
-    }
-
 }

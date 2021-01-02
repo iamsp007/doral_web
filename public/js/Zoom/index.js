@@ -1,10 +1,17 @@
+
 ZoomMtg.setZoomJSLib('https://dmogdx0jrul3u.cloudfront.net/1.8.5/lib', '/av');
 
+// For Global use source.zoom.us:
+ZoomMtg.setZoomJSLib('https://source.zoom.us/1.8.5/lib', '/av');
+// In China use jssdk.zoomus.cn:
+ZoomMtg.setZoomJSLib('https://jssdk.zoomus.cn/1.8.5/lib', '/av');
+
 ZoomMtg.preLoadWasm();
-ZoomMtg.prepareJssdk();
+ZoomMtg.prepareJssdk()
 
 const zoomMeeting = document.getElementById("zmmtg-root")
 function startMeeting(meetingNumber){
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -20,10 +27,10 @@ function startMeeting(meetingNumber){
             const meetConfig = {
                 apiKey: response.apiKey,
                 meetingNumber: response.meetingNumber,
-                leaveUrl: base_url+'clinician/roadl',
+                leaveUrl: base_url+'clinician/scheduled-appointment',
+                webEndpoint: base_url+'clinician',
                 userName: response.userName,
                 userEmail: response.userEmail,
-                passWord: 'password', // if required
                 role: 0 // 1 for host; 0 for attendee
             };
             var signature = ZoomMtg.generateSignature({
@@ -35,6 +42,12 @@ function startMeeting(meetingNumber){
                     // console.log(res);
                     meetConfig.signature = res.result;
                     meetConfig.apiKey = response.apiKey;
+
+                    const simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11]))
+                    simd().then((res) => {
+                        console.log("simd check", res);
+                    });
+
                     beginJoin(signature,meetConfig)
                 },
                 error:function (error) {
@@ -53,7 +66,7 @@ function beginJoin(signature,meetingConfig) {
     ZoomMtg.init({
         debug:true,
         leaveUrl: meetingConfig.leaveUrl,
-        webEndpoint: meetingConfig.leaveUrl,
+        webEndpoint: meetingConfig.webEndpoint,
         success: function () {
             console.log(meetingConfig);
             ZoomMtg.join({

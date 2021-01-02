@@ -1,8 +1,7 @@
 ZoomMtg.setZoomJSLib('https://source.zoom.us/1.8.5/lib', '/av');
 
 ZoomMtg.i18n.load('en-US');
-// other: if you joined meeting and want change language, you need add another api
-ZoomMtg.reRender({lang: 'zoom support language or you-lang-name' });
+
 
 
 ZoomMtg.preLoadWasm();
@@ -29,7 +28,6 @@ function startMeeting(meetingConfig){
                 isSupportAV: true,
                 disableInvite: true,
                 success: function () {
-
                     ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
                         console.log("onMeetingStatus, status = ",data.meetingStatus);
                     });

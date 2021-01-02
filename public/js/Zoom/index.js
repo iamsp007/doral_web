@@ -1,10 +1,15 @@
 ZoomMtg.setZoomJSLib('https://source.zoom.us/1.8.5/lib', '/av');
 
+ZoomMtg.i18n.load('en-US');
+// other: if you joined meeting and want change language, you need add another api
+ZoomMtg.reRender({lang: 'zoom support language or you-lang-name' });
+
+
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareJssdk();
 
 const zoomMeeting = document.getElementById("zmmtg-root")
-function startMeeting(meetConfig){
+function startMeeting(meetingConfig){
     $("#loader-wrapper").show();
 
     $.ajax({
@@ -13,41 +18,51 @@ function startMeeting(meetConfig){
         },
         url:base_url+'zoom-generate_signature',
         method:'POST',
-        data:meetConfig,
+        data:meetingConfig,
         dataType:'json',
         success:function (response) {
-            console.log(response)
+            $("#loader-wrapper").hide();
             ZoomMtg.init({
-                leaveUrl: 'http://localhost/doral_web/public/clinician/scheduled-appointment',
+                leaveUrl: meetingConfig.leaveUrl,
+                webEndpoint: meetingConfig.webEndpoint,
+                meetingInfo: ['topic', 'host'],
                 isSupportAV: true,
-                success: function(resp) {
-                    console.log(resp)
+                disableInvite: true,
+                success: function () {
+
+                    ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
+                        console.log("onMeetingStatus, status = ",data.meetingStatus);
+                    });
+
                     ZoomMtg.join({
                         meetingNumber: response.meetingNumber,
-                        userName: 'Sunil Karmur',
+                        userName: 'userName',
                         signature: response.signature,
-                        apiKey: response.api_key,
-                        userEmail: 'response.userEmail',
-                        role:response.role,
+                        apiKey: meetingConfig.apiKey,
+                        apiSecret: response.apiSecret,
+                        userEmail: 'meetingConfig.userEmail',
+                        passWord: meetingConfig.passWord,
+                        role:meetingConfig.role,
                         success: function (res) {
-                            console.log("join meeting success");
-                            console.log("get attendeelist");
-                            ZoomMtg.getAttendeeslist({});
+
                             ZoomMtg.getCurrentUser({
                                 success: function (res) {
                                     console.log("success getCurrentUser", res.result.currentUser);
                                 },
                             });
+                            ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
+                                console.log("onUserLeave");
+                            });
                         },
                         error: function (res) {
-                            console.log(res,"test");
+                            console.log('failed join.', res);
                         },
                     });
                 },
-                error(res) {
-                    console.log(res)
-                }
-            })
+                error: function (res) {
+                    console.log('failed initialized.', res);
+                },
+            });
 
         },
         error:function (error) {
@@ -106,3 +121,19 @@ function beginJoin(signature,meetingConfig) {
         console.log('inMeetingServiceListener onMeetingStatus', data);
     });
 }
+
+ZoomMtg.inMeetingServiceListener('onUserJoin', function (data) {
+    console.log('inMeetingServiceListener onUserJoin', data);
+});
+
+ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
+    console.log('inMeetingServiceListener onUserLeave', data);
+});
+
+ZoomMtg.inMeetingServiceListener('onUserIsInWaitingRoom', function (data) {
+    console.log('inMeetingServiceListener onUserIsInWaitingRoom', data);
+});
+
+ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
+    console.log('inMeetingServiceListener onMeetingStatus', data);
+});

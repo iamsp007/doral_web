@@ -46,17 +46,9 @@ $(function () {
                 name:'start_datetime',
                 "bSortable": true,
                 render:function (data, type, row, meta) {
-                    console.log(moment(data).fromNow(),data)
                     setInterval(function(){
                         var x = moment(data).fromNow();
                         $("#countdown"+row.id).html(x);
-                        // if (moment(data)>moment()){
-                        //     var x = moment(data).fromNow();
-                        //     $("#countdown"+row.id).html(x);
-                        // }else {
-                        //     $('#meeting-btn-'+row.id).show();
-                        //     $("#countdown"+row.id).html('START!');
-                        // }
                     }, 1000);
                     return '<div class="blink_me"><div id="countdown'+row.id+'"></div></div>';
                 }
@@ -87,7 +79,7 @@ $(function () {
 });
 
 function openMeetingDialog(appointment_id) {
-    $("#loader-wrapper").hide();
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -103,16 +95,18 @@ function openMeetingDialog(appointment_id) {
                 const sources = response.data;
                 var booking_date = moment(sources.start_datetime).format('MM/DD/YYYY HH:mm:ss')
                 setPatientVideoHtml(sources.patients,sources.service,booking_date)
-                console.log(JSON.parse(sources.meeting.zoom_response))
+                $("#loader-wrapper").hide();
                 $('.app-video').addClass('scale-up-center');
+                console.log(JSON.parse(sources.meeting.zoom_response))
                 setTimeout(() => {
                     const meetConfig = {
+                        lang:'en',
                         apiKey: 'cQacFfoJ9uQwgJQA06eYliJgoC1WkCoQ8FP1',
                         meetingNumber: sources.meeting.meeting_id.toString(),
-                        leaveUrl: 'https://yoursite.com/meetingEnd',
-                        userName: 'Firstname Lastname',
-                        passWord: JSON.parse(sources.meeting.zoom_response).password,
-                        role: 0 // 1 for host
+                        leaveUrl: base_url+'clinician/scheduled-appointment',
+                        userName: sources.title,
+                        passWord: JSON.parse(sources.meeting.zoom_response).encrypted_password,
+                        role: "1" // 1 for host
                     };
 
                     startMeeting(meetConfig);
@@ -121,7 +115,6 @@ function openMeetingDialog(appointment_id) {
                     $('.app-video').removeClass('scale-down-center');
                 }, 1000);
             }
-
         },
         error:function (error) {
             console.log(error)

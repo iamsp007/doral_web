@@ -61,7 +61,7 @@ class RoomController extends Controller
         $api_secret = env('ZOOM_API_SECRET');
         $meeting_number = $request->meetingNumber;
         $role = $request->role;
-        $time = time() * 1000;//time in milliseconds (or close enough)
+        $time = time() * 1000 - 3000;//time in milliseconds (or close enough)
 
         $data = base64_encode($api_key . $meeting_number . $time . $role);
 

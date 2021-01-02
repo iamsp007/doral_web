@@ -78,7 +78,6 @@ class PatientController extends Controller
 
         $clinicianService = new ClinicianService();
         $response = $clinicianService->scheduleAppoimentList($request->all());
-
         $data=[];
         if ($response->status===true){
             $data=$response->data;

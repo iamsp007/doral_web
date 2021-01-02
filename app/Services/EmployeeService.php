@@ -178,15 +178,18 @@ class EmployeeService
     /**
      * Get All Appointment of Employee
      */
-    public function getAllAppointment()
+    public function getClinicianTimeSlots($data)
     {
         try {
             $response = $this->client->request(
-                'GET',
-                '/auth/appointment'
+                'POST',
+                '/get-clinician-time-slots',
+                [
+                    'json'=>$data
+                ]
             );
             $response = $response->getBody()->getContents();
-            $data = json_decode($response, true);
+            $data = json_decode($response);
             return $data;
         } catch (\Exception $exception) {
         }

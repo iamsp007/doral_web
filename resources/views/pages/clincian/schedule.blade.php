@@ -102,7 +102,7 @@
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>--}}
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
-    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+{{--    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- import ZoomMtg dependencies -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
@@ -116,8 +116,8 @@
 <script src="https://source.zoom.us/zoom-meeting-1.8.5.min.js"></script>
 
 <!-- import local .js file -->
-{{--<script src="{{ asset('js/Zoom/tool.js') }}"></script>--}}
-{{--    <script src="{{ asset('js/Zoom/vconsole.min.js') }}"></script>--}}
+<script src="{{ asset('js/Zoom/tool.js') }}"></script>
+    <script src="{{ asset('js/Zoom/vconsole.min.js') }}"></script>
 <script src="{{ asset('js/Zoom/index.js') }}"></script>
     <script>
        var scheduleAppointmentAjax = "{{  route('clinician.scheduleAppoimentList.ajax') }}";

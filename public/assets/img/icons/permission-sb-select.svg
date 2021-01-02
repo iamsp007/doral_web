@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="50px" height="50px" viewbox="0 0 50 50" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L40 0L40 40L0 40L0 0Z" id="path_1" />
+    <rect width="50" height="50" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Pixelbook" clip-path="url(#clip_1)">
+    <g id="permission" transform="translate(5 5)">
+      <path d="M0 0L40 0L40 40L0 40L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+      <g clip-path="url(#mask_1)">
+        <path d="M12.0834 6.66656L11.6666 6.66656L11.6666 4.16656C11.6666 1.87012 9.79675 0 7.5 0C5.20325 0 3.33344 1.87012 3.33344 4.16656L3.33344 6.66656L2.91656 6.66656C1.30829 6.66656 0 7.97485 0 9.58344L0 15.4166C0 17.0251 1.30829 18.3334 2.91656 18.3334L12.0834 18.3334C13.6917 18.3334 15 17.0251 15 15.4166L15 9.58344C15 7.97485 13.6917 6.66656 12.0834 6.66656L12.0834 6.66656ZM5.83344 4.16656C5.83344 3.24829 6.58173 2.5 7.5 2.5C8.41827 2.5 9.16656 3.24829 9.16656 4.16656L9.16656 6.66656L5.83344 6.66656L5.83344 4.16656Z" transform="translate(25 20.859375)" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+        <path d="M22.5 9.58344C22.5 7.33337 23.8785 5.40161 25.8334 4.58344L25.8334 4.16656C25.8334 3.15338 26.0782 2.20337 26.485 1.34155C25.2249 0.496521 23.7115 0 22.0834 0L7.91657 0C3.55164 0 0 3.55164 0 7.91656L0 13.75C0 14.44 0.559998 15 1.25 15L22.5 15L22.5 9.58344Z" transform="translate(0 20.859375)" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+        <path d="M16.6669 8.33344C16.6669 12.9358 12.9358 16.6666 8.33343 16.6666C3.73108 16.6666 0 12.9358 0 8.33344C0 3.73108 3.73108 0 8.33343 0C12.9358 0 16.6669 3.73108 16.6669 8.33344L16.6669 8.33344Z" transform="translate(6.666565 0.859375)" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+      </g>
+    </g>
+  </g>
+</svg>

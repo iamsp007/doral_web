@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="30px" height="30px" viewbox="0 0 30 30" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L18 0L18 18L0 18L0 0Z" id="path_1" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="vedio" transform="translate(0.5 0.5)">
+    <path d="M0 14.5C0 6.5 6.5 0 14.5 0C22.5 0 29 6.5 29 14.5C29 22.5 22.5 29 14.5 29C6.5 29 0 22.5 0 14.5L0 14.5Z" id="Ellipse" fill="#FFFFFF" fill-rule="evenodd" stroke="#006C76" stroke-width="1" />
+    <g id="video-camera" transform="translate(5 5)">
+      <path d="M0 0L18 0L18 18L0 18L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+      <g clip-path="url(#mask_1)">
+        <g id="Group" transform="translate(0 3.7122498)">
+          <g id="Group">
+            <path d="M10.1816 0L1.96937 0C0.886214 0 0 0.886215 0 1.96937L0 8.60613C0 9.68928 0.886214 10.5755 1.96937 10.5755L10.1816 10.5755C11.2648 10.5755 12.151 9.68928 12.151 8.60613L12.151 1.96937C12.151 0.866521 11.2648 0 10.1816 0L10.1816 0Z" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+        <g id="Group" transform="translate(13.135681 4.763672)">
+          <g id="Group">
+            <path d="M3.407 0.0317211C3.28884 0.0514148 3.17068 0.110496 3.07221 0.169577L0 1.94201L0 6.51093L3.0919 8.28336C3.66302 8.61816 4.37199 8.42122 4.70678 7.8501C4.80525 7.67286 4.86433 7.47592 4.86433 7.25929L4.86433 1.17395C4.86433 0.445288 4.17506 -0.145522 3.407 0.0317211L3.407 0.0317211Z" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

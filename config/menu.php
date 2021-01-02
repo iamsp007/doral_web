@@ -44,7 +44,7 @@ return [
                 ]
             ]
         ],
-        ['name'=>'RoadL Request','url'=>env('APP_URL').'clinician/roadl','route'=>'clinician/roadl','icon'=>'Request_RoadL.svg','icon_hover'=>'Request_RoadL.svg',
+        ['name'=>'RoadL Request','url'=>env('APP_URL').'clinician/roadl','route'=>'clinician/roadl','icon'=>'request_roadL.svg','icon_hover'=>'request_roadL.svg',
             'icon_title'=>'RoadL Request'],
         [
             'name'=>'Requests',

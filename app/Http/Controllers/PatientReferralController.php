@@ -30,12 +30,14 @@ class PatientReferralController extends Controller
         return view('pages.referral.occupational-health-upload-bulk-data');
     }
     public function mdOrderUploadBulk() {
+        //echo env('API_URL');
         $status = 0;
         $message = "";
         $record = [];
         try {
-
+            //echo "1";
             $referralservice = new ReferralService();
+            //echo "2";
             $response = $referralservice->mdOrderUploadBulk();
             if ($response->status===true){
                 return view('pages.referral.md-order-upload-bulk-data')->with('data', $response->data);
@@ -45,7 +47,9 @@ class PatientReferralController extends Controller
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
+            //dd($message);
         }
+        //dd('test');
         return view('pages.referral.md-order-upload-bulk-data');
     }
     public function mdOrder() {
@@ -60,6 +64,9 @@ class PatientReferralController extends Controller
             return DataTables::of($record)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
+            })
+            ->editColumn('ssn', function ($contact){
+                return 'xxx-xxx-'.substr($contact->ssn, -4);
             })
             ->editColumn('dob', function ($contact){
                 if($contact->dob!='')
@@ -143,6 +150,12 @@ class PatientReferralController extends Controller
             return DataTables::of($record)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
+            })
+            ->editColumn('plans.name', function ($contact){
+                if($contact->benefit_plan!='')
+                return $contact->plans->name;
+                else
+                return '--';
             })
             ->editColumn('created_at', function ($contact){
                 if($contact->created_at!='')

@@ -23,7 +23,8 @@
         <thead>
             <tr>
                 <th></th>
-                <th>Name</th>
+                <th>Patient Name</th>
+                <th>Form</th>
                 <th>SSN</th>
                 <th>Gender</th>
                 <th>City</th>
@@ -63,6 +64,7 @@
                         return data;
                     }
                 },
+                {data:'mdforms.name',name:'mdforms.name',"bSortable": true},
                 {data:'ssn',name:'ssn',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},
                 {

@@ -21,7 +21,7 @@
     <thead>
         <tr>
             <th></th>
-            <th>Name</th>
+            <th>Patient Name</th>
             <th>SSN</th>
             <th>Gender</th>
             <th>City</th>

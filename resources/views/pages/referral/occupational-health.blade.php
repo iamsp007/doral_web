@@ -21,7 +21,8 @@
     <thead>
         <tr>
             <th></th>
-            <th>Name</th>
+            <th>Patient Name</th>
+            <th>Plan</th>
             <th>SSN</th>
             <th>Gender</th>
             <th>City</th>
@@ -60,6 +61,11 @@
                         data = '<a href={{ url('/referral/patient-detail/') }}/' + row.id + '>' + data + '</a>';
                         return data;
                     }
+                },
+                {
+                    data:'plans.name',
+                    name:'plans.name',
+                    "bSortable": true
                 },
                 {data:'ssn',name:'ssn',"bSortable": true},
                 {data:'gender',name:'gender',"bSortable": true},

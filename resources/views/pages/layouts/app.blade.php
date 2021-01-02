@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
     @stack('styles')
@@ -22,7 +23,7 @@
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
 <section class="app">
     <section class="app-aside navbar navbar-dark">
-        <div class="sidebar _shrink sort-sidebar" id="collapsibleNavbar">
+        <div class="sidebar _shrink" id="collapsibleNavbar">
             <div>
                 <div class="logo">
                     <a href="#" class="icon-logo"></a>
@@ -56,16 +57,27 @@
                         @if(!isset($value['menu']))
                         <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                             <a href="{{ $value['url'] }}">
-                                <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">
-                                <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="" class="icon noselected">
+                                <div class="notify <?php if($value['name'] == 'RoadL Request') { echo 'd-90'; } ?>">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> selected">
+                                    <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> noselected">
+                                    <!--<span class="number">6</span>-->
+                                </div>
+                                <?php if($value['name'] != 'RoadL Request') {  ?>
+                                    <p class="i-title">{{ $value['icon_title'] }}</p>
+                                <?php } ?>
                             </a>
+                            
                         </li>
                         @else
                             <li class="parent">
                                 <a href="{{ $value['url'] }}">
-                                    <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}"
+                                    <div class="notify">
+                                        <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}"
                                         class="icon noselected">
-                                    <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon selected">
+                                        <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon selected">
+                                        <!--<span class="number">6</span>-->
+                                    </div>
+                                    <p class="i-title">{{ $value['icon_title'] }}</p>
                                 </a>
                                 <ul class="child">
                                     <li class="arrow--4"></li>
@@ -82,6 +94,16 @@
                             </li>-->
                         @endif
                     @endforeach
+<!--                    <li title="Sign Out">
+                            <a href="">
+                                <div class="notify">
+                                    <img src="../assets/img/icons/logout-sb.svg" alt="Sign Out" class="icon noselected">
+                                    <img src="../assets/img/icons/logout-sb-select.svg" alt="" class="icon selected">
+                                    <span class="number">6</span>
+                                </div>
+                                <p class="i-title">Sign Out</p>
+                            </a>
+                        </li>-->
                 </ul>
             </div>
         </div>
@@ -161,6 +183,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
 <script src="{{ asset('js/socket.js') }}"></script>
+<script src="{{ asset('assets/js/sidebar.js') }}"></script>
 <script>
     var base_url = $('#base_url').val();
 </script>

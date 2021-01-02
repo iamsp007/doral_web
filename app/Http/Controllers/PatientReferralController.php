@@ -110,6 +110,9 @@ class PatientReferralController extends Controller
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
             })
+            ->editColumn('ssn', function ($contact){
+                return 'xxx-xxx-'.substr($contact->ssn, -4);
+            })
             ->editColumn('dob', function ($contact){
                 if($contact->dob!='')
                 return date('m-d-Y', strtotime($contact->dob) );
@@ -150,6 +153,9 @@ class PatientReferralController extends Controller
             return DataTables::of($record)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
+            })
+            ->editColumn('ssn', function ($contact){
+                return 'xxx-xxx-'.substr($contact->ssn, -4);
             })
             ->editColumn('plans.name', function ($contact){
                 if($contact->benefit_plan!='')

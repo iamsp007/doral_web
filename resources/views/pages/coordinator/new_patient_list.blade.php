@@ -108,7 +108,7 @@
                 "bSortable": true,
                 render: function(data, type, row, meta) {
 
-                    var appoinment = '<a href="@php echo url("/co-ordinator/appointment/")@endphp/' + row.id + '" >Book Appoinment</a>';
+                    var appoinment = '<div class="d-flex"><a href="@php echo url("/co-ordinator/appointment/")@endphp/' + row.id + '" class="single-upload-btn mr-2"><img src="../assets/img/icons/appo-btn.svg" class="icon mr-2">Book Appointment</a></div>';
                     return appoinment;
                     /*if (row.status === "pending") {
                         return '<span class="status-pending">' + row.status + '</span>' + appoinment;

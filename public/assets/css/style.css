@@ -1,12 +1,12 @@
 :root{--montserrat-family:Montserrat,sans-serif;--primary-color:#00AFBF;--secondary-color:#07737A;--third-color:#E3FDFF;--pink:#ff104b;--black:#000;--form-control-border-color:#7A7A7A;--sidebar-color:#006C76;--white:#fff;--green:#0E7500;--view:#007291;--add:#1FCEFF;}
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
-body{line-height:1}
+body{line-height:1;position:relative;}
 ol,ul{list-style:none}
 blockquote,q{quotes:none}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}
 table{border-collapse:collapse;border-spacing:0}
-body{padding:0;margin:0;font-family:var(--montserrat-family);font-weight:500;font-size:13px;color:var(--black)}
+body{padding:0;margin:0;font-family:var(--montserrat-family);font-weight:500;font-size:13px;color:var(--black);position:relative;}
 a,button{outline:none!important}
 a:hover{text-decoration:none}
 .form-group{margin-bottom:1.5rem}
@@ -32,6 +32,7 @@ a:hover{text-decoration:none}
 .nogutter > [class*="col-"]:first-child {padding-right: 0;padding-left: 0;}
 .raduis_5{border-radius: 5px!important;}
 .f-15{font-size: 15px;}
+.w-600{font-weight: 600;}
 textarea{resize:none;}
 /* Progress bar */
 .progress{height: 10px;}
@@ -173,6 +174,7 @@ canvas {-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;}
 .blink_me {animation: blinker 1s linear infinite;font-weight: bold;font-size: 18px;color: var(--secondary-color);}
 /* animation Style */
 /* Button Style */
+.fw-600{font-weight:600;}
 .button-control{animation: 2s ease-in-out 1 normal both running fadeIn;}
 .btn-pink{color:var(--white);font-size:14px;font-weight:500;background-color:var(--pink);text-transform:uppercase;border-color:var(--pink)}
 .btn-pink:hover{background-color: #ff3399;color:#fff;border-color:#ff3399; animation-name:fadeIn;animation-duration:4s;animation-timing-function:normal;animation-delay:0;animation-iteration-count:1;animation-direction:normal;animation-fill-mode:none}
@@ -278,7 +280,7 @@ small{font-size:12px}
 /* Footer End */
 /* Dashboard CSS Start */
 .app{padding:0;margin:0}
-.app .app-aside{margin:0;padding:0;opacity:1;display:block!important;position:fixed!important;z-index:9999;float:left}
+.app .app-aside{margin:0;padding:0;opacity:1;display:block!important;position:fixed!important;z-index:999;float:left}
 .app .app-aside .sidebar{width:14.5rem;padding:0;margin:0;background:var(--sidebar-color);align-items:center;}
 .app .app-aside .sidebar .block{display:flex;align-items:flex-start;justify-content:space-between;margin:0;padding:20px;position:relative;animation: 1.75s ease-in-out 1 normal both running fadeInUp;}
 .app .app-aside .sidebar .block #closeMenu{position:absolute;right:15px;top:15px;font-size:25px}
@@ -330,7 +332,7 @@ small{font-size:12px}
 .cbp-vimenu .arrow--4:before{border-color:rgba(255,255,255,0);border-right-color:#d0d0d0;top:56%;margin-top:11px;border-width:11px}
 .app .app-content{position:relative;box-shadow:none;height:100vh;width:calc(100% - 14.5rem);margin-left:14.5rem;background:#fff}
 .app .app-content .app-header-block{width:calc(100% - 14.5rem);position:fixed;right:0;z-index:999}
-.app .app-content .app-header-block .app-header{padding-left:10px;margin:0;background:var(--sidebar-color);display:flex;align-items:center;justify-content:space-between;}
+.app .app-content .app-header-block .app-header{padding: 0 10px;margin:0;background:var(--sidebar-color);display:flex;align-items:center;justify-content:space-between;height: 48px;}
 .app .app-content .app-header-block .app-header .nav{display:flex;align-items:center;}
 .app .app-content .app-header-block .app-header .menus{display:flex;align-items:center;}
 .app .app-content .app-header-block .app-header .menus li{color:var(--white);padding:0 12px}
@@ -348,7 +350,7 @@ small{font-size:12px}
 #closeMenu{cursor:pointer}
 .app .app-content .app-title-box{width:calc(100% - 14.5rem);position:fixed;z-index:-1;right:0;top:59px;padding:10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;  box-shadow: 0px 2px 4px rgba(100,100,100,0.2);}
 .app .app-content .app-title-box .app-title{color:var(--sidebar-color);font-size:16px;font-weight:600;padding:4px 0;margin:0;display:flex;justify-content: flex-start;align-items: center;}
-.app .app-content .app-title-box._full{width:calc(100% - 4rem);position:fixed;z-index:-1;right:0;top:54px;padding:10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;  box-shadow: 0px 2px 4px rgba(100,100,100,0.2);}
+.app .app-content .app-title-box._full{width:calc(100% - 4rem);position:fixed;z-index:-1;right:0;top:47px;padding:10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;  box-shadow: 0px 2px 4px rgba(100,100,100,0.2);height: 50px;}
 .app .app-content .app-body{padding:7.5rem 1rem 1rem;margin:0;overflow-x: hidden;animation: 2s ease-in-out 1 normal both running fadeInUp;height: 100vh;}
 .app .dropdown-menu{z-index:1.0E+19!important}
 .app .app-content .app-body .app-card{border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #d0d0d0;display:block;background-color:#fff;min-height:160px}
@@ -871,6 +873,7 @@ small{font-size:12px}
 ._card{padding: 0;margin:0;border:1px solid #d8d8d8;border-radius:5px;}
 ._card ._card_header{padding:10px;font-weight:500;font-size:13px;border-bottom:1px solid #d8d8d8;display:flex;justify-content: space-between;align-items: center;background-color: #fcfcfc;border-radius:5px;}
 ._card ._card_body{padding:10px;font-size:12px;}
+._m20{margin:0px 20px;}
 ._insurance_company{font-weight:600;color:var(--sidebar-color)}
 /* VBC Add new patient */
 .app .app-content .bg_grey{background-color: #F1F2F4;}
@@ -892,7 +895,7 @@ small{font-size:12px}
 .app .app-content .app-body .patient-details{position: relative;margin-top: 6px;display: flex;justify-content: space-between;}
 .app .app-content .app-body .patient-aside{margin:0;padding:0;opacity:1;display:block!important;z-index:9999;overflow: hidden;width: 250px;}
 .app .app-content .app-body .patient-aside .sidebar{padding:0;margin:0;background:hsl(0, 0%, 100%);align-items:center;height:100%}
-.app .app-content .app-body .patient-aside .sidebar .patient-d-block{box-shadow: 0px 0px 10px rgba(100,100,100,0.25);border: solid 1px #9b9b9b;border-radius: 8px;margin: 0 20px 0 6px;overflow: hidden;}
+.app .app-content .app-body .patient-aside .sidebar .patient-d-block{box-shadow: 0px 0px 10px rgba(100,100,100,0.25);border: solid 1px #9b9b9b;border-radius: 5px;margin: 0 20px 0 6px;overflow: hidden;}
 .app .app-content .app-body .patient-aside .sidebar .patient-d-block .block{display:flex;margin:0;position:relative;margin-bottom: 45px;}
 .app .app-content .app-body .patient-aside .sidebar .patient-d-block .block .img-100{width:70px;height:70px;border-radius:50px;position:absolute;left: 0;top: 35%;right: 0;margin: 0 auto;}
 .app .app-content .app-body .patient-aside .sidebar .patient-d-block .block .height-83{height:58px;background: var(--sidebar-color);width:100%;}
@@ -906,9 +909,12 @@ small{font-size:12px}
 .app .app-content .app-body .patient-aside .sidebar .patient-nav li a{display: block;line-height: 25px;font-size: 14px;font-weight: 400;color: #000;box-sizing: border-box;transition: .4s;display: flex;align-items: center;justify-content: space-between;padding: 6px 10px;border-radius: 7px;    border-left: 3px solid #d8d8d8;margin-bottom: 15px;border-right: 1px solid transparent;border-top: 1px solid transparent;border-bottom: 1px solid transparent;}
 .app .app-content .app-body .patient-aside .sidebar .patient-nav li a:hover{color:#00717c;}
 .app .app-content .app-body .patient-aside .sidebar .patient-nav li .active{color: #006C76;font-weight: 500;border-left: 3px solid #006C76;border-top: 1px solid #006C76;border-bottom: 1px solid #006C76;}
-.app .app-content .app-body .patient-content{width: calc(100% - 250px);box-shadow: 0px 0px 10px rgba(100,100,100,0.25);border: solid 1px #008591;background-color: #fff;border-radius: 8px;padding: .75rem 1.25rem;height: 100vh;}
+.app .app-content .app-body .patient-content{width: calc(100% - 250px);box-shadow: 0px 0px 10px rgba(100,100,100,0.25);border: solid 1px #008591;background-color: #fff;border-radius: 5px;height: 100vh;}
 .app .app-content .app-body .patient-content>.tab-pane {display: block;}
-.app .app-content .app-body .patient-content .patient-name{color:var(--sidebar-color);font-size:14px;font-weight:600;margin:0;text-align: center;line-height: 18px;}
+.app .app-content .app-body .patient-content .card2{box-shadow:none!important;border:none}
+.app .app-content .app-body .patient-content .border-b{ border-bottom: 1px solid var(--sidebar-color);}
+.app .app-content .app-body .patient-content .eSignature{height: 150px;}
+.app .app-content .app-body .patient-content .tab-content label{font-size: 12px!important;}
 .panel .btn{width: 100px;border-radius:none!important;font-size: 14px;}
 /* Common Login page */
 .login .mid .panel{display: flex;flex-wrap: wrap;padding-left: 0;}
@@ -992,3 +998,24 @@ small{font-size:12px}
 .assign-clinician .patient_listing .appoinment-card.selected .rside .t7{color: var(--sidebar-color);}
 .assign-clinician .patient_listing .appoinment-card:hover{background: #fff;border: 1px solid var(--sidebar-color);}
 .assign-clinician .patient_listing .appoinment-card:hover .rside .t7{color: var(--sidebar-color);}
+/* Appointment Scheduled Start Here */
+.app-video{position: absolute;left:0;right:0;height:100vh;background-color: #F9FEFF;z-index:999;top:0;display:none}
+.app-video .app-video-body{padding: 0;margin: 0; position: relative;display: flex;justify-content:space-between;}
+.app-video .app-video-body .app-video-left{padding: 0;margin: 0;width: calc(100% - 60px);}
+.app-video .app-video-body .app-video-middle{padding: 0;margin: 0; width: 60px;background-color: #fff;height: 100vh;-webkit-box-shadow: -5px 0px 5px 0px rgba(50, 50, 50, 0.75);-moz-box-shadow:-5px 0px 5px 0px rgba(50, 50, 50, 0.75);box-shadow:-5px 0px 5px 0px rgba(50, 50, 50, 0.10);}
+.app-video .app-video-body .app-video-middle .app-video-nav{padding: 0;margin:0;display: flex;justify-content: center;align-items: center;flex-direction: column;}
+.app-video .app-video-body .app-video-middle .app-video-nav li{width: 100%;height: 60px;}
+.app-video .app-video-body .app-video-middle .app-video-nav li a{background-color:none;display:block;width: 100%;height: 60px;display: flex;justify-content: center;align-items: center;}
+.app-video .app-video-body .app-video-middle .app-video-nav li.active a{background-color: #E3FDFF;display:block;width: 100%;height: 60px;display: flex;justify-content: center;align-items: center;}
+.app-video .app-video-body .app-video-middle .app-video-nav li:hover a{background-color: #E3FDFF;display:block;width: 100%;height: 60px;display: flex;justify-content: center;align-items: center;}
+.app-video .app-animate{-webkit-animation:scale-up-center .4s cubic-bezier(.39,.575,.565,1.000) both;animation:scale-up-center .4s cubic-bezier(.39,.575,.565,1.000) both}
+.app-video .app-video-body .app-video-right{padding: 0;margin: 0; width: 100%;background-color: #fff;height: 100vh;-webkit-box-shadow: -5px 0px 5px 0px rgba(50, 50, 50, 0.75);-moz-box-shadow:-5px 0px 5px 0px rgba(50, 50, 50, 0.75);box-shadow:-5px 0px 5px 0px rgba(50, 50, 50, 0.10);display:none}
+.scale-up-center{-webkit-animation:scale-up-center 1s cubic-bezier(.39,.575,.565,1.000) both;animation:scale-up-center 1s cubic-bezier(.39,.575,.565,1.000) both}
+ @-webkit-keyframes scale-up-center{0%{-webkit-transform:scale(.5);transform:scale(.5)}100%{-webkit-transform:scale(1);transform:scale(1)}}@keyframes scale-up-center{0%{-webkit-transform:scale(.5);transform:scale(.5)}100%{-webkit-transform:scale(1);transform:scale(1)}}
+.scale-down-center{-webkit-animation:scale-down-center 1s cubic-bezier(.25,.46,.45,.94) both;animation:scale-down-center 1s cubic-bezier(.25,.46,.45,.94) both}
+ @-webkit-keyframes scale-down-center{0%{-webkit-transform:scale(1);transform:scale(1)}100%{-webkit-transform:scale(.5);transform:scale(.5)}}@keyframes scale-down-center{0%{-webkit-transform:scale(1);transform:scale(1)}100%{-webkit-transform:scale(.5);transform:scale(.5)}}
+.app-video .app-video-header{width: 100%;background-color: #fff;text-align: left;}
+.app-video .app-video-header .title{font-size:18px;font-weight: 600;}
+.app-video .app-video-header .user_photo{width: 35px;height: 35px;border-radius: 50%;}
+.app-video .app-video-header p{font-size: 12px;}
+ /* Appointment Scheduled End Here */

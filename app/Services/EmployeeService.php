@@ -183,17 +183,9 @@ class EmployeeService
         try {
             $response = $this->client->request(
                 'GET',
-                '/auth/appointment',
-                [
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
-                ]
+                '/auth/appointment'
             );
-            $response = $response->getBody()->getContents();            
+            $response = $response->getBody()->getContents();
             $data = json_decode($response, true);
             return $data;
         } catch (\Exception $exception) {
@@ -215,13 +207,13 @@ class EmployeeService
                     ]
                 ]
             );
-            $response = $response->getBody()->getContents();            
+            $response = $response->getBody()->getContents();
             $data = json_decode($response, true);
             return $data;
         } catch (\Exception $exception) {
         }
     }
-    
+
     //storeAppointment
     public function storeAppointment( $post_data )
     {
@@ -236,7 +228,7 @@ class EmployeeService
                 "provider1" => $post_data["provider_pa_ma"] ,
                 "provider2" => $post_data["provider"] ,
                 "service_id" => $post_data["service_id"] ,
-                "appointment_url" => "url"  
+                "appointment_url" => "url"
             );
             $response = $this->client->request(
                 'POST',
@@ -251,15 +243,15 @@ class EmployeeService
                     ],
                     //'data' => $appointmentData
                 ]
-            );            
+            );
             $response = $response->getBody()->getContents();
             $data = json_decode($response, true);
             return $data;
         } catch (\Exception $exception) {
-        }        
+        }
     }
 
-    
+
     //auth/service
     public function getAllPatient()
     {
@@ -276,7 +268,7 @@ class EmployeeService
                     ]
                 ]
             );
-            $response = $response->getBody()->getContents();            
+            $response = $response->getBody()->getContents();
             $data = json_decode($response, true);
             return $data;
         } catch (\Exception $exception) {

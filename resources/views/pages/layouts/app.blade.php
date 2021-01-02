@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>
 </head>
@@ -25,7 +26,7 @@
             <div>
                 <div class="logo">
                     <a href="#" class="icon-logo"></a>
-                </div>   
+                </div>
                 <ul class="cbp-vimenu">
                     @php
                         $file='menu.admin';
@@ -51,7 +52,7 @@
                         @endphp
                     @endrole
                     @foreach(config($file) as $key=>$value)
-                    
+
                         @if(!isset($value['menu']))
                         <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                             <a href="{{ $value['url'] }}">
@@ -150,6 +151,7 @@
         </section>
     </section>
 </section>
+@yield('app-video')
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
@@ -157,6 +159,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
 <script src="{{ asset('js/socket.js') }}"></script>
 <script>
     var base_url = $('#base_url').val();

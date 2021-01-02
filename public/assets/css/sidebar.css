@@ -9,11 +9,13 @@
 .cbp-vimenu li .selected{display: none;margin: auto;}
 .cbp-vimenu li .noselected{display: block;margin: auto;}
 .cbp-vimenu .icon{width: 35px;text-align: center;}
-.cbp-vimenu .icon_90{width: 90px;}
+.cbp-vimenu .icon_90{width: 80px;}
 .cbp-vimenu li .notify{position: relative;width: 35px;margin: 0 auto;}
-.cbp-vimenu li .notify.d-90{position: relative;width: 90px;margin: 0 auto;}
+.cbp-vimenu li .notify.d-90{position: relative;width: 80px;margin: 0 auto;}
 .cbp-vimenu li .notify .number{position:absolute;top:0;right:-9px;width:18px;height:18px;font-size:15px;font-weight:600;background:var(--white);border-radius:100px;color:var(--sidebar-color);display:flex;justify-content:center;align-items:center}
 .cbp-vimenu li:hover .notify .number{position:absolute;top:0;right:-9px;width:18px;height:18px;font-size:15px;font-weight:600;background:#006c76;border-radius:100px;color:#fff;display:flex;justify-content:center;align-items:center}
+.cbp-vimenu li .notify.d-90 .number{position:absolute;top:-3px;right:0px;width:18px;height:18px;font-size:15px;font-weight:600;background:var(--white);border-radius:100px;color:var(--sidebar-color);display:flex;justify-content:center;align-items:center}
+.cbp-vimenu li:hover .notify.d-90 .number{position:absolute;top:-3px;right:0px;width:18px;height:18px;font-size:15px;font-weight:600;background:#006c76;border-radius:100px;color:#fff;display:flex;justify-content:center;align-items:center}
 .cbp-vimenu li:hover{background-color: #ffffff;text-align:center;color:#006c76;padding: 6px 0;margin: 0;display: flex;justify-content: center;animation: 0.75s ease-in-out 1 normal both running fadeIn;}
 .cbp-vimenu li:hover .noselected{display: none;margin: auto;}
 .cbp-vimenu li:hover .selected{display: block;margin: auto;}

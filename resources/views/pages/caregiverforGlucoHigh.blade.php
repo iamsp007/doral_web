@@ -123,7 +123,7 @@
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/jquery.validate.min.js"></script>
-    <script src="../assets/js/login.min.js"></script>
+    <script src="../assets/js/login.js"></script>
     <script src="../assets/js/tail.select-full.min.js"></script>
     <script src="../assets/js/app.common.min.js"></script>
     <script src="../assets/js/app.clinician.caregiver.min.js"></script>

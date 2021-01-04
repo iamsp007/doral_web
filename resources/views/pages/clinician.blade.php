@@ -121,7 +121,7 @@
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('assets/js/login.min.js') }}"></script>
+    <script src="{{ asset('assets/js/login.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.clinician.caregiver.min.js') }}"></script>

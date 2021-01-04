@@ -347,5 +347,4 @@
         var patientRequestList='{{ route('clinician.roadl.patientRequestList') }}';
     </script>
     <script src="{{ asset('js/clincian/roadl.js') }}"></script>
-    <script src="{{ asset('js/clincian/broadcast.js') }}"></script>
 @endpush

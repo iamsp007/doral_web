@@ -105,8 +105,8 @@
                                             @endif
                                         </li>
                                         <li>
-                                            <button type="button" class="btn btn-emergency">emergency
-                                                (911)<span></span></button>
+<!--                                            <button type="button" class="btn btn-emergency">emergency
+                                                (911)<span></span></button>-->
                                         </li>
                                     </ul>
                                 </div>
@@ -241,8 +241,8 @@
 {{--                                            class="btn btn-broadcast">Broadcast<span></span></button>--}}
 {{--                                </li>--}}
 {{--                                <li>--}}
-{{--                                    <button type="button" class="btn btn-emergency">emergency--}}
-{{--                                        (911)<span></span></button>--}}
+<!--{{--                                    <button type="button" class="btn btn-emergency">emergency--}}
+{{--                                        (911)<span></span></button>--}}-->
 {{--                                </li>--}}
 {{--                            </ul>--}}
 {{--                        </div>--}}
@@ -318,8 +318,8 @@
 {{--                                            @endif--}}
 {{--                                        </li>--}}
 {{--                                        <li>--}}
-{{--                                            <button type="button" class="btn btn-emergency">emergency--}}
-{{--                                                (911)<span></span></button>--}}
+<!--{{--                                            <button type="button" class="btn btn-emergency">emergency--}}
+{{--                                                (911)<span></span></button>--}}-->
 {{--                                        </li>--}}
 {{--                                    </ul>--}}
 {{--                                </div>--}}

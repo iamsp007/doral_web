@@ -12,7 +12,7 @@
             <th></th>
             <th>Patient Name</th>
             <th>Gender</th>
-            <th>Cause Of Appointment</th>
+            <th>Reason For Appointment</th>
             <th>Date Of Birth</th>
             <th>Remaining Time</th>
             <th>Appointment Date</th>

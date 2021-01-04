@@ -79,10 +79,16 @@
                                 <div class="_rside">
                                     <ul class="actionBar">
                                         <li>
-                                            <div class="search-clinician">
-                                                <input type="text" class="form-control clinician" name="animal"
-                                                       id="searchField" placeholder="Assign Manually">
-                                            </div>
+                                           <div class="input-group-prepend mr-2">
+                                            <select class="select" multiple id="partner-services">
+                                                <option>LAB</option>
+                                                <option>X-Ray</option>
+                                                <option>CHHA</option>
+                                                <option>Home Oxygen</option>
+                                                <option>Home Insfusion</option>
+                                                <option>Wound Care</option>
+                                            </select>
+                                           </div>
                                         </li>
                                         <li>
                                             <button type="button"
@@ -341,4 +347,5 @@
         var patientRequestList='{{ route('clinician.roadl.patientRequestList') }}';
     </script>
     <script src="{{ asset('js/clincian/roadl.js') }}"></script>
+    <script src="{{ asset('js/clincian/broadcast.js') }}"></script>
 @endpush

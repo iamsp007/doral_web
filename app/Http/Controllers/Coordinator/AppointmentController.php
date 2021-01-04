@@ -80,18 +80,15 @@ class AppointmentController extends Controller
     {
 
         try {
-            $post_data = $request->all();
             $employeeServices = new EmployeeService();
-            return $responseArray = $employeeServices->storeAppointment( $post_data );
-
+            $response = $employeeServices->storeAppointment($request->all());
+            if ($response->status===true){
+                return response()->json($response,200);
+            }
+            return response()->json($response,422);
         } catch (\Exception $e) {
-            $response = array(
-                "status" => false,
-                "code" => 200,
-                "message" => $e->getMessage(),
-                "data" => [],
-            );
-            return response()->json($response, 200);
+
+            return response()->json(['status'=>false,'message'=>$e->getMessage()], 422);
         }
     }
 

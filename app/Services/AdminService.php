@@ -28,15 +28,7 @@ class AdminService
 
             $response = $this->client->request(
                 'GET',
-                '/auth/company/'.$type,
-                [
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
-                ]
+                '/auth/company/'.$type
             );
 
 
@@ -54,16 +46,7 @@ class AdminService
 
             $response = $this->client->request(
                 'POST',
-                '/auth/company/store',
-                [
-                    'json'=>$data,
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
-                ]
+                '/auth/company/store'
             );
 
 
@@ -81,16 +64,7 @@ class AdminService
 
             $response = $this->client->request(
                 'POST',
-                '/auth/company/updatestatus',
-                [
-                    'json'=>$data,
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
-                ]
+                '/auth/company/updatestatus'
             );
 
 
@@ -107,15 +81,7 @@ class AdminService
 
             $response = $this->client->request(
                 'GET',
-                '/auth/company/show/'.$type,
-                [
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
-                ]
+                '/auth/company/show/'.$type
             );
 
 
@@ -133,15 +99,7 @@ class AdminService
 
             $response = $this->client->request(
                 'GET',
-                '/auth/appointment',
-                [
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
-                ]
+                '/auth/appointment'
             );
 
 
@@ -153,26 +111,17 @@ class AdminService
 
         }
     }
-    public function getNewPatientListForAppointment(){
+    public function getNewPatientList(){
         try {
 
             $response = $this->client->request(
                 'GET',
-                '/auth/getNewPatientListForAppointment',
-                [
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
-                ]
+                '/getNewPatientListForAppointment'
             );
 
 
             $response = $response->getBody()->getContents();
-            dd( $response );
-            $data = json_decode($response,true);
+            $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
 

@@ -53,9 +53,20 @@
                <li class="mb-2"><a href="#HomeCare" data-toggle="pill" role="tab"><img
                         src="{{ asset('assets/img/icons/homecare_icon.svg') }}" alt=""
                         srcset="{{ asset('assets/img/icons/homecare_icon.svg') }}" class="_icon mr-2">Home Care</a></li>
-               <li class="mb-2"><a href="#Clinical" data-toggle="pill" role="tab"><img
-                        src="{{ asset('assets/img/icons/clinical_icon.svg') }}" alt=""
-                        srcset="{{ asset('assets/img/icons/clinical_icon.svg') }}" class="_icon mr-2">Clinical</a></li>
+               <li class="mb-2">
+                   <a href="#Clinical" data-toggle="pill" role="tab">
+                       <img src="{{ asset('assets/img/icons/clinical_icon.svg') }}" alt="" srcset="{{ asset('assets/img/icons/clinical_icon.svg') }}" class="_icon mr-2">CCM
+                   </a>
+               </li>
+               <li class="mb-2">
+                   <a href="#Clinical" data-toggle="pill" role="tab">
+                       <img src="{{ asset('assets/img/icons/clinical_icon.svg') }}" alt="" srcset="{{ asset('assets/img/icons/clinical_icon.svg') }}" class="_icon mr-2">RPM
+                   </a>
+               </li>
+               <li class="mb-2">
+                   <a href="#Clinical" data-toggle="pill" role="tab">
+                       <img src="{{ asset('assets/img/icons/clinical_icon.svg') }}" alt="" srcset="{{ asset('assets/img/icons/clinical_icon.svg') }}" class="_icon mr-2">Clinical/Psyco-Social                   </a>
+               </li>
                <li class="mb-2"><a href="#Physician" data-toggle="pill" role="tab"><img
                         src="{{ asset('assets/img/icons/physician_icon.svg') }}" alt=""
                         srcset="{{ asset('assets/img/icons/physician_icon.svg') }}" class="_icon mr-2">Physician</a>
@@ -1265,7 +1276,7 @@
                   data-parent="#profileAccordion">
                   <div class="row">
                      <div class="col-12 col-sm-12">
-                        <div class="row mb-3">
+<!--                        <div class="row mb-3">
                            <div class="col-4 col-sm-4">
                               <div class="d-flex align-items-center ">
                                  <div>
@@ -1290,40 +1301,121 @@
                                  </div>
                               </div>
                            </div>
-                        </div>
-                        <h1 class="patient-profile-title">Medicines</h1>
-                        <div>
-                           <table class="table table-bordered" style="width: 100%;" id="employee-table">
-                              <thead class="thead-inverse">
-                                 <tr>
-                                    <th>Medicine Name</th>
-                                    <th>Dose </th>
-                                    <th>Type </th>
-                                    <th>Frequency </th>
-                                    <th>Time</th>
-                                    <th>Monthly Pending Doses</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td class="text-green">Combiflame</td>
-                                    <td>200</td>
-                                    <td>Tablet</td>
-                                    <td>ONCE Daily</td>
-                                    <td>12:00 PM</td>
-                                    <td>30 Tablet</td>
-                                 </tr>
-                                 <tr>
-                                    <td class="text-green">Dispring</td>
-                                    <td>200</td>
-                                    <td>Tablet</td>
-                                    <td>ONCE Daily</td>
-                                    <td>12:00 PM</td>
-                                    <td>30 Tablet</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
+                        </div>-->
+                        <div class="_card _add_new_company mt-3">
+                            <div class="_card_header">
+                               <div class="_insurance_company">Current Medicines</div>
+                               
+                            </div>
+                            <div class="_card_body">
+                               <table class="table" style="width: 100%;" id="employee-table">
+                                    <thead class="thead-inverse">
+                                       <tr>
+                                          <th>Medicine Name</th>
+                                          <th>Dose </th>
+                                          <th>Type </th>
+                                          <th>Frequency </th>
+                                          <th>Time</th>
+                                          <th>Monthly Pending Doses</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr>
+                                          <td class="text-green">Combiflame</td>
+                                          <td>200</td>
+                                          <td>Tablet</td>
+                                          <td>ONCE Daily</td>
+                                          <td>12:00 PM</td>
+                                          <td>30 Tablet</td>
+                                       </tr>
+                                       <tr>
+                                          <td class="text-green">Dispring</td>
+                                          <td>200</td>
+                                          <td>Tablet</td>
+                                          <td>ONCE Daily</td>
+                                          <td>12:00 PM</td>
+                                          <td>30 Tablet</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                            </div>
+                         </div>
+                        <div class="_card _add_new_company mt-3">
+                            <div class="_card_header">
+                               <div class="_insurance_company">Medication HX</div>
+                               
+                            </div>
+                            <div class="_card_body">
+                               <table class="table" style="width: 100%;" id="employee-table">
+                                    <thead class="thead-inverse">
+                                       <tr>
+                                          <th>Medicine Name</th>
+                                          <th>Dose </th>
+                                          <th>Type </th>
+                                          <th>Frequency </th>
+                                          <th>Time</th>
+                                          <th>Monthly Pending Doses</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr>
+                                          <td class="text-green">Combiflame</td>
+                                          <td>200</td>
+                                          <td>Tablet</td>
+                                          <td>ONCE Daily</td>
+                                          <td>12:00 PM</td>
+                                          <td>30 Tablet</td>
+                                       </tr>
+                                       <tr>
+                                          <td class="text-green">Dispring</td>
+                                          <td>200</td>
+                                          <td>Tablet</td>
+                                          <td>ONCE Daily</td>
+                                          <td>12:00 PM</td>
+                                          <td>30 Tablet</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                            </div>
+                         </div>
+                        <div class="_card _add_new_company mt-3">
+                            <div class="_card_header">
+                               <div class="_insurance_company">Med Profile Review</div>
+                               
+                            </div>
+                            <div class="_card_body">
+                               <table class="table" style="width: 100%;" id="employee-table">
+                                    <thead class="thead-inverse">
+                                       <tr>
+                                          <th>Medicine Name</th>
+                                          <th>Dose </th>
+                                          <th>Type </th>
+                                          <th>Frequency </th>
+                                          <th>Time</th>
+                                          <th>Monthly Pending Doses</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr>
+                                          <td class="text-green">Combiflame</td>
+                                          <td>200</td>
+                                          <td>Tablet</td>
+                                          <td>ONCE Daily</td>
+                                          <td>12:00 PM</td>
+                                          <td>30 Tablet</td>
+                                       </tr>
+                                       <tr>
+                                          <td class="text-green">Dispring</td>
+                                          <td>200</td>
+                                          <td>Tablet</td>
+                                          <td>ONCE Daily</td>
+                                          <td>12:00 PM</td>
+                                          <td>30 Tablet</td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                            </div>
+                         </div>
                      </div>
                   </div>
                </div>

@@ -36,7 +36,7 @@
         <div class="middle">
             <div class="container">
                 <div class="innerSpace">
-                    <h1 class="t1 fadeIn">Stay Connected With Absulate Distance!</h1>
+                    <h1 class="t1 fadeIn">Always Connected For Your Health</h1>
                 </div>
                 <div class="row">
                     <div class="col-12 col-sm-7">
@@ -212,7 +212,7 @@
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/jquery.validate.min.js"></script>
-    <script src="../assets/js/login.min.js"></script>
+    <script src="../assets/js/login.js"></script>
 </body>
 
 <script>

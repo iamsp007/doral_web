@@ -28,4 +28,10 @@ function onStartBroadCast(id) {
 function onRunningBroadCast(id) {
     window.location.href=base_url+'clinician/start-roadl';
 }
+$(function () {
+     tail.select("#partner-services", {
+            search: !0,
+            placeholder: "Select partner-services"
+        })
+})
 

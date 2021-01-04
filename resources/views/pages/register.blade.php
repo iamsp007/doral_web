@@ -3,7 +3,7 @@
 <div class="middle register">
     <div class="container">
         <div class="innerSpace">
-            <h1 class="t1 fadeIn">Stay Connected With Absulate Distance!</h1>
+            <h1 class="t1 fadeIn">Always Connected For Your Health</h1>
         </div>
         <div class="row">
             <div class="col-12 col-xl-7 col-lg-7 col-md-7 col-sm-12">
@@ -18,7 +18,7 @@
                     <div class="mid">
                         <div class="p50">
                             <h1 class="t2"><img src="assets/img/icons/doctor.svg" alt=""
-                                    srcset="assets/img/icons/doctor.svg" class="mr-2">Sign Up</h1>
+                                    srcset="assets/img/icons/doctor.svg" class="mr-2">REFERRAL SIGN UP</h1>
                             <!-- Your Referral Type -->
                             <div class="form-group mt-4 pt-2">
                                 <label for="referralType" class="label d-block">Your Referral Type</label>

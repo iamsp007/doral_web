@@ -3,7 +3,7 @@
 <div class="middle">
     <div class="container">
         <div class="innerSpace">
-            <h1 class="t1 fadeIn">Stay Connected With Absulate Distance!</h1>
+            <h1 class="t1 fadeIn">Always Connected For Your Health</h1>
         </div>
         <div class="row">
             <div class="col-12 col-sm-7">

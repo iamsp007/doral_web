@@ -109,6 +109,6 @@
             }
             console.log(type)
         }
-        
+
     </script>
 @endpush

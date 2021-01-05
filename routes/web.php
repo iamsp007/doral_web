@@ -13,17 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Clincian Route
-
-
 \Illuminate\Support\Facades\Auth::routes();
 Route::get('/', function () {
     return redirect()->route('home');
 });
+Route::post('/provider/login','\App\Http\Controllers\Auth\ReferralLoginController@login')->name('referral.login');
+Route::get('/register','\App\Http\Controllers\Auth\ReferralRegisterController@showRegistrationForm')->name('referral.showRegistrationForm');
+Route::post('/register','\App\Http\Controllers\Auth\ReferralRegisterController@register')->name('referral.register');
 
-
-// Email Template Route
-Route::get('emaillist', 'App\Http\Controllers\EmailTemplateController@index');
+Route::get('/partner/register','\App\Http\Controllers\Auth\ReferralRegisterController@showPartnerRegistrationForm')->name('partner.register');
+Route::post('/partner/register','\App\Http\Controllers\Auth\ReferralRegisterController@partnerRegister')->name('partner.register');
+Route::post('/partner/login','\App\Http\Controllers\Auth\PartnerLoginController@login')->name('partner.login');
+Route::get('/partner/login','\App\Http\Controllers\Auth\PartnerLoginController@showLoginForm')->name('partner.login');
 
 
 Route::group(['middleware'=>'auth'],function (){
@@ -31,17 +32,12 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
 });
 
-//Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
-Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
-Route::get('appointment/{pId}', 'App\Http\Controllers\AppointmentController@index')->name('appointment.show-appointment');
-Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
-
 
 //
 //Auth::routes();
 //
-/*Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();*/
+
+//Auth::routes();*/
 
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('check')->name('home');
 
@@ -49,16 +45,6 @@ Auth::routes();*/
 
 // Admin Panel
 
-
-
-
-/*Route::get('/referral/employee-pre-physical', function () {
-    return view('pages.referral.employee-pre-physical');
-});*/
-
-//Route::get('/caregiver/1', function () {
-//    return view('pages.caregiver');
-//});
 Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
 Route::get('/caregiver/2', 'App\Http\Controllers\Admin\HomeController@clinicianResponse');
 Route::get('/caregiver/3', 'App\Http\Controllers\Admin\HomeController@caregiverforGluco');

@@ -148,13 +148,13 @@
                                     @hasrole('referral')
                                         <span>Hi, {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
                                     @else
-                                        <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                                        @hasrole('admin','partner')
+                                            <span>Hi, {{ Auth::guard('partner')->user()->name }}</span>
+                                        @else
+                                            <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                                        @endrole
                                     @endrole
-                                    @hasrole('admin','partner')
-                                        <span>Hi, {{ Auth::guard('partner')->user()->name }} {{ Auth::user()->last_name }}</span>
-                                    @else
-                                        <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
-                                    @endrole
+
                                     <a href="javascript:void(0)">
                                         <i class="las la-user-circle la-3x ml-2"></i>
                                     </a>

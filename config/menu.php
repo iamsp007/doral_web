@@ -267,6 +267,6 @@ return [
         ],
     ],
     'partner'=>[
-        ['name'=>'Dashboard','url'=>env('APP_URL').'partner/dashboard','route'=>'partner/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
+        ['name'=>'Dashboard','url'=>env('APP_URL').'partner','route'=>'partner','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
     ],
 ];

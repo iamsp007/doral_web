@@ -112,6 +112,8 @@ class ReferralRegisterController extends Controller
      */
     public function partnerRegister(Request $request)
     {
+        $this->redirectTo = RouteServiceProvider::PARTNER_LOGIN;
+
         $this->partnerValidator($request->all())->validate();
 
         $request->merge([

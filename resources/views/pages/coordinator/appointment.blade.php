@@ -5,184 +5,156 @@
 @endsection
 
 @section('content')
-    <div id="calendar"></div> 
-@endsection
-@section('popup')
-    <div id="book_app_popup"></div>
+    <div id="calendar"></div>
 @endsection
 @push('styles')
-     
+    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/calendar/lib/main.css') }}">
+    <style>
+        #calendar {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+    </style>
 @endpush
 
 @push('scripts')
-    
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="{{ asset('assets/calendar/lib/main.js') }}"></script>
     <script>
-        var SITEURL = "@php echo url('/');@endphp";    
-        var appointments = @php echo json_encode($appointments);@endphp;
-        var calendernew;
-
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
-            
-            calendernew = new FullCalendar.Calendar(calendarEl, {
 
-                height: "100%",
-                themeSystem: "bootstrap4",
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                timeZone: 'IST',
+                initialView: 'dayGridMonth',
+                height: '100%',
+                themeSystem: 'bootstrap4',
                 aspectRatio: 2,
                 windowResizeDelay: 100,
-                stickyHeaderDates: !0,
+                stickyHeaderDates: true,
                 headerToolbar: {
-                    left: "title",
-                    center: "",
-                    right: "dayGridMonth today prev,next"
-                },                
-                buttonText: {
-                    today: "Today",
-                    month: "Month",
-                    week: "Week",
-                    day: "Day",
-                    list: "List"
+                    left: 'title',
+                    center: '',
+                    right: 'dayGridMonth timeGridDay today prev,next'
                 },
-                views: {                    
-                    dayGridMonth: {
-                        titleFormat: {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric"
-                        }
-                    } 
-                },
-                initialDate: "2020-09-12",
-                expandRows: !0,
-                navLinks: !0,
-                selectable: !0,
-                selectMirror: !0,
-                selectHelper: !0,
-                businessHours: !0,
-                eventColor: "#008591",
-                slotDuration: '00:30:00',
-                editable: !0,
-                dayMaxEvents: !0,                
-                eventLimit: !0,
-                events: appointments,                
-                select: function(t, e, n, a) {
-                    var start = t.start;
-                    var end = t.end;
-                    var d2 = new Date( start );
-                    var s_mnth = ("0" + (d2.getMonth() + 1)).slice(-2),
-                     s_day = ("0" + d2.getDate()).slice(-2);
-                     s_hours  = ("0" + d2.getHours()).slice(-2);
-                     s_minutes = ("0" + d2.getMinutes()).slice(-2);
-                     new_start_date = [d2.getFullYear(), s_mnth, s_day].join("-")+' '+s_hours+':'+s_minutes+':00';
+                expandRows: true,
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectMirror: true,
+                selectHelper: true,
+                businessHours: false,
+                eventColor: '#008591',
+                select: function(arg) {
+                    if(moment(arg.start).isBefore(moment())) {
+                        calendar.unselect();
+                        return false;
+                    }
 
-                    
-                    var d1 = new Date( end );
-                    var e_mnth = ("0" + (d1.getMonth() + 1)).slice(-2),
-                     e_day = ("0" + d1.getDate()).slice(-2);
-                     e_hours  = ("0" + d1.getHours()).slice(-2);
-                     e_minutes = ("0" + d1.getMinutes()).slice(-2);
-                     new_end_date = [d1.getFullYear(), e_mnth, e_day].join("-")+' '+e_hours+':'+e_minutes+':00';
+                    if (arg.view.type==="timeGridDay"){
 
-                    var diffMs = ( d2- d1);
-                    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-                    var patient_id = @php echo $patientId; @endphp;
-                    if( diffMins != 0 ){                        
-                        var provider_pa_ma = 1;
-                        var provider = 1;
-                        $.ajax({
-                            url: "{{ route('coordinator.appointment.create') }}",
-                            data: 'start=' + new_start_date + '&end=' + new_end_date + '&patient_id=' + patient_id + '&provider_pa_ma=' + provider_pa_ma + '&provider=' + provider,
-                            type: "get",
-                            success: function(data) {
-                                $("#book_app_popup").html(data);
-                                //$("#book_app_popup").html("Book Appoinment");
-                                //displayMessage("Added Successfully");
-                                //$('#calendar').fullCalendar('removeEvents');
-                                //$('#calendar').fullCalendar('refetchEvents');
-                                setTimeout( function(){
-                                    $("#largeModal").modal("show");    
-                                },500 );
-                                
-                                //$(".dialogue").modal("show");
+                        return false;
+                    }
 
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url:'{{ route("coordinator.calender.timeslot") }}',
+                        method:'POST',
+                        data:{
+                            date:moment(arg.start).format('YYYY-MM-DD')
+                        },
+                        dataType:'json',
+                        success:function (response) {
+                            var events=[];
+                            if (response.status===true){
+                                if (response.data.length>0){
+                                    response.data.map(function (value) {
+                                        events.push({
+                                            id:value.id,
+                                            start: moment(value.time).format('YYYY-MM-DD HH:mm'),
+                                            end:moment(value.time).add(30,'minutes').format('YYYY-MM-DD HH:mm'),
+                                            backgroundColor:'#FFFFFF',
+                                            allDay: false
+                                        })
+                                    })
+                                    calendar.removeAllEvents();
+                                    calendar.addEventSource(events)
+                                    calendar.changeView('timeGridDay',moment(arg.start).format('YYYY-MM-DD'))
+                                }else {
+                                    alert("This Date Clinician Not Available")
+                                }
                             }
-                        });
-                        
-                    }else{ 
-                        calendernew.changeView( 'timeGrid', {
-                          start: start,
-                          end: end
-                        })
-                         //$('#calendar').fullCalendar('changeView', 'agendaDay'); 
-                        //calendernew.changeView("timeGridDay");
-                        //calendernew.agendaDay("2017-06-01");
+                        },
+                        error:function (error) {
+
+                        }
+                    })
+                    calendar.unselect()
+
+                },
+                eventClick: function(info) {
+                    var eventObj = info.event;
+                    var date = moment(info.event.startStr).format('YYYY-MM-DD HH:mm');
+                    if (eventObj.id){
+                        createAppointment(date,eventObj.id);
+                    }
+
+                    // $('.dialogue').modal('show');
+                },
+                eventDidMount: function (info) {
+                  //  console.log(info.el)
+                },
+
+                editable: true,
+                dayMaxEvents: true, // allow "more" link when too many events
+                events: [],
+                buttonText: {
+                    today: 'Today',
+                    month: 'Month',
+                    week: 'Week',
+                    day: 'Day',
+                    list: 'List'
+                },
+                views: {
+                    dayGridMonth: { // name of view
+                        titleFormat: { year: 'numeric', month: 'short', day: 'numeric' }
+                        // other view-specific options here
+                    },
+                    timeGridFourDay: {
+                        type: 'timeGrid',
+                        duration: { days: 6 },
+                        buttonText: '4 day'
                     }
                 },
-                eventClick: function(t, e, n) {},
-                eventRender: function(t, e) {},
-                eventDidMount: function(t) {
-                    console.log(t.el.innerText)
-                },                
-                eventDrop: function (event, delta) {
-                        alert(event.title + ' was moved ' + delta + ' days\n' +
-                            '(should probably update your database)');
-                }
             });
-        calendernew.render();
-        
-    }), $(function() {
-        $('input[name="_datetime"]').daterangepicker({
-            timePicker: !0,
-            startDate: moment().startOf("hour"),
-            endDate: moment().startOf("hour").add(32, "hour"),
-            locale: {
-                format: "M/DD hh:mm"
-            }
-        }); 
-    });
 
-
-        $( "body" ).on("click","#btn_create_appointment",function( e ){
-
-            e.preventDefault();
-            
-            $( '#btn_create_appointment' ).attr('disabled','disabled');
-            var frm_data = $("#create_appointment_frm").serialize();            
-            $.ajax({
-                url: SITEURL + '/co-ordinator/appointment/store',
-                data: frm_data,
-                type: "POST",
-                success: function(response) {
-
-                    if( response.data !== undefined && response.data.appointment !== undefined && response.data.appointment.title !== undefined ){
-                        calendernew.addEvent( {
-                            title: response.data.appointment.title,
-                            start: response.data.appointment.start_datetime,
-                            end: response.data.appointment.end_datetime
-                        });
-                        calendernew.render();
-                        $(".alert-success").show();
-                        $(".alert-danger").hide();                        
-
-                        $("#successResponse").text('Inserted Successfully');
-                        setTimeout(function(){
-                           $("#largeModal").modal("hide");
-                        }, 2000);                        
-                        //displayMessage("Inserted Successfully");
-                    }else{
-                        
-                        $(".alert-danger").show();
-                        $("#errorResponse").text('Required appointment title');
-                        $(".alert-success").hide();
-                        setTimeout(function(){                            
-                            $(".alert-danger").hide();
-                        }, 5000);
-                    }
-                    $( '#btn_create_appointment' ).removeAttr("disabled");
-                }
-            });
+            calendar.render();
         });
+
+        function createAppointment(date,ids) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:'{{ route("coordinator.appointment.store") }}',
+                method:'POST',
+                data:{
+                    book_datetime:date,
+                    patient_id:'{{ $patientId }}',
+                    clinician_ids:ids
+                },
+                dataType:'json',
+                success:function (response) {
+                    alert(response.message)
+                },
+                error:function (request, status, error) {
+                    const sources = JSON.parse(request.responseText);
+                    alert(sources.message)
+                }
+            })
+        }
 
     </script>
     @endpush

@@ -59,10 +59,9 @@ class RoomController extends Controller
     public function zoomGenerateSignature(Request $request){
         $api_key = env('ZOOM_API_KEY');
         $api_secret = env('ZOOM_API_SECRET');
-        $meeting_number=$request->meeting_number;
-        $role=1;
-
-        $time = time() * 1000 - 30000;//time in milliseconds (or close enough)
+        $meeting_number = $request->meetingNumber;
+        $role = $request->role;
+        $time = time() * 1000;//time in milliseconds (or close enough)
 
         $data = base64_encode($api_key . $meeting_number . $time . $role);
 
@@ -74,33 +73,25 @@ class RoomController extends Controller
         return response()->json([
             'signature'=>rtrim(strtr(base64_encode($_sig), '+/', '-_'), '='),
             'meetingNumber'=>$meeting_number,
-            'userName'=>'Sunil',
-            'apiKey'=>$api_key,
-            'api_secret'=>$api_secret,
-            'userEmail'=>'aaa@gmail.com',
-            'passWord'=>'passWord',
-            ],200);
+            'api_key'=>$api_key,
+            'apiSecret'=>$api_secret,
+            'role'=>$role,
+        ],200);
     }
 
-    public function sendVideoMeetingNotification(Request $request,$appointment_id){
+    public function sendVideoMeetingNotification(Request $request){
+        $appointment_id = $request->appointment_id;
         $clinicianService = new ClinicianService();
         $response = $clinicianService->sendVideoMeetingNotification($appointment_id);
         $data=[];
         if ($response->status===true){
             $url='';
             if ($response->data->meeting){
-                if ($response->data->provider1_details->id===Auth::user()->id){
-                    $url=$response->data->meeting->start_url;
-                }else{
-                    $url=$response->data->meeting->join_url;
-                }
-                $meeting_number = $response->data->meeting->meeting_id;
-                return view('pages.Zoom.index',compact('meeting_number'));
-                return redirect()->to($url);
+                return response()->json(['status'=>true,'message'=>$response->message,'data'=>$response->data],200);
             }
-            return redirect()->back()->with('error','No Meeting Exists');
+            return response()->json(['status'=>false,'message'=>'No Meeting Exists','data'=>$response->data],422);
         }
-        return redirect()->back()->with('error',$response->message);
+        return response()->json(['status'=>false,'message'=>$response->message,'data'=>$response->data],422);
     }
 
     public function startVideoMeetingNotification(Request $request,$patient_request_id){

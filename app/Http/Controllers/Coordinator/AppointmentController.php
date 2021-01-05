@@ -21,34 +21,23 @@ class AppointmentController extends Controller
 
         $status = 0;
         $message = "";
-        $appointments = [];        
-        try {
-            $employeeServices = new EmployeeService();
-            $responseArray = $employeeServices->getAllAppointment();            
-
-            if($responseArray['status'] && isset( $responseArray['data']['appointments'] )) {
-                $status = 1;
-                foreach ($responseArray['data']['appointments'] as $app_key => $app_row) {
-                    $appointments[ $app_key ]['title'] = $app_row['title'];
-                    $appointments[ $app_key ]['start'] = $app_row['start_datetime'];
-                    $appointments[ $app_key ]['end'] = $app_row['end_datetime'];
-                    
-                }
-            }
-
-            $message = $responseArray['message'];
-
-        } catch(\Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
+        $appointments = [];
         $data =array(
             'appointments' => $appointments,
             'patientId' => $patientId,
-        );       
-
-        return view($this->view_path . 'appointment')->with( $data );
+        );
+        return view($this->view_path . 'appointment',compact('appointments','patientId'));
         //return view('calendar')->with( $data );
+    }
+
+    public function getClinicianTimeSlots(Request $request){
+        try {
+            $employeeServices = new EmployeeService();
+            $response = $employeeServices->getClinicianTimeSlots($request->all());
+            return response()->json(['status'=>$response->status,'message'=>$response->message,'data'=>$response->data],200);
+        }catch (\Exception $exception){
+            return response()->json(['status'=>false,'message'=>$exception->getMessage()],422);
+        }
     }
 
     /**
@@ -58,19 +47,19 @@ class AppointmentController extends Controller
      */
     public function create( Request $request )
     {
-        
+
         $all_get = $request->all();
         $services = [];
         try {
             $employeeServices = new EmployeeService();
-            $responseArray = $employeeServices->getAllService();            
-            if( isset( $responseArray[0] ) && $responseArray[0] && isset( $responseArray[2]['services'] )) {                
+            $responseArray = $employeeServices->getAllService();
+            if( isset( $responseArray[0] ) && $responseArray[0] && isset( $responseArray[2]['services'] )) {
                 foreach ($responseArray[2]['services'] as $ser_key => $ser_row) {
                     $services[ $ser_key ]['id'] = $ser_row['id'];
                     $services[ $ser_key ]['name'] = $ser_row['name'];
                 }
-            }                        
-        } catch(\Exception $e) {            
+            }
+        } catch(\Exception $e) {
             $message = $e->getMessage();
         }
 
@@ -85,24 +74,21 @@ class AppointmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
+
 
     public function store(Request $request)
     {
 
         try {
-            $post_data = $request->all(); 
             $employeeServices = new EmployeeService();
-            return $responseArray = $employeeServices->storeAppointment( $post_data );
-            
-        } catch (\Exception $e) {            
-            $response = array(
-                "status" => false,
-                "code" => 200,
-                "message" => $e->getMessage(),
-                "data" => [],
-            );
-            return response()->json($response, 200);
+            $response = $employeeServices->storeAppointment($request->all());
+            if ($response->status===true){
+                return response()->json($response,200);
+            }
+            return response()->json($response,422);
+        } catch (\Exception $e) {
+
+            return response()->json(['status'=>false,'message'=>$e->getMessage()], 422);
         }
     }
 

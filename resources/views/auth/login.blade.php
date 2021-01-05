@@ -4,7 +4,7 @@
     <div class="middle">
         <div class="container">
             <div class="innerSpace">
-                <h1 class="t1 fadeIn">Stay Connected With Absulate Distance!</h1>
+                <h1 class="t1 fadeIn">Always Connected For Your Health</h1>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-7">
@@ -64,8 +64,14 @@
                                                    class="t3 forgot">{{ __('Forgot') }}</a>
                                             @endif
                                         </div>
-                                        <input autocomplete="off" type="password" class="form-control form-control-lg" id="password"
-                                               name="password" value="password">
+                                        <div class="d-flex justify-content-between flex-wrap pos-rel pass">
+                                            <input autocomplete="off" type="password" class="form-control form-control-lg" id="password"
+                                                   name="password" value="password">
+                                            <span toggle="#password" class="view-password toggle-password">
+                                                <img src="assets/img/icons/pass-show.svg" class="pass-show d-block">
+                                                <img src="assets/img/icons/pass-hide.svg" class="pass-hide d-none">
+                                            </span>
+                                        </div>
                                         @error('password')
                                         <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
                                             <strong>Error!</strong> {{ $message }}
@@ -103,5 +109,6 @@
             }
             console.log(type)
         }
+        
     </script>
 @endpush

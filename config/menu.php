@@ -61,7 +61,7 @@ return [
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Clinical Requests',
-                    
+
                 ],
                 [
                     'name'=>'Technical Requests',
@@ -265,5 +265,8 @@ return [
                 ]
             ]
         ],
+    ],
+    'partner'=>[
+        ['name'=>'Dashboard','url'=>env('APP_URL').'partner','route'=>'partner','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
     ],
 ];

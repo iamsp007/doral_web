@@ -43,16 +43,16 @@
                                 <a href="{{ route('login') }}" class="text-uppercase sign-up">{{ __('DORAL SIGN IN') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
-<!--                            @elseif(\Request::is('referral/register'))
-                                <a class="text-uppercase sign-up" href="{{ route('login') }}">{{ __('SIGN IN') }} <img
-                                        src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
-                                        class="ml-2"></a>-->
                             @elseif(\Request::is('register'))
                                 <a class="text-uppercase sign-up" href="{{ route('login') }}">{{ __('SIGN IN') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @elseif(\Request::is('login'))
                                 <a class="text-uppercase sign-up" href="{{ route('referral.register') }}">{{ __('REFERRAL SIGN UP') }} <img
+                                        src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
+                                        class="ml-2"></a>
+                            @elseif(\Request::is('partner/login'))
+                                <a class="text-uppercase sign-up" href="{{ route('partner.register') }}">{{ __('PARTNER SIGN UP') }} <img
                                         src="{{ asset('assets/img/icons/sign-up.svg') }}" alt="" srcset="{{ asset('assets/img/icons/sign-up.svg') }}"
                                         class="ml-2"></a>
                             @endif

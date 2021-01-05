@@ -64,7 +64,10 @@ class AdminService
 
             $response = $this->client->request(
                 'POST',
-                '/auth/company/updatestatus'
+                '/auth/company/updatestatus',
+                [
+                    'json'=>$data
+                ]
             );
 
 

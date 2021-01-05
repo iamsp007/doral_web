@@ -96,20 +96,21 @@ function openMeetingDialog(appointment_id) {
                 var booking_date = moment(sources.start_datetime).format('MM/DD/YYYY HH:mm:ss')
                 setPatientVideoHtml(sources.patients,sources.service,booking_date)
                 $("#loader-wrapper").hide();
-                $('.app-video').addClass('scale-up-center');
-                console.log(JSON.parse(sources.meeting.zoom_response))
-                setTimeout(() => {
-                    const meetConfig = {
-                        lang:'en',
-                        apiKey: 'cQacFfoJ9uQwgJQA06eYliJgoC1WkCoQ8FP1',
-                        meetingNumber: sources.meeting.meeting_id.toString(),
-                        leaveUrl: base_url+'clinician/scheduled-appointment',
-                        userName: sources.title,
-                        passWord: JSON.parse(sources.meeting.zoom_response).encrypted_password,
-                        role: "1" // 1 for host
-                    };
+                window.open(sources.meeting.start_url, '_blank');
 
-                    startMeeting(meetConfig);
+                $('.app-video').addClass('scale-up-center');
+                setTimeout(() => {
+                    // const meetConfig = {
+                    //     lang:'en',
+                    //     apiKey: 'cQacFfoJ9uQwgJQA06eYliJgoC1WkCoQ8FP1',
+                    //     meetingNumber: sources.meeting.meeting_id.toString(),
+                    //     leaveUrl: base_url+'clinician/scheduled-appointment',
+                    //     userName: sources.title,
+                    //     passWord: JSON.parse(sources.meeting.zoom_response).encrypted_password,
+                    //     role: "1" // 1 for host
+                    // };
+                    //
+                    // startMeeting(meetConfig);
                     $('.app-video').show();
                     $('.app-video').find('.app-video-body').find('.app-video-right').show();
                     $('.app-video').removeClass('scale-down-center');

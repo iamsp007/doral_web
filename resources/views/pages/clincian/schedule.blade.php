@@ -74,16 +74,7 @@
                 </ul>
             </div>
             <div class="app-video-right">
-                <div id="zmmtg-root"></div>
-                <div id="aria-notify-area"></div>
 
-                <!-- added on meeting init -->
-                <div class="ReactModalPortal"></div>
-                <div class="ReactModalPortal"></div>
-                <div class="ReactModalPortal"></div>
-                <div class="ReactModalPortal"></div>
-                <div class="global-pop-up-box"></div>
-                <div class="sharer-controlbar-container sharer-controlbar-container--hidden"></div>
             </div>
         </div>
     </div>
@@ -94,8 +85,8 @@
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
 
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/bootstrap.css" />
-    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/react-select.css" />
+{{--    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/bootstrap.css" />--}}
+{{--    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/react-select.css" />--}}
 @endpush
 
 @push('scripts')
@@ -105,20 +96,20 @@
 {{--    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- import ZoomMtg dependencies -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
-<script src="https://source.zoom.us/1.8.5/lib/vendor/react.min.js"></script>
-<script src="https://source.zoom.us/1.8.5/lib/vendor/react-dom.min.js"></script>
-<script src="https://source.zoom.us/1.8.5/lib/vendor/redux.min.js"></script>
-<script src="https://source.zoom.us/1.8.5/lib/vendor/redux-thunk.min.js"></script>
-<script src="https://source.zoom.us/1.8.5/lib/vendor/lodash.min.js"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>--}}
+{{--<script src="https://source.zoom.us/1.8.5/lib/vendor/react.min.js"></script>--}}
+{{--<script src="https://source.zoom.us/1.8.5/lib/vendor/react-dom.min.js"></script>--}}
+{{--<script src="https://source.zoom.us/1.8.5/lib/vendor/redux.min.js"></script>--}}
+{{--<script src="https://source.zoom.us/1.8.5/lib/vendor/redux-thunk.min.js"></script>--}}
+{{--<script src="https://source.zoom.us/1.8.5/lib/vendor/lodash.min.js"></script>--}}
 
-<!-- import ZoomMtg -->
-<script src="https://source.zoom.us/zoom-meeting-1.8.5.min.js"></script>
+{{--<!-- import ZoomMtg -->--}}
+{{--<script src="https://source.zoom.us/zoom-meeting-1.8.5.min.js"></script>--}}
 
-<!-- import local .js file -->
-<script src="{{ asset('js/Zoom/tool.js') }}"></script>
-    <script src="{{ asset('js/Zoom/vconsole.min.js') }}"></script>
-<script src="{{ asset('js/Zoom/index.js') }}"></script>
+{{--<!-- import local .js file -->--}}
+{{--<script src="{{ asset('js/Zoom/tool.js') }}"></script>--}}
+{{--    <script src="{{ asset('js/Zoom/vconsole.min.js') }}"></script>--}}
+{{--<script src="{{ asset('js/Zoom/index.js') }}"></script>--}}
     <script>
        var scheduleAppointmentAjax = "{{  route('clinician.scheduleAppoimentList.ajax') }}";
        var patient_detail_url = "{{  url('/patient-detail/') }}";

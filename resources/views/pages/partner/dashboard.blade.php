@@ -105,16 +105,7 @@
                                                     <button type="submit" class="btn btn-outline-red btn-outline-admin mt-3"
                                                             name="signup">VIEW ALL</button>
                                                 </div>
-                                                <div class="_physio">
-                                                    <h1 class="_t2 red">500</h1>
-                                                    <button type="submit" class="btn btn-outline-red btn-outline-admin mt-3"
-                                                            name="signup">VIEW ALL</button>
-                                                </div>
-                                                <div class="_sa">
-                                                    <h1 class="_t2 red">100</h1>
-                                                    <button type="submit" class="btn btn-outline-red btn-outline-admin mt-3"
-                                                            name="signup">VIEW ALL</button>
-                                                </div>
+                                                
                                             </div>
                                             <div class="sideRight">
                                                 <div class="icons border-red">
@@ -143,16 +134,7 @@
                                                     <button type="submit" class="btn btn-outline-purple btn-outline-admin mt-3"
                                                             name="signup">VIEW ALL</button>
                                                 </div>
-                                                <div class="_delete">
-                                                    <h1 class="_t2 purple">500</h1>
-                                                    <button type="submit" class="btn btn-outline-purple btn-outline-admin mt-3"
-                                                            name="signup">VIEW ALL</button>
-                                                </div>
-                                                <div class="_update">
-                                                    <h1 class="_t2 purple">100</h1>
-                                                    <button type="submit" class="btn btn-outline-purple btn-outline-admin mt-3"
-                                                            name="signup">VIEW ALL</button>
-                                                </div>
+                                                
                                             </div>
                                             <div class="sideRight">
                                                 <div class="icons border-purple">
@@ -194,16 +176,7 @@
                                                     <button type="submit" class="btn btn-outline-orange btn-outline-admin mt-3"
                                                             name="signup">VIEW ALL</button>
                                                 </div>
-                                                <div class="_physio">
-                                                    <h1 class="_t2 orange">234</h1>
-                                                    <button type="submit" class="btn btn-outline-orange btn-outline-admin mt-3"
-                                                            name="signup">VIEW ALL</button>
-                                                </div>
-                                                <div class="_sa">
-                                                    <h1 class="_t2 orange">123</h1>
-                                                    <button type="submit" class="btn btn-outline-orange btn-outline-admin mt-3"
-                                                            name="signup">VIEW ALL</button>
-                                                </div>
+                                                
                                             </div>
                                             <div class="sideRight">
                                                 <div class="icons border-orange">
@@ -253,16 +226,7 @@
                                                     <button type="submit" class="btn btn-outline-orange btn-outline-admin mt-3"
                                                             name="signup">VIEW ALL</button>
                                                 </div>
-                                                <div class="_delete">
-                                                    <h1 class="_t2 orange">500</h1>
-                                                    <button type="submit" class="btn btn-outline-orange btn-outline-admin mt-3"
-                                                            name="signup">VIEW ALL</button>
-                                                </div>
-                                                <div class="_update">
-                                                    <h1 class="_t2 orange">100</h1>
-                                                    <button type="submit" class="btn btn-outline-orange btn-outline-admin mt-3"
-                                                            name="signup">VIEW ALL</button>
-                                                </div>
+                                                
                                             </div>
                                             <div class="sideRight">
                                                 <div class="icons border-orange">

@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'referrals',
         ],
+        'partner' => [
+            'driver' => 'session',
+            'provider' => 'partners',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -78,6 +82,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Company::class,
         ],
+        'partners' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Partner::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -109,6 +117,12 @@ return [
         ],
         'referrals' => [
             'provider' => 'referrals',
+            'table' => 'companies',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'partners' => [
+            'provider' => 'partners',
             'table' => 'companies',
             'expire' => 60,
             'throttle' => 60,

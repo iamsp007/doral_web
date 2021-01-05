@@ -21,10 +21,14 @@ class RouteServiceProvider extends ServiceProvider
     public const LOGIN = '/login';
     public const ADMIN_HOME = '/admin/dashboard';
     public const COORDINATE_HOME = '/co-ordinator';
-    public const REFERRAL_HOME = '/referral/dashboard';
-    public const REFERRAL_LOGIN = '/login';
     public const CLINICIAL_HOME = '/clinician/';
     public const SUPERVISOR_HOME = '/supervisor';
+
+    public const REFERRAL_LOGIN = '/login';
+    public const REFERRAL_HOME = '/referral/dashboard';
+    public const PARTNER_HOME = '/partner';
+    public const PARTNER_LOGIN = '/partner/login';
+
 
     /**
      * The controller namespace for the application.
@@ -73,6 +77,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/supervisor.php'));
+
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/partner.php'));
         });
     }
 

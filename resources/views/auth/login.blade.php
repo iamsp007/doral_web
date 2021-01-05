@@ -21,6 +21,11 @@
                                                     srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('SIGN IN')}}</h1>
                                 <form method="POST" action="{{ route('login') }}" class="mt-4 pt-2" id="loginForm">
                                     @csrf
+                                    @if(session()->has('success'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session()->get('success') }}
+                                        </div>
+                                    @endif
                                     @if($errors->any())
                                         @foreach ($errors->all() as $error)
                                             <div class="alert alert-danger" role="alert">
@@ -109,6 +114,6 @@
             }
             console.log(type)
         }
-        
+
     </script>
 @endpush

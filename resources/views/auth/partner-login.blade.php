@@ -4,7 +4,7 @@
     <div class="middle">
         <div class="container">
             <div class="innerSpace">
-                <h1 class="t1 fadeIn">Always Connected For Your Health</h1>
+                <h1 class="t1 fadeIn">Doral Partners</h1>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-7">
@@ -18,14 +18,9 @@
                         <div class="mid">
                             <div class="p50">
                                 <h1 class="t2"><img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
-                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('Referral Login')}}</h1>
-                                <form method="POST" action="{{ route('referral.login') }}" class="mt-4 pt-2" id="loginForm">
+                                                    srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">{{__('SIGN IN')}}</h1>
+                                <form method="POST" action="{{ route('partner.login') }}" class="mt-4 pt-2" id="loginForm">
                                     @csrf
-                                    @if(session()->has('success'))
-                                        <div class="alert alert-success" role="alert">
-                                            {{ session()->get('success') }}
-                                        </div>
-                                    @endif
                                     @if($errors->any())
                                         @foreach ($errors->all() as $error)
                                             <div class="alert alert-danger" role="alert">
@@ -37,8 +32,8 @@
                                         <div class="d-flex justify-content-between">
                                             <label for="username" class="label">Username</label>
                                         </div>
-                                        <input type="text" class="form-control form-control-lg" id="username"
-                                               name="email" aria-describedby="emailHelp">
+                                        <input autocomplete="off" type="text" class="form-control form-control-lg" id="username"
+                                               name="email" aria-describedby="emailHelp" value="admin@doral.com">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -55,8 +50,14 @@
                                                    class="t3 forgot">{{ __('Forgot') }}</a>
                                             @endif
                                         </div>
-                                        <input type="password" class="form-control form-control-lg" id="password"
-                                               name="password">
+                                        <div class="d-flex justify-content-between flex-wrap pos-rel pass">
+                                            <input autocomplete="off" type="password" class="form-control form-control-lg" id="password"
+                                                   name="password" value="password">
+                                            <span toggle="#password" class="view-password toggle-password">
+                                                <img src="{{ asset('assets/img/icons/pass-show.svg') }}" class="pass-show d-block">
+                                                <img src="{{ asset('assets/img/icons/pass-hide.svg') }}" class="pass-hide d-none">
+                                            </span>
+                                        </div>
                                         @error('password')
                                         <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
                                             <strong>Error!</strong> {{ $message }}
@@ -70,11 +71,12 @@
                                     <!-- Submit Btn -->
                                     <button type="submit" class="btn btn-primary btn-pink btn-block"
                                             name="signup" id="login">{{ __('Login') }}</button>
-
-                                </form>
-                                <div class="d-flex align-items-center justify-content-center mt-2 t3">New
-                                            here?<a href="{{ route('referral.register') }}" class="ml-2 underline">Create Referral
+                                    @if (Route::has('/login'))
+                                        <div class="d-flex align-items-center justify-content-center mt-2 t3">New
+                                            here?<a href="{{ route('register') }}" class="ml-2 underline">Create Doral
                                                 Account</a></div>
+                                    @endif
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -83,3 +85,16 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        function changeLoginRole(type) {
+            if (type==='1'){
+                $('#loginForm').attr('action','{{ route('login') }}');
+            }else {
+                $('#loginForm').attr('action','{{ route('referral.login') }}');
+            }
+            console.log(type)
+        }
+
+    </script>
+@endpush

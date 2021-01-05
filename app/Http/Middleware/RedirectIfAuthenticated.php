@@ -53,8 +53,13 @@ class RedirectIfAuthenticated
             if (in_array('referral',$path)){
                 return $next($request);
             }
-
             return redirect(RouteServiceProvider::REFERRAL_HOME);
+        }elseif (Auth::guard('partner')->check()){
+            $path=explode('/',$request->path());
+            if (in_array('partner',$path)){
+                return $next($request);
+            }
+            return redirect(RouteServiceProvider::PARTNER_HOME);
         }
 
 //        $guards = empty($guards) ? [null] : $guards;

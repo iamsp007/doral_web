@@ -29,9 +29,16 @@
                     <a href="#" class="icon-logo"></a>
                 </div>
                 <ul class="cbp-vimenu">
-                    @php
-                        $file='menu.admin';
-                    @endphp
+                    @hasrole('admin', 'partner')
+                        @php
+                            $file='menu.partner';
+                        @endphp
+                    @else
+                        @php
+                            $file='menu.admin';
+                        @endphp
+                    @endrole
+
                     @hasrole('clinician')
                         @php
                           $file='menu.clinician';
@@ -140,6 +147,11 @@
                                      aria-haspopup="true" aria-expanded="false">
                                     @hasrole('referral')
                                         <span>Hi, {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                                    @else
+                                        <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                                    @endrole
+                                    @hasrole('admin','partner')
+                                        <span>Hi, {{ Auth::guard('partner')->user()->name }} {{ Auth::user()->last_name }}</span>
                                     @else
                                         <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
                                     @endrole

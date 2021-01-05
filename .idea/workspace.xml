@@ -2,58 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/PartnerLoginController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Partner/DashboardController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Partner.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/auth/partner-register.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pages/partner/dashboard.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/partner.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Coordinator/AppointmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Coordinator/AppointmentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/AdminService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/AdminService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/EmployeeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/EmployeeService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/responsive_0201.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/responsive_0201.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/sidebar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/sidebar.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/sidebar.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style_0201.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style_0201.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style_0201.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style_0201.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/Request_RoadL.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/Request_RoadL.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appo-btn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appo-btn.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointments-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointments-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointments-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointments-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/cancel-button.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/cancel-button.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/chart-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/chart-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/chart-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/chart-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/clinician-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/clinician-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/clinician-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/clinician-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/create-patient-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/create-patient-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/create-patient-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/create-patient-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/deactive-button.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/deactive-button.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/doctor-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/doctor-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/doctor-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/doctor-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/edit-button.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/edit-button.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/employee-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/employee-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/employee-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/employee-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/h-.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/h-.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/h.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/h.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/home-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/home-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/home-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/home-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/join-vedio.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/join-vedio.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/logout-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/logout-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/permission-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/permission-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/permission-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/permission-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/referral-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/referral-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/referral-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/referral-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/requests-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/requests-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/requests-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/requests-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roadl-ambulance-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roadl-ambulance-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roadl-ambulance-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roadl-ambulance-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roles-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roles-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roles-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roles-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/service-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/service-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/service-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/service-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/start-vedio.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/start-vedio.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/view-button.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/view-button.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/coordinator/appointment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/coordinator/appointment.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/coordinator/new_patient_list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/coordinator/new_patient_list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/coordinator.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/coordinator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RedirectIfAuthenticated.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pass-hide.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pass-hide.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pass-show.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pass-show.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/referral-login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/partner-login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/referral-register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/referral-register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/emails/referralWelcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/referralWelcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/referral.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/referral.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,18 +193,18 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/auth" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/auth" />
+      <recent name="$PROJECT_DIR$/app/Http/Controllers/Auth" />
       <recent name="$PROJECT_DIR$/public/js/clincian" />
       <recent name="$PROJECT_DIR$/public/assets/js" />
       <recent name="$PROJECT_DIR$/public/js/Zoom" />
-      <recent name="$PROJECT_DIR$/resources/views/pages" />
-      <recent name="$PROJECT_DIR$/resources/views/pages/clincian" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/pages" />
@@ -333,6 +305,20 @@
       <workItem from="1609761784381" duration="599000" />
       <workItem from="1609763624961" duration="853000" />
       <workItem from="1609765472863" duration="599000" />
+      <workItem from="1609787758408" duration="150000" />
+      <workItem from="1609817956818" duration="1233000" />
+      <workItem from="1609820081012" duration="1689000" />
+      <workItem from="1609822016421" duration="1782000" />
+      <workItem from="1609823825858" duration="1628000" />
+      <workItem from="1609825743606" duration="942000" />
+      <workItem from="1609833290817" duration="617000" />
+      <workItem from="1609835092134" duration="1023000" />
+      <workItem from="1609836925905" duration="626000" />
+      <workItem from="1609839096565" duration="1786000" />
+      <workItem from="1609840907172" duration="1785000" />
+      <workItem from="1609842718231" duration="1784000" />
+      <workItem from="1609844532678" duration="1782000" />
+      <workItem from="1609846340063" duration="1786000" />
     </task>
     <servers />
   </component>

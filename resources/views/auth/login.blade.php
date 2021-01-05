@@ -52,7 +52,7 @@
                                             <label for="username" class="label">Username</label>
                                         </div>
                                         <input autocomplete="off" type="text" class="form-control form-control-lg" id="username"
-                                               name="email" aria-describedby="emailHelp" value="admin@doral.com">
+                                               name="email" aria-describedby="emailHelp" value="">
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -71,7 +71,7 @@
                                         </div>
                                         <div class="d-flex justify-content-between flex-wrap pos-rel pass">
                                             <input autocomplete="off" type="password" class="form-control form-control-lg" id="password"
-                                                   name="password" value="password">
+                                                   name="password" value="">
                                             <span toggle="#password" class="view-password toggle-password">
                                                 <img src="assets/img/icons/pass-show.svg" class="pass-show d-block">
                                                 <img src="assets/img/icons/pass-hide.svg" class="pass-hide d-none">

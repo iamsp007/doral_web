@@ -178,15 +178,18 @@ class EmployeeService
     /**
      * Get All Appointment of Employee
      */
-    public function getAllAppointment()
+    public function getClinicianTimeSlots($data)
     {
         try {
             $response = $this->client->request(
-                'GET',
-                '/auth/appointment'
+                'POST',
+                '/get-clinician-time-slots',
+                [
+                    'json'=>$data
+                ]
             );
             $response = $response->getBody()->getContents();
-            $data = json_decode($response, true);
+            $data = json_decode($response);
             return $data;
         } catch (\Exception $exception) {
         }
@@ -218,34 +221,15 @@ class EmployeeService
     public function storeAppointment( $post_data )
     {
         try {
-            $appointmentData = array(
-                "title"=> $post_data["title"] ,
-                "book_datetime" => date("Y-m-d H:i:s"),
-                "start_datetime" => $post_data["start_datetime"] ,
-                "end_datetime" => $post_data["end_datetime"] ,
-                "booked_user_id" => auth()->user()->id,
-                "patient_id" => $post_data["patient_id"] ,
-                "provider1" => $post_data["provider_pa_ma"] ,
-                "provider2" => $post_data["provider"] ,
-                "service_id" => $post_data["service_id"] ,
-                "appointment_url" => "url"
-            );
             $response = $this->client->request(
                 'POST',
-                '/auth/appointment/store',
+                '/appointment/store',
                 [
-                    'json' => $appointmentData,
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ],
-                    //'data' => $appointmentData
+                    'json' => $post_data
                 ]
             );
             $response = $response->getBody()->getContents();
-            $data = json_decode($response, true);
+            $data = json_decode($response);
             return $data;
         } catch (\Exception $exception) {
         }

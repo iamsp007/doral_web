@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="50px" height="50px" viewbox="0 0 50 50" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <rect width="50" height="50" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="Pixelbook" clip-path="url(#clip_1)">
+    <g id="agency" transform="translate(5 5)">
+      <g id="Group">
+        <path d="M0 0L6.27451 0L6.27451 2.35294L0 2.35294L0 0Z" transform="translate(4.9411764 5.0196075)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L6.27451 0L6.27451 2.35294L0 2.35294L0 0Z" transform="translate(4.9411764 10.039216)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L6.27451 0L6.27451 2.35294L0 2.35294L0 0Z" transform="translate(4.9411764 15.058825)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L6.27451 0L6.27451 2.35294L0 2.35294L0 0Z" transform="translate(4.9411764 20.078432)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+        <path d="M23.8431 0L23.8431 6.27451L16.1569 6.27451L16.1569 0L0 0L0 40L40 40L40 0L23.8431 0ZM23.8431 8.62745L23.8431 13.7407L20.7059 15.557L20.7059 25.098L16.1569 25.098L16.1569 8.62745L23.8431 8.62745ZM2.35294 37.6471L2.35294 2.35294L13.8039 2.35294L13.8039 25.098L5.01961 25.098L5.01961 37.6471L2.35294 37.6471ZM7.37255 37.6471L7.37255 27.451L27.6078 27.451L27.6078 37.6471C23.2272 37.6471 11.5205 37.6471 7.37255 37.6471L7.37255 37.6471ZM29.9608 37.6471L29.9608 25.098L23.0588 25.098L23.0588 16.9136L32.6275 11.3738L32.6275 37.6471L29.9608 37.6471ZM37.6471 37.6471L34.9804 37.6471L34.9804 7.29279L26.1961 12.3784L26.1961 2.35294L37.6471 2.35294L37.6471 37.6471Z" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.5098 0L2.5098 2.35294L0 2.35294L0 0Z" transform="translate(10.588236 31.372551)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.5098 0L2.5098 2.35294L0 2.35294L0 0Z" transform="translate(16.235294 31.372551)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L2.5098 0L2.5098 2.35294L0 2.35294L0 0Z" transform="translate(21.882353 31.372551)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+        <path d="M0 0L4.39216 0L4.39216 2.35294L0 2.35294L0 0Z" transform="translate(25.64706 18.82353)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+      </g>
+    </g>
+  </g>
+</svg>

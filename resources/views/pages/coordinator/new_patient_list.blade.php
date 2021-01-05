@@ -5,9 +5,6 @@
 @endsection
 
 @section('content')
-
-
-
 <table class="display responsive nowrap" style="width:100%" id="patient-table">
     <thead>
         <tr>
@@ -48,11 +45,11 @@
                 name: 'id'
             },
             {
-                data: 'full_name',
-                name: 'first_name',
+                data:'first_name',
+                name:'first_name',
                 "bSortable": true,
-                render: function(data, type, row, meta) {
-                    data = '<a href={{ url(' / patient - detail / ') }}/' + row.id + '>' + data + '</a>';
+                render:function(data, type, row, meta){
+                    data = '<a href={{ url('/patient-detail/') }}/' + row.user_id + '>' + row.first_name +' '+ row.last_name + '</a>';
                     return data;
                 }
             },
@@ -79,14 +76,7 @@
             {
                 data: 'dob',
                 name: 'dob',
-                "bSortable": true,
-                render: function(data, type, row, meta) {
-                    const D = new Date(row.dob);    
-                    var mon = D.getMonth() + 1 // 10 (PS: +1 since Month is 0-based)
-                    var dat = D.getDate() // 30
-                    var yer = D.getFullYear() // 2020
-                    return mon+"-"+dat+"-"+yer;
-                }
+                "bSortable": true
             },
             {
                 data: 'Zip',
@@ -107,20 +97,12 @@
                 name: 'status',
                 "bSortable": true,
                 render: function(data, type, row, meta) {
-
-                    var appoinment = '<a href="@php echo url("/co-ordinator/appointment/")@endphp/' + row.id + '" >Book Appoinment</a>';
-                    return appoinment;
-                    /*if (row.status === "pending") {
-                        return '<span class="status-pending">' + row.status + '</span>' + appoinment;
-                    } else if (row.status === "accept") {
-
-                        return '<span class="status-accepted">' + row.status + '</span>' + appoinment;
-                    } else if (row.status === "rescheduled") {
-
-                        return '<span class="status-rescheduled">' + row.status + '</span>' + appoinment;
-                    }*/
-
-                    return row.status;
+                    var appointment_booking_url = '{{ url("/co-ordinator/appointment/") }}/'+row.user_id;
+                    var html = '<div class="d-flex">' +
+                        '<a href="'+appointment_booking_url+'" class="single-upload-btn mr-2">' +
+                        '<img src="'+base_url+'assets/img/icons/appo-btn.svg" class="icon mr-2">Book Appointment</a>' +
+                        '</div>';
+                    return html;
                 }
             }
         ],
@@ -140,9 +122,6 @@
             'targets': 4,
             'visible': false,
         }],
-        'select': {
-            'style': 'multi'
-        },
     });
 </script>
 @endpush

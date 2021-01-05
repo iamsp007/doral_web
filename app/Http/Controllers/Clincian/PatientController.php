@@ -78,7 +78,6 @@ class PatientController extends Controller
 
         $clinicianService = new ClinicianService();
         $response = $clinicianService->scheduleAppoimentList($request->all());
-
         $data=[];
         if ($response->status===true){
             $data=$response->data;
@@ -89,7 +88,7 @@ class PatientController extends Controller
                 if (!empty($row->meeting) && $row->meeting!==null){
                     $btn = '<a href="javascript:void(0)"
                                             class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2 scheduled-call"
-                                            data-toggle="tooltip" data-placement="left" onclick="openMeetingDialog(this)" title="Start Meeting"
+                                            data-toggle="tooltip" data-placement="left" onclick="openMeetingDialog('.$row->id.')" title="Start Meeting"
                                             data-original-title="Start Meeting"><i class="las la-video"></i></a>';
 //                    $btn = '<a href="'.route('start.meeting',['appointment_id'=>$row->id]).'" id="meeting-btn-'.$row->id.'" target="_blank" class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Start Video" data-original-title="Start Meeting" aria-describedby="tooltip910346" style="display: none"><i class="las la-video"></i></a>';
 //                    $btn .= '<a href="'.route('patient.detail',['patient_id'=>$row->patients->id]).'" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';

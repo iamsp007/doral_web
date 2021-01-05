@@ -46,17 +46,9 @@ $(function () {
                 name:'start_datetime',
                 "bSortable": true,
                 render:function (data, type, row, meta) {
-                    console.log(moment(data).fromNow(),data)
                     setInterval(function(){
                         var x = moment(data).fromNow();
                         $("#countdown"+row.id).html(x);
-                        // if (moment(data)>moment()){
-                        //     var x = moment(data).fromNow();
-                        //     $("#countdown"+row.id).html(x);
-                        // }else {
-                        //     $('#meeting-btn-'+row.id).show();
-                        //     $("#countdown"+row.id).html('START!');
-                        // }
                     }, 1000);
                     return '<div class="blink_me"><div id="countdown'+row.id+'"></div></div>';
                 }
@@ -86,7 +78,52 @@ $(function () {
     })
 });
 
-function openMeetingDialog(element) {
+function openMeetingDialog(appointment_id) {
+    $("#loader-wrapper").show();
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:base_url+'clinician/start-meeting',
+        method:'POST',
+        data:{
+            appointment_id:appointment_id
+        },
+        dataType:'json',
+        success:function (response) {
+            if (response.status===true){
+                const sources = response.data;
+                var booking_date = moment(sources.start_datetime).format('MM/DD/YYYY HH:mm:ss')
+                setPatientVideoHtml(sources.patients,sources.service,booking_date)
+                $("#loader-wrapper").hide();
+                $('.app-video').addClass('scale-up-center');
+                console.log(JSON.parse(sources.meeting.zoom_response))
+                setTimeout(() => {
+                    const meetConfig = {
+                        lang:'en',
+                        apiKey: 'cQacFfoJ9uQwgJQA06eYliJgoC1WkCoQ8FP1',
+                        meetingNumber: sources.meeting.meeting_id.toString(),
+                        leaveUrl: base_url+'clinician/scheduled-appointment',
+                        userName: sources.title,
+                        passWord: JSON.parse(sources.meeting.zoom_response).encrypted_password,
+                        role: "1" // 1 for host
+                    };
+
+                    startMeeting(meetConfig);
+                    $('.app-video').show();
+                    $('.app-video').find('.app-video-body').find('.app-video-right').show();
+                    $('.app-video').removeClass('scale-down-center');
+                }, 1000);
+            }
+        },
+        error:function (error) {
+            console.log(error)
+        }
+    });
+
+}
+
+function setPatientVideoHtml(data,service,booking_date) {
     var user_img =base_url+'assets/img/user/01.png';
     var html='<div class="row">\n' +
         '                            <div class="col-12 col-sm-3">\n' +
@@ -96,14 +133,14 @@ function openMeetingDialog(element) {
         '                                             srcset="'+user_img+'">\n' +
         '                                    </div>\n' +
         '                                    <div>\n' +
-        '                                        <h1 class="title text-info">Sunil Karmur</h1>\n' +
-        '                                        <p class="mt-1">Gender: Male</p>\n' +
+        '                                        <h1 class="title text-info">'+data.first_name+' '+data.last_name+'</h1>\n' +
+        '                                        <p class="mt-1">Gender: '+data.gender_name+'</p>\n' +
         '                                    </div>\n' +
         '                                </div>\n' +
         '                            </div>\n' +
         '                            <div class="col-12 col-sm-3">\n' +
-        '                                <p><span class="font-weight-bold text-info">Cause Of Appointment:</span> MD Order Form</p>\n' +
-        '                                <p class="mt-2"><span class="font-weight-bold text-info">Date & Time:</span> 02/22/2020 12:00PM</p>\n' +
+        '                                <p><span class="font-weight-bold text-info">Cause Of Appointment:</span> '+service.name+'</p>\n' +
+        '                                <p class="mt-2"><span class="font-weight-bold text-info">Date & Time:</span> '+booking_date+'</p>\n' +
         '                            </div>\n' +
         '                            <div class="col-12 col-sm-3">\n' +
         '                                <div class="d-flex align-items-center">\n' +
@@ -114,18 +151,11 @@ function openMeetingDialog(element) {
         '                                </div>\n' +
         '                            </div>\n' +
         '                            <div class="col-12 col-sm-3">\n' +
-        '                                <p><span class="font-weight-bold text-info">Cause Of Appointment:</span> MD Order Form\n' +
+        '                                <p><span class="font-weight-bold text-info">Cause Of Appointment:</span> '+service.name+'\n' +
         '                                </p>\n' +
-        '                                <p class="mt-2"><span class="font-weight-bold text-info">Date & Time:</span> 02/22/2020\n' +
-        '                                    12:00PM</p>\n' +
+        '                                <p class="mt-2"><span class="font-weight-bold text-info">Date & Time:</span> '+booking_date+'</p>\n' +
         '                            </div>\n' +
         '                        </div>';
     $('#patient-information').html(html);
     $('#patient_detail_url').attr('href',patient_detail_url+'1');
-    startMeeting('95583844356');
-    $('.app-video').addClass('scale-up-center');
-    setTimeout(() => {
-        $('.app-video').show();
-        $('.app-video').removeClass('scale-down-center');
-    }, 1000);
 }

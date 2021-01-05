@@ -12,7 +12,7 @@
             <th></th>
             <th>Patient Name</th>
             <th>Gender</th>
-            <th>Cause Of Appointment</th>
+            <th>Reason For Appointment</th>
             <th>Date Of Birth</th>
             <th>Remaining Time</th>
             <th>Appointment Date</th>
@@ -73,7 +73,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="app-video-right ReactModal__Body--open">
+            <div class="app-video-right">
                 <div id="zmmtg-root"></div>
                 <div id="aria-notify-area"></div>
 
@@ -102,9 +102,10 @@
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>--}}
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
-    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+{{--    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>--}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- import ZoomMtg dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.21/jquery.zoom.min.js"></script>
 <script src="https://source.zoom.us/1.8.5/lib/vendor/react.min.js"></script>
 <script src="https://source.zoom.us/1.8.5/lib/vendor/react-dom.min.js"></script>
 <script src="https://source.zoom.us/1.8.5/lib/vendor/redux.min.js"></script>
@@ -116,7 +117,7 @@
 
 <!-- import local .js file -->
 <script src="{{ asset('js/Zoom/tool.js') }}"></script>
-{{--    <script src="{{ asset('js/Zoom/vconsole.min.js') }}"></script>--}}
+    <script src="{{ asset('js/Zoom/vconsole.min.js') }}"></script>
 <script src="{{ asset('js/Zoom/index.js') }}"></script>
     <script>
        var scheduleAppointmentAjax = "{{  route('clinician.scheduleAppoimentList.ajax') }}";

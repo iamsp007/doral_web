@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="30px" height="30px" viewbox="0 0 30 30" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L20 0L20 20L0 20L0 0Z" id="path_1" />
+    <path d="M0 0L18 0L18 18L0 18L0 0Z" id="path_2" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+    <clipPath id="mask_2">
+      <use xlink:href="#path_2" />
+    </clipPath>
+  </defs>
+  <g id="deactive" transform="translate(0.5 0.5)">
+    <path d="M0 14.5C0 6.5 6.5 0 14.5 0C22.5 0 29 6.5 29 14.5C29 22.5 22.5 29 14.5 29C6.5 29 0 22.5 0 14.5L0 14.5Z" id="Ellipse" fill="#FFFFFF" fill-rule="evenodd" stroke="#006C76" stroke-width="1" />
+    <g id="d" transform="translate(5 5)">
+      <path d="M0 0L20 0L20 20L0 20L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+      <g clip-path="url(#mask_1)">
+        <g id="disable" transform="translate(1 1)">
+          <path d="M0 0L18 0L18 18L0 18L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+          <g clip-path="url(#mask_2)">
+            <path d="M8.4375 0C3.78501 0 0 3.78501 0 8.4375C0 13.09 3.78501 16.875 8.4375 16.875C13.09 16.875 16.875 13.09 16.875 8.4375C16.875 3.78501 13.09 0 8.4375 0L8.4375 0ZM8.43752 13.2387C7.86238 13.2387 7.29178 13.1348 6.75702 12.9352L12.9352 6.75726C13.1348 7.29178 13.2387 7.86238 13.2387 8.43751C13.2387 11.0848 11.0848 13.2387 8.43752 13.2387L8.43752 13.2387ZM8.43751 3.63629C9.01264 3.63629 9.58325 3.74028 10.118 3.93984L3.93984 10.1178C3.74028 9.58325 3.63629 9.01264 3.63629 8.43751C3.63629 5.79033 5.79033 3.63629 8.43751 3.63629L8.43751 3.63629Z" transform="translate(0.51153564 0.51153564)" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -141,6 +141,7 @@ canvas {-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;}
 .scrollbar{margin:0;height:150px;width:100%;background:none;overflow:hidden;overflow-y:scroll}
 .scrollbar1{height: 480px;}
 .scrollbar2{margin:0;width:100%;background:none;overflow-y:scroll;height: 602px;}
+.scrollbar3{height: 380px; padding-right: 15px;}
 .force-overflow{padding:0;margin:0}
 #style-1::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 2px rgba(0,0,0,0.3);box-shadow:inset 0 0 2px rgba(0,0,0,0.3);border-radius:100px;background-color:#fff}
 #style-1::-webkit-scrollbar{width:5px;background-color:#fff}
@@ -494,8 +495,8 @@ small{font-size:12px}
 .app .app-content .app-body .boradcast-list ._ccm{position: absolute;top: -10px;left: -10px;padding:6px 8px;color: #fff;font-size: 16px;}
 .app-card-broadcast{min-height: inherit!important;}
 .app .app-content .app-body .app-broadcasting{display: flex;width: 100%;}
-.app .app-content .app-body .app-broadcasting .lside{width: 295px;display:flex;align-items: center;justify-content: space-between;border-right: 1px solid #c1c1c1;padding: 10px;}
-.app .app-content .app-body .app-broadcasting .lside .content{padding-left: 15px;display:block}
+.app .app-content .app-body .app-broadcasting .lside{width: 250px;display:flex;align-items: center;justify-content:flex-start;border-right: 1px solid #c1c1c1;padding: 10px;}
+.app .app-content .app-body .app-broadcasting .lside .content{padding-left: 10px;display:block}
 .app .app-content .app-body .app-broadcasting .lside .user_photo {width: 50px;border-radius: 100px;}
 .app .app-content .app-body .app-broadcasting .lside ._t11{color: #006C76;font-weight: 600;font-size: 14px;}
 .app .app-content .app-body .app-broadcasting .lside .address{color: #000000;font-weight: 500;font-size: 11px;padding: 5px 0;display: block;line-height: 1.6em;}
@@ -505,7 +506,7 @@ small{font-size:12px}
 .app .app-content .app-body .app-broadcasting .lside .contact .secondary_tel{background: url(../img/icons/phone_green.svg) no-repeat right;padding: 0 22px 0 0;color: #006c76;;}
 .app .app-content .app-body .app-broadcasting .rside .contact{color: #FC573B;font-weight: 500;font-size: 12px;line-height: 1.5em;}
 .app .app-content .app-body .app-broadcasting .rside .contact .secondary_tel{background: url(../img/icons/phone_green.svg) no-repeat right;padding: 0 22px 0 0;color: #006c76;;}
-.app .app-content .app-body .app-broadcasting .rside{width: calc(100% - 295px);display: flex;align-items: center;padding: 10px;justify-content: space-between;}
+.app .app-content .app-body .app-broadcasting .rside{width: calc(100% - 250px);display: flex;align-items: center;padding: 10px;justify-content: space-between;}
 .app .app-content .app-body .app-broadcasting .rside .specification{display: block;}
 .app .app-content .app-body .app-broadcasting .rside .specification li{padding: 4px 0 4px 0;display: flex;flex-wrap: wrap;align-items: center;font-size: 12px;}
 .app .app-content .app-body .app-broadcasting .rside .specification li.blood{color: red;font-weight: 600;}
@@ -513,7 +514,7 @@ small{font-size:12px}
 .app .app-content .app-body .app-broadcasting .rside .specification li.caregiver{color: #0097FF;font-weight: 600;}
 .app .app-content .app-body .app-broadcasting .rside ._lside{width: 190px;}
 .app .app-content .app-body .app-broadcasting .rside ._rside{width: calc(100% - 190px);}
-.app .app-content .app-body .app-broadcasting .rside ._rside .actionBar{display: flex;justify-content:flex-start;}
+.app .app-content .app-body .app-broadcasting .rside ._rside .actionBar{display: flex;justify-content:flex-start;align-items:center;}
 .app .app-content .app-body .app-broadcasting .rside ._rside .actionBar li{margin: 0 10px 0 0;}
 .app .app-content .app-body .app-broadcasting .rside .search-clinician{border: 1px solid #007580;border-radius: 4px;padding: 0;margin:0;}
 .app .app-content .app-body .app-broadcasting .rside .search-clinician .clinician{border:none}
@@ -594,51 +595,7 @@ small{font-size:12px}
 /* Patient Detail page css S */
 /* .app .app-content .app-body {padding:8.2rem 1.5rem 1rem;margin:0;overflow-x: hidden;} */
 .app .app-content .app-body ._overhidden{overflow: hidden;}
-.app .app-content .app-body .patient-details{position: relative;margin-top: 6px;display: flex;justify-content: space-between;}
-.app .app-content .app-body .patient-details-aside{margin:0;padding:0;opacity:1;display:block!important;z-index:9999;box-shadow: 0 0 8px 0 rgba(0,0,0,.30);overflow: hidden;border-radius: 8px;width: 250px;}
-.app .app-content .app-body .patient-details-aside .sidebar{padding:0;margin:0;background:#ffffff;align-items:center;height:100%}
-.app .app-content .app-body .patient-details-aside .sidebar .block{display:flex;margin:0;position:relative;margin-bottom: 45px;}
-.app .app-content .app-body .patient-details-aside .sidebar .block .img-100{width:70px;height:70px;border-radius:50px;position:absolute;left: 0;top: 35%;right: 0;margin: 0 auto;}
-.app .app-content .app-body .patient-details-aside .sidebar .block .height-83{height:58px;background: var(--sidebar-color);width:100%;}
-.app .app-content .app-body .patient-details-aside .sidebar .patient-name{color:var(--sidebar-color);font-size:14px;font-weight:600;margin:0;text-align: center;line-height: 18px;}
-.app .app-content .app-body .patient-details-aside .sidebar .pdetail{width: 100%;margin: 0px 20px 0 20px;}
-.app .app-content .app-body .patient-details-aside .sidebar .pdetail .nav{width:100%;line-height:26px;background:var(--white);border:1px solid #007C88;-webkit-border-radius:100px 100px 100px 100px;-moz-border-radius:100px 100px 100px 100px;border-radius:100px 100px 100px 100px;margin-top:6px;justify-content: center;font-size: 11px;padding: 0 12px;color:#000;font-weight: 400;}
-.app .app-content .app-body .patient-details-aside .sidebar .pdetail .nav .pdata{color:#00717c;font-weight: 600;}
-.app .app-content .app-body .patient-details-aside .sidebar .patient-nav{margin: 30px 15px 0px 15px;}
-.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li{width: 100%;}
-.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li ._icon{width: 28px;border: 1px solid #adadad;border-radius: 50%;padding: 3px;}
-.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li ._icon:hover{border: 1px solid #00717c;padding: 2px;}
-.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li a{display: block;line-height: 25px;font-size: 14px;font-weight: 400;color: #000;box-sizing: border-box;transition: .4s;display: flex;align-items: center;}
-.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li a:hover{color:#00717c;font-weight: 500;}
-.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li .active{color: #006C76;font-weight: 500;}
-.app .app-content .app-body .patient-details-aside .sidebar .patient-nav li:hover a{padding-left: 20px;}
-.app .app-content .app-body .patient-details-content{width: calc(100% - 278px);box-shadow: 0 0 8px 0 rgba(0,0,0,.3);background-color: #fff;border-radius: 8px;padding: .75rem 1.25rem;}
-.app .app-content .app-body .patient-details-content>.tab-pane {display: block;}
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link{background-color: #fff;}
-/* demographics css Start */
-.app .app-content .app-body .patient-details-content .tab-content .demographics-title{font-size: 16px;font-weight: 600;color: #006c76;padding: 20px 0 20px 0px;}
-.app .app-content .app-body .patient-details-content .tab-content .demographics-detail ul{display: flex;justify-content: space-between;margin-bottom: 15px;}
-.app .app-content .app-body .patient-details-content .tab-content .demographics-detail .demo-border{border: 1px solid #DADADA;border-left: 3px solid #006C76;padding: 8px;width: 252px;}
-.app .app-content .app-body .patient-details-content .tab-content .demographics-detail .demo-border ._title{font-size: 12px;color: #000;line-height: 18px;}
-.app .app-content .app-body .patient-details-content .tab-content .demographics-detail .demo-border ._detail{font-size: 14px;color: #006C76;font-weight: 400;line-height: 17px;}
-.btn-view1{color:var(--white);font-size:14px;font-weight:500;background-color:var(--pink);text-transform:uppercase;border-color:var(--pink)}
-.btn-view1:hover{animation-name:fadeIn;animation-duration:4s;animation-timing-function:normal;animation-delay:0;animation-iteration-count:1;animation-direction:normal;animation-fill-mode:none}
-/* Insurance css Start */
-.app .app-content .app-body .patient-details-content .tab-content .app-card{border-radius: 4px;box-shadow: none !important;border:none}
-.app .app-content .app-body .patient-details-content .tab-content .card-header {font-size: 16px;font-weight: 500;background-color: rgb(255 255 255 / 3%)!important;color: var(--secondary-color);padding: 0;}
-.app .app-content .app-body .patient-details-content .tab-content  hr{background-color: #22d4e4;margin: 12px 0;}
-.app .app-content .app-body .patient-details-content .tab-content .circle-icon{width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;line-height: 40px;text-align: center;font-size: 21px;color:#00B9C9;margin-right: 10px;background: #f8f8f8;}
-.app .app-content .app-body .patient-details-content .tab-content .circle-icon:hover{border: 1px solid #006c76;font-size: 23px;color:#006c76}
-.app .app-content .app-body .patient-details-content .tab-content .circle-icon-small{width: 20px;height: 20px;border: 1px solid transparent;border-radius: 50%;line-height: 20px;text-align: center;font-size: 15px;color:#00B9C9;margin-right: 10px;background: #f8f8f8;}
-.app .app-content .app-body .patient-details-content .tab-content .circle-icon-small:hover{border: 1px solid #006c76;font-size: 15px;color:#006c76}
-.app .app-content .app-body .patient-details-content .tab-content .card-header ._icon{width: 40px;border: 1px solid #e4e4e4;border-radius: 50%;padding: 6px;}
-.app .app-content .app-body .patient-details-content .tab-content .card-header ._icon:hover{border: 1px solid #006c76;padding: 4px;}
-.app .app-content .app-body .patient-details-content .tab-content ._title{font-size: 11px;color: #505050;margin-bottom: 6px;font-weight:500}
-.app .app-content .app-body .patient-details-content .tab-content ._detail{font-size: 14px;color: var(--secondary-color);text-align: justify;font-weight:600}
-.app .app-content .app-body .patient-details-content .tab-content ._detail span{font-weight: 600;}
-.app .app-content .app-body .patient-details-content .tab-content .card-body{padding: 0;}
-.patient-profile-title{color: var(--black);font-size: 14px;font-weight: 600;margin-bottom: 15px;margin-top: 35px;}
-/* Patient Detail page css End */
+
 /* Modal popup css Start */
 .modal-header .modal-title{font-size: 1.25rem!important;}
 .modal-header{min-height:16px;padding:24px;border-bottom:none}
@@ -855,7 +812,6 @@ small{font-size:12px}
 ._card ._card_header{padding:10px;font-weight:500;font-size:13px;border-bottom:1px solid #d8d8d8;display:flex;justify-content: space-between;align-items: center;background-color: #fcfcfc;border-radius:5px;}
 ._card ._card_body{padding:10px;font-size:12px;}
 ._m20{margin:0px 20px;}
-._insurance_company{font-weight:600;color:var(--sidebar-color)}
 /* VBC Add new patient */
 .app .app-content .bg_grey{background-color: #F1F2F4;}
 .app .app-content .app-body .app-vbc .add-new-patient .icon{width:80px;display: block;margin:0 auto;}
@@ -1000,3 +956,18 @@ small{font-size:12px}
 .popbox .popovers-content{padding:0 10px 10px 10px;display: block;}
 .popbox .popovers-content > :last-child{margin-bottom:0}
 .popbox .popovers-title{background-color: #E3FDFF;padding: 10px;-webkit-border-top-left-radius: 5px;-webkit-border-top-right-radius: 5px;-moz-border-radius-topleft: 5px;-moz-border-radius-topright: 5px;border-top-left-radius: 5px;border-top-right-radius: 5px;font-weight: 600;font-size: 16px;color: var(--sidebar-color);}
+.broadcast_box .btn-block+.btn-block{margin-top: .5rem;}
+.broadcast_box .btn-block+.btn-block:hover{margin-top: .5rem;}
+/* MD Forms Start */
+.md-nav-pills{width: 100%;}
+.md-nav-pills .nav-pills{margin-top: 15px; width: 350px;}
+.md-nav-pills .nav-link{color: #797979;font-size: 13px;padding: 0 10px;border-left: 5px solid transparent;margin-bottom:5px;border-radius: 0;height: 30px;font-weight: 600;}
+.md-nav-pills .nav-link.active{color: #006c76;border-left: 5px solid #006c76;background: none;font-size: 13px;padding:0 10px;margin-bottom:5px;border-radius: 0;font-weight: 600;} 
+.md-nav-pills .tab-content{width: 100%;}
+.md-nav-pills .tab-pane{width: 100%;border: 1px solid #aaaaaa;border-radius: 15px;height:100%;background: #fff;}
+.md-nav-pills .tab-pane.active{border:1px solid #aaaaaa;}
+.md_form_content{width: 100%;}
+.md-nav-pills .nav-link .activeOkay{display: none;}
+.md-nav-pills .nav-link.active .activeOkay{display: block;}
+.md-nav-pills .form_title{font-weight: 500;font-size: 18px;color: #006C76;}
+/* MD Forms End */

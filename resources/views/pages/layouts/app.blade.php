@@ -196,6 +196,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
 {{--<script src="{{ asset('js/socket.js') }}"></script>--}}
 <script src="{{ asset('assets/js/sidebar.js') }}"></script>
+<script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
 {{--<script src="{{ asset('js/socket.js') }}"></script>--}}
 <script>
     var base_url = $('#base_url').val();

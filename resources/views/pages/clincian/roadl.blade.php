@@ -77,274 +77,70 @@
                                     </ul>
                                 </div>
                                 <div class="_rside">
-                                    <ul class="actionBar">
-                                        <li>
-                                           <div class="input-group-prepend mr-2">
-                                            <select class="select" multiple id="partner-services">
-                                                <option>LAB</option>
-                                                <option>X-Ray</option>
-                                                <option>CHHA</option>
-                                                <option>Home Oxygen</option>
-                                                <option>Home Insfusion</option>
-                                                <option>Wound Care</option>
-                                            </select>
-                                           </div>
-                                        </li>
-                                        <li>
-                                            <button type="button"
+                                        <ul class="actionBar">
+                                            <li>
+                                                <span id="hook-latest"></span>
+                                                <div class="search-clinician">
+                                                    <!-- <input type="text" class="form-control clinician" name="animal"
+                                                        id="searchField" placeholder="Assign Manually"> -->
+                                                    <select name="assign_clinician"
+                                                        class="form-control select assign_clinician" multiple>
+                                                        <option selected="" value="RoadL">RoadL</option>
+                                                        <option value="LAB">LAB</option>
+                                                        <option value="X-Ray">X-Ray</option>
+                                                        <option value="CHHA">CHHA</option>
+                                                        <option value="Home Oxygen">Home Oxygen</option>
+                                                        <option value="Home Insfusion">Home Insfusion</option>
+                                                        <option value="Wound Care">Wound Care</option>
+                                                        <option value="DME">DME</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <button type="button"
                                                     onclick="window.location.href = '{{ route('start.call',['patient_request_id'=>$value->id]) }}'"
                                                     class="btn btn-start-call">Start
                                                 Call<span></span></button>
-                                        </li>
-                                        <li>
-                                            @if($value->clincial_id===null)
-                                                <button type="button"
-                                                        onclick="window.location.href = '{{ route('clinician.start.roadl',['patient_request_id'=>$value->id]) }}'"
-                                                        class="btn btn-broadcast">Start Broadcast<span></span></button>
-                                            @elseif($value->status==='complete')
-                                                <button type="button"
-                                                        class="btn btn-broadcast">Complete<span></span></button>
-                                            @else
-                                                <button type="button"
-                                                        onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$value->id]) }}'"
-                                                        class="btn btn-broadcast">Running Broadcast<span></span></button>
-                                            @endif
-                                        </li>
-                                        <li>
-<!--                                            <button type="button" class="btn btn-emergency">emergency
-                                                (911)<span></span></button>-->
-                                        </li>
-                                    </ul>
-                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="broadcast_box">
+                                                    @if($value->clincial_id===null)
+                                                        <button type="button"
+                                                            onclick="window.location.href = '{{ route('clinician.start.roadl',['patient_request_id'=>$value->id]) }}'"
+                                                            class="btn btn-broadcast btn-block">RoadL Broadcast<span></span>
+                                                        </button>
+                                                    @elseif($value->status==='complete')
+                                                        <button type="button"
+                                                            class="btn btn-broadcast">Complete<span></span>
+                                                        </button>
+                                                    @else
+                                                        <button type="button"
+                                                            onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$value->id]) }}'"
+                                                            class="btn btn-broadcast">Running Broadcast<span></span>
+                                                        </button>
+                                                    @endif
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                             </div>
                         </div>
                     </div>
                 </li>
             @endforeach
         @endif
-{{--        <li class="mt-3">--}}
-{{--            <span class="badge rounded-pill bg-danger _ccm">C</span>--}}
-{{--            <div class="app-card app-card-broadcast raduis_5">--}}
-{{--                <div class="app-broadcasting">--}}
-{{--                    <div class="lside">--}}
-{{--                        <div>--}}
-{{--                            <img src="../assets/img/user/01.png" class="user_photo" alt=""--}}
-{{--                                 srcset="../assets/img/user/01.png">--}}
-{{--                        </div>--}}
-{{--                        <div class="content">--}}
-{{--                            <h1 class="_t11">--}}
-{{--                                <a href="javascript:void(0)">--}}
-{{--                                    Shashikant Parmar--}}
-{{--                                </a>--}}
-{{--                                <span class="contact"><a href="tel:8866246684" class="secondary_tel"></a>--}}
-{{--                                            </span>--}}
-{{--                            </h1>--}}
-{{--                            <p class="address">1797 Pitkin Avenue Brooklyn,--}}
-{{--                                NY 11212</p>--}}
-{{--                            <p class="emergency_contact mb-2 d-none"> Emergency Contact--}}
-{{--                                <a href="tel:9966246684" class="primary_tel d-none">9966246684</a>--}}
-{{--                            </p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="rside">--}}
-{{--                        <div class="_lside">--}}
-{{--                            <ul class="specification">--}}
-{{--                                <li class="blood"><img src="../assets/img/icons/pressure.svg" class="mr-2"--}}
-{{--                                                       alt="">Blood Pressure : 250</li>--}}
-{{--                                <li class="sugar"><img src="../assets/img/icons/sugar.svg" class="mr-2"--}}
-{{--                                                       alt="">Blood Sugar : 250</li>--}}
-{{--                                <li class="caregiver" data-container="body" data-toggle="popover"--}}
-{{--                                    data-placement="top"--}}
-{{--                                    data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">--}}
-{{--                                    <img src="../assets/img/icons/caregiver.svg" class="mr-2"--}}
-{{--                                         alt="">Caregiver :&nbsp;<a title="8866246684"--}}
-{{--                                                                    href="javascript:void(0)" class="secondary_tel">Akshita</a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                        <div class="_rside">--}}
-{{--                            <ul class="actionBar">--}}
-{{--                                <li>--}}
-{{--                                    <div class="search-clinician">--}}
-{{--                                        <input type="text" class="form-control clinician" name="animal"--}}
-{{--                                               id="searchField" placeholder="Assign Manually">--}}
-{{--                                    </div>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <button type="button" class="btn btn-start-call">Start--}}
-{{--                                        Call<span></span></button>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <button type="button"--}}
-{{--                                            onclick="window.location.href = 'broadcast_send_message.html'"--}}
-{{--                                            class="btn btn-broadcast">Broadcast<span></span></button>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-<!--{{--                                    <button type="button" class="btn btn-emergency">emergency--}}
-{{--                                        (911)<span></span></button>--}}-->
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </li>--}}
-{{--        <li class="mt-3">--}}
-{{--            <span class="badge rounded-pill bg-danger _ccm">C</span>--}}
-{{--            <div class="app-card app-card-broadcast raduis_5">--}}
-{{--                <div class="app-broadcasting">--}}
-{{--                    <div class="lside">--}}
-{{--                        <div>--}}
-{{--                            <img src="../assets/img/user/01.png" class="user_photo" alt=""--}}
-{{--                                 srcset="../assets/img/user/01.png">--}}
-{{--                        </div>--}}
-{{--                        <div class="content">--}}
-{{--                            <h1 class="_t11">--}}
-{{--                                <a href="javascript:void(0)">--}}
-{{--                                    Shashikant Parmar--}}
-{{--                                </a>--}}
-{{--                                <span class="contact"><a href="tel:8866246684" class="secondary_tel"></a>--}}
-{{--                                            </span>--}}
-{{--                            </h1>--}}
-{{--                            <p class="address">1797 Pitkin Avenue Brooklyn,--}}
-{{--                                NY 11212</p>--}}
-{{--                            <p class="emergency_contact mb-2 d-none"> Emergency Contact--}}
-{{--                                <a href="tel:9966246684" class="primary_tel d-none">9966246684</a>--}}
-{{--                            </p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="rside">--}}
-{{--                        <div class="_lside">--}}
-{{--                            <ul class="specification">--}}
-{{--                                <li class="blood"><img src="../assets/img/icons/pressure.svg" class="mr-2"--}}
-{{--                                                       alt="">Blood Pressure : 250</li>--}}
-{{--                                <li class="sugar"><img src="../assets/img/icons/sugar.svg" class="mr-2"--}}
-{{--                                                       alt="">Blood Sugar : 250</li>--}}
-{{--                                <li class="caregiver" data-container="body" data-toggle="popover"--}}
-{{--                                    data-placement="top"--}}
-{{--                                    data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">--}}
-{{--                                    <img src="../assets/img/icons/caregiver.svg" class="mr-2"--}}
-{{--                                         alt="">Caregiver :&nbsp;<a title="8866246684"--}}
-{{--                                                                    href="javascript:void(0)" class="secondary_tel">Akshita</a>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                        <div class="_rside">--}}
-{{--                            <ul class="actionBar">--}}
-{{--                                <li>--}}
-{{--                                    <div class="search-clinician">--}}
-{{--                                        <input type="text" class="form-control clinician" name="animal"--}}
-{{--                                               id="searchField" placeholder="Assign Manually">--}}
-{{--                                    </div>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <button type="button" class="btn btn-start-call">Start--}}
-{{--                                        Call<span></span></button>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-{{--                                    <button type="button"--}}
-{{--                                            onclick="window.location.href = 'broadcast_send_message.html'"--}}
-{{--                                            class="btn btn-broadcast">Broadcast<span></span></button>--}}
-{{--                                </li>--}}
-{{--                                <li>--}}
-<!--{{--                                    <button type="button" class="btn btn-emergency">emergency--}}
-{{--                                        (911)<span></span></button>--}}-->
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+
     </ul>
-{{--    <ul>--}}
-{{--        @if(count($patientRequestList)>0)--}}
-{{--            @foreach($patientRequestList as $key=>$value)--}}
-{{--                <li>--}}
-{{--                    <div class="app-card raduis_5 mb-2">--}}
-{{--                        <div class="app-broadcasting">--}}
-{{--                            <div class="lside">--}}
-{{--                                <div>--}}
-{{--                                    <img src="{{ asset('assets/img/user/01.png') }}" class="user_photo" alt=""--}}
-{{--                                         srcset="{{ asset('assets/img/user/01.png') }}">--}}
-{{--                                </div>--}}
-{{--                                <div class="content">--}}
-{{--                                    <h1 class="_t11">{!! $value->detail->first_name !!} {!! $value->detail->last_name !!} </h1>--}}
-{{--                                    <p class="address">{!! !empty($value->patient_detail) ?!empty($value->patient_detail->address1)?$value->patient_detail->address1:'-':'' !!}</p>--}}
-{{--                                    <p class="emergency_contact mb-2"> Emergency Contact--}}
-{{--                                        <a href="tel:9966246684" class="primary_tel">{!! $value->detail->phone !!}</a></p>--}}
-{{--                                    <p class="contact"><a href="tel:8866246684" class="secondary_tel">{!! $value->detail->phone !!}</a>--}}
-{{--                                    </p>--}}
-{{--                                </div>--}}
-{{--                                <!-- <a href="javascript:void(0)"><i class="las la-ellipsis-v la-2x"></i></a> -->--}}
-{{--                                <div id="_dropdown">--}}
-{{--                                    <div class="dropdown user-dropdown">--}}
-{{--                                        <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"--}}
-{{--                                           aria-haspopup="true" aria-expanded="false" href="javascript:void(0)"><i--}}
-{{--                                                class="las la-ellipsis-v la-2x"></i></a>--}}
-{{--                                        <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">--}}
-{{--                                            <a class="dropdown-item" href="#">View Profile</a>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            @if(count($value->ccrm)>0)--}}
-{{--                            <div class="rside">--}}
-{{--                                <div class="_lside">--}}
-{{--                                    <ul class="specification">--}}
-{{--                                            @foreach($value->ccrm as $ckey=>$cvalue)--}}
-{{--                                                <li class="blood">--}}
-{{--                                                    <img src="{{ asset('assets/img/icons/pressure.svg') }}"--}}
-{{--                                                         class="mr-2" alt="">--}}
-{{--                                                        {!! $cvalue->reading_type !!} : {!! $cvalue->reading_value !!}--}}
-{{--                                                </li>--}}
-{{--                                            @endforeach--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                                @endif--}}
-{{--                                <div class="_rside">--}}
-{{--                                    <ul class="actionBar">--}}
-{{--                                        <li>--}}
-{{--                                            <div class="search-clinician">--}}
-{{--                                                <input type="text" class="form-control clinician" name="animal"--}}
-{{--                                                       id="searchField" placeholder="Assign Manually">--}}
-{{--                                            </div>--}}
-{{--                                        </li>--}}
-{{--                                        <li>--}}
-{{--                                            <button type="button" class="btn btn-start-call">Start--}}
-{{--                                                Call<span></span></button>--}}
-{{--                                        </li>--}}
-{{--                                        <li>--}}
-{{--                                            @if($value->clincial_id===null)--}}
-{{--                                                <a href="{{ route('clinician.start.roadl',['patient_request_id'=>$value->id]) }}" class="btn btn-start-call">Start BroadCast<span></span></a>--}}
-{{--                                            @elseif($value->status==='complete')--}}
-{{--                                                <a  class="btn btn-start-call">Running BroadCast<span></span></a>--}}
-{{--                                            @else--}}
-{{--                                                <a href="{{ route('clinician.start.running',['patient_request_id'=>$value->id]) }}" class="btn btn-start-call">Running BroadCast<span></span></a>--}}
-{{--                                            @endif--}}
-{{--                                        </li>--}}
-{{--                                        <li>--}}
-<!--{{--                                            <button type="button" class="btn btn-emergency">emergency--}}
-{{--                                                (911)<span></span></button>--}}-->
-{{--                                        </li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </li>--}}
-{{--            @endforeach--}}
-{{--        @endif--}}
-{{--    </ul>--}}
 @endsection
 
 @push('styles')
 @endpush
 
 @push('scripts')
-{{--    <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>--}}
+    <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
     <script>
         var patientRequestList='{{ route('clinician.roadl.patientRequestList') }}';
     </script>
-    <script src="{{ asset('js/clincian/roadl.js') }}"></script>
+    <!--<script src="{{ asset('js/clincian/roadl.js') }}"></script>-->
 @endpush
+

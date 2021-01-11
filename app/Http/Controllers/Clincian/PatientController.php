@@ -83,21 +83,9 @@ class PatientController extends Controller
             $data=$response->data;
         }
         return  DataTables::of($data)
-            ->addIndexColumn()
-            ->addColumn('action', function($row){
-                if (!empty($row->meeting) && $row->meeting!==null){
-                    $btn = '<a href="javascript:void(0)"
-                                            class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2 scheduled-call"
-                                            data-toggle="tooltip" data-placement="left" onclick="openMeetingDialog('.$row->id.')" title="Start Meeting"
-                                            data-original-title="Start Meeting"><i class="las la-video"></i></a>';
-//                    $btn = '<a href="'.route('start.meeting',['appointment_id'=>$row->id]).'" id="meeting-btn-'.$row->id.'" target="_blank" class="btn btn-primary btn-vedio shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Start Video" data-original-title="Start Meeting" aria-describedby="tooltip910346" style="display: none"><i class="las la-video"></i></a>';
-//                    $btn .= '<a href="'.route('patient.detail',['patient_id'=>$row->patients->id]).'" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
-
-                    return $btn;
-                }
-                return '';
+            ->addColumn('is_provider1', function ($user) {
+                return Auth::user()->id===$user->provider1;
             })
-            ->rawColumns(['action'])
             ->make(true);
     }
 
@@ -127,6 +115,15 @@ class PatientController extends Controller
     public function changePatientStatus(Request $request){
         $clinicianService = new ClinicianService();
         $response = $clinicianService->changePatientStatus($request->all());
+        if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+    }
+
+    public function changeAppointmentStatus(Request $request){
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->cancelAppointmentStatus($request->all());
         if ($response->status===true){
             return response()->json($response,200);
         }

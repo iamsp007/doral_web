@@ -690,7 +690,7 @@ small{font-size:12px}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .appointment-title{color: #006C76;font-weight: 600;font-size: 17px;}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .appointment-date{color: #006C76;font-weight: 600;font-size: 14px;text-align: right;}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail{height : 270px;overflow-y: scroll;padding-right: 5px;}
-/* appointment detail */ 
+/* appointment detail */
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block{border-radius:4px;border:solid 1px #a0a0a0;padding: 7px 8px;display: flex;align-items: center;margin-bottom: 8px;justify-content: space-between; box-shadow: 0px 2px 5px #f0f0f0;}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .img-30{width:30px;height:30px;border-radius:50%;overflow: hidden;border:solid 1px #f0f0f0;}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .patient-name{color: #323232;font-weight: 600;font-size: 14px;padding-left: 8px;width: 19%;}
@@ -897,7 +897,7 @@ small{font-size:12px}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideLeft ._t2{font-size:44px;font-weight:400;color:#000;margin-top: 4px;line-height: 54px;}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight{display:flex;align-items:center;justify-content:center;}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons{width: 80px;height: 80px;border: 1px solid #e4e4e4;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
-.app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons img{width:50px;position: absolute;} 
+.app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons img{width:50px;position: absolute;}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons.border-red{border:1px solid #FF4B3B;}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons.border-purple{border:1px solid #A11FFF;}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons.border-orange{border:1px solid #FF6C03;}
@@ -935,7 +935,7 @@ small{font-size:12px}
 .custom-control{min-height: auto;}
 .custom-nav-pills .nav-pills{margin-top: 15px; width: 250px;}
 .custom-nav-pills .nav-link{border:1px solid transparent;border-radius:7px 0px 0px 7px;-moz-border-radius:7px 0px 0px 7px;-webkit-border-radius:7px 0px 0px 7px;border-right: 1px solid transparent;background: none;color: #797979;font-size: 14px;padding: 10px;border-left: 5px solid #d8d8d8;margin-bottom:10px;}
-.custom-nav-pills .nav-link.active{color: #006c76;border:1px solid #006c76;border-right: 1px solid transparent;border-left: 5px solid #006c76;background:#fff} 
+.custom-nav-pills .nav-link.active{color: #006c76;border:1px solid #006c76;border-right: 1px solid transparent;border-left: 5px solid #006c76;background:#fff}
 .custom-nav-pills .tab-content{width: 100%;}
 .custom-nav-pills .tab-pane{width: 100%;border: 1px solid #d8d8d8;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;height:100%;background: #fff;}
 .custom-nav-pills .tab-pane.active{border:1px solid #006c76;}
@@ -964,7 +964,7 @@ small{font-size:12px}
 .md-nav-pills{width: 100%;}
 .md-nav-pills .nav-pills{margin-top: 15px; width: 350px;}
 .md-nav-pills .nav-link{color: #797979;font-size: 13px;padding: 0 10px;border-left: 5px solid transparent;margin-bottom:5px;border-radius: 0;height: 30px;font-weight: 600;}
-.md-nav-pills .nav-link.active{color: #006c76;border-left: 5px solid #006c76;background: none;font-size: 13px;padding:0 10px;margin-bottom:5px;border-radius: 0;font-weight: 600;} 
+.md-nav-pills .nav-link.active{color: #006c76;border-left: 5px solid #006c76;background: none;font-size: 13px;padding:0 10px;margin-bottom:5px;border-radius: 0;font-weight: 600;}
 .md-nav-pills .tab-content{width: 100%;}
 .md-nav-pills .tab-pane{width: 100%;border: 1px solid #aaaaaa;border-radius: 15px;height:100%;background: #fff;}
 .md-nav-pills .tab-pane.active{border:1px solid #aaaaaa;}

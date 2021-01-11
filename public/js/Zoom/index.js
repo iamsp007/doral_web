@@ -1,8 +1,5 @@
 ZoomMtg.setZoomJSLib('https://source.zoom.us/1.8.5/lib', '/av');
 
-ZoomMtg.i18n.load('en-US');
-
-
 
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareJssdk();
@@ -22,46 +19,61 @@ function startMeeting(meetingConfig){
         success:function (response) {
             $("#loader-wrapper").hide();
             ZoomMtg.init({
-                leaveUrl: meetingConfig.leaveUrl,
-                webEndpoint: meetingConfig.webEndpoint,
-                meetingInfo: ['topic', 'host'],
-                isSupportAV: true,
-                disableInvite: true,
-                success: function () {
-                    ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
-                        console.log("onMeetingStatus, status = ",data.meetingStatus);
-                    });
-
-                    ZoomMtg.join({
-                        meetingNumber: response.meetingNumber,
-                        userName: 'userName',
-                        signature: response.signature,
-                        apiKey: meetingConfig.apiKey,
-                        apiSecret: response.apiSecret,
-                        userEmail: 'meetingConfig.userEmail',
-                        passWord: meetingConfig.passWord,
-                        role:meetingConfig.role,
-                        success: function (res) {
-
-                            ZoomMtg.getCurrentUser({
-                                success: function (res) {
-                                    console.log("success getCurrentUser", res.result.currentUser);
-                                },
-                            });
-                            ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
-                                console.log("onUserLeave");
-                            });
-                        },
-                        error: function (res) {
-                            console.log('failed join.', res);
-                        },
-                    });
+                debug: true, //optional
+                leaveUrl: 'http://www.zoom.us', //required
+                webEndpoint: 'PSO web domain', // PSO option
+                showMeetingHeader: false, //option
+                disableInvite: false, //optional
+                disableCallOut: false, //optional
+                disableRecord: false, //optional
+                disableJoinAudio: false, //optional
+                audioPanelAlwaysOpen: true, //optional
+                showPureSharingContent: false, //optional
+                isSupportAV: true, //optional,
+                isSupportChat: true, //optional,
+                isSupportQA: true, //optional,
+                isSupportPolling: true, //optional
+                isSupportBreakout: true, //optional
+                isSupportCC: true, //optional,
+                screenShare: true, //optional,
+                rwcBackup: '', //optional,
+                videoDrag: true, //optional,
+                sharingMode: 'both', //optional,
+                videoHeader: true, //optional,
+                isLockBottom: true, // optional,
+                isSupportNonverbal: true, // optional,
+                isShowJoiningErrorDialog: true, // optional,
+                inviteUrlFormat: '', // optional
+                loginWindow: {  // optional,
+                    width: 400,
+                    height: 380
                 },
-                error: function (res) {
-                    console.log('failed initialized.', res);
-                },
+                meetingInfo: [ // optional
+                    'topic',
+                    'host',
+                    'mn',
+                    'pwd',
+                    'telPwd',
+                    'invite',
+                    'participant',
+                    'dc',
+                    'enctype',
+                    'report'
+                ],
+                disableVoIP: false, // optional
+                disableReport: false, // optional
             });
 
+            ZoomMtg.join({
+                meetingNumber: response.meetingNumber,
+                userName: 'User name',
+                userEmail: '',
+                passWord: '',
+                apiKey: response.api_key,
+                signature: response.signature,
+                success: function(res){console.log(res)},
+                error: function(res){console.log(res)}
+            });
         },
         error:function (error) {
             console.log(error)

@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/ClinicianService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/ClinicianService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Zoom/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Zoom/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/clincian/app.clinician.appointment.scheduled.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/app.clinician.appointment.scheduled.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/schedule.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/clinician.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinician.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -376,7 +371,8 @@
       <workItem from="1610440104669" duration="1826000" />
       <workItem from="1610441991153" duration="1884000" />
       <workItem from="1610444234175" duration="1776000" />
-      <workItem from="1610446054839" duration="1130000" />
+      <workItem from="1610446054839" duration="1972000" />
+      <workItem from="1610448066716" duration="375000" />
     </task>
     <servers />
   </component>

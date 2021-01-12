@@ -63,7 +63,7 @@ $(function () {
                             '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
                             '                                                Start Meeting</button>';
                     }else {
-                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: none;" onclick="startVideoCall('+row.id+',0)">\n' +
+                        html+='<button type="button" id="join-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: none;" onclick="startVideoCall('+row.id+',0)">\n' +
                             '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
                             '                                                Join Meeting</button>';
                     }
@@ -142,6 +142,8 @@ $(function () {
                 $('#countdown'+row.id).parent().removeClass('blink_me');
                 if (row.status==="open"){
                     $('#start-call-'+row.id).show();
+                }else if (row.status==="running"){
+                    $('#join-call-'+row.id).show();
                 }else {
                     $('#start-call-'+row.id).hide();
                 }
@@ -272,25 +274,33 @@ function startVideoCall(id,role) {
         success:function (response) {
             // $("#loader-wrapper").hide();
             const sources = response.data;
-
+            var provider = sources.provider1_details;
+            if (role===0){
+                provider = sources.provider2_details;
+            }
             setVideoCallinginformation(sources);
-            // var meetingConfig={
-            //     leaveUrl:base_url+'/clinician/scheduled-appointment',
-            //     meetingNumber:sources.meeting.meetingNumber,
-            //     role:role
-            // };
+            const meetConfig = {
+                apiKey: 'LBO3ITvITiSiE808pFqGcQ',
+                meetingNumber:parseInt(sources.meeting.meeting_id),
+                leaveUrl: base_url+'clinician/scheduled-appointment',
+                userName: provider.first_name+' '+provider.last_name,
+                userEmail: provider.email, // required for webinar
+                passWord: JSON.parse(sources.meeting.zoom_response).password, // if required
+                lana: 'en-US',
+                china: true,
+                role: parseInt(role, 10) // 1 for host; 0 for attendee or webinar
+            };
             //
-            // startMeeting();
+            startZoomMeeting(meetConfig);
+            setTimeout(() => {
+                $('.app-video').show();
+                $('.app-video').removeClass('scale-down-center');
+            }, 1000);
         },
         error:function (error) {
             console.log(error)
         }
     })
-
-    setTimeout(() => {
-        $('.app-video').show();
-        $('.app-video').removeClass('scale-down-center');
-    }, 1000);
 }
 
 function setVideoCallinginformation(data) {
@@ -412,3 +422,7 @@ function Tabs() {
     bindAll();
 }
 var connectTabs = new Tabs();
+
+function onSavePatientInformation(element) {
+    console.log($('input[name="physical_examination_report"]:checked').serialize());
+}

@@ -43,8 +43,9 @@
         </div>
         <div class="app-video-body">
             <div class="app-video-left b-tab active" id="orange">
-                <div class="video_container">
-
+                <div class="video_container ReactModal__Body--open">
+                    <!-- added on import -->
+                    <div id="zmmtg-root"></div>
                 </div>
             </div>
             <div class="app-video-left b-tab" id="green">
@@ -80,8 +81,9 @@
                                                                         <div class="col-12 col-sm-6">
                                                                             <div
                                                                                 class="custom-control custom-checkbox mb-3">
-                                                                                <input type="checkbox"
+                                                                                <input type="checkbox" name="physical_examination_report[]"
                                                                                        class="custom-control-input"
+                                                                                       value="PEPA"
                                                                                        id="customCheck1">
                                                                                 <label class="custom-control-label"
                                                                                        for="customCheck1">Pre-Employment
@@ -90,7 +92,9 @@
                                                                             </div>
                                                                             <div class="custom-control custom-checkbox">
                                                                                 <input type="checkbox"
+                                                                                       name="physical_examination_report[]"
                                                                                        class="custom-control-input"
+                                                                                       value="AA"
                                                                                        id="customCheck2">
                                                                                 <label class="custom-control-label"
                                                                                        for="customCheck2">Annual
@@ -101,6 +105,7 @@
                                                                             <div
                                                                                 class="custom-control custom-checkbox mb-3">
                                                                                 <input type="checkbox"
+                                                                                       name="physical_examination_report[]"
                                                                                        class="custom-control-input"
                                                                                        id="customCheck3">
                                                                                 <label class="custom-control-label"
@@ -111,6 +116,7 @@
                                                                             <div
                                                                                 class="custom-control custom-checkbox m-0">
                                                                                 <input type="checkbox"
+                                                                                       name="physical_examination_report[]"
                                                                                        class="custom-control-input"
                                                                                        id="customCheck4">
                                                                                 <label class="custom-control-label"
@@ -317,8 +323,9 @@
                                                                 class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2"
                                                                 data-toggle="tooltip" data-placement="left" title=""
                                                                 data-original-title="Cancel">Cancel</button>
-                                                        <button type="submit"
+                                                        <button type="button"
                                                                 class="btn btn-outline-pink btn-sm text-uppercase fw-600"
+                                                                onclick="onSavePatientInformation(this)"
                                                                 name="cancel" data-toggle="tooltip" data-placement="left"
                                                                 title="" data-original-title="Continue">Continue</button>
                                                     </div>
@@ -889,26 +896,6 @@
                             <img src="{{ asset('assets/img/icons/icon_md_form.svg') }}" alt="">
                         </a>
                     </li>
-{{--                    <li data-toggle="tooltip" title="Signature">--}}
-{{--                        <a href="javascript:void(0)">--}}
-{{--                            <img src="{{ asset('assets/img/icons/icon_signature.svg') }}" alt="">--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li data-toggle="tooltip" title="Stamp">--}}
-{{--                        <a href="javascript:void(0)">--}}
-{{--                            <img src="{{ asset('assets/img/icons/icon_approve.svg') }}" alt="">--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li data-toggle="tooltip" title="Generate PDF">--}}
-{{--                        <a href="javascript:void(0)">--}}
-{{--                            <img src="{{ asset('assets/img/icons/icon_pdf.svg') }}" alt="">--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                    <li data-toggle="tooltip" title="Send">--}}
-{{--                        <a href="javascript:void(0)">--}}
-{{--                            <img src="{{ asset('assets/img/icons/icon_send.svg') }}" alt="">--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
                     <li data-toggle="tooltip" title="Close" class="closeAppointment">
                         <a href="javascript:void(0)">
                             <i class="las la-times la-4x"></i>
@@ -924,8 +911,8 @@
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
-{{--    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/bootstrap.css" />--}}
-{{--    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/react-select.css" />--}}
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
 @endpush
 
 @push('scripts')
@@ -938,17 +925,20 @@
        var scheduleAppointmentAjax = "{{  route('clinician.scheduleAppoimentList.ajax') }}";
        var patient_detail_url = "{{  url('/patient-detail/') }}";
     </script>
-{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/react.min.js"></script>--}}
-{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/react-dom.min.js"></script>--}}
-{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/redux.min.js"></script>--}}
-{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/redux-thunk.min.js"></script>--}}
-{{--    --}}{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/jquery.min.js"></script>--}}
-{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/lodash.min.js"></script>--}}
 
-{{--    <script src="https://source.zoom.us/zoom-meeting-1.8.3.min.js"></script>--}}
-{{--    <!-- import local .js file -->--}}
-{{--    <script src="{{ asset('js/Zoom/tool.js') }}"></script>--}}
-{{--    --}}{{--    <script src="{{ asset('js/Zoom/vconsole.min.js') }}"></script>--}}
-{{--    <script src="{{ asset('js/Zoom/index.js') }}"></script>--}}
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/redux-thunk.min.js"></script>
+{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/jquery.min.js"></script>--}}
+    <script src="https://source.zoom.us/1.8.3/lib/vendor/lodash.min.js"></script>
+    <script src="https://source.zoom.us/zoom-meeting-1.8.3.min.js"></script>
+    <script src="{{ asset('js/Zoom/index.js') }}"></script>
+    <script>
+        const simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11]))
+        simd().then((res) => {
+            console.log("simd check", res);
+        });
+    </script>
 <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
 @endpush

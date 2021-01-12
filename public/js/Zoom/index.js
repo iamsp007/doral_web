@@ -1,79 +1,21 @@
-ZoomMtg.setZoomJSLib('https://source.zoom.us/1.8.5/lib', '/av');
-
-
+ZoomMtg.setZoomJSLib("https://jssdk.zoomus.cn/1.8.3/lib", "/av"); // china cdn option
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareJssdk();
 
 const zoomMeeting = document.getElementById("zmmtg-root")
-function startMeeting(meetingConfig){
-    $("#loader-wrapper").show();
 
+function startZoomMeeting(meetConfig) {
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url:base_url+'zoom-generate_signature',
         method:'POST',
-        data:meetingConfig,
+        data:meetConfig,
         dataType:'json',
         success:function (response) {
-            $("#loader-wrapper").hide();
-            ZoomMtg.init({
-                debug: true, //optional
-                leaveUrl: 'http://www.zoom.us', //required
-                webEndpoint: 'PSO web domain', // PSO option
-                showMeetingHeader: false, //option
-                disableInvite: false, //optional
-                disableCallOut: false, //optional
-                disableRecord: false, //optional
-                disableJoinAudio: false, //optional
-                audioPanelAlwaysOpen: true, //optional
-                showPureSharingContent: false, //optional
-                isSupportAV: true, //optional,
-                isSupportChat: true, //optional,
-                isSupportQA: true, //optional,
-                isSupportPolling: true, //optional
-                isSupportBreakout: true, //optional
-                isSupportCC: true, //optional,
-                screenShare: true, //optional,
-                rwcBackup: '', //optional,
-                videoDrag: true, //optional,
-                sharingMode: 'both', //optional,
-                videoHeader: true, //optional,
-                isLockBottom: true, // optional,
-                isSupportNonverbal: true, // optional,
-                isShowJoiningErrorDialog: true, // optional,
-                inviteUrlFormat: '', // optional
-                loginWindow: {  // optional,
-                    width: 400,
-                    height: 380
-                },
-                meetingInfo: [ // optional
-                    'topic',
-                    'host',
-                    'mn',
-                    'pwd',
-                    'telPwd',
-                    'invite',
-                    'participant',
-                    'dc',
-                    'enctype',
-                    'report'
-                ],
-                disableVoIP: false, // optional
-                disableReport: false, // optional
-            });
-
-            ZoomMtg.join({
-                meetingNumber: response.meetingNumber,
-                userName: 'User name',
-                userEmail: '',
-                passWord: '',
-                apiKey: response.api_key,
-                signature: response.signature,
-                success: function(res){console.log(res)},
-                error: function(res){console.log(res)}
-            });
+            console.log(response)
+            beginJoin(response.signature,meetConfig)
         },
         error:function (error) {
             console.log(error)
@@ -82,19 +24,21 @@ function startMeeting(meetingConfig){
 }
 
 function beginJoin(signature,meetingConfig) {
-
+    console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
     ZoomMtg.init({
-        debug:true,
         leaveUrl: meetingConfig.leaveUrl,
         webEndpoint: meetingConfig.webEndpoint,
-        success: function (resp) {
-            console.log(resp);
+        success: function () {
+            console.log(meetingConfig);
+            console.log("signature", signature);
+            $.i18n.reload(meetingConfig.lang);
             ZoomMtg.join({
                 meetingNumber: meetingConfig.meetingNumber,
                 userName: meetingConfig.userName,
                 signature: signature,
                 apiKey: meetingConfig.apiKey,
                 userEmail: meetingConfig.userEmail,
+                passWord: meetingConfig.passWord,
                 success: function (res) {
                     console.log("join meeting success");
                     console.log("get attendeelist");
@@ -106,7 +50,7 @@ function beginJoin(signature,meetingConfig) {
                     });
                 },
                 error: function (res) {
-                    console.log(res,"test");
+                    console.log(res);
                 },
             });
         },
@@ -120,6 +64,7 @@ function beginJoin(signature,meetingConfig) {
     });
 
     ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
+        alert(123)
         console.log('inMeetingServiceListener onUserLeave', data);
     });
 
@@ -131,19 +76,3 @@ function beginJoin(signature,meetingConfig) {
         console.log('inMeetingServiceListener onMeetingStatus', data);
     });
 }
-
-ZoomMtg.inMeetingServiceListener('onUserJoin', function (data) {
-    console.log('inMeetingServiceListener onUserJoin', data);
-});
-
-ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
-    console.log('inMeetingServiceListener onUserLeave', data);
-});
-
-ZoomMtg.inMeetingServiceListener('onUserIsInWaitingRoom', function (data) {
-    console.log('inMeetingServiceListener onUserIsInWaitingRoom', data);
-});
-
-ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
-    console.log('inMeetingServiceListener onMeetingStatus', data);
-});

@@ -2,17 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/tail.select-default_1.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/clincian/app.clinician.broadcast.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/responsive_0201.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style_0201.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style_0201.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/clincian/app.clinician.broadcast.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/app.clinician.broadcast.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoomController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/ClinicianService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/ClinicianService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/Zoom/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Zoom/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/clincian/app.clinician.appointment.scheduled.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/app.clinician.appointment.scheduled.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/schedule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/clinician.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinician.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +176,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../global_garner/upos" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -367,6 +363,20 @@
       <workItem from="1610369675922" duration="772000" />
       <workItem from="1610372840270" duration="599000" />
       <workItem from="1610379503214" duration="1801000" />
+      <workItem from="1610381367363" duration="806000" />
+      <workItem from="1610383193335" duration="733000" />
+      <workItem from="1610385645548" duration="1721000" />
+      <workItem from="1610387463237" duration="122000" />
+      <workItem from="1610424979694" duration="1781000" />
+      <workItem from="1610426786229" duration="1851000" />
+      <workItem from="1610428657449" duration="1795000" />
+      <workItem from="1610430484369" duration="2355000" />
+      <workItem from="1610432893912" duration="2118000" />
+      <workItem from="1610435037754" duration="1147000" />
+      <workItem from="1610440104669" duration="1826000" />
+      <workItem from="1610441991153" duration="1884000" />
+      <workItem from="1610444234175" duration="1776000" />
+      <workItem from="1610446054839" duration="793000" />
     </task>
     <servers />
   </component>

@@ -94,6 +94,20 @@ class RoomController extends Controller
         return response()->json(['status'=>false,'message'=>$response->message,'data'=>$response->data],422);
     }
 
+    public function leaveVideoMetting(Request $request,$appointment_id){
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->leaveVideoMetting($appointment_id);
+        $data=[];
+        if ($response->status===true){
+            $url='';
+            if ($response->data->meeting){
+                return response()->json(['status'=>true,'message'=>$response->message,'data'=>$response->data],200);
+            }
+            return response()->json(['status'=>false,'message'=>'No Meeting Exists','data'=>$response->data],422);
+        }
+        return response()->json(['status'=>false,'message'=>$response->message,'data'=>$response->data],422);
+    }
+
     public function startVideoMeetingNotification(Request $request,$patient_request_id){
         $clinicianService = new ClinicianService();
         $response = $clinicianService->startVideoMeetingNotification($patient_request_id);

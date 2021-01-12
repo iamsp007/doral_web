@@ -224,4 +224,22 @@ class ClinicianService
 
         }
     }
+
+    public function leaveVideoMetting($appointment_id){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/leave-video-meeting',
+                [
+                    'json'=>array('appointment_id'=>$appointment_id)
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
 }

@@ -1,5 +1,6 @@
+var table;
 $(function () {
-    $('#appointmentScheduled').DataTable({
+    table = $('#appointmentScheduled').DataTable({
         processing: true,
         serverSide: true,
         ajax: scheduleAppointmentAjax,
@@ -282,11 +283,11 @@ function startVideoCall(id,role) {
             const meetConfig = {
                 apiKey: 'LBO3ITvITiSiE808pFqGcQ',
                 meetingNumber:parseInt(sources.meeting.meeting_id),
-                leaveUrl: 'https://app.doralhealthconnect.com/clinician/scheduled-appointment',
+                leaveUrl: 'app.doralhealthconnect.com/clinician/scheduled-appointment',
                 userName: provider.first_name+' '+provider.last_name,
                 userEmail: provider.email, // required for webinar
                 passWord: JSON.parse(sources.meeting.zoom_response).password, // if required
-                lana: 'en-US',
+                lang: 'en-US',
                 china: true,
                 role: parseInt(role, 10) // 1 for host; 0 for attendee or webinar
             };
@@ -380,12 +381,13 @@ function saveCancelAppointment(id) {
         },
         data:{
             appointment_id:id,
-            reason:appointment_reason
+            reason_notes:appointment_reason
         },
         method:'POST',
         dataType:'json',
         success:function (response) {
             alert(response.message);
+            table.ajax.reload();
         },
         error:function (error) {
             console.log(error)

@@ -63,7 +63,7 @@ $(function () {
                             '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
                             '                                                Start Meeting</button>';
                     }else {
-                        html+='<button type="button" id="join-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: none;" onclick="startVideoCall('+row.id+',0)">\n' +
+                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: none;" onclick="startVideoCall('+row.id+',0)">\n' +
                             '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
                             '                                                Join Meeting</button>';
                     }
@@ -283,7 +283,6 @@ function startVideoCall(id,role) {
                 apiKey: 'LBO3ITvITiSiE808pFqGcQ',
                 meetingNumber:parseInt(sources.meeting.meeting_id),
                 leaveUrl: base_url+'clinician/scheduled-appointment',
-                webEndpoint: base_url+'end-meeting/'+sources.id,
                 userName: provider.first_name+' '+provider.last_name,
                 userEmail: provider.email, // required for webinar
                 passWord: JSON.parse(sources.meeting.zoom_response).password, // if required

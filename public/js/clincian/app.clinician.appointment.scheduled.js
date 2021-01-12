@@ -283,6 +283,7 @@ function startVideoCall(id,role) {
                 apiKey: 'LBO3ITvITiSiE808pFqGcQ',
                 meetingNumber:parseInt(sources.meeting.meeting_id),
                 leaveUrl: base_url+'clinician/scheduled-appointment',
+                webEndpoint: base_url+'end-meeting/'+sources.id,
                 userName: provider.first_name+' '+provider.last_name,
                 userEmail: provider.email, // required for webinar
                 passWord: JSON.parse(sources.meeting.zoom_response).password, // if required

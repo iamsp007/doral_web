@@ -100,10 +100,7 @@ class RoomController extends Controller
         $data=[];
         if ($response->status===true){
             $url='';
-            if ($response->data->meeting){
-                return response()->json(['status'=>true,'message'=>$response->message,'data'=>$response->data],200);
-            }
-            return response()->json(['status'=>false,'message'=>'No Meeting Exists','data'=>$response->data],422);
+            return redirect()->back()->with('success','Your Meeting End Successfully!');
         }
         return response()->json(['status'=>false,'message'=>$response->message,'data'=>$response->data],422);
     }

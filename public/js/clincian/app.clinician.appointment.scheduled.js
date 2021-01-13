@@ -283,7 +283,8 @@ function startVideoCall(id,role) {
             const meetConfig = {
                 apiKey: 'LBO3ITvITiSiE808pFqGcQ',
                 meetingNumber:parseInt(sources.meeting.meeting_id),
-                leaveUrl: 'app.doralhealthconnect.com/clinician/scheduled-appointment',
+                leaveUrl: base_url+'clinician/scheduled-appointment',
+                webEndpoint: base_url+'clinician/scheduled-appointment',
                 userName: provider.first_name+' '+provider.last_name,
                 userEmail: provider.email, // required for webinar
                 passWord: JSON.parse(sources.meeting.zoom_response).password, // if required

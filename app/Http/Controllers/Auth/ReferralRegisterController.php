@@ -87,7 +87,7 @@ class ReferralRegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
         $details = [
             'name' => $request->company,
-            'password' => env('PARTNER_PASSWORD'),
+            'password' => env('REFERRAL_PASSWORD'),
             'href' => route('login'),
             'email' => $request->email
         ];

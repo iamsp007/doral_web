@@ -280,11 +280,11 @@
                                                 <div>
                                                     <div class="d-flex align-items-center">
                                                         <div>
-                                                            <i class="las la-phone  circle-icon"></i>
+                                                            <i class="las la-user-nurse circle-icon"></i>
                                                         </div>
                                                         <div>
-                                                            <h3 class="_title">Cell Phone</h3>
-                                                            <h1 class="_detail">{!! $details->detail?$details->detail->phone2:'' !!}</h1>
+                                                            <h3 class="_title">Relation</h3>
+                                                            <h1 class="_detail">{!! $details->detail?$details->detail->emg_relationship:'' !!}</h1>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -299,8 +299,8 @@
                                                         <i class="las la-phone  circle-icon"></i>
                                                     </div>
                                                     <div>
-                                                        <h3 class="_title">Work Phone</h3>
-                                                        <h1 class="_detail">{!! $details->detail?$details->detail->phone1:'' !!}</h1>
+                                                        <h3 class="_title">Address</h3>
+                                                        <h1 class="_detail">{!! $details->detail?$details->detail->eng_addres:'' !!}</h1>
                                                     </div>
                                                 </div>
                                             </div>

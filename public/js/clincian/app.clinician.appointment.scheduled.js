@@ -11,7 +11,7 @@ $(function () {
                 name:'patients.first_name',
                 "bSortable": true,
                 render:function(data, type, row, meta){
-                    data = '<a class="text-green" href="'+patient_detail_url+'/'+row.row.patients.id+'">' + row.patients.first_name +' '+ row.patients.last_name + '</a>';
+                    data = '<a class="text-green" href="'+patient_detail_url+'/'+row.patients.id+'">' + row.patients.first_name +' '+ row.patients.last_name + '</a>';
                     return data;
                 }
             },
@@ -142,9 +142,9 @@ $(function () {
                 clearInterval(interval)
                 $('#countdown'+row.id).parent().removeClass('blink_me');
                 // if (row.status==="open"){
-                //     $('#start-call-'+row.id).show();
+                    $('#start-call-'+row.id).show();
                 // }else if (row.status==="running"){
-                //     $('#join-call-'+row.id).show();
+                    $('#join-call-'+row.id).show();
                 // }else {
                 //     // $('#start-call-'+row.id).hide();
                 // }
@@ -284,7 +284,6 @@ function startVideoCall(id,role) {
                 apiKey: 'LBO3ITvITiSiE808pFqGcQ',
                 meetingNumber:parseInt(sources.meeting.meeting_id),
                 leaveUrl: base_url+'clinician/scheduled-appointment',
-                webEndpoint: base_url+'clinician/scheduled-appointment',
                 userName: provider.first_name+' '+provider.last_name,
                 userEmail: provider.email, // required for webinar
                 passWord: JSON.parse(sources.meeting.zoom_response).password, // if required

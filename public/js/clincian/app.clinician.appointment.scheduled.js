@@ -141,13 +141,13 @@ $(function () {
             }else {
                 clearInterval(interval)
                 $('#countdown'+row.id).parent().removeClass('blink_me');
-                if (row.status==="open"){
-                    $('#start-call-'+row.id).show();
-                }else if (row.status==="running"){
-                    $('#join-call-'+row.id).show();
-                }else {
-                    $('#start-call-'+row.id).hide();
-                }
+                // if (row.status==="open"){
+                //     $('#start-call-'+row.id).show();
+                // }else if (row.status==="running"){
+                //     $('#join-call-'+row.id).show();
+                // }else {
+                //     // $('#start-call-'+row.id).hide();
+                // }
                 $('#countdown'+row.id).html(row.status);
             }
         }, 1000);

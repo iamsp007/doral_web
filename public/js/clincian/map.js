@@ -133,7 +133,7 @@ function initMap(postLatLng=null) {
         // Add a marker clusterer to manage the markers.
         new MarkerClusterer(map, markers, {
             imagePath:
-                "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                "http://localhost/doral_web/public/assets/img/icons/clinician.svg",
         });
 
         google.maps.event.addListener(markers,'click',function() {

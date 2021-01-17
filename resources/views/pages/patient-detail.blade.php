@@ -20,11 +20,21 @@
                     @endif
 
                 </div>
+                <?php
+//                echo"<pre>";
+//                    print_r($details);
+//                    exit(); 
+                    ?>
                 <div>
                     <h1 class="patient-name mb-1">{!! $details->first_name !!} {!! $details->last_name !!}</h1>
                     <div class="d-flex justify-content-center">
                         <ul class="pdetail">
-                            <li class="nav">Admission ID:&nbsp; <span class="pdata">{!! $details->detail?$details->detail->ssn:'' !!}</span></li>
+                            @if($details->detail->caregiver_code == '')
+                                <li class="nav">Admission ID:&nbsp; <span class="pdata">{{ $details->detail->patient_id }}</span></li>
+                            @else
+                                <li class="nav">Caregiver Code:&nbsp; <span class="pdata">{{ $details->detail->caregiver_code }}</span></li>
+                            @endif
+                            
                             <li class="nav">Gender:&nbsp; <span class="pdata">{!! $details->gender_name !!}</span></li>
                             <li class="nav">DOB:&nbsp; <span class="pdata">{!! $details->dob !!}</span></li>
                         </ul>
@@ -105,7 +115,7 @@
                                                 </div>
                                                 <div>
                                                     <h3 class="_title">Email</h3>
-                                                    <h1 class="_detail">{!! $details->detail?$details->detail->email:$details->email !!}</h1>
+                                                    <h1 class="_detail">{!! $details->detail?$details->email:$details->email !!}</h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -131,7 +141,7 @@
                                                 </div>
                                                 <div>
                                                     <h3 class="_title">Ethnicity</h3>
-                                                    <h1 class="_detail">lorem ipus</h1>
+                                                    <h1 class="_detail"> - </h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,26 +165,26 @@
                                                         <i class="las la-angle-double-right circle-icon"></i>
                                                     </div>
                                                     <div>
-                                                        <h3 class="_title">Admission ID:</h3>
-                                                        <h1 class="_detail">{!! $details->detail?$details->detail->ssn:'' !!}</h1>
+                                                        <h3 class="_title">Nurse</h3>
+                                                        <h1 class="_detail"> - </h1>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-12 col-sm-4">
+<!--                                        <div class="col-12 col-sm-4">
                                             <div class="d-flex align-items-center ">
                                                 <div>
                                                     <i class="las la-angle-double-right circle-icon"></i>
                                                 </div>
                                                 <div>
                                                     <h3 class="_title">Nurse</h3>
-                                                    <h1 class="_detail">lorem ipus</h1>
+                                                    <h1 class="_detail"> - </h1>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-sm-4">
+                                        </div>-->
+<!--                                        <div class="col-12 col-sm-4">
                                             <div>
                                                 <div class="d-flex align-items-center">
                                                     <div>
@@ -186,7 +196,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class="col-12 col-sm-4">
                                             <div>
                                                 <div class="d-flex align-items-center">
@@ -195,14 +205,14 @@
                                                     </div>
                                                     <div>
                                                         <h3 class="_title">Coordinator</h3>
-                                                        <h1 class="_detail">lorem ipus</h1>
+                                                        <h1 class="_detail"> - </h1>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-12 col-sm-4">
+<!--                                        <div class="col-12 col-sm-4">
                                             <div>
                                                 <div class="d-flex align-items-center">
                                                     <div>
@@ -214,7 +224,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class="col-12 col-sm-8">
                                             <div class="d-flex align-items-center mb-3">
                                                 <div>
@@ -308,7 +318,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="_card mt-3">
+<!--                            <div class="_card mt-3">
                                 <div class="_card_header">
                                     <div class="title-head">If unavailable (2nd) contact Detail</div>
                                 </div>
@@ -372,7 +382,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -408,8 +418,8 @@
                                                                     <i class="las la-angle-double-right circle-icon"></i>
                                                                 </div>
                                                                 <div>
-                                                                    <h3 class="_title">Madicaid No</h3>
-                                                                    <h1 class="_detail">ABCD1234</h1>
+                                                                    <h3 class="_title">Medicaid No</h3>
+                                                                    <h1 class="_detail">{!! $details->detail?$details->detail->medicaid_number:'' !!}</h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -439,7 +449,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Medicare No</h3>
-                                                                    <h1 class="_detail">ABCD1234</h1>
+                                                                    <h1 class="_detail">{!! $details->detail?$details->detail->medicare_number:'' !!}</h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -482,7 +492,7 @@
                                                             </div>
                                                             <div>
                                                                 <h3 class="_title">Phone</h3>
-                                                                <h1 class="_detail">9855665324</h1>
+                                                                <h1 class="_detail"> - </h1>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -611,7 +621,7 @@
                                                 </div>
                                                 <div>
                                                     <h3 class="_title">Name</h3>
-                                                    <h1 class="_detail">Lorem Ipsum</h1>
+                                                    <h1 class="_detail"> - </h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -622,7 +632,7 @@
                                                 </div>
                                                 <div>
                                                     <h3 class="_title">Coordinator</h3>
-                                                    <h1 class="_detail">Lorem Ipsum</h1>
+                                                    <h1 class="_detail"> - </h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -664,7 +674,7 @@
                                                             </div>
                                                             <div>
                                                                 <h3 class="_title">Name</h3>
-                                                                <h1 class="_detail">Ara lus</h1>
+                                                                <h1 class="_detail"> - </h1>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -700,7 +710,7 @@
                                                             </div>
                                                             <div>
                                                                 <h3 class="_title">Caregiver Name</h3>
-                                                                <h1 class="_detail">Ara lus</h1>
+                                                                <h1 class="_detail"> - </h1>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -811,11 +821,11 @@
                                     <div class="_card mt-3">
                                         <div class="_card_header">
                                             <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry?
+                                                 -  is simply dummy text of the printing and typesetting industry?
                                             </div>
                                         </div>
                                         <div class="_card_body">
-                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span> Lorem Ipsum
+                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span>  - 
                                                 has been the industry's standard dummy text ever since the 1500s.
                                             </h1>
                                         </div>
@@ -823,11 +833,11 @@
                                     <div class="_card mt-3">
                                         <div class="_card_header">
                                             <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry?
+                                                 -  is simply dummy text of the printing and typesetting industry?
                                             </div>
                                         </div>
                                         <div class="_card_body">
-                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span> Lorem Ipsum
+                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span>  - 
                                                 has been the industry's standard dummy text ever since the 1500s.
                                             </h1>
                                         </div>
@@ -835,11 +845,11 @@
                                     <div class="_card mt-3">
                                         <div class="_card_header">
                                             <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry?
+                                                 -  is simply dummy text of the printing and typesetting industry?
                                             </div>
                                         </div>
                                         <div class="_card_body">
-                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span> Lorem Ipsum
+                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span>  - 
                                                 has been the industry's standard dummy text ever since the 1500s.
                                             </h1>
                                         </div>
@@ -1222,7 +1232,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Name</h3>
-                                                                    <h1 class="_detail">Akshita Dariyani</h1>
+                                                                    <h1 class="_detail"> - </h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1245,7 +1255,7 @@
                                                             </div>
                                                             <div>
                                                                 <h3 class="_title">Phone Number With Ext</h3>
-                                                                <h1 class="_detail">(555) 555-5555</h1>
+                                                                <h1 class="_detail">(xxx) xxx-xxxx</h1>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1261,7 +1271,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Email</h3>
-                                                                    <h1 class="_detail">akshita@dariyani.com</h1>
+                                                                    <h1 class="_detail"> - </h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1289,7 +1299,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Name</h3>
-                                                                    <h1 class="_detail">Akshita Dariyani</h1>
+                                                                    <h1 class="_detail"> - </h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1312,7 +1322,7 @@
                                                             </div>
                                                             <div>
                                                                 <h3 class="_title">Phone Number With Ext</h3>
-                                                                <h1 class="_detail">(555) 555-5555</h1>
+                                                                <h1 class="_detail">(xxx) xxx-xxxx</h1>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1328,7 +1338,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Email</h3>
-                                                                    <h1 class="_detail">akshita@dariyani.com</h1>
+                                                                    <h1 class="_detail"> - </h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1356,7 +1366,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Name</h3>
-                                                                    <h1 class="_detail">Akshita Dariyani</h1>
+                                                                    <h1 class="_detail"> - </h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1369,7 +1379,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Employement Type</h3>
-                                                                    <h1 class="_detail">Nurse Practitioner</h1>
+                                                                    <h1 class="_detail"> - </h1>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1413,9 +1423,9 @@
                                     <tr class="table-success">
                                         <td>1</td>
                                         <td class="text-green">56745</td>
-                                        <td>Lorem Ipsum</td>
+                                        <td> - </td>
                                         <td>Sunday, 1 October 2020</td>
-                                        <td>Lorem Ipsum</td>
+                                        <td> - </td>
                                         <td>
                                             <a href="#" class="btn btn-info btn-sm btn-block">Set as a Primary
                                                 Diagnosis Code</a>
@@ -1424,9 +1434,9 @@
                                     <tr>
                                         <td>2</td>
                                         <td>4365</td>
-                                        <td>Lorem Ipsum</td>
+                                        <td> - </td>
                                         <td>Sunday, 1 October 2020</td>
-                                        <td>Lorem Ipsum</td>
+                                        <td> - </td>
                                         <td>
                                             <a href="#" class="btn btn-info btn-sm btn-block">Set as a Primary
                                                 Diagnosis Code</a>
@@ -1462,7 +1472,7 @@
                                                 </div>
                                                 <div>
                                                     <h3 class="_title">Vital</h3>
-                                                    <h1 class="_detail">Lorem Ipsum</h1>
+                                                    <h1 class="_detail"> - </h1>
                                                 </div>
                                             </div>
                                         </div>
@@ -1543,7 +1553,7 @@
                                                     </div>
                                                     <div>
                                                         <h3 class="_title">Name</h3>
-                                                        <h1 class="_detail">Era Plus</h1>
+                                                        <h1 class="_detail"> - </h1>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1567,7 +1577,7 @@
                                                     </div>
                                                     <div>
                                                         <h3 class="_title">Phone</h3>
-                                                        <h1 class="_detail">9855665324</h1>
+                                                        <h1 class="_detail"> - </h1>
                                                     </div>
                                                 </div>
                                             </div>

@@ -54,7 +54,6 @@ class PatientController extends Controller
         $clinicianService = new ClinicianService();
         $response = $clinicianService->getNewPatientList($request->all());
         $data=[];
-        dd($response);
         if ($response->status===true){
             $data=$response->data;
         }

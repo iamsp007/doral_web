@@ -11,7 +11,7 @@ $(function () {
                 name:'patients.first_name',
                 "bSortable": true,
                 render:function(data, type, row, meta){
-                    data = '<a class="text-green" href="'+patient_detail_url+'/'+row.user_id+'">' + row.patients.first_name +' '+ row.patients.last_name + '</a>';
+                    data = '<a class="text-green" href="'+patient_detail_url+'/'+row.row.patients.id+'">' + row.patients.first_name +' '+ row.patients.last_name + '</a>';
                     return data;
                 }
             },

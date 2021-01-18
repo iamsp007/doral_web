@@ -43,7 +43,7 @@
         </div>
         <div class="app-video-body">
             <div class="app-video-left b-tab active" id="orange">
-                <div class="video_container ReactModal__Body--open">
+                <div class="video_container">
                     <!-- added on import -->
                     <div id="zmmtg-root"></div>
                 </div>

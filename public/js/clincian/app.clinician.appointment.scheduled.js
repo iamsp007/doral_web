@@ -59,52 +59,47 @@ $(function () {
                 render:function (data, type, row, meta) {
 
                     var html='';
-                    if (row.is_provider1===true){
-                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: none;" onclick="startVideoCall('+row.id+',1)">\n' +
-                            '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
-                            '                                                Start Meeting</button>';
-                    }else {
+                    if (row.status!=="completed"){
                         html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: none;" onclick="startVideoCall('+row.id+',0)">\n' +
                             '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
-                            '                                                Join Meeting</button>';
-                    }
+                            '                                                Start Meeting</button>';
+                        if (row.status!=="cancel"){
+                            html+='<div class="popbox">\n' +
+                                '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +
+                                '                            <input type="hidden" id="appointment_id" name="appointment_id">\n' +
+                                '                            <div class="popovers-inner">\n' +
+                                '                                <h3 class="popovers-title mb-2">Are You Sure?</h3>\n' +
+                                '                                <div class="popovers-content">\n' +
+                                '                                    <div class="d-flex justify-content-start">\n' +
+                                '                                        <button type="submit" onclick="onCancelBtn('+row.id+')"\n' +
+                                '                                                class="btn btn-outline-purple btn-outline-admin mr-2 yesimsure"\n' +
+                                '                                                name="yes">YES</button>\n' +
+                                '                                        <button type="submit" onclick="onCancelBtn('+row.id+')"\n' +
+                                '                                                class="btn btn-outline-red btn-outline-admin"\n' +
+                                '                                                name="no">NO</button>\n' +
+                                '                                    </div>\n' +
+                                '                                </div>\n' +
+                                '                            </div>\n' +
+                                '                        </div>\n' +
+                                '                        <div class="popovers reasonBox" id="cancel-appointment-model'+row.id+'" style="display: none">\n' +
+                                '                            <div class="popovers-inner">\n' +
+                                '                                <h3 class="popovers-title mb-2">Reason</h3>\n' +
+                                '                                <div class="popovers-content">\n' +
+                                '                                          <textarea class="form-control" name="" id="appointment_reason_'+row.id+'" cols="30"\n' +
+                                '                                                       rows="5" placeholder="Write your reason"></textarea>\n' +
+                                '                                    <button type="submit"\n' +
+                                '                                            class="btn btn-primary btn-pink btn-block mt-3"\n' +
+                                '                                            onclick="saveCancelAppointment('+row.id+')" name="signup">Save Reason</button>\n' +
+                                '                                </div>\n' +
+                                '                            </div>\n' +
+                                '                        </div>\n' +
+                                '                        <button type="button" class="bulk-upload-btn areyousure" onclick="onCancelPopup('+row.id+')">\n' +
+                                '                                                            <img src="'+base_url+'assets/img/icons/cancel-button.svg" class="icon mr-2">\n' +
+                                '                                                            Cancel</button>\n' +
+                                '                    </div>';
+                        }
 
-                    if (row.status!=="cancel"){
-                        html+='<div class="popbox">\n' +
-                            '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +
-                            '                            <input type="hidden" id="appointment_id" name="appointment_id">\n' +
-                            '                            <div class="popovers-inner">\n' +
-                            '                                <h3 class="popovers-title mb-2">Are You Sure?</h3>\n' +
-                            '                                <div class="popovers-content">\n' +
-                            '                                    <div class="d-flex justify-content-start">\n' +
-                            '                                        <button type="submit" onclick="onCancelBtn('+row.id+')"\n' +
-                            '                                                class="btn btn-outline-purple btn-outline-admin mr-2 yesimsure"\n' +
-                            '                                                name="yes">YES</button>\n' +
-                            '                                        <button type="submit" onclick="onCancelBtn('+row.id+')"\n' +
-                            '                                                class="btn btn-outline-red btn-outline-admin"\n' +
-                            '                                                name="no">NO</button>\n' +
-                            '                                    </div>\n' +
-                            '                                </div>\n' +
-                            '                            </div>\n' +
-                            '                        </div>\n' +
-                            '                        <div class="popovers reasonBox" id="cancel-appointment-model'+row.id+'" style="display: none">\n' +
-                            '                            <div class="popovers-inner">\n' +
-                            '                                <h3 class="popovers-title mb-2">Reason</h3>\n' +
-                            '                                <div class="popovers-content">\n' +
-                            '                                          <textarea class="form-control" name="" id="appointment_reason_'+row.id+'" cols="30"\n' +
-                            '                                                       rows="5" placeholder="Write your reason"></textarea>\n' +
-                            '                                    <button type="submit"\n' +
-                            '                                            class="btn btn-primary btn-pink btn-block mt-3"\n' +
-                            '                                            onclick="saveCancelAppointment('+row.id+')" name="signup">Save Reason</button>\n' +
-                            '                                </div>\n' +
-                            '                            </div>\n' +
-                            '                        </div>\n' +
-                            '                        <button type="button" class="bulk-upload-btn areyousure" onclick="onCancelPopup('+row.id+')">\n' +
-                            '                                                            <img src="'+base_url+'assets/img/icons/cancel-button.svg" class="icon mr-2">\n' +
-                            '                                                            Cancel</button>\n' +
-                            '                    </div>';
                     }
-
 
                     return '<div class="d-flex">'+html+'</div>';
                 }
@@ -261,7 +256,7 @@ $(function () {
 });
 function startVideoCall(id,role) {
     $('.app-video').addClass('scale-up-center');
-    // $("#loader-wrapper").show();
+    $("#loader-wrapper").show();
     $.ajax({
         url:base_url+'clinician/start-meeting',
         headers: {
@@ -273,30 +268,32 @@ function startVideoCall(id,role) {
         method:'POST',
         dataType:'json',
         success:function (response) {
-            // $("#loader-wrapper").hide();
-            const sources = response.data;
-            var provider = sources.provider1_details;
-            if (role===0){
-                provider = sources.provider2_details;
+            $("#loader-wrapper").hide();
+            if (response.status===true){
+                const meeting = response.data.meeting;
+                const sources = response.data.appointment;
+
+                setVideoCallinginformation(sources);
+                const meetConfig = {
+                    apiKey: meeting.apiKey,
+                    meetingNumber:parseInt(meeting.meetingNumber),
+                    leaveUrl: meeting.leaveUrl,
+                    userName: meeting.userName,
+                    userEmail: meeting.userEmail, // required for webinar
+                    passWord: meeting.passWord, // if required
+                    lang: meeting.lang,
+                    china: meeting.china,
+                    role: parseInt(meeting.role, 10) // 1 for host; 0 for attendee or webinar
+                };
+                //
+                startZoomMeeting(meetConfig);
+                setTimeout(() => {
+                    $('.app-video').show();
+                    $('.app-video').removeClass('scale-down-center');
+                }, 1000);
+            }else {
+                alert(response.message);
             }
-            setVideoCallinginformation(sources);
-            const meetConfig = {
-                apiKey: 'LBO3ITvITiSiE808pFqGcQ',
-                meetingNumber:parseInt(sources.meeting.meeting_id),
-                leaveUrl: base_url+'clinician/scheduled-appointment',
-                userName: provider.first_name+' '+provider.last_name,
-                userEmail: provider.email, // required for webinar
-                passWord: JSON.parse(sources.meeting.zoom_response).password, // if required
-                lang: 'en-US',
-                china: true,
-                role: parseInt(role, 10) // 1 for host; 0 for attendee or webinar
-            };
-            //
-            startZoomMeeting(meetConfig);
-            setTimeout(() => {
-                $('.app-video').show();
-                $('.app-video').removeClass('scale-down-center');
-            }, 1000);
         },
         error:function (error) {
             console.log(error)
@@ -305,10 +302,7 @@ function startVideoCall(id,role) {
 }
 
 function setVideoCallinginformation(data) {
-    var userImg = base_url+'assets/img/user/01.png';
-    if (data.patients.avatar){
-        userImg = base_url+'assets/img/user/'+data.patients.avatar;
-    }
+    var userImg = data.patients.avatar_image;
 
     var interval = setInterval(function () {
         var beforeOneHour = moment(data.start_datetime).subtract(1,'hours').format('YYYY-MM-DD HH:mm:ss');

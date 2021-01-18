@@ -33,7 +33,6 @@ class AdminService
 
 
             $response = $response->getBody()->getContents();
-
             $data = json_decode($response,true);
             return $data;
         }catch (\Exception $exception){
@@ -86,11 +85,8 @@ class AdminService
                 'GET',
                 '/auth/company/show/'.$type
             );
-
-
             $response = $response->getBody()->getContents();
-
-            $data = json_decode($response,true);
+            $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
 
@@ -120,6 +116,22 @@ class AdminService
             $response = $this->client->request(
                 'GET',
                 '/getNewPatientListForAppointment'
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+    public function getPatientDetail($patient_id){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/get-patient-detail/'.$patient_id
             );
 
 

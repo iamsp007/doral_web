@@ -55,15 +55,16 @@
                 }
             })
         }
-
         if (navigator.geolocation){
             navigator.geolocation.getCurrentPosition((position => {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
+                var iconBase=base_url+'/assets/img/icons/';
 
                 const map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 8,
                     center: {lat:latitude,lng:longitude},
+                    icon:iconBase+'patient-icon.svg',
                     disableDefaultUI: true,
                     mapTypeControl: true,
                     zoomControl: true,
@@ -86,14 +87,16 @@
 
                     var cmarker = new google.maps.Marker({
                         zoom: 20,
+                        icon:iconBase+'clinician-sb-select.svg',
                         map: map,
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
-                        title: 'Your current location',
+                        title: patientDetail.detail.first_name+' '+patientDetail.detail.last_name,
                     });
 
                     var circle = new google.maps.Circle({
                         map: map,
                         zoom: 20,
+                        icon:iconBase+'patient-icon.svg',
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
                         radius: ((20 * 1000)*0.62137),    // 5 miles in metres
                         fillColor: '#5aba5c',
@@ -108,10 +111,6 @@
                             '<div id="siteNotice">' +
                             "</div>" +
                             '<h1 id="firstHeading" class="firstHeading">'+resp.first_name+' '+resp.last_name+'</h1>' +
-                            '<div id="bodyContent">' +
-                            '<input type="button" onclick="clinicianAcceptReject('+resp.id+',1)" class="btn btn-primary" name="accept" id="accept" value="Accept">'+
-                            '<input type="button" onclick="clinicianAcceptReject('+resp.id+',0)" class="btn btn-danger" name="decline" id="decline" value="Decline">'+
-                            "</div>" +
                             "</div>";
 
                         const infowindow = new google.maps.InfoWindow({
@@ -119,6 +118,7 @@
                         });
 
                         var marker = new google.maps.Marker({
+                            icon:iconBase+'clinician-sb-select.svg',
                             position: new google.maps.LatLng(resp.latitude,resp.longitude),
                             label: resp.first_name+' '+resp.last_name,
                         });
@@ -131,8 +131,7 @@
                     });
                     // map.markers.push(markers);
                     var mc = new MarkerClusterer(map, markers, {
-                        imagePath:
-                            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                        imagePath:iconBase+'clinician-sb-select.svg',
                     });
                 })
             }),(error)=>{

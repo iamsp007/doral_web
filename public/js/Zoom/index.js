@@ -1,67 +1,21 @@
-ZoomMtg.setZoomJSLib('https://source.zoom.us/1.8.5/lib', '/av');
-
-ZoomMtg.i18n.load('en-US');
-
-
-
+ZoomMtg.setZoomJSLib("https://jssdk.zoomus.cn/1.8.3/lib", "/av"); // china cdn option
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareJssdk();
 
 const zoomMeeting = document.getElementById("zmmtg-root")
-function startMeeting(meetingConfig){
-    $("#loader-wrapper").show();
 
+function startZoomMeeting(meetConfig) {
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url:base_url+'zoom-generate_signature',
         method:'POST',
-        data:meetingConfig,
+        data:meetConfig,
         dataType:'json',
         success:function (response) {
-            $("#loader-wrapper").hide();
-            ZoomMtg.init({
-                leaveUrl: meetingConfig.leaveUrl,
-                webEndpoint: meetingConfig.webEndpoint,
-                meetingInfo: ['topic', 'host'],
-                isSupportAV: true,
-                disableInvite: true,
-                success: function () {
-                    ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
-                        console.log("onMeetingStatus, status = ",data.meetingStatus);
-                    });
-
-                    ZoomMtg.join({
-                        meetingNumber: response.meetingNumber,
-                        userName: 'userName',
-                        signature: response.signature,
-                        apiKey: meetingConfig.apiKey,
-                        apiSecret: response.apiSecret,
-                        userEmail: 'meetingConfig.userEmail',
-                        passWord: meetingConfig.passWord,
-                        role:meetingConfig.role,
-                        success: function (res) {
-
-                            ZoomMtg.getCurrentUser({
-                                success: function (res) {
-                                    console.log("success getCurrentUser", res.result.currentUser);
-                                },
-                            });
-                            ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
-                                console.log("onUserLeave");
-                            });
-                        },
-                        error: function (res) {
-                            console.log('failed join.', res);
-                        },
-                    });
-                },
-                error: function (res) {
-                    console.log('failed initialized.', res);
-                },
-            });
-
+            console.log(response)
+            beginJoin(response.signature,meetConfig)
         },
         error:function (error) {
             console.log(error)
@@ -70,19 +24,21 @@ function startMeeting(meetingConfig){
 }
 
 function beginJoin(signature,meetingConfig) {
-
+    console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
     ZoomMtg.init({
-        debug:true,
         leaveUrl: meetingConfig.leaveUrl,
         webEndpoint: meetingConfig.webEndpoint,
-        success: function (resp) {
-            console.log(resp);
+        success: function () {
+            console.log(meetingConfig);
+            console.log("signature", signature);
+            $.i18n.reload(meetingConfig.lang);
             ZoomMtg.join({
                 meetingNumber: meetingConfig.meetingNumber,
                 userName: meetingConfig.userName,
                 signature: signature,
                 apiKey: meetingConfig.apiKey,
                 userEmail: meetingConfig.userEmail,
+                passWord: meetingConfig.passWord,
                 success: function (res) {
                     console.log("join meeting success");
                     console.log("get attendeelist");
@@ -94,7 +50,7 @@ function beginJoin(signature,meetingConfig) {
                     });
                 },
                 error: function (res) {
-                    console.log(res,"test");
+                    console.log(res);
                 },
             });
         },
@@ -108,6 +64,7 @@ function beginJoin(signature,meetingConfig) {
     });
 
     ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
+        alert(123)
         console.log('inMeetingServiceListener onUserLeave', data);
     });
 
@@ -119,19 +76,3 @@ function beginJoin(signature,meetingConfig) {
         console.log('inMeetingServiceListener onMeetingStatus', data);
     });
 }
-
-ZoomMtg.inMeetingServiceListener('onUserJoin', function (data) {
-    console.log('inMeetingServiceListener onUserJoin', data);
-});
-
-ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
-    console.log('inMeetingServiceListener onUserLeave', data);
-});
-
-ZoomMtg.inMeetingServiceListener('onUserIsInWaitingRoom', function (data) {
-    console.log('inMeetingServiceListener onUserIsInWaitingRoom', data);
-});
-
-ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
-    console.log('inMeetingServiceListener onMeetingStatus', data);
-});

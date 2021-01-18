@@ -169,6 +169,26 @@ class ClinicianService
         }
     }
 
+    public function cancelAppointmentStatus($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/appointment/cancel-appointment',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
     public function sendVideoMeetingNotification($appointment_id){
         try {
 
@@ -195,6 +215,24 @@ class ClinicianService
                 '/start-video-meeting-notification',
                 [
                     'json'=>array('patient_request_id'=>$patient_request_id)
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function leaveVideoMetting($appointment_id){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/leave-video-meeting',
+                [
+                    'json'=>array('appointment_id'=>$appointment_id)
                 ]
             );
             $response = $response->getBody()->getContents();

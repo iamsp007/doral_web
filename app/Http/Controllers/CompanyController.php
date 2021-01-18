@@ -332,29 +332,14 @@ class CompanyController extends Controller
         $status = 0;
         $message = "";
         $record = [];
-        try {
-            $adminServices = new AdminService();
-            $responseArray = $adminServices->getProfile($id);
-
-            //dd($responseArray);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data']['Company'];
-                return view('pages.admin.referral-profile')->with('record',$record);
-            }
-            $message = $responseArray['message'];
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
+        $adminServices = new AdminService();
+        $responseArray = $adminServices->getProfile($id);
+        if($responseArray->status===true) {
+            $record = $responseArray->data;
+            return view('pages.admin.referral-profile')->with('record',$record);
         }
+        $message = $responseArray->message;
 
-        $response = [
-            'status' => $status,
-            'message' => $message,
-            'data' => $record
-        ];
-
-        return redirect('/admin/referral-approval');
+        return redirect()->back()->with('errors',$message);
     }
 }

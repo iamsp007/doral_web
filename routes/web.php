@@ -55,6 +55,10 @@ Route::group(['middleware'=>['auth','role:admin|supervisor|referral|clinician|co
     Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
     Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
+    Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('patient.detail');
+});
+Route::group(['middleware'=>['auth:referral']],function (){
+    Route::get('/referral/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('patient.detail');
 });
 
 Route::post('/start','\App\Http\Controllers\Clincian\RoomController@startArchive');

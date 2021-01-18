@@ -227,8 +227,8 @@ return [
             'menu'=>[
                 [
                     'name'=>'Assign New Patients',
-                    'url'=>env('APP_URL').'co-ordinator/new-patient-list-show',
-                    'route'=>'co-ordinator/new-patient-list-show','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'New Patients',
+                    'url'=>env('APP_URL').'supervisor/patients',
+                    'route'=>'supervisor/patients','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Patients',
                 ],
                 [
                     'name'=>'Assigned Patients',

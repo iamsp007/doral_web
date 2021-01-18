@@ -25,7 +25,7 @@
                             <div class="patient-detail">
                                 <div class="p-20">
                                     <div class="img-50">
-                                        <img src="../assets/img/user/01.png" alt="Welcome to Doral"
+                                        <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
                                             srcset="../assets/img/user/01.png" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
@@ -57,60 +57,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="item">
-                            <div class="patient-detail">
-                                <div class="p-20">
-                                    <div class="img-50">
-                                        <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                            srcset="../assets/img/user/01.png" class="img-fluid">
-                                    </div>
-                                    <h1 class="patient-name">Edword Norton</h1>
-                                </div>
-                                <div class="emergency-detail p-20">
-                                    <h3 class="title">Diastolic Blood Pressure</h3>
-                                    <h1 class="counts">150 High</h1>
-                                    <a href="javascript:void(0)" class="roadl-btn">
-                                        <span></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="patient-detail">
-                                <div class="p-20">
-                                    <div class="img-50">
-                                        <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                            srcset="../assets/img/user/01.png" class="img-fluid">
-                                    </div>
-                                    <h1 class="patient-name">Edword Norton</h1>
-                                </div>
-                                <div class="emergency-detail p-20">
-                                    <h3 class="title">Diastolic Blood Pressure</h3>
-                                    <h1 class="counts">150 High</h1>
-                                    <a href="javascript:void(0)" class="roadl-btn">
-                                        <span></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class="patient-detail">
-                                <div class="p-20">
-                                    <div class="img-50">
-                                        <img src="../assets/img/user/01.png" alt="Welcome to Doral"
-                                            srcset="../assets/img/user/01.png" class="img-fluid">
-                                    </div>
-                                    <h1 class="patient-name">Edword Norton</h1>
-                                </div>
-                                <div class="emergency-detail p-20">
-                                    <h3 class="title">Diastolic Blood Pressure</h3>
-                                    <h1 class="counts">150 High</h1>
-                                    <a href="javascript:void(0)" class="roadl-btn">
-                                        <span></span>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="reports">

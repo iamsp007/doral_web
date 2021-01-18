@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/assign-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>
 </head>
 <body >
+    @if (\Request::is('supervisor/*'))  
+        @include('pages.supervisor.popup')
+    @endif
     <div id="loader-wrapper">
         <div class="pulse"></div>
     </div>
@@ -200,6 +204,9 @@
 <script src="{{ asset('assets/js/sidebar.js') }}"></script>
 <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
 {{--<script src="{{ asset('js/socket.js') }}"></script>--}}
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
 <script>
     var base_url = $('#base_url').val();
 </script>

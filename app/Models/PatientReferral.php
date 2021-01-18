@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class PatientReferral extends Model
 {
@@ -39,8 +40,9 @@ class PatientReferral extends Model
     public function filetype(){
         return $this->hasOne(FileTypeMaster::class,'id','file_type');
     }
+
     public static function getAccepted(){
-        return PatientReferral::select("*", \DB::raw("CONCAT(first_name,' ',last_name) as full_name"))->with('service','filetype')->where('status','accept')->get();
+        return PatientReferral::select("patient_referrals.*", \DB::raw("CONCAT(patient_referrals.first_name,' ',patient_referrals.last_name) as full_name"))->with('service','filetype')->leftJoin('case_management', 'case_management.patient_id', '=', 'patient_referrals.id')->where('status','accept')->whereNull('case_management.patient_id')->get();
     }
     
 }

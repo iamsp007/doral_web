@@ -100,9 +100,9 @@ class RoomController extends Controller
         $data=[];
         if ($response->status===true){
             $url='';
-            return redirect()->back()->with('success','Your Meeting End Successfully!');
+            return redirect()->route('clinician.scheduleAppoimentList')->with('success','Your Meeting End Successfully!');
         }
-        return response()->json(['status'=>false,'message'=>$response->message,'data'=>$response->data],422);
+        return redirect()->back();
     }
 
     public function startVideoMeetingNotification(Request $request,$patient_request_id){

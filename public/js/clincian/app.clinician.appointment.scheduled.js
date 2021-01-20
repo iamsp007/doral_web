@@ -280,12 +280,6 @@ function startVideoCall(id,role) {
         dataType:'json',
         success:function (response) {
             $("#loader-wrapper").hide();
-            $.toast({
-                heading: 'Start Meeting',
-                text: response.message,
-                showHideTransition: 'slide',
-                icon: 'success'
-            })
             if (response.status===true){
                 const meeting = response.data.meeting;
                 const sources = response.data.appointment;
@@ -396,12 +390,12 @@ function saveCancelAppointment(id) {
         method:'POST',
         dataType:'json',
         success:function (response) {
-            $.toast({
-                heading: 'Cancel Appointment',
-                text: response.message,
-                showHideTransition: 'slide',
-                icon: 'success'
-            })
+            // $.toast({
+            //     heading: 'Cancel Appointment',
+            //     text: response.message,
+            //     showHideTransition: 'slide',
+            //     icon: 'success'
+            // })
             table.ajax.reload();
         },
         error:function (error) {

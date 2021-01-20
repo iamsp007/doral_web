@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\PatientReferral;
 use App\Models\User;
+use App\Services\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     protected $view_path='pages.';
+    protected $adminService;
 
-    public function __construct(){
-
+    public function __construct(AdminService $adminService){
+        $this->adminService = $adminService;
     }
 
     /**
@@ -30,5 +32,13 @@ class HomeController extends Controller
 
         $details = User::with('patientDetail')->find($patient_id);
         return view($this->view_path.'patient-detail',compact('details'));
+    }
+
+    public function saveToken(Request $request){
+        $response = $this->adminService->saveToken($request->all());
+        if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
     }
 }

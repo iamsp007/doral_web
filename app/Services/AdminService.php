@@ -142,4 +142,23 @@ class AdminService
 
         }
     }
+    public function saveToken($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/auth/save-token',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+        }
+    }
 }

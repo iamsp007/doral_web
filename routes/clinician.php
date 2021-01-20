@@ -28,5 +28,6 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
         Route::get('/end-meeting/{appointment_id}','\App\Http\Controllers\Clincian\RoomController@leaveVideoMetting')->name('leave.meeting');
         Route::get('/start-call/{patient_request_id}','\App\Http\Controllers\Clincian\RoomController@startVideoMeetingNotification')->name('start.call');
         Route::get('/zoom-meeting','\App\Http\Controllers\Clincian\RoomController@index')->name('start.zoom');
+        Route::post('/patient-request','\App\Http\Controllers\Clincian\PatientController@patientRequest')->name('patient.request');
     });
 });

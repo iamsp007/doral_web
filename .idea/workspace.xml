@@ -2,470 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/laravel-plugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/firebase-messaging-sw.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Clincian/RoomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Partner/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Partner/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/CaseManagement--migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CaseManagement--migration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/CaseManagement.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CaseManagement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Partner.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Partner.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_131116_case_management_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_131116_case_management_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales-all.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales-all.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales-all.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales-all.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/af.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/af.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-dz.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-dz.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-kw.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-kw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-ly.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-ly.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-ma.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-ma.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-sa.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-sa.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-tn.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar-tn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/az.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/az.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/bg.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/bg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/bs.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/bs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ca.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ca.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/cs.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/cs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/da.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/da.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/de.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/de.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/el.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/el.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/en-au.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/en-au.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/en-gb.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/en-gb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/en-nz.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/en-nz.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/es-us.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/es-us.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/es.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/es.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/et.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/et.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/eu.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/eu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fa.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fa.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fi.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fr-ca.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fr-ca.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fr-ch.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fr-ch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fr.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/fr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/gl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/gl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/he.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/he.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/hi.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/hi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/hr.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/hr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/hu.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/hu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/id.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/id.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/is.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/is.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/it.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/it.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ja.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ja.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ka.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ka.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/kk.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/kk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ko.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ko.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/lb.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/lb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/lt.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/lt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/lv.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/lv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/mk.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/mk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ms.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ms.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/nb.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/nb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ne.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ne.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/nl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/nl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/nn.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/nn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/pl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/pl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/pt-br.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/pt-br.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/pt.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/pt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ro.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ro.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ru.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ru.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sk.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sq.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sq.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sr-cyrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sr-cyrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sr.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sv.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/sv.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/th.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/th.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/tr.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/tr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ug.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/ug.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/uk.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/uk.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/uz.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/uz.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/vi.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/vi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/zh-cn.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/zh-cn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/locales/zh-tw.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/locales/zh-tw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/main.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/main.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/calendar/lib/main.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/calendar/lib/main.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/add-patient.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/add-patient.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/assign-modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/assign-modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/caregiver.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/caregiver.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/caregiver.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/caregiver.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/datatables.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/datatables.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/datatables.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/datatables.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/daterangepicker.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/daterangepicker.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/daterangepicker.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/daterangepicker.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/detail.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/detail.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Black.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Black.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Black.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Black.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-BlackItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-BlackItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-BlackItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-BlackItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Bold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Bold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Bold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Bold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-BoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-BoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-BoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-BoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraLight.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraLight.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraLight.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraLight.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraLightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraLightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraLightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ExtraLightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Italic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Italic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Light.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Light.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Light.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Light.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-LightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-LightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-LightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-LightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Medium.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Medium.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Medium.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Medium.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-MediumItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-MediumItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-MediumItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-MediumItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Regular.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Regular.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-SemiBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-SemiBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-SemiBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-SemiBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-SemiBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-SemiBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-SemiBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-SemiBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Thin.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Thin.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Thin.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-Thin.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ThinItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ThinItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ThinItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat-ThinItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/Montserrat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Black.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Black.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Black.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Black.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-BlackItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-BlackItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-BlackItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-BlackItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Bold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Bold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Bold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Bold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-BoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-BoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-BoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-BoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraLight.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraLight.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraLight.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraLight.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraLightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraLightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraLightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ExtraLightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Italic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Italic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Light.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Light.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Light.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Light.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-LightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-LightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-LightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-LightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Medium.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Medium.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Medium.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Medium.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-MediumItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-MediumItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-MediumItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-MediumItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Regular.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Regular.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-SemiBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-SemiBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-SemiBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-SemiBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-SemiBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-SemiBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-SemiBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-SemiBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Thin.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Thin.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Thin.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-Thin.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ThinItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ThinItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ThinItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/MontserratAlternates-ThinItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/README.MD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-brands-400.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-regular-400.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/fonts/la-solid-900.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/jquery-ui-1.10.3.custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/jquery-ui-1.10.3.custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/line-awesome.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/line-awesome.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/line-awesome.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/line-awesome.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/owl.carousel.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/owl.carousel.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/owl.carousel.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/owl.carousel.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/owl.theme.default.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/owl.theme.default.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/owl.theme.default.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/owl.theme.default.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/responsive.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/responsive.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/responsive.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/sidebar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/sidebar.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/sidebar.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/tail.select-default.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/tail.select-default.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/tail.select-default.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/tail.select-default.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/tail.select-default.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/tail.select-default.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/tail.select-default_1.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/tail.select-default_1.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/Ellipse 10.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/Ellipse 10.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/Ellipse 11.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/Ellipse 11.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/Ellipse 12.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/Ellipse 12.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/Ellipse 13.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/Ellipse 13.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/Ellipse 14.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/Ellipse 14.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/Ellipse 8.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/Ellipse 8.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/Ellipse 9.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/Ellipse 9.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/Rectangle.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/Rectangle.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/ajax-loader.gif" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/ajax-loader.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/bg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/bg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/datepicker/ui-bg_flat_0_aaaaaa_40x100.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/datepicker/ui-bg_flat_0_aaaaaa_40x100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/datepicker/ui-bg_glass_75_ffffff_1x400.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/datepicker/ui-bg_glass_75_ffffff_1x400.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_222222_256x240.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_222222_256x240.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_2e83ff_256x240.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_2e83ff_256x240.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_454545_256x240.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_454545_256x240.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_888888_256x240.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_888888_256x240.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_f6cf3b_256x240.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/datepicker/ui-icons_f6cf3b_256x240.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/google_map.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/google_map.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/green_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/green_logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/green_logo_white.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/green_logo_white.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/Polygon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/Polygon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/Request_RoadL.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/Request_RoadL.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/accepted-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/accepted-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/accepted.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/accepted.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/applicant-clinician.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/applicant-clinician.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appo-btn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appo-btn.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointment.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointment.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointment_cal.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointment_cal.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointments-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointments-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/appointments-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/appointments-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/ba.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/ba.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/background-clinician.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/background-clinician.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/blood-pressure.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/blood-pressure.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/blood-sugar.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/blood-sugar.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/broadcast-hover.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/broadcast-hover.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/broadcast.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/broadcast.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/bulk-upload-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/bulk-upload-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/calendar-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/calendar-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/call-pending.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/call-pending.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/call-waiting.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/call-waiting.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/cancel-button.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/cancel-button.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/canceled-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/canceled-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/caregiver.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/caregiver.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/chart-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/chart-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/chart-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/chart-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/clinical-history.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/clinical-history.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/clinical_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/clinical_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/clinician-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/clinician-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/clinician-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/clinician-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/clinician.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/clinician.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/closed-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/closed-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/cloud-computing.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/cloud-computing.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/cm-home.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/cm-home.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/color-okay.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/color-okay.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/computer-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/computer-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/contract.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/contract.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/create-patient-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/create-patient-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/create-patient-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/create-patient-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/datepicker_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/datepicker_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/deactive-button.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/deactive-button.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/delete-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/delete-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/demographic-files-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/demographic-files-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/demographic-files.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/demographic-files.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/demographic_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/demographic_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/deposit-clinician.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/deposit-clinician.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/designation.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/designation.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/dignosis_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/dignosis_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/direct-download.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/direct-download.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/doctor-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/doctor-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/doctor.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/doctor.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/document-clinician.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/document-clinician.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/download-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/download-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/edit-button.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/edit-button.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/education-clinician.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/education-clinician.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/ekg.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/ekg.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/emergency-call-hover.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/emergency-call-hover.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/emergency-call.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/emergency-call.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/employee-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/employee-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/employee-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/employee-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/employee.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/employee.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/fb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/flat.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/flat.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/form.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/form.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/fullscreen_1.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/fullscreen_1.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/health-insurance.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/health-insurance.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/home-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/home-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/home-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/home-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/homecare_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/homecare_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/house-insurance.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/house-insurance.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/icon_approve.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/icon_approve.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/icon_md_form.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/icon_md_form.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/icon_patients_detail.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/icon_patients_detail.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/icon_pdf.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/icon_pdf.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/icon_send.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/icon_send.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/icon_signature.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/icon_signature.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/identity-clinician.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/identity-clinician.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/instagram.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/instagram.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/insurance.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/insurance.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/insurance_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/insurance_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/join-vedio.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/join-vedio.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/linkedin.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/linkedin.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/logout-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/logout-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/logout-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/logout-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/md-order-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/md-order-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/medprofile_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/medprofile_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/next.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/next.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/okay.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/okay.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/oncall-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/oncall-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/order-due-dates-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/order-due-dates-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pass-hide.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pass-hide.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pass-show.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pass-show.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/patient-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/patient-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/patient-img.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/patient-img.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/patient.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/patient.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pending-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pending-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/permission-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/permission-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/permission-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/permission-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/permission.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/permission.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pharmacy_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pharmacy_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/phone_blue.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/phone_blue.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/phone_green.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/phone_green.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/phone_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/phone_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/phone_red.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/phone_red.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/physician_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/physician_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pressure.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pressure.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/previous.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/previous.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/professional-clinician.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/professional-clinician.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/pulse.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/pulse.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/referral-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/referral-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/referral-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/referral-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/rejected-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/rejected-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/rejected.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/rejected.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/requests-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/requests-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/requests-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/requests-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roadL-icon-hover.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roadL-icon-hover.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roadL-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roadL-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roadl-ambulance-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roadl-ambulance-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roadl-ambulance-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roadl-ambulance-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roles-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roles-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/roles-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/roles-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/scheduled-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/scheduled-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/service-sb-select.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/service-sb-select.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/service-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/service-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/sign-up.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/sign-up.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/single-upload-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/single-upload-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/smart-call-hover.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/smart-call-hover.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/smart-call.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/smart-call.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/smartphone.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/smartphone.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/start-vedio.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/start-vedio.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/stay-home.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/stay-home.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/sugar.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/sugar.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/twitter.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/twitter.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/upload-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/upload-icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/user_icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/user_icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/vbc-sb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/vbc-sb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/vbc.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/vbc.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/video-conference.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/video-conference.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/view-button.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/view-button.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/weight.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/weight.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/x-ray.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/x-ray.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/youtube.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/youtube.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/login_img.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/login_img.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/logo-white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/logo-white.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/logo.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/logo_white.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/logo_white.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/owl.video.play.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/owl.video.play.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/polygon.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/polygon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/radio-btn-green.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/radio-btn-green.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/radio-btn-green.svg.sketch" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/radio-btn-green.svg.sketch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/radio-btn-grey.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/radio-btn-grey.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/radio-btn-grey.svg.sketch" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/radio-btn-grey.svg.sketch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/signature.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/signature.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/user-background.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/user-background.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/user/01.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/user/01.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/user/no-image.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/user/no-image.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/Chart.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/Chart.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/add-patient.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/add-patient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.administrative.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.administrative.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.administrative.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.administrative.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.dashboard.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.dashboard.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.employee.add.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.employee.add.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.employee.add.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.employee.add.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.employee.profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.employee.profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.employee.profile.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.employee.profile.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.employee.profile.min.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.employee.profile.min.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.employee.view.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.employee.view.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.employee.view.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.employee.view.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.referral.approval.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.referral.approval.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.referral.approval.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.referral.approval.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.roles.permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.roles.permission.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.admin.roles.permission.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.admin.roles.permission.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.appointment.scheduled.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.appointment.scheduled.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.appointment.scheduled.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.appointment.scheduled.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.appointment_cancelled.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.appointment_cancelled.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.appointment_cancelled.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.appointment_cancelled.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.broadcast.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.broadcast.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.broadcast.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.broadcast.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.caregiver.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.caregiver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.caregiver.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.caregiver.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.ccm.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.ccm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.ccm.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.ccm.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.dashboard.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.dashboard.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.new.request.details.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.new.request.details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.new.request.details.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.new.request.details.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.new.request.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.new.request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.new.request.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.new.request.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.notificaion.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.notificaion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.notificaion.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.notificaion.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.patient.details.timeline.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.patient.details.timeline.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.patient.details.timeline.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.patient.details.timeline.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.patient_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.patient_list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.clinician.patient_list.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.clinician.patient_list.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.common.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.common.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.coordinator.dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.coordinator.dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.coordinator.dashboard.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.coordinator.dashboard.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.coordinator.new.request.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.coordinator.new.request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.coordinator.new.request.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.coordinator.new.request.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.cordinator.appointment_reshedule copy.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.cordinator.appointment_reshedule copy.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.cordinator.appointment_reshedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.cordinator.appointment_reshedule.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.patientDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.patientDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.referral.dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.referral.dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.referral.dashboard.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.referral.dashboard.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.referral.occupational.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.referral.occupational.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.referral.occupational.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.referral.occupational.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.referral.vbc.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.referral.vbc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.referral.vbc.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.referral.vbc.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.referral.vbc.upload.bulk.data.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.referral.vbc.upload.bulk.data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.referral.vbc.upload.bulk.data.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.referral.vbc.upload.bulk.data.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.supervisor.assign.clinician_to.patient.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.supervisor.assign.clinician_to.patient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/app.supervisor.assign.clinician_to.patient.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.supervisor.assign.clinician_to.patient.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/bootstrap.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/bootstrap.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/bootstrap.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/datatables.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/datatables.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/daterangepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/daterangepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/daterangepicker.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/daterangepicker.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/draggabilly.pkgd.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/draggabilly.pkgd.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/jquery.custom-file-input.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/jquery.custom-file-input.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/jquery.dataTables.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/jquery.dataTables.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/jquery.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/jquery.validate.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/jquery.validate.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/login.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/login.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/moment.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/moment.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/moment.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/moment.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/owl.carousel.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/owl.carousel.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/popper.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/popper.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/popper.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/popper.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/register.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/register.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/reset_password.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/reset_password.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/reset_password.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/reset_password.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/tail.select-full.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/tail.select-full.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Clincian/PatientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Clincian/PatientController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/AdminService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/AdminService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/ClinicianService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/ClinicianService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/Zoom/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Zoom/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/clincian/app.clinician.appointment.scheduled.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/app.clinician.appointment.scheduled.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/clincian/app.clinician.broadcast.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/app.clinician.broadcast.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/clincian/app.clinician.broadcast.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/app.clinician.broadcast.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_view.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/schedule.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/partner/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/partner/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient-detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient-detail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/supervisor/popup.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/supervisor/popup.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/clinician.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinician.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/partner.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/partner.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -632,6 +182,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -899,7 +450,41 @@
       <workItem from="1610986682433" duration="925000" />
       <workItem from="1610988488992" duration="1718000" />
       <workItem from="1610990307020" duration="1818000" />
-      <workItem from="1610992153417" duration="1148000" />
+      <workItem from="1610992153417" duration="1393000" />
+      <workItem from="1611027038703" duration="1584000" />
+      <workItem from="1611028838699" duration="2525000" />
+      <workItem from="1611031429495" duration="636000" />
+      <workItem from="1611036186393" duration="1764000" />
+      <workItem from="1611038253798" duration="1847000" />
+      <workItem from="1611040763461" duration="920000" />
+      <workItem from="1611046232043" duration="2233000" />
+      <workItem from="1611048497579" duration="948000" />
+      <workItem from="1611053956523" duration="202000" />
+      <workItem from="1611054185325" duration="1784000" />
+      <workItem from="1611056575753" duration="1542000" />
+      <workItem from="1611058429650" duration="661000" />
+      <workItem from="1611060508648" duration="1799000" />
+      <workItem from="1611062338714" duration="1847000" />
+      <workItem from="1611064251598" duration="1011000" />
+      <workItem from="1611113681578" duration="1762000" />
+      <workItem from="1611115481949" duration="1823000" />
+      <workItem from="1611117323731" duration="1899000" />
+      <workItem from="1611119454194" duration="977000" />
+      <workItem from="1611121606688" duration="1785000" />
+      <workItem from="1611123415581" duration="598000" />
+      <workItem from="1611125250092" duration="599000" />
+      <workItem from="1611130922511" duration="618000" />
+      <workItem from="1611132757489" duration="599000" />
+      <workItem from="1611134652912" duration="1714000" />
+      <workItem from="1611136602656" duration="1729000" />
+      <workItem from="1611138479262" duration="1063000" />
+      <workItem from="1611140297888" duration="1783000" />
+      <workItem from="1611142109753" duration="1581000" />
+      <workItem from="1611143916780" duration="1784000" />
+      <workItem from="1611145722555" duration="1455000" />
+      <workItem from="1611147593696" duration="1193000" />
+      <workItem from="1611149472585" duration="599000" />
+      <workItem from="1611151283322" duration="301000" />
     </task>
     <servers />
   </component>

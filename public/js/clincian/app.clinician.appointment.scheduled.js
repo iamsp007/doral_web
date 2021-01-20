@@ -52,7 +52,7 @@ $(function () {
                     return '<div class="blink_me"><div id="countdown'+row.id+'"></div></div>';
                 }
             },
-            {data:'start_datetime',name:'start_datetime',"bSortable": true},
+            {data:'status',name:'status',"bSortable": true},
             {
                 data:'id',
                 name:'id',

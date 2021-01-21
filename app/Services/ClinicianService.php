@@ -242,4 +242,22 @@ class ClinicianService
 
         }
     }
+
+    public function patientRequest($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/patient-request',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
 }

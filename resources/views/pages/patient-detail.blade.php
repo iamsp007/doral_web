@@ -11,19 +11,13 @@
             <div class="sidebar mb-2" id="collapsibleNavbar">
                 <div class="block">
                     <div class="height-83"></div>
-                    @if(isset($details->avatar))
-                        <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/user/01.png') }}"
-                             class="img-fluid img-100">
-                    @else
-                        <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/user/01.png') }}"
-                             class="img-fluid img-100">
-                    @endif
-
+                    <img src="{{ $details->avatar_image }}" alt="Welcome to Doral" srcset="{{ $details->avatar_image }}"
+                         class="img-fluid img-100">
                 </div>
                 <?php
 //                echo"<pre>";
 //                    print_r($details);
-//                    exit(); 
+//                    exit();
                     ?>
                 <div>
                     <h1 class="patient-name mb-1">{!! $details->first_name !!} {!! $details->last_name !!}</h1>
@@ -34,7 +28,7 @@
                             @else
                                 <li class="nav">Caregiver Code:&nbsp; <span class="pdata">{{ $details->detail->caregiver_code }}</span></li>
                             @endif
-                            
+
                             <li class="nav">Gender:&nbsp; <span class="pdata">{!! $details->gender_name !!}</span></li>
                             <li class="nav">DOB:&nbsp; <span class="pdata">{!! $details->dob !!}</span></li>
                         </ul>
@@ -825,7 +819,7 @@
                                             </div>
                                         </div>
                                         <div class="_card_body">
-                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span>  - 
+                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span>  -
                                                 has been the industry's standard dummy text ever since the 1500s.
                                             </h1>
                                         </div>
@@ -837,7 +831,7 @@
                                             </div>
                                         </div>
                                         <div class="_card_body">
-                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span>  - 
+                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span>  -
                                                 has been the industry's standard dummy text ever since the 1500s.
                                             </h1>
                                         </div>
@@ -849,7 +843,7 @@
                                             </div>
                                         </div>
                                         <div class="_card_body">
-                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span>  - 
+                                            <h1 class="_title"><span style="font-weight: bold;">Ans:</span>  -
                                                 has been the industry's standard dummy text ever since the 1500s.
                                             </h1>
                                         </div>

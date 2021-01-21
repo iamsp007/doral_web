@@ -29,8 +29,6 @@ function beginJoin(signature,meetingConfig) {
         leaveUrl: meetingConfig.leaveUrl,
         webEndpoint: meetingConfig.webEndpoint,
         success: function () {
-            console.log(meetingConfig);
-            console.log("signature", signature);
             $.i18n.reload(meetingConfig.lang);
             ZoomMtg.join({
                 meetingNumber: meetingConfig.meetingNumber,
@@ -40,6 +38,9 @@ function beginJoin(signature,meetingConfig) {
                 userEmail: meetingConfig.userEmail,
                 passWord: meetingConfig.passWord,
                 success: function (res) {
+                    // $('.meeting-app').removeAttr('style');
+                    $('.join-dialog').removeAttr('style');
+                    $('.active-video-container__wrap').removeAttr('style');
                     console.log("join meeting success");
                     console.log("get attendeelist");
                     ZoomMtg.getAttendeeslist({});

@@ -57,6 +57,8 @@ Route::group(['middleware'=>['auth','role:admin|supervisor|referral|clinician|co
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('patient.detail');
 });
+Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
+
 Route::group(['middleware'=>['auth:referral']],function (){
     Route::get('/referral/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('patient.detail');
 });

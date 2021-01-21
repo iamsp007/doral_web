@@ -61,32 +61,33 @@
                 var longitude = position.coords.longitude;
                 var iconBase=base_url+'/assets/img/icons/';
 
-                const map = new google.maps.Map(document.getElementById("map"), {
-                    zoom: 8,
-                    center: {lat:latitude,lng:longitude},
-                    icon:iconBase+'patient-icon.svg',
-                    disableDefaultUI: true,
-                    mapTypeControl: true,
-                    zoomControl: true,
-                    zoomControlOptions: {
-                        position: google.maps.ControlPosition.LEFT_CENTER,
-                    },
-                    scaleControl: true,
-                    streetViewControl: true,
-                    streetViewControlOptions: {
-                        position: google.maps.ControlPosition.LEFT_TOP,
-                    },
-                    rotateControl: true,
-                    fullscreenControl: true,
-                    heading: 90,
-                    tilt: 45,
-                });
 
                 getNearByClinicianList( (response,patientDetail)=> {
                     console.log(response,patientDetail)
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 12,
+                        center: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
+                        icon:iconBase+'patient-icon.svg',
+                        position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
+                        title: patientDetail.detail.first_name+' '+patientDetail.detail.last_name,
+                        disableDefaultUI: true,
+                        mapTypeControl: true,
+                        zoomControl: true,
+                        zoomControlOptions: {
+                            position: google.maps.ControlPosition.LEFT_CENTER,
+                        },
+                        scaleControl: true,
+                        streetViewControl: true,
+                        streetViewControlOptions: {
+                            position: google.maps.ControlPosition.LEFT_TOP,
+                        },
+                        rotateControl: true,
+                        fullscreenControl: true,
+                        heading: 90,
+                        tilt: 45,
+                    });
 
                     var cmarker = new google.maps.Marker({
-                        zoom: 20,
                         icon:iconBase+'clinician-sb-select.svg',
                         map: map,
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
@@ -95,13 +96,13 @@
 
                     var circle = new google.maps.Circle({
                         map: map,
-                        zoom: 20,
+                        strokeColor: "#0079C3",
+                        fillOpacity: 0.2,
                         icon:iconBase+'patient-icon.svg',
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
-                        radius: ((20 * 1000)*0.62137),    // 5 miles in metres
-                        fillColor: '#5aba5c',
-                        label: 'My Location',
-                        title: 'My Location',
+                        radius: ((5 * 1000)*0.62137),    // 5 miles in metres
+                        label: patientDetail.detail.first_name+' '+patientDetail.detail.last_name,
+                        title: '5 km area of circle',
                     });
                     circle.bindTo('center', cmarker, 'position');
 

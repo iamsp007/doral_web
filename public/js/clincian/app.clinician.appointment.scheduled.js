@@ -1,4 +1,5 @@
 var table;
+var appointment_title;
 $(function () {
     table = $('#appointmentScheduled').DataTable({
         processing: true,
@@ -59,52 +60,52 @@ $(function () {
                 render:function (data, type, row, meta) {
 
                     var html='';
-                    if (row.is_provider1===true){
-                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: none;" onclick="startVideoCall('+row.id+',1)">\n' +
+                    if (row.status!=="completed"){
+                        appointment_title = row.title;
+                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' +
                             '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
                             '                                                Start Meeting</button>';
-                    }else {
-                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: none;" onclick="startVideoCall('+row.id+',0)">\n' +
-                            '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
-                            '                                                Join Meeting</button>';
-                    }
 
-                    if (row.status!=="cancel"){
-                        html+='<div class="popbox">\n' +
-                            '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +
-                            '                            <input type="hidden" id="appointment_id" name="appointment_id">\n' +
-                            '                            <div class="popovers-inner">\n' +
-                            '                                <h3 class="popovers-title mb-2">Are You Sure?</h3>\n' +
-                            '                                <div class="popovers-content">\n' +
-                            '                                    <div class="d-flex justify-content-start">\n' +
-                            '                                        <button type="submit" onclick="onCancelBtn('+row.id+')"\n' +
-                            '                                                class="btn btn-outline-purple btn-outline-admin mr-2 yesimsure"\n' +
-                            '                                                name="yes">YES</button>\n' +
-                            '                                        <button type="submit" onclick="onCancelBtn('+row.id+')"\n' +
-                            '                                                class="btn btn-outline-red btn-outline-admin"\n' +
-                            '                                                name="no">NO</button>\n' +
-                            '                                    </div>\n' +
-                            '                                </div>\n' +
-                            '                            </div>\n' +
-                            '                        </div>\n' +
-                            '                        <div class="popovers reasonBox" id="cancel-appointment-model'+row.id+'" style="display: none">\n' +
-                            '                            <div class="popovers-inner">\n' +
-                            '                                <h3 class="popovers-title mb-2">Reason</h3>\n' +
-                            '                                <div class="popovers-content">\n' +
-                            '                                          <textarea class="form-control" name="" id="appointment_reason_'+row.id+'" cols="30"\n' +
-                            '                                                       rows="5" placeholder="Write your reason"></textarea>\n' +
-                            '                                    <button type="submit"\n' +
-                            '                                            class="btn btn-primary btn-pink btn-block mt-3"\n' +
-                            '                                            onclick="saveCancelAppointment('+row.id+')" name="signup">Save Reason</button>\n' +
-                            '                                </div>\n' +
-                            '                            </div>\n' +
-                            '                        </div>\n' +
-                            '                        <button type="button" class="bulk-upload-btn areyousure" onclick="onCancelPopup('+row.id+')">\n' +
-                            '                                                            <img src="'+base_url+'assets/img/icons/cancel-button.svg" class="icon mr-2">\n' +
-                            '                                                            Cancel</button>\n' +
-                            '                    </div>';
-                    }
+                        html+='<div class="broadcast_box"> <button type="button" onclick="onAppointmentBroadCast('+row.patient_id+')"'+
+                                'class="btn btn-broadcast btn-block">RoadL Broadcast<span></span>'+
+                            '</button></div>';
+                        if (row.status!=="cancel"){
+                            html+='<div class="popbox">\n' +
+                                '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +
+                                '                            <input type="hidden" id="appointment_id" name="appointment_id">\n' +
+                                '                            <div class="popovers-inner">\n' +
+                                '                                <h3 class="popovers-title mb-2">Are You Sure?</h3>\n' +
+                                '                                <div class="popovers-content">\n' +
+                                '                                    <div class="d-flex justify-content-start">\n' +
+                                '                                        <button type="submit" onclick="onCancelBtn('+row.id+')"\n' +
+                                '                                                class="btn btn-outline-purple btn-outline-admin mr-2 yesimsure"\n' +
+                                '                                                name="yes">YES</button>\n' +
+                                '                                        <button type="submit" onclick="onCancelBtn('+row.id+')"\n' +
+                                '                                                class="btn btn-outline-red btn-outline-admin"\n' +
+                                '                                                name="no">NO</button>\n' +
+                                '                                    </div>\n' +
+                                '                                </div>\n' +
+                                '                            </div>\n' +
+                                '                        </div>\n' +
+                                '                        <div class="popovers reasonBox" id="cancel-appointment-model'+row.id+'" style="display: none">\n' +
+                                '                            <div class="popovers-inner">\n' +
+                                '                                <h3 class="popovers-title mb-2">Reason</h3>\n' +
+                                '                                <div class="popovers-content">\n' +
+                                '                                          <textarea class="form-control" name="" id="appointment_reason_'+row.id+'" cols="30"\n' +
+                                '                                                       rows="5" placeholder="Write your reason"></textarea>\n' +
+                                '                                    <button type="submit"\n' +
+                                '                                            class="btn btn-primary btn-pink btn-block mt-3"\n' +
+                                '                                            onclick="saveCancelAppointment('+row.id+')" name="signup">Save Reason</button>\n' +
+                                '                                </div>\n' +
+                                '                            </div>\n' +
+                                '                        </div>\n' +
+                                '                        <button type="button" class="bulk-upload-btn areyousure" onclick="onCancelPopup('+row.id+')">\n' +
+                                '                                                            <img src="'+base_url+'assets/img/icons/cancel-button.svg" class="icon mr-2">\n' +
+                                '                                                            Cancel</button>\n' +
+                                '                    </div>';
+                        }
 
+                    }
 
                     return '<div class="d-flex">'+html+'</div>';
                 }
@@ -124,33 +125,38 @@ $(function () {
     function countdown(row, data) {
         // Fetch the display element
         var el = document.getElementById(row.id);
+        var x = moment(data).fromNow();
+        $('#countdown'+row.id).parent().removeClass('blink_me');
+        $('#start-call-'+row.id).show();
+        $('#countdown'+row.id).html(x);
         // Set the timer
-        var interval = setInterval(function () {
-            var beforeOneHour = moment(data).subtract(1,'hours').format('YYYY-MM-DD HH:mm:ss');
-            var datetime = moment(data).format('YYYY-MM-DD HH:mm:ss');
-            if (moment().isBetween(beforeOneHour,datetime)){
-                var x = moment(data).fromNow();
-                $('#countdown'+row.id).html(x);
-                $('#start-call-'+row.id).hide();
-            }else if (moment().isBefore(datetime)) {
-                clearInterval(interval)
-                var x = moment(data).fromNow();
-                $('#countdown'+row.id).parent().removeClass('blink_me');
-                $('#start-call-'+row.id).hide();
-                $('#countdown'+row.id).html(x);
-            }else {
-                clearInterval(interval)
-                $('#countdown'+row.id).parent().removeClass('blink_me');
-                // if (row.status==="open"){
-                    $('#start-call-'+row.id).show();
-                // }else if (row.status==="running"){
-                    $('#join-call-'+row.id).show();
-                // }else {
-                //     // $('#start-call-'+row.id).hide();
-                // }
-                $('#countdown'+row.id).html(row.status);
-            }
-        }, 1000);
+        // var interval = setInterval(function () {
+        //     var beforeOneHour = moment(data).subtract(1,'hours').format('YYYY-MM-DD HH:mm:ss');
+        //     var datetime = moment(data).format('YYYY-MM-DD HH:mm:ss');
+        //     console.log(datetime)
+        //     if (moment().isBetween(beforeOneHour,datetime)){
+        //         var x = moment(data).fromNow();
+        //         $('#countdown'+row.id).html(x);
+        //         $('#start-call-'+row.id).show();
+        //     }else if (moment().isBefore(datetime)) {
+        //         clearInterval(interval)
+        //         var x = moment(data).fromNow();
+        //         $('#countdown'+row.id).parent().removeClass('blink_me');
+        //         $('#start-call-'+row.id).show();
+        //         $('#countdown'+row.id).html(x);
+        //     }else {
+        //         clearInterval(interval)
+        //         $('#countdown'+row.id).parent().removeClass('blink_me');
+        //         // if (row.status==="open"){
+        //             $('#start-call-'+row.id).show();
+        //         // }else if (row.status==="running"){
+        //             $('#join-call-'+row.id).show();
+        //         // }else {
+        //         //     // $('#start-call-'+row.id).hide();
+        //         // }
+        //         $('#countdown'+row.id).html(row.status);
+        //     }
+        // }, 1000);
     }
 
     $('.app-video').hide();
@@ -261,7 +267,7 @@ $(function () {
 });
 function startVideoCall(id,role) {
     $('.app-video').addClass('scale-up-center');
-    // $("#loader-wrapper").show();
+    $("#loader-wrapper").show();
     $.ajax({
         url:base_url+'clinician/start-meeting',
         headers: {
@@ -273,30 +279,32 @@ function startVideoCall(id,role) {
         method:'POST',
         dataType:'json',
         success:function (response) {
-            // $("#loader-wrapper").hide();
-            const sources = response.data;
-            var provider = sources.provider1_details;
-            if (role===0){
-                provider = sources.provider2_details;
+            $("#loader-wrapper").hide();
+            if (response.status===true){
+                const meeting = response.data.meeting;
+                const sources = response.data.appointment;
+
+                setVideoCallinginformation(sources);
+                const meetConfig = {
+                    apiKey: meeting.apiKey,
+                    meetingNumber:parseInt(meeting.meetingNumber),
+                    leaveUrl: meeting.leaveUrl,
+                    userName: meeting.userName,
+                    userEmail: meeting.userEmail, // required for webinar
+                    passWord: meeting.passWord, // if required
+                    lang: meeting.lang,
+                    china: meeting.china,
+                    role: parseInt(meeting.role, 10) // 1 for host; 0 for attendee or webinar
+                };
+                //
+                startZoomMeeting(meetConfig);
+                setTimeout(() => {
+                    $('.app-video').show();
+                    $('.app-video').removeClass('scale-down-center');
+                }, 1000);
+            }else {
+                alert(response.message);
             }
-            setVideoCallinginformation(sources);
-            const meetConfig = {
-                apiKey: 'LBO3ITvITiSiE808pFqGcQ',
-                meetingNumber:parseInt(sources.meeting.meeting_id),
-                leaveUrl: base_url+'clinician/scheduled-appointment',
-                userName: provider.first_name+' '+provider.last_name,
-                userEmail: provider.email, // required for webinar
-                passWord: JSON.parse(sources.meeting.zoom_response).password, // if required
-                lang: 'en-US',
-                china: true,
-                role: parseInt(role, 10) // 1 for host; 0 for attendee or webinar
-            };
-            //
-            startZoomMeeting(meetConfig);
-            setTimeout(() => {
-                $('.app-video').show();
-                $('.app-video').removeClass('scale-down-center');
-            }, 1000);
         },
         error:function (error) {
             console.log(error)
@@ -305,10 +313,7 @@ function startVideoCall(id,role) {
 }
 
 function setVideoCallinginformation(data) {
-    var userImg = base_url+'assets/img/user/01.png';
-    if (data.patients.avatar){
-        userImg = base_url+'assets/img/user/'+data.patients.avatar;
-    }
+    var userImg = data.patients.avatar_image;
 
     var interval = setInterval(function () {
         var beforeOneHour = moment(data.start_datetime).subtract(1,'hours').format('YYYY-MM-DD HH:mm:ss');
@@ -326,13 +331,13 @@ function setVideoCallinginformation(data) {
     }, 1000);
 
     var html='<div class="col-12 col-sm-3">\n' +
-        '                                <div class="d-flex">\n' +
+        '                                <div class="d-flex align-items-center">\n' +
         '                                    <div class="mr-2">\n' +
         '                                        <img src="'+userImg+'" class="user_photo" alt="'+data.patients.first_name+'"\n' +
         '                                             srcset="'+userImg+'">\n' +
         '                                    </div>\n' +
         '                                    <div>\n' +
-        '                                        <h1 class="title text-info">'+data.patients.first_name+' '+data.patients.last_name+'</h1>\n' +
+        '                                        <h1 class="title text-info p-0" style="padding:0!important;margin:0!important">'+data.patients.first_name+' '+data.patients.last_name+'</h1>\n' +
         '                                        <p class="mt-1">Gender: '+data.patients.gender_name+'</p>\n' +
         '                                    </div>\n' +
         '                                </div>\n' +
@@ -372,7 +377,6 @@ function onCancelBtn(id) {
 }
 function saveCancelAppointment(id) {
     var appointment_reason = $("#appointment_reason_"+id).val();
-    console.log(appointment_reason,id)
     $('#cancel-appointment-model'+id).hide();
     $.ajax({
         url:base_url+'clinician/change-appointment-status',
@@ -386,10 +390,21 @@ function saveCancelAppointment(id) {
         method:'POST',
         dataType:'json',
         success:function (response) {
-            alert(response.message);
+            // $.toast({
+            //     heading: 'Cancel Appointment',
+            //     text: response.message,
+            //     showHideTransition: 'slide',
+            //     icon: 'success'
+            // })
             table.ajax.reload();
         },
         error:function (error) {
+            $.toast({
+                heading: 'Cancel Appointment',
+                text: 'Invalid Appointment',
+                showHideTransition: 'slide',
+                icon: 'error'
+            })
             console.log(error)
         }
     })
@@ -427,4 +442,26 @@ var connectTabs = new Tabs();
 
 function onSavePatientInformation(element) {
     console.log($('input[name="physical_examination_report"]:checked').serialize());
+}
+
+function onAppointmentBroadCast(patient_id) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:base_url+'clinician/patient-request',
+        method:'POST',
+        data:{
+            patient_id:patient_id,
+            reason:appointment_title
+        },
+        dataType:'json',
+        success:function (response) {
+            alert(response.message)
+        },
+        error:function (error,responseText) {
+            const sources = JSON.parse(error.responseText);
+            alert(sources.message)
+        }
+    })
 }

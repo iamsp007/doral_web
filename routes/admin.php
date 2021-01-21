@@ -36,4 +36,8 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
     })->name('admin.home');
 
 //    Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
+
+    Route::get('clinician','App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician');
+    Route::get('clinician-list','App\Http\Controllers\Clinician\ClinicianController@getClinicianList')->name('admin.clinician-list');
+    Route::get('clinician-detail/{id}','App\Http\Controllers\Clinician\ClinicianController@getClinicianDetail')->name('admin.clinician-detail');
 });

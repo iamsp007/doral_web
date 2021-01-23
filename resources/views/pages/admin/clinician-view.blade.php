@@ -10,17 +10,27 @@
                      <div class="sidebar mb-2" id="collapsibleNavbar">
                      <div class="block">
                         <div class="height-83"></div>
-                        <img src="/assets/img/user/01.png" alt="Welcome to Doral" srcset="/assets/img/user/01.png"
+                        <img src="/{{ $data->avatar_image }}" alt="Welcome to Doral" srcset="/{{ $data->avatar_image }}"
                            class="img-fluid img-100">
                      </div>
                      <div>
                         <!-- <h1 class="patient-name mb-1">Mitchell C. Shay</h1> -->
                         <div class="d-flex justify-content-center">
                            <ul class="list-group">
-                              <li class="list-group-item name">Mitchell C. Shay</li>
-                              <li class="list-group-item"><span>Female</span>&nbsp;/&nbsp;<span>08-28-1981</span>&nbsp;</li>
-                              <li class="list-group-item d-inherit"><span>Physiotherapy</span>&nbsp;/&nbsp;<a href="tel:987456321" class="text-body call-text d-flex align-items-center"><img src="/assets/img/icons/phone_green.svg" class="mr-1" alt=""> 987456321</a></li>
-                              <li class="list-group-item"><span>Mitchell@doral.com</span></li>
+                              <li class="list-group-item name">{{ isset($data->applicant->applicant_name) ? $data->applicant->applicant_name : null }}</li>
+                              <li class="list-group-item">
+                                 <span>{{ isset($data->gender_name) ? $data->gender_name : null }}</span>&nbsp;/&nbsp;
+                                 <span>{{ date('m-d-Y', strtotime($data->dob)) }}</span>&nbsp;
+                              </li>
+                              <li class="list-group-item d-inherit">
+                                 @php
+                                    end($data->background);
+                                    $key = key($data->background);
+                                 @endphp
+                                 <span>{{ $data->background[$key]->position }}</span>&nbsp;/&nbsp;
+                                 <a href="tel:{{ $data->applicant->phone }}" class="text-body call-text d-flex align-items-center"><img src="/assets/img/icons/phone_green.svg" class="mr-1" alt=""> {{ $data->applicant->phone }}</a>
+                              </li>
+                              <li class="list-group-item"><span>{{ $data->email }}</span></li>
                               <li class="list-group-item"> 
                                  <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="TeleHealth">
@@ -108,7 +118,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Applicant Name</h3>
-                                                   <h1 class="_detail">Mitchell C. Shay</h1>
+                                                   <h1 class="_detail">{{ $data->applicant->applicant_name }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -121,7 +131,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Other Name (if applicable)</h3>
-                                                   <h1 class="_detail">aria-labelledby</h1>
+                                                   <h1 class="_detail">{{ $data->applicant->other_name }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -134,7 +144,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">SSN</h3>
-                                                   <h1 class="_detail">85476</h1>
+                                                   <h1 class="_detail">{{ $data->applicant->ssn }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -149,7 +159,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Phone No.</h3>
-                                                   <h1 class="_detail">985471236</h1>
+                                                   <h1 class="_detail">{{ $data->applicant->phone }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -162,7 +172,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Home Home</h3>
-                                                   <h1 class="_detail">985471236</h1>
+                                                   <h1 class="_detail">{{ $data->applicant->home_phone }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -175,7 +185,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Emergency Phone</h3>
-                                                   <h1 class="_detail">985471236</h1>
+                                                   <h1 class="_detail">{{ $data->applicant->emergency_phone }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -190,12 +200,13 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Date Available</h3>
-                                                   <h1 class="_detail">12/1/2020</h1>
+                                                   <h1 class="_detail">{{ date('m-d-Y', strtotime($data->applicant->date)) }}</h1>
                                                 </div>
                                              </div>
                                           </div>
                                        </div>
                                     </div>
+                                    @if($data->applicant->us_citizen)
                                     <div class="_card mt-3">
                                        <div class="_card_header">
                                           <div class="title-head"><span style="font-weight: bold;">Q:</span>
@@ -207,6 +218,7 @@
                                           </h1>
                                        </div>
                                     </div>
+                                    @else
                                     <div class="_card mt-3">
                                        <div class="_card_header">
                                           <div class="title-head"><span style="font-weight: bold;">Q:</span>
@@ -214,17 +226,18 @@
                                           </div>
                                        </div>
                                        <div class="_card_body">
-                                          <h1 class="_title"><span style="font-weight: bold;">Ans:</span> No (Immigration ID/Card) : 15356
+                                          <h1 class="_title"><span style="font-weight: bold;">Ans:</span> No (Immigration ID/Card) : {{ $data->applicant->immigration_id }}
                                           </h1>
                                        </div>
                                     </div>
+                                    @endif
                                  </div>
                                  <div class="tab-pane fade" id="Address" role="tabpanel" aria-labelledby="Address-tab">
                                     <ul>
                                        <li>
                                           <div class="_card mt-3">
                                              <div class="_card_header">
-                                                <div class="title-head">Address Details 1</div>
+                                                <div class="title-head">Address Details</div>
                                              </div>
                                              <div class="_card_body">
                                                 <div class="row">
@@ -235,8 +248,8 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Address Line 1</h3>
-                                                            <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
+                                                            <h1 class="_detail">
+                                                               {{ $data->applicant->address_line_1 }}
                                                                <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                Map</a>
                                                             </h1>
@@ -260,8 +273,8 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Address Line 2</h3>
-                                                            <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
+                                                            <h1 class="_detail">
+                                                               {{ $data->applicant->address_line_2 }}
                                                                <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                Map</a>
                                                             </h1>
@@ -285,7 +298,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">City</h3>
-                                                            <h1 class="_detail">Lorem</h1>
+                                                            <h1 class="_detail">{{ $data->applicant->city->city }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -296,7 +309,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">State</h3>
-                                                            <h1 class="_detail">Lorem</h1>
+                                                            <h1 class="_detail">{{ $data->applicant->state->state }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -307,7 +320,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Zip Code</h3>
-                                                            <h1 class="_detail">Lorem</h1>
+                                                            <h1 class="_detail">{{ $data->applicant->zip }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -320,221 +333,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Length of time at the above address</h3>
-                                                            <h1 class="_detail">6 Month</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </li>
-                                       <li>
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                                <div class="title-head">Address Details 2</div>
-                                             </div>
-                                             <div class="_card_body">
-                                                <div class="row">
-                                                   <div class="col-12 col-sm-12">
-                                                      <div class="d-flex align-items-center mb-3">
-                                                         <div>
-                                                            <i class="las la-map-marker circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Address Line 1</h3>
-                                                            <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
-                                                               <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample3" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                               Map</a>
-                                                            </h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="collapse mb-4" id="collapseExample3">
-                                                   <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                         height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                         marginwidth="0"
-                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                   </div>
-                                                </div>
-                                                <div class="row">
-                                                   <div class="col-12 col-sm-12">
-                                                      <div class="d-flex align-items-center mb-3">
-                                                         <div>
-                                                            <i class="las la-map-marker circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Address Line 2</h3>
-                                                            <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
-                                                               <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample4" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                               Map</a>
-                                                            </h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="collapse mb-4" id="collapseExample4">
-                                                   <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                         height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                         marginwidth="0"
-                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                   </div>
-                                                </div>
-                                                <div class="row">
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">City</h3>
-                                                            <h1 class="_detail">Lorem</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">State</h3>
-                                                            <h1 class="_detail">Lorem</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Zip Code</h3>
-                                                            <h1 class="_detail">Lorem</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="row mt-3">
-                                                   <div class="col-12 col-sm-8">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Length of time at the above address</h3>
-                                                            <h1 class="_detail">6 Month</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </li>
-                                       <li>
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                                <div class="title-head">Address Details 3</div>
-                                             </div>
-                                             <div class="_card_body">
-                                                <div class="row">
-                                                   <div class="col-12 col-sm-12">
-                                                      <div class="d-flex align-items-center mb-3">
-                                                         <div>
-                                                            <i class="las la-map-marker circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Address Line 1</h3>
-                                                            <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
-                                                               <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample5" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                               Map</a>
-                                                            </h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="collapse mb-4" id="collapseExample5">
-                                                   <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                         height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                         marginwidth="0"
-                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                   </div>
-                                                </div>
-                                                <div class="row">
-                                                   <div class="col-12 col-sm-12">
-                                                      <div class="d-flex align-items-center mb-3">
-                                                         <div>
-                                                            <i class="las la-map-marker circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Address Line 2</h3>
-                                                            <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
-                                                               <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample6" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                               Map</a>
-                                                            </h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="collapse mb-4" id="collapseExample6">
-                                                   <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                         height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                         marginwidth="0"
-                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                   </div>
-                                                </div>
-                                                <div class="row">
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">City</h3>
-                                                            <h1 class="_detail">Lorem</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">State</h3>
-                                                            <h1 class="_detail">Lorem</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Zip Code</h3>
-                                                            <h1 class="_detail">Lorem</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="row mt-3">
-                                                   <div class="col-12 col-sm-8">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Length of time at the above address</h3>
-                                                            <h1 class="_detail">6 Month</h1>
+                                                            <h1 class="_detail">{{ $data->applicant->address_life }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -546,10 +345,11 @@
                                  </div>
                                  <div class="tab-pane fade" id="Reference" role="tabpanel" aria-labelledby="Reference-tab">
                                     <ul>
+                                       @foreach($data->applicant->referances as $index => $referance)
                                        <li>
                                           <div class="_card mt-3">
                                              <div class="_card_header">
-                                                <div class="title-head">Reference 1</div>
+                                                <div class="title-head">Reference {{ $index + 1 }}</div>
                                              </div>
                                              <div class="_card_body">
                                                 <div class="row">
@@ -560,7 +360,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Name</h3>
-                                                            <h1 class="_detail">Mitchell</h1>
+                                                            <h1 class="_detail">{{ $referance->referance_name }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -571,7 +371,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Phone No.</h3>
-                                                            <h1 class="_detail">953546534</h1>
+                                                            <h1 class="_detail">{{ $referance->reference_phone }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -582,7 +382,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Relationship</h3>
-                                                            <h1 class="_detail">Friend</h1>
+                                                            <h1 class="_detail">{{ $referance->reference_relationship }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -595,8 +395,8 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Address</h3>
-                                                            <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
+                                                            <h1 class="_detail">
+                                                               {{ $referance->reference_address }}
                                                                <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                Map</a>
                                                             </h1>
@@ -619,7 +419,7 @@
                                                       </div>
                                                    </div>
                                                    <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> YES
+                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->applicant->bonded == 1 ? 'Yes' : 'No' }}
                                                       </h1>
                                                    </div>
                                                 </div>
@@ -630,7 +430,7 @@
                                                       </div>
                                                    </div>
                                                    <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->applicant->refused_bond == 1 ? 'Yes' : 'No' }}
                                                       </h1>
                                                    </div>
                                                 </div>
@@ -641,217 +441,14 @@
                                                       </div>
                                                    </div>
                                                    <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->applicant->convicted_crime == 1 ? 'Yes' : 'No' }}
                                                       </h1>
                                                    </div>
                                                 </div>
                                              </div>
                                           </div>
                                        </li>
-                                       <li>
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                                <div class="title-head">Reference 2</div>
-                                             </div>
-                                             <div class="_card_body">
-                                                <div class="row">
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-user-nurse circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Name</h3>
-                                                            <h1 class="_detail">Mitchell</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-phone  circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Phone No.</h3>
-                                                            <h1 class="_detail">953546534</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Relationship</h3>
-                                                            <h1 class="_detail">Friend</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="row mt-3">
-                                                   <div class="col-12 col-sm-12">
-                                                      <div class="d-flex align-items-center mb-3">
-                                                         <div>
-                                                            <i class="las la-map-marker circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Address</h3>
-                                                            <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
-                                                               <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                               Map</a>
-                                                            </h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="collapse mb-4" id="collapseExample7">
-                                                   <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                         height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                         marginwidth="0"
-                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                   </div>
-                                                </div>
-                                                <div class="_card mt-3">
-                                                   <div class="_card_header">
-                                                      <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                         Have you ever been bonded?
-                                                      </div>
-                                                   </div>
-                                                   <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> YES
-                                                      </h1>
-                                                   </div>
-                                                </div>
-                                                <div class="_card mt-3">
-                                                   <div class="_card_header">
-                                                      <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                        Have you ever been refused a bond?
-                                                      </div>
-                                                   </div>
-                                                   <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
-                                                      </h1>
-                                                   </div>
-                                                </div>
-                                                <div class="_card mt-3">
-                                                   <div class="_card_header">
-                                                      <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                         Have you ever been convicted of a crime?
-                                                      </div>
-                                                   </div>
-                                                   <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
-                                                      </h1>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </li>
-                                       <li>
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                                <div class="title-head">Reference 3</div>
-                                             </div>
-                                             <div class="_card_body">
-                                                <div class="row">
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-user-nurse circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Name</h3>
-                                                            <h1 class="_detail">Mitchell</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-phone  circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Phone No.</h3>
-                                                            <h1 class="_detail">953546534</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="col-12 col-sm-4">
-                                                      <div class="d-flex align-items-center">
-                                                         <div>
-                                                            <i class="las la-angle-double-right circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Relationship</h3>
-                                                            <h1 class="_detail">Friend</h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="row mt-3">
-                                                   <div class="col-12 col-sm-12">
-                                                      <div class="d-flex align-items-center mb-3">
-                                                         <div>
-                                                            <i class="las la-map-marker circle-icon"></i>
-                                                         </div>
-                                                         <div>
-                                                            <h3 class="_title">Address</h3>
-                                                            <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
-                                                               <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                               Map</a>
-                                                            </h1>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="collapse mb-4" id="collapseExample7">
-                                                   <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                         height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                         marginwidth="0"
-                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                   </div>
-                                                </div>
-                                                <div class="_card mt-3">
-                                                   <div class="_card_header">
-                                                      <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                         Have you ever been bonded?
-                                                      </div>
-                                                   </div>
-                                                   <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> YES
-                                                      </h1>
-                                                   </div>
-                                                </div>
-                                                <div class="_card mt-3">
-                                                   <div class="_card_header">
-                                                      <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                        Have you ever been refused a bond?
-                                                      </div>
-                                                   </div>
-                                                   <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
-                                                      </h1>
-                                                   </div>
-                                                </div>
-                                                <div class="_card mt-3">
-                                                   <div class="_card_header">
-                                                      <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                         Have you ever been convicted of a crime?
-                                                      </div>
-                                                   </div>
-                                                   <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
-                                                      </h1>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </li>
+                                       @endforeach
                                     </ul>
                                  </div>
                                  <div class="tab-pane fade" id="Emergency" role="tabpanel" aria-labelledby="Emergency-tab">
@@ -863,7 +460,7 @@
                                              </div>
                                              <div>
                                                 <h3 class="_title">Name</h3>
-                                                <h1 class="_detail">Mitchell</h1>
+                                                <h1 class="_detail">{{ $data->applicant->emergency_name }}</h1>
                                              </div>
                                           </div>
                                        </div>
@@ -874,7 +471,7 @@
                                              </div>
                                              <div>
                                                 <h3 class="_title">Phone No.</h3>
-                                                <h1 class="_detail">953546534</h1>
+                                                <h1 class="_detail">{{ $data->applicant->emergency_phone }}</h1>
                                              </div>
                                           </div>
                                        </div>
@@ -885,7 +482,7 @@
                                              </div>
                                              <div>
                                                 <h3 class="_title">Relationship</h3>
-                                                <h1 class="_detail">Friend</h1>
+                                                <h1 class="_detail">{{ $data->applicant->emergency_relationship }}</h1>
                                              </div>
                                           </div>
                                        </div>
@@ -898,8 +495,8 @@
                                              </div>
                                              <div>
                                                 <h3 class="_title">Address</h3>
-                                                <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                   <span>97232</span>
+                                                <h1 class="_detail">
+                                                   {{ $data->applicant->emergency_address }}
                                                    <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample10" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                    Map</a>
                                                 </h1>
@@ -950,7 +547,7 @@
                                           <li>
                                              <div class="_card mt-3">
                                                 <div class="_card_header">
-                                                   <div class="title-head">MEDICAL INSTITUTE 1</div>
+                                                   <div class="title-head">MEDICAL INSTITUTE</div>
                                                 </div>
                                                 <div class="_card_body">
                                                    <div class="row">
@@ -961,7 +558,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Name of Institute</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
+                                                               <h1 class="_detail">{{ $data->education->medical_institute_name }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -972,7 +569,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Started</h3>
-                                                               <h1 class="_detail">1980</h1>
+                                                               <h1 class="_detail">{{ $data->education->medical_institute_year_started }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -983,7 +580,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Completed</h3>
-                                                               <h1 class="_detail">2000</h1>
+                                                               <h1 class="_detail">{{ $data->education->medical_institute_year_completed }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -996,8 +593,8 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Address</h3>
-                                                               <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                                  <span>97232</span>
+                                                               <h1 class="_detail">
+                                                                  {{ $data->education->medical_institute_address }}
                                                                   <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                   Map</a>
                                                                </h1>
@@ -1021,7 +618,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">Lorem</h1>
+                                                               <h1 class="_detail">{{ $data->education->medical_institute_city->city }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1032,100 +629,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                 </div>
-                                             </div>
-                                          </li>
-                                          <li>
-                                             <div class="_card mt-3">
-                                                <div class="_card_header">
-                                                   <div class="title-head">MEDICAL INSTITUTE 2</div>
-                                                </div>
-                                                <div class="_card_body">
-                                                   <div class="row">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-university circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Name of Institute</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Year Started</h3>
-                                                               <h1 class="_detail">1980</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Year Completed</h3>
-                                                               <h1 class="_detail">2000</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row mt-3">
-                                                      <div class="col-12 col-sm-12">
-                                                         <div class="d-flex align-items-center mb-3">
-                                                            <div>
-                                                               <i class="las la-map-marker circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Address</h3>
-                                                               <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                                  <span>97232</span>
-                                                                  <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample11" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                                  Map</a>
-                                                               </h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="collapse mb-4" id="collapseExample11">
-                                                      <div class="card card-body">
-                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                            height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                            marginwidth="0"
-                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">Lorem</h1>
+                                                               <h1 class="_detail">{{ $data->education->medical_institute_state->state }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1140,7 +644,7 @@
                                           <li>
                                              <div class="_card mt-3">
                                                 <div class="_card_header">
-                                                   <div class="title-head">RESIDENCY INSTITUTE 1</div>
+                                                   <div class="title-head">RESIDENCY INSTITUTE</div>
                                                 </div>
                                                 <div class="_card_body">
                                                    <div class="row">
@@ -1151,7 +655,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Name of Institute</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
+                                                               <h1 class="_detail">{{ $data->education->residency_institute_name }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1162,7 +666,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Started</h3>
-                                                               <h1 class="_detail">1980</h1>
+                                                               <h1 class="_detail">{{ $data->education->residency_institute_year_started }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1173,7 +677,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Completed</h3>
-                                                               <h1 class="_detail">2000</h1>
+                                                               <h1 class="_detail">{{ $data->education->residency_institute_year_completed }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1186,8 +690,8 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Address</h3>
-                                                               <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                                  <span>97232</span>
+                                                               <h1 class="_detail">
+                                                                  {{ $data->education->residency_institute_address }}
                                                                   <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample12" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                   Map</a>
                                                                </h1>
@@ -1211,7 +715,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">Lorem</h1>
+                                                               <h1 class="_detail">{{ $data->education->residency_institute_city->city }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1222,100 +726,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                 </div>
-                                             </div>
-                                          </li>
-                                          <li>
-                                             <div class="_card mt-3">
-                                                <div class="_card_header">
-                                                   <div class="title-head">RESIDENCY INSTITUTE 2</div>
-                                                </div>
-                                                <div class="_card_body">
-                                                   <div class="row">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-university circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Name of Institute</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Year Started</h3>
-                                                               <h1 class="_detail">1980</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Year Completed</h3>
-                                                               <h1 class="_detail">2000</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row mt-3">
-                                                      <div class="col-12 col-sm-12">
-                                                         <div class="d-flex align-items-center mb-3">
-                                                            <div>
-                                                               <i class="las la-map-marker circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Address</h3>
-                                                               <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                                  <span>97232</span>
-                                                                  <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample13" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                                  Map</a>
-                                                               </h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="collapse mb-4" id="collapseExample13">
-                                                      <div class="card card-body">
-                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                            height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                            marginwidth="0"
-                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">Lorem</h1>
+                                                               <h1 class="_detail">{{ $data->education->residency_institute_state->state }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1330,7 +741,7 @@
                                           <li>
                                              <div class="_card mt-3">
                                                 <div class="_card_header">
-                                                   <div class="title-head">FELLOWSHIP INSTITUTE 1</div>
+                                                   <div class="title-head">FELLOWSHIP INSTITUTE</div>
                                                 </div>
                                                 <div class="_card_body">
                                                    <div class="row">
@@ -1341,7 +752,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Name of Institute</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
+                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_name }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1352,7 +763,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Started</h3>
-                                                               <h1 class="_detail">1980</h1>
+                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_year_started }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1363,7 +774,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Completed</h3>
-                                                               <h1 class="_detail">2000</h1>
+                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_year_completed }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1376,8 +787,8 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Address</h3>
-                                                               <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                                  <span>97232</span>
+                                                               <h1 class="_detail">
+                                                                  {{ $data->education->fellowship_institute_address }}
                                                                   <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample14" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                   Map</a>
                                                                </h1>
@@ -1401,7 +812,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">Lorem</h1>
+                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_city->city }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1412,100 +823,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                 </div>
-                                             </div>
-                                          </li>
-                                          <li>
-                                             <div class="_card mt-3">
-                                                <div class="_card_header">
-                                                   <div class="title-head">FELLOWSHIP INSTITUTE 2</div>
-                                                </div>
-                                                <div class="_card_body">
-                                                   <div class="row">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-university circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Name of Institute</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Year Started</h3>
-                                                               <h1 class="_detail">1980</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Year Completed</h3>
-                                                               <h1 class="_detail">2000</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row mt-3">
-                                                      <div class="col-12 col-sm-12">
-                                                         <div class="d-flex align-items-center mb-3">
-                                                            <div>
-                                                               <i class="las la-map-marker circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Address</h3>
-                                                               <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                                  <span>97232</span>
-                                                                  <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample15" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                                  Map</a>
-                                                               </h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="collapse mb-4" id="collapseExample15">
-                                                      <div class="card card-body">
-                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                            height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                            marginwidth="0"
-                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">Lorem</h1>
+                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_state->state }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1552,7 +870,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> YES
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->professional->medicare_enrolled == 1 ? 'YES' : 'NO' }}
                                              </h1>
                                              <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
@@ -1562,7 +880,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">US</h1>
+                                                         <h1 class="_detail">{{ $data->professional->medicare_state->state }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1573,7 +891,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Medicare Number</h3>
-                                                         <h1 class="_detail">128586</h1>
+                                                         <h1 class="_detail">{{ $data->professional->medicare_number }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1599,7 +917,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> YES
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->professional->medicaid_enrolled == 1 ? 'YES' : 'NO' }}
                                              </h1>
                                              <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
@@ -1609,7 +927,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">US</h1>
+                                                         <h1 class="_detail">{{ $data->professional->medicaid_state->state }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1620,7 +938,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Medicaid Number</h3>
-                                                         <h1 class="_detail">128586</h1>
+                                                         <h1 class="_detail">{{ $data->professional->medicaid_number }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1634,8 +952,10 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title">65+
+                                             @foreach($data->professional->age_ranges as $index => $ageRange)
+                                             <h1 class="_title">{{ $ageRange->age_range_treated }}
                                              </h1>
+                                             @endforeach
                                           </div>
                                        </div>
                                        <div class="_card mt-3">
@@ -1644,7 +964,8 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                            <div class="row">
+                                             @foreach($data->professional->state_licenses as $index => $stateLicense)
+                                             <div class="row">
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center">
                                                       <div>
@@ -1652,7 +973,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">US</h1>
+                                                         <h1 class="_detail">{{ $stateLicense->license_state->state }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1663,12 +984,15 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">License Number</h3>
-                                                         <h1 class="_detail">128586</h1>
+                                                         <h1 class="_detail">{{ $stateLicense->license_number }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
-                                                
                                              </div>
+                                             @if(isset($data->professional->state_licenses[$index+1]))
+                                             <br>
+                                             @endif
+                                             @endforeach
                                           </div>
                                        </div>
                                        <div class="_card mt-3">
@@ -1677,7 +1001,8 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                            <div class="row">
+                                             @foreach($data->professional->board_certificates as $index => $boardCertificate)
+                                             <div class="row">
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center">
                                                       <div>
@@ -1685,7 +1010,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Certifying Board</h3>
-                                                         <h1 class="_detail">Postdoctoral</h1>
+                                                         <h1 class="_detail">{{ $boardCertificate->certifying_board }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1696,12 +1021,15 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Status</h3>
-                                                         <h1 class="_detail">Stud</h1>
+                                                         <h1 class="_detail">{{ $boardCertificate->status }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
-                                                
                                              </div>
+                                             @if(isset($data->professional->board_certificates[$index+1]))
+                                             <br>
+                                             @endif
+                                             @endforeach
                                           </div>
                                        </div>
                                        <div class="_card mt-3">
@@ -1710,17 +1038,18 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title">AP1234567
+                                             <h1 class="_title">{{ $data->professional->federal_dea_id }}
                                              </h1>
                                           </div>
                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="WORKHISTORY" role="tabpanel" aria-labelledby="WORKHISTORY-tab">
                                        <ul>
+                                          @foreach($data->background as $index => $workHistory)
                                           <li>
                                              <div class="_card mt-3">
                                                 <div class="_card_header">
-                                                   <div class="title-head">COMPANY NAME 1</div>
+                                                   <div class="title-head">COMPANY NAME {{ $index + 1 }}</div>
                                                 </div>
                                                 <div class="_card_body">
                                                    <div class="row">
@@ -1731,7 +1060,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Company</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
+                                                               <h1 class="_detail">{{ $workHistory->company_name }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1742,7 +1071,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Position/Title</h3>
-                                                               <h1 class="_detail">Lorem</h1>
+                                                               <h1 class="_detail">{{ $workHistory->position }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1753,7 +1082,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Reason for leaving</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
+                                                               <h1 class="_detail">{{ $workHistory->work_gap_reason }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1766,7 +1095,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Country</h3>
-                                                               <h1 class="_detail">US</h1>
+                                                               <h1 class="_detail">{{ $workHistory->country->name }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1777,7 +1106,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">Lorem</h1>
+                                                               <h1 class="_detail">{{ $workHistory->city->city }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1788,7 +1117,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">Lorem</h1>
+                                                               <h1 class="_detail">{{ $workHistory->state->state }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1801,7 +1130,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Start Date</h3>
-                                                               <h1 class="_detail">02-05-1980</h1>
+                                                               <h1 class="_detail">{{ date('m-d-Y', strtotime($workHistory->start_date)) }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1811,8 +1140,8 @@
                                                                <i class="las la-calendar circle-icon circle-icon"></i>
                                                             </div>
                                                             <div>
-                                                               <h3 class="_title">Start Date</h3>
-                                                               <h1 class="_detail">02-05-1990</h1>
+                                                               <h3 class="_title">End Date</h3>
+                                                               <h1 class="_detail">{{ date('m-d-Y', strtotime($workHistory->end_date)) }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1821,217 +1150,11 @@
                                                 </div>
                                              </div>
                                           </li>
-                                          <li>
-                                             <div class="_card mt-3">
-                                                <div class="_card_header">
-                                                   <div class="title-head">COMPANY NAME 2</div>
-                                                </div>
-                                                <div class="_card_body">
-                                                   <div class="row">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-hospital circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Company</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Position/Title</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Reason for leaving</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row mt-3">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Country</h3>
-                                                               <h1 class="_detail">US</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row mt-3">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-calendar circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Start Date</h3>
-                                                               <h1 class="_detail">02-05-1980</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-calendar circle-icon circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Start Date</h3>
-                                                               <h1 class="_detail">02-05-1990</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                     
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </li>
-                                          <li>
-                                             <div class="_card mt-3">
-                                                <div class="_card_header">
-                                                   <div class="title-head">COMPANY NAME 3</div>
-                                                </div>
-                                                <div class="_card_body">
-                                                   <div class="row">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-hospital circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Company</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Position/Title</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Reason for leaving</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row mt-3">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Country</h3>
-                                                               <h1 class="_detail">US</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">Lorem</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                   <div class="row mt-3">
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-calendar circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Start Date</h3>
-                                                               <h1 class="_detail">02-05-1980</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-calendar circle-icon circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Start Date</h3>
-                                                               <h1 class="_detail">02-05-1990</h1>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                     
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </li>
-                                         </ul>
+                                          @endforeach
                                     </div>
                                     <div class="tab-pane fade" id="ATTESTATONS" role="tabpanel" aria-labelledby="ATTESTATONS-tab">
+                                       @foreach($data->attestation as $index => $attestation)
+                                       @if($index == 0)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2041,10 +1164,12 @@
                                           <div class="_card_body">
                                              <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
                                              </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
                                           </div>
                                        </div>
+                                       @endif
+                                       @if($index == 1)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2054,10 +1179,12 @@
                                           <div class="_card_body">
                                              <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
                                              </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
                                           </div>
                                        </div>
+                                       @endif
+                                       @if($index == 2)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2067,10 +1194,12 @@
                                           <div class="_card_body">
                                              <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
                                              </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
                                           </div>
                                        </div>
+                                       @endif
+                                       @if($index == 3)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2080,10 +1209,12 @@
                                           <div class="_card_body">
                                              <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
                                              </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
                                           </div>
                                        </div>
+                                       @endif
+                                       @if($index == 4)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2093,10 +1224,12 @@
                                           <div class="_card_body">
                                              <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
                                              </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
                                           </div>
                                        </div>
+                                       @endif
+                                       @if($index == 5)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2106,10 +1239,12 @@
                                           <div class="_card_body">
                                              <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
                                              </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
                                           </div>
                                        </div>
+                                       @endif
+                                       @if($index == 6)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2119,10 +1254,12 @@
                                           <div class="_card_body">
                                              <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
                                              </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
                                           </div>
                                        </div>
+                                       @endif
+                                       @if($index == 7)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2132,10 +1269,12 @@
                                           <div class="_card_body">
                                              <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
                                              </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
                                           </div>
                                        </div>
+                                       @endif
+                                       @if($index == 8)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2145,10 +1284,12 @@
                                           <div class="_card_body">
                                              <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
                                              </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
                                           </div>
                                        </div>
+                                       @endif
+                                       @if($index == 9 || $index == 10 || $index == 11)
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
@@ -2157,28 +1298,36 @@
                                           </div>
                                           <div class="_card_body">
                                             <ul>
-                                               <li class="pb-2">
+                                                @if($index == 9)
+                                                <li class="pb-2">
                                                     <h1 class="_title"><span style="font-weight: bold;">Q:</span> <span class="text-info">Appeal Rights:</span> I confirm I have read and understand my rights in the appeal process.
                                                     </h1>
-                                                    <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
+                                                    <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                                     </h1>
-                                               </li>
-                                               <li class="pb-2">
-                                                <h1 class="_title"><span style="font-weight: bold;">Q:</span> <span class="text-info">Credentialing Rights:</span> I confirm I have read and understand my rights in the Credentialing process.
-                                                </h1>
-                                                <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
-                                                </h1>
-                                           </li>
-                                           <li>
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Do you hold a controlling interest of 5% or greater of a jointly owned healthcare business?
-                                             </h1>
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> NO
-                                             </h1>
-                                        </li>
-                                            </ul>
+                                                </li>
+                                                @endif
+                                                @if($index == 10)
+                                                <li class="pb-2">
+                                                   <h1 class="_title"><span style="font-weight: bold;">Q:</span> <span class="text-info">Credentialing Rights:</span> I confirm I have read and understand my rights in the Credentialing process.
+                                                   </h1>
+                                                   <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
+                                                   </h1>
+                                                </li>
+                                                @endif
+                                                @if($index == 11)
+                                                <li>
+                                                   <h1 class="_title"><span style="font-weight: bold;">Q:</span> Do you hold a controlling interest of 5% or greater of a jointly owned healthcare business?
+                                                   </h1>
+                                                   <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
+                                                   </h1>
+                                                </li>
+                                                @endif
+                                             </ul>
                                             
                                           </div>
                                        </div>
+                                       @endif
+                                       @endforeach
                                     </div>
                                     </div>
                                  </div>
@@ -2212,7 +1361,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Name on account</h3>
-                                                         <h1 class="_detail">Lorem Ipsum</h1>
+                                                         <h1 class="_detail">{{ $data->deposit->account_name }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2223,7 +1372,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Type of account</h3>
-                                                         <h1 class="_detail">Lorem Ipsum</h1>
+                                                         <h1 class="_detail">{{ $data->deposit->account_type }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2236,7 +1385,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Rounting number <span class="text-info">(where to find this)</span></h3>
-                                                         <h1 class="_detail">Lorem Ipsum</h1>
+                                                         <h1 class="_detail">{{ $data->deposit->routing_number }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2249,7 +1398,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Account  number <span class="text-info">(where to find this)</span></h3>
-                                                         <h1 class="_detail">Lorem Ipsum</h1>
+                                                         <h1 class="_detail">{{ $data->deposit->account_number }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2262,8 +1411,8 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Address on account line 1</h3>
-                                                         <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                            <span>97232</span>
+                                                         <h1 class="_detail">
+                                                            {{ $data->deposit->address_line_1 }}
                                                             <a class="btn btn-info btn-sm ml-2" data-toggle="collapse"
                                                                href="#collapseExample16"><i class="las la-map-marker"></i>View
                                                             Map</a>
@@ -2288,8 +1437,8 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Address on account line 2</h3>
-                                                         <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                            <span>97232</span>
+                                                         <h1 class="_detail">
+                                                            {{ $data->deposit->address_line_2 }}
                                                             <a class="btn btn-info btn-sm ml-2" data-toggle="collapse"
                                                                href="#collapseExample17"><i class="las la-map-marker"></i>View
                                                             Map</a>
@@ -2314,7 +1463,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">City</h3>
-                                                         <h1 class="_detail">Lorem</h1>
+                                                         <h1 class="_detail">{{ $data->deposit->city->city }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2325,7 +1474,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">Lorem</h1>
+                                                         <h1 class="_detail">{{ $data->deposit->state->state }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2336,7 +1485,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Zip Code</h3>
-                                                         <h1 class="_detail">Lorem</h1>
+                                                         <h1 class="_detail">{{ $data->deposit->zip }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2379,7 +1528,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Send tax documents to</h3>
-                                                               <h1 class="_detail">Lorem Ipsum</h1>
+                                                               <h1 class="_detail">{{ $data->deposit->send_tax_documents_to }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -2391,7 +1540,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Legal entity</h3>
-                                                            <h1 class="_detail">Lorem Ipsum</h1>
+                                                            <h1 class="_detail">{{ $data->deposit->legal_entity }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -2406,7 +1555,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Taxpayer identification Number</h3>
-                                                            <h1 class="_detail">58454</h1>
+                                                            <h1 class="_detail">{{ $data->deposit->tax_payer_id_number }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -2462,7 +1611,7 @@
                                                                      </div>
                                                                      <div>
                                                                         <h3 class="_title">Phone number</h3>
-                                                                        <h1 class="_detail">123585416</h1>
+                                                                        <h1 class="_detail">{{ $data->applicant->phone }}</h1>
                                                                      </div>
                                                                   </div>
                                                                </div>
@@ -2474,7 +1623,7 @@
                                                                   </div>
                                                                   <div>
                                                                      <h3 class="_title">SSN</h3>
-                                                                     <h1 class="_detail">2856</h1>
+                                                                     <h1 class="_detail">{{ $data->applicant->ssn }}</h1>
                                                                   </div>
                                                                </div>
                                                             </div>
@@ -2485,61 +1634,7 @@
                                                                   </div>
                                                                   <div>
                                                                      <h3 class="_title">Date of Birth</h3>
-                                                                     <h1 class="_detail">08-22-1920</h1>
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                      <div>
-                                                        </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                         </li>
-                                         <li>
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                                <div class="title-head">INFORMATION TO VERIFY YOUR IDENTITY</div>
-                                             </div>
-                                             <div class="_card_body">
-                                                <div class="row">
-                                                   <div class="col-12 col-sm-12">
-                                                      <div class="form-group">
-                                                         <div class="row">
-                                                            <div class="col-12 col-sm-4">
-                                                               <div>
-                                                                  <div class="d-flex align-items-center">
-                                                                     <div>
-                                                                        <i class="las la-phone circle-icon"></i>
-                                                                     </div>
-                                                                     <div>
-                                                                        <h3 class="_title">Phone number</h3>
-                                                                        <h1 class="_detail">123585416</h1>
-                                                                     </div>
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                            <div class="col-12 col-sm-4">
-                                                               <div class="d-flex align-items-center">
-                                                                  <div>
-                                                                     <i class="las la-angle-double-right circle-icon"></i>
-                                                                  </div>
-                                                                  <div>
-                                                                     <h3 class="_title">SSN</h3>
-                                                                     <h1 class="_detail">2856</h1>
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                            <div class="col-12 col-sm-4">
-                                                               <div class="d-flex align-items-center">
-                                                                  <div>
-                                                                     <i class="las la-calendar circle-icon"></i>
-                                                                  </div>
-                                                                  <div>
-                                                                     <h3 class="_title">Date of Birth</h3>
-                                                                     <h1 class="_detail">08-22-1920</h1>
+                                                                     <h1 class="_detail">{{ date('m-d-Y', strtotime($data->dob)) }}</h1>
                                                                   </div>
                                                                </div>
                                                             </div>
@@ -2640,16 +1735,18 @@
                                     <div class="tab-pane fade show active" id="IDProof" role="tabpanel" aria-labelledby="IDProof-tab">
                                      <!-- View ID Proof button Start -->
                                        <ul>
-                                         <li>
+                                         <!-- <li>
                                           <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
                                          </li>
                                          <li>
                                           <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
                                          </li>
-                                         <li>
+                                         <li> -->
+                                          @foreach($data->documents as $document)
+                                          @if($document->type == 1)
                                           <div class="_card mt-3">
                                              <div class="_card_header">
-                                               ID Proof.pdf
+                                               {{ $document->file_name }}
                                                <div>
                                                    <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
                                                    srcset="/assets/img/icons/direct-download.svg"
@@ -2657,6 +1754,8 @@
                                                 </div>
                                              </div>
                                           </div>
+                                          @endif
+                                          @endforeach
                                          </li>
                                        </ul>
                                         <!-- View ID Proof button End -->
@@ -2664,23 +1763,27 @@
                                     <div class="tab-pane fade" id="DegreeProof" role="tabpanel" aria-labelledby="DegreeProof-tab">
                                        <!-- View Degree Proof button Start -->
                                        <ul>
-                                          <li>
+                                          <!-- <li>
                                            <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
                                           </li>
                                           <li>
                                            <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li>
+                                          </li> -->
                                           <li>
-                                           <div class="_card mt-3">
-                                              <div class="_card_header">
-                                                ID Proof.pdf
-                                                <div>
-                                                    <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                    srcset="/assets/img/icons/direct-download.svg"
-                                                    class="_icon mr-2"></a>
-                                                 </div>
-                                              </div>
-                                           </div>
+                                           @foreach($data->documents as $document)
+                                          @if($document->type == 2)
+                                          <div class="_card mt-3">
+                                             <div class="_card_header">
+                                               {{ $document->file_name }}
+                                               <div>
+                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
+                                                   srcset="/assets/img/icons/direct-download.svg"
+                                                   class="_icon mr-2"></a>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          @endif
+                                          @endforeach
                                           </li>
                                         </ul>
                                          <!-- View Degree Proof button End -->
@@ -2688,23 +1791,27 @@
                                     <div class="tab-pane fade" id="MedicalReport" role="tabpanel" aria-labelledby="MedicalReport-tab">
                                       <!-- View Medical Report button Start -->
                                       <ul>
-                                       <li>
+                                       <!-- <li>
                                         <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
                                        </li>
                                        <li>
                                         <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                       </li>
+                                       </li> -->
                                        <li>
-                                        <div class="_card mt-3">
-                                           <div class="_card_header">
-                                             ID Proof.pdf
-                                             <div>
-                                                 <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                 srcset="/assets/img/icons/direct-download.svg"
-                                                 class="_icon mr-2"></a>
-                                              </div>
-                                           </div>
-                                        </div>
+                                       @foreach($data->documents as $document)
+                                       @if($document->type == 3)
+                                       <div class="_card mt-3">
+                                          <div class="_card_header">
+                                            {{ $document->file_name }}
+                                            <div>
+                                                <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
+                                                srcset="/assets/img/icons/direct-download.svg"
+                                                class="_icon mr-2"></a>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       @endif
+                                       @endforeach
                                        </li>
                                      </ul>
                                       <!-- View Medical Report button End -->
@@ -2712,23 +1819,27 @@
                                      <div class="tab-pane fade" id="InsuranceReports" role="tabpanel" aria-labelledby="InsuranceReports-tab">
                                        <!-- View Insurance Reports button Start -->
                                        <ul>
-                                          <li>
+                                          <!-- <li>
                                            <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
                                           </li>
                                           <li>
                                            <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li>
+                                          </li> -->
                                           <li>
-                                           <div class="_card mt-3">
-                                              <div class="_card_header">
-                                                ID Proof.pdf
-                                                <div>
-                                                    <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                    srcset="/assets/img/icons/direct-download.svg"
-                                                    class="_icon mr-2"></a>
-                                                 </div>
-                                              </div>
-                                           </div>
+                                          @foreach($data->documents as $document)
+                                          @if($document->type == 4)
+                                          <div class="_card mt-3">
+                                             <div class="_card_header">
+                                               {{ $document->file_name }}
+                                               <div>
+                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
+                                                   srcset="/assets/img/icons/direct-download.svg"
+                                                   class="_icon mr-2"></a>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          @endif
+                                          @endforeach
                                           </li>
                                         </ul>
                                          <!-- View Insurance Reports button End -->

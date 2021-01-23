@@ -44,7 +44,7 @@
                     name:'applicant_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = "<a href={{ url('admin/clinician-detail/') }}/" + row.id + ">" + data + "</a>";
+                        data = "<a href={{ url('admin/clinician-detail/') }}/" + row.user_id + ">" + data + "</a>";
                         return data;
                     }
                 },

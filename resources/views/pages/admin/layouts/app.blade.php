@@ -35,7 +35,33 @@
             </div>
             <ul class="sidenav">
                 <li><a class="{{ \Request::is('admin/dashboard')?'nav active':'nav' }}" href="{{ route('admin.dashboard') }}">Dashboard<span class="dot"></span></a></li>
-                <li><a class="{{ \Request::is('admin/clinician')?'nav active':'nav' }}" href="{{ route('admin.clinician') }}">Clinician List<span class="dot"></span></a></li>
+                <li><a class="{{ \Request::is('admin/roles')?'active':'' }} nav" href="{{ route('admin.roles') }}">Roles & Permission <span class="dot"></span></a></li>
+                <li><a class="{{ \Request::is('admin/employee')?'active':'' }} nav" href="{{ route('admin.employee') }}">Employee <span class="dot"></span></a></li>
+                <li data-toggle="collapse" data-target="#products">
+                    <a href="javascript:void(0)" data-target="{{ route('admin.referral.approval') }}" class="{{ (\Request::is('admin/referral-approval') || \Request::is('admin/referral-active') || \Request::is('admin/referral-rejected'))?'active':'' }} nav">
+                        Referral <i class="las la-angle-down _arrow"></i>
+                    </a>
+                    <ul class="sub collapse" id="products">
+                        <li>
+                            <a class="{{ \Request::is('admin/referral-approval')?'active':'' }} _nav" href="{{ route('admin.referral.approval') }}">Approval Request<span class="dot"></span></a>
+                        </li>
+                        <li>
+                            <a class="{{ \Request::is('admin/referral-active')?'active':'' }} _nav" href="{{ route('admin.referral.active') }}">Active <span class="dot"></span></a>
+                        </li>
+                        <li>
+                            <a class="{{ \Request::is('admin/referral-rejected')?'active':'' }} _nav" href="{{ route('admin.referral.rejected') }}">Rejected <span class="dot"></span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a class="{{(\Request::is('admin/clinician') || \Request::is('admin/clinician-detail/*')) ?'nav active':'nav' }}" href="{{ route('admin.clinician') }}">Clinician List<span class="dot"></span></a></li>
+                <li>
+                    <a class="nav" href="{{ url('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form-side').submit();"
+                    >Logout <span class="dot"></span></a>
+                    <form id="logout-form-side" action="{{ url('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </div>
         <!-- Left Section End -->

@@ -142,6 +142,37 @@ class AdminService
 
         }
     }
+
+    public function getClinicianList()
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/auth/get-clinician-list'
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+            \Log::info($exception);
+        }
+    }
+
+    public function getClinicianDetail($clinician_id)
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/auth/get-clinician-detail/'.$clinician_id
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+            \Log::info($exception);
+        }
+    }
+
     public function saveToken($data){
         try {
 

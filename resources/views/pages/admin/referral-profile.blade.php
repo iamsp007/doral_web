@@ -1,4 +1,4 @@
-@extends('pages.admin.layouts.app')
+@extends('pages.layouts.app')
 @section('title','Admin - Referral Profile')
 @section('pageTitleSection')
     Referral Profile

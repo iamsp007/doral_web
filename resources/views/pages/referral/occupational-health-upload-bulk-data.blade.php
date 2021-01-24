@@ -6,7 +6,33 @@
 @endsection
 @section('content')
     <div class="app-vbc">
-        <div class="choose-file-type">
+        <div class="add-new-patient section1">
+            <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
+            <h1 class="pt-4 _title1">Patient's Enrollment Status</h1>
+            <div class="category-type pt-4 control-group">
+                <div class="box">
+                    <label class="control control-radio block">
+                        <span class="_title3">On Boarding Patient</span>
+                        <input type="radio" value="1" name="enrollstatus" class="enrollstatus" />
+                        <div class="control_indicator"></div>
+                    </label>
+                    <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+                </div>
+                <div class="box">
+                    <label class="control control-radio block">
+                        <span class="_title3">Existing Patient</span>
+                        <input type="radio" value="2" name="enrollstatus" class="enrollstatus" />
+                        <div class="control_indicator"></div>
+                    </label>
+                    <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+                </div>
+            </div>
+            <div class="d-flex pt-4 justify-content-center">
+                <button type="button" class="continue-btn mr-2 openSection1" name="Continue">Continue</button>
+                    <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
+            </div>
+        </div>
+        <div class="choose-file-type section2" style="display: none;">
             <h1>Choose File Type</h1>
             <div class="category-type control-group">
                 <div class="box">
@@ -149,5 +175,15 @@
             fileType = $(event).val();
             console.log(fileType)
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".openSection1").click(function() {
+                var enrollstatus = $(".enrollstatus:checked").val();
+                $("#enrollstatus").val(enrollstatus);
+                $(".section1").hide();
+                $(".section2").show().addClass('fadeIn');
+            });
+        });
     </script>
 @endpush

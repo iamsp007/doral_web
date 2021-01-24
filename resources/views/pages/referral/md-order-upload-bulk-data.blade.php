@@ -9,6 +9,58 @@
 <div class="app-vbc">
     <div class="add-new-patient section1">
         <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
+        <h1 class="pt-4 _title1">Patient's Enrollment Status</h1>
+        <div class="category-type pt-4 control-group">
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">On Boarding Patient</span>
+                    <input type="radio" value="1" name="enrollstatus" class="enrollstatus" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+            </div>
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">Existing Patient</span>
+                    <input type="radio" value="2" name="enrollstatus" class="enrollstatus" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+            </div>
+        </div>
+        <div class="d-flex pt-4 justify-content-center">
+            <button type="button" class="continue-btn mr-2 openSection1" name="Continue">Continue</button>
+                <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
+        </div>
+    </div>
+    <div class="add-new-patient section2" style="display: none;">
+        <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
+        <h1 class="pt-4 _title1">Type of Services</h1>
+        <div class="category-type pt-4 control-group">
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">CDPAP</span>
+                    <input type="radio" value="cdpap" name="services" class="services" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+            </div>
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">LHCSA</span>
+                    <input type="radio" value="lhcsa" name="services" class="cdpap" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+            </div>
+        </div>
+        <div class="d-flex pt-4 justify-content-center">
+            <button type="button" class="continue-btn mr-2 openSection2" name="Continue">Continue</button>
+                <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
+        </div>
+    </div>
+    <div class="add-new-patient section3" style="display: none;">
+        <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
         <h1 class="pt-4 _title1">Select your form</h1>
         <div class="category-type pt-4 control-group">
             @foreach($data->mdforms as $value)
@@ -23,11 +75,11 @@
             @endforeach
         </div>
         <div class="d-flex pt-4 justify-content-center">
-            <button type="button" class="continue-btn mr-2 openSection2" name="Continue">Continue</button>
+            <button type="button" class="continue-btn mr-2 openSection3" name="Continue">Continue</button>
                 <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
         </div>
     </div>
-    <div class="choose-file-type section2" style="display: none;">
+    <div class="choose-file-type section4" style="display: none;">
         <h1>Choose File Type</h1>
         <div class="category-type control-group">
             <div class="box">
@@ -94,12 +146,25 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $(".openSection1").click(function() {
+                var enrollstatus = $(".enrollstatus:checked").val();
+                $("#enrollstatus").val(enrollstatus);
+                $(".section1").hide();
+                $(".section2").show().addClass('fadeIn');
 
+            });
             $(".openSection2").click(function() {
+                var services = $(".services:checked").val();
+                $("#services").val(services);
+                $(".section2").hide();
+                $(".section3").show().addClass('fadeIn');
+
+            });
+            $(".openSection3").click(function() {
                 var formName = $(".formName:checked").val();
                 $("#formSelect").val(formName);
-                $(".section1").hide();
-                $(".section2").show();
+                $(".section3").hide();
+                $(".section4").show().addClass('fadeIn');
 
             });
         });

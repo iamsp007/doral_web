@@ -345,7 +345,7 @@
                                  </div>
                                  <div class="tab-pane fade" id="Reference" role="tabpanel" aria-labelledby="Reference-tab">
                                     <ul>
-                                       @foreach($data->applicant->referances as $index => $referance)
+                                       @foreach($data->applicant->references as $index => $reference)
                                        <li>
                                           <div class="_card mt-3">
                                              <div class="_card_header">
@@ -360,7 +360,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Name</h3>
-                                                            <h1 class="_detail">{{ $referance->referance_name }}</h1>
+                                                            <h1 class="_detail">{{ $reference->reference_name }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -371,7 +371,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Phone No.</h3>
-                                                            <h1 class="_detail">{{ $referance->reference_phone }}</h1>
+                                                            <h1 class="_detail">{{ $reference->reference_phone }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -382,7 +382,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Relationship</h3>
-                                                            <h1 class="_detail">{{ $referance->reference_relationship }}</h1>
+                                                            <h1 class="_detail">{{ $reference->reference_relationship }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -396,7 +396,7 @@
                                                          <div>
                                                             <h3 class="_title">Address</h3>
                                                             <h1 class="_detail">
-                                                               {{ $referance->reference_address }}
+                                                               {{ $reference->reference_address }}
                                                                <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                Map</a>
                                                             </h1>

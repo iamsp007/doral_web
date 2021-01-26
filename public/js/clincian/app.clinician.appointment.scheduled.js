@@ -62,13 +62,8 @@ $(function () {
                     var html='';
                     if (row.status!=="completed"){
                         appointment_title = row.title;
-                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' +
-                            '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
-                            '                                                Start Meeting</button>';
-
-                        html+='<div class="broadcast_box"> <button type="button" onclick="onAppointmentBroadCast('+row.patient_id+')"'+
-                                'class="btn btn-broadcast btn-block">RoadL Broadcast<span></span>'+
-                            '</button></div>';
+                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' + '<img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +'Start Meeting</button>';
+                        html+='<button type="button" onclick="onAppointmentBroadCast('+row.patient_id+')"'+ 'class="btn btn-broadcast">RoadL Broadcast<span></span>'+'</button>';
                         if (row.status!=="cancel"){
                             html+='<div class="popbox">\n' +
                                 '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +

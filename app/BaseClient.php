@@ -56,7 +56,6 @@ class BaseClient
         try {
             return $response =  $this->client->request($method, $uri, $options);
         } catch (ClientException $e) {
-
             if (401 == $e->getCode()) {
 
                 $this->acquireToken();

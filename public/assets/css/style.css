@@ -26,7 +26,7 @@ a:hover{text-decoration:none}
 .d-shadow{-webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.24);-moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.24);box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.24);}
 .invalid{border: 1px solid rgb(255, 0, 0);}
 .gutter {margin-right: 0;margin-left: 0;}
-.gutter > [class*="col-"] {padding-right: 5px;padding-left: 5px;}
+.gutter > [class*="col-"] {padding-right: 8px;padding-left: 8px;}
 .nogutter {margin-right: 0;margin-left: 0;}
 .nogutter > [class*="col-"] {padding-right: 0;padding-left: 10px;}
 .nogutter > [class*="col-"]:first-child {padding-right: 0;padding-left: 0;}
@@ -142,6 +142,7 @@ canvas {-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;}
 .scrollbar1{height: 480px;}
 .scrollbar2{margin:0;width:100%;background:none;overflow-y:scroll;height: 602px;}
 .scrollbar3{height: 380px; padding-right: 15px;}
+.scrollbar4{height: 395px; padding-right: 0;}
 .force-overflow{padding:0;margin:0}
 #style-1::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 2px rgba(0,0,0,0.3);box-shadow:inset 0 0 2px rgba(0,0,0,0.3);border-radius:100px;background-color:#fff}
 #style-1::-webkit-scrollbar{width:5px;background-color:#fff}
@@ -202,6 +203,8 @@ canvas {-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;}
 .btn-outline-purple:hover{color:#fff;background-color:#A11FFF;border-color:#A11FFF}
 .btn-outline-orange{color:#FF6C03;border-color:#FFAD73;}
 .btn-outline-orange:hover{color:#fff;background-color:#FF6C03;border-color:#FF6C03}
+.btn-outline-gray{color:#afafaf;border-color:#c0c0c0;}
+.btn-outline-gray:hover{color:#fff;background-color:#c0c0c0;border-color:#c0c0c0}
 .btn-group-sm>.btn,.btn-sm{font-size:13px}
 .btn-view{color:var(--white);font-size:14px;font-weight:500;background-color:var(--view);text-transform:uppercase;border-color:var(--view)}
 .btn-view:hover{animation-name:fadeIn;animation-duration:4s;animation-timing-function:normal;animation-delay:0;animation-iteration-count:1;animation-direction:normal;animation-fill-mode:none;color:#fff;background-color: #0069d9;}
@@ -226,6 +229,10 @@ canvas {-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;}
 .btn-vedio{color:#ea7b07;font-size:14px;font-weight:500;background-color:#FFFFFF;text-transform:uppercase;border-color:#ea7b07}
 .btn-vedio i{color:#ea7b07;}
 .btn-vedio:hover,.btn-vedio:hover i{color:#fff;animation-name:fadeIn;animation-duration:4s;animation-timing-function:normal;animation-delay:0;animation-iteration-count:1;animation-direction:normal;animation-fill-mode:none;color:#fff;background-color: #ea7b07;border-color:#ea7b07}
+.cancel-btn{height: 35px;border-radius:4px;border:solid 1px #006c76;font-size:12px;color:#fff;background-color: #006c76;font-weight:600;text-align:center;display: block;width: 100px;text-transform: uppercase;}
+.cancel-btn:hover{background-color: #fff;color:#006c76}
+.continue-btn{height: 35px;border-radius:4px;border:solid 1px #FF0C6C;font-size:12px;color:#FF0C6C;background-color: #fff;font-weight:600;text-align:center;display: block;width: 100px;text-transform: uppercase;}
+.continue-btn:hover{background-color: #FF0C6C;color:#fff}
 .file-view{border-bottom: 1px solid #d8d8d8;background-color: #fcfcfc;border: 1px solid #d8d8d8;box-shadow:0 0 1px 0 rgba(0,0,0,.3);}
 /* Button Style */
 /* Upload Style Start */
@@ -268,7 +275,7 @@ div.dataTables_wrapper div.dataTables_filter label{font-weight: 600;}
 .login .mid .p50{padding:30px}
 .forgot{color:var(--primary-color);font-weight:600}
 small{font-size:12px}
-.label{margin-bottom:10px;font-weight:500;font-size:12px;display: block;}
+.label{margin-bottom:10px;font-weight:500;font-size:12px;display: block;color:#8d8d8d;}
 .underline{text-decoration:underline}
 /*signup*/
 /* Middle End */
@@ -314,7 +321,7 @@ small{font-size:12px}
 /* Navbar*/
 .app .app-aside .sidebar .navscroll{overflow-y: scroll;height: 605px;}
 .app .app-content{position:relative;box-shadow:none;height:100vh;width:calc(100% - 14.5rem);margin-left:14.5rem;background:#fff}
-.app .app-content .app-header-block{width:calc(100% - 14.5rem);position:fixed;right:0;z-index:999}
+.app .app-content .app-header-block{width:calc(100% - 14.5rem);position:fixed;right:0;z-index:999;}
 .app .app-content .app-header-block .app-header{padding: 0 10px;margin:0;background:var(--sidebar-color);display:flex;align-items:center;justify-content:space-between;height: 48px;}
 .app .app-content .app-header-block .app-header .nav{display:flex;align-items:center;}
 .app .app-content .app-header-block .app-header .menus{display:flex;align-items:center;}
@@ -331,10 +338,11 @@ small{font-size:12px}
 .app .app-content .app-header-block._fullwidth{width:calc(100% - 7rem);position:fixed;right:0;z-index:999}
 .white{color:var(--white)}
 #closeMenu{cursor:pointer}
-.app .app-content .app-title-box{width:calc(100% - 14.5rem);position:fixed;z-index:-1;right:0;top:48px;padding:10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;  box-shadow: 0px 2px 4px rgba(100,100,100,0.2);}
+.app .app-content .app-title-box{width:calc(100% - 14.5rem);position:fixed;z-index:-1;right:0;top:48px;padding:10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;box-shadow: 0px 2px 4px rgba(100,100,100,0.2);}
 .app .app-content .app-title-box .app-title{color:var(--sidebar-color);font-size:16px;font-weight:600;padding:4px 0;margin:0;display:flex;justify-content: flex-start;align-items: center;}
 .app .app-content .app-title-box._full{width:calc(100% - 7rem);position:fixed;z-index:-1;right:0;top:47px;padding:10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;  box-shadow: 0px 2px 4px rgba(100,100,100,0.2);}
 .app .app-content .app-body{padding:6.5rem 1rem;margin:0;overflow-x: hidden;animation: 2s ease-in-out 1 normal both running fadeInUp;height: 100vh;}
+.app .app-content .app-body.app-body-custom{padding:5.6rem 0 0 0;}
 .app .dropdown-menu{z-index:1.0E+19!important}
 .app .app-content .app-body .app-card{border-radius:15px;-webkit-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);-moz-box-shadow:0 0 6px 0 rgba(0,0,0,0.24);box-shadow:0 0 6px 0 rgba(0,0,0,0.24);border:1px solid #d0d0d0;display:block;background-color:#fff;min-height:160px}
 .app .app-content .app-body .app-card .app-card-body{display:flex;justify-content:space-between}
@@ -441,6 +449,8 @@ small{font-size:12px}
 .app .single-upload-btn .icon{width:22px}
 .app .bulk-upload-btn{border-radius:4px;border:solid 1px #bf0030;box-shadow:0 0 2px rgba(100,100,100,0.2);font-size:14px;color:#bf0030;font-weight:600;text-align:left;text-transform:uppercase;margin:0;padding:5px 10px;background:#FFE4EB;display: flex;align-items: center;    animation: 2.75s ease-in-out 1 normal both running fadeIn;}
 .app .bulk-upload-btn .icon{width:22px}
+.app .start-video-call-btn{border-radius:4px;border:solid 1px #006C76;box-shadow:0 0 2px rgba(100,100,100,0.2);font-size:14px;color:#fff;font-weight:600;text-align:left;text-transform:uppercase;margin:0;padding:5px 10px;background:#006C76;display: flex;align-items: center;animation: 2.75s ease-in-out 1 normal both running fadeIn;}
+.app .start-video-call-btn .icon{width:22px}
 .app .status-pending{display:inline-block;font-weight:600;color:#00bdff;background:url(../img/icons/calendar-icon.svg) no-repeat left center;padding-left:23px;line-height: 15px;}
 .app .status-rejected{display:inline-block;font-weight:600;color:red;background:url(../img/icons/rejected-icon.svg) no-repeat left center;background-size:15px;padding:2px 0 0 23px}
 .app .status-accepted{display:inline-block;font-weight:600;color:#203A03;background:url(../img/icons/accepted-icon.svg) no-repeat left center;padding-left:23px}
@@ -606,9 +616,9 @@ small{font-size:12px}
 .modal-body .lead{font-weight:300;font-size:16px;color:#757575}
 .modal-body p:last-child,.modal-body .lead:last-child{margin-bottom:0}
 .modal-footer{margin-top:24px;padding:8px 0;border-top:none}
-.modal-footer .btn{height:36px;margin-right:8px;padding:8px 10px;border:none;border-radius:0;text-transform:uppercase;font-weight:500;color:#009688;background-color:#fff}
+/* .modal-footer .btn{height:36px;margin-right:8px;padding:8px 10px;border:none;border-radius:0;text-transform:uppercase;font-weight:500;color:#009688;background-color:#fff} */
 .modal-footer .btn:focus{outline:none;box-shadow:none}
-.modal-footer .btn:focus,.modal-footer .btn:hover{color:#00796B}
+/* .modal-footer .btn:focus,.modal-footer .btn:hover{color:#00796B} */
 .modal-footer .btn + .btn{margin-left:0}
 .modal-footer .btn + .btn:last-child{margin-left:-4px}
 .modal-content{border:none;border-radius:2px;-webkit-box-shadow:0 40px 77px rgba(0,0,0,0.22),0 27px 24px rgba(0,0,0,0.2);-moz-box-shadow:0 40px 77px rgba(0,0,0,0.22),0 27px 24px rgba(0,0,0,0.2);box-shadow:0 40px 77px rgba(0,0,0,0.22),0 27px 24px rgba(0,0,0,0.2)}
@@ -690,7 +700,7 @@ small{font-size:12px}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .appointment-title{color: #006C76;font-weight: 600;font-size: 17px;}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .appointment-date{color: #006C76;font-weight: 600;font-size: 14px;text-align: right;}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail{height : 270px;overflow-y: scroll;padding-right: 5px;}
-/* appointment detail */
+/* appointment detail */ 
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block{border-radius:4px;border:solid 1px #a0a0a0;padding: 7px 8px;display: flex;align-items: center;margin-bottom: 8px;justify-content: space-between; box-shadow: 0px 2px 5px #f0f0f0;}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .img-30{width:30px;height:30px;border-radius:50%;overflow: hidden;border:solid 1px #f0f0f0;}
 .app .app-content .app-body .app-clinician-dashboard .clinician-content .appointment .content .detail .block .patient-name{color: #323232;font-weight: 600;font-size: 14px;padding-left: 8px;width: 19%;}
@@ -824,10 +834,6 @@ small{font-size:12px}
 .app .app-content .app-body .app-vbc .add-new-patient .category-type .box ._title3{color:#5D5D5D;font-size: 16px;line-height: 19px;display: flex;justify-content: center;align-items: center;height: 150px;}
 .app .app-content .app-body .app-vbc .add-new-patient .category-type .box.selected{background:#fff;box-shadow:0 0 8px rgba(100,100,100,0.5);border: 1px solid #006c76;}
 .app .app-content .app-body .app-vbc .add-new-patient .category-type .box.selected ._title3{color:#006c76;font-weight:600;}
-.app .app-content .app-body .app-vbc .add-new-patient .continue-btn{height: 35px;border-radius:4px;border:solid 1px #FF0C6C;font-size:12px;color:#FF0C6C;background-color: #fff;font-weight:600;text-align:center;display: block;width: 100px;text-transform: uppercase;}
-.app .app-content .app-body .app-vbc .add-new-patient .continue-btn:hover{background-color: #FF0C6C;color:#fff}
-.app .app-content .app-body .app-vbc .add-new-patient .cancel-btn{height: 35px;border-radius:4px;border:solid 1px #006c76;font-size:12px;color:#fff;background-color: #006c76;font-weight:600;text-align:center;display: block;width: 100px;text-transform: uppercase;}
-.app .app-content .app-body .app-vbc .add-new-patient .cancel-btn:hover{background-color: #fff;color:#006c76}
 .app .app-content .app-body.content_v_center{display: flex;align-items: center;justify-content: center;}
 /* Refferral side Occupation Patient Details */
 .app .app-content .app-body .patient-details{position: relative;margin-top: 6px;display: flex;justify-content: space-between;}
@@ -897,7 +903,7 @@ small{font-size:12px}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideLeft ._t2{font-size:44px;font-weight:400;color:#000;margin-top: 4px;line-height: 54px;}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight{display:flex;align-items:center;justify-content:center;}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons{width: 80px;height: 80px;border: 1px solid #e4e4e4;border-radius: 50%;position: relative;align-items: center;display: flex;justify-content: center;}
-.app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons img{width:50px;position: absolute;}
+.app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons img{width:50px;position: absolute;} 
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons.border-red{border:1px solid #FF4B3B;}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons.border-purple{border:1px solid #A11FFF;}
 .app .app-content .app-body .app-admin-dashboard .specs li ._block .sideRight .icons.border-orange{border:1px solid #FF6C03;}
@@ -935,7 +941,7 @@ small{font-size:12px}
 .custom-control{min-height: auto;}
 .custom-nav-pills .nav-pills{margin-top: 15px; width: 250px;}
 .custom-nav-pills .nav-link{border:1px solid transparent;border-radius:7px 0px 0px 7px;-moz-border-radius:7px 0px 0px 7px;-webkit-border-radius:7px 0px 0px 7px;border-right: 1px solid transparent;background: none;color: #797979;font-size: 14px;padding: 10px;border-left: 5px solid #d8d8d8;margin-bottom:10px;}
-.custom-nav-pills .nav-link.active{color: #006c76;border:1px solid #006c76;border-right: 1px solid transparent;border-left: 5px solid #006c76;background:#fff}
+.custom-nav-pills .nav-link.active{color: #006c76;border:1px solid #006c76;border-right: 1px solid transparent;border-left: 5px solid #006c76;background:#fff} 
 .custom-nav-pills .tab-content{width: 100%;}
 .custom-nav-pills .tab-pane{width: 100%;border: 1px solid #d8d8d8;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;height:100%;background: #fff;}
 .custom-nav-pills .tab-pane.active{border:1px solid #006c76;}
@@ -964,7 +970,7 @@ small{font-size:12px}
 .md-nav-pills{width: 100%;}
 .md-nav-pills .nav-pills{margin-top: 15px; width: 350px;}
 .md-nav-pills .nav-link{color: #797979;font-size: 13px;padding: 0 10px;border-left: 5px solid transparent;margin-bottom:5px;border-radius: 0;height: 30px;font-weight: 600;}
-.md-nav-pills .nav-link.active{color: #006c76;border-left: 5px solid #006c76;background: none;font-size: 13px;padding:0 10px;margin-bottom:5px;border-radius: 0;font-weight: 600;}
+.md-nav-pills .nav-link.active{color: #006c76;border-left: 5px solid #006c76;background: none;font-size: 13px;padding:0 10px;margin-bottom:5px;border-radius: 0;font-weight: 600;} 
 .md-nav-pills .tab-content{width: 100%;}
 .md-nav-pills .tab-pane{width: 100%;border: 1px solid #aaaaaa;border-radius: 15px;height:100%;background: #fff;}
 .md-nav-pills .tab-pane.active{border:1px solid #aaaaaa;}
@@ -977,3 +983,52 @@ small{font-size:12px}
 .b-tab.active {display: block;}
 .b-nav-tab .active {background-color: #00D2E6;}
 .video_container{background: #000;width: 100%;height: 100%;}
+.app .app-content .app-body .app-clinician-patient-chart{padding: 0;margin: 0;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header{padding: 12px;margin: 0;background: #C3FBFF;box-shadow: 0 2px 4px rgba(100,100,100,.2);display: flex;justify-content: space-between;align-items: center;position: -webkit-sticky; /* Safari */position: sticky;top:0;z-index: 99;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem{padding: 0;margin: 0;display: flex;align-items: center;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .shortdesc{display: flex;justify-content: flex-start;align-items: center;font-size:12px;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .shortdesc li{padding: 0;margin: 0;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .shortdesc li span{padding: 0;margin: 0;font-weight:700;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .shortdesc li:after{content:'|';padding:0 10px;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .shortdesc li:last-child:after{content:''}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .userIcon{display: flex;margin-right:15px;align-items:center;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .userIcon .icon{width: 45px;height: 45px;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .userIcon .icon img{border-radius: 100px;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .userIcon .name{padding: 0 0 0 10px;color: #006C76;font-size:16px;font-weight:700;}
+.app .app-content .app-body .app-clinician-patient-chart .app-card-custom{display:block;}
+.app .app-content .app-body .app-clinician-patient-chart .app-card-custom .app-card-header{padding: 15px;margin: 0;display:flex;justify-content: space-between;align-items: center;border-bottom:1px solid #e4e4e4}
+.app .app-content .app-body .app-clinician-patient-chart .app-card-custom .app-card-header .title{font-size:16px;color: #006C76;font-weight:600;}
+.app .app-content .app-body .app-clinician-patient-chart .search{position: relative;display: flex;justify-content: flex-end;align-items: center;}
+.app .app-content .app-body .app-clinician-patient-chart .search .icon{position:absolute;top: 3px;right:5px}
+.no-shadow{box-shadow: none!important;}
+.no-minHeight{min-height: inherit!important;}
+.btn-group-doral{border: 1px solid #e4e4e4;}
+.btn-group-doral>.btn{padding: 5px 8px;margin: 0;background: none;}
+.btn-group-doral *{display: flex;align-items: center;justify-content: center;}
+.app .app-content .app-body .app-pdetail{padding: 0;margin: 0;}
+.app .app-content .app-body .app-pdetail .circle{width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;text-align: center;font-size: 21px;color:#00B9C9;margin-right: 10px;background: #f8f8f8;display: flex;justify-content: center;align-items: center;}
+.app .app-content .app-body .app-pdetail ._title{font-size: 12px;color: #505050;margin-bottom: 6px;font-weight:500;}
+.app .app-content .app-body .app-pdetail ._detail{font-size: 12px;color: var(--secondary-color);text-align: justify;font-weight:500}
+.app .app-content .app-body .app-pdetail ._detail span{font-weight: 500;}
+.app .app-content .app-body .box-shadow-none{box-shadow: none;}
+.nav-patient-profile .nav-link{color: #000;padding: 5px 0 5px 10px;margin:3px 0;border: 1px solid transparent;font-size: 13px;font-weight: 500;color: #B4B4B4;border-radius: 10px;}
+.nav-patient-profile .nav-link.active, .nav-patient-profile .show>.nav-link {color: #006c76;background-color: #FBFFFF;border: 1px solid #01EEFF;font-weight: 500;-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.16);-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.16);box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.16);}
+.nav-patient-profile .inactiveIcon{display: block;}
+.nav-patient-profile .activeIcon{display: none;}
+.nav-patient-profile .nav-link.active .inactiveIcon{display: none;}
+.nav-patient-profile .nav-link.active .activeIcon{display: block;}
+.nav-clinical .nav-link{color: #000;padding:10px 15px;margin:0;border: 1px solid transparent;font-size: 16px;color: #006c76;font-weight: 600;}
+.nav-clinical .nav-link:hover,.nav-clinical .nav-link.active, .nav-clinical .show>.nav-link {color: #006c76;background-color: #E5FDFF;border: 1px solid transparent;font-weight: 600;animation-name:fadeIn;animation-duration:4s;animation-timing-function:normal;animation-delay:0;animation-iteration-count:1;animation-direction:normal;animation-fill-mode:none}
+.nav-clinical-new .nav-link{color: #000;padding:10px 15px;margin:0 10px 0 0;border: 1px solid transparent;font-size: 16px;color: rgb(226, 226, 226);font-weight: 600;}
+.nav-clinical-new .nav-link:hover,.nav-clinical-new .nav-link.active, .nav-clinical-new .show>.nav-link {color: #006c76;margin:0 10px 0 0;background-color: #E5FDFF;border: 1px solid transparent;font-weight: 600;animation-name:fadeIn;animation-duration:4s;animation-timing-function:normal;animation-delay:0;animation-iteration-count:1;animation-direction:normal;animation-fill-mode:none;font-size:18px}
+.no-height{height: inherit!important;padding: 0;}
+.p-new{padding: 0 5px;}
+input:focus{outline: -webkit-focus-ring-color auto 0;}
+.inputBlock{position: relative;}
+.inputBlock .edit-item{position: absolute;right: 5px;top: 5px;z-index: 99999;display: block;}
+.cursor-pointer {cursor: pointer;}
+.text-underline{text-decoration: underline;}
+.width250{width: 310px;}
+::-webkit-scrollbar{height: 6px;width: 6px;}
+::-webkit-scrollbar-thumb:horizontal{border-radius: 2px;}
+.alert-info {color: #0c5460;background-color: #F6FEFF;border-color: #F6FEFF;}

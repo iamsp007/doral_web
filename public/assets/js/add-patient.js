@@ -72,5 +72,10 @@ $(document).ready(function(){
     $(".submit").click(function(){
     return false;
     })
-    
+    tail.select(".city", {
+        search: !0
+    });
+    tail.select(".State", {
+        search: !0
+    });
     });

@@ -976,7 +976,6 @@
         simd().then((res) => {
             console.log("simd check", res);
         });
-
     </script>
 <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
 @endpush

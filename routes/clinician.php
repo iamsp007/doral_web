@@ -24,10 +24,12 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
         Route::get("/room/{id}", '\App\Http\Controllers\Clinician\RoomController@showClassRoom')
             ->where('id', '[0-9]+')
             ->name('room');
-        Route::post('/start-meeting','\App\Http\Controllers\Clinician\RoomController@sendVideoMeetingNotification')->name('start.meeting');
-        Route::get('/end-meeting/{appointment_id}','\App\Http\Controllers\Clinician\RoomController@leaveVideoMetting')->name('leave.meeting');
-        Route::get('/start-call/{patient_request_id}','\App\Http\Controllers\Clinician\RoomController@startVideoMeetingNotification')->name('start.call');
-        Route::get('/zoom-meeting','\App\Http\Controllers\Clinician\RoomController@index')->name('start.zoom');
-        Route::post('/patient-request','\App\Http\Controllers\Clinician\PatientController@patientRequest')->name('patient.request');
+        Route::post('/start-meeting','\App\Http\Controllers\Clincian\RoomController@sendVideoMeetingNotification')->name('start.meeting');
+        Route::get('/end-meeting/{appointment_id}','\App\Http\Controllers\Clincian\RoomController@leaveVideoMetting')->name('leave.meeting');
+        Route::get('/start-call/{patient_request_id}','\App\Http\Controllers\Clincian\RoomController@startVideoMeetingNotification')->name('start.call');
+        Route::get('/zoom-meeting','\App\Http\Controllers\Clincian\RoomController@index')->name('start.zoom');
+        Route::post('/patient-request','\App\Http\Controllers\Clincian\PatientController@patientRequest')->name('patient.request');
+        Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@getPatientDetail')->name('patient.detail');
+        Route::post('/add-insurance','\App\Http\Controllers\PatientController@addInsurance')->name('patient.addInsurance');
     });
 });

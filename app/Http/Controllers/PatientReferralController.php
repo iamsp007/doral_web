@@ -255,4 +255,103 @@ class PatientReferralController extends Controller
         }
         return response()->json($response, 422);
     }
+
+    public function addPatient()
+    {
+        $client = new Client();
+        $states = $client->request('GET', env('API_URL').'/auth/states');
+        $states = json_decode($states->getBody()->getContents());
+
+        return view('pages.referral.add-patient',compact('states'));
+    }
+
+    public function getCities(Request $request)
+    {
+        $client = new Client();
+
+        $states = $client->request('GET', env('API_URL').'/auth/states');
+        $states = json_decode($states->getBody()->getContents());
+        $neededObject = array_filter(
+            $states,
+            function ($e) use (&$request) {
+                return $e->id == $request->state;
+            }
+        );
+        $cities = $client->request('POST', env('API_URL').'/auth/filter-cities', [
+            'multipart' => [
+                [
+                    'name'=>'state_code',
+                    'contents'=>reset($neededObject)->state_code
+                ]
+            ],
+            'headers' => [
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Access-Control-Allow-Origin' => 'http://localhost'
+            ]
+        ]);
+
+        return json_decode($cities->getBody()->getContents());
+    }
+
+    public function storePatient(Request $request)
+    {
+        $client = new Client();
+
+        $patient = $client->request('POST', env('API_URL').'/auth/store-patient', [
+            'multipart' => [
+                [
+                    'name'=>'first_name',
+                    'contents'=>$request->first_name
+                ],
+                [
+                    'name'=>'middle_name',
+                    'contents'=>$request->middle_name
+                ],
+                [
+                    'name'=>'last_name',
+                    'contents'=>$request->last_name
+                ],
+                [
+                    'name'=>'gender',
+                    'contents'=>$request->gender
+                ],
+                [
+                    'name'=>'dob',
+                    'contents'=>$request->dob
+                ],
+                [
+                    'name'=>'ssn',
+                    'contents'=>$request->ssn
+                ],
+                [
+                    'name'=>'medicare_number',
+                    'contents'=>$request->medicare_number
+                ],
+                [
+                    'name'=>'medicaid_number',
+                    'contents'=>$request->medicaid_number
+                ],
+                [
+                    'name'=>'address_1',
+                    'contents'=>$request->address_1
+                ],
+                [
+                    'name'=>'state',
+                    'contents'=>$request->state
+                ],
+                [
+                    'name'=>'city',
+                    'contents'=>$request->city
+                ],
+                [
+                    'name'=>'Zip',
+                    'contents'=>$request->Zip
+                ]
+            ],
+            'headers' => [
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Access-Control-Allow-Origin' => 'http://localhost'
+            ]
+        ]);
+    }
 }

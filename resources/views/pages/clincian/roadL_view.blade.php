@@ -32,6 +32,11 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 {{--    <script src="{{ asset('js/clincian/map.js') }}"></script>--}}
     <script>
+        socket.on('receive-location',function (data) {
+            console.log(data,"receive-location")
+        })
+    </script>
+    <script>
         var patient_request_id = $('#patient_request_id').val();
         function getNearByClinicianList(callback) {
             $.ajax({

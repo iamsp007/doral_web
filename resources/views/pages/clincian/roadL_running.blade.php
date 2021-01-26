@@ -6,6 +6,7 @@
 @endsection
 
 @section('content')
+    <label id="view-duration"></label>
     <div id="map">
         <input type="hidden" name="patient_request_id"  id="patient_request_id" value="{{ $patient_request_id }}"/>
     </div>
@@ -20,11 +21,6 @@
             height: 500px !important;
             position: relative !important;
             overflow: scroll;
-        }
-        #pano {
-            float: left;
-            height: 100%;
-            width: 50%;
         }
     </style>
 @endpush

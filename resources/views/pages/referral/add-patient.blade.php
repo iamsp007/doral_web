@@ -11,10 +11,12 @@
         <h2 class="text-center t4 mb-3 mt-3">Add Patient Details</h2>
         <div class="create-patient shadow p-4">
             <form method="post" action="{{ route('referral.store-patient') }}" id="msform" enctype="multipart/form-data">
+				@csrf
 				<!-- progressbar -->
 				<ul id="progressbar">
-					<li id="account" class="active" ><strong>Q1</strong></li>
-					<li id="account"><strong>Q2</strong></li>
+					<li id="account" class="active" ><strong>Question 1</strong></li>
+					<li id="account"><strong>Question 2</strong></li>
+					<li id="account"><strong>Question 3</strong></li>
 					<li id="account"><strong>Demographics</strong></li>
 						</ul>
 				<!-- fieldsets -->
@@ -22,12 +24,32 @@
 					<div class="form-card">
 						<div class="row">
 							<div class="col-7">
-								<h2 class="fs-title">Q1:</h2>
+								<div class="form-group">
+									<label for="Please Select Patient Enrollment Status" class="label" style="margin-bottom: 20px;">Please Select Patient Enrollment Status</label>
+									<div class="input-group">
+										<div class="custom-control custom-radio custom-control-inline">
+											<input type="radio" id="s1q1"
+												name="question_1" value="On Boarding Patient"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="s1q1">On Boarding Patient</label>
+										</div>
+										<div class="custom-control custom-radio custom-control-inline">
+											<input type="radio" id="s1q2"
+												name="question_1" value="Existing Patient"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="s1q2">Existing Patient</label>
+										</div>
+									</div>
+									<br>
+									<span class="error_text question_1"></span>
+								</div>
 							</div>
 							<div class="col-5">
-								<h2 class="steps">Step 1 - 3</h2>
+								<h2 class="steps">Step 1 - 4</h2>
 							</div>
-						</div> 
+						</div>
 					</div> 
 					<input type="button" name="next" class="next cancel-btn float-right ml-2" value="Next" /> 
 				</fieldset>
@@ -35,12 +57,66 @@
 					<div class="form-card">
 						<div class="row">
 							<div class="col-7">
-								<h2 class="fs-title">Q2:</h2>
+								<div class="form-group">
+									<label for="Please select type of services" class="label" style="margin-bottom: 20px;">Please select type of services</label>
+									<div class="input-group">
+										<div class="custom-control custom-radio custom-control-inline">
+											<input type="radio" id="s2q1"
+												name="question_2" value="CDPAP"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="s2q1">CDPAP</label>
+										</div>
+										<div class="custom-control custom-radio custom-control-inline">
+											<input type="radio" id="s2q2"
+												name="question_2" value="LHCSA"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="s2q2">LHCSA</label>
+										</div>
+									</div>
+									<br>
+									<span class="error_text question_2"></span>
+								</div>
 							</div>
 							<div class="col-5">
-								<h2 class="steps">Step 2 - 3</h2>
+								<h2 class="steps">Step 2 - 4</h2>
 							</div>
-						</div> 
+						</div>
+					</div> 
+					<input type="button" name="next" class="next cancel-btn float-right ml-2" value="Next" />
+					<input type="button" name="previous" class="previous continue-btn float-right" value="Previous" />
+				</fieldset>
+				<fieldset>
+					<div class="form-card">
+						<div class="row">
+							<div class="col-7">
+								<div class="form-group">
+									<label for="Select Insurance Type" class="label" style="margin-bottom: 20px;">Select Insurance Type</label>
+									<div class="input-group">
+										<div class="custom-control custom-radio custom-control-inline">
+											<input type="radio" id="s3q1"
+												name="question_3" value="HMO"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="s3q1">HMO</label>
+										</div>
+										<div class="custom-control custom-radio custom-control-inline">
+											<input type="radio" id="s3q2"
+												name="question_3" value="MLTC"
+												class="custom-control-input">
+											<label class="custom-control-label"
+												for="s3q2">MLTC</label>
+										</div>
+									</div>
+									<br>
+									<span class="error_text question_3"></span>
+								</div>
+							</div>
+							<div class="col-5">
+								<h2 class="steps">Step 3 - 4</h2>
+							</div>
+						</div>
 					</div> 
 					<input type="button" name="next" class="next cancel-btn float-right ml-2" value="Next" />
 					<input type="button" name="previous" class="previous continue-btn float-right" value="Previous" />
@@ -48,7 +124,7 @@
 				
 				<fieldset>
 					<div class="form-card">
-						<h2 class="steps">Step 3 - 3</h2>
+						<h2 class="steps">Step 4 - 4</h2>
 						<div class=" row gutter">
 							<!-- First Name -->
 							<div class="col-12 col-sm-3 pl-0">
@@ -96,14 +172,14 @@
 									<div class="input-group">
 										<div class="custom-control custom-radio custom-control-inline">
 											<input type="radio" id="male"
-												name="gender"
+												name="gender" value="1"
 												class="custom-control-input">
 											<label class="custom-control-label"
 												for="male">Male</label>
 										</div>
 										<div class="custom-control custom-radio custom-control-inline">
 											<input type="radio" id="female"
-												name="gender"
+												name="gender" value="2"
 												class="custom-control-input">
 											<label class="custom-control-label"
 												for="female">Female</label>

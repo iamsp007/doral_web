@@ -1,4 +1,5 @@
 var table;
+var appointment_title;
 $(function () {
     table = $('#appointmentScheduled').DataTable({
         processing: true,
@@ -51,7 +52,7 @@ $(function () {
                     return '<div class="blink_me"><div id="countdown'+row.id+'"></div></div>';
                 }
             },
-            {data:'start_datetime',name:'start_datetime',"bSortable": true},
+            {data:'status',name:'status',"bSortable": true},
             {
                 data:'id',
                 name:'id',
@@ -60,9 +61,9 @@ $(function () {
 
                     var html='';
                     if (row.status!=="completed"){
-                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: none;" onclick="startVideoCall('+row.id+',0)">\n' +
-                            '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
-                            '                                                Start Meeting</button>';
+                        appointment_title = row.title;
+                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' + '<img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +'Start Meeting</button>';
+                        html+='<button type="button" onclick="onAppointmentBroadCast('+row.patient_id+')"'+ 'class="btn btn-broadcast">RoadL Broadcast<span></span>'+'</button>';
                         if (row.status!=="cancel"){
                             html+='<div class="popbox">\n' +
                                 '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +
@@ -119,33 +120,38 @@ $(function () {
     function countdown(row, data) {
         // Fetch the display element
         var el = document.getElementById(row.id);
+        var x = moment(data).fromNow();
+        $('#countdown'+row.id).parent().removeClass('blink_me');
+        $('#start-call-'+row.id).show();
+        $('#countdown'+row.id).html(x);
         // Set the timer
-        var interval = setInterval(function () {
-            var beforeOneHour = moment(data).subtract(1,'hours').format('YYYY-MM-DD HH:mm:ss');
-            var datetime = moment(data).format('YYYY-MM-DD HH:mm:ss');
-            if (moment().isBetween(beforeOneHour,datetime)){
-                var x = moment(data).fromNow();
-                $('#countdown'+row.id).html(x);
-                $('#start-call-'+row.id).hide();
-            }else if (moment().isBefore(datetime)) {
-                clearInterval(interval)
-                var x = moment(data).fromNow();
-                $('#countdown'+row.id).parent().removeClass('blink_me');
-                $('#start-call-'+row.id).hide();
-                $('#countdown'+row.id).html(x);
-            }else {
-                clearInterval(interval)
-                $('#countdown'+row.id).parent().removeClass('blink_me');
-                // if (row.status==="open"){
-                    $('#start-call-'+row.id).show();
-                // }else if (row.status==="running"){
-                    $('#join-call-'+row.id).show();
-                // }else {
-                //     // $('#start-call-'+row.id).hide();
-                // }
-                $('#countdown'+row.id).html(row.status);
-            }
-        }, 1000);
+        // var interval = setInterval(function () {
+        //     var beforeOneHour = moment(data).subtract(1,'hours').format('YYYY-MM-DD HH:mm:ss');
+        //     var datetime = moment(data).format('YYYY-MM-DD HH:mm:ss');
+        //     console.log(datetime)
+        //     if (moment().isBetween(beforeOneHour,datetime)){
+        //         var x = moment(data).fromNow();
+        //         $('#countdown'+row.id).html(x);
+        //         $('#start-call-'+row.id).show();
+        //     }else if (moment().isBefore(datetime)) {
+        //         clearInterval(interval)
+        //         var x = moment(data).fromNow();
+        //         $('#countdown'+row.id).parent().removeClass('blink_me');
+        //         $('#start-call-'+row.id).show();
+        //         $('#countdown'+row.id).html(x);
+        //     }else {
+        //         clearInterval(interval)
+        //         $('#countdown'+row.id).parent().removeClass('blink_me');
+        //         // if (row.status==="open"){
+        //             $('#start-call-'+row.id).show();
+        //         // }else if (row.status==="running"){
+        //             $('#join-call-'+row.id).show();
+        //         // }else {
+        //         //     // $('#start-call-'+row.id).hide();
+        //         // }
+        //         $('#countdown'+row.id).html(row.status);
+        //     }
+        // }, 1000);
     }
 
     $('.app-video').hide();
@@ -320,13 +326,13 @@ function setVideoCallinginformation(data) {
     }, 1000);
 
     var html='<div class="col-12 col-sm-3">\n' +
-        '                                <div class="d-flex">\n' +
+        '                                <div class="d-flex align-items-center">\n' +
         '                                    <div class="mr-2">\n' +
         '                                        <img src="'+userImg+'" class="user_photo" alt="'+data.patients.first_name+'"\n' +
         '                                             srcset="'+userImg+'">\n' +
         '                                    </div>\n' +
         '                                    <div>\n' +
-        '                                        <h1 class="title text-info">'+data.patients.first_name+' '+data.patients.last_name+'</h1>\n' +
+        '                                        <h1 class="title text-info p-0" style="padding:0!important;margin:0!important">'+data.patients.first_name+' '+data.patients.last_name+'</h1>\n' +
         '                                        <p class="mt-1">Gender: '+data.patients.gender_name+'</p>\n' +
         '                                    </div>\n' +
         '                                </div>\n' +
@@ -366,7 +372,6 @@ function onCancelBtn(id) {
 }
 function saveCancelAppointment(id) {
     var appointment_reason = $("#appointment_reason_"+id).val();
-    console.log(appointment_reason,id)
     $('#cancel-appointment-model'+id).hide();
     $.ajax({
         url:base_url+'clinician/change-appointment-status',
@@ -380,10 +385,21 @@ function saveCancelAppointment(id) {
         method:'POST',
         dataType:'json',
         success:function (response) {
-            alert(response.message);
+            // $.toast({
+            //     heading: 'Cancel Appointment',
+            //     text: response.message,
+            //     showHideTransition: 'slide',
+            //     icon: 'success'
+            // })
             table.ajax.reload();
         },
         error:function (error) {
+            $.toast({
+                heading: 'Cancel Appointment',
+                text: 'Invalid Appointment',
+                showHideTransition: 'slide',
+                icon: 'error'
+            })
             console.log(error)
         }
     })
@@ -421,4 +437,26 @@ var connectTabs = new Tabs();
 
 function onSavePatientInformation(element) {
     console.log($('input[name="physical_examination_report"]:checked').serialize());
+}
+
+function onAppointmentBroadCast(patient_id) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:base_url+'clinician/patient-request',
+        method:'POST',
+        data:{
+            patient_id:patient_id,
+            reason:appointment_title
+        },
+        dataType:'json',
+        success:function (response) {
+            alert(response.message)
+        },
+        error:function (error,responseText) {
+            const sources = JSON.parse(error.responseText);
+            alert(sources.message)
+        }
+    })
 }

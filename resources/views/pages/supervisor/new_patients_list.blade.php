@@ -48,9 +48,12 @@
 @push('scripts')
     
     <script>
+
       $(function() {
         LoadDatatable();
+        $(".choose").hide();
       });
+
       function LoadDatatable(){
          var table = $('#patient-table').DataTable({
               processing: true,
@@ -120,7 +123,7 @@
                      orderable: false,
                      //className: 'select-checkbox',
                      'render': function (data, type, full, meta){
-                       return '<input type="checkbox" name="id[]" value="' 
+                       return '<input type="checkbox" name="id[]" onclick="return isCheckedById()" value="' 
                           + $('<div/>').text(data).html() + '">';
                       },
                      'checkboxes': {
@@ -137,103 +140,148 @@
                           keyboard: false
                       })
                   },
-                  className: 'btn btn-danger text-capitalize btn--sm assign mr-2'
+                  className: 'btn btn-danger text-capitalize btn--sm choose mr-2',
+                  idName: 'choose_clinician'
               }
               ]
          });
 
       }
-    </script>
-    <script type="text/javascript">
+    
 
-    $(".selectall").click(function () {
-        $('#patient-table td input:checkbox').not(this).prop('checked', this.checked);
-    });
+      $('button[data-dismiss="modal"]').click(function(event) {
+        event.preventDefault();
+        $('input:checkbox').removeAttr('checked');
 
-    $(".clinician").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $(".clinician_listing a").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
+      })
 
-    var listing_clinician = $('.listing_clinician'),
-        clinician = $('._clinician');
-    listing_clinician.on('click', 'li a', function () {
-        var clinician_name = $(this).find('[data-name="name"]').text();
-        var clinician_value = $(this).attr('data-li-value');
-        $('._clinician').attr('data-clinician-value',clinician_value);
-        clinician.val(clinician_name);
-    })
-
-    listing_clinician.on('click', 'li a', function () {
-        if ($(this).not('.selected')) {
-            $(this).addClass('selected').parent().siblings().children().removeClass('selected');
+      // show hide choose button -  start
+      function isCheckedById(){
+      
+        if($('input[name="id[]"]:checked').length > 1){
+          $(".choose").show();
         }
-    })
-
-    _total_no_records = $('.listing_clinician li').length;
-    $('.total_records').html(_total_no_records);
-
-    function save_patients(){
-      $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        else{
+          $(".choose").hide();
         }
+      }
+      // end
+
+      // for single assign clician - start  
+
+      document.addEventListener("click", checkit);
+
+      function checkit(event){
+        if(event.target.classList.contains("assign")){
+          const row = event.target.closest("TR");
+          const checkbox = row.getElementsByTagName("INPUT")[0];
+          //if(checkbox.checked){ checkbox.removeAttribute("checked"); }
+          //else{
+            checkbox.setAttribute("checked", "");
+          //}
+        }
+      }
+
+      // end 
+
+      $(".selectall").click(function () {
+          $('#patient-table td input:checkbox').not(this).prop('checked', this.checked);
+          if(this.checked){
+            $(".choose").show();
+          }
+          else{
+            $(".choose").hide();
+          }
+          
       });
 
-      var arr_data = [];
-       if ($('input[type=checkbox]').is(':checked')) {
-          $('input[type=checkbox]').each(function(){
-              if ($(this).is(':checked')) 
-              {
-                if($(this).val() !='on'){
-                  arr_data.push({patient_id:$(this).val(),clinician_id:$('._clinician').attr('data-clinician-value')});
-                }
-                //clinician_id.push({clinician_id:$('._clinician').attr('data-clinician-value')});
-              }
+      $(".clinician").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          $(".clinician_listing a").filter(function () {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
           });
+      });
 
-          $.ajax({
-           url:'case_management',
-           method:"POST",
-           data:{arr_data},
-           dataType:'JSON',
-           //contentType: false,
-           //cache: false,
-           //processData: false,
-           success:function(response)
-           {
-            
-            if(response.status == 1) {
-                $(".alert-success").show();
-                $(".alert-danger").hide();
-                $("#successResponse").text(response.message);
-                //alert(response.dataV);
-                //$("#workTab").unbind('click', false);
-                setTimeout(function(){
-                    $(".alert-success").hide();
-                }, 2000);
-                LoadDatatable();
-            }
-            else {
-                $(".alert-danger").show();
-                $(".alert-success").hide();
-                $("#errorResponse").text(response.message);
-                setTimeout(function(){
-                    $(".alert-danger").hide();
-                }, 2000);
-            }
-            $("#CaseManagementModal").modal('hide');
-            $(".selectall").prop("checked", false);
-            $("#patient-table td input:checkbox").prop("checked", false);
-            console.log( response );
-           }
-          })
-     
-        }
-     // var text = $('.t7').se.attr('data-value');
-      //console.log("header",text);
-    }
+
+      var listing_clinician = $('.listing_clinician'),
+          clinician = $('._clinician');
+      listing_clinician.on('click', 'li a', function () {
+          var clinician_name = $(this).find('[data-name="name"]').text();
+          var clinician_value = $(this).attr('data-li-value');
+          $('._clinician').attr('data-clinician-value',clinician_value);
+          clinician.val(clinician_name);
+      })
+
+
+      listing_clinician.on('click', 'li a', function () {
+          if ($(this).not('.selected')) {
+              $(this).addClass('selected').parent().siblings().children().removeClass('selected');
+          }
+      })
+
+      _total_no_records = $('.listing_clinician li').length;
+      $('.total_records').html(_total_no_records);
+
+
+      function save_patients(){
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+
+        var arr_data = [];
+         if ($('input[type=checkbox]').is(':checked')) {
+            $('input[type=checkbox]').each(function(){
+                if ($(this).is(':checked')) 
+                {
+                  if($(this).val() !='on'){
+                    arr_data.push({patient_id:$(this).val(),clinician_id:$('._clinician').attr('data-clinician-value')});
+                  }
+                  //clinician_id.push({clinician_id:$('._clinician').attr('data-clinician-value')});
+                }
+            });
+
+            $.ajax({
+             url:'add-case-management',
+             method:"POST",
+             data:{arr_data},
+             dataType:'JSON',
+             //contentType: false,
+             //cache: false,
+             //processData: false,
+             success:function(response)
+             {
+              
+              if(response.status == 1) {
+                  $(".alert-success").show();
+                  $(".alert-danger").hide();
+                  $("#successResponse").text(response.message);
+                  //alert(response.dataV);
+                  //$("#workTab").unbind('click', false);
+                  setTimeout(function(){
+                      $(".alert-success").hide();
+                  }, 2000);
+                  LoadDatatable();
+              }
+              else {
+                  $(".alert-danger").show();
+                  $(".alert-success").hide();
+                  $("#errorResponse").text(response.message);
+                  setTimeout(function(){
+                      $(".alert-danger").hide();
+                  }, 2000);
+              }
+              $("#CaseManagementModal").modal('hide');
+              $(".selectall").prop("checked", false);
+              $("#patient-table td input:checkbox").prop("checked", false);
+              console.log( response );
+             }
+            })
+       
+          }
+       // var text = $('.t7').se.attr('data-value');
+        //console.log("header",text);
+      }
     </script>
 @endpush

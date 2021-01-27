@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>
 </head>
 <body >
-    @if (\Request::is('supervisor/*'))  
+    @if (\Request::is('supervisor/*'))
         @include('pages.supervisor.popup')
     @endif
     <div id="loader-wrapper">
@@ -132,9 +133,15 @@
                                 <i class="las la-bars white"></i>
                             </span></button>
                     <h1 class="title">
-                        @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
-                            {{ $value }}
-                        @endforeach
+                        @hasrole('referral')
+                            @foreach(Auth::guard('referral')->user()->roles->pluck('name') as $key=>$value)
+                                {{ $value }}
+                            @endforeach
+                        @else
+                            @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
+                                {{ $value }}
+                            @endforeach
+                        @endrole
                     </h1>
                 </div>
                 <div>
@@ -194,25 +201,85 @@
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/moment.min.js') }}"></script>
-{{--    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>--}}
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>--}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
-{{--<script src="{{ asset('js/socket.js') }}"></script>--}}
-<script src="{{ asset('assets/js/sidebar.js') }}"></script>
-<script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
-{{--<script src="{{ asset('js/socket.js') }}"></script>--}}
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script>
+        var base_url = $('#base_url').val();
+        var socket_url = '{{ env("SOCKET_IO_URL") }}';
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('js/socket.js') }}"></script>
+    <script src="{{ asset('assets/js/sidebar.js') }}"></script>
+    <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
-<script>
-    var base_url = $('#base_url').val();
-</script>
-<script>
-    $("#loader-wrapper").hide();
-</script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script defer src="https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js"></script>
+
+    <script defer src="https://www.gstatic.com/firebasejs/8.2.3/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.2.3/firebase-messaging.js"></script>
+
+    <script>
+        $("#loader-wrapper").hide();
+        $(document).ready(function(){
+            const config = {
+                apiKey: "AIzaSyC5rTr8rSUyQeKlbaAHW1Xo-ezNoQO0dUE",
+                authDomain: "doral-roadl.firebaseapp.com",
+                databaseURL: "https://doral-roadl.firebaseio.com",
+                projectId: "doral-roadl",
+                storageBucket: "doral-roadl.appspot.com",
+                messagingSenderId: "606071434218",
+                appId: "1:606071434218:web:8ba9b96b1af8ff8309a093",
+                measurementId: "G-KD0Q9SKM36"
+            };
+            firebase.initializeApp(config);
+            navigator.serviceWorker.register(base_url+"firebase-messaging-sw.js",{scope:"firebase-cloud-messaging-push-scope"})
+
+
+            const messaging = firebase.messaging();
+            messaging
+                .requestPermission()
+                .then(function () {
+                    return messaging.getToken()
+                })
+                .then(function(token) {
+                    console.log(token)
+                    {{--$.ajax({--}}
+                    {{--    headers: {--}}
+                    {{--        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+                    {{--    },--}}
+                    {{--    url: '{{ route('save-token') }}',--}}
+                    {{--    type: 'POST',--}}
+                    {{--    data: {--}}
+                    {{--        user_id: {!! json_encode($user_id ?? '') !!},--}}
+                    {{--        fcm_token: token--}}
+                    {{--    },--}}
+                    {{--    dataType: 'JSON',--}}
+                    {{--    success: function (response) {--}}
+                    {{--        console.log(response)--}}
+                    {{--    },--}}
+                    {{--    error: function (err) {--}}
+                    {{--        console.log(" Can't do because: " + err);--}}
+                    {{--    },--}}
+                    {{--});--}}
+                })
+                .catch(function (err) {
+                    console.log("Unable to get permission to notify.", err);
+                });
+
+            messaging.onMessage(function(payload) {
+                const noteTitle = payload.notification.title;
+                const noteOptions = {
+                    body: payload.notification.body,
+                    icon: payload.notification.icon,
+                };
+                new Notification(noteTitle, noteOptions);
+            });
+        });
+    </script>
 @stack('scripts')
 </body>
 </html>

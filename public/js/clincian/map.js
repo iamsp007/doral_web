@@ -6,6 +6,10 @@
 var patient_request_id = $('#patient_request_id').val();
 // Initialize and add the map
 function getRoadLProcess(callback) {
+
+}
+
+function initMap(postLatLng=null) {
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -29,176 +33,165 @@ function getRoadLProcess(callback) {
                     lable:resp.user.first_name+' '+resp.user.last_name
                 })
             });
-            callback(locations,origin,destination,{lat:response.latitude,lng:response.longitude})
-        },
-        error:function (error) {
-            console.log(error)
-        }
-    })
-}
-var postLatLong={ lat: 25.552255, lng:  69.552255 };
-
-if (navigator.geolocation){
-    navigator.geolocation.getCurrentPosition((position => {
-        postLatLong={ lat: position.coords.latitude, lng:  position.coords.longitude };
-        initMap(postLatLong)
-    }),(error)=>{
-
-    },{enableHighAccuracy:true,maximumAge:3000,timeout:5000});
-}
-var locations =[
-    // { location:'21.9347,69.6393',lat: 21.9347, lng: 69.6393,lable:'Sanakhala'},
-    // { location:'21.9408,69.6673',lat: 21.9408, lng: 69.6673,lable:'Simar'},
-    // { location:'21.9290,69.7838',lat: 21.9290, lng: 69.7838,lable:'Bhanvad'},
-    // { location:'22.4707,70.0577',lat: 22.4707, lng: 70.0577,lable:'Jamnager'},
-    // { location:'22.3039,70.8022',lat: 22.3039, lng: 70.8022,lable:'Rajkot'},
-    // { location:'23.0225,72.5714',lat: 23.0225, lng: 72.5714,lable:'Ahmedabad'},
-];
-
-function initMap(postLatLng=null) {
-    if (postLatLng){
-        postLatLong=postLatLng
-    }
-
-    if (navigator.geolocation)
-    {
-        const directionsService = new google.maps.DirectionsService();
-        const directionsRenderer = new google.maps.DirectionsRenderer();
-
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 14,
-            center: postLatLong,
-            disableDefaultUI: true,
-            mapTypeControl: true,
-            zoomControl: true,
-            zoomControlOptions: {
-                position: google.maps.ControlPosition.LEFT_CENTER,
-            },
-            scaleControl: true,
-            streetViewControl: true,
-            streetViewControlOptions: {
-                position: google.maps.ControlPosition.LEFT_TOP,
-            },
-            rotateControl: true,
-            fullscreenControl: true,
-            heading: 90,
-            tilt: 45,
-        });
-
-
-
-        // Create an array of alphabetical characters used to label the markers.
-        const labels = "Sunil Karmur";
-        const contentString =
-            '<div id="content">' +
-            '<div id="siteNotice">' +
-            "</div>" +
-            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-            '<div id="bodyContent">' +
-            "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
-            "sandstone rock formation in the southern part of the " +
-            "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
-            "south west of the nearest large town, Alice Springs; 450&#160;km " +
-            "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
-            "features of the Uluru - Kata Tjuta National Park. Uluru is " +
-            "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
-            "Aboriginal people of the area. It has many springs, waterholes, " +
-            "rock caves and ancient paintings. Uluru is listed as a World " +
-            "Heritage Site.</p>" +
-            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-            "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
-            "(last visited June 22, 2009).</p>" +
-            "</div>" +
-            "</div>";
-
-
-        const infowindow = new google.maps.InfoWindow({
-            content: contentString,
-        });
-
-
-        const markers = locations.map((location, i) => {
-            var marker = new google.maps.Marker({
-                position: location,
-                label: location.lable,
-            });
-
-            marker.addListener("click", () => {
-                infowindow.open(map, marker);
-            });
-            return marker;
-
-        });
-
-        // Add a marker clusterer to manage the markers.
-        new MarkerClusterer(map, markers, {
-            imagePath:
-                "http://localhost/doral_web/public/assets/img/icons/clinician.svg",
-        });
-
-        google.maps.event.addListener(markers,'click',function() {
-            var pos = map.getZoom();
-            map.setZoom(14);
-            map.setCenter(marker.getPosition());
-            window.setTimeout(function() {map.setZoom(pos);},3000);
-        });
-        directionsRenderer.setMap(map);
-        var patient_request_id = $('#patient_request_id').val();
-        getRoadLProcess((locations,origin,destination,patient=null)=>{
-            console.log(locations,origin,destination)
-
-            var cmarker = new google.maps.Marker({
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 14,
-                map: map,
-                position: new google.maps.LatLng(patient.lat,patient.lng),
-                title: 'Your current location',
+                center: new google.maps.LatLng(response.latitude,response.longitude),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-
-            var circle = new google.maps.Circle({
-                map: map,
-                radius: 25000,    // 5 miles in metres
-                fillColor: '#5aba5c'
-            });
-            circle.bindTo('center', cmarker, 'position');
-
             if (locations.length>0){
-                if (origin===''){
-                    origin = locations[0].lat+','+locations[0].lng;
+                var orginlat=response.latitude;
+                var orginlng=response.longitude;
+                if ((orginlat && orginlat!=='') && (orginlng && orginlng!=='')){
+                    orginlat = locations[0].lat;
+                    orginlng = locations[0].lng;
                 }
                 if (destination===''){
                     destination = locations[locations.length-1].lat+','+locations[locations.length-1].lng;
                 }
 
-                calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,locations);
+                var myMarker = new google.maps.Marker({
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    position: new google.maps.LatLng(response.latitude,response.longitude),
+                });
+                addYourLocationButton(map, myMarker);
+                calculateAndDisplayRoute(directionsService, directionsRenderer,response,locations,map);
             }else {
                 alert('No Data Found')
             }
-        })
-
-    }
-    else
-    {
-        alert('It seems like Geolocation, which is required for this page, is not enabled in your browser.');
-    }
-
-}
-//
-function calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,waypoints) {
-    var waypoints = waypoints.map(function (location) {
-        return {location:location.location}
+        },
+        error:function (error) {
+            console.log(error)
+        }
     })
 
+}
+
+function addYourLocationButton (map, marker) {
+    var controlDiv = document.createElement('div');
+
+    var firstChild = document.createElement('button');
+    firstChild.style.backgroundColor = '#fff';
+    firstChild.style.border = 'none';
+    firstChild.style.outline = 'none';
+    firstChild.style.width = '28px';
+    firstChild.style.height = '28px';
+    firstChild.style.borderRadius = '2px';
+    firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+    firstChild.style.cursor = 'pointer';
+    firstChild.style.marginRight = '10px';
+    firstChild.style.padding = '0';
+    firstChild.title = 'Your Location';
+    controlDiv.appendChild(firstChild);
+
+    var secondChild = document.createElement('div');
+    secondChild.style.margin = '5px';
+    secondChild.style.width = '18px';
+    secondChild.style.height = '18px';
+    secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-2x.png)';
+    secondChild.style.backgroundSize = '180px 18px';
+    secondChild.style.backgroundPosition = '0 0';
+    secondChild.style.backgroundRepeat = 'no-repeat';
+    firstChild.appendChild(secondChild);
+
+    google.maps.event.addListener(map, 'center_changed', function () {
+        secondChild.style['background-position'] = '0 0';
+    });
+
+    firstChild.addEventListener('click', function () {
+        var imgX = 0,
+            animationInterval = setInterval(function () {
+                imgX = -imgX - 18 ;
+                secondChild.style['background-position'] = imgX+'px 0';
+            }, 500);
+
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                map.setCenter(latlng);
+                map.setZoom(12)
+                const cityCircle = new google.maps.Circle({
+                    strokeColor: "#b1dba2",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: "#b1dba2",
+                    fillOpacity: 0.35,
+                    map,
+                    center: latlng,
+                    radius: ((5 * 1000)*0.62137),
+                });
+                clearInterval(animationInterval);
+                secondChild.style['background-position'] = '-144px 0';
+            },()=>{
+
+            },{
+                enableHighAccuracy: true,
+                timeout: 10 * 1000 // 10 seconds
+            });
+        } else {
+            clearInterval(animationInterval);
+            secondChild.style['background-position'] = '0 0';
+        }
+    });
+
+    controlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+}
+
+function makeMarker(position, icon, title, map) {
+    var markers = new google.maps.Marker({
+        position: position,
+        map: map,
+        icon: icon,
+        title: title
+    });
+    const contentString =
+        '<div id="content">' +
+        '<div id="siteNotice">' +
+        "</div>" +
+        '<h1 id="firstHeading" class="firstHeading">'+title+'</h1>' +
+        "</div>";
+
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+    });
+
+    markers.addListener("click", () => {
+        infowindow.open(map, markers);
+        map.setZoom(15)
+    });
+
+
+}
+
+//
+function calculateAndDisplayRoute(directionsService, directionsRenderer,response,waypoints,map) {
+    var waypoint = waypoints.map(function (location) {
+        return {location:location.location}
+    })
     var request = {
-        origin: origin,
-        destination: destination,
-        waypoints: waypoints,
-        durationInTraffic: true,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
+        origin: response.latitude+','+response.longitude,
+        destination: response.destination.latitude+','+response.destination.longitude,
+        waypoints:[{location:waypoints[0].location}],
+        provideRouteAlternatives: true,
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.METRIC
     };
     directionsService.route(request,
         (response, status) => {
             if (status === "OK") {
-                directionsRenderer.setDirections(response);
+                new google.maps.DirectionsRenderer({
+                    map: map,
+                    directions: response,
+                    suppressMarkers: true
+                });
+                var leg = response.routes[0].legs[0];
+                console.log(leg.steps)
+                $('#view-duration').html(leg.distance.text+','+leg.duration.text)
+                makeMarker(leg.start_location, base_url+'assets/img/icons/patient-icon.svg', "Patient Detail", map);
+                makeMarker(leg.end_location, base_url+'assets/img/icons/clinician-sb-select.svg', 'Clinician Detail', map);
             } else {
                 window.alert("Directions request failed due to " + status);
             }

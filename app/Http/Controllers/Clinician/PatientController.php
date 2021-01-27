@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Clincian;
+namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
 use App\Models\Patient;
@@ -124,6 +124,15 @@ class PatientController extends Controller
     public function changeAppointmentStatus(Request $request){
         $clinicianService = new ClinicianService();
         $response = $clinicianService->cancelAppointmentStatus($request->all());
+        if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+    }
+
+    public function patientRequest(Request $request){
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->patientRequest($request->all());
         if ($response->status===true){
             return response()->json($response,200);
         }

@@ -23,7 +23,7 @@ return [
                 ]
             ]
         ],
-//        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient'],
+        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient'],
         [
             'name'=>'Appointment',
             'url'=>'javascript:void(0)',
@@ -114,7 +114,7 @@ return [
                 ]
             ]
         ],
-//        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
+        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'admin'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'admin/dashboard','route'=>'admin/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
@@ -164,24 +164,24 @@ return [
             'menu'=>[
                 [
                     'name'=>'New Registered Clinician',
-                    'url'=>env('APP_URL').'admin/referral-approval',
-                    'route'=>'admin/referral-approval',
+                    'url'=>env('APP_URL').'admin/clinician',
+                    'route'=>'admin/clinician',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
                     'name'=>'Activate Clinician',
-                    'url'=>env('APP_URL').'admin/referral-active',
-                    'route'=>'admin/referral-active',
+                    'url'=>env('APP_URL').'admin/clinician',
+                    'route'=>'admin/clinician',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
                     'name'=>'Rejected Clinician',
-                    'url'=>env('APP_URL').'admin/referral-rejected',
-                    'route'=>'admin/referral-rejected',
+                    'url'=>env('APP_URL').'admin/clinician',
+                    'route'=>'admin/clinician',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'

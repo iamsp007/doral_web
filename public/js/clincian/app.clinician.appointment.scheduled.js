@@ -29,7 +29,7 @@ $(function () {
                     return 'Other';
                 }
             },
-            {data:'service.name',name:'service.name',"bSortable": true},
+            {data:'Note',name:'Note',"bSortable": true},
             {
                 data:'patients.dob',
                 name:'patients.dob',

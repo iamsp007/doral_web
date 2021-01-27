@@ -133,9 +133,15 @@
                                 <i class="las la-bars white"></i>
                             </span></button>
                     <h1 class="title">
-                        @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
-                            {{ $value }}
-                        @endforeach
+                        @hasrole('referral')
+                            @foreach(Auth::guard('referral')->user()->roles->pluck('name') as $key=>$value)
+                                {{ $value }}
+                            @endforeach
+                        @else
+                            @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
+                                {{ $value }}
+                            @endforeach
+                        @endrole
                     </h1>
                 </div>
                 <div>

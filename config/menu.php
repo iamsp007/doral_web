@@ -232,7 +232,7 @@ return [
                 ],
                 [
                     'name'=>'Assigned Patients',
-                    'url'=>env('APP_URL').'co-ordinator/new-patient-list-show',
+                    'url'=>env('APP_URL').'supervisor/assigned-patients',
                     'route'=>'co-ordinator/new-patient-list-show','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'New Patients',
                 ],
                 [

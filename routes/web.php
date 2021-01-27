@@ -67,5 +67,5 @@ Route::group(['middleware'=>['auth:referral']],function (){
     Route::get('/referral/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('patient.detail');
 });
 
-Route::post('/start','\App\Http\Controllers\Clincian\RoomController@startArchive');
-Route::post('/zoom-generate_signature','\App\Http\Controllers\Clincian\RoomController@zoomGenerateSignature');
+Route::post('/start','\App\Http\Controllers\Clinician\RoomController@startArchive');
+Route::post('/zoom-generate_signature','\App\Http\Controllers\Clinician\RoomController@zoomGenerateSignature');

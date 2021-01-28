@@ -298,71 +298,29 @@ class PatientReferralController extends Controller
         try {
             $client = new Client();
 
-            $patient = $client->request('POST', env('API_URL').'/auth/store-patient', [
-                'multipart' => [
-                    [
-                        'name'=>'first_name',
-                        'contents'=>$request->first_name
-                    ],
-                    [
-                        'name'=>'middle_name',
-                        'contents'=>$request->middle_name
-                    ],
-                    [
-                        'name'=>'last_name',
-                        'contents'=>$request->last_name
-                    ],
-                    [
-                        'name'=>'gender',
-                        'contents'=>$request->gender
-                    ],
-                    [
-                        'name'=>'dob',
-                        'contents'=>$request->dob
-                    ],
-                    [
-                        'name'=>'ssn',
-                        'contents'=>$request->ssn
-                    ],
-                    [
-                        'name'=>'medicare_number',
-                        'contents'=>$request->medicare_number
-                    ],
-                    [
-                        'name'=>'medicaid_number',
-                        'contents'=>$request->medicaid_number
-                    ],
-                    [
-                        'name'=>'address_1',
-                        'contents'=>$request->address_1
-                    ],
-                    [
-                        'name'=>'state',
-                        'contents'=>$request->state
-                    ],
-                    [
-                        'name'=>'city',
-                        'contents'=>$request->city
-                    ],
-                    [
-                        'name'=>'Zip',
-                        'contents'=>$request->Zip
-                    ]
-                ],
-                'headers' => [
-                    'X-Requested-With' => 'XMLHttpRequest',
-                    'Access-Control-Allow-Origin' => 'http://localhost'
-                ]
-            ]);
+            $data = $request->all();
 
-            $data = json_decode($patient->getBody()->getContents());
-            $status = $data->status===true?1:0;
-            if ($status) {
-                return redirect()->route('patient.detail', $data->data->user_id);
+            $referralservice = new ReferralService();
+
+            $responseArray = $referralservice->storePatient($data);
+
+            if($responseArray->status) {
+                $status = 1;
+                $record = $responseArray->data;
+                return redirect()->route('patient.detail', $record->user_id);
             }
-            return redirect()->back()->withErrors('Error');
+            $message = $responseArray->message;
+            return redirect()->back()->withErrors($message);
         } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
             return redirect()->back()->withErrors($message);
         }
+        $response = [
+            'status' => $status,
+            'message' => $message
+        ];
+
+        return response()->json($response, 201);
     }
 }

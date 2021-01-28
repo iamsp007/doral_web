@@ -907,20 +907,20 @@
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/bootstrap.css" />
      <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
-    <style>
-        html, body {overflow: auto;}
-        body > #zmmtg-root {display: none;}
-        #zmmtg-root, .meeting-client, .meeting-client-inner {position: relative;width:97%;}
-        #wc-footer {
-        bottom: auto !important;width: 97% !important;}
-        #dialog-join {width: 97% !important;}
-        #sv-active-video, .active-main, #sv-active-speaker-view, .main-layout {height: 100% !important;width: 100% !important;}
-        .suspension-window {transform: translate(-444px, 10px) !important;}
-        #dialog-invite {display: none;}
-        .video_container{background:none!important;position:relative!important;}
-        .app-video .app-video-body .app-video-middle{position:relative;}
-        .app-video .app-video-header{position:relative;z-index:9999;}
-    </style>
+{{--    <style>--}}
+{{--        html, body {overflow: auto;}--}}
+{{--        body > #zmmtg-root {display: none;}--}}
+{{--        #zmmtg-root, .meeting-client, .meeting-client-inner {position: relative;width:97%;}--}}
+{{--        #wc-footer {--}}
+{{--        bottom: auto !important;width: 97% !important;}--}}
+{{--        #dialog-join {width: 97% !important;}--}}
+{{--        #sv-active-video, .active-main, #sv-active-speaker-view, .main-layout {height: 100% !important;width: 100% !important;}--}}
+{{--        .suspension-window {transform: translate(-444px, 10px) !important;}--}}
+{{--        #dialog-invite {display: none;}--}}
+{{--        .video_container{background:none!important;position:relative!important;}--}}
+{{--        .app-video .app-video-body .app-video-middle{position:relative;}--}}
+{{--        .app-video .app-video-header{position:relative;z-index:9999;}--}}
+{{--    </style>--}}
 @endpush
 @push('scripts')
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>

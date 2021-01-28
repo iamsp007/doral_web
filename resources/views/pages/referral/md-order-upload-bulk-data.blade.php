@@ -192,24 +192,17 @@
             },
             init: function() {
                 this.on("maxfilesexceeded", function(file){
-                    $.toast({
-                        heading: 'Error',
-                        text: 'Only one file allowed',
-                        showHideTransition: 'fade',
-                        icon: 'error'
-                    })
+                    var msgEl = $(file.previewElement).find('.dz-error-message');
+                    msgEl.text('Only one file allowed');
+                    msgEl.show();
+                    msgEl.css("opacity", 1);
                     return false
                 });
                 this.on("success", function(file, responseText) {
-                    $.toast({
-                        heading: responseText.status===0?'Error':'Success',
-                        text: responseText.message,
-                        showHideTransition: 'slide',
-                        icon: responseText.status===0?'error':'success'
-                    })
+                    alert(responseText.message)
                     setTimeout(function () {
-                       // window.location.reload();
-                    },30000)
+                        window.location.href=base_url+'referral/md-order';
+                    },1000)
                 });
             },
             paramName: 'file_name',

@@ -30,5 +30,4 @@ Route::group(['prefix'=>'/referral'],function (){
         Route::get('filter-cities', 'App\Http\Controllers\PatientReferralController@getCities')->name('referral.filter-cities');
         Route::post('store-patient', 'App\Http\Controllers\PatientReferralController@storePatient')->name('referral.store-patient');
     });
-
 });

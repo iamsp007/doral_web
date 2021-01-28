@@ -307,7 +307,7 @@ class PatientReferralController extends Controller
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data'];
-                return redirect()->route('patient.detail', $record['user_id']);
+                return redirect()->route('referral.patient.detail', ['patient_id' => $record['user_id']]);
             }
             $message = $responseArray->message;
             return redirect()->back()->withErrors($message);

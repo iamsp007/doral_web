@@ -11,7 +11,8 @@ Route::group(['prefix'=>'/referral'],function (){
         Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
         Route::get('filter-cities', 'App\Http\Controllers\PatientReferralController@getCities')->name('referral.filter-cities');
         Route::post('store-patient', 'App\Http\Controllers\PatientReferralController@storePatient')->name('referral.store-patient');
-        Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@getPatientDetail')->name('patient.detail');
+        Route::get('referral/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('referral.patient.detail');
+        Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@getPatientDetail')->name('patients.detail');
         Route::get('/vbc', 'App\Http\Controllers\PatientReferralController@vbc')->name('referral.vbc');
         Route::get('/vbc-get-data', 'App\Http\Controllers\PatientReferralController@vbcGetData')->name('referral.vbc-get-data');
         Route::get('/vbc-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@vbcUploadBulk')->name('referral.vbc-upload-bulk-data');

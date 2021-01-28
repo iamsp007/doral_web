@@ -39,6 +39,7 @@
 											Patient</label>
 									</div>
 								</div>
+								<span class="errorText enrollment"></span>
 								<div class="app-card no-shadow no-minHeight mt-3 existing_patient">
 									<div class="pl-4 pr-4 pb-4 pt-4">
 										<p class="text-center">Kindly provide MD Order</p>
@@ -53,7 +54,7 @@
 														class="form-control form-control-lg creation_date"
 														placeholder="" aria-label="creation_date"
 														aria-describedby="creation_date" id="creation_date"
-														name="creation_date"><br>
+														name="creation_date" readonly='true'><br>
 												</div>
 											</div>
 											<div class="col-12 col-sm-3"></div>
@@ -61,7 +62,7 @@
 									</div>
 								</div>
 							</div>
-							<input type="button" name="next" class="next cancel-btn m-auto"
+							<input type="button" name="next" class="next cancel-btn m-auto" id="enroll"
 								style="margin-bottom: 15px;display: block;" value="Next" />
 						</fieldset>
 						<fieldset class="form-card pb-4">
@@ -79,6 +80,7 @@
 										<label class="custom-control-label" for="customRadio22">LHCSA</label>
 									</div>
 								</div>
+								<span class="errorText services"></span>
 							</div>
 							<div class="if-CDPAP mb-4">
 								<div class="app-card no-shadow mb-3">
@@ -259,7 +261,7 @@
 								</div>
 								<!-- <a href="javascript:void(0)" class="d-flex justify-content-end"><i class="las la-plus-circle la-2x"></i></a> -->
 							</div>
-							<input type="button" name="next" class="next cancel-btn float-right mr-4"
+							<input type="button" name="next" class="next cancel-btn float-right mr-4" id="service"
 								value="Next" />
 							<input type="button" name="previous" class="previous continue-btn float-left ml-4"
 								value="Previous" />
@@ -279,13 +281,14 @@
 										<label class="custom-control-label" for="customRadio222">MLTC</label>
 									</div>
 								</div>
+								<span class="errorText insuran"></span>
 								<div class="app-card no-shadow no-minHeight mt-3 on_hmo">
 									<div class="pl-4 pr-4 pb-4 pt-4">
 										<p>Want to patient change from HMO to MLTC?</p>
 										<div class="d-flex mt-3">
 											<div class="custom-control custom-radio mr-3">
 												<input type="radio" id="yes" name="hmo_to_mlts" value="1"
-													class="custom-control-input">
+													class="custom-control-input" checked="checked">
 												<label class="custom-control-label" for="yes">Yes</label>
 											</div>
 											<div class="custom-control custom-radio">
@@ -299,7 +302,7 @@
 							</div>
 							<input type="button" name="previous"
 								class="previous action-button continue-btn float-left ml-4" value="Previous" />
-							<input type="button" name="next" class="next cancel-btn float-right mr-4"
+							<input type="button" name="next" class="next cancel-btn float-right mr-4" id="ins"
 								value="Next" />
 						</fieldset>
 						<fieldset class="form-card pb-4">
@@ -316,6 +319,7 @@
 													aria-describedby="first_name" id="first_name"
 													name="first_name"><br>
 											</div>
+											<span class="errorText first_name"></span>
 										</div>
 										<div class="col-12 col-sm-4">
 											<label for="middle_name" class="label">Middle Name</label>
@@ -327,6 +331,7 @@
 													aria-describedby="middle_name" id="middle_name"
 													name="middle_name">
 											</div>
+											<span class="errorText middle_name"></span>
 										</div>
 										<div class="col-12 col-sm-4">
 											<label for="last_name" class="label">Last Name</label>
@@ -338,6 +343,7 @@
 													aria-describedby="last_name" id="last_name"
 													name="last_name">
 											</div>
+											<span class="errorText last_name"></span>
 										</div>
 									</div>
 								</div>
@@ -358,6 +364,7 @@
 														for="female">Female</label>
 												</div>
 											</div>
+											<span class="errorText gender"></span>
 										</div>
 										<div class="col-12 col-sm-4">
 											<label for="dob" class="label">Date Of Birth</label>
@@ -369,6 +376,7 @@
 												<input type="text" class="form-control form-control-lg" id="dob"
 													name="dob" aria-describedby="">
 											</div>
+											<span class="errorText dob"></span>
 										</div>
 										<div class="col-12 col-sm-4">
 											<label for="ssn" class="label">SSN Number</label>
@@ -379,6 +387,7 @@
 													placeholder="" aria-label="ssn" aria-describedby="ssn"
 													id="ssn" name="ssn">
 											</div>
+											<span class="errorText ssn"></span>
 										</div>
 									</div>
 								</div>
@@ -395,6 +404,7 @@
 													aria-describedby="medicare_number" id="medicare_number"
 													name="medicare_number">
 											</div>
+											<span class="errorText medicare_number"></span>
 										</div>
 										<div class="col-12 col-sm-4">
 											<label for="medicaid_number" class="label">Medicaid Number</label>
@@ -407,6 +417,7 @@
 													aria-describedby="medicaid_number" id="medicaid_number"
 													name="medicaid_number">
 											</div>
+											<span class="errorText medicaid_number"></span>
 										</div>
 										<div class="col-12 col-sm-4"></div>
 									</div>
@@ -423,6 +434,7 @@
 													aria-describedby="address_1" id="address_1"
 													name="address_1">
 											</div>
+											<span class="errorText address_1"></span>
 										</div>
 									</div>
 								</div>
@@ -439,6 +451,7 @@
 													@endforeach
 												</select>
 											</div>
+											<span class="errorText state"></span>
 										</div>
 										<div class="col-12 col-sm-4">
 											<label for="city" class="label">City</label>
@@ -448,6 +461,7 @@
 													<option value="">Select</option>
 												</select>
 											</div>
+											<span class="errorText city"></span>
 										</div>
 										<div class="col-12 col-sm-4">
 											<label for="Zip" class="label">Zip Code</label>
@@ -459,6 +473,7 @@
 													placeholder="" aria-label="Zip" aria-describedby="Zip"
 													id="Zip" name="Zip">
 											</div>
+											<span class="errorText Zip"></span>
 										</div>
 									</div>
 								</div>
@@ -481,6 +496,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/css/add-patient.css') }}">
+	<style>
+		.errorText {
+			color: red;
+			/* visibility: hidden; */
+		}
+	</style>
 @endpush
 
 @push('scripts')

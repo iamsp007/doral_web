@@ -56,12 +56,10 @@ class PatientReferralController extends Controller
         $record = [];
         try {
 
-            $referralServices = new ReferralService();
-            $response = $referralServices->mdOrder(2);
-            if ($response->status===true){
-                $record = $response->data;
-            }
-            return DataTables::of($record)
+            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
+                ->where('service_id', '=','2')
+                ->whereNotNull('first_name');
+            return DataTables::of($patientReferral)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
             })
@@ -100,13 +98,11 @@ class PatientReferralController extends Controller
         $message = "";
         $record = [];
         try {
-            $referralServices = new ReferralService();
-            $response = $referralServices->mdOrder(1);
-            if ($response->status===true){
-                $record = $response->data;
-            }
+            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
+                ->where('service_id', '=',1)
+                ->whereNotNull('first_name');
 
-            return DataTables::of($record)
+            return DataTables::of($patientReferral)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
             })
@@ -144,13 +140,11 @@ class PatientReferralController extends Controller
         $message = "";
         $record = [];
         try {
-            $referralServices = new ReferralService();
-            $response = $referralServices->mdOrder(3);
-            if ($response->status===true){
-                $record = $response->data;
-            }
+            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
+                ->where('service_id', '=','3')
+                ->whereNotNull('first_name');
 
-            return DataTables::of($record)
+            return DataTables::of($patientReferral)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
             })
@@ -304,10 +298,10 @@ class PatientReferralController extends Controller
 
             $responseArray = $referralservice->storePatient($data);
 
-            if($responseArray->status) {
+            if($responseArray['status']) {
                 $status = 1;
-                $record = $responseArray->data;
-                return redirect()->route('patient.detail', $record->user_id);
+                $record = $responseArray['data'];
+                return redirect()->route('referral.patient.detail', ['patient_id' => $record['user_id']]);
             }
             $message = $responseArray->message;
             return redirect()->back()->withErrors($message);

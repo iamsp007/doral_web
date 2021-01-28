@@ -5,6 +5,25 @@ $(document).ready(function () {
     var steps = $("fieldset").length;
     setProgressBar(current);
     $(".next").click(function () {
+        console.log($(this).attr('id'));
+        if ( ! $('[name="enrollment"]').is(':checked') && $(this).attr('id') == 'enroll' ) {
+            $("span.enrollment").text('Please Select Patient Enrollment Status').addClass('d-flex justify-content-center align-items-center mt-4');
+            return false;
+        } else {
+            $("span.enrollment").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
+        }
+        if ( ! $('[name="services"]').is(':checked') && $(this).attr('id') == 'service' ) {
+            $("span.services").text('Please Select Type Of Services').addClass('d-flex justify-content-center align-items-center mt-4');
+            return false;
+        } else {
+            $("span.services").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
+        }
+        if ( ! $('[name="insurance"]').is(':checked') && $(this).attr('id') == 'ins' ) {
+            $("span.insuran").text('Please Select Insurance Type').addClass('d-flex justify-content-center align-items-center mt-4');
+            return false;
+        } else {
+            $("span.insuran").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
+        }
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
         //Add Class Active
@@ -80,6 +99,7 @@ $(function () {
             // alert('boarding')
             $('.existing_patient').show()
         }
+        $("span.enrollment").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
     })
     $('input[name="creation_date"]').daterangepicker({
         singleDatePicker: true,
@@ -99,6 +119,7 @@ $(function () {
         if ($(this).val() == 'lhcsa') {
             $('.if-CDPAP').hide()
         }
+        $("span.services").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
     })
     $('.on_hmo').hide()
     $('[name="insurance"]').on('change', function (e) {
@@ -109,16 +130,11 @@ $(function () {
         if ($(this).val() == 'mltc') {
             $('.on_hmo').hide()
         }
+        $("span.insuran").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
     })
     $('select, input').change(function(){
         if ($(this).val() != "") {
-            if ($(this).attr("name") == 'state') {
-                $('span.state_error').text('');
-            } else if ($(this).attr("name") == 'city') {
-                $('span.city_error').text('');
-            } else {
-                $('span.'+$(this)[0]['name']).text('');
-            }
+            $('span.'+$(this)[0]['name']).text('');
         }
     });
     $("#msform").validate({
@@ -136,15 +152,8 @@ $(function () {
             state: "required",
             Zip: "required",
         },
-        messages: {},
         errorPlacement: function(error, element) {
-            if (element.attr("name") == "city") {
-                $(".city_error").text(error[0]['innerText']).css('color', 'red');
-            } else if (element.attr("name") == "state") {
-                $(".state_error").text(error[0]['innerText']).css('color', 'red');
-            } else {
-                $("."+element.attr("name")).text(error[0]['innerText']).css('color', 'red');
-            }
+            $("."+element.attr("name")).text(error[0]['innerText']).css('color', 'red');
         },
         submitHandler: function(form) {
             form.submit();

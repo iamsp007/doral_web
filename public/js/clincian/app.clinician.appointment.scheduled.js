@@ -155,8 +155,7 @@ $(function () {
     }
 
     $('.app-video').hide();
-
-
+    $('.btn-broadcast').hide();
     $('.scheduled-call').on('click', function () {
 
     })

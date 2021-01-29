@@ -40,7 +40,8 @@
             <div class="app-video-left b-tab active" id="orange">
                 <div class="video_container">
                     <!-- added on import -->
-                    <div id="zmmtg-root"></div>
+                    <div id="zmmtg-root" style="width: 95% !important; height: 300px !important;  "></div>
+
                 </div>
             </div>
             <div class="app-video-left b-tab" id="green">
@@ -907,26 +908,27 @@
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/bootstrap.css" />
      <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
-    <style>
-        html, body {overflow: auto;}
-        body > #zmmtg-root {display: none;}
-        #zmmtg-root, .meeting-client, .meeting-client-inner {position: relative;width:97%;}
-        #wc-footer {
-        bottom: auto !important;width: 97% !important;}
-        #dialog-join {width: 97% !important;}
-        #sv-active-video, .active-main, #sv-active-speaker-view, .main-layout {height: 100% !important;width: 100% !important;}
-        .suspension-window {transform: translate(-444px, 10px) !important;}
-        #dialog-invite {display: none;}
-        .video_container{background:none!important;position:relative!important;}
-        .app-video .app-video-body .app-video-middle{position:relative;}
-        .app-video .app-video-header{position:relative;z-index:9999;}
-    </style>
+      <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
+{{--    <style>--}}
+{{--        html, body {overflow: auto;}--}}
+{{--        body > #zmmtg-root {display: none;}--}}
+{{--        #zmmtg-root, .meeting-client, .meeting-client-inner {position: relative;width:97%;}--}}
+{{--        #wc-footer {--}}
+{{--        bottom: auto !important;width: 97% !important;}--}}
+{{--        #dialog-join {width: 97% !important;}--}}
+{{--        #sv-active-video, .active-main, #sv-active-speaker-view, .main-layout {height: 100% !important;width: 100% !important;}--}}
+{{--        .suspension-window {transform: translate(-444px, 10px) !important;}--}}
+{{--        #dialog-invite {display: none;}--}}
+{{--        .video_container{background:none!important;position:relative!important;}--}}
+{{--        .app-video .app-video-body .app-video-middle{position:relative;}--}}
+{{--        .app-video .app-video-header{position:relative;z-index:9999;}--}}
+{{--    </style>--}}
 @endpush
 @push('scripts')
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
+
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script>
        var scheduleAppointmentAjax = "{{  route('clinician.scheduleAppoimentList.ajax') }}";
@@ -946,5 +948,5 @@
             console.log("simd check", res);
         });
     </script>
-<script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
+     <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
 @endpush

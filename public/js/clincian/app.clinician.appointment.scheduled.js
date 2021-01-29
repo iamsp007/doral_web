@@ -63,7 +63,92 @@ $(function () {
                     if (row.status!=="completed"){
                         appointment_title = row.title;
                         html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' + '<img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +'Start Meeting</button>';
-                        html+='<button type="button" onclick="onAppointmentBroadCast('+row.patient_id+')"'+ 'class="btn btn-broadcast">RoadL Broadcast<span></span>'+'</button>';
+                        // html+='<button type="button" onclick="onAppointmentBroadCast('+row.patient_id+')"'+ 'class="btn btn-broadcast">RoadL  Broadcast<span></span>'+'</button>';
+                    //    html+= '<select name="assign_clinician" id="assign_clinician" class="form-control select assign_clinician" multiple><option value="Melania Trump">Melania Trump</option></select>'
+
+                        html+='<div class="dropdown cq-dropdown" data-name=\'statuses\'>\n' +
+                            ' \n' +
+                            '        <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
+                            ' \n' +
+                            '          Start RoadL\n' +
+                            ' \n' +
+                            '          <span class="caret"></span>\n' +
+                            ' \n' +
+                            '        </button>\n' +
+                            ' \n' +
+                            '        <ul class="dropdown-menu" aria-labelledby="btndropdown">\n' +
+                            ' \n' +
+                            '          <li>\n' +
+                            ' \n' +
+                            '              <label class="radio-btn">\n' +
+                            ' \n' +
+                            '                  <input type="checkbox" value="1" checked>\n' +
+                            ' \n' +
+                            '                  Lab\n' +
+                            ' \n' +
+                            '              </label>\n' +
+                            ' \n' +
+                            '          </li>\n' +
+                            ' \n' +
+                            '        <li>\n' +
+                            ' \n' +
+                            '              <label class="radio-btn">\n' +
+                            ' \n' +
+                            '                  <input type="checkbox" value="2">\n' +
+                            ' \n' +
+                            '                  X-Ray\n' +
+                            ' \n' +
+                            '              </label>\n' +
+                            ' \n' +
+                            '          </li>\n' +
+                            ' \n' +
+                            '          <li>\n' +
+                            ' \n' +
+                            '              <label class="radio-btn">\n' +
+                            ' \n' +
+                            '                  <input type="checkbox" value="2">\n' +
+                            ' \n' +
+                            '                  Blood\n' +
+                            ' \n' +
+                            '              </label>\n' +
+                            ' \n' +
+                            '          </li>\n' +
+                            ' \n' +
+                            '          <li>\n' +
+                            ' \n' +
+                            '              <label class="radio-btn">\n' +
+                            ' \n' +
+                            '                  <input type="checkbox" value="3" checked>\n' +
+                            ' \n' +
+                            '                  JavaScript\n' +
+                            ' \n' +
+                            '              </label>\n' +
+                            ' \n' +
+                            '          </li>\n' +
+                            ' \n' +
+                            '          <li>\n' +
+                            ' \n' +
+                            '              <label class="radio-btn">\n' +
+                            ' \n' +
+                            '                  <input type="checkbox" value="4" checked>\n' +
+                            ' \n' +
+                            '                  CSS\n' +
+                            ' \n' +
+                            '              </label>\n' +
+                            ' \n' +
+                            '          </li>\n' +
+                            ' \n' +
+                            '          <li class=\'text-center\'>\n' +
+                            ' \n' +
+                            '              <button type=\'button\' class=\'btn btn-xs btn-danger clear close-dropdown\' value=\'Clear\'>Clear</button>\n' +
+                            ' \n' +
+                            '              <button type=\'button\' class=\'btn btn-xs btn-success save\' value=\'Save\'>Save</button>\n' +
+                            ' \n' +
+                            '          </li>\n' +
+                            ' \n' +
+                            '        </ul>\n' +
+                            ' \n' +
+                            '      </div>';
                         if (row.status!=="cancel"){
                             html+='<div class="popbox">\n' +
                                 '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +
@@ -155,8 +240,7 @@ $(function () {
     }
 
     $('.app-video').hide();
-
-
+    $('.btn-broadcast').hide();
     $('.scheduled-call').on('click', function () {
 
     })
@@ -208,6 +292,9 @@ $(function () {
         search: true
     });
     tail.select(".hepatitis_B", {
+        search: true
+    });
+    tail.select(".assign_clinician", {
         search: true
     });
     $('.promptBox').hide(),

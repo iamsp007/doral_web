@@ -212,11 +212,9 @@
     <script src="{{ asset('js/socket.js') }}"></script>
     <script src="{{ asset('assets/js/sidebar.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
-    <script src="{{ asset('assets/js/toastr.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
-
     <script>
         $("#loader-wrapper").hide();
     </script>

@@ -40,7 +40,8 @@
             <div class="app-video-left b-tab active" id="orange">
                 <div class="video_container">
                     <!-- added on import -->
-                    <div id="zmmtg-root"></div>
+                    <div id="zmmtg-root" style="width: 95% !important; height: 300px !important;  "></div>
+
                 </div>
             </div>
             <div class="app-video-left b-tab" id="green">
@@ -927,7 +928,7 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    
+
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script>
        var scheduleAppointmentAjax = "{{  route('clinician.scheduleAppoimentList.ajax') }}";
@@ -947,6 +948,5 @@
             console.log("simd check", res);
         });
     </script>
-    <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
-    <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
+     <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
 @endpush

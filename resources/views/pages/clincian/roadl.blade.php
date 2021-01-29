@@ -44,8 +44,7 @@
                                                         <img src="{{ asset('assets/img/icons/pressure.svg') }}"
                                                              class="mr-2"  alt="">Blood Pressure : {{ $cvalue->reading_value }}</li>
                                                 @elseif($cvalue->reading_type==='2')
-                                                    <li class="sugar"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2"
-                                                                           alt="">Blood Sugar : {{ $cvalue->reading_value }}</li>
+                                                    <li class="sugar"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Blood Sugar : {{ $cvalue->reading_value }}</li>
                                                 @elseif($cvalue->reading_type==='3')
                                                     <li class="caregiver" data-container="body" data-toggle="popover"
                                                         data-placement="top"
@@ -72,30 +71,23 @@
                                         @endif
                                     </ul>
                                 </div>
+                                <style>
+                                    .app .app-content .app-body .app-broadcasting .rside ._lside {width: 300px;}
+                                    .app .app-content .app-body .app-broadcasting .rside .specification li.referralCompany{color: #000;font-weight: 600;}
+                                    .app .app-content .app-body .app-broadcasting .rside .specification li.referralCompany span{color: #006c76;font-weight: 600;}
+                                </style>
                                 <div class="_rside">
-                                        <ul class="actionBar">
-                                            <li>
-                                                <span id="hook-latest"></span>
-                                                <div class="search-clinician">
-                                                    <!-- <input type="text" class="form-control clinician" name="animal"
-                                                        id="searchField" placeholder="Assign Manually"> -->
-                                                    <select name="assign_clinician"
-                                                        class="form-control select assign_clinician" multiple>
-                                                        <option selected="" value="RoadL">RoadL</option>
-                                                        <option value="LAB">LAB</option>
-                                                        <option value="X-Ray">X-Ray</option>
-                                                        <option value="CHHA">CHHA</option>
-                                                        <option value="Home Oxygen">Home Oxygen</option>
-                                                        <option value="Home Insfusion">Home Insfusion</option>
-                                                        <option value="Wound Care">Wound Care</option>
-                                                        <option value="DME">DME</option>
-                                                    </select>
-                                                </div>
-                                            </li>
+                                    <ul class="actionBar">
+                                        <li>
+                                            <ul class="specification">
+                                                <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Referral Company:&nbsp;&nbsp;<span>Cottage Home Care</span></li>
+                                                <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Request Type:&nbsp;&nbsp;<span>Lab</span></li>
+                                            </ul>
+                                        </li>
                                             <li>
                                                 <button type="button"
                                                     onclick="window.location.href = '{{ route('start.call',['patient_request_id'=>$value->id]) }}'"
-                                                    class="btn btn-start-call">Start
+                                                    class="btn btn-start-call ml-5">Start
                                                 Call<span></span></button>
                                             </li>
                                             <li>

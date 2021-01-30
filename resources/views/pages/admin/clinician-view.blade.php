@@ -10,7 +10,7 @@
                      <div class="sidebar mb-2" id="collapsibleNavbar">
                      <div class="block">
                         <div class="height-83"></div>
-                        <img src="/{{ $data->avatar_image }}" alt="Welcome to Doral" srcset="/{{ $data->avatar_image }}"
+                        <img src="/{{ isset($data->avatar_image) ? $data->avatar_image : null }}" alt="Welcome to Doral" srcset="/{{ isset($data->avatar_image) ? $data->avatar_image : null }}"
                            class="img-fluid img-100">
                      </div>
                      <div>
@@ -20,17 +20,19 @@
                               <li class="list-group-item name">{{ isset($data->applicant->applicant_name) ? $data->applicant->applicant_name : null }}</li>
                               <li class="list-group-item">
                                  <span>{{ isset($data->gender_name) ? $data->gender_name : null }}</span>&nbsp;/&nbsp;
-                                 <span>{{ date('m-d-Y', strtotime($data->dob)) }}</span>&nbsp;
+                                 <span>{{ isset($data->dob) ? date('m-d-Y', strtotime($data->dob)) : null }}</span>&nbsp;
                               </li>
                               <li class="list-group-item d-inherit">
                                  @php
-                                    end($data->background);
-                                    $key = key($data->background);
+                                    if ($data->background) {
+                                       end($data->background);
+                                       $key = key($data->background);
+                                    }
                                  @endphp
-                                 <span>{{ $data->background[$key]->position }}</span>&nbsp;/&nbsp;
-                                 <a href="tel:{{ $data->applicant->phone }}" class="text-body call-text d-flex align-items-center"><img src="/assets/img/icons/phone_green.svg" class="mr-1" alt=""> {{ $data->applicant->phone }}</a>
+                                 <span>{{ isset($data->background[$key]->position) ? $data->background[$key]->position : null }}</span>&nbsp;/&nbsp;
+                                 <a href="tel:{{ isset($data->applicant->phone) ? $data->applicant->phone : null }}" class="text-body call-text d-flex align-items-center"><img src="/assets/img/icons/phone_green.svg" class="mr-1" alt=""> {{ isset($data->applicant->phone) ? $data->applicant->phone : null }}</a>
                               </li>
-                              <li class="list-group-item"><span>{{ $data->email }}</span></li>
+                              <li class="list-group-item"><span>{{ isset($data->email) ? $data->email : null }}</span></li>
                               <li class="list-group-item"> 
                                  <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="TeleHealth">
@@ -118,7 +120,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Applicant Name</h3>
-                                                   <h1 class="_detail">{{ $data->applicant->applicant_name }}</h1>
+                                                   <h1 class="_detail">{{ isset($data->applicant->applicant_name) ? $data->applicant->applicant_name : null }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -131,7 +133,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Other Name (if applicable)</h3>
-                                                   <h1 class="_detail">{{ $data->applicant->other_name }}</h1>
+                                                   <h1 class="_detail">{{ isset($data->applicant->other_name) ? $data->applicant->other_name : null }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -144,7 +146,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">SSN</h3>
-                                                   <h1 class="_detail">{{ $data->applicant->ssn }}</h1>
+                                                   <h1 class="_detail">{{ isset($data->applicant->ssn) ? $data->applicant->ssn : null }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -159,7 +161,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Phone No.</h3>
-                                                   <h1 class="_detail">{{ $data->applicant->phone }}</h1>
+                                                   <h1 class="_detail">{{ isset($data->applicant->phone) ? $data->applicant->phone : null }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -172,7 +174,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Home Home</h3>
-                                                   <h1 class="_detail">{{ $data->applicant->home_phone }}</h1>
+                                                   <h1 class="_detail">{{ isset($data->applicant->home_phone) ? $data->applicant->home_phone : null }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -185,7 +187,7 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Emergency Phone</h3>
-                                                   <h1 class="_detail">{{ $data->applicant->emergency_phone }}</h1>
+                                                   <h1 class="_detail">{{ isset($data->applicant->emergency_phone) ? $data->applicant->emergency_phone : null }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -200,13 +202,13 @@
                                                 </div>
                                                 <div>
                                                    <h3 class="_title">Date Available</h3>
-                                                   <h1 class="_detail">{{ date('m-d-Y', strtotime($data->applicant->date)) }}</h1>
+                                                   <h1 class="_detail">{{ isset($data->applicant->date) ? date('m-d-Y', strtotime($data->applicant->date)) : null }}</h1>
                                                 </div>
                                              </div>
                                           </div>
                                        </div>
                                     </div>
-                                    @if($data->applicant->us_citizen)
+                                    @if(isset($data->applicant->us_citizen))
                                     <div class="_card mt-3">
                                        <div class="_card_header">
                                           <div class="title-head"><span style="font-weight: bold;">Q:</span>
@@ -226,7 +228,7 @@
                                           </div>
                                        </div>
                                        <div class="_card_body">
-                                          <h1 class="_title"><span style="font-weight: bold;">Ans:</span> No (Immigration ID/Card) : {{ $data->applicant->immigration_id }}
+                                          <h1 class="_title"><span style="font-weight: bold;">Ans:</span> No (Immigration ID/Card) : {{ isset($data->applicant->immigration_id) ? $data->applicant->immigration_id : null }}
                                           </h1>
                                        </div>
                                     </div>
@@ -249,7 +251,7 @@
                                                          <div>
                                                             <h3 class="_title">Address Line 1</h3>
                                                             <h1 class="_detail">
-                                                               {{ $data->applicant->address_line_1 }}
+                                                               {{ isset($data->applicant->address_line_1) ? $data->applicant->address_line_1 : null }}
                                                                <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                Map</a>
                                                             </h1>
@@ -274,7 +276,7 @@
                                                          <div>
                                                             <h3 class="_title">Address Line 2</h3>
                                                             <h1 class="_detail">
-                                                               {{ $data->applicant->address_line_2 }}
+                                                               {{ isset($data->applicant->address_line_2) ? $data->applicant->address_line_2 : null }}
                                                                <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                Map</a>
                                                             </h1>
@@ -298,7 +300,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">City</h3>
-                                                            <h1 class="_detail">{{ $data->applicant->city->city }}</h1>
+                                                            <h1 class="_detail">{{ isset($data->applicant->city->city) ? $data->applicant->city->city : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -309,7 +311,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">State</h3>
-                                                            <h1 class="_detail">{{ $data->applicant->state->state }}</h1>
+                                                            <h1 class="_detail">{{ isset($data->applicant->state->state) ? $data->applicant->state->state : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -320,7 +322,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Zip Code</h3>
-                                                            <h1 class="_detail">{{ $data->applicant->zip }}</h1>
+                                                            <h1 class="_detail">{{ isset($data->applicant->zip) ? $data->applicant->zip : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -333,7 +335,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Length of time at the above address</h3>
-                                                            <h1 class="_detail">{{ $data->applicant->address_life }}</h1>
+                                                            <h1 class="_detail">{{ isset($data->applicant->address_life) ? $data->applicant->address_life : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -345,6 +347,7 @@
                                  </div>
                                  <div class="tab-pane fade" id="Reference" role="tabpanel" aria-labelledby="Reference-tab">
                                     <ul>
+                                       @isset($data->applicant->references)
                                        @foreach($data->applicant->references as $index => $reference)
                                        <li>
                                           <div class="_card mt-3">
@@ -360,7 +363,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Name</h3>
-                                                            <h1 class="_detail">{{ $reference->reference_name }}</h1>
+                                                            <h1 class="_detail">{{ isset($reference->reference_name) ? $reference->reference_name : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -371,7 +374,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Phone No.</h3>
-                                                            <h1 class="_detail">{{ $reference->reference_phone }}</h1>
+                                                            <h1 class="_detail">{{ isset($reference->reference_phone) ? $reference->reference_phone : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -382,7 +385,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Relationship</h3>
-                                                            <h1 class="_detail">{{ $reference->reference_relationship }}</h1>
+                                                            <h1 class="_detail">{{ isset($reference->reference_relationship) ? $reference->reference_relationship : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -396,7 +399,7 @@
                                                          <div>
                                                             <h3 class="_title">Address</h3>
                                                             <h1 class="_detail">
-                                                               {{ $reference->reference_address }}
+                                                               {{ isset($reference->reference_address) ? $reference->reference_address : null }}
                                                                <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                Map</a>
                                                             </h1>
@@ -419,7 +422,7 @@
                                                       </div>
                                                    </div>
                                                    <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->applicant->bonded == 1 ? 'Yes' : 'No' }}
+                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ (isset($data->applicant->bonded) && $data->applicant->bonded == 1) ? 'Yes' : 'No' }}
                                                       </h1>
                                                    </div>
                                                 </div>
@@ -430,7 +433,7 @@
                                                       </div>
                                                    </div>
                                                    <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->applicant->refused_bond == 1 ? 'Yes' : 'No' }}
+                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ (isset($data->applicant->refused_bond) && $data->applicant->refused_bond == 1) ? 'Yes' : 'No' }}
                                                       </h1>
                                                    </div>
                                                 </div>
@@ -441,7 +444,7 @@
                                                       </div>
                                                    </div>
                                                    <div class="_card_body">
-                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->applicant->convicted_crime == 1 ? 'Yes' : 'No' }}
+                                                      <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ (isset($data->applicant->convicted_crime) && $data->applicant->convicted_crime == 1) ? 'Yes' : 'No' }}
                                                       </h1>
                                                    </div>
                                                 </div>
@@ -449,6 +452,7 @@
                                           </div>
                                        </li>
                                        @endforeach
+                                       @endisset
                                     </ul>
                                  </div>
                                  <div class="tab-pane fade" id="Emergency" role="tabpanel" aria-labelledby="Emergency-tab">
@@ -460,7 +464,7 @@
                                              </div>
                                              <div>
                                                 <h3 class="_title">Name</h3>
-                                                <h1 class="_detail">{{ $data->applicant->emergency_name }}</h1>
+                                                <h1 class="_detail">{{ isset($data->applicant->emergency_name) ? $data->applicant->emergency_name : null }}</h1>
                                              </div>
                                           </div>
                                        </div>
@@ -471,7 +475,7 @@
                                              </div>
                                              <div>
                                                 <h3 class="_title">Phone No.</h3>
-                                                <h1 class="_detail">{{ $data->applicant->emergency_phone }}</h1>
+                                                <h1 class="_detail">{{ isset($data->applicant->emergency_phone) ? $data->applicant->emergency_phone : null }}</h1>
                                              </div>
                                           </div>
                                        </div>
@@ -482,7 +486,7 @@
                                              </div>
                                              <div>
                                                 <h3 class="_title">Relationship</h3>
-                                                <h1 class="_detail">{{ $data->applicant->emergency_relationship }}</h1>
+                                                <h1 class="_detail">{{ isset($data->applicant->emergency_relationship) ? $data->applicant->emergency_relationship : null }}</h1>
                                              </div>
                                           </div>
                                        </div>
@@ -496,7 +500,7 @@
                                              <div>
                                                 <h3 class="_title">Address</h3>
                                                 <h1 class="_detail">
-                                                   {{ $data->applicant->emergency_address }}
+                                                   {{ isset($data->applicant->emergency_address) ? $data->applicant->emergency_address : null }}
                                                    <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample10" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                    Map</a>
                                                 </h1>
@@ -558,7 +562,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Name of Institute</h3>
-                                                               <h1 class="_detail">{{ $data->education->medical_institute_name }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->medical_institute_name) ? $data->education->medical_institute_name : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -569,7 +573,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Started</h3>
-                                                               <h1 class="_detail">{{ $data->education->medical_institute_year_started }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->medical_institute_year_started) ? $data->education->medical_institute_year_started : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -580,7 +584,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Completed</h3>
-                                                               <h1 class="_detail">{{ $data->education->medical_institute_year_completed }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->medical_institute_year_completed) ? $data->education->medical_institute_year_completed : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -594,7 +598,7 @@
                                                             <div>
                                                                <h3 class="_title">Address</h3>
                                                                <h1 class="_detail">
-                                                                  {{ $data->education->medical_institute_address }}
+                                                                  {{ isset($data->education->medical_institute_address) ? $data->education->medical_institute_address : null }}
                                                                   <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                   Map</a>
                                                                </h1>
@@ -618,7 +622,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">{{ $data->education->medical_institute_city->city }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->medical_institute_city->city) ? $data->education->medical_institute_city->city : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -629,7 +633,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">{{ $data->education->medical_institute_state->state }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->medical_institute_state->state) ? $data->education->medical_institute_state->state : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -655,7 +659,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Name of Institute</h3>
-                                                               <h1 class="_detail">{{ $data->education->residency_institute_name }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->residency_institute_name) ? $data->education->residency_institute_name : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -666,7 +670,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Started</h3>
-                                                               <h1 class="_detail">{{ $data->education->residency_institute_year_started }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->residency_institute_year_started) ? $data->education->residency_institute_year_started : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -677,7 +681,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Completed</h3>
-                                                               <h1 class="_detail">{{ $data->education->residency_institute_year_completed }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->residency_institute_year_completed) ? $data->education->residency_institute_year_completed : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -691,7 +695,7 @@
                                                             <div>
                                                                <h3 class="_title">Address</h3>
                                                                <h1 class="_detail">
-                                                                  {{ $data->education->residency_institute_address }}
+                                                                  {{ isset($data->education->residency_institute_address) ? $data->education->residency_institute_address : null }}
                                                                   <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample12" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                   Map</a>
                                                                </h1>
@@ -715,7 +719,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">{{ $data->education->residency_institute_city->city }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->residency_institute_city->city) ? $data->education->residency_institute_city->city : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -726,7 +730,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">{{ $data->education->residency_institute_state->state }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->residency_institute_state->state) ? $data->education->residency_institute_state->state : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -752,7 +756,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Name of Institute</h3>
-                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_name }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->fellowship_institute_name) ? $data->education->fellowship_institute_name : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -763,7 +767,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Started</h3>
-                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_year_started }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->fellowship_institute_year_started) ? $data->education->fellowship_institute_year_started : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -774,7 +778,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Year Completed</h3>
-                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_year_completed }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->fellowship_institute_year_completed) ? $data->education->fellowship_institute_year_completed : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -788,7 +792,7 @@
                                                             <div>
                                                                <h3 class="_title">Address</h3>
                                                                <h1 class="_detail">
-                                                                  {{ $data->education->fellowship_institute_address }}
+                                                                  {{ isset($data->education->fellowship_institute_address) ? $data->education->fellowship_institute_address : null }}
                                                                   <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample14" aria-expanded="true"><i class="las la-map-marker"></i>View
                                                                   Map</a>
                                                                </h1>
@@ -812,7 +816,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_city->city }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->fellowship_institute_city->city) ? $data->education->fellowship_institute_city->city : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -823,7 +827,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">{{ $data->education->fellowship_institute_state->state }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->education->fellowship_institute_state->state) ? $data->education->fellowship_institute_state->state : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -870,7 +874,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->professional->medicare_enrolled == 1 ? 'YES' : 'NO' }}
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ (isset($data->professional->medicare_enrolled) && $data->professional->medicare_enrolled == 1) ? 'YES' : 'NO' }}
                                              </h1>
                                              <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
@@ -880,7 +884,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">{{ $data->professional->medicare_state->state }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->professional->medicare_state->state) ? $data->professional->medicare_state->state : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -891,7 +895,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Medicare Number</h3>
-                                                         <h1 class="_detail">{{ $data->professional->medicare_number }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->professional->medicare_number) ? $data->professional->medicare_number : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -917,7 +921,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $data->professional->medicaid_enrolled == 1 ? 'YES' : 'NO' }}
+                                             <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ (isset($data->professional->medicaid_enrolled) && $data->professional->medicaid_enrolled == 1) ? 'YES' : 'NO' }}
                                              </h1>
                                              <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
@@ -927,7 +931,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">{{ $data->professional->medicaid_state->state }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->professional->medicaid_state->state) ? $data->professional->medicaid_state->state : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -938,7 +942,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Medicaid Number</h3>
-                                                         <h1 class="_detail">{{ $data->professional->medicaid_number }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->professional->medicaid_number) ? $data->professional->medicaid_number : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -952,10 +956,12 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
+                                             @isset($data->professional->age_ranges)
                                              @foreach($data->professional->age_ranges as $index => $ageRange)
                                              <h1 class="_title">{{ $ageRange->age_range_treated }}
                                              </h1>
                                              @endforeach
+                                             @endisset
                                           </div>
                                        </div>
                                        <div class="_card mt-3">
@@ -964,6 +970,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
+                                             @isset($data->professional->state_licenses)
                                              @foreach($data->professional->state_licenses as $index => $stateLicense)
                                              <div class="row">
                                                 <div class="col-12 col-sm-4">
@@ -993,6 +1000,7 @@
                                              <br>
                                              @endif
                                              @endforeach
+                                             @endisset
                                           </div>
                                        </div>
                                        <div class="_card mt-3">
@@ -1001,6 +1009,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
+                                             @isset($data->professional->board_certificates)
                                              @foreach($data->professional->board_certificates as $index => $boardCertificate)
                                              <div class="row">
                                                 <div class="col-12 col-sm-4">
@@ -1030,6 +1039,7 @@
                                              <br>
                                              @endif
                                              @endforeach
+                                             @endisset
                                           </div>
                                        </div>
                                        <div class="_card mt-3">
@@ -1045,6 +1055,7 @@
                                     </div>
                                     <div class="tab-pane fade" id="WORKHISTORY" role="tabpanel" aria-labelledby="WORKHISTORY-tab">
                                        <ul>
+                                          @isset($data->background)
                                           @foreach($data->background as $index => $workHistory)
                                           <li>
                                              <div class="_card mt-3">
@@ -1060,7 +1071,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Company</h3>
-                                                               <h1 class="_detail">{{ $workHistory->company_name }}</h1>
+                                                               <h1 class="_detail">{{ isset($workHistory->company_name) ? $workHistory->company_name : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1071,7 +1082,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Position/Title</h3>
-                                                               <h1 class="_detail">{{ $workHistory->position }}</h1>
+                                                               <h1 class="_detail">{{ isset($workHistory->position) ? $workHistory->position : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1082,7 +1093,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Reason for leaving</h3>
-                                                               <h1 class="_detail">{{ $workHistory->work_gap_reason }}</h1>
+                                                               <h1 class="_detail">{{ isset($workHistory->work_gap_reason) ? $workHistory->work_gap_reason : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1095,7 +1106,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Country</h3>
-                                                               <h1 class="_detail">{{ $workHistory->country->name }}</h1>
+                                                               <h1 class="_detail">{{ isset($workHistory->country->name) ? $workHistory->country->name : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1106,7 +1117,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">City</h3>
-                                                               <h1 class="_detail">{{ $workHistory->city->city }}</h1>
+                                                               <h1 class="_detail">{{ isset($workHistory->city->city) ? $workHistory->city->city : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1117,7 +1128,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">State</h3>
-                                                               <h1 class="_detail">{{ $workHistory->state->state }}</h1>
+                                                               <h1 class="_detail">{{ isset($workHistory->state->state) ? $workHistory->state->state : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1130,7 +1141,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Start Date</h3>
-                                                               <h1 class="_detail">{{ date('m-d-Y', strtotime($workHistory->start_date)) }}</h1>
+                                                               <h1 class="_detail">{{ isset($workHistory->start_date) ? date('m-d-Y', strtotime($workHistory->start_date)) : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1141,7 +1152,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">End Date</h3>
-                                                               <h1 class="_detail">{{ date('m-d-Y', strtotime($workHistory->end_date)) }}</h1>
+                                                               <h1 class="_detail">{{ isset($workHistory->end_date) ? date('m-d-Y', strtotime($workHistory->end_date)) : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1151,8 +1162,10 @@
                                              </div>
                                           </li>
                                           @endforeach
+                                          @endisset
                                     </div>
                                     <div class="tab-pane fade" id="ATTESTATONS" role="tabpanel" aria-labelledby="ATTESTATONS-tab">
+                                       @isset($data->attestation)
                                        @foreach($data->attestation as $index => $attestation)
                                        @if($index == 0)
                                        <div class="_card mt-3">
@@ -1328,6 +1341,7 @@
                                        </div>
                                        @endif
                                        @endforeach
+                                       @endisset
                                     </div>
                                     </div>
                                  </div>
@@ -1361,7 +1375,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Name on account</h3>
-                                                         <h1 class="_detail">{{ $data->deposit->account_name }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->deposit->account_name) ? $data->deposit->account_name : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1372,7 +1386,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Type of account</h3>
-                                                         <h1 class="_detail">{{ $data->deposit->account_type }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->deposit->account_type) ? $data->deposit->account_type : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1385,7 +1399,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Rounting number <span class="text-info">(where to find this)</span></h3>
-                                                         <h1 class="_detail">{{ $data->deposit->routing_number }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->deposit->routing_number) ? $data->deposit->routing_number : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1398,7 +1412,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Account  number <span class="text-info">(where to find this)</span></h3>
-                                                         <h1 class="_detail">{{ $data->deposit->account_number }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->deposit->account_number) ? $data->deposit->account_number : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1412,7 +1426,7 @@
                                                       <div>
                                                          <h3 class="_title">Address on account line 1</h3>
                                                          <h1 class="_detail">
-                                                            {{ $data->deposit->address_line_1 }}
+                                                            {{ isset($data->deposit->address_line_1) ? $data->deposit->address_line_1 : null }}
                                                             <a class="btn btn-info btn-sm ml-2" data-toggle="collapse"
                                                                href="#collapseExample16"><i class="las la-map-marker"></i>View
                                                             Map</a>
@@ -1438,7 +1452,7 @@
                                                       <div>
                                                          <h3 class="_title">Address on account line 2</h3>
                                                          <h1 class="_detail">
-                                                            {{ $data->deposit->address_line_2 }}
+                                                            {{ isset($data->deposit->address_line_2) ? $data->deposit->address_line_2 : null }}
                                                             <a class="btn btn-info btn-sm ml-2" data-toggle="collapse"
                                                                href="#collapseExample17"><i class="las la-map-marker"></i>View
                                                             Map</a>
@@ -1463,7 +1477,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">City</h3>
-                                                         <h1 class="_detail">{{ $data->deposit->city->city }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->deposit->city->city) ? $data->deposit->city->city : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1474,7 +1488,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">{{ $data->deposit->state->state }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->deposit->state->state) ? $data->deposit->state->state : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1485,7 +1499,7 @@
                                                       </div>
                                                       <div>
                                                          <h3 class="_title">Zip Code</h3>
-                                                         <h1 class="_detail">{{ $data->deposit->zip }}</h1>
+                                                         <h1 class="_detail">{{ isset($data->deposit->zip) ? $data->deposit->zip : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1528,7 +1542,7 @@
                                                             </div>
                                                             <div>
                                                                <h3 class="_title">Send tax documents to</h3>
-                                                               <h1 class="_detail">{{ $data->deposit->send_tax_documents_to }}</h1>
+                                                               <h1 class="_detail">{{ isset($data->deposit->send_tax_documents_to) ? $data->deposit->send_tax_documents_to : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
@@ -1540,7 +1554,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Legal entity</h3>
-                                                            <h1 class="_detail">{{ $data->deposit->legal_entity }}</h1>
+                                                            <h1 class="_detail">{{ isset($data->deposit->legal_entity) ? $data->deposit->legal_entity : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -1555,7 +1569,7 @@
                                                          </div>
                                                          <div>
                                                             <h3 class="_title">Taxpayer identification Number</h3>
-                                                            <h1 class="_detail">{{ $data->deposit->tax_payer_id_number }}</h1>
+                                                            <h1 class="_detail">{{ isset($data->deposit->tax_payer_id_number) ? $data->deposit->tax_payer_id_number : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -1611,7 +1625,7 @@
                                                                      </div>
                                                                      <div>
                                                                         <h3 class="_title">Phone number</h3>
-                                                                        <h1 class="_detail">{{ $data->applicant->phone }}</h1>
+                                                                        <h1 class="_detail">{{ isset($data->applicant->phone) ? $data->applicant->phone : null }}</h1>
                                                                      </div>
                                                                   </div>
                                                                </div>
@@ -1623,7 +1637,7 @@
                                                                   </div>
                                                                   <div>
                                                                      <h3 class="_title">SSN</h3>
-                                                                     <h1 class="_detail">{{ $data->applicant->ssn }}</h1>
+                                                                     <h1 class="_detail">{{ isset($data->applicant->ssn) ? $data->applicant->ssn : null }}</h1>
                                                                   </div>
                                                                </div>
                                                             </div>
@@ -1634,7 +1648,7 @@
                                                                   </div>
                                                                   <div>
                                                                      <h3 class="_title">Date of Birth</h3>
-                                                                     <h1 class="_detail">{{ date('m-d-Y', strtotime($data->dob)) }}</h1>
+                                                                     <h1 class="_detail">{{ isset($data->dob) ? date('m-d-Y', strtotime($data->dob)) : null }}</h1>
                                                                   </div>
                                                                </div>
                                                             </div>
@@ -1742,6 +1756,7 @@
                                           <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
                                          </li>
                                          <li> -->
+                                            @isset($data->documents)
                                           @foreach($data->documents as $document)
                                           @if($document->type == 1)
                                           <div class="_card mt-3">
@@ -1756,6 +1771,7 @@
                                           </div>
                                           @endif
                                           @endforeach
+                                            @endisset
                                          </li>
                                        </ul>
                                         <!-- View ID Proof button End -->
@@ -1770,6 +1786,7 @@
                                            <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
                                           </li> -->
                                           <li>
+                                             @isset($data->documents)
                                            @foreach($data->documents as $document)
                                           @if($document->type == 2)
                                           <div class="_card mt-3">
@@ -1784,6 +1801,7 @@
                                           </div>
                                           @endif
                                           @endforeach
+                                          @endisset
                                           </li>
                                         </ul>
                                          <!-- View Degree Proof button End -->
@@ -1798,6 +1816,7 @@
                                         <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
                                        </li> -->
                                        <li>
+                                          @isset($data->documents)
                                        @foreach($data->documents as $document)
                                        @if($document->type == 3)
                                        <div class="_card mt-3">
@@ -1812,6 +1831,7 @@
                                        </div>
                                        @endif
                                        @endforeach
+                                       @endisset
                                        </li>
                                      </ul>
                                       <!-- View Medical Report button End -->
@@ -1826,6 +1846,7 @@
                                            <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
                                           </li> -->
                                           <li>
+                                             @isset($data->documents)
                                           @foreach($data->documents as $document)
                                           @if($document->type == 4)
                                           <div class="_card mt-3">
@@ -1840,6 +1861,7 @@
                                           </div>
                                           @endif
                                           @endforeach
+                                          @endisset
                                           </li>
                                         </ul>
                                          <!-- View Insurance Reports button End -->

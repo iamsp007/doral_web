@@ -63,88 +63,55 @@ $(function () {
                     if (row.status!=="completed"){
                         appointment_title = row.title;
                         html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' + '<img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +'Start Meeting</button>';
-                        // html+='<button type="button" onclick="onAppointmentBroadCast('+row.patient_id+')"'+ 'class="btn btn-broadcast">RoadL  Broadcast<span></span>'+'</button>';
-                    //    html+= '<select name="assign_clinician" id="assign_clinician" class="form-control select assign_clinician" multiple><option value="Melania Trump">Melania Trump</option></select>'
+                       var vals = [];
+                       $.each(row.roadl,function (key,value) {
+                           vals.push(value.referral_type)
+                       })
+                       var listRequestType=['LAB','X-RAY','Home Oxygen','CHHA'];
+                       var options='';
+                       $.each(listRequestType,function (key,value) {
+                           console.log(vals[vals.indexOf(value)]===value)
+                           if (vals[vals.indexOf(value)]===value){
+                               options+='<li>\n' +
+                                   ' \n' +
+                                   '              <label class="radio-btn">\n' +
+                                   ' \n' +
+                                   '                  <input type="checkbox" onclick="onAppointmentBroadCast(this,'+row.id+','+row.patient_id+')" value="'+value+'" checked="">\n' +
+                                   ' \n' +
+                                   '                  '+value+'\n' +
+                                   ' \n' +
+                                   '              </label>\n' +
+                                   ' \n' +
+                                   '          </li>';
+                           }else {
+                               options+='<li>\n' +
+                                   ' \n' +
+                                   '              <label class="radio-btn">\n' +
+                                   ' \n' +
+                                   '                  <input type="checkbox" onclick="onAppointmentBroadCast(this,'+row.id+','+row.patient_id+')" value="'+value+'" >\n' +
+                                   ' \n' +
+                                   '                  '+value+'\n' +
+                                   ' \n' +
+                                   '              </label>\n' +
+                                   ' \n' +
+                                   '          </li>';
+                           }
+
+                       })
 
                         html+='<div class="dropdown cq-dropdown" data-name=\'statuses\'>\n' +
                             ' \n' +
-                            '        <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
+                            '        <button class="btn btn-outline-info btn-lg dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
                             ' \n' +
                             '          Start RoadL\n' +
                             ' \n' +
-                            '          <span class="caret"></span>\n' +
+                            '          <span class=""></span>\n' +
                             ' \n' +
                             '        </button>\n' +
                             ' \n' +
-                            '        <ul class="dropdown-menu" aria-labelledby="btndropdown">\n' +
+                            '        <ul class="dropdown-menu p-3" aria-labelledby="btndropdown">\n' +
                             ' \n' +
-                            '          <li>\n' +
-                            ' \n' +
-                            '              <label class="radio-btn">\n' +
-                            ' \n' +
-                            '                  <input type="checkbox" value="1" checked>\n' +
-                            ' \n' +
-                            '                  Lab\n' +
-                            ' \n' +
-                            '              </label>\n' +
-                            ' \n' +
-                            '          </li>\n' +
-                            ' \n' +
-                            '        <li>\n' +
-                            ' \n' +
-                            '              <label class="radio-btn">\n' +
-                            ' \n' +
-                            '                  <input type="checkbox" value="2">\n' +
-                            ' \n' +
-                            '                  X-Ray\n' +
-                            ' \n' +
-                            '              </label>\n' +
-                            ' \n' +
-                            '          </li>\n' +
-                            ' \n' +
-                            '          <li>\n' +
-                            ' \n' +
-                            '              <label class="radio-btn">\n' +
-                            ' \n' +
-                            '                  <input type="checkbox" value="2">\n' +
-                            ' \n' +
-                            '                  Blood\n' +
-                            ' \n' +
-                            '              </label>\n' +
-                            ' \n' +
-                            '          </li>\n' +
-                            ' \n' +
-                            '          <li>\n' +
-                            ' \n' +
-                            '              <label class="radio-btn">\n' +
-                            ' \n' +
-                            '                  <input type="checkbox" value="3" checked>\n' +
-                            ' \n' +
-                            '                  JavaScript\n' +
-                            ' \n' +
-                            '              </label>\n' +
-                            ' \n' +
-                            '          </li>\n' +
-                            ' \n' +
-                            '          <li>\n' +
-                            ' \n' +
-                            '              <label class="radio-btn">\n' +
-                            ' \n' +
-                            '                  <input type="checkbox" value="4" checked>\n' +
-                            ' \n' +
-                            '                  CSS\n' +
-                            ' \n' +
-                            '              </label>\n' +
-                            ' \n' +
-                            '          </li>\n' +
-                            ' \n' +
-                            '          <li class=\'text-center\'>\n' +
-                            ' \n' +
-                            '              <button type=\'button\' class=\'btn btn-xs btn-danger clear close-dropdown\' value=\'Clear\'>Clear</button>\n' +
-                            ' \n' +
-                            '              <button type=\'button\' class=\'btn btn-xs btn-success save\' value=\'Save\'>Save</button>\n' +
-                            ' \n' +
-                            '          </li>\n' +
+                            '          '+options+'\n' +
                             ' \n' +
                             '        </ul>\n' +
                             ' \n' +
@@ -526,7 +493,8 @@ function onSavePatientInformation(element) {
     console.log($('input[name="physical_examination_report"]:checked').serialize());
 }
 
-function onAppointmentBroadCast(patient_id) {
+function onAppointmentBroadCast(e,appointemnt_id,patient_id,appointment_title="Test") {
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -535,7 +503,9 @@ function onAppointmentBroadCast(patient_id) {
         method:'POST',
         data:{
             patient_id:patient_id,
-            reason:appointment_title
+            appointemnt_id:appointemnt_id,
+            reason:appointment_title,
+            type:$(e).val()
         },
         dataType:'json',
         success:function (response) {

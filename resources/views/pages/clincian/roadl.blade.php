@@ -71,19 +71,25 @@
                                         @endif
                                     </ul>
                                 </div>
-                                <style>
-                                    .app .app-content .app-body .app-broadcasting .rside ._lside {width: 300px;}
-                                    .app .app-content .app-body .app-broadcasting .rside .specification li.referralCompany{color: #000;font-weight: 600;}
-                                    .app .app-content .app-body .app-broadcasting .rside .specification li.referralCompany span{color: #006c76;font-weight: 600;}
-                                </style>
+
                                 <div class="_rside">
                                     <ul class="actionBar">
-                                        <li>
-                                            <ul class="specification">
-                                                <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Referral Company:&nbsp;&nbsp;<span>Cottage Home Care</span></li>
-                                                <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Request Type:&nbsp;&nbsp;<span>Lab</span></li>
-                                            </ul>
-                                        </li>
+                                        @if(isset($value->patient_detail->detail->referral) && !empty($value->patient_detail->detail->referral))
+                                            <li>
+                                                <ul class="specification">
+                                                    <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Referral Company:&nbsp;&nbsp;<span>{{ $value->patient_detail->detail->referral->name }}</span></li>
+                                                    <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Request Type:&nbsp;&nbsp;<span>{{ isset($value->appointment_type->referral_type)?$value->appointment_type->referral_type:'Default' }}</span></li>
+                                                </ul>
+                                            </li>
+                                        @else
+                                            <li>
+                                                <ul class="specification">
+                                                    <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Referral Company:&nbsp;&nbsp;<span>Doral</span></li>
+                                                    <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Request Type:&nbsp;&nbsp;<span>{{ isset($value->appointment_type->referral_type)?$value->appointment_type->referral_type:'Default' }}</span></li>
+                                                </ul>
+                                            </li>
+                                        @endif
+
                                             <li>
                                                 <button type="button"
                                                     onclick="window.location.href = '{{ route('start.call',['patient_request_id'=>$value->id]) }}'"
@@ -123,6 +129,11 @@
 @endsection
 
 @push('styles')
+    <style>
+        .app .app-content .app-body .app-broadcasting .rside ._lside {width: 300px;}
+        .app .app-content .app-body .app-broadcasting .rside .specification li.referralCompany{color: #000;font-weight: 600;}
+        .app .app-content .app-body .app-broadcasting .rside .specification li.referralCompany span{color: #006c76;font-weight: 600;}
+    </style>
 @endpush
 
 @push('scripts')

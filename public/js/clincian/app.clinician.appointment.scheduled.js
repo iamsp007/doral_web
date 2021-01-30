@@ -68,15 +68,15 @@ $(function () {
                            vals.push(value.referral_type)
                        })
                        var listRequestType=['LAB','X-RAY','Home Oxygen','CHHA'];
+                       var roadlbuttonStatus=true;
                        var options='';
                        $.each(listRequestType,function (key,value) {
-                           console.log(vals[vals.indexOf(value)]===value)
                            if (vals[vals.indexOf(value)]===value){
                                options+='<li>\n' +
                                    ' \n' +
                                    '              <label class="radio-btn">\n' +
                                    ' \n' +
-                                   '                  <input type="checkbox" onclick="onAppointmentBroadCast(this,'+row.id+','+row.patient_id+')" value="'+value+'" checked="">\n' +
+                                   '                  <input type="checkbox" onclick="onAppointmentBroadCast(this,'+row.id+','+row.patient_id+')" value="'+value+'" checked="true" disabled="disabled">\n' +
                                    ' \n' +
                                    '                  '+value+'\n' +
                                    ' \n' +
@@ -98,24 +98,27 @@ $(function () {
                            }
 
                        })
+                        if (roadlbuttonStatus===true){
+                            html+='<div class="dropdown cq-dropdown" data-name=\'statuses\'>\n' +
+                                ' \n' +
+                                '        <button class="btn btn-outline-info btn-lg dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
+                                ' \n' +
+                                '          Start RoadL\n' +
+                                ' \n' +
+                                '          <span class=""></span>\n' +
+                                ' \n' +
+                                '        </button>\n' +
+                                ' \n' +
+                                '        <ul class="dropdown-menu p-3" aria-labelledby="btndropdown">\n' +
+                                ' \n' +
+                                '          '+options+'\n' +
+                                ' \n' +
+                                '        </ul>\n' +
+                                ' \n' +
+                                '      </div>';
+                        }
 
-                        html+='<div class="dropdown cq-dropdown" data-name=\'statuses\'>\n' +
-                            ' \n' +
-                            '        <button class="btn btn-outline-info btn-lg dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
-                            ' \n' +
-                            '          Start RoadL\n' +
-                            ' \n' +
-                            '          <span class=""></span>\n' +
-                            ' \n' +
-                            '        </button>\n' +
-                            ' \n' +
-                            '        <ul class="dropdown-menu p-3" aria-labelledby="btndropdown">\n' +
-                            ' \n' +
-                            '          '+options+'\n' +
-                            ' \n' +
-                            '        </ul>\n' +
-                            ' \n' +
-                            '      </div>';
+
                         if (row.status!=="cancel"){
                             html+='<div class="popbox">\n' +
                                 '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +
@@ -509,6 +512,7 @@ function onAppointmentBroadCast(e,appointemnt_id,patient_id,appointment_title="T
         },
         dataType:'json',
         success:function (response) {
+            table.ajax().reload();
             alert(response.message)
         },
         error:function (error,responseText) {

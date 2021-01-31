@@ -101,7 +101,7 @@ $(function () {
                         if (roadlbuttonStatus===true){
                             html+='<div class="dropdown cq-dropdown" data-name=\'statuses\'>\n' +
                                 ' \n' +
-                                '        <button class="btn btn-outline-info btn-lg dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
+                                '        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
                                 ' \n' +
                                 '          Start RoadL\n' +
                                 ' \n' +

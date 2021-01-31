@@ -27,7 +27,15 @@
                                             </span>
                                     </h1>
                                     <p class="address">
-                                        {{ isset($value->patient_detail->detail)?$value->patient_detail->detail->address_1.','.$value->patient_detail->detail->address_2:'latitude : '.$value->patient_detail->latitude.'  ,  longitude :'.$value->patient_detail->longitude }}
+                                        @if(isset($value->patient_detail->detail->address_1) && !empty($value->patient_detail->detail->address_1))
+                                            {{ $value->patient_detail->detail->address_1 }}
+                                        @elseif(isset($value->patient_detail->detail->address_2) && !empty($value->patient_detail->detail->address_2))
+                                            {{ $value->patient_detail->detail->address_2 }}
+                                        @elseif(isset($value->patient_detail->detail->address_latlng) && !empty($value->patient_detail->detail->address_latlng))
+                                            {{ 'latitude : '.$value->patient_detail->detail->address_latlng->lat.', longitude : '.$value->patient_detail->detail->address_latlng->lng }}
+                                        @else
+                                            {{ 'latitude : '.$value->patient_detail->latitude.'  ,  longitude :'.$value->patient_detail->longitude }}
+                                        @endif
                                     </p>
                                     <p class="emergency_contact mb-2 d-none"> Emergency Contact
                                         <a href="tel:9966246684" class="primary_tel d-none">{{ $value->patient_detail->phone }}</a>

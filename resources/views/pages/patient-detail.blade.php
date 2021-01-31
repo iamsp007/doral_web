@@ -759,7 +759,7 @@
                                 <form id="homecare-form">
                                     <div class="app-card app-card-custom" data-name="home_care">
                                     <div class="app-card-header">
-                                        <h1 class="title mr-2">Home Care</h1>
+                                        <h1 class="title mr-2">{{ isset($details->detail->referral->referral->name) && $details->detail->referral->referral->name==='Home Care'?$details->detail->referral->referral->name:'ADD Home Care' }}</h1>
                                         <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip"
                                              data-placement="bottom" title="Edit" class="cursor-pointer d-block edit-icon" alt=""
                                              onclick="editAllField('homecare')">
@@ -770,79 +770,159 @@
                                     <div class="head scrollbar scrollbar4">
                                         <input type="hidden" name="patient_id" value="{{ $details->id }}">
                                         <div class="p-3">
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-12 col-sm-4">
-                                                        <div class="d-flex align-items-center">
-                                                            <div>
-                                                                <i class="las la-user-nurse circle"></i>
-                                                            </div>
-                                                            <div>
-                                                                <h3 class="_title">Name</h3>
-                                                                <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
-                                                                <input type="text"
-                                                                       class="form-control-plaintext _detail no-height" readonly
-                                                                       name="name" data-id="name"
-                                                                       onclick="editableField('name')" id="name"
-                                                                       placeholder="Lorem Ipsum" value="Lorem Ipsum">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-4">
-                                                        <div class="d-flex align-items-center">
-                                                            <div>
-                                                                <i class="las la-user-nurse circle"></i>
-                                                            </div>
-                                                            <div>
-                                                                <h3 class="_title">Coordinator</h3>
-                                                                <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
-                                                                <input type="text"
-                                                                       class="form-control-plaintext _detail no-height" readonly
-                                                                       name="coordinator" data-id="coordinator"
-                                                                       onclick="editableField('coordinator')" id="coordinator"
-                                                                       placeholder="Lorem Ipsum" value="Lorem Ipsum">
+                                            @if(isset($details->detail->referral->referral->name) && $details->detail->referral->referral->name==='Home Care')
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-4">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <i class="las la-user-nurse circle"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Name</h3>
+                                                                    <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
+                                                                    <input type="text"
+                                                                           class="form-control-plaintext _detail no-height" readonly
+                                                                           name="name" data-id="name"
+                                                                           onclick="editableField('name')" id="name"
+                                                                           placeholder="{{ $details->detail->referral->name }}" value="{{ $details->detail->referral->name }}">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-4">
-                                                        <div class="d-flex align-items-center">
-                                                            <div>
-                                                                <i class="las la-user-nurse circle"></i>
+                                                        <div class="col-12 col-sm-4">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <i class="las la-user-nurse circle"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Coordinator</h3>
+                                                                    <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
+                                                                    <input type="text"
+                                                                           class="form-control-plaintext _detail no-height" readonly
+                                                                           name="coordinator" data-id="coordinator"
+                                                                           onclick="editableField('coordinator')" id="coordinator"
+                                                                           placeholder="" value="">
+                                                                </div>
                                                             </div>
-                                                            <div>
-                                                                <h3 class="_title">Phone</h3>
-                                                                <!-- <h1 class="_detail">(555) 555-5555</h1> -->
-                                                                <input type="tel"
-                                                                       class="form-control-plaintext _detail no-height" readonly
-                                                                       name="hc_phone" data-id="hc_phone"
-                                                                       onclick="editableField('hc_phone')" id="hc_phone"
-                                                                       placeholder="(555) 555-5555" value="(555) 555-5555">
+                                                        </div>
+                                                        <div class="col-12 col-sm-4">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <i class="las la-user-nurse circle"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Phone</h3>
+                                                                    <!-- <h1 class="_detail">(555) 555-5555</h1> -->
+                                                                    <input type="tel"
+                                                                           class="form-control-plaintext _detail no-height" readonly
+                                                                           name="hc_phone" data-id="hc_phone"
+                                                                           onclick="editableField('hc_phone')" id="hc_phone"
+                                                                           placeholder="{{ $details->detail->referral->phone }}" value="{{ $details->detail->referral->phone }}">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mt-3">
-                                                <div class="col-12 col-sm-12">
-                                                    <div class="d-flex align-items-center mb-3">
-                                                        <div>
-                                                            <i class="las la-map-marker circle"></i>
-                                                        </div>
-                                                        <div>
-                                                            <h3 class="_title">Address</h3>
-                                                            <!-- <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                                                               <span>97232</span>
-                                                            </h1> -->
-                                                            <textarea id="hc_address" name="hc_address" rows="4" cols="62" class="form-control-plaintext _detail no-height" readonly onclick="editableField('hc_address')" placeholder="4009 Heron Way, Portland OR Oregon,97232" value="4009 Heron Way, Portland OR Oregon,97232">
-                                                      4009 Heron Way, Portland OR Oregon,97232
-                                                      </textarea>
-                                                            <!-- <a class="btn btn-info btn-sm ml-2 collapsed" data-toggle="collapse" href="#collapseExample11" aria-expanded="false"><i class="las la-map-marker"></i>View
-                                                               Map</a> -->
+                                                <div class="row mt-3">
+                                                    <div class="col-12 col-sm-12">
+                                                        <div class="d-flex align-items-center mb-3">
+                                                            <div>
+                                                                <i class="las la-map-marker circle"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h3 class="_title">Address</h3>
+                                                                <!-- <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
+                                                                   <span>97232</span>
+                                                                </h1> -->
+                                                                <textarea id="hc_address" name="hc_address" rows="4" cols="62" class="form-control-plaintext _detail no-height" readonly onclick="editableField('hc_address')"
+                                                                          placeholder=""
+                                                                          value="">
 
+                                                          </textarea>
+                                                                <!-- <a class="btn btn-info btn-sm ml-2 collapsed" data-toggle="collapse" href="#collapseExample11" aria-expanded="false"><i class="las la-map-marker"></i>View
+                                                                   Map</a> -->
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @else
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-4">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <i class="las la-user-nurse circle"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Name</h3>
+                                                                    <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
+                                                                    <input type="text"
+                                                                           class="form-control-plaintext _detail no-height" readonly
+                                                                           name="name" data-id="name"
+                                                                           onclick="editableField('name')" id="name"
+                                                                           placeholder="" value="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-4">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <i class="las la-user-nurse circle"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Coordinator</h3>
+                                                                    <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
+                                                                    <input type="text"
+                                                                           class="form-control-plaintext _detail no-height" readonly
+                                                                           name="coordinator" data-id="coordinator"
+                                                                           onclick="editableField('coordinator')" id="coordinator"
+                                                                           placeholder="" value="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-4">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <i class="las la-user-nurse circle"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Phone</h3>
+                                                                    <!-- <h1 class="_detail">(555) 555-5555</h1> -->
+                                                                    <input type="tel"
+                                                                           class="form-control-plaintext _detail no-height" readonly
+                                                                           name="hc_phone" data-id="hc_phone"
+                                                                           onclick="editableField('hc_phone')" id="hc_phone"
+                                                                           placeholder="" value="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <div class="col-12 col-sm-12">
+                                                        <div class="d-flex align-items-center mb-3">
+                                                            <div>
+                                                                <i class="las la-map-marker circle"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h3 class="_title">Address</h3>
+                                                                <!-- <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
+                                                                   <span>97232</span>
+                                                                </h1> -->
+                                                                <textarea id="hc_address" name="hc_address" rows="4" cols="62" class="form-control-plaintext _detail no-height" readonly onclick="editableField('hc_address')"
+                                                                          placeholder=""
+                                                                          value="">
+
+                                                          </textarea>
+                                                                <!-- <a class="btn btn-info btn-sm ml-2 collapsed" data-toggle="collapse" href="#collapseExample11" aria-expanded="false"><i class="las la-map-marker"></i>View
+                                                                   Map</a> -->
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
                                             <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
                                                  data-name="administrator_detail">
                                                 <div class="app-card-header">

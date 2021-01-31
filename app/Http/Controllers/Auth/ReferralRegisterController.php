@@ -207,12 +207,7 @@ class ReferralRegisterController extends Controller
         $company->phone = $data['mobile'];
         $company->referal_id = $data['referralType'];
         $company->password = Hash::make($data['password']);
-        $role_name = Referral::where(['id'=>$data['referralType']])->first();
-        if ($role_name){
-            $company->assignRole($role_name->name);
-        }else{
-            $company->assignRole('admin');
-        }
+        $company->assignRole('admin');
         return $company->save();
     }
 }

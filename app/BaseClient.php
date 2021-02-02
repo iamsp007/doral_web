@@ -56,7 +56,6 @@ class BaseClient
         try {
             return $response =  $this->client->request($method, $uri, $options);
         } catch (ClientException $e) {
-
             if (401 == $e->getCode()) {
 
                 $this->acquireToken();
@@ -104,7 +103,7 @@ class BaseClient
             $response  = json_decode($r->getBody()->getContents());
 
             if ($response->status===true){
-                cache(['ADMIN_SSO_TOKEN' => $response->data->token_type.' '.$response->data->access_token],60);
+                cache(['ADMIN_SSO_TOKEN' => $response->data->token_type.' '.$response->data->access_token]);
             }
         } catch (\Exception $e) {
         }

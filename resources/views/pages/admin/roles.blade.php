@@ -1,4 +1,4 @@
-@extends('pages.admin.layouts.app')
+@extends('pages.layouts.app')
 @section('content')
 <div class="app-roles">
     <div class="app-roles-title-box rounded d-shadow">

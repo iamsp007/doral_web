@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\ReferralWelcomeMail;
 use App\Models\Company;
 use App\Models\Partner;
+use App\Models\Referral;
+use App\Models\Role;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

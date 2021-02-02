@@ -32,6 +32,11 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 {{--    <script src="{{ asset('js/clincian/map.js') }}"></script>--}}
     <script>
+        socket.on('receive-location',function (data) {
+            console.log(data,"receive-location")
+        })
+    </script>
+    <script>
         var patient_request_id = $('#patient_request_id').val();
         function getNearByClinicianList(callback) {
             $.ajax({
@@ -63,13 +68,18 @@
 
 
                 getNearByClinicianList( (response,patientDetail)=> {
-                    console.log(response,patientDetail)
+
+                    var title='';
+                    if (patientDetail.detail){
+                        title=patientDetail.detail.first_name+' '+patientDetail.detail.last_name;
+                    }
+
                     const map = new google.maps.Map(document.getElementById("map"), {
                         zoom: 12,
                         center: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
                         icon:iconBase+'patient-icon.svg',
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
-                        title: patientDetail.detail.first_name+' '+patientDetail.detail.last_name,
+                        title: title,
                         disableDefaultUI: true,
                         mapTypeControl: true,
                         zoomControl: true,
@@ -91,7 +101,7 @@
                         icon:iconBase+'clinician-sb-select.svg',
                         map: map,
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
-                        title: patientDetail.detail.first_name+' '+patientDetail.detail.last_name,
+                        title: title,
                     });
 
                     var circle = new google.maps.Circle({
@@ -101,7 +111,7 @@
                         icon:iconBase+'patient-icon.svg',
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
                         radius: ((5 * 1000)*0.62137),    // 5 miles in metres
-                        label: patientDetail.detail.first_name+' '+patientDetail.detail.last_name,
+                        label: title,
                         title: '5 km area of circle',
                     });
                     circle.bindTo('center', cmarker, 'position');

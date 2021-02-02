@@ -10,14 +10,13 @@ Initialize the Firebase app in the service worker by passing in the messagingSen
 * New configuration for app@pulseservice.com
 */
 firebase.initializeApp({
-    apiKey: "AIzaSyC5rTr8rSUyQeKlbaAHW1Xo-ezNoQO0dUE",
-    authDomain: "doral-roadl.firebaseapp.com",
-    databaseURL: "https://doral-roadl.firebaseio.com",
-    projectId: "doral-roadl",
-    storageBucket: "doral-roadl.appspot.com",
-    messagingSenderId: "606071434218",
-    appId: "1:606071434218:web:8ba9b96b1af8ff8309a093",
-    measurementId: "G-KD0Q9SKM36"
+    apiKey: "AIzaSyCVKDvGuHvojFULepdxiU4h1I5mzM4Rxoc",
+    authDomain: "laravel-2732a.firebaseapp.com",
+    projectId: "laravel-2732a",
+    storageBucket: "laravel-2732a.appspot.com",
+    messagingSenderId: "105532575378",
+    appId: "1:105532575378:web:caa2aa50e10a09299de04b",
+    measurementId: "G-FV0QNKBBTC"
 });
 
 /*
@@ -25,19 +24,14 @@ Retrieve an instance of Firebase Messaging so that it can handle background mess
 */
 const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function(payload) {
-    console.log(
-        "[firebase-messaging-sw.js] Received background message ",
-        payload,
-    );
-    /* Customize notification here */
-    const notificationTitle = "Background Message Title";
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    // Customize notification here
+    const notificationTitle = 'Background Message Title';
     const notificationOptions = {
-        body: "Background Message body.",
-        icon: "/itwonders-web-logo.png",
+        body: 'Background Message body.',
+        icon: '/firebase-logo.png'
     };
 
-    return self.registration.showNotification(
-        notificationTitle,
-        notificationOptions,
-    );
+    return self.registration.showNotification(notificationTitle,
+        notificationOptions);
 });

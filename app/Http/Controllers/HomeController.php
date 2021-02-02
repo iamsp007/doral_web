@@ -35,10 +35,20 @@ class HomeController extends Controller
     }
 
     public function saveToken(Request $request){
-        $response = $this->adminService->saveToken($request->all());
-        if ($response->status===true){
-            return response()->json($response,200);
+        if (Auth::check()){
+            $user = User::find(Auth::user()->id);
+            if ($user){
+                $user->web_token = $request->device_token;
+                $user->save();
+                return response()->json([
+                    'status'=>true,
+                    'message'=>'Device Token update successfully'
+                ],200);
+            }
         }
-        return response()->json($response,422);
+        return response()->json([
+            'status'=>false,
+            'message'=>'Device Token Not update'
+        ],422);
     }
 }

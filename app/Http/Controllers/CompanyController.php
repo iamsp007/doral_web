@@ -6,6 +6,7 @@ use App\Models\company;
 use App\Models\CurlModel\CurlFunction;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
+use App\Models\Services;
 use Exception;
 
 class CompanyController extends Controller
@@ -332,14 +333,32 @@ class CompanyController extends Controller
         $status = 0;
         $message = "";
         $record = [];
+        $services = Services::select('id','name')->where('display_type',1)->get();
         $adminServices = new AdminService();
         $responseArray = $adminServices->getProfile($id);
         if($responseArray->status===true) {
             $record = $responseArray->data;
-            return view('pages.admin.referral-profile')->with('record',$record);
+            return view('pages.admin.referral-profile')->with('record',$record)->with('services',$services);
         }
         $message = $responseArray->message;
 
         return redirect()->back()->with('errors',$message);
+    }
+
+    /**
+     * Profile Update
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProfile(request $request)
+    {
+        $data = $request->all();
+        $id = $request['id'];
+        $status = 0;
+        $message = "";
+        $record = [];
+        $adminServices = new AdminService();
+        $dataobj = $adminServices->updateProfile($data);
+       return json_encode($dataobj);
     }
 }

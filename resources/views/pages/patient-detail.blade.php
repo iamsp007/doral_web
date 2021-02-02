@@ -59,6 +59,22 @@
                                     Care</a>
                             </li>
                             <li>
+                                <a class="nav-link d-flex align-items-center" id="ccm-tab" data-toggle="pill"
+                                   href="#ccm" role="tab" aria-controls="ccm" aria-selected="false">
+                                    <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
+                                    <img src="{{ asset('assets/img/icons/icons_clinical_active.svg') }}" alt=""
+                                         class="mr-2 activeIcon">
+                                    CCM</a>
+                            </li>
+                            <li>
+                                <a class="nav-link d-flex align-items-center" id="rpm-tab" data-toggle="pill"
+                                   href="#rpm" role="tab" aria-controls="rpm" aria-selected="false">
+                                    <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
+                                    <img src="{{ asset('assets/img/icons/icons_clinical_active.svg') }}" alt=""
+                                         class="mr-2 activeIcon">
+                                    RPM</a>
+                            </li>
+                            <li>
                                 <a class="nav-link d-flex align-items-center" id="clinical-tab" data-toggle="pill"
                                    href="#clinical" role="tab" aria-controls="clinical" aria-selected="false">
                                     <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
@@ -1206,6 +1222,26 @@
                                 </form>
                             </div>
                             <!-- Home Care End -->
+                            <!-- CCM Start -->
+                            <div class="tab-pane fade" id="ccm" role="tabpanel"
+                                 aria-labelledby="ccm-tab">
+                                <div class="app-card app-card-custom" data-name="clinical">
+                                    <div class="app-card-header">
+                                        <h1 class="title">CCM</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CCM End -->
+                            <!-- CCM Start -->
+                            <div class="tab-pane fade" id="rpm" role="tabpanel"
+                                 aria-labelledby="rpm-tab">
+                                <div class="app-card app-card-custom" data-name="clinical">
+                                    <div class="app-card-header">
+                                        <h1 class="title">RPM</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CCM End -->
                             <!-- Clinical Start -->
                             <div class="tab-pane fade" id="clinical" role="tabpanel"
                                  aria-labelledby="clinical-tab">
@@ -1255,6 +1291,11 @@
                                                     <a class="nav-link rounded-0" id="cover-note-tab" data-toggle="pill"
                                                        href="#cover-note" role="tab" aria-controls="cover-note"
                                                        aria-selected="false">Cover Note</a>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link rounded-0" id="lab-tab" data-toggle="pill"
+                                                       href="#lab" role="tab" aria-controls="lab"
+                                                       aria-selected="false">Lab</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -1549,6 +1590,945 @@
                                                     Content goes here..
                                                 </div>
                                                 <!-- Cover Note End-->
+                                                <!-- Lab Start-->
+                                                <div class="tab-pane fade" id="lab" role="tabpanel"
+                                                    aria-labelledby="lab-tab">
+                                                    <ul class="nav nav-pills nav-clinical-nested shadow-sm mb-3" id="pills-tab"
+                                                        role="tablist">
+                                                        <!-- PPD Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link active" id="ppd-tab" data-toggle="pill" href="#ppd"
+                                                            role="tab" aria-controls="ppd"
+                                                            aria-selected="false">PPD/QuantiFERON</a>
+                                                        </li>
+                                                        <!-- PPD End -->
+                                                        <!-- TB Screen Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="tb-screen-tab" data-toggle="pill"
+                                                            href="#tb-screen" role="tab" aria-controls="tb-screen"
+                                                            aria-selected="true">TB Screen</a>
+                                                        </li>
+                                                        <!-- TB Screen End -->
+                                                        <!-- Rubeola Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="rubeola-tab" data-toggle="pill"
+                                                            href="#rubeola" role="tab" aria-controls="rubeola"
+                                                            aria-selected="false">Rubeola</a>
+                                                        </li>
+                                                        <!-- Rubeola End -->
+                                                        <!-- Rubeola MMR1 Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="rubeola-mmr1-tab" data-toggle="pill"
+                                                            href="#rubeola-mmr1" role="tab" aria-controls="rubeola-mmr1"
+                                                            aria-selected="false">Rubeola MMR1</a>
+                                                        </li>
+                                                        <!-- Rubeola MMR1 End -->
+                                                        <!-- Rubeola MMR2 Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="rubeola-mmr2-tab" data-toggle="pill"
+                                                            href="#rubeola-mmr2" role="tab" aria-controls="rubeola-mmr2"
+                                                            aria-selected="false">Rubeola MMR2</a>
+                                                        </li>
+                                                        <!-- Rubeola MMR2 End -->
+                                                        <!-- Rubella Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="rubella-tab" data-toggle="pill"
+                                                            href="#rubella" role="tab" aria-controls="rubella"
+                                                            aria-selected="false">Rubella</a>
+                                                        </li>
+                                                        <!-- Rubella End -->
+                                                        <!-- Rubella MMR Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="rubella-mmr-tab" data-toggle="pill"
+                                                            href="#rubella-mmr" role="tab" aria-controls="rubella-mmr"
+                                                            aria-selected="false">Rubella MMR</a>
+                                                        </li>
+                                                        <!-- Rubella MMR End -->
+                                                        <!-- Facemask Provided Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="facemask-provided-tab" data-toggle="pill"
+                                                            href="#facemask-provided" role="tab"
+                                                            aria-controls="facemask-provided" aria-selected="false">Facemask
+                                                            Provided</a>
+                                                        </li>
+                                                        <!-- Facemask Provided End -->
+                                                        <!-- Drug Screen Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="drug-screen-tab" data-toggle="pill"
+                                                            href="#drug-screen" role="tab" aria-controls="drug-screen"
+                                                            aria-selected="false">Drug Screen</a>
+                                                        </li>
+                                                        <!-- Drug Screen End -->
+                                                        <!-- Annual Health Assessment Start -->
+                                                        <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="annual-health-assessment-tab"
+                                                            data-toggle="pill" href="#annual-health-assessment" role="tab"
+                                                            aria-controls="annual-health-assessment"
+                                                            aria-selected="false">Annual Health Assessment</a>
+                                                        </li>
+                                                        <!-- Annual Health Assessment End -->
+                                                        <!-- Flu Vaccine Start -->
+                                                        <!-- <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="flu-vaccine-tab" data-toggle="pill"
+                                                            href="#flu-vaccine" role="tab" aria-controls="flu-vaccine"
+                                                            aria-selected="false">Flu Vaccine</a>
+                                                        </li> -->
+                                                        <!-- Flu Vaccine End -->
+                                                    </ul>
+                                                    <div class="tab-content" id="pills-tabContent">
+                                                        <!-- PPD Start -->
+                                                        <div class="tab-pane fade show active" id="ppd" role="tabpanel"
+                                                        aria-labelledby="ppd-tab">
+                                                        <div class="app-vbc ppd_block p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img
+                                                                    src="../assets/img/icons/tuberculosis.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3"
+                                                                    id="ppdbtn" onclick="openRoadL('ppdbtn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest1"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-4"
+                                                                        id="ppdTable">
+                                                                        <thead class="thead-light">
+                                                                            <tr class="bg-danger">
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Insert Date</th>
+                                                                                <th scope="col">Read Date</th>
+                                                                                <th scope="col">Expiry Date(Till 1 years valid)
+                                                                                </th>
+                                                                                <th>Result</th>
+                                                                                <th>Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <th scope="row">1</th>
+                                                                                <td>28/08/1981</td>
+                                                                                <td>28/08/1986</td>
+                                                                                <td>28/08/1986</td>
+                                                                                <td>Positive</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp0')" id="exp0"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr class="explode d-none">
+                                                                                <td colspan="6">
+                                                                                <div class="pt-3 _title1">Your Report is
+                                                                                    <span class="text-green">Positive</span>
+                                                                                    <p class="mt-3 text-green">You need to
+                                                                                        have <span class="text-underline">Chest
+                                                                                            X-Ray report</span>.</p>
+                                                                                </div>
+                                                                                <table class="table table-bordered mt-4">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th scope="col">#</th>
+                                                                                            <th scope="col">Date Of X-Ray</th>
+                                                                                            <th scope="col">Expiry Date(Till 5
+                                                                                            years valid)
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <th scope="row">#</th>
+                                                                                            <td>28/08/1981</td>
+                                                                                            <td>28/08/1986</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th scope="row">#</th>
+                                                                                            <td><input type="text"
+                                                                                                class="form-control"
+                                                                                                name="xraydate"
+                                                                                                value="10/24/1984" /></td>
+                                                                                            <td>28/08/1986</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row">2</th>
+                                                                                <td>28/08/1981</td>
+                                                                                <td>28/08/1986</td>
+                                                                                <td>28/08/1986</td>
+                                                                                <td>Negative</td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row">3</th>
+                                                                                <td><input type="text" class="form-control"
+                                                                                    name="xraydate" value="10/24/1984" /></td>
+                                                                                <td><input type="text" class="form-control"
+                                                                                    name="xraydate" value="10/24/1984" /></td>
+                                                                                <td>28/08/1986</td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-2"></div>
+                                                                    <div class="col-12 col-sm-8">
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-2"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- PPD End -->
+                                                        <!-- TB Screen Start -->
+                                                        <div class="tab-pane fade" id="tb-screen" role="tabpanel"
+                                                        aria-labelledby="tb-screen-tab">
+                                                        <div class="app-vbc ppd_block p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img
+                                                                    src="../assets/img/icons/patient-img.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3" id="tbbtn"
+                                                                    onclick="openRoadL('tbbtn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest2"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-5">
+                                                                        <thead class="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Date Of Screening</th>
+                                                                                <th scope="col">Expiry Date(Valid till 1 years)
+                                                                                </th>
+                                                                                <th scope="col">Type</th>
+                                                                                <th scope="col">Result</th>
+                                                                                <th scope="col">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <th scope="row">1</th>
+                                                                                <td>28/08/1981</td>
+                                                                                <td>28/08/1986</td>
+                                                                                <td>Gold</td>
+                                                                                <td>Positive</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp1')" id="exp1"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr class="explode1 d-none">
+                                                                                <td colspan="6">
+                                                                                <div class="pt-3 _title1">Your Report is
+                                                                                    <span class="text-green">Positive</span>
+                                                                                    <p class="mt-3 text-green">You need to
+                                                                                        have <span class="text-underline">Chest
+                                                                                            X-Ray report</span>.</p>
+                                                                                </div>
+                                                                                <table class="table table-bordered mt-4">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th scope="col">#</th>
+                                                                                            <th scope="col">Date Of X-Ray</th>
+                                                                                            <th scope="col">Expiry Date(Till 5
+                                                                                            years valid)
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <th scope="row">#</th>
+                                                                                            <td>28/08/1981</td>
+                                                                                            <td>28/08/1986</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th scope="row">#</th>
+                                                                                            <td><input type="text"
+                                                                                                class="form-control"
+                                                                                                name="xraydate"
+                                                                                                value="10/24/1984" /></td>
+                                                                                            <td>28/08/1986</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row">2</th>
+                                                                                <td>28/08/1981</td>
+                                                                                <td>28/08/1986</td>
+                                                                                <td>Gold Plus</td>
+                                                                                <td>Negative</td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row">3</th>
+                                                                                <td><input type="text" class="form-control"
+                                                                                    name="xraydate" value="10/24/1984" /></td>
+                                                                                <td>28/08/1986</td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- TB Screen End -->
+                                                        <!-- Rubeola Start -->
+                                                        <div class="tab-pane fade" id="rubeola" role="tabpanel"
+                                                        aria-labelledby="rubeola-tab">
+                                                        <div class="app-vbc p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img src="../assets/img/icons/rubeola.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3"
+                                                                    id="rubeolabtn" onclick="openRoadL('rubeolabtn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest3"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-5">
+                                                                        <thead class="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Due Date</th>
+                                                                                <th scope="col">Date Performed</th>
+                                                                                <th scope="col">Result</th>
+                                                                                <th scope="col">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <td scope="row">1</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>Positive</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp4')" id="exp4"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- Rubeola End -->
+                                                        <!-- Rubeola MMR1 Start -->
+                                                        <div class="tab-pane fade" id="rubeola-mmr1" role="tabpanel"
+                                                        aria-labelledby="rubeola-mmr1-tab">
+                                                        <div class="app-vbc p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img src="../assets/img/icons/rubeola.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3"
+                                                                    id="mmr1btn" onclick="openRoadL('mmr1btn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest4"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-5">
+                                                                        <thead class="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Due Date</th>
+                                                                                <th scope="col">Date Performed</th>
+                                                                                <th scope="col">Result</th>
+                                                                                <th scope="col">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <td scope="row">1</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>Positive</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp4')" id="exp4"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- Rubeola MMR1 End -->
+                                                        <!-- Rubeola MMR2 Start -->
+                                                        <div class="tab-pane fade" id="rubeola-mmr2" role="tabpanel"
+                                                        aria-labelledby="rubeola-mmr2-tab">
+                                                        <div class="app-vbc p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img src="../assets/img/icons/rubeola.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3"
+                                                                    id="mmr2btn" onclick="openRoadL('mmr2btn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest5"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-5">
+                                                                        <thead class="thead-light">
+                                                                            <tr class="bg-danger text-white">
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Due Date</th>
+                                                                                <th scope="col">Date Performed</th>
+                                                                                <th scope="col">Result</th>
+                                                                                <th scope="col">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <td scope="row">#</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>Positive</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp4')" id="exp4"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- Rubeola MMR2 End -->
+                                                        <!-- Rubella Start -->
+                                                        <div class="tab-pane fade" id="rubella" role="tabpanel"
+                                                        aria-labelledby="rubella-tab">
+                                                        <div class="app-vbc p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img src="../assets/img/icons/rubeola.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3"
+                                                                    id="rubellabtn" onclick="openRoadL('rubellabtn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest6"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-4">
+                                                                        <thead class="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Due Date</th>
+                                                                                <th scope="col">Date Performed</th>
+                                                                                <th scope="col">Result</th>
+                                                                                <th scope="col">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <td scope="row">1</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>Positive</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp5')" id="exp5"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- Rubella End -->
+                                                        <!-- Rubella MMR Start -->
+                                                        <div class="tab-pane fade" id="rubella-mmr" role="tabpanel"
+                                                        aria-labelledby="rubella-mmr-tab">
+                                                        <div class="app-vbc p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img src="../assets/img/icons/rubeola.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3"
+                                                                    id="rubellaMMRbtn" onclick="openRoadL('rubellaMMRbtn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest7"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-4">
+                                                                        <thead class="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Due Date</th>
+                                                                                <th scope="col">Date Performed</th>
+                                                                                <th scope="col">Result</th>
+                                                                                <th scope="col">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <td scope="row">#</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>Positive</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp6')" id="exp6"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- Rubella MMR End -->
+                                                        <!-- Facemask Provided Start -->
+                                                        <div class="tab-pane fade" id="facemask-provided" role="tabpanel"
+                                                        aria-labelledby="facemask-provided-tab">
+                                                        <div class="app-vbc p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img src="../assets/img/icons/facemask.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3"
+                                                                    id="facemaskbtn" onclick="openRoadL('facemaskbtn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest8"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-4">
+                                                                        <thead class="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Due Date</th>
+                                                                                <th scope="col">Date Performed</th>
+                                                                                <th scope="col">Result</th>
+                                                                                <th scope="col">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <td scope="row">1</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>Positive</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp7')" id="exp7"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- Facemask Provided End -->
+                                                        <!-- Drug Screen Start -->
+                                                        <div class="tab-pane fade" id="drug-screen" role="tabpanel"
+                                                        aria-labelledby="drug-screen-tab">
+                                                        <div class="app-vbc p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img
+                                                                    src="../assets/img/icons/drug screening.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3"
+                                                                    id="drugscreenbtn" onclick="openRoadL('drugscreenbtn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest9"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-4">
+                                                                        <thead class="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Due Date</th>
+                                                                                <th scope="col">Date Performed</th>
+                                                                                <th scope="col">Result</th>
+                                                                                <th scope="col">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <td scope="row">1</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>Positive</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp8')" id="exp8"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- Drug Screen End -->
+                                                        <!-- Annual Health Assessment Start -->
+                                                        <div class="tab-pane fade" id="annual-health-assessment"
+                                                        role="tabpanel" aria-labelledby="annual-health-assessment-tab">
+                                                        <div class="app-vbc p-3">
+                                                            <div class="add-new-patient">
+                                                                <div class="icon"><img
+                                                                    src="../assets/img/icons/annual_health_management.svg"
+                                                                    class="img-fluid" /></div>
+                                                                <button type="submit"
+                                                                    class="continue-btn d-table mr-auto ml-auto mt-3"
+                                                                    id="annualbtn" onclick="openRoadL('annualbtn')"
+                                                                    style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                    name="Continue">RoadL Request</button>
+                                                                <div class="recieved_roadl d-none">
+                                                                    <div class="row">
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    <div class="col-12 col-sm-4">
+                                                                        <div class="row">
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <select id="roadlrequest10"
+                                                                                class="form-control select roadlrequest"
+                                                                                multiple></select>
+                                                                            </div>
+                                                                            <div class="col-12 col-sm-6">
+                                                                                <button type="submit" class="continue-btn"
+                                                                                style="width: inherit;font-size: 18px;padding-left: 10px;padding-right: 10px;"
+                                                                                name="Continue">Start RoadL</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-4"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                    <div class="col-12 col-sm-10">
+                                                                    <table class="table table-bordered table-hover mt-4">
+                                                                        <thead class="thead-light">
+                                                                            <tr>
+                                                                                <th scope="col">#</th>
+                                                                                <th scope="col">Due Date</th>
+                                                                                <th scope="col">Date Performed</th>
+                                                                                <th scope="col">Result</th>
+                                                                                <th scope="col">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr class="bg-danger text-white">
+                                                                                <td scope="row">#</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>10/24/1984</td>
+                                                                                <td>Completed</td>
+                                                                                <td class='text-center'><span
+                                                                                    onclick="exploder('exp9')" id="exp9"
+                                                                                    class="exploder"><i
+                                                                                        class="las la-plus la-2x"></i></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-1"></div>
+                                                                </div>
+                                                                <div class="d-flex pt-4 justify-content-center">
+                                                                    <button type="submit" class="cancel-btn mr-2"
+                                                                    name="Cancel">Cancel</button>
+                                                                    <button type="submit" class="continue-btn"
+                                                                    name="Save">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!-- Annual Health Assessment End -->
+                                                        <!-- Flu Vaccine Start -->
+                                                        <!-- <div class="tab-pane fade" id="flu-vaccine" role="tabpanel"
+                                                        aria-labelledby="flu-vaccine-tab">
+                                                        Content goes here...
+                                                        </div> -->
+                                                        <!-- Flu Vaccine End -->
+                                                    </div>
+                                                </div>
+                                                <!-- Lab End-->
                                             </div>
                                         </div>
                                     </div>
@@ -2081,6 +3061,7 @@
 @endpush
 
 @push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />

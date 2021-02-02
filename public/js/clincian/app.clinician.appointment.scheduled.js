@@ -29,7 +29,7 @@ $(function () {
                     return 'Other';
                 }
             },
-            {data:'service.name',name:'service.name',"bSortable": true},
+            {data:'Note',name:'Note',"bSortable": true},
             {
                 data:'patients.dob',
                 name:'patients.dob',
@@ -52,7 +52,7 @@ $(function () {
                     return '<div class="blink_me"><div id="countdown'+row.id+'"></div></div>';
                 }
             },
-            {data:'start_datetime',name:'start_datetime',"bSortable": true},
+            {data:'status',name:'status',"bSortable": true},
             {
                 data:'id',
                 name:'id',
@@ -62,13 +62,63 @@ $(function () {
                     var html='';
                     if (row.status!=="completed"){
                         appointment_title = row.title;
-                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' +
-                            '                                                <img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +
-                            '                                                Start Meeting</button>';
+                        html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' + '<img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +'Start Meeting</button>';
+                       var vals = [];
+                       $.each(row.roadl,function (key,value) {
+                           vals.push(value.referral_type)
+                       })
+                       var listRequestType=['LAB','X-RAY','Home Oxygen','CHHA'];
+                       var roadlbuttonStatus=true;
+                       var options='';
+                       $.each(listRequestType,function (key,value) {
+                           if (vals[vals.indexOf(value)]===value){
+                               options+='<li>\n' +
+                                   ' \n' +
+                                   '              <label class="radio-btn">\n' +
+                                   ' \n' +
+                                   '                  <input type="checkbox" onclick="onAppointmentBroadCast(this,'+row.id+','+row.patient_id+')" value="'+value+'" checked="true" disabled="disabled">\n' +
+                                   ' \n' +
+                                   '                  '+value+'\n' +
+                                   ' \n' +
+                                   '              </label>\n' +
+                                   ' \n' +
+                                   '          </li>';
+                           }else {
+                               options+='<li>\n' +
+                                   ' \n' +
+                                   '              <label class="radio-btn">\n' +
+                                   ' \n' +
+                                   '                  <input type="checkbox" onclick="onAppointmentBroadCast(this,'+row.id+','+row.patient_id+')" value="'+value+'" >\n' +
+                                   ' \n' +
+                                   '                  '+value+'\n' +
+                                   ' \n' +
+                                   '              </label>\n' +
+                                   ' \n' +
+                                   '          </li>';
+                           }
 
-                        html+='<div class="broadcast_box"> <button type="button" onclick="onAppointmentBroadCast('+row.patient_id+')"'+
-                                'class="btn btn-broadcast btn-block">RoadL Broadcast<span></span>'+
-                            '</button></div>';
+                       })
+                        if (roadlbuttonStatus===true){
+                            html+='<div class="dropdown cq-dropdown" data-name=\'statuses\'>\n' +
+                                ' \n' +
+                                '        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
+                                ' \n' +
+                                '          Start RoadL\n' +
+                                ' \n' +
+                                '          <span class=""></span>\n' +
+                                ' \n' +
+                                '        </button>\n' +
+                                ' \n' +
+                                '        <ul class="dropdown-menu p-3" aria-labelledby="btndropdown">\n' +
+                                ' \n' +
+                                '          '+options+'\n' +
+                                ' \n' +
+                                '        </ul>\n' +
+                                ' \n' +
+                                '      </div>';
+                        }
+
+
                         if (row.status!=="cancel"){
                             html+='<div class="popbox">\n' +
                                 '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +
@@ -160,8 +210,7 @@ $(function () {
     }
 
     $('.app-video').hide();
-
-
+    $('.btn-broadcast').hide();
     $('.scheduled-call').on('click', function () {
 
     })
@@ -213,6 +262,9 @@ $(function () {
         search: true
     });
     tail.select(".hepatitis_B", {
+        search: true
+    });
+    tail.select(".assign_clinician", {
         search: true
     });
     $('.promptBox').hide(),
@@ -444,7 +496,8 @@ function onSavePatientInformation(element) {
     console.log($('input[name="physical_examination_report"]:checked').serialize());
 }
 
-function onAppointmentBroadCast(patient_id) {
+function onAppointmentBroadCast(e,appointemnt_id,patient_id,appointment_title="Test") {
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -453,10 +506,13 @@ function onAppointmentBroadCast(patient_id) {
         method:'POST',
         data:{
             patient_id:patient_id,
-            reason:appointment_title
+            appointemnt_id:appointemnt_id,
+            reason:appointment_title,
+            type:$(e).val()
         },
         dataType:'json',
         success:function (response) {
+            table.ajax().reload();
             alert(response.message)
         },
         error:function (error,responseText) {

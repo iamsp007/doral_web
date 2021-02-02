@@ -41,32 +41,42 @@ class PatientController extends Controller
     }
 
     public function getPatientList(Request $request){
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->getPatientList($request->all());
-        if ($response->status===true){
-            return DataTables::of($response->data)->make(true);
-        }
-        return DataTables::of($response)->make(true);
+
+        $patientList = PatientReferral::with('detail','service','filetype')
+            ->whereHas('detail',function ($q){
+                $q->where('status','=','1');
+            });
+
+//        $clinicianService = new ClinicianService();
+//        $response = $clinicianService->getPatientList($request->all());
+//        if ($response->status===true){
+//            return DataTables::of($response->data)->make(true);
+//        }
+        return DataTables::of($patientList)->make(true);
     }
 
     public function getNewPatientList(Request $request){
-
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->getNewPatientList($request->all());
-        $data=[];
-        if ($response->status===true){
-            $data=$response->data;
-        }
-        return  DataTables::of($data)
+        $patientList = PatientReferral::with('detail','service','filetype')
+            ->where('first_name','!=',null)
+            ->where('status','=','pending');
+//        $clinicianService = new ClinicianService();
+//        $response = $clinicianService->getNewPatientList($request->all());
+//        $data=[];
+//        if ($response->status===true){
+//            $data=$response->data;
+//        }
+        return  DataTables::of($patientList)
             ->addIndexColumn()
             ->addColumn('action', function($row){
 
-                if ($row->detail->status==='0'){
-                    $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm" onclick="changePatientStatus(this,1)">Accept</a>';
+                if ($row->detail){
+                    if ($row->detail->status==='0'){
+                        $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-sm" style="background: #006c76; color: #fff" onclick="changePatientStatus(this,1)">Accept</a>';
 
-                    $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm" onclick="changePatientStatus(this,0)">Reject</a>';
+                        $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm" style="background: #eaeaea; color: #000" onclick="changePatientStatus(this,0)">Reject</a>';
 
-                    return $btn;
+                        return $btn;
+                    }
                 }
                 return '';
             })

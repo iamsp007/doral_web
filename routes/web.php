@@ -30,6 +30,8 @@ Route::get('/partner/login','\App\Http\Controllers\Auth\PartnerLoginController@s
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('check');
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
+    Route::post('/add-insurance','\App\Http\Controllers\PatientController@addInsurance')->name('patient.addInsurance');
+    Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
 });
 
 
@@ -56,12 +58,10 @@ Route::group(['middleware'=>['auth','role:admin|supervisor|referral|clinician|co
     Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('patient.detail');
+    Route::get('/patient-medicine-list/{patient_id}','\App\Http\Controllers\PatientController@patientMedicineList')->name('patient.medician.list');
+    Route::post('/add-medicine','\App\Http\Controllers\PatientController@addMedicine')->name('add.medicine');
 });
 Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
 
-Route::group(['middleware'=>['auth:referral']],function (){
-    Route::get('/referral/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('patient.detail');
-});
-
-Route::post('/start','\App\Http\Controllers\Clincian\RoomController@startArchive');
-Route::post('/zoom-generate_signature','\App\Http\Controllers\Clincian\RoomController@zoomGenerateSignature');
+Route::post('/start','\App\Http\Controllers\Clinician\RoomController@startArchive');
+Route::post('/zoom-generate_signature','\App\Http\Controllers\Clinician\RoomController@zoomGenerateSignature');

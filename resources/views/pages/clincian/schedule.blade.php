@@ -1,15 +1,12 @@
 @extends('pages.layouts.app')
-
 @section('title','Schedule Appointment List')
 @section('pageTitleSection')
     Schedule Appointment List
 @endsection
-
 @section('content')
     <div class="app-roles">
         <!-- View Employee List HTML -->
         <div class="pt-2">
-
             <table id="appointmentScheduled" class="table">
                 <thead>
                 <tr>
@@ -24,7 +21,6 @@
                 </tr>
                 </thead>
                 <tbody>
-
                 </tbody>
             </table>
         </div>
@@ -36,7 +32,6 @@
             <div class="app-video-left videoSection">
                 <div class="app-video-header shadow-sm">
                     <div class="pt-2 pb-0 pl-3" id="patient-information">
-
                     </div>
                 </div>
             </div>
@@ -45,7 +40,8 @@
             <div class="app-video-left b-tab active" id="orange">
                 <div class="video_container">
                     <!-- added on import -->
-                    <div id="zmmtg-root"></div>
+                    <div id="zmmtg-root" style="width: 95% !important; height: 300px !important;  "></div>
+
                 </div>
             </div>
             <div class="app-video-left b-tab" id="green">
@@ -906,63 +902,38 @@
         </div>
     </div>
 @endsection
-
 @push('styles')
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/bootstrap.css" />
      <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
-    <style>
-        .suspension-window {
-            transform: translate(-444px, 10px) !important;
-        }
-        #zmmtg-root, .meeting-client, .meeting-client-inner {
-            width: 100% !important;
-
-            position: relative !important;
-
-        }
-        .meeting-app{width: inherit!important;height:inherit!important;}
-        .active-video-container__wrap{width:100%!important}
-        #my-video{width:100%!important}
-        #wc-footer {
-            bottom: auto !important;
-            /*width: 95% !important;*/
-        }
-
-        #dialog-join {
-            width: 1000px !important;
-        }
-
-        #sv-active-video, .active-main, #sv-active-speaker-view, .main-layout {
-            height: 500px !important;
-            width: 1000px !important;
-        }
-        .join-dialog{width: inherit!important}
-
-        .suspension-window {
-            transform: translate(-444px, 10px) !important;
-        }
-
-        #dialog-invite {
-            display: none;
-        }
-    </style>
+      <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
+{{--    <style>--}}
+{{--        html, body {overflow: auto;}--}}
+{{--        body > #zmmtg-root {display: none;}--}}
+{{--        #zmmtg-root, .meeting-client, .meeting-client-inner {position: relative;width:97%;}--}}
+{{--        #wc-footer {--}}
+{{--        bottom: auto !important;width: 97% !important;}--}}
+{{--        #dialog-join {width: 97% !important;}--}}
+{{--        #sv-active-video, .active-main, #sv-active-speaker-view, .main-layout {height: 100% !important;width: 100% !important;}--}}
+{{--        .suspension-window {transform: translate(-444px, 10px) !important;}--}}
+{{--        #dialog-invite {display: none;}--}}
+{{--        .video_container{background:none!important;position:relative!important;}--}}
+{{--        .app-video .app-video-body .app-video-middle{position:relative;}--}}
+{{--        .app-video .app-video-header{position:relative;z-index:9999;}--}}
+{{--    </style>--}}
 @endpush
-
 @push('scripts')
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script>
        var scheduleAppointmentAjax = "{{  route('clinician.scheduleAppoimentList.ajax') }}";
        var patient_detail_url = "{{  url('/patient-detail/') }}";
     </script>
-
     <script src="https://source.zoom.us/1.8.3/lib/vendor/react.min.js"></script>
     <script src="https://source.zoom.us/1.8.3/lib/vendor/react-dom.min.js"></script>
     <script src="https://source.zoom.us/1.8.3/lib/vendor/redux.min.js"></script>
@@ -976,7 +947,6 @@
         simd().then((res) => {
             console.log("simd check", res);
         });
-
     </script>
-<script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
+     <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
 @endpush

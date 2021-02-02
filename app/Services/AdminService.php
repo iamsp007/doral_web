@@ -97,6 +97,30 @@ class AdminService
         }
     }
 
+    public function updateProfile($data){
+        try {
+
+            // $response = $this->client->request(
+            //     'POST',
+            //     '/auth/company/update/'.$id
+            // );
+             $response = $this->client->request(
+                'POST',
+                '/auth/company_referral/update',
+                [
+                    'json'=>$data
+                    //'id'=>$id
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
     public function getAppointment(){
         try {
 

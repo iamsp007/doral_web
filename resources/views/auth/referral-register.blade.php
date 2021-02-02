@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="middle register">
         <div class="container">

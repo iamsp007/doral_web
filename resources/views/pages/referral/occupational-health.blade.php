@@ -12,7 +12,7 @@
         {{--            New Patient</a>--}}
         <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-            Bulk Patient Upload</a>
+            Import Patient Upload</a>
     </div>
 @endsection
 @section('content')

@@ -218,9 +218,55 @@
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
     <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
-
     <script>
         $("#loader-wrapper").hide();
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-messaging.js"></script>
+    <script>
+        $(document).ready(function(){
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('{{ asset("js/firebase-messaging-sw.js") }}')
+                    .then(function(registration) {
+                        console.log(1234)
+                        console.log('Registration successful, scope is:', registration.scope);
+                    }).catch(function(err) {
+                    console.log('Service worker registration failed, error:', err);
+                });
+            }
+            const config = {
+                apiKey: "AIzaSyCVKDvGuHvojFULepdxiU4h1I5mzM4Rxoc",
+                authDomain: "laravel-2732a.firebaseapp.com",
+                projectId: "laravel-2732a",
+                storageBucket: "laravel-2732a.appspot.com",
+                messagingSenderId: "105532575378",
+                appId: "1:105532575378:web:caa2aa50e10a09299de04b",
+                measurementId: "G-FV0QNKBBTC"
+            };
+            firebase.initializeApp(config);
+            const messaging = firebase.messaging();
+
+            messaging
+                .requestPermission()
+                .then(function () {
+                    return messaging.getToken()
+                })
+                .then(function(token) {
+                    console.log(token)
+                })
+                .catch(function (err) {
+                    console.log("Unable to get permission to notify.", err);
+                });
+
+            messaging.onMessage(function(payload) {
+                const noteTitle = payload.notification.title;
+                const noteOptions = {
+                    body: payload.notification.body,
+                    icon: payload.notification.icon,
+                };
+                new Notification(noteTitle, noteOptions);
+            });
+        });
     </script>
 @stack('scripts')
 </body>

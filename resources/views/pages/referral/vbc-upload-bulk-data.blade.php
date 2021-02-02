@@ -2,7 +2,7 @@
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')
-    VBC - Bulk Patient Upload
+    VBC - Import Patient Upload
 @endsection
 @section('content')
     <div class="app-vbc">

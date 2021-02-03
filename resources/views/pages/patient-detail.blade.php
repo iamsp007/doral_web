@@ -1594,7 +1594,7 @@
                                                 <!-- Lab Start-->
                                                 <div class="tab-pane fade show active" id="lab-report" role="tabpanel" aria-labelledby="lab-tab">
                                                     <ul class="nav nav-pills nav-clinical-nested shadow-sm mb-3" id="pills-tab" role="tablist">
-                                                        @foreach($labReportTypes as $labReportType)
+                                                        @foreach($labReportTypes as $key => $labReportType)
                                                             <li class="nav-item" role="presentation">
                                                                 <a class="nav-link @if ($key === 0) active @endif" id="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab" data-toggle="pill"
                                                                     href='#{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}'
@@ -2173,7 +2173,6 @@
         defer
     ></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
-
 
 @endpush
 

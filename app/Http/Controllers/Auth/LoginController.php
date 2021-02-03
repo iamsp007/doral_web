@@ -69,6 +69,10 @@ class LoginController extends Controller
             if (Auth::user()->status==='1'){
                 cache(['USERNAME' => $request->email]);
                 cache(['PASSWORD'=>$request->password]);
+                $user = \App\Models\User::find(Auth::user()->id);
+                $user->web_token = $request->device_token;
+                $user->save();
+
                 return $this->sendLoginResponse($request);
             }
 

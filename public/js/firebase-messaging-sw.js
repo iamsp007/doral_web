@@ -11,27 +11,29 @@ Initialize the Firebase app in the service worker by passing in the messagingSen
 */
 firebase.initializeApp({
     apiKey: "AIzaSyCVKDvGuHvojFULepdxiU4h1I5mzM4Rxoc",
-    authDomain: "laravel-2732a.firebaseapp.com",
     projectId: "laravel-2732a",
-    storageBucket: "laravel-2732a.appspot.com",
     messagingSenderId: "105532575378",
-    appId: "1:105532575378:web:caa2aa50e10a09299de04b",
-    measurementId: "G-FV0QNKBBTC"
+    appId: "1:105532575378:web:caa2aa50e10a09299de04b"
 });
 
-/*
-Retrieve an instance of Firebase Messaging so that it can handle background messages.
-*/
+// Retrieve an instance of Firebase Messaging so that it can handle background
+// messages.
 const messaging = firebase.messaging();
+
 messaging.setBackgroundMessageHandler(function(payload) {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    console.log(
+        "[firebase-messaging-sw.js] Received background message ",
+        payload,
+    );
     // Customize notification here
-    const notificationTitle = 'Background Message Title';
+    const notificationTitle = "Background Message Title";
     const notificationOptions = {
-        body: 'Background Message body.',
-        icon: '/firebase-logo.png'
+        body: "Background Message body.",
+        icon: "/itwonders-web-logo.png",
     };
 
-    return self.registration.showNotification(notificationTitle,
-        notificationOptions);
+    return self.registration.showNotification(
+        notificationTitle,
+        notificationOptions,
+    );
 });

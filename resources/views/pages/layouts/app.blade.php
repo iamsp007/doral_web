@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/sidebar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/assign-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" href="{{ asset('css/toaster.css') }}">
@@ -202,7 +204,10 @@
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app.clinician.patient.details.min.js') }}"></script>
     <script>
         var base_url = $('#base_url').val();
         var socket_url = '{{ env("SOCKET_IO_URL") }}';

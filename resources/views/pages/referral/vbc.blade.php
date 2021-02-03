@@ -12,7 +12,7 @@
         {{--            New Patient</a>--}}
         <a href="{{ route('referral.vbc-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-            Import Patient Upload</a>
+            Import Patients</a>
     </div>
 @endsection
 @section('content')

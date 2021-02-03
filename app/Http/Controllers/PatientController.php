@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\DataTables;
 use App\Models\LabReportType;
+use App\Models\PatientLabReport;
 
 class PatientController extends Controller
 {
@@ -17,13 +18,15 @@ class PatientController extends Controller
     }
 
     public function index(Request $request,$paient_id){
-        
         try {
             $response = $this->adminServices->getPatientDetail($paient_id);
             if ($response->status===true){
+                $patientLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id);
+                $ppdquantiferon = $patientLabReports->where('lab_report_type_id', 1)->first();
+             
                 $details = $response->data;
                 $labReportTypes = LabReportType::all();
-                return view('pages.patient-detail',compact('details', 'labReportTypes'));
+                return view('pages.patient-detail',compact('details', 'labReportTypes', 'ppdquantiferon'));
             }
             return redirect()->route('home')->with('errors',$response->message);
         }catch (\Exception $exception){

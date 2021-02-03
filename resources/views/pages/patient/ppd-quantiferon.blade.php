@@ -41,74 +41,68 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-positive text-white">
-                                <th scope="row">1</th>
-                                <td>28/08/1981</td>
+                            @if(! is_null($ppdquantiferon))
+                                <tr class="@if ($ppdquantiferon->result === '1') bg-positive text-white @endif">
+                                    <th scope="row">1</th>
+                                    <td>{{ $ppdquantiferon->due_date }}</td>
+                                    <td>{{ $ppdquantiferon->perform_date }}</td>
+                                    <td>{{ $ppdquantiferon->expiry_date }}</td>
+                                    <td>{{ $ppdquantiferon->lab_result }}</td>
+                                    <td class='text-center'>
+                                        @if ($ppdquantiferon->result === '1')
+                                            <span onclick="exploder('exp0')" id="exp0" class="exploder"><i class="las la-plus la-2x"></i></span>
+                                            <a href="javascript:void(0)"><i class="las la-trash la-2x text-white pl-4"></i></a>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr class="explode d-none">
+                                    <td colspan="6">
+                                    <div class="pt-3 _title1">Your Report is
+                                        <span class="text-green">Positive</span>
+                                        <p class="mt-3 text-green">You need to
+                                            have <span class="text-underline">Chest
+                                                X-Ray report</span>.</p>
+                                    </div>
+                                        <table class="table table-bordered mt-4">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Date Of X-Ray</th>
+                                                <th scope="col">Expiry Date(Till 5
+                                                    years valid)
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">#</th>
+                                                <td>28/08/1981</td>
+                                                <td>28/08/1986</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">#</th>
+                                                <td><input type="text"
+                                                    class="form-control"
+                                                    name="xraydate"
+                                                    value="10/24/1984" /></td>
+                                                <td>28/08/1986</td>
+                                            </tr>
+                                        </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            @else
+                                <tr>
+                                <th scope="row">3</th>
+                                <td><input type="text" class="form-control"
+                                        name="due_date"/></td>
+                                <td><input type="text" class="form-control"
+                                        name="perform_date"/></td>
                                 <td>28/08/1986</td>
-                                <td>28/08/1986</td>
-                                <td>Positive</td>
-                                <td class='text-center'><span
-                                      onclick="exploder('exp0')" id="exp0"
-                                      class="exploder"><i
-                                         class="las la-plus la-2x"></i></span>
-                                   <a href="javascript:void(0)"><i
-                                         class="las la-trash la-2x text-white pl-4"></i></a>
-                                </td>
-                             </tr>
-                            <tr class="explode d-none">
-                                <td colspan="6">
-                                   <div class="pt-3 _title1">Your Report is
-                                      <span class="text-green">Positive</span>
-                                      <p class="mt-3 text-green">You need to
-                                         have <span class="text-underline">Chest
-                                            X-Ray report</span>.</p>
-                                   </div>
-                                    <table class="table table-bordered mt-4">
-                                       <thead>
-                                          <tr>
-                                             <th scope="col">#</th>
-                                             <th scope="col">Date Of X-Ray</th>
-                                             <th scope="col">Expiry Date(Till 5
-                                                years valid)
-                                             </th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <tr>
-                                             <th scope="row">#</th>
-                                             <td>28/08/1981</td>
-                                             <td>28/08/1986</td>
-                                          </tr>
-                                          <tr>
-                                             <th scope="row">#</th>
-                                             <td><input type="text"
-                                                   class="form-control"
-                                                   name="xraydate"
-                                                   value="10/24/1984" /></td>
-                                             <td>28/08/1986</td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                               <th scope="row">2</th>
-                               <td>28/08/1981</td>
-                               <td>28/08/1986</td>
-                               <td>28/08/1986</td>
-                               <td>Negative</td>
-                               <td></td>
-                            </tr>
-                            <tr>
-                               <th scope="row">3</th>
-                               <td><input type="text" class="form-control"
-                                     name="xraydate" value="10/24/1984" /></td>
-                               <td><input type="text" class="form-control"
-                                     name="xraydate" value="10/24/1984" /></td>
-                               <td>28/08/1986</td>
-                               <td></td>
-                               <td></td>
-                            </tr>
+                                <td></td>
+                                <td></td>
+                                </tr> 
+                            @endif
                         </tbody>
                     </table>
                 </div>

@@ -2,7 +2,7 @@
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')
-    Occupational Health - Import Patient Upload
+    Occupational Health - Import Patients
 @endsection
 @section('content')
     <div class="app-vbc">

@@ -30,6 +30,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
     Route::get('/referral-rejected', 'App\Http\Controllers\CompanyController@rejected')->name('admin.referral.rejected');
     Route::post('/referral-status', 'App\Http\Controllers\CompanyController@updateStatus')->name('admin.updateStatus');
     Route::get('/referral-profile/{id}', 'App\Http\Controllers\CompanyController@profile');
+    Route::post('/referral-profile-update', 'App\Http\Controllers\CompanyController@updateProfile')->name('admin.updateProfile');
     Route::post('/loginaccess', 'App\Http\Controllers\Admin\HomeController@login');
     Route::get('/dashboard', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.dashboard');
     Route::get('/', function (){

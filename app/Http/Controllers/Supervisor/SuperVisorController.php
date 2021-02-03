@@ -25,7 +25,7 @@ class SuperVisorController extends Controller
     }
 
     public function viewNewPatients(){
-        $clinician_list = 
+        //$clinician_list = 
         return view($this->view_path.'new_patients_list');
     }
 

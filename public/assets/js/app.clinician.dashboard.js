@@ -20,3 +20,19 @@ $(function () {
         }
     })
 });
+$(document).ready(function(){
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:"clinician/ccm-reading-level-high",
+        method:'GET',
+        dataType:'json',
+        success:function (response) {
+            console.log(response)
+        },
+        error:function (error) {
+            console.log(error)
+        }
+    });
+});

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
@@ -217,57 +218,83 @@
     <script src="{{ asset('js/socket.js') }}"></script>
     <script src="{{ asset('assets/js/sidebar.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
+    <script src="{{ asset('js/toastr.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
     <script>
         $("#loader-wrapper").hide();
     </script>
-    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
     <script>
         $(document).ready(function(){
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('{{ asset("js/firebase-messaging-sw.js") }}')
                     .then(function(registration) {
-                        console.log(1234)
                         console.log('Registration successful, scope is:', registration.scope);
+                        const config = {
+                            apiKey: "AIzaSyC5rTr8rSUyQeKlbaAHW1Xo-ezNoQO0dUE",
+                            projectId: "doral-roadl",
+                            messagingSenderId: "606071434218",
+                            appId: "1:606071434218:web:8ba9b96b1af8ff8309a093"
+                        };
+                        firebase.initializeApp(config);
+                        const messaging = firebase.messaging();
+                        messaging.useServiceWorker(registration)
+                        messaging
+                        .requestPermission()
+                        .then(function () {
+                            console.log("Notification permission granted.");
+
+                            // get the token in the form of promise
+                            return messaging.getToken()
+                        })
+                        .then(function(token) {
+                            // print the token on the HTML page
+                            $.ajax({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                url:'{{ route("save-token") }}',
+                                method:'POST',
+                                dataType:'json',
+                                data:{
+                                    device_token:token
+                                },
+                                success:function (response) {
+
+                                }
+                            })
+                        })
+                        .catch(function (err) {
+                            console.log("Unable to get permission to notify.", err);
+                        });
+
+                        messaging.onMessage(function(payload) {
+                            // var data = JSON.parse(payload.notification.body);
+                            const noteTitle = payload.notification.title;
+                            const noteOptions = {
+                                body: noteTitle,
+                                icon: payload.notification.icon,
+                                "click_action":"https://theURLyouwanttoopen.com/"
+                            };
+                            new Notification(noteTitle, noteOptions).onclick = function (event) {
+                                if (payload.data['gcm.notification.notification_type']==='1'){
+                                    window.location.href=base_url+'clinician/roadl';
+                                }else if (payload.data['gcm.notification.notification_type']==='2'){
+                                    window.location.href=base_url+'clinician/scheduled-appointment';
+                                }
+                            };
+                        });
+
                     }).catch(function(err) {
-                    console.log('Service worker registration failed, error:', err);
-                });
+                        console.log('Service worker registration failed, error:', err);
+                    });
             }
-            const config = {
-                apiKey: "AIzaSyCVKDvGuHvojFULepdxiU4h1I5mzM4Rxoc",
-                authDomain: "laravel-2732a.firebaseapp.com",
-                projectId: "laravel-2732a",
-                storageBucket: "laravel-2732a.appspot.com",
-                messagingSenderId: "105532575378",
-                appId: "1:105532575378:web:caa2aa50e10a09299de04b",
-                measurementId: "G-FV0QNKBBTC"
-            };
-            firebase.initializeApp(config);
-            const messaging = firebase.messaging();
 
-            messaging
-                .requestPermission()
-                .then(function () {
-                    return messaging.getToken()
-                })
-                .then(function(token) {
-                    console.log(token)
-                })
-                .catch(function (err) {
-                    console.log("Unable to get permission to notify.", err);
-                });
-
-            messaging.onMessage(function(payload) {
-                const noteTitle = payload.notification.title;
-                const noteOptions = {
-                    body: payload.notification.body,
-                    icon: payload.notification.icon,
-                };
-                new Notification(noteTitle, noteOptions);
-            });
         });
     </script>
 @stack('scripts')

@@ -22,8 +22,8 @@
                                     <li>
                                         <a href="javascript:void(0)" id="abc" class="appoinment-card selected" data-li-value="1">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" id="t7" data-name="name" >Paula Steve</h1>
@@ -34,8 +34,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card" data-li-value="2">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Donald Trump</h1>
@@ -46,8 +46,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Jeo Biden</h1>
@@ -58,8 +58,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Emmanuel Macron</h1>
@@ -70,8 +70,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Angela Merkel</h1>
@@ -82,8 +82,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Nicolas Sarkozy</h1>
@@ -94,8 +94,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Justin Trudeau</h1>
@@ -106,8 +106,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Boris Johnson</h1>
@@ -118,8 +118,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Édouard Philippe</h1>
@@ -130,8 +130,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">François Hollande</h1>
@@ -142,8 +142,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Marine Le Pen</h1>
@@ -154,8 +154,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Tiphaine Auzière</h1>
@@ -166,8 +166,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Vladimir Putin</h1>
@@ -178,8 +178,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Recep Tayyip Erdoğan</h1>
@@ -190,8 +190,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Sébastien Auzière</h1>
@@ -202,8 +202,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Christophe Castaner</h1>
@@ -214,8 +214,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Christophe Castaner</h1>
@@ -226,8 +226,8 @@
                                     <li>
                                         <a href="javascript:void(0)" class="appoinment-card">
                                             <div class="lside">
-                                                <img src="../assets/img/user/01.png" alt=""
-                                                    srcset="../assets/img/user/01.png" class="user">
+                                                <img src="{{ asset('assets/img/user/01.png') }}" alt=""
+                                                    srcset="{{ asset('assets/img/user/01.png') }}" class="user">
                                             </div>
                                             <div class="rside">
                                                 <h1 class="t7" data-name="name">Christophe Castaner</h1>

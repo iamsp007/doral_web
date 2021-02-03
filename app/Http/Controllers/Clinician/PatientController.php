@@ -41,23 +41,19 @@ class PatientController extends Controller
     }
 
     public function getPatientList(Request $request){
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->getPatientList($request->all());
-        if ($response->status===true){
-            return DataTables::of($response->data)->make(true);
-        }
-        return DataTables::of($response)->make(true);
+        $patientList = PatientReferral::with('detail','service','filetype')
+            ->whereHas('detail',function ($q){
+                $q->where('status','=','1');
+            });
+        return DataTables::of($patientList)->make(true);
     }
 
     public function getNewPatientList(Request $request){
 
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->getNewPatientList($request->all());
-        $data=[];
-        if ($response->status===true){
-            $data=$response->data;
-        }
-        return  DataTables::of($data)
+        $patientList = PatientReferral::with('detail','service','filetype')
+            ->where('first_name','!=',null)
+            ->where('status','=','pending');
+        return  DataTables::of($patientList)
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 if ($row->detail){

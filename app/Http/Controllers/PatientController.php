@@ -21,12 +21,13 @@ class PatientController extends Controller
         try {
             $response = $this->adminServices->getPatientDetail($paient_id);
             if ($response->status===true){
-                $patientLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id);
-                $ppdquantiferon = $patientLabReports->where('lab_report_type_id', 1)->first();
-             
+                $tbpatientLabReport = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
+                
                 $details = $response->data;
-                $labReportTypes = LabReportType::all();
-                return view('pages.patient-detail',compact('details', 'labReportTypes', 'ppdquantiferon'));
+                $labReportTypes = LabReportType::where('status','1')->whereNull('parent_id')->orderBy('sequence', 'asc')->get();
+                $tbLabReportTypes = LabReportType::where('status','1')->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
+              
+                return view('pages.patient-detail',compact('details', 'labReportTypes', 'tbpatientLabReport', 'tbLabReportTypes'));
             }
             return redirect()->route('home')->with('errors',$response->message);
         }catch (\Exception $exception){
@@ -72,6 +73,7 @@ class PatientController extends Controller
     }
 
     public function demographyDataUpdate(Request $request){
+        
         try {
             $response = $this->adminServices->demographyDataUpdate($request->all());
             if ($response->status===true){

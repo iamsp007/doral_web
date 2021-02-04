@@ -95,4 +95,18 @@ class PatientController extends Controller
             return response()->json(['status'=>false,'message'=>$exception->getMessage(),'data'=>null],422);
         }
     }
+
+    public function appointments(Request $request)
+    {
+        try {
+            $payload = $request->all();
+            $response = $this->adminServices->appointments($payload);
+            if ($response->status===true){
+                return response()->json($response,200);
+            }
+            return response()->json($response,422);
+        }catch (\Exception $exception){
+            return response()->json(['status'=>false,'message'=>$exception->getMessage(),'data'=>null],422);
+        }
+    }
 }

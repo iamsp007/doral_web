@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class LabReportType extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'sequence', 'status', 'parent_id',
+    ];
+
+    public function children()
+    {
+      return $this->hasMany('App\LabReportType', 'parent_id');
+    }
+
 }

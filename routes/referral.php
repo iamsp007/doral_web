@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\PatientLabReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'/referral'],function (){
@@ -29,5 +31,7 @@ Route::group(['prefix'=>'/referral'],function (){
         Route::post('/md-order-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store')->name('referral.md-order-upload-bulk-data-store');
         Route::post('/occupational-health-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@storeOccupational')->name('referral.occupational-health-upload-bulk-data-store');
         Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
+
+        Route::post('/lab-report', 'App\Http\Controllers\PatientLabReportController@store')->name('lab-report.store');
     });
 });

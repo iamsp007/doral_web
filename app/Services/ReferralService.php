@@ -195,4 +195,22 @@ class ReferralService
             
         }
     }
+
+    //storeAppointment
+    public function storePatientLabReport($input)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/lab-report/store',
+                [
+                    'json' => $input
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+        }
+     }
 }

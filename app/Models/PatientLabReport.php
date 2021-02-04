@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PatientLabReport extends Model
 {
-
     use HasFactory;
     
     /**

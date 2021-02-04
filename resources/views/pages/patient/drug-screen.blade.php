@@ -112,8 +112,10 @@
                 <div class="col-12 col-sm-1"></div>
             </div>
             <div class="d-flex pt-4 justify-content-center">
-               <button type="submit" class="btn btn-outline-green"
-               name="Save">Save</button>
+            <button
+                type="submit"
+                class="btn btn-outline-green patient-detail-lab-report"
+                name="Save">Save</button>
             </div>
         </div>
     </div>

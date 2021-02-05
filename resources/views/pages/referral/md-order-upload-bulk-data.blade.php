@@ -2,7 +2,7 @@
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')
-    MD Order - Import Patient Upload
+    MD Order - Import Patients
 @endsection
 @section('content')
 

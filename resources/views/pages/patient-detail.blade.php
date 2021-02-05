@@ -2104,6 +2104,7 @@
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         var patient_id='{{ $details->id }}';
         var map;
@@ -2141,26 +2142,15 @@
         }
         
         $(document).ready(function() {
-            $('#xrayduedate, #lab_due_date, #lab_perform_date').daterangepicker({
+            $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 minYear: 1901,
                 maxYear: parseInt(moment().format('YYYY'), 10)
             });
 
-            $('#xrayduedate').on('apply.daterangepicker', function(ev, picker) {
-                var selectedDate = new Date($("#xrayduedate").val());
-                var date = selectedDate.getDate();
-                var monthf = selectedDate.getMonth() + 1;
-                var month  = (monthf < 10 ? '0' : '') + monthf; 
-                var year = selectedDate.getFullYear() + 5;
-                var expirydate = month + '/'+ date + '/'+ year;
-                $(".x-ray-expiry-date").text(expirydate);
-                $("#xrayexpirydate").val(expirydate);
-            });
-
-            $('#lab_due_date').on('apply.daterangepicker', function(ev, picker) {
-                var selectedDate = new Date($("#lab_due_date").val());
+            $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
+                var selectedDate = new Date($('[name="lab_due_date"]').val());
                 var date = selectedDate.getDate();
                 var monthf = selectedDate.getMonth() + 1;
                 var month  = (monthf < 10 ? '0' : '') + monthf; 
@@ -2170,9 +2160,33 @@
                 $("#lab_expiry_date").val(expirydate);
             });
 
+            $('#note').on('blur', function(e){
+                e.preventDefault();
+                var txtAval=$(this).val();
+
+                var patient_lab_report_id = $("input[name=patient_lab_report_id]").val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "{{ route('lab-report-note.store') }}",
+                    data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
+                    dataType: "json",
+                    success: function(response) {
+                        $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+                    },
+                    error: function(error) {
+                        console.log(error.responseText)
+                    }
+                });
+            });
+            
             $(document).on('click','.patient-detail-lab-report',function(event) {
-                alert("{{ route('lab-report.store') }}");
-                var data = $('#labppdquantiferon').serializeArray();
+                event.preventDefault();
+
+                var data = $(this).parent('div').prev('div').find("form").serializeArray();
+              
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2182,11 +2196,33 @@
                     data: data,
                     dataType: "json",
                     success: function(response) {
-                        alert(response.message)
-                        // $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+                        swal("Good job!", "You clicked the button!", "success");
                     },
                     error: function(error) {
                         console.log(error.responseText)
+                    }
+                });
+            });
+
+            $('body').on('click', '.deleteLabResult', function () {
+                var id = $(this).data("id");
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('lab-report.destroy') }}",
+                    method: 'DELETE',
+                    data: {
+                        "id": id,
+                    },
+                    success: function (data){
+                        if ( data.status === 'success' ) {
+                            alert(data.msg);
+                        }
+                    },
+                    error: function(msg) {
+                        alert("Something went wrong.");
                     }
                 });
             });

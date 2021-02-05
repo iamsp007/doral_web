@@ -37,10 +37,26 @@ class PatientLabReportController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+    
         $referralService = new ReferralService();
         return $referralService->storePatientLabReport($input);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addNote(Request $request)
+    {
+        $input = $request->all();
+      
+        $referralService = new ReferralService();
+        return $referralService->storePatientLabReportNote($input);
+    }
+
+    
     /**
      * Display the specified resource.
      *
@@ -81,8 +97,14 @@ class PatientLabReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if ( $request->ajax() ) {
+
+            PatientLabReport::find($request->id)->delete();
+    
+            return response(['msg' => 'Entry deleted', 'status' => 'success']);
+        }
+        return response(['msg' => 'Failed deleting the entry', 'status' => 'failed']);        
     }
 }

@@ -196,7 +196,7 @@ class ReferralService
         }
     }
 
-    //storeAppointment
+    //store patient lab report
     public function storePatientLabReport($input)
     {
         try {
@@ -207,10 +207,31 @@ class ReferralService
                     'json' => $input
                 ]
             );
+           
             $response = $response->getBody()->getContents();
             $data = json_decode($response);
             return $data;
         } catch (\Exception $exception) {
         }
-     }
+    }
+
+    //store patient lab report note
+    public function storePatientLabReportNote($input)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/lab-report-note/store',
+                [
+                    'json' => $input
+                ]
+            );
+           
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+           
+            return $data;
+        } catch (\Exception $exception) {
+        }
+    }
 }

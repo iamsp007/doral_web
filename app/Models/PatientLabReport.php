@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PatientLabReport extends Model
 {
-
     use HasFactory;
     
     /**
@@ -23,9 +22,7 @@ class PatientLabReport extends Model
         'expiry_date',
         'type',
         'result',
-        'x_ray_due_date',
-        'x_ray_expiry_date',
-        'x_ray_result',
+        'note',
     ];
 
     public function labReportType() {

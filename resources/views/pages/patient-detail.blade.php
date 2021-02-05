@@ -127,7 +127,7 @@
                                              data-placement="bottom" title="Edit" class="cursor-pointer d-block edit-icon" alt=""
                                              onclick="editAllField('demographic')">
                                         <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
-                                             data-placement="bottom" title="Update" class="cursor-pointer d-none update-icon" alt=""
+                                             data-placement="bottom" title="Update ADSD" class="cursor-pointer d-none update-icon" alt=""
                                              onclick="updateAllField('demographic')">
                                     </div>
                                     <div class="head scrollbar scrollbar4">
@@ -1604,45 +1604,17 @@
                                                         @endforeach
                                                     </ul>
                                                     <div class="tab-content" id="pills-tabContent">
-                                                        <!-- PPD Start -->
-                                                            @include('pages.patient.ppd-quantiferon')
-                                                        <!-- PPD End -->
-
                                                         <!-- TB Screen Start -->
                                                             @include('pages.patient.tb-screen')
                                                         <!-- TB Screen End -->
 
                                                         <!-- Rubeola Start -->
-                                                            @include('pages.patient.rubeola')
+                                                            @include('pages.patient.immunization')
                                                         <!-- Rubeola End -->
-
-                                                        <!-- Rubeola MMR1 Start -->
-                                                            @include('pages.patient.rubeola-mmr1')
-                                                        <!-- Rubeola MMR1 End -->
-
-                                                        <!-- Rubeola MMR2 Start -->
-                                                            @include('pages.patient.rubeola-mmr2')
-                                                        <!-- Rubeola MMR2 End -->
-
-                                                        <!-- Rubella Start -->
-                                                            @include('pages.patient.rubella')
-                                                        <!-- Rubella End -->
-
-                                                        <!-- Rubella MMR Start -->
-                                                            @include('pages.patient.rubella-mmr')
-                                                        <!-- Rubella MMR End -->
-
-                                                        <!-- Facemask Provided Start -->
-                                                            @include('pages.patient.facemask-provided')
-                                                        <!-- Facemask Provided End -->
-
+                                                        
                                                         <!-- Drug Screen Start -->
                                                             @include('pages.patient.drug-screen')
                                                         <!-- Drug Screen End -->
-
-                                                        <!-- Annual Health Assessment Start -->
-                                                            @include('pages.patient.annual-health-assessment')
-                                                        <!-- Annual Health Assessment End -->
                                                     </div>
                                                 </div>
                                                 <!-- Lab End-->
@@ -2132,6 +2104,7 @@
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         var patient_id='{{ $details->id }}';
         var map;
@@ -2167,13 +2140,99 @@
             }
 
         }
+        
+        $(document).ready(function() {
+            $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                maxYear: parseInt(moment().format('YYYY'), 10)
+            });
+
+            $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
+                var selectedDate = new Date($('[name="lab_due_date"]').val());
+                var date = selectedDate.getDate();
+                var monthf = selectedDate.getMonth() + 1;
+                var month  = (monthf < 10 ? '0' : '') + monthf; 
+                var year = selectedDate.getFullYear() + 1;
+                var expirydate = month + '/'+ date + '/'+ year;
+                $(".lab-expiry-date").text(expirydate);
+                $("#lab_expiry_date").val(expirydate);
+            });
+
+            $('#note').on('blur', function(e){
+                e.preventDefault();
+                var txtAval=$(this).val();
+
+                var patient_lab_report_id = $("input[name=patient_lab_report_id]").val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "{{ route('lab-report-note.store') }}",
+                    data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
+                    dataType: "json",
+                    success: function(response) {
+                        $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+                    },
+                    error: function(error) {
+                        console.log(error.responseText)
+                    }
+                });
+            });
+            
+            $(document).on('click','.patient-detail-lab-report',function(event) {
+                event.preventDefault();
+
+                var data = $(this).parent('div').prev('div').find("form").serializeArray();
+              
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "{{ route('lab-report.store') }}",
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+                        swal("Good job!", "You clicked the button!", "success");
+                    },
+                    error: function(error) {
+                        console.log(error.responseText)
+                    }
+                });
+            });
+
+            $('body').on('click', '.deleteLabResult', function () {
+                var id = $(this).data("id");
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('lab-report.destroy') }}",
+                    method: 'DELETE',
+                    data: {
+                        "id": id,
+                    },
+                    success: function (data){
+                        if ( data.status === 'success' ) {
+                            alert(data.msg);
+                        }
+                    },
+                    error: function(msg) {
+                        alert("Something went wrong.");
+                    }
+                });
+            });
+        });
     </script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
         defer
     ></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
-
 @endpush
 
 @push('styles')

@@ -63,10 +63,12 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
         $request->only('email','password');
+
 //        $request->merge(['status'=>'1']);
 
         if (Auth::attempt($this->credentials($request))) {
             if (Auth::user()->status==='1'){
+                Auth::logoutOtherDevices($request->password);
                 cache(['USERNAME' => $request->email]);
                 cache(['PASSWORD'=>$request->password]);
                 $user = \App\Models\User::find(Auth::user()->id);

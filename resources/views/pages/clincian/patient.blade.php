@@ -10,6 +10,7 @@
         <thead>
         <tr>
             <th></th>
+            <th>ID</th>
             <th>Patient Name</th>
             <th>Service</th>
             <th>File Type</th>
@@ -41,6 +42,7 @@
             serverSide: true,
             ajax: "{{  route('clinician.patientList.ajax') }}",
             columns:[
+                {data:'id',name:'id'},
                 {data:'id',name:'id'},
                 {
                     data:'first_name',

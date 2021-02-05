@@ -10,8 +10,10 @@
         <tr>
             <th></th>
             <th>Applicant Name</th>
-            <th>SSN</th>
+            <th>Gender</th>
+            <th>DOB</th>
             <th>Phone</th>
+            <th>status</th>
         </tr>
         </thead>
         <tbody>
@@ -32,7 +34,7 @@
     <script>
         var table = $('#clinician-table').DataTable({
             processing: true,
-            serverSide: true,
+            serverSide: false,
             ajax: "{{  route('admin.clinician-list') }}",
             columns:[
                 {
@@ -40,23 +42,53 @@
                     name:'id'
                 },
                 {
-                    data:'applicant_name',
-                    name:'applicant_name',
+                    data:'first_name',
+                    name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = "<a href={{ url('admin/clinician-detail/') }}/" + row.user_id + ">" + data + "</a>";
+                        data = "<a href={{ url('admin/clinician-detail/') }}/" + row.id + ">" + row.first_name+' '+row.last_name + "</a>";
                         return data;
                     }
                 },
                 {
-                    data:'ssn',
-                    name:'ssn',
+                    data:'gender',
+                    name:'gender',
+                    "bSortable": true,
+                    render:function(data, type, row, meta){
+                        if (data == 1) {
+                            return 'Male';
+                        } else if (data == 2) {
+                            return 'Female';
+                        } else if (data == 3) {
+                            return 'Other';
+                        }
+                    }
+                },
+                {
+                    data:'dob',
+                    name:'dob',
                     "bSortable": true
                 },
                 {
                     data:'phone',
                     name:'phone',
                     "bSortable": true
+                },
+                {
+                    data:'status',
+                    name:'status',
+                    "bSortable": true,
+                    render:function(data, type, row, meta){
+                        if (data == 0) {
+                            return 'Pending';
+                        } else if (data == 1) {
+                            return 'Active';
+                        } else if (data == 2) {
+                            return 'Inactive';
+                        } else if (data == 3) {
+                            return 'Reject';
+                        }
+                    }
                 }
             ],
             "order": [[ 0, "desc" ]],

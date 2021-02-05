@@ -279,12 +279,17 @@
                             const noteOptions = {
                                 body: noteTitle,
                                 icon: payload.notification.icon,
-                                "click_action":"https://theURLyouwanttoopen.com/"
                             };
+
                             new Notification(noteTitle, noteOptions).onclick = function (event) {
+console.log(payload.data)
                                 if (payload.data['gcm.notification.notification_type']==='1'){
-                                    window.location.href=base_url+'clinician/roadl';
-                                }else if (payload.data['gcm.notification.notification_type']==='2'){
+                                    window.location.href=base_url+'clinician/start-roadl/'+payload.data.id;
+                                }else if (payload.data['gcm.notification.notification_type']==="2"){
+                                    window.location.href=base_url+'clinician/running-roadl/'+payload.data.id;
+                                }else if (payload.data['gcm.notification.notification_type']==="3"){
+                                    window.location.href=base_url+'clinician/scheduled-appointment';
+                                }else if (payload.data['gcm.notification.notification_type']==="4"){
                                     window.location.href=base_url+'clinician/scheduled-appointment';
                                 }
                             };

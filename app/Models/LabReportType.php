@@ -23,4 +23,8 @@ class LabReportType extends Model
       return $this->hasMany('App\LabReportType', 'parent_id');
     }
 
+    public function patientLabReport() {
+      return $this->hasOne(PatientLabReport::class,'lab_report_type_id','id');
+    }
+
 }

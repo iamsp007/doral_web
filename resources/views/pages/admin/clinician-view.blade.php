@@ -17,21 +17,30 @@
                         <!-- <h1 class="patient-name mb-1">Mitchell C. Shay</h1> -->
                         <div class="d-flex justify-content-center">
                            <ul class="list-group">
+                              @isset($data->applicant->applicant_name)
                               <li class="list-group-item name">{{ isset($data->applicant->applicant_name) ? $data->applicant->applicant_name : null }}</li>
+                              @endisset
                               <li class="list-group-item">
                                  <span>{{ isset($data->gender_name) ? $data->gender_name : null }}</span>&nbsp;/&nbsp;
                                  <span>{{ isset($data->dob) ? date('m-d-Y', strtotime($data->dob)) : null }}</span>&nbsp;
                               </li>
+                              @if(isset($data->background) && isset($data->applicant->phone))
                               <li class="list-group-item d-inherit">
                                  @php
+                                    $key = null;
                                     if ($data->background) {
                                        end($data->background);
                                        $key = key($data->background);
                                     }
                                  @endphp
+                                 @isset($data->background)
                                  <span>{{ isset($data->background[$key]->position) ? $data->background[$key]->position : null }}</span>&nbsp;/&nbsp;
+                                 @endisset
+                                 @isset($data->applicant->phone)
                                  <a href="tel:{{ isset($data->applicant->phone) ? $data->applicant->phone : null }}" class="text-body call-text d-flex align-items-center"><img src="/assets/img/icons/phone_green.svg" class="mr-1" alt=""> {{ isset($data->applicant->phone) ? $data->applicant->phone : null }}</a>
+                                 @endisset
                               </li>
+                              @endif
                               <li class="list-group-item"><span>{{ isset($data->email) ? $data->email : null }}</span></li>
                               <li class="list-group-item"> 
                                  <div class="form-check form-check-inline">
@@ -1048,7 +1057,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title">{{ $data->professional->federal_dea_id }}
+                                             <h1 class="_title">{{ isset($data->professional->federal_dea_id) ? $data->professional->federal_dea_id : null }}
                                              </h1>
                                           </div>
                                        </div>

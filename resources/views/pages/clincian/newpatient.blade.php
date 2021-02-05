@@ -14,6 +14,7 @@
         <thead>
         <tr>
             <th></th>
+            <th>ID</th>
             <th>Patient Name</th>
             <th>Service</th>
             <th>File Type</th>
@@ -46,6 +47,7 @@
             serverSide: true,
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
+                {data:'id',name:'id'},
                 {data:'id',name:'id'},
                 {
                     data:'first_name',
@@ -80,8 +82,6 @@
            'columnDefs': [
                {
                    'targets': 0,
-                   orderable: false,
-                   className: 'select-checkbox',
                    'checkboxes': {
                        'selectRow': true
                    }
@@ -89,13 +89,8 @@
            ],
            'select': {
                'style': 'multi'
-           },
-           buttons: [
-               { extend: "create"},
-               { extend: "edit" },
-               { extend: "remove" }
-           ]
-       });;
+           }
+       });
 
        function changePatientStatus(element,status) {
             var id=$(element).attr('data-id');

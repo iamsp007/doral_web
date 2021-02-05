@@ -68,7 +68,7 @@
 
 
                 getNearByClinicianList( (response,patientDetail)=> {
-
+console.log(patientDetail)
                     var title='';
                     if (patientDetail.detail){
                         title=patientDetail.detail.first_name+' '+patientDetail.detail.last_name;
@@ -77,7 +77,6 @@
                     const map = new google.maps.Map(document.getElementById("map"), {
                         zoom: 12,
                         center: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
-                        icon:iconBase+'patient-icon.svg',
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
                         title: title,
                         disableDefaultUI: true,
@@ -98,7 +97,7 @@
                     });
 
                     var cmarker = new google.maps.Marker({
-                        icon:iconBase+'clinician-sb-select.svg',
+                        icon:base_url+'assets/img/icons/patient-icon.svg',
                         map: map,
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
                         title: title,
@@ -108,7 +107,7 @@
                         map: map,
                         strokeColor: "#0079C3",
                         fillOpacity: 0.2,
-                        icon:iconBase+'patient-icon.svg',
+                        icon:base_url+'assets/img/icons/patient-icon.svg',
                         position: new google.maps.LatLng(patientDetail.latitude,patientDetail.longitude),
                         radius: ((5 * 1000)*0.62137),    // 5 miles in metres
                         label: title,
@@ -129,7 +128,7 @@
                         });
 
                         var marker = new google.maps.Marker({
-                            icon:iconBase+'clinician-sb-select.svg',
+                            icon:base_url+'assets/img/icons/clinician-sb-select.svg',
                             position: new google.maps.LatLng(resp.latitude,resp.longitude),
                             label: resp.first_name+' '+resp.last_name,
                         });
@@ -141,9 +140,7 @@
                         return marker;
                     });
                     // map.markers.push(markers);
-                    var mc = new MarkerClusterer(map, markers, {
-                        imagePath:iconBase+'clinician-sb-select.svg',
-                    });
+                    var mc = new MarkerClusterer(map, markers);
                 })
             }),(error)=>{
 

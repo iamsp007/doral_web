@@ -1,124 +1,119 @@
- <div class="tab-pane fade" id="tb-screen" role="tabpanel"
-    aria-labelledby="tb-screen-tab">
-    <div class="app-vbc ppd_block p-3">
-       <div class="add-new-patient">
-          <div class="icon"><img
-                src="{{ asset('assets/img/icons/patient-img.svg') }}"
-                class="img-fluid" /></div>
-          <button type="submit"
-          class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" id="tbbtn" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
-          onclick="openRoadL('tbbtn')" name="RoadL Request">RoadL
-          Request</button>  
-          <div class="recieved_roadl d-none">
-             <div class="row">
-                <div class="col-12 col-sm-4"></div>
-                <div class="col-12 col-sm-4">
-                   <div class="row">
-                      <div class="col-12 col-sm-6">
-                         <select id="roadlrequest2"
-                            class="form-control select roadlrequest"
-                            multiple></select>
-                      </div>
-                      <div class="col-12 col-sm-6">
-                         <button type="submit" class="btn btn-outline-green w-600" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;" name="Start RoadL">Start RoadL</button>
-                      </div>
+<div class="tab-pane fade show active" id="tb-screen" role="tabpanel" aria-labelledby="tb-screen-tab">
+   <div class="app-vbc ppd_block p-3">
+      <div class="add-new-patient">
+         <div class="icon">
+            <img src="{{ asset('assets/img/icons/patient-img.svg') }}" class="img-fluid" />
+         </div>
+         <button 
+            type="submit"
+            class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" id="tbbtn"
+            style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
+            onclick="openRoadL('tbbtn')" name="RoadL Request">RoadL Request
+         </button>  
+         <div class="recieved_roadl d-none">
+            <div class="row">
+               <div class="col-12 col-sm-4"></div>
+               <div class="col-12 col-sm-4">
+                  <div class="row">
+                     <div class="col-12 col-sm-6">
+                        <select id="roadlrequest2" class="form-control select roadlrequest" multiple></select>
+                     </div>
+                     <div class="col-12 col-sm-6">
+                        <button
+                           type="submit"
+                           class="btn btn-outline-green w-600"
+                           style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;" name="Start RoadL">Start RoadL
+                        </button>
+                     </div>
                    </div>
-                </div>
-                <div class="col-12 col-sm-4"></div>
-             </div>
-          </div>
-          <div class="row">
-             <div class="col-12 col-sm-1"></div>
-             <div class="col-12 col-sm-10">
-                <table class="table table-bordered table-hover mt-4">
-                   <thead class="thead-light">
-                      <tr>
-                         <th scope="col">#</th>
-                         <th scope="col">Date Of Screening</th>
-                         <th scope="col">Expiry Date(Valid till 1 years)
-                         </th>
-                         <th scope="col">Type</th>
-                         <th scope="col">Result</th>
-                         <th width="11%">Action</th>
-                      </tr>
-                   </thead>
-                   <tbody>
-                      <tr class="bg-positive text-white">
-                         <th scope="row">1</th>
-                         <td>28/08/1981</td>
-                         <td>28/08/1986</td>
-                         <td>Gold</td>
-                         <td>Positive</td>
-                         <td class='text-center'><span
-                               onclick="exploder('exp1')" id="exp1"
-                               class="exploder"><i
-                                  class="las la-plus la-2x"></i></span>
-                            <a href="javascript:void(0)"><i
-                               class="las la-trash la-2x text-white pl-4"></i></a>
-                         </td>
-                      </tr>
-                      <tr class="explode1 d-none">
-                         <td colspan="6">
-                            <div class="pt-3 _title1">Your Report is
-                               <span class="text-green">Positive</span>
-                               <p class="mt-3 text-green">You need to
-                                  have <span class="text-underline">Chest
-                                     X-Ray report</span>.</p>
-                            </div>
-                            <table class="table table-bordered mt-4">
-                               <thead>
-                                  <tr>
-                                     <th scope="col">#</th>
-                                     <th scope="col">Date Of X-Ray</th>
-                                     <th scope="col">Expiry Date(Till 5
-                                        years valid)
-                                     </th>
-                                  </tr>
-                               </thead>
-                               <tbody>
-                                  <tr>
-                                     <th scope="row">#</th>
-                                     <td>28/08/1981</td>
-                                     <td>28/08/1986</td>
-                                  </tr>
-                                  <tr>
-                                     <th scope="row">#</th>
-                                     <td><input type="text"
-                                           class="form-control"
-                                           name="xraydate"
-                                           value="10/24/1984" /></td>
-                                     <td>28/08/1986</td>
-                                  </tr>
-                               </tbody>
-                            </table>
-                         </td>
-                      </tr>
-                      <tr>
-                         <th scope="row">2</th>
-                         <td>28/08/1981</td>
-                         <td>28/08/1986</td>
-                         <td>Gold Plus</td>
-                         <td>Negative</td>
-                         <td></td>
-                      </tr>
-                      <tr>
-                         <th scope="row">3</th>
-                         <td><input type="text" class="form-control"
-                               name="xraydate" value="10/24/1984" /></td>
-                         <td>28/08/1986</td>
-                         <td></td>
-                         <td></td>
-                         <td></td>
-                      </tr>
-                   </tbody>
-                </table>
-             </div>
-             <div class="col-12 col-sm-1"></div>
-          </div>
-          <div class="d-flex pt-4 justify-content-center">
-             <button type="submit" class="btn btn-outline-green"
-             name="Save">Save</button>
-          </div>
-       </div>
-    </div>
- </div>
+               </div>
+               <div class="col-12 col-sm-4"></div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-12 col-sm-1"></div>
+            <div class="col-12 col-sm-10">
+               <table class="table table-bordered table-hover mt-4">
+                  <thead class="thead-light">
+                     <tr>
+                        <th scope="col">Sr. No.</th>
+                        <th scope="col">Test Type</th>
+                        <th scope="col">Insert/Screening Date</th>
+                        <th scope="col">Expiry Date</th>
+                        <th scope="col">Result</th>
+                        <th width="11%">Action</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     @php $number = 1; @endphp
+                     @foreach($tbpatientLabReports as $tbpatientLabReport)
+                        <tr class="@if ($tbpatientLabReport->result === '1') bg-positive text-white @endif">
+                           <th scope="row">{{ $number }}</th>
+                           <td scope="row">{{ ($tbpatientLabReport->labReportType) ? $tbpatientLabReport->labReportType->name : ''}}</th>
+                           <td>{{ $tbpatientLabReport->due_date }}</td>
+                           <td>{{ $tbpatientLabReport->expiry_date }}</td>
+                           <td>{{ $tbpatientLabReport->lab_result }}</td>
+                           <td class='text-center'><span
+                                 onclick="exploder('tb{{$number}}')" id="tb{{$number}}"
+                                 class="exploder"><i
+                                    class="las la-plus la-2x"></i></span>
+                              <a href="javascript:void(0)" class="deleteLabResult" data-id="{{ $tbpatientLabReport->id }}"><i
+                                 class="las la-trash la-2x text-white pl-4"></i></a>
+    
+                                 <!-- <button class="deleteLabResult" data-id="{{ $tbpatientLabReport->id }}" >Delete Record</button> -->
+                           </td>
+                        </tr>
+                        <tr class="explode1 d-none">
+                           <td colspan="6">
+                              <x-text-area name="note" id="note" placeholder="Enter note" value="{{$tbpatientLabReport->note}}"/>
+                              <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $tbpatientLabReport->id }}" />
+                           </td>
+                        </tr>
+                     @php $number++; @endphp
+                     @endforeach
+                     <tr>
+                        <form id="labppdquantiferon">
+                           @csrf
+                           <th scope="row">{{ (isset($tbpatientLabReport)) ? $tbpatientLabReport->count() + 1 : ''}}</th>
+                           <td>
+                              <select name="lab_report_type_id">
+                                 <option value="">Select a test type</option>
+                                 @foreach($tbLabReportTypes as $tbLabReportType)
+                                    <option value="{{ $tbLabReportType->id }}">{{ $tbLabReportType->name }}</option>
+                                 @endforeach
+                              </select>
+                              @error('lab_report_type_id')
+                                 <span class="invalid-feedback" role="alert">
+                                       <strong>{{ $message }}</strong>
+                                 </span>
+                              @enderror
+                           </td>
+                           <td><x-text name="lab_due_date" id="lab_due_date" /></td>
+                           <x-hidden name="patient_referral_id" id="patient_referral_id" value="{{ $paient_id }}" />
+                           <x-hidden name="lab_expiry_date" id="lab_expiry_date" />
+                           <td class="lab-expiry-date"></td>
+                           <td>
+                              <select name="result">
+                                 <option value="">Select a result</option>
+                                 @foreach(config('select.labResult') as $key => $labResult)
+                                    <option value="{{ $key }}">{{ $labResult }}</option>
+                                 @endforeach
+                              </select></td>
+                           <td></td>
+                           <td></td>
+                        </form>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="col-12 col-sm-1"></div>
+         </div>
+         <div class="d-flex pt-4 justify-content-center">
+            <button
+                type="submit"
+                class="btn btn-outline-green patient-detail-lab-report"
+                name="Save">Save</button>
+         </div>
+      </div>
+   </div>
+</div>

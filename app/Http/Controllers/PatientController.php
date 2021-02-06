@@ -32,7 +32,7 @@ class PatientController extends Controller
 
                 $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
                 $drugLabReportTypes = LabReportType::where('status','1')->where('parent_id', 3)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
-               
+
                 return view('pages.patient-detail',compact('details', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id'));
             }
             return redirect()->route('home')->with('errors',$response->message);
@@ -79,7 +79,7 @@ class PatientController extends Controller
     }
 
     public function demographyDataUpdate(Request $request){
-        
+
         try {
             $response = $this->adminServices->demographyDataUpdate($request->all());
             if ($response->status===true){

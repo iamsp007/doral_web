@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" href="{{ asset('css/toaster.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
 
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>
@@ -25,8 +26,8 @@
     @if (\Request::is('supervisor/*'))
         @include('pages.supervisor.popup')
     @endif
-    <div id="loader-wrapper">
-        <div class="pulse"></div>
+    <div id="loader-wrapper" class="loading" >
+        Loading&#8230;
     </div>
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
 <section class="app">

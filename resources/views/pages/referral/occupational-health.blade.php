@@ -63,8 +63,10 @@
                     }
                 },
                 {
-                    data:'plans.name',
-                    name:'plans.name',
+                    data:'plan',
+                    name:'plan',
+//                    data:'plans.name',
+//                    name:'plans.name',
                     "bSortable": true
                 },
                 {data:'ssn',name:'ssn',"bSortable": true},

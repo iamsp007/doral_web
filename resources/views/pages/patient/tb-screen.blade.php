@@ -33,7 +33,7 @@
          <div class="row">
             <div class="col-12 col-sm-1"></div>
             <div class="col-12 col-sm-10">
-               <table class="table table-bordered table-hover mt-4">
+               <table class="table table-bordered table-hover mt-4 list-order">
                   <thead class="thead-light">
                      <tr>
                         <th scope="col">Sr. No.</th>
@@ -57,26 +57,27 @@
                                  onclick="exploder('tb{{$number}}')" id="tb{{$number}}"
                                  class="exploder"><i
                                     class="las la-plus la-2x"></i></span>
-                              <a href="javascript:void(0)" class="deleteLabResult" data-id="{{ $tbpatientLabReport->id }}"><i
+                              <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}"><i
                                  class="las la-trash la-2x text-white pl-4"></i></a>
-    
-                                 <!-- <button class="deleteLabResult" data-id="{{ $tbpatientLabReport->id }}" >Delete Record</button> -->
                            </td>
                         </tr>
                         <tr class="explode1 d-none">
                            <td colspan="6">
                               <x-text-area name="note" id="note" placeholder="Enter note" value="{{$tbpatientLabReport->note}}"/>
-                              <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $tbpatientLabReport->id }}" />
+                              <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $drugLabReport->id }}" />
                            </td>
                         </tr>
                      @php $number++; @endphp
                      @endforeach
                      <tr>
-                        <form id="labppdquantiferon">
+                        <div class="alert alert-danger print-error-msg" style="display:none">
+                           <ul></ul>
+                        </div>
+                        <form id="tbScreenForm">
                            @csrf
-                           <th scope="row">{{ (isset($tbpatientLabReport)) ? $tbpatientLabReport->count() + 1 : ''}}</th>
+                           <th scope="row" class="sequence">{{ (isset($tbpatientLabReports)) ? $tbpatientLabReports->count() + 1 : ''}}</th>
                            <td>
-                              <select name="lab_report_type_id">
+                              <select name="lab_report_type_id" id="lab_report_type_id" class="form-control">
                                  <option value="">Select a test type</option>
                                  @foreach($tbLabReportTypes as $tbLabReportType)
                                     <option value="{{ $tbLabReportType->id }}">{{ $tbLabReportType->name }}</option>
@@ -84,7 +85,7 @@
                               </select>
                               @error('lab_report_type_id')
                                  <span class="invalid-feedback" role="alert">
-                                       <strong>{{ $message }}</strong>
+                                       <strong>Required field</strong>
                                  </span>
                               @enderror
                            </td>
@@ -93,12 +94,18 @@
                            <x-hidden name="lab_expiry_date" id="lab_expiry_date" />
                            <td class="lab-expiry-date"></td>
                            <td>
-                              <select name="result">
+                              <select name="result" id="result" class="form-control">
                                  <option value="">Select a result</option>
                                  @foreach(config('select.labResult') as $key => $labResult)
                                     <option value="{{ $key }}">{{ $labResult }}</option>
                                  @endforeach
-                              </select></td>
+                              </select>
+                              @error('result')
+                                 <span class="invalid-feedback" role="alert">
+                                       <strong>Required field</strong>
+                                 </span>
+                              @enderror
+                           </td>
                            <td></td>
                            <td></td>
                         </form>

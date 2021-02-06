@@ -13,7 +13,7 @@ class PatientLabReportRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class PatientLabReportRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'lab_report_type_id' => 'required',
+            'lab_due_date' => 'required',
+            'result' => 'required'
         ];
     }
+    
 }

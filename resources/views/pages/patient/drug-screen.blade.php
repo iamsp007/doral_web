@@ -29,7 +29,7 @@
             <div class="row">
                <div class="col-12 col-sm-1"></div>
                <div class="col-12 col-sm-10">
-                    <table class="table table-bordered table-hover mt-4">
+                    <table class="table table-bordered table-hover mt-4 list-order">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Sr. No.</th>
@@ -55,8 +55,8 @@
                                         onclick="exploder('drug{{$number}}')" id="drug{{$number}}"
                                         class="exploder"><i
                                             class="las la-plus la-2x"></i></span>
-                                    <a href="javascript:void(0)"><i
-                                        class="las la-trash la-2x text-white pl-4"></i></a>
+                                        <a href="javascript:void(0)" class="deleteLabResult" id="{{ $drugLabReport->id }}"><i
+                                            class="las la-trash la-2x text-white pl-4"></i></a>
                                     </td>
                                 </tr>
                                 <tr class="explode1 d-none">
@@ -67,12 +67,15 @@
                                 </tr>
                                 @php $number++; @endphp
                             @endforeach
-                            <form id="labppdquantiferon2">
+                            <div class="alert alert-danger print-error-msg" style="display:none">
+                                <ul></ul>
+                            </div>
+                            <form id="drugScreenForm">
                                 @csrf
                                 <tr>
-                                    <th scope="row">{{$drugLabReports->count() + 1 }}</th>
+                                    <th scope="row">{{ ($drugLabReports) ? $drugLabReports->count() + 1 : '' }}</th>
                                     <td>    
-                                        <select name="lab_report_type_id">
+                                        <select name="lab_report_type_id" class="form-control">
                                             <option value="">Select a test type</option>
                                             @foreach($drugLabReportTypes as $drugLabReportType)
                                                 <option value="{{ $drugLabReportType->id }}">{{ $drugLabReportType->name }}</option>
@@ -85,7 +88,7 @@
                                     <x-hidden name="lab_expiry_date" id="lab_expiry_date" />
                                     <td class="lab-expiry-date"></td>
                                     <td>
-                                        <select name="result">
+                                        <select name="result" class="form-control">
                                             <option value="">Select a result</option>
                                             @foreach(config('select.labResult') as $key => $labResult)
                                                 <option value="{{ $key }}">{{ $labResult }}</option>

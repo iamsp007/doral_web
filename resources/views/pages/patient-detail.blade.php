@@ -2140,13 +2140,13 @@
             }
 
         }
-        
+       
         $(document).ready(function() {
             $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
+                maxDate: new Date()
             });
 
             $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
@@ -2186,47 +2186,114 @@
                 event.preventDefault();
 
                 var data = $(this).parent('div').prev('div').find("form").serializeArray();
-              
+                var url = "{{ Route('lab-report.store') }}";
+
                 $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: "POST",
-                    url: "{{ route('lab-report.store') }}",
-                    data: data,
-                    dataType: "json",
-                    success: function(response) {
-                        swal("Good job!", "You clicked the button!", "success");
-                    },
-                    error: function(error) {
-                        console.log(error.responseText)
-                    }
-                });
+                        type:"POST",
+                        url:url,
+                        data:data,
+                        headers: {
+                            'X_CSRF_TOKEN': '{{ csrf_token() }}',
+                        },
+                        success: function(data) {
+                            if(data.status == 400) {
+                                printErrorMsg(data.message);
+                            } else {
+                                $(".print-error-msg").hide();
+                                
+                                var html = '<tr class="';
+                                if (data.result.result === '1') {
+                                   
+                                    html += 'bg-positive text-white';
+                                }
+                               
+                                html +='"><th scope="row">' + data.count+ '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td><td>' + data.result.expiry_date + '</td><td>' + data.result.lab_result + '</td><td class="text-center"><span onclick="exploder(tb1)" id="tb1" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr>';
+                            
+                                $('.list-order tr:last').before(html);
+                              
+                                var select = $('#lab_report_type_id').empty();
+                                select.append('<option value="">Select a test type</option>');
+
+                               
+                                $(document).find('.sequence').text(data.newCount);
+
+                                $.each(data.tbLabReportTypes, function (key, value) {
+                                    select.append('<option value="' + value.id + '">' + value.name + '</option>');
+                                });
+                                
+                                swal("Good job!", data.message, "success");
+                            }
+                        },
+                        error: function()
+                        {
+                            swal("Server Timeout!", "Please try again", "warning");
+                        }
+                    });
             });
 
             $('body').on('click', '.deleteLabResult', function () {
-                var id = $(this).data("id");
+                var t = $(this);
+                var id = t.attr("id");
 
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ route('lab-report.destroy') }}",
-                    method: 'DELETE',
-                    data: {
-                        "id": id,
-                    },
-                    success: function (data){
-                        if ( data.status === 'success' ) {
-                            alert(data.msg);
-                        }
-                    },
-                    error: function(msg) {
-                        alert("Something went wrong.");
+                swal({
+                    title: "Are you sure?",
+                    text: "Are you sure want to delete this record?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            'type': 'delete',
+                            'url': "{{ route('lab-report.destroy') }}",
+                            'headers': {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            data: {
+                                "id": id,
+                            },
+                            'success': function (data) {
+                                if(data.status == 400) {
+                                    swal(
+                                        'Error!',
+                                        data.message,
+                                        'error'
+                                    );
+                                } else {
+                                    t.parents("tr").fadeOut(function () {
+                                        $(this).remove();
+                                    });
+                                    
+                                    swal(
+                                        'Deleted!',
+                                        data.message,
+                                        'success'
+                                    );
+                                }
+                                unload();
+                            },
+                            "error":function () {
+                                swal("Server Timeout!", "Please try again", "warning");
+                                unload();
+                            }
+                        });
+                    } else {
+                        swal(
+                            'Cancelled',
+                            'Your record is safe :)',
+                            'error'
+                        )
                     }
                 });
             });
         });
+        function printErrorMsg (msg) {
+            $(".print-error-msg").find("ul").html('');
+            $(".print-error-msg").css('display','block');
+            $.each( msg, function( key, value ) {
+                $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            });
+        }
     </script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"

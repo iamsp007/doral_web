@@ -143,7 +143,6 @@ class PatientReferralController extends Controller
             $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
                 ->where('service_id', '=','3')
                 ->whereNotNull('first_name');
-
             return DataTables::of($patientReferral)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
@@ -165,7 +164,7 @@ class PatientReferralController extends Controller
             })
             ->editColumn('dob', function ($contact){
                 if($contact->dob!='')
-                return date('m-d-Y', strtotime($contact->dob) );
+                return date('m-d-Y', strtotime($contact->dob));
                 else
                 return '--';
             })

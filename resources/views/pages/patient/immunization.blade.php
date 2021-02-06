@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-12 col-sm-1"></div>
                 <div class="col-12 col-sm-10">
-                    <table class="table table-bordered table-hover mt-4">
+                    <table class="table table-bordered table-hover mt-4 list-order">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Sr.No.</th>
@@ -61,8 +61,8 @@
                                         onclick="exploder('immune{{$number}}')" id="immune{{$number}}"
                                         class="exploder"><i
                                             class="las la-plus la-2x"></i></span>
-                                    <a href="javascript:void(0)"><i
-                                        class="las la-trash la-2x text-white pl-4"></i></a>
+                                        <a href="javascript:void(0)" class="deleteLabResult" data-id="{{ $immunizationLabReportType->id }}"><i
+                                            class="las la-trash la-2x text-white pl-4"></i></a>
                                     </td>
                                 </tr>
                                 <tr class="explode1 d-none">
@@ -74,10 +74,10 @@
                                 @php $number++; @endphp
                             @endforeach
                             <tr>
-                                <form id="labppdquantiferon1">
-                                    <th scope="row">{{ $immunizationLabReports->count() + 1 }}</th>
+                                <form id="immunizationForm">
+                                    <th scope="row">{{ ($immunizationLabReports) ? $immunizationLabReports->count() + 1 : '' }}</th>
                                     <td>
-                                    <select name="lab_report_type_id">
+                                    <select name="lab_report_type_id" class="form-control">
                                         <option value="">Select a test type</option>
                                         @foreach($immunizationLabReportTypes as $immunizationLabReportType)
                                             <option value="{{ $immunizationLabReportType->id }}">{{ $immunizationLabReportType->name }}</option>
@@ -91,7 +91,7 @@
                                     <td class="lab-expiry-date"></td>
                                     <td><x-text name="titer" id="titer" /></td>
                                     <td> 
-                                        <select name="result">
+                                        <select name="result" class="form-control">
                                             <option value="">Select a result</option>
                                             @foreach(config('select.labImmunizationResult') as $key => $labResult)
                                                 <option value="{{ $key }}">{{ $labResult }}</option>

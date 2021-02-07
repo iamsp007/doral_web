@@ -296,6 +296,22 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="col-12 col-sm-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <i class="las la-angle-double-right circle"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Apartment/Building</h3>
+                                                                    <!-- <h1 class="_detail">75443</h1> -->
+                                                                    <input type="text"
+                                                                           class="form-control-plaintext _detail no-height" readonly
+                                                                           name="apt" onclick="editableField('apt')"
+                                                                           data-id="apt" id="apt" placeholder="{{ $details->detail?(isset($details->detail->apt)?$details->detail->apt:''):'-' }}"
+                                                                           value="{{ $details->detail?(isset($details->detail->apt)?$details->detail->apt:''):'-' }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="col-12 col-sm-6">
                                                             <div class="d-flex align-items-center">
                                                                 <div>
@@ -557,7 +573,7 @@
                                                                             </div>
                                                                             <div>
                                                                                 <h3 class="_title">Madicaid No</h3>
-                                                                                 <h1 class="_detail">{{ $details->detail?$details->detail->medicaid_number:'-' }}</h1> 
+                                                                                 <!--<h1 class="_detail">{{ $details->detail?$details->detail->medicaid_number:'-' }}</h1>--> 
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="medicaid_number" data-id="medicaid_number"
@@ -595,7 +611,7 @@
                                                                             </div>
                                                                             <div>
                                                                                 <h3 class="_title">Medicare No</h3>
-                                                                                 <h1 class="_detail">{{ $details->detail?$details->detail->medicare_number:'-' }}</h1> 
+                                                                                 <!--<h1 class="_detail">{{ $details->detail?$details->detail->medicare_number:'-' }}</h1>--> 
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="medicare_number" data-id="medicare_number"
@@ -629,9 +645,7 @@
                                                                                 <i class="las la-angle-double-right circle"></i>
                                                                             </div>
                                                                             <div>
-                                                                                <!--<h3 class="_title">Plan Name : Plan-20</h3>-->
-                                                                                <h1 class="_detail">Weekly Hours : {{ $details->detail?$details->detail->working_hour:'-' }}</h1> 
-                                                                                <h1 class="_detail">Parity Plan : {{ $details->detail?$details->detail->plan:'-' }}</h1> 
+                                                                                <h3 class="_title">Wage Parity Plan</h3>
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="plan" data-id="plan"
@@ -640,9 +654,172 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-12 col-sm-3"></div>
-                                                                    <div class="col-12 col-sm-3"></div>
-                                                                    <div class="col-12 col-sm-3"></div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Weekly Hours</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="working_hour" data-id="working_hour"
+                                                                                       onclick="editableField('working_hour')" id="working_hour"
+                                                                                       placeholder="{{ $details->detail?$details->detail->working_hour:'-' }}" value="{{ $details->detail?$details->detail->working_hour:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Person Code</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="person_code" data-id="person_code"
+                                                                                       onclick="editableField('person_code')" id="person_code"
+                                                                                       placeholder="{{ $details->detail?$details->detail->person_code:'-' }}" value="{{ $details->detail?$details->detail->person_code:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">ID Number</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="id_number" data-id="id_number"
+                                                                                       onclick="editableField('id_number')" id="id_number"
+                                                                                       placeholder="{{ $details->detail?$details->detail->id_number:'-' }}" value="{{ $details->detail?$details->detail->id_number:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Group Number</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="grp_number" data-id="grp_number"
+                                                                                       onclick="editableField('grp_number')" id="grp_number"
+                                                                                       placeholder="{{ $details->detail?$details->detail->grp_number:'-' }}" value="{{ $details->detail?$details->detail->grp_number:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Eff. Date</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="eff_date" data-id="eff_date"
+                                                                                       onclick="editableField('eff_date')" id="eff_date"
+                                                                                       placeholder="{{ $details->detail?$details->detail->eff_date:'-' }}" value="{{ $details->detail?$details->detail->eff_date:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Term Date</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="term_date" data-id="term_date"
+                                                                                       onclick="editableField('term_date')" id="term_date"
+                                                                                       placeholder="{{ $details->detail?$details->detail->term_date:'-' }}" value="{{ $details->detail?$details->detail->term_date:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Initial</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="initial" data-id="initial"
+                                                                                       onclick="editableField('initial')" id="initial"
+                                                                                       placeholder="{{ $details->detail?$details->detail->initial:'-' }}" value="{{ $details->detail?$details->detail->initial:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Division</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="division" data-id="division"
+                                                                                       onclick="editableField('division')" id="division"
+                                                                                       placeholder="{{ $details->detail?$details->detail->division:'-' }}" value="{{ $details->detail?$details->detail->division:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Coverage</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="coverage" data-id="coverage"
+                                                                                       onclick="editableField('coverage')" id="coverage"
+                                                                                       placeholder="{{ $details->detail?$details->detail->coverage:'-' }}" value="{{ $details->detail?$details->detail->coverage:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Network</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="network" data-id="network"
+                                                                                       onclick="editableField('network')" id="network"
+                                                                                       placeholder="{{ $details->detail?$details->detail->network:'-' }}" value="{{ $details->detail?$details->detail->network:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Coverage Level</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="network" data-id="coverage_level"
+                                                                                       onclick="editableField('coverage_level')" id="coverage_level"
+                                                                                       placeholder="{{ $details->detail?$details->detail->coverage_level:'-' }}" value="{{ $details->detail?$details->detail->coverage_level:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>

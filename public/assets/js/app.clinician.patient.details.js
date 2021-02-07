@@ -7,7 +7,6 @@ function editAllField(sectionId) {
     $('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
 }
 function updateAllField(sectionId) {
-
     if (sectionId==="demographic"){
         var data = $('#demographic_form').serializeArray();
         data.push({name: 'type', value: 1});

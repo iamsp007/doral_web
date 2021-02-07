@@ -23,7 +23,7 @@ return [
                 ]
             ]
         ],
-        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient'],
+//        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient'],
         [
             'name'=>'Appointment',
             'url'=>'javascript:void(0)',

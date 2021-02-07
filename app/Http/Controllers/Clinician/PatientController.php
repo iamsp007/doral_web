@@ -65,12 +65,12 @@ class PatientController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 if ($row->status==='0'){
-                    $id=$row->patientDetail!==null?$row->patientDetail->id:null;
+                    $id=$row->id!==null?$row->id:null;
                     $btn ='';
                     if ($id!==null){
-                        $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$id.'" data-original-title="Edit" class="edit btn btn-sm" style="background: #006c76; color: #fff" onclick="changePatientStatus(this,1)">Accept</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$id.'" data-original-title="Edit" class="edit btn btn-sm" style="background: #006c76; color: #fff" onclick="changePatientStatus(this,1)">Accept</a>';
 
-                        $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$id.'" data-original-title="Delete" class="btn btn-sm" style="background: #eaeaea; color: #000" onclick="changePatientStatus(this,0)">Reject</a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$id.'" data-original-title="Delete" class="btn btn-sm" style="background: #eaeaea; color: #000" onclick="changePatientStatus(this,0)">Reject</a>';
                     }
                     return $btn;
                 }

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.24.0/apexcharts.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/apexcharts.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/assign-modal.css') }}">
@@ -22,7 +24,7 @@
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>
 </head>
-<body >
+<body>
     @if (\Request::is('supervisor/*'))
         @include('pages.supervisor.popup')
     @endif
@@ -224,6 +226,8 @@
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
     <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/apexcharts.js') }}"></script>
+
     <script>
         $("#loader-wrapper").hide();
     </script>

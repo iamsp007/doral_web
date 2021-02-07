@@ -1729,8 +1729,8 @@ pre code {
 
 .table .thead-light th {
   color: #495057;
-  background-color: #e9ecef;
-  border-color: #dee2e6;
+  background-color: #efefef;
+  border-color:#e8e8e8;
 }
 
 .table-dark {
@@ -6066,7 +6066,7 @@ button.bg-success:focus {
 }
 
 .bg-info {
-  background-color: #17a2b8 !important;
+  background-color: #006c76 !important;
 }
 
 a.bg-info:hover, a.bg-info:focus,

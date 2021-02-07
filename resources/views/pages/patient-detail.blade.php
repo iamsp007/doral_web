@@ -66,7 +66,7 @@
                                          class="mr-2 activeIcon">Billing Details</a>
                             </li>
                             <li>
-                                <a class="nav-link d-flex align-items-center" id="ccm-tab" data-toggle="pill"
+                                <a class="nav-link d-flex align-items-center" onclick="calendarClick()" id="ccm-tab" data-toggle="pill"
                                    href="#ccm" role="tab" aria-controls="ccm" aria-selected="false">
                                     <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
                                     <img src="{{ asset('assets/img/icons/icons_clinical_active.svg') }}" alt=""
@@ -74,7 +74,7 @@
                                     CCM</a>
                             </li>
                             <li>
-                                <a class="nav-link d-flex align-items-center" id="rpm-tab" data-toggle="pill"
+                                <a class="nav-link d-flex align-items-center" onclick="calendarClick()" id="rpm-tab" data-toggle="pill"
                                    href="#rpm" role="tab" aria-controls="rpm" aria-selected="false">
                                     <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
                                     <img src="{{ asset('assets/img/icons/icons_clinical_active.svg') }}" alt=""
@@ -1453,20 +1453,22 @@
                             </div>
                             <div class="tab-pane fade" id="ccm" role="tabpanel"
                                  aria-labelledby="ccm-tab">
-                                <div class="app-card app-card-custom" data-name="clinical">
+                                <div class="app-card app-card-custom" data-name="clinical" style="height:900px">
                                     <div class="app-card-header">
                                         <h1 class="title">CCM</h1>
                                     </div>
+                                    @include('includes.calendar.ccm.script')
                                 </div>
                             </div>
                             <!-- CCM End -->
                             <!-- CCM Start -->
                             <div class="tab-pane fade" id="rpm" role="tabpanel"
                                  aria-labelledby="rpm-tab">
-                                <div class="app-card app-card-custom" data-name="clinical">
+                                <div class="app-card app-card-custom" data-name="clinical" style="height:900px">
                                     <div class="app-card-header">
                                         <h1 class="title">RPM</h1>
                                     </div>
+                                    @include('includes.calendar.rpm.script')
                                 </div>
                             </div>
                             <!-- CCM End -->
@@ -2528,6 +2530,8 @@
         defer
     ></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
+    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
+
 @endpush
 
 @push('styles')
@@ -2536,4 +2540,5 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset( 'assets/calendar/lib/main.css' ) }}" />
 @endpush

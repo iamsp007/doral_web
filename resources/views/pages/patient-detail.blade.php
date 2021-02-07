@@ -557,7 +557,7 @@
                                                                             </div>
                                                                             <div>
                                                                                 <h3 class="_title">Madicaid No</h3>
-                                                                                 <h1 class="_detail">{{ $details->detail?$details->detail->medicaid_number:'-' }}</h1> 
+                                                                                 <!--<h1 class="_detail">{{ $details->detail?$details->detail->medicaid_number:'-' }}</h1>--> 
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="medicaid_number" data-id="medicaid_number"
@@ -595,7 +595,7 @@
                                                                             </div>
                                                                             <div>
                                                                                 <h3 class="_title">Medicare No</h3>
-                                                                                 <h1 class="_detail">{{ $details->detail?$details->detail->medicare_number:'-' }}</h1> 
+                                                                                 <!--<h1 class="_detail">{{ $details->detail?$details->detail->medicare_number:'-' }}</h1>--> 
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="medicare_number" data-id="medicare_number"
@@ -629,9 +629,7 @@
                                                                                 <i class="las la-angle-double-right circle"></i>
                                                                             </div>
                                                                             <div>
-                                                                                <!--<h3 class="_title">Plan Name : Plan-20</h3>-->
-                                                                                <h1 class="_detail">Weekly Hours : {{ $details->detail?$details->detail->working_hour:'-' }}</h1> 
-                                                                                <h1 class="_detail">Parity Plan : {{ $details->detail?$details->detail->plan:'-' }}</h1> 
+                                                                                <h3 class="_title">Wage Parity Plan</h3>
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="plan" data-id="plan"
@@ -640,7 +638,20 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-12 col-sm-3"></div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Weekly Hours</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="working_hour" data-id="working_hour"
+                                                                                       onclick="editableField('working_hour')" id="working_hour"
+                                                                                       placeholder="{{ $details->detail?$details->detail->working_hour:'-' }}" value="{{ $details->detail?$details->detail->working_hour:'-' }}">
+                                                                            </div>
+                                                                        </div></div>
                                                                     <div class="col-12 col-sm-3"></div>
                                                                     <div class="col-12 col-sm-3"></div>
                                                                 </div>

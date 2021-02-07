@@ -213,9 +213,11 @@
                     table.ajax.reload();
                 },
                 error:function (error) {
+                    table.ajax.reload();
                     $("#loader-wrapper").hide();
                     console.log(error)
                 }
+                
             });
         }
 

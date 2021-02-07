@@ -59,7 +59,6 @@
     .app .app-aside .sidebar .block{display:flex;align-items:flex-start;justify-content:space-between;margin:0;padding:20px;}
     .app .app-content .app-title-box{width: 100%;position: fixed;right: 0;top:59px;padding:10px 10px;margin:0;background:var(--white);display:flex;align-items:center;justify-content:space-between;-webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,0.12);-moz-box-shadow: 0 0 8px 0 rgba(0,0,0,0.12);box-shadow: 0 0 8px 0 rgba(0,0,0,0.12);}
     .app .app-content .app-title-box .app-title{color:var(--sidebar-color);font-size: 16px;font-weight:400;padding:4px 0;margin:0;}
-
 }
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
@@ -144,9 +143,7 @@
     .footer .block{display: flex;justify-content: space-between;margin-left: 25px;}
     .footer .ftr .socialIcons li img{width: inherit;}
     /* Footer End */
- 
-
-    .scrollbar4{height: 700px; padding-right: 0;}
+    .scrollbar4{height: 648px; padding-right: 0;}
 }
 /* For 4K Displays (Ultra HD) */
 @media screen and (min-width: 3840px) {

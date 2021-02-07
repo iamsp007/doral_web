@@ -1,22 +1,3 @@
-/* #msform{text-align:center;position:relative;margin-top:20px}
-#msform fieldset{background:#fff;border:0 none;border-radius:.5rem;box-sizing:border-box;width:100%;margin:0;padding-bottom:20px;position:relative}
-.form-card{text-align:left}
-#msform fieldset:not(:first-of-type){display:none}
-.create-patient{z-index:0;border:none;position:relative;border-radius: 10px;border: 1px solid #006c76;}
-.fs-title{font-size:25px;color:#006c76;margin-bottom:15px;font-weight:400;text-align:left}
-.steps{font-size: 16px;color: #006c76;margin-bottom:10px;font-weight:500;text-align:right}
-#progressbar{margin-bottom:25px;overflow:hidden;color:#d3d3d3}
-#progressbar .active{color:#006c76}
-#progressbar li{list-style-type:none;font-size:16px;width:33.33%;float:left;position:relative;font-weight:600;line-height: 18px;}
-#progressbar #account:before{font-family:Line Awesome Free;content:"\f007";font-size: 26px;}
-#progressbar #personal:before{font-family:Line Awesome Free;content:"\f0f8";font-size: 26px;}
-#progressbar #finish:before{font-family:Line Awesome Free;content:"\f058";font-size: 26px;}
-#progressbar li:before{width:50px;height:50px;line-height:45px;display:block;font-size:20px;color:#fff;background:lightgray;border-radius:50%;margin:0 auto 10px;padding:2px}
-#progressbar li:after{content:"";width:100%;height:4px;background:lightgray;position:absolute;left:0;top:24px;z-index:-1}
-#progressbar li.active:before,#progressbar li.active:after{background:#006c76}
-.t4{color:var(--pink);font-size:26px;font-weight:300;text-align:center;text-transform:capitalize}
-.w-80{width: 85%;}
-.tail-select .select-label{border-radius: 0px .3rem .3rem 0px;} */
 #progressbar{counter-reset:step;display: flex;justify-content: center;margin: 0 0 20px 0;}
 #progressbar li{list-style-type:none;color:#fff;text-transform:uppercase;font-size:9px;width:10%;float:left;position:relative}
 #progressbar li:before{content:counter(step);counter-increment:step;width:40px;line-height:40px;display:block;font-size:18px;color:#333;background:#fff;border-radius:50%;margin:0 auto 5px;display: flex;justify-content: center;align-items: center;}

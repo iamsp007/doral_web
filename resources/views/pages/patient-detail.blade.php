@@ -59,6 +59,13 @@
                                     Care</a>
                             </li>
                             <li>
+                                <a class="nav-link d-flex align-items-center" id="billing-tab" data-toggle="pill"
+                                   href="#billing" role="tab" aria-controls="billing" aria-selected="false">
+                                    <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt="" class="mr-2 inactiveIcon">
+                                    <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt=""
+                                         class="mr-2 activeIcon">Billing Details</a>
+                            </li>
+                            <li>
                                 <a class="nav-link d-flex align-items-center" id="ccm-tab" data-toggle="pill"
                                    href="#ccm" role="tab" aria-controls="ccm" aria-selected="false">
                                     <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
@@ -550,7 +557,7 @@
                                                                             </div>
                                                                             <div>
                                                                                 <h3 class="_title">Madicaid No</h3>
-                                                                                <!-- <h1 class="_detail">ABCD1234</h1> -->
+                                                                                 <h1 class="_detail">{{ $details->detail?$details->detail->medicaid_number:'-' }}</h1> 
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="medicaid_number" data-id="medicaid_number"
@@ -588,12 +595,48 @@
                                                                             </div>
                                                                             <div>
                                                                                 <h3 class="_title">Medicare No</h3>
-                                                                                <!-- <h1 class="_detail">ABCD1234</h1> -->
+                                                                                 <h1 class="_detail">{{ $details->detail?$details->detail->medicare_number:'-' }}</h1> 
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="medicare_number" data-id="medicare_number"
                                                                                        onclick="editableField('medicare_number')" id="medicare_number"
                                                                                        placeholder="{{ $details->detail?$details->detail->medicare_number:'-' }}" value="{{ $details->detail?$details->detail->medicare_number:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3"></div>
+                                                                    <div class="col-12 col-sm-3"></div>
+                                                                    <div class="col-12 col-sm-3"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3"
+                                                         data-name="medicare">
+                                                        <div class="app-card-header">
+                                                            <h1 class="title mr-2">Wage Parity Plan</h1>
+                                                            <!-- <a href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add More">
+                                                            <img src="../assets/img/icons/add_more_item.svg" alt="">
+                                                         </a> -->
+                                                            <!--<button type="button" class="btn btn-sm btn-info">Update Plan</button>-->
+                                                        </div>
+                                                        <div class="head">
+                                                            <div class="p-3">
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <!--<h3 class="_title">Plan Name : Plan-20</h3>-->
+                                                                                <h1 class="_detail">Weekly Hours : {{ $details->detail?$details->detail->working_hour:'-' }}</h1> 
+                                                                                <h1 class="_detail">Parity Plan : {{ $details->detail?$details->detail->plan:'-' }}</h1> 
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="plan" data-id="plan"
+                                                                                       onclick="editableField('plan')" id="plan"
+                                                                                       placeholder="{{ $details->detail?$details->detail->plan:'-' }}" value="{{ $details->detail?$details->detail->plan:'-' }}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1223,6 +1266,14 @@
                             </div>
                             <!-- Home Care End -->
                             <!-- CCM Start -->
+                            <div class="tab-pane fade" id="billing" role="tabpanel"
+                                 aria-labelledby="billing-tab">
+                                <div class="app-card app-card-custom" data-name="billing">
+                                    <div class="app-card-header">
+                                        <h1 class="title">Billing Information</h1>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tab-pane fade" id="ccm" role="tabpanel"
                                  aria-labelledby="ccm-tab">
                                 <div class="app-card app-card-custom" data-name="clinical">

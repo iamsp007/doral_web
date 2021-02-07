@@ -117,3 +117,9 @@
         transform: rotate(360deg);
     }
 }
+
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    position: fixed !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
+}

@@ -93,21 +93,23 @@ class PatientLabReportController extends Controller
 
                     $count = $tbpatientLabReports->count();
                     $newCount = $tbpatientLabReports->count() + 1;
+                    $type = 'tb';
                 } elseif (in_array($result->lab_report_type_id, ['8','9','10','11'])) {
                     $immunizationLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
 
                     $tbLabReportTypes = $labReportTypeModel->where('parent_id', 2)->orderBy('sequence', 'asc')->get();
                     $count = $immunizationLabReports->count();
                     $newCount = $immunizationLabReports->count() + 1;
-                   
+                    $type = 'emmune';
                 } elseif (in_array($result->lab_report_type_id, ['13','14'])) {
                     $drugLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['13','14'])->get();
-                    $tbLabReportTypes = $drugLabReports->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
+                    $tbLabReportTypes = $labReportTypeModel->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
                     $count = $drugLabReports->count();
                     $newCount = $drugLabReports->count() + 1;
+                    $type = 'drug';
                 }
                 
-                $arr = array('status' => 200, 'message' => 'success', 'result' => $result, 'tbLabReportTypes' => $tbLabReportTypes, 'count' => $count, 'newCount' => $newCount);
+                $arr = array('status' => 200, 'message' => 'success', 'result' => $result, 'tbLabReportTypes' => $tbLabReportTypes, 'count' => $count, 'newCount' => $newCount, 'type' => $type);
             } catch (\Illuminate\Database\QueryException $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {
@@ -146,14 +148,13 @@ class PatientLabReportController extends Controller
                 $newCount = $tbpatientLabReports->count() + 1;
             } elseif (in_array($result->lab_report_type_id, ['8','9','10','11'])) {
                 $immunizationLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
-
                 $tbLabReportTypes = $labReportTypeModel->where('parent_id', 2)->orderBy('sequence', 'asc')->get();
                 $count = $immunizationLabReports->count();
                 $newCount = $immunizationLabReports->count() + 1;
                
             } elseif (in_array($result->lab_report_type_id, ['13','14'])) {
                 $drugLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['13','14'])->get();
-                $tbLabReportTypes = $drugLabReports->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
+                $tbLabReportTypes = $labReportTypeModel->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
                 $count = $drugLabReports->count();
                 $newCount = $drugLabReports->count() + 1;
             }

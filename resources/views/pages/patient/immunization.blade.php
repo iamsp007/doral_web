@@ -75,6 +75,7 @@
                             @endforeach
                             <tr>
                                 <form id="immunizationForm">
+                                    @csrf
                                     <th scope="row">{{ ($immunizationLabReports) ? $immunizationLabReports->count() + 1 : '' }}</th>
                                     <td>
                                     <select name="lab_report_type_id" class="form-control">

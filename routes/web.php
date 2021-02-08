@@ -65,3 +65,7 @@ Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->nam
 
 Route::post('/start','\App\Http\Controllers\Clinician\RoomController@startArchive');
 Route::post('/zoom-generate_signature','\App\Http\Controllers\Clinician\RoomController@zoomGenerateSignature');
+
+Route::get('/search-patients', 'App\Http\Controllers\GetPatientDetailsController@searchPatients');
+Route::post('/search-patient-details', 'App\Http\Controllers\GetPatientDetailsController@searchPatientDetails');
+Route::post('/get-demographic-details', 'App\Http\Controllers\GetPatientDetailsController@getDemographicDetails');

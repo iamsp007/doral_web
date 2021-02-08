@@ -650,7 +650,7 @@
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="plan" data-id="plan"
                                                                                        onclick="editableField('plan')" id="plan"
-                                                                                       placeholder="{{ $details->detail?$details->detail->plan:'-' }}" value="{{ $details->detail?$details->detail->plan:'-' }}">
+                                                                                       placeholder="{{ ($details->detail) ? $details->detail->plan : '-' }}" value="{{ ($details->detail)  ? $details->detail->plan : '-' }}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -2450,7 +2450,7 @@
                                     select.append('<option value="' + value.id + '">' + value.name + '</option>');
                                 });
                                 
-                                swal("Good job!", data.message, "success");
+                                swal("Success!", data.message, "success");
                             }
                         },
                         error: function()

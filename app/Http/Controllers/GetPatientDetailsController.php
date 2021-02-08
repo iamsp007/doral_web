@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PatientReferral;
+use App\Models\DemographicDetails;
 use Illuminate\Http\Request;
 
 class GetPatientDetailsController extends Controller
@@ -41,9 +42,7 @@ class GetPatientDetailsController extends Controller
 //        }
         $searchPatientIds = $this->searchPatientDetails();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        echo"<pre>";
-        print_r($patientArray[1]);
-//        exit();
+        
         $getpatientDemographicDetails = $this->getDemographicDetails($patientArray[1]);
         $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
         $patientDemographicDettailsByAPI['PatientID'] = $patientDetails['PatientID'];
@@ -73,9 +72,8 @@ class GetPatientDetailsController extends Controller
         $patientDemographicDettailsByAPI['PrimaryLanguage'] = $patientDetails['PrimaryLanguage'];
         $patientDemographicDettailsByAPI['SecondaryLanguageID'] = $patientDetails['SecondaryLanguageID'];
         $patientDemographicDettailsByAPI['SecondaryLanguage'] = $patientDetails['SecondaryLanguage'];
-        echo"<pre>";
-        print_r($patientDetails);
-        exit();
+        
+        DemographicDetails::insert($patientDemographicDettailsByAPI);
        
     }
     /**

@@ -29,7 +29,7 @@
             <div class="row">
                <div class="col-12 col-sm-1"></div>
                <div class="col-12 col-sm-10">
-                    <table class="table table-bordered table-hover mt-4 list-order">
+                    <table class="table table-bordered table-hover mt-4 drug-list-order">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Sr. No.</th>

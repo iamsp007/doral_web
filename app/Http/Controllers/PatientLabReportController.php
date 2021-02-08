@@ -85,24 +85,24 @@ class PatientLabReportController extends Controller
                 $patientLabReport->save();
              
                 $result = PatientLabReport::where('id', $patientLabReport->id)->with('labReportType')->first();
+                $patientLabReportModel = PatientLabReport::with('labReportType')->where('patient_referral_id', $input['patient_referral_id']);
+                $labReportTypeModel = LabReportType::doesntHave('patientLabReport')->where('status','1');
+                if (in_array($result->lab_report_type_id, ['2','3','4','5','6'])) {
+                    $tbpatientLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
+                    $tbLabReportTypes = $labReportTypeModel->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
 
-                $tbpatientLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $input['patient_referral_id'])->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
-                if ($tbpatientLabReports) {
-                    $tbLabReportTypes = LabReportType::where('status','1')->where('parent_id', 1)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
                     $count = $tbpatientLabReports->count();
                     $newCount = $tbpatientLabReports->count() + 1;
-                }
+                } elseif (in_array($result->lab_report_type_id, ['8','9','10','11'])) {
+                    $immunizationLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
 
-                $immunizationLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $input['patient_referral_id'])->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
-                if ($immunizationLabReports) {
-                    $tbLabReportTypes = LabReportType::where('status','1')->where('parent_id', 2)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
+                    $tbLabReportTypes = $labReportTypeModel->where('parent_id', 2)->orderBy('sequence', 'asc')->get();
                     $count = $immunizationLabReports->count();
                     $newCount = $immunizationLabReports->count() + 1;
-                }
-
-                $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $input['patient_referral_id'])->whereIn('lab_report_type_id', ['13','14'])->get();
-                if ($drugLabReports) {
-                    $tbLabReportTypes = LabReportType::where('status','1')->where('parent_id', 3)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
+                   
+                } elseif (in_array($result->lab_report_type_id, ['13','14'])) {
+                    $drugLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['13','14'])->get();
+                    $tbLabReportTypes = $drugLabReports->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
                     $count = $drugLabReports->count();
                     $newCount = $drugLabReports->count() + 1;
                 }
@@ -126,6 +126,47 @@ class PatientLabReportController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        $patientLabReport = PatientLabReport::find($request->id);
+        if ($patientLabReport) {
+            $result = PatientLabReport::where('id', $request->id)->with('labReportType')->first();
+            $patientLabReportModel = PatientLabReport::with('labReportType')->where('patient_referral_id', $request->patient_referral_id);
+            $labReportTypeModel = LabReportType::doesntHave('patientLabReport')->where('status','1');
+            if (in_array($result->lab_report_type_id, ['2','3','4','5','6'])) {
+                $tbpatientLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
+                $tbLabReportTypes = $labReportTypeModel->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
+
+                $count = $tbpatientLabReports->count();
+                $newCount = $tbpatientLabReports->count() + 1;
+            } elseif (in_array($result->lab_report_type_id, ['8','9','10','11'])) {
+                $immunizationLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
+
+                $tbLabReportTypes = $labReportTypeModel->where('parent_id', 2)->orderBy('sequence', 'asc')->get();
+                $count = $immunizationLabReports->count();
+                $newCount = $immunizationLabReports->count() + 1;
+               
+            } elseif (in_array($result->lab_report_type_id, ['13','14'])) {
+                $drugLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['13','14'])->get();
+                $tbLabReportTypes = $drugLabReports->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
+                $count = $drugLabReports->count();
+                $newCount = $drugLabReports->count() + 1;
+            }
+            
+            $patientLabReport->delete();
+            $arr = array('status' => 200, 'message' => 'Patient Lab Report successfully deleted..!', 'result' => array(), 'tbLabReportTypes' => $tbLabReportTypes, 'count' => $count, 'newCount' => $newCount);
+        } else {
+            $arr = array('status' => 400, 'message' => 'Patient Lab Report not found..!', 'result' => array());
+        }
+        return \Response::json($arr); 
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -137,59 +178,5 @@ class PatientLabReportController extends Controller
       
         $referralService = new ReferralService();
         return $referralService->storePatientLabReportNote($input);
-    }
-
-    
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request)
-    {
-        $patientLabReport = PatientLabReport::find($request->id);
-        if ($patientLabReport) {
-            $patientLabReport->delete();
-
-            $arr = array('status' => 200, 'message' => 'Patient Lab Report successfully deleted..!', 'result' => array());
-        } else {
-            $arr = array('status' => 400, 'message' => 'Patient Lab Report not found..!', 'result' => array());
-        }
-        return \Response::json($arr); 
     }
 }

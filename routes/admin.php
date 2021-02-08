@@ -42,4 +42,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
     Route::get('clinician','App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician');
     Route::get('clinician-list','App\Http\Controllers\Clinician\ClinicianController@getClinicianList')->name('admin.clinician-list');
     Route::get('clinician-detail/{id}','App\Http\Controllers\Clinician\ClinicianController@getClinicianDetail')->name('admin.clinician-detail');
+
+    // service payment details insert / update
+    Route::post('/service-payment-insert-update', 'App\Http\Controllers\CompanyController@insertUpdateServicePayment')->name('admin.insertUpdateServicePayment');
 });

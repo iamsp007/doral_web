@@ -29,5 +29,8 @@ Route::group(['prefix'=>'/referral'],function (){
         Route::post('/md-order-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store')->name('referral.md-order-upload-bulk-data-store');
         Route::post('/occupational-health-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@storeOccupational')->name('referral.occupational-health-upload-bulk-data-store');
         Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
+        Route::get('profile', 'App\Http\Controllers\CompanyController@profile');
+        Route::post('/referral-profile-update', 'App\Http\Controllers\CompanyController@updateProfile')->name('referral.updateProfile');
+        Route::post('/service-payment-insert-update', 'App\Http\Controllers\CompanyController@insertUpdateServicePayment')->name('referral.insertUpdateServicePayment');
     });
 });

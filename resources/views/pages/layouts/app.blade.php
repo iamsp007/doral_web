@@ -174,10 +174,15 @@
                                     </a>
                                 </div>
                                 <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
+                                    @hasrole('referral')
+                                     <a class="dropdown-item" href="{{ url('referral/profile') }}"
+                                    >Profile</a>
+                                     @endrole
                                     <a class="dropdown-item" href="{{ url('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"
                                     >Logout</a>
+                                    
                                     <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>

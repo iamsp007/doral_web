@@ -7,7 +7,10 @@ use App\Models\CurlModel\CurlFunction;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use App\Models\Services;
+use App\Models\ServicePaymentPlan;
+use App\Models\ServicePaymentPlanDetails;
 use Exception;
+use Auth;
 
 class CompanyController extends Controller
 {
@@ -328,17 +331,35 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function profile($id)
-    {
+    public function profile($id = '')
+    {   
+        if($id == '') {
+           $id = Auth::user()->id;
+        }
         $status = 0;
         $message = "";
-        $record = [];
+        $record = $paymentInfo = $paymentPlanDetailsIds = [];
         $services = Services::select('id','name')->where('display_type',1)->get();
+        $i = 0;
+        foreach ($services as $key => $value) {
+            $servicePaymentPlan = ServicePaymentPlan::with('planDetails')->where('service_id',$value['id'])->get()->toArray();
+            if ($servicePaymentPlan) {
+                $paymentInfo[$i]['company_id'] = $id;
+                $paymentInfo[$i]['service_id'] = $value['id'];
+                $paymentInfo[$i]['name'] = $value['name'];
+                $paymentInfo[$i]['payment_plan'] = $servicePaymentPlan;
+                $i++;
+            }
+        }
+
         $adminServices = new AdminService();
         $responseArray = $adminServices->getProfile($id);
         if($responseArray->status===true) {
             $record = $responseArray->data;
-            return view('pages.admin.referral-profile')->with('record',$record)->with('services',$services);
+            if (isset($record->payment_info) && $record->payment_info) {
+                $paymentPlanDetailsIds = array_column($record->payment_info, 'service_payment_plan_details_id');
+            }
+            return view('pages.admin.referral-profile')->with('record',$record)->with('services',$services)->with('paymentInfo',$paymentInfo)->with('paymentPlanDetailsIds',$paymentPlanDetailsIds);
         }
         $message = $responseArray->message;
 
@@ -361,4 +382,21 @@ class CompanyController extends Controller
         $dataobj = $adminServices->updateProfile($data);
        return json_encode($dataobj);
     }
+
+    /**
+     * Insert / Update Service Payment
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function insertUpdateServicePayment(request $request)
+    {
+        $data = $request->all();
+        $status = 0;
+        $message = "";
+        $record = [];
+        $adminServices = new AdminService();
+        $dataobj = $adminServices->insertUpdateServicePayment($data);
+       return json_encode($dataobj);
+    }
+
 }

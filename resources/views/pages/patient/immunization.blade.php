@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-12 col-sm-1"></div>
                 <div class="col-12 col-sm-10">
-                    <table class="table table-bordered table-hover mt-4 list-order">
+                    <table class="table table-bordered table-hover mt-4 immue-list-order">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Sr.No.</th>
@@ -56,7 +56,7 @@
                                     <td>{{ $immunizationLabReportType->perform_date }}</td>
                                     <td>{{ $immunizationLabReportType->expiry_date }}</td>
                                     <td>{{ $immunizationLabReportType->titer }}</td>
-                                    <td>{{ $immunizationLabReportType->lab_result }}</td>
+                                    <td>@if ($immunizationLabReportType->result === '1') Immune @else Non Immune  @endif</td>
                                     <td class='text-center'><span
                                         onclick="exploder('immune{{$number}}')" id="immune{{$number}}"
                                         class="exploder"><i
@@ -75,6 +75,7 @@
                             @endforeach
                             <tr>
                                 <form id="immunizationForm">
+                                    @csrf
                                     <th scope="row">{{ ($immunizationLabReports) ? $immunizationLabReports->count() + 1 : '' }}</th>
                                     <td>
                                     <select name="lab_report_type_id" class="form-control">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PatientReferral;
 use App\Models\DemographicDetails;
+use App\Models\PatientDetail;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Str;
@@ -29,66 +30,84 @@ class GetPatientDetailsController extends Controller
      */
     public function searchPatients(Request $request)
     {
-//        $patientReferal = PatientReferral::where('service_id',2)->take(15)->get();
-//        
-//        $data = [];
-//        foreach ($patientReferal as $key => $value) {
-//            $data['FirstName'] = $value['first_name'];
-//            $data['LastName'] = $value['last_name'];
-//            $data['Status'] = $value['status'];
-//            $data['PhoneNumber'] = '';
-//            $data['AdmissionID'] = '';
-//            $data['MRNumber'] = '';
-//            $data['SSN'] = $value['ssn'];
-//            return $this->searchPatientDetails($data);
-//        }
         $searchPatientIds = $this->searchPatientDetails();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        echo"<pre>";
-        print_r($patientArray[1]);
-//        exit();
-        $getpatientDemographicDetails = $this->getDemographicDetails($patientArray[1]);
-        $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
-        echo"<pre>";
-        print_r($patientDetails);
-//        exit();
-        $patientDemographicDettailsByAPI['PatientID'] = $patientDetails['PatientID'];
-        $patientDemographicDettailsByAPI['AgencyID'] = $patientDetails['AgencyID'];
-        $patientDemographicDettailsByAPI['OfficeID'] = $patientDetails['OfficeID'];
-        $patientDemographicDettailsByAPI['FirstName'] = $patientDetails['FirstName'];
-        $patientDemographicDettailsByAPI['LastName'] = $patientDetails['LastName'];
-        $patientDemographicDettailsByAPI['BirthDate'] = $patientDetails['BirthDate'];
-        $patientDemographicDettailsByAPI['Gender'] = $patientDetails['Gender'];
-//        $patientDemographicDettailsByAPI['Coordinators'] = $patientDetails['Coordinators']['Coordinator'];
-//        $patientDemographicDettailsByAPI['Nurse'] = $patientDetails['Nurse'];
-        $patientDemographicDettailsByAPI['AdmissionID'] = $patientDetails['AdmissionID'];
-        $patientDemographicDettailsByAPI['MedicaidNumber'] = 'AB12345C';
-        $patientDemographicDettailsByAPI['MedicareNumber'] = 'AB12345C';
-        $patientDemographicDettailsByAPI['SSN'] = $patientDetails['SSN'];
-//        $patientDemographicDettailsByAPI['Address'] = $patientDetails['Addresses']['Address'];
-        $patientDemographicDettailsByAPI['HomePhone'] = $patientDetails['HomePhone'];
-//        $patientDemographicDettailsByAPI['Phone2'] = $patientDetails['Phone2'];
-//        $patientDemographicDettailsByAPI['EmergencyContacts'] = $patientDetails['EmergencyContacts']['EmergencyContact'];
-        $patientDemographicDettailsByAPI['PayerID'] = $patientDetails['PayerID'];
-        $patientDemographicDettailsByAPI['PayerName'] = $patientDetails['PayerName'];
-        $patientDemographicDettailsByAPI['PayerCoordinatorID'] = $patientDetails['PayerCoordinatorID'];
-        $patientDemographicDettailsByAPI['PayerCoordinatorName'] = $patientDetails['PayerCoordinatorName'];
-        $patientDemographicDettailsByAPI['PatientStatusID'] = $patientDetails['PatientStatusID'];
-        $patientDemographicDettailsByAPI['PatientStatusName'] = $patientDetails['PatientStatusName'];
-        $patientDemographicDettailsByAPI['WageParity'] = $patientDetails['WageParity'];
-        $patientDemographicDettailsByAPI['PrimaryLanguageID'] = $patientDetails['PrimaryLanguageID'];
-        $patientDemographicDettailsByAPI['PrimaryLanguage'] = $patientDetails['PrimaryLanguage'];
-        $patientDemographicDettailsByAPI['SecondaryLanguageID'] = $patientDetails['SecondaryLanguageID'];
-//        $patientDemographicDettailsByAPI['SecondaryLanguage'] = $patientDetails['SecondaryLanguage'];
-        $patientDemographicDettailsByAPI['PriorityCode'] = $patientDetails['PriorityCode'];
-        $patientDemographicDettailsByAPI['ServiceRequestStartDate'] = $patientDetails['ServiceRequestStartDate'];
-        $patientDemographicDettailsByAPI['DoralId'] = Str::random(6);
-        
-        DB::table( 'demographic_details' )->insert($patientDemographicDettailsByAPI);
-//        DemographicDetails::insert($patientDemographicDettailsByAPI);
-        echo"<pre>";
-        print_r(1);
-        exit();
+      
+        $counter = 0;
+        foreach ($patientArray as $arr) {
+            if ($counter < 10) {
+                $getpatientDemographicDetails = $this->getDemographicDetails($arr);
+               
+                $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+                // echo '<pre>';
+                // print_r($patientDetails);
+
+                $patientDetail = new PatientDetail();
+                $patientDetail->doral_id = Str::random(6);
+                $patientDetail->agency_id = $patientDetails['AgencyID'];
+                $patientDetail->office_id = $patientDetails['OfficeID'];
+                $patientDetail->patient_id = $patientDetails['PatientID'];
+                $patientDetail->first_name = $patientDetails['FirstName'];
+                // $patientDetail->middle_name = $patientDetails[''];
+                $patientDetail->last_name = $patientDetails['LastName'];
+                $patientDetail->birth_date = $patientDetails['BirthDate'];
+                $patientDetail->gender = $patientDetails['Gender'];
+                $patientDetail->priority_code = $patientDetails['PriorityCode'];
+                $patientDetail->service_request_start_date = $patientDetails['ServiceRequestStartDate'];
+                $patientDetail->admission_id = $patientDetails['AdmissionID'];
+                $patientDetail->medica_id_number =  'AB12345C';
+                $patientDetail->medicare_number =  'AB12345C';
+                 $ssn = '';
+                if (! empty($patientDetails['SSN'])) {
+                        $ssn = $patientDetails['SSN'];
+                }
+                $patientDetail->SSN = $ssn;
+                $patientDetail->payer_id =1;
+                $patientDetail->save();
+
+                dump($patientDetail);
+                // $demographicDetails = new DemographicDetails();
+                
+                // $demographicDetails->DoralId = Str::random(6);
+                // $demographicDetails->PatientID = $patientDetails['PatientID'];
+                // $demographicDetails->AgencyID = $patientDetails['AgencyID'];
+                // $demographicDetails->OfficeID =  $patientDetails['OfficeID'];
+                // $demographicDetails->FirstName = $patientDetails['FirstName'];
+                // $demographicDetails->LastName = $patientDetails['LastName'];
+                // $demographicDetails->BirthDate = $patientDetails['BirthDate'];
+                // $demographicDetails->Gender = $patientDetails['Gender'];
+                // $demographicDetails->PriorityCode = $patientDetails['PriorityCode'];
+                // $demographicDetails->ServiceRequestStartDate = $patientDetails['ServiceRequestStartDate'];
+
+                // $demographicDetails->AdmissionID = $patientDetails['AdmissionID'];
+                // $demographicDetails->MedicaidNumber = 'AB12345C';
+                // $demographicDetails->MedicareNumber = 'AB12345C';
+                // // $ssn = '';
+                // // if (! empty($patientDetails['SSN'])) {
+                // //         $ssn = $patientDetails['SSN'];
+                // // }
+                // // $demographicDetails->SSN = $ssn;
+                // $demographicDetails->HomePhone = $patientDetails['HomePhone'];
+                // $demographicDetails->PayerID = $patientDetails['PayerID'];
+                // $demographicDetails->PayerName = $patientDetails['PayerName'];
+                
+                // $demographicDetails->PayerCoordinatorID = $patientDetails['PayerCoordinatorID'];
+                // $demographicDetails->PayerCoordinatorName = $patientDetails['PayerCoordinatorName'];
+                // $demographicDetails->PatientStatusID = $patientDetails['PatientStatusID'];
+                // $demographicDetails->PatientStatusName = $patientDetails['PatientStatusName'];
+
+                // $demographicDetails->WageParity = $patientDetails['WageParity'];
+                // $demographicDetails->PrimaryLanguageID =  $patientDetails['PrimaryLanguageID'];
+                // $demographicDetails->PrimaryLanguage = $patientDetails['PrimaryLanguage'];
+                // $demographicDetails->SecondaryLanguageID = $patientDetails['SecondaryLanguageID'];
+                
+                // $demographicDetails->save();
+
+                // dump($demographicDetails);
+             
+            }
+            $counter++;
+        }
     }
     /**
      * Display a listing of the resource.

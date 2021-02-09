@@ -2,14 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\Country;
 use App\Models\PatientReferral;
 use App\Models\DemographicDetails;
+use App\Models\PatientAddress;
+use App\Models\PatientDetail;
+use App\Models\PatientEmergencyContact;
+use App\Models\State;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 
 class GetPatientDetailsController extends Controller
 {
+
+        public function index()
+        {
+                return view('pages.clincian.get-patient-detail');
+        }
+
+        public function getPatientDetail(Request $request){
+            $patientList = PatientDetail::get();
+    
+            return DataTables::of($patientList)
+                ->addColumn('action', function($row){
+                        $id=$row->id!==null?$row->id:null;
+                        $btn ='';
+                        if ($id!==null){
+                            $btn .= '<a href="'.route('patient.details',['patient_id'=>$row->id]).'" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
+
+                        }
+                        return $btn;
+                  
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+
+        public function show($id)
+        {
+            $patient = PatientDetail::with('payer')->find($id);
+            return view('pages.clincian.patient-details', compact('patient'));
+        }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,66 +67,102 @@ class GetPatientDetailsController extends Controller
      */
     public function searchPatients(Request $request)
     {
-//        $patientReferal = PatientReferral::where('service_id',2)->take(15)->get();
-//        
-//        $data = [];
-//        foreach ($patientReferal as $key => $value) {
-//            $data['FirstName'] = $value['first_name'];
-//            $data['LastName'] = $value['last_name'];
-//            $data['Status'] = $value['status'];
-//            $data['PhoneNumber'] = '';
-//            $data['AdmissionID'] = '';
-//            $data['MRNumber'] = '';
-//            $data['SSN'] = $value['ssn'];
-//            return $this->searchPatientDetails($data);
-//        }
         $searchPatientIds = $this->searchPatientDetails();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        echo"<pre>";
-        print_r($patientArray[1]);
-//        exit();
-        $getpatientDemographicDetails = $this->getDemographicDetails($patientArray[1]);
-        $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
-        echo"<pre>";
-        print_r($patientDetails);
-//        exit();
-        $patientDemographicDettailsByAPI['PatientID'] = $patientDetails['PatientID'];
-        $patientDemographicDettailsByAPI['AgencyID'] = $patientDetails['AgencyID'];
-        $patientDemographicDettailsByAPI['OfficeID'] = $patientDetails['OfficeID'];
-        $patientDemographicDettailsByAPI['FirstName'] = $patientDetails['FirstName'];
-        $patientDemographicDettailsByAPI['LastName'] = $patientDetails['LastName'];
-        $patientDemographicDettailsByAPI['BirthDate'] = $patientDetails['BirthDate'];
-        $patientDemographicDettailsByAPI['Gender'] = $patientDetails['Gender'];
-//        $patientDemographicDettailsByAPI['Coordinators'] = $patientDetails['Coordinators']['Coordinator'];
-//        $patientDemographicDettailsByAPI['Nurse'] = $patientDetails['Nurse'];
-        $patientDemographicDettailsByAPI['AdmissionID'] = $patientDetails['AdmissionID'];
-        $patientDemographicDettailsByAPI['MedicaidNumber'] = 'AB12345C';
-        $patientDemographicDettailsByAPI['MedicareNumber'] = 'AB12345C';
-        $patientDemographicDettailsByAPI['SSN'] = $patientDetails['SSN'];
-//        $patientDemographicDettailsByAPI['Address'] = $patientDetails['Addresses']['Address'];
-        $patientDemographicDettailsByAPI['HomePhone'] = $patientDetails['HomePhone'];
-//        $patientDemographicDettailsByAPI['Phone2'] = $patientDetails['Phone2'];
-//        $patientDemographicDettailsByAPI['EmergencyContacts'] = $patientDetails['EmergencyContacts']['EmergencyContact'];
-        $patientDemographicDettailsByAPI['PayerID'] = $patientDetails['PayerID'];
-        $patientDemographicDettailsByAPI['PayerName'] = $patientDetails['PayerName'];
-        $patientDemographicDettailsByAPI['PayerCoordinatorID'] = $patientDetails['PayerCoordinatorID'];
-        $patientDemographicDettailsByAPI['PayerCoordinatorName'] = $patientDetails['PayerCoordinatorName'];
-        $patientDemographicDettailsByAPI['PatientStatusID'] = $patientDetails['PatientStatusID'];
-        $patientDemographicDettailsByAPI['PatientStatusName'] = $patientDetails['PatientStatusName'];
-        $patientDemographicDettailsByAPI['WageParity'] = $patientDetails['WageParity'];
-        $patientDemographicDettailsByAPI['PrimaryLanguageID'] = $patientDetails['PrimaryLanguageID'];
-        $patientDemographicDettailsByAPI['PrimaryLanguage'] = $patientDetails['PrimaryLanguage'];
-        $patientDemographicDettailsByAPI['SecondaryLanguageID'] = $patientDetails['SecondaryLanguageID'];
-//        $patientDemographicDettailsByAPI['SecondaryLanguage'] = $patientDetails['SecondaryLanguage'];
-        $patientDemographicDettailsByAPI['PriorityCode'] = $patientDetails['PriorityCode'];
-        $patientDemographicDettailsByAPI['ServiceRequestStartDate'] = $patientDetails['ServiceRequestStartDate'];
-        $patientDemographicDettailsByAPI['DoralId'] = Str::random(6);
-        
-        DB::table( 'demographic_details' )->insert($patientDemographicDettailsByAPI);
-//        DemographicDetails::insert($patientDemographicDettailsByAPI);
-        echo"<pre>";
-        print_r(1);
-        exit();
+      
+        $counter = 0;
+        foreach ($patientArray as $arr) {
+            if ($counter < 100) {
+                $getpatientDemographicDetails = $this->getDemographicDetails($arr);
+                
+                $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+
+                $patientDetail = new PatientDetail();
+                $patientDetail->doral_id = 'DORAL'.rand();
+                $patientDetail->agency_id = $patientDetails['AgencyID'];
+                $patientDetail->office_id = $patientDetails['OfficeID'];
+                $patientDetail->patient_id = $patientDetails['PatientID'];
+                $patientDetail->first_name = $patientDetails['FirstName'];
+                // $patientDetail->middle_name = $patientDetails[''];
+                $patientDetail->last_name = $patientDetails['LastName'];
+                $patientDetail->birth_date = $patientDetails['BirthDate'];
+                if ($patientDetails['Gender'] == 'Female') {
+                    $gender = '2';
+                } else if ($patientDetails['Gender'] == 'Male') {
+                    $gender = '1';
+                } else {
+                    $gender = '3';
+                }
+                $patientDetail->gender = $gender;
+                $patientDetail->priority_code = $patientDetails['PriorityCode'];
+                $patientDetail->service_request_start_date = $patientDetails['ServiceRequestStartDate'];
+                $patientDetail->admission_id = $patientDetails['AdmissionID'];
+                $patientDetail->medica_id_number =  '1234';
+                $patientDetail->medicare_number =  '12345';
+                 $ssn = '';
+                if (! empty($patientDetails['SSN'])) {
+                        $ssn = $patientDetails['SSN'];
+                }
+                $patientDetail->SSN = '123';
+                $patientDetail->payer_id =1;
+
+                if($patientDetail->save()) {
+                    foreach ($patientDetails['EmergencyContacts']['EmergencyContact'] as $key => $value) {
+                        $patientEmergencyContact = new PatientEmergencyContact();
+                        $name = '';
+                        if (! empty($value['Name'])) {
+                            $name = $value['Name'];
+                        }
+                        $patientEmergencyContact->patient_id = $patientDetail->id;
+                        $patientEmergencyContact->name = $name;
+                        $patientEmergencyContact->lives_with_patient = $value['LivesWithPatient'];
+                        $patientEmergencyContact->have_keys = $value['HaveKeys'];
+                        // $patientEmergencyContact->phone1 = $value['Phone1'];
+                        // $patientEmergencyContact->phone2 = $value['Phone2'];
+                        // $patientEmergencyContact->address = $value['Address'];
+
+                        if($patientEmergencyContact->save()) {
+                            echo 'success';
+                        }
+                       
+                    }
+
+
+                    // foreach ($patientDetails['Addresses']['Address'] as $key => $value1) {
+
+                    //     $city = City::updateOrCreate(
+                    //         ['city' =>  $value1['City']],
+                    //     );
+
+                    //     $state = State::updateOrCreate(
+                    //         ['state' =>  $value1['State']],
+                    //     );
+
+                    //     $country = Country::updateOrCreate(
+                    //         ['name' =>  $value1['County']],
+                    //     );
+
+                    //     $patientAddress = new PatientAddress();
+                    //     $patientAddress->patient_id = $patientDetail->id;
+                    //     $patientAddress->address_id = $value1['AddressID'];
+                    //     $patientAddress->address1 = $value1['Address1'];
+                    //     $patientAddress->address2 = $value1['Address2'];
+                    //     $patientAddress->cross_street = $value1['CrossStreet'];
+                    //     $patientAddress->city_id = $city->id;
+                    //     $patientAddress->zip5 = $value1['Zip5'];
+                    //     $patientAddress->zip4 = $value1['Zip4'];
+                    //     $patientAddress->state_id = $state->id;
+                    //     $patientAddress->county_id = $country->id;
+                    //     $patientAddress->is_primary_address = $value1['IsPrimaryAddress'];
+                    //     $patientAddress->addresstypes = $value1['AddressTypes'];
+                        
+                    //     $patientAddress->save();
+                    // }
+
+                }
+            }
+            $counter++;
+        }
     }
     /**
      * Display a listing of the resource.

@@ -32,4 +32,10 @@ class PatientDetail extends Model
         'ssn',
         'payer_id',
     ];
+
+    
+
+    public function payer() {
+        return $this->hasOne(PatientPlayer::class,'id','payer_id');
+    }
 }

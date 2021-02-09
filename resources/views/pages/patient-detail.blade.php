@@ -650,7 +650,7 @@
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="plan" data-id="plan"
                                                                                        onclick="editableField('plan')" id="plan"
-                                                                                       placeholder="{{ $details->detail?$details->detail->plan:'-' }}" value="{{ $details->detail?$details->detail->plan:'-' }}">
+                                                                                       placeholder="{{ ($details->detail) ? $details->detail->plan : '-' }}" value="{{ ($details->detail)  ? $details->detail->plan : '-' }}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -2433,25 +2433,39 @@
                                 
                                 var html = '<tr class="';
                                 if (data.result.result === '1') {
-                                   
+                                
                                     html += 'bg-positive text-white';
                                 }
-                               
-                                html +='"><th scope="row">' + data.count+ '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td><td>' + data.result.expiry_date + '</td><td>' + data.result.lab_result + '</td><td class="text-center"><span onclick="exploder(tb1)" id="tb1" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr>';
                             
-                                $('.list-order tr:last').before(html);
+                                html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td>';
+                                if (data.type == 'emmune' || data.type == 'drug') {
+                                    html += '<td>' + data.result.perform_date + '</td>';
+                                }
+                        
+                                html +='<td>' + data.result.expiry_date + '</td>';
+                                if (data.type == 'emmune') {
+                                    html += '<td>' + data.result.titer + '</td>';
+                                }
+                                html +='<td>' + data.result.lab_result + '</td><td class="text-center"><span onclick="exploder(tb1)" id="tb1" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr>';
+                             
+                                if (data.type == 'tb') {
+                                    $('.tb-list-order tr:last').before(html);
+                                } else if (data.type == 'emmune') {
+                                    $('.immue-list-order tr:last').before(html);
+                                } else if (data.type == 'drug') {
+                                    $('.drug-list-order tr:last').before(html);
+                                }
                               
+                                $(document).find('.sequence').text(data.newCount);
+
                                 var select = $('#lab_report_type_id').empty();
                                 select.append('<option value="">Select a test type</option>');
-
-                               
-                                $(document).find('.sequence').text(data.newCount);
 
                                 $.each(data.tbLabReportTypes, function (key, value) {
                                     select.append('<option value="' + value.id + '">' + value.name + '</option>');
                                 });
                                 
-                                swal("Good job!", data.message, "success");
+                                swal("Success!", data.message, "success");
                             }
                         },
                         error: function()
@@ -2464,7 +2478,8 @@
             $('body').on('click', '.deleteLabResult', function () {
                 var t = $(this);
                 var id = t.attr("id");
-
+                var patient_referral_id = $(this).data("id") ;
+               
                 swal({
                     title: "Are you sure?",
                     text: "Are you sure want to delete this record?",
@@ -2481,6 +2496,7 @@
                             },
                             data: {
                                 "id": id,
+                                "patient_referral_id" : patient_referral_id
                             },
                             'success': function (data) {
                                 if(data.status == 400) {
@@ -2492,6 +2508,15 @@
                                 } else {
                                     t.parents("tr").fadeOut(function () {
                                         $(this).remove();
+                                    });
+
+                                    $(document).find('.sequence').text(data.newCount);
+
+                                    var select = $('#lab_report_type_id').empty();
+                                    select.append('<option value="">Select a test type</option>');
+                                    alert(data.tbLabReportTypes);
+                                    $.each(data.tbLabReportTypes, function (key, value) {
+                                        select.append('<option value="' + value.id + '">' + value.name + '</option>');
                                     });
                                     
                                     swal(

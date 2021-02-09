@@ -68,7 +68,6 @@ class LoginController extends Controller
 
         if (Auth::attempt($this->credentials($request))) {
             if (Auth::user()->status==='1'){
-                Auth::logoutOtherDevices($request->password);
                 cache(['USERNAME' => $request->email]);
                 cache(['PASSWORD'=>$request->password]);
                 $user = \App\Models\User::find(Auth::user()->id);

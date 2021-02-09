@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\PatientReferral;
 use App\Models\DemographicDetails;
 use Illuminate\Http\Request;
+use DB;
+use Illuminate\Support\Str;
 
 class GetPatientDetailsController extends Controller
 {
@@ -42,9 +44,14 @@ class GetPatientDetailsController extends Controller
 //        }
         $searchPatientIds = $this->searchPatientDetails();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        
+        echo"<pre>";
+        print_r($patientArray[1]);
+//        exit();
         $getpatientDemographicDetails = $this->getDemographicDetails($patientArray[1]);
         $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+        echo"<pre>";
+        print_r($patientDetails);
+//        exit();
         $patientDemographicDettailsByAPI['PatientID'] = $patientDetails['PatientID'];
         $patientDemographicDettailsByAPI['AgencyID'] = $patientDetails['AgencyID'];
         $patientDemographicDettailsByAPI['OfficeID'] = $patientDetails['OfficeID'];
@@ -52,16 +59,17 @@ class GetPatientDetailsController extends Controller
         $patientDemographicDettailsByAPI['LastName'] = $patientDetails['LastName'];
         $patientDemographicDettailsByAPI['BirthDate'] = $patientDetails['BirthDate'];
         $patientDemographicDettailsByAPI['Gender'] = $patientDetails['Gender'];
-        $patientDemographicDettailsByAPI['Coordinators'] = $patientDetails['Coordinators']['Coordinator'];
-        $patientDemographicDettailsByAPI['Nurse'] = $patientDetails['Nurse'];
+//        $patientDemographicDettailsByAPI['Coordinators'] = $patientDetails['Coordinators']['Coordinator'];
+//        $patientDemographicDettailsByAPI['Nurse'] = $patientDetails['Nurse'];
         $patientDemographicDettailsByAPI['AdmissionID'] = $patientDetails['AdmissionID'];
-        $patientDemographicDettailsByAPI['MedicaidNumber'] = $patientDetails['MedicaidNumber'];
-        $patientDemographicDettailsByAPI['MedicareNumber'] = $patientDetails['MedicareNumber'];
+        $patientDemographicDettailsByAPI['MedicaidNumber'] = 'AB12345C';
+        $patientDemographicDettailsByAPI['MedicareNumber'] = 'AB12345C';
         $patientDemographicDettailsByAPI['SSN'] = $patientDetails['SSN'];
-        $patientDemographicDettailsByAPI['Address'] = $patientDetails['Addresses']['Address'];
+//        $patientDemographicDettailsByAPI['Address'] = $patientDetails['Addresses']['Address'];
         $patientDemographicDettailsByAPI['HomePhone'] = $patientDetails['HomePhone'];
-        $patientDemographicDettailsByAPI['Phone2'] = $patientDetails['Phone2'];
-        $patientDemographicDettailsByAPI['EmergencyContacts'] = $patientDetails['EmergencyContacts']['EmergencyContact'];
+//        $patientDemographicDettailsByAPI['Phone2'] = $patientDetails['Phone2'];
+//        $patientDemographicDettailsByAPI['EmergencyContacts'] = $patientDetails['EmergencyContacts']['EmergencyContact'];
+        $patientDemographicDettailsByAPI['PayerID'] = $patientDetails['PayerID'];
         $patientDemographicDettailsByAPI['PayerName'] = $patientDetails['PayerName'];
         $patientDemographicDettailsByAPI['PayerCoordinatorID'] = $patientDetails['PayerCoordinatorID'];
         $patientDemographicDettailsByAPI['PayerCoordinatorName'] = $patientDetails['PayerCoordinatorName'];
@@ -71,10 +79,16 @@ class GetPatientDetailsController extends Controller
         $patientDemographicDettailsByAPI['PrimaryLanguageID'] = $patientDetails['PrimaryLanguageID'];
         $patientDemographicDettailsByAPI['PrimaryLanguage'] = $patientDetails['PrimaryLanguage'];
         $patientDemographicDettailsByAPI['SecondaryLanguageID'] = $patientDetails['SecondaryLanguageID'];
-        $patientDemographicDettailsByAPI['SecondaryLanguage'] = $patientDetails['SecondaryLanguage'];
+//        $patientDemographicDettailsByAPI['SecondaryLanguage'] = $patientDetails['SecondaryLanguage'];
+        $patientDemographicDettailsByAPI['PriorityCode'] = $patientDetails['PriorityCode'];
+        $patientDemographicDettailsByAPI['ServiceRequestStartDate'] = $patientDetails['ServiceRequestStartDate'];
+        $patientDemographicDettailsByAPI['DoralId'] = Str::random(6);
         
-        DemographicDetails::insert($patientDemographicDettailsByAPI);
-       
+        DB::table( 'demographic_details' )->insert($patientDemographicDettailsByAPI);
+//        DemographicDetails::insert($patientDemographicDettailsByAPI);
+        echo"<pre>";
+        print_r(1);
+        exit();
     }
     /**
      * Display a listing of the resource.

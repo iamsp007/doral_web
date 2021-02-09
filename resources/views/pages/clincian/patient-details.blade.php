@@ -22,8 +22,8 @@
                     <div>
                         <ul class="shortdesc">
                             <li>Patient ID: <span>{{ $patient->patient_id }}</span></li>
-                            <li>Gender: <span>{{ $patient->gender }}</span></li>
-                            <li>DOB: <span>{{ $patient->birth_date }}</span></li>
+                            <li>Gender: <span><?php if($patient->gender == 1) { echo 'Male'; }else { echo 'Female'; } ?></span></li>
+                            <li>DOB: <span><?php echo date('m-d-Y', strtotime($patient->birth_date)) ?></span></li>
                         </ul>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                                                                 <div>
                                                                     <h3 class="_title">ServiceRequestStartDate</h3>
                                                                     <div>
-                                                                        <p>{{ $patient->service_request_start_date }}</p>
+                                                                        <p><?php echo date('m-d-Y', strtotime($patient->service_request_start_date)) ?></span></p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -189,7 +189,7 @@
                                                                 <div>
                                                                     <h3 class="_title">PayerName</h3>
                                                                     <div>
-                                                                        <p>{{ ($patient->payer) ? $patient->payer->payer_name : '' }}</p>
+                                                                        <p>{{ $patient->PayerName }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -202,7 +202,7 @@
                                                                 <div>
                                                                     <h3 class="_title">PayerCoordinatorID</h3>
                                                                     <div>
-                                                                        <p>{{ ($patient->payer) ? $patient->payer->payer_coordinator_id : '' }}</p>
+                                                                        <p>{{ $patient->PayerCoordinatorID }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -215,7 +215,7 @@
                                                                 <div>
                                                                     <h3 class="_title">PayerCoordinatorName</h3>
                                                                     <div>
-                                                                        <p>{{ ($patient->payer) ? $patient->payer->payer_coordinator_name : '' }}</p>
+                                                                        <p>{{ $patient->PayerCoordinatorName }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -228,7 +228,7 @@
                                                                 <div>
                                                                     <h3 class="_title">PatientStatusID</h3>
                                                                     <div>
-                                                                        <p>{{ ($patient->payer) ? $patient->payer->patient_status_id : '' }}</p>
+                                                                        <p>{{ $patient->PatientStatusID }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -245,13 +245,388 @@
                                                                 <div>
                                                                     <h3 class="_title">PatientStatusName</h3>
                                                                     <div>
-                                                                        <p>{{ ($patient->payer) ? $patient->payer->patient_status_name : '' }}</p>
+                                                                        <p>{{ $patient->PatientStatusName }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">WageParity</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->WageParity }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">PrimaryLanguageID</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->PrimaryLanguageID }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">PrimaryLanguage</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->PrimaryLanguage }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">SecondaryLanguageID</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->SecondaryLanguageID }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        
+                                                    </div>
+                                                </div>
+    <h1 class="title" style="color: #006C76;"><b><u>Address Details</u></b></h1> <br>                                               
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center"> 
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Address ID</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->address_id }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">address1</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->address1 }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">address2</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->address2 }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">cross_street</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->cross_street }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center"> 
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">zip4</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->zip4 }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">zip5</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->zip5 }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">state_id</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->state_id }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">county_id</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->county_id }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center"> 
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">city_id</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->city_id }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">is_primary_address</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->is_primary_address }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">addresstypes</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->addresstypes }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+<!--                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                     <i class="las la-phone circle"></i> 
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">county_id</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->patientAddress->county_id }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
+                                                    </div>    
+                                                </div>
+    <h1 class="title" style="color: #006C76;"><b><u>Emergency Contact Details</u></b></h1> <br> 
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center"> 
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Name</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->PatientEmergency->name }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">lives_with_patient</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->PatientEmergency->lives_with_patient }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">have_keys</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->PatientEmergency->have_keys }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                     <i class="las la-phone circle"></i> 
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">phone1</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->PatientEmergency->phone1 }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center"> 
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">phone2</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->PatientEmergency->phone2 }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">address</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->PatientEmergency->address }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>    
+                                                </div>
+    <h1 class="title" style="color: #006C76;"><b><u>Caregiver Details</u></b></h1> <br>
+    <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center"> 
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Name</h3>
+                                                                    <div>
+                                                                        <p></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Start Time</h3>
+                                                                    <div>
+                                                                        <p></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <!-- <i class="las la-phone circle"></i> -->
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">End Time</h3>
+                                                                    <div>
+                                                                        <p></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+<!--                                                        <div class="col-12 col-sm-3 col-md-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                     <i class="las la-phone circle"></i> 
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">phone1</h3>
+                                                                    <div>
+                                                                        <p>{{ $patient->PatientEmergency->phone1 }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
+                                                    </div>    
+                                                </div> 
                                             </div>
                                         </form>
                                     </div>

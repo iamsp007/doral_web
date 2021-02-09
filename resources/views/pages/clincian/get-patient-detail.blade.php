@@ -10,11 +10,11 @@
         <thead>
         <tr>
             <th></th>
-            <th>ID</th>
-            <th>Patient Id</th>
+            <!--<th>ID</th>-->
             <th>FirstName</th>
             <th>LastName</th>
             <th>SSN</th>
+            <th>Patient Id</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -42,12 +42,12 @@
             "serverSide": true,
             ajax: "{{  route('clinician.patientDetail.ajax') }}",
             columns:[
+//                {data:'id',name:'id'},
                 {data:'id',name:'id'},
-                {data:'id',name:'id'},
-                {data: 'patient_id', name: 'PatientID'},
                 {data: 'first_name', name: 'FirstName'},
                 {data: 'last_name', name: 'LastName'},
                 {data: 'ssn', name: 'SSN'},
+                {data: 'patient_id', name: 'PatientID'},            
                 {data: 'action', name: 'action'},
             
             ],

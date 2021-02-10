@@ -10,53 +10,55 @@ function getRoadLProcess(callback) {
 }
 
 function initMap(postLatLng=null) {
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url:base_url+'clinician/patient-roladl-proccess',
-        data:{
-            patient_request_id:patient_request_id
-        },
-        method:'POST',
-        dataType:'json',
-        success:function (response) {
-            $('#view-duration').html('')
-            const directionsService = new google.maps.DirectionsService();
-            const directionsRenderer = new google.maps.DirectionsRenderer();
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 14,
-                center: new google.maps.LatLng(response.patient.latitude,response.patient.longitude),
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-            var myMarker = new google.maps.Marker({
-                map: map,
-                animation: google.maps.Animation.DROP,
-                position: new google.maps.LatLng(response.patient.latitude,response.patient.longitude),
-            });
-            makeMarker(new google.maps.LatLng(response.patient.latitude,response.patient.longitude), base_url+'assets/img/icons/patient-icon.svg', "Doral Patient", map);
-            response.clinicians.map(function (value) {
-                if(value.status!=='pending'){
-                    // makeMarker(new google.maps.LatLng(value.start_latitude,value.end_longitude), base_url+'assets/img/icons/clinician-sb-select.svg', value.first_name+' '+value.last_name+' ( '+value.referral_type+' )', map);
-                    var destination = response.patient.latitude+','+response.patient.longitude;
-                    var origin = value.start_latitude+','+value.end_longitude;
-                    var current = origin;
-                    if (value.latitude!==null){
-                        makeMarker(new google.maps.LatLng(value.latitude,value.longitude), base_url+'assets/img/icons/clinician-sb-select.svg', value.first_name+' '+value.last_name+' ( '+value.referral_type+' )', map);
-                       current = value.latitude+', '+value.longitude;
-                    }else {
-                        makeMarker(new google.maps.LatLng(value.start_latitude,value.end_longitude), base_url+'assets/img/icons/clinician-sb-select.svg', value.first_name+' '+value.last_name+' ( '+value.referral_type+' )', map);
+    setTimeout(function () {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:base_url+'clinician/patient-roladl-proccess',
+            data:{
+                patient_request_id:patient_request_id
+            },
+            method:'POST',
+            dataType:'json',
+            success:function (response) {
+                $('#view-duration').html('')
+                const directionsService = new google.maps.DirectionsService();
+                const directionsRenderer = new google.maps.DirectionsRenderer();
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 14,
+                    center: new google.maps.LatLng(response.patient.latitude,response.patient.longitude),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+                var myMarker = new google.maps.Marker({
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    position: new google.maps.LatLng(response.patient.latitude,response.patient.longitude),
+                });
+                makeMarker(new google.maps.LatLng(response.patient.latitude,response.patient.longitude), base_url+'assets/img/icons/patient-icon.svg', "Doral Patient", map);
+                response.clinicians.map(function (value) {
+                    if(value.status!=='pending'){
+                        // makeMarker(new google.maps.LatLng(value.start_latitude,value.end_longitude), base_url+'assets/img/icons/clinician-sb-select.svg', value.first_name+' '+value.last_name+' ( '+value.referral_type+' )', map);
+                        var destination = response.patient.latitude+','+response.patient.longitude;
+                        var origin = value.start_latitude+','+value.end_longitude;
+                        var current = origin;
+                        if (value.latitude!==null){
+                            makeMarker(new google.maps.LatLng(value.latitude,value.longitude), base_url+'assets/img/icons/clinician-sb-select.svg', value.first_name+' '+value.last_name+' ( '+value.referral_type+' )', map);
+                            current = value.latitude+', '+value.longitude;
+                        }else {
+                            makeMarker(new google.maps.LatLng(value.start_latitude,value.end_longitude), base_url+'assets/img/icons/clinician-sb-select.svg', value.first_name+' '+value.last_name+' ( '+value.referral_type+' )', map);
 
+                        }
+                        calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,current,map,value.first_name+' '+value.last_name+' ( '+value.referral_type+' )');
                     }
-                    calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,current,map,value.first_name+' '+value.last_name+' ( '+value.referral_type+' )');
-                }
-            })
-            addYourLocationButton(map, myMarker);
-        },
-        error:function (error) {
-            console.log(error)
-        }
-    })
+                })
+                addYourLocationButton(map, myMarker);
+            },
+            error:function (error) {
+                console.log(error)
+            }
+        })
+    },10000)
 
 }
 

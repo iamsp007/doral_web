@@ -21,46 +21,37 @@ function initMap(postLatLng=null) {
         method:'POST',
         dataType:'json',
         success:function (response) {
-            var origin=response.latitude+', '+response.longitude;
-            var destination=response.destination.latitude+', '+response.destination.longitude;;
-            var locations=[];
-
-            response.routes.map( (resp)=> {
-                locations.push( {
-                    location:resp.latitude+', '+resp.longitude,
-                    lat:resp.latitude,
-                    lng:resp.longitude,
-                    lable:resp.user.first_name+' '+resp.user.last_name
-                })
-            });
+            $('#view-duration').html('')
             const directionsService = new google.maps.DirectionsService();
             const directionsRenderer = new google.maps.DirectionsRenderer();
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 14,
-                center: new google.maps.LatLng(response.latitude,response.longitude),
+                center: new google.maps.LatLng(response.patient.latitude,response.patient.longitude),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-            if (locations.length>0){
-                var orginlat=response.latitude;
-                var orginlng=response.longitude;
-                if ((orginlat && orginlat!=='') && (orginlng && orginlng!=='')){
-                    orginlat = locations[0].lat;
-                    orginlng = locations[0].lng;
-                }
-                if (destination===''){
-                    destination = locations[locations.length-1].lat+','+locations[locations.length-1].lng;
-                }
+            var myMarker = new google.maps.Marker({
+                map: map,
+                animation: google.maps.Animation.DROP,
+                position: new google.maps.LatLng(response.patient.latitude,response.patient.longitude),
+            });
+            makeMarker(new google.maps.LatLng(response.patient.latitude,response.patient.longitude), base_url+'assets/img/icons/patient-icon.svg', "Doral Patient", map);
+            response.clinicians.map(function (value) {
+                if(value.status!=='pending'){
+                    // makeMarker(new google.maps.LatLng(value.start_latitude,value.end_longitude), base_url+'assets/img/icons/clinician-sb-select.svg', value.first_name+' '+value.last_name+' ( '+value.referral_type+' )', map);
+                    var destination = response.patient.latitude+','+response.patient.longitude;
+                    var origin = value.start_latitude+','+value.end_longitude;
+                    var current = origin;
+                    if (value.latitude!==null){
+                        makeMarker(new google.maps.LatLng(value.latitude,value.longitude), base_url+'assets/img/icons/clinician-sb-select.svg', value.first_name+' '+value.last_name+' ( '+value.referral_type+' )', map);
+                       current = value.latitude+', '+value.longitude;
+                    }else {
+                        makeMarker(new google.maps.LatLng(value.start_latitude,value.end_longitude), base_url+'assets/img/icons/clinician-sb-select.svg', value.first_name+' '+value.last_name+' ( '+value.referral_type+' )', map);
 
-                var myMarker = new google.maps.Marker({
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    position: new google.maps.LatLng(response.latitude,response.longitude),
-                });
-                addYourLocationButton(map, myMarker);
-                calculateAndDisplayRoute(directionsService, directionsRenderer,response,locations,map);
-            }else {
-                alert('No Data Found')
-            }
+                    }
+                    calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,current,map,value.first_name+' '+value.last_name+' ( '+value.referral_type+' )');
+                }
+            })
+            addYourLocationButton(map, myMarker);
         },
         error:function (error) {
             console.log(error)
@@ -157,7 +148,6 @@ function makeMarker(position, icon, title, map) {
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
-
     markers.addListener("click", () => {
         infowindow.open(map, markers);
         map.setZoom(15)
@@ -167,14 +157,11 @@ function makeMarker(position, icon, title, map) {
 }
 
 //
-function calculateAndDisplayRoute(directionsService, directionsRenderer,response,waypoints,map) {
-    var waypoint = waypoints.map(function (location) {
-        return {location:location.location}
-    })
+function calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,current,map,name) {
+
     var request = {
-        origin: response.latitude+','+response.longitude,
-        destination: response.destination.latitude+','+response.destination.longitude,
-        waypoints:[{location:waypoints[0].location}],
+        origin: current,
+        destination: destination,
         provideRouteAlternatives: true,
         travelMode: 'DRIVING',
         unitSystem: google.maps.UnitSystem.METRIC
@@ -182,16 +169,20 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer,response
     directionsService.route(request,
         (response, status) => {
             if (status === "OK") {
+
+
                 new google.maps.DirectionsRenderer({
                     map: map,
                     directions: response,
                     suppressMarkers: true
                 });
                 var leg = response.routes[0].legs[0];
-                console.log(leg.steps)
-                $('#view-duration').html(leg.distance.text+','+leg.duration.text)
-                makeMarker(leg.start_location, base_url+'assets/img/icons/patient-icon.svg', "Patient Detail", map);
-                makeMarker(leg.end_location, base_url+'assets/img/icons/clinician-sb-select.svg', 'Clinician Detail', map);
+                var duration_text='Name : '+name+'<br/>';
+                duration_text+='Total Duration : '+leg.duration.text+'</br>';
+                duration_text+='Total Distance : '+leg.distance.text+'<br/></br>';
+                $('#view-duration').append(duration_text)
+                // makeMarker(leg.start_location, base_url+'assets/img/icons/patient-icon.svg', "Patient Detail", map);
+                // makeMarker(leg.end_location, base_url+'assets/img/icons/clinician-sb-select.svg', 'Clinician Detail', map);
             } else {
                 window.alert("Directions request failed due to " + status);
             }

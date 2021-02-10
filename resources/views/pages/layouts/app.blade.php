@@ -28,7 +28,7 @@
     @if (\Request::is('supervisor/*'))
         @include('pages.supervisor.popup')
     @endif
-    <div id="loader-wrapper" class="loading" >
+    <div id="loader-wrapper" >
         Loading&#8230;
     </div>
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
@@ -287,7 +287,7 @@
                             };
 
                             new Notification(noteTitle, noteOptions).onclick = function (event) {
-console.log(payload.data)
+
                                 if (payload.data['gcm.notification.notification_type']==='1'){
                                     window.location.href=base_url+'clinician/start-roadl/'+payload.data.id;
                                 }else if (payload.data['gcm.notification.notification_type']==="2"){

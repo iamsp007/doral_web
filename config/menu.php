@@ -129,7 +129,7 @@ return [
             'icon_title'=>'Referral Section',
             'menu'=>[
                 [
-                    'name'=>'New Registered Referral',
+                    'name'=>'Pending Referral Source',
                     'url'=>env('APP_URL').'admin/referral-approval',
                     'route'=>'admin/referral-approval',
                     'icon'=>'home-sb-select.svg',
@@ -137,7 +137,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Activated Referral',
+                    'name'=>'Active Referral Source',
                     'url'=>env('APP_URL').'admin/referral-active',
                     'route'=>'admin/referral-active',
                     'icon'=>'home-sb-select.svg',
@@ -145,7 +145,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Rejected Referral',
+                    'name'=>'Reject Referral Source',
                     'url'=>env('APP_URL').'admin/referral-rejected',
                     'route'=>'admin/referral-rejected',
                     'icon'=>'home-sb-select.svg',
@@ -163,7 +163,7 @@ return [
             'icon_title'=>'Clinician Section',
             'menu'=>[
                 [
-                    'name'=>'New Registered Clinician',
+                    'name'=>'Pending Clinician',
                     'url'=>env('APP_URL').'admin/clinician',
                     'route'=>'admin/clinician',
                     'icon'=>'home-sb-select.svg',
@@ -171,7 +171,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Activate Clinician',
+                    'name'=>'Active Clinician',
                     'url'=>env('APP_URL').'admin/clinician',
                     'route'=>'admin/clinician',
                     'icon'=>'home-sb-select.svg',
@@ -179,7 +179,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Rejected Clinician',
+                    'name'=>'Reject Clinician',
                     'url'=>env('APP_URL').'admin/clinician',
                     'route'=>'admin/clinician',
                     'icon'=>'home-sb-select.svg',

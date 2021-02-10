@@ -180,7 +180,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer,origin,d
                 var duration_text='Name : '+name+'<br/>';
                 duration_text+='Total Duration : '+leg.duration.text+'</br>';
                 duration_text+='Total Distance : '+leg.distance.text+'<br/></br>';
-                $('#view-duration').append(duration_text)
+                $('#output').append(duration_text)
                 // makeMarker(leg.start_location, base_url+'assets/img/icons/patient-icon.svg', "Patient Detail", map);
                 // makeMarker(leg.end_location, base_url+'assets/img/icons/clinician-sb-select.svg', 'Clinician Detail', map);
             } else {

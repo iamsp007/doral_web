@@ -97,40 +97,40 @@ class GetPatientDetailsController extends Controller
                 $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
 
                 dump($patientDetails);
-                $data1 = PatientDetail::where('patient_id',$arr)->first();
-                if ($data1) {
-                    $patientDetail = PatientDetail::where('patient_id',$arr)->first();
-                } else {
-                    $patientDetail = new PatientDetail();
-                }
+                // $data1 = PatientDetail::where('patient_id',$arr)->first();
+                // if ($data1) {
+                //     $patientDetail = PatientDetail::where('patient_id',$arr)->first();
+                // } else {
+                //     $patientDetail = new PatientDetail();
+                // }
                
-                $patientDetail->doral_id = 'DORAL'.rand();
-                $patientDetail->agency_id = $patientDetails['AgencyID'];
-                $patientDetail->office_id = $patientDetails['OfficeID'];
-                $patientDetail->patient_id = $patientDetails['PatientID'];
-                $patientDetail->first_name = $patientDetails['FirstName'];
-                // $patientDetail->middle_name = $patientDetails[''];
-                $patientDetail->last_name = $patientDetails['LastName'];
-                $patientDetail->birth_date = $patientDetails['BirthDate'];
-                if ($patientDetails['Gender'] == 'Female') {
-                    $gender = '2';
-                } else if ($patientDetails['Gender'] == 'Male') {
-                    $gender = '1';
-                } else {
-                    $gender = '3';
-                }
-                $patientDetail->gender = $gender;
-                $patientDetail->priority_code = $patientDetails['PriorityCode'];
-                $patientDetail->service_request_start_date = $patientDetails['ServiceRequestStartDate'];
-                $patientDetail->admission_id = $patientDetails['AdmissionID'];
-                $patientDetail->medica_id_number =  '';
-                $patientDetail->medicare_number =  '';
-                $ssn = '';
-                if (! empty($patientDetails['SSN'])) {
-                        $ssn = $patientDetails['SSN'];
-                }
-                $patientDetail->SSN = '';
-                $patientDetail->payer_id = '1';
+                // $patientDetail->doral_id = 'DOR-'.rand();
+                // $patientDetail->agency_id = $patientDetails['AgencyID'];
+                // $patientDetail->office_id = $patientDetails['OfficeID'];
+                // $patientDetail->patient_id = $patientDetails['PatientID'];
+                // $patientDetail->first_name = $patientDetails['FirstName'];
+                // // $patientDetail->middle_name = $patientDetails[''];
+                // $patientDetail->last_name = $patientDetails['LastName'];
+                // $patientDetail->birth_date = $patientDetails['BirthDate'];
+                // if ($patientDetails['Gender'] == 'Female') {
+                //     $gender = '2';
+                // } else if ($patientDetails['Gender'] == 'Male') {
+                //     $gender = '1';
+                // } else {
+                //     $gender = '3';
+                // }
+                // $patientDetail->gender = $gender;
+                // $patientDetail->priority_code = $patientDetails['PriorityCode'];
+                // $patientDetail->service_request_start_date = $patientDetails['ServiceRequestStartDate'];
+                // $patientDetail->admission_id = $patientDetails['AdmissionID'];
+                // $patientDetail->medica_id_number =  '';
+                // $patientDetail->medicare_number =  '';
+                // $ssn = '';
+                // if (! empty($patientDetails['SSN'])) {
+                //         $ssn = $patientDetails['SSN'];
+                // }
+                // $patientDetail->SSN = '';
+                // $patientDetail->payer_id = '1';
                 // $patientDetail->payer_name = $patientDetails['PayerName'];
                 // $patientDetail->payer_coordinator_id = $patientDetails['PayerCoordinatorID'];
                 // $patientDetail->payer_coordinator_name = $patientDetails['PayerCoordinatorName'];

@@ -10,7 +10,7 @@ function getRoadLProcess(callback) {
 }
 
 function initMap(postLatLng=null) {
-    setTimeout(function () {
+    setInterval(function () {
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

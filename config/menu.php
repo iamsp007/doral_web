@@ -118,6 +118,7 @@ return [
     ],
     'admin'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'admin/dashboard','route'=>'admin/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
+        ['name'=>'Roles & Permissions','url'=>env('APP_URL').'admin/roles-permissions','route'=>'admin/roles-permissions','icon'=>'roles-sb-select.svg','icon_hover'=>'roles-sb.svg','icon_title'=>'Roles & Permissions'],
 //        ['name'=>'Dashboard','url'=>env('APP_URL').'admin/roles','route'=>'admin/roles','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg'],
 //        ['name'=>'Dashboard','url'=>env('APP_URL').'admin/employee','route'=>'admin/employee','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg'],
         [

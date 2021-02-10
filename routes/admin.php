@@ -45,4 +45,9 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
 
     // service payment details insert / update
     Route::post('/service-payment-insert-update', 'App\Http\Controllers\CompanyController@insertUpdateServicePayment')->name('admin.insertUpdateServicePayment');
+
+    /* roles and permissions route */
+    Route::get('roles-permissions','App\Http\Controllers\RolesAndPermission\RolesAndPermissionController@view')->name('admin.rolesAndPermission');
+    Route::get('roles-permissions-save','App\Http\Controllers\RolesAndPermission\RolesAndPermissionController@save')->name('admin.rolesAndPermissionSave');
+
 });

@@ -38,4 +38,10 @@ class PatientDetail extends Model
     public function payer() {
         return $this->hasOne(PatientPlayer::class,'id','payer_id');
     }
+    public function patientAddress() {
+        return $this->hasOne(PatientAddress::class,'patient_id','id');
+    }
+    public function PatientEmergency() {
+        return $this->hasOne(PatientEmergencyContact::class,'patient_id','id');
+    }
 }

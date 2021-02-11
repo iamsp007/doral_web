@@ -164,8 +164,13 @@ class GetPatientDetailsController extends Controller
                     /** Store  Coordinator */
                     $this->storeCoordinator($patientDetails['Coordinators']['Coordinator'], $patientDetail->id);
                     
+<<<<<<< HEAD
                     // /** Store nurse detail */
                     // $this->storeNurse($patientDetails['Nurse'], $patientDetail->id);
+=======
+                    /** Store nurse detail */
+                    $this->storeNurse($patientDetails['Nurse'], $patientDetail->id);
+>>>>>>> ab11a6490289502e83fb83fb02bee7e296d2a31c
 
                     // /** Store accepted services */
                     // $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patientDetail->id);
@@ -238,11 +243,19 @@ class GetPatientDetailsController extends Controller
 
     public function storeNurse($nurses, $patientDetail_id)
     {
+<<<<<<< HEAD
         foreach ($nurses as $key => $nurse) {
             $nurseModel = new Nurse();
             $nurseModel->nurse_id = $nurse->ID;
             $nurseModel->name = $nurse->Name;
 
+=======
+        foreach ($nurses as $nurse) {
+            $nurseModel = Nurse::updateOrCreate(
+                ['nurse_id' => $nurse['ID']],
+                ['name' => ($nurse['Name']) ? $nurse['Name'] : '']
+            );
+>>>>>>> ab11a6490289502e83fb83fb02bee7e296d2a31c
             if ($nurseModel->save()) {
                 $patientNurseModel = new PatientNurse();
 

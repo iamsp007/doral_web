@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PatientCoordinator extends Model
 {
     use HasFactory;
-
+    protected $table='patient_coordinators';
+    
     /**
      * The attributes that are mass assignable.
      *

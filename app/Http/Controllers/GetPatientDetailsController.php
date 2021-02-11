@@ -64,7 +64,7 @@ class GetPatientDetailsController extends Controller
         public function show($id)
         {
             $patient = PatientDetail::with('payer')->find($id);
-            return view('pages.clincian.patient-details', compact('patient'));
+            return view('pages.patient_detail.index', compact('patient'));
         }
 
     /**

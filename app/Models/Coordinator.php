@@ -15,6 +15,6 @@ class Coordinator extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'status', 
+        'name', 'coordinator_id', 
     ];
 }

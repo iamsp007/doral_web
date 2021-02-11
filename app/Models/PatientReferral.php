@@ -156,4 +156,8 @@ class PatientReferral extends Model
         }
         return null;
     }
+
+    public static function getAccepted(){
+        return PatientReferral::select("patient_referrals.*", \DB::raw("CONCAT(patient_referrals.first_name,' ',patient_referrals.last_name) as full_name"))->with('service','filetype')->where('status','accept')->get();
+    }
 }

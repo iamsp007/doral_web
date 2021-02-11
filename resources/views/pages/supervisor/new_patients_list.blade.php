@@ -73,7 +73,18 @@
                   },
                   {data:'service.name',name:'service.name',"bSortable": true},
                   {data:'filetype.name',name:'filetype.name',"bSortable": true},
-                  {data:'gender',name:'gender',"bSortable": true},
+                  {
+                    data:'gender',name:'gender',"bSortable": true,
+                  render:function(data, type, row, meta){
+                      if (data == 'MALE') {
+                          return 'Male';
+                      } else if (data == 'FEMALE') {
+                          return 'Female';
+                      } else {
+                          return 'Other';
+                      }
+                  }
+                },
                   {
                       data:'dob',
                       name:'dob',

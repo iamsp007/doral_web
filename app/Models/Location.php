@@ -5,13 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class Location extends Model
 {
     use HasFactory;
-
-    protected $table='states';
-
-    protected $fillable = [
-        'state', 'state_code', 'country_id'
-    ];
 }

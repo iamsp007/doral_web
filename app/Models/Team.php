@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Coordinator extends Model
+class Team extends Model
 {
     use HasFactory;
 
@@ -15,15 +15,6 @@ class Coordinator extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'coordinator_id', 
+        'name', 'team_id', 
     ];
-
-    
-    /**
-     * The roles that belong to the user.
-     */
-    public function patientCoordinator()
-    {
-        return $this->belongsToMany(PatientCoordinator::class);
-    }
 }

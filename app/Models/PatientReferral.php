@@ -156,8 +156,32 @@ class PatientReferral extends Model
         }
         return null;
     }
+    public function getGenderFormatAttribute(){
+     
+        if($this->gender === 'MALE'){
+            $gender = 'Male';
+        }
+        elseif ($this->gender === 'FEMALE') {
+            $gender = 'Female';
+        }
+        else{
+            $gender = 'Other';
+        }
+        return $gender;
+        // return ucfirst($this->genter);
+    }
+    public function getSsnFormatAttribute(){
 
-    public static function getAccepted(){
+       return 'xxx-xxx-'.substr($this->ssn, -4);
+
+    }
+    public function getdobFormatAttribute(){
+
+       return date('m/d/Y',strtotime($this->dob));
+
+    }
+        public static function getAccepted(){
         return PatientReferral::select("patient_referrals.*", \DB::raw("CONCAT(patient_referrals.first_name,' ',patient_referrals.last_name) as full_name"))->with('service','filetype')->where('status','accept')->get();
     }
+    
 }

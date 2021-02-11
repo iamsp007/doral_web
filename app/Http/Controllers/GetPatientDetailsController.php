@@ -33,7 +33,6 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
-use App\Helpers\Helper;
 class GetPatientDetailsController extends Controller
 {
 
@@ -55,11 +54,8 @@ class GetPatientDetailsController extends Controller
                         }
                         return $btn;
                   
-                })->editColumn('ssn', function ($ssn){
-                if($ssn->ssn!='')
-                return Helper::string_to_ssn($ssn->ssn);
-                else
-                return '--';
+                })->editColumn('ssn', function ($contact){
+                return $contact->ssn_format;
             })
                 ->rawColumns(['action'])
                 ->make(true);

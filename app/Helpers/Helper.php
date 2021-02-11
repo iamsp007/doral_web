@@ -189,8 +189,5 @@ class Helper extends BaseController
         
         return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
     }
-
-    static function string_to_ssn( $ssn = "111223333" ) {
-    return substr($ssn, 0, 3).'-'.substr($ssn, 3, 2).'-'.substr($ssn,5);
-    }
+ 
 }

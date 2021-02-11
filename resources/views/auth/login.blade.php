@@ -42,6 +42,7 @@
                                             <option value="1">Provider</option>
                                             <option value="2">Home Care</option>
                                             <option value="2">Insurance</option>
+                                            <option value="3">Other</option>
                                         </select>
                                         @error('referralType')
                                             <span class="invalid-feedback" role="alert">

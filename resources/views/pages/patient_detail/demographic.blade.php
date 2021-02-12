@@ -144,6 +144,7 @@
                   </div>
                </div>
             </div>
+          
             <div class="form-group">
                <div class="row">
                   <div class="col-12 col-sm-3">
@@ -209,81 +210,118 @@
                   marginwidth="0"
                   src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
             </div>
+
             <!-- Emergency contact Detail -->
-            <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
-               data-name="emergency_contact_detail">
-               <div class="app-card-header">
-                  <h1 class="title">Emergency Contact Detail</h1>
-               </div>
-               <div>
-                  <div class="p-3">
-                     <div class="">
-                        <div class="row">
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls">
-                                    <i class="las la-user-nurse circle"></i>
+            @foreach($patient->patientEmergencyContact as $key => $patientEmergencyContact)
+               <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                  data-name="emergency_contact_detail">
+                  <div class="app-card-header">
+                     <h1 class="title">Emergency {{($key > 0) ? $key : ''}} Contact Detail</h1>
+                  </div>
+                  <div>
+                     <div class="p-3">
+                        <div class="">
+                           <div class="row">
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-user-nurse circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Contact Name</h3>
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="name"
+                                          onclick="editableField('name')"
+                                          data-id="name" id="name"
+                                          placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
+                                    </div>
                                  </div>
-                                 <div class="rs">
-                                    <h3 class="_title">Contact Name</h3>
-                                    <!-- <h1 class="_detail">Ara lus</h1> -->
-                                    <input type="text"
-                                       class="form-control-plaintext _detail " readonly
-                                       name="contact_name"
-                                       onclick="editableField('contact_name')"
-                                       data-id="contact_name" id="contact_name"
-                                       placeholder="Contact No" value="Shashikant Parmar">
+                              </div>
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-phone circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Phone1</h3>
+                                       <input type="tel" class="form-control-plaintext _detail "
+                                          readonly name="phone1"
+                                          onclick="editableField('phone1')"
+                                          data-id="phone1" id="phone1"
+                                          onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                                          placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-phone circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Phone2</h3>
+                                       <input type="tel" class="form-control-plaintext _detail "
+                                          readonly name="phone1"
+                                          onclick="editableField('phone1')"
+                                          data-id="phone1" id="phone1"
+                                          onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                                          placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-user-nurse circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Address</h3>
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="address"
+                                          onclick="editableField('address')"
+                                          data-id="address" id="address"
+                                          placeholder="Address" value="{{ $patientEmergencyContact->address }}">
+                                    </div>
                                  </div>
                               </div>
                            </div>
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls">
-                                    <i class="las la-phone circle"></i>
-                                 </div>
-                                 <div class="rs">
-                                    <h3 class="_title">Home Phone</h3>
-                                    <!-- <h1 class="_detail">985471236</h1> -->
-                                    <input type="tel" class="form-control-plaintext _detail "
-                                       readonly name="home_phone"
-                                       onclick="editableField('home_phone')"
-                                       data-id="home_phone" id="home_phone"
-                                       onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                       placeholder="Home Phone" value="985471236">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls">
-                                    <i class="las la-phone circle"></i>
-                                 </div>
-                                 <div class="rs">
-                                    <h3 class="_title">Cell Phone</h3>
-                                    <!-- <h1 class="_detail">985471236</h1> -->
-                                    <input type="tel" class="form-control-plaintext _detail "
-                                       readonly name="cell_phone"
-                                       onclick="editableField('cell_phone')"
-                                       data-id="cell_phone" id="cell_phone"
-                                       onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                       placeholder="Cell Phone" value="985471236">
+                        </div>
+                     </div>
+                     <div class="p-3">
+                        <div class="">
+                           <div class="row">
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-user-nurse circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Lives With Patient</h3>
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="lives_with_patient"
+                                          onclick="editableField('lives_with_patient')"
+                                          data-id="lives_with_patient" id="lives_with_patient"
+                                          placeholder="Lives With Patient" value="{{ $patientEmergencyContact->lives_with_patient }}">
+                                    </div>
                                  </div>
                               </div>
-                           </div>
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls">
-                                    <i class="las la-phone circle"></i>
-                                 </div>
-                                 <div class="rs">
-                                    <h3 class="_title">Work Phone</h3>
-                                    <!-- <h1 class="_detail">985471236</h1> -->
-                                    <input type="tel" class="form-control-plaintext _detail "
-                                       readonly name="work_phone2"
-                                       onclick="editableField('work_phone2')"
-                                       data-id="work_phone2" id="work_phone2"
-                                       onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                       placeholder="Work Phone" value="985471236">
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-user-nurse circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Have Keys</h3>
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="have_keys"
+                                          onclick="editableField('have_keys')"
+                                          data-id="have_keys" id="have_keys"
+                                          placeholder="Have Keys" value="{{ $patientEmergencyContact->have_keys }}">
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -291,92 +329,8 @@
                      </div>
                   </div>
                </div>
-            </div>
+            @endforeach
             <!-- Emergency contact Detail -->
-            <!-- If Unavailable (2nd) Contact Detail -->
-            <div class="app-card app-card-custom no-minHeight box-shadow-none"
-               data-name="emergency_contact_detail">
-               <div class="app-card-header">
-                  <h1 class="title">If Unavailable (2nd) Contact Detail</h1>
-               </div>
-               <div>
-                  <div class="p-3">
-                     <div class="">
-                        <div class="row">
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls">
-                                    <i class="las la-user-nurse circle"></i>
-                                 </div>
-                                 <div class="rs">
-                                    <h3 class="_title">Contact Name</h3>
-                                    <!-- <h1 class="_detail">Ara lus</h1> -->
-                                    <input type="tel" class="form-control-plaintext _detail "
-                                       readonly name="work_phone1"
-                                       onclick="editableField('work_phone1')"
-                                       data-id="work_phone1" id="work_phone1"
-                                       onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                       placeholder="Work Phone" value="985471236">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls">
-                                    <i class="las la-phone circle"></i>
-                                 </div>
-                                 <div class="rs">
-                                    <h3 class="_title">Home Phone</h3>
-                                    <!-- <h1 class="_detail">985471236</h1> -->
-                                    <input type="tel" class="form-control-plaintext _detail "
-                                       readonly name="home_phone1"
-                                       onclick="editableField('home_phone1')"
-                                       data-id="home_phone1" id="home_phone1"
-                                       onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                       placeholder="Home Phone" value="985471236">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls">
-                                    <i class="las la-phone circle"></i>
-                                 </div>
-                                 <div class="rs">
-                                    <h3 class="_title">Cell Phone</h3>
-                                    <!-- <h1 class="_detail">985471236</h1> -->
-                                    <input type="tel" class="form-control-plaintext _detail "
-                                       readonly name="cell_phone1"
-                                       onclick="editableField('home_phone1')"
-                                       data-id="cell_phone1" id="cell_phone1"
-                                       onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                       placeholder="Cell Phone" value="985471236">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls">
-                                    <i class="las la-phone circle"></i>
-                                 </div>
-                                 <div class="rs">
-                                    <h3 class="_title">Work Phone</h3>
-                                    <!-- <h1 class="_detail">985471236</h1> -->
-                                    <input type="tel" class="form-control-plaintext _detail "
-                                       readonly name="work_phone3"
-                                       onclick="editableField('work_phone3')"
-                                       data-id="work_phone3" id="work_phone3"
-                                       onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                       placeholder="Work Phone" value="985471236">
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <!-- If Unavailable (2nd) Contact Detail -->
          </div>
       </div>
    </div>

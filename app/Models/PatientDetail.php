@@ -83,4 +83,16 @@ class PatientDetail extends Model
         return $this->hasMany('App\Models\PatientEmergencyContact', 'patient_id', 'id');
     }
 
+    /**
+     * Relation with referances
+     */
+    public function nurses()
+    {
+        return $this->belongsToMany(
+            Nurse::class,
+            'patient_nurses',
+            'patient_id',
+            'nurse_id');
+    }
+
 }

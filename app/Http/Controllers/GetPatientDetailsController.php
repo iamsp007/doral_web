@@ -26,7 +26,6 @@ use App\Models\State;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-
 class GetPatientDetailsController extends Controller
 {
 

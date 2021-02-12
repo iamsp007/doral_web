@@ -214,11 +214,13 @@
     <script>
         var base_url = $('#base_url').val();
         var socket_url = '{{ env("SOCKET_IO_URL") }}';
+        window.laravel_echo_port = '{{ env("LARAVEL_ECHO_PORT") }}';
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-    <script src="{{ asset('js/socket.js') }}"></script>
+    <script src="//{{ Request::getHost() }}:3000/socket.io/socket.io.js"></script>
+    <script src="{{ asset('js/laravel-echo-setup.js') }}" type="text/javascript"></script>
+
     <script src="{{ asset('assets/js/sidebar.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('js/toastr.js') }}"></script>
@@ -227,15 +229,15 @@
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
     <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('assets/js/apexcharts.js') }}"></script>
-
-    <script>
-        $("#loader-wrapper").hide();
-    </script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
     <script>
         $(document).ready(function(){
+            $("#loader-wrapper").hide();
+            window.Echo.channel('location').listen('ActionEvent', (e) => {
+                console.log(e)
+            });
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('{{ asset("js/firebase-messaging-sw.js") }}')
                     .then(function(registration) {

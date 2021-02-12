@@ -84,10 +84,13 @@
                     name:'patient_detail.gender',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        if (data){
-                            return data;
+                        if (data == 'MALE') {
+                            return 'Male';
+                        } else if (data == 'FEMALE') {
+                            return 'Female';
+                        } else {
+                            return 'Other';
                         }
-                        return '--';
                     }
                 },
                 {

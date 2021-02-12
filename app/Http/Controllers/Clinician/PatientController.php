@@ -48,7 +48,23 @@ class PatientController extends Controller
             ->where('status','=','1')
             ->get();
 
-        return DataTables::of($patientList)->make(true);
+        return DataTables::of($patientList)
+        ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob));
+                else
+                return '--';
+            })->editColumn('patient_detail.city', function ($contact){
+                if($contact->city!='')
+                return $contact->city;
+                else
+                return '--';
+            })->editColumn('patient_detail.state', function ($contact){
+                if($contact->state!='')
+                return $contact->state;
+                else
+                return '--';
+            })->make(true);
     }
 
     public function getNewPatientList(Request $request){
@@ -77,7 +93,22 @@ class PatientController extends Controller
                 return '-';
             })
             ->rawColumns(['action'])
-            ->make(true);
+            ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob));
+                else
+                return '--';
+            })->editColumn('patient_detail.city', function ($contact){
+                if($contact->city!='')
+                return $contact->city;
+                else
+                return '--';
+            })->editColumn('patient_detail.state', function ($contact){
+                if($contact->state!='')
+                return $contact->state;
+                else
+                return '--';
+            })->make(true);
     }
 
     public function scheduleAppoimentList(Request $request){

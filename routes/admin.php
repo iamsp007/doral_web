@@ -48,6 +48,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
 
     /* roles and permissions route */
     Route::get('roles-permissions','App\Http\Controllers\RolesAndPermission\RolesAndPermissionController@view')->name('admin.rolesAndPermission');
-    Route::get('roles-permissions-save','App\Http\Controllers\RolesAndPermission\RolesAndPermissionController@save')->name('admin.rolesAndPermissionSave');
+    Route::post('/get-roles-permissions', 'App\Http\Controllers\RolesAndPermission\RolesAndPermissionController@getRolePermission')->name('admin.getRolePermission');
+    Route::post('roles-permissions-save','App\Http\Controllers\RolesAndPermission\RolesAndPermissionController@save')->name('admin.rolesAndPermissionSave');
 
 });

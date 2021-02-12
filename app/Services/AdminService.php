@@ -336,4 +336,56 @@ class AdminService
             throw new \Exception($exception->getMessage());
         }
     }
+
+    /**
+     * Get Role Permission.
+     *
+     * @param  array  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getRolePermission($data) {
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/auth/get-role-permission',
+                [
+                    'json'=>$data
+                ]
+            );
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response,true);
+            return $data;
+        } catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    /**
+     * Save permission.
+     *
+     * @param  array  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function saveRolesAndPermission($data) {
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/auth/set-role-permission',
+                [
+                    'json'=>$data
+                ]
+            );
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response,true);
+            return $data;
+        } catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
 }

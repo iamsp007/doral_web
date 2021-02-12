@@ -1,5 +1,5 @@
 $(function () {
-    var e = $("#checkAll"),
+    var e = $("#checkAll_2"),
         c = $("#checkAll_1"),
         o = $("#checkAll_3"),
         t = $("#searchItem"),
@@ -8,8 +8,8 @@ $(function () {
         a = $(".collapse.show"),
         r = $(".collapse"),
         i = $(".card-body"),
-        n = $(".role-card input:checkbox"),
-        h = $(".role-card-2 input:checkbox"),
+        n = $(".role-card-2 input:checkbox"),
+        h = $(".role-card-1 input:checkbox"),
         d = $(".role-card-3 input:checkbox"),
         p = $(".scroll-1 div"),
         u = $(".scroll-2 div"),
@@ -23,17 +23,7 @@ $(function () {
         b.html("(" + _a + ")");
         _a > 0 ? $('.accordion').find('.role-card').addClass('border-primary border-green') : $('.accordion').find('.role-card').removeClass('border-primary border-green')
     }),
-        e.on("change", function () {
-            n.not(this).prop("checked", this.checked),
-                _a = m.filter(':checked').length;
-            b.html("(" + _a + ")");
-            _a > 0 ? $('.accordion').find('.role-card').addClass('border-primary border-green') : $('.accordion').find('.role-card').removeClass('border-primary border-green')
-        }),
-        c.on("change", function () {
-            h.not(this).prop("checked", this.checked)
-        }), o.on("change", function () {
-            d.not(this).prop("checked", this.checked)
-        }), t.on("keyup", function () {
+         t.on("keyup", function () {
             var e = $(this).val().toLowerCase();
             p.filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(e) > -1)
@@ -68,4 +58,16 @@ $(function () {
         _a = m.filter(':checked').length;
         b.html("(" + _a + ")");
         _a > 0 ? $('.accordion').find('.role-card').addClass('border-primary border-green') : $('.accordion').find('.role-card').removeClass('border-primary border-green')
+
 });
+
+function checkall(j) {
+    var j = parseInt(j)+1;
+    var e = $("#checkAll_"+j)
+    var h = $(".role-card-"+j+" input:checkbox")
+    e.on("change", function () {
+            h.not(this).prop("checked", this.checked)
+        })
+    
+}
+

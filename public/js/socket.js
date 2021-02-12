@@ -1,4 +1,4 @@
-var socket = io(socket_url, {
+var socket = io('http://localhost:3000', {
     query:"token="+1,
     transports: ['websocket']
 });

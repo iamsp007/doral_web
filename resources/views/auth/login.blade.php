@@ -26,12 +26,14 @@
                                             {{ session()->get('success') }}
                                         </div>
                                     @endif
+                                    @if (!$errors->has('email') && !$errors->has('password'))
                                     @if($errors->any())
                                         @foreach ($errors->all() as $error)
                                             <div class="alert alert-danger" role="alert">
-                                                {{ $error }}
+                                                 {{ $error }}
                                             </div>
                                         @endforeach
+                                    @endif
                                     @endif
                                     <div class="form-group mt-4 pt-2">
                                         <label for="referralType" class="label d-block">Your Role</label>
@@ -40,6 +42,7 @@
                                             <option value="1">Provider</option>
                                             <option value="2">Home Care</option>
                                             <option value="2">Insurance</option>
+                                            <option value="3">Other</option>
                                         </select>
                                         @error('referralType')
                                             <span class="invalid-feedback" role="alert">
@@ -51,13 +54,13 @@
                                         <div class="d-flex justify-content-between">
                                             <label for="username" class="label">Username</label>
                                         </div>
-                                        <input autocomplete="off" type="text" class="form-control form-control-lg" id="username"
+                                        <input autocomplete="off" type="email" class="form-control form-control-lg" id="username"
                                                name="email" aria-describedby="emailHelp" value="">
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                       @if ($errors->has('email'))
+                                            <span class="invalid-feedback" role="alert" style="display: block;">
+                                                <strong>{{ $errors->first('email') }}</strong>
                                             </span>
-                                        @enderror
+                                        @endif
                                         <!-- <small id="usernameHelp" class="form-text text-muted mt-2">Assistive Text</small> -->
                                     </div>
                                     <!-- Passowrd -->
@@ -76,15 +79,20 @@
                                                 <img src="assets/img/icons/pass-show.svg" class="pass-show d-block">
                                                 <img src="assets/img/icons/pass-hide.svg" class="pass-hide d-none">
                                             </span>
+                                            @if ($errors->has('password'))
+                                            <span class="invalid-feedback" role="alert" style="display: block;">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                            @endif
                                         </div>
-                                        @error('password')
-                                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
-                                            <strong>Error!</strong> {{ $message }}
+                                        <!-- @if ($errors->has('password'))
+                                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: block;">
+                                            <strong>Error!</strong> {{ $errors->first('password') }}
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
                                         </div>
-                                    @enderror
+                                    @endif -->
                                         <!-- <small id="passwordHelp" class="form-text text-muted mt-2">Assistive Text</small> -->
                                     </div>
                                     <!-- Submit Btn -->

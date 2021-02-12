@@ -71,4 +71,9 @@ class PatientDetail extends Model
     public function PatientEmergency() {
         return $this->hasOne(PatientEmergencyContact::class,'patient_id','id');
     }
+    public function getSsnFormatAttribute(){
+
+       return 'xxx-xxx-'.substr($this->ssn, -4);
+
+    }
 }

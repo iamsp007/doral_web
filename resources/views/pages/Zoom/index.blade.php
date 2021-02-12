@@ -119,7 +119,7 @@
     <script src="{{ asset('js/Zoom/index.js') }}"></script>
     <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
     <script>
-        startMeeting('{{ $meeting_number }}');
+        startMeeting('9601725156}');
     </script>
     <script>
 

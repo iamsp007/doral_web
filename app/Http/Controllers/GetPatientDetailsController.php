@@ -48,7 +48,7 @@ class GetPatientDetailsController extends Controller
 
     public function show($id)
     {
-        $patient = PatientDetail::find($id);
+        $patient = PatientDetail::with('patientEmergencyContact')->find($id);
         return view('pages.patient_detail.index', compact('patient'));
     }
 

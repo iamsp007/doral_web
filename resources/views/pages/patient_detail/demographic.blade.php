@@ -211,12 +211,16 @@
                   src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
             </div>
 
+{{dump($patient)}}
+            <!-- Emergency contact Detail -->
+           
+
             <!-- Emergency contact Detail -->
             @foreach($patient->patientEmergencyContact as $key => $patientEmergencyContact)
                <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                   data-name="emergency_contact_detail">
                   <div class="app-card-header">
-                     <h1 class="title">Emergency {{($key > 0) ? $key : ''}} Contact Detail</h1>
+                     <h1 class="title">Emergency Contact Detail</h1>
                   </div>
                   <div>
                      <div class="p-3">

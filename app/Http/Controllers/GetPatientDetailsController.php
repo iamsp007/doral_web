@@ -3,20 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\AcceptedService;
-use App\Models\Alert;
 use App\Models\AlternateBilling;
 use App\Models\Branch;
 use App\Models\City;
 use App\Models\Coordinator;
 use App\Models\Country;
-use App\Models\PatientReferral;
-use App\Models\DemographicDetails;
 use App\Models\EmergencyPreparedness;
 use App\Models\Location;
 use App\Models\Nurse;
 use App\Models\PatientAcceptedService;
 use App\Models\PatientAddress;
-use App\Models\PatientAlert;
 use App\Models\PatientBranch;
 use App\Models\PatientCoordinator;
 use App\Models\PatientDetail;
@@ -28,45 +24,33 @@ use App\Models\PatientTeam;
 use App\Models\SourceOfAdmission;
 use App\Models\State;
 use App\Models\Team;
-use CreateAcceptedServicesTable;
 use Illuminate\Http\Request;
-use DB;
-use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 class GetPatientDetailsController extends Controller
 {
 
-        public function index()
-        {
-                return view('pages.clincian.get-patient-detail');
-        }
+    public function index()
+    {
+        return view('pages.clincian.get-patient-detail');
+    }
 
-        public function getPatientDetail(Request $request){
-            $patientList = PatientDetail::get();
-    
-            return DataTables::of($patientList)
-                ->addColumn('action', function($row){
-                        $id=$row->id!==null?$row->id:null;
-                        $btn ='';
-                        if ($id!==null){
-                            $btn .= '<a href="'.route('patient.details',['patient_id'=>$row->id]).'" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
+    public function getPatientDetail()
+    {
+        $patientList = PatientDetail::get();
 
-                        }
-                        return $btn;
-                  
-                })->editColumn('ssn', function ($contact){
-                return $contact->ssn_format;
+        return DataTables::of($patientList)
+            ->addColumn('action', function($row){
+                return '<a href="' . route('patient.details', ['patient_id' => $row->id]) . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
             })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 
-
-        public function show($id)
-        {
-            $patient = PatientDetail::with('payer')->find($id);
-            return view('pages.clincian.patient-details', compact('patient'));
-        }
+    public function show($id)
+    {
+        $patient = PatientDetail::find($id);
+        return view('pages.patient_detail.index', compact('patient'));
+    }
 
     /**
      * Display a listing of the resource.
@@ -76,7 +60,9 @@ class GetPatientDetailsController extends Controller
     public function getDemographicDetails($patientId)
     {
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientDemographics xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><PatientInfo><ID>'.$patientId.'</ID></PatientInfo></GetPatientDemographics></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
         $method = 'POST';
+
         return $this->curlCall($data, $method);
     }
 
@@ -91,106 +77,54 @@ class GetPatientDetailsController extends Controller
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
       
         $counter = 0;
-        foreach ($patientArray as $arr) {
+        foreach ($patientArray as $patient_id) {
             if ($counter < 2) {
 
-                $repeaterData = PatientDetail::where('patient_id',$arr)->first();
+                $repeaterData = PatientDetail::where('patient_id', $patient_id)->first();
                 if ($repeaterData) {
                     continue;
                 }
-
-                $getpatientDemographicDetails = $this->getDemographicDetails($arr);
+             
+                $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
                 
                 $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
 
                 dump($patientDetails);
-                
-                $patientDetail = new PatientDetail();
-                
-                $patientDetail->doral_id = mt_rand(100000, 999999);
-                $patientDetail->agency_id = ($patientDetails['AgencyID']) ? $patientDetails['AgencyID'] : '' ;
-                $patientDetail->office_id = ($patientDetails['OfficeID']) ? $patientDetails['OfficeID'] : '' ;
-                $patientDetail->patient_id = ($patientDetails['PatientID']) ? $patientDetails['PatientID'] : '' ;
-                $patientDetail->first_name = ($patientDetails['FirstName']) ? $patientDetails['FirstName'] : '' ;
-                $patientDetail->middle_name = ($patientDetails['MiddleName']) ? $patientDetails['MiddleName'] : '' ;
-                $patientDetail->last_name = ($patientDetails['LastName']) ? $patientDetails['LastName'] : '' ;
-                $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
-                if ($patientDetails['Gender'] == 'Male') {
-                    $gender = '1';
-                } else if ($patientDetails['Gender'] == 'Female') {
-                    $gender = '2';
-                } else {
-                    $gender = '3';
-                }
-                
-                $patientDetail->gender = $gender;
-                $patientDetail->priority_code = ($patientDetails['PriorityCode']) ? $patientDetails['PriorityCode'] : '' ;
-                $patientDetail->service_request_start_date = ($patientDetails['ServiceRequestStartDate']) ? $patientDetails['ServiceRequestStartDate'] : '' ;
-                $patientDetail->admission_id = ($patientDetails['AdmissionID']) ? $patientDetails['AdmissionID'] : '' ;
-                $patientDetail->medicaid_number = ($patientDetails['MedicaidNumber']) ? $patientDetails['MedicaidNumber'] : '' ;
-                $patientDetail->medicare_number = ($patientDetails['MedicareNumber']) ? $patientDetails['MedicareNumber'] : '' ;
-                $patientDetail->ssn = ($patientDetails['SSN']) ? $patientDetails['SSN'] : '' ;
-                $patientDetail->alert = ($patientDetails['Alerts']) ? $patientDetails['Alerts'] : '' ;
-                $patientDetail->home_phone = ($patientDetails['HomePhone']) ? $patientDetails['HomePhone'] : '' ;
-                $patientDetail->phone2 = ($patientDetails['Phone2']) ? $patientDetails['Phone2'] : '' ;
-                $patientDetail->phone2_description = ($patientDetails['Phone2Description']) ? $patientDetails['Phone2Description'] : '' ;
-                $patientDetail->phone3 = ($patientDetails['Phone3']) ? $patientDetails['Phone3'] : '' ;
-                $patientDetail->phone3_description = ($patientDetails['Phone3Description']) ? $patientDetails['Phone3Description'] : '' ;
-                $patientDetail->home_phone_location_address_id = ($patientDetails['HomePhoneLocationAddressID']) ? $patientDetails['HomePhoneLocationAddressID'] : '' ;
-                $patientDetail->home_phone_location_address = ($patientDetails['HomePhoneLocationAddress']) ? $patientDetails['HomePhoneLocationAddress'] : '' ;
-                $patientDetail->home_phone2_location_address_id = ($patientDetails['HomePhone2LocationAddressID']) ? $patientDetails['HomePhone2LocationAddressID'] : '' ;
-                $patientDetail->home_phone2_location_address = ($patientDetails['HomePhone2LocationAddress']) ? $patientDetails['HomePhone2LocationAddress'] : '' ;
-                $patientDetail->home_phone3_location_address_id = ($patientDetails['HomePhone3LocationAddressID']) ? $patientDetails['HomePhone3LocationAddressID'] : '' ;
-                $patientDetail->home_phone3_location_address = ($patientDetails['HomePhone3LocationAddress']) ? $patientDetails['HomePhone3LocationAddress'] : '' ;
-                $patientDetail->direction = ($patientDetails['Direction']) ? $patientDetails['Direction'] : '' ;
-                
-                $patientDetail->payer_id = ($patientDetails['PayerID']) ? $patientDetails['PayerID'] : '' ;
-                $patientDetail->payer_name = ($patientDetails['PayerName']) ? $patientDetails['PayerName'] : '' ;
-                $patientDetail->payer_coordinator_id = ($patientDetails['PayerCoordinatorID']) ? $patientDetails['PayerCoordinatorID'] : '' ;
-                $patientDetail->payer_coordinator_name = ($patientDetails['PayerCoordinatorName']) ? $patientDetails['PayerCoordinatorName'] : '' ;
-                $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
-                $patientDetail->patient_status_name = ($patientDetails['PatientStatusName']) ? $patientDetails['PatientStatusName'] : '' ;
-                $patientDetail->wage_parity = ($patientDetails['WageParity']) ? $patientDetails['WageParity'] : '' ;
-                $patientDetail->wage_parity_from_date1 = ($patientDetails['WageParityFromDate1']) ? $patientDetails['WageParityFromDate1'] : '' ;
-                $patientDetail->wage_parity_to_date1 = ($patientDetails['WageParityToDate1']) ? $patientDetails['WageParityToDate1'] : '' ;
-                $patientDetail->wage_parity_from_date2 = ($patientDetails['WageParityFromDate2']) ? $patientDetails['WageParityFromDate2'] : '' ;
-                $patientDetail->wage_parity_to_date2 = ($patientDetails['WageParityToDate2']) ? $patientDetails['WageParityToDate2'] : '' ;
-                $patientDetail->primary_language_id = ($patientDetails['PrimaryLanguageID']) ? $patientDetails['PrimaryLanguageID'] : '' ;
-                $patientDetail->primary_language = ($patientDetails['PrimaryLanguage']) ? $patientDetails['PrimaryLanguage'] : '' ;
-                $patientDetail->secondary_language_id = ($patientDetails['SecondaryLanguageID']) ? $patientDetails['SecondaryLanguageID'] : '' ;
-                $patientDetail->secondary_language = ($patientDetails['SecondaryLanguage']) ? $patientDetails['SecondaryLanguage'] : '' ;
 
-                if($patientDetail->save()) {
+                /** Store patirnt demographic detail */
+                $patient_detail_id = $this->storePatientDetail($patientDetails);
+                
+                if($patient_detail_id) {
                
-                    // /** Store  Coordinator */
-                    $this->storeCoordinator($patientDetails['Coordinators']['Coordinator'], $patientDetail->id);
+                    /** Store  Coordinator */
+                    $this->storeCoordinator($patientDetails['Coordinators']['Coordinator'], $patient_detail_id);
                     
-                    // /** Store nurse detail */
-                    $this->storeNurse($patientDetails['Nurse'], $patientDetail->id);
+                    /** Store nurse detail */
+                    $this->storeNurse($patientDetails['Nurse'], $patient_detail_id);
 
-                    // /** Store accepted services */
-                    // // $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patientDetail->id);
+                    /** Store accepted services */
+                    // $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patient_detail_id);
 
                     /** Store source Of admission */
-                    $this->storeSourceOfAdmission($patientDetails['SourceOfAdmission'], $patientDetail->id);
+                    $this->storeSourceOfAdmission($patientDetails['SourceOfAdmission'], $patient_detail_id);
 
-                    // /** Store team */
-                    $this->storeTeam($patientDetails['Team'], $patientDetail->id);
+                    /** Store team */
+                    $this->storeTeam($patientDetails['Team'], $patient_detail_id);
 
                     /** Store location */
-                    $this->storeLocation($patientDetails['Location'], $patientDetail->id);
+                    $this->storeLocation($patientDetails['Location'], $patient_detail_id);
                
                     /** Store branch */
-                    $this->storeBranch($patientDetails['Branch'], $patientDetail->id);
+                    $this->storeBranch($patientDetails['Branch'], $patient_detail_id);
               
                     /** Store branch */
-                    $this->storeAddress($patientDetails['Addresses'], $patientDetail->id);
+                    $this->storeAddress($patientDetails['Addresses'], $patient_detail_id);
                     
                     /** Store branch */
-                    $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patientDetail->id);
+                    $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patient_detail_id);
 
                     /** Store branch */
-                    $this->storeEmergencyContact($patientDetails['EmergencyContacts']['EmergencyContact'], $patientDetail->id);
+                    $this->storeEmergencyContact($patientDetails['EmergencyContacts']['EmergencyContact'], $patient_detail_id);
                 }
             }
             $counter++;
@@ -235,6 +169,69 @@ class GetPatientDetailsController extends Controller
     public function setParameter($parameter)
     {
         return '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body>' . $parameter . '</SOAP-ENV:Body></SOAP-ENV:Envelope>';
+    }
+
+    public function storePatientDetail($patientDetails)
+    {
+        $patientDetail = new PatientDetail();
+                
+        $patientDetail->doral_id = mt_rand(100000, 999999);
+        $patientDetail->agency_id = ($patientDetails['AgencyID']) ? $patientDetails['AgencyID'] : '' ;
+        $patientDetail->office_id = ($patientDetails['OfficeID']) ? $patientDetails['OfficeID'] : '' ;
+        $patientDetail->patient_id = ($patientDetails['PatientID']) ? $patientDetails['PatientID'] : '' ;
+        $patientDetail->first_name = ($patientDetails['FirstName']) ? $patientDetails['FirstName'] : '' ;
+        $patientDetail->middle_name = ($patientDetails['MiddleName']) ? $patientDetails['MiddleName'] : '' ;
+        $patientDetail->last_name = ($patientDetails['LastName']) ? $patientDetails['LastName'] : '' ;
+        $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
+        if ($patientDetails['Gender'] == 'Male') {
+            $gender = '1';
+        } else if ($patientDetails['Gender'] == 'Female') {
+            $gender = '2';
+        } else {
+            $gender = '3';
+        }
+                
+        $patientDetail->gender = $gender;
+        $patientDetail->priority_code = ($patientDetails['PriorityCode']) ? $patientDetails['PriorityCode'] : '' ;
+        $patientDetail->service_request_start_date = ($patientDetails['ServiceRequestStartDate']) ? $patientDetails['ServiceRequestStartDate'] : '' ;
+        $patientDetail->admission_id = ($patientDetails['AdmissionID']) ? $patientDetails['AdmissionID'] : '' ;
+        $patientDetail->medicaid_number = ($patientDetails['MedicaidNumber']) ? $patientDetails['MedicaidNumber'] : '' ;
+        $patientDetail->medicare_number = ($patientDetails['MedicareNumber']) ? $patientDetails['MedicareNumber'] : '' ;
+        $patientDetail->ssn = ($patientDetails['SSN']) ? $patientDetails['SSN'] : '' ;
+        $patientDetail->alert = ($patientDetails['Alerts']) ? $patientDetails['Alerts'] : '' ;
+        $patientDetail->home_phone = ($patientDetails['HomePhone']) ? $patientDetails['HomePhone'] : '' ;
+        $patientDetail->phone2 = ($patientDetails['Phone2']) ? $patientDetails['Phone2'] : '' ;
+        $patientDetail->phone2_description = ($patientDetails['Phone2Description']) ? $patientDetails['Phone2Description'] : '' ;
+        $patientDetail->phone3 = ($patientDetails['Phone3']) ? $patientDetails['Phone3'] : '' ;
+        $patientDetail->phone3_description = ($patientDetails['Phone3Description']) ? $patientDetails['Phone3Description'] : '' ;
+        $patientDetail->home_phone_location_address_id = ($patientDetails['HomePhoneLocationAddressID']) ? $patientDetails['HomePhoneLocationAddressID'] : '' ;
+        $patientDetail->home_phone_location_address = ($patientDetails['HomePhoneLocationAddress']) ? $patientDetails['HomePhoneLocationAddress'] : '' ;
+        $patientDetail->home_phone2_location_address_id = ($patientDetails['HomePhone2LocationAddressID']) ? $patientDetails['HomePhone2LocationAddressID'] : '' ;
+        $patientDetail->home_phone2_location_address = ($patientDetails['HomePhone2LocationAddress']) ? $patientDetails['HomePhone2LocationAddress'] : '' ;
+        $patientDetail->home_phone3_location_address_id = ($patientDetails['HomePhone3LocationAddressID']) ? $patientDetails['HomePhone3LocationAddressID'] : '' ;
+        $patientDetail->home_phone3_location_address = ($patientDetails['HomePhone3LocationAddress']) ? $patientDetails['HomePhone3LocationAddress'] : '' ;
+        $patientDetail->direction = ($patientDetails['Direction']) ? $patientDetails['Direction'] : '' ;
+                
+        $patientDetail->payer_id = ($patientDetails['PayerID']) ? $patientDetails['PayerID'] : '' ;
+        $patientDetail->payer_name = ($patientDetails['PayerName']) ? $patientDetails['PayerName'] : '' ;
+        $patientDetail->payer_coordinator_id = ($patientDetails['PayerCoordinatorID']) ? $patientDetails['PayerCoordinatorID'] : '' ;
+        $patientDetail->payer_coordinator_name = ($patientDetails['PayerCoordinatorName']) ? $patientDetails['PayerCoordinatorName'] : '' ;
+        $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
+        $patientDetail->patient_status_name = ($patientDetails['PatientStatusName']) ? $patientDetails['PatientStatusName'] : '' ;
+        $patientDetail->wage_parity = ($patientDetails['WageParity']) ? $patientDetails['WageParity'] : '' ;
+        $patientDetail->wage_parity_from_date1 = ($patientDetails['WageParityFromDate1']) ? $patientDetails['WageParityFromDate1'] : '' ;
+        $patientDetail->wage_parity_to_date1 = ($patientDetails['WageParityToDate1']) ? $patientDetails['WageParityToDate1'] : '' ;
+        $patientDetail->wage_parity_from_date2 = ($patientDetails['WageParityFromDate2']) ? $patientDetails['WageParityFromDate2'] : '' ;
+        $patientDetail->wage_parity_to_date2 = ($patientDetails['WageParityToDate2']) ? $patientDetails['WageParityToDate2'] : '' ;
+        $patientDetail->primary_language_id = ($patientDetails['PrimaryLanguageID']) ? $patientDetails['PrimaryLanguageID'] : '' ;
+        $patientDetail->primary_language = ($patientDetails['PrimaryLanguage']) ? $patientDetails['PrimaryLanguage'] : '' ;
+        $patientDetail->secondary_language_id = ($patientDetails['SecondaryLanguageID']) ? $patientDetails['SecondaryLanguageID'] : '' ;
+        $patientDetail->secondary_language = ($patientDetails['SecondaryLanguage']) ? $patientDetails['SecondaryLanguage'] : '' ;
+
+        $patientDetail->save();
+
+        return $patientDetail->id;
+
     }
 
     public function storeCoordinator($coordinators, $patientDetail_id)

@@ -24,6 +24,8 @@ use App\Models\PatientTeam;
 use App\Models\SourceOfAdmission;
 use App\Models\State;
 use App\Models\Team;
+use App\Models\VisitorDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 class GetPatientDetailsController extends Controller
@@ -48,8 +50,8 @@ class GetPatientDetailsController extends Controller
 
     public function show($id)
     {
-        $patient = PatientDetail::with('patientEmergencyContact','nurses')->find($id);
-        return view('pages.patient_detail.index', compact('patient'));
+        $patient = PatientDetail::with('patientEmergencyContact', 'nurses', 'visitorDetail')->find($id);
+        return view('pages.clincian.patient-details', compact('patient'));
     }
 
     /**
@@ -71,64 +73,118 @@ class GetPatientDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getSearchVisitorDetails($patientId)
+    {
+        $date = Carbon::now();// will get you the current date, time 
+        $today = $date->format("Y-m-d"); 
+
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><StartDate>2021-02-12</StartDate><EndDate>2021-02-11</EndDate><PatientID>' . $patientId . '</PatientID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+        $method = 'POST';
+
+        return $this->curlCall($data, $method);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getScheduleInfo($visitorID)
+    {
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetScheduleInfo xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><ScheduleInfo><ID>' . $visitorID . '</ID></ScheduleInfo></GetScheduleInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+        $method = 'POST';
+
+        return $this->curlCall($data, $method);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function searchPatients(Request $request)
     {
         $searchPatientIds = $this->searchPatientDetails();
-        $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-      
+        // $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+        $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','489003','490045','504356','516752','517000','518828','532337','540428','541579','542628'];
+        // dump($patientArray);
         $counter = 0;
-        foreach ($patientArray as $patient_id) {
-            if ($counter < 2) {
-
-                $repeaterData = PatientDetail::where('patient_id', $patient_id)->first();
-                if ($repeaterData) {
-                    continue;
-                }
-             
-                $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
+        // foreach ($patientArray as $patient_id) {
+            // if ($counter < 100) {
+            //  dump($patient_id);
+                $passPatientId = '772465'; 
+                $searchVisitorId = $this->getSearchVisitorDetails($passPatientId);
                 
-                $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+                // if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
-                dump($patientDetails);
-
-                /** Store patirnt demographic detail */
-                $patient_detail_id = $this->storePatientDetail($patientDetails);
+                    $getpatientDemographicDetails = $this->getDemographicDetails($passPatientId);
                 
-                if($patient_detail_id) {
-               
-                    /** Store  Coordinator */
-                    $this->storeCoordinator($patientDetails['Coordinators']['Coordinator'], $patient_detail_id);
+                    $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+
+                    // dump($patientDetails);
+
+                    /** Store patirnt demographic detail */
+                    $patient_detail_id = $this->storePatientDetail($patientDetails);
                     
-                    /** Store nurse detail */
-                    $this->storeNurse($patientDetails['Nurse'], $patient_detail_id);
-
-                    /** Store accepted services */
-                    // $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patient_detail_id);
-
-                    /** Store source Of admission */
-                    $this->storeSourceOfAdmission($patientDetails['SourceOfAdmission'], $patient_detail_id);
-
-                    /** Store team */
-                    $this->storeTeam($patientDetails['Team'], $patient_detail_id);
-
-                    /** Store location */
-                    $this->storeLocation($patientDetails['Location'], $patient_detail_id);
-               
-                    /** Store branch */
-                    $this->storeBranch($patientDetails['Branch'], $patient_detail_id);
-              
-                    /** Store branch */
-                    $this->storeAddress($patientDetails['Addresses'], $patient_detail_id);
+                    if($patient_detail_id) {
+                        $visitID = $searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
                     
-                    /** Store branch */
-                    $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patient_detail_id);
+                        $scheduleInfo = $this->getScheduleInfo($visitID);
 
-                    /** Store branch */
-                    $this->storeEmergencyContact($patientDetails['EmergencyContacts']['EmergencyContact'], $patient_detail_id);
-                }
-            }
-            $counter++;
-        }
+                        $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
+
+                        $visitorDetail = new VisitorDetail();
+                        $visitorDetail->patient_id = $patient_detail_id;
+                        $visitorDetail->visitor_id = ($getScheduleInfo['ID']) ? $getScheduleInfo['ID'] : '' ;
+                        $visitorDetail->visit_date = ($getScheduleInfo['VisitDate']) ? $getScheduleInfo['VisitDate'] : '' ;
+                        $visitorDetail->caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
+                        $visitorDetail->first_name = ($getScheduleInfo['Caregiver']['FirstName']) ? $getScheduleInfo['Caregiver']['FirstName'] : '' ;
+                        $visitorDetail->last_name = ($getScheduleInfo['Caregiver']['LastName']) ? $getScheduleInfo['Caregiver']['LastName'] : '' ;
+                        $visitorDetail->caregiver_code = ($getScheduleInfo['Caregiver']['CaregiverCode']) ? $getScheduleInfo['Caregiver']['CaregiverCode'] : '' ;
+                        $visitorDetail->time_attendance_PIN = ($getScheduleInfo['Caregiver']['TimeAndAttendancePIN']) ? $getScheduleInfo['Caregiver']['TimeAndAttendancePIN'] : '' ;
+                        $visitorDetail->schedule_start_time = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ; 
+                        $visitorDetail->schedule_end_time = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ; 
+
+                        $visitorDetail->save();
+               
+                        /** Store  Coordinator */
+                        $this->storeCoordinator($patientDetails['Coordinators']['Coordinator'], $patient_detail_id);
+                        
+                        /** Store nurse detail */
+                        $this->storeNurse($patientDetails['Nurse'], $patient_detail_id);
+
+                        /** Store accepted services */
+                        // $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patient_detail_id);
+
+                        // /** Store source Of admission */
+                        // $this->storeSourceOfAdmission($patientDetails['SourceOfAdmission'], $patient_detail_id);
+
+                        // /** Store team */
+                        $this->storeTeam($patientDetails['Team'], $patient_detail_id);
+
+                        // /** Store location */
+                        $this->storeLocation($patientDetails['Location'], $patient_detail_id);
+                
+                        // /** Store branch */
+                        $this->storeBranch($patientDetails['Branch'], $patient_detail_id);
+                
+                        // /** Store branch */
+                        $this->storeAddress($patientDetails['Addresses'], $patient_detail_id);
+                        
+                        // /** Store branch */
+                        $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patient_detail_id);
+
+                        // /** Store branch */
+                        $this->storeEmergencyContact($patientDetails['EmergencyContacts']['EmergencyContact'], $patient_detail_id);
+                    }
+                // } else {
+                //     echo $counter;
+                //     echo '/n';
+                // }
+            // }
+            // $counter++;
+        // }
     }
     /**
      * Display a listing of the resource.
@@ -138,6 +194,8 @@ class GetPatientDetailsController extends Controller
     public function searchPatientDetails()
     {
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchPatients xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><FirstName></FirstName><LastName></LastName><Status></Status><PhoneNumber></PhoneNumber><AdmissionID></AdmissionID><MRNumber></MRNumber><SSN></SSN></SearchFilters></SearchPatients></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+ 
         $method = 'POST';
         return $this->curlCall($data, $method);
     }

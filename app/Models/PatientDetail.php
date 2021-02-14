@@ -62,9 +62,9 @@ class PatientDetail extends Model
 
     
 
-    public function payer() {
-        return $this->hasOne(PatientPlayer::class,'id','payer_id');
-    }
+    // public function payer() {
+    //     return $this->hasOne(PatientPlayer::class,'id','payer_id');
+    // }
     public function patientAddress() {
         return $this->hasOne(PatientAddress::class,'patient_id','id');
     }
@@ -93,6 +93,10 @@ class PatientDetail extends Model
             'patient_nurses',
             'patient_id',
             'nurse_id');
+    }
+
+    public function visitorDetail() {
+        return $this->hasOne(VisitorDetail::class,'patient_id','id');
     }
 
 }

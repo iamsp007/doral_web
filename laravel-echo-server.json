@@ -1,5 +1,5 @@
 {
-	"authHost": "http://localhost/doral_web/public/",
+	"authHost": "http://localhost",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [],
 	"database": "redis",
@@ -11,7 +11,7 @@
 	},
 	"devMode": true,
 	"host": null,
-	"port": "6001",
+	"port": "3000",
 	"protocol": "http",
 	"socketio": {},
 	"secureOptions": 67108864,

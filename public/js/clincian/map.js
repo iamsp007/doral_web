@@ -32,7 +32,10 @@ function initMap() {
             makeMarker(destination, base_url+'assets/img/icons/patient-selected-sb.svg', 'Patient');
             response.clinicians.map(function (resp) {
                 if (resp.status!=="pending") {
-                    var current = new google.maps.LatLng(resp.latitude, resp.longitude);
+                    var current = new google.maps.LatLng(resp.start_latitude, resp.end_longitude);
+                    if (resp.latitude){
+                        current = new google.maps.LatLng(resp.latitude, resp.longitude);
+                    }
                     var origin = new google.maps.LatLng(resp.start_latitude, resp.end_longitude);
                     makeMarker(origin, base_url + 'assets/img/icons/clinician-sb-select.svg', resp.first_name + ' ' + resp.last_name);
                     makeMarker(current, base_url + 'assets/img/icons/clinician-sb-select.svg', resp.first_name + ' ' + resp.last_name);
@@ -166,7 +169,10 @@ function updateMap(destination,map) {
                         prev_lat=resp.latitude;
                         prev_lng=resp.longitude;
                         if (check>0){
-                            var current = new google.maps.LatLng(resp.latitude,resp.longitude);
+                            var current = new google.maps.LatLng(resp.start_latitude, resp.end_longitude);
+                            if (resp.latitude){
+                                current = new google.maps.LatLng(resp.latitude, resp.longitude);
+                            }
                             var origin = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
                             makeMarker(origin, base_url+'assets/img/icons/clinician-sb-select.svg', resp.first_name+' '+resp.last_name);
                             makeMarker(current, base_url+'assets/img/icons/roadl-ambulance-sb-select.svg', resp.first_name+' '+resp.last_name);
@@ -181,7 +187,7 @@ function updateMap(destination,map) {
                 console.log(error)
             }
         })
-    },1000)
+    },5000)
 }
 
 //

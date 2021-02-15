@@ -238,10 +238,10 @@
                     else 
                         $(".alert").show();    
                     $("#error").text(response.message);
-                    console.log( response );
+                    
                 },
                 error: function( e ) {
-                    console.log(e);
+                    alert('Something went wrong!');
                 }
             });
             

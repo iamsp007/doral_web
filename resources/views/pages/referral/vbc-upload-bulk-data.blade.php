@@ -102,7 +102,6 @@
             autoProcessQueue: true,
             progress:true,
             accept: function(file, done) {
-                console.log("uploaded");
                 done();
             },
             init: function() {
@@ -140,7 +139,6 @@
         });
         function chooseFile(event) {
             fileType = $(event).val();
-            console.log(fileType)
         }
     </script>
 @endpush

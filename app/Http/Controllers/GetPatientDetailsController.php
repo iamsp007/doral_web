@@ -83,6 +83,44 @@ class GetPatientDetailsController extends Controller
 
         return $this->curlCall($data, $method);
     }
+    
+    public function checkCurrentVisitorDetails(Request $request)
+    {
+        $patientId = $request->patient_id;
+        $date = Carbon::now();// will get you the current date, time 
+        $today = $date->format("Y-m-d");
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><StartDate>2021-02-11</StartDate><EndDate>'.$today.'</EndDate><PatientID>' . $patientId . '</PatientID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        $method = 'POST';
+        $curlFunc = $this->curlCall($data, $method);
+        if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
+            $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+            $patientForeignId = PatientDetail::where('patient_id',$patientId)->first();
+            foreach ($visitID as $viId) {
+                $vid = $viId;
+                $scheduleInfo = $this->getScheduleInfo($viId);
+                $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
+                
+                $visitorDetail = new VisitorDetail();
+                $visitorDetail->patient_id = $patientForeignId->id;
+                $visitorDetail->visitor_id = ($getScheduleInfo['ID']) ? $getScheduleInfo['ID'] : '' ;
+                $visitorDetail->visit_date = ($getScheduleInfo['VisitDate']) ? $getScheduleInfo['VisitDate'] : '' ;
+                $visitorDetail->caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
+                $visitorDetail->first_name = ($getScheduleInfo['Caregiver']['FirstName']) ? $getScheduleInfo['Caregiver']['FirstName'] : '' ;
+                $visitorDetail->last_name = ($getScheduleInfo['Caregiver']['LastName']) ? $getScheduleInfo['Caregiver']['LastName'] : '' ;
+                $visitorDetail->caregiver_code = ($getScheduleInfo['Caregiver']['CaregiverCode']) ? $getScheduleInfo['Caregiver']['CaregiverCode'] : '' ;
+                $visitorDetail->time_attendance_PIN = ($getScheduleInfo['Caregiver']['TimeAndAttendancePIN']) ? $getScheduleInfo['Caregiver']['TimeAndAttendancePIN'] : '' ;
+                $visitorDetail->schedule_start_time = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ; 
+                $visitorDetail->schedule_end_time = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ; 
+
+                $visitorDetail->save();
+            }
+            $response = [
+                'status' => 'Sucess',
+                'data' => $patientForeignId->id
+            ];
+            return response()->json($response, 201);
+        }
+    }
 
     /**
      * Display a listing of the resource.
@@ -106,15 +144,19 @@ class GetPatientDetailsController extends Controller
     {
         $searchPatientIds = $this->searchPatientDetails();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        // $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','489003','490045','504356','516752','517000','518828','532337','540428','541579','542628'];
+        $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','490045','504356','516752','517000','518828','532337','540428','541579','542628','1005036','1008858','1009943','1010785','1010967','1015287','1019171','1030319','1031322','1048580','688245','695223','697606','698180','698859','698935','701845','704228','742010','742023','762544','762584','772465','772468','772470','783693','817770','826323','832638','841005','854502','865729','894642','904265','909877','916609','916702','946557','948750','952551','961283','965077','987170','989414','990437','994958','996056'];
+//        $patientArray = [];
     
         $counter = 0;
-//        foreach ($patientArray as $patient_id) {
+        foreach ($patientArray as $patient_id) {
+            echo "<pre>";
+            print_r($patient_id);
+//            exit();
 //             if ($counter < 100) {
 //                 echo "<pre>";
 //                 print_r($patient_id);
 //                 exit();
-                 $patient_id = '1048580'; 
+//                 $patient_id = '388069'; 
                 $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
                 if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
@@ -152,28 +194,28 @@ class GetPatientDetailsController extends Controller
                         $this->storeCoordinator($patientDetails['Coordinators']['Coordinator'], $patient_detail_id);
                         
                         /** Store nurse detail */
-                        $this->storeNurse($patientDetails['Nurse'], $patient_detail_id);
-
-                        /** Store accepted services */
-                        $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patient_detail_id);
-
-                        // /** Store source Of admission */
-                        $this->storeSourceOfAdmission($patientDetails['SourceOfAdmission'], $patient_detail_id);
-
-                        // /** Store team */
-                        $this->storeTeam($patientDetails['Team'], $patient_detail_id);
-
-                        // /** Store location */
-                        $this->storeLocation($patientDetails['Location'], $patient_detail_id);
-                
-                        // /** Store branch */
-                        $this->storeBranch($patientDetails['Branch'], $patient_detail_id);
+//                        $this->storeNurse($patientDetails['Nurse'], $patient_detail_id);
+//
+//                        /** Store accepted services */
+//                        $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patient_detail_id);
+//
+//                        // /** Store source Of admission */
+//                        $this->storeSourceOfAdmission($patientDetails['SourceOfAdmission'], $patient_detail_id);
+//
+//                        // /** Store team */
+//                        $this->storeTeam($patientDetails['Team'], $patient_detail_id);
+//
+//                        // /** Store location */
+//                        $this->storeLocation($patientDetails['Location'], $patient_detail_id);
+//                
+//                        // /** Store branch */
+//                        $this->storeBranch($patientDetails['Branch'], $patient_detail_id);
                 
                         // /** Store branch */
                         $this->storeAddress($patientDetails['Addresses']['Address'], $patient_detail_id);
                         
                         // /** Store branch */
-                        $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patient_detail_id);
+//                        $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patient_detail_id);
 
                         // /** Store branch */
                         $this->storeEmergencyContact($patientDetails['EmergencyContacts']['EmergencyContact'], $patient_detail_id);
@@ -184,7 +226,7 @@ class GetPatientDetailsController extends Controller
                 }
 //             }
 //            $counter++;
-//        }
+        }
     }
     /**
      * Display a listing of the resource.
@@ -295,94 +337,102 @@ class GetPatientDetailsController extends Controller
     public function storeCoordinator($coordinators, $patientDetail_id)
     {
         foreach ($coordinators as $coordinator) {
-            $coordinatorModel = Coordinator::updateOrCreate(
-                ['coordinator_id' => $coordinator['ID']],
-                ['name' => ($coordinator['Name']) ? $coordinator['Name'] : '']
-            );
-           
-            if ($coordinatorModel) {
-                $patientCoordinatorModel = new PatientCoordinator();
-                $patientCoordinatorModel->patient_id = $patientDetail_id;
-                $patientCoordinatorModel->coordinator_id = $coordinatorModel->id;
-                $patientCoordinatorModel->save();
+            if(!empty($coordinator['Name'])) {
+                 $coordinatorModel = Coordinator::updateOrCreate(
+                    ['coordinator_id' => $coordinator['ID']],
+                    ['name' => ($coordinator['Name']) ? $coordinator['Name'] : '']
+                );
+
+                if ($coordinatorModel) {
+                    $patientCoordinatorModel = new PatientCoordinator();
+                    $patientCoordinatorModel->patient_id = $patientDetail_id;
+                    $patientCoordinatorModel->coordinator_id = $coordinatorModel->id;
+                    $patientCoordinatorModel->save();
+                }
             }
         }
     }
 
     public function storeNurse($nurse, $patientDetail_id)
     {
-        $nurseModel = new Nurse();
-        $nurseModel->patient_id = $patientDetail_id;
-        $nurseModel->nurse_id = ($nurse['ID']) ? $nurse['ID'] : '';
-        $nurseModel->name = ($nurse['Name']) ? $nurse['Name'] : '';
+        if(!empty($nurse['Name'])) {
+            $nurseModel = new Nurse();
+            $nurseModel->patient_id = $patientDetail_id;
+            $nurseModel->nurse_id = ($nurse['ID']) ? $nurse['ID'] : '';
+            $nurseModel->name = ($nurse['Name']) ? $nurse['Name'] : '';
 
-        $nurseModel->save();
+            $nurseModel->save();
+        }
     }
 
     public function storeAcceptedServices($acceptedServices, $patientDetail_id)
     {
         foreach ($acceptedServices as $key => $acceptedService) {
-//            echo "<pre>";
-//            print_r($acceptedServices);
-//            echo "<pre>";
-//            print_r($key);
-//            echo "<pre>";
-//            print_r($acceptedService);
-//            exit();
-//            dump($key);
-            $acceptedServiceModel = new AcceptedService();
+            if(!empty($acceptedService)) {
+                $acceptedServiceModel = new AcceptedService();
             
-            $acceptedServiceModel->type = $key;
-            $acceptedServiceModel->name = $acceptedService;
-//            $acceptedServiceModel->name = $acceptedService->Discipline;
+                $acceptedServiceModel->type = $key;
+                $acceptedServiceModel->name = $acceptedService;
+    //            $acceptedServiceModel->name = $acceptedService->Discipline;
 
-            if ($acceptedServiceModel->save()) {
-                $patientAcceptedServiceModel = new PatientAcceptedService();
+                if ($acceptedServiceModel->save()) {
+                    $patientAcceptedServiceModel = new PatientAcceptedService();
 
-                $patientAcceptedServiceModel->patient_id = $patientDetail_id;
-                $patientAcceptedServiceModel->accepted_service_id = $acceptedServiceModel->id;
+                    $patientAcceptedServiceModel->patient_id = $patientDetail_id;
+                    $patientAcceptedServiceModel->accepted_service_id = $acceptedServiceModel->id;
+                }
             }
         }
     }
 
     public function storeSourceOfAdmission($sourceOfAdmission, $patientDetail_id)
     {
-        $sourceOfAdmissionModel = new SourceOfAdmission();
-        $sourceOfAdmissionModel->patient_id = $patientDetail_id;
-        $sourceOfAdmissionModel->source_of_admission_id = ($sourceOfAdmission['ID']) ? $sourceOfAdmission['ID'] : '';
-        $sourceOfAdmissionModel->name = ($sourceOfAdmission['Name']) ? $sourceOfAdmission['Name'] : '';
+        if(!empty($sourceOfAdmission['Name'])) {
+            $sourceOfAdmissionModel = new SourceOfAdmission();
+            $sourceOfAdmissionModel->patient_id = $patientDetail_id;
+            $sourceOfAdmissionModel->source_of_admission_id = ($sourceOfAdmission['ID']) ? $sourceOfAdmission['ID'] : '';
+            $sourceOfAdmissionModel->name = ($sourceOfAdmission['Name']) ? $sourceOfAdmission['Name'] : '';
 
-        $sourceOfAdmissionModel->save();
+            $sourceOfAdmissionModel->save();
+        }
+        
     }    
 
     public function storeTeam($team, $patientDetail_id)
     {
-        $teamModel = new Team();
-        $teamModel->patient_id = $patientDetail_id;
-        $teamModel->team_id = ($team['ID']) ? $team['ID'] : '';
-        $teamModel->name = ($team['Name']) ? $team['Name'] : '';
+        if(!empty($team['Name'])) {
+            $teamModel = new Team();
+            $teamModel->patient_id = $patientDetail_id;
+            $teamModel->team_id = ($team['ID']) ? $team['ID'] : '';
+            $teamModel->name = ($team['Name']) ? $team['Name'] : '';
 
-        $teamModel->save();
+            $teamModel->save();
+        }
     }
 
     public function storeLocation($location, $patientDetail_id)
     {
-        $locationModel = new Location();
-        $locationModel->patient_id = $patientDetail_id;
-        $locationModel->location_id = ($location['ID']) ? $location['ID'] : '';
-        $locationModel->name = ($location['Name']) ? $location['Name'] : '';
+        if(!empty($location['Name'])) {
+            $locationModel = new Location();
+            $locationModel->patient_id = $patientDetail_id;
+            $locationModel->location_id = ($location['ID']) ? $location['ID'] : '';
+            $locationModel->name = ($location['Name']) ? $location['Name'] : '';
 
-        $locationModel->save();
+            $locationModel->save();
+        }
+        
     }
 
     public function storeBranch($branch, $patientDetail_id)
     {
-        $branchModel = new Branch();
-        $branchModel->patient_id = $patientDetail_id;
-        $branchModel->branch_id = ($branch['ID']) ? $branch['ID'] : '';
-        $branchModel->name = ($branch['Name']) ? $branch['Name'] : '';
+        if(!empty($branch['Name'])) {
+            $branchModel = new Branch();
+            $branchModel->patient_id = $patientDetail_id;
+            $branchModel->branch_id = ($branch['ID']) ? $branch['ID'] : '';
+            $branchModel->name = ($branch['Name']) ? $branch['Name'] : '';
 
-        $branchModel->save();
+            $branchModel->save();
+        }
     }
 
     public function storeAddress($address, $patientDetail_id)
@@ -436,7 +486,8 @@ class GetPatientDetailsController extends Controller
 
     public function storeAlternateBilling($alternateBilling, $patientDetail_id)
     {
-        // foreach ($alternateBillings as $alternateBilling) {
+        if(!empty($alternateBilling['FirstName'])) {
+            // foreach ($alternateBillings as $alternateBilling) {
             $alternateBillingModel = new AlternateBilling();
 
             $alternateBillingModel->patient_id = $patientDetail_id;
@@ -450,23 +501,26 @@ class GetPatientDetailsController extends Controller
 
             $alternateBillingModel->save();
         // }
+        }
     }
 
 
     public function storeEmergencyContact($emergencyContacts, $patientDetail_id)
     {
         foreach ($emergencyContacts as $value) {
-            $patientEmergencyContact = new PatientEmergencyContact();
+            if(!empty($value['Name'])) {
+                $patientEmergencyContact = new PatientEmergencyContact();
          
-            $patientEmergencyContact->patient_id = $patientDetail_id;
-            $patientEmergencyContact->name = ($value['Name']) ? $value['Name'] : '';
-            $patientEmergencyContact->lives_with_patient = ($value['LivesWithPatient']) ? $value['LivesWithPatient'] : '';
-            $patientEmergencyContact->have_keys = ($value['HaveKeys']) ? $value['HaveKeys'] : '';
-            $patientEmergencyContact->phone1 = ($value['Phone1']) ? $value['Phone1'] : '';
-            $patientEmergencyContact->phone2 = ($value['Phone2']) ? $value['Phone2'] : '';
-            $patientEmergencyContact->address = ($value['Address']) ? $value['Address'] : '';
+                $patientEmergencyContact->patient_id = $patientDetail_id;
+                $patientEmergencyContact->name = ($value['Name']) ? $value['Name'] : '';
+                $patientEmergencyContact->lives_with_patient = ($value['LivesWithPatient']) ? $value['LivesWithPatient'] : '';
+                $patientEmergencyContact->have_keys = ($value['HaveKeys']) ? $value['HaveKeys'] : '';
+                $patientEmergencyContact->phone1 = ($value['Phone1']) ? $value['Phone1'] : '';
+                $patientEmergencyContact->phone2 = ($value['Phone2']) ? $value['Phone2'] : '';
+                $patientEmergencyContact->address = ($value['Address']) ? $value['Address'] : '';
 
-            $patientEmergencyContact->save();
+                $patientEmergencyContact->save();
+            }
         }
     }
 

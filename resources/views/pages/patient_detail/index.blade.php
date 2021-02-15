@@ -14,7 +14,7 @@
                   <img src="{{ asset('assets/img/user/01.png') }}" alt="" srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
                </div>
                <div class="name">
-                  {{ $patient->last_name }}
+                  {{ $patient->first_name }}  {{ $patient->last_name }}
                </div>
             </div>
             <div>
@@ -63,6 +63,22 @@
                         Care</a>
                   </li>
                   <li>
+                     <a class="nav-link d-flex align-items-center" id="ccm-tab" data-toggle="pill"
+                        href="#ccm" role="tab" aria-controls="ccm" aria-selected="false">
+                        <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt="" class="mr-2 inactiveIcon">
+                        <img src="{{ asset('assets/img/icons/icons_home_care_active.svg') }}" alt=""
+                           class="mr-2 activeIcon">CCM
+                        </a>
+                  </li>
+                  <li>
+                     <a class="nav-link d-flex align-items-center" id="rpm-tab" data-toggle="pill"
+                        href="#rpm" role="tab" aria-controls="rpm" aria-selected="false">
+                        <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt="" class="mr-2 inactiveIcon">
+                        <img src="{{ asset('assets/img/icons/icons_home_care_active.svg') }}" alt=""
+                           class="mr-2 activeIcon">RPM
+                        </a>
+                  </li>
+                  <li>
                      <a class="nav-link  d-flex align-items-center" id="clinical-tab" data-toggle="pill"
                         href="#clinical" role="tab" aria-controls="clinical" aria-selected="false">
                         <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
@@ -70,6 +86,7 @@
                            class="mr-2 activeIcon">
                         Clinical</a>
                   </li>
+                  
                   <li>
                      <a class="nav-link d-flex align-items-center" id="physican-tab" data-toggle="pill"
                         href="#physican" role="tab" aria-controls="physican" aria-selected="false">

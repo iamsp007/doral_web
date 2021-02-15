@@ -311,6 +311,7 @@
 
         });
     </script>
+<script src="{{ asset('assets/js/partner/add-employee.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

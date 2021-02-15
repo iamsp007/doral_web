@@ -268,5 +268,32 @@ return [
     ],
     'partner'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'partner','route'=>'partner','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
+        [
+            'name'=>'Employees Section',
+            'url'=>'javascript:void(0)',
+            'route'=>'javascript:void(0)',
+            'icon'=>'employee-sb.svg',
+            'icon_hover'=>'employee-sb-select.svg',
+            'icon_title'=>'Employees Section',
+            'menu'=>[
+                [
+                    'name'=>'Add New Employee',
+                    'url'=>env('APP_URL').'partner/add-employee',
+                    'route'=>'partner/add-employee',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Add Employee'
+                ],
+                [
+                    'name'=>'Employees',
+                    'url'=>env('APP_URL').'partner/employees',
+                    'route'=>'partner/employees',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Employees'
+                ]
+            ]
+        ]
     ],
+    
 ];

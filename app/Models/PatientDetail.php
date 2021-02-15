@@ -154,7 +154,7 @@ class PatientDetail extends Model
     }
 
     public function visitorDetail() {
-        return $this->hasOne(VisitorDetail::class,'patient_id','id');
+        return $this->hasOne(VisitorDetail::class,'patient_id','id')->orderBy('id','DESC');
     }
 
     /**

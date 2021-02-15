@@ -155,7 +155,7 @@
                                           name="coordinator_id"
                                           onclick="editableField('coordinator_id')"
                                           data-id="coordinator_id" id="coordinator_id"
-                                          placeholder="Coordinator ID" value="{{ ($coordinator->coordinator_id }}">
+                                          placeholder="Coordinator ID" value="{{ $coordinator->coordinator_id }}">
                                     </div>
                                  </div>
                               </div>
@@ -169,7 +169,7 @@
                                           name="coordinator_name"
                                           onclick="editableField('coordinator_name')"
                                           data-id="coordinator_name" id="coordinator_name"
-                                          placeholder="Coordinator Name" value="{{ $patient->coordinator_name }}">
+                                          placeholder="Coordinator Name" value="{{ $coordinator->name }}">
                                     </div>
                                  </div>
                               </div>
@@ -179,8 +179,7 @@
                   </div>
                </div>
             @endforeach
-            <!-- Coordinator Detail -->
-
+            
             <!-- Nurse Detail -->
             <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                data-name="emergency_contact_detail">
@@ -600,7 +599,7 @@
             <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                data-name="emergency_contact_detail">
                <div class="app-card-header">
-                  <h1 class="title">Alert Detail</h1>
+                  <h1 class="title">Home Phone Detail</h1>
                </div>
                <div>
                   <div class="p-3">
@@ -681,7 +680,7 @@
                                     <h3 class="_title">Home Phone Location Address</h3>
                                     <input type="text" class="form-control-plaintext _detail "
                                        readonly name="home_phone_location_address" onclick="editableField('home_phone_location_address')"
-                                       data-id="home_phone_location_address" id="home_phone_location_address" placeholder="home_phone_location_address" value="{{ $patient->Home Phone Location Address}}">
+                                       data-id="home_phone_location_address" id="home_phone_location_address" placeholder="home_phone_location_address" value="{{ $patient->home_phone_location_address }}">
                                  </div>
                               </div>
                            </div>
@@ -872,7 +871,12 @@
                                     </div>
                                     <div class="rs">
                                        <h3 class="_title">Phone1</h3>
-                                       <x-telephone name="phone1" />
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="phone1"
+                                          onclick="editableField('phone1')"
+                                          data-id="phone1" id="phone1"
+                                          placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}">
                                     </div>
                                  </div>
                               </div>
@@ -883,7 +887,12 @@
                                     </div>
                                     <div class="rs">
                                        <h3 class="_title">Phone2</h3>
-                                          <x-telephone name="Phone2" />
+                                          <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="phone2"
+                                          onclick="editableField('phone2')"
+                                          data-id="phone2" id="phone2"
+                                          placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}">
                                     </div>
                                  </div>
                               </div>

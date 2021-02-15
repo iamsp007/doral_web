@@ -33,7 +33,7 @@
                                                    <input type="text" class="form-control-plaintext _detail "
                                                       readonly name="madicaid_no" data-id="madicaid_no"
                                                       onclick="editableField('madicaid_no')" id="madicaid_no"
-                                                      placeholder="ABCD1234" value="ABCD1234">
+                                                      placeholder="Medicaid Number" value="{{ $patient->medicaid_number}}">
                                                 </div>
                                              </div>
                                           </div>
@@ -67,7 +67,7 @@
                                                    <input type="text" class="form-control-plaintext _detail "
                                                       readonly name="medicare_no" data-id="medicare_no"
                                                       onclick="editableField('medicare_no')" id="medicare_no"
-                                                      placeholder="ABCD1234" value="ABCD1234">
+                                                      placeholder="Medicare Number" value="{{ $patient->medicare_number}}">
                                                 </div>
                                              </div>
                                           </div>
@@ -80,7 +80,7 @@
                               </div>
                               <!-- Medicare End -->
                               <!-- Croley Insurance and Financial Start -->
-                              <div
+<!--                              <div
                                  class="app-card app-card-custom no-minHeight box-shadow-none _add_new_company"
                                  data-name="croley_insurance_and_financial">
                                  <div class="app-card-header">
@@ -99,7 +99,7 @@
                                                 </div>
                                                 <div class="rs">
                                                    <h3 class="_title">Payer Id</h3>
-                                                   <!-- <h1 class="_detail">13162</h1> -->
+                                                    <h1 class="_detail">13162</h1> 
                                                    <input type="text" class="form-control-plaintext _detail "
                                                       readonly name="payerId1" data-id="payerId1"
                                                       onclick="editableField('payerId1')" id="payerId1"
@@ -114,7 +114,7 @@
                                                 </div>
                                                 <div class="rs">
                                                    <h3 class="_title">Phone</h3>
-                                                   <!-- <h1 class="_detail">9855665324</h1> -->
+                                                    <h1 class="_detail">9855665324</h1> 
                                                    <input type="tel" class="form-control-plaintext _detail "
                                                       readonly name="Phone" data-id="Phone"
                                                       onclick="editableField('Phone')" id="Phone"
@@ -130,7 +130,7 @@
                                                 </div>
                                                 <div class="rs">
                                                    <h3 class="_title">Policy Number</h3>
-                                                   <!-- <h1 class="_detail">ABCD123456</h1> -->
+                                                    <h1 class="_detail">ABCD123456</h1> 
                                                    <input type="number" class="form-control-plaintext _detail "
                                                       readonly name="policy_no" data-id="policy_no"
                                                       onclick="editableField('policy_no')" id="policy_no"
@@ -142,7 +142,7 @@
                                        </div>
                                     </div>
                                  </div>
-                              </div>
+                              </div>-->
                               <!-- Insurance Company Form Start -->
                               <div
                                  class="app-card app-card-custom no-minHeight box-shadow-none mt-3 insurance_company">

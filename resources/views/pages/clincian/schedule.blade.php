@@ -13,7 +13,7 @@
                     <th><input type="checkbox" class="selectall"></th>
                     <th>Patient Name</th>
                     <th>Gender</th>
-                    <th>Cause Of Appointment</th>
+                    <th>Reason Of Appointment</th>
                     <th>Date and Time</th>
                     <th>Duration</th>
                     <th>Status</th>

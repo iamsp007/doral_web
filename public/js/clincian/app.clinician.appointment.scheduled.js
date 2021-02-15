@@ -90,7 +90,7 @@ $(function () {
                                    ' \n' +
                                    '              <label class="radio-btn">\n' +
                                    ' \n' +
-                                   '                  <input type="checkbox" name="selected_appointment"  value="'+value+'" >\n' +
+                                   '                  <input type="checkbox" name="selected_appointment" style="margin-right: 20px !important;"  value="'+value+'" >\n' +
                                    ' \n' +
                                    '                  '+value+'\n' +
                                    ' \n' +

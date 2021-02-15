@@ -62,17 +62,14 @@ class PatientDetail extends Model
 
     
 
-    public function payer() {
-        return $this->hasOne(PatientPlayer::class,'id','payer_id');
-    }
+    // public function payer() {
+    //     return $this->hasOne(PatientPlayer::class,'id','payer_id');
+    // }
     public function patientAddress() {
         return $this->hasOne(PatientAddress::class,'patient_id','id');
     }
     public function PatientEmergency() {
         return $this->hasOne(PatientEmergencyContact::class,'patient_id','id');
-    }
-    public function getSsnFormatAttribute(){
-       return 'xxx-xxx-'.substr($this->ssn, -4);
     }
 
     /**
@@ -95,4 +92,38 @@ class PatientDetail extends Model
             'nurse_id');
     }
 
+    public function visitorDetail() {
+        return $this->hasOne(VisitorDetail::class,'patient_id','id');
+    }
+
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function getGenderAttribute()
+    {
+        if ($this->gender === '1') {
+            $gender = 'Male';
+        } else if ($this->gender === '2') {
+            $gender = 'Female';
+        } else {
+            $gender = 'Other';
+        }
+        return $gender;
+    }
+
+    /**
+     * Create ssn number
+     */
+    public function getSsnAttribute()
+    {
+       return 'xxx-xx-' . substr($this->ssn, -4);
+    }
 }

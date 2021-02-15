@@ -218,7 +218,7 @@
                 error:function (error) {
                     table.ajax.reload();
                     $("#loader-wrapper").hide();
-                    console.log(error)
+                    alert(error)
                 }
                 
             });
@@ -253,7 +253,7 @@
                 },
                 error:function (error) {
                     $("#loader-wrapper").hide();
-                    console.log(error.message)
+                    alert(error.message)
                 }
             });
         }

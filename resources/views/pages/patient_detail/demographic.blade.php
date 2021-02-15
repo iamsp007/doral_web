@@ -21,14 +21,8 @@
                         </div>
                         <div class="rs">
                            <h3 class="_title">Phone</h3>
-                           <!-- <h1 class="_detail">9855665324</h1> -->
                            <div>
                               <x-telephone name="phoneno" />
-                              <!-- <input type="tel" class="form-control-plaintext _detail "
-                                 readonly name="phoneno" data-id="phoneno"
-                                 onclick="editableField('phoneno')" id="phoneno"
-                                 onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                 placeholder="9855665324" value="9855665324"> -->
                            </div>
                         </div>
                      </div>
@@ -211,10 +205,41 @@
                   marginwidth="0"
                   src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
             </div>
-
-{{dump($patient)}}
-            <!-- Emergency contact Detail -->
-           
+            
+            <!-- Nurse Detail -->
+            @foreach($patient->nurses as $key => $patientNurse)
+               <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                  data-name="emergency_contact_detail">
+                  <div class="app-card-header">
+                     <h1 class="title">Nurse Detail</h1>
+                  </div>
+                  <div>
+                     <div class="p-3">
+                        <div class="">
+                           <div class="row">
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-user-nurse circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Name</h3>
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="name"
+                                          onclick="editableField('name')"
+                                          data-id="name" id="name"
+                                          placeholder="Contact Name" value="{{ $patientNurse->name }}">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            @endforeach
+            <!-- Nurse Detail -->
 
             <!-- Emergency contact Detail -->
             @foreach($patient->patientEmergencyContact as $key => $patientEmergencyContact)
@@ -250,12 +275,7 @@
                                     </div>
                                     <div class="rs">
                                        <h3 class="_title">Phone1</h3>
-                                       <input type="tel" class="form-control-plaintext _detail "
-                                          readonly name="phone1"
-                                          onclick="editableField('phone1')"
-                                          data-id="phone1" id="phone1"
-                                          onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                          placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}">
+                                       <x-telephone name="phone1" />
                                     </div>
                                  </div>
                               </div>
@@ -266,12 +286,7 @@
                                     </div>
                                     <div class="rs">
                                        <h3 class="_title">Phone2</h3>
-                                       <input type="tel" class="form-control-plaintext _detail "
-                                          readonly name="phone1"
-                                          onclick="editableField('phone1')"
-                                          data-id="phone1" id="phone1"
-                                          onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                          placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}">
+                                          <x-telephone name="Phone2" />
                                     </div>
                                  </div>
                               </div>

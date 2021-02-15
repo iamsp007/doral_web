@@ -15,6 +15,6 @@ class Branch extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'branch_id', 
+        'name', 'branch_id', 'patient_id',
     ];
 }

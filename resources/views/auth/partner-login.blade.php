@@ -89,9 +89,9 @@
     <script>
         function changeLoginRole(type) {
             if (type==='1'){
-                $('#loginForm').attr('action','{{ route('login') }}');
+                $('#loginForm').attr('action',"{{ route('login') }}");
             }else {
-                $('#loginForm').attr('action','{{ route('referral.login') }}');
+                $('#loginForm').attr('action',"{{ route('referral.login') }}");
             }
             console.log(type)
         }

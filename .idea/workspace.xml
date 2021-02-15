@@ -2,197 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/doral_web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/doral_web.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GetPatientDetailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GetPatientDetailsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/AcceptedService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/AcceptedService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Alert.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Alert.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/AlternateBilling.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/AlternateBilling.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Branch.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Branch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Coordinator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Coordinator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/DemographicDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DemographicDetails.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/EmergencyContactRelationship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/EmergencyContactRelationship.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/EmergencyPreparedness.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/EmergencyPreparedness.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Location.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Location.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Nurse.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Nurse.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientAcceptedService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientAcceptedService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientAddress.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientAddress.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientAddresses.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientAddresses.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientAlert.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientAlert.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientBranch.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientBranch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientCoordinator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientCoordinator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientEmergencyContact.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientEmergencyContact.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientLocation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientLocation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientNurse.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientNurse.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientPlayer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientPlayer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientSourceOfAdmission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientSourceOfAdmission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientTeam.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientTeam.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Relationship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Relationship.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/SourceOfAdmission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/SourceOfAdmission.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/patient_service.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/patient_service.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/broadcasting.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/broadcasting.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/patientDetailAuthentication.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/patientDetailAuthentication.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel-echo-server.json" beforeDir="false" afterPath="$PROJECT_DIR$/laravel-echo-server.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel-echo-server.lock" beforeDir="false" afterPath="$PROJECT_DIR$/laravel-echo-server.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/add-patient.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/add-patient.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/assign-modal.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/assign-modal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/bootstrap.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/bootstrap.min.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/buttons.bootstrap4.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/buttons.bootstrap4.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/caregiver.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/caregiver.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/caregiver.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/caregiver.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/dataTables.bootstrap4.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/dataTables.bootstrap4.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/datatables.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/datatables.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/datatables.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/datatables.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/daterangepicker.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/daterangepicker.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/daterangepicker.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/daterangepicker.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/detail.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/detail.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fixedColumns.dataTables.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fixedColumns.dataTables.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Black.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Black.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Black.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Black.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-BlackItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-BlackItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-BlackItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-BlackItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Bold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Bold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Bold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Bold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-BoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-BoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-BoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-BoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraLight.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraLight.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraLight.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraLight.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraLightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraLightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraLightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ExtraLightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Italic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Italic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Light.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Light.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Light.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Light.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-LightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-LightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-LightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-LightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Medium.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Medium.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Medium.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Medium.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-MediumItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-MediumItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-MediumItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-MediumItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Regular.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Regular.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-SemiBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-SemiBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-SemiBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-SemiBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-SemiBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-SemiBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-SemiBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-SemiBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Thin.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Thin.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Thin.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-Thin.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ThinItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ThinItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ThinItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat-ThinItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/Montserrat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Black.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Black.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Black.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Black.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-BlackItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-BlackItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-BlackItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-BlackItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Bold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Bold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Bold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Bold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-BoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-BoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-BoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-BoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraLight.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraLight.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraLight.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraLight.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraLightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraLightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraLightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ExtraLightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Italic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Italic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Light.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Light.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Light.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Light.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-LightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-LightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-LightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-LightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Medium.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Medium.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Medium.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Medium.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-MediumItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-MediumItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-MediumItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-MediumItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Regular.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Regular.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-SemiBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-SemiBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-SemiBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-SemiBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-SemiBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-SemiBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-SemiBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-SemiBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Thin.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Thin.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Thin.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-Thin.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ThinItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ThinItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ThinItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/MontserratAlternates-ThinItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/README.MD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-brands-400.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-regular-400.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/fonts/la-solid-900.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/jquery-ui-1.10.3.custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/jquery-ui-1.10.3.custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/jquery-ui.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/jquery-ui.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/line-awesome.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/line-awesome.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/line-awesome.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/line-awesome.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/loader.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/loader.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/owl.carousel.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/owl.carousel.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/owl.carousel.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/owl.carousel.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/owl.theme.default.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/owl.theme.default.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/owl.theme.default.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/owl.theme.default.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/responsive.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/responsive.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/responsive.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/sidebar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/sidebar.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/sidebar.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/style.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/style.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/tail.select-default.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/tail.select-default.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/tail.select-default.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/tail.select-default.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/tail.select-default.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/tail.select-default.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css - Copy/tail.select-default_1.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css - Copy/tail.select-default_1.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/add-patient.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/add-patient.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/apexcharts.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/apexcharts.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/sidedrawer.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/sidedrawer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/sidedrawer.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/sidedrawer.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.min_old.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.min_old.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/direction_car.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/direction_car.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/apexcharts.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/apexcharts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/laravel-echo-setup.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/laravel-echo-setup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/socket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/laravel-echo-setup.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/laravel-echo-setup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/calendar/ccm/script.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/calendar/ccm/script.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/calendar/rpm/script.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/calendar/rpm/script.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/get-patient-detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/get-patient-detail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/patient-details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/patient-details.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/billing.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/billing.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/clinical.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/clinical.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/demographic.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/demographic.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/diagnosis.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/diagnosis.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/home_care.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/home_care.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/insurance.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/insurance.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/med_profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/med_profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/pharmacy.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/pharmacy.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/physician.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/physician.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -370,7 +181,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -742,6 +553,12 @@
       <workItem from="1612544414710" duration="2945000" />
       <workItem from="1613272665426" duration="4360000" />
       <workItem from="1613283226284" duration="10403000" />
+      <workItem from="1613322249201" duration="934000" />
+      <workItem from="1613323540574" duration="1575000" />
+      <workItem from="1613325540524" duration="177000" />
+      <workItem from="1613360854375" duration="4733000" />
+      <workItem from="1613377528114" duration="3029000" />
+      <workItem from="1613381301979" duration="1430000" />
     </task>
     <servers />
   </component>

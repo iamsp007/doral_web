@@ -68,10 +68,11 @@ class ClinicianService
 
 
             $response = $response->getBody()->getContents();
+            \Log::info($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
+            \Log::info($exception->getMessage());
         }
     }
 
@@ -200,10 +201,11 @@ class ClinicianService
                 ]
             );
             $response = $response->getBody()->getContents();
+            \Log::info($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
+            \Log::info($exception->getMessage());
         }
     }
 

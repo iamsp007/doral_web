@@ -286,13 +286,10 @@
               $("#CaseManagementModal").modal('hide');
               $(".selectall").prop("checked", false);
               $("#patient-table td input:checkbox").prop("checked", false);
-              console.log( response );
              }
             })
        
           }
-       // var text = $('.t7').se.attr('data-value');
-        //console.log("header",text);
       }
     </script>
 @endpush

@@ -2407,7 +2407,7 @@
                         $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
                     },
                     error: function(error) {
-                        console.log(error.responseText)
+                        alert(error.responseText);
                     }
                 });
             });

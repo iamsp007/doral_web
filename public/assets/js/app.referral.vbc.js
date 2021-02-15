@@ -20,7 +20,6 @@ $(function () {
     // $(".accept-reject").show();
     // else
     // $(".accept-reject").hide();
-    // console.log(this);
 
     // $('input[type="checkbox"]').click(function(){
     //     // $(".accept-reject").show();
@@ -30,7 +29,6 @@ $(function () {
     //     $(".accept-reject").hide();
     // });
     $('input[type="checkbox"]').click(function(){
-        console.log(this);
         if ($(this).is(":checked")) {
             $(".accept-reject").show();
             

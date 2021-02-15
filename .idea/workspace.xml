@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/clincian/app.clinician.appointment.scheduled.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/app.clinician.appointment.scheduled.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/schedule.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +184,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -559,6 +562,8 @@
       <workItem from="1613360854375" duration="4733000" />
       <workItem from="1613377528114" duration="3029000" />
       <workItem from="1613381301979" duration="1430000" />
+      <workItem from="1613385038247" duration="7326000" />
+      <workItem from="1613404126091" duration="306000" />
     </task>
     <servers />
   </component>

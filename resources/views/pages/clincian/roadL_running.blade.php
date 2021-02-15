@@ -6,11 +6,6 @@
 @endsection
 
 @section('content')
-    <div id="right-panel">
-        <div id="output"></div>
-    </div>
-    <div id="setPanel">
-    </div>
     <div id="map">
         <input type="hidden" name="patient_request_id"  id="patient_request_id" value="{{ $patient_request_id }}"/>
     </div>

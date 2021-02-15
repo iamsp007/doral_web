@@ -160,8 +160,9 @@ var prev_lat=null;
 var prev_lng=null;
 
 function updateMap(destination) {
-    $('#right-panel').html('');
+
     setInterval(function () {
+
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -173,14 +174,19 @@ function updateMap(destination) {
             method:'POST',
             dataType:'json',
             success:function (response) {
+                $('#right-panel').html('');
                 if (response.status!=="pending"){
                     response.clinicians.map(function (resp) {
-                        var check = calcCrow(resp.latitude,resp.longitude,null,null).toFixed(1);
+                        var check = calcCrow(resp.start_latitude,resp.end_longitude,null,null).toFixed(1);
                         if (referral_type[resp.referral_type].latlng){
+                            if (referral_type[resp.referral_type].latlng[0]){
+                                check = calcCrow(resp.latitude,resp.longitude,referral_type[resp.referral_type].latlng[0],referral_type[resp.referral_type].latlng[1]).toFixed(1);
+                            }else {
 
-                            check = calcCrow(resp.latitude,resp.longitude,referral_type[resp.referral_type].latlng[0],referral_type[resp.referral_type].latlng[1]).toFixed(1);
+                            }
                         }
                         if (check>0){
+
 
                             // referral_type[resp.referral_type].directionsService=new google.maps.DirectionsService();
                             // referral_type[resp.referral_type].directionsRenderer=new google.maps.DirectionsRenderer();

@@ -109,12 +109,13 @@ class GetPatientDetailsController extends Controller
         // $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','489003','490045','504356','516752','517000','518828','532337','540428','541579','542628'];
     
         $counter = 0;
-        foreach ($patientArray as $patient_id) {
-            // if ($counter < 100) {
-           
-                // $patient_id = '772465'; 
+//        foreach ($patientArray as $patient_id) {
+//             if ($counter < 100) {
+//                 echo "<pre>";
+//                 print_r($patient_id);
+//                 exit();
+                 $patient_id = '1048580'; 
                 $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
-                
                 if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
                     $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
@@ -129,7 +130,7 @@ class GetPatientDetailsController extends Controller
                     if($patient_detail_id) {
                         $visitID = $searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
                     
-                        $scheduleInfo = $this->getScheduleInfo($visitID);
+                        $scheduleInfo = $this->getScheduleInfo($visitID); 
 
                         $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
 
@@ -181,9 +182,9 @@ class GetPatientDetailsController extends Controller
                     echo $counter;
                     echo '/n';
                 }
-            // }
-            $counter++;
-        }
+//             }
+//            $counter++;
+//        }
     }
     /**
      * Display a listing of the resource.
@@ -321,11 +322,19 @@ class GetPatientDetailsController extends Controller
     public function storeAcceptedServices($acceptedServices, $patientDetail_id)
     {
         foreach ($acceptedServices as $key => $acceptedService) {
-            dump($key);
+//            echo "<pre>";
+//            print_r($acceptedServices);
+//            echo "<pre>";
+//            print_r($key);
+//            echo "<pre>";
+//            print_r($acceptedService);
+//            exit();
+//            dump($key);
             $acceptedServiceModel = new AcceptedService();
             
             $acceptedServiceModel->type = $key;
-            $acceptedServiceModel->name = $acceptedService->Discipline;
+            $acceptedServiceModel->name = $acceptedService;
+//            $acceptedServiceModel->name = $acceptedService->Discipline;
 
             if ($acceptedServiceModel->save()) {
                 $patientAcceptedServiceModel = new PatientAcceptedService();
@@ -376,55 +385,53 @@ class GetPatientDetailsController extends Controller
         $branchModel->save();
     }
 
-    public function storeAddress($addresses, $patientDetail_id)
+    public function storeAddress($address, $patientDetail_id)
     {
-        foreach ($addresses as $address) {
+//        foreach ($addresses as $addressWithKey) {
+            
+             $country_id = 226;
+//             if (isset($address['County']) && !empty($address['County'])) {
+//                $country = Country::updateOrCreate(
+//                    ['name' =>  $address['County']]
+//                );
+//                 $country = Country::where('state_code',$address['State'])->first();
+//                 if(!empty($state)) {
+//                     $state_id = $state['id'];
+//                 }
+//                $country_id = $country->id;
+//             }
 
-            // $country_id = '';
-            // if (isset($address['County']) && !empty($address['County'])) {
-            //     $country = Country::updateOrCreate(
-            //         ['name' =>  $address['County']],
-            //     );
+             $state_id = '';
+             if (isset($address['State']) && !empty($address['State'])) {
+                 $state = State::where('state_code',$address['State'])->first();
+                 if(!empty($state)) {
+                     $state_id = $state['id'];
+                 }
+             }
 
-            //     $country_id = $country->id;
-            // }
-
-            // $state_id = '';
-            // if (isset($address['State']) && !empty($address['State'])) {
-            //     $state = State::updateOrCreate(
-            //         [
-            //             'state' =>  $address['State'],
-            //             'country_id' =>  $country_id,
-            //         ],
-            //     );
-
-            //     $state_id = $state->id;
-            // }
-
-            // $city_id = '';
-            // if (isset($address['City']) && !empty($address['City'])) {
-            //     $city = City::updateOrCreate(
-            //         ['city' =>  $address['City']],
-            //     );
-            //     $city_id = $city->id;
-            // }
-
+             $city_id = '';
+             if (isset($address['City']) && !empty($address['City'])) {
+                $city = City::where('city',$address['City'])->first();
+                 if(!empty($city)) {
+                     $city_id = $city['id'];
+                 }
+             }
             $patientAddress = new PatientAddress();
             $patientAddress->patient_id = $patientDetail_id;
             $patientAddress->address_id = ($address['AddressID']) ? $address['AddressID'] : '' ;
             $patientAddress->address1 = ($address['Address1']) ? $address['Address1'] : '' ;
             $patientAddress->address2 = ($address['Address2']) ? $address['Address2'] : '' ;
             $patientAddress->cross_street = ($address['CrossStreet']) ? $address['CrossStreet'] : '' ;
-            // $patientAddress->city_id = $city_id;
+             $patientAddress->city_id = $city_id;
             $patientAddress->zip5 = ($address['Zip5']) ? $address['Zip5'] : '' ;
             $patientAddress->zip4 = ($address['Zip4']) ? $address['Zip4'] : '' ;
-            // $patientAddress->state_id = $state_id;
-            // $patientAddress->county_id = $country_id;
+             $patientAddress->state_id = $state_id;
+             $patientAddress->county_id = $country_id;
             $patientAddress->is_primary_address = ($address['IsPrimaryAddress'] == 'Yes') ? 1 : 0 ;
-            $patientAddress->addresstypes = ($address['AddressTypes']) ? $address['AddressTypes'] : '' ;
+            $patientAddress->address_type = ($address['AddressTypes']) ? $address['AddressTypes'] : '' ;
             
             $patientAddress->save();
-        }
+//        }
     }
 
     public function storeAlternateBilling($alternateBilling, $patientDetail_id)

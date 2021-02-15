@@ -11,6 +11,7 @@ use App\Models\RoleModuleAssign;
 use App\Models\RoleModuleName;
 use App\Models\RolePermission;
 use View;
+use Auth;
 
 class RolesAndPermissionController extends Controller
 {
@@ -57,15 +58,27 @@ class RolesAndPermissionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getRolePermission(Request $request) {
+
+
         $data = $request->all();
         $status = 0;
         $services = new AdminService();
         $response = $services->getRolePermission($data);
         
         $selectedRoles = $data['role_ids'];
+        $selectedUsers = [];
+        if(isset($data['user_ids'])) {
+            foreach ($data['user_ids'] as $key => $value) {
+                array_push($selectedUsers, $data['user_ids'][$key]['id'].'-'.$data['user_ids'][$key]['tabel']);
+            }
+
+           
+            
+        }
+
         $roles = Role::select('id','name', 'guard_name')->whereIn('id',[1,4,6])->get()->toArray();
 
-        echo json_encode(View::make("pages.admin.roles-permissions-module")->with('data',$response['data'])->with('roles',$roles)->with('selectedRoles',$selectedRoles)->render(),true);
+        echo json_encode(View::make("pages.admin.roles-permissions-module")->with('data',$response['data'])->with('roles',$roles)->with('selectedRoles',$selectedRoles)->with('selectedUsers',$selectedUsers)->render(),true);
     }
 
 }

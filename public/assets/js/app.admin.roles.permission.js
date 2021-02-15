@@ -71,3 +71,15 @@ function checkall(j) {
     
 }
 
+function searchall(j) {
+    var j = parseInt(j)+1;
+    var t = $("#searchItem_"+j)
+    var p = $("#scroll_" +j+" div")
+     t.on("keyup", function () {
+            var e = $(this).val().toLowerCase();
+            p.filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(e) > -1)
+            })
+        })
+}
+

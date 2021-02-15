@@ -13,9 +13,9 @@
                 </select>
             </div>
             <div class="input-group-prepend mr-2 ">
-                <select name="" class="form-control select" id="rolesOfUser" multiple>
+                <select name="" class="form-control select user_change" id="rolesOfUser" multiple>
                     @foreach($data['users'] as $user)
-                        <option value="{{ $user['id'] }}">{{ ucfirst($user['name']) }}</option>
+                        <option value="{{ $user['id'] }}-{{$user['tabel']}}" @if(in_array($user['id'].'-'.$user['tabel'] , $selectedUsers)) selected @endif>{{ ucfirst($user['name']) }}</option>
                     @endforeach
                 </select>
             </div>
@@ -28,19 +28,25 @@
 
 <div class="roles-block">
     <div class="tab-content">
-        @php $i = 0; $j = 0; @endphp
+        @php $i = 0; $j = 0; $k=1; @endphp
         @foreach($data['rolesData'] as $role_val)
             <div class="tab-pane @if($i==0) active @endif" id="tab_id{{ $role_val['id'] }}" role="tabpanel">
                 <div class="role_space">
                     <h1 class="user-title">Assigned Roles to <span>{{ ucfirst($role_val['name']) }}</span></h1>
                     <div class="row accordion mb-5">
+                       
                         @foreach($role_val['modules'] as $modules_val)
                             <div class="col-12 col-sm-4">
                                 <div class="card user-role-card role-card-{{$j+1}}">
                                     <div class="card-header d-flex align-items-center" id="heading_{{ $modules_val['id'] }}">
                                         <div>
                                             <label>
-                                                <input type="checkbox" name="moduleCheck{{ $modules_val['id'] }}" class="moduleCheck" data-module-id="{{ $modules_val['id'] }}" data-role-id="{{ $role_val['id'] }}"  id="checkAll_{{$j+1}}" onclick="checkall('{{$j}}')" />
+                                                @php $count=0;; @endphp
+                                                 @foreach($modules_val['module_permission'] as $per_val)
+
+                                                     @if(isset($role_val['role_permission']) && in_array($per_val['permission_id'], $role_val['role_permission'])) @php $count = $count + 1 @endphp @endif
+                                                  @endforeach
+                                                <input type="checkbox" name="moduleCheck{{ $modules_val['id'] }}" class="moduleCheck" data-module-id="{{ $modules_val['id'] }}" data-role-id="{{ $role_val['id'] }}"  id="checkAll_{{$j+1}}" @if($count == count($modules_val['module_permission'])) checked @endif onclick="checkall('{{$j}}')"  />
                                                 <span>{{ $modules_val['module_name'] }}</span>
                                             </label>
                                         </div>
@@ -53,17 +59,79 @@
                                         <div class="mb-3">
                                             <label class="label" for="text">Search:</label>
                                             <input type="text" placeholder="Search permission(s)..."
-                                                class="form-control" name="searchItem" id="searchItem">
+                                                class="form-control" name="searchItem" id="searchItem_{{$j+1}}" onkeyup="searchall('{{$j}}')">
                                         </div>
-                                        <div class="scrollbar scroll-{{ $modules_val['id'] }} style-1">
+                                        <div class="scrollbar scroll-{{ $modules_val['id'] }} style-1" id="scroll_{{$j+1}}">
                                             <div class="force-overflow">
+                                                
                                                 @foreach($modules_val['module_permission'] as $per_val)
                                                     <div>
+                                                        
                                                         <label>
                                                             <input type="checkbox" class="permission_check" data-role-id="{{ $role_val['id'] }}" id="permission_check{{ $per_val['permission_id'] }}" value="{{ $per_val['permission_id'] }}" @if(isset($role_val['role_permission']) && in_array($per_val['permission_id'], $role_val['role_permission'])) checked @endif />
                                                             <span>{{ ucwords(str_replace('_', ' ',$per_val['permission_name'] )) }}</span>
                                                         </label>
                                                     </div>
+                                                    @php $k ++; @endphp
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @php $j++; @endphp
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            @php $i++; @endphp
+        @endforeach
+
+         @php $i = 0; $j = 0; $k=1; @endphp
+        @foreach($data['rolesUsersData'] as $role_val)
+            <div class="tab-pane @if($i==0) active @endif" id="tab_id_user{{ $role_val['id'] }}" role="tabpanel">
+                <div class="role_space">
+                    <h1 class="user-title">Assigned Roles to <span>{{ ucfirst($role_val['name']) }}</span></h1>
+                    <div class="row accordion mb-5">
+                       
+                        @foreach($role_val['modules'] as $modules_val)
+                            <div class="col-12 col-sm-4">
+                                <div class="card user-role-card role-card-{{$j+1}}">
+                                    <div class="card-header d-flex align-items-center" id="heading_{{ $modules_val['id'] }}">
+                                        <div>
+                                            <label>
+                                                @php $count=0;; @endphp
+                                                 @foreach($modules_val['module_permission'] as $per_val)
+
+                                                     @if(isset($role_val['role_permission']) && in_array($per_val['permission_id'], $role_val['role_permission'])) @php $count = $count + 1 @endphp @endif
+                                                  @endforeach
+                                                <input type="checkbox" name="moduleCheck{{ $modules_val['id'] }}" class="moduleCheck" data-module-id="{{ $modules_val['id'] }}" data-role-id="{{ $role_val['id'] }}"  id="checkAll_{{$j+1}}" @if($count == count($modules_val['module_permission'])) checked @endif onclick="checkall('{{$j}}')"  />
+                                                <span>{{ $modules_val['module_name'] }}</span>
+                                            </label>
+                                        </div>
+                                        <div data-toggle="collapse" data-target="#collapsibleToggle_{{ $modules_val['id']}}">
+                                            <i class="las la-plus"></i>
+                                        </div>
+                                    </div>
+                                    <div class="card-body collapse" id="collapsibleToggle_{{ $modules_val['id']}}"
+                                        aria-labelledby="heading_{{ $modules_val['id'] }}">
+                                        <div class="mb-3">
+                                            <label class="label" for="text">Search:</label>
+                                            <input type="text" placeholder="Search permission(s)..."
+                                                class="form-control" name="searchItem" id="searchItem_{{$j+1}}" onkeyup="searchall('{{$j}}')">
+                                        </div>
+                                        <div class="scrollbar scroll-{{ $modules_val['id'] }} style-1" id="scroll_{{$j+1}}">
+                                            <div class="force-overflow">
+                                                
+                                                @foreach($modules_val['module_permission'] as $per_val)
+                                                    <div>
+                                                        
+                                                        <label>
+                                                            <input type="checkbox" class="permission_check" data-role-id="{{ $role_val['id'] }}" id="permission_check{{ $per_val['permission_id'] }}" value="{{ $per_val['permission_id'] }}" @if(isset($role_val['role_permission']) && in_array($per_val['permission_id'], $role_val['role_permission'])) checked @endif />
+                                                            <span>{{ ucwords(str_replace('_', ' ',$per_val['permission_name'] )) }}</span>
+                                                        </label>
+                                                    </div>
+                                                    @php $k ++; @endphp
                                                 @endforeach
                                             </div>
                                         </div>
@@ -78,12 +146,17 @@
             @php $i++; @endphp
         @endforeach
     </div>
+
     <div class="list-group list-box" id="myList" role="tablist">
         @php $j = 0; @endphp
         @foreach($data['rolesData'] as $role_val)
             <a class="list-group-item list-group-item-action @if($j==0) active @endif" data-toggle="list" href="#tab_id{{ $role_val['id'] }}"
             role="tab">{{ ucfirst($role_val['name']) }}</a>
             @php $j++; @endphp
+        @endforeach
+        @foreach($data['rolesUsersData'] as $role_user_val)
+           <a class="list-group-item list-group-item-action" data-toggle="list" href="#tab_id_user{{ $role_user_val['id'] }}"
+            role="tab">{{ ucfirst($role_user_val['name']) }}</a>
         @endforeach
     </div>
 </div>
@@ -105,10 +178,52 @@
 
             var role_ids = $(e.target).val();
 
+            
+
             $.ajax({
                 url:'{{route('admin.getRolePermission')}}',
                 method:"POST",
                 data:{'role_ids':role_ids},
+                dataType:'JSON',
+                success:function(response)
+                {
+                    // $('.roles_permissions').html(response);
+                    $('.roles_permissions').html(response);
+                    if(response.status === true) {
+                      // alertText('Profile Information updated successfully','success');
+                    } else {
+                      
+                    }
+                }
+           })
+        });
+
+         $('.user_change').on('change', function(e) {
+            $.ajaxSetup({
+                headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+
+
+
+            var role_ids = $('.role_department').val();
+            var user_data = $(e.target).val();
+            var user_ids = []
+            for (var i = 0; i < user_data.length; i++) {
+                    var arr = user_data[i].split('-');
+                    var tempdata = {'id':arr[0],'tabel':arr[1]}
+                    user_ids.push(tempdata)
+        
+                }
+            
+
+            $.ajax({
+                url:'{{route('admin.getRolePermission')}}',
+                method:"POST",
+                data:{'role_ids':role_ids,'user_ids':user_ids},
                 dataType:'JSON',
                 success:function(response)
                 {
@@ -149,7 +264,7 @@
                 success:function(response)
                 {
                     if(response.status === true) {
-                      alertText('Saved successfully','success');
+                      alertText('Updated successfully','success');
                     } else {
                       alertText('Not saved','error');
                     }
@@ -184,7 +299,7 @@
                 success:function(response)
                 {
                     if(response.status === true) {
-                      alertText('Saved successfully','success');
+                      alertText('Updated successfully','success');
                     } else {
                       alertText('Not saved','error');
                     }

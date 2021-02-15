@@ -29,7 +29,6 @@ function initMap() {
         dataType:'json',
         success:function (response) {
             var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
-            makeMarker(destination, base_url+'assets/img/icons/patient-icon.svg', 'Patient');
             response.clinicians.map(function (resp) {
                 var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
                 referral_type[resp.referral_type]={
@@ -48,7 +47,9 @@ function initMap() {
                 }else if(resp.referral_type==='X-RAY'){
                     color='#c94d2f';
                 }
-                calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,color)
+                var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
+                var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
+                calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,color);
                updateMap(destination,map)
             })
         },
@@ -159,6 +160,7 @@ var prev_lat=null;
 var prev_lng=null;
 
 function updateMap(destination) {
+    $('#right-panel').html('');
     setInterval(function () {
         $.ajax({
             headers: {
@@ -171,35 +173,38 @@ function updateMap(destination) {
             method:'POST',
             dataType:'json',
             success:function (response) {
-                response.clinicians.map(function (resp) {
-                    var check = calcCrow(resp.latitude,resp.longitude,null,null).toFixed(1);
-                    if (referral_type[resp.referral_type].latlng){
+                if (response.status!=="pending"){
+                    response.clinicians.map(function (resp) {
+                        var check = calcCrow(resp.latitude,resp.longitude,null,null).toFixed(1);
+                        if (referral_type[resp.referral_type].latlng){
 
-                        check = calcCrow(resp.latitude,resp.longitude,referral_type[resp.referral_type].latlng[0],referral_type[resp.referral_type].latlng[1]).toFixed(1);
-                    }
-                    if (check>0){
-
-                        // referral_type[resp.referral_type].directionsService=new google.maps.DirectionsService();
-                        // referral_type[resp.referral_type].directionsRenderer=new google.maps.DirectionsRenderer();
-                        var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
-                        if (resp.latitude!==null){
-                            referral_type[resp.referral_type].latlng=[resp.latitude,resp.longitude];
-                            current = new google.maps.LatLng(resp.latitude,resp.longitude);
+                            check = calcCrow(resp.latitude,resp.longitude,referral_type[resp.referral_type].latlng[0],referral_type[resp.referral_type].latlng[1]).toFixed(1);
                         }
-                        // makeMarker(origin, base_url+'assets/img/icons/clinician-sb-select.svg', resp.first_name+' '+resp.last_name);
-                        // makeMarker(current, base_url+'assets/img/icons/clinician-sb-select.svg', resp.first_name+' '+resp.last_name);
-                       // const directionsService = new google.maps.DirectionsService();
-                       // const directionsRenderer = new google.maps.DirectionsRenderer();
-                        var color='#0a5293';
-                        if (resp.referral_type==='LAB'){
-                            color='#34ba0f';
-                        }else if(resp.referral_type==='X-RAY'){
-                            color='#c94d2f';
-                        }
-                        calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,color)
-                    }
+                        if (check>0){
 
-                })
+                            // referral_type[resp.referral_type].directionsService=new google.maps.DirectionsService();
+                            // referral_type[resp.referral_type].directionsRenderer=new google.maps.DirectionsRenderer();
+                            var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
+                            if (resp.latitude!==null){
+                                referral_type[resp.referral_type].latlng=[resp.latitude,resp.longitude];
+                                current = new google.maps.LatLng(resp.latitude,resp.longitude);
+                            }
+
+                            var color='#0a5293';
+                            if (resp.referral_type==='LAB'){
+                                color='#34ba0f';
+                            }else if(resp.referral_type==='X-RAY'){
+                                color='#c94d2f';
+                            }
+
+                            var originName = resp.first_name+' '+resp.last_name+'  Role : '+resp.referral_type;
+                            var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
+                            calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,color)
+                        }
+
+                    })
+                }
+
             },
             error:function (error) {
                 console.log(error)
@@ -209,21 +214,32 @@ function updateMap(destination) {
 }
 
 //
-function calculateAndDisplayRoute(current,destination,directionsService,directionsRenderer,color='#0a5293') {
-console.log(directionsRenderer)
+function calculateAndDisplayRoute(current,destination,directionsService,directionsRenderer,origin_name,destination_name,color='#0a5293') {
     var request = {
         origin: current,
         destination: destination,
-        optimizeWaypoints: true,
-        travelMode: 'DRIVING',
-        unitSystem: google.maps.UnitSystem.IMPERIAL
+        optimizeWaypoints: false,
+        travelMode: google.maps.TravelMode['DRIVING'],
+        unitSystem: google.maps.UnitSystem.METRIC,
+
     };
     directionsService.route(request,(response, status)=>{
         if (status === 'OK') {
             var leg = response.routes[0].legs[0];
-            console.log(leg.start_location.lat())
-            var start = new google.maps.LatLng(leg.start_location.lat(),leg.start_location.lng());
-            makeMarker(start, base_url+'assets/img/icons/clinician-sb-select.svg', 'Clinician');
+            makeMarker(leg.start_location, base_url+'assets/img/icons/clinician-sb-select.svg', origin_name);
+            makeMarker(destination, base_url+'assets/img/icons/patient-icon.svg', destination_name);
+            // var lineCoordinates =[];
+            // response.routes[0].legs.map(function (position) {
+            //     console.log(position)
+            //     lineCoordinates.push(new google.maps.LatLng(position.start_location.lat(), position.start_location.lng()))
+            // })
+            // // var lineCoordinates = [
+            // //     new google.maps.LatLng(45.4215296, -75.6971931),
+            // //     new google.maps.LatLng(45.4215296, -75.6571931)
+            // // ];
+            console.log(leg.distance.text)
+            var html='<span>Name : '+origin_name+' <br/> Distance : '+leg.distance.text+' <br/> Duration : '+leg.duration.text+'</span> <br/> <br/>';
+            $('#right-panel').append(html);
             directionsRenderer.setMap(map)
             directionsRenderer.setDirections(response)
             directionsRenderer.setOptions({

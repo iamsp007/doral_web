@@ -18,7 +18,6 @@ use App\Models\PatientCoordinator;
 use App\Models\PatientDetail;
 use App\Models\PatientEmergencyContact;
 use App\Models\PatientLocation;
-use App\Models\PatientNurse;
 use App\Models\PatientSourceOfAdmission;
 use App\Models\PatientTeam;
 use App\Models\SourceOfAdmission;
@@ -50,8 +49,8 @@ class GetPatientDetailsController extends Controller
 
     public function show($id)
     {
-        $patient = PatientDetail::with('patientEmergencyContact', 'nurses', 'visitorDetail')->find($id);
-        return view('pages.clincian.patient-details', compact('patient'));
+        $patient = PatientDetail::with('coordinators', 'nurse', 'acceptedServices', 'sourceOfAdmission', 'team','location', 'branch' , 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparedness', 'visitorDetail')->find($id);
+        return view('pages.patient_detail.index', compact('patient'));
     }
 
     /**
@@ -78,7 +77,7 @@ class GetPatientDetailsController extends Controller
         $date = Carbon::now();// will get you the current date, time 
         $today = $date->format("Y-m-d"); 
 
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><StartDate>2021-02-12</StartDate><EndDate>2021-02-11</EndDate><PatientID>' . $patientId . '</PatientID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><StartDate>2021-02-11</StartDate><EndDate>2021-02-11</EndDate><PatientID>' . $patientId . '</PatientID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         $method = 'POST';
 
@@ -106,19 +105,19 @@ class GetPatientDetailsController extends Controller
     public function searchPatients(Request $request)
     {
         $searchPatientIds = $this->searchPatientDetails();
-        // $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','489003','490045','504356','516752','517000','518828','532337','540428','541579','542628'];
-        // dump($patientArray);
+        $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+        // $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','489003','490045','504356','516752','517000','518828','532337','540428','541579','542628'];
+    
         $counter = 0;
-        // foreach ($patientArray as $patient_id) {
+        foreach ($patientArray as $patient_id) {
             // if ($counter < 100) {
-            //  dump($patient_id);
-                $passPatientId = '772465'; 
-                $searchVisitorId = $this->getSearchVisitorDetails($passPatientId);
+           
+                // $patient_id = '772465'; 
+                $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
                 
-                // if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
+                if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
-                    $getpatientDemographicDetails = $this->getDemographicDetails($passPatientId);
+                    $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
                 
                     $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
 
@@ -155,10 +154,10 @@ class GetPatientDetailsController extends Controller
                         $this->storeNurse($patientDetails['Nurse'], $patient_detail_id);
 
                         /** Store accepted services */
-                        // $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patient_detail_id);
+                        $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patient_detail_id);
 
                         // /** Store source Of admission */
-                        // $this->storeSourceOfAdmission($patientDetails['SourceOfAdmission'], $patient_detail_id);
+                        $this->storeSourceOfAdmission($patientDetails['SourceOfAdmission'], $patient_detail_id);
 
                         // /** Store team */
                         $this->storeTeam($patientDetails['Team'], $patient_detail_id);
@@ -170,7 +169,7 @@ class GetPatientDetailsController extends Controller
                         $this->storeBranch($patientDetails['Branch'], $patient_detail_id);
                 
                         // /** Store branch */
-                        $this->storeAddress($patientDetails['Addresses'], $patient_detail_id);
+                        $this->storeAddress($patientDetails['Addresses']['Address'], $patient_detail_id);
                         
                         // /** Store branch */
                         $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patient_detail_id);
@@ -178,13 +177,13 @@ class GetPatientDetailsController extends Controller
                         // /** Store branch */
                         $this->storeEmergencyContact($patientDetails['EmergencyContacts']['EmergencyContact'], $patient_detail_id);
                     }
-                // } else {
-                //     echo $counter;
-                //     echo '/n';
-                // }
+                } else {
+                    echo $counter;
+                    echo '/n';
+                }
             // }
-            // $counter++;
-        // }
+            $counter++;
+        }
     }
     /**
      * Display a listing of the resource.
@@ -311,23 +310,18 @@ class GetPatientDetailsController extends Controller
 
     public function storeNurse($nurse, $patientDetail_id)
     {
-        $nurseModel = Nurse::updateOrCreate(
-            ['nurse_id' => ($nurse['ID']) ? $nurse['ID'] : ''],
-            ['name' => ($nurse['Name']) ? $nurse['Name'] : '']
-        );
-        if ($nurseModel) {
-            $patientNurseModel = new PatientNurse();
+        $nurseModel = new Nurse();
+        $nurseModel->patient_id = $patientDetail_id;
+        $nurseModel->nurse_id = ($nurse['ID']) ? $nurse['ID'] : '';
+        $nurseModel->name = ($nurse['Name']) ? $nurse['Name'] : '';
 
-            $patientNurseModel->patient_id = $patientDetail_id;
-            $patientNurseModel->nurse_id = $nurseModel->id;
-
-            $patientNurseModel->save();
-        }
+        $nurseModel->save();
     }
 
     public function storeAcceptedServices($acceptedServices, $patientDetail_id)
     {
         foreach ($acceptedServices as $key => $acceptedService) {
+            dump($key);
             $acceptedServiceModel = new AcceptedService();
             
             $acceptedServiceModel->type = $key;
@@ -344,70 +338,42 @@ class GetPatientDetailsController extends Controller
 
     public function storeSourceOfAdmission($sourceOfAdmission, $patientDetail_id)
     {
-        $sourceOfAdmissionModel = SourceOfAdmission::updateOrCreate(
-            ['source_of_admission_id' => $sourceOfAdmission['ID']],
-            ['name' => ($sourceOfAdmission['Name']) ? $sourceOfAdmission['Name'] : '']
-        );
+        $sourceOfAdmissionModel = new SourceOfAdmission();
+        $sourceOfAdmissionModel->patient_id = $patientDetail_id;
+        $sourceOfAdmissionModel->source_of_admission_id = ($sourceOfAdmission['ID']) ? $sourceOfAdmission['ID'] : '';
+        $sourceOfAdmissionModel->name = ($sourceOfAdmission['Name']) ? $sourceOfAdmission['Name'] : '';
 
-        if ($sourceOfAdmissionModel) {
-            $patientSourceOfAdmissionModel = new PatientSourceOfAdmission();
-
-            $patientSourceOfAdmissionModel->patient_id = $patientDetail_id;
-            $patientSourceOfAdmissionModel->source_of_admission_id = $sourceOfAdmissionModel->id;
-
-            $patientSourceOfAdmissionModel->save();
-        }
+        $sourceOfAdmissionModel->save();
     }    
 
     public function storeTeam($team, $patientDetail_id)
     {
-        $teamModel = Team::updateOrCreate(
-            ['team_id' => $team['ID']],
-            ['name' => ($team['Name']) ? $team['Name'] : '']
-        );
-        
-        if ($teamModel) {
-            $patientTeamModel = new PatientTeam();
+        $teamModel = new Team();
+        $teamModel->patient_id = $patientDetail_id;
+        $teamModel->team_id = ($team['ID']) ? $team['ID'] : '';
+        $teamModel->name = ($team['Name']) ? $team['Name'] : '';
 
-            $patientTeamModel->patient_id = $patientDetail_id;
-            $patientTeamModel->team_id = $teamModel->id;
-
-            $patientTeamModel->save();
-        }
+        $teamModel->save();
     }
 
     public function storeLocation($location, $patientDetail_id)
     {
-        $locationModel = Location::updateOrCreate(
-            ['location_id' => $location['ID']],
-            ['name' => ($location['Name']) ? $location['Name'] : '']
-        );
-        
-        if ($locationModel) {
-            $patientLocationModel = new PatientLocation();
+        $locationModel = new Location();
+        $locationModel->patient_id = $patientDetail_id;
+        $locationModel->location_id = ($location['ID']) ? $location['ID'] : '';
+        $locationModel->name = ($location['Name']) ? $location['Name'] : '';
 
-            $patientLocationModel->patient_id = $patientDetail_id;
-            $patientLocationModel->location_id = $locationModel->id;
-
-            $patientLocationModel->save();
-        }
+        $locationModel->save();
     }
 
     public function storeBranch($branch, $patientDetail_id)
     {
-        $branchModel = Branch::updateOrCreate(
-            ['branch_id' => $branch['ID']],
-            ['name' => ($branch['Name']) ? $branch['Name'] : '']
-        );
-        
-        if ($branchModel) {
-            $patientBranch = new PatientBranch();
+        $branchModel = new Branch();
+        $branchModel->patient_id = $patientDetail_id;
+        $branchModel->branch_id = ($branch['ID']) ? $branch['ID'] : '';
+        $branchModel->name = ($branch['Name']) ? $branch['Name'] : '';
 
-            $patientBranch->patient_id = $patientDetail_id;
-            $patientBranch->branch_id = $branchModel->id;
-
-            $patientBranch->save();
-        }
+        $branchModel->save();
     }
 
     public function storeAddress($addresses, $patientDetail_id)

@@ -152,10 +152,10 @@
                                 $(".alert").hide();
                             }, 1000);
                         }
-                        console.log(response);
+                       
                     },
                        error: function (e) {
-                        console.log(e);
+                        alert('Something went wrong!');
                     }
                 });
 

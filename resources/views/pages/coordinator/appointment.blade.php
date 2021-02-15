@@ -104,7 +104,6 @@
                     // $('.dialogue').modal('show');
                 },
                 eventDidMount: function (info) {
-                  //  console.log(info.el)
                 },
 
                 editable: true,

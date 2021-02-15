@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.24.0/apexcharts.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.24.0/apexcharts.min.css"> -->
+    <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/apexcharts.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -71,21 +74,19 @@
                         @endphp
                     @endrole
                     @foreach(config($file) as $key=>$value)
-
                         @if(!isset($value['menu']))
-                        <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
-                            <a href="{{ $value['url'] }}">
-                                <div class="notify <?php if($value['name'] == 'RoadL Request') { echo 'd-90'; } ?>">
-                                    <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> selected">
-                                    <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> noselected">
-                                    <!--<span class="number">6</span>-->
-                                </div>
-                                <?php if($value['name'] != 'RoadL Request') {  ?>
-                                    <p class="i-title">{{ $value['icon_title'] }}</p>
-                                <?php } ?>
-                            </a>
+                            <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
+                                <a href="{{ $value['url'] }}">
+                                    <div class="notify <?php if($value['name'] == 'RoadL Request') { echo 'd-90'; } ?>">
+                                        <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> selected">
+                                        <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> noselected">
+                                    </div>
+                                    <?php if($value['name'] != 'RoadL Request') {  ?>
+                                        <p class="i-title">{{ $value['icon_title'] }}</p>
+                                    <?php } ?>
+                                </a>
 
-                        </li>
+                            </li>
                         @else
                             <li class="parent">
                                 <a href="{{ $value['url'] }}">
@@ -93,7 +94,6 @@
                                         <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}"
                                         class="icon noselected">
                                         <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon selected">
-                                        <!--<span class="number">6</span>-->
                                     </div>
                                     <p class="i-title">{{ $value['icon_title'] }}</p>
                                 </a>
@@ -104,7 +104,7 @@
                                     @endforeach
                                 </ul>
                             </li>
-<!--                            <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
+                            <!-- <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                                 <a href="{{ $value['url'] }}">
                                     <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">
                                     <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon noselected">
@@ -112,16 +112,16 @@
                             </li>-->
                         @endif
                     @endforeach
-<!--                    <li title="Sign Out">
-                            <a href="">
-                                <div class="notify">
-                                    <img src="../assets/img/icons/logout-sb.svg" alt="Sign Out" class="icon noselected">
-                                    <img src="../assets/img/icons/logout-sb-select.svg" alt="" class="icon selected">
-                                    <span class="number">6</span>
-                                </div>
-                                <p class="i-title">Sign Out</p>
-                            </a>
-                        </li>-->
+                    <!--  <li title="Sign Out">
+                        <a href="">
+                            <div class="notify">
+                                <img src="../assets/img/icons/logout-sb.svg" alt="Sign Out" class="icon noselected">
+                                <img src="../assets/img/icons/logout-sb-select.svg" alt="" class="icon selected">
+                                <span class="number">6</span>
+                            </div>
+                            <p class="i-title">Sign Out</p>
+                        </a>
+                    </li>-->
                 </ul>
             </div>
         </div>
@@ -133,11 +133,11 @@
             <div class="app-header">
                 <div class="nav">
                     <button class="navbar-toggler d-none" type="button" data-toggle="collapse"
-                            data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon">
-                                <i class="las la-bars white"></i>
-                            </span></button>
+                        data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                            <i class="las la-bars white"></i>
+                        </span></button>
                     <h1 class="title">
                         @hasrole('referral')
                             @foreach(Auth::guard('referral')->user()->roles->pluck('name') as $key=>$value)
@@ -197,7 +197,7 @@
                 @yield('upload-btn')
             </div>
         </header>
-        <section class="app-body">
+        <section class="app-body app-body-custom">
             @yield('content')
         </section>
     </section>
@@ -225,6 +225,10 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
     <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('assets/js/apexcharts.js') }}"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
@@ -275,7 +279,7 @@
                             })
                         })
                         .catch(function (err) {
-                            console.log("Unable to get permission to notify.", err);
+                            // console.log("Unable to get permission to notify.", err);
                         });
 
                         messaging.onMessage(function(payload) {
@@ -307,6 +311,7 @@
 
         });
     </script>
+<script src="{{ asset('assets/js/partner/add-employee.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

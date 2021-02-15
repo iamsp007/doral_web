@@ -34,12 +34,9 @@
                         </div>
                         <div class="rs">
                            <h3 class="_title">Email</h3>
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="emailId" onclick="editableField('emailId')"
-                              data-id="emailId" id="emailId" onblur="validateEmail(this);"
-                              placeholder="example@example.com" value="example@example.com">
-                           <!-- <a href="mailto:abcinsurance@gmail.com"
-                              class="_detail">abcinsurance@gmail.com</a> -->
+                           <div>
+                              {{ $patient->email }}
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -51,10 +48,9 @@
                         <div class="rs">
                            <h3 class="_title">Start Date</h3>
                            <!-- <h1 class="_detail">1/1/2020</h1> -->
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="datepicker"
-                              onclick="editableField('datepicker')" data-id="datepicker"
-                              id="datepicker" placeholder="1/1/2020" value="1/1/2020">
+                           <div>
+                              {{ $patient->service_request_start_date }}
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -65,11 +61,10 @@
                         </div>
                         <div class="rs">
                            <h3 class="_title">Ethnicity</h3>
-                           <!-- <h1 class="_detail">lorem ipus</h1> -->
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="ethnicity" onclick="editableField('ethnicity')"
-                              data-id="ethnicity" id="ethnicity" placeholder="lorem ipus"
-                              value="lorem ipus">
+                           <!-- <h1 class="_detail"></h1> -->
+                          <div>
+                              
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -85,9 +80,9 @@
                         <div class="rs">
                            <h3 class="_title">SSN#</h3>
                            <!-- <h1 class="_detail">8454</h1> -->
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="SSN" onclick="editableField('SSN')"
-                              data-id="SSN" id="SSN" placeholder="SSN#" value="12345678910">
+                          <div>
+                              {{ $patient->ssn }}
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -99,11 +94,9 @@
                         <div class="rs">
                            <h3 class="_title">Admission ID:</h3>
                            <!-- <h1 class="_detail">8965465</h1> -->
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="admissionId"
-                              onclick="editableField('admissionId')" data-id="admissionId"
-                              id="admissionId" placeholder="Addmission ID"
-                              value="12345678910">
+                           <div>
+                              {{ $patient->admission_id }}
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -114,11 +107,10 @@
                         </div>
                         <div class="rs">
                            <h3 class="_title">Nurse</h3>
-                           <!-- <h1 class="_detail">lorem ipus</h1> -->
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="nurse" onclick="editableField('nurse')"
-                              data-id="nurse" id="nurse" placeholder="lorem ipus"
-                              value="lorem ipus">
+                           <!-- <h1 class="_detail"></h1> -->
+                           <div>
+                              {{ $patient->phone }}
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -130,10 +122,9 @@
                         <div class="rs">
                            <h3 class="_title">Patient ID</h3>
                            <!-- <h1 class="_detail">8454</h1> -->
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="patientID" onclick="editableField('patientID')"
-                              data-id="patientID" id="patientID" placeholder="Patient ID"
-                              value="123456">
+                           <div>
+                              {{ $patient->patient_id }}
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -148,12 +139,104 @@
                            <i class="las la-angle-double-right circle"></i>
                         </div>
                         <div class="rs">
+                           <h3 class="_title">Medicaid Number</h3>
+                           <!-- <h1 class="_detail"></h1> -->
+                           <div>
+                              {{ $patient->medicaid_number }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12 col-sm-3">
+                     <div class="input_box">
+                        <div class="ls">
+                           <i class="las la-angle-double-right circle"></i>
+                        </div>
+                        <div class="rs">
+                           <h3 class="_title">Medicare Number</h3>
+                           <!-- <h1 class="_detail"></h1> -->
+                           <div>
+                              {{ $patient->medicare_number }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+         </div>
+            <div class="form-group">
+               <div class="row">
+                  <div class="col-12 col-sm-3">
+                     <div class="input_box">
+                        <div class="ls">
+                           <i class="las la-angle-double-right circle"></i>
+                        </div>
+                        <div class="rs">
+                           <h3 class="_title">Home Phone Location Address ID</h3>
+                           <!-- <h1 class="_detail"></h1> -->
+                           <div>
+                              {{ $patient->home_phone_location_address_id }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12 col-sm-3">
+                     <div class="input_box">
+                        <div class="ls">
+                           <i class="las la-angle-double-right circle"></i>
+                        </div>
+                        <div class="rs">
+                           <h3 class="_title">Home Phone Location Address</h3>
+                           <!-- <h1 class="_detail"></h1> -->
+                           <div>
+                              {{ $patient->home_phone_location_address }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12 col-sm-3">
+                     <div class="input_box">
+                        <div class="ls">
+                           <i class="las la-angle-double-right circle"></i>
+                        </div>
+                        <div class="rs">
+                           <h3 class="_title">Home Phone2 Location Address ID</h3>
+                           <!-- <h1 class="_detail"></h1> -->
+                           <div>
+                              {{ $patient->home_phone2_location_address_id }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12 col-sm-3">
+                     <div class="input_box">
+                        <div class="ls">
+                           <i class="las la-angle-double-right circle"></i>
+                        </div>
+                        <div class="rs">
+                           <h3 class="_title">Home Phone2 Location Address</h3>
+                           <!-- <h1 class="_detail"></h1> -->
+                           <div>
+                              {{ $patient->home_phone2_location_address }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+         </div>
+            <div class="form-group">
+               <div class="row">
+                  <div class="col-12 col-sm-3">
+                     <div class="input_box">
+                        <div class="ls">
+                           <i class="las la-angle-double-right circle"></i>
+                        </div>
+                        <div class="rs">
                            <h3 class="_title">Coordinator</h3>
-                           <!-- <h1 class="_detail">lorem ipus</h1> -->
+                           <!-- <h1 class="_detail"></h1> -->
                            <input type="text" class="form-control-plaintext _detail "
                               readonly name="coordinator"
                               onclick="editableField('coordinator')" data-id="coordinator"
-                              id="coordinator" placeholder="Patient ID" value="Lorem Ipsum">
+                              id="coordinator" placeholder="Patient ID" value="">
                         </div>
                      </div>
                   </div>

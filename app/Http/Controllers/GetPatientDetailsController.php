@@ -113,11 +113,12 @@ class GetPatientDetailsController extends Controller
         // foreach ($patientArray as $patient_id) {
             // if ($counter < 100) {
             //  dump($patient_id);
-                $searchVisitorId = $this->getSearchVisitorDetails('504356');
+                $passPatientId = '772465'; 
+                $searchVisitorId = $this->getSearchVisitorDetails($passPatientId);
                 
                 // if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
-                    $getpatientDemographicDetails = $this->getDemographicDetails('504356');
+                    $getpatientDemographicDetails = $this->getDemographicDetails($passPatientId);
                 
                     $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
 

@@ -24,7 +24,7 @@
                                                       <input type="text" class="form-control-plaintext _detail "
                                                          readonly name="name" data-id="name"
                                                          onclick="editableField('name')" id="name"
-                                                         placeholder="Lorem Ipsum" value="Lorem Ipsum">
+                                                         placeholder="" value="">
                                                    </div>
                                                 </div>
                                              </div>
@@ -39,7 +39,7 @@
                                                       <input type="text" class="form-control-plaintext _detail "
                                                          readonly name="coordinator1" data-id="coordinator1"
                                                          onclick="editableField('coordinator1')" id="coordinator1"
-                                                         placeholder="Lorem Ipsum" value="Lorem Ipsum">
+                                                         placeholder="" value="">
                                                    </div>
                                                 </div>
                                              </div>
@@ -99,7 +99,7 @@
                                                             <input type="text" class="form-control-plaintext _detail "
                                                                readonly name="a_name" data-id="a_name"
                                                                onclick="editableField('a_name')" id="a_name"
-                                                               placeholder="Lorem Ipsum" value="Lorem Ipsum">
+                                                               placeholder="" value="">
                                                          </div>
                                                       </div>
                                                    </div>
@@ -290,13 +290,13 @@
                                                 <div class="_card">
                                                    <div class="_card_header">
                                                       <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                         Lorem Ipsum is simply dummy text of the printing and
+                                                          is simply dummy text of the printing and
                                                          typesetting industry?
                                                       </div>
                                                    </div>
                                                    <div class="_card_body">
                                                       <h1 class="_title"><span style="font-weight: bold;">Ans:</span>
-                                                         Lorem Ipsum
+                                                         
                                                          has been the industry's standard dummy text ever since the
                                                          1500s.
                                                       </h1>
@@ -305,13 +305,13 @@
                                                 <div class="_card mt-3">
                                                    <div class="_card_header">
                                                       <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                         Lorem Ipsum is simply dummy text of the printing and
+                                                          is simply dummy text of the printing and
                                                          typesetting industry?
                                                       </div>
                                                    </div>
                                                    <div class="_card_body">
                                                       <h1 class="_title"><span style="font-weight: bold;">Ans:</span>
-                                                         Lorem Ipsum
+                                                         
                                                          has been the industry's standard dummy text ever since the
                                                          1500s.
                                                       </h1>
@@ -320,13 +320,13 @@
                                                 <div class="_card mt-3">
                                                    <div class="_card_header">
                                                       <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                         Lorem Ipsum is simply dummy text of the printing and
+                                                          is simply dummy text of the printing and
                                                          typesetting industry?
                                                       </div>
                                                    </div>
                                                    <div class="_card_body">
                                                       <h1 class="_title"><span style="font-weight: bold;">Ans:</span>
-                                                         Lorem Ipsum
+                                                         
                                                          has been the industry's standard dummy text ever since the
                                                          1500s.
                                                       </h1>

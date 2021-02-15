@@ -15,6 +15,6 @@ class Location extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'location_id', 
+        'name', 'location_id', 'patient_id'
     ];
 }

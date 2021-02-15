@@ -15,6 +15,7 @@ class VisitorDetail extends Model
      * @var array
      */
     protected $fillable = [
+        'patient_id',
         'visitor_id',
         'visit_date',
         'caregiver_id',
@@ -25,4 +26,8 @@ class VisitorDetail extends Model
         'schedule_start_time',
         'schedule_end_time',
     ];
+
+    public function getFullNameAttribute(){
+        return $this->first_name . ' ' . $this->last_name;
+     }
 }

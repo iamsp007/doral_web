@@ -60,19 +60,17 @@ class PatientDetail extends Model
         'secondary_language',
     ];
 
-    
-
-    // public function payer() {
-    //     return $this->hasOne(PatientPlayer::class,'id','payer_id');
-    // }
     public function patientAddress() {
         return $this->hasOne(PatientAddress::class,'patient_id','id');
     }
+
+    public function alternateBilling() {
+        return $this->hasOne(AlternateBilling::class,'patient_id','id');
+    }
+
+    
     public function PatientEmergency() {
         return $this->hasOne(PatientEmergencyContact::class,'patient_id','id');
-    }
-    public function getSsnFormatAttribute(){
-       return 'xxx-xxx-'.substr($this->ssn, -4);
     }
 
     /**
@@ -86,17 +84,107 @@ class PatientDetail extends Model
     /**
      * Relation with referances
      */
-    public function nurses()
+    public function coordinators()
     {
         return $this->belongsToMany(
-            Nurse::class,
-            'patient_nurses',
+            Coordinator::class,
+            'patient_coordinators',
             'patient_id',
-            'nurse_id');
+            'coordinator_id');
+    }
+
+    /**
+     * Relation with referances
+     */
+    public function acceptedServices()
+    {
+        return $this->belongsToMany(
+            AcceptedService::class,
+            'patient_accepted_services',
+            'patient_id',
+            'accepted_service_id');
+    }
+
+    /**
+     * Relation with nurse
+     */
+    public function nurse()
+    {
+        return $this->hasOne(Nurse::class,'patient_id','id');
+    }
+
+    /**
+     * Relation with nurse
+     */
+    public function team()
+    {
+        return $this->hasOne(Team::class,'patient_id','id');
+    }
+
+    /**
+     * Relation with nurse
+     */
+    public function location()
+    {
+        return $this->hasOne(Location::class,'patient_id','id');
+    }
+
+    /**
+     * Relation with nurse
+     */
+    public function branch()
+    {
+        return $this->hasOne(Branch::class,'patient_id','id');
+    }
+
+    /**
+     * Relation with nurse
+     */
+    public function emergencyPreparedness()
+    {
+        return $this->hasOne(EmergencyPreparedness::class,'patient_id','id');
+    }
+    
+    /**
+     * Relation with nurse
+     */
+    public function sourceOfAdmission()
+    {
+        return $this->hasOne(SourceOfAdmission::class,'patient_id','id');
     }
 
     public function visitorDetail() {
         return $this->hasOne(VisitorDetail::class,'patient_id','id');
     }
 
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function getGenderAttribute($gender)
+    {
+        if ($gender === '1') {
+            $gender = 'Male';
+        } else if ($gender === '2') {
+            $gender = 'Female';
+        } else {
+            $gender = 'Other';
+        }
+        return $gender;
+    }
+
+    /**
+     * Create ssn number
+     */
+    public function getSsnAttribute($ssn)
+    {
+       return 'xxx-xx-' . substr($ssn, -4);
+    }
 }

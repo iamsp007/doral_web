@@ -32,7 +32,7 @@
         }
 
         #right-panel select {
-            width: 30%;
+            width: 100%;
         }
 
         #right-panel i {

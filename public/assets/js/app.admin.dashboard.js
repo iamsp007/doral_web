@@ -17,7 +17,6 @@ $(function () {
         "Physiotherapy" == $(".designation_list").val() ? (np.hide(), physio.show(),sa.hide()) : 
         ("Nurse Practitioner" == $(".designation_list").val()) ? (np.show(), physio.hide(),sa.hide()) :     
         (sa.show(),np.hide(), physio.hide());
-        console.log('hi')
     });
     // Permission list
     tail.select(".permission_list", {

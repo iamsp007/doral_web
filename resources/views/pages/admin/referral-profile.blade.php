@@ -289,10 +289,9 @@
                         alert(response.message)
                     else
                         alert(response.message)
-                    console.log( response );
                 },
                 error: function( e ) {
-                    console.log(e);
+                    alert('error');
                 }
             });
 
@@ -311,10 +310,9 @@
                         alert(response.message)
                     else
                         alert(response.message)
-                    console.log( response );
                 },
                 error: function( e ) {
-                    console.log(e);
+                    alert('error');
                 }
             });
 
@@ -341,9 +339,9 @@
             var fax_no = $("#fax_no").val();
             var data_arr = [];
             data_arr.push({'id':id,'name':name,'address1':address1,'email':email,'phone':phone,'services':services,'fax_no':fax_no});
-            console.log(data_arr);
+            
             $.ajax({
-                url:'{{route('admin.updateProfile')}}',
+                url:"{{ route('admin.updateProfile') }}",
                 method:"POST",
                 data:{'id':id,'name':name,'address1':address1,'email':email,'phone':phone,'services':services,'fax_no':fax_no},
                 dataType:'JSON',
@@ -352,14 +350,12 @@
                  //processData: false,
                 success:function(response)
                  {
-                    console.log(response.status);
                       if(response.status === true) {
                           alert("saved");
                       }
                       else {
                           alert("not saved");
                       }
-                    console.log( response );
                 }
             })
         });
@@ -380,9 +376,9 @@
         var administrator_phone_no = $("#administrator_phone_no").val();
         var data_arr = [];
         data_arr.push({'id':id,'administrator_name':administrator_name,'registration_no':registration_no,'administrator_emailId':administrator_emailId,'licence_no':licence_no,'administrator_phone_no':administrator_phone_no});
-        console.log(data_arr);
+        
         $.ajax({
-             url:'{{route('admin.updateProfile')}}',
+             url:"{{ route('admin.updateProfile') }}",
              method:"POST",
              data:{'id':id,'administrator_name':administrator_name,'registration_no':registration_no,'administrator_emailId':administrator_emailId,'licence_no':licence_no,'administrator_phone_no':administrator_phone_no},
              dataType:'JSON',
@@ -415,9 +411,9 @@
 
         var data_arr = [];
         data_arr.push({'id':id,'insurance_id':insurance_id,'expiration_date':expiration_date});
-        console.log(data_arr);
+        
         $.ajax({
-             url:'{{route('admin.updateProfile')}}',
+             url:"{{ route('admin.updateProfile') }}",
              method:"POST",
              data:{'id':id,'insurance_id':insurance_id,'expiration_date':expiration_date},
              dataType:'JSON',

@@ -20,11 +20,10 @@ function appointments(date) {
             date: date
         },
         success: function (response) {
-            console.log(response)
             setAppointment(date, response);
         },
         error:function (error) {
-            console.log(error)
+            alert(error)
         }
     });
 }
@@ -34,7 +33,7 @@ function setAppointment(date, response) {
         '<h1 class="appointment-title">Appointment</h1>' +
         '<h3 class="appointment-date">' + getOrdinalNum(date) + '</h3>' +
     '</div>';
-    console.log(response.data.length)
+    
     if (response.data.length) {
             html += '<div class="detail">' +
             '<ul>';
@@ -145,7 +144,7 @@ $(document).ready(function(){
             }
         },
         error:function (error) {
-            console.log(error)
+            alert(error)
         }
     });
 });

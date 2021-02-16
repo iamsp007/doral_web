@@ -1,7 +1,7 @@
 @extends('pages.layouts.app')
 @section('title','Admin - Referrals')
 @section('pageTitleSection')
-    Admin - Refrrals
+    Admin - Referrals
 @endsection
 @section('content')
 <div class="app-roles">

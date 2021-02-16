@@ -3,9 +3,7 @@
 @section('content')
 
     <h1>Hi, {{ $details['name'] }}</h1>
-    <p> Thank you for register with us. Please Activate Your Account and Login With default Password<br/>
-        <h2> Default Password : {{ $details['password'] }}</h2></br>
-        <a href="{{ $details['href'] }}">Activate Account</a>
+    <p> Thank you for Registering with DORAL HEALTH CONNECT. You will receive your password in your email but you could log-in once approved by ADMINISTRATOR. Please be patient till them<br/>
     </p>
     <p>Thank you</p>
 @endsection

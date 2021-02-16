@@ -17,6 +17,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
+use URL;
 
 class ReferralRegisterController extends Controller
 {
@@ -80,6 +81,7 @@ class ReferralRegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
+
         $request->merge([
             'name' => $request->company,
             'password' => env('REFERRAL_PASSWORD'),
@@ -87,6 +89,7 @@ class ReferralRegisterController extends Controller
             'email' => $request->email
         ]);
         event(new Registered($user = $this->create($request->all())));
+
         $details = [
             'name' => $request->company,
             'password' => env('REFERRAL_PASSWORD'),
@@ -105,7 +108,7 @@ class ReferralRegisterController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 201)
-            : redirect($this->redirectPath())->with('success','Company Registration Successfully!');
+            : redirect($this->redirectPath())->with('success','Thank you for Registering with DORAL HEALTH CONNECT. You will receive your password in your email but you could log-in once approved by ADMINISTRATOR. Please be patient till them');
     }
 
     /**

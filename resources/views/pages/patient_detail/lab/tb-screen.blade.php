@@ -6,7 +6,7 @@
             class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" id="tbbtn"
             style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
             onclick="openRoadL('tbbtn')" name="RoadL Request">RoadL Request
-         </button>  
+         </button>
          <div class="recieved_roadl d-none">
             <div class="row">
                <div class="col-12 col-sm-4"></div>
@@ -18,7 +18,7 @@
                      <div class="col-12 col-sm-6">
                         <button type="submit"
                            class="btn btn-outline-green w-600"
-                           style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px; text-transform: uppercase;" name="Start RoadL">Start RoadL
+                           style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;" name="Start RoadL">Start RoadL
                         </button>
                      </div>
                   </div>
@@ -42,8 +42,8 @@
                   </thead>
                   <tbody>
                      @php $number = 1; @endphp
-                     @foreach($tbpatientLabReports as $tbpatientLabReport)
-                        <tr class="@if ($tbpatientLabReport->result === '1') bg-positive text-white @endif">
+                        @foreach($tbpatientLabReports as $tbpatientLabReport)
+                        <tr class="@if ($tbpatientLabReport->result === '1') bg-positive @endif">
                            <th scope="row">{{ $number }}</th>
                            <td scope="row">{{ ($tbpatientLabReport->labReportType) ? $tbpatientLabReport->labReportType->name : ''}}</th>
                            <td>{{ $tbpatientLabReport->due_date }}</td>
@@ -62,7 +62,7 @@
                               <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $tbpatientLabReport->id }}" />
                            </td>
                         </tr>
-                     @php $number++; @endphp
+                        @php $number++; @endphp
                      @endforeach
                      <tr>
                         <div class="alert alert-danger print-error-msg" style="display:none">
@@ -111,10 +111,7 @@
             <div class="col-12 col-sm-1"></div>
          </div>
          <div class="d-flex pt-4 justify-content-center">
-            <button
-                type="submit"
-                class="btn btn-outline-green patient-detail-lab-report"
-                name="Save">Save</button>
+            <button type="submit" class="btn btn-outline-green patient-detail-lab-report" name="Save">Save</button>
          </div>
       </div>
    </div>

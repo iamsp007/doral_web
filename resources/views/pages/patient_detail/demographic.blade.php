@@ -69,7 +69,7 @@
                            <input type="text" class="form-control-plaintext _detail "
                               readonly name="service_request_start_date" onclick="editableField('service_request_start_date')"
                               data-id="service_request_start_date" id="service_request_start_date" placeholder="Service Request Start Date"
-                              value="{{ $patient->service_request_start_date }}">
+                              value="{{ date('m-d-Y', strtotime($patient->service_request_start_date)) }}">
                         </div>
                      </div>
                   </div>

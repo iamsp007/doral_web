@@ -311,3 +311,244 @@
    <!-- Modal For Med Profile End -->
 
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var patient_id='{{ $details->id }}';
+        var map;
+        function initMap() {
+            var lat = $('#address').attr('data-lat');
+            var lng = $('#address').attr('data-lng');
+            const iconBase =
+                base_url+"assets/img/icons/patient-icon.svg";
+            if (lat){
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: new google.maps.LatLng(lat, lng),
+                    zoom: 13,
+                    mapTypeId: 'roadmap'
+                });
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat,lng),
+                    icon:iconBase,
+                    map: map,
+                    title: "{{ $details->first_name }} {{ $details->last_name }}"
+
+                });
+            }else {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 40.741895, lng: 73.989308},
+                    zoom: 8
+                });
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat,lng),
+                    icon:iconBase,
+                    map: map,
+                    title: "{{ $details->first_name }} {{ $details->last_name }}"
+                });
+            }
+
+        }
+       
+        $(document).ready(function() {
+            $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                maxDate: new Date()
+            });
+
+            $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
+                var selectedDate = new Date($('[name="lab_due_date"]').val());
+                var date = selectedDate.getDate();
+                var monthf = selectedDate.getMonth() + 1;
+                var month  = (monthf < 10 ? '0' : '') + monthf; 
+                var year = selectedDate.getFullYear() + 1;
+                var expirydate = month + '/'+ date + '/'+ year;
+                $(".lab-expiry-date").text(expirydate);
+                $("#lab_expiry_date").val(expirydate);
+            });
+
+            $('#note').on('blur', function(e){
+                e.preventDefault();
+                var txtAval=$(this).val();
+
+                var patient_lab_report_id = $("input[name=patient_lab_report_id]").val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "{{ route('lab-report-note.store') }}",
+                    data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
+                    dataType: "json",
+                    success: function(response) {
+                        $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+                    },
+                    error: function(error) {
+                        alert(error.responseText);
+                    }
+                });
+            });
+            
+            $(document).on('click','.patient-detail-lab-report',function(event) {
+                event.preventDefault();
+
+                var data = $(this).parent('div').prev('div').find("form").serializeArray();
+                var url = "{{ Route('lab-report.store') }}";
+
+                $.ajax({
+                        type:"POST",
+                        url:url,
+                        data:data,
+                        headers: {
+                            'X_CSRF_TOKEN': '{{ csrf_token() }}',
+                        },
+                        success: function(data) {
+                            if(data.status == 400) {
+                                printErrorMsg(data.message);
+                            } else {
+                                $(".print-error-msg").hide();
+                                
+                                var html = '<tr class="';
+                                if (data.result.result === '1') {
+                                
+                                    html += 'bg-positive text-white';
+                                }
+                            
+                                html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td>';
+                                if (data.type == 'emmune' || data.type == 'drug') {
+                                    html += '<td>' + data.result.perform_date + '</td>';
+                                }
+                        
+                                html +='<td>' + data.result.expiry_date + '</td>';
+                                if (data.type == 'emmune') {
+                                    html += '<td>' + data.result.titer + '</td>';
+                                }
+                                html +='<td>' + data.result.lab_result + '</td><td class="text-center"><span onclick="exploder(tb1)" id="tb1" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr>';
+                             
+                                if (data.type == 'tb') {
+                                    $('.tb-list-order tr:last').before(html);
+                                } else if (data.type == 'emmune') {
+                                    $('.immue-list-order tr:last').before(html);
+                                } else if (data.type == 'drug') {
+                                    $('.drug-list-order tr:last').before(html);
+                                }
+                              
+                                $(document).find('.sequence').text(data.newCount);
+
+                                var select = $('#lab_report_type_id').empty();
+                                select.append('<option value="">Select a test type</option>');
+
+                                $.each(data.tbLabReportTypes, function (key, value) {
+                                    select.append('<option value="' + value.id + '">' + value.name + '</option>');
+                                });
+                                
+                                swal("Success!", data.message, "success");
+                            }
+                        },
+                        error: function()
+                        {
+                            swal("Server Timeout!", "Please try again", "warning");
+                        }
+                    });
+            });
+
+            $('body').on('click', '.deleteLabResult', function () {
+                var t = $(this);
+                var id = t.attr("id");
+                var patient_referral_id = $(this).data("id") ;
+               
+                swal({
+                    title: "Are you sure?",
+                    text: "Are you sure want to delete this record?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            'type': 'delete',
+                            'url': "{{ route('lab-report.destroy') }}",
+                            'headers': {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            data: {
+                                "id": id,
+                                "patient_referral_id" : patient_referral_id
+                            },
+                            'success': function (data) {
+                                if(data.status == 400) {
+                                    swal(
+                                        'Error!',
+                                        data.message,
+                                        'error'
+                                    );
+                                } else {
+                                    t.parents("tr").fadeOut(function () {
+                                        $(this).remove();
+                                    });
+
+                                    $(document).find('.sequence').text(data.newCount);
+
+                                    var select = $('#lab_report_type_id').empty();
+                                    select.append('<option value="">Select a test type</option>');
+                                    alert(data.tbLabReportTypes);
+                                    $.each(data.tbLabReportTypes, function (key, value) {
+                                        select.append('<option value="' + value.id + '">' + value.name + '</option>');
+                                    });
+                                    
+                                    swal(
+                                        'Deleted!',
+                                        data.message,
+                                        'success'
+                                    );
+                                }
+                                unload();
+                            },
+                            "error":function () {
+                                swal("Server Timeout!", "Please try again", "warning");
+                                unload();
+                            }
+                        });
+                    } else {
+                        swal(
+                            'Cancelled',
+                            'Your record is safe :)',
+                            'error'
+                        )
+                    }
+                });
+            });
+        });
+        function printErrorMsg (msg) {
+            $(".print-error-msg").find("ul").html('');
+            $(".print-error-msg").css('display','block');
+            $.each( msg, function( key, value ) {
+                $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            });
+        }
+    </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
+        defer
+    ></script>
+    <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
+    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
+
+@endpush
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset( 'assets/calendar/lib/main.css' ) }}" />
+@endpush

@@ -46,7 +46,14 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof \ReflectionException OR $e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) //Si la ruta no existe, mostar view 404.
             return response(view('errors.404'), 404);
+        if ($e instanceof \Illuminate\Session\TokenMismatchException) {
+               return redirect()->route('login');
+        }
         return parent::render($request, $e);
+
     }
+
+    
+
 
 }

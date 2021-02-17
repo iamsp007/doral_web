@@ -97,7 +97,7 @@
                               </select>
                               @error('result')
                                  <span class="invalid-feedback" role="alert">
-                                       <strong>Required field</strong>
+                                       <strong>{{ $message }}</strong>
                                  </span>
                               @enderror
                            </td>

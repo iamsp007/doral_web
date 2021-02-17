@@ -23,7 +23,7 @@
                         <ul class="shortdesc">
                             <li>Admission ID: <span>{{ $details->detail?$details->detail->patient_id:'-' }}</span></li>
                             <li>Gender: <span>{{ $details->gender_name }}</span></li>
-                            <li>DOB: <span>{{ $details->dob }}</span></li>
+                            <li>DOB: <span>{{ date('m-d-Y',strtotime($details->dob)) }}</span></li>
                         </ul>
                     </div>
                 </div>

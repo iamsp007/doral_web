@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\company;
+use App\Models\Company;
 use App\Models\CurlModel\CurlFunction;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use App\Models\Services;
 use Exception;
+use Illuminate\Support\Facades\Hash;
+use URL;
+use App\Mail\ReferralAcceptedMail;
 
 class CompanyController extends Controller
 {
@@ -303,9 +306,33 @@ class CompanyController extends Controller
 
             $adminServices = new AdminService();
             $responseArray = $adminServices->updatestatus($data);
-
             if($responseArray['status']) {
                 $status = 1;
+                if (isset($responseArray['data']['Company_status']) && $responseArray['data']['Company_status'] == 1) {
+
+                    $company = Company::find($responseArray['data']['Company_id']);
+                    $email = $company->email;
+
+                    $data = 'abcefghijklmnopqrstuvwxyz';
+                    $generate_password = substr(str_shuffle($data), 0, 6);
+                    $company->password = Hash::make($generate_password);
+                    $company->save();
+
+                    $url = URL::to('/').'/referral/email_verified/'.base64_encode($company->id);
+                    $details = [
+                        'name' => $company->name,
+                        'password' => $generate_password,
+                        'href' => $url,
+                        'email' => $email
+                    ];
+
+                    try {
+                        \Mail::to($email)->send(new ReferralAcceptedMail($details));
+                    }catch (\Exception $exception){
+                        \Log::info($exception->getMessage());
+                    }
+                    
+                }
                 $record = $responseArray['data'];
             }
             $message = $responseArray['message'];

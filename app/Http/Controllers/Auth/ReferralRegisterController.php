@@ -89,11 +89,11 @@ class ReferralRegisterController extends Controller
             'email' => $request->email
         ]);
         event(new Registered($user = $this->create($request->all())));
-
+        $url = URL::to('/').'/referral/email_verified/'.base64_encode($user->id);
         $details = [
             'name' => $request->company,
             'password' => env('REFERRAL_PASSWORD'),
-            'href' => route('login'),
+            'href' => $url,
             'email' => $request->email
         ];
         try {
@@ -108,7 +108,7 @@ class ReferralRegisterController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 201)
-            : redirect($this->redirectPath())->with('success','Thank you for Registering with DORAL HEALTH CONNECT. You will receive your password in your email but you could log-in once approved by ADMINISTRATOR. Please be patient till them');
+            : redirect($this->redirectPath())->with('success','Your account has been successfully registered. Check your email for further processing.');
     }
 
     /**

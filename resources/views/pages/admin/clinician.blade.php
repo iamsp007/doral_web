@@ -61,6 +61,10 @@
                             return 'Female';
                         } else if (data == 3) {
                             return 'Other';
+                        } else if (data == 'MALE') {
+                            return 'Male';
+                        } else if (data == 'FEMALE') {
+                            return 'Female';
                         }
                     }
                 },

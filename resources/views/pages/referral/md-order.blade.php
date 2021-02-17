@@ -51,6 +51,9 @@
         $('#md').DataTable( {
             "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">',
             processing: true,
+            "language": {
+                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'
+            },
             serverSide: true,
             ajax: "{{  route('referral.md-order-get-data') }}",
             columns: [

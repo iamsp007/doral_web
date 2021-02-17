@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-12 col-sm-1"></div>
                 <div class="col-12 col-sm-10">
-                <table class="table table-bordered table-hover mt-4 tb-list-order">
+                <table class="table table-bordered table-hover mt-4 immue-list-order">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Sr.No.</th>
@@ -45,7 +45,7 @@
                     <tbody>
                         @php $number = 1; @endphp
                         @foreach($immunizationLabReports  as $immunizationLabReportType)
-                            <tr class="@if ($immunizationLabReportType->result === '1') bg-positive text-white @endif">
+                            <tr class="@if ($immunizationLabReportType->result === '1') bg-positive @endif immune-main-tr">
                                 <th scope="row">{{ $number }}</th>
                                 <td scope="row">{{ ($immunizationLabReportType->labReportType) ? $immunizationLabReportType->labReportType->name : ''}}</th>
                                 <td>{{ $immunizationLabReportType->due_date }}</td>
@@ -57,13 +57,12 @@
                                     onclick="exploder('immune{{$number}}')" id="immune{{$number}}"
                                     class="exploder"><i
                                         class="las la-plus la-2x"></i></span>
-                                    <a href="javascript:void(0)" class="deleteLabResult" data-id="{{ $immunizationLabReportType->id }}"><i
-                                        class="las la-trash la-2x text-white pl-4"></i></a>
+                                    <a href="javascript:void(0)" class="deleteLabResult" data-id="{{ $immunizationLabReportType->id }}"><i class="las la-trash la-2x pl-4"></i></a>
                                 </td>
                             </tr>
                             <tr class="explode1 d-none">
                                 <td colspan="6">
-                                    <x-text-area name="note" id="note" placeholder="Enter note" value="{{$immunizationLabReportType->note}}"/>
+                                    <x-text-area name="note" placeholder="Enter note" value="{{$immunizationLabReportType->note}}" class="note-area" />
                                     <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $immunizationLabReportType->id }}" />
                                 </td>
                             </tr>
@@ -72,9 +71,9 @@
                         <tr>
                             <form id="immunizationForm">
                                 @csrf
-                                <th scope="row">{{ ($immunizationLabReports) ? $immunizationLabReports->count() + 1 : '' }}</th>
+                                <th scope="row" class="immue-sequence">{{ ($immunizationLabReports) ? $immunizationLabReports->count() + 1 : '' }}</th>
                                 <td>
-                                <select name="lab_report_type_id" class="form-control">
+                                <select name="lab_report_type_id" class="form-control immue_lab_report_types">
                                     <option value="">Select a test type</option>
                                     @foreach($immunizationLabReportTypes as $immunizationLabReportType)
                                         <option value="{{ $immunizationLabReportType->id }}">{{ $immunizationLabReportType->name }}</option>

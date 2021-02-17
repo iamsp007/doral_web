@@ -43,7 +43,7 @@
                   <tbody>
                      @php $number = 1; @endphp
                         @foreach($tbpatientLabReports as $tbpatientLabReport)
-                        <tr class="@if ($tbpatientLabReport->result === '1') bg-positive @endif">
+                        <tr class="@if ($tbpatientLabReport->result === '1') bg-positive @endif tb-main-tr">
                            <th scope="row">{{ $number }}</th>
                            <td scope="row">{{ ($tbpatientLabReport->labReportType) ? $tbpatientLabReport->labReportType->name : ''}}</th>
                            <td>{{ $tbpatientLabReport->due_date }}</td>
@@ -53,12 +53,12 @@
                                  onclick="exploder('tb{{$number}}')" id="tb{{$number}}"
                                  class="exploder"><i
                                     class="las la-plus la-2x"></i></span>
-                              <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}"><i class="las la-trash la-2x text-white pl-4" ></i></a>
+                              <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}"><i class="las la-trash la-2x pl-4" ></i></a>
                            </td>
                         </tr>
                         <tr class="explode1 d-none">
                            <td colspan="6">
-                              <x-text-area name="note" id="note" placeholder="Enter note" value="{{$tbpatientLabReport->note}}"/>
+                              <x-text-area name="note" placeholder="Enter note" value="{{$tbpatientLabReport->note}}" class="note-area"/>
                               <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $tbpatientLabReport->id }}" />
                            </td>
                         </tr>
@@ -70,9 +70,9 @@
                         </div>
                         <form id="tbScreenForm">
                            @csrf
-                           <th scope="row" class="sequence">{{ (isset($tbpatientLabReports)) ? $tbpatientLabReports->count() + 1 : ''}}</th>
+                           <th scope="row" class="tb-sequence">{{ (isset($tbpatientLabReports)) ? $tbpatientLabReports->count() + 1 : ''}}</th>
                            <td>
-                              <select name="lab_report_type_id" id="lab_report_type_id" class="form-control">
+                              <select name="lab_report_type_id" class="form-control tb_lab_report_types">
                                  <option value="">Select a test type</option>
                                  @foreach($tbLabReportTypes as $tbLabReportType)
                                     <option value="{{ $tbLabReportType->id }}">{{ $tbLabReportType->name }}</option>
@@ -80,7 +80,7 @@
                               </select>
                               @error('lab_report_type_id')
                                  <span class="invalid-feedback" role="alert">
-                                       <strong>Required field</strong>
+                                    <strong>{{ $message }}</strong>
                                  </span>
                               @enderror
                            </td>
@@ -97,7 +97,7 @@
                               </select>
                               @error('result')
                                  <span class="invalid-feedback" role="alert">
-                                       <strong>{{ $message }}</strong>
+                                    <strong>{{ $message }}</strong>
                                  </span>
                               @enderror
                            </td>

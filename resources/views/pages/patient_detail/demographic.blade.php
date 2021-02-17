@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="demographic" role="tabpanel" aria-labelledby="demographic">
+<div class="tab-pane fade show active" id="demographic" role="tabpanel" aria-labelledby="demographic">
    <div class="app-card app-card-custom" data-name="demographics">
       <div class="app-card-header">
          <h1 class="title">Demographics</h1>

@@ -1,4 +1,4 @@
-<div class="tab-pane fade show active" id="billing" role="tabpanel"
+<div class="tab-pane fade" id="billing" role="tabpanel"
                      aria-labelledby="billing-tab">
                      <div class="app-card app-card-custom" data-name="billing">
                         <div class="app-card-header">

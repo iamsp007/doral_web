@@ -33,7 +33,7 @@
                <ul class="nav flex-column nav-pills nav-patient-profile" id="v-pills-tab" role="tablist"
                   aria-orientation="vertical">
                   <li>
-                     <a class="nav-link d-flex align-items-center" id="demographic-tab" data-toggle="pill"
+                     <a class="nav-link active d-flex align-items-center" id="demographic-tab" data-toggle="pill"
                         href="#demographic" role="tab" aria-controls="demographic" aria-selected="true">
                         <img src="{{ asset('assets/img/icons/icons_demographics.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_demographics_active.svg') }}" alt=""
@@ -48,7 +48,7 @@
                            class="mr-2 activeIcon">Insurance</a>
                   </li>
                   <li>
-                     <a class="nav-link active d-flex align-items-center" id="billing-tab" data-toggle="pill"
+                     <a class="nav-link d-flex align-items-center" id="billing-tab" data-toggle="pill"
                         href="#billing" role="tab" aria-controls="billing" aria-selected="false">
                         <img src="{{ asset('assets/img/icons/icons_insurance.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_insurance_active.svg') }}" alt=""
@@ -321,7 +321,7 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        var patient_id='{{ $details->id }}';
+        var patient_id='{{ $patient->id }}';
         var map;
         function initMap() {
             var lat = $('#address').attr('data-lat');
@@ -338,7 +338,7 @@
                     position: new google.maps.LatLng(lat,lng),
                     icon:iconBase,
                     map: map,
-                    title: "{{ $details->first_name }} {{ $details->last_name }}"
+                    title: "{{ $patient->first_name }} {{ $patient->last_name }}"
 
                 });
             }else {
@@ -350,7 +350,7 @@
                     position: new google.maps.LatLng(lat,lng),
                     icon:iconBase,
                     map: map,
-                    title: "{{ $details->first_name }} {{ $details->last_name }}"
+                    title: "{{ $patient->first_name }} {{ $patient->last_name }}"
                 });
             }
 
@@ -374,29 +374,7 @@
                 $(".lab-expiry-date").text(expirydate);
                 $("#lab_expiry_date").val(expirydate);
             });
-
-            $('#note').on('blur', function(e){
-                e.preventDefault();
-                var txtAval=$(this).val();
-
-                var patient_lab_report_id = $("input[name=patient_lab_report_id]").val();
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: "POST",
-                    url: "{{ route('lab-report-note.store') }}",
-                    data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
-                    dataType: "json",
-                    success: function(response) {
-                        $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
-                    },
-                    error: function(error) {
-                        alert(error.responseText);
-                    }
-                });
-            });
-            
+                 
             $(document).on('click','.patient-detail-lab-report',function(event) {
                 event.preventDefault();
 
@@ -416,6 +394,14 @@
                             } else {
                                 $(".print-error-msg").hide();
                                 
+                                 if (data.type == 'tb') {
+                                    var explodercounter = 'tb' + Number($(document).find(".tb-main-tr").length + 1);
+                                 } else if (data.type == 'emmune') {
+                                    var explodercounter = 'immune' + Number($(document).find(".immune-main-tr").length + 1);
+                                 } else if (data.type == 'drug') {
+                                    var explodercounter = 'drug' + Number($(document).find(".drug-main-tr").length + 1);
+                                 }
+                                 
                                 var html = '<tr class="';
                                 if (data.result.result === '1') {
                                 
@@ -431,19 +417,22 @@
                                 if (data.type == 'emmune') {
                                     html += '<td>' + data.result.titer + '</td>';
                                 }
-                                html +='<td>' + data.result.lab_result + '</td><td class="text-center"><span onclick="exploder(tb1)" id="tb1" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr>';
-                             
+                                html +='<td>' + data.result.lab_result + '</td><td class="text-center"><span onclick="exploder(\'' + explodercounter + '\')" id="' + explodercounter + '" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.result.id + '" /></td></tr>';
+                                
                                 if (data.type == 'tb') {
                                     $('.tb-list-order tr:last').before(html);
+                                    $(document).find('.tb-sequence').text(data.newCount);
+                                    var select = $('.tb_lab_report_types').empty();
                                 } else if (data.type == 'emmune') {
                                     $('.immue-list-order tr:last').before(html);
+                                    $(document).find('.immue-sequence').text(data.newCount);
+                                    var select = $('.immue_lab_report_types').empty();
                                 } else if (data.type == 'drug') {
                                     $('.drug-list-order tr:last').before(html);
+                                    $(document).find('.drug-sequence').text(data.newCount);
+                                    var select = $('.drug_lab_report_types').empty();
                                 }
-                              
-                                $(document).find('.sequence').text(data.newCount);
-
-                                var select = $('#lab_report_type_id').empty();
+                               
                                 select.append('<option value="">Select a test type</option>');
 
                                 $.each(data.tbLabReportTypes, function (key, value) {
@@ -527,6 +516,30 @@
                 });
             });
         });
+
+              
+        $('body').on('blur', '.note-area', function(e){
+              e.preventDefault();
+              var txtAval=$(this).val();
+            
+              var patient_lab_report_id = $(this).next("input[name=patient_lab_report_id]").val();
+            
+              $.ajax({
+                 headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                 },
+                 type: "POST",
+                 url: "{{ route('lab-report-note.store') }}",
+                 data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
+                 dataType: "json",
+                 success: function(response) {
+                    $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+                 },
+                 error: function(error) {
+                    alert('Something went wrong');
+                 }
+              });
+           });
         function printErrorMsg (msg) {
             $(".print-error-msg").find("ul").html('');
             $(".print-error-msg").css('display','block');

@@ -1,27 +1,27 @@
 @extends('pages.layouts.app')
 
 @section('title','Clinician Patient List')
-@section('pageTitleSection')
-    Patient
-@endsection
+
+@section('pageTitleSection', 'Patient')
 
 @section('content')
     <table class="display responsive nowrap" style="width:100%" id="patient-table">
         <thead>
-        <tr>
-            <th></th>
-            <th>ID</th>
-            <th>Patient Name</th>
-            <th>Service</th>
-            <th>File Type</th>
-            <th>Gender</th>
-            <th>Date Of Birth</th>
-            <th>Zip Code</th>
-            <th>City - State</th>
-            <th>Status</th>
-        </tr>
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Patient Name</th>
+                <th>Service</th>
+                <th>File Type</th>
+                <th>Gender</th>
+                <th>Date Of Birth</th>
+                <th>Zip Code</th>
+                <th>City - State</th>
+                <th>Status</th>
+            </tr>
         </thead>
         <tbody>
+            
         </tbody>
     </table>
 @endsection

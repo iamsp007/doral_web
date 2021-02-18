@@ -26,26 +26,13 @@ class BaseClient
         $this->baseUrl = $baseUrl;
         $this->oAuthServer = $oAuthServer;
 
-        if (cache('ADMIN_SSO_TOKEN')) {
-
-            $this->client = new Client(['headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'X-Requested-With' => 'XMLHttpRequest',
-                'Access-Control-Allow-Origin' => 'http://localhost',
-                'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
-
-        } else {
-
-            $this->acquireToken();
-            $this->client = new Client(['headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'X-Requested-With' => 'XMLHttpRequest',
-                'Access-Control-Allow-Origin' => 'http://localhost',
-                'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
-
-        }
+        $this->acquireToken();
+        $this->client = new Client(['headers' => [
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'X-Requested-With' => 'XMLHttpRequest',
+            'Access-Control-Allow-Origin' => 'http://localhost',
+            'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
     }
 
     public function request($method, $uri = '', array $options = [])
@@ -81,6 +68,7 @@ class BaseClient
         $clientId = cache('USERNAME');
         $clientSecret = cache('PASSWORD');
         $grantType = "client_credentials";
+        $_SESSION['USERNAME']=cache('USERNAME');
 
         try {
 

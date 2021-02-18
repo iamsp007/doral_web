@@ -31,8 +31,9 @@
     @if (\Request::is('supervisor/*'))
         @include('pages.supervisor.popup')
     @endif
-    <div id="loader-wrapper" >
-        Loading&#8230;
+    <div id="loader-wrapper">
+        <div class="overlay"></div>
+        <div class="pulse"></div>
     </div>
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
 <section class="app">

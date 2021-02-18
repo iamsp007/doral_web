@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -572,6 +573,7 @@
       <workItem from="1613647164626" duration="1589000" />
       <workItem from="1613658522369" duration="1340000" />
       <workItem from="1613660256842" duration="1241000" />
+      <workItem from="1613662789451" duration="1043000" />
     </task>
     <servers />
   </component>

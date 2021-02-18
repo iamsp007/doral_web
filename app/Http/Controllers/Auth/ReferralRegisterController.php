@@ -192,8 +192,9 @@ class ReferralRegisterController extends Controller
         $company->email = $data['email'];
         $company->referal_id = $data['referralType'];
         $company->password = Hash::make($data['password']);
-        $company->assignRole('referral')->syncPermissions(Permission::all());
-        return $company->save();
+        $company->assignRole('referral');
+        $company->save();
+        return $company;
     }
 
     /**

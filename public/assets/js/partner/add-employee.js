@@ -64,6 +64,7 @@ function employeeSave(linkType) {
     var phoneNumber = $("#phoneNumber").val();
     var dlNumber = $("#dlNumber").val();
     var dob = $("#dob").val();
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -81,11 +82,13 @@ function employeeSave(linkType) {
             dlNumber:dlNumber,
         },
         success:function (response) {
+            $("#loader-wrapper").hide();
             alert('Employee successfully saved & Sent link registered employee mobile number.');
             location.reload();
         }
         ,
         error:function (error) {
+            $("#loader-wrapper").hide();
             alert('Employee successfully saved & Sent link registered employee mobile number.');
             location.reload();
         }

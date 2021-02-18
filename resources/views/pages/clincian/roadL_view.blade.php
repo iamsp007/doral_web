@@ -39,6 +39,7 @@
     <script>
         var patient_request_id = $('#patient_request_id').val();
         function getNearByClinicianList(callback) {
+            $("#loader-wrapper").show();
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -47,6 +48,7 @@
                 method:'GET',
                 dataType:'json',
                 success:function (response) {
+                    $("#loader-wrapper").hide();
                     if (response.clinicianList.length>0){
                         callback(response.clinicianList,response.patientDetail)
                     }else {
@@ -54,6 +56,7 @@
                     }
                 },
                 error: function (request, status, error) {
+                    $("#loader-wrapper").hide();
                     var response = JSON.parse(request.responseText);
                     window.location.href = '{{ env("APP_URL") }}'+"clinician/running-roadl/"+patient_request_id;
 

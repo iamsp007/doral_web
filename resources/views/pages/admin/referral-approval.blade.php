@@ -4,21 +4,8 @@
     Admin - Refrrals
 @endsection
 @section('content')
-<div class="app-roles">
-    <div class="pt-2">
-        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
-            <strong>Success!</strong> <span id="successResponse"></span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
-            <strong>Error!</strong> <span id="errorResponse"></span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <table id="employee-table" class="table">
+
+        <table id="referral-table" class="display responsive nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th>
@@ -90,12 +77,21 @@
 
             </tbody>
         </table>
-    </div>
-</div>
+
 @endsection
 
+@push('styles')
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
+    <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+@endpush
+
 @push('scripts')
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+<script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
+
         $(document).ready(function () {
 
             $.ajaxSetup({
@@ -105,7 +101,7 @@
             });
 
             $(".acceptid").click(function() {
-
+                $("#loader-wrapper").show();
                 var company_id = $(this).attr('id');
                 var status = "1";
                 $.ajax({
@@ -113,6 +109,7 @@
                     url: '{{ route('admin.updateStatus') }}',
                     data: {company_id, status},
                     success: function( response ){
+                        $("#loader-wrapper").hide();
                         if(response.status == 1) {
                             $(".alert-success").show();
                             $(".alert-danger").hide();
@@ -132,6 +129,7 @@
                        
                     },
                     error: function( e ) {
+                        $("#loader-wrapper").hide();
                         alert('Something went wrong!');
                     }
                 });
@@ -139,6 +137,7 @@
             });
 
             $(".rejectid").click(function() {
+                $("#loader-wrapper").show();
                 var company_id = $(this).attr('id');
                 var status = "3";
                 //alert(company_id);
@@ -147,12 +146,14 @@
                     url: '{{ route("admin.updateStatus") }}',
                     data: {company_id, status},
                     success: function( response ){
+                        $("#loader-wrapper").hide();
                         if(response.status == 1) {
                             $(".alert-success").show();
                             $(".alert-danger").hide();
                             $("#successResponse").text(response.message);
                             setTimeout(function(){
                                 $(".alert-success").hide();
+                                window.location.reload();
                             }, 1000);
                         }
                         else {
@@ -161,15 +162,106 @@
                             $("#errorResponse").text(response.message);
                             setTimeout(function(){
                                 $(".alert-danger").hide();
+                                window.location.reload();
                             }, 1000);
                         }
                     },
                     error: function( e ) {
+                        $("#loader-wrapper").hide();
                         alert('error');
                     }
                 });
 
             });
         });
+
+        if("{{Request::is('admin/referral-approval')}}"){
+            var referralurl = '{{  route('admin.referral.approval.list') }}';
+        } else if("{{Request::is('admin/referral-active')}}"){
+            var referralurl = '{{  route('admin.referral.active.list') }}';
+        } else if("{{Request::is('admin/referral-rejected')}}") {
+            var referralurl = '{{  route('admin.referral.rejected.list') }}';
+        }
+        var table = $('#referral-table').DataTable({
+            "processing": true,
+            "language": {
+                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+            },
+            "serverSide": true,
+            ajax: referralurl,
+            columns:[
+                {data:'id',name:'id'},
+                // {data:'id',name:'id'},
+                {
+                    data:'referal_id',
+                    name:'referal_id',
+                    "bSortable": true,
+                },
+               {data:'name',name:'name',"bSortable": true,
+
+                    render:function(data, type, row, meta){
+                        data = "<a href={{ url('/admin/referral-profile/') }}/" + row.id + ">" + row.name+"</a>";
+                        return data;
+                    }
+               
+                },
+                {
+                    data:'email',
+                    name:'email',
+                    "bSortable": true
+                },
+                {data: 'action',name: 'action'}
+            ],
+            // "order": [[ 1, "desc" ]],
+            // "pageLength": 5,
+            // "lengthMenu": [ [5, 10,20, 25,100, -1], [5, 10,20, 25,100, "All"] ],
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+        });
+
+        function changeReferralStatus(id,status) {
+            $("#loader-wrapper").show();
+            var company_id = id;
+            var status = status;
+            $.ajax({
+                method: 'POST',
+                url: '{{ route('admin.updateStatus') }}',
+                data: {company_id, status},
+                success: function( response ){
+                    $("#loader-wrapper").hide();
+                    if(response.status == 1) {
+                        $(".alert-success").show();
+                        $(".alert-danger").hide();
+                        $("#successResponse").text(response.message);
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 1000);
+                    }
+                    else {
+                        $(".alert-danger").show();
+                        $(".alert-success").hide();
+                        $("#errorResponse").text(response.message);
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 1000);
+                    }
+                   
+                },
+                error: function( e ) {
+                    $("#loader-wrapper").hide();
+                    alert('Something went wrong!');
+                }
+            });
+        }
+
     </script>
 @endpush

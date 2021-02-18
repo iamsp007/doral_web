@@ -541,12 +541,14 @@
 				}
 			});
 			$('#state').change( function() {
+                $("#loader-wrapper").show();
 				var val = $(this).val();
 				$.ajax({
 					url: "{{ route('referral.filter-cities') }}",
 					dataType: 'html',
 					data: { state : val },
 					success: function(response) {
+                        $("#loader-wrapper").hide();
 						var obj = jQuery.parseJSON(response);
 						var city_options = [];
 						$.each(obj, function(key,value) {

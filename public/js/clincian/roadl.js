@@ -1,5 +1,6 @@
 var base_url = $('#base_url').val();
 $(document).ready(function (){
+    $("#loader-wrapper").show();
    $.ajax({
        headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -8,6 +9,7 @@ $(document).ready(function (){
        method:'POST',
        dataType:'json',
        success:function (response) {
+          $("#loader-wrapper").hide();
            var html='<ul>';
            $.each(response,function (key,value) {
 
@@ -16,6 +18,7 @@ $(document).ready(function (){
            $('#patient-request').html(html);
        },
        error:function (error) {
+          $("#loader-wrapper").hide();
            console.log(error)
        }
    })

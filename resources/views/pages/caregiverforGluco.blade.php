@@ -139,11 +139,13 @@
             $("#caregiverResponse").click(function () {
                 window.location = "http://doralhealthconnect.com";
 //                var response = $("#response").val();
+//                  $("#loader-wrapper").show();
 //                $.ajax({
 //                    method: 'POST',
 //                    url: '/caregiverResponseSubmit',
 //                    data: {response},
 //                    success: function (response) {
+    //                    $("#loader-wrapper").hide();
 //                        if (response.status == 1) {
 //                            window.location = "/";
 //                        } else {
@@ -156,6 +158,7 @@
 //                        console.log(response);
 //                    },
 //                    error: function (e) {
+    //                      $("#loader-wrapper").hide();
 //                        console.log(e);
 //                    }
 //                });

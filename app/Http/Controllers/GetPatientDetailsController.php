@@ -317,23 +317,23 @@ class GetPatientDetailsController extends Controller
         $patientClinicalDetail = new PatientClinicalDetail();
         $patientClinicalDetail->patient_id = $patient_detail_id;
         
-        $patientClinicalDetail->nursing_visits_due = $clinicalDetails['nursing_visits_due'];
+        $patientClinicalDetail->nursing_visits_due = ($clinicalDetails['NursingVisitsDue']) ? $clinicalDetails['NursingVisitsDue'] : '';
 
-        if ($clinicalDetails['md_order_required'] == 'Yes') {
+        if ($clinicalDetails['MDOrderRequired'] == 'Yes') {
             $MDOrderRequiredValue = '1';
-        } else if ($clinicalDetails['md_order_required'] == 'No') {
+        } else if ($clinicalDetails['MDOrderRequired'] == 'No') {
             $MDOrderRequiredValue = '2';
         } 
         $patientClinicalDetail->md_order_required = $MDOrderRequiredValue;
-        $patientClinicalDetail->md_order_due = $clinicalDetails['md_order_due'];
-        $patientClinicalDetail->md_visit_due = $clinicalDetails['md_visit_due'];
+        $patientClinicalDetail->md_order_due = ($clinicalDetails['MDOrderDue']) ? $clinicalDetails['MDOrderDue'] : '';
+        $patientClinicalDetail->md_visit_due = ($clinicalDetails['MDVisitDue']) ? $clinicalDetails['MDVisitDue'] : '';
 
         $patientClinicalDetail->save();
 
         $patientAllergy = new PatientAllergy();
         $patientAllergy->patient_clinical_detail_id = $patientClinicalDetail->id;
-        $patientAllergy->allergy = $clinicalDetails['allergy'];
-        $patientAllergy->comment = $clinicalDetails['comment'];
+        $patientAllergy->allergy = ($clinicalDetails['Comments']) ? $clinicalDetails['Comments'] : '';
+        $patientAllergy->comment = ($clinicalDetails['Allergies']) ? $clinicalDetails['Allergies'] : '';
         $patientAllergy->save();
     }
 

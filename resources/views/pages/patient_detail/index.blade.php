@@ -86,7 +86,14 @@
                            class="mr-2 activeIcon">
                         Clinical</a>
                   </li>
-                  
+                  <li>
+                     <a class="nav-link  d-flex align-items-center" id="clinical-info-tab1" data-toggle="pill"
+                        href="#clinical-info1" role="tab" aria-controls="clinical-info1" aria-selected="false">
+                        <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
+                        <img src="{{ asset('assets/img/icons/icons_clinical_active.svg') }}" alt=""
+                           class="mr-2 activeIcon">
+                        Clinical Info</a>
+                  </li>
                   <li>
                      <a class="nav-link d-flex align-items-center" id="physican-tab" data-toggle="pill"
                         href="#physican" role="tab" aria-controls="physican" aria-selected="false">
@@ -137,6 +144,10 @@
 
                   <!-- Clinical Start -->
                      @include('pages.patient_detail.clinical')
+                  <!-- Clinical End -->
+
+                   <!-- Clinical Start -->
+                   @include('pages.patient_detail.clinical-info')
                   <!-- Clinical End -->
 
                   <!-- Physician Start -->

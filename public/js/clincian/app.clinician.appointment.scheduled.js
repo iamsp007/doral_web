@@ -71,7 +71,7 @@ $(function () {
                     $.each(row.roadl,function (key,value) {
                         vals.push(value.referral_type)
                     })
-                    var listRequestType=['LAB','X-RAY','Home Oxygen','CHHA','DME'];
+                    var listRequestType=['LAB','Radiology','CHHA','Home Oxygen','Home Influsion','Wound Care','DME'];
                     var roadlbuttonStatus=true;
                     var options='';
                     $.each(listRequestType,function (key,value) {

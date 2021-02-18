@@ -54,7 +54,7 @@
                                         <div class="d-flex justify-content-between">
                                             <label for="username" class="label">Username</label>
                                         </div>
-                                        <input autocomplete="off" type="email" class="form-control form-control-lg" id="username"
+                                        <input autocomplete="off" type="text" class="form-control form-control-lg" id="username"
                                                name="email" aria-describedby="emailHelp" value="">
                                        @if ($errors->has('email'))
                                             <span class="invalid-feedback" role="alert" style="display: block;">

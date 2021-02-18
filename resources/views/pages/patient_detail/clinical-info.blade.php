@@ -63,37 +63,37 @@
                @foreach($patient->patientClinicalDetail->patientAllergy as $patientAllergy)
                   <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                   data-name="emergency_contact_detail">
-                  <div class="app-card-header">
-                     <h1 class="title">Patient Allergies</h1>
-                  </div>
-                  <div>
-                     <div class="p-3">
-                        <div class="">
-                           <div class="row">
-                              <div class="col-12 col-sm-3 col-md-3">
-                                 <div class="input_box">
-                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                    <div class="rs">
-                                       <h3 class="_title">Allergy</h3>
-                                       <input type="text" class="form-control-plaintext _detail "
-                                       readonly name="allergy" onclick="editableField('allergy')"
-                                       data-id="allergy" id="allergy" placeholder="Allergy" value="{{ $patientAllergy->allergy }}">
+                     <div class="app-card-header">
+                        <h1 class="title">Patient Allergies</h1>
+                     </div>
+                     <div>
+                        <div class="p-3">
+                           <div class="">
+                              <div class="row">
+                                 <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                       <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                       <div class="rs">
+                                          <h3 class="_title">Allergy</h3>
+                                          <input type="text" class="form-control-plaintext _detail "
+                                          readonly name="allergy" onclick="editableField('allergy')"
+                                          data-id="allergy" id="allergy" placeholder="Allergy" value="{{ $patientAllergy->allergy }}">
+                                    </div>
+                                    </div>
                                  </div>
-                                 </div>
-                              </div>
-                              <div class="col-12 col-sm-3 col-md-3">
-                                 <div class="input_box">
-                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                    <div class="rs">
-                                    <h3 class="_title">Comment</h3>
-                                 <textarea name="comment" id="comment" cols="30" rows="8" class="form-control">{!! $patientAllergy->comment !!}</textarea>
-                                 </div>
+                                 <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="input_box">
+                                       <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                       <div class="rs">
+                                       <h3 class="_title">Comment</h3>
+                                    <textarea name="comment" id="comment" cols="30" rows="8" class="form-control">{!! $patientAllergy->comment !!}</textarea>
+                                    </div>
+                                    </div>
                                  </div>
                               </div>
                            </div>
                         </div>
                      </div>
-                  </div>
                </div>
                @endforeach
             @endif

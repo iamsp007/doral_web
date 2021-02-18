@@ -26,7 +26,7 @@ function initMap() {
             dataType:'json',
             success:function (response) {
                 var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
-                makeMarker(destination,base_url+'assets/img/icons/patient-icon.svg',originName)
+                makeMarker(destination,base_url+'assets/img/icons/patient-icon.svg',response.patient.first_name+' '+response.patient.last_name)
                 response.clinicians.map(function (resp) {
                     var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
                     referral_type[resp.referral_type]={

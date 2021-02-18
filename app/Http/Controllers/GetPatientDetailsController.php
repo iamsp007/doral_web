@@ -14,7 +14,9 @@ use App\Models\Location;
 use App\Models\Nurse;
 use App\Models\PatientAcceptedService;
 use App\Models\PatientAddress;
+use App\Models\PatientAllergy;
 use App\Models\PatientBranch;
+use App\Models\PatientClinicalDetail;
 use App\Models\PatientCoordinator;
 use App\Models\PatientDetail;
 use App\Models\PatientEmergencyContact;
@@ -65,7 +67,7 @@ class GetPatientDetailsController extends Controller
         $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
         $drugLabReportTypes = LabReportType::where('status','1')->where('parent_id', 3)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
         
-        $patient = PatientDetail::with('coordinators', 'nurse', 'acceptedServices', 'sourceOfAdmission', 'team','location', 'branch' , 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparedness', 'visitorDetail')->find($paient_id);
+        $patient = PatientDetail::with('coordinators', 'nurse', 'acceptedServices', 'sourceOfAdmission', 'team','location', 'branch' , 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparedness', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
         return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id'));
     }
@@ -152,6 +154,21 @@ class GetPatientDetailsController extends Controller
 
         return $this->curlCall($data, $method);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getPatientClinicalInfo($patientID)
+    {
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientClinicalInfo xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><PatientID>' .$patientID. '</PatientID></GetPatientClinicalInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+        $method = 'POST';
+
+        return $this->curlCall($data, $method);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -160,10 +177,10 @@ class GetPatientDetailsController extends Controller
     public function searchPatients(Request $request)
     {
         $searchPatientIds = $this->searchPatientDetails();
-        $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+        // $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
         $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','490045','504356','516752','517000','518828','532337','540428','541579','542628','1005036','1008858','1009943','1010785','1010967','1015287','1019171','1030319','1031322','1048580','688245','695223','697606','698180','698859','698935','701845','704228','742010','742023','762544','762584','772465','772468','772470','783693','817770','826323','832638','841005','854502','865729','894642','904265','909877','916609','916702','946557','948750','952551','961283','965077','987170','989414','990437','994958','996056'];
 //        $patientArray = [];
-    
+    // $patient_id = '404874';
         $counter = 0;
         foreach ($patientArray as $patient_id) {
             // echo "<pre>";
@@ -174,6 +191,7 @@ class GetPatientDetailsController extends Controller
 //                 print_r($patient_id);
 //                 exit();
 //                 $patient_id = '388069'; 
+               
                 $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
                 if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
@@ -206,7 +224,12 @@ class GetPatientDetailsController extends Controller
                         $visitorDetail->schedule_end_time = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ; 
 
                         $visitorDetail->save();
-               
+
+                        $getPatientClinicalInfo = $this->getPatientClinicalInfo($patient_id);
+                       
+                        /** Store  Coordinator */
+                        $this->storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id);
+
                         /** Store  Coordinator */
                         $this->storeCoordinator($patientDetails['Coordinators']['Coordinator'], $patient_detail_id);
                         
@@ -285,6 +308,33 @@ class GetPatientDetailsController extends Controller
     public function setParameter($parameter)
     {
         return '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body>' . $parameter . '</SOAP-ENV:Body></SOAP-ENV:Envelope>';
+    }
+
+    public function storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id)
+    {
+        $clinicalDetails = $getPatientClinicalInfo['soapBody']['GetPatientClinicalInfoResponse']['GetPatientClinicalInfoResult']['PatientClinicalInfo'];
+      
+        $patientClinicalDetail = new PatientClinicalDetail();
+        $patientClinicalDetail->patient_id = $patient_detail_id;
+        
+        $patientClinicalDetail->nursing_visits_due = $clinicalDetails['nursing_visits_due'];
+
+        if ($clinicalDetails['md_order_required'] == 'Yes') {
+            $MDOrderRequiredValue = '1';
+        } else if ($clinicalDetails['md_order_required'] == 'No') {
+            $MDOrderRequiredValue = '2';
+        } 
+        $patientClinicalDetail->md_order_required = $MDOrderRequiredValue;
+        $patientClinicalDetail->md_order_due = $clinicalDetails['md_order_due'];
+        $patientClinicalDetail->md_visit_due = $clinicalDetails['md_visit_due'];
+
+        $patientClinicalDetail->save();
+
+        $patientAllergy = new PatientAllergy();
+        $patientAllergy->patient_clinical_detail_id = $patientClinicalDetail->id;
+        $patientAllergy->allergy = $clinicalDetails['allergy'];
+        $patientAllergy->comment = $clinicalDetails['comment'];
+        $patientAllergy->save();
     }
 
     public function storePatientDetail($patientDetails)

@@ -1,7 +1,7 @@
-<div class="tab-pane fade show active" id="demographic" role="tabpanel" aria-labelledby="demographic">
-   <div class="app-card app-card-custom" data-name="demographics">
+<div class="tab-pane fade" id="clinical-info1" role="tabpanel" aria-labelledby="clinical-info-tab1">
+   <div class="app-card app-card-custom" data-name="clinical-info1">
       <div class="app-card-header">
-         <h1 class="title">Demographics</h1>
+         <h1 class="title">Clinical Info</h1>
          <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
          <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
       </div>
@@ -11,7 +11,7 @@
                <div class="row">
                   <div class="col-12 col-sm-3 col-md-3">
                      <div class="input_box">
-                        <div class="ls"><i class="las la-envelope circle"></i></div>
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
                            <h3 class="_title">Nursing Visits Due</h3>
                            <input type="text" class="form-control-plaintext _detail "
@@ -23,7 +23,7 @@
                   </div>
                   <div class="col-12 col-sm-3 col-md-3">
                      <div class="input_box">
-                        <div class="ls"><i class="las la-envelope circle"></i></div>
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
                            <h3 class="_title">MD Order Required</h3>
                            <input type="text" class="form-control-plaintext _detail "
@@ -35,7 +35,7 @@
                   </div>
                   <div class="col-12 col-sm-3 col-md-3">
                      <div class="input_box">
-                        <div class="ls"><i class="las la-envelope circle"></i></div>
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
                            <h3 class="_title">MD Order Due</h3>
                            <input type="text" class="form-control-plaintext _detail "
@@ -47,7 +47,7 @@
                   </div>
                   <div class="col-12 col-sm-3 col-md-3">
                      <div class="input_box">
-                        <div class="ls"><i class="las la-envelope circle"></i></div>
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
                            <h3 class="_title">MD Visit Due</h3>
                            <input type="text" class="form-control-plaintext _detail "
@@ -59,43 +59,44 @@
                   </div>
                </div>
             </div>
-
-            @foreach($patient->patientClinicalDetail->patientAllergy as $patientAllergy)
-                <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
-               data-name="emergency_contact_detail">
-               <div class="app-card-header">
-                  <h1 class="title">Patient Allergies</h1>
-               </div>
-               <div>
-                  <div class="p-3">
-                     <div class="">
-                        <div class="row">
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                 <div class="rs">
-                                    <h3 class="_title">Allergy</h3>
-                                    <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="allergy" onclick="editableField('allergy')"
-                                    data-id="allergy" id="allergy" placeholder="Allergy" value="{{ $patientAllergy->allergy }}">
-                                </div>
-                              </div>
-                           </div>
-                           <div class="col-12 col-sm-3 col-md-3">
-                              <div class="input_box">
-                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                 <div class="rs">
-                                 <h3 class="_title">Comment</h3>
-                                <textarea name="comment" id="comment" cols="30" rows="8" class="form-control">{!! $patientAllergy->comment !!}</textarea>
-                                </div>
+            @if($patient->patientClinicalDetail)
+               @foreach($patient->patientClinicalDetail->patientAllergy as $patientAllergy)
+                  <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                  data-name="emergency_contact_detail">
+                     <div class="app-card-header">
+                        <h1 class="title">Patient Allergies</h1>
+                     </div>
+                     <div>
+                        <div class="p-3">
+                           <div class="">
+                              <div class="row">
+                                 <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                       <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                       <div class="rs">
+                                          <h3 class="_title">Allergy</h3>
+                                          <input type="text" class="form-control-plaintext _detail "
+                                          readonly name="allergy" onclick="editableField('allergy')"
+                                          data-id="allergy" id="allergy" placeholder="Allergy" value="{{ $patientAllergy->allergy }}">
+                                    </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-12 col-sm-6 col-md-6">
+                                    <div class="input_box">
+                                       <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                       <div class="rs">
+                                       <h3 class="_title">Comment</h3>
+                                    <textarea name="comment" id="comment" cols="30" rows="8" class="form-control">{!! $patientAllergy->comment !!}</textarea>
+                                    </div>
+                                    </div>
+                                 </div>
                               </div>
                            </div>
                         </div>
                      </div>
-                  </div>
                </div>
-            </div>
-            @endforeach
+               @endforeach
+            @endif
             <div class="collapse mt-4" id="collapseExample">
                <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                   height="200" frameborder="0" scrolling="no" marginheight="0"

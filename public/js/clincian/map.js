@@ -26,6 +26,7 @@ function initMap() {
             dataType:'json',
             success:function (response) {
                 var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
+                makeMarker(destination,base_url+'assets/img/icons/patient-icon.svg',originName)
                 response.clinicians.map(function (resp) {
                     var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
                     referral_type[resp.referral_type]={
@@ -38,16 +39,11 @@ function initMap() {
                         referral_type[resp.referral_type].latlng=[resp.latitude,resp.longitude];
                         current = new google.maps.LatLng(resp.latitude,resp.longitude);
                     }
-                    var color='#0a5293';
-                    if (resp.referral_type==='LAB'){
-                        color='#34ba0f';
-                    }else if(resp.referral_type==='X-RAY'){
-                        color='#c94d2f';
-                    }
                     var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
                     var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
-                    calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,color);
-                 //   updateMap(destination)
+
+                    calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,resp.color,resp.icon)
+                    updateMap(destination)
                 })
             },
             error:function (error) {
@@ -195,6 +191,8 @@ function updateMap(destination) {
                                 referral_type[resp.referral_type].latlng=[resp.latitude,resp.longitude];
                                 current = new google.maps.LatLng(resp.latitude,resp.longitude);
                             }
+                            referral_type[resp.referral_type].color=resp.color
+                            referral_type[resp.referral_type].icon=resp.icon
 
                             var color='#0a5293';
                             if (resp.referral_type==='LAB'){
@@ -202,10 +200,9 @@ function updateMap(destination) {
                             }else if(resp.referral_type==='X-RAY'){
                                 color='#c94d2f';
                             }
-
                             var originName = resp.first_name+' '+resp.last_name+'  Role : '+resp.referral_type;
                             var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
-                            calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,color)
+                            calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,resp.color,resp.icon)
                         }
 
                     })
@@ -216,11 +213,11 @@ function updateMap(destination) {
                 console.log(error)
             }
         })
-    },1000)
+    },3000)
 }
 
 //
-function calculateAndDisplayRoute(current,destination,directionsService,directionsRenderer,origin_name,destination_name,color='#0a5293') {
+function calculateAndDisplayRoute(current,destination,directionsService,directionsRenderer,origin_name,destination_name,color='#0a5293',icon) {
     var request = {
         origin: current,
         destination: destination,
@@ -235,6 +232,7 @@ function calculateAndDisplayRoute(current,destination,directionsService,directio
 
             var html='<span>Name : '+origin_name+' <br/> Distance : '+leg.distance.text+' <br/> Duration : '+leg.duration.text+'</span> <br/> <br/>';
            // $('#right-panel').append(html);
+            makeMarker(current,icon,origin_name)
             directionsRenderer.setMap(map)
             directionsRenderer.setDirections(response)
             directionsRenderer.setOptions({

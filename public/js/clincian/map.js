@@ -10,53 +10,53 @@ function initMap() {
 
     navigator.geolocation.getCurrentPosition(function (position) {
         map = new google.maps.Map(document.getElementById("map"), {
+            zoom:5,
             center: new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:base_url+'clinician/patient-roladl-proccess',
+            data:{
+                patient_request_id:patient_request_id
+            },
+            method:'POST',
+            dataType:'json',
+            success:function (response) {
+                var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
+                response.clinicians.map(function (resp) {
+                    var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
+                    referral_type[resp.referral_type]={
+                        latlng:[resp.start_latitude,resp.end_longitude],
+                        directionsService:new google.maps.DirectionsService(),
+                        directionsRenderer:new google.maps.DirectionsRenderer()
+                    }
+
+                    if (resp.latitude!==null){
+                        referral_type[resp.referral_type].latlng=[resp.latitude,resp.longitude];
+                        current = new google.maps.LatLng(resp.latitude,resp.longitude);
+                    }
+                    var color='#0a5293';
+                    if (resp.referral_type==='LAB'){
+                        color='#34ba0f';
+                    }else if(resp.referral_type==='X-RAY'){
+                        color='#c94d2f';
+                    }
+                    var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
+                    var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
+                    calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,color);
+                 //   updateMap(destination)
+                })
+            },
+            error:function (error) {
+                console.log(error)
+            }
+        })
     },(error)=>{
 
     },{enableHighAccuracy:true,maximumAge:3000,timeout:3000})
-
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url:base_url+'clinician/patient-roladl-proccess',
-        data:{
-            patient_request_id:patient_request_id
-        },
-        method:'POST',
-        dataType:'json',
-        success:function (response) {
-            var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
-            response.clinicians.map(function (resp) {
-                var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
-                referral_type[resp.referral_type]={
-                    latlng:[resp.start_latitude,resp.end_longitude],
-                    directionsService:new google.maps.DirectionsService(),
-                    directionsRenderer:new google.maps.DirectionsRenderer()
-                }
-
-                if (resp.latitude!==null){
-                    referral_type[resp.referral_type].latlng=[resp.latitude,resp.longitude];
-                    current = new google.maps.LatLng(resp.latitude,resp.longitude);
-                }
-                var color='#0a5293';
-                if (resp.referral_type==='LAB'){
-                    color='#34ba0f';
-                }else if(resp.referral_type==='X-RAY'){
-                    color='#c94d2f';
-                }
-                var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
-                var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
-                calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,color);
-               updateMap(destination,map)
-            })
-        },
-        error:function (error) {
-            console.log(error)
-        }
-    })
 
 }
 var j=0;
@@ -156,13 +156,12 @@ function makeMarker(position, icon, title) {
     });
 }
 
-var prev_lat=null;
-var prev_lng=null;
+var html='';
 
 function updateMap(destination) {
 
     setInterval(function () {
-
+        $('#right-panel').html('');
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -174,8 +173,9 @@ function updateMap(destination) {
             method:'POST',
             dataType:'json',
             success:function (response) {
-                $('#right-panel').html('');
+
                 if (response.status!=="pending"){
+
                     response.clinicians.map(function (resp) {
                         var check = calcCrow(resp.start_latitude,resp.end_longitude,null,null).toFixed(1);
                         if (referral_type[resp.referral_type].latlng){
@@ -232,25 +232,14 @@ function calculateAndDisplayRoute(current,destination,directionsService,directio
     directionsService.route(request,(response, status)=>{
         if (status === 'OK') {
             var leg = response.routes[0].legs[0];
-            makeMarker(leg.start_location, base_url+'assets/img/icons/clinician-sb-select.svg', origin_name);
-            makeMarker(destination, base_url+'assets/img/icons/patient-icon.svg', destination_name);
-            // var lineCoordinates =[];
-            // response.routes[0].legs.map(function (position) {
-            //     console.log(position)
-            //     lineCoordinates.push(new google.maps.LatLng(position.start_location.lat(), position.start_location.lng()))
-            // })
-            // // var lineCoordinates = [
-            // //     new google.maps.LatLng(45.4215296, -75.6971931),
-            // //     new google.maps.LatLng(45.4215296, -75.6571931)
-            // // ];
-            console.log(leg.distance.text)
+
             var html='<span>Name : '+origin_name+' <br/> Distance : '+leg.distance.text+' <br/> Duration : '+leg.duration.text+'</span> <br/> <br/>';
-            $('#right-panel').append(html);
+           // $('#right-panel').append(html);
             directionsRenderer.setMap(map)
             directionsRenderer.setDirections(response)
             directionsRenderer.setOptions({
                 draggable: true,
-                hideRouteIndex: true,
+                hideRouteIndex: false,
                 polylineOptions : {
                     strokeColor: color,
                     strokeOpacity: 1.0,
@@ -283,3 +272,14 @@ function toRad(Value)
 {
     return Value * Math.PI / 180;
 }
+
+function animateCircle(line) {
+    let count = 0;
+    window.setInterval(() => {
+        count = (count + 1) % 200;
+        const icons = line.get("icons");
+        icons[0].offset = count / 2 + "%";
+        line.set("icons", icons);
+    }, 20);
+}
+

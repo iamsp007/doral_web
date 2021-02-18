@@ -28,7 +28,12 @@ class ClinicianService
 
             $response = $this->client->request(
                 'POST',
-                '/clinician-patient-request-list'
+                '/clinician-patient-request-list',
+                [
+                    'json'=>array(
+                        'type'=>'latest'
+                    )
+                ]
             );
 
 

@@ -5,24 +5,24 @@
 @endsection
 @section('content')
     <div class="app-roles">
-        <!-- View Employee List HTML -->
         <div class="pt-2">
-            <table id="appointmentScheduled" class="table">
+            <table class="display responsive nowrap" style="width:100%" id="appointmentScheduled">
                 <thead>
-                <tr>
-                    <th><input type="checkbox" class="selectall"></th>
-                    <th>Patient Name</th>
-                    <th>Gender</th>
-                    <th>Reason Of Appointment</th>
-                    <th>Date and Time</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                    <th width="34%">Action</th>
-                </tr>
+                    <tr>
+                        <th><input type="checkbox" class="selectall"></th>
+                        <th>Patient Name</th>
+                        <th>Gender</th>
+                        <th>Reason Of Appointment</th>
+                        <th>Date and Time</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th width="34%">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
+
             <!-- Modal -->
             <div class="modal fade" id="patient_request_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -930,7 +930,7 @@
     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/bootstrap.css" />
      <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
       <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
-{{--    <style>--}}
+{{--    <style> --}}
 {{--        html, body {overflow: auto;}--}}
 {{--        body > #zmmtg-root {display: none;}--}}
 {{--        #zmmtg-root, .meeting-client, .meeting-client-inner {position: relative;width:97%;}--}}

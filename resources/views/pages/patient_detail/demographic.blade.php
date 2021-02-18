@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="demographic" role="tabpanel" aria-labelledby="demographic">
+<div class="tab-pane fade show active" id="demographic" role="tabpanel" aria-labelledby="demographic">
    <div class="app-card app-card-custom" data-name="demographics">
       <div class="app-card-header">
          <h1 class="title">Demographics</h1>
@@ -69,7 +69,7 @@
                            <input type="text" class="form-control-plaintext _detail "
                               readonly name="service_request_start_date" onclick="editableField('service_request_start_date')"
                               data-id="service_request_start_date" id="service_request_start_date" placeholder="Service Request Start Date"
-                              value="{{ $patient->service_request_start_date }}">
+                              value="{{ date('m-d-Y', strtotime($patient->service_request_start_date)) }}">
                         </div>
                      </div>
                   </div>

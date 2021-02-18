@@ -8,51 +8,49 @@ var referral_type = [];
 function initMap() {
 
 
-    navigator.geolocation.getCurrentPosition(function (position) {
-        map = new google.maps.Map(document.getElementById("map"), {
-            zoom:5,
-            center: new google.maps.LatLng(position.coords.latitude,position.coords.longitude),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url:base_url+'clinician/patient-roladl-proccess',
-            data:{
-                patient_request_id:patient_request_id
-            },
-            method:'POST',
-            dataType:'json',
-            success:function (response) {
-                var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
-                makeMarker(destination,base_url+'assets/img/icons/patient-icon.svg',response.patient.detail.first_name+' '+response.patient.detail.last_name)
-                response.clinicians.map(function (resp) {
-                    var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
-                    referral_type[resp.referral_type]={
-                        latlng:[resp.start_latitude,resp.end_longitude],
-                        directionsService:new google.maps.DirectionsService(),
-                        directionsRenderer:new google.maps.DirectionsRenderer()
-                    }
 
-                    if (resp.latitude!==null){
-                        referral_type[resp.referral_type].latlng=[resp.latitude,resp.longitude];
-                        current = new google.maps.LatLng(resp.latitude,resp.longitude);
-                    }
-                    var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
-                    var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:base_url+'clinician/patient-roladl-proccess',
+        data:{
+            patient_request_id:patient_request_id
+        },
+        method:'POST',
+        dataType:'json',
+        success:function (response) {
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom:5,
+                center: new google.maps.LatLng(response.patient.latitude,response.patient.longitude),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
 
-                    calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,resp.color,resp.icon)
-                    updateMap(destination)
-                })
-            },
-            error:function (error) {
-                console.log(error)
-            }
-        })
-    },(error)=>{
+            makeMarker(destination,base_url+'assets/img/icons/patient-icon.svg',response.patient.detail.first_name+' '+response.patient.detail.last_name)
+            response.clinicians.map(function (resp) {
+                var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
+                referral_type[resp.referral_type]={
+                    latlng:[resp.start_latitude,resp.end_longitude],
+                    directionsService:new google.maps.DirectionsService(),
+                    directionsRenderer:new google.maps.DirectionsRenderer()
+                }
 
-    },{enableHighAccuracy:true,maximumAge:3000,timeout:3000})
+                if (resp.latitude!==null){
+                    referral_type[resp.referral_type].latlng=[resp.latitude,resp.longitude];
+                    current = new google.maps.LatLng(resp.latitude,resp.longitude);
+                }
+                var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
+                var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
+
+                calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,resp.color,resp.icon)
+                updateMap(destination)
+            })
+        },
+        error:function (error) {
+            console.log(error)
+        }
+    })
 
 }
 var j=0;

@@ -17,6 +17,7 @@ function initMap() {
 
     },{enableHighAccuracy:true,maximumAge:3000,timeout:3000})
 
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -28,6 +29,7 @@ function initMap() {
         method:'POST',
         dataType:'json',
         success:function (response) {
+            $("#loader-wrapper").hide();
             var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
             response.clinicians.map(function (resp) {
                 var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
@@ -54,6 +56,7 @@ function initMap() {
             })
         },
         error:function (error) {
+            $("#loader-wrapper").hide();
             console.log(error)
         }
     })
@@ -162,7 +165,7 @@ var prev_lng=null;
 function updateMap(destination) {
 
     setInterval(function () {
-
+        $("#loader-wrapper").show();
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -174,6 +177,7 @@ function updateMap(destination) {
             method:'POST',
             dataType:'json',
             success:function (response) {
+                $("#loader-wrapper").hide();
                 $('#right-panel').html('');
                 if (response.status!=="pending"){
                     response.clinicians.map(function (resp) {
@@ -213,6 +217,7 @@ function updateMap(destination) {
 
             },
             error:function (error) {
+                $("#loader-wrapper").hide();
                 console.log(error)
             }
         })

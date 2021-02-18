@@ -266,6 +266,7 @@
                         })
                         .then(function(token) {
                             // print the token on the HTML page
+                            $("#loader-wrapper").show();
                             $.ajax({
                                 headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -277,7 +278,7 @@
                                     device_token:token
                                 },
                                 success:function (response) {
-
+                                    $("#loader-wrapper").hide();
                                 }
                             })
                         })

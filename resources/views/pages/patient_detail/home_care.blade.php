@@ -376,6 +376,7 @@
                   </div>
 <script type="text/javascript">
     function updateCaregiver(patientId) {
+         $("#loader-wrapper").show();
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -385,11 +386,13 @@
             dataType:'json',
             data:{patient_id:patientId},
             success:function (response) {
+               $("#loader-wrapper").hide();
                 alert('Caregiver updated successfully.');
                 location.reload();
             }
             ,
             error:function (error) {
+               $("#loader-wrapper").hide();
                 alert('Something is wrong. Please try again later.');
                 location.reload();
             }

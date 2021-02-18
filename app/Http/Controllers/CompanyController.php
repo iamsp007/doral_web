@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Support\Facades\Hash;
 use URL;
 use App\Mail\ReferralAcceptedMail;
+use Yajra\DataTables\DataTables;
 
 class CompanyController extends Controller
 {
@@ -22,24 +23,7 @@ class CompanyController extends Controller
 
     public function index(Request $request)
     {
-        $status = 0;
-        $message = "";
-        $record = [];
-        try {
-            $adminServices = new AdminService();
-            $responseArray = $adminServices->getCompanyReferral(1);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
-            }
-            $message = $responseArray['message'];
-            return View('pages.admin.referral-approval')->with('record',$record);
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-        return redirect()->back()->with('errors','Something Went Wrong!');
+        return View('pages.admin.referral-approval');
     }
 
     /**
@@ -50,23 +34,7 @@ class CompanyController extends Controller
 
     public function active()
     {
-        $status = 0;
-        $message = "";
-        $record = [];
-        try {
-            $adminServices = new AdminService();
-            $responseArray = $adminServices->getCompanyReferral(2);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
-            }
-            $message = $responseArray['message'];
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-        return View('pages.admin.referral-approval')->with('record',$record);
+        return View('pages.admin.referral-approval');
     }
 
     /**
@@ -77,23 +45,123 @@ class CompanyController extends Controller
 
     public function rejected()
     {
-        $status = 0;
-        $message = "";
-        $record = [];
-        try {
-            $adminServices = new AdminService();
-            $responseArray = $adminServices->getCompanyReferral(3);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
-            }
-            $message = $responseArray['message'];
+        return View('pages.admin.referral-approval');
+    }
 
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-        return View('pages.admin.referral-approval')->with('record',$record);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getReferralApprovalList()
+    {
+        $adminServices = new AdminService();
+        $responseArray = $adminServices->getCompanyReferral(1);
+        
+        $record = $responseArray['data']['companies'];
+        return DataTables::of($record)
+            ->editColumn('referal_id', function ($row){
+                if ($row['referal_id'] == 1) {
+                    return 'Insurance';
+                } elseif ($row['referal_id'] == 2) {
+                    return 'Home Care';
+                } elseif ($row['referal_id'] == 3) {
+                    return 'Others';
+                } 
+                return '';
+            })
+            ->addColumn('action', function($row){
+                return '<button type="button"
+                            class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
+                            data-toggle="tooltip" data-placement="left" id="'.$row['id'].'" onclick="changeReferralStatus('.$row['id'].',1)">Accept
+                        </button>
+                        <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
+                            data-toggle="tooltip" data-placement="left"
+                            id="'.$row['id'].'" onclick="changeReferralStatus('.$row['id'].',3)">Reject
+                        </button>
+                        <a href="'.url("/admin/referral-profile/".$row['id']).'" class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
+                            data-placement="left" title="View Profile">View Profile</a>';
+            })
+            ->make(true);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getReferralActiveList()
+    {
+        
+        $adminServices = new AdminService();
+        $responseArray = $adminServices->getCompanyReferral(2);
+        
+        $record = $responseArray['data']['companies'];
+        return DataTables::of($record)
+            ->editColumn('referal_id', function ($row){
+                if ($row['referal_id'] == 1) {
+                    return 'Insurance';
+                } elseif ($row['referal_id'] == 2) {
+                    return 'Home Care';
+                } elseif ($row['referal_id'] == 3) {
+                    return 'Others';
+                } 
+                return '';
+            })
+            ->addColumn('action', function($row){
+                return '<button type="button"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">Accepted
+                        </button>
+                        <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
+                            data-toggle="tooltip" data-placement="left"
+                            id="'.$row['id'].'" onclick="changeReferralStatus('.$row['id'].',3)">Reject
+                        </button>
+                        <a href="'.url("/admin/referral-profile/".$row['id']).'" class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
+                            data-placement="left" title="View Profile">View Profile</a>';
+            })
+            ->make(true);
+        
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getReferralRejectedList()
+    {
+        $adminServices = new AdminService();
+        $responseArray = $adminServices->getCompanyReferral(3);
+          
+        $record = $responseArray['data']['companies'];
+        return DataTables::of($record)
+            ->editColumn('referal_id', function ($row){
+                if ($row['referal_id'] == 1) {
+                    return 'Insurance';
+                } elseif ($row['referal_id'] == 2) {
+                    return 'Home Care';
+                } elseif ($row['referal_id'] == 3) {
+                    return 'Others';
+                } 
+                return '';
+            })
+            ->addColumn('action', function($row){
+                return '<button type="button"
+                            class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
+                            data-toggle="tooltip" data-placement="left" id="'.$row['id'].'" onclick="changeReferralStatus('.$row['id'].',1)">Accept
+                        </button>
+                        <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">Rejected
+                        </button>
+                        <a href="'.url("/admin/referral-profile/".$row['id']).'" class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
+                        data-placement="left" title="View Profile">View
+                        Profile</a>';
+            })
+            ->make(true);
     }
 
     /**

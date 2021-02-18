@@ -141,6 +141,7 @@
 
             $("#caregiverResponse").click(function () {
                 //window.location = "http://doralhealthconnect.com";
+                $("#loader-wrapper").show();
                 var patientId = $("#patientId").val();
                 var actionTaken = $("#actionTaken").val();
                 var url = $("#url").val();
@@ -149,6 +150,7 @@
                     url: '/caregiverResponseSubmit',
                     data: {patientId, actionTaken, url},
                     success: function (response) {
+                        $("#loader-wrapper").hide();
                         if (response.status == 1) {
                             window.location = "/";
                         } else {
@@ -161,6 +163,7 @@
                         
                     },
                        error: function (e) {
+                        $("#loader-wrapper").hide();
                         alert('Something went wrong!');
                     }
                 });

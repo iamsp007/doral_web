@@ -195,7 +195,7 @@ $(function () {
 });
 function startVideoCall(id) {
     $('.app-video').addClass('scale-up-center');
-    // $("#loader-wrapper").show();
+    $("#loader-wrapper").show();
     $.ajax({
         url:base_url+'clinician/start-meeting',
         headers: {
@@ -207,7 +207,7 @@ function startVideoCall(id) {
         method:'POST',
         dataType:'json',
         success:function (response) {
-            // $("#loader-wrapper").hide();
+            $("#loader-wrapper").hide();
             const sources = response.data;
             setVideoCallinginformation(sources);
             // var meetingConfig={
@@ -218,11 +218,13 @@ function startVideoCall(id) {
             // startMeeting();
         },
         error:function (error) {
+            $("#loader-wrapper").hide();
             console.log(error)
         }
     })
 
     setTimeout(() => {
+        $("#loader-wrapper").hide();
         $('.app-video').show();
         $('.app-video').removeClass('scale-down-center');
     }, 1000);
@@ -298,6 +300,7 @@ function saveCancelAppointment(id) {
     var appointment_reason = $("#appointment_reason_"+id).val();
     console.log(appointment_reason,id)
     $('#cancel-appointment-model'+id).hide();
+    $("#loader-wrapper").show();
     $.ajax({
         url:base_url+'clinician/change-appointment-status',
         headers: {
@@ -310,9 +313,11 @@ function saveCancelAppointment(id) {
         method:'POST',
         dataType:'json',
         success:function (response) {
+            $("#loader-wrapper").hide();
             alert(response.message);
         },
         error:function (error) {
+            $("#loader-wrapper").hide();
             console.log(error)
         }
     })

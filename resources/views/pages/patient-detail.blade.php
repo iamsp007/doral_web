@@ -2392,6 +2392,7 @@
 
             $('#note').on('blur', function(e){
                 e.preventDefault();
+                $("#loader-wrapper").show();
                 var txtAval=$(this).val();
 
                 var patient_lab_report_id = $("input[name=patient_lab_report_id]").val();
@@ -2404,9 +2405,11 @@
                     data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
                     dataType: "json",
                     success: function(response) {
+                        $("#loader-wrapper").hide();
                         $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
                     },
                     error: function(error) {
+                        $("#loader-wrapper").hide();
                         alert(error.responseText);
                     }
                 });
@@ -2417,6 +2420,7 @@
 
                 var data = $(this).parent('div').prev('div').find("form").serializeArray();
                 var url = "{{ Route('lab-report.store') }}";
+                $("#loader-wrapper").show();
 
                 $.ajax({
                         type:"POST",
@@ -2426,6 +2430,7 @@
                             'X_CSRF_TOKEN': '{{ csrf_token() }}',
                         },
                         success: function(data) {
+                            $("#loader-wrapper").hide();
                             if(data.status == 400) {
                                 printErrorMsg(data.message);
                             } else {
@@ -2470,6 +2475,7 @@
                         },
                         error: function()
                         {
+                            $("#loader-wrapper").hide();
                             swal("Server Timeout!", "Please try again", "warning");
                         }
                     });
@@ -2488,6 +2494,7 @@
                     dangerMode: true,
                 }).then((willDelete) => {
                     if (willDelete) {
+                        $("#loader-wrapper").show();
                         $.ajax({
                             'type': 'delete',
                             'url': "{{ route('lab-report.destroy') }}",
@@ -2499,6 +2506,7 @@
                                 "patient_referral_id" : patient_referral_id
                             },
                             'success': function (data) {
+                                $("#loader-wrapper").hide();
                                 if(data.status == 400) {
                                     swal(
                                         'Error!',
@@ -2528,6 +2536,7 @@
                                 unload();
                             },
                             "error":function () {
+                                $("#loader-wrapper").hide();
                                 swal("Server Timeout!", "Please try again", "warning");
                                 unload();
                             }

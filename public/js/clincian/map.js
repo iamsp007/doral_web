@@ -211,7 +211,7 @@ function updateMap(destination) {
                 console.log(error)
             }
         })
-    },3000)
+    },5000)
 }
 
 //

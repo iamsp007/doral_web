@@ -201,4 +201,12 @@ class PatientDetail extends Model
     {
         return $this->hasMany('App\Models\Medicine', 'patient_id', 'id');
     }
+
+    /**
+     * Relation with referances
+     */
+    public function patientClinicalDetail()
+    {
+        return $this->hasOne('App\Models\PatientClinicalDetail', 'patient_id', 'id');
+    }
 }

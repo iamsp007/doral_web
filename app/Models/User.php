@@ -65,4 +65,12 @@ class User extends Authenticatable
         return $this->hasOne(PatientReferral::class,'user_id','id')->with(['service','filetype']);
     }
 
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
 }

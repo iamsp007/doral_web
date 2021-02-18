@@ -11,7 +11,7 @@
                <div class="row">
                   <div class="col-12 col-sm-3 col-md-3">
                      <div class="input_box">
-                        <div class="ls"><i class="las la-envelope circle"></i></div>
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
                            <h3 class="_title">Nursing Visits Due</h3>
                            <input type="text" class="form-control-plaintext _detail "
@@ -23,7 +23,7 @@
                   </div>
                   <div class="col-12 col-sm-3 col-md-3">
                      <div class="input_box">
-                        <div class="ls"><i class="las la-envelope circle"></i></div>
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
                            <h3 class="_title">MD Order Required</h3>
                            <input type="text" class="form-control-plaintext _detail "
@@ -35,7 +35,7 @@
                   </div>
                   <div class="col-12 col-sm-3 col-md-3">
                      <div class="input_box">
-                        <div class="ls"><i class="las la-envelope circle"></i></div>
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
                            <h3 class="_title">MD Order Due</h3>
                            <input type="text" class="form-control-plaintext _detail "
@@ -47,7 +47,7 @@
                   </div>
                   <div class="col-12 col-sm-3 col-md-3">
                      <div class="input_box">
-                        <div class="ls"><i class="las la-envelope circle"></i></div>
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
                            <h3 class="_title">MD Visit Due</h3>
                            <input type="text" class="form-control-plaintext _detail "

@@ -9,9 +9,12 @@
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
         <thead>
         <tr>
+            <th></th>
             <th>#</th>
             <th>Name</th>
+            <th>Gender</th>
             <th>SSN</th>
+            <th>Home Phone</th>
             <th>Patient Id</th>
             <th>Action</th>
         </tr>
@@ -41,8 +44,11 @@
             ajax: "{{  route('clinician.patientDetail.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
+                {data:'id',name:'id'},
                 {data: 'full_name', name: 'full_name'},
+                {data: 'gender', name: 'gender'},
                 {data: 'ssn', name: 'SSN'},
+                {data: 'home_phone', name: 'home_phone'},
                 {data: 'patient_id', name: 'PatientID'},            
                 {data: 'action', name: 'action'},
             

@@ -26,7 +26,7 @@ function initMap() {
             dataType:'json',
             success:function (response) {
                 var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
-                makeMarker(destination,base_url+'assets/img/icons/patient-icon.svg',response.patient.first_name+' '+response.patient.last_name)
+                makeMarker(destination,base_url+'assets/img/icons/patient-icon.svg',response.patient.detail.first_name+' '+response.patient.detail.last_name)
                 response.clinicians.map(function (resp) {
                     var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
                     referral_type[resp.referral_type]={
@@ -229,7 +229,7 @@ function calculateAndDisplayRoute(current,destination,directionsService,directio
     directionsService.route(request,(response, status)=>{
         if (status === 'OK') {
             var leg = response.routes[0].legs[0];
-
+console.log(leg)
             var html='<span>Name : '+origin_name+' <br/> Distance : '+leg.distance.text+' <br/> Duration : '+leg.duration.text+'</span> <br/> <br/>';
            // $('#right-panel').append(html);
             makeMarker(current,icon,origin_name)

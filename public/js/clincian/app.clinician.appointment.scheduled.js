@@ -103,7 +103,7 @@ $(function () {
                             ' \n' +
                             '        <button class="btn btn-success dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
                             ' \n' +
-                            '          Start RoadL 1 \n' +
+                            '          Start RoadL \n' +
                             ' \n' +
                             '          <span class=""></span>\n' +
                             ' \n' +

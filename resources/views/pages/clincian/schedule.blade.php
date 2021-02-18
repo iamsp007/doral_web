@@ -7,7 +7,7 @@
     <div class="app-roles">
         <!-- View Employee List HTML -->
         <div class="pt-2">
-            <table id="appointmentScheduled" class="table">
+            <table class="display responsive nowrap" style="width:100%" id="appointmentScheduled">
                 <thead>
                 <tr>
                     <th><input type="checkbox" class="selectall"></th>

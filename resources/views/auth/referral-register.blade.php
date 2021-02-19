@@ -23,13 +23,7 @@
                                 <form method="POST" action="{{ route('referral.register') }}">
                                     @csrf
                                     <div id="insurance">
-                                        @if($errors->any())
-                                            @foreach ($errors->all() as $error)
-                                                <div class="alert alert-danger" role="alert">
-                                                    {{ $error }}
-                                                </div>
-                                        @endforeach
-                                    @endif
+                                       
                                         <!-- Your Referral Type -->
                                         <div class="form-group mt-4 pt-2">
                                             <label for="referralType" class="label d-block">Your Referral Type</label>
@@ -51,21 +45,21 @@
                                         <div class="form-group">
                                             <label for="company" class="label">Company Name</label>
                                             <input type="text" class="form-control" id="company" name="company" placeholder="Company Name" value="{{ old('company') }}">
-                                            @error('company')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                             @if ($errors->has('company'))
+                                            <span class="invalid-feedback" role="alert" style="display: block;">
+                                                <strong>{{ $errors->first('company') }}</strong>
+                                            </span>
+                                        @endif
                                         </div>
                                         <!-- Email -->
                                         <div class="form-group">
                                             <label for="email" class="label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                            <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="{{ old('email') }}">
+                                            @if ($errors->has('email'))
+                                            <span class="invalid-feedback" role="alert" style="display: block;">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-pink btn-block"
                                                 name="signup" id="register">Create Your Account</button>

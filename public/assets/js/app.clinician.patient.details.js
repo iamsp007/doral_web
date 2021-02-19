@@ -7,7 +7,6 @@ function editAllField(sectionId) {
     $('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
 }
 function updateAllField(sectionId) {
-
     if (sectionId==="demographic"){
         var data = $('#demographic_form').serializeArray();
         data.push({name: 'type', value: 1});
@@ -19,7 +18,6 @@ function updateAllField(sectionId) {
     }else if (sectionId==="homecare"){
         var data = $('#homecare-form').serializeArray();
         data.push({name: 'type', value: 3});
-        console.log(data)
         demographyDataUpdate(data)
     }
     $('#'+sectionId+' [data-id]').addClass('form-control-plaintext').removeClass('form-control').addClass(
@@ -42,7 +40,7 @@ function demographyDataUpdate(data) {
             $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
         },
         error: function(error) {
-            console.log(error.responseText)
+            alert(error.responseText)
         }
     });
 }
@@ -239,7 +237,7 @@ $(function () {
                 window.location.reload();
             },
             error: function(error) {
-                console.log(error.responseText)
+                alert(error.responseText)
             }
         });
 

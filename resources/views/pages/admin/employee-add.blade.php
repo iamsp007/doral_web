@@ -642,14 +642,14 @@ $(document).ready(function () {
                 $(".alert-danger").hide();
             }, 1000);
         }
-        console.log( response );
+        
        }
       })
      });
 
     $('#upload_work_form').on('submit', function(event){
       event.preventDefault();
-      //console.log(new FormData(this));
+      
       $.ajax({
        url:'/admin/employee-work',
        method:"POST",

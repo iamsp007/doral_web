@@ -13,7 +13,8 @@
     <table class="display responsive nowrap" style="width:100%" id="patient-table" >
         <thead>
         <tr>
-            <th></th>
+            <th><input name="select_all" value="1" type="checkbox"></th>
+            <th>ID</th>
             <th>Patient Name</th>
             <th>Service</th>
             <th>File Type</th>
@@ -37,67 +38,165 @@
 
 @push('scripts')
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>--}}
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
-    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+<script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
-       var table = $('#patient-table').DataTable({
-            processing: true,
-            serverSide: true,
+        var table = $('#patient-table').DataTable({
+            "processing": true,
+            "language": {
+                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+            },
+            "serverSide": true,
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
+                {data:'id',name:'id'},
                 {data:'id',name:'id'},
                 {
                     data:'first_name',
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/patient-detail/') }}/' + row.user_id + '>' + row.first_name +' '+ row.last_name + '</a>';
+                        data = '<a href={{ url('/patient-detail/') }}/' + row.id + '>' + row.first_name +' '+ row.last_name + '</a>';
                         return data;
                     }
                 },
-                {data:'service.name',name:'service.name',"bSortable": true},
-                {data:'filetype.name',name:'filetype.name',"bSortable": true},
-                {data:'gender',name:'gender',"bSortable": true},
+//                {data:'last_name',name:'last_name',"bSortable": true},
+                {
+                    data:'patient_detail.service.name',
+                    name:'patient_detail.service.name',
+                    "bSortable": true,
+                    render:function(data, type, row, meta){
+                        if (data){
+                            return data;
+                        }
+                        return '--';
+                    }
+                },
+                {
+                    data:'patient_detail.filetype.name',
+                    name:'patient_detail.filetype.name',
+                    "bSortable": true,
+                    render:function(data, type, row, meta){
+                        if (data){
+                            return data;
+                        }
+                        return '--';
+                    }
+                },
+                {
+                    data:'patient_detail.gender',
+                    name:'patient_detail.gender',
+                    "bSortable": true,
+                    render:function(data, type, row, meta){
+                        if (data == 'MALE') {
+                            return 'Male';
+                        } else if (data == 'FEMALE') {
+                            return 'Female';
+                        } else {
+                            return 'Other';
+                        }
+                    }
+                },
                 {
                     data:'dob',
                     name:'dob',
                     "bSortable": true
                 },
-                {data:'Zip',name:'Zip',"bSortable": true},
                 {
-                    data:'city',
-                    name:'city',
+                    data:'patient_detail.Zip',
+                    name:'patient_detail.Zip',
                     "bSortable": true,
-                    render:function (data, type, row, meta) {
-
-                        return row.city+ ' - '+row.state;
+                    render:function(data, type, row, meta){
+                        if (data){
+                            return data;
+                        }
+                        return '--';
                     }
                 },
-                {data:'action',name:'action',"bSortable": false}
+                {
+                    data:'patient_detail.city',
+                    name:'patient_detail.city',
+                    "bSortable": true,
+                    render:function (data, type, row, meta) {
+                        if (row.patient_detail){
+                            return row.patient_detail.city+ ' - '+row.patient_detail.state;
+                        }
+                        return '-';
+                    }
+                },
+                {data: 'action',name: 'action'}
             ],
             "order": [[ 1, "desc" ]],
-           'columnDefs': [
-               {
-                   'targets': 0,
-                   orderable: false,
-                   className: 'select-checkbox',
-                   'checkboxes': {
-                       'selectRow': true
-                   }
-               }
-           ],
-           'select': {
-               'style': 'multi'
-           },
-           buttons: [
-               { extend: "create"},
-               { extend: "edit" },
-               { extend: "remove" }
-           ]
-       });;
+            "pageLength": 5,
+            "lengthMenu": [ [5, 10,20, 25,100, -1], [5, 10,20, 25,100, "All"] ],
+            'columnDefs': [
+                {
+                    targets: 0,
+                    'searchable': false,
+                    'orderable': false,
+                    'width': '1%',
+                    'className': 'dt-body-center',
+                    'render': function (data, type, full, meta){
+                        return '<input type="checkbox">';
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+        });
+
+        var rows_selected = [];
+        // Handle click on checkbox
+        $('#patient-table tbody').on('click', 'input[type="checkbox"]', function(e){
+            var $row = $(this).closest('tr');
+
+            // Get row data
+            var data = table.row($row).data();
+            // Get row ID
+            var rowId = data;
+
+            // Determine whether row ID is in the list of selected row IDs
+            var index = $.inArray(rowId, rows_selected);
+
+            // If checkbox is checked and row ID is not in list of selected row IDs
+            if(this.checked && index === -1){
+                rows_selected.push(rowId);
+
+                // Otherwise, if checkbox is not checked and row ID is in list of selected row IDs
+            } else if (!this.checked && index !== -1){
+                rows_selected.splice(index, 1);
+            }
+
+            if(this.checked){
+                $row.addClass('selected');
+            } else {
+                $row.removeClass('selected');
+            }
+            if (rows_selected.length>0){
+                $('#acceptRejectBtn').show();
+            }else {
+                $('#acceptRejectBtn').hide();
+            }
+            // Prevent click event from propagating to parent
+            e.stopPropagation();
+        });
+
+        // Handle click on "Select all" control
+        $('thead input[name="select_all"]', table.table().container()).on('click', function(e){
+            if(this.checked){
+                $('#patient-table tbody input[type="checkbox"]:not(:checked)').trigger('click');
+            } else {
+                $('#patient-table tbody input[type="checkbox"]:checked').trigger('click');
+            }
+
+            // Prevent click event from propagating to parent
+            e.stopPropagation();
+        });
 
        function changePatientStatus(element,status) {
+           $("#loader-wrapper").show();
             var id=$(element).attr('data-id');
             $.ajax({
                 headers: {
@@ -111,22 +210,30 @@
                     status:status
                 },
                 success:function (response) {
+                    $("#loader-wrapper").hide();
+                    alert(response.message)
+                    $('#acceptRejectBtn').hide();
                     table.ajax.reload();
                 },
                 error:function (error) {
-                    console.log(error)
+                    table.ajax.reload();
+                    $("#loader-wrapper").hide();
+                    alert(error)
                 }
+                
             });
         }
 
         function allSelectedAccept() {
-            var rows_selected = table.column(0).checkboxes.selected();
+            $("#loader-wrapper").show();
+
             // Iterate over all selected checkboxes
             var ids=[];
             $.each(rows_selected, function(index, rowId){
                 // Create a hidden element
-                ids.push(rowId)
+                ids.push(rowId.id)
             });
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -139,10 +246,14 @@
                     status:1
                 },
                 success:function (response) {
+                    $("#loader-wrapper").hide();
+                    alert(response.message)
                     table.ajax.reload();
+                    $('#acceptRejectBtn').hide();
                 },
                 error:function (error) {
-                    console.log(error.message)
+                    $("#loader-wrapper").hide();
+                    alert(error.message)
                 }
             });
         }

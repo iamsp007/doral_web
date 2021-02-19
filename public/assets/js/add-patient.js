@@ -5,7 +5,6 @@ $(document).ready(function () {
     var steps = $("fieldset").length;
     setProgressBar(current);
     $(".next").click(function () {
-        console.log($(this).attr('id'));
         if ( ! $('[name="enrollment"]').is(':checked') && $(this).attr('id') == 'enroll' ) {
             $("span.enrollment").text('Please Select Patient Enrollment Status').addClass('d-flex justify-content-center align-items-center mt-4');
             return false;

@@ -5,26 +5,47 @@
 @endsection
 @section('content')
     <div class="app-roles">
-        <!-- View Employee List HTML -->
         <div class="pt-2">
-            <table id="appointmentScheduled" class="table">
+            <table class="display responsive nowrap" style="width:100%" id="appointmentScheduled">
                 <thead>
-                <tr>
-                    <th><input type="checkbox" class="selectall"></th>
-                    <th>Patient Name</th>
-                    <th>Gender</th>
-                    <th>Cause Of Appointment</th>
-                    <th>Date and Time</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                    <th width="34%">Action</th>
-                </tr>
+                    <tr>
+                        <th><input type="checkbox" class="selectall"></th>
+                        <th>Patient Name</th>
+                        <th>Gender</th>
+                        <th>Reason Of Appointment</th>
+                        <th>Date and Time</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th width="34%">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
+
+            <!-- Modal -->
+            <div class="modal fade" id="patient_request_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
 @endsection
 @section('app-video')
     <div class="app-video">
@@ -909,7 +930,7 @@
     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/bootstrap.css" />
      <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
       <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
-{{--    <style>--}}
+{{--    <style> --}}
 {{--        html, body {overflow: auto;}--}}
 {{--        body > #zmmtg-root {display: none;}--}}
 {{--        #zmmtg-root, .meeting-client, .meeting-client-inner {position: relative;width:97%;}--}}

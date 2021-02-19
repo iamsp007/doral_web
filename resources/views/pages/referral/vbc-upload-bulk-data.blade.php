@@ -2,7 +2,7 @@
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')
-    VBC - Bulk Patient Upload
+    VBC - Import Patients
 @endsection
 @section('content')
     <div class="app-vbc">
@@ -102,29 +102,21 @@
             autoProcessQueue: true,
             progress:true,
             accept: function(file, done) {
-                console.log("uploaded");
                 done();
             },
             init: function() {
                 this.on("maxfilesexceeded", function(file){
-                    $.toast({
-                        heading: 'Error',
-                        text: 'Only one file allowed',
-                        showHideTransition: 'fade',
-                        icon: 'error'
-                    })
+                    var msgEl = $(file.previewElement).find('.dz-error-message');
+                    msgEl.text('Only one file allowed');
+                    msgEl.show();
+                    msgEl.css("opacity", 1);
                     return false
                 });
                 this.on("success", function(file, responseText) {
-                    $.toast({
-                        heading: responseText.status===0?'Error':'Success',
-                        text: responseText.message,
-                        showHideTransition: 'slide',
-                        icon: responseText.status===0?'error':'success'
-                    })
+                    alert(responseText.message)
                     setTimeout(function () {
-                       // window.location.reload();
-                    },3000)
+                        window.location.href=base_url+'referral/vbc';
+                    },1000)
                 });
             },
             paramName: 'file_name',
@@ -147,7 +139,6 @@
         });
         function chooseFile(event) {
             fileType = $(event).val();
-            console.log(fileType)
         }
     </script>
 @endpush

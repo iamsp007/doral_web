@@ -28,7 +28,12 @@ class ClinicianService
 
             $response = $this->client->request(
                 'POST',
-                '/clinician-patient-request-list'
+                '/clinician-patient-request-list',
+                [
+                    'json'=>array(
+                        'type'=>'latest'
+                    )
+                ]
             );
 
 
@@ -68,10 +73,11 @@ class ClinicianService
 
 
             $response = $response->getBody()->getContents();
+            \Log::info($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
+            \Log::info($exception->getMessage());
         }
     }
 
@@ -200,10 +206,11 @@ class ClinicianService
                 ]
             );
             $response = $response->getBody()->getContents();
+            \Log::info($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
+            \Log::info($exception->getMessage());
         }
     }
 
@@ -233,6 +240,24 @@ class ClinicianService
                 '/leave-video-meeting',
                 [
                     'json'=>array('appointment_id'=>$appointment_id)
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function patientRequest($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/patient-request',
+                [
+                    'json'=>$data
                 ]
             );
             $response = $response->getBody()->getContents();

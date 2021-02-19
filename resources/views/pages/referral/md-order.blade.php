@@ -12,7 +12,7 @@
 {{--            New Patient</a>--}}
         <a href="{{ route('referral.md-order-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-            Bulk Patient Upload</a>
+            Import Patients</a>
     </div>
 @endsection
 
@@ -60,7 +60,7 @@
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href={{ url('/patient-detail/') }}/' + row.user_id + '>' + data + '</a>';
+                        data = '<a href={{ url('/referral/patient-detail/') }}/' + row.user_id + '>' + data + '</a>';
                         return data;
                     }
                 },

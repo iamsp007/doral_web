@@ -23,7 +23,7 @@ return [
                 ]
             ]
         ],
-//        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient'],
+        ['name'=>'Patient Details Update','url'=>env('APP_URL').'clinician/get-patient-detail','route'=>'clinician/get-patient-detail','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Patient Details Update'],
         [
             'name'=>'Appointment',
             'url'=>'javascript:void(0)',
@@ -114,7 +114,7 @@ return [
                 ]
             ]
         ],
-//        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
+        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'admin'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'admin/dashboard','route'=>'admin/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
@@ -129,7 +129,7 @@ return [
             'icon_title'=>'Referral Section',
             'menu'=>[
                 [
-                    'name'=>'New Registered Referral',
+                    'name'=>'Pending Referral Source',
                     'url'=>env('APP_URL').'admin/referral-approval',
                     'route'=>'admin/referral-approval',
                     'icon'=>'home-sb-select.svg',
@@ -137,7 +137,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Activated Referral',
+                    'name'=>'Active Referral Source',
                     'url'=>env('APP_URL').'admin/referral-active',
                     'route'=>'admin/referral-active',
                     'icon'=>'home-sb-select.svg',
@@ -145,7 +145,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Rejected Referral',
+                    'name'=>'Reject Referral Source',
                     'url'=>env('APP_URL').'admin/referral-rejected',
                     'route'=>'admin/referral-rejected',
                     'icon'=>'home-sb-select.svg',
@@ -163,25 +163,25 @@ return [
             'icon_title'=>'Clinician Section',
             'menu'=>[
                 [
-                    'name'=>'New Registered Clinician',
-                    'url'=>env('APP_URL').'admin/referral-approval',
-                    'route'=>'admin/referral-approval',
+                    'name'=>'Pending Clinician',
+                    'url'=>env('APP_URL').'admin/clinician',
+                    'route'=>'admin/clinician',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Activate Clinician',
-                    'url'=>env('APP_URL').'admin/referral-active',
-                    'route'=>'admin/referral-active',
+                    'name'=>'Active Clinician',
+                    'url'=>env('APP_URL').'admin/clinician',
+                    'route'=>'admin/clinician',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Rejected Clinician',
-                    'url'=>env('APP_URL').'admin/referral-rejected',
-                    'route'=>'admin/referral-rejected',
+                    'name'=>'Reject Clinician',
+                    'url'=>env('APP_URL').'admin/clinician',
+                    'route'=>'admin/clinician',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
@@ -232,7 +232,7 @@ return [
                 ],
                 [
                     'name'=>'Assigned Patients',
-                    'url'=>env('APP_URL').'co-ordinator/new-patient-list-show',
+                    'url'=>env('APP_URL').'supervisor/assigned-patients',
                     'route'=>'co-ordinator/new-patient-list-show','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'New Patients',
                 ],
                 [
@@ -268,5 +268,32 @@ return [
     ],
     'partner'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'partner','route'=>'partner','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
+        [
+            'name'=>'Employees Section',
+            'url'=>'javascript:void(0)',
+            'route'=>'javascript:void(0)',
+            'icon'=>'employee-sb.svg',
+            'icon_hover'=>'employee-sb-select.svg',
+            'icon_title'=>'Employees Section',
+            'menu'=>[
+                [
+                    'name'=>'Add New Employee',
+                    'url'=>env('APP_URL').'partner/add-employee',
+                    'route'=>'partner/add-employee',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Add Employee'
+                ],
+                [
+                    'name'=>'Employees',
+                    'url'=>env('APP_URL').'partner/employees',
+                    'route'=>'partner/employees',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Employees'
+                ]
+            ]
+        ]
     ],
+    
 ];

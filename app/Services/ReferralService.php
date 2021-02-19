@@ -171,4 +171,67 @@ class ReferralService
 
         }
     }
+
+    public function storePatient($data)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/auth/store-patient',
+                [
+                    'json'=>$data,
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response,true);
+            return $data;
+        } catch (\Exception $exception) {
+            
+        }
+    }
+
+    //store patient lab report
+    public function storePatientLabReport($input)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/lab-report/store',
+                [
+                    'json' => $input
+                ]
+            );
+           
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+        }
+    }
+
+    //store patient lab report note
+    public function storePatientLabReportNote($input)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/lab-report-note/store',
+                [
+                    'json' => $input
+                ]
+            );
+           
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+           
+            return $data;
+        } catch (\Exception $exception) {
+        }
+    }
 }

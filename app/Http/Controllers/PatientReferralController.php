@@ -56,12 +56,10 @@ class PatientReferralController extends Controller
         $record = [];
         try {
 
-            $referralServices = new ReferralService();
-            $response = $referralServices->mdOrder(2);
-            if ($response->status===true){
-                $record = $response->data;
-            }
-            return DataTables::of($record)
+            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
+                ->where('service_id', '=','2')
+                ->whereNotNull('first_name');
+            return DataTables::of($patientReferral)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
             })
@@ -100,13 +98,11 @@ class PatientReferralController extends Controller
         $message = "";
         $record = [];
         try {
-            $referralServices = new ReferralService();
-            $response = $referralServices->mdOrder(1);
-            if ($response->status===true){
-                $record = $response->data;
-            }
+            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
+                ->where('service_id', '=',1)
+                ->whereNotNull('first_name');
 
-            return DataTables::of($record)
+            return DataTables::of($patientReferral)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
             })
@@ -144,13 +140,10 @@ class PatientReferralController extends Controller
         $message = "";
         $record = [];
         try {
-            $referralServices = new ReferralService();
-            $response = $referralServices->mdOrder(3);
-            if ($response->status===true){
-                $record = $response->data;
-            }
-
-            return DataTables::of($record)
+            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
+                ->where('service_id', '=','3')
+                ->whereNotNull('first_name');
+            return DataTables::of($patientReferral)
             ->editColumn('first_name', function ($contact){
                 return $contact->first_name." ".$contact->last_name;
             })
@@ -171,7 +164,7 @@ class PatientReferralController extends Controller
             })
             ->editColumn('dob', function ($contact){
                 if($contact->dob!='')
-                return date('m-d-Y', strtotime($contact->dob) );
+                return date('m-d-Y', strtotime($contact->dob));
                 else
                 return '--';
             })
@@ -254,5 +247,73 @@ class PatientReferralController extends Controller
             ];
         }
         return response()->json($response, 422);
+    }
+
+    public function addPatient()
+    {
+        $client = new Client();
+        $states = $client->request('GET', env('API_URL').'/auth/states');
+        $states = json_decode($states->getBody()->getContents());
+
+        return view('pages.referral.add-patient',compact('states'));
+    }
+
+    public function getCities(Request $request)
+    {
+        $client = new Client();
+
+        $states = $client->request('GET', env('API_URL').'/auth/states');
+        $states = json_decode($states->getBody()->getContents());
+        $neededObject = array_filter(
+            $states,
+            function ($e) use (&$request) {
+                return $e->id == $request->state;
+            }
+        );
+        $cities = $client->request('POST', env('API_URL').'/auth/filter-cities', [
+            'multipart' => [
+                [
+                    'name'=>'state_code',
+                    'contents'=>reset($neededObject)->state_code
+                ]
+            ],
+            'headers' => [
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Access-Control-Allow-Origin' => 'http://localhost'
+            ]
+        ]);
+
+        return json_decode($cities->getBody()->getContents());
+    }
+
+    public function storePatient(Request $request)
+    {
+        try {
+            $client = new Client();
+
+            $data = $request->all();
+
+            $referralservice = new ReferralService();
+
+            $responseArray = $referralservice->storePatient($data);
+
+            if($responseArray['status']) {
+                $status = 1;
+                $record = $responseArray['data'];
+                return redirect()->route('referral.patient-detail', ['patient_id' => $record['user_id']]);
+            }
+            $message = $responseArray->message;
+            return redirect()->back()->withErrors($message);
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+            return redirect()->back()->withErrors($message);
+        }
+        $response = [
+            'status' => $status,
+            'message' => $message
+        ];
+
+        return response()->json($response, 201);
     }
 }

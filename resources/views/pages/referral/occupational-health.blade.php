@@ -12,7 +12,7 @@
         {{--            New Patient</a>--}}
         <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn">
             <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-            Bulk Patient Upload</a>
+            Import Patients</a>
     </div>
 @endsection
 @section('content')
@@ -63,8 +63,10 @@
                     }
                 },
                 {
-                    data:'plans.name',
-                    name:'plans.name',
+                    data:'plan',
+                    name:'plan',
+//                    data:'plans.name',
+//                    name:'plans.name',
                     "bSortable": true
                 },
                 {data:'ssn',name:'ssn',"bSortable": true},

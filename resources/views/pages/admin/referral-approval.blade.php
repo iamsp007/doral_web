@@ -129,10 +129,10 @@
                                 window.location.reload();
                             }, 1000);
                         }
-                        console.log( response );
+                       
                     },
                     error: function( e ) {
-                        console.log(e);
+                        alert('Something went wrong!');
                     }
                 });
 
@@ -163,10 +163,9 @@
                                 $(".alert-danger").hide();
                             }, 1000);
                         }
-                        console.log( response );
                     },
                     error: function( e ) {
-                        console.log(e);
+                        alert('error');
                     }
                 });
 

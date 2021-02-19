@@ -36,7 +36,8 @@ class AdminService
             $data = json_decode($response,true);
             return $data;
         }catch (\Exception $exception){
-
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -54,7 +55,8 @@ class AdminService
             $data = json_decode($response,true);
             return $data;
         }catch (\Exception $exception){
-
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -74,7 +76,8 @@ class AdminService
             $data = json_decode($response,true);
             return $data;
         }catch (\Exception $exception){
-
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -89,7 +92,32 @@ class AdminService
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
 
+    public function updateProfile($data){
+        try {
+
+            // $response = $this->client->request(
+            //     'POST',
+            //     '/auth/company/update/'.$id
+            // );
+             $response = $this->client->request(
+                'POST',
+                '/auth/company_referral/update',
+                [
+                    'json'=>$data
+                    //'id'=>$id
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -107,7 +135,8 @@ class AdminService
             $data = json_decode($response,true);
             return $data;
         }catch (\Exception $exception){
-
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
     public function getNewPatientList(){
@@ -123,7 +152,8 @@ class AdminService
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
     public function getPatientDetail($patient_id){
@@ -139,7 +169,171 @@ class AdminService
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+    public function patientMedicineList($patient_id){
+        try {
 
+            $response = $this->client->request(
+                'GET',
+                '/patient-medicine-list/'.$patient_id
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    public function getClinicianList()
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/auth/get-clinician-list'
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+            \Log::info($exception);
+        }
+    }
+
+    public function getClinicianDetail($clinician_id)
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/auth/get-clinician-detail/'.$clinician_id
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+            \Log::info($exception);
+        }
+    }
+
+    public function saveToken($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/auth/save-token',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+    public function addInsurance($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/add-insurance',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+    public function addMedicine($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/add-medicine',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+    public function demographyDataUpdate($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/demographyData-update',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    public function ccmReadingLevelHigh()
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/ccm-reading-level-high'
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
+    public function appointments($payload)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/appointments',
+                [
+                    'json'=>$payload
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
 }

@@ -12,8 +12,8 @@
                             <div class="col-12 col-sm-3">
                                 <div class="d-flex">
                                     <div class="mr-2">
-                                        <img src="../assets/img/user/01.png" class="user_photo" alt=""
-                                             srcset="../assets/img/user/01.png">
+                                        <img src="{{ asset('assets/img/user/01.png') }}" class="user_photo" alt=""
+                                             srcset="{{ asset('assets/img/user/01.png') }}">
                                     </div>
                                     <div>
                                         <h1 class="title text-info">Alex Doe</h1>
@@ -119,7 +119,7 @@
     <script src="{{ asset('js/Zoom/index.js') }}"></script>
     <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
     <script>
-        startMeeting('{{ $meeting_number }}');
+        startMeeting('9601725156}');
     </script>
     <script>
 

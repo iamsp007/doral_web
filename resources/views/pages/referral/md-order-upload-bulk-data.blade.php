@@ -2,17 +2,81 @@
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')
-    MD Order - Bulk Patient Upload
+    MD Order - Import Patients
 @endsection
 @section('content')
 
 <div class="app-vbc">
     <div class="add-new-patient section1">
+        <div class="margin-60">
+            <!--<a href="javascript:void(0)" onclick="sectionSteps(2,1)"><img src="../assets/img/icons/previous.svg" class="mr-2"></a>-->
+            <!--<a href="javascript:void(0)" onclick="sectionSteps(1,2)"><img src="../assets/img/icons/next.svg"></a>-->
+        </div>
+        <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
+        <h1 class="pt-4 _title1">Patient's Enrollment Status</h1>
+        <div class="category-type pt-4 control-group">
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">On Boarding Patient</span>
+                    <input type="radio" value="1" name="enrollstatus" class="enrollstatus" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+            </div>
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">Existing Patient</span>
+                    <input type="radio" value="2" name="enrollstatus" class="enrollstatus" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+            </div>
+        </div>
+        <div class="d-flex pt-4 justify-content-center">
+            <button type="button" class="continue-btn mr-2 openSection1" onclick="sectionSteps(1,2)" name="Continue">Continue</button>
+                <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
+        </div>
+    </div>
+    <div class="add-new-patient section2" style="display: none;">
+        <div class="margin-60">
+            <a href="javascript:void(0)" onclick="sectionSteps(2,1)"><img src="../assets/img/icons/previous.svg" class="mr-2"></a>
+            <a href="javascript:void(0)" id="section2NextArrow" style="display: none;" onclick="sectionSteps(2,3)"><img src="../assets/img/icons/next.svg"></a>
+        </div>
+        <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
+        <h1 class="pt-4 _title1">Type of Services</h1>
+        <div class="category-type pt-4 control-group">
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">CDPAP</span>
+                    <input type="radio" value="cdpap" name="services" class="services" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+            </div>
+            <div class="box">
+                <label class="control control-radio block">
+                    <span class="_title3">LHCSA</span>
+                    <input type="radio" value="lhcsa" name="services" class="services" />
+                    <div class="control_indicator"></div>
+                </label>
+                <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
+            </div>
+        </div>
+        <div class="d-flex pt-4 justify-content-center">
+            <button type="button" class="continue-btn mr-2 openSection2" onclick="sectionSteps(2,3)" name="Continue">Continue</button>
+                <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
+        </div>
+    </div>
+    <div class="add-new-patient section3" style="display: none;">
+        <div class="margin-60">
+            <a href="javascript:void(0)" onclick="sectionSteps(3,2)"><img src="../assets/img/icons/previous.svg" class="mr-2"></a>
+            <a href="javascript:void(0)" id="section3NextArrow" onclick="sectionSteps(3,4)"><img src="../assets/img/icons/next.svg"></a>
+        </div>
         <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
         <h1 class="pt-4 _title1">Select your form</h1>
         <div class="category-type pt-4 control-group">
             @foreach($data->mdforms as $value)
-            <div class="box">
+            <div class="box form-{{$value->id}}" style="display: none;">
                 <label class="control control-radio block">
                     <span class="_title3">{{$value->name}}</span>
                     <input type="radio" value="{{$value->id}}" name="formName" class="formName" />
@@ -23,11 +87,15 @@
             @endforeach
         </div>
         <div class="d-flex pt-4 justify-content-center">
-            <button type="button" class="continue-btn mr-2 openSection2" name="Continue">Continue</button>
+            <button type="button" class="continue-btn mr-2 openSection3" onclick="sectionSteps(3,4)" name="Continue">Continue</button>
                 <button type="button" class="cancel-btn" name="Cancel">Cancel</button>
         </div>
     </div>
-    <div class="choose-file-type section2" style="display: none;">
+    <div class="choose-file-type section4" style="display: none;">
+        <div class="margin-60">
+            <a href="javascript:void(0)" onclick="sectionSteps(4,3)"><img src="../assets/img/icons/previous.svg" class="mr-2"></a>
+            <!--<a href="javascript:void(0)" onclick="sectionSteps(2,3)"><img src="../assets/img/icons/next.svg"></a>-->
+        </div>
         <h1>Choose File Type</h1>
         <div class="category-type control-group">
             <div class="box">
@@ -56,7 +124,9 @@
             <p>Upload from your computer (.xls, .xlsx, .csv,.pdf)</p>
             <div class="upload-files">
 
-                <input type="hidden" name="formSelect" id="formSelect">
+                <input type="hidden" name="formSelect" id="formSelect" value="">
+                <input type="hidden" name="enrollstatus" id="enrollstatus" value="">
+                <input type="hidden" name="services" id="services" value="">
                 <div class="upload_icon"></div>
                 <div>
                     <h1 class="_title">Drag & Drop</h1>
@@ -94,14 +164,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-            $(".openSection2").click(function() {
-                var formName = $(".formName:checked").val();
-                $("#formSelect").val(formName);
-                $(".section1").hide();
-                $(".section2").show();
-
-            });
         });
     </script>
     <script>
@@ -122,29 +184,21 @@
             autoProcessQueue: true,
             progress:true,
             accept: function(file, done) {
-                console.log("uploaded");
                 done();
             },
             init: function() {
                 this.on("maxfilesexceeded", function(file){
-                    $.toast({
-                        heading: 'Error',
-                        text: 'Only one file allowed',
-                        showHideTransition: 'fade',
-                        icon: 'error'
-                    })
+                    var msgEl = $(file.previewElement).find('.dz-error-message');
+                    msgEl.text('Only one file allowed');
+                    msgEl.show();
+                    msgEl.css("opacity", 1);
                     return false
                 });
                 this.on("success", function(file, responseText) {
-                    $.toast({
-                        heading: responseText.status===0?'Error':'Success',
-                        text: responseText.message,
-                        showHideTransition: 'slide',
-                        icon: responseText.status===0?'error':'success'
-                    })
+                    alert(responseText.message)
                     setTimeout(function () {
-                       // window.location.reload();
-                    },30000)
+                        window.location.href=base_url+'referral/md-order';
+                    },1000)
                 });
             },
             paramName: 'file_name',
@@ -167,7 +221,65 @@
         });
         function chooseFile(event) {
             fileType = $(event).val();
-            console.log(fileType)
+        }
+        function sectionSteps(current,next) {
+            var getenrollstatus = $("#enrollstatus").val();
+            var getservices = $("#services").val();
+            var getformSelect = $("#formSelect").val();
+            if(getformSelect != '') {
+                $("#section2NextArrow").show();
+            }
+            if(getformSelect != '') {
+                $("#section2NextArrow").show();
+            }
+            if(current == 1 && next > current) {
+                var enrollstatus = $(".enrollstatus:checked").val();
+                if(enrollstatus == '1' || enrollstatus == '2') {
+                    $("#enrollstatus").val(enrollstatus);
+                }else {
+                    alert('Please Select Enrollment Status');
+                    return false;
+                }
+            }else if(current == 2 && next > current) {
+                var services = $(".services:checked").val();
+                if(services == 'cdpap' || services == 'lhcsa') {
+                    $("#services").val(services);
+                    if(services == 'cdpap') {
+                       $(".form-2").show();
+                       $(".form-1").hide(); 
+                       $(".form-3").hide(); 
+                       $(".form-4").hide(); 
+                    }else {
+                       $(".form-1").show(); 
+                       $(".form-2").hide(); 
+                       $(".form-3").show(); 
+                       $(".form-4").show(); 
+                    }
+                }else {
+                    alert('Please Select Service Type');
+                    return false;
+                }
+            }else if(current == 3 && next > current) {
+                var formName = $(".formName:checked").val();
+                var getSelServ = $("#services").val();
+                if(getSelServ == 'cdpap') {
+                    if(formName == '2') {
+                        $("#formSelect").val(formName); 
+                    }else {
+                        alert('Please Select Form');
+                        return false;
+                    }
+                }else {
+                    if(formName == '1' || formName == '3' || formName == '4') {
+                        $("#formSelect").val(formName); 
+                    }else {
+                        alert('Please Select Form');
+                        return false;
+                    }
+                }
+            }
+            $(".section"+current).hide();
+            $(".section"+next).show().addClass('fadeIn');
         }
     </script>
 @endpush

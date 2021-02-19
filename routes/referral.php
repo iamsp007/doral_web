@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\PatientLabReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'/referral'],function (){
@@ -8,6 +10,12 @@ Route::group(['prefix'=>'/referral'],function (){
             return view('pages.referral.dashboard');
         })->name('referral.dashboard');
 
+        Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
+        Route::get('filter-cities', 'App\Http\Controllers\PatientReferralController@getCities')->name('referral.filter-cities');
+        Route::post('store-patient', 'App\Http\Controllers\PatientReferralController@storePatient')->name('referral.store-patient');
+        Route::get('patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('referral.patient-detail');
+        // Route::get('referral/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@index')->name('referral.patient.detail');
+        // Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@getPatientDetail')->name('patients.detail');
         Route::get('/vbc', 'App\Http\Controllers\PatientReferralController@vbc')->name('referral.vbc');
         Route::get('/vbc-get-data', 'App\Http\Controllers\PatientReferralController@vbcGetData')->name('referral.vbc-get-data');
         Route::get('/vbc-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@vbcUploadBulk')->name('referral.vbc-upload-bulk-data');
@@ -24,4 +32,7 @@ Route::group(['prefix'=>'/referral'],function (){
         Route::post('/occupational-health-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@storeOccupational')->name('referral.occupational-health-upload-bulk-data-store');
         Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
     });
+    Route::post('/lab-report/store', 'App\Http\Controllers\PatientLabReportController@store')->name('lab-report.store');
+    Route::post('/lab-report-note/store', 'App\Http\Controllers\PatientLabReportController@addNote')->name('lab-report-note.store');
+    Route::delete('lab-report/destroy', 'App\Http\Controllers\PatientLabReportController@destroy')->name('lab-report.destroy');
 });

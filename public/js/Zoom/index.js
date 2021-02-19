@@ -38,6 +38,9 @@ function beginJoin(signature,meetingConfig) {
                 userEmail: meetingConfig.userEmail,
                 passWord: meetingConfig.passWord,
                 success: function (res) {
+                    // $('.meeting-app').removeAttr('style');
+                    $('.join-dialog').removeAttr('style');
+                    $('.active-video-container__wrap').removeAttr('style');
                     console.log("join meeting success");
                     console.log("get attendeelist");
                     ZoomMtg.getAttendeeslist({});

@@ -2,11 +2,11 @@
 
 @section('title','Welcome to Doral')
 @section('pageTitleSection')
-    Occupational Health - Bulk Patient Upload
+    Occupational Health - Import Patients
 @endsection
 @section('content')
     <div class="app-vbc">
-        <div class="choose-file-type">
+        <div class="choose-file-type section2">
             <h1>Choose File Type</h1>
             <div class="category-type control-group">
                 <div class="box">
@@ -102,29 +102,21 @@
             autoProcessQueue: true,
             progress:true,
             accept: function(file, done) {
-                console.log("uploaded");
                 done();
             },
             init: function() {
                 this.on("maxfilesexceeded", function(file){
-                    $.toast({
-                        heading: 'Error',
-                        text: 'Only one file allowed',
-                        showHideTransition: 'fade',
-                        icon: 'error'
-                    })
+                    var msgEl = $(file.previewElement).find('.dz-error-message');
+                    msgEl.text('Only one file allowed');
+                    msgEl.show();
+                    msgEl.css("opacity", 1);
                     return false
                 });
                 this.on("success", function(file, responseText) {
-                    $.toast({
-                        heading: responseText.status===0?'Error':'Success',
-                        text: responseText.message,
-                        showHideTransition: 'slide',
-                        icon: responseText.status===0?'error':'success'
-                    })
+                    alert(responseText.message)
                     setTimeout(function () {
-                       // window.location.reload();
-                    },30000)
+                       window.location.href=base_url+'referral/occupational-health';
+                    },1000)
                 });
             },
             paramName: 'file_name',
@@ -147,7 +139,16 @@
         });
         function chooseFile(event) {
             fileType = $(event).val();
-            console.log(fileType)
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".openSection1").click(function() {
+                var enrollstatus = $(".enrollstatus:checked").val();
+                $("#enrollstatus").val(enrollstatus);
+                $(".section1").hide();
+                $(".section2").show().addClass('fadeIn');
+            });
+        });
     </script>
 @endpush

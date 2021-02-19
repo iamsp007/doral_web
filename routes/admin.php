@@ -12,7 +12,8 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
     /*Route::get('/employee', function () {
         return view('pages.admin.employee');
     })->name('admin.employee');*/
-
+    Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@getPatientDetail')->name('patient.detail');
+    Route::post('/add-insurance','\App\Http\Controllers\PatientController@addInsurance')->name('patient.addInsurance');
     Route::get('/employee', 'App\Http\Controllers\EmployeeController@index')->name('admin.employee');
     Route::get('/employee-add', 'App\Http\Controllers\EmployeeController@employeeAdd')->name('admin.employee-add');
     Route::post('/employee-store', 'App\Http\Controllers\EmployeeController@employeeStore')->name('admin.employee-store');
@@ -29,6 +30,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
     Route::get('/referral-rejected', 'App\Http\Controllers\CompanyController@rejected')->name('admin.referral.rejected');
     Route::post('/referral-status', 'App\Http\Controllers\CompanyController@updateStatus')->name('admin.updateStatus');
     Route::get('/referral-profile/{id}', 'App\Http\Controllers\CompanyController@profile');
+    Route::post('/referral-profile-update', 'App\Http\Controllers\CompanyController@updateProfile')->name('admin.updateProfile');
     Route::post('/loginaccess', 'App\Http\Controllers\Admin\HomeController@login');
     Route::get('/dashboard', 'App\Http\Controllers\Admin\HomeController@index')->name('admin.dashboard');
     Route::get('/', function (){
@@ -36,4 +38,8 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
     })->name('admin.home');
 
 //    Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
+
+    Route::get('clinician','App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician');
+    Route::get('clinician-list','App\Http\Controllers\Clinician\ClinicianController@getClinicianList')->name('admin.clinician-list');
+    Route::get('clinician-detail/{id}','App\Http\Controllers\Clinician\ClinicianController@getClinicianDetail')->name('admin.clinician-detail');
 });

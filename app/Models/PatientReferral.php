@@ -163,8 +163,11 @@ class PatientReferral extends Model
         }
         elseif ($this->gender === 'FEMALE') {
             $gender = 'Female';
-        }
-        else{
+        } elseif ($this->gender === '1') {
+            $gender = 'Male';
+        } elseif ($this->gender === '2') {
+            $gender = 'Female';
+        } else {
             $gender = 'Other';
         }
         return $gender;
@@ -172,12 +175,12 @@ class PatientReferral extends Model
     }
     public function getSsnFormatAttribute(){
 
-       return 'xxx-xxx-'.substr($this->ssn, -4);
+       return 'xxx-xx-'.substr($this->ssn, -4);
 
     }
     public function getdobFormatAttribute(){
 
-       return date('m/d/Y',strtotime($this->dob));
+       return date('m-d-Y',strtotime($this->dob));
 
     }
         public static function getAccepted(){

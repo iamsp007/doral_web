@@ -88,6 +88,10 @@
                             return 'Male';
                         } else if (data == 'FEMALE') {
                             return 'Female';
+                        } else if (data == '1') {
+                            return 'Male';
+                        } else if (data == '2') {
+                            return 'Female';
                         } else {
                             return 'Other';
                         }

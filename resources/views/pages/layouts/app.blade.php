@@ -31,9 +31,11 @@
     @if (\Request::is('supervisor/*'))
         @include('pages.supervisor.popup')
     @endif
+
     <div id="loader-wrapper">
         <div class="overlay"></div>
         <div class="pulse"></div>
+
     </div>
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
 <section class="app">
@@ -264,6 +266,7 @@
                         })
                         .then(function(token) {
                             // print the token on the HTML page
+                            $("#loader-wrapper").show();
                             $.ajax({
                                 headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -275,7 +278,7 @@
                                     device_token:token
                                 },
                                 success:function (response) {
-
+                                    $("#loader-wrapper").hide();
                                 }
                             })
                         })

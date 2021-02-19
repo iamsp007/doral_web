@@ -5,6 +5,7 @@ ZoomMtg.prepareJssdk();
 const zoomMeeting = document.getElementById("zmmtg-root")
 
 function startZoomMeeting(meetConfig) {
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -14,10 +15,12 @@ function startZoomMeeting(meetConfig) {
         data:meetConfig,
         dataType:'json',
         success:function (response) {
+            $("#loader-wrapper").hide();
             console.log(response)
             beginJoin(response.signature,meetConfig)
         },
         error:function (error) {
+            $("#loader-wrapper").hide();
             console.log(error)
         }
     })

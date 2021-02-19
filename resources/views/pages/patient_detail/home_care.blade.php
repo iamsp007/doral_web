@@ -332,23 +332,29 @@
    </div>
 </div>
 <script type="text/javascript">
-   function updateCaregiver(patientId) {
-      $.ajax({
-         headers: {
-         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-         },
-         url:"/clinician/caregiver-update/"+patientId,
-         method:'POST',
-         dataType:'json',
-         data:{patient_id:patientId},
-         success:function (response) {
-            alert('Caregiver updated successfully.');
-            location.reload();
-         },
-         error:function (error) {
-            alert('Something is wrong. Please try again later.');
-            location.reload();
-         }
-      });
-   }
+    function updateCaregiver(patientId) {
+         $("#loader-wrapper").show();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:"/clinician/caregiver-update/"+patientId,
+            method:'POST',
+            dataType:'json',
+            data:{patient_id:patientId},
+            success:function (response) {
+               $("#loader-wrapper").hide();
+                alert('Caregiver updated successfully.');
+                location.reload();
+            }
+            ,
+            error:function (error) {
+               $("#loader-wrapper").hide();
+                alert('Something is wrong. Please try again later.');
+                location.reload();
+            }
+
+
+        });
+    }
 </script>

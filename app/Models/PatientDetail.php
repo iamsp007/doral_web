@@ -189,6 +189,28 @@ class PatientDetail extends Model
      */
     public function getSsnAttribute($ssn)
     {
-       return 'xxx-xx-' . substr($ssn, -4);
+        $ssnData = '';
+
+        if ($ssn) {
+            return 'xxx-xx-' . substr($ssn, -4);
+        }
+
+        return $ssnData;
+    }
+
+    /**
+     * Relation with referances
+     */
+    public function medicines()
+    {
+        return $this->hasMany('App\Models\Medicine', 'patient_id', 'id');
+    }
+
+    /**
+     * Relation with referances
+     */
+    public function patientClinicalDetail()
+    {
+        return $this->hasOne('App\Models\PatientClinicalDetail', 'patient_id', 'id');
     }
 }

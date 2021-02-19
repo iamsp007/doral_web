@@ -10,10 +10,11 @@
         <thead>
         <tr>
             <th></th>
-            <!--<th>ID</th>-->
-            <th>FirstName</th>
-            <th>LastName</th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Gender</th>
             <th>SSN</th>
+            <th>Home Phone</th>
             <th>Patient Id</th>
             <th>Action</th>
         </tr>
@@ -42,11 +43,12 @@
             "serverSide": true,
             ajax: "{{  route('clinician.patientDetail.ajax') }}",
             columns:[
-//                {data:'id',name:'id'},
                 {data:'id',name:'id'},
-                {data: 'first_name', name: 'FirstName'},
-                {data: 'last_name', name: 'LastName'},
+                {data:'id',name:'id'},
+                {data: 'full_name', name: 'full_name'},
+                {data: 'gender', name: 'gender'},
                 {data: 'ssn', name: 'SSN'},
+                {data: 'home_phone', name: 'home_phone'},
                 {data: 'patient_id', name: 'PatientID'},            
                 {data: 'action', name: 'action'},
             

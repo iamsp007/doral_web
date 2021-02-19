@@ -64,6 +64,31 @@ class PatientController extends Controller
                 return $contact->state;
                 else
                 return '--';
+        })->editColumn('patient_detail.Zip', function ($contact){
+                if($contact->Zip!='')
+                return $contact->Zip;
+                else
+                return '--';
+            })->editColumn('patient_detail.status', function ($contact){
+                if($contact->zipcode!='')
+                return $contact->status;
+                else
+                return '--';
+               })->editColumn('patient_detail.service.name', function ($contact){
+                if($contact->service!='')
+                return $contact->service['name'];
+                else
+                return '--';
+            })->editColumn('patient_detail.filetype.name', function ($contact){
+                if($contact->filetype!='')
+                return $contact->filetype['name'];
+                else
+                return '--';
+            })->editColumn('patient_detail.gender', function ($contact){
+                if($contact->gender!='')
+                return $contact->gender;
+                else
+                return '--';
             })->make(true);
     }
 

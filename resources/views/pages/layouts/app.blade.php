@@ -13,10 +13,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.24.0/apexcharts.min.css"> -->
     <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" /> -->
     <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/apexcharts.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/assign-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">

@@ -166,7 +166,7 @@ class PatientLabReportController extends Controller
         }
         return \Response::json($arr); 
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -176,8 +176,27 @@ class PatientLabReportController extends Controller
     public function addNote(Request $request)
     {
         $input = $request->all();
-      
-        $referralService = new ReferralService();
-        return $referralService->storePatientLabReportNote($input);
+       
+        try {
+            $updateRecord = PatientLabReport::where('id', $input['patient_lab_report_id'])->update(['note' => $input['note']]);
+          
+            $data = ['patient_lab_report_id' => $updateRecord];
+            $arr = array('status' => 200, 'message' => 'Note added successfully.', 'result' => $data);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "result" => array());
+        } catch (Exception $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "result" => array());
+        }
+    
+        return \Response::json($arr);
     }
+    
 }

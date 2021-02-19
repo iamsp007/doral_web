@@ -200,7 +200,7 @@
                 @yield('upload-btn')
             </div>
         </header>
-        <section class="app-body app-body-custom">
+        <section class="app-body">
             @yield('content')
         </section>
     </section>

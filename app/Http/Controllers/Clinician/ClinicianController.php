@@ -11,7 +11,15 @@ class ClinicianController extends Controller
 {
     public function clinician()
     {
-        return view('pages.admin.clinician');
+        $services = new AdminService();
+        $response = $services->getClinicianList();
+
+        $data = array();
+        if ($response != null && $response->status === true) {
+            $data = $response->data;
+        }
+
+        return view('pages.admin.clinician')->with('record',$data);
     }
 
     public function getClinicianList()

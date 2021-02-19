@@ -23,7 +23,13 @@ class CompanyController extends Controller
 
     public function index(Request $request)
     {
-        return View('pages.admin.referral-approval');
+       $adminServices = new AdminService();
+        $responseArray = $adminServices->getCompanyReferral(1);
+        $record = array();
+        if (isset($responseArray['data']['companies'])) {
+            $record = $responseArray['data']['companies'];
+        }
+        return View('pages.admin.referral-approval')->with('record',$record);
     }
 
     /**
@@ -34,7 +40,13 @@ class CompanyController extends Controller
 
     public function active()
     {
-        return View('pages.admin.referral-approval');
+        $adminServices = new AdminService();
+        $responseArray = $adminServices->getCompanyReferral(2);
+        $record = array();
+        if (isset($responseArray['data']['companies'])) {
+            $record = $responseArray['data']['companies'];
+        }
+        return View('pages.admin.referral-approval')->with('record',$record);
     }
 
     /**
@@ -45,7 +57,13 @@ class CompanyController extends Controller
 
     public function rejected()
     {
-        return View('pages.admin.referral-approval');
+        $adminServices = new AdminService();
+        $responseArray = $adminServices->getCompanyReferral(3);
+        $record = array();
+        if (isset($responseArray['data']['companies'])) {
+            $record = $responseArray['data']['companies'];
+        }
+        return View('pages.admin.referral-approval')->with('record',$record);
     }
 
     /**

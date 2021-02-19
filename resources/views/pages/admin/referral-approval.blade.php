@@ -4,26 +4,28 @@
     Admin - Refrrals
 @endsection
 @section('content')
-<div class="app-roles">
-    <div class="pt-2">
-        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" style="display: none">
-            <strong>Success!</strong> <span id="successResponse"></span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" style="display: none">
-            <strong>Error!</strong> <span id="errorResponse"></span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <table id="employee-table" class="table">
+
+        <table id="referral-table" class="display responsive nowrap" style="width:100%">
             <thead>
+                <tr> 
+                    <th></th>
+                    <th></th>
+                    <th><select class="item1 form-control" name="item1" data-id='2'>
+                            <option value="">select company name</option>
+                        @foreach($record as $row)
+                            <option value="{{ $row['name'] }}" >{{ $row['name'] }}</option>
+                        @endforeach
+                    </select></th>
+                    <th><select class="item2 form-control" name="item2" data-id='3'>
+                            <option value="">select email</option>
+                        @foreach($record as $row)
+                            <option value="{{ $row['email'] }}" >{{ $row['email'] }}</option>
+                        @endforeach
+                    </select></th>
+                    <th></th>
+                </tr>
                 <tr>
-                    <th>
-                        <input type="checkbox">
-                    </th>
+                    <th><input value="1" type="checkbox"></th>
                     <th>Refferral Type</th>
                     <th>Company Name</th>
                     <th>Email</th>
@@ -31,71 +33,33 @@
                 </tr>
             </thead>
             <tbody>
-                @if(isset($record) && count($record) > 0)
-                @foreach($record['companies'] as $raw)
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>
-                        @if($raw['referal_id'] == 1)
-                        Insurance
-                        @elseif($raw['referal_id'] == 2)
-                        Home Care
-                        @elseif($raw['referal_id'] == 3)
-                        Others
-                        @endif
-                    </td>
-                    <td>{{$raw['name']}}</td>
-                    <td>{{$raw['email']}}</td>
-                    <td>
-                        <div class="d-flex">
-                            @if($raw['status'] == '1')
-                            <button type="button"
-                                class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
-                                data-toggle="tooltip" data-placement="left">Accepted
-                            </button>
-                            <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
-                                data-toggle="tooltip" data-placement="left"
-                                id="{{$raw['id']}}">Reject
-                            </button>
-                            @endif
-                            @if($raw['status'] == '3')
-                                <button type="button"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
-                                data-toggle="tooltip" data-placement="left" id="{{$raw['id']}}" >Accept
-                                </button>
-                                <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"
-                                    data-toggle="tooltip" data-placement="left">Rejected
-                                </button>
-                            @endif
-                            @if($raw['status'] == '0')
-                                <button type="button"
-                                class="btn btn-primary btn-green shadow-sm btn--sm mr-2 acceptid"
-                                data-toggle="tooltip" data-placement="left" id="{{$raw['id']}}" >Accept
-                                </button>
-                                <button type="button" class="btn btn-danger shadow-sm btn--sm mr-2 rejectid"
-                                data-toggle="tooltip" data-placement="left"
-                                id="{{$raw['id']}}">Reject
-                                </button>
-                            @endif
-                            <a href="{{ url('/admin/referral-profile/'.$raw['id']) }}" class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip"
-                                data-placement="left" title="View Profile">View
-                                Profile</a>
-
-
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-                @endif
 
             </tbody>
         </table>
-    </div>
-</div>
+
 @endsection
 
+@push('styles')
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
+    <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+@endpush
+
 @push('scripts')
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+<script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
+        if("{{Request::is('admin/referral-approval')}}"){
+            var referralurl = '{{  route('admin.referral.approval.list') }}';
+        } else if("{{Request::is('admin/referral-active')}}"){
+            var referralurl = '{{  route('admin.referral.active.list') }}';
+        } else if("{{Request::is('admin/referral-rejected')}}") {
+            var referralurl = '{{  route('admin.referral.rejected.list') }}';
+        }
+
         $(document).ready(function () {
 
             $.ajaxSetup({
@@ -105,7 +69,7 @@
             });
 
             $(".acceptid").click(function() {
-
+                $("#loader-wrapper").show();
                 var company_id = $(this).attr('id');
                 var status = "1";
                 $.ajax({
@@ -113,6 +77,7 @@
                     url: '{{ route('admin.updateStatus') }}',
                     data: {company_id, status},
                     success: function( response ){
+                        $("#loader-wrapper").hide();
                         if(response.status == 1) {
                             $(".alert-success").show();
                             $(".alert-danger").hide();
@@ -132,6 +97,7 @@
                        
                     },
                     error: function( e ) {
+                        $("#loader-wrapper").hide();
                         alert('Something went wrong!');
                     }
                 });
@@ -139,6 +105,7 @@
             });
 
             $(".rejectid").click(function() {
+                $("#loader-wrapper").show();
                 var company_id = $(this).attr('id');
                 var status = "3";
                 //alert(company_id);
@@ -147,12 +114,14 @@
                     url: '{{ route("admin.updateStatus") }}',
                     data: {company_id, status},
                     success: function( response ){
+                        $("#loader-wrapper").hide();
                         if(response.status == 1) {
                             $(".alert-success").show();
                             $(".alert-danger").hide();
                             $("#successResponse").text(response.message);
                             setTimeout(function(){
                                 $(".alert-success").hide();
+                                window.location.reload();
                             }, 1000);
                         }
                         else {
@@ -161,15 +130,127 @@
                             $("#errorResponse").text(response.message);
                             setTimeout(function(){
                                 $(".alert-danger").hide();
+                                window.location.reload();
                             }, 1000);
                         }
                     },
                     error: function( e ) {
+                        $("#loader-wrapper").hide();
                         alert('error');
                     }
                 });
 
             });
+
+            $('.item1').on('change', function () {
+                table
+                    .columns( $(this).attr('data-id'))
+                    .search( this.value )
+                    .draw();
+            });
+
+            $('.item2').on('change', function () {
+                table
+                    .columns( $(this).attr('data-id'))
+                    .search( this.value )
+                    .draw();
+            });
+
+           /* $('.itemName').select2({
+              placeholder: 'Select an item',
+              
+            });*/
+            
         });
+
+        
+        var table = $('#referral-table').DataTable({
+            "processing": true,
+            "language": {
+                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+            },
+            "serverSide": true,
+            drawCallback: function(dt) {
+              console.log("draw() callback; initializing Select2's.");
+              $('.item1').select2({tags: true,width : '15rem'});
+              $('.item2').select2({tags: true,width : '15rem'});
+            },
+            ajax: referralurl,
+            columns:[
+                {data:'id',name:'id',"bSortable": false},
+                // {data:'id',name:'id'},
+                {
+                    data:'referal_id',
+                    name:'referal_id',
+                    "bSortable": true,
+                },
+               {data:'name',name:'name',"bSortable": true,
+
+                    render:function(data, type, row, meta){
+                        data = "<a href={{ url('/admin/referral-profile/') }}/" + row.id + ">" + row.name+"</a>";
+                        return data;
+                    }
+               
+                },
+                {
+                    data:'email',
+                    name:'email',
+                    "bSortable": true
+                },
+                {data: 'action',name: 'action',"bSortable": false}
+            ],
+            // "order": [[ 1, "desc" ]],
+            // "pageLength": 5,
+            // "lengthMenu": [ [5, 10,20, 25,100, -1], [5, 10,20, 25,100, "All"] ],
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }
+            ],
+            'select': {
+                'style': 'multi'
+            },
+        });
+
+        
+
+        function changeReferralStatus(id,status) {
+            $("#loader-wrapper").show();
+            var company_id = id;
+            var status = status;
+            $.ajax({
+                method: 'POST',
+                url: '{{ route('admin.updateStatus') }}',
+                data: {company_id, status},
+                success: function( response ){
+                    $("#loader-wrapper").hide();
+                    if(response.status == 1) {
+                        $(".alert-success").show();
+                        $(".alert-danger").hide();
+                        $("#successResponse").text(response.message);
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 1000);
+                    }
+                    else {
+                        $(".alert-danger").show();
+                        $(".alert-success").hide();
+                        $("#errorResponse").text(response.message);
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 1000);
+                    }
+                   
+                },
+                error: function( e ) {
+                    $("#loader-wrapper").hide();
+                    alert('Something went wrong!');
+                }
+            });
+        }
+
     </script>
 @endpush

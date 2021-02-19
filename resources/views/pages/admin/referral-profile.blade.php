@@ -277,6 +277,7 @@
         });
 
         $(".acceptid").click(function() {
+            $("#loader-wrapper").show();
             var company_id = $(this).attr('id');
             var status = "active";
 
@@ -285,12 +286,14 @@
                 url: '/admin/referral-status',
                 data: {company_id, status},
                 success: function( response ){
+                    $("#loader-wrapper").hide();
                     if(response.status == 1)
                         alert(response.message)
                     else
                         alert(response.message)
                 },
                 error: function( e ) {
+                    $("#loader-wrapper").hide();
                     alert('error');
                 }
             });
@@ -298,6 +301,7 @@
         });
 
         $(".rejectid").click(function() {
+            $("#loader-wrapper").show();
             var company_id = $(this).attr('id');
             var status = "reject";
             //alert(company_id);
@@ -306,12 +310,14 @@
                 url: '/admin/referral-status',
                 data: {company_id, status},
                 success: function( response ){
+                    $("#loader-wrapper").hide();
                     if(response.status == 1)
                         alert(response.message)
                     else
                         alert(response.message)
                 },
                 error: function( e ) {
+                    $("#loader-wrapper").hide();
                     alert('error');
                 }
             });
@@ -325,6 +331,7 @@
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
               }
             });
+            $("#loader-wrapper").show();
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             var id = "{{ request()->route('id') }}";
             var name = $("#name_company").val();
@@ -350,6 +357,7 @@
                  //processData: false,
                 success:function(response)
                  {
+                    $("#loader-wrapper").hide();
                       if(response.status === true) {
                           alert("saved");
                       }
@@ -367,6 +375,7 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
         });
+        $("#loader-wrapper").show();
         var csrf_token = $('meta[name="csrf-token"]').attr('content');
         var id = "{{ request()->route('id') }}";
         var administrator_name = $("#administrator_name").val();
@@ -387,6 +396,7 @@
              //processData: false,
              success:function(response)
              {
+                $("#loader-wrapper").hide();
                 if(response.status === true) {
                     alert("saved");
                 }
@@ -403,6 +413,7 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
         });
+        $("#loader-wrapper").show();
         var csrf_token = $('meta[name="csrf-token"]').attr('content');
         var id = "{{ request()->route('id') }}";
         var insurance_id = $("#insurance_id").val();
@@ -422,6 +433,7 @@
              //processData: false,
              success:function(response)
              {
+                $("#loader-wrapper").hide();
                 if(response.status === true) {
                     alert("saved");
                 }

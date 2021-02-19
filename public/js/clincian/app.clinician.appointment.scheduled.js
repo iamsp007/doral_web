@@ -333,6 +333,7 @@ function startVideoCall(id,role) {
             }
         },
         error:function (error) {
+            $("#loader-wrapper").hide();
             console.log(error)
         }
     })
@@ -404,6 +405,7 @@ function onCancelBtn(id) {
 function saveCancelAppointment(id) {
     var appointment_reason = $("#appointment_reason_"+id).val();
     $('#cancel-appointment-model'+id).hide();
+    $("#loader-wrapper").show();
     $.ajax({
         url:base_url+'clinician/change-appointment-status',
         headers: {
@@ -416,6 +418,7 @@ function saveCancelAppointment(id) {
         method:'POST',
         dataType:'json',
         success:function (response) {
+            $("#loader-wrapper").hide();
             // $.toast({
             //     heading: 'Cancel Appointment',
             //     text: response.message,
@@ -425,6 +428,7 @@ function saveCancelAppointment(id) {
             table.ajax.reload();
         },
         error:function (error) {
+            $("#loader-wrapper").hide();
             $.toast({
                 heading: 'Cancel Appointment',
                 text: 'Invalid Appointment',
@@ -495,10 +499,12 @@ function onAppointmentBroadCast(e,appointemnt_id,patient_id,appointment_title="T
             },
             dataType:'json',
             success:function (response) {
+                $("#loader-wrapper").hide();
                 table.ajax.reload();
                 alert(response.message)
             },
             error:function (error,responseText) {
+                $("#loader-wrapper").hide();
                 const sources = JSON.parse(error.responseText);
                 alert(sources.message)
             },

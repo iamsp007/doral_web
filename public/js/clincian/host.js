@@ -45,6 +45,7 @@ $(document).ready(function() {
         var options = $('.archive-options').serialize();
         disableForm();
         console.log(options)
+        $("#loader-wrapper").show();
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -56,6 +57,7 @@ $(document).ready(function() {
             method:'POST',
             dataType:'json',
             success:function (response) {
+                $("#loader-wrapper").hide();
                 console.log(response)
             },
             error:enableForm()

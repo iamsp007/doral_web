@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\referral;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class ReferralController extends Controller
@@ -81,5 +82,21 @@ class ReferralController extends Controller
     public function destroy(referral $referral)
     {
         //
+    }
+
+    public function emailVerified(Request $request,$user_id){
+        $data=array();
+        try {
+            $userId = base64_decode($user_id);
+            $company = Company::find($userId);
+            if ($company) {
+                $company->email_verified = '1';
+                $company->save();
+            }
+            
+            return redirect(route('login'));
+        } catch (\Exception $exception){
+            \Log::info($exception->getMessage());
+        }
     }
 }

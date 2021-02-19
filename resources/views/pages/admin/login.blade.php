@@ -225,14 +225,15 @@
         });
 
         $("#login").click(function() {
+            $("#loader-wrapper").show();
             var email = $("#username").val();
             var password = $("#password").val();
-            
             $.ajax({
                 method: 'POST',
                 url: '/admin/loginaccess',
                 data: {email, password},
                 success: function( response ){
+                    $("#loader-wrapper").hide();
                     if(response.status == 1)
                         window.location = "/admin/referral-approval";
                     else 
@@ -241,6 +242,7 @@
                     
                 },
                 error: function( e ) {
+                    $("#loader-wrapper").hide();
                     alert('Something went wrong!');
                 }
             });

@@ -377,11 +377,13 @@
 			});
 			$('#state').change( function() {
 				var val = $(this).val();
+				$("#loader-wrapper").show();
 				$.ajax({
 					url: "{{ route('referral.filter-cities') }}",
 					dataType: 'html',
 					data: { state : val },
 					success: function(response) {
+						$("#loader-wrapper").hide();
 						var obj = jQuery.parseJSON(response);
 						var city_options = [];
 						$.each(obj, function(key,value) {

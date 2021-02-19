@@ -13,10 +13,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.24.0/apexcharts.min.css"> -->
     <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" /> -->
     <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/apexcharts.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/assign-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
@@ -31,9 +31,11 @@
     @if (\Request::is('supervisor/*'))
         @include('pages.supervisor.popup')
     @endif
+
     <div id="loader-wrapper">
         <div class="overlay"></div>
         <div class="pulse"></div>
+
     </div>
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
 <section class="app">
@@ -269,6 +271,7 @@
                         })
                         .then(function(token) {
                             // print the token on the HTML page
+                            $("#loader-wrapper").show();
                             $.ajax({
                                 headers: {
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -280,7 +283,7 @@
                                     device_token:token
                                 },
                                 success:function (response) {
-
+                                    $("#loader-wrapper").hide();
                                 }
                             })
                         })

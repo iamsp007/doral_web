@@ -55,7 +55,7 @@
 
                         return false;
                     }
-
+                    $("#loader-wrapper").show();
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -67,6 +67,7 @@
                         },
                         dataType:'json',
                         success:function (response) {
+                            $("#loader-wrapper").hide();
                             var events=[];
                             if (response.status===true){
                                 if (response.data.length>0){
@@ -88,7 +89,7 @@
                             }
                         },
                         error:function (error) {
-
+                            $("#loader-wrapper").hide();
                         }
                     })
                     calendar.unselect()
@@ -133,6 +134,7 @@
         });
 
         function createAppointment(date,ids) {
+            $("#loader-wrapper").show();
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -146,9 +148,11 @@
                 },
                 dataType:'json',
                 success:function (response) {
+                    $("#loader-wrapper").hide();
                     alert(response.message)
                 },
                 error:function (request, status, error) {
+                    $("#loader-wrapper").hide();
                     const sources = JSON.parse(request.responseText);
                     alert(sources.message)
                 }

@@ -80,12 +80,13 @@
                 var referralType = $("#referralType").val();
                 var company = $("#company").val();
                 var email = $("#email").val();
-
+                $("#loader-wrapper").show();
                 $.ajax({
                     method: 'POST',
                     url: '/companyregister',
                     data: {referralType, company, email},
                     success: function( response ){
+                        $("#loader-wrapper").hide();
                         if(response.status == 1) {
                             $(".alert-success").show();
                             $(".alert-danger").hide();
@@ -105,6 +106,7 @@
                       
                     },
                     error: function( e ) {
+                        $("#loader-wrapper").hide();
                         alert('Something went wrong!');
                     }
                 });

@@ -52,6 +52,50 @@ function initMap() {
         }
     })
 
+    $("#loader-wrapper").show();
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:base_url+'clinician/patient-roladl-proccess',
+        data:{
+            patient_request_id:patient_request_id
+        },
+        method:'POST',
+        dataType:'json',
+        success:function (response) {
+            $("#loader-wrapper").hide();
+            var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
+            response.clinicians.map(function (resp) {
+                var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
+                referral_type[resp.referral_type]={
+                    latlng:[resp.start_latitude,resp.end_longitude],
+                    directionsService:new google.maps.DirectionsService(),
+                    directionsRenderer:new google.maps.DirectionsRenderer()
+                }
+
+                if (resp.latitude!==null){
+                    referral_type[resp.referral_type].latlng=[resp.latitude,resp.longitude];
+                    current = new google.maps.LatLng(resp.latitude,resp.longitude);
+                }
+                var color='#0a5293';
+                if (resp.referral_type==='LAB'){
+                    color='#34ba0f';
+                }else if(resp.referral_type==='X-RAY'){
+                    color='#c94d2f';
+                }
+                var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
+                var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
+                calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,color);
+               updateMap(destination,map)
+            })
+        },
+        error:function (error) {
+            $("#loader-wrapper").hide();
+            console.log(error)
+        }
+    })
+
 }
 var j=0;
 
@@ -155,6 +199,7 @@ var html='';
 function updateMap(destination) {
 
     setInterval(function () {
+        $("#loader-wrapper").show();
         $('#right-panel').html('');
         $.ajax({
             headers: {
@@ -167,6 +212,8 @@ function updateMap(destination) {
             method:'POST',
             dataType:'json',
             success:function (response) {
+                $("#loader-wrapper").hide();
+                $('#right-panel').html('');
 
                 if (response.status!=="pending"){
 
@@ -208,6 +255,7 @@ function updateMap(destination) {
 
             },
             error:function (error) {
+                $("#loader-wrapper").hide();
                 console.log(error)
             }
         })

@@ -64,7 +64,24 @@ class PatientReferralController extends Controller
                 return $contact->first_name." ".$contact->last_name;
             })
             ->editColumn('ssn', function ($contact){
-                return 'xxx-xxx-'.substr($contact->ssn, -4);
+                if($contact->ssn)
+                return 'xxx-xx-'.substr($contact->ssn, -4);
+                else
+                return '';
+            })
+            ->editColumn('gender', function ($contact){
+                if($contact->gender === 'MALE'){
+                    $gender = 'Male';
+                } elseif ($contact->gender === 'FEMALE') {
+                    $gender = 'Female';
+                } else if ($contact->gender === '1') {
+                    $gender = 'Male';
+                } else if ($contact->gender === '2') {
+                    $gender = 'Female';
+                } else {
+                    $gender = 'Other';
+                }
+                return $gender;
             })
             ->editColumn('dob', function ($contact){
                 if($contact->dob!='')
@@ -107,7 +124,24 @@ class PatientReferralController extends Controller
                 return $contact->first_name." ".$contact->last_name;
             })
             ->editColumn('ssn', function ($contact){
-                return 'xxx-xxx-'.substr($contact->ssn, -4);
+                if($contact->ssn)
+                return 'xxx-xx-'.substr($contact->ssn, -4);
+                else
+                return '';
+            })
+            ->editColumn('gender', function ($contact){
+                if($contact->gender === 'MALE'){
+                    $gender = 'Male';
+                } elseif ($contact->gender === 'FEMALE') {
+                    $gender = 'Female';
+                } else if ($contact->gender === '1') {
+                    $gender = 'Male';
+                } else if ($contact->gender === '2') {
+                    $gender = 'Female';
+                } else {
+                    $gender = 'Other';
+                }
+                return $gender;
             })
             ->editColumn('dob', function ($contact){
                 if($contact->dob!='')
@@ -148,7 +182,24 @@ class PatientReferralController extends Controller
                 return $contact->first_name." ".$contact->last_name;
             })
             ->editColumn('ssn', function ($contact){
-                return 'xxx-xxx-'.substr($contact->ssn, -4);
+                if($contact->ssn)
+                return 'xxx-xx-'.substr($contact->ssn, -4);
+                else
+                return '';
+            })
+            ->editColumn('gender', function ($contact){
+                if($contact->gender === 'MALE'){
+                    $gender = 'Male';
+                } elseif ($contact->gender === 'FEMALE') {
+                    $gender = 'Female';
+                } else if ($contact->gender === '1') {
+                    $gender = 'Male';
+                } else if ($contact->gender === '2') {
+                    $gender = 'Female';
+                } else {
+                    $gender = 'Other';
+                }
+                return $gender;
             })
             ->editColumn('plans.name', function ($contact){
                 if($contact->benefit_plan!='')

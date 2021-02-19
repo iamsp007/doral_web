@@ -27,6 +27,7 @@ function updateAllField(sectionId) {
 }
 
 function demographyDataUpdate(data) {
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -36,10 +37,12 @@ function demographyDataUpdate(data) {
         data: data,
         dataType: "json",
         success: function(response) {
+            $("#loader-wrapper").hide();
             alert(response.message)
             $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
         },
         error: function(error) {
+            $("#loader-wrapper").hide();
             alert(error.responseText)
         }
     });
@@ -76,6 +79,9 @@ medprofileTable = $('#med-profile-table').DataTable({
         "orderable": true
     }],
     processing: true,
+    "language": {
+        processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'
+    },
     serverSide: true,
     ajax: base_url+'patient-medicine-list/'+patient_id,
     columns:[
@@ -187,6 +193,7 @@ var arr = [
 
 function addPatientMedication(patient_id) {
     var data = $('#patient-medication-info').serializeArray();
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -196,11 +203,13 @@ function addPatientMedication(patient_id) {
         data: data,
         dataType: "json",
         success: function(response) {
+            $("#loader-wrapper").hide();
             alert(response.message)
             $('#patientMedicateInfo').modal('hide');
             medprofileTable.ajax.reload();
         },
         error: function(error) {
+            $("#loader-wrapper").hide();
             const sources = JSON.parse(error.responseText);
             alert(sources.message)
         }
@@ -224,6 +233,7 @@ $(function () {
         e.preventDefault();
         var fields=[];
         var datastring = $("#insurance_company_form").serializeArray();
+        $("#loader-wrapper").show();
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -233,10 +243,12 @@ $(function () {
             data: datastring,
             dataType: "json",
             success: function(response) {
+                $("#loader-wrapper").hide();
                 alert(response.message)
                 window.location.reload();
             },
             error: function(error) {
+                $("#loader-wrapper").hide();
                 alert(error.responseText)
             }
         });

@@ -55,7 +55,13 @@ class CoordinatorController extends Controller
         }*/
 
         $data = PatientReferral::getAccepted();
-        return DataTables::of($data)->make(true);
+        return DataTables::of($data)->editColumn('gender', function ($contact){
+                return $contact->gender_format;
+            })->editColumn('ssn', function ($contact){
+                return $contact->ssn_format;
+            })->editColumn('dob', function ($contact){
+                return $contact->dob_format;
+            })->make(true);
         //return response()->json($data);
 
         //return response()->json($data,422);

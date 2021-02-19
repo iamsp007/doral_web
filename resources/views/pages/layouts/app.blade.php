@@ -4,28 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.24.0/apexcharts.min.css"> -->
+    <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/apexcharts.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/assign-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" href="{{ asset('css/toaster.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
 
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>
 </head>
-<body >
+<body>
     @if (\Request::is('supervisor/*'))
         @include('pages.supervisor.popup')
     @endif
     <div id="loader-wrapper">
+        <div class="overlay"></div>
         <div class="pulse"></div>
     </div>
 <input type="hidden" id="base_url" name="base_url" value="{{ env('APP_URL') }}">
@@ -68,21 +75,19 @@
                         @endphp
                     @endrole
                     @foreach(config($file) as $key=>$value)
-
                         @if(!isset($value['menu']))
-                        <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
-                            <a href="{{ $value['url'] }}">
-                                <div class="notify <?php if($value['name'] == 'RoadL Request') { echo 'd-90'; } ?>">
-                                    <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> selected">
-                                    <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> noselected">
-                                    <!--<span class="number">6</span>-->
-                                </div>
-                                <?php if($value['name'] != 'RoadL Request') {  ?>
-                                    <p class="i-title">{{ $value['icon_title'] }}</p>
-                                <?php } ?>
-                            </a>
+                            <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
+                                <a href="{{ $value['url'] }}">
+                                    <div class="notify <?php if($value['name'] == 'RoadL Request') { echo 'd-90'; } ?>">
+                                        <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> selected">
+                                        <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> noselected">
+                                    </div>
+                                    <?php if($value['name'] != 'RoadL Request') {  ?>
+                                        <p class="i-title">{{ $value['icon_title'] }}</p>
+                                    <?php } ?>
+                                </a>
 
-                        </li>
+                            </li>
                         @else
                             <li class="parent">
                                 <a href="{{ $value['url'] }}">
@@ -90,7 +95,6 @@
                                         <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}"
                                         class="icon noselected">
                                         <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon selected">
-                                        <!--<span class="number">6</span>-->
                                     </div>
                                     <p class="i-title">{{ $value['icon_title'] }}</p>
                                 </a>
@@ -101,7 +105,7 @@
                                     @endforeach
                                 </ul>
                             </li>
-<!--                            <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
+                            <!-- <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                                 <a href="{{ $value['url'] }}">
                                     <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">
                                     <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="{{ $value['name'] }}" class="icon noselected">
@@ -109,16 +113,16 @@
                             </li>-->
                         @endif
                     @endforeach
-<!--                    <li title="Sign Out">
-                            <a href="">
-                                <div class="notify">
-                                    <img src="../assets/img/icons/logout-sb.svg" alt="Sign Out" class="icon noselected">
-                                    <img src="../assets/img/icons/logout-sb-select.svg" alt="" class="icon selected">
-                                    <span class="number">6</span>
-                                </div>
-                                <p class="i-title">Sign Out</p>
-                            </a>
-                        </li>-->
+                    <!--  <li title="Sign Out">
+                        <a href="">
+                            <div class="notify">
+                                <img src="../assets/img/icons/logout-sb.svg" alt="Sign Out" class="icon noselected">
+                                <img src="../assets/img/icons/logout-sb-select.svg" alt="" class="icon selected">
+                                <span class="number">6</span>
+                            </div>
+                            <p class="i-title">Sign Out</p>
+                        </a>
+                    </li>-->
                 </ul>
             </div>
         </div>
@@ -130,11 +134,11 @@
             <div class="app-header">
                 <div class="nav">
                     <button class="navbar-toggler d-none" type="button" data-toggle="collapse"
-                            data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon">
-                                <i class="las la-bars white"></i>
-                            </span></button>
+                        data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                            <i class="las la-bars white"></i>
+                        </span></button>
                     <h1 class="title">
                         @hasrole('referral')
                             @foreach(Auth::guard('referral')->user()->roles->pluck('name') as $key=>$value)
@@ -216,26 +220,32 @@
     <script>
         var base_url = $('#base_url').val();
         var socket_url = '{{ env("SOCKET_IO_URL") }}';
+        window.laravel_echo_port='{{env("LARAVEL_ECHO_PORT")}}';
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-    <script src="{{ asset('js/socket.js') }}"></script>
+
     <script src="{{ asset('assets/js/sidebar.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('js/toastr.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
     <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
-    <script>
-        $("#loader-wrapper").hide();
-    </script>
+    <script src="{{ asset('assets/js/apexcharts.js') }}"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
     <script>
+
+
         $(document).ready(function(){
+            $("#loader-wrapper").hide();
+
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('{{ asset("js/firebase-messaging-sw.js") }}')
                     .then(function(registration) {
@@ -275,7 +285,7 @@
                             })
                         })
                         .catch(function (err) {
-                            console.log("Unable to get permission to notify.", err);
+                            // console.log("Unable to get permission to notify.", err);
                         });
 
                         messaging.onMessage(function(payload) {
@@ -284,12 +294,17 @@
                             const noteOptions = {
                                 body: noteTitle,
                                 icon: payload.notification.icon,
-                                "click_action":"https://theURLyouwanttoopen.com/"
                             };
+
                             new Notification(noteTitle, noteOptions).onclick = function (event) {
+
                                 if (payload.data['gcm.notification.notification_type']==='1'){
-                                    window.location.href=base_url+'clinician/roadl';
-                                }else if (payload.data['gcm.notification.notification_type']==='2'){
+                                    window.location.href=base_url+'clinician/start-roadl/'+payload.data.id;
+                                }else if (payload.data['gcm.notification.notification_type']==="2"){
+                                    window.location.href=base_url+'clinician/running-roadl/'+payload.data.id;
+                                }else if (payload.data['gcm.notification.notification_type']==="3"){
+                                    window.location.href=base_url+'clinician/scheduled-appointment';
+                                }else if (payload.data['gcm.notification.notification_type']==="4"){
                                     window.location.href=base_url+'clinician/scheduled-appointment';
                                 }
                             };
@@ -302,6 +317,7 @@
 
         });
     </script>
+<script src="{{ asset('assets/js/partner/add-employee.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

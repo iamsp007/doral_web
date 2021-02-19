@@ -41,34 +41,74 @@ class PatientController extends Controller
     }
 
     public function getPatientList(Request $request){
-        $patientList = PatientReferral::with('detail','service','filetype')
-            ->whereHas('detail',function ($q){
-                $q->where('status','=','1');
-            });
-        return DataTables::of($patientList)->make(true);
+        $patientList = User::with('patientDetail','roles')
+            ->whereHas('roles',function ($q){
+                $q->where('name','=','patient');
+            })
+            ->where('status','=','1')
+            ->get();
+
+        return DataTables::of($patientList)
+        ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob));
+                else
+                return '--';
+            })->editColumn('patient_detail.city', function ($contact){
+                if($contact->city!='')
+                return $contact->city;
+                else
+                return '--';
+            })->editColumn('patient_detail.state', function ($contact){
+                if($contact->state!='')
+                return $contact->state;
+                else
+                return '--';
+            })->make(true);
     }
 
     public function getNewPatientList(Request $request){
 
-        $patientList = PatientReferral::with('detail','service','filetype')
-            ->where('first_name','!=',null)
-            ->where('status','=','pending');
+        $patientList = User::with('patientDetail','roles')
+            ->whereHas('roles',function ($q){
+                $q->where('name','=','patient');
+            })
+            ->whereHas('patientDetail',function ($q){
+                $q->where('status','=','pending')->whereNotNull('first_name');
+            });
+
         return  DataTables::of($patientList)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                if ($row->detail){
-                    if ($row->detail->status==='0'){
-                        $btn = '<a href="#accept" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-sm" style="background: #006c76; color: #fff" onclick="changePatientStatus(this,1)">Accept</a>';
+                if ($row->status==='0'){
+                    $id=$row->id!==null?$row->id:null;
+                    $btn ='';
+                    if ($id!==null){
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$id.'" data-original-title="Edit" class="edit btn btn-sm" style="background: #006c76; color: #fff" onclick="changePatientStatus(this,1)">Accept</a>';
 
-                        $btn = $btn.' <a href="#reject" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-sm" style="background: #eaeaea; color: #000" onclick="changePatientStatus(this,0)">Reject</a>';
-
-                        return $btn;
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$id.'" data-original-title="Delete" class="btn btn-sm" style="background: #eaeaea; color: #000" onclick="changePatientStatus(this,0)">Reject</a>';
                     }
-                    return '';
+                    return $btn;
                 }
+                return '-';
             })
             ->rawColumns(['action'])
-            ->make(true);
+            ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob));
+                else
+                return '--';
+            })->editColumn('patient_detail.city', function ($contact){
+                if($contact->city!='')
+                return $contact->city;
+                else
+                return '--';
+            })->editColumn('patient_detail.state', function ($contact){
+                if($contact->state!='')
+                return $contact->state;
+                else
+                return '--';
+            })->make(true);
     }
 
     public function scheduleAppoimentList(Request $request){

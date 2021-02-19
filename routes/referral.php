@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\PatientLabReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'/referral'],function (){
@@ -33,4 +35,7 @@ Route::group(['prefix'=>'/referral'],function (){
         Route::post('/referral-profile-update', 'App\Http\Controllers\CompanyController@updateProfile')->name('referral.updateProfile');
         Route::post('/service-payment-insert-update', 'App\Http\Controllers\CompanyController@insertUpdateServicePayment')->name('referral.insertUpdateServicePayment');
     });
+    Route::post('/lab-report/store', 'App\Http\Controllers\PatientLabReportController@store')->name('lab-report.store');
+    Route::post('/lab-report-note/store', 'App\Http\Controllers\PatientLabReportController@addNote')->name('lab-report-note.store');
+    Route::delete('lab-report/destroy', 'App\Http\Controllers\PatientLabReportController@destroy')->name('lab-report.destroy');
 });

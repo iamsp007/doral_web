@@ -59,7 +59,14 @@
                                     Care</a>
                             </li>
                             <li>
-                                <a class="nav-link d-flex align-items-center" id="ccm-tab" data-toggle="pill"
+                                <a class="nav-link d-flex align-items-center" id="billing-tab" data-toggle="pill"
+                                   href="#billing" role="tab" aria-controls="billing" aria-selected="false">
+                                    <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt="" class="mr-2 inactiveIcon">
+                                    <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt=""
+                                         class="mr-2 activeIcon">Billing Details</a>
+                            </li>
+                            <li>
+                                <a class="nav-link d-flex align-items-center" onclick="calendarClick()" id="ccm-tab" data-toggle="pill"
                                    href="#ccm" role="tab" aria-controls="ccm" aria-selected="false">
                                     <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
                                     <img src="{{ asset('assets/img/icons/icons_clinical_active.svg') }}" alt=""
@@ -67,7 +74,7 @@
                                     CCM</a>
                             </li>
                             <li>
-                                <a class="nav-link d-flex align-items-center" id="rpm-tab" data-toggle="pill"
+                                <a class="nav-link d-flex align-items-center" onclick="calendarClick()" id="rpm-tab" data-toggle="pill"
                                    href="#rpm" role="tab" aria-controls="rpm" aria-selected="false">
                                     <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
                                     <img src="{{ asset('assets/img/icons/icons_clinical_active.svg') }}" alt=""
@@ -127,7 +134,7 @@
                                              data-placement="bottom" title="Edit" class="cursor-pointer d-block edit-icon" alt=""
                                              onclick="editAllField('demographic')">
                                         <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
-                                             data-placement="bottom" title="Update" class="cursor-pointer d-none update-icon" alt=""
+                                             data-placement="bottom" title="Update ADSD" class="cursor-pointer d-none update-icon" alt=""
                                              onclick="updateAllField('demographic')">
                                     </div>
                                     <div class="head scrollbar scrollbar4">
@@ -286,6 +293,22 @@
                                                                            name="claim_no" onclick="editableField('claim_no')"
                                                                            data-id="claim_no" id="claim_no" placeholder="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}"
                                                                            value="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <div>
+                                                                    <i class="las la-angle-double-right circle"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h3 class="_title">Apartment/Building</h3>
+                                                                    <!-- <h1 class="_detail">75443</h1> -->
+                                                                    <input type="text"
+                                                                           class="form-control-plaintext _detail no-height" readonly
+                                                                           name="apt" onclick="editableField('apt')"
+                                                                           data-id="apt" id="apt" placeholder="{{ $details->detail?(isset($details->detail->apt)?$details->detail->apt:''):'-' }}"
+                                                                           value="{{ $details->detail?(isset($details->detail->apt)?$details->detail->apt:''):'-' }}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -550,7 +573,7 @@
                                                                             </div>
                                                                             <div>
                                                                                 <h3 class="_title">Madicaid No</h3>
-                                                                                <!-- <h1 class="_detail">ABCD1234</h1> -->
+                                                                                 <!--<h1 class="_detail">{{ $details->detail?$details->detail->medicaid_number:'-' }}</h1>--> 
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="medicaid_number" data-id="medicaid_number"
@@ -588,7 +611,7 @@
                                                                             </div>
                                                                             <div>
                                                                                 <h3 class="_title">Medicare No</h3>
-                                                                                <!-- <h1 class="_detail">ABCD1234</h1> -->
+                                                                                 <!--<h1 class="_detail">{{ $details->detail?$details->detail->medicare_number:'-' }}</h1>--> 
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height" readonly
                                                                                        name="medicare_number" data-id="medicare_number"
@@ -600,6 +623,203 @@
                                                                     <div class="col-12 col-sm-3"></div>
                                                                     <div class="col-12 col-sm-3"></div>
                                                                     <div class="col-12 col-sm-3"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3"
+                                                         data-name="medicare">
+                                                        <div class="app-card-header">
+                                                            <h1 class="title mr-2">Wage Parity Plan</h1>
+                                                            <!-- <a href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add More">
+                                                            <img src="../assets/img/icons/add_more_item.svg" alt="">
+                                                         </a> -->
+                                                            <!--<button type="button" class="btn btn-sm btn-info">Update Plan</button>-->
+                                                        </div>
+                                                        <div class="head">
+                                                            <div class="p-3">
+                                                                <div class="row">
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Wage Parity Plan</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="plan" data-id="plan"
+                                                                                       onclick="editableField('plan')" id="plan"
+                                                                                       placeholder="{{ ($details->detail) ? $details->detail->plan : '-' }}" value="{{ ($details->detail)  ? $details->detail->plan : '-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Weekly Hours</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="working_hour" data-id="working_hour"
+                                                                                       onclick="editableField('working_hour')" id="working_hour"
+                                                                                       placeholder="{{ $details->detail?$details->detail->working_hour:'-' }}" value="{{ $details->detail?$details->detail->working_hour:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Person Code</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="person_code" data-id="person_code"
+                                                                                       onclick="editableField('person_code')" id="person_code"
+                                                                                       placeholder="{{ $details->detail?$details->detail->person_code:'-' }}" value="{{ $details->detail?$details->detail->person_code:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">ID Number</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="id_number" data-id="id_number"
+                                                                                       onclick="editableField('id_number')" id="id_number"
+                                                                                       placeholder="{{ $details->detail?$details->detail->id_number:'-' }}" value="{{ $details->detail?$details->detail->id_number:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Group Number</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="grp_number" data-id="grp_number"
+                                                                                       onclick="editableField('grp_number')" id="grp_number"
+                                                                                       placeholder="{{ $details->detail?$details->detail->grp_number:'-' }}" value="{{ $details->detail?$details->detail->grp_number:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Eff. Date</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="eff_date" data-id="eff_date"
+                                                                                       onclick="editableField('eff_date')" id="eff_date"
+                                                                                       placeholder="{{ $details->detail?$details->detail->eff_date:'-' }}" value="{{ $details->detail?$details->detail->eff_date:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Term Date</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="term_date" data-id="term_date"
+                                                                                       onclick="editableField('term_date')" id="term_date"
+                                                                                       placeholder="{{ $details->detail?$details->detail->term_date:'-' }}" value="{{ $details->detail?$details->detail->term_date:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Initial</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="initial" data-id="initial"
+                                                                                       onclick="editableField('initial')" id="initial"
+                                                                                       placeholder="{{ $details->detail?$details->detail->initial:'-' }}" value="{{ $details->detail?$details->detail->initial:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Division</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="division" data-id="division"
+                                                                                       onclick="editableField('division')" id="division"
+                                                                                       placeholder="{{ $details->detail?$details->detail->division:'-' }}" value="{{ $details->detail?$details->detail->division:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Coverage</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="coverage" data-id="coverage"
+                                                                                       onclick="editableField('coverage')" id="coverage"
+                                                                                       placeholder="{{ $details->detail?$details->detail->coverage:'-' }}" value="{{ $details->detail?$details->detail->coverage:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Network</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="network" data-id="network"
+                                                                                       onclick="editableField('network')" id="network"
+                                                                                       placeholder="{{ $details->detail?$details->detail->network:'-' }}" value="{{ $details->detail?$details->detail->network:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-sm-3">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div>
+                                                                                <i class="las la-angle-double-right circle"></i>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 class="_title">Coverage Level</h3>
+                                                                                <input type="text"
+                                                                                       class="form-control-plaintext _detail no-height" readonly
+                                                                                       name="network" data-id="coverage_level"
+                                                                                       onclick="editableField('coverage_level')" id="coverage_level"
+                                                                                       placeholder="{{ $details->detail?$details->detail->coverage_level:'-' }}" value="{{ $details->detail?$details->detail->coverage_level:'-' }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1223,22 +1443,32 @@
                             </div>
                             <!-- Home Care End -->
                             <!-- CCM Start -->
+                            <div class="tab-pane fade" id="billing" role="tabpanel"
+                                 aria-labelledby="billing-tab">
+                                <div class="app-card app-card-custom" data-name="billing">
+                                    <div class="app-card-header">
+                                        <h1 class="title">Billing Information</h1>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tab-pane fade" id="ccm" role="tabpanel"
                                  aria-labelledby="ccm-tab">
-                                <div class="app-card app-card-custom" data-name="clinical">
+                                <div class="app-card app-card-custom" data-name="clinical" style="height:900px">
                                     <div class="app-card-header">
                                         <h1 class="title">CCM</h1>
                                     </div>
+                                    @include('includes.calendar.ccm.script')
                                 </div>
                             </div>
                             <!-- CCM End -->
                             <!-- CCM Start -->
                             <div class="tab-pane fade" id="rpm" role="tabpanel"
                                  aria-labelledby="rpm-tab">
-                                <div class="app-card app-card-custom" data-name="clinical">
+                                <div class="app-card app-card-custom" data-name="clinical" style="height:900px">
                                     <div class="app-card-header">
                                         <h1 class="title">RPM</h1>
                                     </div>
+                                    @include('includes.calendar.rpm.script')
                                 </div>
                             </div>
                             <!-- CCM End -->
@@ -1604,45 +1834,17 @@
                                                         @endforeach
                                                     </ul>
                                                     <div class="tab-content" id="pills-tabContent">
-                                                        <!-- PPD Start -->
-                                                            @include('pages.patient.ppd-quantiferon')
-                                                        <!-- PPD End -->
-
                                                         <!-- TB Screen Start -->
                                                             @include('pages.patient.tb-screen')
                                                         <!-- TB Screen End -->
 
                                                         <!-- Rubeola Start -->
-                                                            @include('pages.patient.rubeola')
+                                                            @include('pages.patient.immunization')
                                                         <!-- Rubeola End -->
-
-                                                        <!-- Rubeola MMR1 Start -->
-                                                            @include('pages.patient.rubeola-mmr1')
-                                                        <!-- Rubeola MMR1 End -->
-
-                                                        <!-- Rubeola MMR2 Start -->
-                                                            @include('pages.patient.rubeola-mmr2')
-                                                        <!-- Rubeola MMR2 End -->
-
-                                                        <!-- Rubella Start -->
-                                                            @include('pages.patient.rubella')
-                                                        <!-- Rubella End -->
-
-                                                        <!-- Rubella MMR Start -->
-                                                            @include('pages.patient.rubella-mmr')
-                                                        <!-- Rubella MMR End -->
-
-                                                        <!-- Facemask Provided Start -->
-                                                            @include('pages.patient.facemask-provided')
-                                                        <!-- Facemask Provided End -->
-
+                                                        
                                                         <!-- Drug Screen Start -->
                                                             @include('pages.patient.drug-screen')
                                                         <!-- Drug Screen End -->
-
-                                                        <!-- Annual Health Assessment Start -->
-                                                            @include('pages.patient.annual-health-assessment')
-                                                        <!-- Annual Health Assessment End -->
                                                     </div>
                                                 </div>
                                                 <!-- Lab End-->
@@ -2132,6 +2334,7 @@
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         var patient_id='{{ $details->id }}';
         var map;
@@ -2167,12 +2370,192 @@
             }
 
         }
+       
+        $(document).ready(function() {
+            $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                maxDate: new Date()
+            });
+
+            $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
+                var selectedDate = new Date($('[name="lab_due_date"]').val());
+                var date = selectedDate.getDate();
+                var monthf = selectedDate.getMonth() + 1;
+                var month  = (monthf < 10 ? '0' : '') + monthf; 
+                var year = selectedDate.getFullYear() + 1;
+                var expirydate = month + '/'+ date + '/'+ year;
+                $(".lab-expiry-date").text(expirydate);
+                $("#lab_expiry_date").val(expirydate);
+            });
+
+            $('#note').on('blur', function(e){
+                e.preventDefault();
+                var txtAval=$(this).val();
+
+                var patient_lab_report_id = $("input[name=patient_lab_report_id]").val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "{{ route('lab-report-note.store') }}",
+                    data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
+                    dataType: "json",
+                    success: function(response) {
+                        $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+                    },
+                    error: function(error) {
+                        alert(error.responseText);
+                    }
+                });
+            });
+            
+            $(document).on('click','.patient-detail-lab-report',function(event) {
+                event.preventDefault();
+
+                var data = $(this).parent('div').prev('div').find("form").serializeArray();
+                var url = "{{ Route('lab-report.store') }}";
+
+                $.ajax({
+                        type:"POST",
+                        url:url,
+                        data:data,
+                        headers: {
+                            'X_CSRF_TOKEN': '{{ csrf_token() }}',
+                        },
+                        success: function(data) {
+                            if(data.status == 400) {
+                                printErrorMsg(data.message);
+                            } else {
+                                $(".print-error-msg").hide();
+                                
+                                var html = '<tr class="';
+                                if (data.result.result === '1') {
+                                
+                                    html += 'bg-positive text-white';
+                                }
+                            
+                                html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td>';
+                                if (data.type == 'emmune' || data.type == 'drug') {
+                                    html += '<td>' + data.result.perform_date + '</td>';
+                                }
+                        
+                                html +='<td>' + data.result.expiry_date + '</td>';
+                                if (data.type == 'emmune') {
+                                    html += '<td>' + data.result.titer + '</td>';
+                                }
+                                html +='<td>' + data.result.lab_result + '</td><td class="text-center"><span onclick="exploder(tb1)" id="tb1" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr>';
+                             
+                                if (data.type == 'tb') {
+                                    $('.tb-list-order tr:last').before(html);
+                                } else if (data.type == 'emmune') {
+                                    $('.immue-list-order tr:last').before(html);
+                                } else if (data.type == 'drug') {
+                                    $('.drug-list-order tr:last').before(html);
+                                }
+                              
+                                $(document).find('.sequence').text(data.newCount);
+
+                                var select = $('#lab_report_type_id').empty();
+                                select.append('<option value="">Select a test type</option>');
+
+                                $.each(data.tbLabReportTypes, function (key, value) {
+                                    select.append('<option value="' + value.id + '">' + value.name + '</option>');
+                                });
+                                
+                                swal("Success!", data.message, "success");
+                            }
+                        },
+                        error: function()
+                        {
+                            swal("Server Timeout!", "Please try again", "warning");
+                        }
+                    });
+            });
+
+            $('body').on('click', '.deleteLabResult', function () {
+                var t = $(this);
+                var id = t.attr("id");
+                var patient_referral_id = $(this).data("id") ;
+               
+                swal({
+                    title: "Are you sure?",
+                    text: "Are you sure want to delete this record?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            'type': 'delete',
+                            'url': "{{ route('lab-report.destroy') }}",
+                            'headers': {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            data: {
+                                "id": id,
+                                "patient_referral_id" : patient_referral_id
+                            },
+                            'success': function (data) {
+                                if(data.status == 400) {
+                                    swal(
+                                        'Error!',
+                                        data.message,
+                                        'error'
+                                    );
+                                } else {
+                                    t.parents("tr").fadeOut(function () {
+                                        $(this).remove();
+                                    });
+
+                                    $(document).find('.sequence').text(data.newCount);
+
+                                    var select = $('#lab_report_type_id').empty();
+                                    select.append('<option value="">Select a test type</option>');
+                                    alert(data.tbLabReportTypes);
+                                    $.each(data.tbLabReportTypes, function (key, value) {
+                                        select.append('<option value="' + value.id + '">' + value.name + '</option>');
+                                    });
+                                    
+                                    swal(
+                                        'Deleted!',
+                                        data.message,
+                                        'success'
+                                    );
+                                }
+                                unload();
+                            },
+                            "error":function () {
+                                swal("Server Timeout!", "Please try again", "warning");
+                                unload();
+                            }
+                        });
+                    } else {
+                        swal(
+                            'Cancelled',
+                            'Your record is safe :)',
+                            'error'
+                        )
+                    }
+                });
+            });
+        });
+        function printErrorMsg (msg) {
+            $(".print-error-msg").find("ul").html('');
+            $(".print-error-msg").css('display','block');
+            $.each( msg, function( key, value ) {
+                $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+            });
+        }
     </script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
         defer
     ></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
+    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
 
 @endpush
 
@@ -2182,4 +2565,5 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset( 'assets/calendar/lib/main.css' ) }}" />
 @endpush

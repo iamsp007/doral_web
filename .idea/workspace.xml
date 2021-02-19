@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/doral_web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/doral_web.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,6 +168,7 @@
       <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/vendor/predis/predis" />
     </include_path>
   </component>
   <component name="ProjectId" id="1jExBQGjb0JrI2cHx9rLuxWcHW8" />
@@ -181,7 +181,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -202,11 +202,19 @@
       <recent name="$PROJECT_DIR$/resources/views/pages/coordinator" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Node.js.map.js">
+    <configuration name="map.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/public/js/clincian/map.js" working-dir="$PROJECT_DIR$/public/js/clincian">
+      <method v="2" />
+    </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.map.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -538,7 +546,34 @@
       <workItem from="1612269233796" duration="1227000" />
       <workItem from="1612280106728" duration="17000" />
       <workItem from="1612361860766" duration="599000" />
-      <workItem from="1612363052730" duration="777000" />
+      <workItem from="1612363052730" duration="1100000" />
+      <workItem from="1612368224787" duration="1107000" />
+      <workItem from="1612410931657" duration="1574000" />
+      <workItem from="1612415939916" duration="815000" />
+      <workItem from="1612544414710" duration="2945000" />
+      <workItem from="1613272665426" duration="4360000" />
+      <workItem from="1613283226284" duration="10403000" />
+      <workItem from="1613322249201" duration="934000" />
+      <workItem from="1613323540574" duration="1575000" />
+      <workItem from="1613325540524" duration="177000" />
+      <workItem from="1613360854375" duration="4733000" />
+      <workItem from="1613377528114" duration="3029000" />
+      <workItem from="1613381301979" duration="1430000" />
+      <workItem from="1613385038247" duration="7326000" />
+      <workItem from="1613404126091" duration="1523000" />
+      <workItem from="1613446624352" duration="3565000" />
+      <workItem from="1613493820095" duration="1032000" />
+      <workItem from="1613535001339" duration="2341000" />
+      <workItem from="1613540154911" duration="417000" />
+      <workItem from="1613541225291" duration="1279000" />
+      <workItem from="1613549758191" duration="724000" />
+      <workItem from="1613552212383" duration="87000" />
+      <workItem from="1613552706807" duration="1928000" />
+      <workItem from="1613575824880" duration="104000" />
+      <workItem from="1613647164626" duration="1589000" />
+      <workItem from="1613658522369" duration="1340000" />
+      <workItem from="1613660256842" duration="1241000" />
+      <workItem from="1613662789451" duration="2035000" />
     </task>
     <servers />
   </component>

@@ -326,12 +326,31 @@ class AdminService
                 '/auth/company/insert-update-service-payment',
                 [
                     'json'=>$data
+                    ]
+                );
+                $response = $response->getBody()->getContents();
+                $data = json_decode($response);
+                return $data;
+            } catch (\Exception $exception) {
+             
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+    public function appointments($payload)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/appointments',
+                [
+                    'json'=>$payload
                 ]
             );
             $response = $response->getBody()->getContents();
             $data = json_decode($response);
             return $data;
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             \Log::info($exception);
             throw new \Exception($exception->getMessage());
         }

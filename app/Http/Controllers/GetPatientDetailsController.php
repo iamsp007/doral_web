@@ -105,10 +105,12 @@ class GetPatientDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getPatientChangesV2($officeId)
+    public function getPatientChangesV2($officId)
     {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientChangesV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><OfficeID>' . $officeId . '</OfficeID><ModifiedAfter>2015-03-19T04:31:57.077</ModifiedAfter></GetPatientChangesV2></sSOAP-ENV:Body></SOAP-ENV:Envelope>';
-
+        $date = Carbon::now();// will get you the current date, time 
+        $today = $date->format("Y-m-d"); 
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientChangesV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><OfficeID>' . $officId . '</OfficeID><ModifiedAfter> ' . $today . ' </ModifiedAfter></GetPatientChangesV2></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        
         $method = 'POST';
 
         return $this->curlCall($data, $method);
@@ -133,9 +135,11 @@ class GetPatientDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getReferralProfile($referraId)
+    public function getReferralProfile()
     {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetReferralProfile xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><ReferralID>string</ReferralID><LastName>string</LastName><FirstName>string</FirstName><OfficeID>int</OfficeID><ReferralStatusID>int</ReferralStatusID><ReferralSourceID>int</ReferralSourceID><ReferralDateFrom>string</ReferralDateFrom><ReferralDateTo>string</ReferralDateTo><SalesStaffID>int</SalesStaffID><ReferralContractID>int</ReferralContractID><AdmittedDateFrom>string</AdmittedDateFrom><AdmittedDateTo>string</AdmittedDateTo></SearchFilters></GetReferralProfile></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetReferralProfile xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters></SearchFilters></GetReferralProfile></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+        // <SearchFilters><ReferralID>string</ReferralID><LastName>string</LastName><FirstName>string</FirstName><OfficeID>int</OfficeID><ReferralStatusID>int</ReferralStatusID><ReferralSourceID>int</ReferralSourceID><ReferralDateFrom>string</ReferralDateFrom><ReferralDateTo>string</ReferralDateTo><SalesStaffID>int</SalesStaffID><ReferralContractID>int</ReferralContractID><AdmittedDateFrom>string</AdmittedDateFrom><AdmittedDateTo>string</AdmittedDateTo></SearchFilters>
 
         $method = 'POST';
 
@@ -149,7 +153,7 @@ class GetPatientDetailsController extends Controller
      */
     public function getCaregiverDemographics($officeId)
     {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><GetCaregiverDemographics xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><CaregiverInfo><ID>int</ID></CaregiverInfo></GetCaregiverDemographics></soap:Body></SOAP-ENV:Envelope>';
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetCaregiverDemographics xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><CaregiverInfo><ID>int</ID></CaregiverInfo></GetCaregiverDemographics></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         $method = 'POST';
 
@@ -163,7 +167,7 @@ class GetPatientDetailsController extends Controller
      */
     public function getCaregiverChangesV2($officeId)
     {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><GetCaregiverChangesV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><OfficeID>int</OfficeID><ModifiedAfter>dateTime</ModifiedAfter></GetCaregiverChangesV2></soap:Body></SOAP-ENV:Envelope>';
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetCaregiverChangesV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><OfficeID>int</OfficeID><ModifiedAfter>dateTime</ModifiedAfter></GetCaregiverChangesV2></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         $method = 'POST';
 
@@ -177,7 +181,7 @@ class GetPatientDetailsController extends Controller
      */
     public function createCaregiverMedical($officeId)
     {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><CreateCaregiverMedical xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><CaregiverMedicalInfo><CaregiverID>int</CaregiverID><MedicalID>int</MedicalID><DueDate>dateTime</DueDate><DateCompleted>dateTime</DateCompleted><Notes>string</Notes><ResultID>int</ResultID></CaregiverMedicalInfo></CreateCaregiverMedical></soap:Body></SOAP-ENV:Envelope>';
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><CreateCaregiverMedical xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><CaregiverMedicalInfo><CaregiverID>int</CaregiverID><MedicalID>int</MedicalID><DueDate>dateTime</DueDate><DateCompleted>dateTime</DateCompleted><Notes>string</Notes><ResultID>int</ResultID></CaregiverMedicalInfo></CreateCaregiverMedical></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         $method = 'POST';
 
@@ -222,7 +226,7 @@ class GetPatientDetailsController extends Controller
      */
     public function getVisitInfoV2($officeId)
     {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><GetVisitInfoV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><<Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><VisitInfo><ID>int</ID></VisitInfo></GetVisitInfoV2></soap:Body></SOAP-ENV:Envelope>';
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetVisitInfoV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><<Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><VisitInfo><ID>int</ID></VisitInfo></GetVisitInfoV2></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         $method = 'POST';
 
@@ -281,6 +285,21 @@ class GetPatientDetailsController extends Controller
         return $this->curlCall($data, $method);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function searchCaregiverDetails()
+    {
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchCaregivers xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters></SearchFilters></SearchCaregivers></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+        //<FirstName>string</FirstName><LastName>string</LastName><Status>string</Status><PhoneNumber>string</PhoneNumber><CaregiverCode>string</CaregiverCode><EmployeeType>string</EmployeeType><SSN>string</SSN>
+        
+        $method = 'POST';
+        return $this->curlCall($data, $method);
+    }
+
     public function curlCall($data, $method)
     {
         $curl = curl_init();
@@ -312,54 +331,62 @@ class GetPatientDetailsController extends Controller
      */
     public function searchPatients(Request $request)
     {
+      
         $searchPatientIds = $this->searchPatientDetails();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
         // $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','490045','504356','516752','517000','518828','532337','540428','541579','542628','1005036','1008858','1009943','1010785','1010967','1015287','1019171','1030319','1031322','1048580','688245','695223','697606','698180','698859','698935','701845','704228','742010','742023','762544','762584','772465','772468','772470','783693','817770','826323','832638','841005','854502','865729','894642','904265','909877','916609','916702','946557','948750','952551','961283','965077','987170','989414','990437','994958','996056'];
-
+       
         $counter = 0;
         foreach ($patientArray as $patient_id) {
-            if ($counter < 2000) {
-                $getPatientReferralInfo = $this->getPatientReferralInfo($patient_id);
-                if (isset($getPatientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult'])) {
-                    $getScheduleInfo = $getPatientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
-                    if ($getScheduleInfo['ReferralMasterId'] !== '0') {
-                        dd($getScheduleInfo);
-                    }
-                    
-                }
-            }
+            if ($counter < 1000) {
+            //     $getPatientReferralInfo = $this->getPatientReferralInfo($patient_id);
+            //     if (isset($getPatientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult'])) {
+            //         $getScheduleInfo = $getPatientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
+            //         if ($getScheduleInfo['ReferralMasterId'] != 0) {
+            //             dd($getScheduleInfo);
+            //         }
+            //     }
+            // }
            
-            $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
-            if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
+                $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
+                if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
-                /** Store patirnt demographic detail */
-                $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
-                $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails);
-                    
-                if($patient_detail_id) {
-                    /** Get and Store Schedule Info */
-                    $visitID = $searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
-                    $scheduleInfo = $this->getScheduleInfo($visitID);
-                    $this->storeScheduleInfo($scheduleInfo, $patient_detail_id);
+                    /** Store patirnt demographic detail */
+                    $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
+                    $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails);
+                        
+                    if($patient_detail_id) {
 
-                    /** Get and Store Patient Clinical Info */
-                    $getPatientClinicalInfo = $this->getPatientClinicalInfo($patient_id);
-                    $this->storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id);
+                        /** Pending store process start*/
+                        /** Get and Store Version2 of Patient Detail */
+                        $patientChangesV2 = $this->getPatientChangesV2('247');
+                        $patientChangesV2['soapBody']['GetPatientChangesV2Response']['GetPatientChangesV2Result']['GetPatientChangesV2Info'];
 
-                    /** Get and Store Patient Referral Info */
-                    $getReferralProfile = $this->getReferralProfile($patient_id);
-                    $this->storeReferralProfile($getReferralProfile, $patient_detail_id);
+                        $patientReferralInfo = $this->getPatientReferralInfo($patient_detail_id);
+                        $getPatientReferralInfo = $patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
+                        $this->storePatientReferralInfo($getPatientReferralInfo, $patient_detail_id);
 
-                    /** Get and Store Patient Referral Info */
-                    $getPatientReferralInfo = $this->getPatientReferralInfo($patient_id);
-                    $this->storePatientReferralInfo($getPatientReferralInfo, $patient_detail_id);
+                        /** Get and Store Patient Referral Info */
+                        $referralProfile = $this->getReferralProfile();
+                        $getReferralProfile = $referralProfile['soapBody']['GetReferralProfileResponse']['GetReferralProfileResult']['ReferralSearch'];
+                        $this->storeReferralProfile($getReferralProfile, $patient_detail_id);
+                        
+                        /** Pending store process end*/
+                        
+                        /** Get and Store Schedule Info */
+                        $visitID = $searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+                        $scheduleInfo = $this->getScheduleInfo($visitID);
+                        $this->storeScheduleInfo($scheduleInfo, $patient_detail_id);
+
+                        /** Get and Store Patient Clinical Info */
+                        $getPatientClinicalInfo = $this->getPatientClinicalInfo($patient_id);
+                        $this->storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id);
+                    }
                 }
             }
-           $counter++;
+            $counter++;
         }
     }
-
-   
 
     public function storePatientDetail($getpatientDemographicDetails)
     {
@@ -453,8 +480,8 @@ class GetPatientDetailsController extends Controller
             /** Store emergency contact */
             $this->storeEmergencyContact($patientDetails['EmergencyContacts']['EmergencyContact'], $patientDetail->id);
         }
-        return $patientDetail->id;
 
+        return $patientDetail->id;
     }
 
     public function storeCoordinator($coordinators, $patientDetail_id)

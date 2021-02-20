@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+@extends('pages.layouts.app')
+
+@section('title','Welcome to Doral')
+
+@section('pageTitleSection')
+    Add Patient
+@endsection
+
 <html lang="en">
 
 <head>
@@ -13,7 +20,7 @@
     <link rel="stylesheet" href="../assets/css/add-patient.css">
     <link rel="stylesheet" href="../assets/css/style.min.css">
     <link rel="stylesheet" href="../assets/css/responsive.min.css">
-    <title>Welcome to Doral 111</title>
+    
 </head>
 
 <body>
@@ -158,17 +165,17 @@
                                         <h2 class="fs-title">Please Select Patient Enrollment Status</h2>
                                         <div class="d-flex justify-content-center align-items-center mt-4">
                                             <label>
-                                                <input class="with-gap" name="enrollment" type="radio" id="customRadio1"
+                                                <input class="with-gap" name="customRadio" type="radio" 
                                                     value="boarding" />
                                                 <span>On Boarding Patient</span>
                                             </label>
                                             <label class="ml-3">
-                                                <input class="with-gap" name="enrollment" type="radio" id="customRadio2"
+                                                <input class="with-gap" type="radio" name="customRadio"
                                                     value="existing_patient" />
                                                 <span>Existing Patient</span>
                                             </label>
                                         </div>
-                                        <div class="app-card no-shadow no-minHeight mt-3 existing_patient">
+                                      <div class="app-card no-shadow no-minHeight mt-3 existing_patient">
                                             <div class="pl-4 pr-4 pb-4 pt-4">
                                                 <p class="text-center">Kindly provide MD Order</p>
                                                 <div class="row mt-3">
@@ -198,12 +205,12 @@
                                         <h2 class="fs-title">Please select type of services</h2>
                                         <div class="d-flex justify-content-center align-items-center mt-4">
                                             <label>
-                                                <input class="with-gap" id="customRadio01" type="radio" name="services"
+                                                <input class="with-gap"  type="radio" name="customRadio01"
                                                     value="cdpap" />
                                                 <span>CDPAP</span>
                                             </label>
                                             <label class="ml-3">
-                                                <input class="with-gap" id="customRadio02" type="radio" name="services"
+                                                <input class="with-gap"  type="radio" name="customRadio01"
                                                     value="lhcsa" />
                                                 <span>LHCSA</span>
                                             </label>
@@ -313,7 +320,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="customer_records_dynamic"></div>
+                                        <div class="customer_records_dynamic"> </div>
                                         <!-- <a href="javascript:void(0)" class="d-flex justify-content-end"><i class="las la-plus-circle la-2x"></i></a> -->
                                     </div>
                                     <input type="button" name="next" id="next" class="next form_next cancel-btn float-right mr-4"
@@ -571,7 +578,7 @@
     <script src="../assets/js/tail.select-full.min.js"></script>
     <script src="../assets/js/jquery.validate.min.js"></script>
     <script src="../assets/js/add-patient.js"></script>
-    <script>
+        <script>
         $(function () {
             $('#ssn').keyup(function () {
             var val = this.value.replace(/\D/g, '');
@@ -876,12 +883,14 @@
                     $(".Zip").text("Looks good!").removeClass('errorClass').addClass('valid').addClass('looksGood');
                 }
             });
-            $("#btnAdd").bind("click", function () {
+             $("#btnAdd").bind("click", function () {
                 var div = $("<div />");
                 div.html(GetDynamicTextBox(""));
                 $(".customer_records_dynamic").append(div);
             });
-           
+            $("body").on("click", ".remove-record", function () {
+                $(this).closest(".app-card").remove();
+            });
             $('input[name="dob"]').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,

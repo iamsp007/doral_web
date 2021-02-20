@@ -1,11 +1,21 @@
 @extends('pages.layouts.app')
 
 @section('title','Patient RoadL Request')
-@section('pageTitleSection')
-    RoadL
+@section('pageTitleSection','Roadl')
+@section('upload-btn')
+    <div class="d-flex">
+        <select class="form-control" name="filter" id="filter">
+            <option value="latest" {{ request()->type==="latest"?"selected":"" }}>Last Hour</option>
+            <option value="pending" {{ request()->type==="pending"?"selected":"" }}>Pending</option>
+            <option value="running" {{ request()->type==="running"?"selected":"" }}>Running</option>
+            <option value="complete" {{ request()->type==="complete"?"selected":"" }}>Complete</option>
+        </select>
+    </div>
+
 @endsection
 
 @section('content')
+
     <ul class="boradcast-list">
         @if(count($patientRequestList)>0)
             @foreach($patientRequestList as $key=>$value)
@@ -131,6 +141,10 @@
                     </div>
                 </li>
             @endforeach
+        @else
+            <li>
+                <h1>No Roadl Request Found</h1>
+            </li>
         @endif
 
     </ul>
@@ -148,10 +162,11 @@
     <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
     <script>
         var patientRequestList='{{ route('clinician.roadl.patientRequestList') }}';
-
-        function sendLocation(token,data) {
-            socket.emit('send-location', data);
-        }
+        $('#filter').on('change',function (event) {
+            event.preventDefault();
+            window.location.href='{{ url("/clinician/roadl/") }}'+'?type='+event.target.value;
+            console.log(event.target.value)
+        })
     </script>
     <!--<script src="{{ asset('js/clincian/roadl.js') }}"></script>-->
 @endpush

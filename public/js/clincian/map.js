@@ -66,7 +66,8 @@ function initMap() {
                 referral_type[resp.referral_type]={
                     latlng:[resp.start_latitude,resp.end_longitude],
                     directionsService:new google.maps.DirectionsService(),
-                    directionsRenderer:new google.maps.DirectionsRenderer()
+                    directionsRenderer:new google.maps.DirectionsRenderer({suppressMarkers: true}),
+                    id:resp.id
                 }
 
                 if (resp.latitude!==null){
@@ -81,7 +82,7 @@ function initMap() {
                 }
                 var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
                 var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
-                calculateAndDisplayRoute(current,destination,referral_type[resp.referral_type].directionsService,referral_type[resp.referral_type].directionsRenderer,originName,destinationName,color);
+                calculateAndDisplayRoute(current,destination,resp.referral_type,originName,destinationName,resp.color,resp.icon);
                updateMap(destination,map)
             })
         },
@@ -123,11 +124,14 @@ var html='';
 function updateMap(destination,name) {
     window.Echo.channel('location').listen('SendLocation',function (e) {
         const response = e.location;
-        var current = new google.maps.LatLng(response.latitude,response.longitude);
-        var originName = response.first_name+' '+response.last_name+'  Role : '+response.referral_type;
-        var destinationName = name+'  Role : Patient';
-        map.setZoom(map);
-        calculateAndDisplayRoute(current,destination,response.referral_type,originName,destinationName,response.color,response.icon)
+        if (response.id===referral_type[response.referral_type].id){
+            var current = new google.maps.LatLng(response.latitude,response.longitude);
+            var originName = response.first_name+' '+response.last_name+'  Role : '+response.referral_type;
+            var destinationName = name+'  Role : Patient';
+            map.setZoom(map);
+            calculateAndDisplayRoute(current,destination,response.referral_type,originName,destinationName,response.color,response.icon)
+        }
+
     })
 }
 

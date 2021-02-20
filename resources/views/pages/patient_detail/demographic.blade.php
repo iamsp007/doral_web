@@ -200,7 +200,7 @@
                                        name="nurse_id"
                                        onclick="editableField('nurse_id')"
                                        data-id="nurse_id" id="nurse_id"
-                                       placeholder="Nurse ID" value="{{ ($patient->nurse) ? $patient->nurse->nurse_id : '-' }}">
+                                       placeholder="Nurse ID" value="{{ $patient->nurse_id }}">
                                  </div>
                               </div>
                            </div>
@@ -214,7 +214,7 @@
                                        name="nurse_name"
                                        onclick="editableField('nurse_name')"
                                        data-id="nurse_name" id="nurse_name"
-                                       placeholder="Nurse Name" value="{{ ($patient->nurse) ? $patient->nurse->name : '-' }}">
+                                       placeholder="Nurse Name" value="{{ $patient->nurse_name }}">
                                  </div>
                               </div>
                            </div>
@@ -301,10 +301,10 @@
                                     <h3 class="_title">Source Of Admission ID</h3>
                                     <input type="text"
                                        class="form-control-plaintext _detail " readonly
-                                       name="source_of_admission_id"
-                                       onclick="editableField('source_of_admission_id')"
-                                       data-id="source_of_admission_id" id="source_of_admission_id"
-                                       placeholder="Source Of Admission ID" value="{{ ($patient->sourceOfAdmission) ? $patient->sourceOfAdmission->source_of_admission_id : '-' }}">
+                                       name="source_admission_id"
+                                       onclick="editableField('source_admission_id')"
+                                       data-id="source_admission_id" id="source_admission_id"
+                                       placeholder="Source Of Admission ID" value="{{ $patient->source_admission_id }}">
                                  </div>
                               </div>
                            </div>
@@ -315,10 +315,10 @@
                                     <h3 class="_title">Source Of Admission Name</h3>
                                     <input type="text"
                                        class="form-control-plaintext _detail " readonly
-                                       name="source_of_admission_name"
-                                       onclick="editableField('source_of_admission_name')"
-                                       data-id="source_of_admission_name" id="source_of_admission_name"
-                                       placeholder="Source Of Admission Name" value="{{ ($patient->sourceOfAdmission) ? $patient->sourceOfAdmission->source_of_admission_name : '-' }}">
+                                       name="source_admission_name"
+                                       onclick="editableField('source_admission_name')"
+                                       data-id="source_admission_name" id="source_admission_name"
+                                       placeholder="Source Of Admission Name" value="{{ $patient->source_admission_name }}">
                                  </div>
                               </div>
                            </div>
@@ -349,7 +349,7 @@
                                        name="team_id"
                                        onclick="editableField('team_id')"
                                        data-id="team_id" id="team_id"
-                                       placeholder="Team ID" value="{{ ($patient->team) ? $patient->team->team_id : '-' }}">
+                                       placeholder="Team ID" value="{{ $patient->team_id }}">
                                  </div>
                               </div>
                            </div>
@@ -363,7 +363,7 @@
                                        name="team_name"
                                        onclick="editableField('team_name')"
                                        data-id="team_name" id="team_name"
-                                       placeholder="Team Name" value="{{ ($patient->team) ? $patient->team->name : '-' }}">
+                                       placeholder="Team Name" value="{{ $patient->team_name }}">
                                  </div>
                               </div>
                            </div>
@@ -394,7 +394,7 @@
                                        name="location_id"
                                        onclick="editableField('location_id')"
                                        data-id="location_id" id="location_id"
-                                       placeholder="Location ID" value="{{ ($patient->location) ? $patient->location->location_id : '-' }}">
+                                       placeholder="Location ID" value="{{ $patient->location_id }}">
                                  </div>
                               </div>
                            </div>
@@ -408,7 +408,7 @@
                                        name="location_name"
                                        onclick="editableField('location_name')"
                                        data-id="location_name" id="location_name"
-                                       placeholder="Location Name" value="{{ ($patient->location) ? $patient->location->name : '-' }}">
+                                       placeholder="Location Name" value="{{ $patient->location_name }}">
                                  </div>
                               </div>
                            </div>
@@ -439,7 +439,7 @@
                                        name="branch_id"
                                        onclick="editableField('branch_id')"
                                        data-id="branch_id" id="branch_id"
-                                       placeholder="Branch ID" value="{{ ($patient->branch) ? $patient->branch->branch_id : '-' }}">
+                                       placeholder="Branch ID" value="{{ $patient->branch_id }}">
                                  </div>
                               </div>
                            </div>
@@ -453,7 +453,7 @@
                                        name="branch_name"
                                        onclick="editableField('branch_name')"
                                        data-id="branch_name" id="branch_name"
-                                       placeholder="Branch Name" value="{{ ($patient->branch) ? $patient->branch->name : '-' }}">
+                                       placeholder="Branch Name" value="{{ $patient->branch_name }}">
                                  </div>
                               </div>
                            </div>

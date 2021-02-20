@@ -26,11 +26,21 @@ class PatientDetail extends Model
         'gender',
         'priority_code',
         'service_request_start_date',
+        'nurse_id',
+        'nurse_name',
         'admission_id',
         'medicaid_number',
         'medicare_number',
         'ssn',
         'alert',
+        'source_admission_id',
+        'source_admission_name',
+        'team_id',
+        'team_name',
+        'location_id',
+        'location_name',
+        'branch_id',
+        'branch_name',
         'home_phone',
         'phone2',
         'phone2_description',
@@ -163,6 +173,21 @@ class PatientDetail extends Model
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function setGenderAttribute($gender)
+    {
+        if ($gender === 'Male') {
+            $gender = '1';
+        } else if ($gender === 'Female') {
+            $gender = '2';
+        } else {
+            $gender = '3';
+        }
+        return $gender;
     }
 
     /**

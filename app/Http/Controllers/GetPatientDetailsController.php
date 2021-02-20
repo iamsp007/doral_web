@@ -289,8 +289,8 @@ class GetPatientDetailsController extends Controller
 
                     /** Store patirnt demographic detail */
                     $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
-                    dump($getpatientDemographicDetails);
-                    // $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails);
+                    // dump($getpatientDemographicDetails);
+                    $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails);
                             // dump($patient_detail_id);
                     // if($patient_detail_id) {
 
@@ -431,7 +431,7 @@ class GetPatientDetailsController extends Controller
             $this->storeEmergencyContact($patientDetails['EmergencyContacts']['EmergencyContact'], $patientDetail->id);
 
             /** Store emergency contact */
-            $this->storeEmergencyContact($patientDetails['EmergencyPreparedness'], $patientDetail->id);
+            $this->emergencyPreparedness($patientDetails['EmergencyPreparedness'], $patientDetail->id);
         }
 
         return $patientDetail->id;
@@ -441,16 +441,16 @@ class GetPatientDetailsController extends Controller
     {
         foreach ($coordinators as $coordinator) {
             if(!empty($coordinator['Name'])) {
-                 $coordinatorModel = Coordinator::updateOrCreate(
+                $coordinatorModel = Coordinator::updateOrCreate(
                     ['coordinator_id' => $coordinator['ID']],
                     ['name' => ($coordinator['Name']) ? $coordinator['Name'] : '']
                 );
 
                 if ($coordinatorModel) {
-                    $patientCoordinatorModel = new PatientCoordinator();
-                    $patientCoordinatorModel->patient_id = $patientDetail_id;
-                    $patientCoordinatorModel->coordinator_id = $coordinatorModel->id;
-                    $patientCoordinatorModel->save();
+                    PatientCoordinator::updateOrCreate(
+                        ['patient_id' => $patientDetail_id],
+                        ['coordinator_id' => $coordinatorModel->id]
+                    );
                 }
             }
         }
@@ -459,20 +459,12 @@ class GetPatientDetailsController extends Controller
     public function storeAcceptedServices($acceptedServices, $patientDetail_id)
     {
         if (isset($acceptedServices['Discipline']) && !empty($acceptedServices['Discipline'])) {
-            foreach ($acceptedServices['Discipline'] as $key => $acceptedService) {
-                if(!empty($acceptedService)) {
-                    $acceptedServiceModel = new AcceptedService();
-                
-                    $acceptedServiceModel->type = 'Discipline';
-                    $acceptedServiceModel->name = $acceptedService;
-
-                    if ($acceptedServiceModel->save()) {
-                        $patientAcceptedServiceModel = new PatientAcceptedService();
-
-                        $patientAcceptedServiceModel->patient_id = $patientDetail_id;
-                        $patientAcceptedServiceModel->accepted_service_id = $acceptedServiceModel->id;
-                    }
-                }
+            foreach ($acceptedServices as $key => $acceptedService) {
+                $encodedTypeValue = json_encode($acceptedService);
+                AcceptedService::updateOrCreate(
+                    ['type' => $key, 'patient_id' =>$patientDetail_id],
+                    ['value' => $encodedTypeValue]
+                );
             }
         }
     }
@@ -568,19 +560,15 @@ class GetPatientDetailsController extends Controller
 
     public function emergencyPreparedness($emergencyPreparedness, $patientDetail_id)
     {
-        // dump($emergencyPreparedness);
-        foreach ($emergencyPreparedness as $key => $alternateBilling) {
-            dump($key);
-            echo '----';
-            dump($alternateBilling);
-            // $arrNewSku[$key]['id']] = $arrKey;
-        //     $emergencyPreparednessModel = new EmergencyPreparedness();
+        foreach ($emergencyPreparedness as $key => $emergencyPreparednes) {
+            $encodedTypeValue = json_encode($emergencyPreparednes);
+            $emergencyPreparednessModel = new EmergencyPreparedness();
             
-        //     $emergencyPreparednessModel->type = $key;
-        //     $emergencyPreparednessModel->value = $alternateBilling->Discipline;
-        //     $emergencyPreparednessModel->patient_id = $patientDetail_id;
+            $emergencyPreparednessModel->type = $key;
+            $emergencyPreparednessModel->value = $encodedTypeValue;
+            $emergencyPreparednessModel->patient_id = $patientDetail_id;
 
-        //     $emergencyPreparednessModel->save();
+            $emergencyPreparednessModel->save();
         }
     }  
 

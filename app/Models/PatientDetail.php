@@ -118,51 +118,11 @@ class PatientDetail extends Model
     /**
      * Relation with nurse
      */
-    public function nurse()
-    {
-        return $this->hasOne(Nurse::class,'patient_id','id');
-    }
-
-    /**
-     * Relation with nurse
-     */
-    public function team()
-    {
-        return $this->hasOne(Team::class,'patient_id','id');
-    }
-
-    /**
-     * Relation with nurse
-     */
-    public function location()
-    {
-        return $this->hasOne(Location::class,'patient_id','id');
-    }
-
-    /**
-     * Relation with nurse
-     */
-    public function branch()
-    {
-        return $this->hasOne(Branch::class,'patient_id','id');
-    }
-
-    /**
-     * Relation with nurse
-     */
     public function emergencyPreparedness()
     {
         return $this->hasOne(EmergencyPreparedness::class,'patient_id','id');
     }
-    
-    /**
-     * Relation with nurse
-     */
-    public function sourceOfAdmission()
-    {
-        return $this->hasOne(SourceOfAdmission::class,'patient_id','id');
-    }
-
+  
     public function visitorDetail() {
         return $this->hasOne(VisitorDetail::class,'patient_id','id')->orderBy('id','DESC');
     }

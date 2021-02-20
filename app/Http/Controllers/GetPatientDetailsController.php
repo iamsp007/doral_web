@@ -4,30 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\AcceptedService;
 use App\Models\AlternateBilling;
-use App\Models\Branch;
 use App\Models\City;
 use App\Models\Coordinator;
 use App\Models\Country;
 use App\Models\EmergencyPreparedness;
 use App\Models\LabReportType;
-use App\Models\Location;
-use App\Models\Nurse;
 use App\Models\PatientAcceptedService;
 use App\Models\PatientAddress;
 use App\Models\PatientAllergy;
-use App\Models\PatientBranch;
 use App\Models\PatientClinicalDetail;
 use App\Models\PatientCoordinator;
 use App\Models\PatientDetail;
 use App\Models\PatientEmergencyContact;
 use App\Models\PatientLabReport;
-use App\Models\PatientLocation;
 use App\Models\PatientReferralInfo;
-use App\Models\PatientSourceOfAdmission;
-use App\Models\PatientTeam;
-use App\Models\SourceOfAdmission;
 use App\Models\State;
-use App\Models\Team;
 use App\Models\VisitorDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -283,7 +274,7 @@ class GetPatientDetailsController extends Controller
        
         $counter = 0;
         foreach ($patientArray as $patient_id) {
-            if ($counter < 100) {
+            if ($counter < 10) {
             //     $getPatientReferralInfo = $this->getPatientReferralInfo($patient_id);
             //     if (isset($getPatientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult'])) {
             //         $getScheduleInfo = $getPatientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
@@ -299,7 +290,7 @@ class GetPatientDetailsController extends Controller
                     /** Store patirnt demographic detail */
                     $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
                     dump($getpatientDemographicDetails);
-                    // $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails);
+                    $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails);
                         
                     // if($patient_detail_id) {
 
@@ -349,7 +340,7 @@ class GetPatientDetailsController extends Controller
         $patientDetail->middle_name = ($patientDetails['MiddleName']) ? $patientDetails['MiddleName'] : '' ;
         $patientDetail->last_name = ($patientDetails['LastName']) ? $patientDetails['LastName'] : '' ;
         $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
-        $patientDetail->gender =  ($patientDetails['Gender']) ? $patientDetails['Gender'] : '' ;
+        // $patientDetail->gender =  ($patientDetails['Gender']) ? $patientDetails['Gender'] : '' ;
 
         $patientDetail->priority_code = ($patientDetails['PriorityCode']) ? $patientDetails['PriorityCode'] : '' ;
         $patientDetail->service_request_start_date = ($patientDetails['ServiceRequestStartDate']) ? $patientDetails['ServiceRequestStartDate'] : '' ;
@@ -568,31 +559,31 @@ class GetPatientDetailsController extends Controller
             //         $country_id = $country->id;
             //     }
 
-             $state_id = '';
-             if (isset($address['State']) && !empty($address['State'])) {
-                 $state = State::where('state_code',$address['State'])->first();
-                 if(!empty($state)) {
-                     $state_id = $state['id'];
-                 }
-             }
+            //  $state_id = '';
+            //  if (isset($address['State']) && !empty($address['State'])) {
+            //      $state = State::where('state_code',$address['State'])->first();
+            //      if(!empty($state)) {
+            //          $state_id = $state['id'];
+            //      }
+            //  }
 
-             $city_id = '';
-             if (isset($address['City']) && !empty($address['City'])) {
-                $city = City::where('city',$address['City'])->first();
-                 if(!empty($city)) {
-                     $city_id = $city['id'];
-                 }
-             }
+            //  $city_id = '';
+            //  if (isset($address['City']) && !empty($address['City'])) {
+            //     $city = City::where('city',$address['City'])->first();
+            //      if(!empty($city)) {
+            //          $city_id = $city['id'];
+            //      }
+            //  }
             $patientAddress = new PatientAddress();
             $patientAddress->patient_id = $patientDetail_id;
             $patientAddress->address_id = ($address['AddressID']) ? $address['AddressID'] : '' ;
             $patientAddress->address1 = ($address['Address1']) ? $address['Address1'] : '' ;
             $patientAddress->address2 = ($address['Address2']) ? $address['Address2'] : '' ;
             $patientAddress->cross_street = ($address['CrossStreet']) ? $address['CrossStreet'] : '' ;
-            $patientAddress->city_id = $city_id;
+            // $patientAddress->city_id = $city_id;
             $patientAddress->zip5 = ($address['Zip5']) ? $address['Zip5'] : '' ;
             $patientAddress->zip4 = ($address['Zip4']) ? $address['Zip4'] : '' ;
-            $patientAddress->state_id = $state_id;
+            // $patientAddress->state_id = $state_id;
             $patientAddress->county_id = $country_id;
             $patientAddress->is_primary_address = ($address['IsPrimaryAddress'] == 'Yes') ? 1 : 0 ;
             $patientAddress->address_type = ($address['AddressTypes']) ? $address['AddressTypes'] : '' ;

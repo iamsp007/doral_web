@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../assets/css/add-patient.css">
     <link rel="stylesheet" href="../assets/css/style.min.css">
     <link rel="stylesheet" href="../assets/css/responsive.min.css">
-    <title>Welcome to Doral</title>
+    <title>Welcome to Doral 111</title>
 </head>
 
 <body>
@@ -570,7 +570,7 @@
     <script src="../assets/js/app.common.min.js"></script>
     <script src="../assets/js/tail.select-full.min.js"></script>
     <script src="../assets/js/jquery.validate.min.js"></script>
-    <script src="../assets/js/add-patient.min.js"></script>
+    <script src="../assets/js/add-patient.js"></script>
     <script>
         $(function () {
             $('#ssn').keyup(function () {

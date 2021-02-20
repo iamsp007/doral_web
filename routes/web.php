@@ -73,3 +73,5 @@ Route::post('/zoom-generate_signature','\App\Http\Controllers\Clinician\RoomCont
 Route::get('/search-patients', 'App\Http\Controllers\GetPatientDetailsController@searchPatients');
 Route::post('/search-patient-details', 'App\Http\Controllers\GetPatientDetailsController@searchPatientDetails');
 Route::post('/get-demographic-details', 'App\Http\Controllers\GetPatientDetailsController@getDemographicDetails');
+
+Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searchCaregivers');

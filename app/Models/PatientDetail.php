@@ -26,11 +26,21 @@ class PatientDetail extends Model
         'gender',
         'priority_code',
         'service_request_start_date',
+        'nurse_id',
+        'nurse_name',
         'admission_id',
         'medicaid_number',
         'medicare_number',
         'ssn',
         'alert',
+        'source_admission_id',
+        'source_admission_name',
+        'team_id',
+        'team_name',
+        'location_id',
+        'location_name',
+        'branch_id',
+        'branch_name',
         'home_phone',
         'phone2',
         'phone2_description',
@@ -108,51 +118,11 @@ class PatientDetail extends Model
     /**
      * Relation with nurse
      */
-    public function nurse()
-    {
-        return $this->hasOne(Nurse::class,'patient_id','id');
-    }
-
-    /**
-     * Relation with nurse
-     */
-    public function team()
-    {
-        return $this->hasOne(Team::class,'patient_id','id');
-    }
-
-    /**
-     * Relation with nurse
-     */
-    public function location()
-    {
-        return $this->hasOne(Location::class,'patient_id','id');
-    }
-
-    /**
-     * Relation with nurse
-     */
-    public function branch()
-    {
-        return $this->hasOne(Branch::class,'patient_id','id');
-    }
-
-    /**
-     * Relation with nurse
-     */
     public function emergencyPreparedness()
     {
         return $this->hasOne(EmergencyPreparedness::class,'patient_id','id');
     }
-    
-    /**
-     * Relation with nurse
-     */
-    public function sourceOfAdmission()
-    {
-        return $this->hasOne(SourceOfAdmission::class,'patient_id','id');
-    }
-
+  
     public function visitorDetail() {
         return $this->hasOne(VisitorDetail::class,'patient_id','id')->orderBy('id','DESC');
     }
@@ -168,11 +138,30 @@ class PatientDetail extends Model
     /**
      * Get gender value and set label according to gender value
      */
+    public function setGenderAttribute($gender)
+    {
+        if ($gender == 'Male') {
+            $gender = '1';
+        } else if ($gender == 'Female') {
+            $gender = '2';
+        } else {
+            $gender = '3';
+        }
+        return $gender;
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
     public function getGenderAttribute($gender)
     {
         if ($gender === '1') {
             $gender = 'Male';
         } else if ($gender === '2') {
+            $gender = 'Female';
+        } else if ($gender === 'MALE') {
+            $gender = 'Male';
+        } else if ($gender === 'FEMALE') {
             $gender = 'Female';
         } else {
             $gender = 'Other';

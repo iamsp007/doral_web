@@ -26,8 +26,11 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
     });*/
 
     Route::get('/referral-approval', 'App\Http\Controllers\CompanyController@index')->name('admin.referral.approval');
+    Route::get('/referral-approval-list', 'App\Http\Controllers\CompanyController@getReferralApprovalList')->name('admin.referral.approval.list');
     Route::get('/referral-active', 'App\Http\Controllers\CompanyController@active')->name('admin.referral.active');
+    Route::get('/referral-active-list', 'App\Http\Controllers\CompanyController@getReferralActiveList')->name('admin.referral.active.list');
     Route::get('/referral-rejected', 'App\Http\Controllers\CompanyController@rejected')->name('admin.referral.rejected');
+    Route::get('/referral-rejected-list', 'App\Http\Controllers\CompanyController@getReferralRejectedList')->name('admin.referral.rejected.list');
     Route::post('/referral-status', 'App\Http\Controllers\CompanyController@updateStatus')->name('admin.updateStatus');
     Route::get('/referral-profile/{id}', 'App\Http\Controllers\CompanyController@profile');
     Route::post('/referral-profile-update', 'App\Http\Controllers\CompanyController@updateProfile')->name('admin.updateProfile');
@@ -42,4 +45,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
     Route::get('clinician','App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician');
     Route::get('clinician-list','App\Http\Controllers\Clinician\ClinicianController@getClinicianList')->name('admin.clinician-list');
     Route::get('clinician-detail/{id}','App\Http\Controllers\Clinician\ClinicianController@getClinicianDetail')->name('admin.clinician-detail');
+
+    // service payment details insert / update
+    Route::post('/service-payment-insert-update', 'App\Http\Controllers\CompanyController@insertUpdateServicePayment')->name('admin.insertUpdateServicePayment');
 });

@@ -23,7 +23,7 @@ class ClinicianService
         $this->client = new BaseClient(env('API_URL'), env('API_URL'));
     }
 
-    public function getPatientRequestList(){
+    public function getPatientRequestList($type){
         try {
 
             $response = $this->client->request(
@@ -31,7 +31,7 @@ class ClinicianService
                 '/clinician-patient-request-list',
                 [
                     'json'=>array(
-                        'type'=>'latest'
+                        'type'=>$type
                     )
                 ]
             );

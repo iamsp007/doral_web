@@ -18,10 +18,14 @@ class RoadLController extends Controller
         $this->clinicianService=$clinicianService;
     }
     //
-    public function index(){
+    public function index(Request $request){
 
+        $type='latest';
+        if ($request->has('type')){
+            $type=$request->type;
+        }
         $clinicianService = new ClinicianService();
-        $response = $clinicianService->getPatientRequestList();
+        $response = $clinicianService->getPatientRequestList($type);
         $patientRequestList=array();
         if ($response->status===true){
             $patientRequestList = $response->data;

@@ -221,6 +221,27 @@ class AdminService
         }
     }
 
+    public function getClinicianData($data)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/auth/get-clinician-data',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
+
     public function saveToken($data){
         try {
 

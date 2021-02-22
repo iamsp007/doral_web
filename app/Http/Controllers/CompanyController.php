@@ -24,15 +24,9 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request)
+    public function index()
     {
-       $adminServices = new AdminService();
-        $responseArray = $adminServices->getCompanyReferral(1);
-        $record = array();
-        if (isset($responseArray['data']['companies'])) {
-            $record = $responseArray['data']['companies'];
-        }
-        return View('pages.admin.referral-approval')->with('record',$record);
+        return View('pages.admin.referral-approval');
     }
 
     /**
@@ -43,13 +37,7 @@ class CompanyController extends Controller
 
     public function active()
     {
-        $adminServices = new AdminService();
-        $responseArray = $adminServices->getCompanyReferral(2);
-        $record = array();
-        if (isset($responseArray['data']['companies'])) {
-            $record = $responseArray['data']['companies'];
-        }
-        return View('pages.admin.referral-approval')->with('record',$record);
+        return View('pages.admin.referral-approval');
     }
 
     /**
@@ -60,13 +48,7 @@ class CompanyController extends Controller
 
     public function rejected()
     {
-        $adminServices = new AdminService();
-        $responseArray = $adminServices->getCompanyReferral(3);
-        $record = array();
-        if (isset($responseArray['data']['companies'])) {
-            $record = $responseArray['data']['companies'];
-        }
-        return View('pages.admin.referral-approval')->with('record',$record);
+        return View('pages.admin.referral-approval');
     }
 
     /**
@@ -183,6 +165,39 @@ class CompanyController extends Controller
                         Profile</a>';
             })
             ->make(true);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getReferralData(Request $request) {
+       $requestData = $request->all();
+       $data = [];
+        if (isset($requestData['searchTerm']) && $requestData['searchTerm']) {
+            $status = "0";
+            if (isset($requestData['type']) && $requestData['type']) {
+                $type = $requestData['type'];
+
+                if ($type === "2") {
+                    $status = "1";
+                } elseif ($type === "3") {
+                    $status = "3";
+                }
+            }
+
+            $companies = Company::where('status','=',$status)
+                ->where($requestData['searchField'], 'like', '%' . $requestData['searchTerm'] . '%')
+                ->whereHas('roles',function ($q) {
+                    $q->where('name','=','referral');
+                })
+                ->get();
+                
+            $data['data'] = $companies; 
+        }
+        return $data;
     }
 
     /**

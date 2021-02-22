@@ -124,6 +124,7 @@ var html='';
 function updateMap(destination,name) {
     window.Echo.channel('location').listen('SendLocation',function (e) {
         const response = e.location;
+        console.log(response)
         if (response.id===referral_type[response.referral_type].id){
             var current = new google.maps.LatLng(response.latitude,response.longitude);
             var originName = response.first_name+' '+response.last_name+'  Role : '+response.referral_type;

@@ -70,17 +70,24 @@ let updateField = f => {
     y.attr('readOnly', true).attr("onclick", "editableField('" + f + "')");
     y.focus();
 }
+ $(document).ready(function() {
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+});
 var medprofileTable;
 medprofileTable = $('#med-profile-table').DataTable({
     "order": [[ 1, "desc" ]],
     "dom": '<"top d-flex align-items-center justify-content-between"<f><"d-flex align-items-center justify-content-between width250"Bl>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">',
     'columnDefs': [{
-        "targets": [0, 14],
+        "targets": [0,13],
         "orderable": true
     }],
     processing: true,
     "language": {
-        processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'
+        processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
     },
     serverSide: true,
     ajax: base_url+'patient-medicine-list/'+patient_id,
@@ -95,9 +102,9 @@ medprofileTable = $('#med-profile-table').DataTable({
         {data:'start_date',name:'start_date',bSortable: true},
         {data:'taught_date',name:'taught_date',bSortable: true},
         {data:'discontinue_date',name:'discontinue_date',bSortable: true},
+        {data:'comment',name:'comment',bSortable: true},
         {data:'discontinue_order_date',name:'discontinue_order_date',bSortable: true},
         {data:'preferred_pharmacy.name',name:'preferred_pharmacy.name',bSortable: true},
-        {data:'comment',name:'comment',bSortable: true},
         {data:'status',name:'status',bSortable: true},
     ],
     buttons: [

@@ -11,15 +11,7 @@ class ClinicianController extends Controller
 {
     public function clinician()
     {
-        $services = new AdminService();
-        $response = $services->getClinicianList();
-
-        $data = array();
-        if ($response != null && $response->status === true) {
-            $data = $response->data;
-        }
-
-        return view('pages.admin.clinician')->with('record',$data);
+        return view('pages.admin.clinician');
     }
 
     public function getClinicianList()
@@ -29,13 +21,11 @@ class ClinicianController extends Controller
 
         $data = array();
         if ($response != null && $response->status === true) {
-            $data = [
-                'data' => $response->data
-            ];
-            return response()->json($data, 200);
+            $data = $response->data;
+            
         }
-
-        return response()->json($data, 422);
+        return DataTables::of($data)
+            ->make(true);
     }
 
     public function getClinicianDetail($id)
@@ -51,4 +41,20 @@ class ClinicianController extends Controller
 
         return redirect()->back();
     }
+
+    public function getClinicianData(Request $request)
+    {
+        $requestData = $request->all();
+        $data = [];
+        if (isset($requestData['searchTerm']) && $requestData['searchTerm']) {
+            $services = new AdminService();
+            $response = $services->getClinicianData($requestData);
+            // print_r($response);die();
+            if ($response != null && $response->status === true) {
+                $data['data'] = $response->data;
+            }
+        }
+        return $data;
+    }
+
 }

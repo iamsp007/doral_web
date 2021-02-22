@@ -131,7 +131,6 @@ function updateMap(destination,name) {
             map.setZoom(map);
             calculateAndDisplayRoute(current,destination,response.referral_type,originName,destinationName,response.color,response.icon)
         }
-
     })
 }
 

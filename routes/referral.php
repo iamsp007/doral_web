@@ -25,7 +25,25 @@ Route::group(['prefix'=>'/referral'],function (){
         Route::get('/md-order-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@mdOrderUploadBulk')->name('referral.md-order-upload-bulk-data');
         Route::get('/occupational-health', 'App\Http\Controllers\PatientReferralController@occupationalHealth')->name('referral.occupational-health');
         Route::get('/occupational-health-get-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthGetData')->name('referral.occupational-health-get-data');
+        Route::get('/occupational-health-get-fail-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthGetFaileData')->name('referral.occupational-health-get-fail-data');
+          Route::get('/view-occupational-health-get-fail-data', 'App\Http\Controllers\PatientReferralController@viewoccupationalHealthGetFaileData')->name('referral.view-occupational-health-get-fail-data');
+        Route::get('/view-failed-data/{id}', 'App\Http\Controllers\PatientReferralController@viewoccupationalHealthFailData')->name('referral.view-failed-data');
+         Route::get('/occupational-health-view-fail-data/{id}', 'App\Http\Controllers\PatientReferralController@viewoccupationalHealthGetFaileData')->name('referral.occupational-health-view-fail-data');
+
+         Route::get('/vbc-get-fail-data', 'App\Http\Controllers\PatientReferralController@vbcGetFaileData')->name('referral.vbc-get-fail-data');
+Route::get('/md-order-get-fail-data', 'App\Http\Controllers\PatientReferralController@mdorderGetFaileData')->name('referral.md-order-get-fail-data');
+
+         
+
+        
+
+
         Route::get('/occupational-health-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthUploadBulk')->name('referral.occupational-health-upload-bulk-data');
+        Route::get('/occupational-health-failed-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthFailData')->name('referral.occupational-health-failed-data');
+        Route::get('/vbc-failed-data', 'App\Http\Controllers\PatientReferralController@vbcFailData')->name('referral.vbc-failed-data');
+         Route::get('/md-order-failed-data', 'App\Http\Controllers\PatientReferralController@mdorderFailData')->name('referral.md-order-failed-data');
+
+
 
         # Referral-Patient api
         Route::post('/vbc-upload-bulk-data-store', 'App\Http\Controllers\PatientReferralController@store')->name('referral.vbc-upload-bulk-data-store');

@@ -10,7 +10,10 @@
 {{--        <a href="javascript:void(0)" class="single-upload-btn mr-2">--}}
 {{--            <img src="../assets/img/icons/single-upload-icon.svg" class="icon mr-2" />--}}
 {{--            New Patient</a>--}}
-        <a href="{{ route('referral.md-order-upload-bulk-data') }}" class="bulk-upload-btn">
+        <a href="{{ route('referral.md-order-failed-data') }}" class="bulk-upload-btn">
+            <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+            Pending Recode</a>
+        <a href="{{ route('referral.md-order-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
             <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
             Import Patients</a>
     </div>

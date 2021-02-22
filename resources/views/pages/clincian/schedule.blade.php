@@ -45,6 +45,38 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Referral Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="broadcast_form" >
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- <label for="selectRole" class="label-custom"><span>Select</span> Role</label> -->
+                                        <input type="hidden" name="type[]" class="input-skin" >
+                                        <input type="hidden" name="appointment_id" class="input-skin" >
+                                        <input type="hidden" name="patient_id" class="input-skin" >
+                                        <input type="hidden" name="reason" class="input-skin" >
+                                        <input type="text" name="test_name" class="input-skin" id="selectRole1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <input type="button" value="Submit" class="btn btn--submit btn-lg" onclick="onAppointmentBroadCastSubmit(this)">
+                            <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 @section('app-video')

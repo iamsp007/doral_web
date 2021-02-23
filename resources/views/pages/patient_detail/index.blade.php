@@ -41,7 +41,7 @@
                      </a>
                   </li>
                   <li>
-                     <a class="nav-link active d-flex align-items-center" id="patient-referral-tab" data-toggle="pill"
+                     <a class="nav-link d-flex align-items-center" id="patient-referral-tab" data-toggle="pill"
                         href="#patient-referral" role="tab" aria-controls="patient-referral" aria-selected="true">
                         <img src="{{ asset('assets/img/icons/icons_demographics.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_demographics_active.svg') }}" alt=""

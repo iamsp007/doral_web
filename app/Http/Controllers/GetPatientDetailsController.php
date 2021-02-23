@@ -60,7 +60,8 @@ class GetPatientDetailsController extends Controller
         
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparedness', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id'));
+        
+        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'patientReferralInfo'));
     }
 
     /**
@@ -550,19 +551,22 @@ class GetPatientDetailsController extends Controller
             $zipCode = ($alternateBilling['ZipCode']) ? $alternateBilling['ZipCode'] : '';
             $isAlternateBilling = ($alternateBilling['IsAlternateBilling']) ? $alternateBilling['IsAlternateBilling'] : '';
         }
-        AlternateBilling::updateOrCreate(
-            ['patient_id' => $patientDetail_id],
-            [
-                // 'is_alternate_billing' => $isAlternateBilling,
-                'first_name' => ($alternateBilling['FirstName']) ? $alternateBilling['FirstName'] : '',
-                'middle_name' => ($alternateBilling['MiddleName']) ? $alternateBilling['MiddleName'] : '',
-                'last_name' => ($alternateBilling['LastName']) ? $alternateBilling['LastName'] : '',
-                'street' => ($alternateBilling['Street']) ? $alternateBilling['Street'] : '',
-                // 'city' => ($alternateBilling['City']) ? $alternateBilling['City'] : '',
-                // 'state' => ($alternateBilling['State']) ? $alternateBilling['State'] : '',
-                'zip5' => $zipCode,
-            ]
-        );
+        if (! empty($alternateBilling['FirstName'])) {
+            AlternateBilling::updateOrCreate(
+                ['patient_id' => $patientDetail_id],
+                [
+                    // 'is_alternate_billing' => $isAlternateBilling,
+                    'first_name' => ($alternateBilling['FirstName']) ? $alternateBilling['FirstName'] : '',
+                    'middle_name' => ($alternateBilling['MiddleName']) ? $alternateBilling['MiddleName'] : '',
+                    'last_name' => ($alternateBilling['LastName']) ? $alternateBilling['LastName'] : '',
+                    'street' => ($alternateBilling['Street']) ? $alternateBilling['Street'] : '',
+                    // 'city' => ($alternateBilling['City']) ? $alternateBilling['City'] : '',
+                    // 'state' => ($alternateBilling['State']) ? $alternateBilling['State'] : '',
+                    'zip5' => $zipCode,
+                ]
+            );
+        }
+      
     }
     
     public function storeEmergencyContact($patientDetails, $patientDetail_id, $action)
@@ -679,7 +683,7 @@ class GetPatientDetailsController extends Controller
     public function storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id)
     {
         $clinicalDetails = $getPatientClinicalInfo['soapBody']['GetPatientClinicalInfoResponse']['GetPatientClinicalInfoResult']['PatientClinicalInfo'];
-        // dd($clinicalDetails);
+     
         $patientClinicalDetail = new PatientClinicalDetail();
         $patientClinicalDetail->patient_id = $patient_detail_id;
         

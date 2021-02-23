@@ -518,6 +518,7 @@ function onAppointmentBroadCast(e,appointemnt_id,patient_id,appointment_title="T
 
 function selectRoadlRequest(e) {
     if ($(e).is(':checked')){
+        $("#currentRoadLClick").val([$(e).val()]);
         $('#modal').find('input[name="type[]"]').val([$(e).val()]);
         $('#modal').find('input[name="appointment_id"]').val($(e).attr('data-appointmentid'));
         $('#modal').find('input[name="patient_id"]').val($(e).attr('data-patientId'));
@@ -528,7 +529,7 @@ function selectRoadlRequest(e) {
 
 function onAppointmentBroadCastSubmit() {
     var data = $('#broadcast_form').serializeArray();
-    var confirm = window.confirm('Are you sure Create your Roadl Request?');
+    var confirm = window.confirm('Are you sure Create your RoadL Request?');
     if (confirm){
         $.ajax({
             beforeSend: function(){
@@ -545,15 +546,22 @@ function onAppointmentBroadCastSubmit() {
                 $("#loader-wrapper").hide();
                 table.ajax.reload();
                 alert(response.message)
+                $("#selectRole1").val('');
+                $("#modal").hide();
             },
             error:function (error,responseText) {
                 $("#loader-wrapper").hide();
                 const sources = JSON.parse(error.responseText);
                 alert(sources.message)
+                $("#selectRole1").val('');
+                $("#modal").hide();
             },
             complete: function(){
                 $("#loader-wrapper").hide();
+                $("#selectRole1").val('');
+                $("#modal").hide();
             }
         })
     }
 }
+

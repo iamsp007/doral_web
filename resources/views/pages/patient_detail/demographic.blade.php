@@ -1014,6 +1014,7 @@
                                  </div>
                               </div>
                            </div>
+                         
                            <div class="col-12 col-sm-3 col-md-3">
                               <div class="input_box">
                                  <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -1024,7 +1025,7 @@
                                        name="emergency_preparedness_id"
                                        onclick="editableField('emergency_preparedness_id')"
                                        data-id="emergency_preparedness_id" id="emergency_preparedness_id"
-                                       placeholder="Emergency Preparedness ID" value="{{ $emergencyPreparednes->ID }}">
+                                       placeholder="Emergency Preparedness ID" value="">
                                  </div>
                               </div>
                            </div>
@@ -1038,7 +1039,7 @@
                                        name="emergency_preparedness_name"
                                        onclick="editableField('emergency_preparedness_name')"
                                        data-id="emergency_preparedness_name" id="emergency_preparedness_name"
-                                       placeholder="Name" value="{{ $emergencyPreparednes->Name }}">
+                                       placeholder="Name" value="">
                                  </div>
                               </div>
                            </div>

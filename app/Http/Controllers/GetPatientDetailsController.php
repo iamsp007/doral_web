@@ -265,44 +265,43 @@ class GetPatientDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function searchPatients(Request $request)
+    public function searchPatients()
     {
+
         $searchPatientIds = $this->searchPatientDetails();
-        $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','490045','504356','516752','517000','518828','532337','540428','541579','542628','1005036','1008858','1009943','1010785','1010967','1015287','1019171','1030319','1031322','1048580','688245','695223','697606','698180','698859','698935','701845','704228','742010','742023','762544','762584','772465','772468','772470','783693','817770','826323','832638','841005','854502','865729','894642','904265','909877','916609','916702','946557','948750','952551','961283','965077','987170','989414','990437','994958','996056'];
+
+        // $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+        $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','490045','504356','516752','517000','518828','532337','540428','541579','542628','1005036','1008858','1009943','1010785','1010967','1015287','1019171','1030319','1031322','1048580','688245','695223','697606','698180','698859','698935','701845','704228','742010','742023','762544','762584','772465','772468','772470','783693','817770','826323','832638','894642','904265','909877','916609','916702','946557','948750','952551','961283','987170','989414','990437','994958','996056','841005','854502','865729','965077'];
        
         $counter = 0;
         foreach ($patientArray as $patient_id) {
             if ($counter < 10) {
-            //     $getPatientReferralInfo = $this->getPatientReferralInfo($patient_id);
-            //     if (isset($getPatientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult'])) {
-            //         $getScheduleInfo = $getPatientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
-            //         if ($getScheduleInfo['ReferralMasterId'] != 0) {
-            //             dd($getScheduleInfo);
-            //         }
-            //     }
-            // }
-           
+                       
                 $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
                 if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
                     /** Store patirnt demographic detail */
                     $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
-                    // dump($getpatientDemographicDetails);
-                    $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails);
+                    $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails, 'add');
 
                     if($patient_detail_id) {
 
                         /** Pending store process start*/
                     
                         /** Get and Store Version2 of Patient Detail */
-                        $patientChangesV2 = $this->getPatientChangesV2();
-                        $getPatientChangesV2 = $patientChangesV2['soapBody']['GetPatientChangesV2Response']['GetPatientChangesV2Result']['GetPatientChangesV2Info'];
+                        // $patientChangesV2 = $this->getPatientChangesV2();
+                        // $this->storePatientDetail($patientChangesV2, 'edit');
 
                         /** Get and Store Patient Referral Detail */
                         $patientReferralInfo = $this->getPatientReferralInfo($patient_detail_id);
-                        $getPatientReferralInfo = $patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
-                        $this->storePatientReferralInfo($getPatientReferralInfo, $patient_detail_id);
+                       
+                        if (isset($patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'])) {
+                            $getPatientReferralInfo = $patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
+                          
+                            if ($getPatientReferralInfo['ReferralMasterId'] != 0) {
+                                $this->storePatientReferralInfo($getPatientReferralInfo, $patient_detail_id);
+                            } 
+                        }
 
                         //     /** Get and Store Patient Referral Info */
                         //     $referralProfile = $this->getReferralProfile();
@@ -326,18 +325,40 @@ class GetPatientDetailsController extends Controller
         }
     }
 
-    public function storePatientDetail($getpatientDemographicDetails)
+    public function storePatientDetail($apiResponse, $action)
     {
-        $patientDetails = $getpatientDemographicDetails['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
-        $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
-      
-        if ($patientDetailData) {
-            $patientDetail = PatientDetail::find($patientDetailData->id);
-        } else {
-            $patientDetail = new PatientDetail();
+        if ($action == 'add') {
+            $patientDetails = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+            $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
+        
+            if ($patientDetailData) {
+                $patientDetail = PatientDetail::find($patientDetailData->id);
+            } else {
+                $patientDetail = new PatientDetail();
+            }
+
+            $patientDetail->doral_id = 'DORAL' . mt_rand(100000, 999999);
+            $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
+            $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
+
+        } else if ($action == 'edit') {
+            $patientDetails = $apiResponse['soapBody']['GetPatientChangesV2Response']['GetPatientChangesV2Result']['GetPatientChangesV2Info'];
+
+            $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
+        
+            if ($patientDetailData) {
+                $patientDetail = PatientDetail::find($patientDetailData->id);
+            } else {
+                $patientDetail = new PatientDetail();
+            }
+            $patientDetail->modified_date = ($patientDetails['ModifiedDate']) ? $patientDetails['ModifiedDate'] : '' ;
+            $patientDetail->patient_status_id = ($patientDetails['StatusID']) ? $patientDetails['StatusID'] : '' ;
+            $patientDetail->birth_date = ($patientDetails['DateOfBirth']) ? $patientDetails['DateOfBirth'] : '' ;
+            $patientDetail->mr_number = ($patientDetails['MRNumber']) ? $patientDetails['MRNumber'] : '' ;
+            $patientDetail->mr_number = ($patientDetails['AcceptedServices']) ? $patientDetails['AcceptedServices'] : '' ;
+            
         }
-                
-        $patientDetail->doral_id = 'DORAL' . mt_rand(100000, 999999);
+       
         $patientDetail->agency_id = ($patientDetails['AgencyID']) ? $patientDetails['AgencyID'] : '' ;
         $patientDetail->office_id = ($patientDetails['OfficeID']) ? $patientDetails['OfficeID'] : '' ;
         $patientDetail->patient_id = ($patientDetails['PatientID']) ? $patientDetails['PatientID'] : '' ;
@@ -345,7 +366,7 @@ class GetPatientDetailsController extends Controller
         $patientDetail->first_name = ($patientDetails['FirstName']) ? $patientDetails['FirstName'] : '' ;
         $patientDetail->middle_name = ($patientDetails['MiddleName']) ? $patientDetails['MiddleName'] : '' ;
         $patientDetail->last_name = ($patientDetails['LastName']) ? $patientDetails['LastName'] : '' ;
-        $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
+        
         $patientDetail->gender =  ($patientDetails['Gender']) ? $patientDetails['Gender'] : '' ;
 
         $patientDetail->priority_code = ($patientDetails['PriorityCode']) ? $patientDetails['PriorityCode'] : '' ;
@@ -399,7 +420,7 @@ class GetPatientDetailsController extends Controller
         $patientDetail->payer_name = ($patientDetails['PayerName']) ? $patientDetails['PayerName'] : '' ;
         $patientDetail->payer_coordinator_id = ($patientDetails['PayerCoordinatorID']) ? $patientDetails['PayerCoordinatorID'] : '' ;
         $patientDetail->payer_coordinator_name = ($patientDetails['PayerCoordinatorName']) ? $patientDetails['PayerCoordinatorName'] : '' ;
-        $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
+       
         $patientDetail->patient_status_name = ($patientDetails['PatientStatusName']) ? $patientDetails['PatientStatusName'] : '' ;
         
         $patientDetail->wage_parity = ($patientDetails['WageParity']) ? $patientDetails['WageParity'] : '' ;
@@ -412,7 +433,8 @@ class GetPatientDetailsController extends Controller
         $patientDetail->primary_language = ($patientDetails['PrimaryLanguage']) ? $patientDetails['PrimaryLanguage'] : '' ;
         $patientDetail->secondary_language_id = ($patientDetails['SecondaryLanguageID']) ? $patientDetails['SecondaryLanguageID'] : '' ;
         $patientDetail->secondary_language = ($patientDetails['SecondaryLanguage']) ? $patientDetails['SecondaryLanguage'] : '' ;
-
+        $patientDetail->status = '4';
+        
         $patientDetail->save();
 
         if($patientDetail) {
@@ -420,16 +442,16 @@ class GetPatientDetailsController extends Controller
             $this->storeCoordinator($patientDetails['Coordinators']['Coordinator'], $patientDetail->id);
            
             /** Store accepted services */
-            $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patientDetail->id);
+            $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patientDetail->id, $action);
 
             /** Store address */
             $this->storeAddress($patientDetails['Addresses']['Address'], $patientDetail->id);
             
             /** Store alternate billing */
-            $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patientDetail->id);
+            $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patientDetail->id, $action);
 
             /** Store emergency contact */
-            $this->storeEmergencyContact($patientDetails['EmergencyContacts']['EmergencyContact'], $patientDetail->id);
+            $this->storeEmergencyContact($patientDetails, $patientDetail->id, $action);
 
             /** Store emergency contact */
             $this->emergencyPreparedness($patientDetails['EmergencyPreparedness'], $patientDetail->id);
@@ -457,111 +479,145 @@ class GetPatientDetailsController extends Controller
         }
     }
 
-    public function storeAcceptedServices($acceptedServices, $patientDetail_id)
+    public function storeAcceptedServices($acceptedServices, $patientDetail_id, $action)
     {
-        if (isset($acceptedServices['Discipline']) && !empty($acceptedServices['Discipline'])) {
-            foreach ($acceptedServices as $key => $acceptedService) {
-                $encodedTypeValue = json_encode($acceptedService);
-                AcceptedService::updateOrCreate(
-                    ['type' => $key, 'patient_id' =>$patientDetail_id],
-                    ['value' => $encodedTypeValue]
-                );
+        if ($action == 'add') {
+            if (isset($acceptedServices['Discipline']) && !empty($acceptedServices['Discipline'])) {
+                foreach ($acceptedServices as $key => $acceptedService) {
+                    $encodedTypeValue = json_encode($acceptedService);
+                    AcceptedService::updateOrCreate(
+                        ['type' => $key, 'patient_id' =>$patientDetail_id],
+                        ['value' => $encodedTypeValue]
+                    );
+                }
             }
+        } elseif ($action == 'edit') {
+            $acceptedServiceModel = AcceptedService::where('patient_id', $patientDetail_id);
+            $value = json_decode($acceptedServiceModel->value, true);
+
+            $value[] = $acceptedServices;
+            AcceptedService::updateOrCreate(
+                ['type' => $acceptedServiceModel->type, 'patient_id' => $patientDetail_id],
+                ['value' => $value]
+            );
         }
     }
-
+    
     public function storeAddress($address, $patientDetail_id)
     {
-            // foreach ($addresses as $addressWithKey) {
-                $country_id = 226;
-            //     if (isset($address['County']) && !empty($address['County'])) {
-            //         $country = Country::updateOrCreate(
-            //             ['name' =>  $address['County']]
-            //         );
-            //         $country = Country::where('state_code',$address['State'])->first();
-            //         if(!empty($state)) {
-            //             $state_id = $state['id'];
-            //         }
-            //         $country_id = $country->id;
-            //     }
+        $country_id = 226;
+        //     if (isset($address['County']) && !empty($address['County'])) {
+        //         $country = Country::updateOrCreate(
+        //             ['name' =>  $address['County']]
+        //         );
+        //         $country = Country::where('state_code',$address['State'])->first();
+        //         if(!empty($state)) {
+        //             $state_id = $state['id'];
+        //         }
+        //         $country_id = $country->id;
+        //     }
 
-            //  $state_id = '';
-            //  if (isset($address['State']) && !empty($address['State'])) {
-            //      $state = State::where('state_code',$address['State'])->first();
-            //      if(!empty($state)) {
-            //          $state_id = $state['id'];
-            //      }
-            //  }
+        //  $state_id = '';
+        //  if (isset($address['State']) && !empty($address['State'])) {
+        //      $state = State::where('state_code',$address['State'])->first();
+        //      if(!empty($state)) {
+        //          $state_id = $state['id'];
+        //      }
+        //  }
 
-            //  $city_id = '';
-            //  if (isset($address['City']) && !empty($address['City'])) {
-            //     $city = City::where('city',$address['City'])->first();
-            //      if(!empty($city)) {
-            //          $city_id = $city['id'];
-            //      }
-            //  }
-            $patientAddress = new PatientAddress();
-            $patientAddress->patient_id = $patientDetail_id;
-            $patientAddress->address_id = ($address['AddressID']) ? $address['AddressID'] : '' ;
-            $patientAddress->address1 = ($address['Address1']) ? $address['Address1'] : '' ;
-            $patientAddress->address2 = ($address['Address2']) ? $address['Address2'] : '' ;
-            $patientAddress->cross_street = ($address['CrossStreet']) ? $address['CrossStreet'] : '' ;
-            // $patientAddress->city_id = $city_id;
-            $patientAddress->zip5 = ($address['Zip5']) ? $address['Zip5'] : '' ;
-            $patientAddress->zip4 = ($address['Zip4']) ? $address['Zip4'] : '' ;
-            // $patientAddress->state_id = $state_id;
-            $patientAddress->county_id = $country_id;
-            $patientAddress->is_primary_address = ($address['IsPrimaryAddress'] == 'Yes') ? 1 : 0 ;
-            $patientAddress->address_type = ($address['AddressTypes']) ? $address['AddressTypes'] : '' ;
-            
-            $patientAddress->save();
-        // }
+        //  $city_id = '';
+        //  if (isset($address['City']) && !empty($address['City'])) {
+        //     $city = City::where('city',$address['City'])->first();
+        //      if(!empty($city)) {
+        //          $city_id = $city['id'];
+        //      }
+        //  }
+        PatientAddress::updateOrCreate(
+            ['patient_id' => $patientDetail_id],
+            [
+                'address_id' => ($address['AddressID']) ? $address['AddressID'] : '',
+                'address1' => ($address['Address1']) ? $address['Address1'] : '',
+                'address2' => ($address['Address2']) ? $address['Address2'] : '',
+                'cross_street' => ($address['CrossStreet']) ? $address['CrossStreet'] : '',
+                // 'city_id' => $city_id,
+                'zip5' => ($address['Zip5']) ? $address['Zip5'] : '',
+                'zip4' => ($address['Zip4']) ? $address['Zip4'] : '',
+                // 'state_id' => $state_id,
+                'county_id' => $country_id,
+                'is_primary_address' => ($address['IsPrimaryAddress'] == 'Yes') ? 1 : 0,
+                'address_type' => ($address['AddressTypes']) ? $address['AddressTypes'] : ''
+            ]
+        );
     }
 
-    public function storeAlternateBilling($alternateBilling, $patientDetail_id)
+    public function storeAlternateBilling($alternateBilling, $patientDetail_id, $action)
     {
-        if(!empty($alternateBilling['FirstName'])) {
-            // foreach ($alternateBillings as $alternateBilling) {
-            $alternateBillingModel = new AlternateBilling();
-
-            $alternateBillingModel->patient_id = $patientDetail_id;
-            $alternateBillingModel->first_name = ($alternateBilling['FirstName']) ? $alternateBilling['FirstName'] : '';
-            $alternateBillingModel->middle_name = ($alternateBilling['MiddleName']) ? $alternateBilling['MiddleName'] : '';
-            $alternateBillingModel->last_name = ($alternateBilling['LastName']) ? $alternateBilling['LastName'] : '';
-            $alternateBillingModel->street = ($alternateBilling['Street']) ? $alternateBilling['Street'] : '';
-            // $alternateBillingModel->city = ($alternateBilling['City']) ? $alternateBilling['City'] : '';
-            // $alternateBillingModel->state = ($alternateBilling['State']) ? $alternateBilling['State'] : '';
-            $alternateBillingModel->zip5 = ($alternateBilling['Zip5']) ? $alternateBilling['Zip5'] : '';
-
-            $alternateBillingModel->save();
-        // }
+        if ($action == 'add') {
+            $isAlternateBilling = '';
+            $zipCode = ($alternateBilling['Zip5']) ? $alternateBilling['Zip5'] : '';
+        } elseif ($action == 'edit') {
+            $zipCode = ($alternateBilling['ZipCode']) ? $alternateBilling['ZipCode'] : '';
+            $isAlternateBilling = ($alternateBilling['IsAlternateBilling']) ? $alternateBilling['IsAlternateBilling'] : '';
         }
+        AlternateBilling::updateOrCreate(
+            ['patient_id' => $patientDetail_id],
+            [
+                // 'is_alternate_billing' => $isAlternateBilling,
+                'first_name' => ($alternateBilling['FirstName']) ? $alternateBilling['FirstName'] : '',
+                'middle_name' => ($alternateBilling['MiddleName']) ? $alternateBilling['MiddleName'] : '',
+                'last_name' => ($alternateBilling['LastName']) ? $alternateBilling['LastName'] : '',
+                'street' => ($alternateBilling['Street']) ? $alternateBilling['Street'] : '',
+                // 'city' => ($alternateBilling['City']) ? $alternateBilling['City'] : '',
+                // 'state' => ($alternateBilling['State']) ? $alternateBilling['State'] : '',
+                'zip5' => $zipCode,
+            ]
+        );
     }
-
-    public function storeEmergencyContact($emergencyContacts, $patientDetail_id)
+    
+    public function storeEmergencyContact($patientDetails, $patientDetail_id, $action)
     {
-        foreach ($emergencyContacts as $emergencyContact) {
-          
-            $patientEmergencyContact = new PatientEmergencyContact();
-        
-            $patientEmergencyContact->patient_id = $patientDetail_id;
-            $patientEmergencyContact->name = ($emergencyContact['Name']) ? $emergencyContact['Name'] : '';
-            $patientEmergencyContact->relationship_id = ($emergencyContact['Relationship']['ID']) ? $emergencyContact['Relationship']['ID'] : '';
-            $patientEmergencyContact->relationship_name = ($emergencyContact['Relationship']['Name']) ? $emergencyContact['Relationship']['Name'] : '';
-            $patientEmergencyContact->lives_with_patient = ($emergencyContact['LivesWithPatient']) ? $emergencyContact['LivesWithPatient'] : '';
-            $patientEmergencyContact->have_keys = ($emergencyContact['HaveKeys']) ? $emergencyContact['HaveKeys'] : '';
-            $patientEmergencyContact->phone1 = ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '';
-            $patientEmergencyContact->phone2 = ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '';
-            $patientEmergencyContact->address = ($emergencyContact['Address']) ? $emergencyContact['Address'] : '';
-            
-            $patientEmergencyContact->save();
-           
+        if ($action == 'add') {
+            foreach ($patientDetails['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
+                PatientEmergencyContact::updateOrCreate(
+                    ['patient_id' => $patientDetail_id],
+                    [
+                        'name' => ($emergencyContact['Name']) ? $emergencyContact['Name'] : '',
+                        'relationship_id' => ($emergencyContact['Relationship']['ID']) ? $emergencyContact['Relationship']['ID'] : '',
+                        'relationship_name' => ($emergencyContact['Relationship']['Name']) ? $emergencyContact['Relationship']['Name'] : '',
+                        'lives_with_patient' => ($emergencyContact['LivesWithPatient']) ? $emergencyContact['LivesWithPatient'] : '',
+                        'have_keys' => ($emergencyContact['HaveKeys']) ? $emergencyContact['HaveKeys'] : '',
+                        'phone1' => ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '',
+                        'phone2' => ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '',
+                        'address' => ($emergencyContact['Address']) ? $emergencyContact['Address'] : '',
+                    ]
+                );
+            }
+        } elseif ($action == 'edit') {
+            $number = 1;
+            foreach ($patientDetails['EmergencyContact'.$number] as $emergencyContact) {
+                PatientEmergencyContact::updateOrCreate(
+                    ['patient_id' => $patientDetail_id],
+                    [
+                        'name' => ($emergencyContact['Name']) ? $emergencyContact['Name'] : '',
+                        'relationship_id' => ($emergencyContact['RelationshipID']) ? $emergencyContact['RelationshipID'] : '',
+                        'relationship_name' => ($emergencyContact['RelationshipName']) ? $emergencyContact['RelationshipName'] : '',
+                        'relationship_other' => ($emergencyContact['RelationshipOther']) ? $emergencyContact['RelationshipOther'] : '',
+                        'lives_with_patient' => ($emergencyContact['LivesWithPatient']) ? $emergencyContact['LivesWithPatient'] : '',
+                        'have_keys' => ($emergencyContact['HaveKeys']) ? $emergencyContact['HaveKeys'] : '',
+                        'phone1' => ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '',
+                        'phone2' => ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '',
+                        'address' => ($emergencyContact['Address']) ? $emergencyContact['Address'] : '',
+                    ]
+                );
+                $number++;
+            }
         }
     }
 
     public function emergencyPreparedness($emergencyPreparedness, $patientDetail_id)
     {
         foreach ($emergencyPreparedness as $key => $emergencyPreparednes) {
+
             $encodedTypeValue = json_encode($emergencyPreparednes);
             $emergencyPreparednessModel = new EmergencyPreparedness();
             
@@ -596,26 +652,26 @@ class GetPatientDetailsController extends Controller
     {
         $getScheduleInfo = $patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
 
-        $patientReferralInfoModel = new PatientReferralInfo();
+        $patientReferralInfoModel = PatientReferralInfo::where('patient_id', $patient_detail_id);
 
         $patientReferralInfoModel->patient_id = $patient_detail_id;
-        $patientReferralInfoModel->referral_master_id = $getScheduleInfo['ReferralMasterId'];
-        $patientReferralInfoModel->referral_created_date = $getScheduleInfo['ReferralCreatedDate'];
-        $patientReferralInfoModel->referral_name = $getScheduleInfo['ReferralName'];
-        $patientReferralInfoModel->referral_received_date = $getScheduleInfo['ReferralReceivedDate'];
-        $patientReferralInfoModel->referral_status_id = $getScheduleInfo['ReferralStatusId'];
-        $patientReferralInfoModel->referral_status = $getScheduleInfo['ReferralStatus'];
-        $patientReferralInfoModel->referral_commission_status_id = $getScheduleInfo['ReferralCommissionStatusID'];
-        $patientReferralInfoModel->referral_commission_status = $getScheduleInfo['ReferralCommissionStatus'];
-        $patientReferralInfoModel->referral_source_id = $getScheduleInfo['ReferralSourceId'];
-        $patientReferralInfoModel->referral_source_name = $getScheduleInfo['ReferralSourceName'];
-        $patientReferralInfoModel->referral_source_type = $getScheduleInfo['ReferralSourceType'];
-        $patientReferralInfoModel->referral_contact_id = $getScheduleInfo['ReferralContactId'];
-        $patientReferralInfoModel->referral_contact_name = $getScheduleInfo['ReferralContactName'];
-        $patientReferralInfoModel->referral_intake_person_id = $getScheduleInfo['ReferralIntakePersonId'];
-        $patientReferralInfoModel->referral_intake_person_name = $getScheduleInfo['ReferralIntakePersonName'];
-        $patientReferralInfoModel->referral_account_manager_id = $getScheduleInfo['ReferralAccountManagerId'];
-        $patientReferralInfoModel->referral_account_manager_name = $getScheduleInfo['ReferralAccountManagerName'];
+        $patientReferralInfoModel->referral_master_id = ($getScheduleInfo['ReferralMasterId']) ? $getScheduleInfo['ReferralMasterId'] : '';
+        $patientReferralInfoModel->referral_created_date = ($getScheduleInfo['ReferralCreatedDate']) ? $getScheduleInfo['ReferralCreatedDate'] : '';
+        $patientReferralInfoModel->referral_name = ($getScheduleInfo['ReferralName']) ? $getScheduleInfo['ReferralName'] : '';
+        $patientReferralInfoModel->referral_received_date = ($getScheduleInfo['ReferralReceivedDate']) ? $getScheduleInfo['ReferralReceivedDate'] : '';
+        $patientReferralInfoModel->referral_status_id = ($getScheduleInfo['ReferralStatusId']) ? $getScheduleInfo['ReferralStatusId'] : '';
+        $patientReferralInfoModel->referral_status = ($getScheduleInfo['ReferralStatus']) ? $getScheduleInfo['ReferralStatus'] : '';
+        $patientReferralInfoModel->referral_commission_status_id = ($getScheduleInfo['ReferralCommissionStatusID']) ? $getScheduleInfo['ReferralCommissionStatusID'] : '';
+        $patientReferralInfoModel->referral_commission_status = ($getScheduleInfo['ReferralCommissionStatus']) ? $getScheduleInfo['ReferralCommissionStatus'] : '';
+        $patientReferralInfoModel->referral_source_id = ($getScheduleInfo['ReferralSourceId']) ? $getScheduleInfo['ReferralSourceId'] : '';
+        $patientReferralInfoModel->referral_source_name = ($getScheduleInfo['ReferralSourceName']) ? $getScheduleInfo['ReferralSourceName'] : '';
+        $patientReferralInfoModel->referral_source_type = ($getScheduleInfo['ReferralSourceType']) ? $getScheduleInfo['ReferralSourceType'] : '';
+        $patientReferralInfoModel->referral_contact_id = ($getScheduleInfo['ReferralContactId']) ? $getScheduleInfo['ReferralContactId'] : '';
+        $patientReferralInfoModel->referral_contact_name = ($getScheduleInfo['ReferralContactName']) ? $getScheduleInfo['ReferralContactName'] : '';
+        $patientReferralInfoModel->referral_intake_person_id = ($getScheduleInfo['ReferralIntakePersonId']) ? $getScheduleInfo['ReferralIntakePersonId'] : '';
+        $patientReferralInfoModel->referral_intake_person_name = ($getScheduleInfo['ReferralIntakePersonName']) ? $getScheduleInfo['ReferralIntakePersonName'] : '';
+        $patientReferralInfoModel->referral_account_manager_id = ($getScheduleInfo['ReferralAccountManagerId']) ? $getScheduleInfo['ReferralAccountManagerId'] : '';
+        $patientReferralInfoModel->referral_account_manager_name = ($getScheduleInfo['ReferralAccountManagerName']) ? $getScheduleInfo['ReferralAccountManagerName'] : '' ;
 
         $patientReferralInfoModel->save();
     

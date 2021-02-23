@@ -104,16 +104,12 @@ class PatientDetail extends Model
             'coordinator_id');
     }
 
-    /**
+\   /**
      * Relation with referances
      */
     public function acceptedServices()
     {
-        return $this->belongsToMany(
-            AcceptedService::class,
-            'patient_accepted_services',
-            'patient_id',
-            'accepted_service_id');
+        return $this->hasMany('App\Models\AcceptedService', 'patient_id', 'id');
     }
 
     /**

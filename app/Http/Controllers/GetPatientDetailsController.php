@@ -9,7 +9,6 @@ use App\Models\Coordinator;
 use App\Models\Country;
 use App\Models\EmergencyPreparedness;
 use App\Models\LabReportType;
-use App\Models\PatientAcceptedService;
 use App\Models\PatientAddress;
 use App\Models\PatientAllergy;
 use App\Models\PatientClinicalDetail;
@@ -126,9 +125,9 @@ class GetPatientDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getReferralProfile()
+    public function getReferralProfile($referralId)
     {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetReferralProfile xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters></SearchFilters></GetReferralProfile></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetReferralProfile xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><ReferralID>' . $referralId . '</ReferralID></SearchFilters></GetReferralProfile></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         // <SearchFilters><ReferralID>string</ReferralID><LastName>string</LastName><FirstName>string</FirstName><OfficeID>int</OfficeID><ReferralStatusID>int</ReferralStatusID><ReferralSourceID>int</ReferralSourceID><ReferralDateFrom>string</ReferralDateFrom><ReferralDateTo>string</ReferralDateTo><SalesStaffID>int</SalesStaffID><ReferralContractID>int</ReferralContractID><AdmittedDateFrom>string</AdmittedDateFrom><AdmittedDateTo>string</AdmittedDateTo></SearchFilters>
 
@@ -267,7 +266,6 @@ class GetPatientDetailsController extends Controller
      */
     public function searchPatients()
     {
-
         $searchPatientIds = $this->searchPatientDetails();
 
         // $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
@@ -275,7 +273,7 @@ class GetPatientDetailsController extends Controller
        
         $counter = 0;
         foreach ($patientArray as $patient_id) {
-            if ($counter < 10) {
+            // if ($counter < 10) {
                        
                 $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
                 if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
@@ -293,7 +291,7 @@ class GetPatientDetailsController extends Controller
                         // $this->storePatientDetail($patientChangesV2, 'edit');
 
                         /** Get and Store Patient Referral Detail */
-                        $patientReferralInfo = $this->getPatientReferralInfo($patient_detail_id);
+                        $patientReferralInfo = $this->getPatientReferralInfo($patient_id);
                        
                         if (isset($patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'])) {
                             $getPatientReferralInfo = $patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
@@ -302,25 +300,18 @@ class GetPatientDetailsController extends Controller
                                 $this->storePatientReferralInfo($getPatientReferralInfo, $patient_detail_id);
                             } 
                         }
+                        
+                        /** Get and Store Schedule Info */
+                        // $visitID = $searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+                        // $scheduleInfo = $this->getScheduleInfo($visitID);
+                        // $this->storeScheduleInfo($scheduleInfo, $patient_detail_id);
 
-                        //     /** Get and Store Patient Referral Info */
-                        //     $referralProfile = $this->getReferralProfile();
-                        //     $getReferralProfile = $referralProfile['soapBody']['GetReferralProfileResponse']['GetReferralProfileResult']['ReferralSearch'];
-                        //     $this->storeReferralProfile($getReferralProfile, $patient_detail_id);
-                            
-                        //     /** Pending store process end*/
-                            
-                        //     /** Get and Store Schedule Info */
-                        //     $visitID = $searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
-                        //     $scheduleInfo = $this->getScheduleInfo($visitID);
-                        //     $this->storeScheduleInfo($scheduleInfo, $patient_detail_id);
-
-                        //     /** Get and Store Patient Clinical Info */
-                        //     $getPatientClinicalInfo = $this->getPatientClinicalInfo($patient_id);
-                        //     $this->storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id);
+                        /** Get and Store Patient Clinical Info */
+                        $getPatientClinicalInfo = $this->getPatientClinicalInfo($patient_id);
+                        $this->storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id);
                     }
                 }
-            }
+            // }
             $counter++;
         }
     }
@@ -648,44 +639,47 @@ class GetPatientDetailsController extends Controller
         $visitorDetail->save();
     }
 
-    public function storePatientReferralInfo($patientReferralInfo, $patient_detail_id)
+    public function storePatientReferralInfo($getScheduleInfo, $patient_detail_id)
     {
-        $getScheduleInfo = $patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
+        dump($getScheduleInfo);
+        $patientReferralInfoModel = PatientReferralInfo::updateOrCreate(
+            ['patient_id' => $patient_detail_id],
+            [
+                'referral_master_id' => ($getScheduleInfo['ReferralMasterId']) ? $getScheduleInfo['ReferralMasterId'] : '',
+                'referral_created_date' => ($getScheduleInfo['ReferralCreatedDate']) ? $getScheduleInfo['ReferralCreatedDate'] : '',
+                'referral_name' => ($getScheduleInfo['ReferralName']) ? $getScheduleInfo['ReferralName'] : '',
+                'referral_received_date' => ($getScheduleInfo['ReferralReceivedDate']) ? $getScheduleInfo['ReferralReceivedDate'] : '',
+                'referral_status_id' => ($getScheduleInfo['ReferralStatusId']) ? $getScheduleInfo['ReferralStatusId'] : '',
+                'referral_status' => ($getScheduleInfo['ReferralStatus']) ? $getScheduleInfo['ReferralStatus'] : '',
+                'referral_commission_status_id' => ($getScheduleInfo['ReferralCommissionStatusID']) ? $getScheduleInfo['ReferralCommissionStatusID'] : '',
+                'referral_commission_status' => ($getScheduleInfo['ReferralCommissionStatus']) ? $getScheduleInfo['ReferralCommissionStatus'] : '',
+                'referral_source_id' => ($getScheduleInfo['ReferralSourceId']) ? $getScheduleInfo['ReferralSourceId'] : '',
+                'referral_source_name' => ($getScheduleInfo['ReferralSourceName']) ? $getScheduleInfo['ReferralSourceName'] : '',
+                'referral_source_type' => ($getScheduleInfo['ReferralSourceType']) ? $getScheduleInfo['ReferralSourceType'] : '',
+                'referral_contact_id' => ($getScheduleInfo['ReferralContactId']) ? $getScheduleInfo['ReferralContactId'] : '',
+                'referral_contact_name' => ($getScheduleInfo['ReferralContactName']) ? $getScheduleInfo['ReferralContactName'] : '',
+                'referral_intake_person_id' => ($getScheduleInfo['ReferralIntakePersonId']) ? $getScheduleInfo['ReferralIntakePersonId'] : '',
+                'referral_intake_person_name' => ($getScheduleInfo['ReferralIntakePersonName']) ? $getScheduleInfo['ReferralIntakePersonName'] : '',
+                'referral_account_manager_id' => ($getScheduleInfo['ReferralAccountManagerId']) ? $getScheduleInfo['ReferralAccountManagerId'] : '',
+                'referral_account_manager_name' => ($getScheduleInfo['ReferralAccountManagerName']) ? $getScheduleInfo['ReferralAccountManagerName'] : '',
+            ]
+        );    
 
-        $patientReferralInfoModel = PatientReferralInfo::where('patient_id', $patient_detail_id);
-
-        $patientReferralInfoModel->patient_id = $patient_detail_id;
-        $patientReferralInfoModel->referral_master_id = ($getScheduleInfo['ReferralMasterId']) ? $getScheduleInfo['ReferralMasterId'] : '';
-        $patientReferralInfoModel->referral_created_date = ($getScheduleInfo['ReferralCreatedDate']) ? $getScheduleInfo['ReferralCreatedDate'] : '';
-        $patientReferralInfoModel->referral_name = ($getScheduleInfo['ReferralName']) ? $getScheduleInfo['ReferralName'] : '';
-        $patientReferralInfoModel->referral_received_date = ($getScheduleInfo['ReferralReceivedDate']) ? $getScheduleInfo['ReferralReceivedDate'] : '';
-        $patientReferralInfoModel->referral_status_id = ($getScheduleInfo['ReferralStatusId']) ? $getScheduleInfo['ReferralStatusId'] : '';
-        $patientReferralInfoModel->referral_status = ($getScheduleInfo['ReferralStatus']) ? $getScheduleInfo['ReferralStatus'] : '';
-        $patientReferralInfoModel->referral_commission_status_id = ($getScheduleInfo['ReferralCommissionStatusID']) ? $getScheduleInfo['ReferralCommissionStatusID'] : '';
-        $patientReferralInfoModel->referral_commission_status = ($getScheduleInfo['ReferralCommissionStatus']) ? $getScheduleInfo['ReferralCommissionStatus'] : '';
-        $patientReferralInfoModel->referral_source_id = ($getScheduleInfo['ReferralSourceId']) ? $getScheduleInfo['ReferralSourceId'] : '';
-        $patientReferralInfoModel->referral_source_name = ($getScheduleInfo['ReferralSourceName']) ? $getScheduleInfo['ReferralSourceName'] : '';
-        $patientReferralInfoModel->referral_source_type = ($getScheduleInfo['ReferralSourceType']) ? $getScheduleInfo['ReferralSourceType'] : '';
-        $patientReferralInfoModel->referral_contact_id = ($getScheduleInfo['ReferralContactId']) ? $getScheduleInfo['ReferralContactId'] : '';
-        $patientReferralInfoModel->referral_contact_name = ($getScheduleInfo['ReferralContactName']) ? $getScheduleInfo['ReferralContactName'] : '';
-        $patientReferralInfoModel->referral_intake_person_id = ($getScheduleInfo['ReferralIntakePersonId']) ? $getScheduleInfo['ReferralIntakePersonId'] : '';
-        $patientReferralInfoModel->referral_intake_person_name = ($getScheduleInfo['ReferralIntakePersonName']) ? $getScheduleInfo['ReferralIntakePersonName'] : '';
-        $patientReferralInfoModel->referral_account_manager_id = ($getScheduleInfo['ReferralAccountManagerId']) ? $getScheduleInfo['ReferralAccountManagerId'] : '';
-        $patientReferralInfoModel->referral_account_manager_name = ($getScheduleInfo['ReferralAccountManagerName']) ? $getScheduleInfo['ReferralAccountManagerName'] : '' ;
-
-        $patientReferralInfoModel->save();
-    
+        /** Get and Store Patient Referral Info */
+        $referralProfile = $this->getReferralProfile($patientReferralInfoModel->referral_master_id);
+        $getReferralProfile = $referralProfile['soapBody']['GetReferralProfileResponse']['GetReferralProfileResult']['ReferralSearch'];
+        $this->storeReferralProfile($getReferralProfile, $patient_detail_id);
     }
     
     public function storeReferralProfile($getReferralProfile, $patient_detail_id)
     {
-       
+        // $this->storePatientReferralInfo($getReferralProfile, $patient_detail_id);
     }
 
     public function storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id)
     {
         $clinicalDetails = $getPatientClinicalInfo['soapBody']['GetPatientClinicalInfoResponse']['GetPatientClinicalInfoResult']['PatientClinicalInfo'];
-      
+        // dd($clinicalDetails);
         $patientClinicalDetail = new PatientClinicalDetail();
         $patientClinicalDetail->patient_id = $patient_detail_id;
         

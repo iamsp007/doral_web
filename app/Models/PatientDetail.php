@@ -68,6 +68,7 @@ class PatientDetail extends Model
         'primary_language',
         'secondary_language_id',
         'secondary_language',
+        'status',
     ];
 
     public function patientAddress() {

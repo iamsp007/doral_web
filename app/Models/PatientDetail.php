@@ -104,16 +104,12 @@ class PatientDetail extends Model
             'coordinator_id');
     }
 
-    /**
+   /**
      * Relation with referances
      */
     public function acceptedServices()
     {
-        return $this->belongsToMany(
-            AcceptedService::class,
-            'patient_accepted_services',
-            'patient_id',
-            'accepted_service_id');
+        return $this->hasMany('App\Models\AcceptedService', 'patient_id', 'id');
     }
 
     /**
@@ -126,6 +122,14 @@ class PatientDetail extends Model
   
     public function visitorDetail() {
         return $this->hasOne(VisitorDetail::class,'patient_id','id')->orderBy('id','DESC');
+    }
+
+    /**
+     * Relation with nurse
+     */
+    public function patientReferralInfo()
+    {
+        return $this->hasOne(PatientReferralInfo::class,'patient_id','id');
     }
 
     /**

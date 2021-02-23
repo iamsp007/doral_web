@@ -115,7 +115,7 @@ class PatientDetail extends Model
     /**
      * Relation with nurse
      */
-    public function emergencyPreparedness()
+    public function emergencyPreparednes()
     {
         return $this->hasOne(EmergencyPreparedness::class,'patient_id','id');
     }

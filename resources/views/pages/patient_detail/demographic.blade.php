@@ -247,7 +247,7 @@
                                        placeholder="Nurse Name" value="{{ $acceptedService->type }}"> -->
                                        <ul class="menus">
 			                                 <li>
-                                          {{ dump(json_decode($acceptedService->value)) }}
+                                             {{ dump($acceptedService)}}
                                           </li>
                                        </ul>
                                  </div>
@@ -1072,7 +1072,7 @@
                                        name="payer_id"
                                        onclick="editableField('payer_id')"
                                        data-id="payer_id" id="payer_id"
-                                       placeholder="Nurse ID" value="{{ $patient->payer_id }}">
+                                       placeholder="Payer ID" value="{{ $patient->payer_id }}">
                                  </div>
                               </div>
                            </div>

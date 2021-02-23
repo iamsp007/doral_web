@@ -21,7 +21,7 @@
                <ul class="shortdesc">
                   <li>Admission ID: <span>{{ $patient->admission_id}}</span></li>
                   <li>Gender: <span>{{ $patient->gender }}</span></li>
-                  <li>DOB: <span>{{ $patient->gender }}</span></li>
+                  <li>DOB: <span>{{ $patient->birth_date }}</span></li>
                </ul>
             </div>
          </div>

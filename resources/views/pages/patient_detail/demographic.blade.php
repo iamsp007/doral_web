@@ -239,17 +239,14 @@
                                  <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                  <div class="rs">
                                     <h3 class="_title">type</h3>
-                                    <!-- <input type="text"
-                                       class="form-control-plaintext _detail " readonly
-                                       name="type"
-                                       onclick="editableField('type')"
-                                       data-id="type" id="type"
-                                       placeholder="Nurse Name" value="{{ $acceptedService->type }}"> -->
-                                       <ul class="menus">
-			                                 <li>
-                                             {{ dump($acceptedService)}}
-                                          </li>
-                                       </ul>
+                                    <ul>
+                                       <li>{{ $acceptedService->type }}</li>
+                                       @foreach(json_decode($acceptedService->value) as $value)
+                                          <ul>
+                                             <li>{{ $value }}</li>
+                                          </ul>
+                                       @endforeach
+                                    </ul>
                                  </div>
                               </div>
                            </div>
@@ -1013,7 +1010,7 @@
                                        name="type"
                                        onclick="editableField('type')"
                                        data-id="type" id="type"
-                                       placeholder="Type" value="{{ ($patient->emergencyPreparedness) ? $patient->emergencyPreparedness->type : '' }}">
+                                       placeholder="Type" value="{{ ($patient->emergencyPreparednes) ? $patient->emergencyPreparednes->type : '' }}">
                                  </div>
                               </div>
                            </div>
@@ -1027,7 +1024,7 @@
                                        name="emergency_preparedness_id"
                                        onclick="editableField('emergency_preparedness_id')"
                                        data-id="emergency_preparedness_id" id="emergency_preparedness_id"
-                                       placeholder="Emergency Preparedness ID" value="{{ ($patient->emergencyPreparedness) ? $patient->emergencyPreparedness->emergency_preparedness_id : '' }}">
+                                       placeholder="Emergency Preparedness ID" value="{{ $emergencyPreparednes->ID }}">
                                  </div>
                               </div>
                            </div>
@@ -1041,7 +1038,7 @@
                                        name="emergency_preparedness_name"
                                        onclick="editableField('emergency_preparedness_name')"
                                        data-id="emergency_preparedness_name" id="emergency_preparedness_name"
-                                       placeholder="Name" value="{{ ($patient->emergencyPreparedness) ? $patient->emergencyPreparedness->emergency_preparedness_name : '' }}">
+                                       placeholder="Name" value="{{ $emergencyPreparednes->Name }}">
                                  </div>
                               </div>
                            </div>

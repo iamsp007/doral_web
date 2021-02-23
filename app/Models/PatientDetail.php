@@ -104,7 +104,7 @@ class PatientDetail extends Model
             'coordinator_id');
     }
 
-\   /**
+   /**
      * Relation with referances
      */
     public function acceptedServices()

@@ -86,30 +86,6 @@
                         </div>
                      </div>
                   </div>
-                  <div class="col-12 col-sm-3">
-                     <div class="input_box">
-                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
-                        <div class="rs">
-                           <h3 class="_title">Medicaid Number</h3>
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="medicaid_number" onclick="editableField('medicaid_number')"
-                              data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number"
-                              value="{{ $patient->medicaid_number}}">
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-12 col-sm-3">
-                     <div class="input_box">
-                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
-                        <div class="rs">
-                           <h3 class="_title">Medicare Number</h3>
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="medicare_number" onclick="editableField('medicare_number')"
-                              data-id="medicare_number" id="medicare_number" placeholder="Medicare Number"
-                              value="{{ $patient->medicare_number}}">
-                        </div>
-                     </div>
-                  </div>
                </div>
             </div>
             <div class="form-group">
@@ -1153,6 +1129,139 @@
                                        onclick="editableField('secondary_language')"
                                        data-id="secondary_language" id="secondary_language"
                                        placeholder="Primary Language" value="{{ $patient->secondary_language }}">
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Language-->
+
+            <!-- Language -->
+            <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+               data-name="emergency_contact_detail">
+               <div class="app-card-header">
+                  <h1 class="title">Wage Parity</h1>
+               </div>
+               <div>
+                  <div class="p-3">
+                     <div class="">
+                        <div class="row">
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity"
+                                       onclick="editableField('wage_parity')"
+                                       data-id="wage_parity" id="wage_parity"
+                                       placeholder="Wage Parity" value="{{ $patient->wage_parity }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity From Date1</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_from_date1"
+                                       onclick="editableField('wage_parity_from_date1')"
+                                       data-id="wage_parity_from_date1" id="wage_parity_from_date1"
+                                       placeholder="Wage Parity From Date1" value="{{ $patient->wage_parity_from_date1 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity To Date1</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_to_date1"
+                                       onclick="editableField('wage_parity_to_date1')"
+                                       data-id="wage_parity_to_date1" id="wage_parity_to_date1"
+                                       placeholder="Wage Parity To Date1" value="{{ $patient->wage_parity_to_date1 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity From Date2</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_from_date2"
+                                       onclick="editableField('wage_parity_from_date2')"
+                                       data-id="wage_parity_from_date2" id="wage_parity_from_date2"
+                                       placeholder="Wage Parity From Date2" value="{{ $patient->wage_parity_from_date2 }}">
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="">
+                        <div class="row">
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity To Date2</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_to_date2"
+                                       onclick="editableField('wage_parity_to_date2')"
+                                       data-id="wage_parity_to_date2" id="wage_parity_to_date2"
+                                       placeholder="Wage Parity To Date2" value="{{ $patient->wage_parity_to_date2 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity From Date1</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_from_date1"
+                                       onclick="editableField('wage_parity_from_date1')"
+                                       data-id="wage_parity_from_date1" id="wage_parity_from_date1"
+                                       placeholder="Wage Parity From Date1" value="{{ $patient->wage_parity_from_date1 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity To Date1</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_to_date1"
+                                       onclick="editableField('wage_parity_to_date1')"
+                                       data-id="wage_parity_to_date1" id="wage_parity_to_date1"
+                                       placeholder="Wage Parity To Date1" value="{{ $patient->wage_parity_to_date1 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity From Date2</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_from_date2"
+                                       onclick="editableField('wage_parity_from_date2')"
+                                       data-id="wage_parity_from_date2" id="wage_parity_from_date2"
+                                       placeholder="Wage Parity From Date2" value="{{ $patient->wage_parity_from_date2 }}">
                                  </div>
                               </div>
                            </div>

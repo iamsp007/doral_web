@@ -52,7 +52,7 @@
 @endpush
 
 @push('scripts')
-    <script src="https://socket.doralhealthconnect.com/socket.io/socket.io.js"></script>
+    <script src="//{{ Request::getHost() }}:{{env('LARAVEL_ECHO_PORT')}}/socket.io/socket.io.js"></script>
     <script src="{{ asset('js/laravel-echo-setup.js') }}" type="text/javascript"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="{{ asset('js/clincian/map.js') }}"></script>

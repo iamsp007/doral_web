@@ -3,36 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/SendLocation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/SendLocation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CaregiverController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CaregiverController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Mail/ReferralAcceptedMail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/ReferralAcceptedMail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientAllergy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientAllergy.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientClinicalDetail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientClinicalDetail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientReferralInfo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientReferralInfo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ServicePaymentPlan.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ServicePaymentPlan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ServicePaymentPlanDetails.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/ServicePaymentPlanDetails.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style.min_22_02_2021.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style.min_22_02_2021.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/style_22022021.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/style_22022021.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icon/CHHA Request.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/icon/CHHA Request.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icon/Clinician Request.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/icon/Clinician Request.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icon/DME Request.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/icon/DME Request.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icon/Home Insfusion Request.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/icon/Home Insfusion Request.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icon/Home Oxygen Request.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/icon/Home Oxygen Request.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icon/LAB Request.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/icon/LAB Request.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icon/Wound Care Request.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/icon/Wound Care Request.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/icon/X-Ray Request.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/icon/X-Ray Request.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/9b4b975b-7ae6-4be3-9f9c-a3b4a6289e35.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/9b4b975b-7ae6-4be3-9f9c-a3b4a6289e35.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravel-echo-server.lock" beforeDir="false" afterPath="$PROJECT_DIR$/laravel-echo-server.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/emails/referralAccepted.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/referralAccepted.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/laravel-echo-setup.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/laravel-echo-setup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/ccm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/ccm.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/clinical-info.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/clinical-info.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/drug-screen.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/drug-screen.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/immunization.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/immunization.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/tb-screen.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/tb-screen.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/rpm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/rpm.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -616,7 +591,10 @@
       <workItem from="1613845641023" duration="827000" />
       <workItem from="1613983975144" duration="896000" />
       <workItem from="1614004000512" duration="3496000" />
-      <workItem from="1614013730583" duration="366000" />
+      <workItem from="1614013730583" duration="1607000" />
+      <workItem from="1614016133290" duration="1465000" />
+      <workItem from="1614051179217" duration="136000" />
+      <workItem from="1614059031694" duration="999000" />
     </task>
     <servers />
   </component>

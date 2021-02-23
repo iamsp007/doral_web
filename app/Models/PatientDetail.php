@@ -125,6 +125,14 @@ class PatientDetail extends Model
     }
 
     /**
+     * Relation with nurse
+     */
+    public function patientReferralInfo()
+    {
+        return $this->hasOne(PatientReferralInfo::class,'patient_id','id');
+    }
+
+    /**
      * Create full name with combine first name and last name
      */
     public function getFullNameAttribute()

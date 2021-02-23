@@ -86,6 +86,28 @@
                         </div>
                      </div>
                   </div>
+                  <div class="col-12 col-sm-3">
+                     <div class="input_box">
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                        <div class="rs">
+                           <h3 class="_title">Patient Status ID</h3>
+                           <input type="text" class="form-control-plaintext _detail "
+                              readonly name="patient_status_id" onclick="editableField('patient_status_id')"
+                              data-id="patient_status_id" id="patient_status_id" placeholder="Patient Status ID" value="{{ $patient->patient_status_id}}">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12 col-sm-3">
+                     <div class="input_box">
+                        <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                        <div class="rs">
+                           <h3 class="_title">Patient Status Name</h3>
+                           <input type="text" class="form-control-plaintext _detail "
+                              readonly name="patient_status_name" onclick="editableField('patient_status_name')"
+                              data-id="patient_status_name" id="patient_status_name" placeholder="Patient Status Name" value="{{ $patient->patient_status_name}}">
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
             <div class="form-group">
@@ -217,12 +239,17 @@
                                  <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                  <div class="rs">
                                     <h3 class="_title">type</h3>
-                                    <input type="text"
+                                    <!-- <input type="text"
                                        class="form-control-plaintext _detail " readonly
                                        name="type"
                                        onclick="editableField('type')"
                                        data-id="type" id="type"
-                                       placeholder="Nurse Name" value="{{ $acceptedService->type }}">
+                                       placeholder="Nurse Name" value="{{ $acceptedService->type }}"> -->
+                                       <ul class="menus">
+			                                 <li>
+                                          {{ dump(json_decode($acceptedService->value)) }}
+                                          </li>
+                                       </ul>
                                  </div>
                               </div>
                            </div>
@@ -894,6 +921,38 @@
                      <div class="p-3">
                         <div class="">
                            <div class="row">
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-user-nurse circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Relationship ID</h3>
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="relationship_id"
+                                          onclick="editableField('relationship_id')"
+                                          data-id="relationship_id" id="relationship_id"
+                                          placeholder="Relationship ID" value="{{ $patientEmergencyContact->relationship_id }}">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-user-nurse circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Relationship Name</h3>
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="relationship_name"
+                                          onclick="editableField('relationship_name')"
+                                          data-id="relationship_name" id="relationship_name"
+                                          placeholder="Relationship Name" value="{{ $patientEmergencyContact->relationship_name }}">
+                                    </div>
+                                 </div>
+                              </div>
                               <div class="col-12 col-sm-3 col-md-3">
                                  <div class="input_box">
                                     <div class="ls">

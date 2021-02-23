@@ -257,7 +257,7 @@
                                                                     placeholder="" aria-label="Middle Name"
                                                                     aria-describedby="middle_names" id="nameMiddle1"
                                                                     name="nameMiddle1" onkeypress="return (event.charCode > 64 && 
-                                                                    event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+                                                                                event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
                                                             </div>
                                                             <div class="errorClass nameMiddle1 mt-1"></div>
                                                         </div>
@@ -301,7 +301,7 @@
                                                                     <i class="las la-phone"></i>
                                                                 </span>
                                                                 <input type="text" class="form-control form-control-lg"
-                                                                    id="phone" name="phone" aria-describedby="">
+                                                                       id="phone" name="phone" aria-describedby="" required>
                                                             </div>
                                                             <div class="errorClass phone mt-1"></div>
                                                         </div>
@@ -312,7 +312,7 @@
                                                                     <i class="las la-envelope"></i></span>
                                                                 <input type="email" class="form-control form-control-lg"
                                                                     placeholder="" aria-label="email"
-                                                                    aria-describedby="email" id="email" name="email">
+                                                                    aria-describedby="email" id="email" name="email" required>
                                                             </div>
                                                             <div class="errorClass email mt-1"></div>
                                                         </div>
@@ -380,7 +380,7 @@
                                                                 placeholder="" aria-label="First Name"
                                                                 aria-describedby="nameFirst" id="nameFirst" value=""
                                                                 name="nameFirst"
-                                                                onkeypress="return (event.charCode > 64 && 
+                                                                onkeypress="return (event.charCode> 64 && 
                                                                 event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
                                                         </div>
                                                         <div class="errorClass nameFirst mt-1"></div>
@@ -654,11 +654,16 @@
                 // Personal Assistance 1
                 // First Name1
                 if (fname1.val() == '') {
+                    alert("error message here!");
                     fname1.closest('div').next('div').html(message.firstname);
                     fname1.addClass('invalid').prevUntil('.input-group').css({ "color": "red", "border": "1px solid red" });
+                    
+                    
                 } else if (fname1.val() != '') {
                     fname1.removeClass('invalid').prevUntil('.input-group').css({ "color": "#006C76", "border": "1px solid #006C76" });
                     $(".nameFirst1").text("Looks good!").removeClass('errorClass').addClass('valid').addClass('looksGood');
+                    alert("error message here!");
+                    return false;
                 }
                  // Middle Name1
                  if (mname1.val() == '') {

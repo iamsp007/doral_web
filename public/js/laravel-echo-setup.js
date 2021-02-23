@@ -11036,7 +11036,7 @@ __webpack_require__.r(__webpack_exports__);
 window.io = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/lib/index.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'socket.io',
-  host: window.location.hostname + ":" + window.laravel_echo_port
+  host: window.socket_url
 });
 
 /***/ }),

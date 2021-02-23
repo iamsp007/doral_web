@@ -240,13 +240,13 @@
                               <div class="input_box">
                                  <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                  <div class="rs">
-                                    <h3 class="_title">Name</h3>
+                                    <h3 class="_title">type</h3>
                                     <input type="text"
                                        class="form-control-plaintext _detail " readonly
-                                       name="service_name"
-                                       onclick="editableField('service_name')"
-                                       data-id="service_name" id="service_name"
-                                       placeholder="Nurse Name" value="{{ $acceptedService->service_name }}">
+                                       name="type"
+                                       onclick="editableField('type')"
+                                       data-id="type" id="type"
+                                       placeholder="Nurse Name" value="{{ $acceptedService->type }}">
                                  </div>
                               </div>
                            </div>

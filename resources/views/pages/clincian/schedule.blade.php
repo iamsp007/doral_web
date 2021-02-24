@@ -9,6 +9,24 @@
             <table class="display responsive nowrap" style="width:100%" id="appointmentScheduled">
                 <thead>
                     <tr>
+                        <th></th>
+                        <th><select class="patient_name form-control" id="patient_name" name="" data-id='1'>
+            </select></th>
+                        <th><select class="item2 form-control" name="item2" data-id='6'>
+                    <option value="">select status</option>
+                    <option value="open">open</option>
+                    <option value="running">running</option>
+                    <option value="completed">completed</option>
+                    <option value="cancel">cancel</option>
+                    <option value="reject">reject</option>
+            </select></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
                         <th><input type="checkbox" class="selectall"></th>
                         <th>Patient Name</th>
                         <th>Gender</th>
@@ -964,6 +982,7 @@
     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/bootstrap.css" />
      <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
       <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
+       <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 {{--    <style> --}}
 {{--        html, body {overflow: auto;}--}}
 {{--        body > #zmmtg-root {display: none;}--}}
@@ -997,6 +1016,7 @@
     <script src="https://source.zoom.us/1.8.3/lib/vendor/lodash.min.js"></script>
     <script src="https://source.zoom.us/zoom-meeting-1.8.3.min.js"></script>
     <script src="{{ asset('js/Zoom/index.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <script>
         const simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11]))
         simd().then((res) => {
@@ -1011,5 +1031,61 @@
             $("#selectRole1").val('');
             $("#modal").hide();
         }
+        $(document).ready(function () {
+             $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+              $("#patient_name").select2({
+
+                ajax: { 
+                    url: '{{ route('clinician.scheduleAppoimentList.ajax-data') }}',
+                    type: "POST",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                          searchTerm : params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        var data_array = [];
+                        data.data.forEach(function(value,key){
+                           if(value.patients) {
+                            data_array.push({id:value.patients.first_name,text:value.patients.first_name+ ' '+ value.patients.last_name})
+                           }
+                            
+                        });
+                        return {
+                            results: data_array
+                        };
+                    },
+                },
+                placeholder: "Search name",
+                allowClear: true,
+                width : '15rem'
+            });
+
+               $('.item2').select2({
+                placeholder: "Select Status",
+                allowClear: true,
+                width : '15rem'
+            });
+        $('.item2').on('change', function () {
+                table
+                    .columns( $(this).attr('data-id'))
+                    .search( this.value )
+                    .draw();
+            });
+        });
+
+         $('.patient_name').on('change', function () {
+                table
+                    .columns( $(this).attr('data-id'))
+                    .search( this.value )
+                    .draw();
+            });
+       
      </script>
 @endpush

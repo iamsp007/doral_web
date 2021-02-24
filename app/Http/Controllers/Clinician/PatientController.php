@@ -200,4 +200,42 @@ class PatientController extends Controller
         }
         return response()->json($response,422);
     }
+
+    public function getNewPatientListData(Request $request)
+    {
+         $clinicianService = new ClinicianService();
+         $response = $clinicianService->newpatientData($request->all());
+         if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+    }
+
+   public function getPatientListData(Request $request) {
+     $clinicianService = new ClinicianService();
+         $response = $clinicianService->patientData($request->all());
+         if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+   }
+
+   public function scheduleAppoimentListData(Request $request){
+
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->scheduleAppoimentListData($request->all());
+        if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+    }
+
+ public function cancelAppoimentListData(Request $request) {
+     $clinicianService = new ClinicianService();
+        $response = $clinicianService->cancelAppoimentListData($request->all());
+        if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+ }
 }

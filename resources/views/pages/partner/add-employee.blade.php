@@ -4,7 +4,8 @@
 <div class="p-3 app-partner">
     <div class="row">
         <div class="col-12 col-sm-9">
-            <form action="" name="myForm">
+            <form method="post" name="myForm" action="{{ route('partner.saveEmployee') }}" id="addEmployee">
+                @csrf
                 <div class="app-card no-minHeight">
                     <div class="app-card-header">
                         <div class="titleBox">
@@ -31,6 +32,7 @@
                                                aria-describedby="Employee ID" id="employeeID" value=""
                                                name="employeeID">
                                     </div>
+                                    <span class="errorText employeeID"></span>
                                 </div>
                             </div>
 <!--                            <div class="col-12 col-sm-4">
@@ -54,8 +56,9 @@
                                         <input type="text" class="form-control form-control-lg"
                                                placeholder="" aria-label="firstName"
                                                aria-describedby="firstName" id="firstName" value=""
-                                               name="employeeID">
+                                               name="firstName">
                                     </div>
+                                    <span class="errorText firstName"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
@@ -69,6 +72,7 @@
                                                aria-describedby="Last Name" id="lastName" value=""
                                                name="lastName">
                                     </div>
+                                    <span class="errorText lastName"></span>
                                 </div>
                             </div>
                         </div>
@@ -83,8 +87,9 @@
                                         <input type="email" class="form-control form-control-lg"
                                                placeholder="" aria-label="Email ID"
                                                aria-describedby="Email ID" id="emailID" value=""
-                                               name="employeeID">
+                                               name="emailID">
                                     </div>
+                                    <span class="errorText emailID"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
@@ -98,6 +103,7 @@
                                                aria-describedby="Phone Number" id="phoneNumber" value=""
                                                name="phoneNumber">
                                     </div>
+                                    <span class="errorText phoneNumber"></span>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +119,7 @@
                                                aria-describedby="Driving License Number" id="dlNumber"
                                                value="" name="dlNumber">
                                     </div>
+                                    <span class="errorText dlNumber"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
@@ -125,9 +132,8 @@
                                                placeholder="" aria-label="DOB" aria-describedby="DOB"
                                                id="dob" value="" name="dob">
                                     </div>
+                                    <span class="errorText dob"></span>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-4">
                             </div>
                         </div>
                         <div class="row">
@@ -168,7 +174,7 @@
                                                         </div>
                                                         <div class="d-flex justify-content-center mt-5">
                                                             <button type="button"
-                                                                    class="btn btn-outline-green btn-lg areyousure" onclick="employeeSave()">Submit Employee Details</button>
+                                                                    class="btn btn-outline-green btn-lg areyousure">Submit Employee Details</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -252,3 +258,27 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/add-employee.css') }}">
+	<style>
+		.errorText {
+			color: red;
+			/* visibility: hidden; */
+		}
+	</style>
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/partner/add-employee.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/additional-methods.js') }}"></script>
+    <script>
+        $(function () {
+            
+        });
+    </script>
+@endpush

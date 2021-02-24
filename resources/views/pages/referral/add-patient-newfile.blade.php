@@ -6,8 +6,8 @@
     Add Patient
 @endsection
 
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -662,7 +662,7 @@
                 } else if (fname1.val() != '') {
                     fname1.removeClass('invalid').prevUntil('.input-group').css({ "color": "#006C76", "border": "1px solid #006C76" });
                     $(".nameFirst1").text("Looks good!").removeClass('errorClass').addClass('valid').addClass('looksGood');
-                    alert("error message here!");
+                    alert("error message !");
                     return false;
                 }
                  // Middle Name1

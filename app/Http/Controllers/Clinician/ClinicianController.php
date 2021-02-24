@@ -14,11 +14,11 @@ class ClinicianController extends Controller
         return view('pages.admin.clinician');
     }
 
-    public function getClinicianList()
+    public function getClinicianList($status_id = 0)
     {
         $services = new AdminService();
-        $response = $services->getClinicianList();
-
+        $response = $services->getClinicianList($status_id);
+        
         $data = array();
         if ($response != null && $response->status === true) {
             $data = $response->data;

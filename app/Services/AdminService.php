@@ -191,12 +191,12 @@ class AdminService
         }
     }
 
-    public function getClinicianList()
+    public function getClinicianList($status_id)
     {
         try {
             $response = $this->client->request(
                 'GET',
-                '/auth/get-clinician-list'
+                '/auth/get-clinician-list/'.$status_id
             );
             $response = $response->getBody()->getContents();
             $data = json_decode($response);

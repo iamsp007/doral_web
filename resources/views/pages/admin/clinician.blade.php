@@ -1,7 +1,13 @@
 @extends('pages.layouts.app')
 @section('title','Clinician Lists')
 @section('pageTitleSection')
-    Clinician Lists
+    @if(Request::is('admin/clinician-approval'))
+        Pending Clinician
+    @elseif(Request::is('admin/clinician-active'))
+        Active Clinician
+    @elseif(Request::is('admin/clinician-rejected'))
+        Reject Clinician
+    @endif
 @endsection
 
 @section('content')
@@ -14,14 +20,9 @@
                     <option value="">select gender</option>
                     <option value="1">Male</option>
                     <option value="2">Female</option>
+                    <option value="3">Other</option>
             </select></th>
-            <th><select class="item3 form-control" name="item3" data-id='5'>
-                    <option value="">select status</option>
-                    <option value="0">Pending</option>
-                    <option value="1">Active</option>
-                    <option value="2">Inactive</option>
-                    <option value="3">Reject</option>
-            </select></th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>
@@ -52,6 +53,16 @@
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
+        if("{{Request::is('admin/clinician-approval')}}"){
+            var clinicianurl = "{{ url('admin/clinician-list/0') }}" ;
+            var clinician_status = 0;
+        } else if("{{Request::is('admin/clinician-active')}}"){
+            var clinicianurl = "{{ url('admin/clinician-list/1') }}" ;
+            var clinician_status = 1;
+        } else if("{{Request::is('admin/clinician-rejected')}}") {
+            var clinicianurl = "{{  url('admin/clinician-list/3') }}";
+            var clinician_status = 3;
+        }
 
         $(document).ready(function () {
             $.ajaxSetup({
@@ -68,7 +79,8 @@
                     delay: 250,
                     data: function (params) {
                         return {
-                          searchTerm : params.term
+                          searchTerm : params.term,
+                          status : clinician_status
                         };
                     },
                     processResults: function (data) {
@@ -126,7 +138,7 @@
                  processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
             },
             serverSide: true,
-            ajax: "{{  route('admin.clinician-list') }}",
+            ajax: clinicianurl,
             columns:[
                 {
                     data:'id',

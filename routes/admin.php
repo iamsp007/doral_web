@@ -44,9 +44,12 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','role:admin']],function (
 //    Route::get('/logout', 'App\Http\Controllers\Admin\HomeController@logout');
 
     Route::get('clinician','App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician');
-    Route::get('clinician-list','App\Http\Controllers\Clinician\ClinicianController@getClinicianList')->name('admin.clinician-list');
+    Route::get('clinician-list/{status_id}','App\Http\Controllers\Clinician\ClinicianController@getClinicianList')->name('admin.clinician-list');
     Route::post('clinician-data-get','App\Http\Controllers\Clinician\ClinicianController@getClinicianData')->name('admin.clinician-data-get');
     Route::get('clinician-detail/{id}','App\Http\Controllers\Clinician\ClinicianController@getClinicianDetail')->name('admin.clinician-detail');
+    Route::get('/clinician-approval', 'App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician.approval');
+    Route::get('/clinician-active', 'App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician.active');
+    Route::get('/clinician-rejected', 'App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician.rejected');
 
     // service payment details insert / update
     Route::post('/service-payment-insert-update', 'App\Http\Controllers\CompanyController@insertUpdateServicePayment')->name('admin.insertUpdateServicePayment');

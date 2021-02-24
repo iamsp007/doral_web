@@ -1889,9 +1889,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/detail.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/responsive.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 @endpush
 
 @push('scripts')

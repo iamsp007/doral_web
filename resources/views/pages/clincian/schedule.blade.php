@@ -24,27 +24,60 @@
             </table>
 
             <!-- Modal -->
-            <div class="modal fade" id="patient_request_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+            
+        </div>
+    </div>
+    <div class="modal" id="modal" tabindex="-1" style="top: 80px !important;" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Referral Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReferralPopup()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="broadcast_form" >
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- <label for="selectRole" class="label-custom"><span>Select</span> Role</label> -->
+                                        <input type="hidden" name="type[]" class="input-skin" >
+                                        <input type="hidden" name="appointment_id" class="input-skin" >
+                                        <input type="hidden" name="patient_id" class="input-skin" >
+                                        <input type="hidden" name="reason" class="input-skin" >
+                                        <input type="text" name="test_name" class="input-skin" id="selectRole1" placeholder="Enter test name...">
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            ...
+                        <div class="d-flex mb-4">
+                            <input type="button" value="Submit" class="btn btn--submit btn-lg" onclick="onAppointmentBroadCastSubmit(this)">
+                            <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+<div class="modal fade" id="patient_request_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('app-video')
@@ -922,6 +955,7 @@
             </div>
         </div>
     </div>
+<input type="hidden" id="currentRoadLClick" value="">
 @endsection
 @push('styles')
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -970,4 +1004,12 @@
         });
     </script>
      <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
+     <script>
+        function closeReferralPopup() {
+            var getVal = $("#currentRoadLClick").val();
+            $("#"+getVal).attr('checked',false);
+            $("#selectRole1").val('');
+            $("#modal").hide();
+        }
+     </script>
 @endpush

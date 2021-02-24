@@ -89,7 +89,7 @@ $(function () {
                             options+='<li>\n' +
                                 '              <label>\n' +
                                 ' \n' +
-                                '                  <input type="checkbox" name="selected_appointment" value="'+value+'" >' +
+                                '                  <input type="checkbox" name="selected_appointment" data-appointmentid="'+row.id+'"  data-patientId="'+row.patient_id+'"  data-appointment_title="'+appointment_title+'" value="'+value+'" onchange="selectRoadlRequest(this)">' +
                                 '<span>'+value+'</span>\n' +
                                 ' \n' +
                                 '              </label>\n' +
@@ -515,3 +515,53 @@ function onAppointmentBroadCast(e,appointemnt_id,patient_id,appointment_title="T
     }
 
 }
+
+function selectRoadlRequest(e) {
+    if ($(e).is(':checked')){
+        $("#currentRoadLClick").val([$(e).val()]);
+        $('#modal').find('input[name="type[]"]').val([$(e).val()]);
+        $('#modal').find('input[name="appointment_id"]').val($(e).attr('data-appointmentid'));
+        $('#modal').find('input[name="patient_id"]').val($(e).attr('data-patientId'));
+        $('#modal').find('input[name="reason"]').val($(e).attr('data-appointment_title'));
+        $('#modal').toggle('show')
+    }
+}
+
+function onAppointmentBroadCastSubmit() {
+    var data = $('#broadcast_form').serializeArray();
+    var confirm = window.confirm('Are you sure Create your RoadL Request?');
+    if (confirm){
+        $.ajax({
+            beforeSend: function(){
+                $("#loader-wrapper").show();
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:base_url+'clinician/patient-request',
+            method:'POST',
+            data:data,
+            dataType:'json',
+            success:function (response) {
+                $("#loader-wrapper").hide();
+                table.ajax.reload();
+                alert(response.message)
+                $("#selectRole1").val('');
+                $("#modal").hide();
+            },
+            error:function (error,responseText) {
+                $("#loader-wrapper").hide();
+                const sources = JSON.parse(error.responseText);
+                alert(sources.message)
+                $("#selectRole1").val('');
+                $("#modal").hide();
+            },
+            complete: function(){
+                $("#loader-wrapper").hide();
+                $("#selectRole1").val('');
+                $("#modal").hide();
+            }
+        })
+    }
+}
+

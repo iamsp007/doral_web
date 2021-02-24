@@ -21,7 +21,7 @@
                <ul class="shortdesc">
                   <li>Admission ID: <span>{{ $patient->admission_id}}</span></li>
                   <li>Gender: <span>{{ $patient->gender }}</span></li>
-                  <li>DOB: <span>{{ $patient->gender }}</span></li>
+                  <li>DOB: <span>{{ $patient->birth_date }}</span></li>
                </ul>
             </div>
          </div>
@@ -38,6 +38,14 @@
                         <img src="{{ asset('assets/img/icons/icons_demographics.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_demographics_active.svg') }}" alt=""
                            class="mr-2 activeIcon">Demographics
+                     </a>
+                  </li>
+                  <li>
+                     <a class="nav-link d-flex align-items-center" id="patient-referral-tab" data-toggle="pill"
+                        href="#patient-referral" role="tab" aria-controls="patient-referral" aria-selected="true">
+                        <img src="{{ asset('assets/img/icons/icons_demographics.svg') }}" alt="" class="mr-2 inactiveIcon">
+                        <img src="{{ asset('assets/img/icons/icons_demographics_active.svg') }}" alt=""
+                           class="mr-2 activeIcon">Patient Referral
                      </a>
                   </li>
                   <li>
@@ -130,6 +138,10 @@
                      @include('pages.patient_detail.demographic')
                   <!-- Demographics End -->
 
+                  <!-- Patient Referral Start -->
+                   @include('pages.patient_detail.patient_referral')
+                  <!-- Patient Referral End -->
+                  
                   <!-- Insurance Start -->
                      @include('pages.patient_detail.insurance')
                   <!-- Insurance End -->

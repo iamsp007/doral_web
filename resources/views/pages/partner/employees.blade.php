@@ -13,7 +13,6 @@
     <table class="display responsive nowrap" style="width:100%" id="patient-table" >
         <thead>
         <tr>
-            <th><input name="select_all" value="1" type="checkbox"></th>
             <th>ID</th>
             <th>Employee Name</th>
             <th>Employee ID</th>
@@ -21,7 +20,7 @@
             <th>Phone Number</th>
             <th>Email</th>
             <th>Licence Number</th>
-            <!--<th width="280px">Action</th>-->
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -49,8 +48,7 @@
             "serverSide": true,
             ajax: "{{  route('partner.employees.ajax') }}",
             columns:[
-                {data:'id',name:'id'},
-                {data:'id',name:'id'},
+                {data:'id', name:'id', "bSortable": true},
                 {
                     data:'first_name',
                     name:'first_name',
@@ -60,120 +58,16 @@
                         return data;
                     }
                 },
-                {
-                    data:'gender',
-                    name:'gender',
-                    "bSortable": true,
-                    render:function(data, type, row, meta){
-                        if (data == 'MALE') {
-                            return 'Male';
-                        } else if (data == 'FEMALE') {
-                            return 'Female';
-                        } else {
-                            return 'Other';
-                        }
-                    }
-                },
-                {
-                    data:'dob',
-                    name:'dob',
-                    "bSortable": true
-                }
-//                {data: 'action',name: 'action'}
+                {data:'employeeID', name:'employeeID', "bSortable": true},
+                {data:'dob', name:'dob', "bSortable": true},
+                {data:'phone', name:'phone', "bSortable": true},
+                {data:'email', name:'email', "bSortable": true},
+                {data:'dlNumber', name:'dlNumber', "bSortable": true},
+                {data: 'action', name: 'action'}
             ],
             "order": [[ 1, "desc" ]],
-            "pageLength": 5,
-            "lengthMenu": [ [5, 10,20, 25,100, -1], [5, 10,20, 25,100, "All"] ],
-            'columnDefs': [
-                {
-                    targets: 0,
-                    'searchable': false,
-                    'orderable': false,
-                    'width': '1%',
-                    'className': 'dt-body-center',
-                    'render': function (data, type, full, meta){
-                        return '<input type="checkbox">';
-                    }
-                }
-            ],
-            'select': {
-                'style': 'multi'
-            },
+            "pageLength": 25,
+            "lengthMenu": [ [5, 10,20, 25,100, -1], [5, 10,20, 25,100, "All"] ]
         });
-
-        // Handle click on "Select all" control
-        $('thead input[name="select_all"]', table.table().container()).on('click', function(e){
-            if(this.checked){
-                $('#patient-table tbody input[type="checkbox"]:not(:checked)').trigger('click');
-            } else {
-                $('#patient-table tbody input[type="checkbox"]:checked').trigger('click');
-            }
-
-            // Prevent click event from propagating to parent
-            e.stopPropagation();
-        });
-
-       function changePatientStatus(element,status) {
-           $("#loader-wrapper").show();
-            var id=$(element).attr('data-id');
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url:"{{  route('clinician.changePatientStatus') }}",
-                method:'POST',
-                dataType:'json',
-                data:{
-                    id:[id],
-                    status:status
-                },
-                success:function (response) {
-                    $("#loader-wrapper").hide();
-                    alert(response.message)
-                    $('#acceptRejectBtn').hide();
-                    table.ajax.reload();
-                },
-                error:function (error) {
-                    table.ajax.reload();
-                    $("#loader-wrapper").hide();
-                    console.log(error)
-                }
-                
-            });
-        }
-
-        function allSelectedAccept() {
-            $("#loader-wrapper").show();
-
-            // Iterate over all selected checkboxes
-            var ids=[];
-            $.each(rows_selected, function(index, rowId){
-                // Create a hidden element
-                ids.push(rowId.id)
-            });
-
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url:"{{  route('clinician.changePatientStatus') }}",
-                method:'POST',
-                dataType:'json',
-                data:{
-                    id:ids,
-                    status:1
-                },
-                success:function (response) {
-                    $("#loader-wrapper").hide();
-                    alert(response.message)
-                    table.ajax.reload();
-                    $('#acceptRejectBtn').hide();
-                },
-                error:function (error) {
-                    $("#loader-wrapper").hide();
-                    console.log(error.message)
-                }
-            });
-        }
     </script>
 @endpush

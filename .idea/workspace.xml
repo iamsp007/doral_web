@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravel-echo-server.json" beforeDir="false" afterPath="$PROJECT_DIR$/laravel-echo-server.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/laravel-echo-setup.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/laravel-echo-setup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/laravel-echo-setup.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/laravel-echo-setup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -584,7 +587,14 @@
       <workItem from="1613825602584" duration="1578000" />
       <workItem from="1613829961052" duration="6083000" />
       <workItem from="1613844200622" duration="1376000" />
-      <workItem from="1613845641023" duration="645000" />
+      <workItem from="1613845641023" duration="827000" />
+      <workItem from="1613983975144" duration="896000" />
+      <workItem from="1614004000512" duration="3496000" />
+      <workItem from="1614013730583" duration="1607000" />
+      <workItem from="1614016133290" duration="1465000" />
+      <workItem from="1614051179217" duration="136000" />
+      <workItem from="1614059031694" duration="3597000" />
+      <workItem from="1614074803544" duration="4619000" />
     </task>
     <servers />
   </component>

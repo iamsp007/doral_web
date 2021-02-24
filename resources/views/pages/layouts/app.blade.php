@@ -187,7 +187,7 @@
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"
                                     >Logout</a>
-                                    
+
                                     <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -220,6 +220,7 @@
     <script>
         var base_url = $('#base_url').val();
         var socket_url = '{{ env("SOCKET_IO_URL") }}';
+        window.socket_url = '{{ env("SOCKET_IO_URL") }}';
         window.laravel_echo_port='{{env("LARAVEL_ECHO_PORT")}}';
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>

@@ -68,6 +68,7 @@ class PatientDetail extends Model
         'primary_language',
         'secondary_language_id',
         'secondary_language',
+        'status',
     ];
 
     public function patientAddress() {
@@ -103,28 +104,32 @@ class PatientDetail extends Model
             'coordinator_id');
     }
 
-    /**
+   /**
      * Relation with referances
      */
     public function acceptedServices()
     {
-        return $this->belongsToMany(
-            AcceptedService::class,
-            'patient_accepted_services',
-            'patient_id',
-            'accepted_service_id');
+        return $this->hasMany('App\Models\AcceptedService', 'patient_id', 'id');
     }
 
     /**
      * Relation with nurse
      */
-    public function emergencyPreparedness()
+    public function emergencyPreparednes()
     {
         return $this->hasOne(EmergencyPreparedness::class,'patient_id','id');
     }
   
     public function visitorDetail() {
         return $this->hasOne(VisitorDetail::class,'patient_id','id')->orderBy('id','DESC');
+    }
+
+    /**
+     * Relation with nurse
+     */
+    public function patientReferralInfo()
+    {
+        return $this->hasOne(PatientReferralInfo::class,'patient_id','id');
     }
 
     /**

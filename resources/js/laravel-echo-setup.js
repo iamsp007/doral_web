@@ -3,6 +3,6 @@ window.io = require('socket.io-client');
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: window.location.hostname + ":" + window.laravel_echo_port
+    host: 'https://socket.doralhealthconnect.com'
 });
 

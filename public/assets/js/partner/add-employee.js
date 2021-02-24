@@ -8,33 +8,60 @@ $('input[name="dob"]').daterangepicker({
     var years = moment().diff(start, 'years');
     alert("You are " + years + " years old!");
 });
-$("#submit").click(function (event) {
-    event.preventDefault();
-    var employeeID = $("#employeeID").val();
-    var firstName = $("#firstName").val();
-    var lastName = $("#lastName").val();
-    var emailID = $("#emailID").val();
-    var phoneNumber = $("#phoneNumber").val();
-    var dlNumber = $("#dlNumber").val();
-    var dob = $("#dob").val();
-    if(employeeID == '') {
-        alert('Please Enter Employee ID');
-    }else if (firstName == '') {
-        alert('Please Enter First Name');
-    }else if (lastName == '') {
-        alert('Please Enter Last Name');
-    }else if (emailID == '') {
-        alert('Please Enter Email ID');
-    }else if (phoneNumber == '') {
-        alert('Please Enter Phone Number');
-    }else if (dlNumber == '') {
-        alert('Please Enter Driving Licence NUmber');
-    }else if (dob == '') {
-        alert('Please Enter DOB');
-    }else {
-        $('.promptBox').show();
+$('select, input').change(function(){
+    if ($(this).val() != "") {
+        $('span.'+$(this)[0]['name']).text('');
     }
-})
+});
+$("#addEmployee").validate({
+    rules: {
+        employeeID: "required",
+        firstName: "required",
+        lastName: "required",
+        emailID: "required",
+        phoneNumber: "required",
+        dlNumber: "required",
+        dob: "required",
+    },
+    errorPlacement: function(error, element) {
+        $("span."+element.attr("name")).text(error[0]['innerText']).css('color', 'red');
+    },
+    submitHandler: function(form) {
+        form.submit();
+        // $("#loader-wrapper").show();
+        // $.ajax({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     },
+        //     url:"/partner/save-employee",
+        //     method:'POST',
+        //     dataType:'json',
+        //     data:{
+        //         linkType:linkType,
+        //         employeeID:employeeID,
+        //         firstName:firstName,
+        //         lastName:lastName,
+        //         emailID:emailID,
+        //         phoneNumber:phoneNumber,
+        //         dlNumber:dlNumber,
+        //         dob:dob
+        //     },
+        //     success:function (response) {
+        //         $("#loader-wrapper").hide();
+        //         alert('Employee successfully saved & Sent link registered employee mobile number.');
+        //         location.reload();
+        //     }
+        //     ,
+        //     error:function (error) {
+        //         $("#loader-wrapper").hide();
+        //         alert('Employee successfully saved & Sent link registered employee mobile number.');
+        //         location.reload();
+        //     }
+            
+
+        // });
+    }
+});
 $('.shareBox').on('click', 'a', function (params) {
     $(this).addClass('active');
     $(this).prev().removeClass('active');
@@ -53,46 +80,4 @@ function directSendLink() {
 }
 function saveLinkType (type) {
     $("#linkType").val(type);
-}
-function employeeSave(linkType) {
-    $('.promptBox').hide()
-    var linkType = $("#linkType").val();
-    var employeeID = $("#employeeID").val();
-    var firstName = $("#firstName").val();
-    var lastName = $("#lastName").val();
-    var emailID = $("#emailID").val();
-    var phoneNumber = $("#phoneNumber").val();
-    var dlNumber = $("#dlNumber").val();
-    var dob = $("#dob").val();
-    $("#loader-wrapper").show();
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url:"/partner/save-employee",
-        method:'POST',
-        dataType:'json',
-        data:{
-            linkType:linkType,
-            employeeID:employeeID,
-            firstName:firstName,
-            lastName:lastName,
-            emailID:emailID,
-            phoneNumber:phoneNumber,
-            dlNumber:dlNumber,
-        },
-        success:function (response) {
-            $("#loader-wrapper").hide();
-            alert('Employee successfully saved & Sent link registered employee mobile number.');
-            location.reload();
-        }
-        ,
-        error:function (error) {
-            $("#loader-wrapper").hide();
-            alert('Employee successfully saved & Sent link registered employee mobile number.');
-            location.reload();
-        }
-        
-
-    });
 }

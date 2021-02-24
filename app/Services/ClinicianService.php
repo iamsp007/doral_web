@@ -138,6 +138,27 @@ class ClinicianService
         }
     }
 
+    public function scheduleAppoimentListData($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/get-schedule-appoiment-list-data',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
+
+
     public function cancelAppoimentList($data){
         try {
 
@@ -256,6 +277,61 @@ class ClinicianService
             $response = $this->client->request(
                 'POST',
                 '/patient-request',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+
+    public function newpatientData($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/newpatient-data',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function patientData($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/patient-data',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function cancelAppoimentListData($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/get-cancel-appoiment-list-data',
                 [
                     'json'=>$data
                 ]

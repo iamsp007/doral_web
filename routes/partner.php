@@ -9,5 +9,5 @@ Route::group(['prefix'=>'/partner','middleware'=>['auth:partner']],function (){
     Route::post('/save-employee','\App\Http\Controllers\Partner\PartnerController@saveEmployee')->name('partner.saveEmployee');
     Route::get('/employees','\App\Http\Controllers\Partner\PartnerController@employees')->name('employees.list');
     Route::get('/employees-ajax','\App\Http\Controllers\Partner\PartnerController@employeesByAjax')->name('partner.employees.ajax');
-    
+    Route::get('/view-employee/{id}','\App\Http\Controllers\Partner\PartnerController@employee')->name('partner.employee');
 });

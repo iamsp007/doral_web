@@ -1,10 +1,12 @@
+var table;
+
 $(function () {
-    $('#appointmentScheduled').DataTable({
+    table = $('#appointmentScheduled').DataTable({
         "processing": true,
         "language": {
-            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+            processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
         },
-        "serverSide": true,
+        "serverSide": false,
         ajax: scheduleAppointmentAjax,
         columns:[
             {data:'id',name:'id'},
@@ -54,6 +56,10 @@ $(function () {
         "pageLength": 10,
         "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">'
     });
+
+     table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
+        });
     $(".selectall").click(function () {
         $('#appointmentScheduled td input:checkbox').not(this).prop('checked', this.checked);
     });

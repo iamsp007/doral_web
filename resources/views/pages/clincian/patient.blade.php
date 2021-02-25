@@ -120,6 +120,7 @@
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
             "serverSide": false,
+            
             ajax: "{{  route('clinician.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
@@ -235,6 +236,9 @@
             'select': {
                 'style': 'multi'
             },
+        });
+         table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
         });
     </script>
 @endpush

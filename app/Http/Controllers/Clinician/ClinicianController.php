@@ -32,6 +32,14 @@ class ClinicianController extends Controller
             $data = [
                 'data' => $response->data
             ];
+              return  DataTables::of($data['data'])
+            ->editColumn('dob', function ($user){
+                 if($user->dob!='')
+                return date('m-d-Y', strtotime($user->dob));
+                else
+                return '--';
+            })
+            ->make(true);
             return response()->json($data, 200);
         }
 

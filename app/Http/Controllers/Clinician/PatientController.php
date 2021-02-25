@@ -144,9 +144,15 @@ class PatientController extends Controller
         if ($response->status===true){
             $data=$response->data;
         }
+
         return  DataTables::of($data)
             ->addColumn('is_provider1', function ($user) {
                 return Auth::user()->id===$user->provider1;
+            })->editColumn('patients.dob', function ($user){
+                 if($user->patients->dob!='')
+                return date('m-d-Y', strtotime($user->patients->dob));
+                else
+                return '--';
             })
             ->make(true);
     }

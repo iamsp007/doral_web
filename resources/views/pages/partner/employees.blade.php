@@ -54,7 +54,7 @@
                     name:'first_name',
                     "bSortable": true,
                     render:function(data, type, row, meta){
-                        data = '<a href="">' + row.first_name +' '+ row.last_name + '</a>';
+                        data = '<a href="/partner/view-employee/'+row.id+'">' + row.first_name +' '+ row.last_name + '</a>';
                         return data;
                     }
                 },

@@ -4,13 +4,13 @@
 <div class="p-3 app-partner">
     <div class="row">
         <div class="col-12 col-sm-9">
-            <form method="post" name="myForm" action="{{ route('partner.saveEmployee') }}" id="addEmployee">
+            <form method="post" name="myForm" action="{{ route('partner.updateEmployee', $employee->id) }}" id="editEmployee">
                 @csrf
                 <div class="app-card no-minHeight">
                     <div class="app-card-header">
                         <div class="titleBox">
                             <div class="title">
-                                Add Employee
+                                Edit Employee
                             </div>
 <!--                            <div>
                                 <a href="javascript:void(0)" title="Add More">
@@ -29,7 +29,7 @@
                                                 class="las la-user-tie"></i></span>
                                         <input type="text" class="form-control form-control-lg"
                                                placeholder="" aria-label="Employee ID"
-                                               aria-describedby="Employee ID" id="employeeID" value=""
+                                               aria-describedby="Employee ID" id="employeeID" value="{{ $employee->employeeID ?? null }}"
                                                name="employeeID">
                                     </div>
                                     <span class="errorText employeeID"></span>
@@ -55,7 +55,7 @@
                                                 class="las la-user-tie"></i></span>
                                         <input type="text" class="form-control form-control-lg"
                                                placeholder="" aria-label="firstName"
-                                               aria-describedby="firstName" id="firstName" value=""
+                                               aria-describedby="firstName" id="firstName" value="{{ $employee->first_name }}"
                                                name="firstName">
                                     </div>
                                     <span class="errorText firstName"></span>
@@ -69,7 +69,7 @@
                                                 class="las la-user-tie"></i></span>
                                         <input type="text" class="form-control form-control-lg"
                                                placeholder="" aria-label="Last Name"
-                                               aria-describedby="Last Name" id="lastName" value=""
+                                               aria-describedby="Last Name" id="lastName" value="{{ $employee->last_name }}"
                                                name="lastName">
                                     </div>
                                     <span class="errorText lastName"></span>
@@ -86,7 +86,7 @@
                                                 class="las la-user-tie"></i></span>
                                         <input type="email" class="form-control form-control-lg"
                                                placeholder="" aria-label="Email ID"
-                                               aria-describedby="Email ID" id="emailID" value=""
+                                               aria-describedby="Email ID" id="emailID" value="{{ $employee->email }}"
                                                name="emailID">
                                     </div>
                                     <span class="errorText emailID"></span>
@@ -100,7 +100,7 @@
                                                 class="las la-phone"></i></span>
                                         <input type="text" class="form-control form-control-lg"
                                                placeholder="" aria-label="Phone Number"
-                                               aria-describedby="Phone Number" id="phoneNumber" value=""
+                                               aria-describedby="Phone Number" id="phoneNumber" value="{{ $employee->phone }}"
                                                name="phoneNumber">
                                     </div>
                                     <span class="errorText phoneNumber"></span>
@@ -117,7 +117,7 @@
                                         <input type="text" class="form-control form-control-lg"
                                                placeholder="" aria-label="Last Name"
                                                aria-describedby="Driving License Number" id="dlNumber"
-                                               value="" name="dlNumber">
+                                               value="{{ $employee->dlNumber }}" name="dlNumber">
                                     </div>
                                     <span class="errorText dlNumber"></span>
                                 </div>
@@ -130,7 +130,7 @@
                                                 class="las la-user-tie"></i></span>
                                         <input type="text" class="form-control form-control-lg"
                                                placeholder="" aria-label="DOB" aria-describedby="DOB"
-                                               id="dob" value="" name="dob">
+                                               id="dob" value="{{ $employee->dob ? date('m/d/Y', strtotime($employee->dob)) : null }}" name="dob">
                                     </div>
                                     <span class="errorText dob"></span>
                                 </div>
@@ -140,50 +140,6 @@
                             <div class="col-12">
                                 <input type="submit" id="submit" name="submit"
                                        class="btn btn-outline-green" value="Submit" />
-                                <div class="popModal shadow">
-                                    <div class="popovers promptBox">
-                                        <div class="popovers-inner">
-                                            <div class="popovers-content">
-                                                <div class="d-flex justify-content-end">
-                                                    <a href="javsacript:void(0)" class="p-2 closeBox" id="close">
-                                                        <i class="las la-times la-2x text-green"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="p-5">
-                                                    <div>
-                                                        <div class="d-flex justify-content-center">
-                                                            <img src="../assets/img/icons/link_icon.svg"
-                                                                 alt="">
-                                                        </div>
-                                                        <p class="text-center mt-4">Will send you the
-                                                            link on your phone. So
-                                                            please check your text Message.</p>
-                                                        <p class="text-muted text-center mt-2">Choose
-                                                            One</p>
-                                                        <div
-                                                            class="d-flex align-items-center justify-content-center mt-4">
-                                                            <div class="mt-1 d-flex align-items-center justify-content-center shareBox">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="linkType" id="android" value="Android">
-                                                                    <label class="form-check-label" for="android">
-                                                                        Android
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="linkType" id="ios" value="IOS" checked>
-                                                                    <label class="form-check-label" for="ios">
-                                                                        IOS
-                                                                    </label>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

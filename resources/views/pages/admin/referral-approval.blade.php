@@ -100,8 +100,9 @@
                     alert('Something went wrong!');
                 }
             });
-
-         table.on( 'draw', function () {
+        });
+        
+        table.on( 'draw', function () {
             $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
         });
 

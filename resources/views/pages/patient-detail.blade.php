@@ -2381,6 +2381,10 @@
                 }
             });
             
+            $(document).on('click', '.med-profile-menu', function () {
+                medprofileTable.ajax.reload();
+            });
+
             $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
@@ -2560,9 +2564,7 @@
                 });
             });
 
-            $(document).on('click', '.med-profile-menu', function () {
-                medprofileTable.ajax.reload();
-            });
+
         });
         function printErrorMsg (msg) {
             $(".print-error-msg").find("ul").html('');

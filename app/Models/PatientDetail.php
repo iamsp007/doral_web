@@ -145,9 +145,9 @@ class PatientDetail extends Model
      */
     public function setGenderAttribute($gender)
     {
-        if ($gender == 'Male') {
+        if ($gender === 'Male') {
             $gender = '1';
-        } else if ($gender == 'Female') {
+        } else if ($gender === 'Female') {
             $gender = '2';
         } else {
             $gender = '3';

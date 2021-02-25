@@ -4,6 +4,9 @@
 Refferal Profile
 @endsection
 @section('content')
+<style>
+   img.update-icon {display: none;}
+</style>
 <div class="row">
    <div class="col-12 col-sm-4">
       <div class="app-card">

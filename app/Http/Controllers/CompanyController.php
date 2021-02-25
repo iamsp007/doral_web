@@ -422,7 +422,7 @@ class CompanyController extends Controller
                     $company->password = Hash::make($generate_password);
                     $company->save();
 
-                    $url = URL::to('/').'/referral/email_verified/'.base64_encode($company->id);
+                    $url = URL::to('/').'/login';
                     $details = [
                         'name' => $company->name,
                         'password' => $generate_password,

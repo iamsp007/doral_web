@@ -1086,6 +1086,8 @@
                     .search( this.value )
                     .draw();
             });
+
+        
        
      </script>
 @endpush

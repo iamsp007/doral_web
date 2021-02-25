@@ -171,6 +171,10 @@ $(function () {
         "pageLength": 10,
         "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">'
     });
+
+      table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
+        });
     $(".selectall").click(function () {
         $('#appointmentScheduled td input:checkbox').not(this).prop('checked', this.checked);
     });

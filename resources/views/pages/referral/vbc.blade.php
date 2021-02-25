@@ -10,7 +10,10 @@
         {{--        <a href="javascript:void(0)" class="single-upload-btn mr-2">--}}
         {{--            <img src="../assets/img/icons/single-upload-icon.svg" class="icon mr-2" />--}}
         {{--            New Patient</a>--}}
-        <a href="{{ route('referral.vbc-upload-bulk-data') }}" class="bulk-upload-btn">
+         <a href="{{ route('referral.vbc-failed-data') }}" class="bulk-upload-btn">
+            <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+            Pending Recode</a>
+        <a href="{{ route('referral.vbc-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
             <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
             Import Patients</a>
     </div>
@@ -45,11 +48,11 @@
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
-        $('#vbc').DataTable( {
+        var table = $('#vbc').DataTable( {
             "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">',
             "processing": true,
             "language": {
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'
+                processing: '<div id="loader-wrapper"><div class="overlay"></div> <div class="pulse"></div></div>'
             },
             "serverSide": true,
             ajax: "{{  route('referral.vbc-get-data') }}",
@@ -119,5 +122,9 @@
                 'style': 'multi'
             },
         } );
+
+         table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
+        });
     </script>
 @endpush

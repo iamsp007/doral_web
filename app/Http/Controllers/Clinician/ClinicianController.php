@@ -21,9 +21,20 @@ class ClinicianController extends Controller
         
         $data = array();
         if ($response != null && $response->status === true) {
-            $data = $response->data;
-            
+            $data = [
+                'data' => $response->data
+            ];
+
+            return  DataTables::of($data['data'])
+                ->editColumn('dob', function ($user){
+                    if($user->dob!='')
+                    return date('m-d-Y', strtotime($user->dob));
+                    else
+                    return '--';
+                })
+                ->make(true);
         }
+        
         return DataTables::of($data)
             ->make(true);
     }

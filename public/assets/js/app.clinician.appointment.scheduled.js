@@ -1,5 +1,5 @@
 $(function () {
-    $('#appointmentScheduled').DataTable({
+     $('#appointmentScheduled').DataTable({
         "order": [],
         'columnDefs': [{
             "targets": [0, 6],
@@ -8,6 +8,7 @@ $(function () {
         "pageLength": 10,
         "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">'
     });
+   
     $(".selectall").click(function () {
         $('#appointmentScheduled td input:checkbox').not(this).prop('checked', this.checked);
     });

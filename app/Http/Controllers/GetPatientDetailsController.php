@@ -275,13 +275,14 @@ class GetPatientDetailsController extends Controller
        
         $counter = 0;
         foreach ($patientArray as $patient_id) {
-            // if ($counter < 10) {
+            if ($counter < 5) {
                        
                 $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
                 if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
                     /** Store patirnt demographic detail */
                     $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
+                    dump($getpatientDemographicDetails);
                     $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails, 'add');
 
                     if($patient_detail_id) {
@@ -313,15 +314,30 @@ class GetPatientDetailsController extends Controller
                         $this->storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id);
                     }
                 }
-            // }
+            }
             $counter++;
         }
     }
 
     public function storePatientDetail($apiResponse, $action)
     {
-        if ($action == 'add') {
+        // if ($action == 'add') {
             $patientDetails = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+        //     $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
+        
+        //     if ($patientDetailData) {
+        //         $patientDetail = PatientDetail::find($patientDetailData->id);
+        //     } else {
+        //         $patientDetail = new PatientDetail();
+        //     }
+
+        //     $patientDetail->doral_id = 'DORAL' . mt_rand(100000, 999999);
+        //     $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
+        //     $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
+
+        // } else if ($action == 'edit') {
+            // $patientDetails = $apiResponse['soapBody']['GetPatientChangesV2Response']['GetPatientChangesV2Result']['GetPatientChangesV2Info'];
+
             $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
         
             if ($patientDetailData) {
@@ -329,29 +345,18 @@ class GetPatientDetailsController extends Controller
             } else {
                 $patientDetail = new PatientDetail();
             }
-
-            $patientDetail->doral_id = 'DORAL' . mt_rand(100000, 999999);
-            $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
-            $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
-
-        } else if ($action == 'edit') {
-            $patientDetails = $apiResponse['soapBody']['GetPatientChangesV2Response']['GetPatientChangesV2Result']['GetPatientChangesV2Info'];
-
-            $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
-        
-            if ($patientDetailData) {
-                $patientDetail = PatientDetail::find($patientDetailData->id);
-            } else {
-                $patientDetail = new PatientDetail();
-            }
-            $patientDetail->modified_date = ($patientDetails['ModifiedDate']) ? $patientDetails['ModifiedDate'] : '' ;
-            $patientDetail->patient_status_id = ($patientDetails['StatusID']) ? $patientDetails['StatusID'] : '' ;
-            $patientDetail->birth_date = ($patientDetails['DateOfBirth']) ? $patientDetails['DateOfBirth'] : '' ;
-            $patientDetail->mr_number = ($patientDetails['MRNumber']) ? $patientDetails['MRNumber'] : '' ;
-            $patientDetail->mr_number = ($patientDetails['AcceptedServices']) ? $patientDetails['AcceptedServices'] : '' ;
+            // $patientDetail->modified_date = ($patientDetails['ModifiedDate']) ? $patientDetails['ModifiedDate'] : '' ;
+            // $patientDetail->patient_status_id = ($patientDetails['StatusID']) ? $patientDetails['StatusID'] : '' ;
+            // $patientDetail->birth_date = ($patientDetails['DateOfBirth']) ? $patientDetails['DateOfBirth'] : '' ;
+            // $patientDetail->mr_number = ($patientDetails['MRNumber']) ? $patientDetails['MRNumber'] : '' ;
+            // $patientDetail->mr_number = ($patientDetails['AcceptedServices']) ? $patientDetails['AcceptedServices'] : '' ;
             
-        }
+        // }
        
+        $patientDetail->doral_id = 'DOR-' . mt_rand(100000, 999999);
+        $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
+        $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
+
         $patientDetail->agency_id = ($patientDetails['AgencyID']) ? $patientDetails['AgencyID'] : '' ;
         $patientDetail->office_id = ($patientDetails['OfficeID']) ? $patientDetails['OfficeID'] : '' ;
         $patientDetail->patient_id = ($patientDetails['PatientID']) ? $patientDetails['PatientID'] : '' ;

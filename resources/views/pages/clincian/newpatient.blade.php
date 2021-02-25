@@ -12,6 +12,25 @@
     </div>
     <table class="display responsive nowrap" style="width:100%" id="patient-table" >
         <thead>
+            <tr> 
+              <th></th>
+               <th></th>
+            <th><select class="patient_name form-control" id="patient_name" name="" data-id='2'>
+            </select></th>
+           
+            <th><select class="item2 form-control" name="item2" data-id='3'>
+                    <option value="">select service</option>
+                    <option value="VBC">VBC</option>
+                    <option value="Md Order">Md Order</option>
+                    <option value="Occupational Health">Occupational Health</option>
+            </select></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            </tr>
         <tr>
             <th><input name="select_all" value="1" type="checkbox"></th>
             <th>ID</th>
@@ -34,6 +53,9 @@
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+
+
 @endpush
 
 @push('scripts')
@@ -41,13 +63,68 @@
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
 <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <script>
+         $(document).ready(function () {
+             $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $("#patient_name").select2({
+
+                ajax: { 
+                    url: '{{ route('clinician.new.patientList.data') }}',
+                    type: "POST",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                          searchTerm : params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        var data_array = [];
+                        data.data.forEach(function(value,key){
+                            data_array.push({id:value.first_name,text:value.first_name+ ' '+ value.last_name})
+                        });
+                        return {
+                            results: data_array
+                        };
+                    },
+                },
+                placeholder: "Search name",
+                allowClear: true,
+                width : '15rem'
+            });
+
+            $('.item2').select2({
+                placeholder: "Select Service",
+                allowClear: true,
+                width : '15rem'
+            });
+            $('.item2').on('change', function () {
+                table
+                    .columns( $(this).attr('data-id'))
+                    .search( this.value )
+                    .draw();
+            });
+
+            $('.patient_name').on('change', function () {
+                table
+                    .columns( $(this).attr('data-id'))
+                    .search( this.value )
+                    .draw();
+            });
+
+         });
         var table = $('#patient-table').DataTable({
             "processing": true,
             "language": {
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+                processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
-            "serverSide": true,
+            "serverSide": false,
             ajax: "{{  route('clinician.new.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
@@ -145,6 +222,10 @@
             'select': {
                 'style': 'multi'
             },
+        });
+
+        table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
         });
 
         var rows_selected = [];

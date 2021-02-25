@@ -73,7 +73,7 @@
             var status = "1";
             $.ajax({
                 method: 'POST',
-                url: '{{ route('admin.updateStatus') }}',
+                url: "{{ route('admin.updateStatus') }}",
                 data: {company_id, status},
                 success: function( response ){
                     $("#loader-wrapper").hide();
@@ -101,6 +101,8 @@
                 }
             });
 
+         table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
         });
 
         $(".rejectid").click(function() {
@@ -217,7 +219,7 @@
     var table = $('#referral-table').DataTable({
         "processing": true,
         "language": {
-            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+            processing: '<div id="loader-wrapper">  <div class="overlay"></div> <div class="pulse"></div></div>'
         },
         "serverSide": true,
         ajax: referralurl,

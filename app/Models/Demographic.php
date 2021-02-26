@@ -26,4 +26,17 @@ class Demographic extends Model
         'language',
         'type',
     ];
+
+    /**
+     * Create ssn number
+     */
+    public function getTypeAttribute($type)
+    {
+        if ($type === '1') {
+            $typeData = 'Patient';
+        } else if ($type === '2') {
+            $typeData = 'Caregiver';
+        } 
+        return $typeData;
+    }
 }

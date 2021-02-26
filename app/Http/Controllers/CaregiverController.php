@@ -18,17 +18,23 @@ use Illuminate\Http\Request;
 class CaregiverController extends Controller
 {
 
-    public function index()
+    public function index($status)
     {
-        return view('pages.patient_detail.new_patient');
+        return view('pages.patient_detail.new_patient', compact('status'));
     }
 
-    public function getCaregiverDetail()
+    public function getCaregiverDetail(Request $request)
     {
+        if ($request['status'] == 'pending') {
+            $status = '0';
+        } else if($request['status'] == 'active') {
+            $status = '1';
+        } 
+       
         $patientList = User::with('caregiverInfo', 'demographic','roles')
         ->whereHas('roles',function ($q){
             $q->where('name','=','patient');
-        })->where('status', '0')->whereNotNull('first_name');
+        })->where('status', $status)->whereNotNull('first_name');
 
         return DataTables::of($patientList)
             ->addColumn('id', function($q){
@@ -80,6 +86,7 @@ class CaregiverController extends Controller
                 return $city_state;
             })
             ->addColumn('action', function($row){
+                $btn = '';
                 if ($row->status === '0'){
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
 
@@ -95,7 +102,7 @@ class CaregiverController extends Controller
     {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
-      
+
         if ($response->status === true){
             return response()->json($response,200);
         }

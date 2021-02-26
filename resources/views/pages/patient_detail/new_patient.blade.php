@@ -13,9 +13,9 @@
             <th>#</th>
             <th>Name</th>
             <th>Gender</th>
-            <th>SSN</th>
+            <!-- <th>SSN</th>
             <th>Patient Id</th>
-            <th>Action</th>
+            <th>Action</th> -->
         </tr>
         </thead>
         <tbody>
@@ -48,9 +48,9 @@
                 {data:'id',name:'id'},
                 {data: 'full_name', name: 'full_name'},
                 {data: 'gender', name: 'gender'},
-                {data: 'ssn', name: 'SSN'},
-                {data: 'patient_id', name: 'PatientID'},            
-                {data: 'action', name: 'action'},
+                // {data: 'ssn', name: 'SSN'},
+                // {data: 'patient_id', name: 'PatientID'},            
+                // {data: 'action', name: 'action'},
             
             ],
             "order": [[ 1, "desc" ]],

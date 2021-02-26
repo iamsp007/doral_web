@@ -38,7 +38,7 @@ class HHAApiCaregiver implements ShouldQueue
      */
     public function handle()
     {
-        foreach (array_slice($this->caregiverArray, 0, 500) as $cargiver_id) {
+        foreach (array_slice($this->caregiverArray, 500, 500) as $cargiver_id) {
             // foreach ($caregiverArray as $cargiver_id) {
                 /** Store patirnt demographic detail */
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);

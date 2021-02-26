@@ -18,6 +18,7 @@ use App\Models\PatientEmergencyContact;
 use App\Models\PatientLabReport;
 use App\Models\PatientReferralInfo;
 use App\Models\State;
+use App\Models\User;
 use App\Models\VisitorDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,6 +36,9 @@ class GetPatientDetailsController extends Controller
         $patientList = PatientDetail::get();
 
         return DataTables::of($patientList)
+            ->addColumn('id', function($q){
+                return '<label><input type="checkbox" /><span></span></label>';
+            })
             ->addColumn('full_name', function($q){
                 return $q->full_name;
             })
@@ -58,9 +62,14 @@ class GetPatientDetailsController extends Controller
         $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
         $drugLabReportTypes = LabReportType::where('status','1')->where('parent_id', 3)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
         
-        $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
+        //$patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
-        $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);
+        $patient = User::with('caregiverInfo', 'demographic')->find($paient_id);
+        
+        // $emergencyPreparednesValue = '';
+        // if ($patient->emergencyPreparednes) {
+        //     $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);
+        // }
         
         return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue'));
     }

@@ -31,8 +31,11 @@ class CaregiverController extends Controller
         })->where('status', '0')->whereNotNull('first_name');
 
         return DataTables::of($patientList)
+            ->addColumn('id', function($q){
+                return '<label><input type="checkbox" /><span></span></label>';
+            })
             ->addColumn('full_name', function($q){
-                return $q->full_name;
+                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
             })
             ->addColumn('ssn', function($q) {
                 $ssn = '';
@@ -44,21 +47,20 @@ class CaregiverController extends Controller
             ->addColumn('home_phone', function($q){
                 $home_phone = '';
                 if ($q->demographic) {
-                    $home_phone_json =  json_decode($q->caregiverInfo->address);
-
-                    if ($home_phone_json['HomePhone']) {
-                        $home_phone = $home_phone_json['HomePhone'];
+                    $home_phone_json =  json_decode($q->demographic->address);
+                    if ($home_phone_json[0]) {
+                        $home_phone = $home_phone_json[0]->HomePhone;
                     }
                 }
                 return $home_phone;
             })
-            // ->addColumn('patient_type', function($q) {
-            //     $type = '';
-            //     if ($q->demographic) {
-            //         $type =  $q->demographic->type;
-            //     }
-            //     return $type;
-            // })
+            ->addColumn('patient_type', function($q) {
+                $type = '';
+                if ($q->demographic) {
+                    $type =  $q->demographic->type;
+                }
+                return $type;
+            })
             ->addColumn('patient_id', function($q){
                 $patient_id = '';
                 if ($q->caregiverInfo) {
@@ -69,10 +71,10 @@ class CaregiverController extends Controller
             ->addColumn('city_state', function($q){
                 $city_state = '';
                 if ($q->demographic) {
-                    $city_state_json =  json_decode($q->caregiverInfo->address);
+                    $city_state_json =  json_decode($q->demographic->address);
 
-                    if ($city_state_json['City'] || $city_state_json['State']) {
-                        $city_state = $city_state_json['City'] . '-' . $city_state_json['State'];
+                    if ($city_state_json[0] || $city_state_json[0]) {
+                        $city_state = $city_state_json[0]->City . ' - ' . $city_state_json[0]->State;
                     }
                 }
                 return $city_state;
@@ -85,7 +87,7 @@ class CaregiverController extends Controller
                 }
                 return $btn;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['full_name', 'action', 'id'])
             ->make(true);
     }
 

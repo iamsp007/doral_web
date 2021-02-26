@@ -5,15 +5,55 @@ namespace App\Http\Controllers;
 use App\Models\CaregiverInfo;
 use App\Models\Demographic;
 use App\Models\User;
+use App\Services\ClinicianService;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use File;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
+use Illuminate\Http\Request;
 
 class CaregiverController extends Controller
 {
+
+    public function index()
+    {
+        return view('pages.patient_detail.new_patient');
+    }
+
+    public function getPatientDetail()
+    {
+        $patientList = User::with('caregiverInfo', 'demographic', 'roles')
+            ->whereHas('roles',function ($q){
+                $q->where('name','=','patient');
+            })->where('status','=','pending')->whereNotNull('first_name');
+
+        return DataTables::of($patientList)
+            ->addColumn('full_name', function($q){
+                return $q->full_name;
+            })
+            ->addColumn('ssn', function($q){
+                $ssn = '-';
+                if($q->demographic) {
+                    $ssn = $q->demographic->ssn;
+                }
+                return $ssn;
+            })
+            ->addColumn('patient_id', function($q){
+                $patient_id = '-';
+                if($q->caregiverInfo) {
+                    $patient_id = $q->caregiverInfo->patient_id;
+                }
+                return $patient_id;
+            })
+            ->addColumn('action', function($row){
+                // return '<a href="' . route('patient.details', ['patient_id' => $row->id]) . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -88,7 +128,7 @@ class CaregiverController extends Controller
         dump(count($caregiverArray));
         $counter = 0;
         // dump($counter);
-        // foreach (array_slice($caregiverArray, 2500, 460) as $cargiver_id) {
+        // foreach (array_slice($caregiverArray, 0, 1) as $cargiver_id) {
         foreach ($caregiverArray as $cargiver_id) {
             
             // if ($counter > 5 || $counter < 10) {
@@ -126,14 +166,20 @@ class CaregiverController extends Controller
             $gender = 3;
         }
         
-        DB::table('users')->insert([
+        $user = DB::table('users')->insert([
             'gender' => $gender,
             'first_name' => $demographicDetails['FirstName'],
             'last_name' => $demographicDetails['LastName'],
             'dob' => $demographicDetails['BirthDate'],
             'password' => Hash::make(Str::random(8)),
         ]);
-        return DB::getPdo()->lastInsertId();
+
+        $user_id = DB::getPdo()->lastInsertId();
+
+        $user = User::find($user_id);
+        $user->assignRole('patient')->syncPermissions(Permission::all());
+
+        return $user_id;
     }
 
     public static function saveCaregiverInfo($demographicDetails, $userId)

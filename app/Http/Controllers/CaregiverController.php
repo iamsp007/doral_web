@@ -22,35 +22,21 @@ class CaregiverController extends Controller
         return view('pages.patient_detail.new_patient');
     }
 
-    public function getPatientDetail()
+    public function getCaregiverDetail()
     {
-        $patientList = User::with('caregiverInfo', 'demographic', 'roles')
-            ->whereHas('roles',function ($q){
-                $q->where('name','=','patient');
-            })->where('status','=','pending')->whereNotNull('first_name');
+        $patientList = User::get();
+            // with('caregiverInfo', 'demographic', 'roles')
+            // ->whereHas('roles',function ($q){
+            //     $q->where('name','=','patient');
+            // })
+            // ->where('status','=','pending')->whereNotNull('first_name')
+            // ->get();
+            //dd($patientList);
 
         return DataTables::of($patientList)
             ->addColumn('full_name', function($q){
                 return $q->full_name;
             })
-            ->addColumn('ssn', function($q){
-                $ssn = '-';
-                if($q->demographic) {
-                    $ssn = $q->demographic->ssn;
-                }
-                return $ssn;
-            })
-            ->addColumn('patient_id', function($q){
-                $patient_id = '-';
-                if($q->caregiverInfo) {
-                    $patient_id = $q->caregiverInfo->patient_id;
-                }
-                return $patient_id;
-            })
-            ->addColumn('action', function($row){
-                // return '<a href="' . route('patient.details', ['patient_id' => $row->id]) . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart"><i class="las la-binoculars"></i></a>';
-            })
-            ->rawColumns(['action'])
             ->make(true);
     }
 

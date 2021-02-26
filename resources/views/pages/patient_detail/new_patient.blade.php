@@ -13,9 +13,9 @@
             <th>#</th>
             <th>Name</th>
             <th>Gender</th>
-            <th>SSN</th>
+            <!-- <th>SSN</th>
             <th>Patient Id</th>
-            <th>Action</th>
+            <th>Action</th> -->
         </tr>
         </thead>
         <tbody>
@@ -34,8 +34,7 @@
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
-   
-        var table = $('#get_patient-table').DataTable({
+        $('#get_patient-table').DataTable({
             "processing": true,
             "language": {
                 processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'
@@ -47,9 +46,9 @@
                 {data:'id',name:'id'},
                 {data: 'full_name', name: 'full_name'},
                 {data: 'gender', name: 'gender'},
-                {data: 'ssn', name: 'SSN'},
-                {data: 'patient_id', name: 'PatientID'},            
-                {data: 'action', name: 'action'},
+                // {data: 'ssn', name: 'SSN'},
+                // {data: 'patient_id', name: 'PatientID'},            
+                // {data: 'action', name: 'action'},
             
             ],
             "order": [[ 1, "desc" ]],

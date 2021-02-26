@@ -52,13 +52,13 @@ class CaregiverController extends Controller
                 }
                 return $home_phone;
             })
-            ->addColumn('patient_type', function($q) {
-                $type = '';
-                if ($q->demographic) {
-                    $type =  $q->demographic->type;
-                }
-                return $type;
-            })
+            // ->addColumn('patient_type', function($q) {
+            //     $type = '';
+            //     if ($q->demographic) {
+            //         $type =  $q->demographic->type;
+            //     }
+            //     return $type;
+            // })
             ->addColumn('patient_id', function($q){
                 $patient_id = '';
                 if ($q->caregiverInfo) {

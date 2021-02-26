@@ -114,19 +114,5 @@ class User extends Authenticatable
         }
         return $gender;
     }
-
-    /**
-     * Create ssn number
-     */
-    public function getSsnAttribute($ssn)
-    {
-        $ssnData = '';
-
-        if ($ssn) {
-            return 'xxx-xx-' . substr($ssn, -4);
-        }
-
-        return $ssnData;
-    }
 }
 

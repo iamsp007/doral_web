@@ -35,8 +35,7 @@ class CaregiverController extends Controller
                 return '<label><input type="checkbox" /><span></span></label>';
             })
             ->addColumn('full_name', function($q){
-                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
-               
+                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
             })
             ->addColumn('ssn', function($q) {
                 $ssn = '';

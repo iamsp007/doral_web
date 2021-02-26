@@ -20,16 +20,10 @@ return [
                     'name'=>'Patient Lists',
                     'url'=>env('APP_URL').'clinician/patient-list',
                     'route'=>'clinician/patient-list','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
-                ],
-                [
-                    'name'=>'New Patients',
-                    'url'=>env('APP_URL').'caregivers-detail',
-                    'route'=>'caregivers-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
                 ]
-                
             ]
         ],
-        ['name'=>'Patient Details Update','url'=>env('APP_URL').'get-patient-detail','route'=>'get-patient-detail','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Patient Details Update'],
+        ['name'=>'Patient Details Update','url'=>env('APP_URL').'clinician/get-patient-detail','route'=>'clinician/get-patient-detail','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Patient Details Update'],
         [
             'name'=>'Appointment',
             'url'=>'javascript:void(0)',

@@ -61,8 +61,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function patientDetail()
-    {
+    public function patientDetail(){
         return $this->hasOne(PatientReferral::class,'user_id','id')->with(['service','filetype']);
     }
 
@@ -88,15 +87,5 @@ class User extends Authenticatable
             $gender = '3';
         }
         return $gender;
-    }
-
-    public function caregiverInfo()
-    {
-        return $this->hasOne(CaregiverInfo::class,'user_id','id');
-    }
-
-    public function demographic()
-    {
-        return $this->hasOne(Demographic::class,'user_id','id');
     }
 }

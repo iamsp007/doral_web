@@ -83,3 +83,4 @@ Route::post('/caregiver-update/{patient_id}','\App\Http\Controllers\GetPatientDe
 Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searchCaregivers');
 Route::get('/get-caregiver','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
 Route::get('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
+Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');

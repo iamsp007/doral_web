@@ -33,6 +33,8 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $('#get_patient-table').DataTable({
             "processing": true,
@@ -64,5 +66,60 @@
                 'style': 'multi'
             },
         });
+
+        $('body').on('click', '.update-status', function () {
+            var t = $(this);
+            var id = t.attr("data-id");
+            var status = t.attr("data-status");
+            var patientName = t.attr("patient-name");
+            
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure want to reject this " + patientName + "?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $("#loader-wrapper").show();
+                    $.ajax({
+                    'type': 'POST',
+                    'url': "{{ route('caregiver.changePatientStatus') }}",
+                    'headers': {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data: {
+                        "id": id,
+                        "status" : status
+                    },
+                    'success': function (data) {
+                        console(data);
+                        if(data.status == 400) {
+                            swal(
+                                'Error!',
+                                data.message,
+                                'error'
+                            );
+                        } else {
+                            swal(
+                                'Success!',
+                                data.message,
+                                'success'
+                            );
+                            $("#get_patient-table").DataTable().ajax.reload(null, false);
+                        }
+                        $("#loader-wrapper").hide();
+                    },
+                    "error":function () {
+                        swal("Server Timeout!", "Please try again", "warning");
+                        $("#loader-wrapper").hide();
+                    }
+                    });
+                } else {
+                    swal('Cancelled', 'Your record is safe :)','error');
+                }
+            });
+        });
+
     </script>
 @endpush

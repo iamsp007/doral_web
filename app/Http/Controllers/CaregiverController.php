@@ -53,11 +53,11 @@ class CaregiverController extends Controller
                 return $home_phone;
             })
             ->addColumn('patient_type', function($q) {
-                $ssn = '';
+                $type = '';
                 if ($q->demographic) {
-                    $ssn =  $q->demographic->type;
+                    $type =  $q->demographic->type;
                 }
-                return $ssn;
+                return $type;
             })
             ->addColumn('patient_id', function($q){
                 $patient_id = '';

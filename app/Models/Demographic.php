@@ -36,7 +36,9 @@ class Demographic extends Model
             $typeData = 'Patient';
         } else if ($type === '2') {
             $typeData = 'Caregiver';
-        } 
+        } else {
+            $typeData = '';
+        }
         return $typeData;
     }
 }

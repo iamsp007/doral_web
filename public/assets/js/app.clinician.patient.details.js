@@ -87,7 +87,7 @@ medprofileTable = $('#med-profile-table').DataTable({
     }],
     processing: true,
     "language": {
-        processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+        processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
     },
     serverSide: true,
     ajax: base_url+'patient-medicine-list/'+patient_id,

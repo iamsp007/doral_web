@@ -440,4 +440,21 @@ class PatientReferralController extends Controller
             })
             ->make(true);
      }
+
+     public function occupationalHealthGetDataSearch(Request $request) {
+         $referralservice = new ReferralService();
+          $data = $request->all();
+         $responseArray = $referralservice->occupationalHealthGetDataSearch($data);
+         $record = $responseArray->data;
+         return $record;
+              
+     }
+
+    public function getFaileDataSearch(Request $request) {
+         $referralservice = new ReferralService();
+          $data = $request->all();
+         $responseArray = $referralservice->getFaileDataSearch($data);
+         $record = $responseArray->data;
+         return $record;
+    }
 }

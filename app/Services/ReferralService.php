@@ -284,4 +284,40 @@ class ReferralService
 
         }
  }
+
+ public function occupationalHealthGetDataSearch($input) {
+      try {
+            $response = $this->client->request(
+                'POST',
+                 '/auth/search-patient-data',
+                [
+                    'json' => $input
+                ]
+            );
+           
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+           
+            return $data;
+        } catch (\Exception $exception) {
+        }
+ }
+
+ public function getFaileDataSearch($input) {
+      try {
+            $response = $this->client->request(
+                'POST',
+                 '/auth/search-patient-data-failed-file',
+                [
+                    'json' => $input
+                ]
+            );
+           
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+           
+            return $data;
+        } catch (\Exception $exception) {
+        }
+ }
 }

@@ -169,6 +169,7 @@ $(function () {
             "orderable": false
         }],
         "pageLength": 10,
+        "lengthMenu": [ [10,25,50,100, -1], [10,25, 50,100, "All"] ],
         "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">'
     });
 

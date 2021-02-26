@@ -25,7 +25,9 @@ Route::group(['prefix'=>'/referral'],function (){
         Route::get('/md-order-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@mdOrderUploadBulk')->name('referral.md-order-upload-bulk-data');
         Route::get('/occupational-health', 'App\Http\Controllers\PatientReferralController@occupationalHealth')->name('referral.occupational-health');
         Route::get('/occupational-health-get-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthGetData')->name('referral.occupational-health-get-data');
+         Route::post('/occupational-health-get-data-search', 'App\Http\Controllers\PatientReferralController@occupationalHealthGetDataSearch')->name('occupational-health-get-data-search');
         Route::get('/occupational-health-get-fail-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthGetFaileData')->name('referral.occupational-health-get-fail-data');
+        Route::post('/get-fail-data-filename-search', 'App\Http\Controllers\PatientReferralController@getFaileDataSearch')->name('get-fail-data-filename-search');
           Route::get('/view-occupational-health-get-fail-data', 'App\Http\Controllers\PatientReferralController@viewoccupationalHealthGetFaileData')->name('referral.view-occupational-health-get-fail-data');
         Route::get('/view-failed-data/{id}', 'App\Http\Controllers\PatientReferralController@viewoccupationalHealthFailData')->name('referral.view-failed-data');
          Route::get('/occupational-health-view-fail-data/{id}', 'App\Http\Controllers\PatientReferralController@viewoccupationalHealthGetFaileData')->name('referral.occupational-health-view-fail-data');

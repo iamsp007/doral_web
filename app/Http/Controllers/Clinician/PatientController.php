@@ -133,6 +133,11 @@ class PatientController extends Controller
                 return $contact->state;
                 else
                 return '--';
+            })->editColumn('patient_detail.service.name', function ($contact){
+                if($contact->patientDetail->service !='')
+                return $contact->patientDetail->service->name;
+                else
+                return '--';
             })->make(true);
     }
 
@@ -183,6 +188,7 @@ class PatientController extends Controller
     public function changePatientStatus(Request $request){
         $clinicianService = new ClinicianService();
         $response = $clinicianService->changePatientStatus($request->all());
+        print_r($response); exit();
         if ($response->status===true){
             return response()->json($response,200);
         }

@@ -95,7 +95,7 @@ class CaregiverController extends Controller
     {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
-        // dd($response);
+      
         if ($response->status === true){
             return response()->json($response,200);
         }

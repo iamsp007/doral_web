@@ -11,10 +11,13 @@
         <tr>
             <th></th>
             <th>#</th>
-            <th>Name</th>
+            <th>Patient Name</th>
             <th>Gender</th>
             <th>SSN</th>
+            <th>Home Phone</th>
+            <th>Patient Type</th>
             <th>Patient Id</th>
+            <th>City - State</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -49,7 +52,10 @@
                 {data: 'full_name', name: 'full_name'},
                 {data: 'gender', name: 'gender'},
                 {data: 'ssn', name: 'SSN'},
-                {data: 'patient_id', name: 'PatientID'},            
+                {data: 'home_phone', name: 'home_phone'},
+                {data: 'patient_type', name: 'patientType'},      
+                {data: 'patient_id', name: 'PatientID'},        
+                {data: 'city_state', name: 'city_state'},            
                 {data: 'action', name: 'action'},
             
             ],
@@ -81,7 +87,7 @@
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    $("#loader-wrapper").show();
+                    // $("#loader-wrapper").show();
                     $.ajax({
                     'type': 'POST',
                     'url': "{{ route('caregiver.changePatientStatus') }}",
@@ -108,11 +114,11 @@
                             );
                             $("#get_patient-table").DataTable().ajax.reload(null, false);
                         }
-                        $("#loader-wrapper").hide();
+                        // $("#loader-wrapper").hide();
                     },
                     "error":function () {
                         swal("Server Timeout!", "Please try again", "warning");
-                        $("#loader-wrapper").hide();
+                        // $("#loader-wrapper").hide();
                     }
                     });
                 } else {

@@ -1,7 +1,7 @@
 @extends('pages.layouts.app')
-@section('title','Clinician Lists')
+@section('title','Clinician Details')
 @section('pageTitleSection')
-    Clinician Lists
+    Clinician Details
 @endsection
 
 @section('content')

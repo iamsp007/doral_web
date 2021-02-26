@@ -1,7 +1,7 @@
 @extends('pages.layouts.app')
-@section('title','Schedule Appointment List')
+@section('title','Scheduled Appointments')
 @section('pageTitleSection')
-    Schedule Appointment List
+    Scheduled Appointments
 @endsection
 @section('content')
     <div class="app-roles">

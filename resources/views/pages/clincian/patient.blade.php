@@ -1,6 +1,6 @@
 @extends('pages.layouts.app')
 
-@section('title','Clinician Patient List')
+@section('title','Clinician Patient')
 
 @section('pageTitleSection', 'Patient')
 

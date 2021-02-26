@@ -18,6 +18,7 @@
 
     <!-- Styles -->
 {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+<title>@yield('title','Welcome to Doral')</title>
 </head>
 <body>
     <div id="loader-wrapper">

@@ -66,5 +66,8 @@
                 'style': 'multi'
             },
         });
+        table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
+        });
     </script>
 @endpush

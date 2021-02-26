@@ -98,9 +98,8 @@ class PatientController extends Controller
             ->whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
-            ->whereHas('patientDetail',function ($q){
-                $q->where('status','=','pending')->whereNotNull('first_name');
-            });
+            ->where('status','=','0')
+            ->get();
 
         return  DataTables::of($patientList)
             ->addIndexColumn()

@@ -143,11 +143,11 @@
                     <h1 class="title">
                         @hasrole('referral')
                             @foreach(Auth::guard('referral')->user()->roles->pluck('name') as $key=>$value)
-                                {{ $value }}
+                                {{ ucfirst($value) }}
                             @endforeach
                         @else
                             @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
-                                {{ $value }}
+                                {{ ucfirst($value) }}
                             @endforeach
                         @endrole
                     </h1>

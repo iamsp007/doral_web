@@ -1367,16 +1367,20 @@ tr th,tr td{vertical-align: middle!important;}
 .dataTables_wrapper .dataTables_paginate .paginate_button.current.custompagination:hover {
 	color: white !important;
 	background: #006c76 !important;
+	cursor: pointer;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current.custompagination {
 	color: white !important;
 	background: #006c76 !important;
+	cursor: pointer;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.custompagination:hover {
 	color: white !important;
 	background: #006c76 !important;
+	cursor: pointer;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled.custompagination:hover {
 	color: white !important;
 	background: #006c76 !important;
+	cursor: pointer;
 }

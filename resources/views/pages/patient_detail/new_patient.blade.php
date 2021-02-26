@@ -34,7 +34,7 @@
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script>
-    alert("{{ route('clinician.caregiver.ajax') }}");
+   
         var table = $('#get_patient-table').DataTable({
             "processing": true,
             "language": {

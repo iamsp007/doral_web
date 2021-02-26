@@ -77,7 +77,7 @@ class CaregiverController extends Controller
      */
     public function searchCaregiverDetails()
     {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchCaregivers xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><Status>Active</Status><EmployeeType>Applicant</EmployeeType></SearchFilters></SearchCaregivers></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchCaregivers xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><Status>Active</Status><EmployeeType>Employee</EmployeeType></SearchFilters></SearchCaregivers></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         //<FirstName>string</FirstName><LastName>string</LastName><PhoneNumber>string</PhoneNumber><CaregiverCode>string</CaregiverCode><EmployeeType>string</EmployeeType><SSN>string</SSN>Employee/Applicant
         
@@ -141,11 +141,11 @@ class CaregiverController extends Controller
     {
         $searchCaregiverIds = $this->searchCaregiverDetails();
         $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
-        dump(count($caregiverArray));
+        // dump(count($caregiverArray));
         $counter = 0;
         // dump($counter);
-        // foreach (array_slice($caregiverArray, 0, 1) as $cargiver_id) {
-        foreach ($caregiverArray as $cargiver_id) {
+        foreach (array_slice($caregiverArray, 0, 1) as $cargiver_id) {
+        // foreach ($caregiverArray as $cargiver_id) {
             
             // if ($counter > 5 || $counter < 10) {
                 
@@ -154,13 +154,8 @@ class CaregiverController extends Controller
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
                
                 $userId = self::saveUser($demographicDetails);
-                dump($demographicDetails['ID']);
+                // dump($demographicDetails['ID']);
 
-                if ($userId) {
-                    self::saveCaregiverInfo($demographicDetails, $userId);
-
-                    self::saveDemographic($demographicDetails, $userId);
-                }
                 // $getChangesV2 = $this->getChangesV2();
                 // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
 
@@ -182,20 +177,26 @@ class CaregiverController extends Controller
             $gender = 3;
         }
         
-        $user = DB::table('users')->insert([
-            'gender' => $gender,
-            'first_name' => $demographicDetails['FirstName'],
-            'last_name' => $demographicDetails['LastName'],
-            'dob' => $demographicDetails['BirthDate'],
-            'password' => Hash::make(Str::random(8)),
-        ]);
+        $userCaregiver = User::doesnthave('caregiverInfo');
 
-        $user_id = DB::getPdo()->lastInsertId();
+        if ($userCaregiver) {
+            $user = DB::table('users')->insert([
+                'gender' => $gender,
+                'first_name' => $demographicDetails['FirstName'],
+                'last_name' => $demographicDetails['LastName'],
+                'dob' => $demographicDetails['BirthDate'],
+                'password' => Hash::make(Str::random(8)),
+            ]);
+    
+            $user_id = DB::getPdo()->lastInsertId();
+    
+            $user = User::find($user_id);
+            $user->assignRole('patient')->syncPermissions(Permission::all());
+    
+            self::saveCaregiverInfo($demographicDetails, $user_id);
 
-        $user = User::find($user_id);
-        $user->assignRole('patient')->syncPermissions(Permission::all());
-
-        return $user_id;
+            self::saveDemographic($demographicDetails, $user_id);
+        }
     }
 
     public static function saveCaregiverInfo($demographicDetails, $userId)

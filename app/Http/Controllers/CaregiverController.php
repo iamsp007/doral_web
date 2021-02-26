@@ -24,20 +24,50 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail()
     {
-        $patientList = User::get();
-            // with('caregiverInfo', 'demographic', 'roles')
-            // ->whereHas('roles',function ($q){
-            //     $q->where('name','=','patient');
-            // })
-            // ->where('status','=','pending')->whereNotNull('first_name')
-            // ->get();
-            //dd($patientList);
+        $patientList = User::with('caregiverInfo', 'demographic','roles')
+        ->whereHas('roles',function ($q){
+            $q->where('name','=','patient');
+        })->where('status', '0')->whereNotNull('first_name');
 
         return DataTables::of($patientList)
             ->addColumn('full_name', function($q){
                 return $q->full_name;
             })
+            ->addColumn('ssn', function($q) {
+                $ssn = '';
+                if ($q->demographic) {
+                    $ssn =  $q->demographic->ssn;
+                }
+                return $ssn;
+            })
+            ->addColumn('patient_id', function($q){
+                $patient_id = '';
+                if ($q->caregiverInfo) {
+                    $patient_id =  $q->caregiverInfo->caregiver_id;
+                }
+                return $patient_id;
+            })
+            ->addColumn('action', function($row){
+                if ($row->status === '0'){
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+
+                    $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                }
+                return $btn;
+            })
+            ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function updatePatientStatus(Request $request)
+    {
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->updatePatientStatus($request->all());
+        // dd($response);
+        if ($response->status === true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
     }
 
     /**

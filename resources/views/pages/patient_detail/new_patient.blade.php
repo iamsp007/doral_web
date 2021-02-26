@@ -42,7 +42,7 @@
         $('#get_patient-table').DataTable({
             "processing": true,
             "language": {
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'
+                processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
             "serverSide": true,
             ajax: "{{ route('clinician.caregiver.ajax') }}",
@@ -75,7 +75,7 @@
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    // $("#loader-wrapper").show();
+                    $("#loader-wrapper").show();
                     $.ajax({
                     'type': 'POST',
                     'url': "{{ route('caregiver.changePatientStatus') }}",
@@ -87,7 +87,6 @@
                         "status" : status
                     },
                     'success': function (data) {
-                        console(data);
                         if(data.status == 400) {
                             swal(
                                 'Error!',
@@ -102,11 +101,11 @@
                             );
                             $("#get_patient-table").DataTable().ajax.reload(null, false);
                         }
-                        // $("#loader-wrapper").hide();
+                        $("#loader-wrapper").hide();
                     },
                     "error":function () {
                         swal("Server Timeout!", "Please try again", "warning");
-                        // $("#loader-wrapper").hide();
+                        $("#loader-wrapper").hide();
                     }
                     });
                 } else {

@@ -73,13 +73,7 @@ Route::post('/start','\App\Http\Controllers\Clinician\RoomController@startArchiv
 Route::post('/zoom-generate_signature','\App\Http\Controllers\Clinician\RoomController@zoomGenerateSignature');
 
 Route::get('/search-patients', 'App\Http\Controllers\GetPatientDetailsController@searchPatients');
-// Route::post('/search-patient-details', 'App\Http\Controllers\GetPatientDetailsController@searchPatientDetails');
-// Route::post('/get-demographic-details', 'App\Http\Controllers\GetPatientDetailsController@getDemographicDetails');
-Route::get('/get-patient-detail','\App\Http\Controllers\GetPatientDetailsController@index')->name('clinician.getPatientdetail');
-Route::get('/getPatientDetail','\App\Http\Controllers\GetPatientDetailsController@getPatientDetail')->name('clinician.patientDetail.ajax');
-Route::get('/patient-details/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@show')->name('patient.details');
-Route::post('/caregiver-update/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@checkCurrentVisitorDetails')->name('patient.caregiver.update');
+Route::post('/search-patient-details', 'App\Http\Controllers\GetPatientDetailsController@searchPatientDetails');
+Route::post('/get-demographic-details', 'App\Http\Controllers\GetPatientDetailsController@getDemographicDetails');
 
 Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searchCaregivers');
-Route::get('/caregivers-detail','App\Http\Controllers\CaregiverController@index')->name('clinician.caregivers');
-Route::get('/caregivers-detail-ajax','\App\Http\Controllers\CaregiverController@getPatientDetail')->name('clinician.caregiver.ajax');

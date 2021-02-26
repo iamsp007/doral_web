@@ -75,7 +75,7 @@
             $("#patient_name").select2({
 
                 ajax: { 
-                    url: "{{ route('clinician.new.patientList.data') }}",
+                    url: '{{ route('clinician.new.patientList.data') }}',
                     type: "POST",
                     dataType: 'json',
                     delay: 250,

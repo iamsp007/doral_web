@@ -166,12 +166,12 @@
                                         <div class="d-flex justify-content-center align-items-center mt-4">
                                             <label>
                                                 <input class="with-gap" name="customRadio" type="radio" 
-                                                    value="boarding" />
+                                                    value="boarding" required>
                                                 <span>On Boarding Patient</span>
                                             </label>
                                             <label class="ml-3">
                                                 <input class="with-gap" type="radio" name="customRadio"
-                                                    value="existing_patient" />
+                                                    value="existing_patient" required>
                                                 <span>Existing Patient</span>
                                             </label>
                                         </div>
@@ -654,16 +654,12 @@
                 // Personal Assistance 1
                 // First Name1
                 if (fname1.val() == '') {
-                    alert("error message here!");
                     fname1.closest('div').next('div').html(message.firstname);
                     fname1.addClass('invalid').prevUntil('.input-group').css({ "color": "red", "border": "1px solid red" });
-                    
-                    
+                    alert("Please fill the form")
                 } else if (fname1.val() != '') {
                     fname1.removeClass('invalid').prevUntil('.input-group').css({ "color": "#006C76", "border": "1px solid #006C76" });
-                    $(".nameFirst1").text("Looks good!").removeClass('errorClass').addClass('valid').addClass('looksGood');
-                    alert("error message !");
-                    return false;
+                    $(".nameFirst1").text("Looks good!").removeClass('errorClass').addClass('valid').addClass('looksGood');                  
                 }
                  // Middle Name1
                  if (mname1.val() == '') {
@@ -757,6 +753,7 @@
                 if (phone1.val() == '') {
                     phone1.closest('div').next('div').html(message.phone)
                     phone1.addClass('invalid').prevUntil('.input-group').css({ "color": "red", "border": "1px solid red" });
+                    
                 } else if (phone1.val() != '') {
                     var regex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
                     if (regex.test(phone1.val())) {
@@ -916,7 +913,7 @@
             $('[name="customRadio"]').on('change', function (e) {
                 e.preventDefault();
                 if ($(this).val() == 'boarding') {
-                    // alert('boarding')
+                   //alert('boarding')
                     $('.existing_patient').hide()
                 }
                 if ($(this).val() == 'existing_patient') {

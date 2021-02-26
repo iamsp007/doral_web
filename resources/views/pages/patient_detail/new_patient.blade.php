@@ -9,13 +9,13 @@
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
         <thead>
         <tr>
-            <th></th>
-            <th>#</th>
+            <th><label><input type="checkbox" /><span></span></label></th>
+            <!-- <th>#</th> -->
             <th>Patient Name</th>
             <th>Gender</th>
             <th>SSN</th>
             <th>Home Phone</th>
-            <!-- <th>Patient Type</th> -->
+            <th>Patient Type</th>
             <th>Patient Id</th>
             <th>City - State</th>
             <th>Action</th>
@@ -48,29 +48,17 @@
             ajax: "{{ route('clinician.caregiver.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
-                {data:'id',name:'id'},
                 {data: 'full_name', name: 'full_name'},
                 {data: 'gender', name: 'gender'},
                 {data: 'ssn', name: 'SSN'},
                 {data: 'home_phone', name: 'home_phone'},
-                // {data: 'patient_type', name: 'patient_type'},      
+                {data: 'patient_type', name: 'patient_type'},      
                 {data: 'patient_id', name: 'PatientID'},        
                 {data: 'city_state', name: 'city_state'},            
                 {data: 'action', name: 'action'},
             
             ],
             "order": [[ 1, "desc" ]],
-            'columnDefs': [
-                {
-                    'targets': 0,
-                    'checkboxes': {
-                        'selectRow': true
-                    }
-                }
-            ],
-            'select': {
-                'style': 'multi'
-            },
         });
 
         $('body').on('click', '.update-status', function () {

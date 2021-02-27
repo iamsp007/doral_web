@@ -18,6 +18,7 @@ use App\Models\PatientEmergencyContact;
 use App\Models\PatientLabReport;
 use App\Models\PatientReferralInfo;
 use App\Models\State;
+use App\Models\User;
 use App\Models\VisitorDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -35,6 +36,9 @@ class GetPatientDetailsController extends Controller
         $patientList = PatientDetail::get();
 
         return DataTables::of($patientList)
+            ->addColumn('id', function($q){
+                return '<label><input type="checkbox" /><span></span></label>';
+            })
             ->addColumn('full_name', function($q){
                 return $q->full_name;
             })
@@ -58,10 +62,16 @@ class GetPatientDetailsController extends Controller
         $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
         $drugLabReportTypes = LabReportType::where('status','1')->where('parent_id', 3)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
         
-        $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparedness', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
+        //$patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
+        $patient = User::with('caregiverInfo', 'demographic')->find($paient_id);
         
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'patientReferralInfo'));
+        // $emergencyPreparednesValue = '';
+        // if ($patient->emergencyPreparednes) {
+        //     $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);
+        // }
+        
+        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue'));
     }
 
     /**
@@ -274,13 +284,14 @@ class GetPatientDetailsController extends Controller
        
         $counter = 0;
         foreach ($patientArray as $patient_id) {
-            // if ($counter < 10) {
+            if ($counter < 5) {
                        
                 $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
                 if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
                     /** Store patirnt demographic detail */
                     $getpatientDemographicDetails = $this->getDemographicDetails($patient_id);
+                    dump($getpatientDemographicDetails);
                     $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails, 'add');
 
                     if($patient_detail_id) {
@@ -312,15 +323,30 @@ class GetPatientDetailsController extends Controller
                         $this->storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id);
                     }
                 }
-            // }
+            }
             $counter++;
         }
     }
 
     public function storePatientDetail($apiResponse, $action)
     {
-        if ($action == 'add') {
+        // if ($action == 'add') {
             $patientDetails = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+        //     $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
+        
+        //     if ($patientDetailData) {
+        //         $patientDetail = PatientDetail::find($patientDetailData->id);
+        //     } else {
+        //         $patientDetail = new PatientDetail();
+        //     }
+
+        //     $patientDetail->doral_id = 'DORAL' . mt_rand(100000, 999999);
+        //     $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
+        //     $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
+
+        // } else if ($action == 'edit') {
+            // $patientDetails = $apiResponse['soapBody']['GetPatientChangesV2Response']['GetPatientChangesV2Result']['GetPatientChangesV2Info'];
+
             $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
         
             if ($patientDetailData) {
@@ -328,29 +354,18 @@ class GetPatientDetailsController extends Controller
             } else {
                 $patientDetail = new PatientDetail();
             }
-
-            $patientDetail->doral_id = 'DORAL' . mt_rand(100000, 999999);
-            $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
-            $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
-
-        } else if ($action == 'edit') {
-            $patientDetails = $apiResponse['soapBody']['GetPatientChangesV2Response']['GetPatientChangesV2Result']['GetPatientChangesV2Info'];
-
-            $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
-        
-            if ($patientDetailData) {
-                $patientDetail = PatientDetail::find($patientDetailData->id);
-            } else {
-                $patientDetail = new PatientDetail();
-            }
-            $patientDetail->modified_date = ($patientDetails['ModifiedDate']) ? $patientDetails['ModifiedDate'] : '' ;
-            $patientDetail->patient_status_id = ($patientDetails['StatusID']) ? $patientDetails['StatusID'] : '' ;
-            $patientDetail->birth_date = ($patientDetails['DateOfBirth']) ? $patientDetails['DateOfBirth'] : '' ;
-            $patientDetail->mr_number = ($patientDetails['MRNumber']) ? $patientDetails['MRNumber'] : '' ;
-            $patientDetail->mr_number = ($patientDetails['AcceptedServices']) ? $patientDetails['AcceptedServices'] : '' ;
+            // $patientDetail->modified_date = ($patientDetails['ModifiedDate']) ? $patientDetails['ModifiedDate'] : '' ;
+            // $patientDetail->patient_status_id = ($patientDetails['StatusID']) ? $patientDetails['StatusID'] : '' ;
+            // $patientDetail->birth_date = ($patientDetails['DateOfBirth']) ? $patientDetails['DateOfBirth'] : '' ;
+            // $patientDetail->mr_number = ($patientDetails['MRNumber']) ? $patientDetails['MRNumber'] : '' ;
+            // $patientDetail->mr_number = ($patientDetails['AcceptedServices']) ? $patientDetails['AcceptedServices'] : '' ;
             
-        }
+        // }
        
+        $patientDetail->doral_id = 'DOR-' . mt_rand(100000, 999999);
+        $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
+        $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
+
         $patientDetail->agency_id = ($patientDetails['AgencyID']) ? $patientDetails['AgencyID'] : '' ;
         $patientDetail->office_id = ($patientDetails['OfficeID']) ? $patientDetails['OfficeID'] : '' ;
         $patientDetail->patient_id = ($patientDetails['PatientID']) ? $patientDetails['PatientID'] : '' ;

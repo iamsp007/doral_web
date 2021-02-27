@@ -3,6 +3,6 @@ window.io = require('socket.io-client');
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: window.socket_url
+    host: 'https://socket.doralhealthconnect.com'
 });
 

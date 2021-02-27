@@ -4,6 +4,9 @@
 Refferal Profile
 @endsection
 @section('content')
+<style>
+   img.update-icon {display: none;}
+</style>
 <div class="row">
    <div class="col-12 col-sm-4">
       <div class="app-card">
@@ -245,10 +248,7 @@ Refferal Profile
                                  <div class="col-12 col-sm-6 mt-3">
                                     <div class="custom-control custom-checkbox">
                                        <input type="checkbox" class="custom-control-input"
-                                          id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(',', ($record->services) ? $record->services : '')))
-{
-    echo "checked";
-} ?> disabled>
+                                          id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(',', ($record->services) ? $record->services : ''))) { echo "checked";} ?> disabled>
                                        <label class="custom-control-label t5"
                                           for="customCheck{{$s_row['id']}}">{{$s_row['name']}}</label>
                                     </div>
@@ -290,12 +290,6 @@ Refferal Profile
                <div
                    class="card-header pt-3 pb-3 d-flex justify-content-between align-items-center">
                    <h1>Payment Information</h1>
-                   <!-- <img src="../assets/img/icons/edit-field.svg" data-toggle="tooltip"
-                       data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt=""
-                       onclick="editAllField('paymentInfo')">
-                   <img src="../assets/img/icons/update-icon.svg" data-toggle="tooltip"
-                       data-placement="bottom" title="Update" class="cursor-pointer update-icon"
-                       alt="" onclick="updateAllField('insuranceDetail')"> -->
                </div>
                <div class="card-body">
                   @foreach($paymentInfo as $key => $p_info)
@@ -377,7 +371,7 @@ Refferal Profile
                },
                error: function( e ) {
                   $("#loader-wrapper").hide();
-                  alert('error');
+                  alertText('Something went wrong!','error');
                }
             });
          });
@@ -400,7 +394,7 @@ Refferal Profile
                },
                error: function( e ) {
                   $("#loader-wrapper").hide();
-                  alert('error');
+                  alertText('Something went wrong!','error');
                }
             });
          });

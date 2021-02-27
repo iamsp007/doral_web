@@ -2,71 +2,111 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\HHAApiCaregiver;
+use App\Models\CaregiverInfo;
+use App\Models\Demographic;
+use App\Models\User;
+use App\Services\ClinicianService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 
 class CaregiverController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function searchCaregiverDetails()
-    {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchCaregivers xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters></SearchFilters></SearchCaregivers></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
-        //<FirstName>string</FirstName><LastName>string</LastName><Status>string</Status><PhoneNumber>string</PhoneNumber><CaregiverCode>string</CaregiverCode><EmployeeType>string</EmployeeType><SSN>string</SSN>
-        
-        $method = 'POST';
-        $getPatientDetailsController = new GetPatientDetailsController();
-        return $getPatientDetailsController->curlCall($data, $method);
+    public function index($status)
+    {
+        return view('pages.patient_detail.new_patient', compact('status'));
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getDemographicDetails($cargiver_id)
+    public function getCaregiverDetail(Request $request)
     {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetCaregiverDemographics xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><CaregiverInfo><ID>' . $cargiver_id . '</ID></CaregiverInfo></GetCaregiverDemographics></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        if ($request['status'] == 'pending') {
+            $status = '0';
+        } else if($request['status'] == 'active') {
+            $status = '1';
+        } 
+       
+        $patientList = User::with('caregiverInfo', 'demographic','roles')
+        ->whereHas('roles',function ($q){
+            $q->where('name','=','patient');
+        })->where('status', $status)->whereNotNull('first_name');
 
-        $method = 'POST';
-        $getPatientDetailsController = new GetPatientDetailsController();
-        return $getPatientDetailsController->curlCall($data, $method);
+        return DataTables::of($patientList)
+            ->addColumn('id', function($q){
+                return '<label><input type="checkbox" /><span></span></label>';
+            })
+            ->addColumn('full_name', function($q){
+                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
+            })
+            ->addColumn('ssn', function($q) {
+                $ssn = '';
+                if ($q->demographic) {
+                    $ssn =  $q->demographic->ssn;
+                }
+                return $ssn;
+            })
+            ->addColumn('home_phone', function($q){
+                $home_phone = '';
+                if ($q->demographic) {
+                    $home_phone_json =  json_decode($q->demographic->address);
+                    if ($home_phone_json[0]) {
+                        $home_phone = $home_phone_json[0]->HomePhone;
+                    }
+                }
+                return $home_phone;
+            })
+            ->addColumn('patient_type', function($q) {
+                $type = '';
+                if ($q->demographic) {
+                    $type =  $q->demographic->type;
+                }
+                return $type;
+            })
+            ->addColumn('patient_id', function($q){
+                $patient_id = '';
+                if ($q->caregiverInfo) {
+                    $patient_id =  $q->caregiverInfo->caregiver_id;
+                }
+                return $patient_id;
+            })
+            ->addColumn('city_state', function($q){
+                $city_state = '';
+                if ($q->demographic) {
+                    $city_state_json =  json_decode($q->demographic->address);
+
+                    if ($city_state_json[0] || $city_state_json[0]) {
+                        $city_state = $city_state_json[0]->City . ' - ' . $city_state_json[0]->State;
+                    }
+                }
+                return $city_state;
+            })
+            ->addColumn('action', function($row){
+                $btn = '';
+                if ($row->status === '0'){
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+
+                    $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                }
+                return $btn;
+            })
+            ->rawColumns(['full_name', 'action', 'id'])
+            ->make(true);
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getChangesV2()
+    public function updatePatientStatus(Request $request)
     {
-        $date = Carbon::now();// will get you the current date, time 
-        $today = $date->format("Y-m-d"); 
-        
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetCaregiverChangesV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><ModifiedAfter>2015-03-19T04:31:57.077</ModifiedAfter></GetCaregiverChangesV2></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->updatePatientStatus($request->all());
 
-        $method = 'POST';
-        $getPatientDetailsController = new GetPatientDetailsController();
-        return $getPatientDetailsController->curlCall($data, $method);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createMedical($cargiver_id)
-    {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><CreateCaregiverMedical xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><CaregiverMedicalInfo><CaregiverID>' . $cargiver_id . '</CaregiverID><MedicalID>int</MedicalID><DueDate>dateTime</DueDate><DateCompleted>dateTime</DateCompleted><Notes>string</Notes><ResultID>int</ResultID></CaregiverMedicalInfo></CreateCaregiverMedical></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-
-        $method = 'POST';
-        $getPatientDetailsController = new GetPatientDetailsController();
-        return $getPatientDetailsController->curlCall($data, $method);
+        if ($response->status === true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
     }
 
     /**
@@ -78,22 +118,14 @@ class CaregiverController extends Controller
     {
         $searchCaregiverIds = $this->searchCaregiverDetails();
         $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
+        //dump(count($caregiverArray));
+        // whereIn($caregiverArray)
+        $data = HHAApiCaregiver::dispatch($caregiverArray);
 
-        $counter = 0;
-        foreach ($caregiverArray as $cargiver_id) {
-            if ($counter < 5) {
-
-                /** Store patirnt demographic detail */
-                $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
-                $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                
-                $getChangesV2 = $this->getChangesV2();
-                $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
-
-                $createMedical = $this->createMedical($cargiver_id);
-                
-            }
-            $counter++;
-        }
+        return 'Update successfully';
+        // dump($counter);
+       
     }
+
+   
 }

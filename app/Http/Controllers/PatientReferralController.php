@@ -367,4 +367,77 @@ class PatientReferralController extends Controller
 
         return response()->json($response, 201);
     }
+
+    public function occupationalHealthFailData(Request $request) {
+        return view('pages.referral.occupational-health-failed');
+    }
+
+     public function occupationalHealthGetFaileData() {
+
+        $referralservice = new ReferralService();
+        $responseArray = $referralservice->occupationalHealthFailData(3);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+             ->addColumn('action', function($row){
+                        $id = $row['id'];
+                        return '<a href="view-failed-data/'.$id.'"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">View Recode
+                        </a>';
+            })
+            ->make(true);
+
+
+     }
+
+     public function viewoccupationalHealthFailData(Request $request) {
+        $id = $request->id;
+        return view('pages.referral.view-occupational-health-failed',compact('id'));
+    }
+
+     public function viewoccupationalHealthGetFaileData(Request $request) {
+        $referralservice = new ReferralService($request->id);
+        $responseArray = $referralservice->viewoccupationalHealthGetFaileData($request->id);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+            ->make(true);
+     }
+
+     public function vbcFailData() {
+        return view('pages.referral.vbc-failed');
+     }
+
+     public function vbcGetFaileData() {
+         $referralservice = new ReferralService();
+        $responseArray = $referralservice->occupationalHealthFailData(1);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+             ->addColumn('action', function($row){
+                        $id = $row['id'];
+                        return '<a href="view-failed-data/'.$id.'"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">View Recode
+                        </a>';
+            })
+            ->make(true);
+     }
+
+     public function mdorderFailData() {
+        return view('pages.referral.md-order-failed');
+     }
+
+     public function mdorderGetFaileData() {
+         $referralservice = new ReferralService();
+        $responseArray = $referralservice->occupationalHealthFailData(2);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+             ->addColumn('action', function($row){
+                        $id = $row['id'];
+                        return '<a href="view-failed-data/'.$id.'"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">View Recode
+                        </a>';
+            })
+            ->make(true);
+     }
 }

@@ -104,7 +104,7 @@
                                          class="mr-2 activeIcon">Diagnosis</a>
                             </li>
                             <li>
-                                <a class="nav-link d-flex align-items-center" id="medProfile-tab" data-toggle="pill"
+                                <a class="nav-link d-flex align-items-center med-profile-menu" id="medProfile-tab" data-toggle="pill"
                                    href="#medProfile" role="tab" aria-controls="medProfile" aria-selected="false">
                                     <img src="{{ asset('assets/img/icons/icons_medprofile.svg') }}" alt="" class="mr-2 inactiveIcon">
                                     <img src="{{ asset('assets/img/icons/icons_medprofile_active.svg') }}" alt=""
@@ -2328,11 +2328,14 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script> --}}
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
@@ -2372,6 +2375,16 @@
         }
        
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $(document).on('click', '.med-profile-menu', function () {
+                medprofileTable.ajax.reload();
+            });
+
             $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
@@ -2550,6 +2563,8 @@
                     }
                 });
             });
+
+
         });
         function printErrorMsg (msg) {
             $(".print-error-msg").find("ul").html('');
@@ -2569,10 +2584,14 @@
 @endpush
 
 @push('styles')
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
+    <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset( 'assets/calendar/lib/main.css' ) }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}"> --}}
 @endpush

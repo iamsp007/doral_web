@@ -20,10 +20,20 @@ return [
                     'name'=>'Patient Lists',
                     'url'=>env('APP_URL').'clinician/patient-list',
                     'route'=>'clinician/patient-list','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                ],
+                [
+                    'name'=>'New Patient',
+                    'url'=>env('APP_URL').'get-caregiver/pending',
+                    'route'=>'get-caregiver/pending','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                ],
+                [
+                    'name'=>'Patient Lists',
+                    'url'=>env('APP_URL').'get-caregiver/active',
+                    'route'=>'get-caregiver/active','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
                 ]
             ]
         ],
-        ['name'=>'Patient Details Update','url'=>env('APP_URL').'clinician/get-patient-detail','route'=>'clinician/get-patient-detail','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Patient Details Update'],
+        ['name'=>'Patient Details Update','url'=>env('APP_URL').'get-patient-detail','route'=>'get-patient-detail','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Patient Details Update'],
         [
             'name'=>'Appointment',
             'url'=>'javascript:void(0)',
@@ -129,7 +139,7 @@ return [
             'icon_title'=>'Referral Section',
             'menu'=>[
                 [
-                    'name'=>'Pending Referral Source',
+                    'name'=>'Pending Referral',
                     'url'=>env('APP_URL').'admin/referral-approval',
                     'route'=>'admin/referral-approval',
                     'icon'=>'home-sb-select.svg',
@@ -137,7 +147,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Active Referral Source',
+                    'name'=>'Active Referral',
                     'url'=>env('APP_URL').'admin/referral-active',
                     'route'=>'admin/referral-active',
                     'icon'=>'home-sb-select.svg',
@@ -145,7 +155,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Reject Referral Source',
+                    'name'=>'Reject Referral',
                     'url'=>env('APP_URL').'admin/referral-rejected',
                     'route'=>'admin/referral-rejected',
                     'icon'=>'home-sb-select.svg',
@@ -164,24 +174,24 @@ return [
             'menu'=>[
                 [
                     'name'=>'Pending Clinician',
-                    'url'=>env('APP_URL').'admin/clinician',
-                    'route'=>'admin/clinician',
+                    'url'=>env('APP_URL').'admin/clinician-approval',
+                    'route'=>'admin/clinician-approval',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
                     'name'=>'Active Clinician',
-                    'url'=>env('APP_URL').'admin/clinician',
-                    'route'=>'admin/clinician',
+                    'url'=>env('APP_URL').'admin/clinician-active',
+                    'route'=>'admin/clinician-active',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
                     'name'=>'Reject Clinician',
-                    'url'=>env('APP_URL').'admin/clinician',
-                    'route'=>'admin/clinician',
+                    'url'=>env('APP_URL').'admin/clinician-rejected',
+                    'route'=>'admin/clinician-rejected',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'

@@ -115,7 +115,7 @@ class PatientDetail extends Model
     /**
      * Relation with nurse
      */
-    public function emergencyPreparedness()
+    public function emergencyPreparednes()
     {
         return $this->hasOne(EmergencyPreparedness::class,'patient_id','id');
     }
@@ -145,9 +145,9 @@ class PatientDetail extends Model
      */
     public function setGenderAttribute($gender)
     {
-        if ($gender == 'Male') {
+        if ($gender === 'Male') {
             $gender = '1';
-        } else if ($gender == 'Female') {
+        } else if ($gender === 'Female') {
             $gender = '2';
         } else {
             $gender = '3';
@@ -163,10 +163,6 @@ class PatientDetail extends Model
         if ($gender === '1') {
             $gender = 'Male';
         } else if ($gender === '2') {
-            $gender = 'Female';
-        } else if ($gender === 'MALE') {
-            $gender = 'Male';
-        } else if ($gender === 'FEMALE') {
             $gender = 'Female';
         } else {
             $gender = 'Other';

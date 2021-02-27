@@ -61,8 +61,19 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function patientDetail(){
+    public function patientDetail()
+    {
         return $this->hasOne(PatientReferral::class,'user_id','id')->with(['service','filetype']);
+    }
+
+    public function caregiverInfo()
+    {
+        return $this->hasOne(CaregiverInfo::class,'user_id','id');
+    }
+
+    public function demographic()
+    {
+        return $this->hasOne(Demographic::class,'user_id','id');
     }
 
     /**
@@ -73,4 +84,35 @@ class User extends Authenticatable
         return $this->first_name . ' ' . $this->last_name;
     }
 
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function setGenderAttribute($gender)
+    {
+        if ($gender === 'Male') {
+            $gender = '1';
+        } else if ($gender === 'Female') {
+            $gender = '2';
+        } else {
+            $gender = '3';
+        }
+        return $gender;
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function getGenderAttribute($gender)
+    {
+        if ($gender === '1') {
+            $gender = 'Male';
+        } else if ($gender === '2') {
+            $gender = 'Female';
+        } else {
+            $gender = 'Other';
+        }
+        return $gender;
+    }
 }
+

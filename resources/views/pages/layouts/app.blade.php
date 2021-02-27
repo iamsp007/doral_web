@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.24.0/apexcharts.min.css"> -->
     <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
@@ -215,7 +214,6 @@
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.min.js') }}"></script>
@@ -238,7 +236,6 @@
     <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
-    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('assets/js/apexcharts.js') }}"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
@@ -285,6 +282,10 @@
                                 },
                                 success:function (response) {
                                     $("#loader-wrapper").hide();
+                                },
+                                error:function (error) {
+                                    console.log(error.responseJSON.status+': '+error.responseJSON.message);
+                                    $("#loader-wrapper").hide();
                                 }
                             })
                         })
@@ -321,7 +322,6 @@
 
         });
     </script>
-<script src="{{ asset('assets/js/partner/add-employee.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

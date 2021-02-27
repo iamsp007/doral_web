@@ -392,7 +392,7 @@ class CaregiverController extends Controller
 
         $language = [];
         if ($demographicDetails['LanguageID1'] || $demographicDetails['Language1'] || $demographicDetails['LanguageID2'] || $demographicDetails['Language2'] || $demographicDetails['LanguageID3'] || $demographicDetails['Language3'] || $demographicDetails['LanguageID4'] || $demographicDetails['Language4']) {
-            $language = [
+            $language[] = [
                 'LanguageID1' => ($demographicDetails['LanguageID1']) ? $demographicDetails['LanguageID1'] : '',
                 'Language1' => ($demographicDetails['Language1']) ? $demographicDetails['Language1'] : '',
                 'LanguageID2' => ($demographicDetails['LanguageID2']) ? $demographicDetails['LanguageID2'] : '',

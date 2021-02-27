@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\HHAApiCaregiver;
 use App\Models\CaregiverInfo;
 use App\Models\Demographic;
+use App\Models\PatientEmergencyContact;
 use App\Models\User;
 use App\Services\ClinicianService;
 use Carbon\Carbon;
@@ -405,5 +406,29 @@ class CaregiverController extends Controller
         $demographic->type = '2';
 
         $demographic->save();
+    }
+    public function storeEmergencyContact($patientDetails, $user_id)
+    {
+        foreach ($patientDetails['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
+            $team = [];
+            if ($patientDetails['Relationship'] && $patientDetails['Relationship']['Name']) {
+                $relationship = [
+                    $patientDetails['Relationship'],
+                ];
+            }
+            $relationshipJson = json_encode($relationship);
+            PatientEmergencyContact::updateOrCreate(
+                ['user_id' => $user_id],
+                [
+                    'name' => ($emergencyContact['Name']) ? $emergencyContact['Name'] : '',
+                    'relation' => $relationshipJson,
+                    // 'lives_with_patient' => ($emergencyContact['LivesWithPatient']) ? $emergencyContact['LivesWithPatient'] : '',
+                    // 'have_keys' => ($emergencyContact['HaveKeys']) ? $emergencyContact['HaveKeys'] : '',
+                    'phone1' => ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '',
+                    'phone2' => ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '',
+                    'address' => ($emergencyContact['Address']) ? $emergencyContact['Address'] : '',
+                ]
+            );
+        }
     }
 }

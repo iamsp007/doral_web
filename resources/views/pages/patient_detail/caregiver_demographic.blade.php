@@ -101,10 +101,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
                     <div class="col-12 col-sm-3 col-md-3">
                         <div class="input_box">
                             <div class="ls">
@@ -121,7 +117,6 @@
                             </div>
                         </div>
                     </div>
-                   
                     <div class="col-12 col-sm-3 col-md-3">
                         <div class="input_box">
                             <div class="ls">
@@ -136,6 +131,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
                     <div class="col-12 col-sm-3 col-md-3">
                         <div class="input_box">
                             <div class="ls">
@@ -150,10 +149,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
                     <div class="col-12 col-sm-3 col-md-3">
                         <div class="input_box">
                             <div class="ls">
@@ -292,10 +287,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="row">
                     <div class="col-12 col-sm-3 col-md-3">
                         <div class="input_box">
                             <div class="ls">
@@ -817,7 +808,8 @@
             
             <!-- Emergency contact Detail -->
              <!-- Emergency contact Detail -->
-            @foreach($patient->patientEmergencyContact as $key => $patientEmergencyContact)
+            @if($patient->patientEmergency)
+            @foreach($patient->patientEmergency as $key => $patientEmergencyContact)
                 <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                     data-name="emergency_contact_detail">
                     <div class="app-card-header">
@@ -894,10 +886,14 @@
                             </div>
                         </div>
                         </div>
-                        {{ dump(json_decode($patient->patientEmergencyContact->relation))}}
+                        
+                          
+                       
+                        
                         <div class="p-3">
                         <div class="">
                             <div class="row">
+                            @foreach(json_decode($patientEmergencyContact->relation, true) as $value)
                                 <div class="col-12 col-sm-3 col-md-3">
                                     <div class="input_box">
                                     <div class="ls">
@@ -910,7 +906,7 @@
                                             name="relationship_id"
                                             onclick="editableField('relationship_id')"
                                             data-id="relationship_id" id="relationship_id"
-                                            placeholder="Relationship ID" value="">
+                                            placeholder="Relationship ID" value="{{ $value['ID']}}">
                                     </div>
                                     </div>
                                 </div>
@@ -926,16 +922,18 @@
                                             name="relationship_name"
                                             onclick="editableField('relationship_name')"
                                             data-id="relationship_name" id="relationship_name"
-                                            placeholder="Relationship Name" value="">
+                                            placeholder="Relationship Name" value="{{ $value['Name']}}">
                                     </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                         </div>
                     </div>
                 </div>
             @endforeach
+            @endif
             <!-- Emergency contact Detail -->
             <!-- Emergency contact Detail -->
            

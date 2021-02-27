@@ -130,9 +130,8 @@ class CaregiverController extends Controller
                 /** Store patirnt demographic detail */
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                    // dump($demographicDetails);
+                    
                 self::saveUser($demographicDetails);
-                // dump($demographicDetails['ID']);
     
                 // $getChangesV2 = $this->getChangesV2();
                 // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];

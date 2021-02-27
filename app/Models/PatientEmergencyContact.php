@@ -15,10 +15,9 @@ class PatientEmergencyContact extends Model
      * @var array
      */
     protected $fillable = [
-        'patient_id',
+        'user_id',
         'name',
-        'relationship_id',
-        'relationship_name',
+        'relation',
         'lives_with_patient',
         'have_keys',
         'phone1',

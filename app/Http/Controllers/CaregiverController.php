@@ -130,8 +130,8 @@ class CaregiverController extends Controller
                 /** Store patirnt demographic detail */
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                    dump($demographicDetails);
-                $userId = self::saveUser($demographicDetails);
+                    // dump($demographicDetails);
+                self::saveUser($demographicDetails);
                 // dump($demographicDetails['ID']);
     
                 // $getChangesV2 = $this->getChangesV2();
@@ -226,7 +226,7 @@ class CaregiverController extends Controller
             ]);
     
             $user_id = DB::getPdo()->lastInsertId();
-                dump($user_id);
+              
             $user = User::find($user_id);
             $user->assignRole('patient')->syncPermissions(Permission::all());
     
@@ -412,25 +412,24 @@ class CaregiverController extends Controller
     public static function storeEmergencyContact($demographicDetails, $user_id)
     {
         foreach ($demographicDetails['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
-            $relationship = [];
-            if ($emergencyContact['Relationship'] && $emergencyContact['Relationship']['Name']) {
-                $relationship = [
-                    $emergencyContact['Relationship'],
-                ];
+            if($emergencyContact['Name']) {
+                $relationship = [];
+                if ($emergencyContact['Relationship'] && $emergencyContact['Relationship']['Name']) {
+                    $relationship = [
+                        $emergencyContact['Relationship']
+                    ];
+                }
+                $relationshipJson = json_encode($relationship);
+                $patientEmergencyContact = new PatientEmergencyContact();
+                
+                $patientEmergencyContact->user_id = $user_id;
+                $patientEmergencyContact->name = $emergencyContact['Name'];
+                $patientEmergencyContact->relation = $relationshipJson;
+                $patientEmergencyContact->phone1 = ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '';
+                $patientEmergencyContact->phone2 = ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '';
+                $patientEmergencyContact->address = ($emergencyContact['Address']) ? $emergencyContact['Address'] : '';
+                $patientEmergencyContact->save();
             }
-            $relationshipJson = json_encode($relationship);
-            PatientEmergencyContact::updateOrCreate(
-                ['user_id' => $user_id],
-                [
-                    'name' => ($emergencyContact['Name']) ? $emergencyContact['Name'] : '',
-                    'relation' => $relationshipJson,
-                    // 'lives_with_patient' => ($emergencyContact['LivesWithPatient']) ? $emergencyContact['LivesWithPatient'] : '',
-                    // 'have_keys' => ($emergencyContact['HaveKeys']) ? $emergencyContact['HaveKeys'] : '',
-                    'phone1' => ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '',
-                    'phone2' => ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '',
-                    'address' => ($emergencyContact['Address']) ? $emergencyContact['Address'] : '',
-                ]
-            );
         }
     }
 }

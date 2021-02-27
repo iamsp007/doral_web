@@ -103,9 +103,33 @@ class GetPatientDetailsController extends Controller
             if (isset($patient->caregiverInfo->inactive_reason_detail)) {
                 $inactiveReasonDetail = json_decode($patient->caregiverInfo->inactive_reason_detail);
             }
+
+            if (isset($patient->demographic->team)) {
+                $team = json_decode($patient->demographic->team);
+            }
+
+            if (isset($patient->demographic->location)) {
+                $location = json_decode($patient->demographic->location);
+            }
+
+            if (isset($patient->demographic->branch)) {
+                $branch = json_decode($patient->demographic->branch);
+            }
+
+            if (isset($patient->demographic->accepted_services)) {
+                $acceptedServices = json_decode($patient->demographic->accepted_services);
+            }
+
+            if (isset($patient->demographic->address)) {
+                $address = json_decode($patient->demographic->address);
+            }
+
+            if (isset($patient->demographic->language)) {
+                $language = json_decode($patient->demographic->language);
+            }
         }
         
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail'));
+        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language'));
     }
 
     /**

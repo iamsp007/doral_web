@@ -36,7 +36,7 @@
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="ssn" onclick="editableField('ssn')"
                                             data-id="ssn" id="ssn" onblur="validateEmail(this);"
-                                            placeholder="SSN" value="{{ $patient->caregiverInfo->ssn }}">
+                                            placeholder="SSN" value="{{ $patient->demographic->ssn }}">
                                     </div>
                                 </div>
                             </div>

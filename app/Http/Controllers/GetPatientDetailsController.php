@@ -70,8 +70,44 @@ class GetPatientDetailsController extends Controller
         if ($patient->emergencyPreparednes) {
             $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);
         }
+
+        if (isset($patient->caregiverInfo)) {
+            if (isset($patient->caregiverInfo->ethnicity)) {
+                $ethnicity = json_decode($patient->caregiverInfo->ethnicity);
+            }
+
+            if (isset($patient->caregiverInfo->mobile)) {
+                $mobile = json_decode($patient->caregiverInfo->mobile);
+            }
+
+            if (isset($patient->caregiverInfo->marital_status)) {
+                $maritalStatus = json_decode($patient->caregiverInfo->marital_status);
+            }
+
+            if (isset($patient->caregiverInfo->status)) {
+                $status = json_decode($patient->caregiverInfo->status);
+            }
+
+            if (isset($patient->caregiverInfo->referral_source)) {
+                $referralSource = json_decode($patient->caregiverInfo->referral_source);
+            }
+
+            if (isset($patient->caregiverInfo->notification_preferences)) {
+                $notificationPreferences = json_decode($patient->caregiverInfo->notification_preferences);
+            }
+
+            if (isset($patient->caregiverInfo->caregiver_offices)) {
+                $caregiverOffices = json_decode($patient->caregiverInfo->caregiver_offices);
+            }
+
+            if (isset($patient->caregiverInfo->inactive_reason_detail)) {
+                $inactiveReasonDetail = json_decode($patient->caregiverInfo->inactive_reason_detail);
+            }
+        }
         
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue'));
+        
+        
+        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail'));
     }
 
     /**

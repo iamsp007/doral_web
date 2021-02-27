@@ -529,7 +529,7 @@
                                             name="status_id"
                                             onclick="editableField('status_id')"
                                             data-id="status_id" id="status_id"
-                                            placeholder="Status ID" value="{{ $status[0]->ID) }}">
+                                            placeholder="Status ID" value="{{ $status[0]->ID }}">
                                         </div>
                                     </div>
                                 </div>
@@ -543,7 +543,7 @@
                                             name="status_name"
                                             onclick="editableField('status_name')"
                                             data-id="status_name" id="status_name"
-                                            placeholder="Status Name" value="{{ $status[0]->Name) }}">
+                                            placeholder="Status Name" value="{{ $status[0]->Name }}">
                                         </div>
                                     </div>
                                 </div>
@@ -576,7 +576,7 @@
                                             name="referral_source_id"
                                             onclick="editableField('referral_source_id')"
                                             data-id="referral_source_id" id="referral_source_id"
-                                            placeholder="Referral Source ID" value="{{ $referralSource[0]->ID) }}">
+                                            placeholder="Referral Source ID" value="{{ $referralSource[0]->ID }}">
                                         </div>
                                     </div>
                                 </div>
@@ -590,7 +590,7 @@
                                             name="referral_source_name"
                                             onclick="editableField('referral_source_name')"
                                             data-id="referral_source_name" id="referral_source_name"
-                                            placeholder="Referral Source Name" value="{{ $referralSource[0]->Name) }}">
+                                            placeholder="Referral Source Name" value="{{ $referralSource[0]->Name }}">
                                         </div>
                                     </div>
                                 </div>
@@ -694,7 +694,7 @@
             <!-- Referral Source  Detail -->
 
             <!-- Referral Source  Detail -->
-            @if(!empty($caregiverOffices[0]['Office']))
+            @if(!empty($caregiverOffices[0]->Office))
                 <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                 data-name="emergency_contact_detail">
                     <div class="app-card-header">
@@ -714,7 +714,7 @@
                                             name="office_id"
                                             onclick="editableField('office_id')"
                                             data-id="office_id" id="office_id"
-                                            placeholder="Office ID" value="{{ $caregiverOffices[0]['Office']->OfficeID }}">
+                                            placeholder="Office ID" value="{{ $caregiverOffices[0]->Office->OfficeID }}">
                                         </div>
                                     </div>
                                 </div>
@@ -728,7 +728,7 @@
                                             name="is_primary"
                                             onclick="editableField('is_primary')"
                                             data-id="is_primary" id="is_primary"
-                                            placeholder="Is Primary" value="{{ $caregiverOffices[0]['Office']->IsPrimary }}">
+                                            placeholder="Is Primary" value="{{ $caregiverOffices[0]->Office->IsPrimary }}">
                                         </div>
                                     </div>
                                 </div>
@@ -742,7 +742,7 @@
                                             name="office_name"
                                             onclick="editableField('office_name')"
                                             data-id="office_name" id="office_name"
-                                            placeholder="Office Name" value="{{ $caregiverOffices[0]['Office']->OfficeName }}">
+                                            placeholder="Office Name" value="{{ $caregiverOffices[0]->Office->OfficeName }}">
                                         </div>
                                     </div>
                                 </div>

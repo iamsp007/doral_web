@@ -131,7 +131,7 @@ class CaregiverController extends Controller
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
                     dump($demographicDetails);
-                // $userId = self::saveUser($demographicDetails);
+                $userId = self::saveUser($demographicDetails);
                 // dump($demographicDetails['ID']);
     
                 // $getChangesV2 = $this->getChangesV2();
@@ -226,13 +226,15 @@ class CaregiverController extends Controller
             ]);
     
             $user_id = DB::getPdo()->lastInsertId();
-    
+                dump($user_id);
             $user = User::find($user_id);
             $user->assignRole('patient')->syncPermissions(Permission::all());
     
             self::saveCaregiverInfo($demographicDetails, $user_id);
 
             self::saveDemographic($demographicDetails, $user_id);
+
+            self::storeEmergencyContact($demographicDetails, $user_id);
         }
     }
 
@@ -407,13 +409,13 @@ class CaregiverController extends Controller
 
         $demographic->save();
     }
-    public function storeEmergencyContact($patientDetails, $user_id)
+    public static function storeEmergencyContact($demographicDetails, $user_id)
     {
-        foreach ($patientDetails['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
-            $team = [];
-            if ($patientDetails['Relationship'] && $patientDetails['Relationship']['Name']) {
+        foreach ($demographicDetails['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
+            $relationship = [];
+            if ($emergencyContact['Relationship'] && $emergencyContact['Relationship']['Name']) {
                 $relationship = [
-                    $patientDetails['Relationship'],
+                    $emergencyContact['Relationship'],
                 ];
             }
             $relationshipJson = json_encode($relationship);

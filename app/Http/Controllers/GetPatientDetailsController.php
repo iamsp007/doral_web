@@ -64,8 +64,8 @@ class GetPatientDetailsController extends Controller
         
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
-        $patient = User::with('caregiverInfo', 'demographic')->find($paient_id);
-        
+        $patient = User::with('caregiverInfo', 'demographic', 'patientEmergency')->find($paient_id);
+       
         $emergencyPreparednesValue = '';
         if ($patient->emergencyPreparednes) {
             $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);

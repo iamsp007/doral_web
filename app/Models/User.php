@@ -84,6 +84,10 @@ class User extends Authenticatable
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    public function patientEmergency()
+    {
+        return $this->hasMany(PatientEmergencyContact::class,'user_id','id');
+    }
 
     /**
      * Get gender value and set label according to gender value

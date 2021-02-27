@@ -28,14 +28,16 @@
                     <div class="col-12 col-sm-3 col-md-3">
                         <div class="input_box">
                             <div class="ls">
-                                <i class="las la-envelope circle"></i>
+                                <i class="las la-phone circle"></i>
                             </div>
                             <div class="rs">
-                                <h3 class="_title">Intials</h3>
-                                <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="intials" onclick="editableField('intials')"
-                                    data-id="intials" id="intials" onblur="validateEmail(this);"
-                                    placeholder="Intials" value="{{ $patient->caregiverInfo->intials }}">
+                                <h3 class="_title">SSN</h3>
+                                <div>
+                                    <input type="text" class="form-control-plaintext _detail "
+                                        readonly name="ssn" onclick="editableField('ssn')"
+                                        data-id="ssn" id="ssn" onblur="validateEmail(this);"
+                                        placeholder="SSN" value="{{ $patient->caregiverInfo->ssn }}">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -349,6 +351,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 col-sm-3 col-md-3">
+                        <div class="input_box">
+                            <div class="ls">
+                                <i class="las la-envelope circle"></i>
+                            </div>
+                            <div class="rs">
+                                <h3 class="_title">Intials</h3>
+                                <input type="text" class="form-control-plaintext _detail "
+                                    readonly name="intials" onclick="editableField('intials')"
+                                    data-id="intials" id="intials" onblur="validateEmail(this);"
+                                    placeholder="Intials" value="{{ $patient->caregiverInfo->intials }}">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="collapse mt-4" id="collapseExample">
@@ -357,7 +373,457 @@
                     marginwidth="0"
                     src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
             </div>
-           
+            
+            <!-- Team Detail -->
+            @if(isset($team[0]))
+                <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                data-name="emergency_contact_detail">
+                    <div class="app-card-header">
+                        <h1 class="title">Team Detail</h1>
+                    </div>
+                    <div>
+                        <div class="p-3">
+                            <div class="">
+                                <div class="row">
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Team ID</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="team_id"
+                                            onclick="editableField('team_id')"
+                                            data-id="team_id" id="team_id"
+                                            placeholder="Team ID" value="{{ $team[0]->ID }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Team Name</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="team_name"
+                                            onclick="editableField('team_name')"
+                                            data-id="team_name" id="team_name"
+                                            placeholder="Team Name" value="{{ $team[0]->Name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            <!-- Team Detail -->
+
+            <!-- Location Detail -->
+            @if(isset($location[0]))
+                <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                data-name="emergency_contact_detail">
+                    <div class="app-card-header">
+                        <h1 class="title">Location Detail</h1>
+                    </div>
+                    <div>
+                        <div class="p-3">
+                            <div class="">
+                                <div class="row">
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Location ID</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="location_id"
+                                            onclick="editableField('location_id')"
+                                            data-id="location_id" id="location_id"
+                                            placeholder="Location ID" value="{{ $location[0]->ID }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Location Name</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="location_name"
+                                            onclick="editableField('location_name')"
+                                            data-id="location_name" id="location_name"
+                                            placeholder="Location Name" value="{{ $location[0]->Name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            <!-- Location Detail -->
+
+            <!-- Branch Detail -->
+            @if(isset($branch[0]))
+                <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                data-name="emergency_contact_detail">
+                    <div class="app-card-header">
+                        <h1 class="title">Branch Detail</h1>
+                    </div>
+                    <div>
+                        <div class="p-3">
+                            <div class="">
+                                <div class="row">
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Branch ID</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="branch_id"
+                                            onclick="editableField('branch_id')"
+                                            data-id="branch_id" id="branch_id"
+                                            placeholder="Branch ID" value="{{ $branch[0]->ID }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Branch Name</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="branch_name"
+                                            onclick="editableField('branch_name')"
+                                            data-id="branch_name" id="branch_name"
+                                            placeholder="Branch Name" value="{{ $branch[0]->Name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            <!-- Branch Detail -->
+
+            <!-- Accepted Services Detail -->
+            @if(isset($acceptedServices[0]))
+                <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                data-name="emergency_contact_detail">
+                    <div class="app-card-header">
+                        <h1 class="title">Accepted Services Detail</h1>
+                    </div>
+                    <div>
+                        <div class="p-3">
+                            <div class="">
+                                <div class="row">
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Discipline</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="accepted_services"
+                                            onclick="editableField('accepted_services')"
+                                            data-id="accepted_services" id="accepted_services"
+                                            placeholder="Location ID" value="{{ $acceptedServices[0]->Discipline }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            <!-- Location Detail -->
+
+            <!-- Address Detail -->
+            @if(isset($address[0]))
+                <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                data-name="emergency_contact_detail">
+                    <div class="app-card-header">
+                        <h1 class="title">Address Detail</h1>
+                    </div>
+                    <div>
+                        <div class="p-3">
+                            <div class="">
+                                <div class="row">
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">City</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="city"
+                                            onclick="editableField('city')"
+                                            data-id="city" id="city"
+                                            placeholder="City" value="{{ $address[0]->city }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Zip4</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="zip4"
+                                            onclick="editableField('zip4')"
+                                            data-id="zip4" id="zip4"
+                                            placeholder="Zip4" value="{{ $address[0]->Zip4 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Zip5</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="zip5"
+                                            onclick="editableField('zip5')"
+                                            data-id="zip5" id="zip5"
+                                            placeholder="zip5" value="{{ $address[0]->Zip5 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">State</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="state"
+                                            onclick="editableField('state')"
+                                            data-id="state" id="state"
+                                            placeholder="state" value="{{ $address[0]->State }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Phone2</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="phone2"
+                                            onclick="editableField('phone2')"
+                                            data-id="phone2" id="phone2"
+                                            placeholder="phone2" value="{{ $address[0]->Phone2 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Phone3</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="phone3"
+                                            onclick="editableField('phone3')"
+                                            data-id="phone3" id="phone3"
+                                            placeholder="phone3" value="{{ $address[0]->Phone3 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Street1</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="street1"
+                                            onclick="editableField('street1')"
+                                            data-id="street1" id="street1"
+                                            placeholder="street1" value="{{ $address[0]->Street1 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Street2</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="street2"
+                                            onclick="editableField('street2')"
+                                            data-id="street2" id="street2"
+                                            placeholder="street2" value="{{ $address[0]->Street2 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">HomePhone</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="home_phone"
+                                            onclick="editableField('home_phone')"
+                                            data-id="home_phone" id="home_phone"
+                                            placeholder="home_phone" value="{{ $address[0]->HomePhone }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            <!-- Address Detail -->
+
+            <!-- Lanuguage Detail -->
+            @if(isset($language[0]))
+                <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                data-name="emergency_contact_detail">
+                    <div class="app-card-header">
+                        <h1 class="title">Lanuguage Detail</h1>
+                    </div>
+                    <div>
+                        <div class="p-3">
+                            <div class="">
+                                <div class="row">
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Language1</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="language1"
+                                            onclick="editableField('language1')"
+                                            data-id="language1" id="language1"
+                                            placeholder="Language1" value="{{ $language[0]->Language1 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Language ID1</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="language_id1"
+                                            onclick="editableField('language_id1')"
+                                            data-id="language_id1" id="language_id1"
+                                            placeholder="Language ID1" value="{{ $language[0]->LanguageID1 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Language2</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="language2"
+                                            onclick="editableField('language2')"
+                                            data-id="language2" id="language2"
+                                            placeholder="Language2" value="{{ $language[0]->Language2 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Language ID2</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="language_id2"
+                                            onclick="editableField('language_id2')"
+                                            data-id="language_id2" id="language_id2"
+                                            placeholder="Language ID2" value="{{ $language[0]->LanguageID2 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Language3</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="language3"
+                                            onclick="editableField('language3')"
+                                            data-id="language3" id="language3"
+                                            placeholder="Language3" value="{{ $language[0]->Language3 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Language ID3</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="language_id3"
+                                            onclick="editableField('language_id3')"
+                                            data-id="language_id3" id="language_id3"
+                                            placeholder="Language ID3" value="{{ $language[0]->LanguageID3 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Language4</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="language4"
+                                            onclick="editableField('language4')"
+                                            data-id="language4" id="language4"
+                                            placeholder="Language4" value="{{ $language[0]->language4 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 col-md-3">
+                                    <div class="input_box">
+                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Language ID4</h3>
+                                            <input type="text"
+                                            class="form-control-plaintext _detail " readonly
+                                            name="language_id4"
+                                            onclick="editableField('language_id4')"
+                                            data-id="language_id4" id="language_id4"
+                                            placeholder="Language ID4" value="{{ $language[0]->LanguageID4 }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            <!-- Lanuguage Detail -->
+
             <!-- Mobile Detail -->
             @if(isset($mobile[0]))
                 <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"

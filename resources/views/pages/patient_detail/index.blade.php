@@ -19,9 +19,9 @@
             </div>
             <div>
                <ul class="shortdesc">
-                  <li>Admission ID: <span>{{ $patient->admission_id}}</span></li>
+                  <li>Patient ID: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->caregiver_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender }}</span></li>
-                  <li>DOB: <span>{{ $patient->birth_date }}</span></li>
+                  <li>DOB: <span>{{ $patient->dob }}</span></li>
                </ul>
             </div>
          </div>

@@ -7,7 +7,7 @@
 
 @section('content')
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
-    <input type="text" value="{{ $status }}" id="status" name="status" />
+    <input type="hidden" value="{{ $status }}" id="status" name="status" />
         <thead>
         <tr>
             <th><label><input type="checkbox" /><span></span></label></th>

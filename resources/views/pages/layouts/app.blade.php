@@ -220,8 +220,6 @@
     <script>
         var base_url = $('#base_url').val();
         var socket_url = '{{ env("SOCKET_IO_URL") }}';
-        window.socket_url = '{{ env("SOCKET_IO_URL") }}';
-        window.laravel_echo_port='{{env("LARAVEL_ECHO_PORT")}}';
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>

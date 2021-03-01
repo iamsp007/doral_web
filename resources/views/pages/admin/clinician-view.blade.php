@@ -17,8 +17,8 @@
                         <!-- <h1 class="patient-name mb-1">Mitchell C. Shay</h1> -->
                         <div class="d-flex justify-content-center">
                            <ul class="list-group">
-                              @isset($data->applicant->applicant_name)
-                              <li class="list-group-item name">{{ isset($data->applicant->applicant_name) ? $data->applicant->applicant_name : null }}</li>
+                              @isset($data->first_name)
+                              <li class="list-group-item name">{{ isset($data->first_name) ? $data->first_name : null }} {{ isset($data->last_name) ? $data->last_name : '' }}</li>
                               @endisset
                               <li class="list-group-item">
                                  <span>{{ isset($data->gender_name) ? $data->gender_name : null }}</span>&nbsp;/&nbsp;
@@ -169,7 +169,7 @@
                                                    <i class="las la-phone  circle-icon"></i>
                                                 </div>
                                                 <div>
-                                                   <h3 class="_title">Phone No.</h3>
+                                                   <h3 class="_title">Phone No</h3>
                                                    <h1 class="_detail">{{ isset($data->applicant->phone) ? $data->applicant->phone : null }}</h1>
                                                 </div>
                                              </div>
@@ -182,7 +182,7 @@
                                                    <i class="las la-phone  circle-icon"></i>
                                                 </div>
                                                 <div>
-                                                   <h3 class="_title">Home Home</h3>
+                                                   <h3 class="_title">Home Phone</h3>
                                                    <h1 class="_detail">{{ isset($data->applicant->home_phone) ? $data->applicant->home_phone : null }}</h1>
                                                 </div>
                                              </div>
@@ -273,7 +273,7 @@
                                                       <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                                                          height="200" frameborder="0" scrolling="no" marginheight="0"
                                                          marginwidth="0"
-                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{ isset($data->applicant->address_line_1) ? $data->applicant->address_line_1 : null }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                    </div>
                                                 </div>
                                                 <div class="row">
@@ -298,7 +298,7 @@
                                                       <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                                                          height="200" frameborder="0" scrolling="no" marginheight="0"
                                                          marginwidth="0"
-                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{ isset($data->applicant->address_line_2) ? $data->applicant->address_line_2 : null }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                    </div>
                                                 </div>
                                                 <div class="row">
@@ -421,7 +421,7 @@
                                                       <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                                                          height="200" frameborder="0" scrolling="no" marginheight="0"
                                                          marginwidth="0"
-                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                         src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{ isset($reference->reference_address) ? $reference->reference_address : null }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                    </div>
                                                 </div>
                                                 <div class="_card mt-3">
@@ -522,7 +522,7 @@
                                           <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                                              height="200" frameborder="0" scrolling="no" marginheight="0"
                                              marginwidth="0"
-                                             src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                             src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{ isset($data->applicant->emergency_address) ? $data->applicant->emergency_address : null }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                        </div>
                                        </div>
                                     </div>
@@ -620,7 +620,7 @@
                                                          <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                                                             height="200" frameborder="0" scrolling="no" marginheight="0"
                                                             marginwidth="0"
-                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{ isset($data->education->medical_institute_address) ? $data->education->medical_institute_address : null }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                       </div>
                                                    </div>
                                                    <div class="row">
@@ -717,7 +717,7 @@
                                                          <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                                                             height="200" frameborder="0" scrolling="no" marginheight="0"
                                                             marginwidth="0"
-                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{ isset($data->education->residency_institute_address) ? $data->education->residency_institute_address : null }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                       </div>
                                                    </div>
                                                    <div class="row">
@@ -814,7 +814,7 @@
                                                          <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                                                             height="200" frameborder="0" scrolling="no" marginheight="0"
                                                             marginwidth="0"
-                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{ isset($data->education->fellowship_institute_address) ? $data->education->fellowship_institute_address : null }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                       </div>
                                                    </div>
                                                    <div class="row">
@@ -1449,7 +1449,7 @@
                                                    <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                                                       height="200" frameborder="0" scrolling="no" marginheight="0"
                                                       marginwidth="0"
-                                                      src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                      src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{ isset($data->deposit->address_line_1) ? $data->deposit->address_line_1 : null }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                 </div>
                                              </div>
                                              <div class="row mt-3">
@@ -1475,7 +1475,7 @@
                                                    <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                                                       height="200" frameborder="0" scrolling="no" marginheight="0"
                                                       marginwidth="0"
-                                                      src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                      src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{ isset($data->deposit->address_line_2) ? $data->deposit->address_line_2 : null }}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                 </div>
                                              </div>
                                              <div class="row mt-3">

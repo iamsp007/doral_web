@@ -52,8 +52,13 @@
 @endpush
 
 @push('scripts')
-    <script src="https://socket.doralhealthconnect.com/socket.io/socket.io.js"></script>
-    <script src="{{ asset('js/laravel-echo-setup.js') }}" type="text/javascript"></script>
+    <script src="{{ env('SOCKET_IO_URL') }}/socket.io/socket.io.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+   <script>
+       var socket = io(socket_url+'?id=1',{
+           transport:['polling']
+       });
+   </script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="{{ asset('js/clincian/map.js') }}"></script>
     <script

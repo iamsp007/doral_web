@@ -9,10 +9,13 @@ var io = require("socket.io")(server, {
 });
 
 io.on('connection', function(socket){
-  socket.on('send', function(msg){
-    console.log('message received/sending: ' + msg);
-    io.sockets.emit('new', msg);
+  socket.on('send-location', function(data){
+    console.log('message received/sending: ' + data.id);
+    var room = 'receive-location-'+data.id;
+    io.sockets.emit(room, data);
   });
 });
 
-server.listen(3000);
+server.listen(3000, function () {
+    console.log('Server is running on ' + 3000 + ' port !');
+});

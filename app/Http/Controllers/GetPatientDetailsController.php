@@ -62,16 +62,74 @@ class GetPatientDetailsController extends Controller
         $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
         $drugLabReportTypes = LabReportType::where('status','1')->where('parent_id', 3)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
         
-        //$patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
+        $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
-        $patient = User::with('caregiverInfo', 'demographic')->find($paient_id);
+        $patient = User::with('caregiverInfo', 'demographic', 'patientEmergency')->find($paient_id);
+       
+        $emergencyPreparednesValue = '';
+        if ($patient->emergencyPreparednes) {
+            $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);
+        }
+
+        if (isset($patient->caregiverInfo)) {
+            if (isset($patient->caregiverInfo->ethnicity)) {
+                $ethnicity = json_decode($patient->caregiverInfo->ethnicity);
+            }
+
+            if (isset($patient->caregiverInfo->mobile)) {
+                $mobile = json_decode($patient->caregiverInfo->mobile);
+            }
+
+            if (isset($patient->caregiverInfo->marital_status)) {
+                $maritalStatus = json_decode($patient->caregiverInfo->marital_status);
+            }
+
+            if (isset($patient->caregiverInfo->status)) {
+                $status = json_decode($patient->caregiverInfo->status);
+            }
+
+            if (isset($patient->caregiverInfo->referral_source)) {
+                $referralSource = json_decode($patient->caregiverInfo->referral_source);
+            }
+
+            if (isset($patient->caregiverInfo->notification_preferences)) {
+                $notificationPreferences = json_decode($patient->caregiverInfo->notification_preferences);
+            }
+
+            if (isset($patient->caregiverInfo->caregiver_offices)) {
+                $caregiverOffices = json_decode($patient->caregiverInfo->caregiver_offices);
+            }
+
+            if (isset($patient->caregiverInfo->inactive_reason_detail)) {
+                $inactiveReasonDetail = json_decode($patient->caregiverInfo->inactive_reason_detail);
+            }
+
+            if (isset($patient->demographic->team)) {
+                $team = json_decode($patient->demographic->team);
+            }
+
+            if (isset($patient->demographic->location)) {
+                $location = json_decode($patient->demographic->location);
+            }
+
+            if (isset($patient->demographic->branch)) {
+                $branch = json_decode($patient->demographic->branch);
+            }
+
+            if (isset($patient->demographic->accepted_services)) {
+                $acceptedServices = json_decode($patient->demographic->accepted_services);
+            }
+
+            if (isset($patient->demographic->address)) {
+                $address = json_decode($patient->demographic->address);
+            }
+
+            if (isset($patient->demographic->language)) {
+                $language = json_decode($patient->demographic->language);
+            }
+        }
         
-        // $emergencyPreparednesValue = '';
-        // if ($patient->emergencyPreparednes) {
-        //     $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);
-        // }
-        
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue'));
+        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language'));
     }
 
     /**

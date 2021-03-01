@@ -23,8 +23,13 @@ return [
                 ],
                 [
                     'name'=>'New Patient',
-                    'url'=>env('APP_URL').'get-caregiver',
-                    'route'=>'get-caregiver','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                    'url'=>env('APP_URL').'get-caregiver/pending',
+                    'route'=>'get-caregiver/pending','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                ],
+                [
+                    'name'=>'Patient Lists',
+                    'url'=>env('APP_URL').'get-caregiver/active',
+                    'route'=>'get-caregiver/active','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
                 ]
             ]
         ],

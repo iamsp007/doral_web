@@ -19,9 +19,9 @@
             </div>
             <div>
                <ul class="shortdesc">
-                  <li>Admission ID: <span>{{ $patient->admission_id}}</span></li>
+                  <li>Patient ID: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->caregiver_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender }}</span></li>
-                  <li>DOB: <span>{{ $patient->birth_date }}</span></li>
+                  <li>DOB: <span>{{ $patient->dob }}</span></li>
                </ul>
             </div>
          </div>
@@ -135,7 +135,14 @@
             <div class="col-12 col-sm-10">
                <div class="tab-content" id="v-pills-tabContent">
                   <!-- Demographics Start -->
-                     @include('pages.patient_detail.demographic')
+                  @include('pages.patient_detail.caregiver_demographic')
+                  @if($patient->demographic)
+                     @if($patient->demographic->type === '1')
+                        @include('pages.patient_detail.demographic')
+                     @elseif($patient->demographic->type === '2')
+                        @include('pages.patient_detail.caregiver_demographic')
+                     @endif
+                  @endif
                   <!-- Demographics End -->
 
                   <!-- Patient Referral Start -->

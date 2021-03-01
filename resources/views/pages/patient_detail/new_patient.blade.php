@@ -7,6 +7,7 @@
 
 @section('content')
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
+    <input type="hidden" value="{{ $status }}" id="status" name="status" />
         <thead>
         <tr>
             <th><label><input type="checkbox" /><span></span></label></th>
@@ -45,7 +46,16 @@
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
             "serverSide": true,
-            ajax: "{{ route('clinician.caregiver.ajax') }}",
+            ajax: {
+                'type': 'POST',
+                'url': "{{ route('clinician.caregiver.ajax') }}",
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {
+                    status: $("#status").val(),
+                },
+            },
             columns:[
                 {data:'id',name:'id'},
                 {data: 'full_name', name: 'full_name'},
@@ -58,7 +68,7 @@
                 {data: 'action', name: 'action'},
             
             ],
-            "order": [[ 1, "desc" ]],
+            // "order": [[ 1, "desc" ]],
         });
 
         $('body').on('click', '.update-status', function () {

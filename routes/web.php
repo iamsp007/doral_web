@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/send-location', function () {
-    event(new \App\Events\SendLocation(request()->all()));
-    return 'ok';
+Route::get('/download-application',function (){
+
+    return view('home');
 });
 
 \Illuminate\Support\Facades\Auth::routes();
@@ -81,6 +81,6 @@ Route::get('/patient-details/{patient_id}','\App\Http\Controllers\GetPatientDeta
 Route::post('/caregiver-update/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@checkCurrentVisitorDetails')->name('patient.caregiver.update');
 
 Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searchCaregivers');
-Route::get('/get-caregiver','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
-Route::get('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
+Route::get('/get-caregiver/{status}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
+Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
 Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');

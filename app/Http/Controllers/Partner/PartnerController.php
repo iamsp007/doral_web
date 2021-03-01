@@ -6,10 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PartnerController extends Controller
 {
@@ -103,7 +101,7 @@ class PartnerController extends Controller
             }
 
         } catch (\Exception $ex) {
-            \Log::error($ex->getMessage());
+            Log::error($ex->getMessage());
             return redirect()->back();
         }
     }
@@ -149,7 +147,7 @@ class PartnerController extends Controller
             }
 
         } catch (\Exception $ex) {
-            \Log::error($ex->getMessage());
+            Log::error($ex->getMessage());
             return redirect()->back();
         }
     }

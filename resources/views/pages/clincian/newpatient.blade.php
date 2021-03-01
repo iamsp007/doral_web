@@ -202,7 +202,7 @@
                         return '-';
                     }
                 },
-                {data: 'action',name: 'action'}
+                {data: 'action',name: 'action', "bSortable": false}
             ],
             "order": [[ 1, "desc" ]],
             "pageLength": 5,

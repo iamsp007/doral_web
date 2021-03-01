@@ -65,7 +65,7 @@
                 {data: 'patient_type', name: 'patient_type'},      
                 {data: 'patient_id', name: 'PatientID'},        
                 {data: 'city_state', name: 'city_state'},            
-                {data: 'action', name: 'action'},
+                {data: 'action', name: 'action', "bSortable": false},
             
             ],
             // "order": [[ 1, "desc" ]],

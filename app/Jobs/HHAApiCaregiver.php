@@ -1,145 +1,59 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Jobs;
 
-use App\Jobs\HHAApiCaregiver;
+use App\Http\Controllers\GetPatientDetailsController;
 use App\Models\CaregiverInfo;
 use App\Models\Demographic;
-use App\Models\PatientEmergencyContact;
 use App\Models\User;
-use App\Services\ClinicianService;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Spatie\Permission\Models\Permission;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Contracts\Permission;
 
-class CaregiverController extends Controller
+class HHAApiCaregiver implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function index($status)
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct($caregiverArray)
     {
-        return view('pages.patient_detail.new_patient', compact('status'));
-    }
-
-    public function getCaregiverDetail(Request $request)
-    {
-        if ($request['status'] == 'pending') {
-            $status = '0';
-        } else if($request['status'] == 'active') {
-            $status = '1';
-        } 
-       
-        $patientList = User::with('caregiverInfo', 'demographic','roles')
-        ->whereHas('roles',function ($q){
-            $q->where('name','=','patient');
-        })->where('status', $status)->whereNotNull('first_name');
-
-        return DataTables::of($patientList)
-            ->addColumn('id', function($q){
-                return '<label><input type="checkbox" /><span></span></label>';
-            })
-            ->addColumn('full_name', function($q){
-                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
-            })
-            ->addColumn('ssn', function($q) {
-                $ssn = '';
-                if ($q->demographic) {
-                    $ssn =  $q->demographic->ssn;
-                }
-                return $ssn;
-            })
-            ->addColumn('home_phone', function($q){
-                $home_phone = '';
-                if ($q->demographic) {
-                    $home_phone_json =  json_decode($q->demographic->address);
-                    if ($home_phone_json[0]) {
-                        $home_phone = $home_phone_json[0]->HomePhone;
-                    }
-                }
-                return $home_phone;
-            })
-            ->addColumn('patient_type', function($q) {
-                $type = '';
-                if ($q->demographic) {
-                    $type =  $q->demographic->type;
-                }
-                return $type;
-            })
-            ->addColumn('patient_id', function($q){
-                $patient_id = '';
-                if ($q->caregiverInfo) {
-                    $patient_id =  $q->caregiverInfo->caregiver_id;
-                }
-                return $patient_id;
-            })
-            ->addColumn('city_state', function($q){
-                $city_state = '';
-                if ($q->demographic) {
-                    $city_state_json =  json_decode($q->demographic->address);
-
-                    if ($city_state_json[0] || $city_state_json[0]) {
-                        $city_state = $city_state_json[0]->City . ' - ' . $city_state_json[0]->State;
-                    }
-                }
-                return $city_state;
-            })
-            ->addColumn('action', function($row){
-                $btn = '';
-                if ($row->status === '0'){
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
-
-                    $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
-                }
-                return $btn;
-            })
-            ->rawColumns(['full_name', 'action', 'id'])
-            ->make(true);
-    }
-
-    public function updatePatientStatus(Request $request)
-    {
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->updatePatientStatus($request->all());
-
-        if ($response->status === true){
-            return response()->json($response,200);
-        }
-        return response()->json($response,422);
+        $this->caregiverArray = $caregiverArray;
     }
 
     /**
-     * Display a listing of the resource.
+     * Execute the job.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function searchCaregivers()
+    public function handle()
     {
-        $searchCaregiverIds = $this->searchCaregiverDetails();
-        $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
-        //dump(count($caregiverArray));
-        // whereIn($caregiverArray)
-        // $data = HHAApiCaregiver::dispatch($caregiverArray);
-
-        // return 'Update successfully';
-        // dump($counter);
-        foreach (array_slice($caregiverArray, 0, 1) as $cargiver_id) {
+        foreach (array_slice($this->caregiverArray, 500, 500) as $cargiver_id) {
             // foreach ($caregiverArray as $cargiver_id) {
                 /** Store patirnt demographic detail */
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                    
-                self::saveUser($demographicDetails);
+                
+                $userId = self::saveUser($demographicDetails);
+                // dump($demographicDetails['ID']);
     
                 // $getChangesV2 = $this->getChangesV2();
                 // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
     
                 // $createMedical = $this->createMedical($cargiver_id);
             }
-       
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -225,15 +139,13 @@ class CaregiverController extends Controller
             ]);
     
             $user_id = DB::getPdo()->lastInsertId();
-              
+    
             $user = User::find($user_id);
             $user->assignRole('patient')->syncPermissions(Permission::all());
     
             self::saveCaregiverInfo($demographicDetails, $user_id);
 
             self::saveDemographic($demographicDetails, $user_id);
-
-            self::storeEmergencyContact($demographicDetails, $user_id);
         }
     }
 
@@ -392,7 +304,7 @@ class CaregiverController extends Controller
 
         $language = [];
         if ($demographicDetails['LanguageID1'] || $demographicDetails['Language1'] || $demographicDetails['LanguageID2'] || $demographicDetails['Language2'] || $demographicDetails['LanguageID3'] || $demographicDetails['Language3'] || $demographicDetails['LanguageID4'] || $demographicDetails['Language4']) {
-            $language[] = [
+            $language = [
                 'LanguageID1' => ($demographicDetails['LanguageID1']) ? $demographicDetails['LanguageID1'] : '',
                 'Language1' => ($demographicDetails['Language1']) ? $demographicDetails['Language1'] : '',
                 'LanguageID2' => ($demographicDetails['LanguageID2']) ? $demographicDetails['LanguageID2'] : '',
@@ -407,28 +319,5 @@ class CaregiverController extends Controller
         $demographic->type = '2';
 
         $demographic->save();
-    }
-    public static function storeEmergencyContact($demographicDetails, $user_id)
-    {
-        foreach ($demographicDetails['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
-            if($emergencyContact['Name']) {
-                $relationship = [];
-                if ($emergencyContact['Relationship'] && $emergencyContact['Relationship']['Name']) {
-                    $relationship = [
-                        $emergencyContact['Relationship']
-                    ];
-                }
-                $relationshipJson = json_encode($relationship);
-                $patientEmergencyContact = new PatientEmergencyContact();
-                
-                $patientEmergencyContact->user_id = $user_id;
-                $patientEmergencyContact->name = $emergencyContact['Name'];
-                $patientEmergencyContact->relation = $relationshipJson;
-                $patientEmergencyContact->phone1 = ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '';
-                $patientEmergencyContact->phone2 = ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '';
-                $patientEmergencyContact->address = ($emergencyContact['Address']) ? $emergencyContact['Address'] : '';
-                $patientEmergencyContact->save();
-            }
-        }
     }
 }

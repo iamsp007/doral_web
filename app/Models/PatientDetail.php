@@ -164,10 +164,6 @@ class PatientDetail extends Model
             $gender = 'Male';
         } else if ($gender === '2') {
             $gender = 'Female';
-        } else if ($gender === 'MALE') {
-            $gender = 'Male';
-        } else if ($gender === 'FEMALE') {
-            $gender = 'Female';
         } else {
             $gender = 'Other';
         }

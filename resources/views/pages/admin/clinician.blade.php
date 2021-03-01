@@ -1,13 +1,14 @@
 @extends('pages.layouts.app')
-@section('title','Clinician Lists')
+@if(Request::is('admin/clinician-approval'))
+   @php $title =  'Pending Clinician'; @endphp
+@elseif(Request::is('admin/clinician-active'))
+   @php $title =  'Active Clinician'; @endphp
+@elseif(Request::is('admin/clinician-rejected'))
+   @php $title =  'Reject Clinician'; @endphp
+@endif
+@section('title',$title)
 @section('pageTitleSection')
-    @if(Request::is('admin/clinician-approval'))
-        Pending Clinician
-    @elseif(Request::is('admin/clinician-active'))
-        Active Clinician
-    @elseif(Request::is('admin/clinician-rejected'))
-        Reject Clinician
-    @endif
+{{ $title }}
 @endsection
 
 @section('content')

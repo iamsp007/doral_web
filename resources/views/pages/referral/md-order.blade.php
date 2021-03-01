@@ -1,8 +1,8 @@
 @extends('pages.layouts.app')
 
-@section('title','Welcome to Doral')
+@section('title','MD Order - Patient')
 @section('pageTitleSection')
-    Md order - Total Patient Data
+    MD Order - Total Patient Data
 @endsection
 
 @section('upload-btn')

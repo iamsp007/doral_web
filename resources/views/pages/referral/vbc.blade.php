@@ -1,6 +1,6 @@
 @extends('pages.layouts.app')
 
-@section('title','Welcome to Doral')
+@section('title','VBC - Patient')
 @section('pageTitleSection')
     VBC - Patient Data
 @endsection

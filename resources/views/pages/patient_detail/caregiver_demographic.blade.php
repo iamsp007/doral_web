@@ -668,10 +668,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <div class="row">
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -13,8 +14,16 @@ class DashboardController extends Controller
 
     }
 
-    public function index(){
+    public function index()
+    {
+        $query = User::whereHas('roles',function ($q){
+            $q->whereIn('role_id',['4', '6']);
+        });
 
-        return view($this->view_path.'dashboard');
+        $total = $query->count();
+
+        $employee = $query->groupBy('status')->select('status', DB::raw('count(*) as total'))->get();
+
+        return view($this->view_path.'dashboard', compact(['total', 'employee']));
     }
 }

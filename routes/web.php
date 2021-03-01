@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/send-location', function () {
-    event(new \App\Events\SendLocation(request()->all()));
-    return 'ok';
+Route::get('/download-application',function (){
+
+    return view('home');
 });
 
 \Illuminate\Support\Facades\Auth::routes();

@@ -76,10 +76,11 @@ class GetPatientDetailsController extends Controller
                 $ethnicity = json_decode($patient->caregiverInfo->ethnicity);
             }
 
+            $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
             if (isset($patient->caregiverInfo->mobile)) {
                 $mobile = json_decode($patient->caregiverInfo->mobile);
             }
-
+            
             if (isset($patient->caregiverInfo->marital_status)) {
                 $maritalStatus = json_decode($patient->caregiverInfo->marital_status);
             }
@@ -129,7 +130,7 @@ class GetPatientDetailsController extends Controller
             }
         }
         
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language'));
+        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language'));
     }
 
     /**

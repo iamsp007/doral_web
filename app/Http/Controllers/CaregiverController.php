@@ -119,19 +119,23 @@ class CaregiverController extends Controller
     {
         $searchCaregiverIds = $this->searchCaregiverDetails();
         $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
-        //dump(count($caregiverArray));
+        // dump(count($caregiverArray));
         // whereIn($caregiverArray)
         // $data = HHAApiCaregiver::dispatch($caregiverArray);
 
         // return 'Update successfully';
-        // dump($counter);
-        foreach (array_slice($caregiverArray, 0, 1) as $cargiver_id) {
+        // dump($counter);2960 - 2660
+        foreach (array_slice($caregiverArray, 0, 2960) as $cargiver_id) {
             // foreach ($caregiverArray as $cargiver_id) {
                 /** Store patirnt demographic detail */
-                $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
-                $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                    
-                self::saveUser($demographicDetails);
+                $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
+       
+                if (! $userCaregiver) {
+                    $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
+                    $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+                    self::saveUser($demographicDetails);
+                }
+              
     
                 // $getChangesV2 = $this->getChangesV2();
                 // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
@@ -225,10 +229,10 @@ class CaregiverController extends Controller
             ]);
     
             $user_id = DB::getPdo()->lastInsertId();
-              
+              dump($user_id);
             $user = User::find($user_id);
             $user->assignRole('patient')->syncPermissions(Permission::all());
-    
+            
             self::saveCaregiverInfo($demographicDetails, $user_id);
 
             self::saveDemographic($demographicDetails, $user_id);

@@ -3,7 +3,7 @@
       <div class="app-card-header">
          <h1 class="title mr-2">Home Care</h1>
          <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('homecare')">
-         <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('homecare')">
+         <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('homecare')">
       </div>
       <div class="head scrollbar scrollbar4">
          <div class="p-3">

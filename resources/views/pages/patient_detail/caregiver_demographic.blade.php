@@ -3,9 +3,9 @@
         <div class="app-card-header">
             <h1 class="title">Demographics</h1>
             <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
-            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
+            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
         </div>
-        <div class="head scrollbar scrollbar4">
+        <div class="head scrollbar scrollbar12">
             <div class="p-3">
                 <div class="form-group">
                     <div class="row">
@@ -20,7 +20,7 @@
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="ssn" onclick="editableField('ssn')"
                                             data-id="ssn" id="ssn" onblur="validateEmail(this);"
-                                            placeholder="SSN" value="{{ $patient->demographic->ssn }}">
+                                            placeholder="SSN" value="{{ ($patient->demographic) ? $patient->demographic->ssn : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                     <input type="text" class="form-control-plaintext _detail "
                                         readonly name="alternate_caregiver_code" onclick="editableField('alternate_caregiver_code')"
                                         data-id="alternate_caregiver_code" id="alternate_caregiver_code" onblur="validateEmail(this);"
-                                        placeholder="Alternate Caregiver Code" value="{{ $patient->caregiverInfo->alternate_caregiver_code }}">
+                                        placeholder="Alternate Caregiver Code" value="{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->alternate_caregiver_code : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="time_attendance_pin" onclick="editableField('time_attendance_pin')"
                                             data-id="time_attendance_pin" id="time_attendance_pin" onblur="validateEmail(this);"
-                                            placeholder="Time Attendance Pin" value="{{ $patient->caregiverInfo->time_attendance_pin }}">
+                                            placeholder="Time Attendance Pin" value="{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->time_attendance_pin : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -83,23 +83,7 @@
                                     <input type="text" class="form-control-plaintext _detail "
                                         readonly name="country_of_birth" onclick="editableField('country_of_birth')"
                                         data-id="country_of_birth" id="country_of_birth" onblur="validateEmail(this);"
-                                        placeholder="Country Of Birth" value="{{ $patient->caregiverInfo->country_of_birth }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-3 col-md-3">
-                            <div class="input_box">
-                                <div class="ls">
-                                    <i class="las la-phone circle"></i>
-                                </div>
-                                <div class="rs">
-                                    <h3 class="_title">Employee Type</h3>
-                                    <div>
-                                        <input type="text" class="form-control-plaintext _detail "
-                                            readonly name="employee_type" onclick="editableField('employee_type')"
-                                            data-id="employee_type" id="employee_type" onblur="validateEmail(this);"
-                                            placeholder="Employee Type" value="{{ $patient->caregiverInfo->employee_type }}">
-                                    </div>
+                                        placeholder="Country Of Birth" value="{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->country_of_birth : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -131,6 +115,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="input_box">
+                                <div class="ls">
+                                    <i class="las la-envelope circle"></i>
+                                </div>
+                                <div class="rs">
+                                    <h3 class="_title">Referral Source Name</h3>
+                                    @if(!empty($referralSource[0]))
+                                    <input type="text"
+                                    class="form-control-plaintext _detail " readonly
+                                    name="referral_source_name"
+                                    onclick="editableField('referral_source_name')"
+                                    data-id="referral_source_name" id="referral_source_name"
+                                    placeholder="Referral Source Name" value="{{ $referralSource[0]->Name }}">
+                                    @endif
+                            </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -145,7 +147,7 @@
                                     <input type="text" class="form-control-plaintext _detail "
                                         readonly name="application_date" onclick="editableField('application_date')"
                                         data-id="application_date" id="application_date" onblur="validateEmail(this);"
-                                        placeholder="Application Date" value="{{ $patient->caregiverInfo->application_date }}">
+                                        placeholder="Application Date" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->caregiverInfo->application_date)) : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -159,7 +161,7 @@
                                     <input type="text" class="form-control-plaintext _detail "
                                         readonly name="hire_date" onclick="editableField('hire_date')"
                                         data-id="hire_date" id="hire_date" onblur="validateEmail(this);"
-                                        placeholder="Hire Date" value="{{ $patient->caregiverInfo->hire_date }}">
+                                        placeholder="Hire Date" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->caregiverInfo->hire_date)) : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -174,7 +176,7 @@
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="rehire_date" onclick="editableField('rehire_date')"
                                             data-id="rehire_date" id="rehire_date" onblur="validateEmail(this);"
-                                            placeholder="Rehire Date" value="{{ $patient->caregiverInfo->rehire_date }}">
+                                            placeholder="Rehire Date" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->caregiverInfo->rehire_date)) : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +191,7 @@
                                     <input type="text" class="form-control-plaintext _detail "
                                         readonly name="first_work_date" onclick="editableField('first_work_date')"
                                         data-id="first_work_date" id="first_work_date" onblur="validateEmail(this);"
-                                        placeholder="First Work Date" value="{{ $patient->caregiverInfo->first_work_date }}">
+                                        placeholder="First Work Date" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->caregiverInfo->first_work_date)) : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -207,7 +209,7 @@
                                     <input type="text" class="form-control-plaintext _detail "
                                         readonly name="last_work_date" onclick="editableField('last_work_date')"
                                         data-id="last_work_date" id="last_work_date" onblur="validateEmail(this);"
-                                        placeholder="Last Work Date" value="{{ $patient->caregiverInfo->last_work_date }}">
+                                        placeholder="Last Work Date" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->caregiverInfo->last_work_date)) : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -236,7 +238,7 @@
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="registry_checked_date" onclick="editableField('registry_checked_date')"
                                             data-id="registry_checked_date" id="registry_checked_date" onblur="validateEmail(this);"
-                                            placeholder="Registry Checked Date" value="{{ $patient->caregiverInfo->registry_checked_date }}">
+                                            placeholder="Registry Checked Date" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->caregiverInfo->registry_checked_date)) : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -313,7 +315,7 @@
                                     <input type="text" class="form-control-plaintext _detail "
                                         readonly name="signed_payroll_agreement_date" onclick="editableField('signed_payroll_agreement_date')"
                                         data-id="signed_payroll_agreement_date" id="signed_payroll_agreement_date" onblur="validateEmail(this);"
-                                        placeholder="Signed Payroll Agreement Date" value="{{ $patient->caregiverInfo->signed_payroll_agreement_date }}">
+                                        placeholder="Signed Payroll Agreement Date" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->caregiverInfo->signed_payroll_agreement_date)) : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -399,32 +401,14 @@
                                     <i class="las la-envelope circle"></i>
                                 </div>
                                 <div class="rs">
-                                    <h3 class="_title">Status Name</h3>
-                                    @if(!empty($status[0]))
-                                        <input type="text"
-                                        class="form-control-plaintext _detail " readonly
-                                        name="status_name"
-                                        onclick="editableField('status_name')"
-                                        data-id="status_name" id="status_name"
-                                        placeholder="Status Name" value="{{ $status[0]->Name }}">
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-3 col-md-3">
-                            <div class="input_box">
-                                <div class="ls">
-                                    <i class="las la-envelope circle"></i>
-                                </div>
-                                <div class="rs">
                                     <h3 class="_title">Mobile ID Type Description</h3>
-                                    @if(isset($mobile[0]))
+                                    @if(isset($mobile))
                                         <input type="text"
                                             class="form-control-plaintext _detail " readonly
                                             name="mobile_id_type_description"
                                             onclick="editableField('mobile_id_type_description')"
                                             data-id="mobile_id_type_description" id="mobile_id_type_description"
-                                            placeholder="Mobile ID Type Description" value="{{ $mobile[0]->MobileIDTypeDescription }}">
+                                            placeholder="Mobile ID Type Description" value="{{ $mobile->MobileIDTypeDescription }}">
                                     @endif
                             </div>
                             </div>
@@ -465,28 +449,7 @@
                             </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-12 col-sm-3 col-md-3">
-                            <div class="input_box">
-                                <div class="ls">
-                                    <i class="las la-envelope circle"></i>
-                                </div>
-                                <div class="rs">
-                                    <h3 class="_title">Referral Source Name</h3>
-                                    @if(!empty($referralSource[0]))
-                                    <input type="text"
-                                    class="form-control-plaintext _detail " readonly
-                                    name="referral_source_name"
-                                    onclick="editableField('referral_source_name')"
-                                    data-id="referral_source_name" id="referral_source_name"
-                                    placeholder="Referral Source Name" value="{{ $referralSource[0]->Name }}">
-                                    @endif
-                            </div>
-                            </div>
-                        </div>
+                    
                     </div>
                 </div>
                 <div class="collapse mt-4" id="collapseExample">
@@ -544,6 +507,34 @@
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                                 <div class="rs">
+                                                    <h3 class="_title">Street1</h3>
+                                                    <input type="text"
+                                                    class="form-control-plaintext _detail " readonly
+                                                    name="street1"
+                                                    onclick="editableField('street1')"
+                                                    data-id="street1" id="street1"
+                                                    placeholder="street1" value="{{ $address[0]->Street1 }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-3 col-md-3">
+                                            <div class="input_box">
+                                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                                <div class="rs">
+                                                    <h3 class="_title">Street2</h3>
+                                                    <input type="text"
+                                                    class="form-control-plaintext _detail " readonly
+                                                    name="street2"
+                                                    onclick="editableField('street2')"
+                                                    data-id="street2" id="street2"
+                                                    placeholder="street2" value="{{ ($address[0]->Street2) ? $address[0]->Street2 : '' }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-3 col-md-3">
+                                            <div class="input_box">
+                                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                                <div class="rs">
                                                     <h3 class="_title">City</h3>
                                                     <input type="text"
                                                     class="form-control-plaintext _detail " readonly
@@ -551,6 +542,20 @@
                                                     onclick="editableField('city')"
                                                     data-id="city" id="city"
                                                     placeholder="City" value="{{ $address[0]->City }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-3 col-md-3">
+                                            <div class="input_box">
+                                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                                <div class="rs">
+                                                    <h3 class="_title">State</h3>
+                                                    <input type="text"
+                                                    class="form-control-plaintext _detail " readonly
+                                                    name="state"
+                                                    onclick="editableField('state')"
+                                                    data-id="state" id="state"
+                                                    placeholder="state" value="{{ $address[0]->State }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -582,20 +587,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-3 col-md-3">
-                                            <div class="input_box">
-                                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                                <div class="rs">
-                                                    <h3 class="_title">State</h3>
-                                                    <input type="text"
-                                                    class="form-control-plaintext _detail " readonly
-                                                    name="state"
-                                                    onclick="editableField('state')"
-                                                    data-id="state" id="state"
-                                                    placeholder="state" value="{{ $address[0]->State }}">
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="">
@@ -606,7 +597,7 @@
                                                 <div class="rs">
                                                     <h3 class="_title">Phone2</h3>
                                                     <input type="text"
-                                                    class="form-control-plaintext _detail " readonly
+                                                    class="form-control-plaintext _detail phoneNumber" readonly
                                                     name="phone2"
                                                     onclick="editableField('phone2')"
                                                     data-id="phone2" id="phone2"
@@ -620,7 +611,7 @@
                                                 <div class="rs">
                                                     <h3 class="_title">Phone3</h3>
                                                     <input type="text"
-                                                    class="form-control-plaintext _detail " readonly
+                                                    class="form-control-plaintext _detail phoneNumber" readonly
                                                     name="phone3"
                                                     onclick="editableField('phone3')"
                                                     data-id="phone3" id="phone3"
@@ -628,34 +619,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-sm-3 col-md-3">
-                                            <div class="input_box">
-                                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                                <div class="rs">
-                                                    <h3 class="_title">Street1</h3>
-                                                    <input type="text"
-                                                    class="form-control-plaintext _detail " readonly
-                                                    name="street1"
-                                                    onclick="editableField('street1')"
-                                                    data-id="street1" id="street1"
-                                                    placeholder="street1" value="{{ $address[0]->Street1 }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-3 col-md-3">
-                                            <div class="input_box">
-                                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                                <div class="rs">
-                                                    <h3 class="_title">Street2</h3>
-                                                    <input type="text"
-                                                    class="form-control-plaintext _detail " readonly
-                                                    name="street2"
-                                                    onclick="editableField('street2')"
-                                                    data-id="street2" id="street2"
-                                                    placeholder="street2" value="{{ ($address[0]->Street2) ? $address[0]->Street2 : '' }}">
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                                 <div class="">
@@ -666,7 +630,7 @@
                                                 <div class="rs">
                                                     <h3 class="_title">HomePhone</h3>
                                                     <input type="text"
-                                                    class="form-control-plaintext _detail " readonly
+                                                    class="form-control-plaintext _detail phoneNumber" readonly
                                                     name="home_phone"
                                                     onclick="editableField('home_phone')"
                                                     data-id="home_phone" id="home_phone"
@@ -964,7 +928,7 @@
                                                 <div class="rs">
                                                     <h3 class="_title">Phone1</h3>
                                                     <input type="text"
-                                                        class="form-control-plaintext _detail " readonly
+                                                        class="form-control-plaintext _detail phoneNumber" readonly
                                                         name="phone1"
                                                         onclick="editableField('phone1')"
                                                         data-id="phone1" id="phone1"
@@ -980,7 +944,7 @@
                                                 <div class="rs">
                                                     <h3 class="_title">Phone2</h3>
                                                         <input type="text"
-                                                        class="form-control-plaintext _detail " readonly
+                                                        class="form-control-plaintext _detail phoneNumber" readonly
                                                         name="phone2"
                                                         onclick="editableField('phone2')"
                                                         data-id="phone2" id="phone2"

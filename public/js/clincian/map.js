@@ -28,19 +28,26 @@ function initMap() {
             var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
 
             response.clinicians.map(function (resp) {
-                referral_type[resp.referral_type]={
-                    directionsService:new google.maps.DirectionsService(),
-                    directionsRenderer:new google.maps.DirectionsRenderer({suppressMarkers: true}),
-                    id:resp.id
-                }
+                var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
+                var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
                 var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
                 if (resp.latitude!==null){
                     current = new google.maps.LatLng(resp.latitude,resp.longitude);
                 }
-                var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
-                var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
-                calculateAndDisplayRoute(current,destination,resp.referral_type,originName,destinationName,resp.color,resp.icon)
-                updateMap(destination,destinationName)
+                referral_type[resp.id]={
+                    directionsService:new google.maps.DirectionsService(),
+                    directionsRenderer:new google.maps.DirectionsRenderer({suppressMarkers: true}),
+                    id:resp.id,
+                    color:resp.color,
+                    icon:resp.icon,
+                    start_icon:base_url+'assets/img/icons/patient-icon.svg',
+                    originName:originName,
+                    destinationName:destinationName,
+                    destination:destination,
+                    current:current,
+                }
+                calculateAndDisplayRoute(current,destination,resp.id,referral_type[resp.id])
+                updateMap(destination,destinationName,resp.id)
             })
         },
         error:function (error) {
@@ -72,28 +79,37 @@ function makeMarker(position, icon, title,duration=0,hours=0) {
         map.setCenter(markers.getPosition());
         zoom=20;
     });
+    return markers;
 }
 
 var html='';
 
-function updateMap(destination,name) {
-    window.Echo.channel('location').listen('SendLocation',function (e) {
-        const response = e.location;
-        console.log(response,response.id,parseInt(referral_type[response.referral_type].id))
-        if (parseInt(response.id)===parseInt(referral_type[response.referral_type].id)){
-            var current = new google.maps.LatLng(response.latitude,response.longitude);
-            var originName = response.first_name+' '+response.last_name+'  Role : '+response.referral_type;
-            var destinationName = name+'  Role : Patient';
-            map.setZoom(zoom);
-            calculateAndDisplayRoute(current,destination,response.referral_type,originName,destinationName,response.color,response.icon)
-        }
+function updateMap(destination,name,id) {
+    console.log(id)
+    socket.on('receive-location-'+id,function (data) {
+        var referrals = referral_type[data.id];
+        var current = new google.maps.LatLng(data.latitude,data.longitude);
+        calculateAndDisplayRoute(current,referrals.destination,data.id,referrals)
+        // calculateAndDisplayRoute(current,destination,response.referral_type,originName,destinationName,response.color,response.icon)
     })
+    // window.Echo.channel('location').listen('SendLocation',function (e) {
+    //     const response = e.location;
+    //     console.log(response,response.id,parseInt(referral_type[response.referral_type].id))
+    //     if (parseInt(response.id)===parseInt(referral_type[response.referral_type].id)){
+    //         var current = new google.maps.LatLng(response.latitude,response.longitude);
+    //         var originName = response.first_name+' '+response.last_name+'  Role : '+response.referral_type;
+    //         var destinationName = name+'  Role : Patient';
+    //         map.setZoom(zoom);
+    //         calculateAndDisplayRoute(current,destination,response.referral_type,originName,destinationName,response.color,response.icon)
+    //     }
+    // })
 }
 
 //
-function calculateAndDisplayRoute(current,destination,type,origin_name,destination_name,color='#0a5293',end_icon,start_icon=base_url+'assets/img/icons/patient-icon.svg') {
-    var directionsService = referral_type[type].directionsService;
-    var directionsRenderer = referral_type[type].directionsRenderer;
+function calculateAndDisplayRoute(current,destination,type,referrals) {
+    var directionsService = referrals.directionsService;
+    var directionsRenderer = referrals.directionsRenderer;
+    console.log(current)
     var request = {
         origin: current,
         destination: destination,
@@ -111,15 +127,22 @@ function calculateAndDisplayRoute(current,destination,type,origin_name,destinati
                 draggable: true,
                 hideRouteIndex: false,
                 polylineOptions : {
-                    strokeColor: color,
+                    strokeColor: referrals.color,
                     strokeOpacity: 1.0,
                     strokeWeight: 5
                 }
             });
             var leg = response.routes[0].legs[0];
-            console.log(leg)
-            makeMarker( leg.start_location, end_icon, origin_name,leg.distance.text,leg.duration.text );
-            makeMarker( leg.end_location, start_icon, destination_name );
+            if (referral_type[type].marker){
+                referral_type[type].marker.setMap(null);
+            }
+            if (referral_type[type].patient_marker){
+                referral_type[type].patient_marker.setMap(null);
+            }
+            referral_type[type].patient_marker=makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName,leg.distance.text,leg.duration.text );
+            referral_type[type].marker=makeMarker( leg.start_location, referrals.icon, referrals.originName,leg.distance.text,leg.duration.text );
+
+            // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );
         }
     })
 }

@@ -43,7 +43,7 @@ return [
             'icon_title'=>'Appointments',
             'menu'=>[
                 [
-                    'name'=>'Upcoming Appointments',
+                    'name'=>'Scheduled Appointments',
                     'url'=>env('APP_URL').'clinician/scheduled-appointment',
                     'route'=>'clinician/scheduled-appointment','icon'=>'appointment-selected-sb.svg','icon_hover'=>'appointment-sb.svg','icon_title'=>'Services',
                 ],

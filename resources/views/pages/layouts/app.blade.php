@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/assign-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.css') }}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link rel="stylesheet" href="{{ asset('css/toaster.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
@@ -143,11 +144,11 @@
                     <h1 class="title">
                         @hasrole('referral')
                             @foreach(Auth::guard('referral')->user()->roles->pluck('name') as $key=>$value)
-                                {{ $value }}
+                                {{ ucfirst($value) }}
                             @endforeach
                         @else
                             @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
-                                {{ $value }}
+                                {{ ucfirst($value) }}
                             @endforeach
                         @endrole
                     </h1>
@@ -216,12 +217,11 @@
     <script src="{{ asset('assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
+    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.min.js') }}"></script>
     <script>
         var base_url = $('#base_url').val();
         var socket_url = '{{ env("SOCKET_IO_URL") }}';
-        window.socket_url = '{{ env("SOCKET_IO_URL") }}';
-        window.laravel_echo_port='{{env("LARAVEL_ECHO_PORT")}}';
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>

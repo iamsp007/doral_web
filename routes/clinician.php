@@ -42,6 +42,7 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
         Route::get('/ccm-reading-level-high','\App\Http\Controllers\PatientController@ccmReadingLevelHigh')->name('patient.ccm-reading-level-high');
         Route::post('/appointments','\App\Http\Controllers\PatientController@appointments')->name('appointments');
 
-        Route::get('/employee-physical-examination-report','\App\Http\Controllers\PatientController@employeePhysicalExaminationReport')->name('employee-physical-examination-report');
+        Route::get('/employee-physical-examination-report/{id}','\App\Http\Controllers\PatientController@getEmployeePhysicalExaminationReport')->name('get-employee-physical-examination-report');
+        Route::post('/employee-physical-examination-report/{id}','\App\Http\Controllers\PatientController@postEmployeePhysicalExaminationReport')->name('post-employee-physical-examination-report');
     });
 });

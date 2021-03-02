@@ -118,8 +118,18 @@ class PatientController extends Controller
         }
     }
 
-    public function employeePhysicalExaminationReport()
+    public function getEmployeePhysicalExaminationReport($id)
     {
+        $apiResponse = $this->adminServices->getPatientDetail($id);
+
+        $patient = $apiResponse->data;
+
+        return view('pages.employee-physical-examination-report', compact('patient'));
+    }
+
+    public function postEmployeePhysicalExaminationReport(Request $request, $id)
+    {
+        dd($request->all());
         return view('pages.employee-physical-examination-report');
     }
 }

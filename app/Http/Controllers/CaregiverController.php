@@ -225,7 +225,6 @@ class CaregiverController extends Controller
             $phone_number = $demographicDetails['NotificationPreferences']['MobileOrSMS'];
         }
         
-        
         $email = '';
         if ($demographicDetails['NotificationPreferences']['Email'] != '') {
             $email = $demographicDetails['NotificationPreferences']['Email'];

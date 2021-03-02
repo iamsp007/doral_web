@@ -142,7 +142,7 @@
                             </div>
                         @endif
                         @if(!empty($language[0]))
-                            @if(!empty($language[0]->Language1)
+                            @if(!empty($language[0]->Language1))
                                 <div class="col-12 col-sm-3 col-md-3">
                                     <div class="input_box">
                                         <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -158,7 +158,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if(!empty($language[0]->Language2)
+                            @if(!empty($language[0]->Language2))
                                 <div class="col-12 col-sm-3 col-md-3">
                                     <div class="input_box">
                                         <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -174,7 +174,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if(!empty($language[0]->Language3)
+                            @if(!empty($language[0]->Language3))
                                 <div class="col-12 col-sm-3 col-md-3">
                                     <div class="input_box">
                                         <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -190,7 +190,7 @@
                                     </div>
                                 </div>
                             @endif
-                            @if(!empty($language[0]->Language4)
+                            @if(!empty($language[0]->Language4))
                                 <div class="col-12 col-sm-3 col-md-3">
                                     <div class="input_box">
                                         <div class="ls"><i class="las la-user-nurse circle"></i></div>

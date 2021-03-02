@@ -1,48 +1,46 @@
 @extends('pages.layouts.app')
 
-@section('title','New Clinician Patient')
-@section('pageTitleSection')
-    New Patient 
-@endsection
+@section('title','Clinician Patient List')
+@section('pageTitleSection', 'New Patient Request') 
 
 @section('content')
-<div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
+    <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
         <button type="button" onclick="allSelectedAccept('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
         <button type="button" onclick="allSelectedAccept('2')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
     </div>
     <table class="display responsive nowrap" style="width:100%" id="patient-table" >
         <thead>
-            <tr> 
-              <th></th>
-               <th></th>
-            <th><select class="patient_name form-control" id="patient_name" name="" data-id='2'>
-            </select></th>
-           
-            <th><select class="item2 form-control" name="item2" data-id='3'>
-                    <option value="">select service</option>
-                    <option value="VBC">VBC</option>
-                    <option value="Md Order">Md Order</option>
-                    <option value="Occupational Health">Occupational Health</option>
-            </select></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <tr>
+                <th></th>
+                <th></th>
+                <th><select class="patient_name form-control" id="patient_name" name="" data-id='2'></select></th>
+                <th>
+                    <select class="item2 form-control" name="item2" data-id='3'>
+                        <option value="">select service</option>
+                        <option value="VBC">VBC</option>
+                        <option value="Md Order">Md Order</option>
+                        <option value="Occupational Health">Occupational Health</option>
+                    </select>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
-        <tr>
-            <th><input name="select_all" value="1" type="checkbox"></th>
-            <th>ID</th>
-            <th>Patient Name</th>
-            <th>Service</th>
-            <th>File Type</th>
-            <th>Gender</th>
-            <th>Date Of Birth</th>
-            <th>Zip Code</th>
-            <th>City - State</th>
-            <th width="280px">Action</th>
-        </tr>
+            <tr>
+                <th><input name="select_all" value="1" type="checkbox"></th>
+                <th>ID</th>
+                <th>Patient Name</th>
+                <th>Service</th>
+                <th>File Type</th>
+                <th>Gender</th>
+                <th>Date Of Birth</th>
+                <th>Zip Code</th>
+                <th>City - State</th>
+                <th width="280px">Action</th>
+            </tr>
         </thead>
         <tbody>
         </tbody>
@@ -65,23 +63,23 @@
 <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <script>
-         $(document).ready(function () {
-             $.ajaxSetup({
+
+        $(document).ready(function () {
+            $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
             $("#patient_name").select2({
-
                 ajax: { 
-                    url: '{{ route('clinician.new.patientList.data') }}',
+                    url: "{{ route('clinician.new.patientList.data') }}",
                     type: "POST",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
                         return {
-                          searchTerm : params.term
+                            searchTerm : params.term
                         };
                     },
                     processResults: function (data) {
@@ -110,22 +108,20 @@
                     .search( this.value )
                     .draw();
             });
-
             $('.patient_name').on('change', function () {
                 table
                     .columns( $(this).attr('data-id'))
                     .search( this.value )
                     .draw();
             });
-
-         });
+        });
         var table = $('#patient-table').DataTable({
             "processing": true,
             "language": {
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
             "serverSide": false,
-            ajax: "{{  route('clinician.new.patientList.ajax') }}",
+            ajax: "{{ route('clinician.new.patientList.ajax') }}",
             columns:[
                 {data:'id',name:'id'},
                 {data:'id',name:'id'},
@@ -138,7 +134,6 @@
                         return data;
                     }
                 },
-//                {data:'last_name',name:'last_name',"bSortable": true},
                 {
                     data:'patient_detail.service.name',
                     name:'patient_detail.service.name',
@@ -276,7 +271,7 @@
             e.stopPropagation();
         });
 
-       function changePatientStatus(element,status) {
+        function changePatientStatus(element,status) {
            $("#loader-wrapper").show();
             var id=$(element).attr('data-id');
             $.ajax({

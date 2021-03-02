@@ -1,14 +1,13 @@
 @extends('pages.layouts.app')
-@if(Request::is('admin/referral-approval'))
-   @php $title =  'Pending Referral'; @endphp
-@elseif(Request::is('admin/referral-active'))
-   @php $title =  'Active Referral'; @endphp
-@elseif(Request::is('admin/referral-rejected'))
-   @php $title =  'Reject Referral'; @endphp
-@endif
-@section('title',$title)
+@section('title','Admin - Referrals')
 @section('pageTitleSection')
-{{ $title }}
+    @if(Request::is('admin/referral-approval'))
+        Pending Referral
+    @elseif(Request::is('admin/referral-active'))
+        Active Referral
+    @elseif(Request::is('admin/referral-rejected'))
+        Reject Referral
+    @endif
 @endsection
 @section('content')
     <table id="referral-table" class="display responsive nowrap" style="width:100%">

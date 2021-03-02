@@ -64,7 +64,7 @@ class GetPatientDetailsController extends Controller
         
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
-        $patient = User::with('caregiverInfo', 'demographic', 'patientEmergency')->find($paient_id);
+        $patient = User::with('caregiverInfo', 'caregiverInfo.company', 'demographic', 'patientEmergency')->find($paient_id);
        
         $emergencyPreparednesValue = '';
         if ($patient->emergencyPreparednes) {
@@ -76,10 +76,11 @@ class GetPatientDetailsController extends Controller
                 $ethnicity = json_decode($patient->caregiverInfo->ethnicity);
             }
 
+            $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
             if (isset($patient->caregiverInfo->mobile)) {
                 $mobile = json_decode($patient->caregiverInfo->mobile);
             }
-
+            
             if (isset($patient->caregiverInfo->marital_status)) {
                 $maritalStatus = json_decode($patient->caregiverInfo->marital_status);
             }

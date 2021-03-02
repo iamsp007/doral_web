@@ -38,9 +38,7 @@ class CaregiverController extends Controller
         })->where('status', $status)->whereNotNull('first_name');
 
         return DataTables::of($patientList)
-            ->addColumn('id', function($q){
-                return '<label><input type="checkbox" /><span></span></label>';
-            })
+            ->addColumn('id','<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>')
             ->addColumn('full_name', function($q){
                 return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
             })
@@ -103,7 +101,7 @@ class CaregiverController extends Controller
     {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
-
+      
         if ($response->status === true){
             return response()->json($response,200);
         }
@@ -124,21 +122,25 @@ class CaregiverController extends Controller
         // $data = HHAApiCaregiver::dispatch($caregiverArray);
 
         // return 'Update successfully';
-        // dump($counter);
-        foreach (array_slice($caregiverArray, 0, 1) as $cargiver_id) {
+        // dump($counter);2960 - 2660
+        foreach (array_slice($caregiverArray, 0, 300) as $cargiver_id) {
             // foreach ($caregiverArray as $cargiver_id) {
-                /** Store patirnt demographic detail */
+            /** Store patirnt demographic detail */
+            $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
+    
+            if (! $userCaregiver) {
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                    
+                dump($demographicDetails);
                 self::saveUser($demographicDetails);
-    
-                // $getChangesV2 = $this->getChangesV2();
-                // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
-    
-                // $createMedical = $this->createMedical($cargiver_id);
             }
-       
+            
+
+            // $getChangesV2 = $this->getChangesV2();
+            // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
+
+            // $createMedical = $this->createMedical($cargiver_id);
+        }
     }
     /**
      * Display a listing of the resource.
@@ -203,6 +205,40 @@ class CaregiverController extends Controller
    
     public static function saveUser($demographicDetails)
     {
+        $email = null;
+        if ($demographicDetails['NotificationPreferences']['Email']) {
+            $email = $demographicDetails['NotificationPreferences']['Email'];
+        } 
+           
+        $userDuplicateEmail = User::whereNotNull('email')->where('email', $email)->first();
+        
+        if ($userDuplicateEmail) {
+            return;
+        } 
+        
+        $phone_number = null;
+        if ($demographicDetails['Address']['HomePhone']) {
+            $phone_number = $demographicDetails['Address']['HomePhone'];
+        } else if($demographicDetails['Address']['Phone2']) {
+            $phone_number = $demographicDetails['Address']['Phone2'];
+        } else if($demographicDetails['Address']['Phone3']) {
+            $phone_number = $demographicDetails['Address']['Phone3'];
+        } else if($demographicDetails['NotificationPreferences']['MobileOrSMS']) {
+            $phone_number = $demographicDetails['NotificationPreferences']['MobileOrSMS'];
+        }
+        
+        if ($phone_number == '') {
+            $status = '4';
+        } else {
+            $phone_number = str_replace("-","",$phone_number);
+            $status = '0';
+
+            $userDuplicatePhone = User::whereNotNull('phone')->where('phone', $phone_number)->first();
+            if ($userDuplicatePhone) {
+                return;
+            } 
+        }
+        
         $gender = '';
         if ($demographicDetails['Gender'] == 'MALE') {
             $gender = 1;
@@ -211,36 +247,40 @@ class CaregiverController extends Controller
         } else {
             $gender = 3;
         }
-        $userCaregiver = CaregiverInfo::where('caregiver_id' , $demographicDetails['ID'])->first();
-       
-        //doesnthave('caregiverInfo')->get();
-        if (! $userCaregiver) {
-            $user = DB::table('users')->insert([
-                'gender' => $gender,
-                'first_name' => $demographicDetails['FirstName'],
-                'last_name' => $demographicDetails['LastName'],
-                'dob' => $demographicDetails['BirthDate'],
-                //'password' => Hash::make(Str::random(8)),
-                'password' => Hash::make('Patient@doral'),
-            ]);
-    
-            $user_id = DB::getPdo()->lastInsertId();
-              
-            $user = User::find($user_id);
-            $user->assignRole('patient')->syncPermissions(Permission::all());
-    
-            self::saveCaregiverInfo($demographicDetails, $user_id);
 
-            self::saveDemographic($demographicDetails, $user_id);
+        $user = DB::table('users')->insert([
+            'gender' => $gender,
+            'first_name' => $demographicDetails['FirstName'],
+            'last_name' => $demographicDetails['LastName'],
+            'dob' => $demographicDetails['BirthDate'],
+            'status' => $status,
+            'email' => $email,
+            'phone' => $phone_number,
+            'password' => Hash::make('Patient@doral'),
+        ]);
 
-            self::storeEmergencyContact($demographicDetails, $user_id);
-        }
+        $user_id = DB::getPdo()->lastInsertId();
+        
+        $user = User::find($user_id);
+        // dd($user);
+        $user->assignRole('patient')->syncPermissions(Permission::all());
+
+        self::saveCaregiverInfo($demographicDetails, $user_id);
+
+        self::saveDemographic($demographicDetails, $user_id);
+
+        self::storeEmergencyContact($demographicDetails, $user_id);
+        
     }
 
     public static function saveCaregiverInfo($demographicDetails, $userId)
     {
         $caregiverInfo = new CaregiverInfo();
+
         $caregiverInfo->user_id = $userId;
+        $caregiverInfo->company_id = '9';
+        $caregiverInfo->service_id = '3';
+
         $caregiverInfo->caregiver_id = ($demographicDetails['ID']) ? $demographicDetails['ID'] : '';
         $caregiverInfo->intials = ($demographicDetails['Intials']) ? $demographicDetails['Intials'] : '';
         $caregiverInfo->caregiver_gender_id = ($demographicDetails['CaregiverGenderID']) ? $demographicDetails['CaregiverGenderID'] : '';

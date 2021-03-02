@@ -11,16 +11,16 @@ return [
             'icon_hover'=>'chart-sb-select.svg',
             'icon_title'=>'Patient Chart',
             'menu'=>[
-                [
-                    'name'=>'New Patients',
-                    'url'=>env('APP_URL').'clinician/new-patient-list',
-                    'route'=>'clinician/new-patient-list','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Services',
-                ],
-                [
-                    'name'=>'Patient Lists',
-                    'url'=>env('APP_URL').'clinician/patient-list',
-                    'route'=>'clinician/patient-list','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
-                ],
+                // [
+                //     'name'=>'New Patients',
+                //     'url'=>env('APP_URL').'clinician/new-patient-list',
+                //     'route'=>'clinician/new-patient-list','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Services',
+                // ],
+                // [
+                //     'name'=>'Patient Lists',
+                //     'url'=>env('APP_URL').'clinician/patient-list',
+                //     'route'=>'clinician/patient-list','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                // ],
                 [
                     'name'=>'New Patient',
                     'url'=>env('APP_URL').'get-caregiver/pending',
@@ -43,7 +43,7 @@ return [
             'icon_title'=>'Appointments',
             'menu'=>[
                 [
-                    'name'=>'Scheduled Appointments',
+                    'name'=>'Upcoming Appointments',
                     'url'=>env('APP_URL').'clinician/scheduled-appointment',
                     'route'=>'clinician/scheduled-appointment','icon'=>'appointment-selected-sb.svg','icon_hover'=>'appointment-sb.svg','icon_title'=>'Services',
                 ],

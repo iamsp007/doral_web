@@ -213,36 +213,62 @@ class CaregiverController extends Controller
         } else {
             $gender = 3;
         }
-        $userCaregiver = CaregiverInfo::where('caregiver_id' , $demographicDetails['ID'])->first();
        
-        //doesnthave('caregiverInfo')->get();
-        if (! $userCaregiver) {
-            $user = DB::table('users')->insert([
-                'gender' => $gender,
-                'first_name' => $demographicDetails['FirstName'],
-                'last_name' => $demographicDetails['LastName'],
-                'dob' => $demographicDetails['BirthDate'],
-                //'password' => Hash::make(Str::random(8)),
-                'password' => Hash::make('Patient@doral'),
-            ]);
-    
-            $user_id = DB::getPdo()->lastInsertId();
-              
-            $user = User::find($user_id);
-            $user->assignRole('patient')->syncPermissions(Permission::all());
-    
-            self::saveCaregiverInfo($demographicDetails, $user_id);
-
-            self::saveDemographic($demographicDetails, $user_id);
-
-            self::storeEmergencyContact($demographicDetails, $user_id);
+        $phone_number = '';
+        if ($demographicDetails['Address']['HomePhone'] != '') {
+            $phone_number = $demographicDetails['Address']['HomePhone'];
+        } else if($demographicDetails['Address']['Phone2'] != '') {
+            $phone_number = $demographicDetails['Address']['Phone2'];
+        } else if($demographicDetails['Address']['Phone3'] != '') {
+            $phone_number = $demographicDetails['Address']['Phone3'];
+        } else if($demographicDetails['NotificationPreferences']['MobileOrSMS'] != '') {
+            $phone_number = $demographicDetails['NotificationPreferences']['MobileOrSMS'];
         }
+        
+        
+        $email = '';
+        if ($demographicDetails['NotificationPreferences']['Email'] != '') {
+            $email = $demographicDetails['NotificationPreferences']['Email'];
+        } 
+            
+        if ($phone_number == '') {
+            $status = '4';
+        } else {
+            $status = '0';
+        }
+        
+        $user = DB::table('users')->insert([
+            'gender' => $gender,
+            'first_name' => $demographicDetails['FirstName'],
+            'last_name' => $demographicDetails['LastName'],
+            'dob' => $demographicDetails['BirthDate'],
+            'email' => $email,
+            'phone' => $phone_number,
+            'status' => $status,
+            'password' => Hash::make('Patient@doral'),
+        ]);
+
+        $user_id = DB::getPdo()->lastInsertId();
+        
+        $user = User::find($user_id);
+        $user->assignRole('patient')->syncPermissions(Permission::all());
+
+        self::saveCaregiverInfo($demographicDetails, $user_id);
+
+        self::saveDemographic($demographicDetails, $user_id);
+
+        self::storeEmergencyContact($demographicDetails, $user_id);
+        
     }
 
     public static function saveCaregiverInfo($demographicDetails, $userId)
     {
         $caregiverInfo = new CaregiverInfo();
+
         $caregiverInfo->user_id = $userId;
+        $caregiverInfo->company_id = '9';
+        $caregiverInfo->service_id = '3';
+
         $caregiverInfo->caregiver_id = ($demographicDetails['ID']) ? $demographicDetails['ID'] : '';
         $caregiverInfo->intials = ($demographicDetails['Intials']) ? $demographicDetails['Intials'] : '';
         $caregiverInfo->caregiver_gender_id = ($demographicDetails['CaregiverGenderID']) ? $demographicDetails['CaregiverGenderID'] : '';

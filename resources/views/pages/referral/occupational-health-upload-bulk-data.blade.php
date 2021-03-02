@@ -1,6 +1,6 @@
 @extends('pages.layouts.app')
 
-@section('title','Welcome to Doral')
+@section('title','Occupational Health - Import Patients')
 @section('pageTitleSection')
     Occupational Health - Import Patients
 @endsection

@@ -401,6 +401,24 @@
                                     <i class="las la-envelope circle"></i>
                                 </div>
                                 <div class="rs">
+                                    <h3 class="_title">Status Name</h3>
+                                    @if(!empty($status[0]))
+                                        <input type="text"
+                                        class="form-control-plaintext _detail " readonly
+                                        name="status_name"
+                                        onclick="editableField('status_name')"
+                                        data-id="status_name" id="status_name"
+                                        placeholder="Status Name" value="{{ $status[0]->Name }}">
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="input_box">
+                                <div class="ls">
+                                    <i class="las la-envelope circle"></i>
+                                </div>
+                                <div class="rs">
                                     <h3 class="_title">Mobile ID Type Description</h3>
                                     @if($mobile)
                                         <input type="text"
@@ -449,7 +467,6 @@
                             </div>
                             </div>
                         </div>
-                    
                     </div>
                 </div>
                 <div class="collapse mt-4" id="collapseExample">
@@ -559,6 +576,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="row">
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>

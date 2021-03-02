@@ -1,8 +1,8 @@
 @extends('pages.layouts.app')
 
-@section('title','Welcome to Doral')
+@section('title','MD Order - Failed Data')
 @section('pageTitleSection')
-    Md Order - Failed Data
+    MD Order - Failed Data
 @endsection
 @section('content')
 <div class="app-vbc">
@@ -10,7 +10,7 @@
     <thead>
         <tr>
             <th>File Name</th>
-            <th>Attribut</th>
+            <th>Attribute</th>
             <th>Error</th>
             <th>Row</th>
             <th>View Value</th>

@@ -52,9 +52,12 @@
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+
+
 @endpush
 
 @push('scripts')
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>--}}
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
 <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
@@ -99,7 +102,6 @@
                 allowClear: true,
                 width : '15rem'
             });
-
             $('.item2').on('change', function () {
                 table
                     .columns( $(this).attr('data-id'))
@@ -195,7 +197,7 @@
                         return '-';
                     }
                 },
-                {data: 'action',name: 'action'}
+                {data: 'action',name: 'action', "bSortable": false}
             ],
             "order": [[ 1, "desc" ]],
             "pageLength": 5,
@@ -299,7 +301,6 @@
         }
 
         function allSelectedAccept() {
-            alert();
             $("#loader-wrapper").show();
 
             // Iterate over all selected checkboxes

@@ -79,7 +79,7 @@
                             </span></button>
                     <h1 class="title">
                         @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
-                            {{ $value }}
+                            {{ ucfirst($value) }}
                         @endforeach
                         </h1>
                 </div>

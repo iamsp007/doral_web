@@ -143,11 +143,11 @@
                     <h1 class="title">
                         @hasrole('referral')
                             @foreach(Auth::guard('referral')->user()->roles->pluck('name') as $key=>$value)
-                                {{ $value }}
+                                {{ ucfirst($value) }}
                             @endforeach
                         @else
                             @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
-                                {{ $value }}
+                                {{ ucfirst($value) }}
                             @endforeach
                         @endrole
                     </h1>
@@ -216,6 +216,7 @@
     <script src="{{ asset('assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
+    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.min.js') }}"></script>
     <script>
         var base_url = $('#base_url').val();

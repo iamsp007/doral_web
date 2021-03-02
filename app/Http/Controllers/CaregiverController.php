@@ -119,7 +119,7 @@ class CaregiverController extends Controller
     {
         $searchCaregiverIds = $this->searchCaregiverDetails();
         $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
-        // dump(count($caregiverArray));
+        //dump(count($caregiverArray));
         // whereIn($caregiverArray)
         // $data = HHAApiCaregiver::dispatch($caregiverArray);
 
@@ -229,10 +229,10 @@ class CaregiverController extends Controller
             ]);
     
             $user_id = DB::getPdo()->lastInsertId();
-              dump($user_id);
+              
             $user = User::find($user_id);
             $user->assignRole('patient')->syncPermissions(Permission::all());
-            
+    
             self::saveCaregiverInfo($demographicDetails, $user_id);
 
             self::saveDemographic($demographicDetails, $user_id);

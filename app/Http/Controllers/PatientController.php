@@ -117,4 +117,9 @@ class PatientController extends Controller
             return response()->json(['status'=>false,'message'=>$exception->getMessage(),'data'=>null],422);
         }
     }
+
+    public function employeePhysicalExaminationReport()
+    {
+        return view('pages.employee-physical-examination-report');
+    }
 }

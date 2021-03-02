@@ -1,6 +1,6 @@
 @extends('pages.layouts.app')
 
-@section('title','Welcome to Doral')
+@section('title','Occupational Health - Failed Data')
 @section('pageTitleSection')
     Occupational Health - Failed Data
 @endsection
@@ -10,7 +10,7 @@
     <thead>
         <tr>
             <th>File Name</th>
-            <th>Attribut</th>
+            <th>Attribute</th>
             <th>Error</th>
             <th>Row</th>
             <th>View Value</th>

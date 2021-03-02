@@ -1,4 +1,5 @@
 @extends('pages.layouts.app')
+@section('title','Employee')
 @section('content')
 <div class="app-roles">
     <!-- View Employee List HTML -->

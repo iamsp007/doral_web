@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <th><input value="1" type="checkbox"></th>
-                <th>Refferral Type</th>
+                <th>Referral Type</th>
                 <th>Company Name</th>
                 <th>Email</th>
                 <th>Action</th>

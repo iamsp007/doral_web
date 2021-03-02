@@ -155,7 +155,7 @@
                                                                         <input type="tel"
                                                                                class="form-control-plaintext _detail no-height" readonly
                                                                                name="phoneno" data-id="phoneno"
-                                                                               onclick="editableField('phoneno')" id="phoneno"
+                                                                               onclick="" id="phoneno"
                                                                                placeholder="{{ $details->detail?($details->detail->phone1?$details->detail->phone1:'-'):'-' }}" value="{{ $details->detail?$details->detail->phone1:'-' }}">
                                                                     </div>
                                                                 </div>
@@ -170,7 +170,7 @@
                                                                     <h3 class="_title">Email</h3>
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="emailId" onclick="editableField('emailId')"
+                                                                           name="emailId" onclick=""
                                                                            data-id="emailId" id="emailId"
                                                                            placeholder="{{ $details->detail?$details->detail->email:'-' }}" value="{{ $details->detail?$details->detail->email:'-' }}">
                                                                     <!-- <a href="mailto:abcinsurance@gmail.com"
@@ -188,7 +188,7 @@
                                                                     <!-- <h1 class="_detail">1/1/2020</h1> -->
                                                                     <input type="date"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="start_date" onclick="editableField('start_date')"
+                                                                           name="start_date" onclick=""
                                                                            data-id="start_date" id="start_date" placeholder="{{ $details->detail?$details->detail->start_date:'-' }}"
                                                                            value="{{ $details->detail?$details->detail->start_date:'-' }}">
                                                                 </div>
@@ -204,7 +204,7 @@
                                                                     <!-- <h1 class="_detail">lorem ipus</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="ethnicity" onclick="editableField('ethnicity')"
+                                                                           name="ethnicity" onclick=""
                                                                            data-id="ethnicity" id="ethnicity" placeholder="{{ $details->detail?(isset($details->detail->ethnicity)?$details->detail->ethnicity:'-'):'-' }}"
                                                                            value="{{ $details->detail?(isset($details->detail->ethnicity)?$details->detail->ethnicity:'-'):'-' }}">
                                                                 </div>
@@ -224,7 +224,7 @@
                                                                     <!-- <h1 class="_detail">8454</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="SSN" onclick="editableField('SSN')" data-id="SSN"
+                                                                           name="SSN" onclick="" data-id="SSN"
                                                                            id="SSN" placeholder="{{ $details->detail?(isset($details->detail->ssn)?$details->detail->ssn:'-'):'-' }}#" value="{{ $details->detail?$details->detail->ssn:'-' }}">
                                                                 </div>
                                                             </div>
@@ -239,7 +239,7 @@
                                                                     <!-- <h1 class="_detail">8965465</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="admissionId" onclick="editableField('admissionId')"
+                                                                           name="admissionId" onclick=""
                                                                            data-id="admissionId" id="admissionId"
                                                                            placeholder="{{ $details->detail?$details->detail->patient_id:'-' }}" value="{{ $details->detail?$details->detail->patient_id:'-' }}">
                                                                 </div>
@@ -255,7 +255,7 @@
                                                                     <!-- <h1 class="_detail">lorem ipus</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="nurse" onclick="editableField('nurse')" data-id="nurse"
+                                                                           name="nurse" onclick="" data-id="nurse"
                                                                            id="nurse" placeholder="{{ $details->detail?(isset($details->detail->nurse)?$details->detail->nurse:'-'):'-' }}" value="{{ $details->detail?(isset($details->detail->nurse)?$details->detail->nurse:'-'):'-' }}">
                                                                 </div>
                                                             </div>
@@ -274,7 +274,7 @@
                                                                     <!-- <h1 class="_detail">lorem ipus</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="coordinator" onclick="editableField('coordinator')"
+                                                                           name="coordinator" onclick=""
                                                                            data-id="coordinator" id="coordinator" placeholder="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}"
                                                                            value="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}">
                                                                 </div>
@@ -290,7 +290,7 @@
                                                                     <!-- <h1 class="_detail">75443</h1> -->
                                                                     <input type="number"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="claim_no" onclick="editableField('claim_no')"
+                                                                           name="claim_no" onclick=""
                                                                            data-id="claim_no" id="claim_no" placeholder="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}"
                                                                            value="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}">
                                                                 </div>
@@ -306,7 +306,7 @@
                                                                     <!-- <h1 class="_detail">75443</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="apt" onclick="editableField('apt')"
+                                                                           name="apt" onclick=""
                                                                            data-id="apt" id="apt" placeholder="{{ $details->detail?(isset($details->detail->apt)?$details->detail->apt:''):'-' }}"
                                                                            value="{{ $details->detail?(isset($details->detail->apt)?$details->detail->apt:''):'-' }}">
                                                                 </div>
@@ -325,7 +325,7 @@
                                                                         </h1> -->
                                                                         <input type="text"
                                                                                class="form-control-plaintext _detail no-height" readonly
-                                                                               name="address" onclick="editableField('address')"
+                                                                               name="address" onclick=""
                                                                                data-lat="{{ $details->detail?(isset($details->detail->address_latlng->lat)?$details->detail->address_latlng->lat:'25.145262'):'25.145262' }}"
                                                                                data-lng="{{ $details->detail?(isset($details->detail->address_latlng->lng)?$details->detail->address_latlng->lng:'70.152484'):'70.145262' }}"
                                                                                data-id="address" id="address" placeholder="{{ $details->detail?$details->detail->address_full:'-' }}"
@@ -369,7 +369,7 @@
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="eng_name"
-                                                                                       onclick="editableField('eng_name')"
+                                                                                       onclick=""
                                                                                        data-id="eng_name" id="eng_name"
                                                                                        placeholder="{{ $details->detail?$details->detail->eng_name:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->eng_name:'' }}">
@@ -387,7 +387,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="eng_address"
-                                                                                       onclick="editableField('eng_address')"
+                                                                                       onclick=""
                                                                                        data-id="eng_address" id="eng_address"
                                                                                        placeholder="{{ $details->detail?$details->detail->eng_addres:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->eng_addres:'' }}">
@@ -405,7 +405,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="emg_phone"
-                                                                                       onclick="editableField('emg_phone')"
+                                                                                       onclick=""
                                                                                        data-id="emg_phone" id="emg_phone"
                                                                                        placeholder="{{ $details->detail?$details->detail->emg_phone:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->emg_phone:'' }}">
@@ -423,7 +423,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="emg_relationship"
-                                                                                       onclick="editableField('emg_relationship')"
+                                                                                       onclick=""
                                                                                        data-id="emg_relationship" id="emg_relationship"
                                                                                        placeholder="{{ $details->detail?$details->detail->emg_relationship:'' }}" value="{{ $details->detail?$details->detail->emg_relationship:'' }}">
                                                                             </div>
@@ -459,7 +459,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="work_name"
-                                                                                       onclick="editableField('work_name')"
+                                                                                       onclick=""
                                                                                        data-id="work_name" id="work_name"
                                                                                        placeholder="{{ $details->detail?$details->detail->work_name:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->work_name:'' }}">
@@ -477,7 +477,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="home_phone1"
-                                                                                       onclick="editableField('home_phone1')"
+                                                                                       onclick=""
                                                                                        data-id="home_phone1" id="home_phone1"
                                                                                        placeholder="{{ $details->detail?$details->detail->home_phone1:'-' }}"
                                                                                        value="{{ $details->detail?$details->detail->home_phone1:'-' }}">
@@ -495,7 +495,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="cell_phone1"
-                                                                                       onclick="editableField('home_phone2')"
+                                                                                       onclick=""
                                                                                        data-id="cell_phone1" id="cell_phone1"
                                                                                        placeholder="{{ $details->detail?$details->detail->cell_phone1:'-' }}" value="{{ $details->detail?$details->detail->cell_phone1:'-' }}">
                                                                             </div>
@@ -512,7 +512,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="work_phone3"
-                                                                                       onclick="editableField('work_phone3')"
+                                                                                       onclick=""
                                                                                        data-id="work_phone3" id="work_phone3"
                                                                                        placeholder="{{ $details->detail?$details->detail->work_phone3:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->work_phone3:'-' }}">

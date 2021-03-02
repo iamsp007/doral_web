@@ -76,10 +76,11 @@ class GetPatientDetailsController extends Controller
                 $ethnicity = json_decode($patient->caregiverInfo->ethnicity);
             }
 
+            $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
             if (isset($patient->caregiverInfo->mobile)) {
                 $mobile = json_decode($patient->caregiverInfo->mobile);
             }
-
+            
             if (isset($patient->caregiverInfo->marital_status)) {
                 $maritalStatus = json_decode($patient->caregiverInfo->marital_status);
             }

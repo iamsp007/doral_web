@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/download-application',function (){
-
     return view('home');
 });
 

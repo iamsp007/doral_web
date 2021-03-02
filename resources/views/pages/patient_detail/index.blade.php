@@ -19,9 +19,11 @@
             </div>
             <div>
                <ul class="shortdesc">
-                  <li>Patient ID: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->caregiver_id : '' }}</span></li>
+                  <li>Employee Type: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->employee_type : '' }}</span></li>
+                  <li>Status: <span>{{ ($status[0]) ? $status[0]->Name : '' }}</span></li>
+                  <li>Caregiver ID: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->caregiver_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender }}</span></li>
-                  <li>DOB: <span>{{ $patient->dob }}</span></li>
+                  <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
                </ul>
             </div>
          </div>
@@ -40,14 +42,14 @@
                            class="mr-2 activeIcon">Demographics
                      </a>
                   </li>
-                  <li>
+                  <!-- <li>
                      <a class="nav-link d-flex align-items-center" id="patient-referral-tab" data-toggle="pill"
                         href="#patient-referral" role="tab" aria-controls="patient-referral" aria-selected="true">
                         <img src="{{ asset('assets/img/icons/icons_demographics.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_demographics_active.svg') }}" alt=""
                            class="mr-2 activeIcon">Patient Referral
                      </a>
-                  </li>
+                  </li> -->
                   <li>
                      <a class="nav-link d-flex align-items-center" id="insurance-tab" data-toggle="pill"
                         href="#insurance" role="tab" aria-controls="insurance" aria-selected="false">
@@ -94,14 +96,14 @@
                            class="mr-2 activeIcon">
                         Clinical</a>
                   </li>
-                  <li>
+                  <!-- <li>
                      <a class="nav-link  d-flex align-items-center" id="clinical-info-tab1" data-toggle="pill"
                         href="#clinical-info1" role="tab" aria-controls="clinical-info1" aria-selected="false">
                         <img src="{{ asset('assets/img/icons/icons_clinical.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_clinical_active.svg') }}" alt=""
                            class="mr-2 activeIcon">
                         Clinical Info</a>
-                  </li>
+                  </li> -->
                   <li>
                      <a class="nav-link d-flex align-items-center" id="physican-tab" data-toggle="pill"
                         href="#physican" role="tab" aria-controls="physican" aria-selected="false">
@@ -146,7 +148,7 @@
                   <!-- Demographics End -->
 
                   <!-- Patient Referral Start -->
-                   @include('pages.patient_detail.patient_referral')
+                   <!-- @include('pages.patient_detail.patient_referral') -->
                   <!-- Patient Referral End -->
                   
                   <!-- Insurance Start -->
@@ -159,6 +161,14 @@
                   
                   <!-- Home Care Start -->
                      @include('pages.patient_detail.home_care')
+                  <!-- Home Care End -->
+
+                   <!-- Home Care Start -->
+                   @include('pages.patient_detail.ccm')
+                  <!-- Home Care End -->
+
+                   <!-- Home Care Start -->
+                   @include('pages.patient_detail.rpm')
                   <!-- Home Care End -->
 
                   <!-- Clinical Start -->
@@ -387,6 +397,16 @@
         }
        
          $(document).ready(function() {
+            // $('.phoneNumber').keyup(function () {
+            var val = $('.phoneNumber').value.replace(/\D/g, '');
+            val = val.replace(/^(\d{3})/, '($1)-');
+            val = val.replace(/-(\d{3})/, '-$1-');
+            val = val.replace(/(\d)-(\d{4}).*/, '$1-$2');
+            //$(this).parent().parent().find("input[name=quantity]").val();
+            // $(this).closest('.phoneNumber').val(val);
+            $('.phoneNumber').val(val);
+            // });
+
             $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
                singleDatePicker: true,
                showDropdowns: true,
@@ -583,10 +603,12 @@
 @endpush
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset( 'assets/calendar/lib/main.css' ) }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" /> -->
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" /> -->
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" /> -->
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" /> -->
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}"> -->
+    <!-- <link rel="stylesheet" href="{{ asset( 'assets/calendar/lib/main.css' ) }}" /> -->
+    <style>
+    </style>
 @endpush

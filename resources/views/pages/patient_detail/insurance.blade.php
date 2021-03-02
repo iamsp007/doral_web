@@ -5,7 +5,7 @@
                            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip"
                               data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt=""
                               onclick="editAllField('insurance')">
-                           <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
+                           <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip"
                               data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt=""
                               onclick="updateAllField('insurance')">
                         </div>

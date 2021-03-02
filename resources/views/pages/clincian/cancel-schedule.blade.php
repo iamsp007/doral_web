@@ -1,8 +1,8 @@
 @extends('pages.layouts.app')
 
-@section('title','Cancelled Appointments')
+@section('title','Schedule Appointment List')
 @section('pageTitleSection')
-    Cancelled Appointments
+    Cancel Appointment List
 @endsection
 
 @section('content')

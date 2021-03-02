@@ -342,6 +342,18 @@
                <!-- Cover Note End-->
                <!-- Lab Start-->
                <div class="tab-pane fade show active" id="lab-report" role="tabpanel" aria-labelledby="lab-tab">
+                   <div class="d-flex justify-content-end mb-3">
+                       <button type="submit"
+                               class="btn btn-outline-green mr-3 d-flex align-items-center" name=""
+                               data-toggle="modal" data-target="#uploadLabReportModal"><i
+                               class="las la-file-upload la-2x mr-2"></i>Upload Lab
+                           Reports</button>
+                       <button type="submit"
+                               class="btn btn-outline-green d-flex align-items-center"
+                               data-toggle="modal" data-target="#labreportModal" name=""><i
+                               class="las la-binoculars la-2x mr-2"></i> View Lab
+                           Reports</button>
+                   </div>
                   <ul class="nav nav-pills nav-clinical-nested shadow-sm mb-3" id="pills-tab" role="tablist">
                      @foreach($labReportTypes as $key => $labReportType)
                         <li class="nav-item" role="presentation">
@@ -356,7 +368,7 @@
                      <!-- TB Screen Start -->
                         @include('pages.patient_detail.lab.tb-screen')
                      <!-- TB Screen End -->
-                 
+
                      <!-- Immunization Start -->
                         @include('pages.patient_detail.lab.immunization')
                      <!-- Immunization End -->
@@ -364,6 +376,10 @@
                      <!-- Drug Screen Start -->
                         @include('pages.patient_detail.lab.drug-screen')
                      <!-- Drug Screen End -->
+
+                     <!-- Lab Report Screen Start -->
+                        @include('pages.patient_detail.lab.reports')
+                     <!-- Lab Report Screen End -->
                   </div>
                </div>
                <!-- Lab End-->

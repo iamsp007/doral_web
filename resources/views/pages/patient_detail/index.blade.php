@@ -150,7 +150,7 @@
                   <!-- Patient Referral Start -->
                    <!-- @include('pages.patient_detail.patient_referral') -->
                   <!-- Patient Referral End -->
-                  
+
                   <!-- Insurance Start -->
                      @include('pages.patient_detail.insurance')
                   <!-- Insurance End -->
@@ -158,7 +158,7 @@
                   <!-- Billing Start -->
                      @include('pages.patient_detail.billing')
                   <!-- Billing End -->
-                  
+
                   <!-- Home Care Start -->
                      @include('pages.patient_detail.home_care')
                   <!-- Home Care End -->
@@ -199,7 +199,7 @@
          </div>
       </div>
    </div>
-  
+
    <!-- Modal For Med Profile Start -->
    <div class="modal" tabindex="-1" id="patientMedicateInfo">
       <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -350,6 +350,427 @@
    </div>
    <!-- Modal For Med Profile End -->
 
+   <!-- Modal for lab reports -->
+   <div class="modal fade" id="labreportModal" tabindex="-1" aria-labelledby="labreportModal" aria-hidden="true">
+       <div class="modal-dialog modal-large modal-dialog-centered">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalLabel">View Lab Reports</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <div class="modal-body">
+                   <div class="pb-5">
+                       <div class="d-flex justify-content-end mb-4">
+                           <button type="submit" class="btn btn-outline-green d-flex align-items-center"
+                                   name="Download">Download All Reports</button>
+                       </div>
+                       <div class="scrollbar scrollbar9">
+                           <div class="row">
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" onclick="openDoc()"
+                                              class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-pdf la-2x"></i> All Bill.pdf
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" data-toggle="modal" data-target="#docViewerModal"
+                                                          href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-pdf la-2x"></i> All Bill.pdf
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-word la-2x"></i> Healthcare.docx
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-word la-2x"></i> Lab.docx
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-word la-2x"></i> X-Ray.docx
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-word la-2x"></i> CHHA.docx
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="row mt-4">
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-pdf la-2x"></i> All Bill.pdf
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-pdf la-2x"></i> All Bill.pdf
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-word la-2x"></i> Healthcare.docx
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-word la-2x"></i> Lab.docx
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-word la-2x"></i> X-Ray.docx
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-12 col-sm-2">
+                                   <div class="card shadow-sm">
+                                       <div class="card-body">
+                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
+                                                src="../assets/img/All Banner copy.docx.png">
+                                       </div>
+                                       <div class="card-footer file-footer">
+                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
+                                               <i class="lar la-file-word la-2x"></i> CHHA.docx
+                                           </a>
+                                           <div>
+                                               <div class="dropdown">
+                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
+                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                       <i class="las la-ellipsis-v"></i>
+                                                   </button>
+                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                       <a class="dropdown-item" href="#">Download File</a>
+                                                       <a class="dropdown-item" href="#">View Details</a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- Modal end for lab reports -->
+   <!-- Modal For Doc Viewer Start -->
+   <div class="modal fade" id="docViewerModal" tabindex="-1" aria-labelledby="docViewerModalLabel"
+        aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered modal-large">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalLabel">All Bill.pdf</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <div class="modal-body pb-4">
+                   <iframe id="iframeModal"
+                           src="https://www.cottagehomecareservice.com/assets/timesheet/files/timesheet_1614303331.pdf?page=hsn#toolbar=1"
+                           scrolling="no" frameborder="0" style="overflow:hidden !important; display:block; width:100%"
+                           height="768" width="100%"></iframe>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- Modal For Doc Viewer End -->
+   <!-- Modal -->
+   <div class="modal fade" id="uploadLabReportModal" tabindex="-1" aria-labelledby="uploadLabReportModalLabel"
+        aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalLabel">Upload Lab Report(s)</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <div class="modal-body">
+                   <div class="pb-4">
+                       <div class="form-group">
+                           <label for="selectRole" class="label-custom"><span>Proposed</span> Date(s)</label>
+                           <select name="selectRole" id="selectRole" class="input-skin">
+                               <option value="">Select Type</option>
+                               <option value="Lab">Lab</option>
+                               <option value="X-Ray">X-Ray</option>
+                               <option value="CHHA">CHHA</option>
+                               <option value="Home Oxygen">Home Oxygen</option>
+                               <option value="Home Infusion">Home Infusion</option>
+                           </select>
+                       </div>
+                       <div class="form-group">
+                           <div class="upload-your-files dropzone" id="dropzone-file-lab-report">
+                               <h1>Upload your files</h1>
+                               <p>Upload from your computer (.xls, .xlsx, .csv,.pdf)</p>
+                               <div class="upload-files">
+
+                                   <input type="hidden" name="formSelect" id="formSelect" value="">
+                                   <input type="hidden" name="enrollstatus" id="enrollstatus" value="">
+                                   <input type="hidden" name="services" id="services" value="">
+                                   <div class="upload_icon"></div>
+                                   <div>
+                                       <h1 class="_title">Drag & Drop</h1>
+                                       <p>Or</p>
+                                       <div class="mt-3">
+                                           <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                    height="17" viewBox="0 0 20 17">
+                                                   <path
+                                                       d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
+                                               </svg> <span>Choose a file&hellip;</span></label>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="d-flex mt-4">
+                           <input type="submit" value="Upload File(s)" class="btn btn--submit btn-lg" style="width: 50%;">
+                           <input type="cancel" value="Cancel" class="btn btn--reset btn-lg ml-4" style="width: 50%;">
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
 @endsection
 
 @push('scripts')
@@ -395,7 +816,7 @@
                });
             }
         }
-       
+
          $(document).ready(function() {
             // $('.phoneNumber').keyup(function () {
             var val = $('.phoneNumber').value.replace(/\D/g, '');
@@ -418,13 +839,13 @@
                var selectedDate = new Date($('[name="lab_due_date"]').val());
                var date = selectedDate.getDate();
                var monthf = selectedDate.getMonth() + 1;
-               var month  = (monthf < 10 ? '0' : '') + monthf; 
+               var month  = (monthf < 10 ? '0' : '') + monthf;
                var year = selectedDate.getFullYear() + 1;
                var expirydate = month + '/'+ date + '/'+ year;
                $(".lab-expiry-date").text(expirydate);
                $("#lab_expiry_date").val(expirydate);
             });
-                 
+
             $(document).on('click','.patient-detail-lab-report',function(event) {
                event.preventDefault();
 
@@ -443,7 +864,7 @@
                         printErrorMsg(data.message);
                      } else {
                         $(".print-error-msg").hide();
-                        
+
                         if (data.type == 'tb') {
                            var explodercounter = 'tb' + Number($(document).find(".tb-main-tr").length + 1);
                         } else if (data.type == 'emmune') {
@@ -451,24 +872,24 @@
                         } else if (data.type == 'drug') {
                            var explodercounter = 'drug' + Number($(document).find(".drug-main-tr").length + 1);
                         }
-                        
+
                         var html = '<tr class="';
                         if (data.result.result === '1') {
-                        
+
                            html += 'bg-positive text-white';
                         }
-                     
+
                         html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td>';
                         if (data.type == 'emmune' || data.type == 'drug') {
                            html += '<td>' + data.result.perform_date + '</td>';
                         }
-               
+
                         html +='<td>' + data.result.expiry_date + '</td>';
                         if (data.type == 'emmune') {
                            html += '<td>' + data.result.titer + '</td>';
                         }
                         html +='<td>' + data.result.lab_result + '</td><td class="text-center"><span onclick="exploder(\'' + explodercounter + '\')" id="' + explodercounter + '" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.result.id + '" /></td></tr>';
-                              
+
                         if (data.type == 'tb') {
                            $('.tb-list-order tr:last').before(html);
                            $(document).find('.tb-sequence').text(data.newCount);
@@ -482,13 +903,13 @@
                            $(document).find('.drug-sequence').text(data.newCount);
                            var select = $('.drug_lab_report_types').empty();
                         }
-                        
+
                         select.append('<option value="">Select a test type</option>');
 
                         $.each(data.tbLabReportTypes, function (key, value) {
                            select.append('<option value="' + value.id + '">' + value.name + '</option>');
                         });
-                        
+
                         swal("Success!", data.message, "success");
                      }
                   },
@@ -503,7 +924,7 @@
                var t = $(this);
                var id = t.attr("id");
                var patient_referral_id = $(this).data("id") ;
-            
+
                swal({
                   title: "Are you sure?",
                   text: "Are you sure want to delete this record?",
@@ -542,7 +963,7 @@
                               $.each(data.tbLabReportTypes, function (key, value) {
                                     select.append('<option value="' + value.id + '">' + value.name + '</option>');
                               });
-                              
+
                               swal(
                                     'Deleted!',
                                     data.message,
@@ -566,9 +987,9 @@
          $('body').on('blur', '.note-area', function(e){
             e.preventDefault();
             var txtAval=$(this).val();
-         
+
             var patient_lab_report_id = $(this).next("input[name=patient_lab_report_id]").val();
-         
+
             $.ajax({
                headers: {
                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -600,15 +1021,71 @@
     ></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
     <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
+    <script src="{{ asset('assets/js/uploadfiles.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script>
+        var reportable = $('#reportTable').DataTable();
+        var myDropzone = new Dropzone("#dropzone-file-lab-report", {
+            url:'{{ route('referral.vbc-upload-bulk-data-store') }}',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method:'POST',
+            params:{
+                vbc_select:1,
+                service_id:2,
+                formSelect:null
+            },
+            maxFiles: 10,
+            autoProcessQueue: true,
+            progress:true,
+            accept: function(file, done) {
+                done();
+            },
+            init: function() {
+                this.on("maxfilesexceeded", function(file){
+                    var msgEl = $(file.previewElement).find('.dz-error-message');
+                    msgEl.text('Only one file allowed');
+                    msgEl.show();
+                    msgEl.css("opacity", 1);
+                    return false
+                });
+                this.on("success", function(file, responseText) {
+                    console.log(responseText)
+                });
+            },
+            paramName: 'files',
+            acceptedFiles: ".xls,.xlsx,.csv",
+            addRemoveLinks: true,
+            error:function (file, error) {
+                if (file && error) {
+                    var msgEl = $(file.previewElement).find('.dz-error-message');
+                    msgEl.text(error.message?error.message:error);
+                    msgEl.show();
+                    msgEl.css("opacity", 1);
+                }else {
+                    var msgEl = $(file.previewElement).find('.dz-error-message');
+                    msgEl.text(error);
+                    msgEl.show();
+                    msgEl.css("opacity", 1);
+                }
+            }
+        });
+    </script>
+
 @endpush
 
 @push('styles')
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" /> -->
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" /> -->
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" /> -->
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" /> -->
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}"> -->
-    <!-- <link rel="stylesheet" href="{{ asset( 'assets/calendar/lib/main.css' ) }}" /> -->
+    <link rel="stylesheet" href="{{ asset('assets/css/uploadfiles.css') }}">
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" />
     <style>
+        .app .app-content .app-header-block._fullwidth {
+            width: calc(100% - 7rem);
+            position: fixed;
+            right: 0;
+            z-index: 0;
+        }
+        .modal-backdrop{z-index: 0!important;}
+        .modal-backdrop.show{z-index: -1!important;}
     </style>
 @endpush

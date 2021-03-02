@@ -38,9 +38,7 @@ class CaregiverController extends Controller
         })->where('status', $status)->whereNotNull('first_name');
 
         return DataTables::of($patientList)
-            ->addColumn('id', function($q){
-                return '<label><input type="checkbox" /><span></span></label>';
-            })
+            ->addColumn('id','<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>')
             ->addColumn('full_name', function($q){
                 return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
             })
@@ -103,7 +101,7 @@ class CaregiverController extends Controller
     {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
-
+      
         if ($response->status === true){
             return response()->json($response,200);
         }
@@ -124,14 +122,18 @@ class CaregiverController extends Controller
         // $data = HHAApiCaregiver::dispatch($caregiverArray);
 
         // return 'Update successfully';
-        // dump($counter);
-        foreach (array_slice($caregiverArray, 0, 1) as $cargiver_id) {
+        // dump($counter);2960 - 2660
+        foreach (array_slice($caregiverArray, 0, 2960) as $cargiver_id) {
             // foreach ($caregiverArray as $cargiver_id) {
                 /** Store patirnt demographic detail */
-                $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
-                $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                    
-                self::saveUser($demographicDetails);
+                $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
+       
+                if (! $userCaregiver) {
+                    $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
+                    $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+                    self::saveUser($demographicDetails);
+                }
+              
     
                 // $getChangesV2 = $this->getChangesV2();
                 // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];

@@ -16,13 +16,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/apexcharts.min.css') }}">
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}"> -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/assign-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.css') }}">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"> -->
     <link rel="stylesheet" href="{{ asset('css/toaster.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>

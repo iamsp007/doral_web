@@ -206,12 +206,13 @@ class ClinicianService
                     'json'=>$data
                 ]
             );
-
+            // echo 'fsdfds';
+            // dd($response);
             $response = $response->getBody()->getContents();
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
+            dd($exception->getMessage());
         }
     }
     

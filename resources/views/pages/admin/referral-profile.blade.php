@@ -1,7 +1,7 @@
 @extends('pages.layouts.app')
-@section('title','Referral Profile')
+@section('title','Admin - Refferal Profile')
 @section('pageTitleSection')
-Referral Profile
+Refferal Profile
 @endsection
 @section('content')
 <style>

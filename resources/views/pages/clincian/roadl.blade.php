@@ -1,6 +1,6 @@
 @extends('pages.layouts.app')
 
-@section('title','Patient RoadL')
+@section('title','Patient RoadL Request')
 @section('pageTitleSection','Roadl')
 @section('upload-btn')
     <div class="d-flex">

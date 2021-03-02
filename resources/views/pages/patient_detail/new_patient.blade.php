@@ -68,7 +68,14 @@
                 {data: 'action', name: 'action'},
             
             ],
-            // "order": [[ 1, "desc" ]],
+            "order": [[ 1, "desc" ]],
+            'columnDefs': [
+                {
+                    targets: 0,
+                    'searchable': false,
+                    'orderable': false,
+                }
+            ],
         });
 
         $('body').on('click', '.update-status', function () {

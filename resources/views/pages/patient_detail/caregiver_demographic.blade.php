@@ -402,7 +402,7 @@
                                 </div>
                                 <div class="rs">
                                     <h3 class="_title">Mobile ID Type Description</h3>
-                                    @if(isset($mobile))
+                                    @if($mobile)
                                         <input type="text"
                                             class="form-control-plaintext _detail " readonly
                                             name="mobile_id_type_description"
@@ -846,7 +846,7 @@
                 <!-- Referral Source  Detail -->
 
                 <!-- Referral Source  Detail -->
-                @if(!empty($inactiveReasonDetail[0]))
+                @if($inactiveReasonDetail)
                     <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                     data-name="emergency_contact_detail">
                         <div class="app-card-header">
@@ -866,7 +866,7 @@
                                                 name="inactive_note"
                                                 onclick="editableField('inactive_note')"
                                                 data-id="inactive_note" id="inactive_note"
-                                                placeholder="Inactive Note" value="{{ $inactiveReasonDetail[0]->InactiveNote }}">
+                                                placeholder="Inactive Note" value="{{ $inactiveReasonDetail->InactiveNote }}">
                                             </div>
                                         </div>
                                     </div>
@@ -880,7 +880,7 @@
                                                 name="inactive_reason"
                                                 onclick="editableField('inactive_reason')"
                                                 data-id="inactive_reason" id="inactive_reason"
-                                                placeholder="Inactive Reason" value="{{ $inactiveReasonDetail[0]->InactiveReason }}">
+                                                placeholder="Inactive Reason" value="{{ $inactiveReasonDetail->InactiveReason }}">
                                             </div>
                                         </div>
                                     </div>

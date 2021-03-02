@@ -21,7 +21,7 @@
                <ul class="shortdesc">
                   <li>Employee Type: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->employee_type : '' }}</span></li>
                   <li>Status: <span>{{ ($status[0]) ? $status[0]->Name : '' }}</span></li>
-                  <li>Caregiver ID: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->caregiver_id : '' }}</span></li>
+                  <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->doral_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender }}</span></li>
                   <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
                </ul>

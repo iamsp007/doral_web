@@ -6,12 +6,15 @@
 @endsection
 
 @section('content')
+    <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
+        <button type="button" onclick="doaction('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
+        <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
+    </div>
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
-    <input type="hidden" value="{{ $status }}" id="status" name="status" />
+        <input type="hidden" value="{{ $status }}" id="status" name="status" />
         <thead>
         <tr>
-            <th><label><input type="checkbox" /><span></span></label></th>
-            <!-- <th>#</th> -->
+            <th><div class="checkbox"><input class="mainchk" type="checkbox"/><span class="checkbtn"></span></div></th>
             <th>Patient Name</th>
             <th>Gender</th>
             <th>SSN</th>
@@ -79,14 +82,70 @@
         });
 
         $('body').on('click', '.update-status', function () {
-            var t = $(this);
-            var id = t.attr("data-id");
-            var status = t.attr("data-status");
-            var patientName = t.attr("patient-name");
+            var id = $(this).attr("data-id");
+            $(".innerallchk, .mainchk").prop("checked","");
+            $(this).parents("tr").find(".innerallchk").prop("checked",true);
+            doaction(status) 
+        });
+
+        $(".mainchk").click(function () {
+            var ch = $(this).prop("checked");
+            if(ch == true) {
+                $(".innerallchk").prop("checked","checked");
+                $('#acceptRejectBtn').show();
+            } else {
+                $(".innerallchk").prop("checked","");
+                $('#acceptRejectBtn').hide();
+            }
+        });
+
+        function chkmain() {
+            var ch = $(".innerallchk").prop("checked");
+            if(ch == true) {
+                $('#acceptRejectBtn').show();
+                var len = $(".innerallchk:unchecked").length;
+                if(len == 0) {
+                    $(".mainchk").prop("checked","checked");
+                } else {
+                    $(".mainchk").prop("checked","");
+                }
+            } else {
+                var len = $(".innerallchk:checked").length;
+                if(len == 0) {
+                    $('#acceptRejectBtn').hide();
+                } else {
+                    $('#acceptRejectBtn').show();
+                    var len = $(".innerallchk:unchecked").length;
+                    if(len == 0) {
+                        $(".mainchk").prop("checked","checked");
+                    } else {
+                        $(".mainchk").prop("checked","");
+                    }
+                }
+            }
+        }
+
+        function doaction(status) 
+        {
+            var len = $(".innerallchk:checked").length;
+            if (len == 0) {
+                swal(
+                    'Warning!',
+                    'Please select at least one record to continue.',
+                    'warning'
+                );
+            } else {
+                var val = $('.innerallchk:checked').map(function () {
+                    return this.value;
+                }).get();
+                postdataforaction(status, val);
+            }
+        }
             
+        function postdataforaction(status,val) {
             swal({
                 title: "Are you sure?",
-                text: "Are you sure want to reject this " + patientName + "?",
+                text: "Are you sure want to update status of this patient?",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -100,7 +159,7 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: {
-                        "id": id,
+                        "id": val,
                         "status" : status
                     },
                     'success': function (data) {
@@ -116,7 +175,8 @@
                                 data.message,
                                 'success'
                             );
-                            $("#get_patient-table").DataTable().ajax.reload(null, false);
+                            $('#acceptRejectBtn').hide();
+                            refresh();
                         }
                         $("#loader-wrapper").hide();
                     },
@@ -127,9 +187,13 @@
                     });
                 } else {
                     swal('Cancelled', 'Your record is safe :)','error');
+                    $(".innerallchk, .mainchk").prop("checked","");
+                    $('#acceptRejectBtn').hide();
                 }
             });
-        });
-
+        }
+        function refresh() {
+            $("#get_patient-table").DataTable().ajax.reload(null, false);
+        }
     </script>
 @endpush

@@ -38,9 +38,7 @@ class CaregiverController extends Controller
         })->where('status', $status)->whereNotNull('first_name');
 
         return DataTables::of($patientList)
-            ->addColumn('id', function($q){
-                return '<label><input type="checkbox" /><span></span></label>';
-            })
+            ->addColumn('id','<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>')
             ->addColumn('full_name', function($q){
                 return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
             })
@@ -103,7 +101,7 @@ class CaregiverController extends Controller
     {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
-
+      
         if ($response->status === true){
             return response()->json($response,200);
         }

@@ -16,6 +16,8 @@ class CaregiverInfo extends Model
      */
     protected $fillable = [
         'user_id',
+        'company_id',
+        'service_id',
         'caregiver_id',
         'intials',
         'caregiver_gender_id',
@@ -46,4 +48,15 @@ class CaregiverInfo extends Model
         'npi_number',
         'signed_payroll_agreement_date',
     ];
+
+
+    public function company()
+    {
+        return $this->hasOne(Company::class,'id','company_id');
+    }
+
+    public function services()
+    {
+        return $this->hasOne(Services::class,'id','service_id');
+    }
 }

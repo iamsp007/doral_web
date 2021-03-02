@@ -7,6 +7,10 @@
             style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
             onclick="openRoadL('tbbtn')" name="RoadL Request">RoadL Request
          </button>  
+         <a href="{{ route('employee-physical-examination-report') }}" class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3"
+            style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
+            name="EMPLOYEE PHYSICAL EXAMINATION REPORT">EMPLOYEE PHYSICAL EXAMINATION REPORT
+         </a>  
          <div class="recieved_roadl d-none">
             <div class="row">
                <div class="col-12 col-sm-4"></div>

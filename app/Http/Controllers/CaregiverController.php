@@ -46,6 +46,7 @@ class CaregiverController extends Controller
                     });
                 }
             })
+            ->with('demographic')
             ->whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })->orderBy('id', 'DESC');
@@ -91,8 +92,14 @@ class CaregiverController extends Controller
                 if ($q->demographic) {
                     $city_state_json =  json_decode($q->demographic->address);
 
-                    if ($city_state_json[0] || $city_state_json[0]) {
-                        $city_state = $city_state_json[0]->City . ' - ' . $city_state_json[0]->State;
+                    if ($city_state_json[0]) {
+                        if ($city_state_json[0]->City) {
+                            $city_state .= $city_state_json[0]->City;
+                        } 
+                        if ($city_state_json[0]->State) {
+                            $city_state .= ' - ' . $city_state_json[0]->State;
+                        }
+                         
                     }
                 }
                 return $city_state;
@@ -282,7 +289,7 @@ class CaregiverController extends Controller
         $user_id = DB::getPdo()->lastInsertId();
         
         $user = User::find($user_id);
-        // dd($user);
+       
         $user->assignRole('patient')->syncPermissions(Permission::all());
 
         self::saveCaregiverInfo($demographicDetails, $user_id);

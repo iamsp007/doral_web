@@ -68,7 +68,7 @@
                         </div>
                      @endif
                      @if(!empty($patient->caregiverInfo->company->services))
-                        @foreach(explode(",",$patient->caregiverInfo->company->services) as $skey=>$svalue)
+                        @foreach(explode(",",$patient->caregiverInfo->company->services) as $value)
                            @php 
                                  if($value['name'] == '1'):
                                     $name = 'VBC';

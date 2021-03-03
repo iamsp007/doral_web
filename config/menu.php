@@ -33,7 +33,7 @@ return [
                 ]
             ]
         ],
-        ['name'=>'Patient Details Update','url'=>env('APP_URL').'get-patient-detail','route'=>'get-patient-detail','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Patient Details Update'],
+        // ['name'=>'Patient Details Update','url'=>env('APP_URL').'get-patient-detail','route'=>'get-patient-detail','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Patient Details Update'],
         [
             'name'=>'Appointment',
             'url'=>'javascript:void(0)',
@@ -86,10 +86,10 @@ return [
     ],
     'referral'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'referral/dashboard','route'=>'referral/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
-//        ['name'=>'VBC','url'=>env('APP_URL').'referral/vbc','route'=>'referral/vbc','icon'=>'vbc-selected-sb.svg','icon_hover'=>'vbc-sb.svg'],
-//        ['name'=>'MD Order','url'=>env('APP_URL').'referral/md-order','route'=>'referral/md-order','icon'=>'md-order-selected-sb.svg','icon_hover'=>'md-order-sb.svg'],
-//        ['name'=>'Occupational Health','url'=>env('APP_URL').'referral/occupational-health','route'=>'referral/occupational-health','icon'=>'occupational-selected-sb.svg','icon_hover'=>'occupational-sb.svg'],
-//        ['name'=>'Tele Health','url'=>env('APP_URL').'referral/occupational-health','route'=>'referral/occupational-health'],
+        //['name'=>'VBC','url'=>env('APP_URL').'referral/vbc','route'=>'referral/vbc','icon'=>'vbc-selected-sb.svg','icon_hover'=>'vbc-sb.svg'],
+        //['name'=>'MD Order','url'=>env('APP_URL').'referral/md-order','route'=>'referral/md-order','icon'=>'md-order-selected-sb.svg','icon_hover'=>'md-order-sb.svg'],
+        //['name'=>'Occupational Health','url'=>env('APP_URL').'referral/occupational-health','route'=>'referral/occupational-health','icon'=>'occupational-selected-sb.svg','icon_hover'=>'occupational-sb.svg'],
+        //['name'=>'Tele Health','url'=>env('APP_URL').'referral/occupational-health','route'=>'referral/occupational-health'],
         [
             'name'=>'Services',
             'url'=>'javascript:void(0)',
@@ -97,9 +97,9 @@ return [
             'icon'=>'service-sb.svg',
             'icon_hover'=>'service-sb-select.svg',
             'icon_title'=>'Services',
-            'menu'=>[
+            'menu' => [
                 [
-                    'name'=>'VBC',
+                    'name'=>'1',
                     'url'=>env('APP_URL').'referral/vbc',
                     'route'=>'referral/vbc',
                     'icon'=>'home-sb-select.svg',
@@ -107,7 +107,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'MD Order',
+                    'name'=>'2',
                     'url'=>env('APP_URL').'referral/md-order',
                     'route'=>'referral/md-order',
                     'icon'=>'home-sb-select.svg',
@@ -115,7 +115,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Occupational Health',
+                    'name'=>'3',
                     'url'=>env('APP_URL').'referral/occupational-health',
                     'route'=>'referral/occupational-health',
                     'icon'=>'home-sb-select.svg',

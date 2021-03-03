@@ -84,6 +84,25 @@ class User extends Authenticatable
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getStatusDataAttribute()
+    {
+        if ($this->status === '0') {
+            $statusData = 'Pending';
+        } else if ($this->status === '1') {
+            $statusData = 'Active';
+        } else if ($this->status === '2') {
+            $statusData = 'Inactive';
+        } else if ($this->status === '3') {
+            $statusData = 'Reject';
+        } else if ($this->status === '4') {
+            $statusData = 'Initial';
+        }
+        return $statusData;
+    }
+
     public function patientEmergency()
     {
         return $this->hasMany(PatientEmergencyContact::class,'user_id','id');

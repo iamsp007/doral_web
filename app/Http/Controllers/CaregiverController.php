@@ -26,16 +26,29 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
-        if ($request['status'] == 'pending') {
-            $status = '0';
-        } else if($request['status'] == 'active') {
-            $status = '1';
-        } 
-       
-        $patientList = User::with('caregiverInfo', 'demographic','roles')
-        ->whereHas('roles',function ($q){
-            $q->where('name','=','patient');
-        })->where('status', $status)->whereNotNull('first_name');
+        $patientList = User::
+            when($request['status'], function ($query) use($request) {
+                if ($request['status'] == 'pending') {
+                    $query->where('status', '0');
+                } else if($request['status'] == 'active') {
+                    $query->where('status', '1');
+                } else if($request['status'] == 'occupational-health') {
+                    $query->whereHas('caregiverInfo',function ($q){
+                        $q->where('service_id', '3');
+                    });
+                } else if($request['status'] == 'md-order') {
+                    $query->whereHas('caregiverInfo',function ($q){
+                        $q->where('service_id', '2');
+                    });
+                } else if($request['status'] == 'vbc') {
+                    $query->whereHas('caregiverInfo',function ($q){
+                        $q->where('service_id', '1');
+                    });
+                }
+            })
+            ->whereHas('roles',function ($q){
+                $q->where('name','=','patient');
+            })->orderBy('id', 'DESC');
 
         return DataTables::of($patientList)
             ->addColumn('id','<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>')
@@ -84,13 +97,20 @@ class CaregiverController extends Controller
                 }
                 return $city_state;
             })
-            ->addColumn('action', function($row){
+            ->addColumn('action', function($row) use($request){
                 $btn = '';
-                if ($row->status === '0'){
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
-
-                    $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                if ($request['status'] == 'occupational-health' || $request['status'] == 'md-order' || $request['status'] == 'vbc') {
+                    $btn .= $row->status_data;
+                } else {
+                    if ($row->status === '0') {
+                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+    
+                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                    }  else if ($row->status === '1') {
+                        $btn .= 'Accept';
+                    }
                 }
+              
                 return $btn;
             })
             ->rawColumns(['full_name', 'action', 'id'])

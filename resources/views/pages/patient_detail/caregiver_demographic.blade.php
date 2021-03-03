@@ -234,7 +234,7 @@
                             <div class="p-3">
                                 <div class="form-group">
                                     <div class="row">
-                                        @if(!empty($language[0]->Street1))
+                                        @if(!empty($address[0]->Street1))
                                             <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="input_box">
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -250,7 +250,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        @if(!empty($language[0]->Street2))
+                                        @if(!empty($address[0]->Street2))
                                             <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="input_box">
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -266,7 +266,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        @if(!empty($language[0]->City))
+                                        @if(!empty($address[0]->City))
                                             <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="input_box">
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -282,7 +282,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        @if(!empty($language[0]->State))
+                                        @if(!empty($address[0]->State))
                                             <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="input_box">
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>

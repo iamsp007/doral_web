@@ -70,13 +70,13 @@
                      @if(!empty($patient->caregiverInfo->company->services))
                         @foreach(explode(",",$patient->caregiverInfo->company->services) as $value)
                            @php 
-                                 if($value['name'] == '1'):
+                                 if($value == '1'):
                                     $name = 'VBC';
                                  endif;
-                                 if($value['name'] == '2'):
+                                 if($value == '2'):
                                     $name = 'MD Order';
                                  endif;
-                                 if($value['name'] == '3'):
+                                 if($value == '3'):
                                     $name = 'Occupational Health';
                                  endif;
                            @endphp

@@ -77,6 +77,7 @@
                     @endrole
                     @foreach(config($file) as $key=>$value)
                         @if(!isset($value['menu']))
+                       
                             <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                                 <a href="{{ $value['url'] }}">
                                     <div class="notify <?php if($value['name'] == 'RoadL Request') { echo 'd-90'; } ?>">
@@ -101,11 +102,31 @@
                                 </a>
                                 <ul class="child">
                                     <li class="arrow--4"></li>
-                                    @foreach($value['menu'] as $skey=>$svalue)
-                                        <li><a href="{{ $svalue['url'] }}">{{ $svalue['name'] }}</a></li>
-                                    @endforeach
+                                    @if($value['name'] == 'Services')
+                                        @foreach($value['menu'] as $skey => $value)
+                                            @if(in_array($value['name'], explode(",",Auth::guard('referral')->user()->services) )) 
+                                                @php 
+                                                    if($value['name'] == '1'):
+                                                        $name = 'VBC';
+                                                    endif;
+                                                    if($value['name'] == '2'):
+                                                        $name = 'MD Order';
+                                                    endif;
+                                                    if($value['name'] == '3'):
+                                                        $name = 'Occupational Health';
+                                                    endif;
+                                                @endphp
+                                                <li><a href="{{ $value['url'] }}">{{ $name }}</a></li>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        @foreach($value['menu'] as $skey=>$svalue)
+                                            <li><a href="{{ $svalue['url'] }}">{{ $svalue['name'] }}</a></li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </li>
+                            
                             <!-- <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                                 <a href="{{ $value['url'] }}">
                                     <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">

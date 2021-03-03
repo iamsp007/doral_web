@@ -54,7 +54,7 @@
                         </div>
                      @endif
                      @if(!empty($patient->caregiverInfo->company->fax_no))
-                     <div class="col-12 col-sm-4">
+                        <div class="col-12 col-sm-4">
                            <div class="input_box">
                               <div class="ls"><i class="las la-user-nurse circle"></i></div>
                               <div class="rs">
@@ -67,31 +67,34 @@
                            </div>
                         </div>
                      @endif
-                     
-                  @endif  
-               </div>
-               <div class="row">
-                  @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->services)))
-                     @if(!empty($patient->caregiverInfo->services->name))
-                        <div class="col-12 col-sm-4">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Services</h3>
-                                 <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="services" data-id="services"
-                                    onclick="editableField('services')" id="services"
-                                    placeholder="Services" value="{{ $patient->caregiverInfo->services->name }}">
+                     @if(!empty($patient->caregiverInfo->company->services))
+                        @foreach(explode(",",$patient->caregiverInfo->company->services) as $skey=>$svalue)
+                           @php 
+                                 if($value['name'] == '1'):
+                                    $name = 'VBC';
+                                 endif;
+                                 if($value['name'] == '2'):
+                                    $name = 'MD Order';
+                                 endif;
+                                 if($value['name'] == '3'):
+                                    $name = 'Occupational Health';
+                                 endif;
+                           @endphp
+                           <div class="col-12 col-sm-4">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Services</h3>
+                                    <input type="text" class="form-control-plaintext _detail "
+                                       readonly name="services" data-id="services"
+                                       onclick="editableField('services')" id="services"
+                                       placeholder="Services" value="{{ $name }}">
+                                 </div>
                               </div>
                            </div>
-                        </div>
+                        @endforeach
                      @endif
-                  @endif  
-               </div>
-            </div>
-            <div class="row mt-3">
-               @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
-                  @if(!empty($patient->caregiverInfo->company->address1))
+                     @if(!empty($patient->caregiverInfo->company->address1))
                      <div class="col-12 col-sm-12">
                         <div class="input_box mb-3">
                            <div class="ls"><i class="las la-map-marker circle"></i></div>
@@ -105,23 +108,38 @@
                            </div>
                         </div>
                      </div>
-                  @endif
-                  @if(!empty($patient->caregiverInfo->company->address1))
-                     <div class="col-12 col-sm-12">
-                        <div class="input_box mb-3">
-                           <div class="ls"><i class="las la-map-marker circle"></i></div>
-                           <div class="rs">
-                              <h3 class="_title">Address2</h3>
-                              <textarea id="address1" name="address2" rows="4" cols="62"
-                                 class="form-control-plaintext _detail " readonly
-                                 onclick="editableField('address2')"
-                                 placeholder=""
-                                 value="">{!! $patient->caregiverInfo->company->address2 !!}</textarea>
+                     @endif
+                     @if(!empty($patient->caregiverInfo->company->address2))
+                        <div class="col-12 col-sm-12">
+                           <div class="input_box mb-3">
+                              <div class="ls"><i class="las la-map-marker circle"></i></div>
+                              <div class="rs">
+                                 <h3 class="_title">Address2</h3>
+                                 <textarea id="address1" name="address2" rows="4" cols="62"
+                                    class="form-control-plaintext _detail " readonly
+                                    onclick="editableField('address2')"
+                                    placeholder=""
+                                    value="">{!! $patient->caregiverInfo->company->address2 !!}</textarea>
+                              </div>
                            </div>
                         </div>
-                     </div>
-                  @endif
-               @endif  
+                     @endif
+                     @if(!empty($patient->caregiverInfo->company->zip))
+                        <div class="col-12 col-sm-4">
+                           <div class="input_box">
+                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                              <div class="rs">
+                                 <h3 class="_title">Zip</h3>
+                                 <input type="text" class="form-control-plaintext _detail "
+                                    readonly name="zip" data-id="zip"
+                                    onclick="editableField('zip')" id="zip"
+                                    placeholder="Zip" value="{{ $patient->caregiverInfo->company->zip }}">
+                              </div>
+                           </div>
+                        </div>
+                     @endif
+                  @endif  
+               </div>
             </div>
             <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
                data-name="administrator_detail">
@@ -188,11 +206,6 @@
                                  </div>
                               </div>
                            @endif
-                        @endif
-                     </div>
-                     <div class="row">
-                        @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
-                          
                            @if(!empty($patient->caregiverInfo->company->administrator_phone_no))
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">
@@ -207,6 +220,20 @@
                                  </div>
                               </div>
                            @endif
+                        @endif
+                     </div>
+                  </div>
+               </div>
+            </div>       
+            <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
+               data-name="administrator_detail">
+               <div class="app-card-header">
+                  <h1 class="title">Mal Practitiner Insurance Detail</h1>
+               </div>
+               <div class="head">
+                  <div class="p-3">
+                     <div class="row">
+                        @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
                            @if(!empty($patient->caregiverInfo->company->insurance_id))
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">

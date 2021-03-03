@@ -12,15 +12,14 @@
                         @if($patient->demographic && ($patient->demographic->ssn))
                             <div class="col-12 col-sm-3 col-md-3">
                                 <div class="input_box">
-                                    <div class="ls">
-                                        <i class="las la-phone circle"></i>
-                                    </div>
+                                    <div class="ls"><i class="las la-phone circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">SSN</h3>
                                         <div>
+                                            <!-- <x-text name="ssn" class="-plaintext _detail" value="{{ ($patient->demographic) ? $patient->demographic->ssn : '' }}" /> -->
                                             <input type="text" class="form-control-plaintext _detail "
                                                 readonly name="ssn" onclick="editableField('ssn')"
-                                                data-id="ssn" id="ssn" onblur="validateEmail(this);"
+                                                data-id="ssn" id="ssn" 
                                                 placeholder="SSN" value="{{ ($patient->demographic) ? $patient->demographic->ssn : '' }}">
                                         </div>
                                     </div>
@@ -38,7 +37,7 @@
                                             <h3 class="_title">Country Of Birth</h3>
                                             <input type="text" class="form-control-plaintext _detail "
                                                 readonly name="country_of_birth" onclick="editableField('country_of_birth')"
-                                                data-id="country_of_birth" id="country_of_birth" onblur="validateEmail(this);"
+                                                data-id="country_of_birth" id="country_of_birth" 
                                                 placeholder="Country Of Birth" value="{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->country_of_birth : '' }}">
                                         </div>
                                     </div>
@@ -54,7 +53,7 @@
                                             <h3 class="_title">Professional License Number</h3>
                                             <input type="text" class="form-control-plaintext _detail "
                                                 readonly name="professional_licensenumber" onclick="editableField('professional_licensenumber')"
-                                                data-id="professional_licensenumber" id="professional_licensenumber" onblur="validateEmail(this);"
+                                                data-id="professional_licensenumber" id="professional_licensenumber" 
                                                 placeholder="Professional License Number" value="{{ $patient->caregiverInfo->professional_licensenumber }}">
                                         </div>
                                     </div>
@@ -71,7 +70,7 @@
                                         <div>
                                             <input type="text" class="form-control-plaintext _detail "
                                                 readonly name="npi_number" onclick="editableField('npi_number')"
-                                                data-id="npi_number" id="npi_number" onblur="validateEmail(this);"
+                                                data-id="npi_number" id="npi_number" 
                                                 placeholder="Npi Number" value="{{ $patient->caregiverInfo->npi_number }}">
                                         </div>
                                     </div>
@@ -298,10 +297,6 @@
                                                 </div>
                                             </div>
                                         @endif
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
                                         @if(!empty($language[0]->Zip4))
                                             <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="input_box">
@@ -509,12 +504,6 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="p-3">
-                                    <div class="">
-                                        <div class="row">
                                             @if($patientEmergencyContact->relation)
                                                 @foreach(json_decode($patientEmergencyContact->relation, true) as $value)
                                                     <div class="col-12 col-sm-3 col-md-3">

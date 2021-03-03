@@ -20,6 +20,7 @@
     <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"> -->
     <link rel="stylesheet" href="{{ asset('css/toaster.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/developer.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 
@@ -255,7 +256,7 @@
     <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script> -->
     <script src="{{ asset('assets/js/apexcharts.js') }}"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
@@ -269,7 +270,7 @@
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('{{ asset("js/firebase-messaging-sw.js") }}')
                     .then(function(registration) {
-                        console.log('Registration successful, scope is:', registration.scope);
+                        // console.log('Registration successful, scope is:', registration.scope);
                         const config = {
                             apiKey: "AIzaSyC5rTr8rSUyQeKlbaAHW1Xo-ezNoQO0dUE",
                             projectId: "doral-roadl",
@@ -342,6 +343,7 @@
 
         });
     </script>
+
 @stack('scripts')
 </body>
 </html>

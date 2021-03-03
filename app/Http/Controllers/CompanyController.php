@@ -10,10 +10,10 @@ use App\Models\Services;
 use App\Models\ServicePaymentPlan;
 use App\Models\ServicePaymentPlanDetails;
 use Exception;
-use Auth;
 use Illuminate\Support\Facades\Hash;
 use URL;
 use App\Mail\ReferralAcceptedMail;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class CompanyController extends Controller

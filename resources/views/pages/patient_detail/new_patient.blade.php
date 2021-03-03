@@ -4,19 +4,18 @@
 @section('pageTitleSection')
     Patient
 @endsection
-@section('upload-btn')
-    <div class="d-flex">
-{{--        <a href="javascript:void(0)" class="single-upload-btn mr-2">--}}
-{{--            <img src="../assets/img/icons/single-upload-icon.svg" class="icon mr-2" />--}}
-{{--            New Patient</a>--}}
-        <a href="{{ route('referral.md-order-failed-data') }}" class="bulk-upload-btn">
-            <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-            Pending Record</a>
-        <a href="{{ route('referral.md-order-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
-            <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-            Import Patients</a>
-    </div>
-@endsection
+@hasrole('referral')
+    @section('upload-btn')
+        <div class="d-flex">
+            <a href="{{ route('referral.md-order-failed-data') }}" class="bulk-upload-btn">
+                <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                Pending Record</a>
+            <a href="{{ route('referral.md-order-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
+                <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                Import Patients</a>
+        </div>
+    @endsection
+@endrole
 
 @section('content')
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
@@ -54,7 +53,7 @@
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         $('#get_patient-table').DataTable({
             "processing": true,
@@ -142,11 +141,7 @@
         {
             var len = $(".innerallchk:checked").length;
             if (len == 0) {
-                swal(
-                    'Warning!',
-                    'Please select at least one record to continue.',
-                    'warning'
-                );
+                alertText('Please select at least one record to continue.','warning');
             } else {
                 var val = $('.innerallchk:checked').map(function () {
                     return this.value;
@@ -156,57 +151,85 @@
         }
             
         function postdataforaction(status,val) {
-            swal({
-                title: "Are you sure?",
-                text: "Are you sure want to update status of this patient?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    $("#loader-wrapper").show();
-                    $.ajax({
-                    'type': 'POST',
-                    'url': "{{ route('caregiver.changePatientStatus') }}",
-                    'headers': {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    data: {
-                        "id": val,
-                        "status" : status
-                    },
-                    'success': function (data) {
-                        if(data.status == 400) {
-                            swal(
-                                'Error!',
-                                data.message,
-                                'error'
-                            );
-                        } else {
-                            swal(
-                                'Success!',
-                                data.message,
-                                'success'
-                            );
-                            $('#acceptRejectBtn').hide();
-                            refresh();
-                        }
-                        $("#loader-wrapper").hide();
-                    },
-                    "error":function () {
-                        swal("Server Timeout!", "Please try again", "warning");
-                        $("#loader-wrapper").hide();
-                    }
-                    });
-                } else {
-                    swal('Cancelled', 'Your record is safe :)','error');
-                    $(".innerallchk, .mainchk").prop("checked","");
-                    $('#acceptRejectBtn').hide();
+           
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: true,
+                timer: 3000,
+                timerProgressBar: true,
+                buttonsStyling: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
+            })
+
+            Toast.fire({
+                title: 'Are you sure?',
+                text: "Are you sure want to update status of this patient?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, change it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#loader-wrapper").show();
+                        $.ajax({
+                            'type': 'POST',
+                            'url': "{{ route('caregiver.changePatientStatus') }}",
+                            'headers': {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            data: {
+                                "id": val,
+                                "status" : status
+                            },
+                            'success': function (data) {
+                                if(data.status == 400) {
+                                    alertText(data.message,'error');
+                                } else {
+                                    alertText(data.message,'success');
+                                    $('#acceptRejectBtn').hide();
+                                    refresh();
+                                }
+                                $("#loader-wrapper").hide();
+                            },
+                            "error":function () {
+                                alertText("Server Timeout! Please try again",'error');
+                                $("#loader-wrapper").hide();
+                            }
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        alertText("Your file file is safe :)",'warning');
+                        $(".innerallchk, .mainchk").prop("checked","");
+                        $('#acceptRejectBtn').hide();
+                    }
             });
         }
+
         function refresh() {
             $("#get_patient-table").DataTable().ajax.reload(null, false);
+        }
+
+        function alertText(text,status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: status,
+                title: text
+            })
         }
     </script>
 @endpush

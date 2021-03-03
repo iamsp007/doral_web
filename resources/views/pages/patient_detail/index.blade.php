@@ -353,49 +353,16 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script> -->
     <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script> -->
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var patient_id='{{ $patient->id }}';
-        var map;
-        function initMap() {
-            var lat = $('#address').attr('data-lat');
-            var lng = $('#address').attr('data-lng');
-            const iconBase =
-                base_url+"assets/img/icons/patient-icon.svg";
-            if (lat) {
-               map = new google.maps.Map(document.getElementById('map'), {
-                  center: new google.maps.LatLng(lat, lng),
-                  zoom: 13,
-                  mapTypeId: 'roadmap'
-               });
-
-               var marker = new google.maps.Marker({
-                  position: new google.maps.LatLng(lat,lng),
-                  icon:iconBase,
-                  map: map,
-                  title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-               });
-            } else {
-               map = new google.maps.Map(document.getElementById('map'), {
-                  center: {lat: 40.741895, lng: 73.989308},
-                  zoom: 8
-               });
-
-               var marker = new google.maps.Marker({
-                  position: new google.maps.LatLng(lat,lng),
-                  icon:iconBase,
-                  map: map,
-                  title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-               });
-            }
-        }
-       
+        
          $(document).ready(function() {
             // $('.phoneNumber').keyup(function () {
             var val = $('.phoneNumber').value.replace(/\D/g, '');
@@ -594,21 +561,6 @@
             });
          }
     </script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
-        defer
-    ></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
     <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
-@endpush
-
-@push('styles')
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" /> -->
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" /> -->
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" /> -->
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" /> -->
-    <!-- <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}"> -->
-    <!-- <link rel="stylesheet" href="{{ asset( 'assets/calendar/lib/main.css' ) }}" /> -->
-    <style>
-    </style>
 @endpush

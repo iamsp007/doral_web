@@ -265,7 +265,7 @@
         var status = status;
         $.ajax({
             method: 'POST',
-            url: '{{ route('admin.updateStatus') }}',
+            url: "{{ route('admin.updateStatus') }}",
             data: {company_id, status},
             success: function( response ){
                 $("#loader-wrapper").hide();

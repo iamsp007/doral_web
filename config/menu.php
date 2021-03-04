@@ -100,7 +100,7 @@ return [
             'menu' => [
                 [
                     'name'=>'1',
-                    'url'=>env('APP_URL').'referral/vbc',
+                    'url'=>env('APP_URL').'referral/service/vbc',
                     'route'=>'referral/vbc',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
@@ -108,7 +108,7 @@ return [
                 ],
                 [
                     'name'=>'2',
-                    'url'=>env('APP_URL').'referral/md-order',
+                    'url'=>env('APP_URL').'referral/service/md-order',
                     'route'=>'referral/md-order',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
@@ -116,7 +116,7 @@ return [
                 ],
                 [
                     'name'=>'3',
-                    'url'=>env('APP_URL').'referral/occupational-health',
+                    'url'=>env('APP_URL').'referral/service/occupational-health',
                     'route'=>'referral/occupational-health',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',

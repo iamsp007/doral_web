@@ -67,6 +67,19 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
+        var column = [
+                {data:'checkbox_id',name:'checkbox_id'},
+                {data:'id',name:'id'},
+                {data: 'full_name', name: 'full_name'},
+                {data: 'gender', name: 'gender'},
+                {data: 'ssn', name: 'ssn'},
+                {data: 'home_phone', name: 'home_phone', class: 'editable text'},
+                {data: 'service_id', name: 'service_id'},      
+                {data: 'doral_id', name: 'doral_id'},        
+                {data: 'city_state', name: 'city_state'},            
+                {data: 'action', name: 'action'},
+            
+            ];
         $('#get_patient-table').DataTable({
             "processing": true,
             "language": {
@@ -83,19 +96,7 @@
                     status: $("#status").val(),
                 },
             },
-            columns:[
-                {data:'checkbox_id',name:'checkbox_id'},
-                {data:'id',name:'id'},
-                {data: 'full_name', name: 'full_name'},
-                {data: 'gender', name: 'gender'},
-                {data: 'ssn', name: 'ssn'},
-                {data: 'home_phone', name: 'home_phone', class: 'editable text'},
-                {data: 'service_id', name: 'service_id'},      
-                {data: 'doral_id', name: 'doral_id'},        
-                {data: 'city_state', name: 'city_state'},            
-                {data: 'action', name: 'action'},
-            
-            ],
+            columns:column,
             "order": [[ 1, "desc" ]],
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
             'columnDefs': [

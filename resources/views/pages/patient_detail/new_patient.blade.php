@@ -113,19 +113,7 @@
                     status: $("#status").val(),
                 },
             },
-            columns:[
-                {data:'checkbox_id',name:'checkbox_id'},
-                {data:'id',name:'id'},
-                {data: 'full_name', name: 'full_name'},
-                {data: 'gender', name: 'gender'},
-                {data: 'ssn', name: 'ssn'},
-                {data: 'home_phone', name: 'home_phone', class: 'editable text'},
-                {data: 'service_id', name: 'service_id'},      
-                {data: 'doral_id', name: 'doral_id'},        
-                {data: 'city_state', name: 'city_state'},            
-                {data: 'action', name: 'action'},
-            
-            ],
+            columns:arr,
             "order": [[ 1, "desc" ]],
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
             'columnDefs': [

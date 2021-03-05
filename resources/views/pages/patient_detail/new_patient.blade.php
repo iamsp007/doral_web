@@ -31,8 +31,8 @@
             <th>Gender</th>
             <th>SSN</th>
             <th>Home Phone</th>
-            <th>Patient Type</th>
-            <th>Patient Id</th>
+            <th>Services</th>
+            <th>Doral Id</th>
             <th>City - State</th>
             <th>Action</th>
         </tr>
@@ -75,10 +75,10 @@
                 {data:'id',name:'id'},
                 {data: 'full_name', name: 'full_name'},
                 {data: 'gender', name: 'gender'},
-                {data: 'ssn', name: 'SSN'},
+                {data: 'ssn', name: 'ssn'},
                 {data: 'home_phone', name: 'home_phone'},
                 {data: 'patient_type', name: 'patient_type'},      
-                {data: 'patient_id', name: 'PatientID'},        
+                {data: 'doral_id', name: 'doral_id'},        
                 {data: 'city_state', name: 'city_state'},            
                 {data: 'action', name: 'action'},
             

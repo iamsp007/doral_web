@@ -52,7 +52,9 @@ class CaregiverController extends Controller
             })->orderBy('id', 'DESC');
 
         return DataTables::of($patientList)
-            ->addColumn('id','<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>')
+            ->addColumn('id', function($q) use($request) {
+                return '<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>';
+            })
             ->addColumn('full_name', function($q){
                 return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
             })
@@ -73,19 +75,19 @@ class CaregiverController extends Controller
                 }
                 return $home_phone;
             })
-            ->addColumn('patient_type', function($q) {
-                $type = '';
-                if ($q->demographic) {
-                    $type =  $q->demographic->type;
+            ->addColumn('service_id', function($q) {
+                $services = '';
+                if ($q->services) {
+                    $services =  $q->services->name;
                 }
-                return $type;
+                return $services;
             })
-            ->addColumn('patient_id', function($q){
-                $patient_id = '';
-                if ($q->caregiverInfo) {
-                    $patient_id =  $q->caregiverInfo->caregiver_id;
+            ->addColumn('doral_id', function($q){
+                $doral_id = '';
+                if ($q->demographic) {
+                    $doral_id =  $q->demographic->doral_id;
                 }
-                return $patient_id;
+                return $doral_id;
             })
             ->addColumn('city_state', function($q){
                 $city_state = '';

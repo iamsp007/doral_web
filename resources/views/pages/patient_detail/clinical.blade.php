@@ -344,12 +344,12 @@
                <div class="tab-pane fade show active" id="lab-report" role="tabpanel" aria-labelledby="lab-tab">
                    <div class="d-flex justify-content-end mb-3">
                        <button type="submit"
-                               class="btn btn-outline-green mr-3 d-flex align-items-center" name=""
+                               class="btn btn-outline-green mr-3 d-flex align-items-center" onclick="openLabReports()"
                                data-toggle="modal" data-target="#uploadLabReportModal"><i
                                class="las la-file-upload la-2x mr-2"></i>Upload Lab
                            Reports</button>
                        <button type="submit"
-                               class="btn btn-outline-green d-flex align-items-center"
+                               class="btn btn-outline-green d-flex align-items-center" onclick="viewLabReports()"
                                data-toggle="modal" data-target="#labreportModal" name=""><i
                                class="las la-binoculars la-2x mr-2"></i> View Lab
                            Reports</button>

@@ -366,9 +366,9 @@
                            <button type="submit" class="btn btn-outline-green d-flex align-items-center"
                                    name="Download">Download All Reports</button>
                        </div>
-                       <div class="scrollbar scrollbar9">
+                       <div class="scrollbar scrollbar9" id="view-lab-report-file">
                            <div class="row">
-                               <div class="col-12 col-sm-2">
+                               <div class="col-12 col-sm-2 mt-4">
                                    <div class="card shadow-sm">
                                        <div class="card-body">
                                            <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
@@ -396,7 +396,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div class="col-12 col-sm-2">
+                               <div class="col-12 col-sm-2 mt-4">
                                    <div class="card shadow-sm">
                                        <div class="card-body">
                                            <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
@@ -422,7 +422,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div class="col-12 col-sm-2">
+                               <div class="col-12 col-sm-2 mt-4">
                                    <div class="card shadow-sm">
                                        <div class="card-body">
                                            <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
@@ -474,7 +474,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div class="col-12 col-sm-2">
+                               <div class="col-12 col-sm-2 mt-4">
                                    <div class="card shadow-sm">
                                        <div class="card-body">
                                            <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
@@ -500,7 +500,7 @@
                                        </div>
                                    </div>
                                </div>
-                               <div class="col-12 col-sm-2">
+                               <div class="col-12 col-sm-2 mt-4">
                                    <div class="card shadow-sm">
                                        <div class="card-body">
                                            <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
@@ -526,139 +526,7 @@
                                        </div>
                                    </div>
                                </div>
-                           </div>
-                           <div class="row mt-4">
-                               <div class="col-12 col-sm-2">
-                                   <div class="card shadow-sm">
-                                       <div class="card-body">
-                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
-                                                src="../assets/img/All Banner copy.docx.png">
-                                       </div>
-                                       <div class="card-footer file-footer">
-                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
-                                               <i class="lar la-file-pdf la-2x"></i> All Bill.pdf
-                                           </a>
-                                           <div>
-                                               <div class="dropdown">
-                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
-                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                           aria-expanded="false">
-                                                       <i class="las la-ellipsis-v"></i>
-                                                   </button>
-                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                       <a class="dropdown-item" href="#">Download File</a>
-                                                       <a class="dropdown-item" href="#">View Details</a>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="col-12 col-sm-2">
-                                   <div class="card shadow-sm">
-                                       <div class="card-body">
-                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
-                                                src="../assets/img/All Banner copy.docx.png">
-                                       </div>
-                                       <div class="card-footer file-footer">
-                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
-                                               <i class="lar la-file-pdf la-2x"></i> All Bill.pdf
-                                           </a>
-                                           <div>
-                                               <div class="dropdown">
-                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
-                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                           aria-expanded="false">
-                                                       <i class="las la-ellipsis-v"></i>
-                                                   </button>
-                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                       <a class="dropdown-item" href="#">Download File</a>
-                                                       <a class="dropdown-item" href="#">View Details</a>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="col-12 col-sm-2">
-                                   <div class="card shadow-sm">
-                                       <div class="card-body">
-                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
-                                                src="../assets/img/All Banner copy.docx.png">
-                                       </div>
-                                       <div class="card-footer file-footer">
-                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
-                                               <i class="lar la-file-word la-2x"></i> Healthcare.docx
-                                           </a>
-                                           <div>
-                                               <div class="dropdown">
-                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
-                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                           aria-expanded="false">
-                                                       <i class="las la-ellipsis-v"></i>
-                                                   </button>
-                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                       <a class="dropdown-item" href="#">Download File</a>
-                                                       <a class="dropdown-item" href="#">View Details</a>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="col-12 col-sm-2">
-                                   <div class="card shadow-sm">
-                                       <div class="card-body">
-                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
-                                                src="../assets/img/All Banner copy.docx.png">
-                                       </div>
-                                       <div class="card-footer file-footer">
-                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
-                                               <i class="lar la-file-word la-2x"></i> Lab.docx
-                                           </a>
-                                           <div>
-                                               <div class="dropdown">
-                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
-                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                           aria-expanded="false">
-                                                       <i class="las la-ellipsis-v"></i>
-                                                   </button>
-                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                       <a class="dropdown-item" href="#">Download File</a>
-                                                       <a class="dropdown-item" href="#">View Details</a>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="col-12 col-sm-2">
-                                   <div class="card shadow-sm">
-                                       <div class="card-body">
-                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
-                                                src="../assets/img/All Banner copy.docx.png">
-                                       </div>
-                                       <div class="card-footer file-footer">
-                                           <a href="javascript:void(0)" class="d-flex align-items-center text-success">
-                                               <i class="lar la-file-word la-2x"></i> X-Ray.docx
-                                           </a>
-                                           <div>
-                                               <div class="dropdown">
-                                                   <button class="btn btn-light btn-sm dropdown-toggle" type="button"
-                                                           id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                           aria-expanded="false">
-                                                       <i class="las la-ellipsis-v"></i>
-                                                   </button>
-                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                       <a class="dropdown-item" href="#">Download File</a>
-                                                       <a class="dropdown-item" href="#">View Details</a>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="col-12 col-sm-2">
+                               <div class="col-12 col-sm-2 mt-4">
                                    <div class="card shadow-sm">
                                        <div class="card-body">
                                            <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
@@ -730,11 +598,6 @@
                            <label for="selectRole" class="label-custom"><span>Proposed</span> Date(s)</label>
                            <select name="selectRole" id="selectRole" class="input-skin">
                                <option value="">Select Type</option>
-                               <option value="Lab">Lab</option>
-                               <option value="X-Ray">X-Ray</option>
-                               <option value="CHHA">CHHA</option>
-                               <option value="Home Oxygen">Home Oxygen</option>
-                               <option value="Home Infusion">Home Infusion</option>
                            </select>
                        </div>
                        <div class="form-group">
@@ -762,8 +625,8 @@
                            </div>
                        </div>
                        <div class="d-flex mt-4">
-                           <input type="submit" value="Upload File(s)" class="btn btn--submit btn-lg" style="width: 50%;">
-                           <input type="cancel" value="Cancel" class="btn btn--reset btn-lg ml-4" style="width: 50%;">
+                           <input type="button" value="Upload File(s)" onclick="uploadLabReport(this)" class="btn btn--submit btn-lg" style="width: 50%;">
+                           <input type="cancel" value="Cancel" data-dismiss="modal" aria-label="Close" style="width: 50%;">
                        </div>
                    </div>
                </div>
@@ -774,14 +637,17 @@
 @endsection
 
 @push('scripts')
-    <!-- <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script> -->
+    <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-    <!-- <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script> -->
+    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+        var lab_referral_url="{{ route('patient.lab.report.referral') }}";
+        var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
+        var lab_report_data_url="{{ route('patient.lab.report.data') }}";
         var patient_id='{{ $patient->id }}';
         var map;
         function initMap() {
@@ -1015,6 +881,29 @@
             });
          }
     </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
+        defer
+    ></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
     <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
+    <script src="{{ asset('assets/js/uploadfiles.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script src="{{ asset('js/lab-reports.js') }}"></script>
+
+@endpush
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/uploadfiles.css') }}">
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" />
+    <style>
+        .app .app-content .app-header-block._fullwidth {
+            width: calc(100% - 7rem);
+            position: fixed;
+            right: 0;
+            z-index: 0;
+        }
+        .modal-backdrop{z-index: 0!important;}
+        .modal-backdrop.show{z-index: -1!important;}
+    </style>
 @endpush

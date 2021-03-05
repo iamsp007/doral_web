@@ -70,11 +70,10 @@ class CaregiverController extends Controller
                 return $ssn;
             })
             ->addColumn('home_phone', function($q) use($request){
-                $phone = "<span class='label'>".$q->phone."</span>";
+                $phone = "<span class='label'><a href='tel:".$q->phone."'></a>".$q->phone."</span>";
                 $phone .= "<div class='phone-text'><input class='phone' type='text' name='phone' value=".$q->phone."></div>";
                 return $phone;
-
-                
+         
             })
             ->addColumn('service_id', function($q) {
                 $services = '';

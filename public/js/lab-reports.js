@@ -21,7 +21,26 @@ $(document).ready(function() {
             {name:"reports.name",data:"reports.name"},
             {name:"file_name",data:"file_name"},
             {name:"original_file_name",data:"original_file_name"},
-            {name:"id",data:"id"},
+            {
+                name:"id",
+                data:"id",
+                render:function (row) {
+
+                    return '<div class="d-flex">\n' +
+                        '                    <button type="button"\n' +
+                        '                            class="btn btn-outline-green mr-2"\n' +
+                        '                            data-toggle="tooltip" data-placement="top"\n' +
+                        '                            title="Download Report" style="width: auto;"><i\n' +
+                        '                            style="font-size: 25px;"\n' +
+                        '                            class="las la-cloud-download-alt"></i></button>\n' +
+                        '                    <button type="button" class="btn btn-outline-green"\n' +
+                        '                            data-toggle="tooltip" data-placement="top"\n' +
+                        '                            title="Delete Report" style="width: auto;"><i\n' +
+                        '                            style="font-size: 25px;"\n' +
+                        '                            class="las la-trash"></i></button>\n' +
+                        '                </div>';
+                }
+            },
         ],
         "order": [[ 1, "desc" ]],
         'columnDefs': [

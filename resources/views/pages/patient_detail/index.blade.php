@@ -17,7 +17,7 @@
                   {{ $patient->first_name }}  {{ $patient->last_name }}
                </div>
             </div>
-            <div>
+            <div> 
                <ul class="shortdesc">
                   <li>Status: <span>{{ isset($status[0]) ? $status[0]->Name : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>

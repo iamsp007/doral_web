@@ -19,7 +19,6 @@
             </div>
             <div>
                <ul class="shortdesc">
-                  <li>Employee Type: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->employee_type : '' }}</span></li>
                   <li>Status: <span>{{ isset($status[0]) ? $status[0]->Name : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender }}</span></li>

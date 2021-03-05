@@ -90,15 +90,15 @@ class User extends Authenticatable
     public function getStatusDataAttribute()
     {
         if ($this->status === '0') {
-            $statusData = 'Pending';
+            $statusData = '<p class="text-primary">Pending</p>';
         } else if ($this->status === '1') {
-            $statusData = 'Active';
+            $statusData = '<p class="text-success">Active</p>';
         } else if ($this->status === '2') {
-            $statusData = 'Inactive';
+            $statusData = '<p class="text-secondary">Inactive</p>';
         } else if ($this->status === '3') {
-            $statusData = 'Reject';
+            $statusData = '<p class="text-danger">Reject</p>';
         } else if ($this->status === '4') {
-            $statusData = 'Initial';
+            $statusData = '<p class="text-info">Initial</p>';
         }
         return $statusData;
     }

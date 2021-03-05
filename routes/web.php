@@ -77,9 +77,13 @@ Route::get('/search-patients', 'App\Http\Controllers\GetPatientDetailsController
 Route::get('/get-patient-detail','\App\Http\Controllers\GetPatientDetailsController@index')->name('clinician.getPatientdetail');
 Route::get('/getPatientDetail','\App\Http\Controllers\GetPatientDetailsController@getPatientDetail')->name('clinician.patientDetail.ajax');
 Route::get('/patient-details/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@show')->name('patient.details');
+Route::get('/lab-report-referral','\App\Http\Controllers\GetPatientDetailsController@getLabReportReferral')->name('patient.lab.report.referral');
+Route::post('/lab-report-upload','\App\Http\Controllers\GetPatientDetailsController@labReportUpload')->name('patient.lab.report.upload');
+Route::post('/view-lab-report','\App\Http\Controllers\GetPatientDetailsController@viewLabReport')->name('patient.lab.report.view');
+Route::post('/lab-report-data','\App\Http\Controllers\GetPatientDetailsController@labReportData')->name('patient.lab.report.data');
 Route::post('/caregiver-update/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@checkCurrentVisitorDetails')->name('patient.caregiver.update');
 
 Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searchCaregivers');
-Route::get('/get-caregiver/{status?}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
+Route::get('/get-caregiver/{status}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
 Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
 Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');

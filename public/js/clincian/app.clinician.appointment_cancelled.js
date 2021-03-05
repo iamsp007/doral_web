@@ -6,7 +6,7 @@ $(function () {
         "language": {
             processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
         },
-        "serverSide": false,
+        "serverSide": true,
         ajax: scheduleAppointmentAjax,
         columns:[
             {data:'id',name:'id'},

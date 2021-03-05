@@ -282,112 +282,112 @@
                                           <div class="row">
                                              <div class="col-lg-3">
                                                 <label for="chkPassport" class="containera">
-                                                   <input type="checkbox"  id="chkPassport" name="weakness">
+                                                   <input type="checkbox"  id="chkPassport" name="weakness_checked">
                                                    <span class="checkmark"></span>
                                                    Weakness
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassport" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassport" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassport" placeholder="Add comment" class="form-control" name="weakness_comment" />
                                                 </div>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassporta" class="containera">
-                                                   <input type="checkbox"  id="chkPassporta">
+                                                   <input type="checkbox"  id="chkPassporta" name="fatigue_checked">
                                                    <span class="checkmark"></span>
                                                    Fatigue
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassporta" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassporta" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassporta" placeholder="Add comment" class="form-control" name="fatigue_comment" />
                                                 </div>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportlb" class="containera">
-                                                   <input type="checkbox"  id="chkPassportlb">
+                                                   <input type="checkbox"  id="chkPassportlb" name="lack_of_appetie_checked">
                                                    <span class="checkmark"></span>
                                                    Lack of Appetie
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassportlb" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportlb" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassportlb" placeholder="Add comment"  class="form-control" name="lack_of_appetie_comment" />
                                                 </div>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportb" class="containera">
-                                                   <input type="checkbox"  id="chkPassportb">
+                                                   <input type="checkbox"  id="chkPassportb" name="weight_loss_checked">
                                                    <span class="checkmark"></span>
                                                    Weight Loss
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassportb" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportb" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassportb" placeholder="Add comment" class="form-control" name="weight_loss_comment" />
                                                 </div>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportk" class="containera">
-                                                   <input type="checkbox"  id="chkPassportk">
+                                                   <input type="checkbox"  id="chkPassportk" name="chest_pain_checked">
                                                    <span class="checkmark"></span>
                                                    Chest Pains
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassportk" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportk" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassportk" placeholder="Add comment"  class="form-control" name="chest_pain_comment" />
                                                 </div>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportu" class="containera">
-                                                   <input type="checkbox"  id="chkPassportu">
+                                                   <input type="checkbox"  id="chkPassportu" name="fever_checked">
                                                    <span class="checkmark"></span>
                                                    Fever
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassportu" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportu" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassportu" placeholder="Add comment"  class="form-control" name="fever_comment" />
                                                 </div>
                                              </div>
                                              <div class="col-lg-3"> 
                                                 <label for="chkPassportn" class="containera">
-                                                   <input type="checkbox"  id="chkPassportn">
+                                                   <input type="checkbox"  id="chkPassportn" name="persistent_cough_checked">
                                                    <span class="checkmark"></span>
                                                    Persistent Cough
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassportn" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportn" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassportn" placeholder="Add comment"  class="form-control" name="persistent_cough_comment" />
                                                 </div>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportaa" class="containera">
-                                                   <input type="checkbox"  id="chkPassportaa">
+                                                   <input type="checkbox"  id="chkPassportaa" name="night_sweats_checked">
                                                    <span class="checkmark"></span>
                                                    Night Sweats
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassportaa" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportaa" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassportaa" placeholder="Add comment"  class="form-control" name="night_sweats_comment" />
                                                 </div>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportl" class="containera">
-                                                   <input type="checkbox"  id="chkPassportl">
+                                                   <input type="checkbox"  id="chkPassportl" name="shortness_of_breath_checked">
                                                    <span class="checkmark"></span>
                                                    Shortness of Breath
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassportl" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportl" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassportl" placeholder="Add comment"  class="form-control" name="shortness_of_breath_comment" />
                                                 </div>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportla" class="containera">
-                                                   <input type="checkbox"  id="chkPassportla">
+                                                   <input type="checkbox"  id="chkPassportla" name="blood_streaked_sputum_checked">
                                                    <span class="checkmark"></span>
                                                    Blood-Streaked Sputum
                                                 </label>
                                                 <hr />
                                                 <div id="dvPassportla" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportla" placeholder="Add comment"  class="form-control" />
+                                                   <input type="text" id="txtPassportla" placeholder="Add comment"  class="form-control" name="blood_streaked_sputum_comment" />
                                                       </div>
                                                    </div>
                                                 </div>
@@ -437,13 +437,13 @@
                                  <td>
                                     <div id="checkbox">
                                        <label class="containera">
-                                          <input type="checkbox" name="record[]">
+                                          <input type="checkbox" name="record[1]" />
                                           <span class="checkmark"></span>
                                        </label>
                                     </div>
                                  </td>
                                  <td>
-                                    <input name="test_name[]" value="" />
+                                    <input name="test_name[1]" />
                                  </td>
                                  <td>
                                     <div class="form-group datea">
@@ -451,32 +451,32 @@
                                           <span class="input-group-addon">
                                              <i class="fa fa-calendar"></i>
                                           </span>
-                                          <input type="text" class="form-control" name="date_performed[]" value="">
+                                          <input type="text" class="form-control" name="date_performed[1]" />
                                        </div>
                                     </div>
                                  </td>
                                  
                                  <td>
-                                    <select class="form-control" name="result[]">
+                                    <select class="form-control" name="result[1]">
                                        <option>Immune</option>
                                        <option>None Immune</option>
                                     </select>
                                  </td>
                                  <td>
-                                    <input name="lab_value[]" value="" />
+                                    <input name="lab_value[1]" />
                                  </td>
                               </tr>
                               <tr>
                                  <td>
                                     <div id="checkbox">
                                        <label class="containera">
-                                          <input type="checkbox" name="record[]">
+                                          <input type="checkbox" name="record[2]" />
                                           <span class="checkmark"></span>
                                        </label>
                                     </div>
                                  </td>
                                  <td>
-                                    <input name="test_name[]" value="" />
+                                    <input name="test_name[2]" />
                                  </td>
                                  <td>
                                     <div class="form-group datea">
@@ -484,18 +484,18 @@
                                           <span class="input-group-addon">
                                              <i class="fa fa-calendar"></i>
                                           </span>
-                                          <input type="text" class="form-control" name="date_performed[]" value="">
+                                          <input type="text" class="form-control" name="date_performed[2]" />
                                        </div>
                                     </div>
                                  </td>
                                  <td>
-                                    <select class="form-control" name="result[]">
+                                    <select class="form-control" name="result[2]">
                                        <option>Immune</option>
                                        <option>None Immune</option>
                                     </select>
                                  </td>
                                  <td>
-                                    <input name="lab_value[]" value="" />
+                                    <input name="lab_value[2]" />
                                  </td>
                               </tr>
                            </tbody>
@@ -510,7 +510,8 @@
                            <div class="row">
                               <div class="col-lg-12">
                                  <div class="card-a">
-                                    <label class="containera">This individual is free from any health impairment that is a potential risk to the patient or another employee of which may interfere with the performance of his/her duties including the habituation or addiction to drugs or alcohol.        <input type="checkbox" checked="checked">
+                                    <label class="containera">This individual is free from any health impairment that is a potential risk to the patient or another employee of which may interfere with the performance of his/her duties including the habituation or addiction to drugs or alcohol.
+                                       <input type="checkbox" name="checkbox_one">
                                        <span class="checkmark"></span>
                                     </label>
                                  </div>
@@ -518,7 +519,7 @@
                               <div class="col-lg-12"><div class="card-a">
                                  <label class="containera">This individual is able to work with the following limitations<br>
                                     <span> It is a long established fact fact that a reader will be by the the readable content of a page.</span>
-                                    <input type="checkbox">
+                                    <input type="checkbox" name="checkbox_two">
                                     <span class="checkmark"></span>
                                  </label>
                                  </div>
@@ -526,7 +527,7 @@
                               <div class="col-lg-12"> <div class="card-a">
                                  <label class="containera">Return to Work This individual is NOT physically/mentally able to work (specify reason)<br>
                                     <span style="display: block;"> I    It is a long established fact fact that a reader will be by the the readable content of a page.</span>
-                                    <input type="checkbox" checked="checked">
+                                    <input type="checkbox" name="checkbox_three">
                                     <span class="checkmark"></span>
                                  </label>
                               </div>
@@ -541,11 +542,13 @@
                   <h2 class="t1 fadeIn">PHYSICAL DETAILS</h2>
                   <div class="row">
                      <div class="col-lg-6">
-                        <div class="form-group"><input type="text" class="form-control" placeholder="Physician  Name " name=""></div>
+                        <div class="form-group">
+                           <input type="text" class="form-control" placeholder="Physician  Name" name="physician_name">
+                        </div>
                      </div>
                      <div class="col-lg-6">
                         <div class="form-group">
-                           <input type="text" class="form-control" placeholder="Physician License No" name="">
+                           <input type="text" class="form-control" placeholder="Physician License No" name="physician_license_no">
                         </div>
                      </div>
                   </div>
@@ -602,61 +605,62 @@
          
          // For select all checkbox in table
          $('#checkedAll').click(function (e) {
-         //e.preventDefault();
-         $(this).closest('#tblAddRow').find('td input:checkbox').prop('checked', this.checked);
+            //e.preventDefault();
+            $(this).closest('#tblAddRow').find('td input:checkbox').prop('checked', this.checked);
          });
          
          // Add row the table
          $('#btnAddRow').on('click', function() {
-         var lastRow = $('#tblAddRow tbody tr:last').html();
-         //alert(lastRow);
-         $('#tblAddRow tbody').append('<tr>' + lastRow + '</tr>');
-         $('#tblAddRow tbody tr:last input').val('');
+            var lastRow = $('#tblAddRow tbody tr:last').html();
+            //alert(lastRow);
+            $('#tblAddRow tbody').append('<tr>' + lastRow + '</tr>');
+            $('#tblAddRow tbody tr:last input').val('');
          });
          
          // Delete last row in the table
          $('#btnDelLastRow').on('click', function() {
-         var lenRow = $('#tblAddRow tbody tr').length;
-         //alert(lenRow);
-         if (lenRow == 1 || lenRow <= 1) {
-             alert("Can't remove all row!");
-         } else {
-             $('#tblAddRow tbody tr:last').remove();
-         }
+            var lenRow = $('#tblAddRow tbody tr').length;
+            //alert(lenRow);
+            if (lenRow == 1 || lenRow <= 1) {
+               alert("Can't remove all row!");
+            } else {
+               $('#tblAddRow tbody tr:last').remove();
+            }
          });
          
          // Delete row on click in the table
          $('#tblAddRow').on('click', 'tr a', function(e) {
-         var lenRow = $('#tblAddRow tbody tr').length;
-         e.preventDefault();
-         if (lenRow == 1 || lenRow <= 1) {
-             alert("Can't remove all row!");
-         } else {
-             $(this).parents('tr').remove();
-         }
+            var lenRow = $('#tblAddRow tbody tr').length;
+            e.preventDefault();
+            if (lenRow == 1 || lenRow <= 1) {
+               alert("Can't remove all row!");
+            } else {
+               $(this).parents('tr').remove();
+            }
          });
          
          // Delete selected checkbox in the table
          $('#btnDelCheckRow').click(function() {
-         var lenRow      = $('#tblAddRow tbody tr').length;
-         var lenChecked  = $("#tblAddRow input[type='checkbox']:checked").length;
-         var row = $("#tblAddRow tbody input[type='checkbox']:checked").parent().parent();
-         //alert(lenRow + ' - ' + lenChecked);
-         if (lenRow == 1 || lenRow <= 1 || lenChecked >= lenRow) {
-             alert("Can't remove all row!");
-         } else {
-             row.remove();
-         }
+            var lenRow      = $('#tblAddRow tbody tr').length;
+            var lenChecked  = $("#tblAddRow input[type='checkbox']:checked").length;
+            var row = $("#tblAddRow tbody input[type='checkbox']:checked").parent().parent();
+            //alert(lenRow + ' - ' + lenChecked);
+            if (lenRow == 1 || lenRow <= 1 || lenChecked >= lenRow) {
+               alert("Can't remove all row!");
+            } else {
+               row.remove();
+            }
          });
-                 var mem = $('.datea .input-group.date').datepicker({
-                     todayBtn: "linked",
-                     keyboardNavigation: false,
-                     forceParse: false,
-                     calendarWeeks: true,
-                     autoclose: true
-                 });
+
+         var mem = $('.datea .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+         });
       </script>
-      <script type="text/javascript">
+<script type="text/javascript">
     $(function () { //
         $("#chkPassport").click(function () {
             if ($(this).is(":checked")) {
@@ -792,16 +796,47 @@
             }
         });
     });
-                        $(function () { //
-        $("#chkPassportl").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportl").show();
-            } else {
-                $("#dvPassportl").hide();
-                $("#txtPassportl").val('');
-            }
-        });
-    });
+   $(function () { //
+      $("#chkPassportl").click(function () {
+         if ($(this).is(":checked")) {
+            $("#dvPassportl").show();
+         } else {
+            $("#dvPassportl").hide();
+            $("#txtPassportl").val('');
+         }
+      });
+   });
+
+function getIndex(node) {
+
+   var current = node,
+
+   count = 0;
+
+   while (current && current.previousElementSibling) {
+
+      count++
+
+      current = current.previousElementSibling;
+   }
+
+   return count;
+}
+
+function getDetails() {
+
+   var node = this;
+
+   console.log({
+      'name': node.name,
+      'index': getIndex(node),
+      'value': node.value
+   });
+}
+
+Array.from(document.querySelectorAll('input[type="text"]')).forEach(function(input) {
+   input.addEventListener('change', getDetails);
+});
 </script>
    </body>
 </html>

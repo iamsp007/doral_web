@@ -17,11 +17,14 @@ use App\Models\PatientDetail;
 use App\Models\PatientEmergencyContact;
 use App\Models\PatientLabReport;
 use App\Models\PatientReferralInfo;
+use App\Models\PatientReport;
 use App\Models\State;
 use App\Models\User;
 use App\Models\VisitorDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 class GetPatientDetailsController extends Controller
 {
@@ -61,15 +64,17 @@ class GetPatientDetailsController extends Controller
 
         $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
         $drugLabReportTypes = LabReportType::where('status','1')->where('parent_id', 3)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
-        
+
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
         $patient = User::with('caregiverInfo', 'caregiverInfo.company', 'demographic', 'patientEmergency')->find($paient_id);
-       
+
         $emergencyPreparednesValue = '';
         if ($patient->emergencyPreparednes) {
             $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);
         }
+
+        $ethnicity = $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
 
         if (isset($patient->caregiverInfo)) {
 
@@ -82,7 +87,7 @@ class GetPatientDetailsController extends Controller
             if (isset($patient->caregiverInfo->mobile)) {
                 $mobile = json_decode($patient->caregiverInfo->mobile);
             }
-            
+
             if (isset($patient->caregiverInfo->marital_status)) {
                 $maritalStatus = json_decode($patient->caregiverInfo->marital_status);
             }
@@ -131,7 +136,7 @@ class GetPatientDetailsController extends Controller
                 $language = json_decode($patient->demographic->language);
             }
         }
-        
+
         return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language'));
     }
 
@@ -161,7 +166,7 @@ class GetPatientDetailsController extends Controller
 
         return $this->curlCall($data, $method);
     }
-     
+
     /**
      * Display a listing of the resource.
      *
@@ -169,10 +174,10 @@ class GetPatientDetailsController extends Controller
      */
     public function getPatientChangesV2()
     {
-        $date = Carbon::now();// will get you the current date, time 
-        $today = $date->format("Y-m-d"); 
+        $date = Carbon::now();// will get you the current date, time
+        $today = $date->format("Y-m-d");
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientChangesV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><ModifiedAfter>' . $today . '</ModifiedAfter></GetPatientChangesV2></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-        
+
         $method = 'POST';
 
         return $this->curlCall($data, $method);
@@ -215,8 +220,8 @@ class GetPatientDetailsController extends Controller
      */
     public function getSearchVisitorDetails($patientId)
     {
-        $date = Carbon::now();// will get you the current date, time 
-        $today = $date->format("Y-m-d"); 
+        $date = Carbon::now();// will get you the current date, time
+        $today = $date->format("Y-m-d");
 
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><StartDate>' . $today . '</StartDate><EndDate>' . $today . '</EndDate><PatientID>' . $patientId . '</PatientID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
@@ -224,7 +229,7 @@ class GetPatientDetailsController extends Controller
 
         return $this->curlCall($data, $method);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -252,11 +257,11 @@ class GetPatientDetailsController extends Controller
 
         return $this->curlCall($data, $method);
     }
-    
+
     public function checkCurrentVisitorDetails(Request $request)
     {
         $patientId = $request->patient_id;
-        $date = Carbon::now();// will get you the current date, time 
+        $date = Carbon::now();// will get you the current date, time
         $today = $date->format("Y-m-d");
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><StartDate>' . $today .'</StartDate><EndDate>' . $today . '</EndDate><PatientID>' . $patientId . '</PatientID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
         $method = 'POST';
@@ -268,7 +273,7 @@ class GetPatientDetailsController extends Controller
                 $vid = $viId;
                 $scheduleInfo = $this->getScheduleInfo($viId);
                 $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
-                
+
                 $visitorDetail = new VisitorDetail();
                 $visitorDetail->patient_id = $patientForeignId->id;
                 $visitorDetail->visitor_id = ($getScheduleInfo['ID']) ? $getScheduleInfo['ID'] : '' ;
@@ -278,8 +283,8 @@ class GetPatientDetailsController extends Controller
                 $visitorDetail->last_name = ($getScheduleInfo['Caregiver']['LastName']) ? $getScheduleInfo['Caregiver']['LastName'] : '' ;
                 $visitorDetail->caregiver_code = ($getScheduleInfo['Caregiver']['CaregiverCode']) ? $getScheduleInfo['Caregiver']['CaregiverCode'] : '' ;
                 $visitorDetail->time_attendance_PIN = ($getScheduleInfo['Caregiver']['TimeAndAttendancePIN']) ? $getScheduleInfo['Caregiver']['TimeAndAttendancePIN'] : '' ;
-                $visitorDetail->schedule_start_time = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ; 
-                $visitorDetail->schedule_end_time = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ; 
+                $visitorDetail->schedule_start_time = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ;
+                $visitorDetail->schedule_end_time = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ;
 
                 $visitorDetail->save();
             }
@@ -342,11 +347,11 @@ class GetPatientDetailsController extends Controller
 
         // $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
         $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','490045','504356','516752','517000','518828','532337','540428','541579','542628','1005036','1008858','1009943','1010785','1010967','1015287','1019171','1030319','1031322','1048580','688245','695223','697606','698180','698859','698935','701845','704228','742010','742023','762544','762584','772465','772468','772470','783693','817770','826323','832638','894642','904265','909877','916609','916702','946557','948750','952551','961283','987170','989414','990437','994958','996056','841005','854502','865729','965077'];
-       
+
         $counter = 0;
         foreach ($patientArray as $patient_id) {
             if ($counter < 5) {
-                       
+
                 $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
                 if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
@@ -358,22 +363,22 @@ class GetPatientDetailsController extends Controller
                     if($patient_detail_id) {
 
                         /** Pending store process start*/
-                    
+
                         /** Get and Store Version2 of Patient Detail */
                         // $patientChangesV2 = $this->getPatientChangesV2();
                         // $this->storePatientDetail($patientChangesV2, 'edit');
 
                         /** Get and Store Patient Referral Detail */
                         $patientReferralInfo = $this->getPatientReferralInfo($patient_id);
-                       
+
                         if (isset($patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'])) {
                             $getPatientReferralInfo = $patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
-                          
+
                             if ($getPatientReferralInfo['ReferralMasterId'] != 0) {
                                 $this->storePatientReferralInfo($getPatientReferralInfo, $patient_detail_id);
-                            } 
+                            }
                         }
-                        
+
                         /** Get and Store Schedule Info */
                         // $visitID = $searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
                         // $scheduleInfo = $this->getScheduleInfo($visitID);
@@ -394,7 +399,7 @@ class GetPatientDetailsController extends Controller
         // if ($action == 'add') {
             $patientDetails = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
         //     $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
-        
+
         //     if ($patientDetailData) {
         //         $patientDetail = PatientDetail::find($patientDetailData->id);
         //     } else {
@@ -409,7 +414,7 @@ class GetPatientDetailsController extends Controller
             // $patientDetails = $apiResponse['soapBody']['GetPatientChangesV2Response']['GetPatientChangesV2Result']['GetPatientChangesV2Info'];
 
             $patientDetailData = PatientDetail::where('patient_id', $patientDetails['PatientID'])->first();
-        
+
             if ($patientDetailData) {
                 $patientDetail = PatientDetail::find($patientDetailData->id);
             } else {
@@ -420,9 +425,9 @@ class GetPatientDetailsController extends Controller
             // $patientDetail->birth_date = ($patientDetails['DateOfBirth']) ? $patientDetails['DateOfBirth'] : '' ;
             // $patientDetail->mr_number = ($patientDetails['MRNumber']) ? $patientDetails['MRNumber'] : '' ;
             // $patientDetail->mr_number = ($patientDetails['AcceptedServices']) ? $patientDetails['AcceptedServices'] : '' ;
-            
+
         // }
-       
+
         $patientDetail->doral_id = 'DOR-' . mt_rand(100000, 999999);
         $patientDetail->patient_status_id = ($patientDetails['PatientStatusID']) ? $patientDetails['PatientStatusID'] : '' ;
         $patientDetail->birth_date = ($patientDetails['BirthDate']) ? $patientDetails['BirthDate'] : '' ;
@@ -434,7 +439,7 @@ class GetPatientDetailsController extends Controller
         $patientDetail->first_name = ($patientDetails['FirstName']) ? $patientDetails['FirstName'] : '' ;
         $patientDetail->middle_name = ($patientDetails['MiddleName']) ? $patientDetails['MiddleName'] : '' ;
         $patientDetail->last_name = ($patientDetails['LastName']) ? $patientDetails['LastName'] : '' ;
-        
+
         $patientDetail->gender =  ($patientDetails['Gender']) ? $patientDetails['Gender'] : '' ;
 
         $patientDetail->priority_code = ($patientDetails['PriorityCode']) ? $patientDetails['PriorityCode'] : '' ;
@@ -450,7 +455,7 @@ class GetPatientDetailsController extends Controller
         $patientDetail->medicare_number = ($patientDetails['MedicareNumber']) ? $patientDetails['MedicareNumber'] : '' ;
         $patientDetail->ssn = ($patientDetails['SSN']) ? $patientDetails['SSN'] : '' ;
         $patientDetail->alert = ($patientDetails['Alerts']) ? $patientDetails['Alerts'] : '' ;
-        
+
         if (isset($patientDetails['SourceOfAdmission']) && !empty($patientDetails['SourceOfAdmission'])){
             $patientDetail->source_admission_id = ($patientDetails['SourceOfAdmission']['ID']) ? $patientDetails['SourceOfAdmission']['ID'] : '';
             $patientDetail->source_admission_name = ($patientDetails['SourceOfAdmission']['Name']) ? $patientDetails['SourceOfAdmission']['Name'] : '';
@@ -470,7 +475,7 @@ class GetPatientDetailsController extends Controller
             $patientDetail->branch_id = ($patientDetails['Branch']['ID']) ? $patientDetails['Branch']['ID'] : '';
             $patientDetail->branch_name = ($patientDetails['Branch']['Name']) ? $patientDetails['Branch']['Name'] : '';
         }
-        
+
         $patientDetail->home_phone = ($patientDetails['HomePhone']) ? $patientDetails['HomePhone'] : '' ;
         $patientDetail->phone2 = ($patientDetails['Phone2']) ? $patientDetails['Phone2'] : '' ;
         $patientDetail->phone2_description = ($patientDetails['Phone2Description']) ? $patientDetails['Phone2Description'] : '' ;
@@ -483,38 +488,38 @@ class GetPatientDetailsController extends Controller
         $patientDetail->home_phone3_location_address_id = ($patientDetails['HomePhone3LocationAddressID']) ? $patientDetails['HomePhone3LocationAddressID'] : '' ;
         $patientDetail->home_phone3_location_address = ($patientDetails['HomePhone3LocationAddress']) ? $patientDetails['HomePhone3LocationAddress'] : '' ;
         $patientDetail->direction = ($patientDetails['Direction']) ? $patientDetails['Direction'] : '' ;
-                
+
         $patientDetail->payer_id = ($patientDetails['PayerID']) ? $patientDetails['PayerID'] : '' ;
         $patientDetail->payer_name = ($patientDetails['PayerName']) ? $patientDetails['PayerName'] : '' ;
         $patientDetail->payer_coordinator_id = ($patientDetails['PayerCoordinatorID']) ? $patientDetails['PayerCoordinatorID'] : '' ;
         $patientDetail->payer_coordinator_name = ($patientDetails['PayerCoordinatorName']) ? $patientDetails['PayerCoordinatorName'] : '' ;
-       
+
         $patientDetail->patient_status_name = ($patientDetails['PatientStatusName']) ? $patientDetails['PatientStatusName'] : '' ;
-        
+
         $patientDetail->wage_parity = ($patientDetails['WageParity']) ? $patientDetails['WageParity'] : '' ;
         $patientDetail->wage_parity_from_date1 = ($patientDetails['WageParityFromDate1']) ? $patientDetails['WageParityFromDate1'] : '' ;
         $patientDetail->wage_parity_to_date1 = ($patientDetails['WageParityToDate1']) ? $patientDetails['WageParityToDate1'] : '' ;
         $patientDetail->wage_parity_from_date2 = ($patientDetails['WageParityFromDate2']) ? $patientDetails['WageParityFromDate2'] : '' ;
         $patientDetail->wage_parity_to_date2 = ($patientDetails['WageParityToDate2']) ? $patientDetails['WageParityToDate2'] : '' ;
-       
+
         $patientDetail->primary_language_id = ($patientDetails['PrimaryLanguageID']) ? $patientDetails['PrimaryLanguageID'] : '' ;
         $patientDetail->primary_language = ($patientDetails['PrimaryLanguage']) ? $patientDetails['PrimaryLanguage'] : '' ;
         $patientDetail->secondary_language_id = ($patientDetails['SecondaryLanguageID']) ? $patientDetails['SecondaryLanguageID'] : '' ;
         $patientDetail->secondary_language = ($patientDetails['SecondaryLanguage']) ? $patientDetails['SecondaryLanguage'] : '' ;
         $patientDetail->status = '4';
-        
+
         $patientDetail->save();
 
         if($patientDetail) {
             /** Store  Coordinator */
             $this->storeCoordinator($patientDetails['Coordinators']['Coordinator'], $patientDetail->id);
-           
+
             /** Store accepted services */
             $this->storeAcceptedServices($patientDetails['AcceptedServices'], $patientDetail->id, $action);
 
             /** Store address */
             $this->storeAddress($patientDetails['Addresses']['Address'], $patientDetail->id);
-            
+
             /** Store alternate billing */
             $this->storeAlternateBilling($patientDetails['AlternateBilling'], $patientDetail->id, $action);
 
@@ -570,7 +575,7 @@ class GetPatientDetailsController extends Controller
             );
         }
     }
-    
+
     public function storeAddress($address, $patientDetail_id)
     {
         $country_id = 226;
@@ -642,9 +647,9 @@ class GetPatientDetailsController extends Controller
                 ]
             );
         }
-      
+
     }
-    
+
     public function storeEmergencyContact($patientDetails, $patientDetail_id, $action)
     {
         if ($action == 'add') {
@@ -691,14 +696,14 @@ class GetPatientDetailsController extends Controller
 
             $encodedTypeValue = json_encode($emergencyPreparednes);
             $emergencyPreparednessModel = new EmergencyPreparedness();
-            
+
             $emergencyPreparednessModel->type = $key;
             $emergencyPreparednessModel->value = $encodedTypeValue;
             $emergencyPreparednessModel->patient_id = $patientDetail_id;
 
             $emergencyPreparednessModel->save();
         }
-    }  
+    }
 
     public function storeScheduleInfo($scheduleInfo, $patient_detail_id)
     {
@@ -713,8 +718,8 @@ class GetPatientDetailsController extends Controller
         $visitorDetail->last_name = ($getScheduleInfo['Caregiver']['LastName']) ? $getScheduleInfo['Caregiver']['LastName'] : '' ;
         $visitorDetail->caregiver_code = ($getScheduleInfo['Caregiver']['CaregiverCode']) ? $getScheduleInfo['Caregiver']['CaregiverCode'] : '' ;
         $visitorDetail->time_attendance_PIN = ($getScheduleInfo['Caregiver']['TimeAndAttendancePIN']) ? $getScheduleInfo['Caregiver']['TimeAndAttendancePIN'] : '' ;
-        $visitorDetail->schedule_start_time = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ; 
-        $visitorDetail->schedule_end_time = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ; 
+        $visitorDetail->schedule_start_time = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ;
+        $visitorDetail->schedule_end_time = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ;
 
         $visitorDetail->save();
     }
@@ -743,14 +748,14 @@ class GetPatientDetailsController extends Controller
                 'referral_account_manager_id' => ($getScheduleInfo['ReferralAccountManagerId']) ? $getScheduleInfo['ReferralAccountManagerId'] : '',
                 'referral_account_manager_name' => ($getScheduleInfo['ReferralAccountManagerName']) ? $getScheduleInfo['ReferralAccountManagerName'] : '',
             ]
-        );    
+        );
 
         /** Get and Store Patient Referral Info */
         $referralProfile = $this->getReferralProfile($patientReferralInfoModel->referral_master_id);
         $getReferralProfile = $referralProfile['soapBody']['GetReferralProfileResponse']['GetReferralProfileResult']['ReferralSearch'];
         $this->storeReferralProfile($getReferralProfile, $patient_detail_id);
     }
-    
+
     public function storeReferralProfile($getReferralProfile, $patient_detail_id)
     {
         // $this->storePatientReferralInfo($getReferralProfile, $patient_detail_id);
@@ -759,17 +764,17 @@ class GetPatientDetailsController extends Controller
     public function storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id)
     {
         $clinicalDetails = $getPatientClinicalInfo['soapBody']['GetPatientClinicalInfoResponse']['GetPatientClinicalInfoResult']['PatientClinicalInfo'];
-     
+
         $patientClinicalDetail = new PatientClinicalDetail();
         $patientClinicalDetail->patient_id = $patient_detail_id;
-        
+
         $patientClinicalDetail->nursing_visits_due = ($clinicalDetails['NursingVisitsDue']) ? $clinicalDetails['NursingVisitsDue'] : '';
 
         if ($clinicalDetails['MDOrderRequired'] == 'Yes') {
             $MDOrderRequiredValue = '1';
         } else if ($clinicalDetails['MDOrderRequired'] == 'No') {
             $MDOrderRequiredValue = '2';
-        } 
+        }
         $patientClinicalDetail->md_order_required = $MDOrderRequiredValue;
         $patientClinicalDetail->md_order_due = ($clinicalDetails['MDOrderDue']) ? $clinicalDetails['MDOrderDue'] : '';
         $patientClinicalDetail->md_visit_due = ($clinicalDetails['MDVisitDue']) ? $clinicalDetails['MDVisitDue'] : '';
@@ -781,5 +786,85 @@ class GetPatientDetailsController extends Controller
         $patientAllergy->allergy = ($clinicalDetails['Comments']) ? $clinicalDetails['Comments'] : '';
         $patientAllergy->comment = ($clinicalDetails['Allergies']) ? $clinicalDetails['Allergies'] : '';
         $patientAllergy->save();
-    }  
+    }
+
+
+    public function getLabReportReferral(Request $request){
+        $roles = Auth::user()->roles->pluck('id')->toArray();
+
+        $labReportTypes = LabReportType::where('status','=','1')
+            ->where(function ($q) use ($roles){
+                if (count($roles)>1){
+                    $q->where('referral_id','=',$roles[1]);
+                }
+
+            })
+            ->get();
+        return response()->json([
+            'status'=>false,
+            'message'=>'Lab referral get successfully!',
+            'data'=>$labReportTypes
+        ],200);
+    }
+
+    public function labReportUpload(Request $request)
+    {
+        $this->validate($request, [
+            'lab_report_id' => 'required',
+            'patient_id' => 'required',
+            'files' => 'required'
+        ]);
+        if ($request->hasfile('files')) {
+            $file = $request->file('files');
+            $name = time() . '.' . $file->getClientOriginalName();
+            $filePath = 'patient_report/' . $name;
+            Storage::disk('local')->put($filePath, file_get_contents($file));
+
+            $patientReport = new PatientReport();
+            $patientReport->file_name = $name;
+            $patientReport->original_file_name = $file->getClientOriginalName();
+            $patientReport->user_id = $request->patient_id;
+            $patientReport->lab_report_type_id = $request->lab_report_id;
+            if ($patientReport->save()){
+                return response()->json([
+                    'status'=>true,
+                    'message'=>'File upload Successfully '.$file->getClientOriginalName()
+                ],200);
+            }
+
+        }
+        return response()->json([
+            'status'=>false,
+            'message'=>'Something Went Wrong!'
+        ],200);
+    }
+
+    public function labReportData(Request $request){
+        $this->validate($request,[
+            'patient_id'=>'required|exists:users,id'
+        ]);
+        $data = PatientReport::with('reports')
+            ->where('user_id','=',$request->patient_id);
+        return DataTables::of($data)->make(true);
+
+    }
+
+    public function viewLabReport(Request $request){
+        $this->validate($request,[
+            'patient_id'=>'required|exists:users,id'
+        ]);
+        $data = PatientReport::where('user_id','=',$request->patient_id)->get();
+        if (count($data)>0){
+            return response()->json([
+                'status'=>true,
+                'message'=>'Patient lab report file get successfully!',
+                'data'=>$data
+            ]);
+        }
+        return response()->json([
+            'status'=>false,
+            'message'=>'Report Not Found!',
+            'data'=>$data
+        ]);
+    }
 }

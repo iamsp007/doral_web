@@ -74,6 +74,9 @@ class GetPatientDetailsController extends Controller
         $ethnicity = $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
 
         if (isset($patient->caregiverInfo)) {
+
+            $ethnicity = $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
+
             if (isset($patient->caregiverInfo->ethnicity)) {
                 $ethnicity = json_decode($patient->caregiverInfo->ethnicity);
             }

@@ -150,7 +150,7 @@ class CaregiverController extends Controller
 
         // return 'Update successfully';
         // dump($counter);2960 - 2660
-        foreach (array_slice($caregiverArray, 0, 300) as $cargiver_id) {
+        foreach (array_slice($caregiverArray, 298, 302) as $cargiver_id) {
             // foreach ($caregiverArray as $cargiver_id) {
             /** Store patirnt demographic detail */
             $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();

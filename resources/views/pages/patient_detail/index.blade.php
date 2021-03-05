@@ -176,7 +176,7 @@
                   <!-- Clinical End -->
 
                    <!-- Clinical Start -->
-                   @include('pages.patient_detail.clinical-info')
+                   <!-- @include('pages.patient_detail.clinical-info') -->
                   <!-- Clinical End -->
 
                   <!-- Physician Start -->

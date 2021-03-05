@@ -4,9 +4,6 @@
 Refferal Profile
 @endsection
 @section('content')
-<style>
-   img.update-icon {display: none;}
-</style>
 <div class="row">
    <div class="col-12 col-sm-4">
       <div class="app-card">
@@ -24,33 +21,34 @@ Refferal Profile
          <div class="card-body">
             <div class="d-flex justify-content-end align-items-center">
                @if($record->status == 'active')
-               <button type="button"
-                  class="btn btn-primary btn-pink mr-2"
-                  data-toggle="tooltip" data-placement="left">Accepted
-               </button>
-               <button type="button" class="btn btn-primary btn-pink mr-2 rejectid"
-                  data-toggle="tooltip" data-placement="left"
-                  id="{{$record->id}}">Reject
-               </button>
+                  <button type="button"
+                     class="btn btn-primary btn-pink mr-2"
+                     data-toggle="tooltip" data-placement="left">Accepted
+                  </button>
+                  <button type="button" class="btn btn-primary btn-pink mr-2 rejectid"
+                     data-toggle="tooltip" data-placement="left"
+                     id="{{$record->id}}">Reject
+                  </button>
                @endif
                @if($record->status == 'reject')
-               <button type="button"
-                  class="btn btn-primary btn-pink mr-2 acceptid"
-                  data-toggle="tooltip" data-placement="left" id="{{$record->id}}" >Accept
-               </button>
-               <button type="button" class="btn btn-primary btn-pink mr-2"
-                  data-toggle="tooltip" data-placement="left">Rejected
-               </button>
+                  <button type="button"
+                     class="btn btn-primary btn-pink mr-2 acceptid"
+                     data-toggle="tooltip" data-placement="left" 
+                     id="{{$record->id}}">Accept
+                  </button>
+                  <button type="button" class="btn btn-primary btn-pink mr-2"
+                     data-toggle="tooltip" data-placement="left">Rejected
+                  </button>
                @endif
                @if($record->status == 'pending')
-               <button type="button"
-                  class="btn btn-primary btn-pink mr-2 acceptid"
-                  data-toggle="tooltip" data-placement="left" id="{{$record->id}}" >Accept
-               </button>
-               <button type="button" class="btn btn-primary btn-pink mr-2 rejectid"
-                  data-toggle="tooltip" data-placement="left"
-                  id="{{$record->id}}">Reject
-               </button>
+                  <button type="button"
+                     class="btn btn-primary btn-pink mr-2 acceptid"
+                     data-toggle="tooltip" data-placement="left" id="{{$record->id}}" >Accept
+                  </button>
+                  <button type="button" class="btn btn-primary btn-pink mr-2 rejectid"
+                     data-toggle="tooltip" data-placement="left"
+                     id="{{$record->id}}">Reject
+                  </button>
                @endif
                <!--<button type="submit" class="btn btn-primary btn-sm btn-green mr-2"
                   name="save_next">Accept</button>
@@ -77,14 +75,14 @@ Refferal Profile
                   <div class="row">
                      <div class="col-12 col-sm-6">
                         <ul class="form-data">
-                              <input type="hidden" id="user_id" value="{{ $record->id?$record->id:'' }}">
+                              <input type="hidden" id="user_id" value="{{ $record->id ? $record->id : '' }}">
                            <li>
                               <label class="label">Administrator Name:</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="administrator_name"
                                  onkeyup="erroMessage()"
                                  data-id="administrator_name" id="administrator_name"
-                                 placeholder="Administrator Name" value="{{ $record->administrator_name?$record->administrator_name:'' }}">
+                                 placeholder="Administrator Name" value="{{ $record->administrator_name ? $record->administrator_name : '' }}">
                                  <span class="error-message" id="admin_error_name">Administrator Name is required</span>
                            </li>
                            <li>
@@ -93,7 +91,7 @@ Refferal Profile
                                  readonly name="registration_no"
                                  onkeyup="erroMessage()"
                                  data-id="registration_no" id="registration_no"
-                                 placeholder="Registration Number" value="{{ $record->registration_no?$record->registration_no:'' }}">
+                                 placeholder="Registration Number" value="{{ $record->registration_no ? $record->registration_no : '' }}">
                                  <span class="error-message" id="registration_error">Registration Number is required</span>
                            </li>
                            <li>
@@ -102,7 +100,7 @@ Refferal Profile
                                  readonly name="administrator_emailId"
                                  onkeyup="erroMessage()" data-id="i_emailId"
                                  id="administrator_emailId" placeholder="example@example.com"
-                                 value="{{ $record->administrator_emailId?$record->administrator_emailId:'' }}">
+                                 value="{{ $record->administrator_emailId ? $record->administrator_emailId : '' }}">
                                   <span class="error-message" id="email_error">Email is not Valid</span>
                            </li>
                         </ul>
@@ -115,7 +113,7 @@ Refferal Profile
                                  readonly name="licence_no"
                                  onkeyup="erroMessage()" data-id="licence_no"
                                  id="licence_no" placeholder="Licence Number"
-                                 value="{{ $record->licence_no?$record->licence_no:'' }}">
+                                 value="{{ $record->licence_no ? $record->licence_no : '' }}">
                                  <span class="error-message" id="licence_error">Licence Number is required</span>
                            </li>
                            <li>
@@ -124,7 +122,7 @@ Refferal Profile
                                  readonly name="administrator_phone_no"
                                  onkeyup="erroMessage()" data-id="i_phone_no"
                                  id="administrator_phone_no" placeholder="Phone Number"
-                                 value="{{ $record->administrator_phone_no?$record->administrator_phone_no:'' }}">
+                                 value="{{ $record->administrator_phone_no ? $record->administrator_phone_no : '' }}">
                                  <span class="error-message" id="phone_error">Phone Number is not Valid</span>
                            </li>
                         </ul>
@@ -158,7 +156,7 @@ Refferal Profile
                                  readonly name="insurance_id"
                                  onkeyup="erroMessageMal()"
                                  data-id="insurance_id" id="insurance_id"
-                                 placeholder="insurance_id" value="{{ $record->insurance_id?$record->insurance_id:'' }}">
+                                 placeholder="insurance_id" value="{{ $record->insurance_id ? $record->insurance_id : '' }}">
                                  <span class="error-message" id="insurance_error">Insurance Id is required</span>
                            </li>
                         </ul>
@@ -207,18 +205,16 @@ Refferal Profile
                         <ul class="form-data">
                            <li>
                               <label class="label">Name Of Company:</label>
-                              <!-- <p class="t5">Doral Corporation</p> -->
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="name_company"
                                  onkeyup="companyerror()"
                                  data-id="name_company" id="name_company"
-                                 placeholder="Name Of Company" value="{{ $record->name?$record->name:'' }}">
+                                 placeholder="Name Of Company" value="{{ $record->name ? $record->name : '' }}">
                                   <span class="error-message" id="company_error">Company Name is required</span>
 
                            </li>
                            <li>
                               <label class="label">Addresss:</label>
-                              <!-- <p class="t5">Doral Corporation</p> -->
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="addresss" onkeyup="companyerror()"
                                  data-id="addresss" id="addresss" placeholder="addresss"
@@ -228,12 +224,10 @@ Refferal Profile
                            </li>
                            <li>
                               <label class="label">Phone Number:</label>
-                              <!-- <p class="t5">Doral Corporation</p> -->
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="phone_no" onkeyup="companyerror()"
                                  data-id="phone_no" id="phone_no" placeholder="Phone Number"
-                                 value="{{ $record->phone?$record->phone:'' }}">
-
+                                 value="{{ $record->phone ? $record->phone : '' }}">
                                  <span class="error-message" id="company_phone_error">Phone Number is not valid</span>
                            </li>
                         </ul>
@@ -263,7 +257,7 @@ Refferal Profile
                                  readonly name="emailId" onkeyup="companyerror()"
                                  data-id="emailId" id="emailId"
                                  placeholder="example@example.com"
-                                 value="{{ $record->email?$record->email:'' }}">
+                                 value="{{ $record->email ? $record->email : '' }}">
 
                                  <span class="error-message" id="company_email_error">Email is not valid</span>
                            </li>
@@ -272,7 +266,7 @@ Refferal Profile
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="fax_no" onkeyup="companyerror()"
                                  data-id="fax_no" id="fax_no" placeholder="Fax Number"
-                                 value="{{ $record->fax_no?$record->fax_no:'' }}">
+                                 value="{{ $record->fax_no ? $record->fax_no : '' }}">
                                  <span class="error-message" id="fax_error">Fax Number is required</span>
                            </li>
                         </ul>

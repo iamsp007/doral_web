@@ -980,23 +980,9 @@
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/bootstrap.css" />
-     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
-      <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
-       <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
-{{--    <style> --}}
-{{--        html, body {overflow: auto;}--}}
-{{--        body > #zmmtg-root {display: none;}--}}
-{{--        #zmmtg-root, .meeting-client, .meeting-client-inner {position: relative;width:97%;}--}}
-{{--        #wc-footer {--}}
-{{--        bottom: auto !important;width: 97% !important;}--}}
-{{--        #dialog-join {width: 97% !important;}--}}
-{{--        #sv-active-video, .active-main, #sv-active-speaker-view, .main-layout {height: 100% !important;width: 100% !important;}--}}
-{{--        .suspension-window {transform: translate(-444px, 10px) !important;}--}}
-{{--        #dialog-invite {display: none;}--}}
-{{--        .video_container{background:none!important;position:relative!important;}--}}
-{{--        .app-video .app-video-body .app-video-middle{position:relative;}--}}
-{{--        .app-video .app-video-header{position:relative;z-index:9999;}--}}
-{{--    </style>--}}
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 @endpush
 @push('scripts')
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
@@ -1012,7 +998,7 @@
     <script src="https://source.zoom.us/1.8.3/lib/vendor/react-dom.min.js"></script>
     <script src="https://source.zoom.us/1.8.3/lib/vendor/redux.min.js"></script>
     <script src="https://source.zoom.us/1.8.3/lib/vendor/redux-thunk.min.js"></script>
-{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/jquery.min.js"></script>--}}
+
     <script src="https://source.zoom.us/1.8.3/lib/vendor/lodash.min.js"></script>
     <script src="https://source.zoom.us/zoom-meeting-1.8.3.min.js"></script>
     <script src="{{ asset('js/Zoom/index.js') }}"></script>
@@ -1040,7 +1026,7 @@
               $("#patient_name").select2({
 
                 ajax: { 
-                    url: '{{ route('clinician.scheduleAppoimentList.ajax-data') }}',
+                    url: "{{ route('clinician.scheduleAppoimentList.ajax-data') }}",
                     type: "POST",
                     dataType: 'json',
                     delay: 250,

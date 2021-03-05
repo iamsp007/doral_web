@@ -20,6 +20,7 @@
     <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"> -->
     <link rel="stylesheet" href="{{ asset('css/toaster.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/developer.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 
@@ -77,6 +78,7 @@
                     @endrole
                     @foreach(config($file) as $key=>$value)
                         @if(!isset($value['menu']))
+                       
                             <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                                 <a href="{{ $value['url'] }}">
                                     <div class="notify <?php if($value['name'] == 'RoadL Request') { echo 'd-90'; } ?>">
@@ -101,11 +103,31 @@
                                 </a>
                                 <ul class="child">
                                     <li class="arrow--4"></li>
-                                    @foreach($value['menu'] as $skey=>$svalue)
-                                        <li><a href="{{ $svalue['url'] }}">{{ $svalue['name'] }}</a></li>
-                                    @endforeach
+                                    @if($value['name'] == 'Services')
+                                        @foreach($value['menu'] as $skey => $value)
+                                            @if(in_array($value['name'], explode(",",Auth::guard('referral')->user()->services) )) 
+                                                @php 
+                                                    if($value['name'] == '1'):
+                                                        $name = 'VBC';
+                                                    endif;
+                                                    if($value['name'] == '2'):
+                                                        $name = 'MD Order';
+                                                    endif;
+                                                    if($value['name'] == '3'):
+                                                        $name = 'Occupational Health';
+                                                    endif;
+                                                @endphp
+                                                <li><a href="{{ $value['url'] }}">{{ $name }}</a></li>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        @foreach($value['menu'] as $skey=>$svalue)
+                                            <li><a href="{{ $svalue['url'] }}">{{ $svalue['name'] }}</a></li>
+                                        @endforeach
+                                    @endif
                                 </ul>
                             </li>
+                            
                             <!-- <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                                 <a href="{{ $value['url'] }}">
                                     <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">
@@ -234,7 +256,7 @@
     <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script> -->
     <script src="{{ asset('assets/js/apexcharts.js') }}"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-database.js"></script>
@@ -248,7 +270,7 @@
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('{{ asset("js/firebase-messaging-sw.js") }}')
                     .then(function(registration) {
-                        console.log('Registration successful, scope is:', registration.scope);
+                        // console.log('Registration successful, scope is:', registration.scope);
                         const config = {
                             apiKey: "AIzaSyC5rTr8rSUyQeKlbaAHW1Xo-ezNoQO0dUE",
                             projectId: "doral-roadl",
@@ -321,6 +343,7 @@
 
         });
     </script>
+
 @stack('scripts')
 </body>
 </html>

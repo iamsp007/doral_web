@@ -20,8 +20,8 @@
             <div>
                <ul class="shortdesc">
                   <li>Employee Type: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->employee_type : '' }}</span></li>
-                  <li>Status: <span>{{ ($status[0]) ? $status[0]->Name : '' }}</span></li>
-                  <li>Caregiver ID: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->caregiver_id : '' }}</span></li>
+                  <li>Status: <span>{{ isset($status[0]) ? $status[0]->Name : '' }}</span></li>
+                  <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender }}</span></li>
                   <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
                </ul>
@@ -774,13 +774,13 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script> -->
     <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script> -->
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var patient_id='{{ $patient->id }}';
         var map;
@@ -1015,77 +1015,6 @@
             });
          }
     </script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
-        defer
-    ></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
     <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
-    <script src="{{ asset('assets/js/uploadfiles.js') }}"></script>
-    <script src="{{ asset('js/dropzone.js') }}"></script>
-    <script>
-        var reportable = $('#reportTable').DataTable();
-        var myDropzone = new Dropzone("#dropzone-file-lab-report", {
-            url:'{{ route('referral.vbc-upload-bulk-data-store') }}',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            method:'POST',
-            params:{
-                vbc_select:1,
-                service_id:2,
-                formSelect:null
-            },
-            maxFiles: 10,
-            autoProcessQueue: true,
-            progress:true,
-            accept: function(file, done) {
-                done();
-            },
-            init: function() {
-                this.on("maxfilesexceeded", function(file){
-                    var msgEl = $(file.previewElement).find('.dz-error-message');
-                    msgEl.text('Only one file allowed');
-                    msgEl.show();
-                    msgEl.css("opacity", 1);
-                    return false
-                });
-                this.on("success", function(file, responseText) {
-                    console.log(responseText)
-                });
-            },
-            paramName: 'files',
-            acceptedFiles: ".xls,.xlsx,.csv",
-            addRemoveLinks: true,
-            error:function (file, error) {
-                if (file && error) {
-                    var msgEl = $(file.previewElement).find('.dz-error-message');
-                    msgEl.text(error.message?error.message:error);
-                    msgEl.show();
-                    msgEl.css("opacity", 1);
-                }else {
-                    var msgEl = $(file.previewElement).find('.dz-error-message');
-                    msgEl.text(error);
-                    msgEl.show();
-                    msgEl.css("opacity", 1);
-                }
-            }
-        });
-    </script>
-
-@endpush
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/uploadfiles.css') }}">
-    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" />
-    <style>
-        .app .app-content .app-header-block._fullwidth {
-            width: calc(100% - 7rem);
-            position: fixed;
-            right: 0;
-            z-index: 0;
-        }
-        .modal-backdrop{z-index: 0!important;}
-        .modal-backdrop.show{z-index: -1!important;}
-    </style>
 @endpush

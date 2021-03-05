@@ -9,63 +9,136 @@
          <div class="p-3">
             <div class="form-group">
                <div class="row">
-                  <div class="col-12 col-sm-4">
-                     <div class="input_box">
-                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                        <div class="rs">
-                           <h3 class="_title">Name</h3>
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="name" data-id="name"
-                              onclick="editableField('name')" id="name"
-                              placeholder="" value="">
+                  @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+                     @if(!empty($patient->caregiverInfo->company->name))
+                        <div class="col-12 col-sm-4">
+                           <div class="input_box">
+                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                              <div class="rs">
+                                 <h3 class="_title">Name</h3>
+                                 <input type="text" class="form-control-plaintext _detail "
+                                    readonly name="name" data-id="name"
+                                    onclick="editableField('name')" id="name"
+                                    placeholder="Name" value="{{ $patient->caregiverInfo->company->name }}">
+                              </div>
+                           </div>
+                        </div>
+                     @endif
+                     @if(!empty($patient->caregiverInfo->company->email))
+                        <div class="col-12 col-sm-4">
+                           <div class="input_box">
+                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                              <div class="rs">
+                                 <h3 class="_title">Email</h3>
+                                 <input type="text" class="form-control-plaintext _detail "
+                                    readonly name="email" data-id="email"
+                                    onclick="editableField('email')" id="email"
+                                    placeholder="Email" value="{{ $patient->caregiverInfo->company->email }}">
+                              </div>
+                           </div>
+                        </div>
+                     @endif
+                     @if(!empty($patient->caregiverInfo->company->phone))
+                        <div class="col-12 col-sm-4">
+                           <div class="input_box">
+                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                              <div class="rs">
+                                 <h3 class="_title">Phone</h3>
+                                 <input type="tel" class="form-control-plaintext _detail " readonly
+                                    name="hc_phone" data-id="hc_phone"
+                                    onclick="editableField('hc_phone')" id="hc_phone"
+                                    onkeyup="this.value=this.value.replace(/[^\d]/,'')"
+                                    placeholder="" value="{{ $patient->caregiverInfo->company->phone }}">
+                              </div>
+                           </div>
+                        </div>
+                     @endif
+                     @if(!empty($patient->caregiverInfo->company->fax_no))
+                        <div class="col-12 col-sm-4">
+                           <div class="input_box">
+                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                              <div class="rs">
+                                 <h3 class="_title">Fax No</h3>
+                                 <input type="text" class="form-control-plaintext _detail "
+                                    readonly name="fax_no" data-id="fax_no"
+                                    onclick="editableField('fax_no')" id="fax_no"
+                                    placeholder="Fax No" value="{{ $patient->caregiverInfo->company->fax_no }}">
+                              </div>
+                           </div>
+                        </div>
+                     @endif
+                     @if(!empty($patient->caregiverInfo->company->services))
+                        @foreach(explode(",",$patient->caregiverInfo->company->services) as $value)
+                           @php 
+                                 if($value == '1'):
+                                    $name = 'VBC';
+                                 endif;
+                                 if($value == '2'):
+                                    $name = 'MD Order';
+                                 endif;
+                                 if($value == '3'):
+                                    $name = 'Occupational Health';
+                                 endif;
+                           @endphp
+                           <div class="col-12 col-sm-4">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Services</h3>
+                                    <input type="text" class="form-control-plaintext _detail "
+                                       readonly name="services" data-id="services"
+                                       onclick="editableField('services')" id="services"
+                                       placeholder="Services" value="{{ $name }}">
+                                 </div>
+                              </div>
+                           </div>
+                        @endforeach
+                     @endif
+                     @if(!empty($patient->caregiverInfo->company->address1))
+                     <div class="col-12 col-sm-12">
+                        <div class="input_box mb-3">
+                           <div class="ls"><i class="las la-map-marker circle"></i></div>
+                           <div class="rs">
+                              <h3 class="_title">Address1</h3>
+                              <textarea id="address1" name="address1" rows="4" cols="62"
+                                 class="form-control-plaintext _detail " readonly
+                                 onclick="editableField('address1')"
+                                 placeholder=""
+                                 value="">{!! $patient->caregiverInfo->company->address1 !!}</textarea>
+                           </div>
                         </div>
                      </div>
-                  </div>
-                  <div class="col-12 col-sm-4">
-                     <div class="input_box">
-                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                        <div class="rs">
-                           <h3 class="_title">Coordinator</h3>
-                           <input type="text" class="form-control-plaintext _detail "
-                              readonly name="coordinator1" data-id="coordinator1"
-                              onclick="editableField('coordinator1')" id="coordinator1"
-                              placeholder="" value="">
+                     @endif
+                     @if(!empty($patient->caregiverInfo->company->address2))
+                        <div class="col-12 col-sm-12">
+                           <div class="input_box mb-3">
+                              <div class="ls"><i class="las la-map-marker circle"></i></div>
+                              <div class="rs">
+                                 <h3 class="_title">Address2</h3>
+                                 <textarea id="address1" name="address2" rows="4" cols="62"
+                                    class="form-control-plaintext _detail " readonly
+                                    onclick="editableField('address2')"
+                                    placeholder=""
+                                    value="">{!! $patient->caregiverInfo->company->address2 !!}</textarea>
+                              </div>
+                           </div>
                         </div>
-                     </div>
-                  </div>
-                  <div class="col-12 col-sm-4">
-                     <div class="input_box">
-                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                        <div class="rs">
-                           <h3 class="_title">Phone</h3>
-                           <input type="tel" class="form-control-plaintext _detail " readonly
-                              name="hc_phone" data-id="hc_phone"
-                              onclick="editableField('hc_phone')" id="hc_phone"
-                              onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                              placeholder="" value="">
+                     @endif
+                     @if(!empty($patient->caregiverInfo->company->zip))
+                        <div class="col-12 col-sm-4">
+                           <div class="input_box">
+                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                              <div class="rs">
+                                 <h3 class="_title">Zip</h3>
+                                 <input type="text" class="form-control-plaintext _detail "
+                                    readonly name="zip" data-id="zip"
+                                    onclick="editableField('zip')" id="zip"
+                                    placeholder="Zip" value="{{ $patient->caregiverInfo->company->zip }}">
+                              </div>
+                           </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="row mt-3">
-               <div class="col-12 col-sm-12">
-                  <div class="input_box mb-3">
-                     <div class="ls"><i class="las la-map-marker circle"></i></div>
-                     <div class="rs">
-                        <h3 class="_title">Address</h3>
-                        <!-- <h1 class="_detail">4009 Heron Way, Portland OR Oregon,
-                           <span>97232</span>
-                        </h1> -->
-                        <textarea id="hc_address" name="hc_address" rows="4" cols="62"
-                           class="form-control-plaintext _detail " readonly
-                           onclick="editableField('hc_address')"
-                           placeholder=""
-                           value=""></textarea>
-                        <!-- <a class="btn btn-info btn-sm ml-2 collapsed" data-toggle="collapse" href="#collapseExample11" aria-expanded="false"><i class="las la-map-marker"></i>View
-                           Map</a> -->
-                     </div>
-                  </div>
+                     @endif
+                  @endif  
                </div>
             </div>
             <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
@@ -76,257 +149,124 @@
                <div class="head">
                   <div class="p-3">
                      <div class="row">
-                        <div class="col-12 col-sm-4">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Name</h3>
-                                 <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="a_name" data-id="a_name"
-                                    onclick="editableField('a_name')" id="a_name"
-                                    placeholder="" value="">
+                        @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+                           @if(!empty($patient->caregiverInfo->company->administrator_name))
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Registration Name</h3>
+                                       <input type="text" class="form-control-plaintext _detail "
+                                          readonly name="administrator_name" data-id="administrator_name"
+                                          onclick="editableField('administrator_name')" id="administrator_name"
+                                          placeholder="Registration Name" value="{{ $patient->caregiverInfo->company->administrator_name }}">
+                                    </div>
+                                 </div>
                               </div>
-                           </div>
-                        </div>
-                        <div class="col-12 col-sm-4">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Phone</h3>
-                                 <input type="tel" class="form-control-plaintext _detail "
-                                    readonly name="a_phone" data-id="a_phone"
-                                    onclick="editableField('a_phone')" id="a_phone"
-                                    onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                    placeholder="" value="">
+                           @endif
+                           @if(!empty($patient->caregiverInfo->company->registration_no))
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Registration No</h3>
+                                       <input type="text" class="form-control-plaintext _detail "
+                                          readonly name="registration_no" data-id="registration_no"
+                                          onclick="editableField('registration_no')" id="registration_no"
+                                          placeholder="Registration No" value="{{ $patient->caregiverInfo->company->registration_no }}">
+                                    </div>
+                                 </div>
                               </div>
-                           </div>
-                        </div>
-                        <div class="col-12 col-sm-4"></div>
+                           @endif
+                           @if(!empty($patient->caregiverInfo->company->administrator_emailId))
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Administrator Email</h3>
+                                       <input type="text" class="form-control-plaintext _detail "
+                                          readonly name="administrator_emailId" data-id="administrator_emailId"
+                                          onclick="editableField('administrator_emailId')" id="administrator_emailId"
+                                          placeholder="Administrator Email" value="{{ $patient->caregiverInfo->company->administrator_emailId }}">
+                                    </div>
+                                 </div>
+                              </div>
+                           @endif
+                           @if(!empty($patient->caregiverInfo->company->licence_no))
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Licence Number</h3>
+                                       <input type="text" class="form-control-plaintext _detail "
+                                          readonly name="licence_no" data-id="licence_no"
+                                          onclick="editableField('licence_no')" id="licence_no"
+                                          placeholder="Licence Number" value="{{ $patient->caregiverInfo->company->licence_no }}">
+                                    </div>
+                                 </div>
+                              </div>
+                           @endif
+                           @if(!empty($patient->caregiverInfo->company->administrator_phone_no))
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Administrator Phone Number</h3>
+                                       <input type="text" class="form-control-plaintext _detail "
+                                          readonly name="administrator_phone_no" data-id="administrator_phone_no"
+                                          onclick="editableField('administrator_phone_no')" id="administrator_phone_no"
+                                          placeholder="Administrator Phone Number" value="{{ $patient->caregiverInfo->company->administrator_phone_no }}">
+                                    </div>
+                                 </div>
+                              </div>
+                           @endif
+                        @endif
                      </div>
                   </div>
                </div>
-            </div>
+            </div>       
             <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
-               data-name="caregiver_detail">
+               data-name="administrator_detail">
                <div class="app-card-header">
-                  <h1 class="title">Caregiver Detail</h1>
-                  <button type="button" class="btn btn-sm btn-info" onclick='updateCaregiver("{{ $patient->patient_id }}")'> Check Update</button>
+                  <h1 class="title">Mal Practitiner Insurance Detail</h1>
                </div>
                <div class="head">
                   <div class="p-3">
                      <div class="row">
-                        <div class="col-12 col-sm-3">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Caregiver Name</h3>
-                                 <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="c_name" data-id="c_name"
-                                    onclick="editableField('c_name')" id="c_name"
-                                    placeholder="" value="{{ ($patient->visitorDetail) ? $patient->visitorDetail->first_name.' '.$patient->visitorDetail->last_name : '' }}">
+                        @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+                           @if(!empty($patient->caregiverInfo->company->insurance_id))
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Insurance ID</h3>
+                                       <input type="text" class="form-control-plaintext _detail "
+                                          readonly name="insurance_id" data-id="insurance_id"
+                                          onclick="editableField('insurance_id')" id="insurance_id"
+                                          placeholder="Administrator Phone Number" value="{{ $patient->caregiverInfo->company->insurance_id }}">
+                                    </div>
+                                 </div>
                               </div>
-                           </div>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Caregiver Code</h3>
-                                 <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="caregiver_code" data-id="caregiver_code"
-                                    onclick="editableField('caregiver_code')" id="caregiver_code"
-                                    placeholder="" value="{{ ($patient->visitorDetail) ? $patient->visitorDetail->caregiver_code : '' }}">
+                           @endif
+                           @if(!empty($patient->caregiverInfo->company->insurance_id))
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Expiration Date</h3>
+                                       <input type="text" class="form-control-plaintext _detail "
+                                          readonly name="expiration_date" data-id="expiration_date"
+                                          onclick="editableField('expiration_date')" id="expiration_date"
+                                          placeholder="Expiration Date" value="{{ $patient->caregiverInfo->company->expiration_date }}">
+                                    </div>
+                                 </div>
                               </div>
-                           </div>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Caregiver ID</h3>
-                                 <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="caregiver_id" data-id="caregiver_id"
-                                    onclick="editableField('caregiver_id')" id="caregiver_id"
-                                    placeholder="" value="{{ ($patient->visitorDetail) ? $patient->visitorDetail->caregiver_id : '' }}">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Visit Date</h3>
-                                 <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="visit_date" data-id="visit_date"
-                                    onclick="editableField('visit_date')" id="visit_date"
-                                    placeholder="" value="{{ ($patient->visitorDetail) ? $patient->visitorDetail->visit_date : '' }}">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Schedule Start Time</h3>
-                                 <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="schedule_end_time" data-id="schedule_end_time"
-                                    onclick="editableField('schedule_end_time')" id="schedule_end_time"
-                                    placeholder="" value="{{ ($patient->visitorDetail) ? $patient->visitorDetail->schedule_start_time : '' }}">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-12 col-sm-3">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Schedule End Time</h3>
-                                 <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="schedule_end_time" data-id="schedule_end_time"
-                                    onclick="editableField('schedule_end_time')" id="schedule_end_time"
-                                    placeholder="" value="{{ ($patient->visitorDetail) ? $patient->visitorDetail->schedule_end_time : '' }}">
-                              </div>
-                           </div>
-                        </div>
+                           @endif
+                        @endif
                      </div>
                   </div>
                </div>
-            </div>
-            <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
-               data-name="history">
-               <div class="app-card-header">
-                  <h1 class="title">History</h1>
-               </div>
-               <div class="head">
-                  <div class="p-3">
-                     <table class="table table-bordered" style="width: 100%;"
-                        id="employee-table">
-                        <thead class="thead-inverse">
-                           <tr>
-                              <th>Name</th>
-                              <th>Phone No</th>
-                              <th>Schedule Start Date Time</th>
-                              <th>Schedule End Date Time</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                              <?php
-//                                              echo "<pre>";
-//                                              print_r($patient->visitorDetail);
-//                                              exit();
-                              ?>
-                              <tr>
-                                    <td class="text-green"></td>
-                                    <td>
-<!--                                                        <a href="javascript:void(0)"
-                                          class="patient_phone_no">
-                                       </a>-->
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                              </tr>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-            </div>
-<!--                              <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
-               data-name="caregiver_interaction_detail">
-               <div class="app-card-header">
-                  <h1 class="title">Caregiver Interaction Detail</h1>
-               </div>
-               <div class="head">
-                  <div class="p-3">
-                     <table class="table table-bordered mb-0" style="width: 100%;"
-                        id="employee-table">
-                        <thead class="thead-inverse">
-                           <tr>
-                              <th>Infraction</th>
-                              <th>Sent Date and Time</th>
-                              <th>Response Date and Time</th>
-                              <th>Action</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td class="text-green"><a
-                                    href="javascript:void(0)">Infraction</a></td>
-                              <td>Sunday, 1 October 2020</td>
-                              <td>Wednesday, 4 October 2020</td>
-                              <td>
-                                 <a href="referral_user_profile.html"
-                                    class="btn btn-info btn-sm btn-block">Action Taken</a>
-                              </td>
-                           </tr>
-                           <tr>
-                              <td class="text-green"><a
-                                    href="javascript:void(0)">Infraction</a> </td>
-                              <td>Sunday, 1 October 2020</td>
-                              <td>Wednesday, 4 October 2020</td>
-                              <td>
-                                 <a href="referral_user_profile.html"
-                                    class="btn btn-info btn-sm btn-block">Action Taken</a>
-                              </td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-            </div>
-            <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
-               data-name="value_base_care_detail">
-               <div class="app-card-header">
-                  <h1 class="title">Value Base Care Detail</h1>
-               </div>
-               <div class="head">
-                  <div class="p-3">
-                     <div class="_card">
-                        <div class="_card_header">
-                           <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                 is simply dummy text of the printing and
-                              typesetting industry?
-                           </div>
-                        </div>
-                        <div class="_card_body">
-                           <h1 class="_title"><span style="font-weight: bold;">Ans:</span>
-                              
-                              has been the industry's standard dummy text ever since the
-                              1500s.
-                           </h1>
-                        </div>
-                     </div>
-                     <div class="_card mt-3">
-                        <div class="_card_header">
-                           <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                 is simply dummy text of the printing and
-                              typesetting industry?
-                           </div>
-                        </div>
-                        <div class="_card_body">
-                           <h1 class="_title"><span style="font-weight: bold;">Ans:</span>
-                              
-                              has been the industry's standard dummy text ever since the
-                              1500s.
-                           </h1>
-                        </div>
-                     </div>
-                     <div class="_card mt-3">
-                        <div class="_card_header">
-                           <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                 is simply dummy text of the printing and
-                              typesetting industry?
-                           </div>
-                        </div>
-                        <div class="_card_body">
-                           <h1 class="_title"><span style="font-weight: bold;">Ans:</span>
-                              
-                              has been the industry's standard dummy text ever since the
-                              1500s.
-                           </h1>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>-->
+            </div>          
          </div>
       </div>
    </div>

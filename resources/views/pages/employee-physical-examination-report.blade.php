@@ -626,6 +626,14 @@
             $(lastRow).find('input.lab_value').attr('name', 'lab_value['+lookup+']')
 
             lastRow.insertAfter('#tblAddRow tbody tr:last');
+
+            $('.datea .input-group.date').datepicker({
+               todayBtn: "linked",
+               keyboardNavigation: false,
+               forceParse: false,
+               calendarWeeks: true,
+               autoclose: true
+            });
          });
          
          // Delete last row in the table

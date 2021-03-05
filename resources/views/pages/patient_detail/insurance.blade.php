@@ -80,7 +80,7 @@
             </div>
             <!-- Medicare End -->
             <!-- Croley Insurance and Financial Start -->
-<!--                              <div
+                             <div
                class="app-card app-card-custom no-minHeight box-shadow-none _add_new_company"
                data-name="croley_insurance_and_financial">
                <div class="app-card-header">
@@ -142,7 +142,7 @@
                      </div>
                   </div>
                </div>
-            </div>-->
+            </div>
             <!-- Insurance Company Form Start -->
             <div
                class="app-card app-card-custom no-minHeight box-shadow-none mt-3 insurance_company">

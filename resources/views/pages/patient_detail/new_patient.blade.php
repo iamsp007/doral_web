@@ -27,9 +27,7 @@
         <thead>
        
         <tr>
-            @if($status == 'occupational-health' || $status == 'md-order' || $status == 'vbc' || $status == 'pending') {
             <th><div class="checkbox"><input class="mainchk" type="checkbox"/><span class="checkbtn"></span></div></th>
-            @endif
             <th>ID</th>
             <th>Patient Name</th>
             <th>Gender</th>
@@ -38,9 +36,7 @@
             <th>Services</th>
             <th>Doral Id</th>
             <th>City - State</th>
-            @if($status == 'occupational-health' || $status == 'md-order' || $status == 'vbc' || $status == 'pending') {
             <th>Action</th>
-            @endif
         </tr>
         </thead>
         <tbody>
@@ -71,32 +67,6 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        if($("#status").val() == 'occupational-health' || $("#status").val() == 'md-order' || $("#status").val() == 'vbc' || $("#status").val() == 'pending') {
-            var arr = [
-                {data:'checkbox_id',name:'checkbox_id'},
-                {data:'id',name:'id'},
-                {data: 'full_name', name: 'full_name'},
-                {data: 'gender', name: 'gender'},
-                {data: 'ssn', name: 'ssn'},
-                {data: 'home_phone', name: 'home_phone', class: 'editable text'},
-                {data: 'service_id', name: 'service_id'},      
-                {data: 'doral_id', name: 'doral_id'},        
-                {data: 'city_state', name: 'city_state'},            
-                {data: 'action', name: 'action'},
-            ]
-        } else {
-            var arr = [
-                {data:'id',name:'id'},
-                {data: 'full_name', name: 'full_name'},
-                {data: 'gender', name: 'gender'},
-                {data: 'ssn', name: 'ssn'},
-                {data: 'home_phone', name: 'home_phone', class: 'editable text'},
-                {data: 'service_id', name: 'service_id'},      
-                {data: 'doral_id', name: 'doral_id'},        
-                {data: 'city_state', name: 'city_state'},            
-            ]
-        }
-  
         $('#get_patient-table').DataTable({
             "processing": true,
             "language": {
@@ -113,7 +83,19 @@
                     status: $("#status").val(),
                 },
             },
-            columns:arr,
+            columns:[
+                {data:'checkbox_id',name:'checkbox_id'},
+                {data:'id',name:'id'},
+                {data: 'full_name', name: 'full_name'},
+                {data: 'gender', name: 'gender'},
+                {data: 'ssn', name: 'ssn'},
+                {data: 'home_phone', name: 'home_phone', class: 'editable text'},
+                {data: 'service_id', name: 'service_id'},      
+                {data: 'doral_id', name: 'doral_id'},        
+                {data: 'city_state', name: 'city_state'},            
+                {data: 'action', name: 'action'},
+            
+            ],
             "order": [[ 1, "desc" ]],
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
             'columnDefs': [

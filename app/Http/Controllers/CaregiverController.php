@@ -55,14 +55,11 @@ class CaregiverController extends Controller
             });
             //->orderBy('id', 'DESC');
 
-            $dt = DataTables::of($patientList);
-            if ($request['status'] == 'pending') {
-                $dt->addColumn('checkbox_id', function($q) use($request) {
-                    return '<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>';
-                });
-            }
-           
-            $dt->addColumn('full_name', function($q){
+        return DataTables::of($patientList)
+            ->addColumn('checkbox_id', function($q) use($request) {
+                return '<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>';
+            })
+            ->addColumn('full_name', function($q){
                 return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
             })
             ->addColumn('ssn', function($q) {
@@ -133,7 +130,7 @@ class CaregiverController extends Controller
                 return $btn;
             })
             ->rawColumns(['full_name', 'action', 'checkbox_id', 'home_phone'])
-            return $dt->make(true);
+            ->make(true);
     }
   
     public function updatePatientStatus(Request $request)

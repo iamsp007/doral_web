@@ -167,8 +167,10 @@ class CaregiverController extends Controller
         // $data = HHAApiCaregiver::dispatch($caregiverArray);
 
         // return 'Update successfully';
-        // dump($counter);2960 - 2660
-        foreach (array_slice($caregiverArray, 298, 302) as $cargiver_id) {
+
+        // dump($counter);2960
+        foreach (array_slice($caregiverArray, 0 , 2960) as $cargiver_id) {
+     
             // foreach ($caregiverArray as $cargiver_id) {
             /** Store patirnt demographic detail */
             $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
@@ -176,7 +178,7 @@ class CaregiverController extends Controller
             if (! $userCaregiver) {
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                dump($demographicDetails);
+                dump($cargiver_id);
                 self::saveUser($demographicDetails);
             }
             

@@ -402,7 +402,7 @@
                         <!-- last section -->
                         <div class="container">
                            <div class="innerSpace">
-                              <h2 class="t1 fadeIn">EMPLOYEE PHYSICAL EXAMINATION REPORT <br><span class="grey">LABORATORY RESULYS 
+                              <h2 class="t1 fadeIn">EMPLOYEE PHYSICAL EXAMINATION REPORT <br><span class="grey">LABORATORY RESULTS 
                               (ALL LAB REPORTS AND RESULTS MUST BE ATTACHED)</span>
                               </h2>
                               <div class="text-center">

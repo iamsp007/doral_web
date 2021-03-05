@@ -135,7 +135,7 @@
                                     name="marital_status_name"
                                     onclick="editableField('marital_status_name')"
                                     data-id="marital_status_name" id="marital_status_name"
-                                    placeholder="Marital Status Name" value="{{ ($maritalStatus[0]) ? $maritalStatus[0]->Name : '' }}">
+                                    placeholder="Marital Status Name" value="{{ ($maritalStatus[0] && $maritalStatus[0]->Name) ? $maritalStatus[0]->Name : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                                     name="phone2"
                                     onclick="editableField('phone2')"
                                     data-id="phone2" id="phone2"
-                                    placeholder="phone2" value="{{ ($address[0]) ? $address[0]->Phone2 : '' }}">
+                                    placeholder="phone2" value="{{ ($address[0] && $address[0]->Phone2) ? $address[0]->Phone2 : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -163,7 +163,7 @@
                                     name="phone3"
                                     onclick="editableField('phone3')"
                                     data-id="phone3" id="phone3"
-                                    placeholder="phone3" value="{{ ($address[0]) ? $address[0]->Phone3 : '' }}">
+                                    placeholder="phone3" value="{{ ($address[0] && $address[0]->Phone3) ? $address[0]->Phone3 : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                                     name="home_phone"
                                     onclick="editableField('home_phone')"
                                     data-id="home_phone" id="home_phone"
-                                    placeholder="home_phone" value="{{ ($address[0]) ? $address[0]->HomePhone : '' }}">
+                                    placeholder="home_phone" value="{{ ($address[0] && $address[0]->HomePhone) ? $address[0]->HomePhone : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                                     name="language1"
                                     onclick="editableField('language1')"
                                     data-id="language1" id="language1"
-                                    placeholder="Language1" value="{{ ($language[0]) ? $language[0]->Language1 : '' }}">
+                                    placeholder="Language1" value="{{ ($language[0] && $language[0]->Language1) ? $language[0]->Language1 : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
                                     name="language2"
                                     onclick="editableField('language2')"
                                     data-id="language2" id="language2"
-                                    placeholder="Language2" value="{{ ($language[0]) ? $language[0]->Language2 : '' }}">
+                                    placeholder="Language2" value="{{ ($language[0] && $language[0]->Language2) ? $language[0]->Language2 : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
                                     name="language3"
                                     onclick="editableField('language3')"
                                     data-id="language3" id="language3"
-                                    placeholder="Language3" value="{{ ($language[0]) ? $language[0]->Language3 : '' }}">
+                                    placeholder="Language3" value="{{ ($language[0] && $language[0]->Language3) ? $language[0]->Language3 : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -233,7 +233,7 @@
                                     name="language4"
                                     onclick="editableField('language4')"
                                     data-id="language4" id="language4"
-                                    placeholder="Language4" value="{{ ($language[0]) ? $language[0]->Language4 : '' }}">
+                                    placeholder="Language4" value="{{ ($language[0] && $language[0]->Language4) ? $language[0]->Language4 : '' }}">
                                 </div>
                             </div>
                         </div>

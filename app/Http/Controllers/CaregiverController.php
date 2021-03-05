@@ -54,17 +54,7 @@ class CaregiverController extends Controller
                 $q->where('name','=','patient');
             });
             //->orderBy('id', 'DESC');
-        if ($request['status'] == 'occupational-health' || $request['status'] == 'md-order' || $request['status'] == 'vbc' || $request['status'] == 'pending') {
-            return self::pendingRecord($patientList, $request);
-        }
 
-        if ($request['status'] == 'active' || $request['status'] == 'initial') {
-            return self::pendingRecord($patientList, $request);
-        }
-    }
-
-    public static function pendingRecord($patientList, $request)
-    {
         return DataTables::of($patientList)
             ->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>';
@@ -135,60 +125,6 @@ class CaregiverController extends Controller
                 }
               
                 return $btn;
-            })
-            ->rawColumns(['full_name', 'action', 'checkbox_id', 'home_phone'])
-            ->make(true);
-    }
-
-    public static function activeRecord($patientList, $request)
-    {
-        return DataTables::of($patientList)
-            ->addColumn('full_name', function($q){
-                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
-            })
-            ->addColumn('ssn', function($q) {
-                $ssn = '';
-                if ($q->demographic) {
-                    $ssn =  $q->demographic->ssn;
-                }
-                return $ssn;
-            })
-            ->addColumn('home_phone', function($q) use($request){
-                $phone = "<span class='label'><a href='tel:".$q->phone."'><i class='las la-phone circle'></i>".$q->phone."</a></span>";
-                $phone .= "<div class='phone-text'><input class='phone' type='text' name='phone' value=".$q->phone."></div>";
-                return $phone;
-         
-            })
-            ->addColumn('service_id', function($q) {
-                $services = '';
-                if ($q->caregiverInfo && $q->caregiverInfo->services) {
-                    $services =  $q->caregiverInfo->services->name;
-                }
-                return $services;
-            })
-            ->addColumn('doral_id', function($q){
-                $doral_id = '';
-                if ($q->demographic) {
-                    $doral_id =  $q->demographic->doral_id;
-                }
-                return $doral_id;
-            })
-            ->addColumn('city_state', function($q){
-                $city_state = '';
-                if ($q->demographic) {
-                    $city_state_json =  json_decode($q->demographic->address);
-
-                    if ($city_state_json[0]) {
-                        if ($city_state_json[0]->City) {
-                            $city_state .= $city_state_json[0]->City;
-                        } 
-                        if ($city_state_json[0]->State) {
-                            $city_state .= ' - ' . $city_state_json[0]->State;
-                        }
-                         
-                    }
-                }
-                return $city_state;
             })
             ->rawColumns(['full_name', 'action', 'checkbox_id', 'home_phone'])
             ->make(true);

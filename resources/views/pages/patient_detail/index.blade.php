@@ -684,7 +684,8 @@
 
          $(document).ready(function() {
             // $('.phoneNumber').keyup(function () {
-            var val = $('.phoneNumber').value.replace(/\D/g, '');
+            var val = $(document).find('.phoneNumber').value.replace(/\D/g, '');
+            alert(val);
             val = val.replace(/^(\d{3})/, '($1)-');
             val = val.replace(/-(\d{3})/, '-$1-');
             val = val.replace(/(\d)-(\d{4}).*/, '$1-$2');

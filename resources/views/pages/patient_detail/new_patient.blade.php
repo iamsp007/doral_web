@@ -33,8 +33,8 @@
             <th>Gender</th>
             <th>SSN</th>
             <th>Home Phone</th>
-            <th>Patient Type</th>
-            <th>Patient Id</th>
+            <th>Services</th>
+            <th>Doral Id</th>
             <th>City - State</th>
             <th>Action</th>
         </tr>
@@ -90,8 +90,8 @@
                 {data: 'gender', name: 'gender'},
                 {data: 'ssn', name: 'ssn'},
                 {data: 'home_phone', name: 'home_phone', class: 'editable text'},
-                {data: 'patient_type', name: 'patient_type'},      
-                {data: 'patient_id', name: 'patient_id'},        
+                {data: 'service_id', name: 'service_id'},      
+                {data: 'doral_id', name: 'doral_id'},        
                 {data: 'city_state', name: 'city_state'},            
                 {data: 'action', name: 'action'},
             

@@ -435,7 +435,7 @@
                                                     name="mobile_or_sms"
                                                     onclick="editableField('mobile_or_sms')"
                                                     data-id="mobile_or_sms" id="mobile_or_sms"
-                                                    placeholder="Mobile Or SMS" value="{{ ($notificationPreferences[0]->MobileOrSMS) ? $notificationPreferences[0]->MobileOrSMS : '' }}">
+                                                    placeholder="Mobile Or SMS" value="{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->mobile_or_sms : '' }}">
                                                 </div>
                                             </div>
                                         </div>

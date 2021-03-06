@@ -62,7 +62,8 @@ class Demographic extends Model
         if ($this->address) {
             $address = json_decode($this->address);
             if ($address[0] && $address[0]->Phone2) {
-                $phoneData = "(".substr($address[0]->Phone2, 0, 3).") ".substr($address[0]->Phone2, 3, 3)." ".substr($address[0]->Phone2,6);
+                $phone2 = str_replace("-","",$address[0]->Phone2);
+                $phoneData = "(".substr($phone2, 0, 3).") ".substr($phone2, 3, 3)." ".substr($phone2,6);
             }
         }
         return $phoneData;

@@ -683,24 +683,6 @@
         }
 
          $(document).ready(function() {
-            $('#lab_perform_date, #lab_due_date, #lab_perform_date, #dob').daterangepicker({
-               singleDatePicker: true,
-               showDropdowns: true,
-               minYear: 1901,
-               maxDate: new Date()
-            });
-
-            $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
-               var selectedDate = new Date($('[name="lab_due_date"]').val());
-               var date = selectedDate.getDate();
-               var monthf = selectedDate.getMonth() + 1;
-               var month  = (monthf < 10 ? '0' : '') + monthf;
-               var year = selectedDate.getFullYear() + 1;
-               var expirydate = month + '/'+ date + '/'+ year;
-               $(".lab-expiry-date").text(expirydate);
-               $("#lab_expiry_date").val(expirydate);
-            });
-
             $(document).on('click','.patient-detail-lab-report',function(event) {
                event.preventDefault();
 

@@ -15,7 +15,7 @@ class PatientReport extends Model
         return env('APP_URL').'patient_report/'.$fileName;
     }
 
-    public function reports(){
+    public function labReports(){
         return $this->hasOne(LabReportType::class,'id','lab_report_type_id');
     }
 }

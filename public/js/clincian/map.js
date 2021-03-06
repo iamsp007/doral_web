@@ -90,19 +90,7 @@ function updateMap(destination,name,id) {
         var referrals = referral_type[data.id];
         var current = new google.maps.LatLng(data.latitude,data.longitude);
         calculateAndDisplayRoute(current,referrals.destination,data.id,referrals)
-        // calculateAndDisplayRoute(current,destination,response.referral_type,originName,destinationName,response.color,response.icon)
     })
-    // window.Echo.channel('location').listen('SendLocation',function (e) {
-    //     const response = e.location;
-    //     console.log(response,response.id,parseInt(referral_type[response.referral_type].id))
-    //     if (parseInt(response.id)===parseInt(referral_type[response.referral_type].id)){
-    //         var current = new google.maps.LatLng(response.latitude,response.longitude);
-    //         var originName = response.first_name+' '+response.last_name+'  Role : '+response.referral_type;
-    //         var destinationName = name+'  Role : Patient';
-    //         map.setZoom(zoom);
-    //         calculateAndDisplayRoute(current,destination,response.referral_type,originName,destinationName,response.color,response.icon)
-    //     }
-    // })
 }
 
 //

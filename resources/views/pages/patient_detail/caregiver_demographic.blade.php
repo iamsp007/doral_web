@@ -10,20 +10,69 @@
             <div class="p-3">
                 <div class="form-group">
                     <div class="row">
+                        <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="input_box">
+                                <div class="ls"><i class="las la-phone circle"></i></div>
+                                <div class="rs">
+                                    <h3 class="_title">First Name</h3>
+                                    <div>
+                                        <input type="text" class="form-control-plaintext _detail "
+                                            readonly name="first_name" onclick="editableField('first_name')"
+                                            data-id="first_name" id="first_name" 
+                                            placeholder="First Name" value="{{ $patient->first_name">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="input_box">
+                                <div class="ls"><i class="las la-phone circle"></i></div>
+                                <div class="rs">
+                                    <h3 class="_title">Last Name</h3>
+                                    <div>
+                                        <input type="text" class="form-control-plaintext _detail "
+                                            readonly name="last_name" onclick="editableField('last_name')"
+                                            data-id="last_name" id="last_name" 
+                                            placeholder="Last Name" value="{{ $patient->last_name">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="input_box">
+                                <div class="ls"><i class="las la-phone circle"></i></div>
+                                <div class="rs">
+                                    <h3 class="_title">Email</h3>
+                                    <div>
+                                        <input type="text" class="form-control-plaintext _detail "
+                                            readonly name="email" onclick="editableField('email')"
+                                            data-id="email" id="email" 
+                                            placeholder="Last Name" value="{{ $patient->email">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
                                 <div class="ls"><i class="las la-phone circle"></i></div>
                                 <div class="rs">
                                     <h3 class="_title">Gender</h3>
                                     <div>
-                                        <input type="text" class="form-control-plaintext _detail "
-                                            readonly name="gender" onclick="editableField('gender')"
-                                            data-id="gender" id="gender" 
-                                            placeholder="Gender" value="{{ $patient->gender }}">
+                                        <select class="form-control" name="gender" data-id="gender" id="gender" >
+                                            <option>Gender</option>
+                                            <option value="1" {{ $patient->gender == 1 ? "selected" : null }}>Male</option>
+                                            <option value="2" {{ $patient->gender == 2 ? "selected" : null }}>Female</option>
+                                            <option value="3" {{ $patient->gender == 3 ? "selected" : null }}>Other</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
                                 <div class="ls"><i class="las la-phone circle"></i></div>
@@ -69,6 +118,26 @@
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
                                 <div class="ls">
+                                    <i class="las la-phone circle"></i>
+                                </div>
+                                <div class="rs">
+                                    <h3 class="_title">Ethnicity</h3>
+                                    <div>
+                                        <input type="text" class="form-control-plaintext _detail "
+                                            readonly name="ethnicity" onclick="editableField('ethnicity')"
+                                            data-id="ethnicity" id="ethnicity" 
+                                            placeholder="Ethnicity" value="{{ ($ethnicity[0] && $ethnicity[0]->Name) ? $ethnicity[0]->Name : '' }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="input_box">
+                                <div class="ls">
                                     <i class="las la-angle-double-right circle"></i>
                                 </div>
                                 <div class="rs">
@@ -98,50 +167,6 @@
                         </div>
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
-                                <div class="ls">
-                                    <i class="las la-envelope circle"></i>
-                                </div>
-                                <div class="rs">
-                                    <h3 class="_title">Marital Status</h3>
-                                    <input type="text"
-                                    class="form-control-plaintext _detail " readonly
-                                    name="marital_status_name"
-                                    onclick="editableField('marital_status_name')"
-                                    data-id="marital_status_name" id="marital_status_name"
-                                    placeholder="Marital Status Name" value="{{ ($maritalStatus[0] && $maritalStatus[0]->Name) ? $maritalStatus[0]->Name : '' }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-3 col-md-3">
-                            <div class="input_box">
-                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                <div class="rs">
-                                    <h3 class="_title">Phone2</h3>
-                                    <input type="text"
-                                    class="form-control-plaintext _detail phoneNumber" readonly
-                                    name="phone2"
-                                    onclick="editableField('phone2')"
-                                    data-id="phone2" id="phone2"
-                                    placeholder="phone2" value="{{ ($address[0] && $address[0]->Phone2) ? $address[0]->Phone2 : '' }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-3 col-md-3">
-                            <div class="input_box">
-                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                <div class="rs">
-                                    <h3 class="_title">Phone3</h3>
-                                    <input type="text"
-                                    class="form-control-plaintext _detail phoneNumber" readonly
-                                    name="phone3"
-                                    onclick="editableField('phone3')"
-                                    data-id="phone3" id="phone3"
-                                    placeholder="phone3" value="{{ ($address[0] && $address[0]->Phone3) ? $address[0]->Phone3 : '' }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-3 col-md-3">
-                            <div class="input_box">
                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                 <div class="rs">
                                     <h3 class="_title">HomePhone</h3>
@@ -154,6 +179,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="input_box">
+                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                <div class="rs">
+                                    <h3 class="_title">Telephone</h3>
+                                    <input type="text"
+                                    class="form-control-plaintext _detail phoneNumber" readonly
+                                    name="phone2"
+                                    onclick="editableField('phone2')"
+                                    data-id="phone2" id="phone2"
+                                    placeholder="Telephone" value="{{ ($address[0] && $address[0]->Phone2) ? $address[0]->Phone2 : '' }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -207,6 +250,26 @@
                                     onclick="editableField('language4')"
                                     data-id="language4" id="language4"
                                     placeholder="Language4" value="{{ ($language[0] && $language[0]->Language4) ? $language[0]->Language4 : '' }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="input_box">
+                                <div class="ls">
+                                    <i class="las la-envelope circle"></i>
+                                </div>
+                                <div class="rs">
+                                    <h3 class="_title">Marital Status</h3>
+                                    <input type="text"
+                                    class="form-control-plaintext _detail " readonly
+                                    name="marital_status_name"
+                                    onclick="editableField('marital_status_name')"
+                                    data-id="marital_status_name" id="marital_status_name"
+                                    placeholder="Marital Status Name" value="{{ ($maritalStatus[0] && $maritalStatus[0]->Name) ? $maritalStatus[0]->Name : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -419,9 +482,9 @@
                                                     <h3 class="_title">Contact Name</h3>
                                                     <input type="text"
                                                         class="form-control-plaintext _detail " readonly
-                                                        name="name"
-                                                        onclick="editableField('name')"
-                                                        data-id="name" id="name"
+                                                        name="contact_name"
+                                                        onclick="editableField('contact_name')"
+                                                        data-id="contact_name" id="contact_name"
                                                         placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
                                                 </div>
                                                 </div>

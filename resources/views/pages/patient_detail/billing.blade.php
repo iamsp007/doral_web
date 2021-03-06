@@ -58,7 +58,7 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>Cottage Home Care Services</td>
+                           <td>Home Care Services</td>
                            <td>+1 650 513 0514</td>
                            <td>
                               <button type="button" class="cancel-btn"

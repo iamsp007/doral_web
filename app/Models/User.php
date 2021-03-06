@@ -138,9 +138,8 @@ class User extends Authenticatable
         return $gender;
     }
 
-    public function getPhoneAttribute($phone) {
-        // add logic to correctly format number here
-        // a more robust ways would be to use a regular expression
+    public function getPhoneAttribute($phone)
+    {
         $phoneData = '';
         if ($phone) {
             $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)." ".substr($phone,6);

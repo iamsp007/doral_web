@@ -55,4 +55,16 @@ class Demographic extends Model
 
         return $ssnData;
     }
-}
+
+    public function getTelephoneAttribute()
+    {
+        $phoneData = '';
+        if ($this->address) {
+            $address = json_decode($this->address);
+            if ($address[0] && $address[0]->Phone2) {
+                $phoneData = "(".substr($address[0]->Phone2, 0, 3).") ".substr($address[0]->Phone2, 3, 3)." ".substr($address[0]->Phone2,6);
+            }
+        }
+        return $phoneData;
+    }
+} 

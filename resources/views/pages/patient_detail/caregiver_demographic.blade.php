@@ -189,7 +189,7 @@
                                     name="phone2"
                                     onclick="editableField('phone2')"
                                     data-id="phone2" id="phone2"
-                                    placeholder="Telephone" value="{{ ($address[0] && $address[0]->Phone2) ? $address[0]->Phone2 : '' }}">
+                                    placeholder="Telephone" value="{{ ($patient->demographic) ? $patient->demographic->telephone : '' }}">
                                 </div>
                             </div>
                         </div>

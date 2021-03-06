@@ -17,7 +17,7 @@
                   {{ $patient->first_name }}  {{ $patient->last_name }}
                </div>
             </div>
-            <div> 
+            <div>
                <ul class="shortdesc">
                   <li>Status: <span>{{ isset($status[0]) ? $status[0]->Name : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
@@ -571,10 +571,7 @@
                    </button>
                </div>
                <div class="modal-body pb-4">
-                   <iframe id="iframeModal"
-                           src="http://localhost/doral/doral_web/public/patient_report/1615004520.xlsx"
-                           scrolling="no" frameborder="0" style="overflow:hidden !important; display:block; width:100%"
-                           height="768" width="100%"></iframe>
+                   Load
                </div>
            </div>
        </div>

@@ -27,7 +27,6 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
-        $request['company_id'] = Auth::guard('referral')->user()->id;
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
@@ -39,20 +38,24 @@ class CaregiverController extends Controller
                 } else if($request['status'] == 'initial') {
                     $query->where('status', '4');
                     $query->whereHas('caregiverInfo',function ($q) use($request) {
-                        $q->where('service_id', '3')->where('company_id', $request['company_id']);
+                        $company_id = Auth::guard('referral')->user()->id;
+                        $q->where('service_id', '3')->where('company_id', $company_id);
                     });
                 } else if($request['status'] == 'occupational-health') {
                     $query->whereIn('status', ['0', '1', '2', '3']);
                     $query->whereHas('caregiverInfo',function ($q) use($request) {
-                        $q->where('service_id', '3')->where('company_id', $request['company_id']);
+                        $company_id = Auth::guard('referral')->user()->id;
+                        $q->where('service_id', '3')->where('company_id', $company_id);
                     });
                 } else if($request['status'] == 'md-order') {
                     $query->whereHas('caregiverInfo',function ($q) use($request) {
-                        $q->where('service_id', '2')->where('company_id', $request['company_id']);
+                        $company_id = Auth::guard('referral')->user()->id;
+                        $q->where('service_id', '2')->where('company_id', $company_id);
                     });
                 } else if($request['status'] == 'vbc') {
                     $query->whereHas('caregiverInfo',function ($q) use($request) {
-                        $q->where('service_id', '1')->where('company_id', $request['company_id']);
+                        $company_id = Auth::guard('referral')->user()->id;
+                        $q->where('service_id', '1')->where('company_id', $company_id);
                     });
                 }
             })

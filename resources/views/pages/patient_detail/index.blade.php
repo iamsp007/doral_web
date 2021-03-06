@@ -682,7 +682,7 @@
                });
             }
         }
-
+        $(document).find('.phone_number').val();
          $(document).ready(function() {
             $(document).on('click','.patient-detail-lab-report',function(event) {
                event.preventDefault();

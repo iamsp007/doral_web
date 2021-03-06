@@ -26,8 +26,10 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
-        $patientList = User::
-            when($request['status'], function ($query) use($request) {
+        $patientList = User::whereHas('roles',function ($q){
+                $q->where('name','=','patient');
+            })
+            ->when($request['status'], function ($query) use($request) {
                 if ($request['status'] == 'pending') {
                     $query->where('status', '0');
                 } else if($request['status'] == 'active') {
@@ -49,10 +51,7 @@ class CaregiverController extends Controller
                     });
                 }
             })
-            ->with('demographic')
-            ->whereHas('roles',function ($q){
-                $q->where('name','=','patient');
-            });
+            ->with('demographic');
             //->orderBy('id', 'DESC');
 
         return DataTables::of($patientList)

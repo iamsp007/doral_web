@@ -13,20 +13,6 @@
                             <div class="input_box">
                                 <div class="ls"><i class="las la-phone circle"></i></div>
                                 <div class="rs">
-                                    <h3 class="_title">Doral ID</h3>
-                                    <div>
-                                        <input type="text" class="form-control-plaintext _detail "
-                                            readonly name="ssn" onclick="editableField('ssn')"
-                                            data-id="ssn" id="ssn" 
-                                            placeholder="SSN" value="{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-3 col-md-3">
-                            <div class="input_box">
-                                <div class="ls"><i class="las la-phone circle"></i></div>
-                                <div class="rs">
                                     <h3 class="_title">Gender</h3>
                                     <div>
                                         <input type="text" class="form-control-plaintext _detail "
@@ -44,23 +30,9 @@
                                     <h3 class="_title">DOB</h3>
                                     <div>
                                         <input type="text" class="form-control-plaintext _detail "
-                                            readonly name="ssn" onclick="editableField('ssn')"
-                                            data-id="ssn" id="ssn" 
-                                            placeholder="SSN" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-3 col-md-3">
-                            <div class="input_box">
-                                <div class="ls"><i class="las la-phone circle"></i></div>
-                                <div class="rs">
-                                    <h3 class="_title">Status</h3>
-                                    <div>
-                                        <input type="text" class="form-control-plaintext _detail "
-                                            readonly name="ssn" onclick="editableField('ssn')"
-                                            data-id="ssn" id="ssn" 
-                                            placeholder="SSN" value="{{ isset($status[0]) ? $status[0]->Name : '' }}">
+                                            readonly name="dob" onclick="editableField('ssn')"
+                                            data-id="dob" id="dob" 
+                                            placeholder="DOB" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
                                     </div>
                                 </div>
                             </div>

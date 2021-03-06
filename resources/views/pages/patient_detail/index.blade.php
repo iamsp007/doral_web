@@ -694,7 +694,7 @@
             $('.phoneNumber').val(val);
             // });
 
-            $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
+            $('#lab_perform_date, #lab_due_date, #lab_perform_date, #dob').daterangepicker({
                singleDatePicker: true,
                showDropdowns: true,
                minYear: 1901,

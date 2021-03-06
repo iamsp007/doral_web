@@ -70,6 +70,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var columnDaTa = [];
+      
         if ($("#status").val() === 'pending') {
             columnDaTa.push({data:'checkbox_id',name:'checkbox_id'});
         }

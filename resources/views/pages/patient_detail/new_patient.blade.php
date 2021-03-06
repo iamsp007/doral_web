@@ -117,7 +117,6 @@
             ],
         });
         $("body").on('click','.edit_btn',function () {
-            alert('test');
                $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
                $(this).parents("tr").find("span, .normal").css("display",'none');
             });

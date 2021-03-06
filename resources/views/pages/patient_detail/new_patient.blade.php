@@ -28,7 +28,7 @@
        
         <tr>
             @if($status === 'pending')
-            <th><div class="checkbox"><input class="mainchk" type="checkbox"/><span class="checkbtn"></span></div></th>
+            <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
             @endif
             <th>ID</th>
             <th>Patient Name</th>

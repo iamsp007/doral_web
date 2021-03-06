@@ -15,6 +15,7 @@ use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CaregiverController extends Controller
 {
@@ -26,6 +27,7 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
+        $request['company_id'] = Auth::guard('referral')->user()->id;
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
@@ -36,18 +38,21 @@ class CaregiverController extends Controller
                     $query->where('status', '1');
                 } else if($request['status'] == 'initial') {
                     $query->where('status', '4');
+                    $query->whereHas('caregiverInfo',function ($q) use($request) {
+                        $q->where('service_id', '3')->where('company_id', $request['company_id']);
+                    });
                 } else if($request['status'] == 'occupational-health') {
                     $query->whereIn('status', ['0', '1', '2', '3']);
-                    $query->whereHas('caregiverInfo',function ($q){
-                        $q->where('service_id', '3')->where('company_id', '9');
+                    $query->whereHas('caregiverInfo',function ($q) use($request) {
+                        $q->where('service_id', '3')->where('company_id', $request['company_id']);
                     });
                 } else if($request['status'] == 'md-order') {
-                    $query->whereHas('caregiverInfo',function ($q){
-                        $q->where('service_id', '2');
+                    $query->whereHas('caregiverInfo',function ($q) use($request) {
+                        $q->where('service_id', '2')->where('company_id', $request['company_id']);
                     });
                 } else if($request['status'] == 'vbc') {
-                    $query->whereHas('caregiverInfo',function ($q){
-                        $q->where('service_id', '1');
+                    $query->whereHas('caregiverInfo',function ($q) use($request) {
+                        $q->where('service_id', '1')->where('company_id', $request['company_id']);
                     });
                 }
             })
@@ -74,6 +79,8 @@ class CaregiverController extends Controller
                 $phone = '';
                 if ($q->phone) {
                     $phone = "<span class='label'><a href='tel:".$q->phone."'><i class='las la-phone circle'></i>".$q->phone."</a></span>";
+                    $phone .= "<div class='phone-text'><input class='phone' type='text' name='phone' value=".$q->phone."></div>";
+                } else {
                     $phone .= "<div class='phone-text'><input class='phone' type='text' name='phone' value=".$q->phone."></div>";
                 }
               

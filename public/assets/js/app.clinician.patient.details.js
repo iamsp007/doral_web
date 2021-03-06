@@ -70,29 +70,30 @@ let updateField = f => {
     y.attr('readOnly', true).attr("onclick", "editableField('" + f + "')");
     y.focus();
 }
- $(document).ready(function() {
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-$('#lab_perform_date, #lab_due_date, #lab_perform_date, #dob').daterangepicker({
-    singleDatePicker: true,
-    showDropdowns: true,
-    minYear: 1901,
-    maxDate: new Date()
- });
+$(document).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
- $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
-    var selectedDate = new Date($('[name="lab_due_date"]').val());
-    var date = selectedDate.getDate();
-    var monthf = selectedDate.getMonth() + 1;
-    var month  = (monthf < 10 ? '0' : '') + monthf;
-    var year = selectedDate.getFullYear() + 1;
-    var expirydate = month + '/'+ date + '/'+ year;
-    $(".lab-expiry-date").text(expirydate);
-    $("#lab_expiry_date").val(expirydate);
- });
+    $('.lab_perform_date, .lab_due_date, .lab_perform_date, .dob').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 1901,
+        maxDate: new Date()
+    });
+
+    $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
+        var selectedDate = new Date($('[name="lab_due_date"]').val());
+        var date = selectedDate.getDate();
+        var monthf = selectedDate.getMonth() + 1;
+        var month  = (monthf < 10 ? '0' : '') + monthf;
+        var year = selectedDate.getFullYear() + 1;
+        var expirydate = month + '/'+ date + '/'+ year;
+        $(".lab-expiry-date").text(expirydate);
+        $("#lab_expiry_date").val(expirydate);
+    });
 });
 var medprofileTable;
 medprofileTable = $('#med-profile-table').DataTable({

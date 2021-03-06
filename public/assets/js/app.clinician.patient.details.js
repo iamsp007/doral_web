@@ -1,4 +1,5 @@
 function editAllField(sectionId) {
+    alert(sectionId)
     $('#'+sectionId+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
         'p-new');
         this.contentEditable = 'true';

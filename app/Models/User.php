@@ -126,11 +126,11 @@ class User extends Authenticatable
     /**
      * Get gender value and set label according to gender value
      */
-    public function getGenderAttribute($gender)
+    public function getGenderDataAttribute()
     {
-        if ($gender === '1') {
+        if ($this->gender === '1') {
             $gender = 'Male';
-        } else if ($gender === '2') {
+        } else if ($this->gender === '2') {
             $gender = 'Female';
         } else {
             $gender = 'Other';

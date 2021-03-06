@@ -6,6 +6,7 @@
             <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
         </div>
         <div class="head scrollbar scrollbar12">
+        <form id="demographic_form">
             <div class="p-3">
                 <div class="form-group">
                     <div class="row">
@@ -500,6 +501,7 @@
                 @endif
                 <!-- Emergency contact Detail -->
             </div>
+        </fom>
         </div>
     </div>
     <!-- Demographics End -->

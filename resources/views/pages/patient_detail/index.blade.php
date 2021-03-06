@@ -641,6 +641,7 @@
     <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
@@ -683,17 +684,6 @@
         }
 
          $(document).ready(function() {
-            // $('.phoneNumber').keyup(function () {
-            var val = $(document).find('.phoneNumber').value.replace(/\D/g, '');
-            alert(val);
-            val = val.replace(/^(\d{3})/, '($1)-');
-            val = val.replace(/-(\d{3})/, '-$1-');
-            val = val.replace(/(\d)-(\d{4}).*/, '$1-$2');
-            //$(this).parent().parent().find("input[name=quantity]").val();
-            // $(this).closest('.phoneNumber').val(val);
-            $('.phoneNumber').val(val);
-            // });
-
             $('#lab_perform_date, #lab_due_date, #lab_perform_date, #dob').daterangepicker({
                singleDatePicker: true,
                showDropdowns: true,

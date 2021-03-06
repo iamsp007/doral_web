@@ -2385,7 +2385,7 @@
                 medprofileTable.ajax.reload();
             });
 
-            $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
+            $('.lab_perform_date, .lab_due_date, .lab_perform_date').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 minYear: 1901,

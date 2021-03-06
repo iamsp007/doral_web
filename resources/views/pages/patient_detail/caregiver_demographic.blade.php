@@ -16,9 +16,9 @@
                                     <h3 class="_title">Gender</h3>
                                     <div>
                                         <input type="text" class="form-control-plaintext _detail "
-                                            readonly name="ssn" onclick="editableField('ssn')"
-                                            data-id="ssn" id="ssn" 
-                                            placeholder="SSN" value="{{ $patient->gender }}">
+                                            readonly name="gender" onclick="editableField('gender')"
+                                            data-id="gender" id="gender" 
+                                            placeholder="Gender" value="{{ $patient->gender }}">
                                     </div>
                                 </div>
                             </div>
@@ -30,7 +30,7 @@
                                     <h3 class="_title">DOB</h3>
                                     <div>
                                         <input type="text" class="form-control-plaintext _detail "
-                                            readonly name="dob" onclick="editableField('ssn')"
+                                            readonly name="dob" onclick="editableField('dob')"
                                             data-id="dob" id="dob" 
                                             placeholder="DOB" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
                                     </div>

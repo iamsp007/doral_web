@@ -60,7 +60,7 @@ class CaregiverInfo extends Model
         return $this->hasOne(Services::class,'id','service_id');
     }
 
-    public function getMobileOrSMSAttribute()
+    public function getMobileOrSmsAttribute()
     {
         $phoneData = '';
         if ($this->address) {

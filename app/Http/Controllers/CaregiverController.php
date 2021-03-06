@@ -184,20 +184,20 @@ class CaregiverController extends Controller
         //dump(count($caregiverArray));
         // whereIn($caregiverArray)
         // $data = HHAApiCaregiver::dispatch($caregiverArray);
-        // $caregiverArray = ["78890","78961","79257","79303","79456","80831"];
+        $caregiverArray = ["78890","78961","79257","79303","79456","80831"];
         // return 'Update successfully';
 
         // dump($counter);2960
-        foreach (array_slice($caregiverArray, 0 , 2960) as $cargiver_id) {
+        // foreach (array_slice($caregiverArray, 0 , 2960) as $cargiver_id) {
      
-            // foreach ($caregiverArray as $cargiver_id) {
+            foreach ($caregiverArray as $cargiver_id) {
             /** Store patirnt demographic detail */
             $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
     
             if (! $userCaregiver) {
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                dump($cargiver_id);
+                dump($demographicDetails);
                 self::saveUser($demographicDetails);
             }
             
@@ -363,32 +363,28 @@ class CaregiverController extends Controller
         }
         $caregiverInfo->mobile = json_encode($mobile);
 
-        $ethnicity = [];
-        if ($demographicDetails['Ethnicity']) {
-            $ethnicity = [
-                $demographicDetails['Ethnicity'],
-            ];
+        $ethnicity = '';
+        if ($demographicDetails['Ethnicity'] && $demographicDetails['Ethnicity']['Name']) {
+            $ethnicity = $demographicDetails['Ethnicity']['Name'];
         }
-        $caregiverInfo->ethnicity = json_encode($ethnicity);
+        // $caregiverInfo->ethnicity = json_encode($ethnicity);
+        $caregiverInfo->ethnicity = $ethnicity;
 
         $caregiverInfo->country_of_birth = ($demographicDetails['CountryOfBirth']) ? $demographicDetails['CountryOfBirth'] : '';
         $caregiverInfo->employee_type = ($demographicDetails['EmployeeType']) ? $demographicDetails['EmployeeType'] : '';
 
-        $maritalStatus = [];
-        if ($demographicDetails['MaritalStatus']) {
-            $maritalStatus = [
-                $demographicDetails['MaritalStatus'],
-            ];
+        $maritalStatus = '';
+        if ($demographicDetails['MaritalStatus'] && $demographicDetails['MaritalStatus']['Name']) {
+            $maritalStatus = $demographicDetails['MaritalStatus']['Name'];
         }
-        $caregiverInfo->marital_status = json_encode($maritalStatus);
+        $caregiverInfo->marital_status = $maritalStatus;
 
         $caregiverInfo->dependents = ($demographicDetails['Dependents']) ? $demographicDetails['Dependents'] : '';
 
         $status = [];
         if ($demographicDetails['Status']) {
-            $status = [
-                $demographicDetails['Status'],
-            ];
+            $status = $demographicDetails['Status'];
+            
         }
         $caregiverInfo->status = json_encode($status);
 
@@ -403,9 +399,7 @@ class CaregiverController extends Controller
         
         $referralSource = [];
         if ($demographicDetails['ReferralSource']) {
-            $referralSource = [
-                $demographicDetails['ReferralSource'],
-            ];
+            $referralSource = $demographicDetails['ReferralSource'];
         }
         $caregiverInfo->referral_source = json_encode($referralSource);
 
@@ -413,17 +407,13 @@ class CaregiverController extends Controller
 
         $notificationPreferences = [];
         if ($demographicDetails['NotificationPreferences']) {
-            $notificationPreferences = [
-                $demographicDetails['NotificationPreferences'],
-            ];
+            $notificationPreferences = $demographicDetails['NotificationPreferences'];
         }
-        $caregiverInfo->notification_preferences = json_encode($notificationPreferences);;
+        $caregiverInfo->notification_preferences = json_encode($notificationPreferences);
 
         $caregiverOffices = [];
         if ($demographicDetails['CaregiverOffices']) {
-            $caregiverOffices = [
-                $demographicDetails['CaregiverOffices'],
-            ];
+            $caregiverOffices = $demographicDetails['CaregiverOffices'];
         }
         $caregiverInfo->caregiver_offices = json_encode($caregiverOffices);
 
@@ -458,54 +448,40 @@ class CaregiverController extends Controller
 
         $team = [];
         if ($demographicDetails['Team'] && $demographicDetails['Team']['Name']) {
-            $team = [
-                $demographicDetails['Team'],
-            ];
+            $team = $demographicDetails['Team'];
         }
         $demographic->team = json_encode($team);
 
         $location = [];
         if ($demographicDetails['Location'] && $demographicDetails['Location']['Name']) {
-            $location = [
-                $demographicDetails['Location'],
-            ];
+            $location = $demographicDetails['Location'];
         }
         $demographic->location = json_encode($location);
 
         $branch = [];
         if ($demographicDetails['Branch'] && $demographicDetails['Branch']['Name']) {
-            $branch = [
-                $demographicDetails['Branch'],
-            ];
+            $branch = $demographicDetails['Branch'];
         }
         $demographic->branch = json_encode($branch);
 
         $employmentTypes = [];
         if ($demographicDetails['EmploymentTypes']) {
-            $employmentTypes = [
-                $demographicDetails['EmploymentTypes'],
-            ];
+            $employmentTypes = $demographicDetails['EmploymentTypes'];
         }
         $demographic->accepted_services = json_encode($employmentTypes);
 
         $address = [];
         if ($demographicDetails['Address']) {
-            $address = [
-                $demographicDetails['Address'],
-            ];
+            $address = $demographicDetails['Address'];
         }
         $demographic->address = json_encode($address);
 
         $language = [];
         if ($demographicDetails['LanguageID1'] || $demographicDetails['Language1'] || $demographicDetails['LanguageID2'] || $demographicDetails['Language2'] || $demographicDetails['LanguageID3'] || $demographicDetails['Language3'] || $demographicDetails['LanguageID4'] || $demographicDetails['Language4']) {
-            $language[] = [
-                'LanguageID1' => ($demographicDetails['LanguageID1']) ? $demographicDetails['LanguageID1'] : '',
+            $language = [
                 'Language1' => ($demographicDetails['Language1']) ? $demographicDetails['Language1'] : '',
-                'LanguageID2' => ($demographicDetails['LanguageID2']) ? $demographicDetails['LanguageID2'] : '',
                 'Language2' => ($demographicDetails['Language2']) ? $demographicDetails['Language2'] : '',
-                'LanguageID3' =>($demographicDetails['LanguageID3']) ? $demographicDetails['LanguageID3'] : '',
                 'Language3' => ($demographicDetails['Language3']) ? $demographicDetails['Language3'] : '',
-                'LanguageID4' => ($demographicDetails['LanguageID4']) ? $demographicDetails['LanguageID4'] : '',
                 'Language4' => ($demographicDetails['Language4']) ? $demographicDetails['Language4'] : '',
             ];
         }
@@ -518,20 +494,18 @@ class CaregiverController extends Controller
     {
         foreach ($demographicDetails['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
             if($emergencyContact['Name']) {
-                $relationship = [];
+                $relationship = '';
                 if ($emergencyContact['Relationship'] && $emergencyContact['Relationship']['Name']) {
-                    $relationship = [
-                        $emergencyContact['Relationship']
-                    ];
+                    $relationship = $emergencyContact['Relationship']['Name'];
                 }
-                $relationshipJson = json_encode($relationship);
+               
                 $patientEmergencyContact = new PatientEmergencyContact();
                 
                 $patientEmergencyContact->user_id = $user_id;
                 $patientEmergencyContact->name = $emergencyContact['Name'];
-                $patientEmergencyContact->relation = $relationshipJson;
-                $patientEmergencyContact->phone1 = ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '';
-                $patientEmergencyContact->phone2 = ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '';
+                $patientEmergencyContact->relation = $relationship;
+                $patientEmergencyContact->phone1 = ($emergencyContact['Phone1']) ? str_replace("-","",$emergencyContact['Phone1']) : '';
+                $patientEmergencyContact->phone2 = ($emergencyContact['Phone2']) ? str_replace("-","",$emergencyContact['Phone2']) : '';
                 $patientEmergencyContact->address = ($emergencyContact['Address']) ? $emergencyContact['Address'] : '';
                 $patientEmergencyContact->save();
             }

@@ -93,7 +93,6 @@
             }else {
                 $('#loginForm').attr('action',"{{ route('referral.login') }}");
             }
-            console.log(type)
         }
         $(".toggle-password").click(function() {
         $('.pass-show').click(function (event) {

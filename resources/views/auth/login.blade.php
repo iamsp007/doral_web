@@ -123,7 +123,7 @@
         });
 
         socket.on("new", function(e){
-            console.log("data", e)
+            // console.log("data", e)
             alert('Majaaa aya?');
         });
         function changeLoginRole(type) {
@@ -132,7 +132,7 @@
             }else {
                 $('#loginForm').attr('action',"{{ route('referral.login') }}");
             }
-            console.log(type)
+            // console.log(type)
         }
         $('.pass-show').click(function (event) {
             $(".pass-hide").addClass('d-block').removeClass('d-none');

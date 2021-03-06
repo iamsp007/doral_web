@@ -283,7 +283,7 @@
                         messaging
                         .requestPermission()
                         .then(function () {
-                            console.log("Notification permission granted.");
+                            // console.log("Notification permission granted.");
 
                             // get the token in the form of promise
                             return messaging.getToken()
@@ -305,7 +305,7 @@
                                     $("#loader-wrapper").hide();
                                 },
                                 error:function (error) {
-                                    console.log(error.responseJSON.status+': '+error.responseJSON.message);
+                                    // console.log(error.responseJSON.status+': '+error.responseJSON.message);
                                     $("#loader-wrapper").hide();
                                 }
                             })
@@ -337,7 +337,7 @@
                         });
 
                     }).catch(function(err) {
-                        console.log('Service worker registration failed, error:', err);
+                        // console.log('Service worker registration failed, error:', err);
                     });
             }
 

@@ -175,7 +175,7 @@
                                     name="home_phone"
                                     onclick="editableField('home_phone')"
                                     data-id="home_phone" id="home_phone"
-                                    placeholder="home_phone" value="{{ ($address[0] && $address[0]->HomePhone) ? $address[0]->HomePhone : '' }}">
+                                    placeholder="home_phone" value="{{ $patient->phone }}">
                                 </div>
                             </div>
                         </div>

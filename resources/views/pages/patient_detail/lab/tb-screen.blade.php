@@ -84,12 +84,12 @@
                                  </span>
                               @enderror
                            </td>
-                           <td><x-text name="lab_due_date" id="lab_due_date" /></td>
-                           <x-hidden name="patient_referral_id" id="patient_referral_id" value="{{ $paient_id }}" />
-                           <x-hidden name="lab_expiry_date" id="lab_expiry_date" />
+                           <td><x-text name="lab_due_date" class="lab_due_date" /></td>
+                           <x-hidden name="patient_referral_id" class="patient_referral_id" value="{{ $paient_id }}" />
+                           <x-hidden name="lab_expiry_date" class="lab_expiry_date" />
                            <td class="lab-expiry-date"></td>
                            <td>
-                              <select name="result" id="result" class="form-control">
+                              <select name="result" class="result" class="form-control">
                                  <option value="">Select a result</option>
                                  @foreach(config('select.labResult') as $key => $labResult)
                                     <option value="{{ $key }}">{{ $labResult }}</option>

@@ -8,7 +8,6 @@ function editAllField(sectionId) {
     $('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
 }
 function updateAllField(sectionId) {
-    alert(sectionId)
     if (sectionId==="demographic"){
         var data = $('#demographic_form').serializeArray();
         data.push({name: 'type', value: 1});
@@ -40,7 +39,7 @@ function demographyDataUpdate(data) {
         dataType: "json",
         success: function(response) {
             $("#loader-wrapper").hide();
-            alert(response.message)
+            // alert(response.message)
             $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
         },
         error: function(error) {

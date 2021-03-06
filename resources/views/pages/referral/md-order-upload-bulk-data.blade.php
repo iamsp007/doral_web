@@ -75,6 +75,7 @@
         <div class="icon"><img src="{{ asset('assets/img/icons/form.svg') }}" class="img-fluid"/></div>
         <h1 class="pt-4 _title1">Select your form</h1>
         <div class="category-type pt-4 control-group">
+            @if(isset($data))
             @foreach($data->mdforms as $value)
             <div class="box form-{{$value->id}}" style="display: none;">
                 <label class="control control-radio block">
@@ -85,6 +86,7 @@
                 <!--<input type="radio" value="1" name="formName" class="formName"/><br/>HCSP - M11Q-->
             </div>
             @endforeach
+            @endif
         </div>
         <div class="d-flex pt-4 justify-content-center">
             <button type="button" class="continue-btn mr-2 openSection3" onclick="sectionSteps(3,4)" name="Continue">Continue</button>

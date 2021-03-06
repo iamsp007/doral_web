@@ -168,9 +168,11 @@
                                 {{ ucfirst($value) }}
                             @endforeach
                         @else
-                            @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
-                                {{ ucfirst($value) }}
-                            @endforeach
+                            @auth
+                                @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
+                                    {{ ucfirst($value) }}
+                                @endforeach
+                            @endauth
                         @endrole
                     </h1>
                 </div>

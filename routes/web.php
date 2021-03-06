@@ -81,6 +81,8 @@ Route::get('/lab-report-referral','\App\Http\Controllers\GetPatientDetailsContro
 Route::post('/lab-report-upload','\App\Http\Controllers\GetPatientDetailsController@labReportUpload')->name('patient.lab.report.upload');
 Route::post('/view-lab-report','\App\Http\Controllers\GetPatientDetailsController@viewLabReport')->name('patient.lab.report.view');
 Route::post('/lab-report-data','\App\Http\Controllers\GetPatientDetailsController@labReportData')->name('patient.lab.report.data');
+Route::delete('/remove-lab-report','\App\Http\Controllers\GetPatientDetailsController@removeLabReport')->name('patient.lab.report.remove');
+Route::post('/lab-report-file-show','\App\Http\Controllers\GetPatientDetailsController@labReportFileShow')->name('patient.lab.report.show');
 Route::post('/caregiver-update/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@checkCurrentVisitorDetails')->name('patient.caregiver.update');
 
 Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searchCaregivers');

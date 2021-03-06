@@ -572,7 +572,7 @@
                </div>
                <div class="modal-body pb-4">
                    <iframe id="iframeModal"
-                           src="https://www.cottagehomecareservice.com/assets/timesheet/files/timesheet_1614303331.pdf?page=hsn#toolbar=1"
+                           src="http://localhost/doral/doral_web/public/patient_report/1615004520.xlsx"
                            scrolling="no" frameborder="0" style="overflow:hidden !important; display:block; width:100%"
                            height="768" width="100%"></iframe>
                </div>
@@ -625,7 +625,7 @@
                        </div>
                        <div class="d-flex mt-4">
                            <input type="button" value="Upload File(s)" onclick="uploadLabReport(this)" class="btn btn--submit btn-lg" style="width: 50%;">
-                           <input type="cancel" value="Cancel" data-dismiss="modal" aria-label="Close" style="width: 50%;">
+                           <input type="cancel" value="Cancel"  data-dismiss="modal" aria-label="Close" style="width: 50%;">
                        </div>
                    </div>
                </div>

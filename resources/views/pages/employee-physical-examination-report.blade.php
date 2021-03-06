@@ -402,7 +402,7 @@
                         <!-- last section -->
                         <div class="container">
                            <div class="innerSpace">
-                              <h2 class="t1 fadeIn">EMPLOYEE PHYSICAL EXAMINATION REPORT <br><span class="grey">LABORATORY RESULYS 
+                              <h2 class="t1 fadeIn">EMPLOYEE PHYSICAL EXAMINATION REPORT <br><span class="grey">LABORATORY RESULTS 
                               (ALL LAB REPORTS AND RESULTS MUST BE ATTACHED)</span>
                               </h2>
                               <div class="text-center">
@@ -433,17 +433,17 @@
                                     </tr>
                                  </thead>
                               <tbody>
-                              <tr>
+                              <tr class="tr_class">
                                  <td>
                                     <div id="checkbox">
                                        <label class="containera">
-                                          <input type="checkbox" name="record[1]" />
+                                          <input type="checkbox" class="record" name="record[1]" />
                                           <span class="checkmark"></span>
                                        </label>
                                     </div>
                                  </td>
                                  <td>
-                                    <input name="test_name[1]" />
+                                    <input class="test_name" name="test_name[1]" />
                                  </td>
                                  <td>
                                     <div class="form-group datea">
@@ -451,32 +451,32 @@
                                           <span class="input-group-addon">
                                              <i class="fa fa-calendar"></i>
                                           </span>
-                                          <input type="text" class="form-control" name="date_performed[1]" />
+                                          <input type="text" class="form-control date_performed" name="date_performed[1]" />
                                        </div>
                                     </div>
                                  </td>
                                  
                                  <td>
-                                    <select class="form-control" name="result[1]">
+                                    <select class="form-control result" name="result[1]">
                                        <option>Immune</option>
                                        <option>None Immune</option>
                                     </select>
                                  </td>
                                  <td>
-                                    <input name="lab_value[1]" />
+                                    <input class="lab_value" name="lab_value[1]" />
                                  </td>
                               </tr>
-                              <tr>
+                              <tr class="tr_class">
                                  <td>
                                     <div id="checkbox">
                                        <label class="containera">
-                                          <input type="checkbox" name="record[2]" />
+                                          <input type="checkbox" class="record" name="record[2]" />
                                           <span class="checkmark"></span>
                                        </label>
                                     </div>
                                  </td>
                                  <td>
-                                    <input name="test_name[2]" />
+                                    <input class="test_name" name="test_name[2]" />
                                  </td>
                                  <td>
                                     <div class="form-group datea">
@@ -484,18 +484,18 @@
                                           <span class="input-group-addon">
                                              <i class="fa fa-calendar"></i>
                                           </span>
-                                          <input type="text" class="form-control" name="date_performed[2]" />
+                                          <input type="text" class="form-control date_performed" name="date_performed[2]" />
                                        </div>
                                     </div>
                                  </td>
                                  <td>
-                                    <select class="form-control" name="result[2]">
+                                    <select class="form-control result" name="result[2]">
                                        <option>Immune</option>
                                        <option>None Immune</option>
                                     </select>
                                  </td>
                                  <td>
-                                    <input name="lab_value[2]" />
+                                    <input class="lab_value" name="lab_value[2]" />
                                  </td>
                               </tr>
                            </tbody>
@@ -611,10 +611,29 @@
          
          // Add row the table
          $('#btnAddRow').on('click', function() {
-            var lastRow = $('#tblAddRow tbody tr:last').html();
-            //alert(lastRow);
-            $('#tblAddRow tbody').append('<tr>' + lastRow + '</tr>');
-            $('#tblAddRow tbody tr:last input').val('');
+            var lastRow = $('#tblAddRow tbody tr:last').clone();
+
+            var lookup = parseInt($(lastRow).find('input:first').attr('name').replace ( /[^\d.]/g, '' )) + 1;
+
+            $(lastRow).find('input.record').attr('name', 'record['+lookup+']')
+
+            $(lastRow).find('input.test_name').attr('name', 'test_name['+lookup+']')
+
+            $(lastRow).find('input.date_performed').attr('name', 'date_performed['+lookup+']')
+
+            $(lastRow).find('select.result').attr('name', 'result['+lookup+']')
+
+            $(lastRow).find('input.lab_value').attr('name', 'lab_value['+lookup+']')
+
+            lastRow.insertAfter('#tblAddRow tbody tr:last');
+
+            $('.datea .input-group.date').datepicker({
+               todayBtn: "linked",
+               keyboardNavigation: false,
+               forceParse: false,
+               calendarWeeks: true,
+               autoclose: true
+            });
          });
          
          // Delete last row in the table
@@ -806,37 +825,6 @@
          }
       });
    });
-
-function getIndex(node) {
-
-   var current = node,
-
-   count = 0;
-
-   while (current && current.previousElementSibling) {
-
-      count++
-
-      current = current.previousElementSibling;
-   }
-
-   return count;
-}
-
-function getDetails() {
-
-   var node = this;
-
-   console.log({
-      'name': node.name,
-      'index': getIndex(node),
-      'value': node.value
-   });
-}
-
-Array.from(document.querySelectorAll('input[type="text"]')).forEach(function(input) {
-   input.addEventListener('change', getDetails);
-});
 </script>
    </body>
 </html>

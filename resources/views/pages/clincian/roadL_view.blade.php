@@ -71,7 +71,7 @@
 
 
                 getNearByClinicianList( (response,patientDetail)=> {
-console.log(patientDetail)
+                    console.log(patientDetail)
                     var title='';
                     if (patientDetail.detail){
                         title=patientDetail.detail.first_name+' '+patientDetail.detail.last_name;

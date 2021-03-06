@@ -26,8 +26,10 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
-        $patientList = User::
-            when($request['status'], function ($query) use($request) {
+        $patientList = User::whereHas('roles',function ($q){
+                $q->where('name','=','patient');
+            })
+            ->when($request['status'], function ($query) use($request) {
                 if ($request['status'] == 'pending') {
                     $query->where('status', '0');
                 } else if($request['status'] == 'active') {
@@ -49,14 +51,13 @@ class CaregiverController extends Controller
                     });
                 }
             })
-            ->with('demographic')
-            ->whereHas('roles',function ($q){
-                $q->where('name','=','patient');
-            });
+            ->with('demographic');
             //->orderBy('id', 'DESC');
 
         return DataTables::of($patientList)
-            ->addColumn('checkbox_id','<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>')
+            ->addColumn('checkbox_id', function($q) use($request) {
+                return '<div class="checkbox"><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="{{ $id }}"><span class="checkbtn"></span></div>';
+            })
             ->addColumn('full_name', function($q){
                 return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
             })
@@ -68,25 +69,27 @@ class CaregiverController extends Controller
                 return $ssn;
             })
             ->addColumn('home_phone', function($q) use($request){
-                $phone = "<span class='label'>".$q->phone."</span>";
-                $phone .= "<div class='phone-text'><input class='phone' type='text' name='phone' value=".$q->phone."></div>";
+                $phone = '';
+                if ($q->phone) {
+                    $phone = "<span class='label'><a href='tel:".$q->phone."'><i class='las la-phone circle'></i>".$q->phone."</a></span>";
+                    $phone .= "<div class='phone-text'><input class='phone' type='text' name='phone' value=".$q->phone."></div>";
+                }
+              
                 return $phone;
-
-                
             })
-            ->addColumn('patient_type', function($q) {
-                $type = '';
+            ->addColumn('service_id', function($q) {
+                $services = '';
+                if ($q->caregiverInfo && $q->caregiverInfo->services) {
+                    $services =  $q->caregiverInfo->services->name;
+                }
+                return $services;
+            })
+            ->addColumn('doral_id', function($q){
+                $doral_id = '';
                 if ($q->demographic) {
-                    $type =  $q->demographic->type;
+                    $doral_id =  $q->demographic->doral_id;
                 }
-                return $type;
-            })
-            ->addColumn('patient_id', function($q){
-                $patient_id = '';
-                if ($q->caregiverInfo) {
-                    $patient_id =  $q->caregiverInfo->caregiver_id;
-                }
-                return $patient_id;
+                return $doral_id;
             })
             ->addColumn('city_state', function($q){
                 $city_state = '';
@@ -165,8 +168,10 @@ class CaregiverController extends Controller
         // $data = HHAApiCaregiver::dispatch($caregiverArray);
 
         // return 'Update successfully';
-        // dump($counter);2960 - 2660
-        foreach (array_slice($caregiverArray, 0, 300) as $cargiver_id) {
+
+        // dump($counter);2960
+        foreach (array_slice($caregiverArray, 0 , 2960) as $cargiver_id) {
+     
             // foreach ($caregiverArray as $cargiver_id) {
             /** Store patirnt demographic detail */
             $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
@@ -174,7 +179,7 @@ class CaregiverController extends Controller
             if (! $userCaregiver) {
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                dump($demographicDetails);
+                dump($cargiver_id);
                 self::saveUser($demographicDetails);
             }
             

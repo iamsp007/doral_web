@@ -27,14 +27,16 @@
         <thead>
        
         <tr>
+            @if($status === 'pending')
             <th><div class="checkbox"><input class="mainchk" type="checkbox"/><span class="checkbtn"></span></div></th>
+            @endif
             <th>ID</th>
             <th>Patient Name</th>
             <th>Gender</th>
             <th>SSN</th>
             <th>Home Phone</th>
-            <th>Patient Type</th>
-            <th>Patient Id</th>
+            <th>Services</th>
+            <th>Doral Id</th>
             <th>City - State</th>
             <th>Action</th>
         </tr>
@@ -67,6 +69,22 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
+        var columnDaTa = [];
+        if ($("#status").val() === 'pending') {
+            columnDaTa.push({data:'checkbox_id',name:'checkbox_id'});
+        }
+        columnDaTa.push(
+            {data:'id',name:'id'},
+            {data: 'full_name', name: 'full_name'},
+            {data: 'gender', name: 'gender'},
+            {data: 'ssn', name: 'ssn'},
+            {data: 'home_phone', name: 'home_phone', class: 'editable text'},
+            {data: 'service_id', name: 'service_id'},      
+            {data: 'doral_id', name: 'doral_id'},        
+            {data: 'city_state', name: 'city_state'},            
+            {data: 'action', name: 'action'}
+        );
+       
         $('#get_patient-table').DataTable({
             "processing": true,
             "language": {
@@ -83,19 +101,7 @@
                     status: $("#status").val(),
                 },
             },
-            columns:[
-                {data:'checkbox_id',name:'checkbox_id'},
-                {data:'id',name:'id'},
-                {data: 'full_name', name: 'full_name'},
-                {data: 'gender', name: 'gender'},
-                {data: 'ssn', name: 'ssn'},
-                {data: 'home_phone', name: 'home_phone', class: 'editable text'},
-                {data: 'patient_type', name: 'patient_type'},      
-                {data: 'patient_id', name: 'patient_id'},        
-                {data: 'city_state', name: 'city_state'},            
-                {data: 'action', name: 'action'},
-            
-            ],
+            columns:columnDaTa,
             "order": [[ 1, "desc" ]],
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
             'columnDefs': [

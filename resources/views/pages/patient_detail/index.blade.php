@@ -17,9 +17,8 @@
                   {{ $patient->first_name }}  {{ $patient->last_name }}
                </div>
             </div>
-            <div>
+            <div> 
                <ul class="shortdesc">
-                  <li>Employee Type: <span>{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->employee_type : '' }}</span></li>
                   <li>Status: <span>{{ isset($status[0]) ? $status[0]->Name : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender }}</span></li>
@@ -176,7 +175,7 @@
                   <!-- Clinical End -->
 
                    <!-- Clinical Start -->
-                   @include('pages.patient_detail.clinical-info')
+                   <!-- @include('pages.patient_detail.clinical-info') -->
                   <!-- Clinical End -->
 
                   <!-- Physician Start -->
@@ -684,34 +683,6 @@
         }
 
          $(document).ready(function() {
-            // $('.phoneNumber').keyup(function () {
-            var val = $('.phoneNumber').value.replace(/\D/g, '');
-            val = val.replace(/^(\d{3})/, '($1)-');
-            val = val.replace(/-(\d{3})/, '-$1-');
-            val = val.replace(/(\d)-(\d{4}).*/, '$1-$2');
-            //$(this).parent().parent().find("input[name=quantity]").val();
-            // $(this).closest('.phoneNumber').val(val);
-            $('.phoneNumber').val(val);
-            // });
-
-            $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
-               singleDatePicker: true,
-               showDropdowns: true,
-               minYear: 1901,
-               maxDate: new Date()
-            });
-
-            $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
-               var selectedDate = new Date($('[name="lab_due_date"]').val());
-               var date = selectedDate.getDate();
-               var monthf = selectedDate.getMonth() + 1;
-               var month  = (monthf < 10 ? '0' : '') + monthf;
-               var year = selectedDate.getFullYear() + 1;
-               var expirydate = month + '/'+ date + '/'+ year;
-               $(".lab-expiry-date").text(expirydate);
-               $("#lab_expiry_date").val(expirydate);
-            });
-
             $(document).on('click','.patient-detail-lab-report',function(event) {
                event.preventDefault();
 

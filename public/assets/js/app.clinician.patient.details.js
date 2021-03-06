@@ -39,16 +39,33 @@ function demographyDataUpdate(data) {
         dataType: "json",
         success: function(response) {
             $("#loader-wrapper").hide();
-            // alert(response.message)
             $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+            alertText(response.message,'success');
         },
         error: function(error) {
             $("#loader-wrapper").hide();
-            alert(error.responseText)
+            alertText("Server Timeout! Please try again",'error');
         }
     });
 }
+function alertText(text,status) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 
+    Toast.fire({
+        icon: status,
+        title: text
+    })
+}
 let editableField = f => {
     var x = $("#" + f);
     x.attr("onclick", "updateField('" + f + "')");

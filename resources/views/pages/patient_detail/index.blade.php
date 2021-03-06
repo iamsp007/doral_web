@@ -640,6 +640,7 @@
     <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var lab_referral_url="{{ route('patient.lab.report.referral') }}";
         var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";

@@ -39,7 +39,7 @@ class CaregiverController extends Controller
                 } else if($request['status'] == 'occupational-health') {
                     $query->whereIn('status', ['0', '1', '2', '3']);
                     $query->whereHas('caregiverInfo',function ($q){
-                        $q->where('service_id', '3');
+                        $q->where('service_id', '3')->where('company_id', '9');
                     });
                 } else if($request['status'] == 'md-order') {
                     $query->whereHas('caregiverInfo',function ($q){

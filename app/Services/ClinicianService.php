@@ -230,7 +230,7 @@ class ClinicianService
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-            dd($exception->getMessage());
+            dump($exception->getMessage());
         }
     }
 

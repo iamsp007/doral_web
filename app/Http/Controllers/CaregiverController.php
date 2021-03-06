@@ -53,12 +53,15 @@ class CaregiverController extends Controller
             })
             ->with('demographic')->orderBy('id', 'DESC');
 
-        return DataTables::of($patientList)
-            ->addColumn('checkbox_id', function($q) use($request) {
+        $datatble = DataTables::of($patientList)
+          ->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
             })
             ->addColumn('full_name', function($q){
                 return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
+            })
+            ->addColumn('gender', function($q){
+                return $q->gender_data;
             })
             ->addColumn('ssn', function($q) {
                 $ssn = '';
@@ -106,29 +109,35 @@ class CaregiverController extends Controller
                     }
                 }
                 return $city_state;
-            })
-            ->addColumn('action', function($row) use($request){
-                $btn = '';
-                if ($request['status'] == 'occupational-health' || $request['status'] == 'md-order' || $request['status'] == 'vbc' || $request['status'] == 'initial') {
-                    $btn .= $row->status_data;
-                    if ($request['status'] == 'initial') {
-                        $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
-                        $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
+            });
+            if($request['status'] == 'active') {
+                $datatble->addColumn('dob', function($row) use($request){
+                    return date('m-d-Y', strtotime($row->dob));
+                });
+            } else {
+                $datatble->addColumn('action', function($row) use($request){
+                    $btn = '';
+                    if ($request['status'] == 'occupational-health' || $request['status'] == 'md-order' || $request['status'] == 'vbc' || $request['status'] == 'initial') {
+                        $btn .= $row->status_data;
+                        if ($request['status'] == 'initial') {
+                            $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
+                            $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
+                        }
+                    } else {
+                        if ($row->status === '0') {
+                            $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+        
+                            $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                        }  else if ($row->status === '1') {
+                            $btn .= '<p class="text-success">Accept</p>';
+                        }
                     }
-                } else {
-                    if ($row->status === '0') {
-                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
-    
-                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
-                    }  else if ($row->status === '1') {
-                        $btn .= '<p class="text-success">Accept</p>';
-                    }
-                }
-              
-                return $btn;
-            })
-            ->rawColumns(['full_name', 'action', 'checkbox_id', 'home_phone'])
-            ->make(true);
+                
+                    return $btn;
+                });
+            }
+            $datatble->rawColumns(['full_name', 'action', 'checkbox_id', 'home_phone']);
+            return $datatble->make(true);
     }
   
     public function updatePatientStatus(Request $request)
@@ -165,7 +174,7 @@ class CaregiverController extends Controller
         //dump(count($caregiverArray));
         // whereIn($caregiverArray)
         // $data = HHAApiCaregiver::dispatch($caregiverArray);
-
+        // $caregiverArray = ["78890","78961","79257","79303","79456","80831"];
         // return 'Update successfully';
 
         // dump($counter);2960

@@ -38,7 +38,7 @@
             <th>Services</th>
             <th>Doral Id</th>
             <th>City - State</th>
-            <th>Action</th>
+            <th>@if($status === 'active') DOB  @else Action @endif</th>
         </tr>
         </thead>
         <tbody>
@@ -74,17 +74,21 @@
             columnDaTa.push({data:'checkbox_id',name:'checkbox_id'});
         }
         columnDaTa.push(
-            {data:'id',name:'id'},
+            {data: 'id',name:'id'},
             {data: 'full_name', name: 'full_name'},
             {data: 'gender', name: 'gender'},
             {data: 'ssn', name: 'ssn'},
             {data: 'home_phone', name: 'home_phone', class: 'editable text'},
-            {data: 'service_id', name: 'service_id'},      
-            {data: 'doral_id', name: 'doral_id'},        
-            {data: 'city_state', name: 'city_state'},            
-            {data: 'action', name: 'action'}
+            {data: 'service_id', name: 'service_id'},
+            {data: 'doral_id', name: 'doral_id'},
+            {data: 'city_state', name: 'city_state'},
+            
         );
-       
+        if ($("#status").val() === 'active') {
+            columnDaTa.push({data:'dob',name:'dob'});
+        } else {
+            columnDaTa.push({data: 'action', name: 'action'});
+        }
         $('#get_patient-table').DataTable({
             "processing": true,
             "language": {

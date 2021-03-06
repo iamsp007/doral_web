@@ -1,5 +1,5 @@
 function editAllField(sectionId) {
-    alert(sectionId)
+    
     $('#'+sectionId+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
         'p-new');
         this.contentEditable = 'true';
@@ -8,6 +8,7 @@ function editAllField(sectionId) {
     $('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
 }
 function updateAllField(sectionId) {
+    alert(sectionId)
     if (sectionId==="demographic"){
         var data = $('#demographic_form').serializeArray();
         data.push({name: 'type', value: 1});

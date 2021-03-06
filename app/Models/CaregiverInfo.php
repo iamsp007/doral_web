@@ -60,13 +60,14 @@ class CaregiverInfo extends Model
         return $this->hasOne(Services::class,'id','service_id');
     }
 
-    public function getTelephoneAttribute()
+    public function getMobileOrSMSAttribute()
     {
         $phoneData = '';
         if ($this->address) {
             $address = json_decode($this->notification_preferences);
             if ($address[0] && $address[0]->MobileOrSMS) {
-                $phoneData = "(".substr($address[0]->MobileOrSMS, 0, 3).") ".substr($address[0]->MobileOrSMS, 3, 3)." ".substr($address[0]->MobileOrSMS,6);
+                $mobile = str_replace("-","",$address[0]->MobileOrSMS);
+                $phoneData = "(".substr($mobile, 0, 3).") ".substr($mobile, 3, 3)." ".substr($mobile,6);
             }
         }
         return $phoneData;

@@ -387,7 +387,7 @@
                 <!-- Address Detail -->
 
                 <!-- Referral Source  Detail -->
-                @if(!empty($notificationPreferences[0]))
+                @if(isset($notificationPreferences[0]))
                     <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                     data-name="emergency_contact_detail">
                         <div class="app-card-header">
@@ -407,7 +407,7 @@
                                                     name="notification_preferences_email"
                                                     onclick="editableField('notification_preferences_email')"
                                                     data-id="notification_preferences_email" id="notification_preferences_email"
-                                                    placeholder="Email" value="{{ $notificationPreferences[0]->Email }}">
+                                                    placeholder="Email" value="{{ ($notificationPreferences[0]->Email) ? $notificationPreferences[0]->Email : '' }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -421,7 +421,7 @@
                                                     name="method_name"
                                                     onclick="editableField('method_name')"
                                                     data-id="method_name" id="method_name"
-                                                    placeholder="Method Name" value="{{ $notificationPreferences[0]->Method->Name }}">
+                                                    placeholder="Method Name" value="{{ ($notificationPreferences[0]->Method->Name) ? $notificationPreferences[0]->Method->Name : '' }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -435,7 +435,7 @@
                                                     name="mobile_or_sms"
                                                     onclick="editableField('mobile_or_sms')"
                                                     data-id="mobile_or_sms" id="mobile_or_sms"
-                                                    placeholder="Mobile Or SMS" value="{{ $notificationPreferences[0]->MobileOrSMS }}">
+                                                    placeholder="Mobile Or SMS" value="{{ ($notificationPreferences[0]->MobileOrSMS) ? $notificationPreferences[0]->MobileOrSMS : '' }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -449,7 +449,7 @@
                                                     name="voice_message"
                                                     onclick="editableField('voice_message')"
                                                     data-id="voice_message" id="voice_message"
-                                                    placeholder="Voice Message" value="{{ $notificationPreferences[0]->VoiceMessage }}">
+                                                    placeholder="Voice Message" value="{{ ($notificationPreferences[0]->VoiceMessage) ? $notificationPreferences[0]->VoiceMessage : '' }}">
                                                 </div>
                                             </div>
                                         </div>

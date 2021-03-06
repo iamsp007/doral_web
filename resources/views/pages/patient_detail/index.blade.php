@@ -21,7 +21,7 @@
                <ul class="shortdesc">
                   <li>Status: <span>{{ isset($status[0]) ? $status[0]->Name : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
-                  <li>Gender: <span>{{ $patient->gender }}</span></li>
+                  <li>Gender: <span>{{ $patient->gender_data }}</span></li>
                   <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
                </ul>
             </div>

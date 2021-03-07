@@ -117,7 +117,7 @@ function uploadLabReport(e) {
     myDropzone.processQueue();
 }
 
-function viewLabReports() {
+function viewLabReports(id) {
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -126,7 +126,8 @@ function viewLabReports() {
         method:"POST",
         dataType: 'json',
         data:{
-            patient_id:patient_id
+            patient_id:patient_id,
+            id:id
         },
         success:function (response) {
             var sources = response.data;
@@ -166,17 +167,25 @@ function viewLabReports() {
             $('#view-lab-report-file').html(html);
         },
         error:function (error) {
-            console.log(error)
+            var sources = JSON.parse(error.responseText);
+            $('#view-lab-report-file').html('');
+            alert(sources.message)
         }
 
     });
 }
 
-function openLabReports() {
+function openLabReports(id) {
     $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         url:lab_referral_url,
-        method:"GET",
+        method:"POST",
         dataType: 'json',
+        data:{
+            id:id
+        },
         success:function (response) {
             var sources = response.data;
             $('#selectRole').html('');

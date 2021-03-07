@@ -856,23 +856,5 @@
     ></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
     <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
-    <script src="{{ asset('assets/js/uploadfiles.js') }}"></script>
-    <script src="{{ asset('js/dropzone.js') }}"></script>
-    <script src="{{ asset('js/lab-reports.js') }}"></script>
-
-@endpush
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/uploadfiles.css') }}">
-    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" />
-    <style>
-        .app .app-content .app-header-block._fullwidth {
-            width: calc(100% - 7rem);
-            position: fixed;
-            right: 0;
-            z-index: 0;
-        }
-        .modal-backdrop{z-index: 0!important;}
-        .modal-backdrop.show{z-index: -1!important;}
-    </style>
+    @stack('patient-detail-js')
 @endpush

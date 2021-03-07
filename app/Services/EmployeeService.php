@@ -12,6 +12,7 @@ namespace App\Services;
 use App\BaseClient;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Mockery\Exception;
 
 class EmployeeService
@@ -259,5 +260,98 @@ class EmployeeService
         }
     }
 
+    /**
+     * Store employee physical report data
+     * 
+     * @param $id
+     * @param $input
+     * 
+     * @return $data;
+     */
+    public function storeReport($id, $data)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/auth/employee-reports/'.$id.'/store?data='.$data,
+                [
+                    'json' => [
+                        'id' => $id,
+                        'data' => $data
+                    ],
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+            Log::info($exception->getMessage());
+        }
+    }
 
+    /**
+     * Fetch employee physical report data
+     * 
+     * @param $id
+     * 
+     * @return $data;
+     */
+    public function getReport($id)
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/auth/employee-reports/'.$id.'/show',
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response, true);
+            return $data;
+        } catch (\Exception $exception) {
+            Log::info($exception->getMessage());
+        }
+    }
+
+    /**
+     * Remove employee physical report data
+     * 
+     * @param $id
+     * 
+     * @return $data;
+     */
+    public function removeReport($id)
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/auth/employee-reports/'.$id.'/remove',
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response, true);
+            return $data;
+        } catch (\Exception $exception) {
+            Log::info($exception->getMessage());
+        }
+    }
 }

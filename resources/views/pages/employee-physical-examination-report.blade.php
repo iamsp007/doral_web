@@ -79,7 +79,7 @@
                   </div>
                   <div class="innerSpace">
                      <h2 class="t1 fadeIn">AUTHORIZATION TO RELEASE INFORMATION</h2>
-                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ $patient->first_name.' '.$patient->last_name }}" class="form-control inline-style">to release all health information about me to cottage 
+                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" class="form-control inline-style">to release all health information about me to cottage 
                         homecare services, Inc. 
                      </p>
                   </div>
@@ -443,7 +443,11 @@
                                     </div>
                                  </td>
                                  <td>
-                                    <input class="test_name" name="test_name[1]" />
+                                    <select class="form-control test_name" name="test_name[1]">
+                                       @foreach ($labReportTypes as $key => $item)
+                                           <option value="{{ $key }}">{{ $item }}</option>
+                                       @endforeach
+                                    </select>
                                  </td>
                                  <td>
                                     <div class="form-group datea">
@@ -476,7 +480,11 @@
                                     </div>
                                  </td>
                                  <td>
-                                    <input class="test_name" name="test_name[2]" />
+                                    <select class="form-control test_name" name="test_name[2]">
+                                       @foreach ($labReportTypes as $item)
+                                           <option value="{{ $key }}">{{ $item }}</option>
+                                       @endforeach
+                                    </select>
                                  </td>
                                  <td>
                                     <div class="form-group datea">
@@ -617,7 +625,7 @@
 
             $(lastRow).find('input.record').attr('name', 'record['+lookup+']')
 
-            $(lastRow).find('input.test_name').attr('name', 'test_name['+lookup+']')
+            $(lastRow).find('select.test_name').attr('name', 'test_name['+lookup+']')
 
             $(lastRow).find('input.date_performed').attr('name', 'date_performed['+lookup+']')
 

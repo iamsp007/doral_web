@@ -50,7 +50,7 @@
             @if($status === 'pending')
             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
             @endif
-            <th>ID</th>
+            <th>Sr No.</th>
             <th>Patient Name</th>
             <th>Gender</th>
             <th>SSN</th>
@@ -58,7 +58,7 @@
             <th>Services</th>
             <th>Doral Id</th>
             <th>City - State</th>
-            <th>@if($status === 'active') DOB  @else Action @endif</th>
+            <th>@if($status === 'active') DOB  @else Status @endif</th>
         </tr>
         </thead>
         <tbody>

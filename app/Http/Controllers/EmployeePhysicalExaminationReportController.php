@@ -8,6 +8,7 @@ use App\Services\AdminService;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class EmployeePhysicalExaminationReportController extends Controller
 {
@@ -42,8 +43,14 @@ class EmployeePhysicalExaminationReportController extends Controller
         $patient = $apiResponse->data;
 
         $labReportTypes = LabReportType::pluck('name', 'id');
-
-        return view('pages.employee-physical-examination-report', compact(['patient', 'labReportTypes']));
+        $checkData = DB::table('employee_physical_examination_reports')->where('patient_id',$id)->first();
+        if(!empty($checkData)) {
+            return view('pages.autofill_employee-physical-examination-report', compact(['patient', 'labReportTypes', 'checkData']));
+        }else {
+            return view('pages.employee-physical-examination-report', compact(['patient', 'labReportTypes']));
+        }
+        
+        
     }
 
     /**

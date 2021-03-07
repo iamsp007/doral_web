@@ -342,18 +342,7 @@
                <!-- Cover Note End-->
                <!-- Lab Start-->
                <div class="tab-pane fade show active" id="lab-report" role="tabpanel" aria-labelledby="lab-tab">
-                   <div class="d-flex justify-content-end mb-3">
-                       <button type="button"
-                               class="btn btn-outline-green mr-3 d-flex align-items-center" onclick="openLabReports()"
-                               data-toggle="modal" data-target="#uploadLabReportModal"><i
-                               class="las la-file-upload la-2x mr-2"></i>Upload Lab
-                           Reports</button>
-                       <button type="button"
-                               class="btn btn-outline-green d-flex align-items-center" onclick="viewLabReports()"
-                               data-toggle="modal" data-target="#labreportModal" name=""><i
-                               class="las la-binoculars la-2x mr-2"></i> View Lab
-                           Reports</button>
-                   </div>
+
                   <ul class="nav nav-pills nav-clinical-nested shadow-sm mb-3" id="pills-tab" role="tablist">
                      @foreach($labReportTypes as $key => $labReportType)
                         <li class="nav-item" role="presentation">
@@ -365,20 +354,54 @@
                      @endforeach
                   </ul>
                   <div class="tab-content" id="pills-tabContent">
-                     <!-- TB Screen Start -->
-                        @include('pages.patient_detail.lab.tb-screen')
-                     <!-- TB Screen End -->
+                    @foreach($labReportTypes as $key => $labReportType)
 
-                     <!-- Immunization Start -->
-                        @include('pages.patient_detail.lab.immunization')
-                     <!-- Immunization End -->
+                        @php
+                            $type=1;
 
-                     <!-- Drug Screen Start -->
-                        @include('pages.patient_detail.lab.drug-screen')
-                     <!-- Drug Screen End -->
+                        @endphp
+                          @if($labReportType->id===1)
+                              @php $type=1; @endphp
+                          @elseif($labReportType->id===7)
+                              @php $type=2; @endphp
+                          @elseif($labReportType->id===12)
+                              @php $type=3; @endphp
+                          @endif
 
-                     <!-- Lab Report Screen Start -->
-                        @include('pages.patient_detail.lab.reports')
+                          <div class="{{ $key===0?'tab-pane fade active show':'tab-pane fade show' }}"
+                               id="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}"
+                               role="tabpanel"
+                               aria-labelledby="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab"
+                          >
+                              <div class="d-flex justify-content-end mb-3">
+                                  <button type="button"
+                                          class="btn btn-outline-green mr-3 d-flex align-items-center" onclick="openLabReports({{ $type }})"
+                                          data-toggle="modal" data-target="#uploadLabReportModal"><i
+                                          class="las la-file-upload la-2x mr-2"></i>Upload Lab
+                                      Reports</button>
+                                  <button type="button"
+                                          class="btn btn-outline-green d-flex align-items-center" onclick="viewLabReports({{ $type }})"
+                                          data-toggle="modal" data-target="#labreportModal" name=""><i
+                                          class="las la-binoculars la-2x mr-2"></i> View Lab
+                                      Reports</button>
+                              </div>
+                              @include('pages.patient_detail.lab.'.(new \App\Helpers\Helper)->clean($labReportType->name))
+                          </div>
+                    @endforeach
+{{--                     <!-- TB Screen Start -->--}}
+{{--                        @include('pages.patient_detail.lab.tb-screen')--}}
+{{--                     <!-- TB Screen End -->--}}
+
+{{--                     <!-- Immunization Start -->--}}
+{{--                        @include('pages.patient_detail.lab.immunization')--}}
+{{--                     <!-- Immunization End -->--}}
+
+{{--                     <!-- Drug Screen Start -->--}}
+{{--                        @include('pages.patient_detail.lab.drug-screen')--}}
+{{--                     <!-- Drug Screen End -->--}}
+
+{{--                     <!-- Lab Report Screen Start -->--}}
+{{--                        @include('pages.patient_detail.lab.lab-reports')--}}
                      <!-- Lab Report Screen End -->
                   </div>
                </div>
@@ -388,3 +411,24 @@
       </div>
    </div>
 </div>
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/uploadfiles.css') }}">
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" />
+    <style>
+        .app .app-content .app-header-block._fullwidth {
+            width: calc(100% - 7rem);
+            position: fixed;
+            right: 0;
+            z-index: 0;
+        }
+        .modal-backdrop{z-index: 0!important;}
+        .modal-backdrop.show{z-index: -1!important;}
+    </style>
+@endpush
+
+@push('patient-detail-js')
+    <script src="{{ asset('assets/js/uploadfiles.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script src="{{ asset('js/lab-reports.js') }}"></script>
+@endpush

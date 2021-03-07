@@ -134,7 +134,7 @@ class GetPatientDetailsController extends Controller
                 $language = json_decode($patient->demographic->language);
             }
         }
-       
+
         return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences'));
     }
 
@@ -795,8 +795,8 @@ class GetPatientDetailsController extends Controller
                 if (count($roles)>1){
                     $q->where('referral_id','=',$roles[1]);
                 }
-
             })
+            ->where('parent_id','=',$request->id)
             ->get();
         return response()->json([
             'status'=>false,
@@ -860,9 +860,15 @@ class GetPatientDetailsController extends Controller
 
     public function viewLabReport(Request $request){
         $this->validate($request,[
-            'patient_id'=>'required|exists:users,id'
+            'patient_id'=>'required|exists:users,id',
+            'id'=>'required'
         ]);
-        $patientReport = PatientReport::where('user_id','=',$request->patient_id)->get();
+
+        $labTypeIds = LabReportType::where('parent_id','=',$request->id)->pluck('id');
+
+        $patientReport = PatientReport::where('user_id','=',$request->patient_id)
+            ->whereIn('lab_report_type_id',$labTypeIds)
+            ->get();
         if (count($patientReport)>0){
             return response()->json([
                 'status'=>true,

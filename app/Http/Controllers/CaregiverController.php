@@ -119,9 +119,13 @@ class CaregiverController extends Controller
                 }
                 return $city_state;
             });
+//            ->addColumn('full_name', function($q){
+//                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
+//            })
             if($request['status'] == 'active') {
                 $datatble->addColumn('dob', function($row) use($request){
-                    return date('m-d-Y', strtotime($row->dob));
+//                    return '<a href=""><img src="../assets/img/icons/download-icon.svg" class="action-download"></a>';
+                    return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
                 });
             } else {
                 $datatble->addColumn('action', function($row) use($request){
@@ -136,13 +140,14 @@ class CaregiverController extends Controller
                         if ($row->status === '0') {
                             $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
         
-                            $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                            $btn .= ' <a target="_blank" href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
                         }  else if ($row->status === '1') {
                             $btn .= '<p class="text-success">Accept</p>';
                         }
                     }
                 
-                    return $btn;
+                    return '<a href="https://app.doralhealthconnect.com/employee-physical-examination-report/'.$row->id.'">Download Form</a>';
+//                    return $btn;
                 });
             }
             $datatble->rawColumns(['full_name', 'action', 'checkbox_id', 'home_phone']);

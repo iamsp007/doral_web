@@ -62,7 +62,7 @@ Route::group(['middleware'=>['auth','role:admin|supervisor|referral|clinician|co
     Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
     Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
-    Route::get('/patient-details/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@show')->name('patient.details');
+  
     Route::post('/lab-report-referral','\App\Http\Controllers\GetPatientDetailsController@getLabReportReferral')->name('patient.lab.report.referral');
     Route::post('/lab-report-upload','\App\Http\Controllers\GetPatientDetailsController@labReportUpload')->name('patient.lab.report.upload');
     Route::post('/view-lab-report','\App\Http\Controllers\GetPatientDetailsController@viewLabReport')->name('patient.lab.report.view');
@@ -77,9 +77,9 @@ Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->nam
 Route::post('/start','\App\Http\Controllers\Clinician\RoomController@startArchive');
 Route::post('/zoom-generate_signature','\App\Http\Controllers\Clinician\RoomController@zoomGenerateSignature');
 
+Route::get('/patient-details/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@show')->name('patient.details');
 Route::get('/search-patients', 'App\Http\Controllers\GetPatientDetailsController@searchPatients');
-// Route::post('/search-patient-details', 'App\Http\Controllers\GetPatientDetailsController@searchPatientDetails');
-// Route::post('/get-demographic-details', 'App\Http\Controllers\GetPatientDetailsController@getDemographicDetails');
+
 Route::get('/get-patient-detail','\App\Http\Controllers\GetPatientDetailsController@index')->name('clinician.getPatientdetail');
 Route::get('/getPatientDetail','\App\Http\Controllers\GetPatientDetailsController@getPatientDetail')->name('clinician.patientDetail.ajax');
 

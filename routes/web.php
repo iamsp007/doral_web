@@ -89,3 +89,6 @@ Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searc
 Route::get('/get-caregiver/{status}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
 Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
 Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');
+
+Route::get('/employee-physical-examination-report/{id}','App\Http\Controllers\EmployeePhysicalExaminationReportController@getEmployeePhysicalExaminationReport')->name('get-employee-physical-examination-report');
+Route::post('/employee-physical-examination-report/{id}','App\Http\Controllers\EmployeePhysicalExaminationReportController@postEmployeePhysicalExaminationReport')->name('post-employee-physical-examination-report');

@@ -1,4 +1,5 @@
 function editAllField(sectionId) {
+    
     $('#'+sectionId+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
         'p-new');
         this.contentEditable = 'true';
@@ -38,16 +39,33 @@ function demographyDataUpdate(data) {
         dataType: "json",
         success: function(response) {
             $("#loader-wrapper").hide();
-            alert(response.message)
             $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+            alertText(response.message,'success');
         },
         error: function(error) {
             $("#loader-wrapper").hide();
-            alert(error.responseText)
+            alertText("Server Timeout! Please try again",'error');
         }
     });
 }
+function alertText(text,status) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 
+    Toast.fire({
+        icon: status,
+        title: text
+    })
+}
 let editableField = f => {
     var x = $("#" + f);
     x.attr("onclick", "updateField('" + f + "')");
@@ -70,12 +88,30 @@ let updateField = f => {
     y.attr('readOnly', true).attr("onclick", "editableField('" + f + "')");
     y.focus();
 }
- $(document).ready(function() {
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
+$(document).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('.lab_perform_date, .lab_due_date, .lab_perform_date, .dob').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 1901,
+        maxDate: new Date()
+    });
+
+    $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
+        var selectedDate = new Date($('[name="lab_due_date"]').val());
+        var date = selectedDate.getDate();
+        var monthf = selectedDate.getMonth() + 1;
+        var month  = (monthf < 10 ? '0' : '') + monthf;
+        var year = selectedDate.getFullYear() + 1;
+        var expirydate = month + '/'+ date + '/'+ year;
+        $(".lab-expiry-date").text(expirydate);
+        $("#lab_expiry_date").val(expirydate);
+    });
 });
 var medprofileTable;
 medprofileTable = $('#med-profile-table').DataTable({

@@ -18,22 +18,22 @@ $(document).ready(function() {
         },
         columns:[
             {name:"id",data:"id"},
-            {name:"reports.name",data:"reports.name"},
+            {name:"report_type",data:"report_type"},
             {name:"file_name",data:"file_name"},
             {name:"original_file_name",data:"original_file_name"},
             {
                 name:"id",
                 data:"id",
-                render:function (row) {
+                render:function (data, type, row, meta) {
 
                     return '<div class="d-flex">\n' +
-                        '                    <button type="button"\n' +
-                        '                            class="btn btn-outline-green mr-2"\n' +
+                        '                    <a \n' +
+                        '                            href="'+row.file_name+'" target="_blank" class="btn btn-outline-green mr-2"\n' +
                         '                            data-toggle="tooltip" data-placement="top"\n' +
                         '                            title="Download Report" style="width: auto;"><i\n' +
                         '                            style="font-size: 25px;"\n' +
-                        '                            class="las la-cloud-download-alt"></i></button>\n' +
-                        '                    <button type="button" class="btn btn-outline-green"\n' +
+                        '                            class="las la-cloud-download-alt"></i></a>\n' +
+                        '                    <button type="button" class="btn btn-outline-green" onclick="deleteLabReport('+row.id+')" \n' +
                         '                            data-toggle="tooltip" data-placement="top"\n' +
                         '                            title="Delete Report" style="width: auto;"><i\n' +
                         '                            style="font-size: 25px;"\n' +
@@ -89,6 +89,7 @@ var myDropzone = new Dropzone("#dropzone-file-lab-report", {
             msgEl.text(responseText.message?responseText.message:responseText);
             msgEl.show();
             msgEl.css("opacity", 1);
+            myDropzone.removeFile(file)
             reportable.ajax.reload();
             $('#uploadLabReportModal').modal('hide');
         });
@@ -114,7 +115,6 @@ var myDropzone = new Dropzone("#dropzone-file-lab-report", {
 function uploadLabReport(e) {
     myDropzone.options.params.lab_report_id=$('#selectRole').find(":selected").val();
     myDropzone.processQueue();
-    reportable.ajax.reload();
 }
 
 function viewLabReports() {
@@ -132,7 +132,6 @@ function viewLabReports() {
             var sources = response.data;
             var html='<div class="row">';
             sources.map(function (value) {
-                console.log(value)
                 var img = base_url+'assets/img/All Banner copy.docx.png';
                 html+='<div class="col-12 col-sm-2 mt-4">\n' +
                     '                                   <div class="card shadow-sm">\n' +
@@ -153,9 +152,9 @@ function viewLabReports() {
                     '                                                       <i class="las la-ellipsis-v"></i>\n' +
                     '                                                   </button>\n' +
                     '                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
-                    '                                                       <a class="dropdown-item" href="#">Download File</a>\n' +
-                    '                                                       <a class="dropdown-item" data-toggle="modal" data-target="#docViewerModal"\n' +
-                    '                                                          href="'+value.file_name+'">View Details</a>\n' +
+                    '                                                       <a class="dropdown-item" href="'+value.file_name+'">Download File</a>\n' +
+                    '                                                       <a onclick="viewFile('+value.id+')" class="dropdown-item" data-toggle="modal" data-target="#docViewerModal"\n' +
+                    '                                                          >View Details</a>\n' +
                     '                                                   </div>\n' +
                     '                                               </div>\n' +
                     '                                           </div>\n' +
@@ -186,6 +185,52 @@ function openLabReports() {
                 html+='<option value="'+value.id+'">'+value.name+'</option>';
             })
             $('#selectRole').html(html);
+        },
+        error:function (error) {
+            console.log(error)
+        }
+
+    });
+}
+
+function deleteLabReport(id) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:base_url+'remove-lab-report',
+        method:"DELETE",
+        data:{
+            id:id
+        },
+        dataType: 'json',
+        success:function (response) {
+            var sources = response.data;
+            alert(response.message)
+            reportable.ajax.reload();
+        },
+        error:function (error) {
+            console.log(error)
+        }
+
+    });
+}
+
+function viewFile(id) {
+    console.log(id)
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:base_url+'lab-report-file-show',
+        method:"POST",
+        data:{
+            id:id
+        },
+        dataType: 'json',
+        success:function (response) {
+            var sources = response.data;
+            $('#iframeModal').attr('src',sources.file_name);
         },
         error:function (error) {
             console.log(error)

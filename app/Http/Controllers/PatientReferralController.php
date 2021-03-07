@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use App\Services\ReferralService;
 use Exception;
 use CURLFile;
-use Auth;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class PatientReferralController extends Controller
 {
@@ -30,14 +30,11 @@ class PatientReferralController extends Controller
         return view('pages.referral.occupational-health-upload-bulk-data');
     }
     public function mdOrderUploadBulk() {
-        //echo env('API_URL');
         $status = 0;
         $message = "";
         $record = [];
         try {
-            //echo "1";
             $referralservice = new ReferralService();
-            //echo "2";
             $response = $referralservice->mdOrderUploadBulk();
             if ($response->status===true){
                 return view('pages.referral.md-order-upload-bulk-data')->with('data', $response->data);
@@ -47,9 +44,8 @@ class PatientReferralController extends Controller
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
-            //dd($message);
         }
-        //dd('test');
+        
         return view('pages.referral.md-order-upload-bulk-data');
     }
     public function mdOrder() {
@@ -237,9 +233,8 @@ class PatientReferralController extends Controller
 
     public function store(Request $request)
     {
-        $user = \Illuminate\Support\Facades\Auth::guard('referral')->user();
+        $user = Auth::guard('referral')->user();
         $referral_id = $user->referal_id;
-
         try {
             $file_path = $request->file('file_name')->getPathname();
             $file_mime = $request->file('file_name')->getmimeType();

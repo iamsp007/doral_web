@@ -124,7 +124,7 @@ return [
                 ]
             ]
         ],
-        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
+//        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'admin'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'admin/dashboard','route'=>'admin/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],

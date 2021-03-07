@@ -80,12 +80,12 @@
                                     @endforeach
                                 </select>
                                 </td>
-                                <td><x-text name="lab_due_date" id="lab_due_date" /></td>
-                                <td><x-text name="lab_perform_date" id="lab_perform_date" /></td>
-                                <x-hidden name="patient_referral_id" id="patient_referral_id" value="{{ $paient_id }}" />
-                                <x-hidden name="lab_expiry_date" id="lab_expiry_date" />
+                                <td><x-text name="lab_due_date" class="lab_due_date" /></td>
+                                <td><x-text name="lab_perform_date" class="lab_perform_date" /></td>
+                                <x-hidden name="patient_referral_id" class="patient_referral_id" value="{{ $paient_id }}" />
+                                <x-hidden name="lab_expiry_date" class="lab_expiry_date" />
                                 <td class="lab-expiry-date"></td>
-                                <td><x-text name="titer" id="titer" /></td>
+                                <td><x-text name="titer" class="titer" /></td>
                                 <td> 
                                     <select name="result" class="form-control">
                                         <option value="">Select a result</option>

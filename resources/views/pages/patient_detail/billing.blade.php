@@ -6,7 +6,7 @@
             <div class="card border-info">
                <div class="card-header text-info font-weight-bold">
                   <div class="d-flex justify-content-between">
-                     <div>MD Order: Self Pay</div>
+                     <div>Self Pay</div>
                      <button type="button" onclick="redirectToInsurance()" class="cancel-btn" style="width: auto;">Check Insurance Status</button>
                   </div>
                </div>
@@ -23,10 +23,10 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>Home Care Services</td>
-                           <td>+1 650 513 0514</td>
-                           <td>example@example.com</td>
-                           <td>1600 Amphitheatre Parkway Mountain View, CA 94043</td>
+                           <td>---</td>
+                           <td>---</td>
+                           <td>---</td>
+                           <td>---</td>
                            <td><button type="button" class="cancel-btn" style="width: auto;">View Insurance Detail</button></td>
                         </tr>
                      </tbody>
@@ -34,9 +34,9 @@
                </div>
             </div>
             <div class="card border-light mt-3">
-               <div class="card-header text-info font-weight-bold">MD Order: Self Pay</div>
+               <div class="card-header text-info font-weight-bold">Self Pay</div>
                <div class="card-body text-info">
-                  <p class="text-danger">Your Insurance has been expired on 28 February, 2020!</p>
+                  <p class="text-danger">Your Insurance has been expired on 28 February, 2021!</p>
                   <div class="row">
                      <div class="col-12 col-sm-3">
                         <a data-toggle="tab" href="#insurance" class="cancel-btn mt-3 d-flex align-items-center justify-content-center" style="width: auto;">Add Insurance</a>
@@ -46,7 +46,7 @@
                </div>
             </div>
             <div class="card border-info mt-3">
-               <div class="card-header text-info font-weight-bold">MD Order: Self Pay(Ifselected in plan 1 and plan 2)</div>
+               <div class="card-header text-info font-weight-bold">Self Pay(If Selected in plan 1 and plan 2)</div>
                <div class="card-body text-info">
                   <table class="table m-0">
                      <thead class="thead-light">
@@ -58,8 +58,8 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>Cottage Home Care Services</td>
-                           <td>+1 650 513 0514</td>
+                           <td>---</td>
+                           <td>---</td>
                            <td>
                               <button type="button" class="cancel-btn"
                                  style="width: auto;">Bill to Home
@@ -71,7 +71,7 @@
                </div>
             </div>
             <div class="card border-info mt-3">
-               <div class="card-header text-info font-weight-bold">Self Pay(Insurance not available)</div>
+               <div class="card-header text-info font-weight-bold">Self Pay : Credit Card</div>
                <div class="card-body text-info">
                   <div class="row">
                      <div class="col-12 col-sm-3"></div>
@@ -143,7 +143,7 @@
                   </div>
                </div>
             </div>
-            <div class="card border-info mt-3">
+<!--            <div class="card border-info mt-3">
                <div class="card-header text-info font-weight-bold">Wage Parity</div>
                <div class="card-body text-info">
                   <table class="table m-0">
@@ -172,8 +172,8 @@
                      </tbody>
                   </table>
                </div>
-            </div>
-            <div class="card border-info mt-3">
+            </div>-->
+<!--            <div class="card border-info mt-3">
                <div class="card-header text-info font-weight-bold">Employer Pay</div>
                <div class="card-body text-info">
                   <table class="table m-0">
@@ -193,7 +193,7 @@
                      </tbody>
                   </table>
                </div>
-            </div>
+            </div>-->
          </div>
       </div>
    </div>

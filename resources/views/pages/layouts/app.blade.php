@@ -78,7 +78,7 @@
                     @endrole
                     @foreach(config($file) as $key=>$value)
                         @if(!isset($value['menu']))
-                       
+
                             <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                                 <a href="{{ $value['url'] }}">
                                     <div class="notify <?php if($value['name'] == 'RoadL Request') { echo 'd-90'; } ?>">
@@ -105,8 +105,8 @@
                                     <li class="arrow--4"></li>
                                     @if($value['name'] == 'Services')
                                         @foreach($value['menu'] as $skey => $value)
-                                            @if(in_array($value['name'], explode(",",Auth::guard('referral')->user()->services) )) 
-                                                @php 
+                                            @if(in_array($value['name'], explode(",",Auth::guard('referral')->user()->services) ))
+                                                @php
                                                     if($value['name'] == '1'):
                                                         $name = 'VBC';
                                                     endif;
@@ -127,7 +127,7 @@
                                     @endif
                                 </ul>
                             </li>
-                            
+
                             <!-- <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
                                 <a href="{{ $value['url'] }}">
                                     <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="icon selected">
@@ -168,9 +168,11 @@
                                 {{ ucfirst($value) }}
                             @endforeach
                         @else
-                            @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
-                                {{ ucfirst($value) }}
-                            @endforeach
+                            @auth
+                                @foreach(Auth::user()->roles->pluck('name') as $key=>$value)
+                                    {{ ucfirst($value) }}
+                                @endforeach
+                            @endauth
                         @endrole
                     </h1>
                 </div>
@@ -272,10 +274,10 @@
                     .then(function(registration) {
                         // console.log('Registration successful, scope is:', registration.scope);
                         const config = {
-                            apiKey: "AIzaSyC5rTr8rSUyQeKlbaAHW1Xo-ezNoQO0dUE",
-                            projectId: "doral-roadl",
-                            messagingSenderId: "606071434218",
-                            appId: "1:606071434218:web:8ba9b96b1af8ff8309a093"
+                            apiKey: "AIzaSyCRAJgZT7W43PSBlhKIu_0uN58Onqb_o7w",
+                            projectId: "doctorapp-b4032",
+                            messagingSenderId: "409560615341",
+                            appId: "1:409560615341:web:5d352036d35e5a5aed3924"
                         };
                         firebase.initializeApp(config);
                         const messaging = firebase.messaging();
@@ -283,7 +285,7 @@
                         messaging
                         .requestPermission()
                         .then(function () {
-                            console.log("Notification permission granted.");
+                            // console.log("Notification permission granted.");
 
                             // get the token in the form of promise
                             return messaging.getToken()
@@ -305,7 +307,7 @@
                                     $("#loader-wrapper").hide();
                                 },
                                 error:function (error) {
-                                    console.log(error.responseJSON.status+': '+error.responseJSON.message);
+                                    // console.log(error.responseJSON.status+': '+error.responseJSON.message);
                                     $("#loader-wrapper").hide();
                                 }
                             })
@@ -337,7 +339,7 @@
                         });
 
                     }).catch(function(err) {
-                        console.log('Service worker registration failed, error:', err);
+                        // console.log('Service worker registration failed, error:', err);
                     });
             }
 

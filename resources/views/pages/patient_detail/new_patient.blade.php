@@ -6,14 +6,34 @@
 @endsection
 @hasrole('referral')
     @section('upload-btn')
-        <div class="d-flex">
-            <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
-                <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                Pending Record</a>
-            <a href="{{ route('referral.md-order-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
-                <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                Import Patients</a>
-        </div>
+        @if (request()->segment(count(request()->segments())) == "occupational-health")
+            <div class="d-flex">
+                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Pending Patients</a>
+                <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Import Patients</a>
+            </div>
+        @elseif (request()->segment(count(request()->segments())) == "initial")
+            <div class="d-flex">
+                <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    ACTIVE Patients</a>
+                <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Import Patients</a>
+            </div>
+        @else (request()->segment(count(request()->segments())) == "occupational-health-upload-bulk-data")
+            <div class="d-flex">
+                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Pending Patients</a>
+                <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    ACTIVE Patients</a>
+            </div>
+        @endif
     @endsection
 @endrole
 
@@ -27,7 +47,9 @@
         <thead>
        
         <tr>
-            <th><div class="checkbox"><input class="mainchk" type="checkbox"/><span class="checkbtn"></span></div></th>
+            @if($status === 'pending')
+            <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
+            @endif
             <th>ID</th>
             <th>Patient Name</th>
             <th>Gender</th>
@@ -36,7 +58,7 @@
             <th>Services</th>
             <th>Doral Id</th>
             <th>City - State</th>
-            <th>Action</th>
+            <th>@if($status === 'active') DOB  @else Action @endif</th>
         </tr>
         </thead>
         <tbody>
@@ -67,19 +89,27 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        var columnDaTa = [
-                {data:'checkbox_id',name:'checkbox_id'},
-                {data:'id',name:'id'},
-                {data: 'full_name', name: 'full_name'},
-                {data: 'gender', name: 'gender'},
-                {data: 'ssn', name: 'ssn'},
-                {data: 'home_phone', name: 'home_phone', class: 'editable text'},
-                {data: 'service_id', name: 'service_id'},      
-                {data: 'doral_id', name: 'doral_id'},        
-                {data: 'city_state', name: 'city_state'},            
-                {data: 'action', name: 'action'},
+        var columnDaTa = [];
+      
+        if ($("#status").val() === 'pending') {
+            columnDaTa.push({data:'checkbox_id',name:'checkbox_id'});
+        }
+        columnDaTa.push(
+            {data: 'id',name:'id'},
+            {data: 'full_name', name: 'full_name'},
+            {data: 'gender', name: 'gender'},
+            {data: 'ssn', name: 'ssn'},
+            {data: 'home_phone', name: 'home_phone', class: 'editable text'},
+            {data: 'service_id', name: 'service_id'},
+            {data: 'doral_id', name: 'doral_id'},
+            {data: 'city_state', name: 'city_state'},
             
-            ]
+        );
+        if ($("#status").val() === 'active') {
+            columnDaTa.push({data:'dob',name:'dob'});
+        } else {
+            columnDaTa.push({data: 'action', name: 'action'});
+        }
         $('#get_patient-table').DataTable({
             "processing": true,
             "language": {

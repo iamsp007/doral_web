@@ -78,8 +78,6 @@ class GetPatientDetailsController extends Controller
 
         if (isset($patient->caregiverInfo)) {
 
-            $ethnicity = $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
-
             if (isset($patient->caregiverInfo->ethnicity)) {
                 $ethnicity = json_decode($patient->caregiverInfo->ethnicity);
             }
@@ -136,7 +134,8 @@ class GetPatientDetailsController extends Controller
                 $language = json_decode($patient->demographic->language);
             }
         }
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language'));
+       
+        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences'));
     }
 
     /**
@@ -814,23 +813,30 @@ class GetPatientDetailsController extends Controller
             'files' => 'required'
         ]);
         if ($request->hasfile('files')) {
-            $file = $request->file('files');
-            $name = time() . '.' . $file->getClientOriginalName();
-            $filePath = 'patient_report/' . $name;
-            Storage::disk('local')->put($filePath, file_get_contents($file));
-
-            $patientReport = new PatientReport();
-            $patientReport->file_name = $name;
-            $patientReport->original_file_name = $file->getClientOriginalName();
-            $patientReport->user_id = $request->patient_id;
-            $patientReport->lab_report_type_id = $request->lab_report_id;
-            if ($patientReport->save()){
+            try {
+                $file = $request->file('files');
+                $name = time() .'.'.$file->getClientOriginalExtension();
+                $filePath = 'patient_report';
+//                Storage::disk('s3')->put($filePath, file_get_contents($file));
+                $file->move($filePath,$name);
+                $patientReport = new PatientReport();
+                $patientReport->file_name = $name;
+                $patientReport->original_file_name = $name;
+                $patientReport->user_id = $request->patient_id;
+                $patientReport->lab_report_type_id = $request->lab_report_id;
+                if ($patientReport->save()){
+                    return response()->json([
+                        'status'=>true,
+                        'message'=>'File upload Successfully '.$file->getClientOriginalName()
+                    ],200);
+                }
+            }catch (\Exception $exception){
                 return response()->json([
-                    'status'=>true,
-                    'message'=>'File upload Successfully '.$file->getClientOriginalName()
-                ],200);
+                    'status'=>false,
+                    'message'=>$exception->getMessage(),
+                    'data'=>null
+                ],422);
             }
-
         }
         return response()->json([
             'status'=>false,
@@ -842,9 +848,13 @@ class GetPatientDetailsController extends Controller
         $this->validate($request,[
             'patient_id'=>'required|exists:users,id'
         ]);
-        $data = PatientReport::with('reports')
+        $patientReport = PatientReport::with('labReports')
             ->where('user_id','=',$request->patient_id);
-        return DataTables::of($data)->make(true);
+        return DataTables::of($patientReport)
+            ->addColumn('report_type', function($report) {
+                return $report->labReports->name;
+            })
+            ->make(true);
 
     }
 
@@ -852,18 +862,61 @@ class GetPatientDetailsController extends Controller
         $this->validate($request,[
             'patient_id'=>'required|exists:users,id'
         ]);
-        $data = PatientReport::where('user_id','=',$request->patient_id)->get();
-        if (count($data)>0){
+        $patientReport = PatientReport::where('user_id','=',$request->patient_id)->get();
+        if (count($patientReport)>0){
             return response()->json([
                 'status'=>true,
                 'message'=>'Patient lab report file get successfully!',
-                'data'=>$data
-            ]);
+                'data'=>$patientReport
+            ],200);
         }
         return response()->json([
             'status'=>false,
             'message'=>'Report Not Found!',
-            'data'=>$data
+            'data'=>$patientReport
+        ],422);
+    }
+
+    public function removeLabReport(Request $request){
+        $this->validate($request,[
+            'id'=>'required'
         ]);
+        $patientReport = PatientReport::find($request->id);
+        if ($patientReport){
+//            $filePath = 'patient_report/' . $patientReport->original_file_name;
+//            if (Storage::disk('s3')->exists($filePath)){
+//                Storage::disk('s3')->delete($filePath);
+//            }
+            $patientReport->delete();
+            return response()->json([
+                'status'=>true,
+                'message'=>'Patient lab Deleted',
+                'data'=>$patientReport
+            ],200);
+        }
+        return response()->json([
+            'status'=>false,
+            'message'=>'Report Not Found!',
+            'data'=>$patientReport
+        ],422);
+    }
+
+    public function labReportFileShow(Request $request){
+        $this->validate($request,[
+            'id'=>'required'
+        ]);
+        $patientReport = PatientReport::find($request->id);
+        if ($patientReport){
+            return response()->json([
+                'status'=>true,
+                'message'=>'Patient lab Deleted',
+                'data'=>$patientReport
+            ],200);
+        }
+        return response()->json([
+            'status'=>false,
+            'message'=>'Report Not Exists!',
+            'data'=>$patientReport
+        ],422);
     }
 }

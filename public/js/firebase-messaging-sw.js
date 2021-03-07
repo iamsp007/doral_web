@@ -10,10 +10,10 @@ Initialize the Firebase app in the service worker by passing in the messagingSen
 * New configuration for app@pulseservice.com
 */
 firebase.initializeApp({
-    apiKey: "AIzaSyC5rTr8rSUyQeKlbaAHW1Xo-ezNoQO0dUE",
-    projectId: "doral-roadl",
-    messagingSenderId: "606071434218",
-    appId: "1:606071434218:web:8ba9b96b1af8ff8309a093"
+    apiKey: "AIzaSyCRAJgZT7W43PSBlhKIu_0uN58Onqb_o7w",
+    projectId: "doctorapp-b4032",
+    messagingSenderId: "409560615341",
+    appId: "1:409560615341:web:5d352036d35e5a5aed3924"
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background

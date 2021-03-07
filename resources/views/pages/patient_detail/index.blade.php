@@ -17,11 +17,11 @@
                   {{ $patient->first_name }}  {{ $patient->last_name }}
                </div>
             </div>
-            <div> 
+            <div>
                <ul class="shortdesc">
                   <li>Status: <span>{{ isset($status[0]) ? $status[0]->Name : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
-                  <li>Gender: <span>{{ $patient->gender }}</span></li>
+                  <li>Gender: <span>{{ $patient->gender_data }}</span></li>
                   <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
                </ul>
             </div>
@@ -571,10 +571,7 @@
                    </button>
                </div>
                <div class="modal-body pb-4">
-                   <iframe id="iframeModal"
-                           src="https://www.cottagehomecareservice.com/assets/timesheet/files/timesheet_1614303331.pdf?page=hsn#toolbar=1"
-                           scrolling="no" frameborder="0" style="overflow:hidden !important; display:block; width:100%"
-                           height="768" width="100%"></iframe>
+                   Load
                </div>
            </div>
        </div>
@@ -625,7 +622,7 @@
                        </div>
                        <div class="d-flex mt-4">
                            <input type="button" value="Upload File(s)" onclick="uploadLabReport(this)" class="btn btn--submit btn-lg" style="width: 50%;">
-                           <input type="cancel" value="Cancel" data-dismiss="modal" aria-label="Close" style="width: 50%;">
+                           <input type="cancel" value="Cancel"  data-dismiss="modal" aria-label="Close" style="width: 50%;">
                        </div>
                    </div>
                </div>
@@ -643,6 +640,7 @@
     <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var lab_referral_url="{{ route('patient.lab.report.referral') }}";
         var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
@@ -681,37 +679,8 @@
                });
             }
         }
-
+        $(document).find('.phone_number').val();
          $(document).ready(function() {
-            // $('.phoneNumber').keyup(function () {
-            var val = $(document).find('.phoneNumber').value.replace(/\D/g, '');
-            alert(val);
-            val = val.replace(/^(\d{3})/, '($1)-');
-            val = val.replace(/-(\d{3})/, '-$1-');
-            val = val.replace(/(\d)-(\d{4}).*/, '$1-$2');
-            //$(this).parent().parent().find("input[name=quantity]").val();
-            // $(this).closest('.phoneNumber').val(val);
-            $('.phoneNumber').val(val);
-            // });
-
-            $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
-               singleDatePicker: true,
-               showDropdowns: true,
-               minYear: 1901,
-               maxDate: new Date()
-            });
-
-            $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
-               var selectedDate = new Date($('[name="lab_due_date"]').val());
-               var date = selectedDate.getDate();
-               var monthf = selectedDate.getMonth() + 1;
-               var month  = (monthf < 10 ? '0' : '') + monthf;
-               var year = selectedDate.getFullYear() + 1;
-               var expirydate = month + '/'+ date + '/'+ year;
-               $(".lab-expiry-date").text(expirydate);
-               $("#lab_expiry_date").val(expirydate);
-            });
-
             $(document).on('click','.patient-detail-lab-report',function(event) {
                event.preventDefault();
 

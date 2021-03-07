@@ -4,6 +4,18 @@
 @section('pageTitleSection')
     Occupational Health - Import Patients
 @endsection
+@hasrole('referral')
+    @section('upload-btn')
+        <div class="d-flex">
+            <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                Pending Patients</a>
+            <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
+                <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                ACTIVE Patients</a>
+        </div>
+    @endsection
+@endrole
 @section('content')
     <div class="app-vbc">
         <div class="choose-file-type section2">
@@ -89,7 +101,7 @@
     <script>
         var fileType = $('input[name="vbc_select"]').val();
         var myDropzone = new Dropzone("#dropzone-file-vbc", {
-            url:'{{ route('referral.vbc-upload-bulk-data-store') }}',
+            url: "{{ route('referral.vbc-upload-bulk-data-store') }}",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },

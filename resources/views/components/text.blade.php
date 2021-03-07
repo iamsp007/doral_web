@@ -1,8 +1,8 @@
 <input 
     type="text"
-    class="form-control{{ $class ?? '' }}"
+    class="form-control {{ $class ?? '' }}"
     name="{{ $name ?? '' }}"
-    id="{{ $id ?? $name }}"
+    id="{{ $id ?? '' }}"
     value="{{ $value ?? '' }}"
     placeholder="{{ $placeholder ?? $name }}"/>
 

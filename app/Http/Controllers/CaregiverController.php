@@ -121,8 +121,9 @@ class CaregiverController extends Controller
             });
             if($request['status'] == 'active') {
                 $datatble->addColumn('dob', function($row) use($request){
+                    return date('m-d-Y', strtotime($row->dob));
 //                    return '<a href=""><img src="../assets/img/icons/download-icon.svg" class="action-download"></a>';
-                    return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
+//                    return '<a href="' . route('patient.details', ['patient_id' => $row->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $row->full_name . '</a>';
                 });
             } else {
                 $datatble->addColumn('action', function($row) use($request){

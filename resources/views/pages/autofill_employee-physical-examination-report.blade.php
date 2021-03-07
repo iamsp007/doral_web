@@ -446,7 +446,7 @@
                                        <th>
                                           <div id="checkbox">
                                              <label class="containera">
-                                                <input type="checkbox" id="checkedAll" name="checkedAll">
+                                                 <input type="checkbox" id="checkedAll" name="checkedAll" disabled="">
                                                 <span class="checkmark"></span>
                                              </label>
                                           </div>
@@ -459,11 +459,12 @@
                                     </tr>
                                  </thead>
                               <tbody>
+                            <?php foreach ($patient->record as $lab => $labTest) {  ?>      
                               <tr class="tr_class">
                                  <td>
                                     <div id="checkbox">
                                        <label class="containera">
-                                          <input type="checkbox" class="record" name="record[1]" />
+                                           <input type="checkbox" class="record" name="record[1]" checked="" disabled="" />
                                           <span class="checkmark"></span>
                                        </label>
                                     </div>
@@ -471,7 +472,7 @@
                                  <td>
                                     <select class="form-control test_name" name="test_name[1]">
                                        @foreach ($labReportTypes as $key => $item)
-                                           <option value="{{ $key }}">{{ $item }}</option>
+                                       <option disabled="" value="{{ $key }}" <?php if($key == $patient->test_name->$lab) { echo 'selected'; } ?>>{{ $item }}</option>
                                        @endforeach
                                     </select>
                                  </td>
@@ -481,57 +482,20 @@
                                           <span class="input-group-addon">
                                              <i class="fa fa-calendar"></i>
                                           </span>
-                                          <input type="text" class="form-control date_performed" name="date_performed[1]" />
+                                           <input type="text" class="form-control date_performed" name="date_performed[1]" readonly="" value="<?php echo $patient->date_performed->$lab; ?>" />
                                        </div>
                                     </div>
                                  </td>
                                  
                                  <td>
-                                    <select class="form-control result" name="result[1]">
-                                       <option>Immune</option>
-                                       <option>None Immune</option>
-                                    </select>
+                                     <input class="lab_value" name="lab_value[1]" readonly="" value="<?php if($patient->result->$lab == 'Immune') { echo 'Immune'; }else { echo 'Non Immune'; } ?>"/>
                                  </td>
                                  <td>
-                                    <input class="lab_value" name="lab_value[1]" />
+                                    <input class="lab_value" name="lab_value[1]" readonly="" value="<?php echo $patient->lab_value->$lab; ?>"/>
+                                    
                                  </td>
                               </tr>
-                              <tr class="tr_class">
-                                 <td>
-                                    <div id="checkbox">
-                                       <label class="containera">
-                                          <input type="checkbox" class="record" name="record[2]" />
-                                          <span class="checkmark"></span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    <select class="form-control test_name" name="test_name[2]">
-                                       @foreach ($labReportTypes as $item)
-                                           <option value="{{ $key }}">{{ $item }}</option>
-                                       @endforeach
-                                    </select>
-                                 </td>
-                                 <td>
-                                    <div class="form-group datea">
-                                       <div class="input-group date">
-                                          <span class="input-group-addon">
-                                             <i class="fa fa-calendar"></i>
-                                          </span>
-                                          <input type="text" class="form-control date_performed" name="date_performed[2]" />
-                                       </div>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    <select class="form-control result" name="result[2]">
-                                       <option>Immune</option>
-                                       <option>None Immune</option>
-                                    </select>
-                                 </td>
-                                 <td>
-                                    <input class="lab_value" name="lab_value[2]" />
-                                 </td>
-                              </tr>
+                            <?php } ?>
                            </tbody>
                         </table>
                      </div>
@@ -545,7 +509,7 @@
                               <div class="col-lg-12">
                                  <div class="card-a">
                                     <label class="containera">This individual is free from any health impairment that is a potential risk to the patient or another employee of which may interfere with the performance of his/her duties including the habituation or addiction to drugs or alcohol.
-                                       <input type="checkbox" name="checkbox_one">
+                                        <input type="checkbox" name="checkbox_one" checked="">
                                        <span class="checkmark"></span>
                                     </label>
                                  </div>
@@ -553,7 +517,7 @@
                               <div class="col-lg-12"><div class="card-a">
                                  <label class="containera">This individual is able to work with the following limitations<br>
                                     <span> It is a long established fact fact that a reader will be by the the readable content of a page.</span>
-                                    <input type="checkbox" name="checkbox_two">
+                                    <input type="checkbox" name="checkbox_two" checked="">
                                     <span class="checkmark"></span>
                                  </label>
                                  </div>
@@ -561,7 +525,7 @@
                               <div class="col-lg-12"> <div class="card-a">
                                  <label class="containera">Return to Work This individual is NOT physically/mentally able to work (specify reason)<br>
                                     <span style="display: block;"> I    It is a long established fact fact that a reader will be by the the readable content of a page.</span>
-                                    <input type="checkbox" name="checkbox_three">
+                                    <input type="checkbox" name="checkbox_three" checked="">
                                     <span class="checkmark"></span>
                                  </label>
                               </div>
@@ -577,12 +541,12 @@
                   <div class="row">
                      <div class="col-lg-6">
                         <div class="form-group">
-                           <input type="text" class="form-control" placeholder="Physician  Name" name="physician_name">
+                            <input type="text" class="form-control" placeholder="Physician  Name" name="physician_name" value="{{$patient->physician_name}}">
                         </div>
                      </div>
                      <div class="col-lg-6">
                         <div class="form-group">
-                           <input type="text" class="form-control" placeholder="Physician License No" name="physician_license_no">
+                           <input type="text" class="form-control" placeholder="Physician License No" name="physician_license_no" value="{{$patient->physician_license_no}}">
                         </div>
                      </div>
                   </div>
@@ -600,9 +564,9 @@
                         </div>
                      </div>
                   </div>
-                  <div class="text-center mt-3">
+<!--                  <div class="text-center mt-3">
                      <button class="btn-pr text-center mt-2">Submit</button>
-                  </div>
+                  </div>-->
                </div>
             </div>
          </section>

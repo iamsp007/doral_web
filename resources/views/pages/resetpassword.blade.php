@@ -3,7 +3,7 @@
 <div class="middle">
     <div class="container">
         <div class="innerSpace">
-            <h1 class="t1 fadeIn">Stay Connected With Absulate Distance!</h1>
+            <h1 class="t1 fadeIn">Always Connected For Your Health</h1>
         </div>
         <div class="row">
             <div class="col-12 col-sm-7">
@@ -61,21 +61,22 @@
 
             $("#resetpassword").click(function() {
                 var email = $("#emailaddress").val();
-                
+                $("#loader-wrapper").show();
                 $.ajax({
                     method: 'POST',
                     url: '/companyresetpassword',
                     data: {email},
                     success: function( response ){
+                        $("#loader-wrapper").hide();
                         if(response.status == 1)
                             $("#response").css('color', 'green'); 
                         else 
                             $("#response").css('color', 'red');    
                         $("#response").text(response.message);
-                        console.log( response );
                     },
                     error: function( e ) {
-                        console.log(e);
+                        $("#loader-wrapper").hide();
+                        alert('Something went wrong!');
                     }
                 });
                 

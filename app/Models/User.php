@@ -60,4 +60,91 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function patientDetail()
+    {
+        return $this->hasOne(PatientReferral::class,'user_id','id')->with(['service','filetype']);
+    }
+
+    public function caregiverInfo()
+    {
+        return $this->hasOne(CaregiverInfo::class,'user_id','id');
+    }
+
+    public function demographic()
+    {
+        return $this->hasOne(Demographic::class,'user_id','id');
+    }
+
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getStatusDataAttribute()
+    {
+        if ($this->status === '0') {
+            $statusData = '<p class="text-primary">Pending</p>';
+        } else if ($this->status === '1') {
+            $statusData = '<p class="text-success">Active</p>';
+        } else if ($this->status === '2') {
+            $statusData = '<p class="text-secondary">Inactive</p>';
+        } else if ($this->status === '3') {
+            $statusData = '<p class="text-danger">Reject</p>';
+        } else if ($this->status === '4') {
+            $statusData = '<p class="text-info">Initial</p>';
+        }
+        return $statusData;
+    }
+
+    public function patientEmergency()
+    {
+        return $this->hasMany(PatientEmergencyContact::class,'user_id','id');
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function setGenderAttribute($gender)
+    {
+        if ($gender === 'Male') {
+            $gender = '1';
+        } else if ($gender === 'Female') {
+            $gender = '2';
+        } else {
+            $gender = '3';
+        }
+        return $gender;
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function getGenderDataAttribute()
+    {
+        if ($this->gender === '1') {
+            $gender = 'Male';
+        } else if ($this->gender === '2') {
+            $gender = 'Female';
+        } else {
+            $gender = 'Other';
+        }
+        return $gender;
+    }
+
+    public function getPhoneAttribute($phone)
+    {
+        $phoneData = '';
+        if ($phone) {
+            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)." ".substr($phone,6);
+        }
+        return $phoneData;
+    }
 }
+

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Session,Auth;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\CurlModel\CurlFunction;
+use App\Services\EmployeeService;
 
 class AppointmentController extends Controller
 {
@@ -13,30 +14,36 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( $patientId )
     {
+        
         $status = 0;
         $message = "";
-        $record = [];
+        $appointments = [];        
         try {
-            print_r($_SESSION);exit;
-            $apiToken = session('token');
-            dd($apiToken);
-            $url = CurlFunction::getURL().'/api/auth/appointment';
-            $curlResponse = CurlFunction::withTokenGet($url, $apiToken);
-            $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
-            if($responseArray['status']) {
+            $employeeServices = new EmployeeService();
+            $responseArray = $employeeServices->getAllAppointment();
+            if($responseArray['status'] && isset( $responseArray['data']['appointments'] )) {
                 $status = 1;
-                $record = $responseArray['data'];
+                foreach ($responseArray['data']['appointments'] as $app_key => $app_row) {
+                    $appointments[ $app_key ]['title'] = $app_row['title'];
+                    $appointments[ $app_key ]['start'] = $app_row['start_datetime'];
+                    $appointments[ $app_key ]['end'] = $app_row['end_datetime'];
+                    
+                }
             }
+
             $message = $responseArray['message'];
 
         } catch(\Exception $e) {
             $status = 0;
             $message = $e->getMessage();
         }
-        return view('calendar');
+        $data =array(
+            'appointments' => $appointments,
+            'patientId' => $patientId,
+        );        
+        return view('calendar')->with( $data );
     }
 
     /**
@@ -44,9 +51,26 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create( Request $request )
     {
-        return view('pages.appoinment.create');
+        $all_get = $request->all();
+        $services = [];
+        try {
+            $employeeServices = new EmployeeService();
+            $responseArray = $employeeServices->getAllService();
+            if( isset( $responseArray[0] ) && $responseArray[0] && isset( $responseArray[2]['services'] )) {                
+                foreach ($responseArray[2]['services'] as $ser_key => $ser_row) {
+                    $services[ $ser_key ]['id'] = $ser_row['id'];
+                    $services[ $ser_key ]['name'] = $ser_row['name'];
+                }
+            }                        
+        } catch(\Exception $e) {            
+            $message = $e->getMessage();
+        }
+
+        $data = $all_get;
+        $data['services'] = $services;
+        return view('pages.appoinment.create')->with( $data );
     }
 
     /**
@@ -57,7 +81,31 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        
+        /*$request->validate([
+            'title' => 'required',
+            'start_datetime' => 'required',
+            'end_datetime' => 'required',
+            
+            'patient_id' => 'required',
+            'provider_pa_ma' => 'required', 
+            'provider' => 'required',
+            'service_id' => 'required'            
+        ]);*/
+        try {
+            $post_data = $request->all();
+            $employeeServices = new EmployeeService();
+            return $responseArray = $employeeServices->storeAppointment( $post_data );
+        } catch (\Exception $e) {            
+            $response = array(
+                "status" => false,
+                "code" => 200,
+                "message" => $e->getMessage(),
+                "data" => [],
+            );
+            return response()->json($response, 200);
+        }
     }
 
     /**

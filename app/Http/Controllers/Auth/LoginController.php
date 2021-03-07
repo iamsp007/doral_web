@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -63,21 +64,17 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
         $request->only('email','password');
+
 //        $request->merge(['status'=>'1']);
 
         if (Auth::attempt($this->credentials($request))) {
             if (Auth::user()->status==='1'){
                 cache(['USERNAME' => $request->email]);
                 cache(['PASSWORD'=>$request->password]);
-                if (Auth::user()->hasRole('clinician')){
-                    $this->redirectTo=RouteServiceProvider::CLINICIAL_HOME;
-                }elseif (Auth::user()->hasRole('admin')){
-                    $this->redirectTo=RouteServiceProvider::ADMIN_HOME;
-                }elseif (Auth::user()->hasRole('co-ordinate')){
-                    $this->redirectTo=RouteServiceProvider::COORDINATE_HOME;
-                }else{
-                    $this->redirectTo=RouteServiceProvider::HOME;
-                }
+                $user = \App\Models\User::find(Auth::user()->id);
+                $user->web_token = $request->device_token;
+                $user->save();
+
                 return $this->sendLoginResponse($request);
             }
 
@@ -92,9 +89,11 @@ class LoginController extends Controller
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
-        $this->incrementLoginAttempts($request);
+        //$this->incrementLoginAttempts($request);
 
-        return $this->sendFailedLoginResponse($request);
+        //return $this->sendFailedLoginResponse($request);
+        $errors = ['These credentials do not match our records.'];
+        return redirect()->back()->withErrors($errors);
     }
 
     /**
@@ -115,7 +114,11 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $this->guard()->logout();
-
+        header("cache-Control: no-store, no-cache, must-revalidate");
+        header("cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+        Session::flush();
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

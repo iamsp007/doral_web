@@ -4,298 +4,357 @@ namespace App\Http\Controllers;
 
 use App\Models\PatientReferral;
 use App\Models\CurlModel\CurlFunction;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use App\Services\ReferralService;
 use Exception;
 use CURLFile;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class PatientReferralController extends Controller
 {
+    public function index() {
+        return view('pages.referral.md-order');
+    }
     public function vbc() {
-        $status = 0;
-        $message = "";
-        $record = [];
-        try {
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/1';
-
-            $headerValue = array(
-                'Content-Type: application/json',
-                'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
-            );
-
-            $ch = curl_init($url);
-            curl_setopt_array($ch, array(
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
-            ));
-
-            $curlResponse = curl_exec($ch);
-            $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
-            curl_close($ch);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
-            }
-            $message = $responseArray['message'];
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-        //if($id == 2)
-        //return View('pages.referral.vbc-upload-bulk-data')->with('record',$record);
-        //else
-        return View('pages.referral.vbc')->with('record',$record);
+        return view('pages.referral.vbc');
+    }
+    public function occupationalHealth() {
+        return view('pages.referral.occupational-health');
     }
     public function vbcUploadBulk() {
-        $status = 0;
-        $message = "";
-        $record = [];
-        try {
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/1';
-
-            $headerValue = array(
-                'Content-Type: application/json',
-                'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
-            );
-
-            $ch = curl_init($url);
-            curl_setopt_array($ch, array(
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
-            ));
-
-            $curlResponse = curl_exec($ch);
-            $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
-            curl_close($ch);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
-            }
-            $message = $responseArray['message'];
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-        //if($id == 2)
-        //return View('pages.referral.vbc-upload-bulk-data')->with('record',$record);
-        //else
-        return View('pages.referral.vbc-upload-bulk-data')->with('record',$record);
+        return view('pages.referral.vbc-upload-bulk-data');
     }
-    public function mdOrder() {
-        $status = 0;
-        $message = "";
-        $record = [];
-        try {
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/2';
-
-            $headerValue = array(
-                'Content-Type: application/json',
-                'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
-            );
-
-            $ch = curl_init($url);
-            curl_setopt_array($ch, array(
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
-            ));
-
-            $curlResponse = curl_exec($ch);
-            $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
-            curl_close($ch);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
-            }
-            $message = $responseArray['message'];
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-        //if($id == 2)
-        //return View('pages.referral.md-order-upload-bulk-data')->with('record',$record);
-        //else
-        return View('pages.referral.md-order')->with('record',$record);
+    public function occupationalHealthUploadBulk() {
+        return view('pages.referral.occupational-health-upload-bulk-data');
     }
     public function mdOrderUploadBulk() {
         $status = 0;
         $message = "";
         $record = [];
         try {
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/2';
-
-            $headerValue = array(
-                'Content-Type: application/json',
-                'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
-            );
-
-            $ch = curl_init($url);
-            curl_setopt_array($ch, array(
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
-            ));
-
-            $curlResponse = curl_exec($ch);
-            $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
-            curl_close($ch);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
+            $referralservice = new ReferralService();
+            $response = $referralservice->mdOrderUploadBulk();
+            if ($response->status===true){
+                return view('pages.referral.md-order-upload-bulk-data')->with('data', $response->data);
             }
-            $message = $responseArray['message'];
+            $status = 0;
+            $message = $response->message;
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+        }
+        
+        return view('pages.referral.md-order-upload-bulk-data');
+    }
+    public function mdOrder() {
+        $record = [];
+        try {
+
+            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
+                ->where('service_id', '=','2')
+                ->whereNotNull('first_name');
+            return DataTables::of($patientReferral)
+            ->editColumn('first_name', function ($contact){
+                return $contact->first_name." ".$contact->last_name;
+            })
+            ->editColumn('ssn', function ($contact){
+                if($contact->ssn)
+                return 'xxx-xx-'.substr($contact->ssn, -4);
+                else
+                return '';
+            })
+            ->editColumn('gender', function ($contact){
+                if($contact->gender === 'MALE'){
+                    $gender = 'Male';
+                } elseif ($contact->gender === 'FEMALE') {
+                    $gender = 'Female';
+                } else if ($contact->gender === '1') {
+                    $gender = 'Male';
+                } else if ($contact->gender === '2') {
+                    $gender = 'Female';
+                } else {
+                    $gender = 'Other';
+                }
+                return $gender;
+            })
+            ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob) );
+                else
+                return '--';
+            })
+            ->editColumn('created_at', function ($contact){
+                if($contact->created_at!='')
+                return date('m-d-Y', strtotime($contact->created_at) );
+                else
+                return '--';
+            })
+            ->editColumn('cert_next_date', function ($contact){
+                if($contact->cert_next_date!='')
+                return date('m-d-Y', strtotime($contact->cert_next_date) );
+                else
+                return '--';
+            })
+            ->make(true);
+
 
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
         }
-        //if($id == 2)
-        //return View('pages.referral.md-order-upload-bulk-data')->with('record',$record);
-        //else
-        return View('pages.referral.md-order-upload-bulk-data')->with('record',$record);
+
     }
-    public function employeePrePhysical() {
+    public function vbcGetData() {
         $status = 0;
         $message = "";
         $record = [];
         try {
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/3';
+            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
+                ->where('service_id', '=',1)
+                ->whereNotNull('first_name');
 
-            $headerValue = array(
-                'Content-Type: application/json',
-                'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
-            );
+            return DataTables::of($patientReferral)
+            ->editColumn('first_name', function ($contact){
+                return $contact->first_name." ".$contact->last_name;
+            })
+            ->editColumn('ssn', function ($contact){
+                if($contact->ssn)
+                return 'xxx-xx-'.substr($contact->ssn, -4);
+                else
+                return '';
+            })
+            ->editColumn('gender', function ($contact){
+                if($contact->gender === 'MALE'){
+                    $gender = 'Male';
+                } elseif ($contact->gender === 'FEMALE') {
+                    $gender = 'Female';
+                } else if ($contact->gender === '1') {
+                    $gender = 'Male';
+                } else if ($contact->gender === '2') {
+                    $gender = 'Female';
+                } else {
+                    $gender = 'Other';
+                }
+                return $gender;
+            })
+            ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob) );
+                else
+                return '--';
+            })
+            ->editColumn('created_at', function ($contact){
+                if($contact->created_at!='')
+                return date('m-d-Y', strtotime($contact->created_at) );
+                else
+                return '--';
+            })
+            ->editColumn('cert_next_date', function ($contact){
+                if($contact->cert_next_date!='')
+                return date('m-d-Y', strtotime($contact->cert_next_date) );
+                else
+                return '--';
+            })
+            ->make(true);
 
-            $ch = curl_init($url);
-            curl_setopt_array($ch, array(
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
-            ));
-
-            $curlResponse = curl_exec($ch);
-            $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
-            curl_close($ch);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
-            }
-            $message = $responseArray['message'];
 
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
         }
-        return View('pages.referral.employee-pre-physical')->with('record',$record);
     }
-    public function employeePrePhysicalUploadBulk() {
+    public function occupationalHealthGetData() {
         $status = 0;
         $message = "";
         $record = [];
         try {
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/3';
+            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
+                ->where('service_id', '=','3')
+                ->whereNotNull('first_name');
+            return DataTables::of($patientReferral)
+            ->editColumn('first_name', function ($contact){
+                return $contact->first_name." ".$contact->last_name;
+            })
+            ->editColumn('ssn', function ($contact){
+                if($contact->ssn)
+                return 'xxx-xx-'.substr($contact->ssn, -4);
+                else
+                return '';
+            })
+            ->editColumn('gender', function ($contact){
+                if($contact->gender === 'MALE'){
+                    $gender = 'Male';
+                } elseif ($contact->gender === 'FEMALE') {
+                    $gender = 'Female';
+                } else if ($contact->gender === '1') {
+                    $gender = 'Male';
+                } else if ($contact->gender === '2') {
+                    $gender = 'Female';
+                } else {
+                    $gender = 'Other';
+                }
+                return $gender;
+            })
+            ->editColumn('plans.name', function ($contact){
+                if($contact->benefit_plan!='')
+                return $contact->plans->name;
+                else
+                return '--';
+            })
+            ->editColumn('created_at', function ($contact){
+                if($contact->created_at!='')
+                return date('m-d-Y', strtotime($contact->created_at) );
+                else
+                return '--';
+            })
+            ->editColumn('dob', function ($contact){
+                if($contact->dob!='')
+                return date('m-d-Y', strtotime($contact->dob));
+                else
+                return '--';
+            })
+            ->editColumn('cert_next_date', function ($contact){
+                if($contact->cert_next_date!='')
+                return date('m-d-Y', strtotime($contact->cert_next_date) );
+                else
+                return '--';
+            })
+            ->make(true);
 
-            $headerValue = array(
-                'Content-Type: application/json',
-                'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
-            );
-
-            $ch = curl_init($url);
-            curl_setopt_array($ch, array(
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_TIMEOUT => 40,
-            CURLOPT_HTTPHEADER => $headerValue
-            ));
-
-            $curlResponse = curl_exec($ch);
-            $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
-            curl_close($ch);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
-            }
-            $message = $responseArray['message'];
 
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
         }
-        return View('pages.referral.employee-pre-physical-upload-bulk-data')->with('record',$record);
     }
+
+
     public function store(Request $request)
     {
-        $referral_id = session('referral_id');
-        $fileName = request()->file('file_name');
-        $status = 0;
-        $message = "";
+        $user = Auth::guard('referral')->user();
+        $referral_id = $user->referal_id;
         try {
-            //  ---------------
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/store';
-            if($request->service_id == 2 && $request->vbc_select == 3)
-            $url = CurlFunction::getURL().'/api/auth/patient-referral/storecert';
-            //dd($url);
-            $headerValue = array(
-                'X-Requested-With: XMLHttpRequest',
-                'Access-Control-Allow-Origin: http://localhost'
+            $file_path = $request->file('file_name')->getPathname();
+            $file_mime = $request->file('file_name')->getmimeType();
+            $file_org  = $request->file('file_name')->getClientOriginalName();
+
+            $client = new Client();
+            $response = $client->request(
+                'POST',
+                env('API_URL').'/auth/patient-referral/store',
+                [
+                    'multipart' => [
+                        [
+                            'name'=>'referral_id',
+                            'contents'=>$referral_id
+                        ],
+                        [
+                            'name'=>'service_id',
+                            'contents'=>$request->service_id
+                        ],
+                        [
+                            'name'=>'file_type',
+                            'contents'=>$request->vbc_select
+                        ],
+                        [
+                            'name'=>'form_id',
+                            'contents'=>isset($request->formSelect) ? $request->formSelect : NULL
+                        ],
+                        [
+                            'name'     => 'file_name',
+                            'filename' => $file_org,
+                            'Mime-Type'=> $file_mime,
+                            'contents' => fopen( $file_path, 'r' ),
+                        ]
+                    ],
+                    'headers' => [
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
             );
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-            //If the function curl_file_create exists
-            if(function_exists('curl_file_create')){
-                $filePath = curl_file_create($fileName->getpathname(), $fileName->getClientMimeType(), $fileName->getClientOriginalName());
-            } else{
-                $filePath = '@' . realpath($fileName->getClientOriginalName());
-                curl_setopt($ch, CURLOPT_SAFE_UPLOAD, false);
-            }
-
-            $data = array(
-                    'file_name' => $filePath,
-                    'referral_id' => 1,
-                    'service_id' => $request->service_id,
-                    'file_type' => $request->vbc_select,
-                    'form_id' => isset($request->formSelect) ? $request->formSelect : NULL
-            );
-            //$data = json_encode($data);
-            //dd($data);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 600); 
-            $curlResponse = curl_exec($ch);
-            //dd($curlResponse);
-            $responseArray = json_decode($curlResponse, true);
-            if(curl_errno($ch)) {
-                throw new Exception(curl_error($ch));
-            }
-
-            if($responseArray['status']) {
-                $status = 1;
-            }
-            $message = $responseArray['message'];
-
+            $resp = json_decode($response->getBody()->getContents());
+            $status = $resp->status===true?1:0;
+            $message = $resp->message;
+            $response = [
+                'status' => $status,
+                'message' => $message,
+                'data' => $resp->data
+            ];
+            return response()->json($response,$status===1?200:422);
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
+            $response = [
+                'status' => $status,
+                'message' => $message
+            ];
         }
+        return response()->json($response, 422);
+    }
 
+    public function addPatient()
+    {
+        $client = new Client();
+        $states = $client->request('GET', env('API_URL').'/auth/states');
+        $states = json_decode($states->getBody()->getContents());
+
+        return view('pages.referral.add-patient',compact('states'));
+    }
+
+    public function getCities(Request $request)
+    {
+        $client = new Client();
+
+        $states = $client->request('GET', env('API_URL').'/auth/states');
+        $states = json_decode($states->getBody()->getContents());
+        $neededObject = array_filter(
+            $states,
+            function ($e) use (&$request) {
+                return $e->id == $request->state;
+            }
+        );
+        $cities = $client->request('POST', env('API_URL').'/auth/filter-cities', [
+            'multipart' => [
+                [
+                    'name'=>'state_code',
+                    'contents'=>reset($neededObject)->state_code
+                ]
+            ],
+            'headers' => [
+                'X-Requested-With' => 'XMLHttpRequest',
+                'Access-Control-Allow-Origin' => 'http://localhost'
+            ]
+        ]);
+
+        return json_decode($cities->getBody()->getContents());
+    }
+
+    public function storePatient(Request $request)
+    {
+        try {
+            $client = new Client();
+
+            $data = $request->all();
+
+            $referralservice = new ReferralService();
+
+            $responseArray = $referralservice->storePatient($data);
+
+            if($responseArray['status']) {
+                $status = 1;
+                $record = $responseArray['data'];
+                return redirect()->route('referral.patient-detail', ['patient_id' => $record['user_id']]);
+            }
+            $message = $responseArray->message;
+            return redirect()->back()->withErrors($message);
+        } catch(Exception $e) {
+            $status = 0;
+            $message = $e->getMessage();
+            return redirect()->back()->withErrors($message);
+        }
         $response = [
             'status' => $status,
             'message' => $message
@@ -304,4 +363,76 @@ class PatientReferralController extends Controller
         return response()->json($response, 201);
     }
 
+    public function occupationalHealthFailData(Request $request) {
+        return view('pages.referral.occupational-health-failed');
+    }
+
+     public function occupationalHealthGetFaileData() {
+
+        $referralservice = new ReferralService();
+        $responseArray = $referralservice->occupationalHealthFailData(3);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+             ->addColumn('action', function($row){
+                        $id = $row['id'];
+                        return '<a href="view-failed-data/'.$id.'"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">View Recode
+                        </a>';
+            })
+            ->make(true);
+
+
+     }
+
+     public function viewoccupationalHealthFailData(Request $request) {
+        $id = $request->id;
+        return view('pages.referral.view-occupational-health-failed',compact('id'));
+    }
+
+     public function viewoccupationalHealthGetFaileData(Request $request) {
+        $referralservice = new ReferralService($request->id);
+        $responseArray = $referralservice->viewoccupationalHealthGetFaileData($request->id);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+            ->make(true);
+     }
+
+     public function vbcFailData() {
+        return view('pages.referral.vbc-failed');
+     }
+
+     public function vbcGetFaileData() {
+         $referralservice = new ReferralService();
+        $responseArray = $referralservice->occupationalHealthFailData(1);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+             ->addColumn('action', function($row){
+                        $id = $row['id'];
+                        return '<a href="view-failed-data/'.$id.'"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">View Recode
+                        </a>';
+            })
+            ->make(true);
+     }
+
+     public function mdorderFailData() {
+        return view('pages.referral.md-order-failed');
+     }
+
+     public function mdorderGetFaileData() {
+         $referralservice = new ReferralService();
+        $responseArray = $referralservice->occupationalHealthFailData(2);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+             ->addColumn('action', function($row){
+                        $id = $row['id'];
+                        return '<a href="view-failed-data/'.$id.'"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">View Recode
+                        </a>';
+            })
+            ->make(true);
+     }
 }

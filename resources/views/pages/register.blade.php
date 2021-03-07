@@ -1,9 +1,10 @@
 @extends('layouts.default')
+@section('title','Register')
 @section('content')
 <div class="middle register">
     <div class="container">
         <div class="innerSpace">
-            <h1 class="t1 fadeIn">Stay Connected With Absulate Distance!</h1>
+            <h1 class="t1 fadeIn">Always Connected For Your Health</h1>
         </div>
         <div class="row">
             <div class="col-12 col-xl-7 col-lg-7 col-md-7 col-sm-12">
@@ -18,7 +19,7 @@
                     <div class="mid">
                         <div class="p50">
                             <h1 class="t2"><img src="assets/img/icons/doctor.svg" alt=""
-                                    srcset="assets/img/icons/doctor.svg" class="mr-2">Sign Up</h1>
+                                    srcset="assets/img/icons/doctor.svg" class="mr-2">REFERRAL SIGN UP</h1>
                             <!-- Your Referral Type -->
                             <div class="form-group mt-4 pt-2">
                                 <label for="referralType" class="label d-block">Your Referral Type</label>
@@ -80,12 +81,13 @@
                 var referralType = $("#referralType").val();
                 var company = $("#company").val();
                 var email = $("#email").val();
-
+                $("#loader-wrapper").show();
                 $.ajax({
                     method: 'POST',
                     url: '/companyregister',
                     data: {referralType, company, email},
                     success: function( response ){
+                        $("#loader-wrapper").hide();
                         if(response.status == 1) {
                             $(".alert-success").show();
                             $(".alert-danger").hide();
@@ -102,11 +104,11 @@
                                 $(".alert-danger").hide();
                             }, 1000);
                         }
-                        
-                        console.log( response );
+                      
                     },
                     error: function( e ) {
-                        console.log(e);
+                        $("#loader-wrapper").hide();
+                        alert('Something went wrong!');
                     }
                 });
                 

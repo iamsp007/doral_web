@@ -9,11 +9,12 @@
 namespace App\Services;
 
 use App\BaseClient;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 
-class AdminService
+class ReferralService
 {
 
     protected $client;
@@ -23,12 +24,29 @@ class AdminService
         $this->client = new BaseClient(env('API_URL'), env('API_URL'));
     }
 
-    public function getCompanyReferral($type){
+    public function commonReferralService($url,$type=NULL) {
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '.'.$url.'.'.$type
+            );
+
+            $response = $response->getBody()->getContents();
+            dd($response);
+
+            $data = json_decode($response,true);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+    public function getPatient($type) {
         try {
 
             $response = $this->client->request(
                 'GET',
-                '/auth/company/'.$type,
+                '/auth/patient-referral/'.$type,
                 [
                     'headers' => [
                         'Accept' => 'application/json',
@@ -41,6 +59,7 @@ class AdminService
 
 
             $response = $response->getBody()->getContents();
+            dd($response);
 
             $data = json_decode($response,true);
             return $data;
@@ -101,4 +120,168 @@ class AdminService
 
         }
     }
+
+    public function mdOrder($type){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/patient-referral/'.$type
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function mdOrderUploadBulk(){
+        //echo env('API_URL');
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/mdforms'
+            );
+
+
+            $response = $response->getBody()->getContents();
+            //dd($response);
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function store($data){
+        try {
+//            $file_path = $data['file_name']->getPathname();
+//            $file_mime = $data['file_name']->getmimeType();
+//            $file_org  = $data['file_name']->getClientOriginalName();
+//
+//
+//            $response = $response->getBody()->getContents();
+//            $data = json_decode($response);
+//            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function storePatient($data)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/auth/store-patient',
+                [
+                    'json'=>$data,
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response,true);
+            return $data;
+        } catch (\Exception $exception) {
+            
+        }
+    }
+
+    //store patient lab report
+    public function storePatientLabReport($input)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/lab-report/store',
+                [
+                    'json' => $input
+                ]
+            );
+           
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+        }
+    }
+
+    //store patient lab report note
+    public function storePatientLabReportNote($input)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/lab-report-note/store',
+                [
+                    'json' => $input
+                ]
+            );
+           
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+           
+            return $data;
+        } catch (\Exception $exception) {
+        }
+    }
+
+    public function occupationalHealthFailData($serviceId){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/patient-referral-failed/'.$serviceId,
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response,true);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+ public function viewoccupationalHealthGetFaileData($id) {
+    try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/patient-referral-failed-view/'.$id,
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response,true);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+ }
 }

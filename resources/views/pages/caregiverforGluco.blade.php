@@ -7,9 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="../assets/css/fonts/Montserrat.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/style.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/caregiver.min.css">
-    <link rel="stylesheet" href="../assets/css/responsive.min.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
     <link rel="stylesheet" href="../assets/css/tail.select-default.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <title>Doral Health Connect | Caregiver</title>
@@ -123,7 +123,7 @@
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/jquery.validate.min.js"></script>
-    <script src="../assets/js/login.min.js"></script>
+    <script src="../assets/js/login.js"></script>
     <script src="../assets/js/tail.select-full.min.js"></script>
     <script src="../assets/js/app.common.min.js"></script>
     <script src="../assets/js/app.clinician.caregiver.min.js"></script>
@@ -139,11 +139,13 @@
             $("#caregiverResponse").click(function () {
                 window.location = "http://doralhealthconnect.com";
 //                var response = $("#response").val();
+//                  $("#loader-wrapper").show();
 //                $.ajax({
 //                    method: 'POST',
 //                    url: '/caregiverResponseSubmit',
 //                    data: {response},
 //                    success: function (response) {
+    //                    $("#loader-wrapper").hide();
 //                        if (response.status == 1) {
 //                            window.location = "/";
 //                        } else {
@@ -156,6 +158,7 @@
 //                        console.log(response);
 //                    },
 //                    error: function (e) {
+    //                      $("#loader-wrapper").hide();
 //                        console.log(e);
 //                    }
 //                });

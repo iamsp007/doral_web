@@ -20,7 +20,6 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         if (Auth::check()){
-
             if (Auth::user()->hasRole('clinician')){
                 $path=explode('/',$request->path());
                 if (in_array('clinician',$path)){
@@ -33,12 +32,18 @@ class RedirectIfAuthenticated
                     return $next($request);
                 }
                 return redirect(RouteServiceProvider::ADMIN_HOME);
-            }elseif (Auth::user()->hasRole('co-ordinate')){
+            }elseif (Auth::user()->hasRole('co-ordinator')){
                 $path=explode('/',$request->path());
                 if (in_array('co-ordinate',$path)){
                     return $next($request);
                 }
                 return redirect(RouteServiceProvider::COORDINATE_HOME);
+            }elseif (Auth::user()->hasRole('supervisor')){
+                $path=explode('/',$request->path());
+                if (in_array('supervisor',$path)){
+                    return $next($request);
+                }
+                return redirect(RouteServiceProvider::SUPERVISOR_HOME);
             }else{
                 return $next($request);
             }
@@ -47,8 +52,13 @@ class RedirectIfAuthenticated
             if (in_array('referral',$path)){
                 return $next($request);
             }
-
             return redirect(RouteServiceProvider::REFERRAL_HOME);
+        }elseif (Auth::guard('partner')->check()){
+            $path=explode('/',$request->path());
+            if (in_array('partner',$path)){
+                return $next($request);
+            }
+            return redirect(RouteServiceProvider::PARTNER_HOME);
         }
 
 //        $guards = empty($guards) ? [null] : $guards;

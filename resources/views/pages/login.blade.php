@@ -3,7 +3,7 @@
 <div class="middle">
     <div class="container">
         <div class="innerSpace">
-            <h1 class="t1 fadeIn">Stay Connected With Absulate Distance!</h1>
+            <h1 class="t1 fadeIn">Always Connected For Your Health</h1>
         </div>
         <div class="row">
 
@@ -70,6 +70,7 @@
             });
 
             $("#login").click(function() {
+                $("#loader-wrapper").show();
                 var email = $("#username").val();
                 var password = $("#password").val();
 
@@ -78,6 +79,7 @@
                     url: '/companylogin',
                     data: {email, password},
                     success: function( response ){
+                        $("#loader-wrapper").hide();
                         if(response.status == 1) {
                             window.location = "/referral/employee-pre-physical";
                         }
@@ -89,10 +91,11 @@
                             }, 1000);
                         }
 
-                        console.log( response );
+                      
                     },
                     error: function( e ) {
-                        console.log(e);
+                        $("#loader-wrapper").hide();
+                        alert('Something went wrong!');
                     }
                 });
 

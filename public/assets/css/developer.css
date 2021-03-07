@@ -1,0 +1,6 @@
+span.error-message {
+    display: none;
+    color: red;
+}
+
+img.update-icon {display: none;}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: info
@@ -25,78 +26,56 @@ class BaseClient
         $this->baseUrl = $baseUrl;
         $this->oAuthServer = $oAuthServer;
 
-        if (cache('ADMIN_SSO_TOKEN')) {
-
-            $this->client = new Client(['headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'X-Requested-With' => 'XMLHttpRequest',
-                'Access-Control-Allow-Origin' => 'http://localhost',
-                'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
-
-        } else {
-
-            $this->acquireToken();
-            $this->client = new Client(['headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'X-Requested-With' => 'XMLHttpRequest',
-                'Access-Control-Allow-Origin' => 'http://localhost',
-                'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
-
-        }
-
+        $this->acquireToken();
+        $this->client = new Client(['headers' => [
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'X-Requested-With' => 'XMLHttpRequest',
+            'Access-Control-Allow-Origin' => 'http://localhost',
+            'Authorization' => cache('ADMIN_SSO_TOKEN')]]);
     }
 
-    public function request($method, $uri = '', array $options = []){
+    public function request($method, $uri = '', array $options = [])
+    {
 
         $uri = $this->baseUrl . $uri;
 
-        try{
-
+        try {
             return $response =  $this->client->request($method, $uri, $options);
-
-
-        } catch (ClientException $e){
-
-            if(401 == $e->getCode()){
+        } catch (ClientException $e) {
+            if (401 == $e->getCode()) {
 
                 $this->acquireToken();
 
                 $options['headers']['Authorization'] = cache('ADMIN_SSO_TOKEN');
 
-                try{
-
+                try {
                     return $this->client->request($method, $uri, $options);
-
-                } catch (ClientException $e){
+                } catch (ClientException $e) {
 
                     return $e->getResponse();
-
                 }
-
-            } else{
+            } else {
 
                 return $e->getResponse();
-
             }
-
         }
-
     }
 
-    public function acquireToken(){
+    public function acquireToken()
+    {
 
         $clientId = cache('USERNAME');
         $clientSecret = cache('PASSWORD');
         $grantType = "client_credentials";
+        $_SESSION['USERNAME']=cache('USERNAME');
 
-        try{
+        try {
 
             $this->client = new Client();
 
-//            $r = $this->client->request('POST', $this->oAuthServer . 'oauth/login', [
-            $r = $this->client->request('POST', $this->oAuthServer .'/auth/login', [
+            //            $r = $this->client->request('POST', $this->oAuthServer . 'oauth/login', [
+            $r = $this->client->request('POST', $this->oAuthServer . '/auth/login', [
                 'json' => [
                     'username' => $clientId,
                     'password' => $clientSecret
@@ -109,16 +88,12 @@ class BaseClient
 
                 ]
             ]);
-
-
             $response  = json_decode($r->getBody()->getContents());
 
             if ($response->status===true){
-                cache(['ADMIN_SSO_TOKEN' => $response->data->token_type.' '.$response->data->access_token],60);
+                cache(['ADMIN_SSO_TOKEN' => $response->data->token_type.' '.$response->data->access_token]);
             }
-        } catch (\Exception $e){
-
+        } catch (\Exception $e) {
         }
     }
-
 }

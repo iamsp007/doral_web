@@ -1,11 +1,14 @@
-// var base_url = $('#base_url').val();
-// socket.on('receive-location', function (data) {
-// console.log(data,"receive-location")
-// });
-// socket.emit('send-location', { latitude: '15.552255',longitude: '16.055222' });
 var patient_request_id = $('#patient_request_id').val();
-// Initialize and add the map
-function getRoadLProcess(callback) {
+
+var directionsService;
+var directionsRenderer;
+
+var map;
+var referral_type = [];
+var marker = [];
+var zoom=10;
+function initMap() {
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -17,191 +20,151 @@ function getRoadLProcess(callback) {
         method:'POST',
         dataType:'json',
         success:function (response) {
-            var origin=response.latitude+', '+response.longitude;
-            var destination=response.destination.latitude+', '+response.destination.longitude;;
-            var locations=[];
-
-            response.routes.map( (resp)=> {
-                locations.push( {
-                    location:resp.latitude+', '+resp.longitude,
-                    lat:resp.latitude,
-                    lng:resp.longitude,
-                    lable:resp.user.first_name+' '+resp.user.last_name
-                })
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom:5,
+                center: new google.maps.LatLng(response.patient.latitude,response.patient.longitude),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-            callback(locations,origin,destination,{lat:response.latitude,lng:response.longitude})
+            var destination = new google.maps.LatLng(response.patient.latitude,response.patient.longitude);
+
+            response.clinicians.map(function (resp) {
+                var originName = resp.first_name+' '+resp.last_name+'   Role : '+resp.referral_type;
+                var destinationName = response.patient.detail.first_name+' '+response.patient.detail.last_name+'  Role : Patient';
+                var current = new google.maps.LatLng(resp.start_latitude,resp.end_longitude);
+                if (resp.latitude!==null){
+                    current = new google.maps.LatLng(resp.latitude,resp.longitude);
+                }
+                referral_type[resp.id]={
+                    directionsService:new google.maps.DirectionsService(),
+                    directionsRenderer:new google.maps.DirectionsRenderer({suppressMarkers: true}),
+                    id:resp.id,
+                    color:resp.color,
+                    icon:resp.icon,
+                    start_icon:base_url+'assets/img/icons/patient-icon.svg',
+                    originName:originName,
+                    destinationName:destinationName,
+                    destination:destination,
+                    current:current,
+                }
+                calculateAndDisplayRoute(current,destination,resp.id,referral_type[resp.id])
+                updateMap(destination,destinationName,resp.id)
+            })
         },
         error:function (error) {
             console.log(error)
         }
     })
 }
-var postLatLong={ lat: 25.552255, lng:  69.552255 };
+function makeMarker(position, icon, title,duration=0,hours=0) {
+   var markers = new google.maps.Marker({
+        position: position,
+        map: map,
+        icon: icon,
+        title: title
+    });
+    const contentString ='<div class="row"> ' +
+        '<div class="col-12">' +
+        '<div class="col-md-4"><b>Name : </b>'+title+'</div>' +
+        '<div class="col-md-4"><b>Duration : </b>'+duration+'</div>' +
+        '<div class="col-md-4"><b>Distance : </b>'+hours+'</div>' +
+        '</div>' +
+        ' </div>';
 
-if (navigator.geolocation){
-    navigator.geolocation.getCurrentPosition((position => {
-        postLatLong={ lat: position.coords.latitude, lng:  position.coords.longitude };
-        initMap(postLatLong)
-    }),(error)=>{
-
-    },{enableHighAccuracy:true,maximumAge:3000,timeout:5000});
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+    });
+    markers.addListener("click", () => {
+        infowindow.open(map, markers);
+        map.setZoom(20)
+        map.setCenter(markers.getPosition());
+        zoom=20;
+    });
+    return markers;
 }
-var locations =[
-    // { location:'21.9347,69.6393',lat: 21.9347, lng: 69.6393,lable:'Sanakhala'},
-    // { location:'21.9408,69.6673',lat: 21.9408, lng: 69.6673,lable:'Simar'},
-    // { location:'21.9290,69.7838',lat: 21.9290, lng: 69.7838,lable:'Bhanvad'},
-    // { location:'22.4707,70.0577',lat: 22.4707, lng: 70.0577,lable:'Jamnager'},
-    // { location:'22.3039,70.8022',lat: 22.3039, lng: 70.8022,lable:'Rajkot'},
-    // { location:'23.0225,72.5714',lat: 23.0225, lng: 72.5714,lable:'Ahmedabad'},
-];
 
-function initMap(postLatLng=null) {
-    if (postLatLng){
-        postLatLong=postLatLng
-    }
+var html='';
 
-    if (navigator.geolocation)
-    {
-        const directionsService = new google.maps.DirectionsService();
-        const directionsRenderer = new google.maps.DirectionsRenderer();
-
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 14,
-            center: postLatLong,
-            disableDefaultUI: true,
-            mapTypeControl: true,
-            zoomControl: true,
-            zoomControlOptions: {
-                position: google.maps.ControlPosition.LEFT_CENTER,
-            },
-            scaleControl: true,
-            streetViewControl: true,
-            streetViewControlOptions: {
-                position: google.maps.ControlPosition.LEFT_TOP,
-            },
-            rotateControl: true,
-            fullscreenControl: true,
-            heading: 90,
-            tilt: 45,
-        });
-
-
-
-        // Create an array of alphabetical characters used to label the markers.
-        const labels = "Sunil Karmur";
-        const contentString =
-            '<div id="content">' +
-            '<div id="siteNotice">' +
-            "</div>" +
-            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-            '<div id="bodyContent">' +
-            "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
-            "sandstone rock formation in the southern part of the " +
-            "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
-            "south west of the nearest large town, Alice Springs; 450&#160;km " +
-            "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
-            "features of the Uluru - Kata Tjuta National Park. Uluru is " +
-            "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
-            "Aboriginal people of the area. It has many springs, waterholes, " +
-            "rock caves and ancient paintings. Uluru is listed as a World " +
-            "Heritage Site.</p>" +
-            '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-            "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
-            "(last visited June 22, 2009).</p>" +
-            "</div>" +
-            "</div>";
-
-
-        const infowindow = new google.maps.InfoWindow({
-            content: contentString,
-        });
-
-
-        const markers = locations.map((location, i) => {
-            var marker = new google.maps.Marker({
-                position: location,
-                label: location.lable,
-            });
-
-            marker.addListener("click", () => {
-                infowindow.open(map, marker);
-            });
-            return marker;
-
-        });
-
-        // Add a marker clusterer to manage the markers.
-        new MarkerClusterer(map, markers, {
-            imagePath:
-                "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
-        });
-
-        google.maps.event.addListener(markers,'click',function() {
-            var pos = map.getZoom();
-            map.setZoom(14);
-            map.setCenter(marker.getPosition());
-            window.setTimeout(function() {map.setZoom(pos);},3000);
-        });
-        directionsRenderer.setMap(map);
-        var patient_request_id = $('#patient_request_id').val();
-        getRoadLProcess((locations,origin,destination,patient=null)=>{
-            console.log(locations,origin,destination)
-
-            var cmarker = new google.maps.Marker({
-                zoom: 14,
-                map: map,
-                position: new google.maps.LatLng(patient.lat,patient.lng),
-                title: 'Your current location',
-            });
-
-            var circle = new google.maps.Circle({
-                map: map,
-                radius: 25000,    // 5 miles in metres
-                fillColor: '#5aba5c'
-            });
-            circle.bindTo('center', cmarker, 'position');
-
-            if (locations.length>0){
-                if (origin===''){
-                    origin = locations[0].lat+','+locations[0].lng;
-                }
-                if (destination===''){
-                    destination = locations[locations.length-1].lat+','+locations[locations.length-1].lng;
-                }
-
-                calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,locations);
-            }else {
-                alert('No Data Found')
-            }
-        })
-
-    }
-    else
-    {
-        alert('It seems like Geolocation, which is required for this page, is not enabled in your browser.');
-    }
-
-}
-//
-function calculateAndDisplayRoute(directionsService, directionsRenderer,origin,destination,waypoints) {
-    var waypoints = waypoints.map(function (location) {
-        return {location:location.location}
+function updateMap(destination,name,id) {
+    console.log(id)
+    socket.on('receive-location-'+id,function (data) {
+        var referrals = referral_type[data.id];
+        var current = new google.maps.LatLng(data.latitude,data.longitude);
+        calculateAndDisplayRoute(current,referrals.destination,data.id,referrals)
     })
-
-    var request = {
-        origin: origin,
-        destination: destination,
-        waypoints: waypoints,
-        durationInTraffic: true,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
-    };
-    directionsService.route(request,
-        (response, status) => {
-            if (status === "OK") {
-                directionsRenderer.setDirections(response);
-            } else {
-                window.alert("Directions request failed due to " + status);
-            }
-        }
-    );
 }
+
+//
+function calculateAndDisplayRoute(current,destination,type,referrals) {
+    var directionsService = referrals.directionsService;
+    var directionsRenderer = referrals.directionsRenderer;
+    console.log(current)
+    var request = {
+        origin: current,
+        destination: destination,
+        optimizeWaypoints: false,
+        travelMode: google.maps.TravelMode['DRIVING'],
+        unitSystem: google.maps.UnitSystem.METRIC,
+
+    };
+    directionsService.route(request,(response, status)=>{
+        if (status === 'OK') {
+
+            directionsRenderer.setMap(map)
+            directionsRenderer.setDirections(response)
+            directionsRenderer.setOptions({
+                draggable: true,
+                hideRouteIndex: false,
+                polylineOptions : {
+                    strokeColor: referrals.color,
+                    strokeOpacity: 1.0,
+                    strokeWeight: 5
+                }
+            });
+            var leg = response.routes[0].legs[0];
+            if (referral_type[type].marker){
+                referral_type[type].marker.setMap(null);
+            }
+            if (referral_type[type].patient_marker){
+                referral_type[type].patient_marker.setMap(null);
+            }
+            referral_type[type].patient_marker=makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName,leg.distance.text,leg.duration.text );
+            referral_type[type].marker=makeMarker( leg.start_location, referrals.icon, referrals.originName,leg.distance.text,leg.duration.text );
+
+            // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );
+        }
+    })
+}
+
+//This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+function calcCrow(lat1, lon1, lat2, lon2)
+{
+    var R = 6371; // km
+    var dLat = toRad(lat2-lat1);
+    var dLon = toRad(lon2-lon1);
+    var lat1 = toRad(lat1);
+    var lat2 = toRad(lat2);
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d;
+}
+
+// Converts numeric degrees to radians
+function toRad(Value)
+{
+    return Value * Math.PI / 180;
+}
+
+function animateCircle(line) {
+    let count = 0;
+    window.setInterval(() => {
+        count = (count + 1) % 200;
+        const icons = line.get("icons");
+        icons[0].offset = count / 2 + "%";
+        line.set("icons", icons);
+    }, 20);
+}
+
+

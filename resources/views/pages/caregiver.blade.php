@@ -7,9 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/caregiver.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/responsive.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <title>Doral Health Connect | Caregiver</title>
@@ -126,7 +126,7 @@
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('assets/js/login.min.js') }}"></script>
+    <script src="{{ asset('assets/js/login.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.clinician.caregiver.min.js') }}"></script>
@@ -141,6 +141,7 @@
 
             $("#caregiverResponse").click(function () {
                 //window.location = "http://doralhealthconnect.com";
+                $("#loader-wrapper").show();
                 var patientId = $("#patientId").val();
                 var actionTaken = $("#actionTaken").val();
                 var url = $("#url").val();
@@ -149,6 +150,7 @@
                     url: '/caregiverResponseSubmit',
                     data: {patientId, actionTaken, url},
                     success: function (response) {
+                        $("#loader-wrapper").hide();
                         if (response.status == 1) {
                             window.location = "/";
                         } else {
@@ -158,10 +160,11 @@
                                 $(".alert").hide();
                             }, 1000);
                         }
-                        console.log(response);
+                        
                     },
                        error: function (e) {
-                        console.log(e);
+                        $("#loader-wrapper").hide();
+                        alert('Something went wrong!');
                     }
                 });
 

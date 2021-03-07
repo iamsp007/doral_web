@@ -96,7 +96,7 @@
                             </div>-->
                         <!--</div>-->
                       
-                        <div class="col-12 col-sm-3 col-md-3">
+<!--                        <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
                                 <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                 <div class="rs">
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
                                 <div class="ls"><i class="las la-phone circle"></i></div>

@@ -27,12 +27,12 @@ $(document).ready(function() {
                 render:function (data, type, row, meta) {
 
                     return '<div class="d-flex">\n' +
-                        '                    <button type="button"\n' +
-                        '                            class="btn btn-outline-green mr-2"\n' +
+                        '                    <a \n' +
+                        '                            href="'+row.file_name+'" target="_blank" class="btn btn-outline-green mr-2"\n' +
                         '                            data-toggle="tooltip" data-placement="top"\n' +
                         '                            title="Download Report" style="width: auto;"><i\n' +
                         '                            style="font-size: 25px;"\n' +
-                        '                            class="las la-cloud-download-alt"></i></button>\n' +
+                        '                            class="las la-cloud-download-alt"></i></a>\n' +
                         '                    <button type="button" class="btn btn-outline-green" onclick="deleteLabReport('+row.id+')" \n' +
                         '                            data-toggle="tooltip" data-placement="top"\n' +
                         '                            title="Delete Report" style="width: auto;"><i\n' +
@@ -137,7 +137,7 @@ function viewLabReports() {
                     '                                   <div class="card shadow-sm">\n' +
                     '                                       <div class="card-body">\n' +
                     '                                           <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""\n' +
-                    '                                                src="'+value.file_name+'">\n' +
+                    '                                                src="'+img+'">\n' +
                     '                                       </div>\n' +
                     '                                       <div class="card-footer file-footer">\n' +
                     '                                           <a href="javascript:void(0)" onclick="openDoc()"\n' +

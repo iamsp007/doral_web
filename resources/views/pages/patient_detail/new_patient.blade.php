@@ -6,14 +6,34 @@
 @endsection
 @hasrole('referral')
     @section('upload-btn')
-        <div class="d-flex">
-            <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
-                <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                Pending Record</a>
-            <a href="{{ route('referral.md-order-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
-                <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                Import Patients</a>
-        </div>
+        @if (request()->segment(count(request()->segments())) == "occupational-health")
+            <div class="d-flex">
+                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Pending Patients</a>
+                <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Import Patients</a>
+            </div>
+        @elseif (request()->segment(count(request()->segments())) == "initial")
+            <div class="d-flex">
+                <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    ACTIVE Patients</a>
+                <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Import Patients</a>
+            </div>
+        @else (request()->segment(count(request()->segments())) == "occupational-health-upload-bulk-data")
+            <div class="d-flex">
+                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Pending Patients</a>
+                <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    ACTIVE Patients</a>
+            </div>
+        @endif
     @endsection
 @endrole
 

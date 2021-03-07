@@ -119,9 +119,6 @@ class CaregiverController extends Controller
                 }
                 return $city_state;
             });
-//            ->addColumn('full_name', function($q){
-//                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
-//            })
             if($request['status'] == 'active') {
                 $datatble->addColumn('dob', function($row) use($request){
 //                    return '<a href=""><img src="../assets/img/icons/download-icon.svg" class="action-download"></a>';
@@ -136,7 +133,7 @@ class CaregiverController extends Controller
                             $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
                         }
-                        $btn .= '<a href="https://app.doralhealthconnect.com/employee-physical-examination-report/'.$row->id.'">Download Form</a>';
+                        $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '">Download Form</a>';
                     } else {
                         if ($row->status === '0') {
                             $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';

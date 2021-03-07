@@ -11,6 +11,8 @@ use Exception;
 use CURLFile;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
+use App\Models\LabReportType;
+use Illuminate\Support\Facades\DB;
 
 class PatientReferralController extends Controller
 {
@@ -28,6 +30,18 @@ class PatientReferralController extends Controller
     }
     public function occupationalHealthUploadBulk() {
         return view('pages.referral.occupational-health-upload-bulk-data');
+    }
+    
+     public function getEmployeePhysicalExaminationReport($id)
+    {
+        $labReportTypes = LabReportType::pluck('name', 'id');
+        $checkData = DB::table('employee_physical_examination_reports')->where('patient_id',$id)->first();
+        if(!empty($checkData)) {
+            return view('pages.autofill_employee-physical-examination-report', compact(['labReportTypes', 'checkData']));
+        }
+        
+        
+        
     }
     public function mdOrderUploadBulk() {
         $status = 0;

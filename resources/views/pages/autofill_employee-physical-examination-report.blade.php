@@ -27,7 +27,7 @@
       </header>
       <!-- Header Section End -->
       
-      <form action="{{ route('post-employee-physical-examination-report', $patient->id) }}" method="post" enctype="multipart/form-data">
+      <form action="" method="post" enctype="multipart/form-data">
       @csrf
       <!-- Middle Section Start -->
          <section id="form-inner">
@@ -50,20 +50,20 @@
                                  <div class="row">
                                        <div class="col-lg-4">
                                           <div class="custom-control custom-radio">
-                                             <input type="radio" class="custom-control-input" id="customRadio4" name="pre_employment_physical_assessment">
+                                              <input <?php if(isset($patient->pre_employment_physical_assessment)) { echo 'checked'; } ?> type="radio" class="custom-control-input" id="customRadio4" name="pre_employment_physical_assessment">
                                              <label class="custom-control-label" for="customRadio4">Pre-Employment  Physical Assessment</label>
                                           </div> 
                                        </div>
                                        <div class="col-lg-3">
                                           <div class="custom-control custom-radio">
-                                             <input type="radio" class="custom-control-input" id="customRadio3" name="annual_assessment">
+                                             <input type="radio" class="custom-control-input" id="customRadio3" name="annual_assessment" <?php if(isset($patient->annual_assessment)) { echo 'checked'; } ?>>
                                              <label class="custom-control-label" for="customRadio3">
                                                 Annual Assessment
                                              </label>
                                           </div>
                                        </div>
                                        <div class="col-lg-3">  <div class="custom-control custom-radio">
-                                          <input type="radio" class="custom-control-input" id="customRadio2" name="return_to_work_or_loa">
+                                          <input type="radio" class="custom-control-input" id="customRadio2" name="return_to_work_or_loa" <?php if(isset($patient->return_to_work_or_loa)) { echo 'checked'; } ?>>
                                           <label class="custom-control-label" for="customRadio2">
                                              Return to Work / LOA
                                           </label>
@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                        <div class="custom-control custom-radio">
-                                          <input type="radio" class="custom-control-input" id="customRadio1" name="other">
+                                          <input type="radio" class="custom-control-input" id="customRadio1" name="other" <?php if(isset($patient->other)) { echo 'checked'; } ?>>
                                           <label class="custom-control-label" for="customRadio1">
                                              Other
                                           </label>
@@ -85,7 +85,7 @@
                   </div>
                   <div class="innerSpace">
                      <h2 class="t1 fadeIn">AUTHORIZATION TO RELEASE INFORMATION</h2>
-                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" class="form-control inline-style">to release all health information about me to cottage 
+                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ $patient->first_name.' '.$patient->last_name }}" class="form-control inline-style">to release all health information about me to cottage 
                         homecare services, Inc. 
                      </p>
                   </div>
@@ -157,7 +157,7 @@
                </div>
                <div class="container mt-3" id="formdive">
                   <div class="">
-                     <h2>DEMOGRAPHIC INFORMATION</h2>
+                     <h2>Vital Details</h2>
                      <div class="row">
                         <div class="col-lg-4">
                            <div class="form-group">
@@ -288,113 +288,133 @@
                                           <div class="row">
                                              <div class="col-lg-3">
                                                 <label for="chkPassport" class="containera">
-                                                   <input type="checkbox"  id="chkPassport" name="weakness_checked">
+                                                   <input type="checkbox"  id="chkPassport" name="weakness_checked" <?php if(isset($patient->weakness_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Weakness
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassport" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassport" placeholder="Add comment" class="form-control" name="weakness_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassport" class="mb-3">
+                                                   <input type="text" id="txtPassport" placeholder="Add comment" class="form-control" name="weakness_comment"  value="<?php echo $patient->weakness_comment; ?>" />
                                                 </div>
+                                                <?php } ?>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassporta" class="containera">
-                                                   <input type="checkbox"  id="chkPassporta" name="fatigue_checked">
+                                                   <input type="checkbox"  id="chkPassporta" name="fatigue_checked" <?php if(isset($patient->fatigue_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Fatigue
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassporta" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassporta" placeholder="Add comment" class="form-control" name="fatigue_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassporta" class="mb-3">
+                                                   <input type="text" id="txtPassporta" placeholder="Add comment" class="form-control" name="fatigue_comment" value="<?php echo $patient->fatigue_comment; ?>" />
                                                 </div>
+                                                <?php } ?>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportlb" class="containera">
-                                                   <input type="checkbox"  id="chkPassportlb" name="lack_of_appetie_checked">
+                                                   <input type="checkbox"  id="chkPassportlb" name="lack_of_appetie_checked" <?php if(isset($patient->lack_of_appetie_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Lack of Appetie
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassportlb" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportlb" placeholder="Add comment"  class="form-control" name="lack_of_appetie_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassportlb" class="mb-3">
+                                                   <input type="text" id="txtPassportlb" placeholder="Add comment"  class="form-control" name="lack_of_appetie_comment"  value="<?php echo $patient->lack_of_appetie_comment; ?>" />
                                                 </div>
+                                                <?php } ?>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportb" class="containera">
-                                                   <input type="checkbox"  id="chkPassportb" name="weight_loss_checked">
+                                                   <input type="checkbox"  id="chkPassportb" name="weight_loss_checked" <?php if(isset($patient->weight_loss_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Weight Loss
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassportb" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportb" placeholder="Add comment" class="form-control" name="weight_loss_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassportb" class="mb-3">
+                                                   <input type="text" id="txtPassportb" placeholder="Add comment" class="form-control" name="weight_loss_comment" value="<?php echo $patient->weight_loss_comment; ?>" />
                                                 </div>
+                                                <?php } ?>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportk" class="containera">
-                                                   <input type="checkbox"  id="chkPassportk" name="chest_pain_checked">
+                                                   <input type="checkbox"  id="chkPassportk" name="chest_pain_checked" <?php if(isset($patient->chest_pain_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Chest Pains
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassportk" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportk" placeholder="Add comment"  class="form-control" name="chest_pain_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassportk" class="mb-3">
+                                                   <input type="text" id="txtPassportk" placeholder="Add comment"  class="form-control" name="chest_pain_comment"  value="<?php echo $patient->chest_pain_comment; ?>" />
                                                 </div>
+                                                <?php } ?>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportu" class="containera">
-                                                   <input type="checkbox"  id="chkPassportu" name="fever_checked">
+                                                   <input type="checkbox"  id="chkPassportu" name="fever_checked" <?php if(isset($patient->fever_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Fever
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassportu" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportu" placeholder="Add comment"  class="form-control" name="fever_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassportu" class="mb-3">
+                                                   <input type="text" id="txtPassportu" placeholder="Add comment"  class="form-control" name="fever_comment" value="<?php echo $patient->fever_comment; ?>" />
                                                 </div>
+                                                <?php } ?>
                                              </div>
                                              <div class="col-lg-3"> 
                                                 <label for="chkPassportn" class="containera">
-                                                   <input type="checkbox"  id="chkPassportn" name="persistent_cough_checked">
+                                                   <input type="checkbox"  id="chkPassportn" name="persistent_cough_checked" <?php if(isset($patient->persistent_cough_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Persistent Cough
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassportn" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportn" placeholder="Add comment"  class="form-control" name="persistent_cough_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassportn" class="mb-3">
+                                                   <input type="text" id="txtPassportn" placeholder="Add comment"  class="form-control" name="persistent_cough_comment" value="<?php echo $patient->persistent_cough_comment; ?>" />
                                                 </div>
+                                                <?php } ?>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportaa" class="containera">
-                                                   <input type="checkbox"  id="chkPassportaa" name="night_sweats_checked">
+                                                   <input type="checkbox"  id="chkPassportaa" name="night_sweats_checked" <?php if(isset($patient->night_sweats_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Night Sweats
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassportaa" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportaa" placeholder="Add comment"  class="form-control" name="night_sweats_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassportaa" class="mb-3">
+                                                   <input type="text" id="txtPassportaa" placeholder="Add comment"  class="form-control" name="night_sweats_comment" value="<?php echo $patient->night_sweats_comment; ?>" />
                                                 </div>
+                                                <?php } ?>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportl" class="containera">
-                                                   <input type="checkbox"  id="chkPassportl" name="shortness_of_breath_checked">
+                                                   <input type="checkbox"  id="chkPassportl" name="shortness_of_breath_checked" <?php if(isset($patient->shortness_of_breath_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Shortness of Breath
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassportl" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportl" placeholder="Add comment"  class="form-control" name="shortness_of_breath_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassportl" class="mb-3">
+                                                   <input type="text" id="txtPassportl" placeholder="Add comment"  class="form-control" name="shortness_of_breath_comment" value="<?php echo $patient->shortness_of_breath_comment; ?>" />
                                                 </div>
+                                                <?php } ?>
                                              </div>
                                              <div class="col-lg-3">
                                                 <label for="chkPassportla" class="containera">
-                                                   <input type="checkbox"  id="chkPassportla" name="blood_streaked_sputum_checked">
+                                                   <input type="checkbox"  id="chkPassportla" name="blood_streaked_sputum_checked" <?php if(isset($patient->blood_streaked_sputum_checked)) { echo 'checked'; } ?>>
                                                    <span class="checkmark"></span>
                                                    Blood-Streaked Sputum
                                                 </label>
                                                 <hr />
-                                                <div id="dvPassportla" style="display: none" class="mb-3">
-                                                   <input type="text" id="txtPassportla" placeholder="Add comment"  class="form-control" name="blood_streaked_sputum_comment" />
+                                                <?php if(isset($patient->blood_streaked_sputum_checked)) { ?>
+                                                <div id="dvPassportla" class="mb-3">
+                                                    <input type="text" id="txtPassportla" placeholder="Add comment"  class="form-control" name="blood_streaked_sputum_comment" value="<?php echo $patient->blood_streaked_sputum_comment; ?>" />
                                                       </div>
+                                                <?php } ?>
                                                    </div>
                                                 </div>
                                              </div>

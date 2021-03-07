@@ -788,14 +788,8 @@ class GetPatientDetailsController extends Controller
 
 
     public function getLabReportReferral(Request $request){
-        $roles = Auth::user()->roles->pluck('id')->toArray();
 
         $labReportTypes = LabReportType::where('status','=','1')
-            ->where(function ($q) use ($roles){
-                if (count($roles)>1){
-                    $q->where('referral_id','=',$roles[1]);
-                }
-            })
             ->where('parent_id','=',$request->id)
             ->get();
         return response()->json([

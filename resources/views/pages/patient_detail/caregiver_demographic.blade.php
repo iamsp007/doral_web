@@ -73,19 +73,20 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-12 col-sm-4">
-                            <label for="dob" class="label">Date Of Birth</label>
-                            <div class="input-group">
-                                <span class="input-group-text input-group-text-custom"
-                                    id="dateofbirth">
-                                    <i class="las la-calendar"></i>
-                                </span>
-                                <input type="text" class="form-control form-control-lg" id="dob"
-                                    name="dob" aria-describedby=""  value="{{ ($patient->dob) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
+                        <div class="col-12 col-sm-3 col-md-3">
+                            <div class="input_box">
+                                <div class="ls"><i class="las la-phone circle"></i></div>
+                                <div class="rs">
+                                    <h3 class="_title">Date Of Birth</h3>
+                                    <div>
+                                        <input type="text" class="form-control-plaintext _detail "
+                                            readonly name="dob" onclick="editableField('dob')"
+                                            data-id="dob" id="dob" 
+                                            placeholder="Date Of Birth" value="{{ ($patient->dob) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
+                                    </div>
+                                </div>
                             </div>
-                            <span class="errorText dob"></span>
                         </div>
-                      
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
                                 <div class="ls"><i class="las la-phone circle"></i></div>

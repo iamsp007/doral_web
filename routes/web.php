@@ -49,7 +49,6 @@ Route::group(['middleware'=>'auth'],function (){
 
 
 // Admin Panel
-
 Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
 Route::get('/caregiver/2', 'App\Http\Controllers\Admin\HomeController@clinicianResponse');
 Route::get('/caregiver/3', 'App\Http\Controllers\Admin\HomeController@caregiverforGluco');
@@ -57,7 +56,8 @@ Route::get('/caregiver/4', 'App\Http\Controllers\Admin\HomeController@caregiverf
 Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
 
 // get medicine list
-    Route::get('/patient-medicine-list/{patient_id}','\App\Http\Controllers\PatientController@patientMedicineList')->name('patient.medician.list');
+Route::get('/patient-medicine-list/{patient_id}','\App\Http\Controllers\PatientController@patientMedicineList')->name('patient.medician.list');
+
 Route::group(['middleware'=>['auth','role:admin|supervisor|referral|clinician|co-ordinator']],function (){
     Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
     Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');

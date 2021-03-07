@@ -73,20 +73,43 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-12 col-sm-3 col-md-3">
+                        <!--<div class="col-12 col-sm-3 col-md-3">-->
+                            <!--<label for="dob" class="label">Date Of Birth</label>-->
+                            <!--<div class="input-group">-->
+<!--                                <span class="input-group-text input-group-text-custom"
+                                    id="dateofbirth">
+                                    <i class="las la-calendar"></i>
+                                </span>-->
+<!--                                <input type="text" class="form-control form-control-lg" id="dob"
+                                    name="dob" aria-describedby=""  value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">-->
+<!--                            </div>
+                            <span class="errorText dob"></span>-->
+<!--                        <div class="ls"><i class="las la-phone circle"></i></div>
+                            <div class="rs">
+                                <h3 class="_title">DOB</h3>
+                                <div>
+                                    <input type="text" class="form-control-plaintext _detail "
+                                        readonly name="dob" onclick="editableField('dob')"
+                                        data-id="dob" id="dob1" 
+                                        placeholder="SSN" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
+                                </div>
+                            </div>-->
+                        <!--</div>-->
+                      
+<!--                        <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
-                                <div class="ls"><i class="las la-phone circle"></i></div>
+                                <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                 <div class="rs">
-                                    <h3 class="_title">Date Of Birth</h3>
+                                    <h3 class="_title">DOB</h3>
                                     <div>
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="dob" onclick="editableField('dob')"
                                             data-id="dob" id="dob" 
-                                            placeholder="Date Of Birth" value="{{ ($patient->dob) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
+                                            placeholder="DOB" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
                                 <div class="ls"><i class="las la-phone circle"></i></div>
@@ -175,7 +198,7 @@
                                     name="home_phone"
                                     onclick="editableField('home_phone')"
                                     data-id="home_phone" id="home_phone"
-                                    placeholder="home_phone" value="{{ ($patient->phone) ? $patient->phone : '' }}">
+                                    placeholder="home_phone" value="{{ $patient->phone }}">
                                 </div>
                             </div>
                         </div>
@@ -304,7 +327,7 @@
                                                     name="street1"
                                                     onclick="editableField('street1')"
                                                     data-id="street1" id="street1"
-                                                    placeholder="Address1" value="{{ ($address[0]->Street1) ? $address[0]->Street1 : '' }}">
+                                                    placeholder="Address1" value="{{ $address[0]->Street1 }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -332,7 +355,7 @@
                                                     name="city"
                                                     onclick="editableField('city')"
                                                     data-id="city" id="city"
-                                                    placeholder="City" value="{{ ($address[0]->City) ? $address[0]->City : '' }}">
+                                                    placeholder="City" value="{{ $address[0]->City }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -346,7 +369,7 @@
                                                     name="state"
                                                     onclick="editableField('state')"
                                                     data-id="state" id="state"
-                                                    placeholder="state" value="{{ ($address[0]->State) ? $address[0]->State : '' }}">
+                                                    placeholder="state" value="{{ $address[0]->State }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -360,7 +383,7 @@
                                                     name="zip4"
                                                     onclick="editableField('zip4')"
                                                     data-id="zip4" id="zip4"
-                                                    placeholder="Zip4" value="{{ ($address[0]->Zip4) ? $address[0]->Zip4 : '' }}">
+                                                    placeholder="Zip4" value="{{ $address[0]->Zip4 }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -374,7 +397,7 @@
                                                     name="zip5"
                                                     onclick="editableField('zip5')"
                                                     data-id="zip5" id="zip5"
-                                                    placeholder="zip5" value="{{ ($address[0]->Zip5) ? $address[0]->Zip5 : '' }}">
+                                                    placeholder="zip5" value="{{ $address[0]->Zip5 }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -550,7 +573,7 @@
                                                                 name="relationship_name"
                                                                 onclick="editableField('relationship_name')"
                                                                 data-id="relationship_name" id="relationship_name"
-                                                                placeholder="Relationship Name" value="{{ ($value['Name']) ? $value['Name'] : '' }}">
+                                                                placeholder="Relationship Name" value="{{ $value['Name']}}">
                                                         </div>
                                                     </div>
                                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmployeePhysicalExaminationReport;
 use App\Models\LabReportType;
 use App\Services\AdminService;
 use App\Services\EmployeeService;
@@ -63,16 +64,24 @@ class EmployeePhysicalExaminationReportController extends Controller
 
             $lookup = $request->all();
             unset($lookup['_token']);
-            $responseArray = $this->employeeServices->storeReport($id, $lookup);
 
-            if($responseArray->status) {
-                $status = 1;
-                $record = $responseArray->data->data;
+            $report = new EmployeePhysicalExaminationReport();
+            $report->patient_id = $id;
+            $report->report_details = $lookup;
 
-                return view('pages.admin.employee-view')->with('record', $record);
+            if ($report->save()) {
+                return redirect()->route('patient.details', $id);
             }
+            // $responseArray = $this->employeeServices->storeReport($id, $lookup);
 
-            $message = $responseArray->message;
+            // if($responseArray->status) {
+            //     $status = 1;
+            //     $record = $responseArray->data->data;
+
+            //     return view('pages.admin.employee-view')->with('record', $record);
+            // }
+
+            // $message = $responseArray->message;
 
         } catch(Exception $e) {
             $status = 0;
@@ -85,7 +94,7 @@ class EmployeePhysicalExaminationReportController extends Controller
             'data' => $record
         ];
 
-        return redirect('/clinician');
+        return redirect()->back();
     }
 
     /**

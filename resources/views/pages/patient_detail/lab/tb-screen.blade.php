@@ -36,7 +36,7 @@
                         <th scope="col">Insert/Screening Date</th>
                         <th scope="col">Expiry Date</th>
                         <th scope="col">Result</th>
-                        <th width="11%">Action</th>
+                        <th width="11%">Notes</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -100,7 +100,6 @@
                                  </span>
                                 @enderror
                             </td>
-                            <td></td>
                             <td></td>
                         </form>
                     </tr>

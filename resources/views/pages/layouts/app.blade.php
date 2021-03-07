@@ -247,7 +247,7 @@
     <script src="{{ asset('assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
-    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+ 
     <script src="{{ asset('assets/js/app.clinician.patient.details.min.js') }}"></script>
     <script>
         var base_url = $('#base_url').val();

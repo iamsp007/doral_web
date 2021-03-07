@@ -23,6 +23,9 @@
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender_data }}</span></li>
                   <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
+                  <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center">
+                      <i class="las la-file-upload la-2x mr-2"></i>
+                      <a target="_blank" href="{{route('get-employee-physical-examination-report', ['id' => $patient->id])}}">Employee Physical Form</a></button>
                </ul>
             </div>
          </div>
@@ -130,6 +133,13 @@
                         <img src="{{ asset('assets/img/icons/icons_pharmacy.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_pharmacy_active.svg') }}" alt=""
                            class="mr-2 activeIcon">Pharmacy</a>
+                  </li>
+                  <li>
+                     <a class="nav-link d-flex align-items-center" id="reports-tab" data-toggle="pill"
+                        href="#reports" role="tab" aria-controls="reports" aria-selected="false">
+                        <img src="{{ asset('assets/img/icons/icons_pharmacy.svg') }}" alt="" class="mr-2 inactiveIcon">
+                        <img src="{{ asset('assets/img/icons/icons_pharmacy_active.svg') }}" alt=""
+                           class="mr-2 activeIcon">Reports</a>
                   </li>
                </ul>
             </div>

@@ -188,13 +188,20 @@
                             <div class="dropdown user-dropdown">
                                 <div class="user dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
                                      aria-haspopup="true" aria-expanded="false">
+
+
                                     @hasrole('referral')
                                         <span>Hi, {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
                                     @else
                                         @hasrole('admin','partner')
                                             <span>Hi, {{ Auth::guard('partner')->user()->name }}</span>
                                         @else
-                                            <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                                            @if(\Illuminate\Support\Facades\Auth::check())
+                                                <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                                            @else
+                                                <span>Hi, {{ Auth::guard('referral')->user()->name }}</span>
+                                            @endif
+
                                         @endrole
                                     @endrole
 

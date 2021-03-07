@@ -20,7 +20,7 @@
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="first_name" onclick="editableField('first_name')"
                                             data-id="first_name" id="first_name" 
-                                            placeholder="First Name" value="{{ $patient->first_name }}">
+                                            placeholder="First Name" value="{{ ($patient->first_name) ? $patient->first_name : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="last_name" onclick="editableField('last_name')"
                                             data-id="last_name" id="last_name" 
-                                            placeholder="Last Name" value="{{ $patient->last_name }}">
+                                            placeholder="Last Name" value="{{ ($patient->last_name) ? $patient->last_name : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="email" onclick="editableField('email')"
                                             data-id="email" id="email" 
-                                            placeholder="Last Name" value="{{ $patient->email }}">
+                                            placeholder="Last Name" value="{{ ($patient->email) ? $patient->email : '' }}">
                                     </div>
                                 </div>
                             </div>

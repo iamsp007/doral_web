@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use App\Services\ReferralService;
 use Exception;
 use CURLFile;
-use Auth;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class PatientReferralController extends Controller
 {
@@ -233,7 +233,7 @@ class PatientReferralController extends Controller
 
     public function store(Request $request)
     {
-        $user = \Illuminate\Support\Facades\Auth::guard('referral')->user();
+        $user = Auth::guard('referral')->user();
         $referral_id = $user->referal_id;
         try {
             $file_path = $request->file('file_name')->getPathname();

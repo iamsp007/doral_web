@@ -136,6 +136,7 @@ class CaregiverController extends Controller
                             $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
                         }
+                        $btn .= '<a href="https://app.doralhealthconnect.com/employee-physical-examination-report/'.$row->id.'">Download Form</a>';
                     } else {
                         if ($row->status === '0') {
                             $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
@@ -145,9 +146,7 @@ class CaregiverController extends Controller
                             $btn .= '<p class="text-success">Accept</p>';
                         }
                     }
-                
-                    return '<a href="https://app.doralhealthconnect.com/employee-physical-examination-report/'.$row->id.'">Download Form</a>';
-//                    return $btn;
+                    return $btn;
                 });
             }
             $datatble->rawColumns(['full_name', 'action', 'checkbox_id', 'home_phone']);

@@ -5,24 +5,24 @@ $(document).ready(function () {
     var steps = $("fieldset").length;
     setProgressBar(current);
     $(".next").click(function () {
-        if ( ! $('[name="service"]').is(':checked') && $(this).attr('id') == 'service' ) {
-            $("span.service").text('Please Select Service').addClass('d-flex justify-content-center align-items-center mt-4');
+        if ( ! $('[name="enrollment"]').is(':checked') && $(this).attr('id') == 'enroll' ) {
+            $("span.enrollment").text('Please Select Patient Enrollment Status').addClass('d-flex justify-content-center align-items-center mt-4');
             return false;
         } else {
             $("span.enrollment").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
         }
-//        if ( ! $('[name="services"]').is(':checked') && $(this).attr('id') == 'service' ) {
-//            $("span.services").text('Please Select Type Of Services').addClass('d-flex justify-content-center align-items-center mt-4');
-//            return false;
-//        } else {
-//            $("span.services").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
-//        }
-//        if ( ! $('[name="insurance"]').is(':checked') && $(this).attr('id') == 'ins' ) {
-//            $("span.insuran").text('Please Select Insurance Type').addClass('d-flex justify-content-center align-items-center mt-4');
-//            return false;
-//        } else {
-//            $("span.insuran").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
-//        }
+        if ( ! $('[name="services"]').is(':checked') && $(this).attr('id') == 'service' ) {
+            $("span.services").text('Please Select Type Of Services').addClass('d-flex justify-content-center align-items-center mt-4');
+            return false;
+        } else {
+            $("span.services").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
+        }
+        if ( ! $('[name="insurance"]').is(':checked') && $(this).attr('id') == 'ins' ) {
+            $("span.insuran").text('Please Select Insurance Type').addClass('d-flex justify-content-center align-items-center mt-4');
+            return false;
+        } else {
+            $("span.insuran").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
+        }
         current_fs = $(this).parent();
         next_fs = $(this).parent().next();
         //Add Class Active

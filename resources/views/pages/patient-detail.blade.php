@@ -23,7 +23,7 @@
                         <ul class="shortdesc">
                             <li>Admission ID: <span>{{ $details->detail?$details->detail->patient_id:'-' }}</span></li>
                             <li>Gender: <span>{{ $details->gender_name }}</span></li>
-                            <li>DOB: <span>{{ $details->dob }}</span></li>
+                            <li>DOB: <span>{{ date('m-d-Y',strtotime($details->dob)) }}</span></li>
                         </ul>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                                          class="mr-2 activeIcon">Diagnosis</a>
                             </li>
                             <li>
-                                <a class="nav-link d-flex align-items-center" id="medProfile-tab" data-toggle="pill"
+                                <a class="nav-link d-flex align-items-center med-profile-menu" id="medProfile-tab" data-toggle="pill"
                                    href="#medProfile" role="tab" aria-controls="medProfile" aria-selected="false">
                                     <img src="{{ asset('assets/img/icons/icons_medprofile.svg') }}" alt="" class="mr-2 inactiveIcon">
                                     <img src="{{ asset('assets/img/icons/icons_medprofile_active.svg') }}" alt=""
@@ -155,7 +155,7 @@
                                                                         <input type="tel"
                                                                                class="form-control-plaintext _detail no-height" readonly
                                                                                name="phoneno" data-id="phoneno"
-                                                                               onclick="editableField('phoneno')" id="phoneno"
+                                                                               onclick="" id="phoneno"
                                                                                placeholder="{{ $details->detail?($details->detail->phone1?$details->detail->phone1:'-'):'-' }}" value="{{ $details->detail?$details->detail->phone1:'-' }}">
                                                                     </div>
                                                                 </div>
@@ -170,7 +170,7 @@
                                                                     <h3 class="_title">Email</h3>
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="emailId" onclick="editableField('emailId')"
+                                                                           name="emailId" onclick=""
                                                                            data-id="emailId" id="emailId"
                                                                            placeholder="{{ $details->detail?$details->detail->email:'-' }}" value="{{ $details->detail?$details->detail->email:'-' }}">
                                                                     <!-- <a href="mailto:abcinsurance@gmail.com"
@@ -188,7 +188,7 @@
                                                                     <!-- <h1 class="_detail">1/1/2020</h1> -->
                                                                     <input type="date"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="start_date" onclick="editableField('start_date')"
+                                                                           name="start_date" onclick=""
                                                                            data-id="start_date" id="start_date" placeholder="{{ $details->detail?$details->detail->start_date:'-' }}"
                                                                            value="{{ $details->detail?$details->detail->start_date:'-' }}">
                                                                 </div>
@@ -204,7 +204,7 @@
                                                                     <!-- <h1 class="_detail">lorem ipus</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="ethnicity" onclick="editableField('ethnicity')"
+                                                                           name="ethnicity" onclick=""
                                                                            data-id="ethnicity" id="ethnicity" placeholder="{{ $details->detail?(isset($details->detail->ethnicity)?$details->detail->ethnicity:'-'):'-' }}"
                                                                            value="{{ $details->detail?(isset($details->detail->ethnicity)?$details->detail->ethnicity:'-'):'-' }}">
                                                                 </div>
@@ -224,7 +224,7 @@
                                                                     <!-- <h1 class="_detail">8454</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="SSN" onclick="editableField('SSN')" data-id="SSN"
+                                                                           name="SSN" onclick="" data-id="SSN"
                                                                            id="SSN" placeholder="{{ $details->detail?(isset($details->detail->ssn)?$details->detail->ssn:'-'):'-' }}#" value="{{ $details->detail?$details->detail->ssn:'-' }}">
                                                                 </div>
                                                             </div>
@@ -239,7 +239,7 @@
                                                                     <!-- <h1 class="_detail">8965465</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="admissionId" onclick="editableField('admissionId')"
+                                                                           name="admissionId" onclick=""
                                                                            data-id="admissionId" id="admissionId"
                                                                            placeholder="{{ $details->detail?$details->detail->patient_id:'-' }}" value="{{ $details->detail?$details->detail->patient_id:'-' }}">
                                                                 </div>
@@ -255,7 +255,7 @@
                                                                     <!-- <h1 class="_detail">lorem ipus</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="nurse" onclick="editableField('nurse')" data-id="nurse"
+                                                                           name="nurse" onclick="" data-id="nurse"
                                                                            id="nurse" placeholder="{{ $details->detail?(isset($details->detail->nurse)?$details->detail->nurse:'-'):'-' }}" value="{{ $details->detail?(isset($details->detail->nurse)?$details->detail->nurse:'-'):'-' }}">
                                                                 </div>
                                                             </div>
@@ -274,7 +274,7 @@
                                                                     <!-- <h1 class="_detail">lorem ipus</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="coordinator" onclick="editableField('coordinator')"
+                                                                           name="coordinator" onclick=""
                                                                            data-id="coordinator" id="coordinator" placeholder="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}"
                                                                            value="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}">
                                                                 </div>
@@ -290,7 +290,7 @@
                                                                     <!-- <h1 class="_detail">75443</h1> -->
                                                                     <input type="number"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="claim_no" onclick="editableField('claim_no')"
+                                                                           name="claim_no" onclick=""
                                                                            data-id="claim_no" id="claim_no" placeholder="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}"
                                                                            value="{{ $details->detail?(isset($details->detail->coordinator)?$details->detail->coordinator:''):'-' }}">
                                                                 </div>
@@ -306,7 +306,7 @@
                                                                     <!-- <h1 class="_detail">75443</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
-                                                                           name="apt" onclick="editableField('apt')"
+                                                                           name="apt" onclick=""
                                                                            data-id="apt" id="apt" placeholder="{{ $details->detail?(isset($details->detail->apt)?$details->detail->apt:''):'-' }}"
                                                                            value="{{ $details->detail?(isset($details->detail->apt)?$details->detail->apt:''):'-' }}">
                                                                 </div>
@@ -325,7 +325,7 @@
                                                                         </h1> -->
                                                                         <input type="text"
                                                                                class="form-control-plaintext _detail no-height" readonly
-                                                                               name="address" onclick="editableField('address')"
+                                                                               name="address" onclick=""
                                                                                data-lat="{{ $details->detail?(isset($details->detail->address_latlng->lat)?$details->detail->address_latlng->lat:'25.145262'):'25.145262' }}"
                                                                                data-lng="{{ $details->detail?(isset($details->detail->address_latlng->lng)?$details->detail->address_latlng->lng:'70.152484'):'70.145262' }}"
                                                                                data-id="address" id="address" placeholder="{{ $details->detail?$details->detail->address_full:'-' }}"
@@ -369,7 +369,7 @@
                                                                                 <input type="text"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="eng_name"
-                                                                                       onclick="editableField('eng_name')"
+                                                                                       onclick=""
                                                                                        data-id="eng_name" id="eng_name"
                                                                                        placeholder="{{ $details->detail?$details->detail->eng_name:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->eng_name:'' }}">
@@ -387,7 +387,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="eng_address"
-                                                                                       onclick="editableField('eng_address')"
+                                                                                       onclick=""
                                                                                        data-id="eng_address" id="eng_address"
                                                                                        placeholder="{{ $details->detail?$details->detail->eng_addres:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->eng_addres:'' }}">
@@ -405,7 +405,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="emg_phone"
-                                                                                       onclick="editableField('emg_phone')"
+                                                                                       onclick=""
                                                                                        data-id="emg_phone" id="emg_phone"
                                                                                        placeholder="{{ $details->detail?$details->detail->emg_phone:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->emg_phone:'' }}">
@@ -423,7 +423,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="emg_relationship"
-                                                                                       onclick="editableField('emg_relationship')"
+                                                                                       onclick=""
                                                                                        data-id="emg_relationship" id="emg_relationship"
                                                                                        placeholder="{{ $details->detail?$details->detail->emg_relationship:'' }}" value="{{ $details->detail?$details->detail->emg_relationship:'' }}">
                                                                             </div>
@@ -459,7 +459,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="work_name"
-                                                                                       onclick="editableField('work_name')"
+                                                                                       onclick=""
                                                                                        data-id="work_name" id="work_name"
                                                                                        placeholder="{{ $details->detail?$details->detail->work_name:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->work_name:'' }}">
@@ -477,7 +477,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="home_phone1"
-                                                                                       onclick="editableField('home_phone1')"
+                                                                                       onclick=""
                                                                                        data-id="home_phone1" id="home_phone1"
                                                                                        placeholder="{{ $details->detail?$details->detail->home_phone1:'-' }}"
                                                                                        value="{{ $details->detail?$details->detail->home_phone1:'-' }}">
@@ -495,7 +495,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="cell_phone1"
-                                                                                       onclick="editableField('home_phone2')"
+                                                                                       onclick=""
                                                                                        data-id="cell_phone1" id="cell_phone1"
                                                                                        placeholder="{{ $details->detail?$details->detail->cell_phone1:'-' }}" value="{{ $details->detail?$details->detail->cell_phone1:'-' }}">
                                                                             </div>
@@ -512,7 +512,7 @@
                                                                                 <input type="tel"
                                                                                        class="form-control-plaintext _detail no-height"
                                                                                        readonly name="work_phone3"
-                                                                                       onclick="editableField('work_phone3')"
+                                                                                       onclick=""
                                                                                        data-id="work_phone3" id="work_phone3"
                                                                                        placeholder="{{ $details->detail?$details->detail->work_phone3:'' }}"
                                                                                        value="{{ $details->detail?$details->detail->work_phone3:'-' }}">
@@ -2328,11 +2328,14 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script> --}}
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
@@ -2372,7 +2375,17 @@
         }
        
         $(document).ready(function() {
-            $('#lab_perform_date, #lab_due_date, #lab_perform_date').daterangepicker({
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $(document).on('click', '.med-profile-menu', function () {
+                medprofileTable.ajax.reload();
+            });
+
+            $('.lab_perform_date, .lab_due_date, .lab_perform_date').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 minYear: 1901,
@@ -2392,6 +2405,7 @@
 
             $('#note').on('blur', function(e){
                 e.preventDefault();
+                $("#loader-wrapper").show();
                 var txtAval=$(this).val();
 
                 var patient_lab_report_id = $("input[name=patient_lab_report_id]").val();
@@ -2404,10 +2418,12 @@
                     data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
                     dataType: "json",
                     success: function(response) {
+                        $("#loader-wrapper").hide();
                         $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
                     },
                     error: function(error) {
-                        console.log(error.responseText)
+                        $("#loader-wrapper").hide();
+                        alert(error.responseText);
                     }
                 });
             });
@@ -2417,6 +2433,7 @@
 
                 var data = $(this).parent('div').prev('div').find("form").serializeArray();
                 var url = "{{ Route('lab-report.store') }}";
+                $("#loader-wrapper").show();
 
                 $.ajax({
                         type:"POST",
@@ -2426,6 +2443,7 @@
                             'X_CSRF_TOKEN': '{{ csrf_token() }}',
                         },
                         success: function(data) {
+                            $("#loader-wrapper").hide();
                             if(data.status == 400) {
                                 printErrorMsg(data.message);
                             } else {
@@ -2470,6 +2488,7 @@
                         },
                         error: function()
                         {
+                            $("#loader-wrapper").hide();
                             swal("Server Timeout!", "Please try again", "warning");
                         }
                     });
@@ -2488,6 +2507,7 @@
                     dangerMode: true,
                 }).then((willDelete) => {
                     if (willDelete) {
+                        $("#loader-wrapper").show();
                         $.ajax({
                             'type': 'delete',
                             'url': "{{ route('lab-report.destroy') }}",
@@ -2499,6 +2519,7 @@
                                 "patient_referral_id" : patient_referral_id
                             },
                             'success': function (data) {
+                                $("#loader-wrapper").hide();
                                 if(data.status == 400) {
                                     swal(
                                         'Error!',
@@ -2528,6 +2549,7 @@
                                 unload();
                             },
                             "error":function () {
+                                $("#loader-wrapper").hide();
                                 swal("Server Timeout!", "Please try again", "warning");
                                 unload();
                             }
@@ -2541,6 +2563,8 @@
                     }
                 });
             });
+
+
         });
         function printErrorMsg (msg) {
             $(".print-error-msg").find("ul").html('');
@@ -2560,10 +2584,14 @@
 @endpush
 
 @push('styles')
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
+    <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset( 'assets/calendar/lib/main.css' ) }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/fixedColumns.dataTables.min.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap4.min.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}"> --}}
 @endpush

@@ -10,10 +10,11 @@
         <thead>
         <tr>
             <th></th>
-            <!--<th>ID</th>-->
-            <th>FirstName</th>
-            <th>LastName</th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Gender</th>
             <th>SSN</th>
+            <th>Home Phone</th>
             <th>Patient Id</th>
             <th>Action</th>
         </tr>
@@ -37,18 +38,19 @@
         var table = $('#get_patient-table').DataTable({
             "processing": true,
             "language": {
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+                processing: '<div id="loader-wrapper">  <div class="overlay"></div> <div class="pulse"></div></div>'
             },
             "serverSide": true,
             ajax: "{{  route('clinician.patientDetail.ajax') }}",
             columns:[
-//                {data:'id',name:'id'},
                 {data:'id',name:'id'},
-                {data: 'first_name', name: 'FirstName'},
-                {data: 'last_name', name: 'LastName'},
+                {data:'id',name:'id'},
+                {data: 'full_name', name: 'full_name'},
+                {data: 'gender', name: 'gender'},
                 {data: 'ssn', name: 'SSN'},
+                {data: 'home_phone', name: 'home_phone'},
                 {data: 'patient_id', name: 'PatientID'},            
-                {data: 'action', name: 'action'},
+                {data: 'action', name: 'action', "bSortable": false},
             
             ],
             "order": [[ 1, "desc" ]],
@@ -63,6 +65,9 @@
             'select': {
                 'style': 'multi'
             },
+        });
+        table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
         });
     </script>
 @endpush

@@ -89,12 +89,29 @@
     <script>
         function changeLoginRole(type) {
             if (type==='1'){
-                $('#loginForm').attr('action','{{ route('login') }}');
+                $('#loginForm').attr('action',"{{ route('login') }}");
             }else {
-                $('#loginForm').attr('action','{{ route('referral.login') }}');
+                $('#loginForm').attr('action',"{{ route('referral.login') }}");
             }
-            console.log(type)
         }
+        $(".toggle-password").click(function() {
+        $('.pass-show').click(function (event) {
+            $(".pass-hide").addClass('d-block').removeClass('d-none');
+            $(".pass-show").addClass('d-none').removeClass('d-block');
+            
+        });
+        $('.pass-hide').click(function (event) {
+            $(".pass-hide").addClass('d-none').removeClass('d-block');
+            $(".pass-show").addClass('d-block').removeClass('d-none');
+            
+        });
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+          input.attr("type", "text");
+        } else {
+          input.attr("type", "password");
+        }
+      });
 
     </script>
 @endpush

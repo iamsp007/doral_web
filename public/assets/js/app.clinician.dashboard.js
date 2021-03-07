@@ -9,6 +9,7 @@ $(function () {
     appointments($("#sendDate").val());
 });
 function appointments(date) {
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -20,11 +21,12 @@ function appointments(date) {
             date: date
         },
         success: function (response) {
-            console.log(response)
+            $("#loader-wrapper").hide();
             setAppointment(date, response);
         },
         error:function (error) {
-            console.log(error)
+            $("#loader-wrapper").hide();
+            alert(error)
         }
     });
 }
@@ -34,7 +36,7 @@ function setAppointment(date, response) {
         '<h1 class="appointment-title">Appointment</h1>' +
         '<h3 class="appointment-date">' + getOrdinalNum(date) + '</h3>' +
     '</div>';
-    console.log(response.data.length)
+    
     if (response.data.length) {
             html += '<div class="detail">' +
             '<ul>';
@@ -120,6 +122,7 @@ function owlCarousel() {
     })
 }
 $(document).ready(function(){
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -128,6 +131,7 @@ $(document).ready(function(){
         method:'GET',
         dataType:'json',
         success:function (response) {
+            $("#loader-wrapper").hide();
             if (typeof response.data[0] !== undefined) {
                 bloodPressure(response.data[0]);
             } else {
@@ -145,7 +149,8 @@ $(document).ready(function(){
             }
         },
         error:function (error) {
-            console.log(error)
+            $("#loader-wrapper").hide();
+            alert(error)
         }
     });
 });

@@ -1,15 +1,16 @@
-<div class="tab-pane fade show active" id="tb-screen" role="tabpanel" aria-labelledby="tb-screen-tab">
+<div class="tab-pane fade active show" id="tb-screen" role="tabpanel" aria-labelledby="tb-screen-tab">
    <div class="app-vbc ppd_block p-3">
       <div class="add-new-patient">
-         <div class="icon">
-            <img src="{{ asset('assets/img/icons/patient-img.svg') }}" class="img-fluid" />
-         </div>
-         <button 
-            type="submit"
+         <div class="icon"><img src="{{ asset('assets/img/icons/patient-img.svg') }}" class="img-fluid" /></div>
+         <button type="submit"
             class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" id="tbbtn"
             style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
             onclick="openRoadL('tbbtn')" name="RoadL Request">RoadL Request
          </button>  
+         <a href="{{ route('get-employee-physical-examination-report', $details->id) }}" class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3"
+            style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
+            name="EMPLOYEE PHYSICAL EXAMINATION REPORT" target="__blank">EMPLOYEE PHYSICAL EXAMINATION REPORT
+         </a>
          <div class="recieved_roadl d-none">
             <div class="row">
                <div class="col-12 col-sm-4"></div>
@@ -19,13 +20,12 @@
                         <select id="roadlrequest2" class="form-control select roadlrequest" multiple></select>
                      </div>
                      <div class="col-12 col-sm-6">
-                        <button
-                           type="submit"
+                        <button type="submit"
                            class="btn btn-outline-green w-600"
-                           style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;" name="Start RoadL">Start RoadL
+                           style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px; text-transform: uppercase;" name="Start RoadL">Start RoadL
                         </button>
                      </div>
-                   </div>
+                  </div>
                </div>
                <div class="col-12 col-sm-4"></div>
             </div>
@@ -88,12 +88,12 @@
                                  </span>
                               @enderror
                            </td>
-                           <td><x-text name="lab_due_date" id="lab_due_date" /></td>
-                           <x-hidden name="patient_referral_id" id="patient_referral_id" value="{{ $paient_id }}" />
-                           <x-hidden name="lab_expiry_date" id="lab_expiry_date" />
+                           <td><x-text name="lab_due_date" class="lab_due_date" /></td>
+                           <x-hidden name="patient_referral_id" class="patient_referral_id" value="{{ $paient_id }}" />
+                           <x-hidden name="lab_expiry_date" class="lab_expiry_date" />
                            <td class="lab-expiry-date"></td>
                            <td>
-                              <select name="result" id="result" class="form-control">
+                              <select name="result" class="result" class="form-control">
                                  <option value="">Select a result</option>
                                  @foreach(config('select.labResult') as $key => $labResult)
                                     <option value="{{ $key }}">{{ $labResult }}</option>

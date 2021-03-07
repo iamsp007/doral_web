@@ -5,46 +5,97 @@
 @endsection
 @section('content')
     <div class="app-roles">
-        <!-- View Employee List HTML -->
         <div class="pt-2">
-            <table id="appointmentScheduled" class="table">
+            <table class="display responsive nowrap" style="width:100%" id="appointmentScheduled">
                 <thead>
-                <tr>
-                    <th><input type="checkbox" class="selectall"></th>
-                    <th>Patient Name</th>
-                    <th>Gender</th>
-                    <th>Cause Of Appointment</th>
-                    <th>Date and Time</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                    <th width="34%">Action</th>
-                </tr>
+                    <tr>
+                        <th></th>
+                        <th><select class="patient_name form-control" id="patient_name" name="" data-id='1'>
+            </select></th>
+                        <th><select class="item2 form-control" name="item2" data-id='6'>
+                    <option value="">select status</option>
+                    <option value="open">open</option>
+                    <option value="running">running</option>
+                    <option value="completed">completed</option>
+                    <option value="cancel">cancel</option>
+                    <option value="reject">reject</option>
+            </select></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th><input type="checkbox" class="selectall"></th>
+                        <th>Patient Name</th>
+                        <th>Gender</th>
+                        <th>Reason Of Appointment</th>
+                        <th>Date and Time</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th width="34%">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
+
             <!-- Modal -->
-            <div class="modal fade" id="patient_request_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+            
+        </div>
+    </div>
+    <div class="modal" id="modal" tabindex="-1" style="top: 80px !important;" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Referral Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReferralPopup()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="broadcast_form" >
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- <label for="selectRole" class="label-custom"><span>Select</span> Role</label> -->
+                                        <input type="hidden" name="type[]" class="input-skin" >
+                                        <input type="hidden" name="appointment_id" class="input-skin" >
+                                        <input type="hidden" name="patient_id" class="input-skin" >
+                                        <input type="hidden" name="reason" class="input-skin" >
+                                        <input type="text" name="test_name" class="input-skin" id="selectRole1" placeholder="Enter test name...">
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            ...
+                        <div class="d-flex mb-4">
+                            <input type="button" value="Submit" class="btn btn--submit btn-lg" onclick="onAppointmentBroadCastSubmit(this)">
+                            <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+<div class="modal fade" id="patient_request_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 @section('app-video')
@@ -922,28 +973,16 @@
             </div>
         </div>
     </div>
+<input type="hidden" id="currentRoadLClick" value="">
 @endsection
 @push('styles')
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
     <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/bootstrap.css" />
-     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
-      <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
-{{--    <style>--}}
-{{--        html, body {overflow: auto;}--}}
-{{--        body > #zmmtg-root {display: none;}--}}
-{{--        #zmmtg-root, .meeting-client, .meeting-client-inner {position: relative;width:97%;}--}}
-{{--        #wc-footer {--}}
-{{--        bottom: auto !important;width: 97% !important;}--}}
-{{--        #dialog-join {width: 97% !important;}--}}
-{{--        #sv-active-video, .active-main, #sv-active-speaker-view, .main-layout {height: 100% !important;width: 100% !important;}--}}
-{{--        .suspension-window {transform: translate(-444px, 10px) !important;}--}}
-{{--        #dialog-invite {display: none;}--}}
-{{--        .video_container{background:none!important;position:relative!important;}--}}
-{{--        .app-video .app-video-body .app-video-middle{position:relative;}--}}
-{{--        .app-video .app-video-header{position:relative;z-index:9999;}--}}
-{{--    </style>--}}
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.3/css/react-select.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 @endpush
 @push('scripts')
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
@@ -959,10 +998,11 @@
     <script src="https://source.zoom.us/1.8.3/lib/vendor/react-dom.min.js"></script>
     <script src="https://source.zoom.us/1.8.3/lib/vendor/redux.min.js"></script>
     <script src="https://source.zoom.us/1.8.3/lib/vendor/redux-thunk.min.js"></script>
-{{--    <script src="https://source.zoom.us/1.8.3/lib/vendor/jquery.min.js"></script>--}}
+
     <script src="https://source.zoom.us/1.8.3/lib/vendor/lodash.min.js"></script>
     <script src="https://source.zoom.us/zoom-meeting-1.8.3.min.js"></script>
     <script src="{{ asset('js/Zoom/index.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <script>
         const simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11]))
         simd().then((res) => {
@@ -970,4 +1010,70 @@
         });
     </script>
      <script src="{{ asset('js/clincian/app.clinician.appointment.scheduled.js') }}"></script>
+     <script>
+        function closeReferralPopup() {
+            var getVal = $("#currentRoadLClick").val();
+            $("#"+getVal).attr('checked',false);
+            $("#selectRole1").val('');
+            $("#modal").hide();
+        }
+        $(document).ready(function () {
+             $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+              $("#patient_name").select2({
+
+                ajax: { 
+                    url: "{{ route('clinician.scheduleAppoimentList.ajax-data') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                          searchTerm : params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        var data_array = [];
+                        data.data.forEach(function(value,key){
+                           if(value.patients) {
+                            data_array.push({id:value.patients.first_name,text:value.patients.first_name+ ' '+ value.patients.last_name})
+                           }
+                            
+                        });
+                        return {
+                            results: data_array
+                        };
+                    },
+                },
+                placeholder: "Search name",
+                allowClear: true,
+                width : '15rem'
+            });
+
+               $('.item2').select2({
+                placeholder: "Select Status",
+                allowClear: true,
+                width : '15rem'
+            });
+        $('.item2').on('change', function () {
+                table
+                    .columns( $(this).attr('data-id'))
+                    .search( this.value )
+                    .draw();
+            });
+        });
+
+         $('.patient_name').on('change', function () {
+                table
+                    .columns( $(this).attr('data-id'))
+                    .search( this.value )
+                    .draw();
+            });
+
+        
+       
+     </script>
 @endpush

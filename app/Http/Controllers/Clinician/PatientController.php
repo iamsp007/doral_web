@@ -64,6 +64,31 @@ class PatientController extends Controller
                 return $contact->state;
                 else
                 return '--';
+        })->editColumn('patient_detail.Zip', function ($contact){
+                if($contact->Zip!='')
+                return $contact->Zip;
+                else
+                return '--';
+            })->editColumn('patient_detail.status', function ($contact){
+                if($contact->zipcode!='')
+                return $contact->status;
+                else
+                return '--';
+               })->editColumn('patient_detail.service.name', function ($contact){
+                if($contact->service!='')
+                return $contact->service['name'];
+                else
+                return '--';
+            })->editColumn('patient_detail.filetype.name', function ($contact){
+                if($contact->filetype!='')
+                return $contact->filetype['name'];
+                else
+                return '--';
+            })->editColumn('patient_detail.gender', function ($contact){
+                if($contact->gender!='')
+                return $contact->gender;
+                else
+                return '--';
             })->make(true);
     }
 
@@ -119,9 +144,15 @@ class PatientController extends Controller
         if ($response->status===true){
             $data=$response->data;
         }
+
         return  DataTables::of($data)
             ->addColumn('is_provider1', function ($user) {
                 return Auth::user()->id===$user->provider1;
+            })->editColumn('patients.dob', function ($user){
+                 if($user->patients->dob!='')
+                return date('m-d-Y', strtotime($user->patients->dob));
+                else
+                return '--';
             })
             ->make(true);
     }
@@ -175,4 +206,42 @@ class PatientController extends Controller
         }
         return response()->json($response,422);
     }
+
+    public function getNewPatientListData(Request $request)
+    {
+         $clinicianService = new ClinicianService();
+         $response = $clinicianService->newpatientData($request->all());
+         if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+    }
+
+   public function getPatientListData(Request $request) {
+     $clinicianService = new ClinicianService();
+         $response = $clinicianService->patientData($request->all());
+         if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+   }
+
+   public function scheduleAppoimentListData(Request $request){
+
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->scheduleAppoimentListData($request->all());
+        if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+    }
+
+ public function cancelAppoimentListData(Request $request) {
+     $clinicianService = new ClinicianService();
+        $response = $clinicianService->cancelAppoimentListData($request->all());
+        if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+ }
 }

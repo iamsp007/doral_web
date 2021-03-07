@@ -30,14 +30,11 @@ class PatientReferralController extends Controller
         return view('pages.referral.occupational-health-upload-bulk-data');
     }
     public function mdOrderUploadBulk() {
-        //echo env('API_URL');
         $status = 0;
         $message = "";
         $record = [];
         try {
-            //echo "1";
             $referralservice = new ReferralService();
-            //echo "2";
             $response = $referralservice->mdOrderUploadBulk();
             if ($response->status===true){
                 return view('pages.referral.md-order-upload-bulk-data')->with('data', $response->data);
@@ -47,9 +44,8 @@ class PatientReferralController extends Controller
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
-            //dd($message);
         }
-        //dd('test');
+        
         return view('pages.referral.md-order-upload-bulk-data');
     }
     public function mdOrder() {
@@ -64,7 +60,24 @@ class PatientReferralController extends Controller
                 return $contact->first_name." ".$contact->last_name;
             })
             ->editColumn('ssn', function ($contact){
-                return 'xxx-xxx-'.substr($contact->ssn, -4);
+                if($contact->ssn)
+                return 'xxx-xx-'.substr($contact->ssn, -4);
+                else
+                return '';
+            })
+            ->editColumn('gender', function ($contact){
+                if($contact->gender === 'MALE'){
+                    $gender = 'Male';
+                } elseif ($contact->gender === 'FEMALE') {
+                    $gender = 'Female';
+                } else if ($contact->gender === '1') {
+                    $gender = 'Male';
+                } else if ($contact->gender === '2') {
+                    $gender = 'Female';
+                } else {
+                    $gender = 'Other';
+                }
+                return $gender;
             })
             ->editColumn('dob', function ($contact){
                 if($contact->dob!='')
@@ -107,7 +120,24 @@ class PatientReferralController extends Controller
                 return $contact->first_name." ".$contact->last_name;
             })
             ->editColumn('ssn', function ($contact){
-                return 'xxx-xxx-'.substr($contact->ssn, -4);
+                if($contact->ssn)
+                return 'xxx-xx-'.substr($contact->ssn, -4);
+                else
+                return '';
+            })
+            ->editColumn('gender', function ($contact){
+                if($contact->gender === 'MALE'){
+                    $gender = 'Male';
+                } elseif ($contact->gender === 'FEMALE') {
+                    $gender = 'Female';
+                } else if ($contact->gender === '1') {
+                    $gender = 'Male';
+                } else if ($contact->gender === '2') {
+                    $gender = 'Female';
+                } else {
+                    $gender = 'Other';
+                }
+                return $gender;
             })
             ->editColumn('dob', function ($contact){
                 if($contact->dob!='')
@@ -148,7 +178,24 @@ class PatientReferralController extends Controller
                 return $contact->first_name." ".$contact->last_name;
             })
             ->editColumn('ssn', function ($contact){
-                return 'xxx-xxx-'.substr($contact->ssn, -4);
+                if($contact->ssn)
+                return 'xxx-xx-'.substr($contact->ssn, -4);
+                else
+                return '';
+            })
+            ->editColumn('gender', function ($contact){
+                if($contact->gender === 'MALE'){
+                    $gender = 'Male';
+                } elseif ($contact->gender === 'FEMALE') {
+                    $gender = 'Female';
+                } else if ($contact->gender === '1') {
+                    $gender = 'Male';
+                } else if ($contact->gender === '2') {
+                    $gender = 'Female';
+                } else {
+                    $gender = 'Other';
+                }
+                return $gender;
             })
             ->editColumn('plans.name', function ($contact){
                 if($contact->benefit_plan!='')
@@ -316,4 +363,77 @@ class PatientReferralController extends Controller
 
         return response()->json($response, 201);
     }
+
+    public function occupationalHealthFailData(Request $request) {
+        return view('pages.referral.occupational-health-failed');
+    }
+
+     public function occupationalHealthGetFaileData() {
+
+        $referralservice = new ReferralService();
+        $responseArray = $referralservice->occupationalHealthFailData(3);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+             ->addColumn('action', function($row){
+                        $id = $row['id'];
+                        return '<a href="view-failed-data/'.$id.'"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">View Recode
+                        </a>';
+            })
+            ->make(true);
+
+
+     }
+
+     public function viewoccupationalHealthFailData(Request $request) {
+        $id = $request->id;
+        return view('pages.referral.view-occupational-health-failed',compact('id'));
+    }
+
+     public function viewoccupationalHealthGetFaileData(Request $request) {
+        $referralservice = new ReferralService($request->id);
+        $responseArray = $referralservice->viewoccupationalHealthGetFaileData($request->id);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+            ->make(true);
+     }
+
+     public function vbcFailData() {
+        return view('pages.referral.vbc-failed');
+     }
+
+     public function vbcGetFaileData() {
+         $referralservice = new ReferralService();
+        $responseArray = $referralservice->occupationalHealthFailData(1);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+             ->addColumn('action', function($row){
+                        $id = $row['id'];
+                        return '<a href="view-failed-data/'.$id.'"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">View Recode
+                        </a>';
+            })
+            ->make(true);
+     }
+
+     public function mdorderFailData() {
+        return view('pages.referral.md-order-failed');
+     }
+
+     public function mdorderGetFaileData() {
+         $referralservice = new ReferralService();
+        $responseArray = $referralservice->occupationalHealthFailData(2);
+        $record = $responseArray['data'];
+       return DataTables::of($record)
+             ->addColumn('action', function($row){
+                        $id = $row['id'];
+                        return '<a href="view-failed-data/'.$id.'"
+                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                            data-toggle="tooltip" data-placement="left">View Recode
+                        </a>';
+            })
+            ->make(true);
+     }
 }

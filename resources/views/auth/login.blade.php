@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title','Login')
 @section('content')
     <div class="middle">
         <div class="container">
@@ -54,7 +55,7 @@
                                         <div class="d-flex justify-content-between">
                                             <label for="username" class="label">Username</label>
                                         </div>
-                                        <input autocomplete="off" type="email" class="form-control form-control-lg" id="username"
+                                        <input autocomplete="off" type="text" class="form-control form-control-lg" id="username"
                                                name="email" aria-describedby="emailHelp" value="">
                                        @if ($errors->has('email'))
                                             <span class="invalid-feedback" role="alert" style="display: block;">
@@ -76,8 +77,8 @@
                                             <input autocomplete="off" type="password" class="form-control form-control-lg" id="password"
                                                    name="password" value="">
                                             <span toggle="#password" class="view-password toggle-password">
-                                                <img src="assets/img/icons/pass-show.svg" class="pass-show d-block">
-                                                <img src="assets/img/icons/pass-hide.svg" class="pass-hide d-none">
+                                                <img src="assets/img/icons/pass-show.svg" class="pass-show d-none">
+                                                <img src="assets/img/icons/pass-hide.svg" class="pass-hide d-block">
                                             </span>
                                             @if ($errors->has('password'))
                                             <span class="invalid-feedback" role="alert" style="display: block;">
@@ -113,16 +114,26 @@
     </div>
 @endsection
 @push('scripts')
+    <script src="//{{ Request::getHost() }}:3000/socket.io/socket.io.js"></script>
+    <script src="{{ asset('/js/app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+        var socket = io('http://doral-web.test:3000', {
+            "transports": ["polling","websocket"]
+        });
+
+        socket.on("new", function(e){
+            // console.log("data", e)
+            alert('Majaaa aya?');
+        });
         function changeLoginRole(type) {
             if (type==='1'){
-                $('#loginForm').attr('action','{{ route('login') }}');
+                $('#loginForm').attr('action',"{{ route('login') }}");
             }else {
-                $('#loginForm').attr('action','{{ route('referral.login') }}');
+                $('#loginForm').attr('action',"{{ route('referral.login') }}");
             }
-            console.log(type)
+            // console.log(type)
         }
-        $(".toggle-password").click(function() {
         $('.pass-show').click(function (event) {
             $(".pass-hide").addClass('d-block').removeClass('d-none');
             $(".pass-show").addClass('d-none').removeClass('d-block');
@@ -133,6 +144,7 @@
             $(".pass-show").addClass('d-block').removeClass('d-none');
             
         });
+        $(".toggle-password").click(function() {
         var input = $($(this).attr("toggle"));
         if (input.attr("type") == "password") {
           input.attr("type", "text");

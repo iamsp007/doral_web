@@ -1,4 +1,5 @@
 @extends('pages.layouts.app')
+@section('title','Add Employee')
 @section('content')
 <div class="app-roles">
     
@@ -613,6 +614,7 @@ $(document).ready(function () {
     $('#upload_form').on('submit', function(event){
       event.preventDefault();
       //console.log(new FormData(this));
+      $("#loader-wrapper").show();
       $.ajax({
        url:'/admin/employee-store',
        method:"POST",
@@ -624,6 +626,7 @@ $(document).ready(function () {
        success:function(response)
        {
         if(response.status == 1) {
+            $("#loader-wrapper").hide();
             $(".alert-success").show();
             $(".alert-danger").hide();
             $("#successResponse").text(response.message);
@@ -635,6 +638,7 @@ $(document).ready(function () {
             }, 1000);
         }
         else {
+            $("#loader-wrapper").hide();
             $(".alert-danger").show();
             $(".alert-success").hide();
             $("#errorResponse").text(response.message);
@@ -642,14 +646,14 @@ $(document).ready(function () {
                 $(".alert-danger").hide();
             }, 1000);
         }
-        console.log( response );
+        
        }
       })
      });
 
     $('#upload_work_form').on('submit', function(event){
       event.preventDefault();
-      //console.log(new FormData(this));
+      $("#loader-wrapper").show();
       $.ajax({
        url:'/admin/employee-work',
        method:"POST",
@@ -660,6 +664,7 @@ $(document).ready(function () {
        processData: false,
        success:function(data)
        {
+        $("#loader-wrapper").hide();
         $('#message').css('display', 'block');
         $('#message').html(data.message);
         $('#message').addClass(data.class_name);

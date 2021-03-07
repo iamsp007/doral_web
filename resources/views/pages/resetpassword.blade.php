@@ -61,21 +61,22 @@
 
             $("#resetpassword").click(function() {
                 var email = $("#emailaddress").val();
-                
+                $("#loader-wrapper").show();
                 $.ajax({
                     method: 'POST',
                     url: '/companyresetpassword',
                     data: {email},
                     success: function( response ){
+                        $("#loader-wrapper").hide();
                         if(response.status == 1)
                             $("#response").css('color', 'green'); 
                         else 
                             $("#response").css('color', 'red');    
                         $("#response").text(response.message);
-                        console.log( response );
                     },
                     error: function( e ) {
-                        console.log(e);
+                        $("#loader-wrapper").hide();
+                        alert('Something went wrong!');
                     }
                 });
                 

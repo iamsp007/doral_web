@@ -1,6 +1,5 @@
 @extends('pages.layouts.app')
-
-@section('title','Welcome to Doral')
+@section('title','Referral Dashboard')
 @section('pageTitleSection')
     Dashboard
 @endsection

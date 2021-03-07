@@ -5,7 +5,6 @@ $(document).ready(function () {
     var steps = $("fieldset").length;
     setProgressBar(current);
     $(".next").click(function () {
-        console.log($(this).attr('id'));
         if ( ! $('[name="enrollment"]').is(':checked') && $(this).attr('id') == 'enroll' ) {
             $("span.enrollment").text('Please Select Patient Enrollment Status').addClass('d-flex justify-content-center align-items-center mt-4');
             return false;
@@ -161,11 +160,13 @@ $(function () {
     });
     $('#state').change( function() {
         var val = $(this).val();
+        $("#loader-wrapper").show();
         $.ajax({
             url: "filter-cities",
             dataType: 'html',
             data: { state : val },
             success: function(response) {
+                $("#loader-wrapper").hide();
                 var obj = jQuery.parseJSON(response);
                 var city_options = [];
                 $.each(obj, function(key,value) {

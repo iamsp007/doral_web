@@ -26,11 +26,21 @@ class PatientDetail extends Model
         'gender',
         'priority_code',
         'service_request_start_date',
+        'nurse_id',
+        'nurse_name',
         'admission_id',
         'medicaid_number',
         'medicare_number',
         'ssn',
         'alert',
+        'source_admission_id',
+        'source_admission_name',
+        'team_id',
+        'team_name',
+        'location_id',
+        'location_name',
+        'branch_id',
+        'branch_name',
         'home_phone',
         'phone2',
         'phone2_description',
@@ -58,21 +68,20 @@ class PatientDetail extends Model
         'primary_language',
         'secondary_language_id',
         'secondary_language',
+        'status',
     ];
 
-    
-
-    public function payer() {
-        return $this->hasOne(PatientPlayer::class,'id','payer_id');
-    }
     public function patientAddress() {
         return $this->hasOne(PatientAddress::class,'patient_id','id');
     }
+
+    public function alternateBilling() {
+        return $this->hasOne(AlternateBilling::class,'patient_id','id');
+    }
+
+    
     public function PatientEmergency() {
         return $this->hasOne(PatientEmergencyContact::class,'patient_id','id');
-    }
-    public function getSsnFormatAttribute(){
-       return 'xxx-xxx-'.substr($this->ssn, -4);
     }
 
     /**
@@ -86,13 +95,108 @@ class PatientDetail extends Model
     /**
      * Relation with referances
      */
-    public function nurses()
+    public function coordinators()
     {
         return $this->belongsToMany(
-            Nurse::class,
-            'patient_nurses',
+            Coordinator::class,
+            'patient_coordinators',
             'patient_id',
-            'nurse_id');
+            'coordinator_id');
     }
 
+   /**
+     * Relation with referances
+     */
+    public function acceptedServices()
+    {
+        return $this->hasMany('App\Models\AcceptedService', 'patient_id', 'id');
+    }
+
+    /**
+     * Relation with nurse
+     */
+    public function emergencyPreparednes()
+    {
+        return $this->hasOne(EmergencyPreparedness::class,'patient_id','id');
+    }
+  
+    public function visitorDetail() {
+        return $this->hasOne(VisitorDetail::class,'patient_id','id')->orderBy('id','DESC');
+    }
+
+    /**
+     * Relation with nurse
+     */
+    public function patientReferralInfo()
+    {
+        return $this->hasOne(PatientReferralInfo::class,'patient_id','id');
+    }
+
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function setGenderAttribute($gender)
+    {
+        if ($gender === 'Male') {
+            $gender = '1';
+        } else if ($gender === 'Female') {
+            $gender = '2';
+        } else {
+            $gender = '3';
+        }
+        return $gender;
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function getGenderAttribute($gender)
+    {
+        if ($gender === '1') {
+            $gender = 'Male';
+        } else if ($gender === '2') {
+            $gender = 'Female';
+        } else {
+            $gender = 'Other';
+        }
+        return $gender;
+    }
+
+    /**
+     * Create ssn number
+     */
+    public function getSsnAttribute($ssn)
+    {
+        $ssnData = '';
+
+        if ($ssn) {
+            return 'xxx-xx-' . substr($ssn, -4);
+        }
+
+        return $ssnData;
+    }
+
+    /**
+     * Relation with referances
+     */
+    public function medicines()
+    {
+        return $this->hasMany('App\Models\Medicine', 'patient_id', 'id');
+    }
+
+    /**
+     * Relation with referances
+     */
+    public function patientClinicalDetail()
+    {
+        return $this->hasOne('App\Models\PatientClinicalDetail', 'patient_id', 'id');
+    }
 }

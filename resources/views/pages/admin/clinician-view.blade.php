@@ -1,7 +1,7 @@
 @extends('pages.layouts.app')
-@section('title','Clinician Lists')
+@section('title','Clinician Details')
 @section('pageTitleSection')
-    Clinician Lists
+    Clinician Details
 @endsection
 
 @section('content')
@@ -1889,15 +1889,16 @@
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/detail.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/responsive.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 @endpush
 
 @push('scripts')
 	<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
     <script>
         

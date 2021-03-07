@@ -1,6 +1,6 @@
 @extends('pages.layouts.app')
 
-@section('title','Welcome to Doral')
+@section('title','Occupational Health - Import Patients')
 @section('pageTitleSection')
     Occupational Health - Import Patients
 @endsection
@@ -102,7 +102,6 @@
             autoProcessQueue: true,
             progress:true,
             accept: function(file, done) {
-                console.log("uploaded");
                 done();
             },
             init: function() {
@@ -140,7 +139,6 @@
         });
         function chooseFile(event) {
             fileType = $(event).val();
-            console.log(fileType)
         }
     </script>
     <script>

@@ -99,11 +99,13 @@
                     
                     var provider_pa_ma = 1;
                     var provider = 1;
+                    $("#loader-wrapper").show();
                     $.ajax({
                         url: "{{ route('appointment.create') }}",
                         data: 'start=' + start + '&end=' + end + '&patient_id=' + patient_id + '&provider_pa_ma=' + provider_pa_ma + '&provider=' + provider,
                         type: "get",
                         success: function(data) {
+                            $("#loader-wrapper").hide();
                             $("#largeModal .modal-body").html(data);
                             $("#largeModal .modal-title").html("Book Appoinment");
                             //displayMessage("Added Successfully");
@@ -120,11 +122,13 @@
                 alert( "test" );
                 var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+                $("#loader-wrapper").show();
                 $.ajax({
                     url: SITEURL + '/fullcalendareventmaster/update',
                     data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
                     type: "POST",
                     success: function(response) {
+                        $("#loader-wrapper").hide();
                         displayMessage("Updated Successfully");
                     }
                 });

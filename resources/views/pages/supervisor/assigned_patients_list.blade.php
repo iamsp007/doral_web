@@ -58,6 +58,9 @@
       function LoadDatatable(){
          var table = $('#patient-table').DataTable({
               processing: true,
+              "language": {
+                  processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>'
+              },
               serverSide: true,
               "bDestroy": true,
               ajax: "{{  route('supervisor.assignedpatients.ajax') }}",
@@ -242,7 +245,7 @@
                   //clinician_id.push({clinician_id:$('._clinician').attr('data-clinician-value')});
                 }
             });
-
+            $("#loader-wrapper").show();
             $.ajax({
              url:'update-case-management',
              method:"POST",
@@ -253,7 +256,7 @@
              //processData: false,
              success:function(response)
              {
-              
+              $("#loader-wrapper").hide();
               if(response.status == 1) {
                   $(".alert-success").show();
                   $(".alert-danger").hide();
@@ -276,13 +279,10 @@
               $("#CaseManagementModal").modal('hide');
               $(".selectall").prop("checked", false);
               $("#patient-table td input:checkbox").prop("checked", false);
-              console.log( response );
              }
             })
        
           }
-       // var text = $('.t7').se.attr('data-value');
-        //console.log("header",text);
       }
     </script>
 @endpush

@@ -6,9 +6,6 @@
 @endsection
 
 @section('content')
-    <div id="right-panel">
-        <div id="output"></div>
-    </div>
     <div id="map">
         <input type="hidden" name="patient_request_id"  id="patient_request_id" value="{{ $patient_request_id }}"/>
     </div>
@@ -30,7 +27,7 @@
         }
 
         #right-panel select {
-            width: 30%;
+            width: 100%;
         }
 
         #right-panel i {
@@ -55,6 +52,13 @@
 @endpush
 
 @push('scripts')
+    <script src="{{ env('SOCKET_IO_URL') }}/socket.io/socket.io.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+   <script>
+       var socket = io(socket_url+'?id=1',{
+           transport:['polling']
+       });
+   </script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="{{ asset('js/clincian/map.js') }}"></script>
     <script

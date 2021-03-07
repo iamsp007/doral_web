@@ -4,9 +4,9 @@ $(function () {
     table = $('#appointmentScheduled').DataTable({
         "processing": true,
         "language": {
-            processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+            processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
         },
-        "serverSide": true,
+        "serverSide": false,
         ajax: scheduleAppointmentAjax,
         columns:[
             {data:'id',name:'id'},
@@ -67,65 +67,61 @@ $(function () {
                     if (row.status!=='completed' && row.status!=='cancel'){
                         html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' + '<img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +'Start Meeting</button>';
                     }
-                    if (row.status==="completed"){
-                       var vals = [];
-                       $.each(row.roadl,function (key,value) {
-                           vals.push(value.referral_type)
-                       })
-                       var listRequestType=['LAB','X-RAY','Home Oxygen','CHHA','DME'];
-                       var roadlbuttonStatus=true;
-                       var options='';
-                       $.each(listRequestType,function (key,value) {
-                           if (vals[vals.indexOf(value)]===value){
-                               options+='<li>\n' +
-                                   ' \n' +
-                                   '              <label class="radio-btn" disabled="disabled">\n' +
-                                   '                  '+value+'\n' +
-                                   ' \n' +
-                                   '              </label>\n' +
-                                   ' \n' +
-                                   '          </li>';
-                           }else {
-                               options+='<li>\n' +
-                                   ' \n' +
-                                   '              <label class="radio-btn">\n' +
-                                   ' \n' +
-                                   '                  <input type="checkbox" name="selected_appointment"  value="'+value+'" >\n' +
-                                   ' \n' +
-                                   '                  '+value+'\n' +
-                                   ' \n' +
-                                   '              </label>\n' +
-                                   ' \n' +
-                                   '          </li>';
-                           }
-
-                       })
-                        if (roadlbuttonStatus===true){
-                            html+='<div class="dropdown cq-dropdown" data-name=\'statuses\'>\n' +
+                    var vals = [];
+                    $.each(row.roadl,function (key,value) {
+                        vals.push(value.referral_type)
+                    })
+                    var listRequestType=['LAB','Radiology','CHHA','Home Oxygen','Home Influsion','Wound Care','DME'];
+                    var roadlbuttonStatus=true;
+                    var options='';
+                    $.each(listRequestType,function (key,value) {
+                        if (vals[vals.indexOf(value)]===value){
+                            options+='<li>\n' +
+                                '              <label>\n' +
                                 ' \n' +
-                                '        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
+                                '                  <input type="checkbox" name="selected_appointment" value="'+value+'" checked disabled>' +
+                                '<span>'+value+'</span>\n' +
                                 ' \n' +
-                                '          Start RoadL\n' +
+                                '              </label>\n' +
                                 ' \n' +
-                                '          <span class=""></span>\n' +
+                                '          </li>';
+                        }else {
+                            options+='<li>\n' +
+                                '              <label>\n' +
                                 ' \n' +
-                                '        </button>\n' +
+                                '                  <input type="checkbox" name="selected_appointment" data-appointmentid="'+row.id+'"  data-patientId="'+row.patient_id+'"  data-appointment_title="'+appointment_title+'" value="'+value+'" onchange="selectRoadlRequest(this)">' +
+                                '<span>'+value+'</span>\n' +
                                 ' \n' +
-                                '        <ul class="dropdown-menu p-3" aria-labelledby="btndropdown">\n' +
+                                '              </label>\n' +
                                 ' \n' +
-                                '          '+options+'\n' +
-                                ' \n' +
-                                '        <button class="btn btn-outline-info btn-sm dropdown-toggle" onclick="onAppointmentBroadCast(this,'+row.id+','+row.patient_id+')"  type="button" >\n' +
-                                ' \n' +
-                                '          Save\n' +
-                                ' \n' +
-                                '          <span class=""></span>\n' +
-                                ' \n' +
-                                '        </button>\n' +
-                                '        </ul>\n' +
-                                ' \n' +
-                                '      </div>';
+                                '          </li>';
                         }
+
+                    })
+                    if (roadlbuttonStatus===true){
+                        html+='<div class="btn-group mr-3" data-name=\'statuses\'>\n' +
+                            ' \n' +
+                            '        <button class="btn btn-success dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
+                            ' \n' +
+                            '          Start RoadL \n' +
+                            ' \n' +
+                            '          <span class=""></span>\n' +
+                            ' \n' +
+                            '        </button>' +
+                            '        <ul class="dropdown-menu p-3" aria-labelledby="btndropdown">\n' +
+                            ' \n' +
+                            '          '+options+'\n' +
+                            ' \n' +
+                            '        <button class="btn btn-success btn-block mt-2" onclick="onAppointmentBroadCast(this,'+row.id+','+row.patient_id+')"  type="button" >\n' +
+                            ' \n' +
+                            '          Save\n' +
+                            ' \n' +
+                            '          <span class=""></span>\n' +
+                            ' \n' +
+                            '        </button>\n' +
+                            '        </ul>\n' +
+                            ' \n' +
+                            '      </div>';
                     }
                     if (row.status!=="cancel"){
                         html+='<div class="popbox">\n' +
@@ -175,6 +171,10 @@ $(function () {
         "pageLength": 10,
         "dom": '<"top"<"float-left pb-3"f><"float-right"l>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">'
     });
+
+      table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
+        });
     $(".selectall").click(function () {
         $('#appointmentScheduled td input:checkbox').not(this).prop('checked', this.checked);
     });
@@ -337,6 +337,7 @@ function startVideoCall(id,role) {
             }
         },
         error:function (error) {
+            $("#loader-wrapper").hide();
             console.log(error)
         }
     })
@@ -408,6 +409,7 @@ function onCancelBtn(id) {
 function saveCancelAppointment(id) {
     var appointment_reason = $("#appointment_reason_"+id).val();
     $('#cancel-appointment-model'+id).hide();
+    $("#loader-wrapper").show();
     $.ajax({
         url:base_url+'clinician/change-appointment-status',
         headers: {
@@ -420,6 +422,7 @@ function saveCancelAppointment(id) {
         method:'POST',
         dataType:'json',
         success:function (response) {
+            $("#loader-wrapper").hide();
             // $.toast({
             //     heading: 'Cancel Appointment',
             //     text: response.message,
@@ -429,6 +432,7 @@ function saveCancelAppointment(id) {
             table.ajax.reload();
         },
         error:function (error) {
+            $("#loader-wrapper").hide();
             $.toast({
                 heading: 'Cancel Appointment',
                 text: 'Invalid Appointment',
@@ -499,10 +503,12 @@ function onAppointmentBroadCast(e,appointemnt_id,patient_id,appointment_title="T
             },
             dataType:'json',
             success:function (response) {
+                $("#loader-wrapper").hide();
                 table.ajax.reload();
                 alert(response.message)
             },
             error:function (error,responseText) {
+                $("#loader-wrapper").hide();
                 const sources = JSON.parse(error.responseText);
                 alert(sources.message)
             },
@@ -513,3 +519,53 @@ function onAppointmentBroadCast(e,appointemnt_id,patient_id,appointment_title="T
     }
 
 }
+
+function selectRoadlRequest(e) {
+    if ($(e).is(':checked')){
+        $("#currentRoadLClick").val([$(e).val()]);
+        $('#modal').find('input[name="type[]"]').val([$(e).val()]);
+        $('#modal').find('input[name="appointment_id"]').val($(e).attr('data-appointmentid'));
+        $('#modal').find('input[name="patient_id"]').val($(e).attr('data-patientId'));
+        $('#modal').find('input[name="reason"]').val($(e).attr('data-appointment_title'));
+        $('#modal').toggle('show')
+    }
+}
+
+function onAppointmentBroadCastSubmit() {
+    var data = $('#broadcast_form').serializeArray();
+    var confirm = window.confirm('Are you sure Create your RoadL Request?');
+    if (confirm){
+        $.ajax({
+            beforeSend: function(){
+                $("#loader-wrapper").show();
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:base_url+'clinician/patient-request',
+            method:'POST',
+            data:data,
+            dataType:'json',
+            success:function (response) {
+                $("#loader-wrapper").hide();
+                table.ajax.reload();
+                alert(response.message)
+                $("#selectRole1").val('');
+                $("#modal").hide();
+            },
+            error:function (error,responseText) {
+                $("#loader-wrapper").hide();
+                const sources = JSON.parse(error.responseText);
+                alert(sources.message)
+                $("#selectRole1").val('');
+                $("#modal").hide();
+            },
+            complete: function(){
+                $("#loader-wrapper").hide();
+                $("#selectRole1").val('');
+                $("#modal").hide();
+            }
+        })
+    }
+}
+

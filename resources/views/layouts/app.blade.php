@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="{{ asset('assets/css/assign-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('css/toaster.css') }}">
     @stack('css')
 
     <!-- Styles -->
 {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+<title>@yield('title','Welcome to Doral')</title>
 </head>
 <body>
     <div id="loader-wrapper">
@@ -101,7 +102,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-    <script src="{{ asset('js/socket.js') }}"></script>
+    {{-- <script src="{{ asset('js/socket.js') }}"></script> --}}
     <script src="{{ asset('assets/js/sidebar.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>

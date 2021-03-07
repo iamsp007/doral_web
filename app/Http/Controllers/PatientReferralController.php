@@ -235,7 +235,6 @@ class PatientReferralController extends Controller
     {
         $user = \Illuminate\Support\Facades\Auth::guard('referral')->user();
         $referral_id = $user->referal_id;
-
         try {
             $file_path = $request->file('file_name')->getPathname();
             $file_mime = $request->file('file_name')->getmimeType();

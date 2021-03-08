@@ -35,12 +35,6 @@
                <div class="container">
                   <div class="innerSpace mt-4">
                      <h1 class="t1 fadeIn">EMPLOYEE PHYSICAL EXAMINATION REPORT</h1>
-                     <?php
-                     $patient = json_decode($checkData->report_details);
-//                     echo"<pre>";
-//                     print_r($patient);
-//                     exit();
-                     ?>
                   </div>
                   <div class="row">
                      <div class="col-12 col-lg-12 col-sm-12 col-md-12">
@@ -146,10 +140,10 @@
                            </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group"><input type="text" class="form-control" placeholder="SSN Number" name="ssn" value="{{ $patient->ssn }}"></div>
+                            <div class="form-group"><input type="text" class="form-control" placeholder="SSN Number" name="ssn" value="{{ $patient->detail->ssn }}"></div>
                         </div>
                         <div class="col-lg-6">
-                           <div class="form-group"><input type="text" class="form-control" placeholder="Address" name="address" value="{{ $patient->address }}"></div>
+                           <div class="form-group"><input type="text" class="form-control" placeholder="Address" name="address" value="{{ $patient->detail->address_full }}"></div>
                         </div>
                      </div>
                   </div>

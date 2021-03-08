@@ -114,18 +114,8 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="//{{ Request::getHost() }}:3000/socket.io/socket.io.js"></script>
-    <script src="{{ asset('/js/app.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        var socket = io('http://doral-web.test:3000', {
-            "transports": ["polling","websocket"]
-        });
-
-        socket.on("new", function(e){
-            // console.log("data", e)
-            alert('Majaaa aya?');
-        });
         function changeLoginRole(type) {
             if (type==='1'){
                 $('#loginForm').attr('action',"{{ route('login') }}");
@@ -137,12 +127,12 @@
         $('.pass-show').click(function (event) {
             $(".pass-hide").addClass('d-block').removeClass('d-none');
             $(".pass-show").addClass('d-none').removeClass('d-block');
-            
+
         });
         $('.pass-hide').click(function (event) {
             $(".pass-hide").addClass('d-none').removeClass('d-block');
             $(".pass-show").addClass('d-block').removeClass('d-none');
-            
+
         });
         $(".toggle-password").click(function() {
         var input = $($(this).attr("toggle"));

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class CaregiverController extends Controller
 {
@@ -59,7 +60,7 @@ class CaregiverController extends Controller
                 }
             })
             ->with('demographic')->orderBy('id', 'DESC');
-
+            
         $datatble = DataTables::of($patientList)
           ->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
@@ -134,20 +135,9 @@ class CaregiverController extends Controller
                             $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
                         }else {
-                            if($row->status_data == '0') {
-                                $btn .= 'ewewe';
-                            }else if($row->status_data == 'pending') {
-                                $btn .= 'guuyuu';
-                            }else if($row->status_data == 'Pending') {
-                                $btn .= 'guuyuu';
-                            }else if($row->status_data == '3') {
-                                $btn .= 'guuyuu';
-                            }else {
                                 $btn .= $row->status_data;
-                                $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
-//                                $btn .= $row->status_data;
-                            }
-
+//                                $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
+                                $btn .= '<a target="_blank" href="https://doralhealthconnect.com/HTML%20FOR%20PDF/PDF.html"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
                         }
 //                        $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '">Download Form</a>';
                     } else {

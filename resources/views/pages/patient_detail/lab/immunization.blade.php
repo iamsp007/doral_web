@@ -47,9 +47,9 @@
                         <tr class="@if ($immunizationLabReportType->result === '1') bg-positive @endif immune-main-tr">
                             <th scope="row">{{ $number }}</th>
                             <td scope="row">{{ ($immunizationLabReportType->labReportType) ? $immunizationLabReportType->labReportType->name : ''}}</th>
-                            <td>{{ $immunizationLabReportType->due_date }}</td>
-                            <td>{{ $immunizationLabReportType->perform_date }}</td>
-                            <td>{{ $immunizationLabReportType->expiry_date }}</td>
+                            <td><?php echo date('m-d-Y',strtotime($immunizationLabReportType->due_date)); ?></td>
+                            <td><?php echo date('m-d-Y',strtotime($immunizationLabReportType->perform_date)); ?></td>
+                            <td><?php echo date('m-d-Y',strtotime($immunizationLabReportType->expiry_date)); ?></td>
                             <td>{{ $immunizationLabReportType->titer }}</td>
                             <td>@if ($immunizationLabReportType->result === '1') Immune @else Non Immune  @endif</td>
                             <td class='text-center'><span

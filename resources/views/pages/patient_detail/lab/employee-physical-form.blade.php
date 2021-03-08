@@ -1,30 +1,7 @@
 <div class="app-vbc ppd_block p-3">
     <div class="add-new-patient">
         <div class="icon"><img src="{{ asset('assets/img/icons/patient-img.svg') }}" class="img-fluid" /></div>
-        <button type="submit"
-                class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" id="tbbtn"
-                style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
-                onclick="openRoadL('tbbtn')" name="RoadL Request">RoadL Request
-        </button>
-        <div class="recieved_roadl d-none">
-            <div class="row">
-                <div class="col-12 col-sm-4"></div>
-                <div class="col-12 col-sm-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6">
-                            <select id="roadlrequest2" class="form-control select roadlrequest" multiple></select>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <button type="submit"
-                                    class="btn btn-outline-green w-600"
-                                    style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;" name="Start RoadL">Start RoadL
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-4"></div>
-            </div>
-        </div>
+        
         <div class="row">
             <div class="col-12 col-sm-1"></div>
             <div class="col-12 col-sm-10">

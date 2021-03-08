@@ -57,6 +57,7 @@
                                     class="exploder"><i
                                         class="las la-plus la-2x"></i></span>
                                 <a href="javascript:void(0)" class="deleteLabResult" data-id="{{ $immunizationLabReportType->id }}"><i class="las la-trash la-2x pl-4"></i></a>
+                                <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,{{ $immunizationLabReportType->labReportType->id }})" id="{{ $immunizationLabReportType->labReportType->id }}" data-id="{{ $immunizationLabReportType->lab_report_type_id }}" ><i class="las la-upload la-2x pl-4" ></i></input>
                             </td>
                         </tr>
                         <tr class="explode1 d-none">

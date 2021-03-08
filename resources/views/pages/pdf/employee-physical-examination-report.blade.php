@@ -40,22 +40,22 @@
                         <table style="width: 100%;">
                            <tr>
                               <td style="width: 40%;vertical-align: middle;">
-                                 <input type="radio" class="custom-control-input" id="customRadio4" name="example1" {{ isset($report['pre_employment_physical_assessment']) ? 'checked' : '' }}>
+                                 <input type="radio" class="custom-control-input" id="customRadio4" name="example1" {{ (isset($report['pre_employment_physical_assessment']) && $report['return_to_work_or_loa'] == 16) ? 'checked' : '' }}>
                                  <label class="custom-control-label" for="customRadio4">Pre-Employment Physical
                                     Assessment</label>
                               </td>
                               <td style="width: 25%;">
-                                 <input type="radio" class="custom-control-input" id="customRadio3" name="example1" {{ isset($report['annual_assessment']) ? 'checked' : '' }}>
+                                 <input type="radio" class="custom-control-input" id="customRadio3" name="example1" {{ (isset($report['annual_assessment']) && $report['return_to_work_or_loa'] == 17) ? 'checked' : '' }}>
                                  <label class="custom-control-label" for="customRadio3">Annual Assessment
                                  </label>
                               </td>
                               <td style="width: 25%;">
-                                 <input type="radio" class="custom-control-input" id="customRadio2" name="example1" {{ isset($report['return_to_work_or_loa']) ? 'checked' : '' }}>
+                                 <input type="radio" class="custom-control-input" id="customRadio2" name="example1" {{ (isset($report['return_to_work_or_loa']) && $report['return_to_work_or_loa'] == 18) ? 'checked' : '' }}>
                                  <label class="custom-control-label" for="customRadio2">Return to Work / LOA
                                  </label>
                               </td>
                               <td style="width: 10%;">
-                                 <input type="radio" class="custom-control-input" id="customRadio1" name="example1" {{ isset($report['other']) ? 'checked' : '' }}>
+                                 <input type="radio" class="custom-control-input" id="customRadio1" name="example1" {{ (isset($report['other']) && $report['return_to_work_or_loa'] == 19) ? 'checked' : '' }}>
                                  <label class="custom-control-label" for="customRadio1">Other
                                  </label>
                               </td>

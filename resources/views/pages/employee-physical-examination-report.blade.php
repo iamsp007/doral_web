@@ -44,20 +44,20 @@
                                  <div class="row">
                                        <div class="col-lg-4">
                                           <div class="custom-control custom-radio">
-                                             <input type="radio" class="custom-control-input" id="customRadio4" name="pre_employment_physical_assessment">
+                                             <input type="radio" class="custom-control-input" id="customRadio4" value="16" name="pre_employment_physical_assessment">
                                              <label class="custom-control-label" for="customRadio4">Pre-Employment  Physical Assessment</label>
                                           </div> 
                                        </div>
                                        <div class="col-lg-3">
                                           <div class="custom-control custom-radio">
-                                             <input type="radio" class="custom-control-input" id="customRadio3" name="annual_assessment">
+                                             <input type="radio" class="custom-control-input" id="customRadio3" value="17" name="annual_assessment">
                                              <label class="custom-control-label" for="customRadio3">
                                                 Annual Assessment
                                              </label>
                                           </div>
                                        </div>
                                        <div class="col-lg-3">  <div class="custom-control custom-radio">
-                                          <input type="radio" class="custom-control-input" id="customRadio2" name="return_to_work_or_loa">
+                                          <input type="radio" class="custom-control-input" id="customRadio2" value="18" name="return_to_work_or_loa">
                                           <label class="custom-control-label" for="customRadio2">
                                              Return to Work / LOA
                                           </label>
@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                        <div class="custom-control custom-radio">
-                                          <input type="radio" class="custom-control-input" id="customRadio1" name="other">
+                                          <input type="radio" class="custom-control-input" id="customRadio1" value="19" name="other">
                                           <label class="custom-control-label" for="customRadio1">
                                              Other
                                           </label>

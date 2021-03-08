@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EmployeePhysicalExaminationReport;
 use App\Models\LabReportType;
+use App\Models\PatientReport;
 use App\Services\AdminService;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
@@ -217,9 +218,27 @@ class EmployeePhysicalExaminationReportController extends Controller
                 'report' => $report->report_details
             ]);
 
-        // Storage::put('public/pdf/employee-physical-examination-report-'.$report->id.'.pdf', $pdf->output());
+        Storage::put('public/pdf/employee-physical-examination-report-'.$report->id.'.pdf', $pdf->output());
 
-        return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
+        $patientReport = new PatientReport();
+
+        $patientReport->file_name = 'employee-physical-examination-report-'.$report->id.'.pdf';
+        $patientReport->original_file_name = 'employee-physical-examination-report-'.$report->id.'.pdf';
+        $patientReport->user_id = $report->patient->user->id;
+
+        if (isset($report->report_details['pre_employment_physical_assessment'])) {
+            $patientReport->lab_report_type_id = 16;
+        } else if (isset($report->report_details['annual_assessment'])) {
+            $patientReport->lab_report_type_id = 17;
+        } else if (isset($report->report_details['return_to_work_or_loa'])) {
+            $patientReport->lab_report_type_id = 18;
+        } else if (isset($report->report_details['other'])) {
+            $patientReport->lab_report_type_id = 19;
+        }
+
+        if ($patientReport->save()) {
+            return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
+        }
 
         /* end enable code block*/
 

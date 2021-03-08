@@ -79,8 +79,7 @@
                   </div>
                   <div class="innerSpace">
                      <h2 class="t1 fadeIn">AUTHORIZATION TO RELEASE INFORMATION</h2>
-                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" class="form-control inline-style">to release all health information about me to cottage 
-                        homecare services, Inc. 
+                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" class="form-control inline-style">to release all health information about me to Doral Health Connect. 
                      </p>
                   </div>
                   <p class="text-right">Employee Signature
@@ -151,7 +150,7 @@
                </div>
                <div class="container mt-3" id="formdive">
                   <div class="">
-                     <h2>DEMOGRAPHIC INFORMATION</h2>
+                     <h2>VITAL INFORMATION</h2>
                      <div class="row">
                         <div class="col-lg-4">
                            <div class="form-group">
@@ -418,34 +417,37 @@
                                  <thead>
                                     <tr>
                                        <th>
-                                          <div id="checkbox">
+<!--                                          <div id="checkbox">
                                              <label class="containera">
                                                 <input type="checkbox" id="checkedAll" name="checkedAll">
                                                 <span class="checkmark"></span>
                                              </label>
-                                          </div>
+                                          </div>-->
+                                          Sr No.
                                        </th>
-                                       <th>Test</th>
+                                       <th>Test Name</th>
                                        <th>Date Performed</th>
                                        <th>Results</th>
-                                       <th>LAB Value</th>
+                                       <th>Test Value</th>
+                                       <th>Reports</th>
                                        <th>Action</th>
                                     </tr>
                                  </thead>
                               <tbody>
                               <tr class="tr_class">
                                  <td>
-                                    <div id="checkbox">
-                                       <label class="containera">
-                                          <input type="checkbox" class="record" name="record[1]" />
-                                          <span class="checkmark"></span>
-                                       </label>
-                                    </div>
+                                    <label class="containera srNO" >
+                                        1
+                                     </label>
                                  </td>
                                  <td>
-                                    <select class="form-control test_name" name="test_name[1]">
+                                     <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="test_name[1]">
+                                         <option value="0">Select Type</option>
                                        @foreach ($labReportTypes as $key => $item)
-                                           <option value="{{ $key }}">{{ $item }}</option>
+                                       @if($key !=1 && $key !=7 && $key !=12)
+                                            
+                                            <option value="{{ $key }}">{{ $item }}</option>
+                                       @endif
                                        @endforeach
                                     </select>
                                  </td>
@@ -461,16 +463,20 @@
                                  </td>
                                  
                                  <td>
-                                    <select class="form-control result" name="result[1]">
-                                       <option>Immune</option>
-                                       <option>None Immune</option>
-                                    </select>
+                                    <select class="form-control result result1" name="result[1]"></select>
                                  </td>
                                  <td>
                                     <input class="lab_value" name="lab_value[1]" />
                                  </td>
+                                 <td>
+                                    <button type="button"
+                                          class="btn btn-outline-green d-flex align-items-center" onclick="downloadReport(1)"
+                                          data-toggle="modal" data-target="#labreportModal" name=""><i
+                                          class="las la-binoculars la-2x mr-2"></i> View Lab
+                                      Reports</button>
+                                 </td>
                               </tr>
-                              <tr class="tr_class">
+<!--                              <tr class="tr_class">
                                  <td>
                                     <div id="checkbox">
                                        <label class="containera">
@@ -480,7 +486,7 @@
                                     </div>
                                  </td>
                                  <td>
-                                    <select class="form-control test_name" name="test_name[2]">
+                                    <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="test_name[2]">
                                        @foreach ($labReportTypes as $item)
                                            <option value="{{ $key }}">{{ $item }}</option>
                                        @endforeach
@@ -505,7 +511,14 @@
                                  <td>
                                     <input class="lab_value" name="lab_value[2]" />
                                  </td>
-                              </tr>
+                                 <td>
+                                    <button type="button"
+                                          class="btn btn-outline-green d-flex align-items-center" onclick="downloadReport(1)"
+                                          data-toggle="modal" data-target="#labreportModal" name=""><i
+                                          class="las la-binoculars la-2x mr-2"></i> View Lab
+                                      Reports</button>
+                                 </td>
+                              </tr>-->
                            </tbody>
                         </table>
                      </div>
@@ -582,20 +595,22 @@
          </section>
       <!-- Middle Section End -->
       </form>
+      <!--@include('pages.modals.labreports')-->
       <!-- Footer Section End -->
       <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
       <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
       <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
       <script src="{{ asset('assets/js/popper.min.js') }}"></script>
       <script src="{{ asset('assets/js/datapicker/bootstrap-datepicker.js') }}"></script>  
- 
+      <script src="{{ asset('js/dropzone.js') }}"></script>
+      <!--<script src="{{ asset('js/lab-reports.js') }}"></script>-->
+    
       <script>
-         $(document).ready(function(){
+        $(document).ready(function() {
              // Add down arrow icon for collapse element which is open by default
              $(".collapse.show").each(function(){
                  $(this).prev(".card-header").find(".fa").addClass("fa-angle-down").removeClass("fa-angle-right");
              });
-             
              // Toggle right and down arrow icon on show hide of collapse element
              $(".collapse").on('show.bs.collapse', function(){
                  $(this).prev(".card-header").find(".fa").removeClass("fa-angle-right").addClass("fa-angle-down");
@@ -609,7 +624,7 @@
          .find('td')
          //.append('<input type="button" value="Delete" class="del"/>')
          .parent() //traversing to 'tr' Element
-         .append('<td class="text-center"><a href="#" class="delrow btn-pr">Delete Row</a></td>');
+         .append('<td class="text-center"><a href="#" class="delrow btn-pr">Delete</a></td>');
          
          // For select all checkbox in table
          $('#checkedAll').click(function (e) {
@@ -623,12 +638,14 @@
 
             var lookup = parseInt($(lastRow).find('input:first').attr('name').replace ( /[^\d.]/g, '' )) + 1;
 
-            $(lastRow).find('input.record').attr('name', 'record['+lookup+']')
+            $(lastRow).find('.srNO').html(lookup)
+//            $(lastRow).find('input.record').attr('name', 'record['+lookup+']')
 
             $(lastRow).find('select.test_name').attr('name', 'test_name['+lookup+']')
 
             $(lastRow).find('input.date_performed').attr('name', 'date_performed['+lookup+']')
 
+            $(lastRow).find('select.result').attr('class', 'result'+lookup)
             $(lastRow).find('select.result').attr('name', 'result['+lookup+']')
 
             $(lastRow).find('input.lab_value').attr('name', 'lab_value['+lookup+']')
@@ -687,152 +704,168 @@
             autoclose: true
          });
       </script>
-<script type="text/javascript">
-    $(function () { //
-        $("#chkPassport").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassport").show();
-            } else {
-                $("#dvPassport").hide();
-                $("#txtPassport").val('');
-            }
-        });
-    });
-       $(function () { //
-        $("#chkPassporta").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassporta").show();
-            } else {
-                $("#dvPassporta").hide();
-                $("#txtPassporta").val('');
-            }
-        });
-    });
+    <script type="text/javascript">
         $(function () { //
-        $("#chkPassportb").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportb").show();
-            } else {
-                $("#dvPassportb").hide();
-                $("#txtPassportb").val('');
-            }
+            $("#chkPassport").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassport").show();
+                } else {
+                    $("#dvPassport").hide();
+                    $("#txtPassport").val('');
+                }
+            });
         });
-    });
-         $(function () {
-        $("#chkPassportc").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportc").show();
-            } else {
-                $("#dvPassportc").hide();
-            }
+           $(function () { //
+            $("#chkPassporta").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassporta").show();
+                } else {
+                    $("#dvPassporta").hide();
+                    $("#txtPassporta").val('');
+                }
+            });
         });
-    });
-          $(function () {
-        $("#chkPassportd").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportd").show();
-            } else {
-                $("#dvPassportd").hide();
-            }
+            $(function () { //
+            $("#chkPassportb").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportb").show();
+                } else {
+                    $("#dvPassportb").hide();
+                    $("#txtPassportb").val('');
+                }
+            });
         });
-    });
-           $(function () {
-        $("#chkPassporte").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassporte").show();
-            } else {
-                $("#dvPassporte").hide();
-            }
+             $(function () {
+            $("#chkPassportc").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportc").show();
+                } else {
+                    $("#dvPassportc").hide();
+                }
+            });
         });
-    });
-            $(function () {
-        $("#chkPassportt").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportt").show();
-            } else {
-                $("#dvPassportt").hide();
-            }
+              $(function () {
+            $("#chkPassportd").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportd").show();
+                } else {
+                    $("#dvPassportd").hide();
+                }
+            });
         });
-    });
-             $(function () { //
-        $("#chkPassportk").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportk").show();
-            } else {
-                $("#dvPassportk").hide();
-                $("#txtPassportk").val('');
-            }
+               $(function () {
+            $("#chkPassporte").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassporte").show();
+                } else {
+                    $("#dvPassporte").hide();
+                }
+            });
         });
-    });
-              $(function () { //
-        $("#chkPassportu").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportu").show();
-            } else {
-                $("#dvPassportu").hide();
-                $("#txtPassportu").val('');
-            }
+                $(function () {
+            $("#chkPassportt").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportt").show();
+                } else {
+                    $("#dvPassportt").hide();
+                }
+            });
         });
-    });
                  $(function () { //
-        $("#chkPassportn").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportn").show();
-            } else {
-                $("#dvPassportn").hide();
-                $("#txtPassportn").val('');
-            }
+            $("#chkPassportk").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportk").show();
+                } else {
+                    $("#dvPassportk").hide();
+                    $("#txtPassportk").val('');
+                }
+            });
         });
-    });
+                  $(function () { //
+            $("#chkPassportu").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportu").show();
+                } else {
+                    $("#dvPassportu").hide();
+                    $("#txtPassportu").val('');
+                }
+            });
+        });
                      $(function () { //
-        $("#chkPassportla").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportla").show();
-            } else {
-                $("#dvPassportla").hide();
-                $("#txtPassportla").val('');
-            }
+            $("#chkPassportn").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportn").show();
+                } else {
+                    $("#dvPassportn").hide();
+                    $("#txtPassportn").val('');
+                }
+            });
         });
-    });
-                        $(function () { //
-        $("#chkPassportlb").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportlb").show();
-            } else {
-                $("#dvPassportlb").hide();
-                $("#txtPassportlb").val('');
-            }
+                         $(function () { //
+            $("#chkPassportla").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportla").show();
+                } else {
+                    $("#dvPassportla").hide();
+                    $("#txtPassportla").val('');
+                }
+            });
         });
-    });
-                          $(function () { //
-        $("#chkPassportaa").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportaa").show();
-            } else {
-                $("#dvPassportaa").hide();
-                $("#txtPassportaa").val('');
-            }
+                            $(function () { //
+            $("#chkPassportlb").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportlb").show();
+                } else {
+                    $("#dvPassportlb").hide();
+                    $("#txtPassportlb").val('');
+                }
+            });
         });
-    });
-                                   $(function () {
-        $("#chkPassportlc").click(function () {
-            if ($(this).is(":checked")) {
-                $("#dvPassportlc").show();
-            } else {
-                $("#dvPassportlc").hide();
-            }
+                              $(function () { //
+            $("#chkPassportaa").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportaa").show();
+                } else {
+                    $("#dvPassportaa").hide();
+                    $("#txtPassportaa").val('');
+                }
+            });
         });
-    });
-   $(function () { //
-      $("#chkPassportl").click(function () {
-         if ($(this).is(":checked")) {
-            $("#dvPassportl").show();
-         } else {
-            $("#dvPassportl").hide();
-            $("#txtPassportl").val('');
-         }
-      });
-   });
-</script>
+                                       $(function () {
+            $("#chkPassportlc").click(function () {
+                if ($(this).is(":checked")) {
+                    $("#dvPassportlc").show();
+                } else {
+                    $("#dvPassportlc").hide();
+                }
+            });
+        });
+       $(function () { //
+          $("#chkPassportl").click(function () {
+             if ($(this).is(":checked")) {
+                $("#dvPassportl").show();
+             } else {
+                $("#dvPassportl").hide();
+                $("#txtPassportl").val('');
+             }
+          });
+       });
+       function getAndSetLabReport(e,id) {
+           var getRowName = e.target.name;
+           var getSplit = getRowName.split('[');
+           var getSplit = getSplit[1].split(']');
+           var rowNo = getSplit[0];
+           if(id >=1 && 6 >= id) {
+               $(".result"+rowNo).html('<option>Positive</option><option>Negative</option>');
+           }else if(id >= 7 && 11 >= id) {
+               $(".result"+rowNo).html('<option>Immune</option><option>Non Immune</option>');
+           }else if(id >= 12 && 14 >= id) {
+               $(".result"+rowNo).html('<option>Positive</option><option>Negative</option>');
+           }else {
+               $(".result"+rowNo).html('<option>Completed</option><option>Overdue</option>');
+           }
+       }
+    </script>
+    
    </body>
 </html>

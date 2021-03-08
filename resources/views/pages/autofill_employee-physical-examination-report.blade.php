@@ -85,8 +85,7 @@
                   </div>
                   <div class="innerSpace">
                      <h2 class="t1 fadeIn">AUTHORIZATION TO RELEASE INFORMATION</h2>
-                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ $patient->first_name.' '.$patient->last_name }}" class="form-control inline-style">to release all health information about me to cottage 
-                        homecare services, Inc. 
+                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ $patient->first_name.' '.$patient->last_name }}" class="form-control inline-style">to release all health information about me to Doral Health Connect. 
                      </p>
                   </div>
                   <p class="text-right">Employee Signature
@@ -157,7 +156,7 @@
                </div>
                <div class="container mt-3" id="formdive">
                   <div class="">
-                     <h2>Vital Details</h2>
+                     <h2>VITAL INFORMATION</h2>
                      <div class="row">
                         <div class="col-lg-4">
                            <div class="form-group">

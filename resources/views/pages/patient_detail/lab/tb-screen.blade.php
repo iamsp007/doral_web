@@ -41,12 +41,12 @@
                     </thead>
                     <tbody>
                     @php $number = 1; @endphp
-                   
+
                     @foreach($tbpatientLabReports as $tbpatientLabReport)
                         <tr class="@if ($tbpatientLabReport->result === '1') bg-positive @endif tb-main-tr">
                             <th scope="row">{{ $number }}</th>
                             <td scope="row">{{ ($tbpatientLabReport->labReportType) ? $tbpatientLabReport->labReportType->name : ''}}</th>
-                            
+
                             <td><?php echo date('m-d-Y',strtotime($tbpatientLabReport->due_date)); ?></td>
                             <td><?php echo date('m-d-Y',strtotime($tbpatientLabReport->expiry_date)); ?></td>
                             <td>{{ $tbpatientLabReport->result }}</td>
@@ -55,6 +55,7 @@
                                     class="exploder"><i
                                         class="las la-plus la-2x"></i></span>
                                 <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}"><i class="las la-trash la-2x pl-4" ></i></a>
+                                <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,{{ $tbpatientLabReport->labReportType->id }})" id="{{ $tbpatientLabReport->lab_report_type_id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}" ><i class="las la-upload la-2x pl-4" ></i></input>
                             </td>
                         </tr>
                         <tr class="explode1 d-none">

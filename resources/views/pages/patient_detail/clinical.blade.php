@@ -374,6 +374,11 @@
                                aria-labelledby="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab"
                           >
                               <div class="d-flex justify-content-end mb-3">
+                                <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center">
+                                    <i class="las la-file-upload la-2x mr-2"></i>
+                                    <a target="_blank" href="{{route('get-employee-physical-examination-report', ['id' => $patient->id])}}">Employee Physical Form</a>
+                                </button>
+                                  
                                   <button type="button"
                                           class="btn btn-outline-green mr-3 d-flex align-items-center" onclick="openLabReports({{ $type }})"
                                           data-toggle="modal" data-target="#uploadLabReportModal"><i

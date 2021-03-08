@@ -127,7 +127,7 @@
                 this.on("success", function(file, responseText) {
                     alert(responseText.message)
                     setTimeout(function () {
-                       window.location.href=base_url+'referral/occupational-health';
+                       window.location.href=base_url+'referral/service/occupational-health';
                     },1000)
                 });
             },

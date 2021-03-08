@@ -122,26 +122,43 @@ class CaregiverController extends Controller
             if($request['status'] == 'active') {
                 $datatble->addColumn('dob', function($row) use($request){
                     return date('m-d-Y', strtotime($row->dob));
+//                    return '<a href=""><img src="../assets/img/icons/download-icon.svg" class="action-download"></a>';
+//                    return '<a href="' . route('patient.details', ['patient_id' => $row->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $row->full_name . '</a>';
                 });
             } else {
                 $datatble->addColumn('action', function($row) use($request){
                     $btn = '';
                     if ($request['status'] == 'occupational-health' || $request['status'] == 'md-order' || $request['status'] == 'vbc' || $request['status'] == 'initial') {
-                        $btn .= $row->status_data;
+                        
                         if ($request['status'] == 'initial') {
                             $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
+                        }else {
+                            if($row->status_data == '0') {
+                                $btn .= 'ewewe';
+                            }else if($row->status_data == 'pending') {
+                                $btn .= 'guuyuu';
+                            }else if($row->status_data == 'Pending') {
+                                $btn .= 'guuyuu';
+                            }else if($row->status_data == '3') {
+                                $btn .= 'guuyuu';
+                            }else {
+                                $btn .= $row->status_data;
+                                $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '">Download Form</a>';
+//                                $btn .= $row->status_data;
+                            }
+                            
                         }
+//                        $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '">Download Form</a>';
                     } else {
                         if ($row->status === '0') {
                             $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
         
-                            $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                            $btn .= ' <a target="_blank" href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
                         }  else if ($row->status === '1') {
                             $btn .= '<p class="text-success">Accept</p>';
                         }
                     }
-                
                     return $btn;
                 });
             }

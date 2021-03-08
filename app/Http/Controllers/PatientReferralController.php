@@ -31,7 +31,7 @@ class PatientReferralController extends Controller
     public function occupationalHealthUploadBulk() {
         return view('pages.referral.occupational-health-upload-bulk-data');
     }
-    
+
      public function getEmployeePhysicalExaminationReport($id)
     {
         $labReportTypes = LabReportType::pluck('name', 'id');
@@ -39,9 +39,9 @@ class PatientReferralController extends Controller
         if(!empty($checkData)) {
             return view('pages.autofill_employee-physical-examination-report', compact(['labReportTypes', 'checkData']));
         }
-        
-        
-        
+
+
+
     }
     public function mdOrderUploadBulk() {
         $status = 0;
@@ -59,7 +59,7 @@ class PatientReferralController extends Controller
             $status = 0;
             $message = $e->getMessage();
         }
-        
+
         return view('pages.referral.md-order-upload-bulk-data');
     }
     public function mdOrder() {

@@ -85,7 +85,7 @@ class CaregiverController extends Controller
                 } else {
                     $phone .= "<div class='phone-text'><input class='phone' type='text' name='phone' value=".$q->phone."></div>";
                 }
-              
+
                 return $phone;
             })
             ->addColumn('service_id', function($q) {
@@ -110,11 +110,11 @@ class CaregiverController extends Controller
                     if ($city_state_json[0]) {
                         if ($city_state_json[0]->City) {
                             $city_state .= $city_state_json[0]->City;
-                        } 
+                        }
                         if ($city_state_json[0]->State) {
                             $city_state .= ' - ' . $city_state_json[0]->State;
                         }
-                         
+
                     }
                 }
                 return $city_state;
@@ -129,7 +129,7 @@ class CaregiverController extends Controller
                 $datatble->addColumn('action', function($row) use($request){
                     $btn = '';
                     if ($request['status'] == 'occupational-health' || $request['status'] == 'md-order' || $request['status'] == 'vbc' || $request['status'] == 'initial') {
-                        
+
                         if ($request['status'] == 'initial') {
                             $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
@@ -144,16 +144,16 @@ class CaregiverController extends Controller
                                 $btn .= 'guuyuu';
                             }else {
                                 $btn .= $row->status_data;
-                                $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '">Download Form</a>';
+                                $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
 //                                $btn .= $row->status_data;
                             }
-                            
+
                         }
 //                        $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '">Download Form</a>';
                     } else {
                         if ($row->status === '0') {
                             $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
-        
+
                             $btn .= ' <a target="_blank" href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
                         }  else if ($row->status === '1') {
                             $btn .= '<p class="text-success">Accept</p>';
@@ -165,12 +165,12 @@ class CaregiverController extends Controller
             $datatble->rawColumns(['full_name', 'action', 'checkbox_id', 'home_phone']);
             return $datatble->make(true);
     }
-  
+
     public function updatePatientStatus(Request $request)
     {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
-      
+
         if ($response->status === true){
             return response()->json($response,200);
         }
@@ -178,16 +178,16 @@ class CaregiverController extends Controller
     }
 
     public function updatePhoneNumber(Request $request)
-    {  
+    {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePhoneNumber($request->all());
-      
+
         if ($response->status === true){
             return response()->json($response,200);
         }
         return response()->json($response,422);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -205,18 +205,18 @@ class CaregiverController extends Controller
 
         // dump($counter);2960
         foreach (array_slice($caregiverArray, 0 , 2960) as $cargiver_id) {
-     
+
             // foreach ($caregiverArray as $cargiver_id) {
             /** Store patirnt demographic detail */
             $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
-    
+
             if (! $userCaregiver) {
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
                 dump($cargiver_id);
                 self::saveUser($demographicDetails);
             }
-            
+
 
             // $getChangesV2 = $this->getChangesV2();
             // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
@@ -234,7 +234,7 @@ class CaregiverController extends Controller
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchCaregivers xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><Status>Active</Status><EmployeeType>Employee</EmployeeType></SearchFilters></SearchCaregivers></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         //<FirstName>string</FirstName><LastName>string</LastName><PhoneNumber>string</PhoneNumber><CaregiverCode>string</CaregiverCode><EmployeeType>string</EmployeeType><SSN>string</SSN>Employee/Applicant
-        
+
         $method = 'POST';
         $getPatientDetailsController = new GetPatientDetailsController();
         return $getPatientDetailsController->curlCall($data, $method);
@@ -261,9 +261,9 @@ class CaregiverController extends Controller
      */
     public function getChangesV2()
     {
-        $date = Carbon::now();// will get you the current date, time 
-        $today = $date->format("Y-m-d"); 
-        
+        $date = Carbon::now();// will get you the current date, time
+        $today = $date->format("Y-m-d");
+
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetCaregiverChangesV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><ModifiedAfter>2015-03-19T04:31:57.077</ModifiedAfter></GetCaregiverChangesV2></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         $method = 'POST';
@@ -284,20 +284,20 @@ class CaregiverController extends Controller
         $getPatientDetailsController = new GetPatientDetailsController();
         return $getPatientDetailsController->curlCall($data, $method);
     }
-   
+
     public static function saveUser($demographicDetails)
     {
         $email = null;
         if ($demographicDetails['NotificationPreferences']['Email']) {
             $email = $demographicDetails['NotificationPreferences']['Email'];
-        } 
-           
+        }
+
         $userDuplicateEmail = User::whereNotNull('email')->where('email', $email)->first();
-        
+
         if ($userDuplicateEmail) {
             return;
-        } 
-        
+        }
+
         $phone_number = null;
         if ($demographicDetails['Address']['HomePhone']) {
             $phone_number = $demographicDetails['Address']['HomePhone'];
@@ -308,7 +308,7 @@ class CaregiverController extends Controller
         } else if($demographicDetails['NotificationPreferences']['MobileOrSMS']) {
             $phone_number = $demographicDetails['NotificationPreferences']['MobileOrSMS'];
         }
-        
+
         if ($phone_number == '') {
             $status = '4';
         } else {
@@ -318,9 +318,9 @@ class CaregiverController extends Controller
             $userDuplicatePhone = User::whereNotNull('phone')->where('phone', $phone_number)->first();
             if ($userDuplicatePhone) {
                 return;
-            } 
+            }
         }
-        
+
         $gender = '';
         if ($demographicDetails['Gender'] == 'MALE') {
             $gender = 1;
@@ -342,9 +342,9 @@ class CaregiverController extends Controller
         ]);
 
         $user_id = DB::getPdo()->lastInsertId();
-        
+
         $user = User::find($user_id);
-       
+
         $user->assignRole('patient')->syncPermissions(Permission::all());
 
         self::saveCaregiverInfo($demographicDetails, $user_id);
@@ -352,7 +352,7 @@ class CaregiverController extends Controller
         self::saveDemographic($demographicDetails, $user_id);
 
         self::storeEmergencyContact($demographicDetails, $user_id);
-        
+
     }
 
     public static function saveCaregiverInfo($demographicDetails, $userId)
@@ -416,7 +416,7 @@ class CaregiverController extends Controller
         $caregiverInfo->last_work_date = ($demographicDetails['LastWorkDate']) ? $demographicDetails['LastWorkDate'] : '';
         $caregiverInfo->registry_number = ($demographicDetails['RegistryNumber']) ? $demographicDetails['RegistryNumber'] : '';
         $caregiverInfo->registry_checked_date = ($demographicDetails['RegistryCheckedDate']) ? $demographicDetails['RegistryCheckedDate'] : '';
-        
+
         $referralSource = [];
         if ($demographicDetails['ReferralSource']) {
             $referralSource = [
@@ -542,7 +542,7 @@ class CaregiverController extends Controller
                 }
                 $relationshipJson = json_encode($relationship);
                 $patientEmergencyContact = new PatientEmergencyContact();
-                
+
                 $patientEmergencyContact->user_id = $user_id;
                 $patientEmergencyContact->name = $emergencyContact['Name'];
                 $patientEmergencyContact->relation = $relationshipJson;

@@ -41,13 +41,15 @@
                     </thead>
                     <tbody>
                     @php $number = 1; @endphp
+                   
                     @foreach($tbpatientLabReports as $tbpatientLabReport)
                         <tr class="@if ($tbpatientLabReport->result === '1') bg-positive @endif tb-main-tr">
                             <th scope="row">{{ $number }}</th>
                             <td scope="row">{{ ($tbpatientLabReport->labReportType) ? $tbpatientLabReport->labReportType->name : ''}}</th>
-                            <td>{{ $tbpatientLabReport->due_date }}</td>
-                            <td>{{ $tbpatientLabReport->expiry_date }}</td>
-                            <td>{{ $tbpatientLabReport->lab_result }}</td>
+                            
+                            <td><?php echo date('m-d-Y',strtotime($tbpatientLabReport->due_date)); ?></td>
+                            <td><?php echo date('m-d-Y',strtotime($tbpatientLabReport->expiry_date)); ?></td>
+                            <td>{{ $tbpatientLabReport->result }}</td>
                             <td class='text-center'><span
                                     onclick="exploder('tb{{$number}}')" id="tb{{$number}}"
                                     class="exploder"><i

@@ -8,6 +8,7 @@ use App\Services\AdminService;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 use Exception, PDF, Storage;
+use Illuminate\Support\Facades\Log;
 
 class EmployeePhysicalExaminationReportController extends Controller
 {
@@ -69,21 +70,21 @@ class EmployeePhysicalExaminationReportController extends Controller
         $record = [];
 
         try {
-            return $this->pdfEmployeePhysicalExaminationReport(9);
+            // return $this->pdfEmployeePhysicalExaminationReport(9);
             
             /* start enable code block and remove above 1 line of code */
 
-            // $lookup = $request->all();
-            // unset($lookup['_token']);
+            $lookup = $request->all();
+            unset($lookup['_token']);
 
-            // $report = new EmployeePhysicalExaminationReport();
-            // $report->patient_id = $id;
-            // $report->report_details = $lookup;
+            $report = new EmployeePhysicalExaminationReport();
+            $report->patient_id = $id;
+            $report->report_details = $lookup;
 
-            // if ($report->save()) {
-            //     $this->pdfEmployeePhysicalExaminationReport($report->report_details);
-            //     return redirect()->route('patient.details', $id);
-            // }
+            if ($report->save()) {
+                return $this->pdfEmployeePhysicalExaminationReport($report);
+                // return redirect()->route('patient.details', $id);
+            }
 
             /* end enable code block*/
 
@@ -201,22 +202,30 @@ class EmployeePhysicalExaminationReportController extends Controller
      */
     public function pdfEmployeePhysicalExaminationReport($report)
     {
-        $report = EmployeePhysicalExaminationReport::find($report);
+        try {
+        // $report = EmployeePhysicalExaminationReport::find($report);
 
-        $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
-            'report' => $report->report_details
-        ]);
+        // $data = $report['report_details'];
 
-        return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
+        // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', ['report' => $data]);
+
+        // return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
 
         /* start enable code block and remove above 3 line of code*/
 
-        // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', $report);
+        $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
+                'report' => $report->report_details
+            ]);
 
         // Storage::put('public/pdf/employee-physical-examination-report-'.$report->id.'.pdf', $pdf->output());
 
-        // return $pdf->download('employee-physical-examination-report-'.$report->id.'.pdf');
+        return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
 
         /* end enable code block*/
+
+        } catch(Exception $e) {
+            Log::error($e->getMessage());
+            dd($e->getMessage());
+        }
     }
 }

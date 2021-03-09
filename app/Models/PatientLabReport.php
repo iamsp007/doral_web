@@ -25,7 +25,7 @@ class PatientLabReport extends Model
         'note',
     ];
 
-    protected $appends = ['result'];
+    // protected $appends = ['result'];
 
     public function labReportType() {
         return $this->hasOne(LabReportType::class,'id','lab_report_type_id');

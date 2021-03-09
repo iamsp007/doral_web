@@ -689,8 +689,18 @@
                });
             }
         }
-        $(document).find('.phone_number').val();
+       
          $(document).ready(function() {
+            $('input[name="dob"]').daterangepicker({
+               singleDatePicker: true,
+               showDropdowns: true,
+               minYear: 1901,
+               maxYear: parseInt(moment().format('YYYY'), 10)
+            }, function (start, end, label) {
+               var years = moment().diff(start, 'years');
+               alert("You are " + years + " years old!");
+            });
+            
             $(document).on('click','.patient-detail-lab-report',function(event) {
                event.preventDefault();
 

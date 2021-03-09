@@ -54,12 +54,18 @@ class EmployeePhysicalExaminationReportController extends Controller
      */
     public function postEmployeePhysicalExaminationReport(Request $request, $id)
     {
+//        dd($id);
+        
+         \App\Models\User::where('id', $id)
+            ->update(['status' => 6]);
         $status = 0;
         $message = "Something went wrong";
         $record = [];
         try {
             // return $this->pdfEmployeePhysicalExaminationReport(9);
             /* start enable code block and remove above 1 line of code */
+           
+            
             $lookup = $request->all();
             unset($lookup['_token']);
             $report = new EmployeePhysicalExaminationReport();
@@ -69,6 +75,7 @@ class EmployeePhysicalExaminationReportController extends Controller
                 return $this->pdfEmployeePhysicalExaminationReport($report);
                 // return redirect()->route('patient.details', $id);
             }
+            
             /* end enable code block*/
             /* start API code block for future purpose */
             // $responseArray = $this->employeeServices->storeReport($id, $lookup);

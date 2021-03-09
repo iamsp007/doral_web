@@ -56,39 +56,13 @@
                 </div>
                 <div class="form-group">
                     <div class="row">
-                        <!--<div class="col-12 col-sm-3 col-md-3">-->
-                            <!--<label for="dob" class="label">Date Of Birth</label>-->
-                            <!--<div class="input-group">-->
-<!--                                <span class="input-group-text input-group-text-custom"
-                                    id="dateofbirth">
-                                    <i class="las la-calendar"></i>
-                                </span>-->
-<!--                                <input type="text" class="form-control form-control-lg" id="dob"
-                                    name="dob" aria-describedby=""  value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">-->
-<!--                            </div>
-                            <span class="errorText dob"></span>-->
-<!--                        <div class="ls"><i class="las la-phone circle"></i></div>
-                            <div class="rs">
-                                <h3 class="_title">DOB</h3>
-                                <div>
-                                    <input type="text" class="form-control-plaintext _detail "
-                                        readonly name="dob"
-                                        data-id="dob" id="dob1" 
-                                        placeholder="SSN" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
-                                </div>
-                            </div>-->
-                        <!--</div>-->
-                      
                        <div class="col-12 col-sm-3 col-md-3">
                             <div class="input_box">
                                 <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                 <div class="rs">
                                     <h3 class="_title">DOB</h3>
                                     <div>
-                                        <input type="text" class="form-control-plaintext _detail "
-                                            readonly name="dob"
-                                            data-id="dob" id="dob" 
-                                            placeholder="DOB" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="dob" data-id="dob" id="dob" placeholder="DOB" value="{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
                                     </div>
                                 </div>
                             </div>

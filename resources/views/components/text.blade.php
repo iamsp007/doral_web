@@ -4,7 +4,7 @@
     name="{{ $name ?? '' }}"
     id="{{ $id ?? '' }}"
     value="{{ $value ?? '' }}"
-    placeholder="{{ $placeholder ?? $name }}"/>
+    placeholder="{{ $placeholder ?? str_replace('_','',ucfirst($name)) }}"/>
 
     @error($name)
         <span class="invalid-feedback" role="alert">

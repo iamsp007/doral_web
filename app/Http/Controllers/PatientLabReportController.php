@@ -109,19 +109,19 @@ class PatientLabReportController extends Controller
                     $type = 'drug';
                 }
                 
-                $arr = array('status' => 200, 'message' => 'success', 'result' => $result, 'tbLabReportTypes' => $tbLabReportTypes, 'count' => $count, 'newCount' => $newCount, 'type' => $type);
+                $arr = array('status' => 200, 'message' => 'success', 'resultdata' => $result, 'tbLabReportTypes' => $tbLabReportTypes, 'count' => $count, 'newCount' => $newCount, 'type' => $type);
             } catch (\Illuminate\Database\QueryException $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {
                     $message = $ex->errorInfo[2];
                 }
-                $arr = array("status" => 400, "message" => $message, "result" => array());
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
             } catch (Exception $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {
                     $message = $ex->errorInfo[2];
                 }
-                $arr = array("status" => 400, "message" => $message, "result" => array());
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
             }
         } 
         return \Response::json($arr);

@@ -49,6 +49,7 @@ function initMap() {
                     destination:destination,
                     current:current,
                 }
+
                 html+='<option value="'+resp.id+'">'+originName+'</option>';
                 calculateAndDisplayRoute(current,destination,resp.id,referral_type[resp.id])
                 updateMap(destination,destinationName,resp.id)

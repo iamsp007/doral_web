@@ -637,14 +637,14 @@
 
             var lookup = parseInt($(lastRow).find('input:first').attr('name').replace ( /[^\d.]/g, '' )) + 1;
             console.log(lookup);
-            $(lastRow).find('.srNO').html(lookup)
+            $(lastRow).find('.srNO').html(lookup);
 //            $(lastRow).find('input.record').attr('name', 'record['+lookup+']')
 
             $(lastRow).find('select.test_name').attr('name', 'test_name['+lookup+']')
 
             $(lastRow).find('input.date_performed').attr('name', 'date_performed['+lookup+']')
-//            var checkClass = lookup - 1;
-            $(lastRow).find('select.res'+'.').attr('class', 'result'+lookup)
+
+            $(lastRow).find('select.res').attr('class', 'result'+lookup)
             $(lastRow).find('select.result').attr('name', 'result['+lookup+']')
 
             $(lastRow).find('input.lab_value').attr('name', 'lab_value['+lookup+']')
@@ -854,8 +854,6 @@
            var getSplit = getRowName.split('[');
            var getSplit = getSplit[1].split(']');
            var rowNo = getSplit[0];
-           console.log(rowNo)
-           console.log(id)
            if(id >=1 && 6 >= id) {
                $(".result"+rowNo).html('<option>Positive</option><option>Negative</option>');
            }else if(id >= 7 && 11 >= id) {

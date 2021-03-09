@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\EmployeePhysicalExaminationReport;
 use App\Models\LabReportType;
 use App\Services\AdminService;
@@ -9,13 +7,10 @@ use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 use Exception, PDF, Storage;
 use Illuminate\Support\Facades\Log;
-
 class EmployeePhysicalExaminationReportController extends Controller
 {
     protected $adminServices;
-
     protected $employeeServices;
-
     /**
      * Construct method for employee physical report data
      * 
@@ -28,7 +23,6 @@ class EmployeePhysicalExaminationReportController extends Controller
         $this->adminServices = $adminServices;
         $this->employeeServices = $employeeServices;
     }
-
     /**
      * Open the specified resource
      * 
@@ -39,13 +33,9 @@ class EmployeePhysicalExaminationReportController extends Controller
     public function getEmployeePhysicalExaminationReport($id)
     {
         $apiResponse = $this->adminServices->getPatientDetail($id);
-
         $patient = $apiResponse->data;
-
         $labReportTypes = LabReportType::pluck('name', 'id');
-
         // $reportExist = EmployeePhysicalExaminationReport::where('patient_id', $id)->first();
-
         // if(isset($reportExist->report_details) && !empty($reportExist->report_details)) {
         //     $patient = $reportExist->report_details;
         //     dd($patient);
@@ -54,7 +44,6 @@ class EmployeePhysicalExaminationReportController extends Controller
             return view('pages.employee-physical-examination-report', compact(['patient', 'labReportTypes']));
         // }
     }
-
     /**
      * Store employee physical report data
      * 
@@ -68,55 +57,39 @@ class EmployeePhysicalExaminationReportController extends Controller
         $status = 0;
         $message = "Something went wrong";
         $record = [];
-
         try {
             // return $this->pdfEmployeePhysicalExaminationReport(9);
-            
             /* start enable code block and remove above 1 line of code */
-
             $lookup = $request->all();
             unset($lookup['_token']);
-
             $report = new EmployeePhysicalExaminationReport();
             $report->patient_id = $id;
             $report->report_details = $lookup;
-
             if ($report->save()) {
                 return $this->pdfEmployeePhysicalExaminationReport($report);
                 // return redirect()->route('patient.details', $id);
             }
-
             /* end enable code block*/
-
             /* start API code block for future purpose */
-
             // $responseArray = $this->employeeServices->storeReport($id, $lookup);
-
             // if($responseArray->status) {
             //     $status = 1;
             //     $record = $responseArray->data->data;
-
             //     return view('pages.admin.employee-view')->with('record', $record);
             // }
-
             // $message = $responseArray->message;
-
             /* end API code block for future purpose */
-
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
         }
-
         $response = [
             'status' => $status,
             'message' => $message,
             'data' => $record
         ];
-
         return redirect()->back();
     }
-
     /**
      * Fetch employee physical report data
      * 
@@ -129,34 +102,25 @@ class EmployeePhysicalExaminationReportController extends Controller
         $status = 0;
         $message = "Something went wrong";
         $record = [];
-
         try {
-
             $responseArray = $this->employeeServices->getReport($id);
-
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data']['data'];
-
                 return view('pages.admin.employee-view')->with('record',$record);
             }
-
             $message = $responseArray['message'];
-
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
         }
-
         $response = [
             'status' => $status,
             'message' => $message,
             'data' => $record
         ];
-
         return redirect('/admin/employee');
     }
-
     /**
      * Remove employee physical report data
      * 
@@ -171,30 +135,23 @@ class EmployeePhysicalExaminationReportController extends Controller
         $record = [];
         try {
             $responseArray = $this->employeeServices->removeReport($id);
-
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data']['data'];
-
                 return view('pages.admin.employee-view')->with('record',$record);
             }
-
             $message = $responseArray['message'];
-
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
         }
-
         $response = [
             'status' => $status,
             'message' => $message,
             'data' => $record
         ];
-
         return redirect('/admin/employee');
     }
-
     /**
      * PDF feature for employee physical report
      * 
@@ -204,25 +161,22 @@ class EmployeePhysicalExaminationReportController extends Controller
     {
         try {
         // $report = EmployeePhysicalExaminationReport::find($report);
-
         // $data = $report['report_details'];
-
         // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', ['report' => $data]);
-
         // return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
-
         /* start enable code block and remove above 3 line of code*/
-
+        PDF::setOptions([
+            'dpi' => 150,
+            "isFontSubsettingEnabled" => true,
+            "isPhpEnabled"=>true,
+            'defaultFont' => '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+        ]);
         $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
-                'report' => $report->report_details
-            ]);
-
+                'report' => $report->report_details,
+        ])->setPaper('a4', 'landscape');
         // Storage::put('public/pdf/employee-physical-examination-report-'.$report->id.'.pdf', $pdf->output());
-
-        return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
-
+        return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf')->header('Content-Type','application/pdf');
         /* end enable code block*/
-
         } catch(Exception $e) {
             Log::error($e->getMessage());
             dd($e->getMessage());

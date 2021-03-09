@@ -93,11 +93,7 @@ function updateMap(destination,name,id) {
         var referrals = referral_type[data.id];
         var current = new google.maps.LatLng(data.latitude,data.longitude);
         calculateAndDisplayRoute(current,referrals.destination,data.id,referrals)
-        if (default_clinician_id===data.id){
-            var referral = referral_type[default_clinician_id];
-            map.setZoom(30)
-            map.setCenter(referral.marker.getPosition());
-        }
+
     })
 
 }
@@ -150,7 +146,11 @@ function calculateAndDisplayRoute(current,destination,type,referrals) {
             }
             referral_type[type].patient_marker=makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName,leg.distance.text,leg.duration.text );
             referral_type[type].marker=makeMarker( leg.start_location, referrals.icon, referrals.originName,leg.distance.text,leg.duration.text );
-
+            if (default_clinician_id===type){
+                var referral = referral_type[default_clinician_id];
+                map.setZoom(30)
+                map.setCenter(referral_type[type].marker.getPosition());
+            }
             // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );
         }
     })

@@ -146,11 +146,10 @@
             <div class="col-12 col-sm-10">
                <div class="tab-content" id="v-pills-tabContent">
                   <!-- Demographics Start -->
-                  @include('pages.patient_detail.caregiver_demographic')
                   @if($patient->demographic)
-                     @if($patient->demographic->type === '1')
+                     @if($patient->demographic->type === 'Patient')
                         @include('pages.patient_detail.demographic')
-                     @elseif($patient->demographic->type === '2')
+                     @elseif($patient->demographic->type === 'Caregiver')
                         @include('pages.patient_detail.caregiver_demographic')
                      @endif
                   @endif
@@ -650,7 +649,7 @@
     <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
     <script>
         var lab_referral_url="{{ route('patient.lab.report.referral') }}";
         var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
@@ -691,16 +690,25 @@
         }
        
          $(document).ready(function() {
-            $('input[name="dob"]').daterangepicker({
+            $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"]').daterangepicker({
                singleDatePicker: true,
                showDropdowns: true,
                minYear: 1901,
-               maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-               var years = moment().diff(start, 'years');
-               alert("You are " + years + " years old!");
+               maxDate: new Date()
             });
-            
+           
+            $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
+               var selectedDate = new Date($('[name="lab_due_date"]').val());
+               var date = selectedDate.getDate();
+               var monthf = selectedDate.getMonth() + 1;
+               var month  = (monthf < 10 ? '0' : '') + monthf;
+               var year = selectedDate.getFullYear() + 1;
+               var expirydate = month + '/'+ date + '/'+ year;
+               $(".lab-expiry-date").text(expirydate);
+               // $("#lab_expiry_date").val(expirydate);
+            });
+
+
             $(document).on('click','.patient-detail-lab-report',function(event) {
                event.preventDefault();
 
@@ -727,23 +735,22 @@
                         } else if (data.type == 'drug') {
                            var explodercounter = 'drug' + Number($(document).find(".drug-main-tr").length + 1);
                         }
-
+                     
                         var html = '<tr class="';
-                        if (data.result.result === '1') {
-
+                        if (data.resultdata.result === 'Positive') {
                            html += 'bg-positive text-white';
                         }
 
-                        html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td>';
+                        html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.resultdata.lab_report_type.name +'</td><td>' + data.resultdata.due_date + '</td>';
                         if (data.type == 'emmune' || data.type == 'drug') {
-                           html += '<td>' + data.result.perform_date + '</td>';
+                           html += '<td>' + data.resultdata.perform_date + '</td>';
                         }
 
-                        html +='<td>' + data.result.expiry_date + '</td>';
+                        html +='<td>' + data.resultdata.expiry_date + '</td>';
                         if (data.type == 'emmune') {
-                           html += '<td>' + data.result.titer + '</td>';
+                           html += '<td>' + data.resultdata.titer + '</td>';
                         }
-                        html +='<td>' + data.result.lab_result + '</td><td class="text-center"><span onclick="exploder(\'' + explodercounter + '\')" id="' + explodercounter + '" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.result.id + '" /></td></tr>';
+                        html +='<td>' + data.resultdata.result + '</td><td class="text-center"><span onclick="exploder(\'' + explodercounter + '\')" id="' + explodercounter + '" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.resultdata.id + '" /></td></tr>';
 
                         if (data.type == 'tb') {
                            $('.tb-list-order tr:last').before(html);

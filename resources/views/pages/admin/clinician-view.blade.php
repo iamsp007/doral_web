@@ -1184,7 +1184,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> --- --- is simply dummy text of the printing and typesetting industry
                                              </h1>
                                              <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
@@ -1199,7 +1199,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> --- --- is simply dummy text of the printing and typesetting industry
                                              </h1>
                                              <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
@@ -1214,7 +1214,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> --- --- is simply dummy text of the printing and typesetting industry
                                              </h1>
                                              <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
@@ -1229,7 +1229,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> --- --- is simply dummy text of the printing and typesetting industry
                                              </h1>
                                              <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
@@ -1244,7 +1244,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> --- --- is simply dummy text of the printing and typesetting industry
                                              </h1>
                                              <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
@@ -1259,7 +1259,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> --- --- is simply dummy text of the printing and typesetting industry
                                              </h1>
                                              <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
@@ -1274,7 +1274,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> --- --- is simply dummy text of the printing and typesetting industry
                                              </h1>
                                              <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
@@ -1289,7 +1289,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> --- --- is simply dummy text of the printing and typesetting industry
                                              </h1>
                                              <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>
@@ -1304,7 +1304,7 @@
                                              </div>
                                           </div>
                                           <div class="_card_body">
-                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry
+                                             <h1 class="_title"><span style="font-weight: bold;">Q:</span> --- --- is simply dummy text of the printing and typesetting industry
                                              </h1>
                                              <h1 class="_title"><span style="font-weight: bold;">Ans:</span> {{ $attestation->statement ? 'YES' : 'NO' }}
                                              </h1>

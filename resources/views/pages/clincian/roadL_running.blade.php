@@ -6,6 +6,24 @@
 @endsection
 
 @section('content')
+    <div id="floating-panel">
+        <select id="referral_type">
+            <option value="chicago, il">Chicago</option>
+            <option value="st louis, mo">St Louis</option>
+            <option value="joplin, mo">Joplin, MO</option>
+            <option value="oklahoma city, ok">Oklahoma City</option>
+            <option value="amarillo, tx">Amarillo</option>
+            <option value="gallup, nm">Gallup, NM</option>
+            <option value="flagstaff, az">Flagstaff, AZ</option>
+            <option value="winona, az">Winona</option>
+            <option value="kingman, az">Kingman</option>
+            <option value="barstow, ca">Barstow</option>
+            <option value="san bernardino, ca">San Bernardino</option>
+            <option value="los angeles, ca">Los Angeles</option>
+        </select>
+    </div>
+    <button class="btn btn-primary" id="re-center">Re-Center</button>
+    <div id="right-panel"></div>
     <div id="map">
         <input type="hidden" name="patient_request_id"  id="patient_request_id" value="{{ $patient_request_id }}"/>
     </div>
@@ -34,8 +52,8 @@
             font-size: 12px;
         }
         #map {
-            /*width:820px !important;*/
-            height: 500px !important;
+            width:75% !important;
+            height: 850px !important;
             position: relative !important;
             overflow: scroll;
         }

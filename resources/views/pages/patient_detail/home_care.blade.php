@@ -12,7 +12,7 @@
                   @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
                      <div class="col-12 col-sm-4">
                         <div class="input_box">
-                           <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                           <div class="ls"><i class="las la-user-tie circle"></i></div>
                            <div class="rs">
                               <h3 class="_title">Name</h3>
                               <input type="text" class="form-control-plaintext _detail "
@@ -24,7 +24,7 @@
                      </div>
                      <div class="col-12 col-sm-4">
                         <div class="input_box">
-                           <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                           <div class="ls"><i class="las la-envelope circle"></i></div>
                            <div class="rs">
                               <h3 class="_title">Email</h3>
                               <input type="text" class="form-control-plaintext _detail "
@@ -36,7 +36,7 @@
                      </div>
                      <div class="col-12 col-sm-4">
                         <div class="input_box">
-                           <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                           <div class="ls"><i class="las la-phone circle"></i></div>
                            <div class="rs">
                               <h3 class="_title">Phone</h3>
                               <input type="tel" class="form-control-plaintext _detail " readonly
@@ -55,7 +55,7 @@
                   @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
                      <div class="col-12 col-sm-4">
                         <div class="input_box">
-                           <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                           <div class="ls"><i class="las la-fax circle"></i></div>
                            <div class="rs">
                               <h3 class="_title">Fax No</h3>
                               <input type="text" class="form-control-plaintext _detail "
@@ -82,7 +82,7 @@
                         @endphp
                         <div class="col-12 col-sm-4">
                            <div class="input_box">
-                              <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                              <div class="ls"><i class="lab la-servicestack circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Services</h3>
                                  <input type="text" class="form-control-plaintext _detail "
@@ -97,7 +97,7 @@
                   @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
                      <div class="col-12 col-sm-4">
                         <div class="input_box">
-                           <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                           <div class="ls"><i class="las la-code circle"></i></div>
                            <div class="rs">
                               <h3 class="_title">Zip</h3>
                               <input type="text" class="form-control-plaintext _detail "
@@ -166,7 +166,7 @@
                               </div>
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">
-                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="ls"><i class="las la-sort-numeric-down circle"></i></div>
                                     <div class="rs">
                                        <h3 class="_title">Registration No</h3>
                                        <input type="text" class="form-control-plaintext _detail "
@@ -178,7 +178,7 @@
                               </div>
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">
-                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="ls"><i class="las la-envelope circle"></i></div>
                                     <div class="rs">
                                        <h3 class="_title">Administrator Email</h3>
                                        <input type="text" class="form-control-plaintext _detail "
@@ -196,7 +196,7 @@
                            @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">
-                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="ls"><i class="las la-sort-numeric-down circle"></i></div>
                                     <div class="rs">
                                        <h3 class="_title">Licence Number</h3>
                                        <input type="text" class="form-control-plaintext _detail "
@@ -208,7 +208,7 @@
                               </div>
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">
-                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="ls"><i class="llas la-phone circle"></i></div>
                                     <div class="rs">
                                        <h3 class="_title">Administrator Phone Number</h3>
                                        <input type="text" class="form-control-plaintext _detail "
@@ -236,7 +236,7 @@
                            @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">
-                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="ls"><i class="las la-sort-numeric-down circle"></i></div>
                                     <div class="rs">
                                        <h3 class="_title">Insurance ID</h3>
                                        <input type="text" class="form-control-plaintext _detail "
@@ -248,7 +248,7 @@
                               </div>
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">
-                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                    <div class="ls"><i class="las la-calendar circle"></i></div>
                                     <div class="rs">
                                        <h3 class="_title">Expiration Date</h3>
                                        <input type="text" class="form-control-plaintext _detail "

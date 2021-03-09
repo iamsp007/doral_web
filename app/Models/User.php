@@ -144,9 +144,8 @@ class User extends Authenticatable
     {
         $phoneData = '';
         if ($phone) {
-            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)." ".substr($phone,6);
+            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
         }
         return $phoneData;
     }
 }
-

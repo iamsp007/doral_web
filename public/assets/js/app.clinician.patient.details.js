@@ -6,6 +6,10 @@ function editAllField(sectionId) {
     $('#'+sectionId+' [data-id]').attr('readOnly', false)
     $('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
     $('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+    
+    $('.normal_gender_div').removeClass('d-block').addClass('d-none');
+    $('.editable_gender_div').removeClass('d-none').addClass('d-block');
+    
 }
 function updateAllField(sectionId) {
     if (sectionId==="demographic"){

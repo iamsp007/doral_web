@@ -42,7 +42,7 @@ function initMap() {
                     directionsRenderer:new google.maps.DirectionsRenderer({suppressMarkers: true}),
                     id:resp.id,
                     color:resp.color,
-                    icon:base_url+'assets/img/icons/patient-icon.svg',
+                    icon:resp.icon,
                     start_icon:base_url+'assets/img/icons/patient-icon.svg',
                     originName:originName,
                     destinationName:destinationName,

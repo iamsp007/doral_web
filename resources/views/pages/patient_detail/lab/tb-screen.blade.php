@@ -58,6 +58,7 @@
                                     <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}"><i class="las la-trash la-2x pl-4" ></i></a>-->
                                     <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,{{ $tbpatientLabReport->labReportType->id }})" id="{{ $tbpatientLabReport->lab_report_type_id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}" >
                                     <!--<i class="las la-upload la-2x pl-4" ></i>-->
+                                    <!--<i class="las la-file-upload la-2x mr-2"></i>-->
                                     </input>
                                 </td>
                             </tr>

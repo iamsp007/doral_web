@@ -3,12 +3,12 @@
 return [
 
     'labResult' => [
-        1 => 'Positive',
-        0 => 'Negative'
+        'positive' => 'Positive',
+        'negative' => 'Negative'
     ],
 
     'labImmunizationResult' => [
-        1 => 'Immune',
-        0 => 'Non Immune'
+        'immune' => 'Immune',
+        'non_immune' => 'Non Immune'
     ],
 ];

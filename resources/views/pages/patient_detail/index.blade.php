@@ -860,10 +860,10 @@
             });
          }
     </script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
-        defer
-    ></script>
+{{--    <script--}}
+{{--        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"--}}
+{{--        defer--}}
+{{--    ></script>--}}
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
     <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
     @stack('patient-detail-js')

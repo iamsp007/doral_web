@@ -247,3 +247,26 @@ function viewFile(id) {
 
     });
 }
+
+function singleLabReportUpload(e,id) {
+    var formData = new FormData();
+    formData.append('lab_report_id',id);
+    formData.append('patient_id',patient_id);
+    formData.append('files', $(e)[0].files[0]);
+
+    $.ajax({
+        url:lab_report_upload_url,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        method:'POST',
+        data:formData,
+        processData: false,  // tell jQuery not to process the data
+        contentType: false,  // tell jQuery not to set contentType
+        success : function(response) {
+            alert(response.message);
+            window.location.reload();
+        }
+    });
+
+}

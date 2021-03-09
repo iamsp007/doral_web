@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class CaregiverController extends Controller
 {
@@ -41,7 +42,7 @@ class CaregiverController extends Controller
                         $q->where('service_id', '3')->where('company_id', $company_id);
                     });
                 } else if($request['status'] == 'occupational-health') {
-                    $query->whereIn('status', ['0', '1', '2', '3']);
+                    $query->whereIn('status', ['0', '1', '2', '3', '5']);
                     $query->whereHas('caregiverInfo',function ($q) use($request) {
                         $company_id = Auth::guard('referral')->user()->id;
                         $q->where('service_id', '3')->where('company_id', $company_id);
@@ -59,11 +60,12 @@ class CaregiverController extends Controller
                 }
             })
             ->with('demographic')->orderBy('id', 'DESC');
-
+            
         $datatble = DataTables::of($patientList)
           ->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
             })
+            ->addIndexColumn()
             ->addColumn('full_name', function($q){
                 return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
             })
@@ -122,8 +124,6 @@ class CaregiverController extends Controller
             if($request['status'] == 'active') {
                 $datatble->addColumn('dob', function($row) use($request){
                     return date('m-d-Y', strtotime($row->dob));
-//                    return '<a href=""><img src="../assets/img/icons/download-icon.svg" class="action-download"></a>';
-//                    return '<a href="' . route('patient.details', ['patient_id' => $row->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $row->full_name . '</a>';
                 });
             } else {
                 $datatble->addColumn('action', function($row) use($request){
@@ -133,23 +133,12 @@ class CaregiverController extends Controller
                         if ($request['status'] == 'initial') {
                             $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
-                        }else {
-                            if($row->status_data == '0') {
-                                $btn .= 'ewewe';
-                            }else if($row->status_data == 'pending') {
-                                $btn .= 'guuyuu';
-                            }else if($row->status_data == 'Pending') {
-                                $btn .= 'guuyuu';
-                            }else if($row->status_data == '3') {
-                                $btn .= 'guuyuu';
-                            }else {
-                                $btn .= $row->status_data;
-                                $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
-//                                $btn .= $row->status_data;
+                        } else {
+                            $btn .= $row->status_data;
+                            if ($row->status === '5') {
+                                $btn .= '<a target="_blank" href="https://doralhealthconnect.com/HTML%20FOR%20PDF/PDF.html"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
                             }
-
                         }
-//                        $btn .= '<a target="_blank" href="' . route('referral.get-employee-physical-examination-report', ['id' => $row->id]) . '">Download Form</a>';
                     } else {
                         if ($row->status === '0') {
                             $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';

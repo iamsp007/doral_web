@@ -7,8 +7,8 @@ use App\Models\LabReportType;
 use App\Services\AdminService;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
-use Exception;
-use Illuminate\Support\Facades\DB;
+use Exception, PDF, Storage;
+use Illuminate\Support\Facades\Log;
 
 class EmployeePhysicalExaminationReportController extends Controller
 {
@@ -43,14 +43,16 @@ class EmployeePhysicalExaminationReportController extends Controller
         $patient = $apiResponse->data;
 
         $labReportTypes = LabReportType::pluck('name', 'id');
-        $checkData = DB::table('employee_physical_examination_reports')->where('patient_id',$id)->first();
-        if(!empty($checkData)) {
-            return view('pages.autofill_employee-physical-examination-report', compact(['patient', 'labReportTypes', 'checkData']));
-        }else {
+
+        // $reportExist = EmployeePhysicalExaminationReport::where('patient_id', $id)->first();
+
+        // if(isset($reportExist->report_details) && !empty($reportExist->report_details)) {
+        //     $patient = $reportExist->report_details;
+        //     dd($patient);
+        //     return view('pages.autofill-employee-physical-examination-report', compact(['patient', 'labReportTypes']));
+        // }else {
             return view('pages.employee-physical-examination-report', compact(['patient', 'labReportTypes']));
-        }
-        
-        
+        // }
     }
 
     /**
@@ -68,6 +70,9 @@ class EmployeePhysicalExaminationReportController extends Controller
         $record = [];
 
         try {
+            // return $this->pdfEmployeePhysicalExaminationReport(9);
+            
+            /* start enable code block and remove above 1 line of code */
 
             $lookup = $request->all();
             unset($lookup['_token']);
@@ -77,8 +82,14 @@ class EmployeePhysicalExaminationReportController extends Controller
             $report->report_details = $lookup;
 
             if ($report->save()) {
-                return redirect()->route('patient.details', $id);
+                return $this->pdfEmployeePhysicalExaminationReport($report);
+                // return redirect()->route('patient.details', $id);
             }
+
+            /* end enable code block*/
+
+            /* start API code block for future purpose */
+
             // $responseArray = $this->employeeServices->storeReport($id, $lookup);
 
             // if($responseArray->status) {
@@ -89,6 +100,8 @@ class EmployeePhysicalExaminationReportController extends Controller
             // }
 
             // $message = $responseArray->message;
+
+            /* end API code block for future purpose */
 
         } catch(Exception $e) {
             $status = 0;
@@ -180,5 +193,39 @@ class EmployeePhysicalExaminationReportController extends Controller
         ];
 
         return redirect('/admin/employee');
+    }
+
+    /**
+     * PDF feature for employee physical report
+     * 
+     * @param $report
+     */
+    public function pdfEmployeePhysicalExaminationReport($report)
+    {
+        try {
+        // $report = EmployeePhysicalExaminationReport::find($report);
+
+        // $data = $report['report_details'];
+
+        // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', ['report' => $data]);
+
+        // return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
+
+        /* start enable code block and remove above 3 line of code*/
+
+        $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
+                'report' => $report->report_details
+            ]);
+
+        // Storage::put('public/pdf/employee-physical-examination-report-'.$report->id.'.pdf', $pdf->output());
+
+        return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
+
+        /* end enable code block*/
+
+        } catch(Exception $e) {
+            Log::error($e->getMessage());
+            dd($e->getMessage());
+        }
     }
 }

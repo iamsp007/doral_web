@@ -29,7 +29,8 @@ class PatientEmergencyContact extends Model
     {
         $phoneData = '';
         if ($phone) {
-            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)." ".substr($phone,6);
+            $mobile = str_replace("-","",$phone);
+            $phoneData = "(".substr($mobile, 0, 3).") ".substr($mobile, 3, 3)."-".substr($mobile,6);
         }
         return $phoneData;
     }
@@ -38,7 +39,8 @@ class PatientEmergencyContact extends Model
     {
         $phoneData = '';
         if ($phone) {
-            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)." ".substr($phone,6);
+            $mobile = str_replace("-","",$phone);
+            $phoneData = "(".substr($mobile, 0, 3).") ".substr($mobile, 3, 3)."-".substr($mobile,6);
         }
         return $phoneData;
     }

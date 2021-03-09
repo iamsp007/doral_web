@@ -149,7 +149,7 @@
                                         <input type="text" class="form-control-plaintext _detail "
                                             readonly name="ethnicity" onclick="editableField('ethnicity')"
                                             data-id="ethnicity" id="ethnicity" 
-                                            placeholder="Ethnicity" value="{{ ($ethnicity[0] && $ethnicity[0]->Name) ? $ethnicity[0]->Name : '' }}">
+                                            placeholder="Ethnicity" value="{{ isset($ethnicity[0]) && isset($ethnicity[0]->Name) ? $ethnicity[0]->Name : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -192,13 +192,13 @@
                             <div class="input_box">
                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                 <div class="rs">
-                                    <h3 class="_title">HomePhone</h3>
+                                    <h3 class="_title">Home Phone</h3>
                                     <input type="text"
                                     class="form-control-plaintext _detail phoneNumber" readonly
                                     name="home_phone"
                                     onclick="editableField('home_phone')"
                                     data-id="home_phone" id="home_phone"
-                                    placeholder="home_phone" value="{{ $patient->phone }}">
+                                    placeholder="Home Phone" value="{{ $patient->phone }}">
                                 </div>
                             </div>
                         </div>
@@ -230,7 +230,7 @@
                                     name="language1"
                                     onclick="editableField('language1')"
                                     data-id="language1" id="language1"
-                                    placeholder="Language1" value="{{ ($language[0] && $language[0]->Language1) ? $language[0]->Language1 : '' }}">
+                                    placeholder="Language1" value="{{ isset($language[0]) && isset($language[0]->Language1) ? $language[0]->Language1 : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -244,7 +244,7 @@
                                     name="language2"
                                     onclick="editableField('language2')"
                                     data-id="language2" id="language2"
-                                    placeholder="Language2" value="{{ ($language[0] && $language[0]->Language2) ? $language[0]->Language2 : '' }}">
+                                    placeholder="Language2" value="{{ isset($language[0]) && isset($language[0]->Language2) ? $language[0]->Language2 : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -258,7 +258,7 @@
                                     name="language3"
                                     onclick="editableField('language3')"
                                     data-id="language3" id="language3"
-                                    placeholder="Language3" value="{{ ($language[0] && $language[0]->Language3) ? $language[0]->Language3 : '' }}">
+                                    placeholder="Language3" value="{{ isset($language[0]) && isset($language[0]->Language3) ? $language[0]->Language3 : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -272,7 +272,7 @@
                                     name="language4"
                                     onclick="editableField('language4')"
                                     data-id="language4" id="language4"
-                                    placeholder="Language4" value="{{ ($language[0] && $language[0]->Language4) ? $language[0]->Language4 : '' }}">
+                                    placeholder="Language4" value="{{ isset($language[0]) && isset($language[0]->Language4) ? $language[0]->Language4 : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -292,7 +292,7 @@
                                     name="marital_status_name"
                                     onclick="editableField('marital_status_name')"
                                     data-id="marital_status_name" id="marital_status_name"
-                                    placeholder="Marital Status Name" value="{{ ($maritalStatus[0] && $maritalStatus[0]->Name) ? $maritalStatus[0]->Name : '' }}">
+                                    placeholder="Marital Status Name" value="{{ isset($maritalStatus[0]) && isset($maritalStatus[0]->Name) ? $maritalStatus[0]->Name : '' }}">
                                 </div>
                             </div>
                         </div>
@@ -373,6 +373,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -418,7 +422,7 @@
                         </div>
                         <div>
                             <div class="p-3">
-                                <div class="">
+                                <div class="form-group">
                                     <div class="row">
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
@@ -494,7 +498,7 @@
                             </div>
                             <div>
                                 <div class="p-3">
-                                    <div class="">
+                                    <div class="form-group">
                                         <div class="row">
                                             <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="input_box">
@@ -560,6 +564,10 @@
                                                 </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
                                             @foreach(json_decode($patientEmergencyContact->relation, true) as $value)
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">

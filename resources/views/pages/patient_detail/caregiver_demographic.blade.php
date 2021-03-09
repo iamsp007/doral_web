@@ -192,13 +192,13 @@
                             <div class="input_box">
                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                 <div class="rs">
-                                    <h3 class="_title">HomePhone</h3>
+                                    <h3 class="_title">Home Phone</h3>
                                     <input type="text"
                                     class="form-control-plaintext _detail phoneNumber" readonly
                                     name="home_phone"
                                     onclick="editableField('home_phone')"
                                     data-id="home_phone" id="home_phone"
-                                    placeholder="home_phone" value="{{ $patient->phone }}">
+                                    placeholder="Home Phone" value="{{ $patient->phone }}">
                                 </div>
                             </div>
                         </div>
@@ -373,6 +373,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
@@ -418,7 +422,7 @@
                         </div>
                         <div>
                             <div class="p-3">
-                                <div class="">
+                                <div class="form-group">
                                     <div class="row">
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
@@ -494,7 +498,7 @@
                             </div>
                             <div>
                                 <div class="p-3">
-                                    <div class="">
+                                    <div class="form-group">
                                         <div class="row">
                                             <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="input_box">
@@ -560,6 +564,10 @@
                                                 </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
                                             @foreach(json_decode($patientEmergencyContact->relation, true) as $value)
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">

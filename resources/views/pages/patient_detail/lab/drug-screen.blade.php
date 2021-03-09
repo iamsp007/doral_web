@@ -37,7 +37,7 @@
                         <th scope="col">Performed Date</th>
                         <th scope="col">Expiry Date</th>
                         <th scope="col">Result</th>
-                        <th width="11%">Action</th>
+                        <th width="11%">Reports</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,22 +46,25 @@
                         <tr class="@if ($drugLabReport->result === '1') bg-positive @endif drug-main-tr">
                             <td scope="row">{{ $number }}</td>
                             <td scope="row">{{ ($drugLabReport->labReportType) ? $drugLabReport->labReportType->name : ''}}</th>
-                            <td><?php echo date('m-d-Y',strtotime($drugLabReport->due_date)); ?></td>
-                            <td><?php echo date('m-d-Y',strtotime($drugLabReport->perform_date)); ?></td>
-                            <td><?php echo date('m-d-Y',strtotime($drugLabReport->expiry_date)); ?></td>
+                            <td><?php echo $drugLabReport->due_date; ?></td>
+                            <td><?php echo $drugLabReport->perform_date; ?></td>
+                            <td><?php echo $drugLabReport->expiry_date; ?></td>
                             <td>{{ $drugLabReport->result }}</td>
-                            <td class='text-center'><span
+                            <td class='text-center'>
+<!--                                <span
                                     onclick="exploder('drug{{$number}}')" id="drug{{$number}}"
                                     class="exploder"><i
                                         class="las la-plus la-2x"></i></span>
                                 <a href="javascript:void(0)" class="deleteLabResult" id="{{ $drugLabReport->id }}"><i
-                                        class="las la-trash la-2x pl-4"></i></a>
-                                <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,{{ $drugLabReport->labReportType->id }})" id="{{ $drugLabReport->labReportType->id }}" data-id="{{ $drugLabReport->labReportType->id }}" ><i class="las la-upload la-2x pl-4" ></i></input>
+                                        class="las la-trash la-2x pl-4"></i></a>-->
+                                <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,{{ $drugLabReport->labReportType->id }})" id="{{ $drugLabReport->labReportType->id }}" data-id="{{ $drugLabReport->labReportType->id }}" >
+                                <!--<i class="las la-upload la-2x pl-4" ></i>-->
+                                </input>
                             </td>
                         </tr>
                         <tr class="explode1 d-none">
                             <td colspan="6">
-                                <x-text-area name="note" placeholder="Enter note" value="{{$drugLabReport->note}}" class="note-area"/>
+                                <!--<x-text-area name="note" placeholder="Enter note" value="{{$drugLabReport->note}}" class="note-area"/>-->
                                 <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $drugLabReport->id }}" />
                             </td>
                         </tr>

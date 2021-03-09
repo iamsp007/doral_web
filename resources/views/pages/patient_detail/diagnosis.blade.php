@@ -3,7 +3,7 @@
                         <div class="app-card-header">
                            <h1 class="title">Diagnosis</h1>
                         </div>
-                        <div class="head scrollbar scrollbar4">
+                        <div class="head scrollbar scrollbar12">
                            <div class="p-3">
                               <table class="table table-bordered" style="width: 100%;" id="employee-table">
                                  <thead class="thead-inverse">

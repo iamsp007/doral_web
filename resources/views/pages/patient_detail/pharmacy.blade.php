@@ -3,6 +3,6 @@
       <div class="app-card-header">
          <h1 class="title">Pharmacy</h1>
       </div>
-      <div class="head scrollbar scrollbar4"></div>
+      <div class="head scrollbar scrollbar12"></div>
    </div>
 </div>

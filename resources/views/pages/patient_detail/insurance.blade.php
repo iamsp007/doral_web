@@ -9,7 +9,7 @@
             data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt=""
             onclick="updateAllField('insurance')">
       </div>
-      <div class="head scrollbar scrollbar4">
+      <div class="head scrollbar scrollbar12">
          <div class="p-3">
             <!-- Medicade Start -->
             <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3"

@@ -198,7 +198,7 @@
                            <div class="">
                               <div class="card-header" id="headingOne">
                                  <h2 class="mb-0">
-                                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"><span>PHYSICAN CONDITION</span>  <i class="fa fa-angle-right"></i></button>                                   
+                                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"><span>PHYSICIAN CONDITION</span>  <i class="fa fa-angle-right"></i></button>                                   
                                  </h2>
                               </div>
                               <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -559,7 +559,7 @@
             </div>
             <div class="container mb-5">
                <div class="innerSpace">
-                  <h2 class="t1 fadeIn">PHYSICAL DETAILS</h2>
+                  <h2 class="t1 fadeIn">PHYSICIAN DETAILS</h2>
                   <div class="row">
                      <div class="col-lg-6">
                         <div class="form-group">
@@ -575,7 +575,7 @@
                   <div class="row">
                      <div class="col-lg-6">
                         <div class="card">
-                           <p>Physician  Date & Signeture</p>
+                           <p>Physician  Date & Signature</p>
                            <div class="cardb"> </div>
                         </div>
                      </div>

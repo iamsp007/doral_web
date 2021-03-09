@@ -227,7 +227,7 @@
             <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
                data-name="administrator_detail">
                <div class="app-card-header">
-                  <h1 class="title">Mal Practitiner Insurance Detail</h1>
+                  <h1 class="title">Mal Practitioner Insurance Detail</h1>
                </div>
                <div class="head">
                   <div class="p-3">

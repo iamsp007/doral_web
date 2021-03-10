@@ -172,15 +172,9 @@ class EmployeePhysicalExaminationReportController extends Controller
         // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', ['report' => $data]);
         // return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
         /* start enable code block and remove above 3 line of code*/
-        PDF::setOptions([
-            'dpi' => 150,
-            "isFontSubsettingEnabled" => true,
-            "isPhpEnabled"=>true,
-            'defaultFont' => '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-        ]);
         $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
                 'report' => $report->report_details,
-        ])->setPaper('a4', 'landscape');
+        ]);
         // Storage::put('public/pdf/employee-physical-examination-report-'.$report->id.'.pdf', $pdf->output());
         return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf')->header('Content-Type','application/pdf');
         /* end enable code block*/

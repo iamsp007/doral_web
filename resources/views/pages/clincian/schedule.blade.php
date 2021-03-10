@@ -65,6 +65,7 @@
                                         <input type="hidden" name="patient_id" class="input-skin" >
                                         <input type="hidden" name="reason" class="input-skin" >
                                         <input type="text" name="test_name" class="input-skin" id="selectRole1" placeholder="Enter test name...">
+                                        <input type="hidden" name="type_id" class="input-skin">
                                 </div>
                             </div>
                         </div>

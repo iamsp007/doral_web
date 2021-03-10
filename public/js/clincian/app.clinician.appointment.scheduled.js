@@ -75,6 +75,27 @@ $(function () {
                     var roadlbuttonStatus=true;
                     var options='';
                     $.each(listRequestType,function (key,value) {
+                        if(value == 'LAB') {
+                            var testId = 1;
+                        }
+                        if(value == 'Radiology') {
+                            var testId = 2;
+                        }
+                        if(value == 'CHHA') {
+                            var testId = 3;
+                        }
+                        if(value == 'Home Oxygen') {
+                            var testId = 4;
+                        }
+                        if(value == 'Home Influsion') {
+                            var testId = 5;
+                        }
+                        if(value == 'Wound Care') {
+                            var testId = 6;
+                        }
+                        if(value == 'DME') {
+                            var testId = 7;
+                        }
                         if (vals[vals.indexOf(value)]===value){
                             options+='<li>\n' +
                                 '              <label>\n' +
@@ -89,7 +110,7 @@ $(function () {
                             options+='<li>\n' +
                                 '              <label>\n' +
                                 ' \n' +
-                                '                  <input type="checkbox" name="selected_appointment" data-appointmentid="'+row.id+'"  data-patientId="'+row.patient_id+'"  data-appointment_title="'+appointment_title+'" value="'+value+'" onchange="selectRoadlRequest(this)">' +
+                                '                  <input type="checkbox" name="selected_appointment" data-appointmentid="'+row.id+'" data-type_id="'+testId+'"  data-patientId="'+row.patient_id+'"  data-appointment_title="'+appointment_title+'" value="'+value+'" onchange="selectRoadlRequest(this)">' +
                                 '<span>'+value+'</span>\n' +
                                 ' \n' +
                                 '              </label>\n' +
@@ -527,6 +548,7 @@ function selectRoadlRequest(e) {
         $('#modal').find('input[name="appointment_id"]').val($(e).attr('data-appointmentid'));
         $('#modal').find('input[name="patient_id"]').val($(e).attr('data-patientId'));
         $('#modal').find('input[name="reason"]').val($(e).attr('data-appointment_title'));
+        $('#modal').find('input[name="type_id"]').val($(e).attr('data-type_id'));
         $('#modal').toggle('show')
     }
 }

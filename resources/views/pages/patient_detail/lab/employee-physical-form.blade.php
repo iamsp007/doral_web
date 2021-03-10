@@ -27,17 +27,19 @@
                             <td>{{ $employeePhysical->perform_date }}</td>
                             <td>{{ $employeePhysical->expiry_date }}</td>
                             <td>{{ $employeePhysical->result }}</td>
-                            <td class='text-center'><span
+                            <td class='text-center'>
+                                <!-- <span
                                     onclick="exploder('physical{{$number}}')" id="physical{{$number}}"
                                     class="exploder"><i
                                         class="las la-plus la-2x"></i></span>
                                 <a href="javascript:void(0)" class="deleteLabResult" id="{{ $employeePhysical->id }}"><i
-                                        class="las la-trash la-2x pl-4"></i></a>
+                                        class="las la-trash la-2x pl-4"></i></a> -->
+                                <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,'{{ $employeePhysical->labReportType->id }}')" id="{{ $employeePhysical->labReportType->id }}" data-id="{{ $employeePhysical->labReportType->id }}" >
                             </td>
                         </tr>
                         <tr class="explode1 d-none">
                             <td colspan="6">
-                                <x-text-area name="note" placeholder="Enter note" value="{{$employeePhysical->note}}" class="note-area"/>
+                                <!-- <x-text-area name="note" placeholder="Enter note" value="{{$employeePhysical->note}}" class="note-area"/> -->
                                 <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $employeePhysical->id }}" />
                             </td>
                         </tr>

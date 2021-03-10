@@ -735,6 +735,8 @@
                         var explodercounter = 'immune' + Number($(document).find(".immune-main-tr").length + 1);
                      } else if (data.type == 'drug') {
                         var explodercounter = 'drug' + Number($(document).find(".drug-main-tr").length + 1);
+                     } else if (data.type == 'physical') {
+                        var explodercounter = 'physical' + Number($(document).find(".physical-main-tr").length + 1);
                      }
                   
                      var html = '<tr class="';
@@ -743,7 +745,7 @@
                      }
 
                      html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.resultdata.lab_report_type.name +'</td><td>' + data.resultdata.due_date + '</td>';
-                     if (data.type == 'emmune' || data.type == 'drug') {
+                     if (data.type == 'emmune' || data.type == 'drug' || data.type == 'physical') {
                         html += '<td>' + data.resultdata.perform_date + '</td>';
                      }
 
@@ -765,6 +767,10 @@
                         $('.drug-list-order tr:last').before(html);
                         $(document).find('.drug-sequence').text(data.newCount);
                         var select = $('.drug_lab_report_types').empty();
+                     } else if (data.type == 'physical') {
+                        $('.physical-list-order tr:last').before(html);
+                        $(document).find('.physical-sequence').text(data.newCount);
+                        var select = $('.physical_lab_report_types').empty();
                      }
 
                      select.append('<option value="">Select a test type</option>');

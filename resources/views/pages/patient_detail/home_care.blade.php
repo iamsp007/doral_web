@@ -16,8 +16,8 @@
                            <div class="rs">
                               <h3 class="_title">Name</h3>
                               <input type="text" class="form-control-plaintext _detail "
-                                 readonly name="name" data-id="name"
-                                 onclick="editableField('name')" id="name"
+                                 readonly name="company_name" data-id="company_name"
+                                 onclick="editableField('company_name')" id="company_name"
                                  placeholder="Name" value="{{ ($patient->caregiverInfo->company->name) ?$patient->caregiverInfo->company->name : '' }}">
                            </div>
                         </div>
@@ -28,8 +28,8 @@
                            <div class="rs">
                               <h3 class="_title">Email</h3>
                               <input type="text" class="form-control-plaintext _detail "
-                                 readonly name="email" data-id="email"
-                                 onclick="editableField('email')" id="email"
+                                 readonly name="company_email" data-id="company_email"
+                                 onclick="editableField('company_email')" id="company_email"
                                  placeholder="Email" value="{{ ($patient->caregiverInfo->company->email) ? $patient->caregiverInfo->company->email : '' }}">
                            </div>
                         </div>
@@ -40,10 +40,10 @@
                            <div class="rs">
                               <h3 class="_title">Phone</h3>
                               <input type="tel" class="form-control-plaintext _detail " readonly
-                                 name="hc_phone" data-id="hc_phone"
-                                 onclick="editableField('hc_phone')" id="hc_phone"
+                                 name="company_phone" data-id="company_phone"
+                                 onclick="editableField('company_phone')" id="company_phone"
                                  onkeyup="this.value=this.value.replace(/[^\d]/,'')"
-                                 placeholder="" value="{{ ($patient->caregiverInfo->company->phone) ? $patient->caregiverInfo->company->phone : '' }}">
+                                 placeholder="Phone" value="{{ ($patient->caregiverInfo->company->phone) ? $patient->caregiverInfo->company->phone : '' }}">
                            </div>
                         </div>
                      </div>
@@ -59,40 +59,37 @@
                            <div class="rs">
                               <h3 class="_title">Fax No</h3>
                               <input type="text" class="form-control-plaintext _detail "
-                                 readonly name="fax_no" data-id="fax_no"
-                                 onclick="editableField('fax_no')" id="fax_no"
+                                 readonly name="company_fax_no" data-id="company_fax_no"
+                                 onclick="editableField('company_fax_no')" id="company_fax_no"
                                  placeholder="Fax No" value="{{ ($patient->caregiverInfo->company->fax_no) ? $patient->caregiverInfo->company->fax_no : '' }}">
                            </div>
                         </div>
                      </div>
                   @endif
                   @if(!empty($patient->caregiverInfo->company->services))
-                     @foreach(explode(",",$patient->caregiverInfo->company->services) as $value)
-                        @php 
-                              $name = '';
-                              if($value == '1'):
-                                 $name = 'VBC';
-                              endif;
-                              if($value == '2'):
-                                 $name = 'MD Order';
-                              endif;
-                              if($value == '3'):
-                                 $name = 'Occupational Health';
-                              endif;
-                        @endphp
+                   
                         <div class="col-12 col-sm-4">
                            <div class="input_box">
                               <div class="ls"><i class="lab la-servicestack circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Services</h3>
-                                 <input type="text" class="form-control-plaintext _detail "
-                                    readonly name="services" data-id="services"
-                                    onclick="editableField('services')" id="services"
-                                    placeholder="Services" value="{{ $name }}">
+                                 
+                                    @if(isset($services)&&!empty($services))
+                                    @foreach($services as $s_row)
+                                    <div class="col-12 col-sm-6 mt-3">
+                                       <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input"
+                                             id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(',', ($patient->caregiverInfo->company->services) ? $patient->caregiverInfo->company->services : ''))) { echo "checked";} ?> disabled>
+                                          <label class="custom-control-label t5"
+                                             for="customCheck{{$s_row['id']}}">{{$s_row['name']}}</label>
+                                       </div>
+                                    </div>
+                                    @endforeach
+                                    @endif
                               </div>
                            </div>
                         </div>
-                     @endforeach
+                   
                   @endif
                   @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
                      <div class="col-12 col-sm-4">

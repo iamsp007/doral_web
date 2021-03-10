@@ -34,7 +34,7 @@
                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Email</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" id="email" placeholder="Last Name" value="{{ ($patient->email) ? $patient->email : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" id="email" placeholder="Email" value="{{ ($patient->email) ? $patient->email : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                                     </div>
                                     <div class="rs">
                                         <h3 class="_title">Marital Status</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="marital_status_name" data-id="marital_status_name" id="marital_status_name" placeholder="Marital Status Name" value="{{ isset($maritalStatus[0]) && isset($maritalStatus[0]->Name) ? $maritalStatus[0]->Name : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="marital_status_name" data-id="marital_status_name" id="marital_status_name" placeholder="Marital Status" value="{{ isset($maritalStatus[0]) && isset($maritalStatus[0]->Name) ? $maritalStatus[0]->Name : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -256,7 +256,7 @@
                                                     <div class="ls"><i class="las la-archway circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">State</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="state" value="{{ $address[0]->State }}">
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ $address[0]->State }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -278,7 +278,7 @@
                                                     <div class="ls"><i class="las la-code circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Zip5</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="zip5" data-id="zip5" id="zip5" placeholder="zip5" value="{{ $address[0]->Zip5 }}">
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="zip5" data-id="zip5" id="zip5" placeholder="Zip5" value="{{ $address[0]->Zip5 }}">
                                                     </div>
                                                 </div>
                                             </div>

@@ -1016,7 +1016,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Name</h3>
-                                                                    <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
+                                                                    <!-- <h1 class="_detail">---</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
                                                                            name="name" data-id="name"
@@ -1032,7 +1032,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Coordinator</h3>
-                                                                    <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
+                                                                    <!-- <h1 class="_detail">---</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
                                                                            name="coordinator" data-id="coordinator"
@@ -1092,7 +1092,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Name</h3>
-                                                                    <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
+                                                                    <!-- <h1 class="_detail">---</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
                                                                            name="name" data-id="name"
@@ -1108,7 +1108,7 @@
                                                                 </div>
                                                                 <div>
                                                                     <h3 class="_title">Coordinator</h3>
-                                                                    <!-- <h1 class="_detail">Lorem Ipsum</h1> -->
+                                                                    <!-- <h1 class="_detail">---</h1> -->
                                                                     <input type="text"
                                                                            class="form-control-plaintext _detail no-height" readonly
                                                                            name="coordinator" data-id="coordinator"
@@ -1182,7 +1182,7 @@
                                                                                class="form-control-plaintext _detail no-height" readonly
                                                                                name="a_name" data-id="a_name"
                                                                                onclick="editableField('a_name')" id="a_name"
-                                                                               placeholder="Lorem Ipsum" value="Lorem Ipsum">
+                                                                               placeholder="---" value="---">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1391,13 +1391,13 @@
                                                         <div class="_card">
                                                             <div class="_card_header">
                                                                 <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                                    Lorem Ipsum is simply dummy text of the printing and
+                                                                    --- is simply dummy text of the printing and
                                                                     typesetting industry?
                                                                 </div>
                                                             </div>
                                                             <div class="_card_body">
                                                                 <h1 class="_title"><span style="font-weight: bold;">Ans:</span>
-                                                                    Lorem Ipsum
+                                                                    ---
                                                                     has been the industry's standard dummy text ever since the
                                                                     1500s.
                                                                 </h1>
@@ -1406,13 +1406,13 @@
                                                         <div class="_card mt-3">
                                                             <div class="_card_header">
                                                                 <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                                    Lorem Ipsum is simply dummy text of the printing and
+                                                                    --- is simply dummy text of the printing and
                                                                     typesetting industry?
                                                                 </div>
                                                             </div>
                                                             <div class="_card_body">
                                                                 <h1 class="_title"><span style="font-weight: bold;">Ans:</span>
-                                                                    Lorem Ipsum
+                                                                    ---
                                                                     has been the industry's standard dummy text ever since the
                                                                     1500s.
                                                                 </h1>
@@ -1421,13 +1421,13 @@
                                                         <div class="_card mt-3">
                                                             <div class="_card_header">
                                                                 <div class="title-head"><span style="font-weight: bold;">Q:</span>
-                                                                    Lorem Ipsum is simply dummy text of the printing and
+                                                                    --- is simply dummy text of the printing and
                                                                     typesetting industry?
                                                                 </div>
                                                             </div>
                                                             <div class="_card_body">
                                                                 <h1 class="_title"><span style="font-weight: bold;">Ans:</span>
-                                                                    Lorem Ipsum
+                                                                    ---
                                                                     has been the industry's standard dummy text ever since the
                                                                     1500s.
                                                                 </h1>
@@ -2073,9 +2073,9 @@
                                                 <tr class="table-success">
                                                     <td>1</td>
                                                     <td class="text-green">56745</td>
-                                                    <td>Lorem Ipsum</td>
+                                                    <td>---</td>
                                                     <td>Sunday, 1 October 2020</td>
-                                                    <td>Lorem Ipsum</td>
+                                                    <td>---</td>
                                                     <td>
                                                         <a href="#" class="btn btn-info btn-sm btn-block">Set as a Primary
                                                             Diagnosis Code</a>
@@ -2084,9 +2084,9 @@
                                                 <tr>
                                                     <td>2</td>
                                                     <td>4365</td>
-                                                    <td>Lorem Ipsum</td>
+                                                    <td>---</td>
                                                     <td>Sunday, 1 October 2020</td>
-                                                    <td>Lorem Ipsum</td>
+                                                    <td>---</td>
                                                     <td>
                                                         <a href="#" class="btn btn-info btn-sm btn-block">Set as a Primary
                                                             Diagnosis Code</a>

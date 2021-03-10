@@ -38,7 +38,8 @@
                         <th scope="col">Expiry Date</th>
                         <th scope="col">Titer</th>
                         <th scope="col">Result</th>
-                        <th width="11%">Action</th>
+                        <th width="11%">Reports</th>
+                        <!--<th width="11%">Reports</th>-->
                     </tr>
                     </thead>
                     <tbody>
@@ -47,22 +48,25 @@
                         <tr class="@if ($immunizationLabReportType->result === '1') bg-positive @endif immune-main-tr">
                             <th scope="row">{{ $number }}</th>
                             <td scope="row">{{ ($immunizationLabReportType->labReportType) ? $immunizationLabReportType->labReportType->name : ''}}</th>
-                            <td><?php echo date('m-d-Y',strtotime($immunizationLabReportType->due_date)); ?></td>
-                            <td><?php echo date('m-d-Y',strtotime($immunizationLabReportType->perform_date)); ?></td>
-                            <td><?php echo date('m-d-Y',strtotime($immunizationLabReportType->expiry_date)); ?></td>
+                            <td><?php echo $immunizationLabReportType->due_date; ?></td>
+                            <td><?php echo $immunizationLabReportType->perform_date; ?></td>
+                            <td><?php echo $immunizationLabReportType->expiry_date; ?></td>
                             <td>{{ $immunizationLabReportType->titer }}</td>
                             <td>@if ($immunizationLabReportType->result === '1') Immune @else Non Immune  @endif</td>
-                            <td class='text-center'><span
+                            <td class='text-center'>
+<!--                                <span
                                     onclick="exploder('immune{{$number}}')" id="immune{{$number}}"
                                     class="exploder"><i
-                                        class="las la-plus la-2x"></i></span>
-                                <a href="javascript:void(0)" class="deleteLabResult" data-id="{{ $immunizationLabReportType->id }}"><i class="las la-trash la-2x pl-4"></i></a>
-                                <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,{{ $immunizationLabReportType->labReportType->id }})" id="{{ $immunizationLabReportType->labReportType->id }}" data-id="{{ $immunizationLabReportType->lab_report_type_id }}" ><i class="las la-upload la-2x pl-4" ></i></input>
+                                        class="las la-plus la-2x"></i></span>-->
+                                <!--<a href="javascript:void(0)" class="deleteLabResult" data-id="{{ $immunizationLabReportType->id }}"><i class="las la-trash la-2x pl-4"></i></a>-->
+                                <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,{{ $immunizationLabReportType->labReportType->id }})" id="{{ $immunizationLabReportType->labReportType->id }}" data-id="{{ $immunizationLabReportType->lab_report_type_id }}" >
+                                <!--<i class="las la-upload la-2x pl-4" ></i>-->
+                                </input>
                             </td>
                         </tr>
                         <tr class="explode1 d-none">
                             <td colspan="6">
-                                <x-text-area name="note" placeholder="Enter note" value="{{$immunizationLabReportType->note}}" class="note-area" />
+                                <!--<x-text-area name="note" placeholder="Enter note" value="{{$immunizationLabReportType->note}}" class="note-area" />-->
                                 <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $immunizationLabReportType->id }}" />
                             </td>
                         </tr>

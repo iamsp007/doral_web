@@ -43,7 +43,7 @@
                         @php $number = 1; @endphp
 
                         @foreach($tbpatientLabReports as $tbpatientLabReport)
-                            <tr class="@if ($tbpatientLabReport->result === '1') bg-positive @endif tb-main-tr">
+                            <tr class="@if ($tbpatientLabReport->result === 'Positive') bg-positive @endif tb-main-tr">
                                 <td scope="row">{{ $number }}</td>
                                 <td scope="row">{{ ($tbpatientLabReport->labReportType) ? $tbpatientLabReport->labReportType->name : ''}}</td>
 
@@ -56,7 +56,7 @@
                                         class="exploder"><i
                                             class="las la-plus la-2x"></i></span>
                                     <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}"><i class="las la-trash la-2x pl-4" ></i></a>-->
-                                    <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,{{ $tbpatientLabReport->labReportType->id }})" id="{{ $tbpatientLabReport->lab_report_type_id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}" >
+                                    <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,'{{ $tbpatientLabReport->labReportType->id }}')" id="{{ $tbpatientLabReport->lab_report_type_id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}" >
                                     <!--<i class="las la-upload la-2x pl-4" ></i>-->
                                     <!--<i class="las la-file-upload la-2x mr-2"></i>-->
                                     </input>

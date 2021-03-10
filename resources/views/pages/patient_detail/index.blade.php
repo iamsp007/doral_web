@@ -788,6 +788,36 @@
                }
             });
          });
+         
+         $(document).on('click','.save-record',function(event) {
+            alert();
+            event.preventDefault();
+            var data = $("#insurance_form").serializeArray();
+            var url = "{{ Route('insurance.store') }}";
+
+            $.ajax({
+               type:"POST",
+               url:url,
+               data:data,
+               headers: {
+                     'X_CSRF_TOKEN': '{{ csrf_token() }}',
+               },
+               success: function(data) {
+                  if(data.status == 400) {
+                     printErrorMsg(data.message);
+                  } else {
+                     var html = '<tr><td>' + data.resultdata.payer_id + '</td><td>' + data.resultdata.phone + '</td><td>' + data.resultdata.policy_no + '</td><td>EDIT | DELETE</td></tr>';
+                     $('.insurance-list-order tr:last').before(html);
+
+                     alertText(data.message,'success');
+                  }
+               },
+               error: function()
+               {
+                  alertText("Server Timeout! Please try again",'warning');
+               }
+         });
+      });
 
          $('body').on('click', '.deleteLabResult', function () {
             var t = $(this);

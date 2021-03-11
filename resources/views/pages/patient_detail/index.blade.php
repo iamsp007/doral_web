@@ -641,6 +641,16 @@
 
 @endsection
 
+@push('styles')
+   <style>
+      input, .label {
+         color: black;
+      }
+      .phone-text, .while_edit {
+         display: none;
+      }
+   </style>
+@endpush
 @push('scripts')
    <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
    <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
@@ -789,10 +799,17 @@
             });
          });
          
-         $(document).on('click','.save-record',function(event) {
-            alert();
+         $(document).on('click','.save_record',function(event) {
             event.preventDefault();
-            var data = $("#insurance_form").serializeArray();
+            var t = $(this);
+            var action = t.attr('data-action');
+            alert(action);
+            if (action === 'add') {
+               var data = $(this).parents('.insurance_company').find('form').serializeArray();//$(".insurance_form").serializeArray();
+            } else if (action === 'edit') {
+               var data = $(this).parents("tr").find('form').serializeArray();
+            }
+           console.log(data);
             var url = "{{ Route('insurance.store') }}";
 
             $.ajax({
@@ -804,11 +821,22 @@
                },
                success: function(data) {
                   if(data.status == 400) {
-                     printErrorMsg(data.message);
+                     $('.insurance_company').hide();
+                     alertText(data.message, 'error');
+                     // printErrorMsg(data.message);
                   } else {
-                     var html = '<tr><td>' + data.resultdata.payer_id + '</td><td>' + data.resultdata.phone + '</td><td>' + data.resultdata.policy_no + '</td><td>EDIT | DELETE</td></tr>';
-                     $('.insurance-list-order tr:last').before(html);
+                     var html = '<tr><form class="insurance_form5"><input type="hidden" name="insurance_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.payer_id + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" aria-describedby="payerIdHelp" placeholder="Enter Payer ID" value="' + data.resultdata.payer_id + '"></div></td><td><span class="label">' + data.resultdata.phone + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.phone + '"></div></td><td><span class="label">' + data.resultdata.policy_no + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="' + data.resultdata.policy_no + '"></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
 
+                     if (data.action === 'add') {
+                        // alert(data.action);
+                        $('.insurance-list-order tr:last').after(html);  
+                     } else if (data.action === 'edit') {
+                        // alert(data.action);
+                        t.parents("tr").replaceWith(html);  
+                     }
+                     $('.insurance_company').hide();
+                     t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
+                     t.parents("tr").find("span, .normal").css("display",'block');
                      alertText(data.message,'success');
                   }
                },
@@ -816,8 +844,49 @@
                {
                   alertText("Server Timeout! Please try again",'warning');
                }
+            });
          });
-      });
+
+      $("body").on('click','.edit_btn',function () {
+            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
+            $(this).parents("tr").find("span, .normal").css("display",'none');
+            $('.insurance_company').hide();
+        });
+        $("body").on('click','.cancel_edit',function () {
+            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'none');
+            $(this).parents("tr").find("span, .normal").css("display",'block');
+            $('.insurance_company').hide();
+        });
+
+        $("body").on('click','.save_btn',function () {
+            var val = $(document).find('.phone').val();
+            var id = $(this).attr("data-id");
+            
+            $.ajax({
+                'type': 'POST',
+                'url': "{{ route('insurance.updateInsurance') }}",
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {
+                    "id": id,
+                    "phone" : val
+                },
+                'success': function (data) {
+                    if(data.status == 400) {
+                        alertText(data.message,'error');
+                    } else {
+                        alertText(data.message,'success');
+                        refresh();
+                    }
+                    $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                    alertText("Server Timeout! Please try again",'error');
+                    $("#loader-wrapper").hide();
+                }
+            });
+        });
 
          $('body').on('click', '.deleteLabResult', function () {
             var t = $(this);

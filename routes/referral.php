@@ -62,4 +62,5 @@ Route::group(['prefix' => '/referral'], function () {
     Route::get('/employee-physical-examination-report-pdf/{id}','App\Http\Controllers\PatientReferralController@getEmployeePhysicalExaminationReport')->name('referral.get-employee-physical-examination-report');
 
     Route::post('/insurance/store', 'App\Http\Controllers\InsuranceController@store')->name('insurance.store');
+    Route::post('/edit-insurance', 'App\Http\Controllers\InsuranceController@updateInsurance')->name('insurance.updateInsurance');
 });

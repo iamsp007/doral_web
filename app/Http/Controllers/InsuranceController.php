@@ -18,17 +18,19 @@ class InsuranceController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-    
+       
         $rules = [
-            'payerId' => 'required',
-            'phoneNo' => 'required',
-            'policyNo' => 'required'
+            // 'name' => 'required',
+            'payer_id' => 'required',
+            'phone' => 'required',
+            'policy_no' => 'required',
         ];
 
         $messages = [
-            'payerId.required' => 'Please enter payer id.',
-            'phoneNo.required' => 'Please enter phone.',
-            'policyNo.required' => 'Please enter policy no.',
+            // 'name.required' => 'Please enter company name.',
+            'payer_id.required' => 'Please enter payer id.',
+            'phone.required' => 'Please enter phone.',
+            'policy_no.required' => 'Please enter policy no.',
         ];
 
         $validator = Validator::make($input, $rules, $messages);
@@ -37,16 +39,26 @@ class InsuranceController extends Controller
             $arr = array('status' => 400, 'message' => $validator->errors()->all(), 'result' => array());
         } else {
             try {
-                $patientInsurance = new PatientInsurance();
-                $message = 'Patient Insurance added successfully..!';
+                if (isset($input['insurance_id']) && !empty($input['insurance_id'])) {
+                    $patientInsurance = PatientInsurance::find($input['insurance_id']);
+                    $action = 'edit';
+                    $message = 'Patient Insurance updated successfully..!';
+                } else {
+                    $patientInsurance = new PatientInsurance();
+                    $action = 'add';
+                    $message = 'Patient Insurance added successfully..!';
 
-                $patientInsurance->payer_id = $input['payerId'];
-                $patientInsurance->phone = $input['phoneNo'];
-                $patientInsurance->policy_no = $input['policyNo'];
+                    $patientInsurance->name = $input['name'];
+                    $patientInsurance->user_id = $input['user_id'];
+                }
+                
+                $patientInsurance->payer_id = $input['payer_id'];
+                $patientInsurance->phone = $input['phone'];
+                $patientInsurance->policy_no = $input['policy_no'];
 
                 $patientInsurance->save();              
                 
-                $arr = array('status' => 200, 'message' => 'success', 'resultdata' => $patientInsurance);
+                $arr = array('status' => 200, 'message' => $message, 'resultdata' => $patientInsurance, 'action' => $action);
             } catch (\Illuminate\Database\QueryException $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {

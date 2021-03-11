@@ -138,43 +138,43 @@
             ],
         });
         $("body").on('click','.edit_btn',function () {
-               $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
-               $(this).parents("tr").find("span, .normal").css("display",'none');
-            });
-            $("body").on('click','.cancel_edit',function () {
-               $(this).parents("tr").find(".phone-text, .while_edit").css("display",'none');
-               $(this).parents("tr").find("span, .normal").css("display",'block');
-            });
-            $("body").on('click','.save_btn',function () {
-                var val = $(document).find('.phone').val();
-                var id = $(this).attr("data-id");
-                
-                $.ajax({
-                    'type': 'POST',
-                    'url': "{{ route('referral.updatePhone') }}",
-                    'headers': {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    data: {
-                        "id": id,
-                        "phone" : val
-                    },
-                    'success': function (data) {
-                        if(data.status == 400) {
-                            alertText(data.message,'error');
-                        } else {
-                            alertText(data.message,'success');
-                            $('#acceptRejectBtn').hide();
-                            refresh();
-                        }
-                        $("#loader-wrapper").hide();
-                    },
-                    "error":function () {
-                        alertText("Server Timeout! Please try again",'error');
-                        $("#loader-wrapper").hide();
+            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
+            $(this).parents("tr").find("span, .normal").css("display",'none');
+        });
+        $("body").on('click','.cancel_edit',function () {
+            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'none');
+            $(this).parents("tr").find("span, .normal").css("display",'block');
+        });
+        $("body").on('click','.save_btn',function () {
+            var val = $(document).find('.phone').val();
+            var id = $(this).attr("data-id");
+            
+            $.ajax({
+                'type': 'POST',
+                'url': "{{ route('referral.updatePhone') }}",
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {
+                    "id": id,
+                    "phone" : val
+                },
+                'success': function (data) {
+                    if(data.status == 400) {
+                        alertText(data.message,'error');
+                    } else {
+                        alertText(data.message,'success');
+                        $('#acceptRejectBtn').hide();
+                        refresh();
                     }
-                });
+                    $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                    alertText("Server Timeout! Please try again",'error');
+                    $("#loader-wrapper").hide();
+                }
             });
+        });
         
         $('body').on('click', '.update-status', function () {
             var status = $(this).attr("data-status");

@@ -6,59 +6,62 @@
       </div>
       <div class="head scrollbar scrollbar12">
          <div class="p-3">
-            <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3" data-name="medicaid">
-               <div class="app-card-header">
-                  <h1 class="title mr-2">Medicaid</h1>
-                  <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
-               </div>
-               <div class="head">
-                  <div class="p-3">
-                     <div class="row">
-                        <div class="col-12 col-sm-3">
-                           <div class="input_box">
-                              <div class="ls"><i class="las la-angle-double-right circle"></i></div>
-                              <div class="rs">
-                                 <h3 class="_title">Madicaid No</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="madicaid_no" data-id="madicaid_no" id="madicaid_no" placeholder="Medicaid Number" value="{{ $patient->medicaid_number}}">
+            <form id="medicare_form">
+               <input type="hidden" name="user_id" value="{{ $patient->id }}">
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3" data-name="medicaid">
+                  <div class="app-card-header">
+                     <h1 class="title mr-2">Medicaid</h1>
+                     <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
+                  </div>
+                  <div class="head">
+                     <div class="p-3">
+                        <div class="row">
+                           <div class="col-12 col-sm-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Madicaid No</h3>
+                                    <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}">
+                                 </div>
                               </div>
                            </div>
+                           <div class="col-12 col-sm-3"></div>
+                           <div class="col-12 col-sm-3"></div>
+                           <div class="col-12 col-sm-3"></div>
                         </div>
-                        <div class="col-12 col-sm-3"></div>
-                        <div class="col-12 col-sm-3"></div>
-                        <div class="col-12 col-sm-3"></div>
                      </div>
                   </div>
                </div>
-            </div>
-            <!-- Medicade End -->
-            <!-- Medicare Start -->
-            <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3" data-name="medicare">
-               <div class="app-card-header">
-                  <h1 class="title mr-2">Medicare</h1>
-                  <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
-               </div>
-               <div class="head">
-                  <div class="p-3">
-                     <div class="row">
-                        <div class="col-12 col-sm-3">
-                           <div class="input_box">
-                              <div class="ls">
-                                 <i class="las la-angle-double-right circle"></i>
-                              </div>
-                              <div class="rs">
-                                 <h3 class="_title">Medicare No</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="medicare_no" data-id="medicare_no" id="medicare_no" placeholder="Medicare Number" value="{{ $patient->medicare_number}}">
+               <!-- Medicade End -->
+               <!-- Medicare Start -->
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3" data-name="medicare">
+                  <div class="app-card-header">
+                     <h1 class="title mr-2">Medicare</h1>
+                     <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
+                  </div>
+                  <div class="head">
+                     <div class="p-3">
+                        <div class="row">
+                           <div class="col-12 col-sm-3">
+                              <div class="input_box">
+                                 <div class="ls">
+                                    <i class="las la-angle-double-right circle"></i>
+                                 </div>
+                                 <div class="rs">
+                                    <h3 class="_title">Medicare No</h3>
+                                    <input type="text" class="form-control-plaintext _detail" readonly name="medicare_number" data-id="medicare_number" id="medicare_number" placeholder="Medicare Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicare_number) ? $patient->demographic->medicare_number : '' }}">
+                                 </div>
                               </div>
                            </div>
+                           <div class="col-12 col-sm-3"></div>
+                           <div class="col-12 col-sm-3"></div>
+                           <div class="col-12 col-sm-3"></div>
                         </div>
-                        <div class="col-12 col-sm-3"></div>
-                        <div class="col-12 col-sm-3"></div>
-                        <div class="col-12 col-sm-3"></div>
                      </div>
                   </div>
                </div>
-            </div>
-            <!-- Medicare End -->
+               <!-- Medicare End -->
+            </form>
             <!-- Croley Insurance and Financial Start -->
             <div class="app-card app-card-custom no-minHeight box-shadow-none _add_new_company" data-name="croley_insurance_and_financial">
                <div class="app-card-header">
@@ -79,26 +82,35 @@
                      <tbody>
                         @foreach($insurances as $insurance)
                            <tr>
-                              <!-- <div class="alert alert-danger print-error-msg" style="display:none">
-                                 <ul></ul>
-                              </div> -->
                               <form class="insurance_form">
                                  <input type="hidden" name="insurance_id" value="{{ $insurance->id }}">
                                  <td>
                                     <span class='label'>{{ $insurance->name }}</span>
-                                    <div class='phone-text'> <input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="{{ $insurance->name }}"></div>
+                                    <div class='phone-text'>
+                                       <input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="{{ $insurance->name }}">
+                                       <span class="name-invalid-feedback text-danger" role="alert"></span>
+                                    </div>
                                  </td>
                                  <td>
                                     <span class='label'>{{ $insurance->payer_id }}</span>
-                                    <div class='phone-text'><input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" aria-describedby="payerIdHelp" placeholder="Enter Payer ID" value="{{ $insurance->payer_id }}"></div>
+                                    <div class='phone-text'>
+                                       <input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" aria-describedby="payerIdHelp" placeholder="Enter Payer ID" value="{{ $insurance->payer_id }}">
+                                    </div>
+                                    <span class="payer_id-invalid-feedback text-danger" role="alert"></span>
                                  </td>
                                  <td>
                                     <span class='label'>{{ $insurance->phone }}</span>
-                                    <div class='phone-text'><input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number" value="{{ $insurance->phone }}"></div>
+                                    <div class='phone-text'>
+                                       <input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number" value="{{ $insurance->phone }}">
+                                    </div>
+                                    <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                  </td>
                                  <td>
                                     <span class='label'>{{ $insurance->policy_no }}</span>
-                                    <div class='phone-text'><input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="{{ $insurance->policy_no }}"></div>
+                                    <div class='phone-text'>
+                                       <input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="{{ $insurance->policy_no }}">
+                                    </div>
+                                    <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
                                  </td>
                                  <td>
                                     <div class="normal">
@@ -121,12 +133,8 @@
                   <div class="app-card-header">
                      <input type="hidden" name="user_id" value="{{ $patient->id }}">
                      <input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name">
-                     @error('name')
-                        <span class="invalid-feedback" role="alert">
-                           <strong>{{ $message }}</strong>
-                        </span>
-                     @enderror
                   </div>
+                  <span class="name-invalid-feedback text-danger" role="alert"></span>
                   <div class="head">
                      <div class="p-3">
                         <div class="row">
@@ -138,11 +146,7 @@
                                     <div class="_detail">
                                        <input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" 
                                        aria-describedby="payerIdHelp" placeholder="Enter Payer ID">
-                                       @error('payer_id')
-                                          <span class="invalid-feedback" role="alert">
-                                             <strong>{{ $message }}</strong>
-                                          </span>
-                                       @enderror
+                                       <span class="payer_id-invalid-feedback text-danger" role="alert"></span>
                                     </div>
                                  </div>
                               </div>
@@ -154,11 +158,7 @@
                                     <h3 class="_title">Phone</h3>
                                     <div class="_detail">
                                        <input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number">
-                                       @error('phone')
-                                          <span class="invalid-feedback" role="alert">
-                                             <strong>{{ $message }}</strong>
-                                          </span>
-                                       @enderror
+                                       <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                     </div>
                                  </div>
                               </div>
@@ -170,11 +170,7 @@
                                     <h3 class="_title">Policy Number</h3>
                                     <div class="_detail">
                                        <input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No">
-                                       @error('policy_no')
-                                          <span class="invalid-feedback" role="alert">
-                                             <strong>{{ $message }}</strong>
-                                          </span>
-                                       @enderror
+                                       <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
                                     </div>
                                  </div>
                               </div>

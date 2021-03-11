@@ -60,4 +60,7 @@ Route::group(['prefix' => '/referral'], function () {
     Route::post('/lab-report-note/store', 'App\Http\Controllers\PatientLabReportController@addNote')->name('lab-report-note.store');
     Route::delete('lab-report/destroy', 'App\Http\Controllers\PatientLabReportController@destroy')->name('lab-report.destroy');
     Route::get('/employee-physical-examination-report-pdf/{id}','App\Http\Controllers\PatientReferralController@getEmployeePhysicalExaminationReport')->name('referral.get-employee-physical-examination-report');
+
+    Route::post('/insurance/store', 'App\Http\Controllers\InsuranceController@store')->name('insurance.store');
+    Route::post('/edit-insurance', 'App\Http\Controllers\InsuranceController@updateInsurance')->name('insurance.updateInsurance');
 });

@@ -15,9 +15,11 @@ use App\Models\PatientClinicalDetail;
 use App\Models\PatientCoordinator;
 use App\Models\PatientDetail;
 use App\Models\PatientEmergencyContact;
+use App\Models\PatientInsurance;
 use App\Models\PatientLabReport;
 use App\Models\PatientReferralInfo;
 use App\Models\PatientReport;
+use App\Models\Services;
 use App\Models\State;
 use App\Models\User;
 use App\Models\VisitorDetail;
@@ -76,6 +78,9 @@ class GetPatientDetailsController extends Controller
             $query->where('patient_referral_id', $paient_id);
            })->where('status','1')->where('parent_id', 4)->orderBy('sequence', 'asc')->get();
 
+        $services = Services::select('id','name')->where('display_type',1)->get();
+
+        $insurances = PatientInsurance::where('user_id', $paient_id)->get();
 
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
@@ -147,7 +152,7 @@ class GetPatientDetailsController extends Controller
             }
         }
 
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes'));
+        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances'));
     }
 
     /**

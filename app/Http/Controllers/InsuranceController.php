@@ -41,10 +41,8 @@ class InsuranceController extends Controller
             $patientInsurance = new PatientInsurance();
             $action = 'add';
             $message = 'Patient Insurance added successfully..!';
-
-            $patientInsurance->user_id = $input['user_id'];
         }
-        
+        $patientInsurance->user_id = $input['user_id'];
         $patientInsurance->name = $input['name'];
         $patientInsurance->payer_id = $input['payer_id'];
         $patientInsurance->phone = $input['phone'];

@@ -84,6 +84,7 @@
                            <tr>
                               <form class="insurance_form">
                                  <input type="hidden" name="insurance_id" value="{{ $insurance->id }}">
+                                 <input type="hidden" name="user_id" value="{{ $patient->id }}">
                                  <td>
                                     <span class='label'>{{ $insurance->name }}</span>
                                     <div class='phone-text'>

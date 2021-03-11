@@ -8,7 +8,7 @@
       <div class="head scrollbar scrollbar12">
          <div class="p-3">
             <form id="homecare_form">
-               <input type="hidden" name="user_id" value="{{ $patient->id }}">
+               <input type="hidden" name="user_id" value="{{ ($patient->caregiverInfo &&  $patient->caregiverInfo->company) ? $patient->caregiverInfo->company->id : '' }}">
                <div class="form-group">
                   <div class="row">
                      @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))

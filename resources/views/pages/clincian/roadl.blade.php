@@ -1,5 +1,4 @@
 @extends('pages.layouts.app')
-
 @section('title','Patient RoadL Request')
 @section('pageTitleSection','Roadl')
 @section('upload-btn')
@@ -11,11 +10,8 @@
             <option value="complete" {{ request()->type==="complete"?"selected":"" }}>Complete</option>
         </select>
     </div>
-
 @endsection
-
 @section('content')
-
     <ul class="boradcast-list">
         @if(count($patientRequestList)>0)
             @foreach($patientRequestList as $key=>$value)
@@ -89,7 +85,6 @@
                                         @endif
                                     </ul>
                                 </div>
-
                                 <div class="_rside">
                                     <ul class="actionBar">
                                         @if(isset($value->patient_detail->detail->referral) && !empty($value->patient_detail->detail->referral))
@@ -107,7 +102,6 @@
                                                 </ul>
                                             </li>
                                         @endif
-
                                             <li>
                                                 <button type="button"
                                                     onclick="window.location.href = '{{ route('start.call',['patient_request_id'=>$value->id]) }}'"
@@ -146,10 +140,8 @@
                 <h1>No Roadl Request Found</h1>
             </li>
         @endif
-
     </ul>
 @endsection
-
 @push('styles')
     <style>
         .app .app-content .app-body .app-broadcasting .rside ._lside {width: 300px;}
@@ -157,7 +149,6 @@
         .app .app-content .app-body .app-broadcasting .rside .specification li.referralCompany span{color: #006c76;font-weight: 600;}
     </style>
 @endpush
-
 @push('scripts')
     <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
     <script>
@@ -170,4 +161,3 @@
     </script>
     <!--<script src="{{ asset('js/clincian/roadl.js') }}"></script>-->
 @endpush
-

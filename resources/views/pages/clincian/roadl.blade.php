@@ -4,10 +4,12 @@
 @section('upload-btn')
     <div class="d-flex">
         <select class="form-control" name="filter" id="filter">
-            <option value="latest" {{ request()->type==="latest"?"selected":"" }}>Last Hour</option>
-            <option value="pending" {{ request()->type==="pending"?"selected":"" }}>Pending</option>
-            <option value="running" {{ request()->type==="running"?"selected":"" }}>Running</option>
-            <option value="complete" {{ request()->type==="complete"?"selected":"" }}>Complete</option>
+            <option value="0" {{ request()->type==="0"?"selected":"" }}>All</option>
+            <option value="1" {{ request()->type==="1"?"selected":"" }}>Pending</option>
+            <option value="2" {{ request()->type==="2"?"selected":"" }}>Accepted</option>
+            <option value="3" {{ request()->type==="3"?"selected":"" }}>Arrive</option>
+            <option value="4" {{ request()->type==="4"?"selected":"" }}>Complete</option>
+            <option value="5" {{ request()->type==="5"?"selected":"" }}>Cancel</option>
         </select>
     </div>
 @endsection
@@ -91,14 +93,14 @@
                                             <li>
                                                 <ul class="specification">
                                                     <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Referral Company:&nbsp;&nbsp;<span>{{ $value->patient_detail->detail->referral->name }}</span></li>
-                                                    <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Request Type:&nbsp;&nbsp;<span>{{ isset($value->appointment_type->referral_type)?$value->appointment_type->referral_type:'Default' }}</span></li>
+                                                    <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Request Type:&nbsp;&nbsp;<span>{{ isset($value->request_type->name)?$value->request_type->name:'Default' }}</span></li>
                                                 </ul>
                                             </li>
                                         @else
                                             <li>
                                                 <ul class="specification">
                                                     <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Referral Company:&nbsp;&nbsp;<span>Doral</span></li>
-                                                    <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Request Type:&nbsp;&nbsp;<span>{{ isset($value->appointment_type->referral_type)?$value->appointment_type->referral_type:'Default' }}</span></li>
+                                                    <li class="referralCompany"><img src="{{ asset('assets/img/icons/sugar.svg') }}" class="mr-2" alt="">Request Type:&nbsp;&nbsp;<span>{{ isset($value->request_type->name)?$value->request_type->name:'Default' }}</span></li>
                                                 </ul>
                                             </li>
                                         @endif
@@ -110,28 +112,68 @@
                                             </li>
                                             <li>
                                                 <div class="broadcast_box">
-                                                    @if($value->clincial_id===null)
-                                                        <button type="button"
-                                                            onclick="window.location.href = '{{ route('clinician.start.roadl',['patient_request_id'=>$value->id]) }}'"
-{{--                                                            onclick="sendLocation(1,'sdfdsfds')"--}}
-                                                            class="btn btn-broadcast btn-block">RoadL Broadcast<span></span>
-                                                        </button>
-                                                    @elseif($value->status==='complete')
-                                                        <button type="button"
-                                                            class="btn btn-broadcast">Complete<span></span>
-                                                        </button>
-                                                    @else
-                                                        <button type="button"
-                                                            onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$value->id]) }}'"
-                                                            class="btn btn-broadcast">Running Broadcast<span></span>
-                                                        </button>
-                                                    @endif
+                                                    <button class="btn btn-broadcast btn-block" type="button" data-toggle="collapse" data-target="#collapseExample{{ $key }}" aria-expanded="false" aria-controls="collapseExample">
+                                                        BroadCast <span></span>
+                                                    </button>
                                                 </div>
                                             </li>
                                         </ul>
                                     </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="collapse" id="collapseExample{{ $key }}">
+                        @foreach($value->requests as $rkey=>$rval)
+                            <div class="row mt-3">
+                                <div class="col-9">
+                                    <div class="col-3">
+                                        <span>Name : {{ isset($rval->detail->first_name)?$rval->detail->first_name:'Not Accepted' }}</span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>Service Type : {{ isset($rval->request_type)?$rval->request_type->name:'Default' }}</span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span>Status : {{ isset($rval->status)?$rval->status:'Default' }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    @if($rval->status==='active')
+                                        <button type="button"
+                                                onclick="window.location.href = '{{ route('clinician.start.roadl',['patient_request_id'=>$rval->id]) }}'"
+                                                {{--                                                            onclick="sendLocation(1,'sdfdsfds')"--}}
+                                                class="btn btn-broadcast btn-block ">Pending<span></span>
+                                        </button>
+                                    @elseif($rval->status==='accept')
+                                        <button type="button"
+                                                onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->id]) }}'"
+                                                class="btn btn-broadcast">Accepted<span></span>
+                                        </button>
+
+                                    @elseif($rval->status==='arrive')
+                                        <button type="button"
+                                                onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->id]) }}'"
+                                                class="btn btn-broadcast">Arrived<span></span>
+                                        </button>
+
+                                    @elseif($rval->status==='complete')
+                                        <button type="button"
+                                                class="btn btn-broadcast">Complete<span></span>
+                                        </button>
+                                    @elseif($rval->status==='cancel')
+                                        <button type="button"
+                                                class="btn btn-broadcast btn-danger">Cancel<span></span>
+                                        </button>
+                                    @else
+                                        <button type="button"
+                                                class="btn btn-broadcast btn-info">Pending<span></span>
+                                        </button>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                            <button type="button"
+                                    class="btn btn-broadcast btn-info">Add New Request <span></span>
+                            </button>
                     </div>
                 </li>
             @endforeach

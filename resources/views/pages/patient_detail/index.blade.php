@@ -631,7 +631,7 @@
                        </div>
                        <div class="d-flex mt-4">
                            <input type="button" value="Upload File(s)" onclick="uploadLabReport(this)" class="btn btn--submit btn-lg" style="width: 50%;">
-                           <input type="cancel" value="Cancel"  data-dismiss="modal" aria-label="Close" style="width: 50%;">
+                           <input type="cancel" value="Cancel" class="btn btn--reset btn-lg ml-4" data-dismiss="modal" aria-label="Close" style="width: 50%;">
                        </div>
                    </div>
                </div>
@@ -640,7 +640,6 @@
    </div>
 
 @endsection
-
 @push('styles')
    <style>
       input, .label {

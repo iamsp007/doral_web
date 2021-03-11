@@ -100,7 +100,7 @@ class User extends Authenticatable
         } else if ($this->status === '4') {
             $statusData = '<p class="text-info">Initial</p>';
         } else if ($this->status === '5') {
-            $statusData = '<p class="text-info">Complated</p>';
+            $statusData = '<p class="text-info">Completed</p>';
         }
         return $statusData;
     }

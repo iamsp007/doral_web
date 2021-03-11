@@ -19,7 +19,7 @@
             </div>
             <div>
                <ul class="shortdesc">
-                  <li>Status: <span>{{ isset($status[0]) ? $status[0]->Name : '' }}</span></li>
+                  <li>Status: <span>{{ isset($status) ? $status->Name : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender_data }}</span></li>
                   <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
@@ -642,249 +642,381 @@
 @endsection
 @push('styles')
    <style>
+      input, .label {
+         color: black;
+      }
+      .phone-text, .while_edit {
+         display: none;
+      }
    </style>
 @endpush
 @push('scripts')
-    <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
-    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-        var lab_referral_url="{{ route('patient.lab.report.referral') }}";
-        var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
-        var lab_report_data_url="{{ route('patient.lab.report.data') }}";
-        var patient_id='{{ $patient->id }}';
-        var map;
-        function initMap() {
-            var lat = $('#address').attr('data-lat');
-            var lng = $('#address').attr('data-lng');
-            const iconBase =
-                base_url+"assets/img/icons/patient-icon.svg";
-            if (lat) {
-               map = new google.maps.Map(document.getElementById('map'), {
-                  center: new google.maps.LatLng(lat, lng),
-                  zoom: 13,
-                  mapTypeId: 'roadmap'
-               });
-
-               var marker = new google.maps.Marker({
-                  position: new google.maps.LatLng(lat,lng),
-                  icon:iconBase,
-                  map: map,
-                  title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-               });
-            } else {
-               map = new google.maps.Map(document.getElementById('map'), {
-                  center: {lat: 40.741895, lng: 73.989308},
-                  zoom: 8
-               });
-
-               var marker = new google.maps.Marker({
-                  position: new google.maps.LatLng(lat,lng),
-                  icon:iconBase,
-                  map: map,
-                  title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-               });
-            }
-        }
-       
-         $(document).ready(function() {
-            $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"]').daterangepicker({
-               singleDatePicker: true,
-               showDropdowns: true,
-               minYear: 1901,
-               maxDate: new Date()
-            });
-           
-            $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
-               var selectedDate = new Date($('[name="lab_due_date"]').val());
-               var date = selectedDate.getDate();
-               var monthf = selectedDate.getMonth() + 1;
-               var month  = (monthf < 10 ? '0' : '') + monthf;
-               var year = selectedDate.getFullYear() + 1;
-               var expirydate = month + '/'+ date + '/'+ year;
-               $(".lab-expiry-date").text(expirydate);
-               // $("#lab_expiry_date").val(expirydate);
+   <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
+   <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
+   <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
+   <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
+   <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
+   <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+   <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+   
+   <script>
+      var lab_referral_url="{{ route('patient.lab.report.referral') }}";
+      var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
+      var lab_report_data_url="{{ route('patient.lab.report.data') }}";
+      var patient_id='{{ $patient->id }}';
+      var map;
+      function initMap() {
+         var lat = $('#address').attr('data-lat');
+         var lng = $('#address').attr('data-lng');
+         const iconBase =
+               base_url+"assets/img/icons/patient-icon.svg";
+         if (lat) {
+            map = new google.maps.Map(document.getElementById('map'), {
+               center: new google.maps.LatLng(lat, lng),
+               zoom: 13,
+               mapTypeId: 'roadmap'
             });
 
+            var marker = new google.maps.Marker({
+               position: new google.maps.LatLng(lat,lng),
+               icon:iconBase,
+               map: map,
+               title: "{{ $patient->first_name }} {{ $patient->last_name }}"
+            });
+         } else {
+            map = new google.maps.Map(document.getElementById('map'), {
+               center: {lat: 40.741895, lng: 73.989308},
+               zoom: 8
+            });
 
-            $(document).on('click','.patient-detail-lab-report',function(event) {
-               event.preventDefault();
+            var marker = new google.maps.Marker({
+               position: new google.maps.LatLng(lat,lng),
+               icon:iconBase,
+               map: map,
+               title: "{{ $patient->first_name }} {{ $patient->last_name }}"
+            });
+         }
+      }
+      
+      $(document).ready(function() {
+         $('.insurance_company').hide();
+         
+         $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxDate: new Date()
+         });
+         
+         $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
+            var selectedDate = new Date($('[name="lab_due_date"]').val());
+            var date = selectedDate.getDate();
+            var monthf = selectedDate.getMonth() + 1;
+            var month  = (monthf < 10 ? '0' : '') + monthf;
+            var year = selectedDate.getFullYear() + 1;
+            var expirydate = month + '/'+ date + '/'+ year;
+            $(".lab-expiry-date").text(expirydate);
+            // $("#lab_expiry_date").val(expirydate);
+         });
 
-               var data = $(this).parent('div').prev('div').find("form").serializeArray();
-               var url = "{{ Route('lab-report.store') }}";
 
-               $.ajax({
-                  type:"POST",
-                  url:url,
-                  data:data,
-                  headers: {
-                        'X_CSRF_TOKEN': '{{ csrf_token() }}',
-                  },
-                  success: function(data) {
-                     if(data.status == 400) {
-                        printErrorMsg(data.message);
-                     } else {
-                        $(".print-error-msg").hide();
+         $(document).on('click','.patient-detail-lab-report',function(event) {
+            event.preventDefault();
 
-                        if (data.type == 'tb') {
-                           var explodercounter = 'tb' + Number($(document).find(".tb-main-tr").length + 1);
-                        } else if (data.type == 'emmune') {
-                           var explodercounter = 'immune' + Number($(document).find(".immune-main-tr").length + 1);
-                        } else if (data.type == 'drug') {
-                           var explodercounter = 'drug' + Number($(document).find(".drug-main-tr").length + 1);
-                        }
-                        console.log(data.result);
-                        var html = '<tr class="';
-                        if (data.result.result === 'Positive') {
-                           html += 'bg-positive text-white';
-                        }
+            var data = $(this).parent('div').prev('div').find("form").serializeArray();
+            var url = "{{ Route('lab-report.store') }}";
 
-                        html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td>';
-                        if (data.type == 'emmune' || data.type == 'drug') {
-                           html += '<td>' + data.result.perform_date + '</td>';
-                        }
+            $.ajax({
+               type:"POST",
+               url:url,
+               data:data,
+               headers: {
+                     'X_CSRF_TOKEN': '{{ csrf_token() }}',
+               },
+               success: function(data) {
+                  if(data.status == 400) {
+                     printErrorMsg(data.message);
+                  } else {
+                     $(".print-error-msg").hide();
 
-                        html +='<td>' + data.result.expiry_date + '</td>';
-                        if (data.type == 'emmune') {
-                           html += '<td>' + data.result.titer + '</td>';
-                        }
-                        html +='<td>' + data.result.result + '</td><td class="text-center"><span onclick="exploder(\'' + explodercounter + '\')" id="' + explodercounter + '" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.result.id + '" /></td></tr>';
-
-                        if (data.type == 'tb') {
-                           $('.tb-list-order tr:last').before(html);
-                           $(document).find('.tb-sequence').text(data.newCount);
-                           var select = $('.tb_lab_report_types').empty();
-                        } else if (data.type == 'emmune') {
-                           $('.immue-list-order tr:last').before(html);
-                           $(document).find('.immue-sequence').text(data.newCount);
-                           var select = $('.immue_lab_report_types').empty();
-                        } else if (data.type == 'drug') {
-                           $('.drug-list-order tr:last').before(html);
-                           $(document).find('.drug-sequence').text(data.newCount);
-                           var select = $('.drug_lab_report_types').empty();
-                        }
-
-                        select.append('<option value="">Select a test type</option>');
-
-                        $.each(data.tbLabReportTypes, function (key, value) {
-                           select.append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-
-                        swal("Success!", data.message, "success");
+                     if (data.type == 'tb') {
+                        var explodercounter = 'tb' + Number($(document).find(".tb-main-tr").length + 1);
+                     } else if (data.type == 'emmune') {
+                        var explodercounter = 'immune' + Number($(document).find(".immune-main-tr").length + 1);
+                     } else if (data.type == 'drug') {
+                        var explodercounter = 'drug' + Number($(document).find(".drug-main-tr").length + 1);
+                     } else if (data.type == 'physical') {
+                        var explodercounter = 'physical' + Number($(document).find(".physical-main-tr").length + 1);
                      }
-                  },
-                  error: function()
-                  {
-                        swal("Server Timeout!", "Please try again", "warning");
+                  
+                     var html = '<tr class="';
+                     if (data.resultdata.result === 'Positive') {
+                        html += 'bg-positive text-white';
+                     }
+
+                     html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.resultdata.lab_report_type.name +'</td><td>' + data.resultdata.due_date + '</td>';
+                     if (data.type == 'emmune' || data.type == 'drug' || data.type == 'physical') {
+                        html += '<td>' + data.resultdata.perform_date + '</td>';
+                     }
+
+                     html +='<td>' + data.resultdata.expiry_date + '</td>';
+                     if (data.type == 'emmune') {
+                        html += '<td>' + data.resultdata.titer + '</td>';
+                     }
+                     html +='<td>' + data.resultdata.result + '</td><td class="text-center"><span onclick="exploder(\'' + explodercounter + '\')" id="' + explodercounter + '" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.resultdata.id + '" /></td></tr>';
+
+                     if (data.type == 'tb') {
+                        $('.tb-list-order tr:last').before(html);
+                        $(document).find('.tb-sequence').text(data.newCount);
+                        var select = $('.tb_lab_report_types').empty();
+                     } else if (data.type == 'emmune') {
+                        $('.immue-list-order tr:last').before(html);
+                        $(document).find('.immue-sequence').text(data.newCount);
+                        var select = $('.immue_lab_report_types').empty();
+                     } else if (data.type == 'drug') {
+                        $('.drug-list-order tr:last').before(html);
+                        $(document).find('.drug-sequence').text(data.newCount);
+                        var select = $('.drug_lab_report_types').empty();
+                     } else if (data.type == 'physical') {
+                        $('.physical-list-order tr:last').before(html);
+                        $(document).find('.physical-sequence').text(data.newCount);
+                        var select = $('.physical_lab_report_types').empty();
+                     }
+
+                     select.append('<option value="">Select a test type</option>');
+
+                     $.each(data.tbLabReportTypes, function (key, value) {
+                        select.append('<option value="' + value.id + '">' + value.name + '</option>');
+                     });
+
+                     alertText(data.message,'success');
                   }
-               });
+               },
+               error: function()
+               {
+                  alertText("Server Timeout! Please try again",'warning');
+               }
             });
+         });
+         
+         $(document).on('click','.save_record',function(event) {
+            event.preventDefault();
+            var t = $(this);
+            var action = t.attr('data-action');
+            if (action === 'add') {
+               var data = $(this).parents('.insurance_company').find('form').serializeArray();//$(".insurance_form").serializeArray();
+            } else if (action === 'edit') {
+               var data = $(this).parents("tr").find('form').serializeArray();
+            }
+          
+            var url = "{{ Route('insurance.store') }}";
 
-            $('body').on('click', '.deleteLabResult', function () {
-               var t = $(this);
-               var id = t.attr("id");
-               var patient_referral_id = $(this).data("id") ;
-
-               swal({
-                  title: "Are you sure?",
-                  text: "Are you sure want to delete this record?",
-                  icon: "warning",
-                  buttons: true,
-                  dangerMode: true,
-               }).then((willDelete) => {
-                  if (willDelete) {
-                     $.ajax({
-                        'type': 'delete',
-                        'url': "{{ route('lab-report.destroy') }}",
-                        'headers': {
-                           'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        data: {
-                           "id": id,
-                           "patient_referral_id" : patient_referral_id
-                        },
-                        'success': function (data) {
-                           if(data.status == 400) {
-                              swal(
-                                    'Error!',
-                                    data.message,
-                                    'error'
-                              );
-                           } else {
-                              t.parents("tr").fadeOut(function () {
-                                    $(this).remove();
-                              });
-
-                              $(document).find('.sequence').text(data.newCount);
-
-                              var select = $('#lab_report_type_id').empty();
-                              select.append('<option value="">Select a test type</option>');
-                              alert(data.tbLabReportTypes);
-                              $.each(data.tbLabReportTypes, function (key, value) {
-                                    select.append('<option value="' + value.id + '">' + value.name + '</option>');
-                              });
-
-                              swal(
-                                    'Deleted!',
-                                    data.message,
-                                    'success'
-                              );
-                           }
-                           unload();
-                        },
-                        "error":function () {
-                           swal("Server Timeout!", "Please try again", "warning");
-                           unload();
+            $.ajax({
+               type:"POST",
+               url:url,
+               data:data,
+               headers: {
+                     'X_CSRF_TOKEN': '{{ csrf_token() }}',
+               },
+               success: function(data) {
+                  if(data.status == 400) {
+                     $.each( data.message, function( key, value ) {
+                        if (data.action === 'add') {
+                           t.parents('.insurance_company').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
+                        } else if (data.action === 'edit') {
+                           t.parents("tr").find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
                         }
                      });
                   } else {
-                     swal('Cancelled', 'Your record is safe :)','error');
+                     var html = '<tr><form class="insurance_form5"><input type="hidden" name="insurance_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.name + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="' + data.resultdata.name + '"></div></td><td><span class="label">' + data.resultdata.payer_id + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" aria-describedby="payerIdHelp" placeholder="Enter Payer ID" value="' + data.resultdata.payer_id + '"></div></td><td><span class="label">' + data.resultdata.phone + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.phone + '"></div></td><td><span class="label">' + data.resultdata.policy_no + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="' + data.resultdata.policy_no + '"></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+
+                     if (data.action === 'add') {
+                        // alert(data.action);
+                        $('.insurance-list-order tr:last').after(html);  
+                     } else if (data.action === 'edit') {
+                        // alert(data.action);
+                        t.parents("tr").replaceWith(html);  
+                     }
+                     $('.insurance_company').hide();
+                     t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
+                     t.parents("tr").find("span, .normal").css("display",'block');
+                     alertText(data.message,'success');
                   }
-               });
-            });
-         });
-
-         $('body').on('blur', '.note-area', function(e){
-            e.preventDefault();
-            var txtAval=$(this).val();
-
-            var patient_lab_report_id = $(this).next("input[name=patient_lab_report_id]").val();
-
-            $.ajax({
-               headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
-               type: "POST",
-               url: "{{ route('lab-report-note.store') }}",
-               data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
-               dataType: "json",
-               success: function(response) {
-                  $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
-               },
-               error: function(error) {
-                  alert('Something went wrong');
+               error: function()
+               {
+                  alertText("Server Timeout! Please try again",'warning');
                }
             });
          });
 
-         function printErrorMsg (msg) {
-            $(".print-error-msg").find("ul").html('');
-            $(".print-error-msg").css('display','block');
-            $.each( msg, function( key, value ) {
-               $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+      $("body").on('click','.edit_btn',function () {
+            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
+            $(this).parents("tr").find("span, .normal").css("display",'none');
+            $('.insurance_company').hide();
+        });
+        $("body").on('click','.cancel_edit',function () {
+            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'none');
+            $(this).parents("tr").find("span, .normal").css("display",'block');
+            $('.insurance_company').hide();
+        });
+
+        $("body").on('click','.save_btn',function () {
+            var val = $(document).find('.phone').val();
+            var id = $(this).attr("data-id");
+            
+            $.ajax({
+                'type': 'POST',
+                'url': "{{ route('insurance.updateInsurance') }}",
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {
+                    "id": id,
+                    "phone" : val
+                },
+                'success': function (data) {
+                    if(data.status == 400) {
+                        alertText(data.message,'error');
+                    } else {
+                        alertText(data.message,'success');
+                        refresh();
+                    }
+                    $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                    alertText("Server Timeout! Please try again",'error');
+                    $("#loader-wrapper").hide();
+                }
             });
-         }
-    </script>
+        });
+
+         $('body').on('click', '.deleteLabResult', function () {
+            var t = $(this);
+            var id = t.attr("id");
+            var patient_referral_id = $(this).data("id") ;
+
+            const Toast = Swal.mixin({
+               toast: true,
+               position: 'top-end',
+               showConfirmButton: true,
+               timer: 3000,
+               timerProgressBar: true,
+               buttonsStyling: true,
+               didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+               }
+            })
+            Toast.fire({
+               title: 'Are you sure?',
+               text: "Are you sure want to delete this record?",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonText: 'Yes, change it!',
+               cancelButtonText: 'No, cancel!',
+               reverseButtons: true
+            }).then((result) => {
+               if (result.isConfirmed) {
+                  $.ajax({
+                     'type': 'delete',
+                     'url': "{{ route('lab-report.destroy') }}",
+                     'headers': {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                     },
+                     data: {
+                        "id": id,
+                        "patient_referral_id" : patient_referral_id
+                     },
+                     'success': function (data) {
+                        if(data.status == 400) {
+                           alertText(data.message,'error');
+                        } else {
+                           t.parents("tr").fadeOut(function () {
+                                 $(this).remove();
+                           });
+
+                           $(document).find('.sequence').text(data.newCount);
+
+                           var select = $('#lab_report_type_id').empty();
+                           select.append('<option value="">Select a test type</option>');
+                           alert(data.tbLabReportTypes);
+                           $.each(data.tbLabReportTypes, function (key, value) {
+                                 select.append('<option value="' + value.id + '">' + value.name + '</option>');
+                           });
+
+                           alertText(data.message,'success');
+                        }
+                        unload();
+                     },
+                     "error":function () {
+                        alertText("Server Timeout! Please try again",'warning');
+                        unload();
+                     }
+                  });
+               } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  alertText("Your record is safe :)",'cancelled');
+               }
+            });
+         });
+      });
+
+      $('body').on('blur', '.note-area', function(e){
+         e.preventDefault();
+         var txtAval=$(this).val();
+
+         var patient_lab_report_id = $(this).next("input[name=patient_lab_report_id]").val();
+
+         $.ajax({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: "{{ route('lab-report-note.store') }}",
+            data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
+            dataType: "json",
+            success: function(response) {
+               $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+            },
+            error: function(error) {
+               alert('Something went wrong');
+            }
+         });
+      });
+
+      function alertText(text,status) {
+         const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+         })
+
+         Toast.fire({
+            icon: status,
+            title: text
+         })
+      }
+
+      function printErrorMsg (msg) {
+         $(".print-error-msg").find("ul").html('');
+         $(".print-error-msg").css('display','block');
+         $.each( msg, function( key, value ) {
+            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+         });
+      }
+   </script>
 {{--    <script--}}
 {{--        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"--}}
 {{--        defer--}}
 {{--    ></script>--}}
-    <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
-    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
-    @stack('patient-detail-js')
+   <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
+   <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
+   @stack('patient-detail-js')
 @endpush

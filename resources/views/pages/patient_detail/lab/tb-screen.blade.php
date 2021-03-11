@@ -36,31 +36,35 @@
                             <th scope="col">Insert/Screening Date</th>
                             <th scope="col">Expiry Date</th>
                             <th scope="col">Result</th>
-                            <th width="11%">Notes</th>
+                            <th width="11%">Reports</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $number = 1; @endphp
 
                         @foreach($tbpatientLabReports as $tbpatientLabReport)
-                            <tr class="@if ($tbpatientLabReport->result === '1') bg-positive @endif tb-main-tr">
+                            <tr class="@if ($tbpatientLabReport->result === 'Positive') bg-positive @endif tb-main-tr">
                                 <td scope="row">{{ $number }}</td>
                                 <td scope="row">{{ ($tbpatientLabReport->labReportType) ? $tbpatientLabReport->labReportType->name : ''}}</td>
 
                                 <td>{{ $tbpatientLabReport->due_date }}</td>
                                 <td>{{ $tbpatientLabReport->expiry_date }}</td>
                                 <td>{{ $tbpatientLabReport->result }}</td>
-                                <td class='text-center'><span
+                                <td class='text-center'>
+<!--                                    <span
                                         onclick="exploder('tb{{$number}}')" id="tb{{$number}}"
                                         class="exploder"><i
                                             class="las la-plus la-2x"></i></span>
-                                    <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}"><i class="las la-trash la-2x pl-4" ></i></a>
-                                    <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,{{ $tbpatientLabReport->labReportType->id }})" id="{{ $tbpatientLabReport->lab_report_type_id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}" ><i class="las la-upload la-2x pl-4" ></i></input>
+                                    <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}"><i class="las la-trash la-2x pl-4" ></i></a>-->
+                                    <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,'{{ $tbpatientLabReport->labReportType->id }}')" id="{{ $tbpatientLabReport->lab_report_type_id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}" >
+                                    <!--<i class="las la-upload la-2x pl-4" ></i>-->
+                                    <!--<i class="las la-file-upload la-2x mr-2"></i>-->
+                                    </input>
                                 </td>
                             </tr>
                             <tr class="explode1 d-none">
                                 <td colspan="6">
-                                    <x-text-area name="note" placeholder="Enter note" value="{{$tbpatientLabReport->note}}" class="note-area"/>
+                                    <!--<x-text-area name="note" placeholder="Enter note" value="{{$tbpatientLabReport->note}}" class="note-area"/>-->
                                     <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $tbpatientLabReport->id }}" />
                                 </td>
                             </tr>

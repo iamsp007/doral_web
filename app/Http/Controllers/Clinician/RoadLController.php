@@ -20,7 +20,7 @@ class RoadLController extends Controller
     //
     public function index(Request $request){
 
-        $type='latest';
+        $type='0';
         if ($request->has('type')){
             $type=$request->type;
         }

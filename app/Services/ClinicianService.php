@@ -42,7 +42,7 @@ class ClinicianService
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
+            dd($exception->getMessage());
         }
     }
 
@@ -206,7 +206,7 @@ class ClinicianService
                     'json'=>$data
                 ]
             );
-          
+
             $response = $response->getBody()->getContents();
             $data = json_decode($response);
             return $data;
@@ -214,7 +214,7 @@ class ClinicianService
             dd($exception->getMessage());
         }
     }
-    
+
     public function updatePhoneNumber($data){
         try {
 
@@ -225,7 +225,7 @@ class ClinicianService
                     'json'=>$data
                 ]
             );
-          
+
             $response = $response->getBody()->getContents();
             $data = json_decode($response);
             return $data;

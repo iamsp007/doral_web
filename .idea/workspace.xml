@@ -4,6 +4,7 @@
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -610,6 +611,8 @@
       <workItem from="1615529593443" duration="340000" />
       <workItem from="1615530112825" duration="1248000" />
       <workItem from="1615531432774" duration="1891000" />
+      <workItem from="1615533782541" duration="1456000" />
+      <workItem from="1615535656034" duration="1430000" />
     </task>
     <servers />
   </component>

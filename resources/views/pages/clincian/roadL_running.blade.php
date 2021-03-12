@@ -6,7 +6,7 @@
 @section('content')
     <nav class="navbar navbar-light bg-light shadow-sm border pl-2">
         <div style="width:85%">
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <div class="btn-group" role="group" aria-label="Basic example" id="btn-roadl-group">
                 <button type="button" class="btn btn-outline-info font-weight-bold active">All</button>
                 <button type="button" class="btn btn-outline-info font-weight-bold">LAB</button>
                 <button type="button" class="btn btn-outline-info font-weight-bold">Radiology</button>

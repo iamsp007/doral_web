@@ -76,16 +76,17 @@ function initMap() {
         dataType: 'json',
         success: function (response) {
             const sources = response;
-            var parent_id=0;
-
             var html = '';
+            html+='<button type="button" class="btn btn-outline-info font-weight-bold active" onclick="buttonVendorClick(0)">All</button>';
             sources.map(function (resp) {
                 default_clinician_id = resp.id;
-                console.log(resp)
+                var roleName = resp.request_type!==null?resp.request_type.name:'Not Role';
+                html+='<button type="button" class="btn btn-outline-info font-weight-bold" onclick="buttonVendorClick('+resp.id+')">'+roleName+'</button>';
                 var destination = '';
-                var role = 'Role:' + resp.request_type!==null?resp.request_type.name:'';
+                var role = 'Role:' + roleName;
                 var color = resp.request_type!==null?resp.request_type.color:'blue';
-                var icon = resp.request_type!==null?resp.request_type.icon:base_url + 'assets/img/icons/icons_patient.svg';
+                // var icon = resp.request_type.icon;
+                var icon = base_url + 'assets/img/icons/icons_patient.svg';
                 var destinationName = resp.patient.first_name + ' ' + resp.patient.last_name + '  Role : Patient';
                 var originName = null;
                 var current = '';
@@ -109,54 +110,26 @@ function initMap() {
                     start_icon: base_url + 'assets/img/icons/icons_patient.svg',
                     originName: originName,
                     role: role,
+                    roleName: roleName,
                     destinationName: destinationName,
                     destination: destination,
                     current: current,
+                    status:resp.status
                 }
-                html += '<option value="' + resp.id + '">' + originName + '</option>';
+              //  html += '<option value="' + resp.id + '">' + originName + '</option>';
                 if (resp.detail!=null){
                     calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
                 }
                 updateMap(destination, destinationName, resp.id,resp.parent_id)
             })
-
-
-            //
-
-            // response.clinicians.map(function (resp) {
-            //     default_clinician_id = resp.id;
-            //     var originName = resp.first_name + ' ' + resp.last_name;
-            //     var role = 'Role:' + resp.referral_type;
-            //     var destinationName = response.patient.detail.first_name + ' ' + response.patient.detail.last_name + '  Role : Patient';
-            //     var current = new google.maps.LatLng(resp.start_latitude, resp.end_longitude);
-            //     if (resp.latitude !== null) {
-            //         current = new google.maps.LatLng(resp.latitude, resp.longitude);
-            //     }
-            //     referral_type[resp.id] = {
-            //         directionsService: new google.maps.DirectionsService(),
-            //         directionsRenderer: new google.maps.DirectionsRenderer({ suppressMarkers: true }),
-            //         id: resp.id,
-            //         color: resp.color,
-            //         icon: resp.icon,
-            //         start_icon: base_url + 'assets/img/icons/icons_patient.svg',
-            //         originName: originName,
-            //         role: role,
-            //         destinationName: destinationName,
-            //         destination: destination,
-            //         current: current,
-            //     }
-            //     html += '<option value="' + resp.id + '">' + originName + '</option>';
-            //     calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
-            //     updateMap(destination, destinationName, resp.id)
-            // })
-            $('#referral_type').html(html);
+            $('#btn-roadl-group').html(html);
         },
         error: function (error) {
             console.log(error)
         }
     })
 }
-function makeMarker(position, icon, title, duration = 0, hours = 0, role_title) {
+function makeMarker(position, icon, title, duration = 0, hours = 0, role_title=null) {
     var markers = new google.maps.Marker({
         position: position,
         map: map,
@@ -164,13 +137,17 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, role_title) 
         title: title
     });
     var str = title;
-    const contentString =
+    var contentString =
         '<div class="item_status" style="background:#F8FFFF;border-bottom:1px solid #00E2F2;padding:10px;color:#008591">' +
         '<div style="font-size:18px;font-weight:600">' + str.replace(/Role/gi, '<span style="color:#000;font-size:14px">' + "<br/> Role") + '</div>' +
         '</div>' +
-        '<div style="background:#fff;padding:10px;color:#008591">' +
-        '<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Services Type:</span>' + "Lab" + '</div>' +
-        '<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Duration:</span>' + duration + '</div>' +
+        '<div style="background:#fff;padding:10px;color:#008591">' ;
+
+        if (role_title){
+            contentString+= '<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Services Type:</span>' + role_title + '</div>';
+        }
+
+       contentString+='<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Duration:</span>' + duration + '</div>' +
         '<div style="font-size:16px;font-weight:600"><span style="font-size:14px;color:#000;margin-right:10px">Distance:</span>' + hours + '</div>' +
         '</div>';
     const infowindow = new google.maps.InfoWindow({
@@ -188,12 +165,11 @@ function updateMap(destination, name, id,parent_id) {
     socket.on('receive-location-' + parent_id, function (data) {
         var referrals = referral_type[data.id];
         var current = new google.maps.LatLng(data.latitude, data.longitude);
+        var role = 'Role:' + data.referral_type;
+        var color = data.color;
+        var icon = data.icon;
+        var originName = data.first_name + ' ' + data.last_name;
         if (referrals===undefined){
-            var role = 'Role:' + data.referral_type;
-            var color = data.color;
-            var icon = data.icon;
-            var originName = data.first_name + ' ' + data.last_name;
-
             referral_type[data.id] = {
                 directionsService: new google.maps.DirectionsService(),
                 directionsRenderer: new google.maps.DirectionsRenderer({ suppressMarkers: true }),
@@ -203,10 +179,20 @@ function updateMap(destination, name, id,parent_id) {
                 start_icon: base_url + 'assets/img/icons/icons_patient.svg',
                 originName: originName,
                 role: role,
+                roleName:data.referral_type,
                 destinationName: name,
                 destination: destination,
                 current: current,
+                status:data.status
             }
+        }else{
+            referral_type[data.id].icon=icon;
+            referral_type[data.id].color=color;
+            referral_type[data.id].current=current;
+            referral_type[data.id].originName=originName;
+            referral_type[data.id].role=role;
+            referral_type[data.id].roleName=data.referral_type;
+            referral_type[data.id].status=data.status;
         }
         referrals = referral_type[data.id];
         console.log(referrals)
@@ -214,11 +200,28 @@ function updateMap(destination, name, id,parent_id) {
     })
 }
 $('#referral_type').on('change', function (event) {
-    var referrals = referral_type[event.target.value];
-    default_clinician_id = event.target.value;
-    map.setZoom(30)
-    map.setCenter(referrals.marker.getPosition());
+    var id = event.target.value;
+    var referrals = referral_type[id];
+    if (referrals!==undefined){
+        if (referrals.status!=='active'){
+            default_clinician_id = id;
+            map.setZoom(30)
+            map.setCenter(referrals.marker.getPosition());
+        }
+    }
 })
+
+function buttonVendorClick(id) {
+    var referrals = referral_type[id];
+    if (referrals!==undefined){
+        if (referrals.status!=='active'){
+            default_clinician_id = id;
+            map.setZoom(30)
+            map.setCenter(referrals.marker.getPosition());
+        }
+    }
+}
+
 $('#re-center').on('click', function (event) {
     var referrals = referral_type[default_clinician_id];
     map.setZoom(8)
@@ -258,7 +261,7 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 referral_type[type].patient_marker.setMap(null);
             }
             referral_type[type].patient_marker = makeMarker(leg.end_location, referrals.start_icon, referrals.destinationName, leg.distance.text, leg.duration.text);
-            referral_type[type].marker = makeMarker(leg.start_location, referrals.icon, referrals.originName, leg.distance.text, leg.duration.text);
+            referral_type[type].marker = makeMarker(leg.start_location, referrals.icon, referrals.originName, leg.distance.text, leg.duration.text,referral_type[type].roleName);
             if (default_clinician_id === type) {
                 var referral = referral_type[default_clinician_id];
                 map.setZoom(30)

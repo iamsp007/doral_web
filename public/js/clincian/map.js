@@ -85,8 +85,8 @@ function initMap() {
                 var destination = '';
                 var role = 'Role:' + roleName;
                 var color = resp.request_type!==null?resp.request_type.color:'blue';
-                // var icon = resp.request_type.icon;
-                var icon = base_url + 'assets/img/icons/icons_patient.svg';
+                var icon = resp.request_type.icon;
+                // var icon = base_url + 'assets/img/icons/icons_patient.svg';
                 var destinationName = resp.patient.first_name + ' ' + resp.patient.last_name + '  Role : Patient';
                 var originName = null;
                 var current = '';

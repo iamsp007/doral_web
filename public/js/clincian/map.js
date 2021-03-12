@@ -48,9 +48,15 @@ function initMap() {
         method: 'POST',
         dataType: 'json',
         success: function (response) {
+            const sources = response;
+            var parent_id=0;
+
+            sources.map(function (resp) {
+                console.log(resp)
+            })
+
             map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 8,
-                center: new google.maps.LatLng(response.patient.latitude, response.patient.longitude),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 mapTypeControl: true,
                 mapTypeControlOptions: {
@@ -71,35 +77,35 @@ function initMap() {
             const centerControlDiv = document.createElement("div");
             CenterControl(centerControlDiv, map);
             map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
-            var destination = new google.maps.LatLng(response.patient.latitude, response.patient.longitude);
-            var html = '';
-            response.clinicians.map(function (resp) {
-                default_clinician_id = resp.id;
-                var originName = resp.first_name + ' ' + resp.last_name;
-                var role = 'Role:' + resp.referral_type;
-                var destinationName = response.patient.detail.first_name + ' ' + response.patient.detail.last_name + '  Role : Patient';
-                var current = new google.maps.LatLng(resp.start_latitude, resp.end_longitude);
-                if (resp.latitude !== null) {
-                    current = new google.maps.LatLng(resp.latitude, resp.longitude);
-                }
-                referral_type[resp.id] = {
-                    directionsService: new google.maps.DirectionsService(),
-                    directionsRenderer: new google.maps.DirectionsRenderer({ suppressMarkers: true }),
-                    id: resp.id,
-                    color: resp.color,
-                    icon: resp.icon,
-                    start_icon: base_url + 'assets/img/icons/icons_patient.svg',
-                    originName: originName,
-                    role: role,
-                    destinationName: destinationName,
-                    destination: destination,
-                    current: current,
-                }
-                html += '<option value="' + resp.id + '">' + originName + '</option>';
-                calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
-                updateMap(destination, destinationName, resp.id)
-            })
-            $('#referral_type').html(html);
+            // var destination = new google.maps.LatLng(response.patient.latitude, response.patient.longitude);
+            // var html = '';
+            // response.clinicians.map(function (resp) {
+            //     default_clinician_id = resp.id;
+            //     var originName = resp.first_name + ' ' + resp.last_name;
+            //     var role = 'Role:' + resp.referral_type;
+            //     var destinationName = response.patient.detail.first_name + ' ' + response.patient.detail.last_name + '  Role : Patient';
+            //     var current = new google.maps.LatLng(resp.start_latitude, resp.end_longitude);
+            //     if (resp.latitude !== null) {
+            //         current = new google.maps.LatLng(resp.latitude, resp.longitude);
+            //     }
+            //     referral_type[resp.id] = {
+            //         directionsService: new google.maps.DirectionsService(),
+            //         directionsRenderer: new google.maps.DirectionsRenderer({ suppressMarkers: true }),
+            //         id: resp.id,
+            //         color: resp.color,
+            //         icon: resp.icon,
+            //         start_icon: base_url + 'assets/img/icons/icons_patient.svg',
+            //         originName: originName,
+            //         role: role,
+            //         destinationName: destinationName,
+            //         destination: destination,
+            //         current: current,
+            //     }
+            //     html += '<option value="' + resp.id + '">' + originName + '</option>';
+            //     calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
+            //     updateMap(destination, destinationName, resp.id)
+            // })
+            // $('#referral_type').html(html);
         },
         error: function (error) {
             console.log(error)

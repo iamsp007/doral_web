@@ -42,7 +42,6 @@ class ClinicianService
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-            dd($exception->getMessage());
         }
     }
 
@@ -67,8 +66,13 @@ class ClinicianService
         try {
 
             $response = $this->client->request(
-                'GET',
-                '/get-roadl-proccess/'.$patient_request_id
+                'POST',
+                '/get-roadl-proccess-new',
+                [
+                    'json'=>array(
+                        'parent_id'=>$patient_request_id
+                    )
+                ]
             );
 
 

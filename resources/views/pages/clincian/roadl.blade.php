@@ -145,13 +145,13 @@
                                         </button>
                                     @elseif($rval->status==='accept')
                                         <button type="button"
-                                                onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->id]) }}'"
+                                                onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast">Accepted<span></span>
                                         </button>
 
                                     @elseif($rval->status==='arrive')
                                         <button type="button"
-                                                onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->id]) }}'"
+                                                onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast">Arrived<span></span>
                                         </button>
 

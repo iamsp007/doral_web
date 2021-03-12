@@ -73,4 +73,13 @@ class RoadLController extends Controller
         }
         return response()->json($response,422);
     }
+
+    public function getVendorList(Request $request){
+        $response = $this->clinicianService->getVendorList();
+        if ($response->status===true){
+            $clinicianList = $response->data;
+            return response()->json($clinicianList,200);
+        }
+        return response()->json($response,422);
+    }
 }

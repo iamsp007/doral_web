@@ -61,89 +61,15 @@ $(function () {
                 name:'id',
                 bSortable: false,
                 render:function (data, type, row, meta) {
-
                     var html='';
                     appointment_title = row.title;
                     if (row.status!=='completed' && row.status!=='cancel'){
                         html+='<button type="button" id="start-call-'+row.id+'" class="single-upload-btn mr-2 scheduled-call" style="display: block;" onclick="startVideoCall('+row.id+',0)">\n' + '<img src="'+base_url+'assets/img/icons/start-vedio.svg" class="icon mr-2">\n' +'Start Meeting</button>';
                     }
-                    var vals = [];
-                    $.each(row.roadl,function (key,value) {
-                        vals.push(value.referral_type)
-                    })
-                    var listRequestType=['LAB','Radiology','CHHA','Home Oxygen','Home Influsion','Wound Care','DME'];
-                    var roadlbuttonStatus=true;
-                    var options='';
-                    $.each(listRequestType,function (key,value) {
-                        if(value == 'LAB') {
-                            var testId = 1;
-                        }
-                        if(value == 'Radiology') {
-                            var testId = 2;
-                        }
-                        if(value == 'CHHA') {
-                            var testId = 3;
-                        }
-                        if(value == 'Home Oxygen') {
-                            var testId = 4;
-                        }
-                        if(value == 'Home Influsion') {
-                            var testId = 5;
-                        }
-                        if(value == 'Wound Care') {
-                            var testId = 6;
-                        }
-                        if(value == 'DME') {
-                            var testId = 7;
-                        }
-                        if (vals[vals.indexOf(value)]===value){
-                            options+='<li>\n' +
-                                '              <label>\n' +
-                                ' \n' +
-                                '                  <input type="checkbox" name="selected_appointment" value="'+value+'" checked disabled>' +
-                                '<span>'+value+'</span>\n' +
-                                ' \n' +
-                                '              </label>\n' +
-                                ' \n' +
-                                '          </li>';
-                        }else {
-                            options+='<li>\n' +
-                                '              <label>\n' +
-                                ' \n' +
-                                '                  <input type="checkbox" name="selected_appointment" data-appointmentid="'+row.id+'" data-type_id="'+testId+'"  data-patientId="'+row.patient_id+'"  data-appointment_title="'+appointment_title+'" value="'+value+'" onchange="selectRoadlRequest(this)">' +
-                                '<span>'+value+'</span>\n' +
-                                ' \n' +
-                                '              </label>\n' +
-                                ' \n' +
-                                '          </li>';
-                        }
 
-                    })
-                    if (roadlbuttonStatus===true){
-                        html+='<div class="btn-group mr-3" data-name=\'statuses\'>\n' +
-                            ' \n' +
-                            '        <button class="btn btn-success dropdown-toggle" type="button" id="btndropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">\n' +
-                            ' \n' +
-                            '          Start RoadL \n' +
-                            ' \n' +
-                            '          <span class=""></span>\n' +
-                            ' \n' +
-                            '        </button>' +
-                            '        <ul class="dropdown-menu p-3" aria-labelledby="btndropdown">\n' +
-                            ' \n' +
-                            '          '+options+'\n' +
-                            ' \n' +
-                            '        <button class="btn btn-success btn-block mt-2" onclick="onAppointmentBroadCast(this,'+row.id+','+row.patient_id+')"  type="button" >\n' +
-                            ' \n' +
-                            '          Save\n' +
-                            ' \n' +
-                            '          <span class=""></span>\n' +
-                            ' \n' +
-                            '        </button>\n' +
-                            '        </ul>\n' +
-                            ' \n' +
-                            '      </div>';
-                    }
+                    html+='<button type="button" onclick="onBroadCastOpen('+row.patient_id+')"\n' +
+                        '                                    class="btn btn-broadcast btn-info">Add New Request <span></span>\n' +
+                        '                            </button>';
                     if (row.status!=="cancel"){
                         html+='<div class="popbox">\n' +
                             '                        <div class="popovers promptBox" id="areyousuredialog'+row.id+'" style="display: none">\n' +

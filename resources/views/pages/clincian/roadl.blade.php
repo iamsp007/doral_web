@@ -171,7 +171,7 @@
                                 </div>
                             </div>
                         @endforeach
-                            <button type="button"
+                            <button type="button" onclick="onBroadCastOpen({{ $value->patient_detail->id }})"
                                     class="btn btn-broadcast btn-info">Add New Request <span></span>
                             </button>
                     </div>
@@ -192,14 +192,12 @@
     </style>
 @endpush
 @push('scripts')
-    <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
     <script>
         var patientRequestList='{{ route('clinician.roadl.patientRequestList') }}';
         $('#filter').on('change',function (event) {
             event.preventDefault();
             window.location.href='{{ url("/clinician/roadl/") }}'+'?type='+event.target.value;
-            console.log(event.target.value)
         })
     </script>
-    <!--<script src="{{ asset('js/clincian/roadl.js') }}"></script>-->
+    <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
 @endpush

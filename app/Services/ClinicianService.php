@@ -385,4 +385,19 @@ class ClinicianService
 
         }
     }
+
+    public function getVendorList(){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/vendor-list'
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+        }
+    }
 }

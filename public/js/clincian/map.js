@@ -37,6 +37,33 @@ function CenterControl(controlDiv, map) {
     });
 }
 function initMap() {
+    navigator.geolocation.getCurrentPosition(function (param) {
+        var center = new google.maps.LatLng(param.coords.latitude, param.coords.longitude);
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 8,
+            center:center,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+                mapTypeIds: ["roadmap", "terrain"],
+                position: google.maps.ControlPosition.LEFT_TOP
+            },
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.LEFT_CENTER,
+            },
+            scaleControl: true,
+            streetViewControl: false,
+            streetViewControlOptions: {
+                position: google.maps.ControlPosition.LEFT_TOP,
+            },
+            fullscreenControl: true,
+        });
+        const centerControlDiv = document.createElement("div");
+        CenterControl(centerControlDiv, map);
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
+    })
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -51,34 +78,51 @@ function initMap() {
             const sources = response;
             var parent_id=0;
 
+            var html = '';
             sources.map(function (resp) {
+                default_clinician_id = resp.id;
                 console.log(resp)
+                var destination = '';
+                var role = 'Role:' + resp.request_type!==null?resp.request_type.name:'';
+                var color = resp.request_type!==null?resp.request_type.color:'blue';
+                var icon = resp.request_type!==null?resp.request_type.icon:base_url + 'assets/img/icons/icons_patient.svg';
+                var destinationName = resp.patient.first_name + ' ' + resp.patient.last_name + '  Role : Patient';
+                var originName = null;
+                var current = '';
+                if (resp.status==='active' || resp.status==='cancel'){
+                    destination = new google.maps.LatLng(resp.latitude, resp.longitude);
+                    originName = null;
+                    current = null;
+                    destinationName = resp.patient.first_name + ' ' + resp.patient.last_name + '  Role : Patient';
+                }else {
+                    destination = new google.maps.LatLng(resp.latitude, resp.longitude);
+                    originName = resp.detail.first_name + ' ' + resp.detail.last_name;
+                    current = new google.maps.LatLng(resp.detail.latitude, resp.detail.longitude);
+                    destinationName = resp.patient.first_name + ' ' + resp.patient.last_name + '  Role : Patient';
+                }
+                referral_type[resp.id] = {
+                    directionsService: new google.maps.DirectionsService(),
+                    directionsRenderer: new google.maps.DirectionsRenderer({ suppressMarkers: true }),
+                    id: resp.id,
+                    color: color,
+                    icon: icon,
+                    start_icon: base_url + 'assets/img/icons/icons_patient.svg',
+                    originName: originName,
+                    role: role,
+                    destinationName: destinationName,
+                    destination: destination,
+                    current: current,
+                }
+                html += '<option value="' + resp.id + '">' + originName + '</option>';
+                if (resp.detail!=null){
+                    calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
+                }
+                updateMap(destination, destinationName, resp.id,resp.parent_id)
             })
 
-            map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 8,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                mapTypeControl: true,
-                mapTypeControlOptions: {
-                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-                    mapTypeIds: ["roadmap", "terrain"],
-                    position: google.maps.ControlPosition.LEFT_TOP
-                },
-                zoomControlOptions: {
-                    position: google.maps.ControlPosition.LEFT_CENTER,
-                },
-                scaleControl: true,
-                streetViewControl: false,
-                streetViewControlOptions: {
-                    position: google.maps.ControlPosition.LEFT_TOP,
-                },
-                fullscreenControl: true,
-            });
-            const centerControlDiv = document.createElement("div");
-            CenterControl(centerControlDiv, map);
-            map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
-            // var destination = new google.maps.LatLng(response.patient.latitude, response.patient.longitude);
-            // var html = '';
+
+            //
+
             // response.clinicians.map(function (resp) {
             //     default_clinician_id = resp.id;
             //     var originName = resp.first_name + ' ' + resp.last_name;
@@ -105,7 +149,7 @@ function initMap() {
             //     calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
             //     updateMap(destination, destinationName, resp.id)
             // })
-            // $('#referral_type').html(html);
+            $('#referral_type').html(html);
         },
         error: function (error) {
             console.log(error)
@@ -139,11 +183,33 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, role_title) 
     });
     return markers;
 }
-function updateMap(destination, name, id) {
-    console.log(id)
-    socket.on('receive-location-' + id, function (data) {
+function updateMap(destination, name, id,parent_id) {
+
+    socket.on('receive-location-' + parent_id, function (data) {
         var referrals = referral_type[data.id];
         var current = new google.maps.LatLng(data.latitude, data.longitude);
+        if (referrals===undefined){
+            var role = 'Role:' + data.referral_type;
+            var color = data.color;
+            var icon = data.icon;
+            var originName = data.first_name + ' ' + data.last_name;
+
+            referral_type[data.id] = {
+                directionsService: new google.maps.DirectionsService(),
+                directionsRenderer: new google.maps.DirectionsRenderer({ suppressMarkers: true }),
+                id: data.id,
+                color: color,
+                icon: icon,
+                start_icon: base_url + 'assets/img/icons/icons_patient.svg',
+                originName: originName,
+                role: role,
+                destinationName: name,
+                destination: destination,
+                current: current,
+            }
+        }
+        referrals = referral_type[data.id];
+        console.log(referrals)
         calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
     })
 }
@@ -162,7 +228,7 @@ $('#re-center').on('click', function (event) {
 function calculateAndDisplayRoute(current, destination, type, referrals) {
     var directionsService = referrals.directionsService;
     var directionsRenderer = referrals.directionsRenderer;
-    console.log(current)
+    console.log(current.lat(),destination.lat(),"update")
     var request = {
         origin: current,
         destination: destination,
@@ -199,6 +265,8 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 map.setCenter(referral_type[type].marker.getPosition());
             }
             // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );
+        }else {
+            console.log(status)
         }
     })
 }

@@ -3,192 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeePhysicalExaminationReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeePhysicalExaminationReportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InsuranceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InsuranceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/EmployeePhysicalExaminationReport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/EmployeePhysicalExaminationReport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PatientReport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PatientReport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Services/ClinicianService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/ClinicianService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/bootstrap.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/bootstrap.min.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/datapicker/datepicker3.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/datapicker/datepicker3.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/font-awesome.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/font-awesome.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Black.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Black.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Black.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Black.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-BlackItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-BlackItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-BlackItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-BlackItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Bold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Bold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Bold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Bold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-BoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-BoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-BoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-BoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraLight.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraLight.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraLight.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraLight.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraLightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraLightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraLightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ExtraLightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Italic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Italic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Light.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Light.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Light.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Light.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-LightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-LightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-LightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-LightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Medium.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Medium.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Medium.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Medium.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-MediumItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-MediumItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-MediumItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-MediumItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Regular.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Regular.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-SemiBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-SemiBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-SemiBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-SemiBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-SemiBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-SemiBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-SemiBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-SemiBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Thin.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Thin.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Thin.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-Thin.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ThinItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ThinItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ThinItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat-ThinItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/Montserrat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Black.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Black.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Black.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Black.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-BlackItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-BlackItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-BlackItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-BlackItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Bold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Bold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Bold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Bold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-BoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-BoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-BoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-BoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraLight.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraLight.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraLight.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraLight.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraLightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraLightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraLightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ExtraLightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Italic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Italic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Italic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Italic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Light.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Light.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Light.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Light.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-LightItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-LightItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-LightItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-LightItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Medium.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Medium.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Medium.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Medium.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-MediumItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-MediumItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-MediumItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-MediumItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Regular.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Regular.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Regular.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-SemiBold.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-SemiBold.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-SemiBold.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-SemiBold.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-SemiBoldItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-SemiBoldItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-SemiBoldItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-SemiBoldItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Thin.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Thin.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Thin.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-Thin.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ThinItalic.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ThinItalic.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ThinItalic.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/MontserratAlternates-ThinItalic.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/fonts/README.MD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/my-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/my-style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/responsive.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/select2.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/select2.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/css/style.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/css/style.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/FontAwesome.otf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/FontAwesome.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/font-awesome/fonts/fontawesome-webfont.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/fonts/FontAwesome.otf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/fonts/FontAwesome.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/fonts/fontawesome-webfont.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/Polygon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/Polygon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/doctor.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/doctor.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/fb.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/fb.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/instagram.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/instagram.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/linkedin.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/linkedin.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/sign-up.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/sign-up.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/twitter.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/twitter.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/youtube.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/icons/youtube.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/img-food/menu1.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/img-food/menu1.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/img-food/menu2.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/img-food/menu2.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/img-food/menu3.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/img-food/menu3.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/img-food/menu4.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/img-food/menu4.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/login_img.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/login_img.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/logo-blue.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/logo-blue.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/logo-white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/logo-white.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/img/polygon.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/img/polygon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/js/bootstrap.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/js/bootstrap.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/js/bootstrap.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/js/datapicker/bootstrap-datepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/js/datapicker/bootstrap-datepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/js/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/js/jquery.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/js/jquery.validate.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/js/jquery.validate.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/js/popper.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/js/popper.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/js/script.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/js/script.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/bootsrap/js/select2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/bootsrap/js/select2.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/datapicker/datepicker3.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/datapicker/datepicker3.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/developer.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/developer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/font-awesome.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/font-awesome.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/my-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/my-style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/select2.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/select2.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/uploadfiles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/uploadfiles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/fonts/FontAwesome.otf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/fonts/FontAwesome.otf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/fonts/fontawesome-webfont.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/icons/icons_patient.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/icons/icons_patient.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/img/logo-blue.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/img/logo-blue.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/datapicker/bootstrap-datepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/datapicker/bootstrap-datepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/script.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/script.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/select2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/select2.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/uploadfiles.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/uploadfiles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/Roboto-Regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/Roboto-Regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/Roboto-Black-demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/Roboto-Black-demo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/Roboto-Black-webfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/Roboto-Black-webfont.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/specimen_files/Roboto-Black-cleartype.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/specimen_files/Roboto-Black-cleartype.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/specimen_files/grid_12-825-55-15.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/specimen_files/grid_12-825-55-15.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/specimen_files/specimen_stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/specimen_files/specimen_stylesheet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/roboto_black_macroman/stylesheet.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/lab-reports.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/lab-reports.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615004281.UPOS+Potential+Calculator+.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615004281.UPOS+Potential+Calculator+.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615004470-UPOS+Potential+Calculator+ (1).xlsx.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615004470-UPOS+Potential+Calculator+ (1).xlsx.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615004520.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615004520.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615126313.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615126313.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615126623.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615126623.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615126643.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615126643.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615130321.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615130321.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615130322.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615130322.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615130387.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615130387.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615130398.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615130398.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615134506.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615134506.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615134803.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615134803.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615207823.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615207823.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615212234.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615212234.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615213643.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615213643.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615214270.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615214270.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615228393.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615228393.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615228656.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615228656.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615228672.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615228672.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615228965.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615228965.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615229219.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615229219.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615229235.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615229235.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615229279.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615229279.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615289687.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615289687.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615313099.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615313099.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615313506.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615313506.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/patient_report/1615381616.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/public/patient_report/1615381616.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/autofill-employee-physical-examination-report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/autofill-employee-physical-examination-report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/employee-physical-examination-report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/employee-physical-examination-report.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/modals/labreports.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/modals/labreports.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/lab-reports.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/lab-reports.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/pdf/employee-physical-examination-report.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/pdf/employee-physical-examination-report.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -371,7 +186,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -788,7 +603,13 @@
       <workItem from="1615123331445" duration="3793000" />
       <workItem from="1615206642210" duration="4533000" />
       <workItem from="1615284890454" duration="4753000" />
-      <workItem from="1615524644715" duration="628000" />
+      <workItem from="1615524644715" duration="833000" />
+      <workItem from="1615525808931" duration="940000" />
+      <workItem from="1615526778995" duration="1818000" />
+      <workItem from="1615528623857" duration="304000" />
+      <workItem from="1615529593443" duration="340000" />
+      <workItem from="1615530112825" duration="1248000" />
+      <workItem from="1615531432774" duration="1891000" />
     </task>
     <servers />
   </component>
@@ -816,19 +637,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1615210863685">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1615210863685" />
-    <state x="172" y="127" width="1648" height="853" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1614946108943">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="172" y="127" width="1648" height="853" key="com.intellij.history.integration.ui.views.FileHistoryDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1614946108943" />
-    <state x="721" y="385" width="540" height="344" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1615001085013">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="721" y="385" width="540" height="344" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1615001085013" />
   </component>
 </project>

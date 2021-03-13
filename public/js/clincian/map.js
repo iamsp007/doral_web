@@ -129,7 +129,7 @@ function initMap() {
         }
     })
 }
-function makeMarker(position, icon, title, duration = 0, hours = 0, role_title=null) {
+function makeMarker(position, icon, title, duration = 0, hours = 0, referrals=null) {
     var markers = new google.maps.Marker({
         position: position,
         map: map,
@@ -143,8 +143,9 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, role_title=n
         '</div>' +
         '<div style="background:#fff;padding:10px;color:#008591">' ;
 
-        if (role_title){
-            contentString+= '<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Services Type:</span>' + role_title + '</div>';
+        if (referrals){
+            contentString+= '<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Services Type:</span>' + referrals.role + '</div>';
+            contentString+= '<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Status:</span>' + referrals.status + '</div>';
         }
 
        contentString+='<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Duration:</span>' + duration + '</div>' +
@@ -261,7 +262,7 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 referral_type[type].patient_marker.setMap(null);
             }
             referral_type[type].patient_marker = makeMarker(leg.end_location, referrals.start_icon, referrals.destinationName, leg.distance.text, leg.duration.text);
-            referral_type[type].marker = makeMarker(leg.start_location, referrals.icon, referrals.originName, leg.distance.text, leg.duration.text,referral_type[type].roleName);
+            referral_type[type].marker = makeMarker(leg.start_location, referrals.icon, referrals.originName, leg.distance.text, leg.duration.text,referrals);
             if (default_clinician_id === type) {
                 var referral = referral_type[default_clinician_id];
                 map.setZoom(30)

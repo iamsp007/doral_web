@@ -148,13 +148,21 @@
                                                 onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast">Accepted<span></span>
                                         </button>
-
+                                    @elseif($rval->status==='prepare')
+                                        <button type="button"
+                                                onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
+                                                class="btn btn-broadcast">Prepare Time : {{ $rval->prepare_time }}<span></span>
+                                        </button>
+                                    @elseif($rval->status==='start')
+                                        <button type="button"
+                                                onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
+                                                class="btn btn-broadcast">On The Way<span></span>
+                                        </button>
                                     @elseif($rval->status==='arrive')
                                         <button type="button"
                                                 onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast">Arrived<span></span>
                                         </button>
-
                                     @elseif($rval->status==='complete')
                                         <button type="button"
                                                 class="btn btn-broadcast">Complete<span></span>

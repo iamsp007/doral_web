@@ -15,9 +15,11 @@ use App\Models\PatientClinicalDetail;
 use App\Models\PatientCoordinator;
 use App\Models\PatientDetail;
 use App\Models\PatientEmergencyContact;
+use App\Models\PatientInsurance;
 use App\Models\PatientLabReport;
 use App\Models\PatientReferralInfo;
 use App\Models\PatientReport;
+use App\Models\Services;
 use App\Models\State;
 use App\Models\User;
 use App\Models\VisitorDetail;
@@ -57,13 +59,28 @@ class GetPatientDetailsController extends Controller
         $labReportTypes = LabReportType::where('status','1')->whereNull('parent_id')->orderBy('sequence', 'asc')->get();
 
         $tbpatientLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
-        $tbLabReportTypes = LabReportType::where('status','1')->where('parent_id', 1)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
+        $tbLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
+            $query->where('patient_referral_id', $paient_id);
+           })->where('status','1')->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
         
         $immunizationLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
-        $immunizationLabReportTypes = LabReportType::where('status','1')->where('parent_id', 2)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
+        $immunizationLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
+            $query->where('patient_referral_id', $paient_id);
+           })->where('status','1')->where('parent_id', 2)->orderBy('sequence', 'asc')->get();
 
         $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
-        $drugLabReportTypes = LabReportType::where('status','1')->where('parent_id', 3)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
+        $drugLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
+            $query->where('patient_referral_id', $paient_id);
+           })->where('status','1')->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
+
+        $employeePhysicalForm = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['16','17','18','19'])->get();
+        $employeePhysicalFormTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
+            $query->where('patient_referral_id', $paient_id);
+           })->where('status','1')->where('parent_id', 4)->orderBy('sequence', 'asc')->get();
+
+        $services = Services::select('id','name')->where('display_type',1)->get();
+
+        $insurances = PatientInsurance::where('user_id', $paient_id)->get();
 
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
@@ -135,7 +152,7 @@ class GetPatientDetailsController extends Controller
             }
         }
 
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences'));
+        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances'));
     }
 
     /**

@@ -59,6 +59,7 @@ $(document).ready(function() {
         $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
     });
 });
+Dropzone.autoDiscover = false;
 
 var myDropzone = new Dropzone("#dropzone-file-lab-report", {
     url:lab_report_upload_url,

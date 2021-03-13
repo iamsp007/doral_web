@@ -198,7 +198,7 @@
                            <div class="">
                               <div class="card-header" id="headingOne">
                                  <h2 class="mb-0">
-                                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"><span>PHYSICAN CONDITION</span>  <i class="fa fa-angle-right"></i></button>                                   
+                                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"><span>PHYSICIAN CONDITION</span>  <i class="fa fa-angle-right"></i></button>                                   
                                  </h2>
                               </div>
                               <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
@@ -472,8 +472,7 @@
                                     <button type="button"
                                           class="btn btn-outline-green d-flex align-items-center" onclick="downloadReport(1)"
                                           data-toggle="modal" data-target="#labreportModal" name=""><i
-                                          class="las la-binoculars la-2x mr-2"></i> View Lab
-                                      Reports</button>
+                                          class="las la-binoculars la-2x mr-2"></i> View</button>
                                  </td>
                               </tr>
 <!--                              <tr class="tr_class">
@@ -560,7 +559,7 @@
             </div>
             <div class="container mb-5">
                <div class="innerSpace">
-                  <h2 class="t1 fadeIn">PHYSICAL DETAILS</h2>
+                  <h2 class="t1 fadeIn">PHYSICIAN DETAILS</h2>
                   <div class="row">
                      <div class="col-lg-6">
                         <div class="form-group">
@@ -576,7 +575,7 @@
                   <div class="row">
                      <div class="col-lg-6">
                         <div class="card">
-                           <p>Physician  Date & Signeture</p>
+                           <p>Physician  Date & Signature</p>
                            <div class="cardb"> </div>
                         </div>
                      </div>
@@ -637,15 +636,15 @@
             var lastRow = $('#tblAddRow tbody tr:last').clone();
 
             var lookup = parseInt($(lastRow).find('input:first').attr('name').replace ( /[^\d.]/g, '' )) + 1;
-
-            $(lastRow).find('.srNO').html(lookup)
+            console.log(lookup);
+            $(lastRow).find('.srNO').html(lookup);
 //            $(lastRow).find('input.record').attr('name', 'record['+lookup+']')
 
             $(lastRow).find('select.test_name').attr('name', 'test_name['+lookup+']')
 
             $(lastRow).find('input.date_performed').attr('name', 'date_performed['+lookup+']')
 
-            $(lastRow).find('select.result').attr('class', 'result'+lookup)
+            $(lastRow).find('select.res').attr('class', 'result'+lookup)
             $(lastRow).find('select.result').attr('name', 'result['+lookup+']')
 
             $(lastRow).find('input.lab_value').attr('name', 'lab_value['+lookup+']')

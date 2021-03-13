@@ -34,9 +34,8 @@ Route::group(['middleware'=>'auth'],function (){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('check');
     // Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
     Route::post('/add-insurance','\App\Http\Controllers\PatientController@addInsurance')->name('patient.addInsurance');
-    Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
 });
-
+Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
 
 //
 //Auth::routes();
@@ -71,10 +70,12 @@ Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|
     Route::delete('/remove-lab-report','\App\Http\Controllers\GetPatientDetailsController@removeLabReport')->name('patient.lab.report.remove');
     Route::post('/lab-report-file-show','\App\Http\Controllers\GetPatientDetailsController@labReportFileShow')->name('patient.lab.report.show');
     Route::post('/add-medicine','\App\Http\Controllers\PatientController@addMedicine')->name('add.medicine');
-    
+
     Route::get('/employee-physical-examination-report/{id}','App\Http\Controllers\EmployeePhysicalExaminationReportController@getEmployeePhysicalExaminationReport')->name('get-employee-physical-examination-report');
     Route::post('/employee-physical-examination-report/{id}','App\Http\Controllers\EmployeePhysicalExaminationReportController@postEmployeePhysicalExaminationReport')->name('post-employee-physical-examination-report');
     Route::get('/pdf-employee-physical-examination-report/{id}','App\Http\Controllers\EmployeePhysicalExaminationReportController@pdfEmployeePhysicalExaminationReport')->name('pdf-employee-physical-examination-report');
+
+    Route::get('/roadl-vendor-list','App\Http\Controllers\Clinician\RoadLController@getVendorList')->name('roadl.vendor.list');
 });
 
     Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');

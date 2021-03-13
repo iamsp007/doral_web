@@ -1,7 +1,7 @@
 <div class="tab-pane fade" id="physican" role="tabpanel" aria-labelledby="physican-tab">
    <div class="app-card app-card-custom" data-name="physician">
       <div class="app-card-header"><h1 class="title">Physician</h1></div>
-      <div class="head scrollbar scrollbar4">
+      <div class="head scrollbar scrollbar12">
          <div class="p-3">
             <div class="app-card app-card-custom box-shadow-none" data-name="primary_care_physician">
                <div class="app-card-header">

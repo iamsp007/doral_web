@@ -86,7 +86,9 @@ class PatientLabReportController extends Controller
              
                 $result = PatientLabReport::where('id', $patientLabReport->id)->with('labReportType')->first();
                 $patientLabReportModel = PatientLabReport::with('labReportType')->where('patient_referral_id', $input['patient_referral_id']);
-                $labReportTypeModel = LabReportType::doesntHave('patientLabReport')->where('status','1');
+                $labReportTypeModel = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($input) {
+                    $query->where('patient_referral_id', $input['patient_referral_id']);
+                })->where('status','1');
                 if (in_array($result->lab_report_type_id, ['2','3','4','5','6'])) {
                     $tbpatientLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
                     $tbLabReportTypes = $labReportTypeModel->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
@@ -107,21 +109,27 @@ class PatientLabReportController extends Controller
                     $count = $drugLabReports->count();
                     $newCount = $drugLabReports->count() + 1;
                     $type = 'drug';
+                } elseif (in_array($result->lab_report_type_id, ['16','17','18','19'])) {
+                    $physicalReports = $patientLabReportModel->whereIn('lab_report_type_id', ['16','17','18','19'])->get();
+                    $tbLabReportTypes = $labReportTypeModel->where('parent_id', 4)->orderBy('sequence', 'asc')->get();
+                    $count = $physicalReports->count();
+                    $newCount = $physicalReports->count() + 1;
+                    $type = 'physical';
                 }
                 
-                $arr = array('status' => 200, 'message' => 'success', 'result' => $result, 'tbLabReportTypes' => $tbLabReportTypes, 'count' => $count, 'newCount' => $newCount, 'type' => $type);
+                $arr = array('status' => 200, 'message' => 'success', 'resultdata' => $result, 'tbLabReportTypes' => $tbLabReportTypes, 'count' => $count, 'newCount' => $newCount, 'type' => $type);
             } catch (\Illuminate\Database\QueryException $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {
                     $message = $ex->errorInfo[2];
                 }
-                $arr = array("status" => 400, "message" => $message, "result" => array());
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
             } catch (Exception $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {
                     $message = $ex->errorInfo[2];
                 }
-                $arr = array("status" => 400, "message" => $message, "result" => array());
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
             }
         } 
         return \Response::json($arr);
@@ -139,7 +147,9 @@ class PatientLabReportController extends Controller
         if ($patientLabReport) {
             $result = PatientLabReport::where('id', $request->id)->with('labReportType')->first();
             $patientLabReportModel = PatientLabReport::with('labReportType')->where('patient_referral_id', $request->patient_referral_id);
-            $labReportTypeModel = LabReportType::doesntHave('patientLabReport')->where('status','1');
+            $labReportTypeModel = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($request) {
+                $query->where('patient_referral_id', $request->patient_referral_id);
+            })->where('status','1');
             if (in_array($result->lab_report_type_id, ['2','3','4','5','6'])) {
                 $tbpatientLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
                 $tbLabReportTypes = $labReportTypeModel->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
@@ -157,6 +167,11 @@ class PatientLabReportController extends Controller
                 $tbLabReportTypes = $labReportTypeModel->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
                 $count = $drugLabReports->count();
                 $newCount = $drugLabReports->count() + 1;
+            } elseif (in_array($result->lab_report_type_id, ['16','17','18','19'])) {
+                $physicalLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['16','17','18','19'])->get();
+                $tbLabReportTypes = $labReportTypeModel->where('parent_id', 4)->orderBy('sequence', 'asc')->get();
+                $count = $physicalLabReports->count();
+                $newCount = $physicalLabReports->count() + 1;
             }
             
             $patientLabReport->delete();

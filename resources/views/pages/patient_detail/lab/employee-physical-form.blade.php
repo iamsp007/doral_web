@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12 col-sm-1"></div>
             <div class="col-12 col-sm-10">
-                <table class="table table-bordered table-hover mt-4 drug-list-order">
+                <table class="table table-bordered table-hover mt-4 physical-list-order">
                     <thead class="thead-light">
                     <tr>
                         <th scope="col">Sr. No.</th>
@@ -19,26 +19,28 @@
                     </thead>
                     <tbody>
                     @php $number = 1; @endphp
-                    @foreach($drugLabReports as $drugLabReport)
-                        <tr class="@if ($drugLabReport->result === '1') bg-positive @endif drug-main-tr">
+                    @foreach($employeePhysicalForm as $employeePhysical)
+                        <tr class="@if ($employeePhysical->result === 'Positive') bg-positive @endif physical-main-tr">
                             <td scope="row">{{ $number }}</td>
-                            <td scope="row">{{ ($drugLabReport->labReportType) ? $drugLabReport->labReportType->name : ''}}</th>
-                            <td><?php echo date('m-d-Y',strtotime($drugLabReport->due_date)); ?></td>
-                            <td><?php echo date('m-d-Y',strtotime($drugLabReport->perform_date)); ?></td>
-                            <td><?php echo date('m-d-Y',strtotime($drugLabReport->expiry_date)); ?></td>
-                            <td>{{ $drugLabReport->result }}</td>
-                            <td class='text-center'><span
-                                    onclick="exploder('drug{{$number}}')" id="drug{{$number}}"
+                            <td scope="row">{{ ($employeePhysical->labReportType) ? $employeePhysical->labReportType->name : ''}}</th>
+                            <td>{{ $employeePhysical->due_date }}</td>
+                            <td>{{ $employeePhysical->perform_date }}</td>
+                            <td>{{ $employeePhysical->expiry_date }}</td>
+                            <td>{{ $employeePhysical->result }}</td>
+                            <td class='text-center'>
+                                <!-- <span
+                                    onclick="exploder('physical{{$number}}')" id="physical{{$number}}"
                                     class="exploder"><i
                                         class="las la-plus la-2x"></i></span>
-                                <a href="javascript:void(0)" class="deleteLabResult" id="{{ $drugLabReport->id }}"><i
-                                        class="las la-trash la-2x pl-4"></i></a>
+                                <a href="javascript:void(0)" class="deleteLabResult" id="{{ $employeePhysical->id }}"><i
+                                        class="las la-trash la-2x pl-4"></i></a> -->
+                                <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,'{{ $employeePhysical->labReportType->id }}')" id="{{ $employeePhysical->labReportType->id }}" data-id="{{ $employeePhysical->labReportType->id }}" >
                             </td>
                         </tr>
                         <tr class="explode1 d-none">
                             <td colspan="6">
-                                <x-text-area name="note" placeholder="Enter note" value="{{$drugLabReport->note}}" class="note-area"/>
-                                <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $drugLabReport->id }}" />
+                                <!-- <x-text-area name="note" placeholder="Enter note" value="{{$employeePhysical->note}}" class="note-area"/> -->
+                                <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $employeePhysical->id }}" />
                             </td>
                         </tr>
                         @php $number++; @endphp
@@ -47,14 +49,14 @@
                         <ul></ul>
                     </div>
                     <tr>
-                        <form id="drugScreenForm">
+                        <form id="physicalScreenForm">
                             @csrf
-                            <th scope="row" class="drug-sequence">{{ ($drugLabReports) ? $drugLabReports->count() + 1 : '' }}</th>
+                            <th scope="row" class="physical-sequence">{{ ($employeePhysical) ? $employeePhysicalForm->count() + 1 : '' }}</th>
                             <td>
-                                <select name="lab_report_type_id" class="form-control drug_lab_report_types">
+                                <select name="lab_report_type_id" class="form-control physical_lab_report_types">
                                     <option value="">Select a test type</option>
-                                    @foreach($drugLabReportTypes as $drugLabReportType)
-                                        <option value="{{ $drugLabReportType->id }}">{{ $drugLabReportType->name }}</option>
+                                    @foreach($employeePhysicalFormTypes as $employeePhysicalFormType)
+                                        <option value="{{ $employeePhysicalFormType->id }}">{{ $employeePhysicalFormType->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('lab_report_type_id')

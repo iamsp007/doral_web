@@ -49,7 +49,7 @@
                </li>
             </ul>
          </div>
-         <div class="p-3 scrollbar scrollbar4">
+         <div class="p-3 scrollbar scrollbar12">
             <div class="tab-content" id="pills-tabContent">
                <!-- Social Pro Start-->
                <div class="tab-pane fade" id="social-pro" role="tabpanel"
@@ -421,14 +421,17 @@
     <link rel="stylesheet" href="{{ asset('assets/css/uploadfiles.css') }}">
     <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" />
     <style>
+       
         .app .app-content .app-header-block._fullwidth {
             width: calc(100% - 7rem);
             position: fixed;
             right: 0;
             z-index: 0;
         }
+        .app .app-content .app-body{overflow:hidden;padding-left:0;padding-right:0}
         .modal-backdrop{z-index: 0!important;}
         .modal-backdrop.show{z-index: -1!important;}
+        .scrollbar12{height:600px}
     </style>
 @endpush
 

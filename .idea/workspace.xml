@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="" />
+    <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Clinician/RoadLController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Clinician/RoadLController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Services/ClinicianService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Services/ClinicianService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/clincian/app.clinician.broadcast.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/app.clinician.broadcast.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -166,6 +171,11 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
       <path value="$PROJECT_DIR$/vendor/predis/predis" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
     </include_path>
   </component>
   <component name="ProjectId" id="1jExBQGjb0JrI2cHx9rLuxWcHW8" />
@@ -178,7 +188,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -593,7 +603,32 @@
       <workItem from="1614998238069" duration="8299000" />
       <workItem from="1615021083541" duration="344000" />
       <workItem from="1615123331445" duration="3793000" />
-      <workItem from="1615206642210" duration="1869000" />
+      <workItem from="1615206642210" duration="4533000" />
+      <workItem from="1615284890454" duration="4753000" />
+      <workItem from="1615524644715" duration="833000" />
+      <workItem from="1615525808931" duration="940000" />
+      <workItem from="1615526778995" duration="1818000" />
+      <workItem from="1615528623857" duration="304000" />
+      <workItem from="1615529593443" duration="340000" />
+      <workItem from="1615530112825" duration="1248000" />
+      <workItem from="1615531432774" duration="1891000" />
+      <workItem from="1615533782541" duration="1456000" />
+      <workItem from="1615535656034" duration="1430000" />
+      <workItem from="1615537494400" duration="924000" />
+      <workItem from="1615540574929" duration="599000" />
+      <workItem from="1615546363947" duration="673000" />
+      <workItem from="1615549083738" duration="1575000" />
+      <workItem from="1615551006728" duration="1848000" />
+      <workItem from="1615552931161" duration="1782000" />
+      <workItem from="1615554781748" duration="13000" />
+      <workItem from="1615570082033" duration="1799000" />
+      <workItem from="1615571913572" duration="1782000" />
+      <workItem from="1615573725058" duration="1715000" />
+      <workItem from="1615577385051" duration="471000" />
+      <workItem from="1615607361029" duration="139000" />
+      <workItem from="1615617979692" duration="868000" />
+      <workItem from="1615619128622" duration="61000" />
+      <workItem from="1615619216409" duration="364000" />
     </task>
     <servers />
   </component>
@@ -621,19 +656,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1614926225717">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1614926225717" />
-    <state x="172" y="127" width="1648" height="853" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1614946108943">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="172" y="127" width="1648" height="853" key="com.intellij.history.integration.ui.views.FileHistoryDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1614946108943" />
-    <state x="721" y="385" width="540" height="344" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1615001085013">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="721" y="385" width="540" height="344" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1615001085013" />
   </component>
 </project>

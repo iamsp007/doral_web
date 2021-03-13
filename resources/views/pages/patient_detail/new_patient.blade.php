@@ -92,23 +92,23 @@
         var columnDaTa = [];
       
         if ($("#status").val() === 'pending') {
-            columnDaTa.push({data:'checkbox_id',name:'checkbox_id'});
+            columnDaTa.push({data:'checkbox_id'});
         }
         columnDaTa.push(
-            {data: 'id',name:'id'},
-            {data: 'full_name', name: 'full_name'},
-            {data: 'gender', name: 'gender'},
-            {data: 'ssn', name: 'ssn'},
-            {data: 'home_phone', name: 'home_phone', class: 'editable text'},
-            {data: 'service_id', name: 'service_id'},
-            {data: 'doral_id', name: 'doral_id'},
-            {data: 'city_state', name: 'city_state'},
+            {data: 'DT_RowIndex', orderable: false, searchable: false},
+            {data: 'full_name'},
+            {data: 'gender'},
+            {data: 'ssn'},
+            {data: 'home_phone', class: 'editable text'},
+            {data: 'service_id'},
+            {data: 'doral_id'},
+            {data: 'city_state'},
             
         );
         if ($("#status").val() === 'active') {
             columnDaTa.push({data:'dob',name:'dob'});
         } else {
-            columnDaTa.push({data: 'action', name: 'action'});
+            columnDaTa.push({data: 'action'});
         }
         $('#get_patient-table').DataTable({
             "processing": true,
@@ -132,49 +132,49 @@
             'columnDefs': [
                 {
                     targets: [0, 8],
-                    'searchable': false,
+                    // 'searchable': false,
                     'orderable': false,
                 }
             ],
         });
         $("body").on('click','.edit_btn',function () {
-               $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
-               $(this).parents("tr").find("span, .normal").css("display",'none');
-            });
-            $("body").on('click','.cancel_edit',function () {
-               $(this).parents("tr").find(".phone-text, .while_edit").css("display",'none');
-               $(this).parents("tr").find("span, .normal").css("display",'block');
-            });
-            $("body").on('click','.save_btn',function () {
-                var val = $(document).find('.phone').val();
-                var id = $(this).attr("data-id");
-                
-                $.ajax({
-                    'type': 'POST',
-                    'url': "{{ route('referral.updatePhone') }}",
-                    'headers': {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    data: {
-                        "id": id,
-                        "phone" : val
-                    },
-                    'success': function (data) {
-                        if(data.status == 400) {
-                            alertText(data.message,'error');
-                        } else {
-                            alertText(data.message,'success');
-                            $('#acceptRejectBtn').hide();
-                            refresh();
-                        }
-                        $("#loader-wrapper").hide();
-                    },
-                    "error":function () {
-                        alertText("Server Timeout! Please try again",'error');
-                        $("#loader-wrapper").hide();
+            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
+            $(this).parents("tr").find("span, .normal").css("display",'none');
+        });
+        $("body").on('click','.cancel_edit',function () {
+            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'none');
+            $(this).parents("tr").find("span, .normal").css("display",'block');
+        });
+        $("body").on('click','.save_btn',function () {
+            var val = $(document).find('.phone').val();
+            var id = $(this).attr("data-id");
+            
+            $.ajax({
+                'type': 'POST',
+                'url': "{{ route('referral.updatePhone') }}",
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {
+                    "id": id,
+                    "phone" : val
+                },
+                'success': function (data) {
+                    if(data.status == 400) {
+                        alertText(data.message,'error');
+                    } else {
+                        alertText(data.message,'success');
+                        $('#acceptRejectBtn').hide();
+                        refresh();
                     }
-                });
+                    $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                    alertText("Server Timeout! Please try again",'error');
+                    $("#loader-wrapper").hide();
+                }
             });
+        });
         
         $('body').on('click', '.update-status', function () {
             var status = $(this).attr("data-status");

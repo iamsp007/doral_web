@@ -6,6 +6,10 @@ function editAllField(sectionId) {
     $('#'+sectionId+' [data-id]').attr('readOnly', false)
     $('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
     $('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+    
+    $('.normal_gender_div').removeClass('d-block').addClass('d-none');
+    $('.editable_gender_div').removeClass('d-none').addClass('d-block');
+    
 }
 function updateAllField(sectionId) {
     if (sectionId==="demographic"){
@@ -13,11 +17,11 @@ function updateAllField(sectionId) {
         data.push({name: 'type', value: 1});
         demographyDataUpdate(data)
     }else if (sectionId==="insurance"){
-        var data = $('#insurance_form').serializeArray();
+        var data = $('#medicare_form').serializeArray();
         data.push({name: 'type', value: 2});
         demographyDataUpdate(data)
     }else if (sectionId==="homecare"){
-        var data = $('#homecare-form').serializeArray();
+        var data = $('#homecare_form').serializeArray();
         data.push({name: 'type', value: 3});
         demographyDataUpdate(data)
     }

@@ -99,6 +99,8 @@ class User extends Authenticatable
             $statusData = '<p class="text-danger">Reject</p>';
         } else if ($this->status === '4') {
             $statusData = '<p class="text-info">Initial</p>';
+        } else if ($this->status === '5') {
+            $statusData = '<p class="text-info">Completed</p>';
         }
         return $statusData;
     }
@@ -142,9 +144,8 @@ class User extends Authenticatable
     {
         $phoneData = '';
         if ($phone) {
-            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)." ".substr($phone,6);
+            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
         }
         return $phoneData;
     }
 }
-

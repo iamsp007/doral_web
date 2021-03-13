@@ -386,12 +386,15 @@ class ClinicianService
         }
     }
 
-    public function getVendorList(){
+    public function getVendorList($data){
         try {
 
             $response = $this->client->request(
                 'GET',
-                '/vendor-list'
+                '/vendor-list',
+                [
+                    'json'=>$data
+                ]
             );
             $response = $response->getBody()->getContents();
             $data = json_decode($response);

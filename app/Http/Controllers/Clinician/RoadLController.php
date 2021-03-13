@@ -75,7 +75,7 @@ class RoadLController extends Controller
     }
 
     public function getVendorList(Request $request){
-        $response = $this->clinicianService->getVendorList();
+        $response = $this->clinicianService->getVendorList($request->all());
         if ($response->status===true){
             $clinicianList = $response->data;
             return response()->json($clinicianList,200);

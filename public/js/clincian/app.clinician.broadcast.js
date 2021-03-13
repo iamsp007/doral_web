@@ -34,6 +34,9 @@ function onBroadCastOpen(patient_id) {
         },
         url:base_url+'roadl-vendor-list',
         method:'GET',
+        data:{
+            patient_id:patient_id
+        },
         dataType:'json',
         success:function (response) {
             $("#loader-wrapper").hide();

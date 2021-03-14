@@ -274,19 +274,19 @@
                 <label>Head/ENT</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Head/ENT">
+                    value="{{ $report['head_ent'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);padding: 15px 15px 0 15px;border-bottom: 1px solid #e4e4e4;">
                 <label>Eyes</label>
                 <input type="text" placeholder="Eyes:" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Eyes">
+                    value="{{ $report['eyes'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);padding: 15px 15px 0 15px;border-bottom: 1px solid #e4e4e4;">
                 <label>Neck</label>
                 <input type="text" placeholder="Neck:" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Neck">
+                    value="{{ $report['neck'] ?? '' }}">
             </td>
         </tr>
         <tr>
@@ -294,19 +294,19 @@
                 <label>Breats</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Breats">
+                    value="{{ $report['breats'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
                 <label>Lungs</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Lungs">
+                    value="{{ $report['lungs'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
                 <label>Cardiovascular</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Cardiovascular">
+                    value="{{ $report['cardiovascular'] ?? '' }}">
             </td>
         </tr>
         <tr>
@@ -314,19 +314,19 @@
                 <label>Muscular/Skeletal</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Muscular/Skeletal">
+                    value="{{ $report['muscular_skeletal'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
                 <label>Abdomen</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Abdomen">
+                    value="{{ $report['abdomen'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
                 <label>Genitourinary</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Genitourinary">
+                    value="{{ $report['genitourinary'] ?? '' }}">
             </td>
         </tr>
         <tr>
@@ -334,7 +334,7 @@
                 <label>Neurological</label>
                 <input type="text" placeholder="Neurological" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Neurological">
+                    value="{{ $report['neurological'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
             </td>
@@ -357,68 +357,80 @@
     <table style="width: 100%;margin:0;" cellpadding="15">
         <tr>
             <td style="background: rgba(0, 108, 118, 0.08);padding: 15px 15px 0 15px;border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px" checked="">Weakness</label>
-                <input type="text" placeholder="Eyes:" name=""
+                <label style="vertical-align: middle;">
+                  <input type="checkbox" style="vertical-align: middle;margin-right:5px" {{
+                isset($report['weakness_checked']) ? 'checked' : '' }}>Weakness
+               </label>
+               <input type="text" placeholder="Eyes:" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Weakness">
+                    value="{{ $report['weakness_comment'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);padding: 15px 15px 0 15px;border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px" checked="">Fatigue</label>
+                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px" {{
+                isset($report['fatigue_checked']) ? 'checked' : '' }}>Fatigue</label>
                 <input type="text" placeholder="Eyes:" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Fatigue">
+                    value="{{ $report['fatigue_comment'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);padding: 15px 15px 0 15px;border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" checked="">Lack of Appetie</label>
+                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" {{
+                isset($report['lack_of_appetie_checked']) ? 'checked' : '' }}>Lack of Appetie</label>
                 <input type="text" placeholder="Neck:" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Lack of Appetie">
+                    value="{{ $report['lack_of_appetie_comment'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" checked="">Weight Loss</label>
+                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" {{
+                isset($report['weight_loss_checked']) ? 'checked' : '' }}>Weight Loss</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Weight Loss">
-            </td>
-        </tr>
-        <tr>
-            <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" checked="">Chest Pains</label>
-                <input type="text" placeholder="" name=""
-                    style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Chest Pains">
-            </td>
-            <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" checked="">Fever</label>
-                <input type="text" placeholder="" name=""
-                    style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Fever">
-            </td>
-            <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" checked="">Persistent Cough</label>
-                <input type="text" placeholder="" name=""
-                    style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Persistent Cough">
-            </td>
-            <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" checked="">Night Sweats</label>
-                <input type="text" placeholder="" name=""
-                    style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Night Sweats">
+                    value="{{ $report['weight_loss_comment'] ?? '' }}">
             </td>
         </tr>
         <tr>
             <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" checked="">Shortness of Breath</label>
+                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" {{
+                isset($report['chest_pain_checked']) ? 'checked' : '' }}>Chest Pains</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Shortness of Breath">
+                    value="{{ $report['chest_pain_comment'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
-                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" checked="">Blood-Streaked Sputum</label>
+                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" {{
+                isset($report['fever_checked']) ? 'checked' : '' }}>Fever</label>
                 <input type="text" placeholder="" name=""
                     style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
-                    value="Blood-Streaked Sputum">
+                    value="{{ $report['fever_comment'] ?? '' }}">
+            </td>
+            <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
+                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" {{
+                isset($report['persistent_cough_checked']) ? 'checked' : '' }}>Persistent Cough</label>
+                <input type="text" placeholder="" name=""
+                    style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
+                    value="{{ $report['persistent_cough_comment'] ?? '' }}">
+            </td>
+            <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
+                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" {{
+                isset($report['night_sweats_checked']) ? 'checked' : '' }}>Night Sweats</label>
+                <input type="text" placeholder="" name=""
+                    style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
+                    value="{{ $report['night_sweats_comment'] ?? '' }}">
+            </td>
+        </tr>
+        <tr>
+            <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
+                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" {{
+                isset($report['shortness_of_breath_checked']) ? 'checked' : '' }}>Shortness of Breath</label>
+                <input type="text" placeholder="" name=""
+                    style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
+                    value="{{ $report['shortness_of_breath_comment'] ?? '' }}">
+            </td>
+            <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
+                <label style="vertical-align: middle;"><input type="checkbox" style="vertical-align: middle;margin-right:5px;" {{
+                isset($report['blood_streaked_sputum_checked']) ? 'checked' : '' }}>Blood-Streaked Sputum</label>
+                <input type="text" placeholder="" name=""
+                    style="display:block;width: 100%;padding: 0;font-size: 1.2rem;color: #006C76;border:none;background: none!important;background-clip: padding-box;font-weight: 600;outline: none;"
+                    value="{{ $report['blood_streaked_sputum_comment'] ?? '' }}">
             </td>
             <td style="background: rgba(0, 108, 118, 0.08);border-bottom: 1px solid #e4e4e4;">
             </td>
@@ -459,27 +471,33 @@
                     LAB Value
                 </td>
             </tr>
-            <tr style="background: #f8f8f8;">
-                <td style="width: 2%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center"> 1</td>
-                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">#</td>
-                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
-                    03/04/2014</td>
-                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
-                    03/04/2014</td>
-                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">Immune
-                </td>
-                <td style="width: 18%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
-                    Positive</td>
-            </tr>
-            <tr style="background: #fff;">
-                <td style="width: 2%;text-align: left;text-align:center">2</td>
-                <td style="width: 20%;text-align: left;text-align:center">#</td>
-                <td style="width: 20%;text-align: left;text-align:center">03/04/2014</td>
-                <td style="width: 20%;text-align: left;text-align:center">
-                    03/04/2014</td>
-                <td style="width: 20%;text-align: left;text-align:center">Immune</td>
-                <td style="width: 18%;text-align: left;text-align:center">Positive</td>
-            </tr>
+            @isset()
+               @foreach($report as $key => $value)
+               @php
+
+               @endphp
+                  <tr style="background: #f8f8f8;">
+                     <td style="width: 2%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
+                        
+                     </td>
+                     <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
+                        
+                     </td>
+                     <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
+                        
+                     </td>
+                     <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
+                        
+                     </td>
+                     <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
+                        
+                     </td>
+                     <td style="width: 18%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
+                        
+                     </td>
+                  </tr>
+               @endforeach
+            @endisset
         </tbody>
     </table>
 </div>

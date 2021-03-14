@@ -173,6 +173,7 @@ class EmployeePhysicalExaminationReportController extends Controller
         // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', ['report' => $data]);
         // return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
         /* start enable code block and remove above 3 line of code*/
+        // dd($report->report_details);
         $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
                 'report' => $report->report_details,
         ]);

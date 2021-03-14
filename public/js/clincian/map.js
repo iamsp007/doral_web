@@ -78,28 +78,28 @@ function initMap() {
             const sources = response;
             var html = '';
             html+='<button type="button" class="btn btn-outline-info font-weight-bold active" onclick="buttonVendorClick(0)">All</button>';
-            sources.map(function (resp) {
+            sources.clinician.map(function (resp) {
                 default_clinician_id = resp.id;
-                var roleName = resp.request_type!==null?resp.request_type.name:'Not Role';
+                var roleName = resp.referral_type;
                 html+='<button type="button" class="btn btn-outline-info font-weight-bold" onclick="buttonVendorClick('+resp.id+')">'+roleName+'</button>';
                 var destination = '';
                 var role = 'Role:' + roleName;
-                var color = resp.request_type!==null?resp.request_type.color:'blue';
-                var icon = resp.request_type.icon;
+                var color = resp.color;
+                var icon = resp.icon;
                 // var icon = base_url + 'assets/img/icons/icons_patient.svg';
-                var destinationName = resp.patient.first_name + ' ' + resp.patient.last_name + '  Role : Patient';
+                var destinationName = response.patient.first_name + ' ' + response.patient.last_name + '  Role : Patient';
                 var originName = null;
                 var current = '';
                 if (resp.status==='active' || resp.status==='cancel'){
-                    destination = new google.maps.LatLng(resp.latitude, resp.longitude);
+                    destination = new google.maps.LatLng(response.patient.latitude, response.patient.longitude);
                     originName = null;
                     current = null;
-                    destinationName = resp.patient.first_name + ' ' + resp.patient.last_name + '  Role : Patient';
+                    destinationName = response.patient.first_name + ' ' + response.patient.last_name + '  Role : Patient';
                 }else {
-                    destination = new google.maps.LatLng(resp.latitude, resp.longitude);
-                    originName = resp.detail.first_name + ' ' + resp.detail.last_name;
-                    current = new google.maps.LatLng(resp.detail.latitude, resp.detail.longitude);
-                    destinationName = resp.patient.first_name + ' ' + resp.patient.last_name + '  Role : Patient';
+                    destination = new google.maps.LatLng(response.patient.latitude, response.patient.longitude);
+                    originName = resp.first_name + ' ' + resp.last_name;
+                    current = new google.maps.LatLng(resp.latitude, resp.longitude);
+                    destinationName = response.patient.first_name + ' ' + response.patient.last_name + '  Role : Patient';
                 }
                 referral_type[resp.id] = {
                     directionsService: new google.maps.DirectionsService(),

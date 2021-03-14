@@ -78,7 +78,7 @@ function initMap() {
             const sources = response;
             var html = '';
             html+='<button type="button" class="btn btn-outline-info font-weight-bold active" onclick="buttonVendorClick(0)">All</button>';
-            sources.clinician.map(function (resp) {
+            sources.clinicians.map(function (resp) {
                 default_clinician_id = resp.id;
                 var roleName = resp.referral_type;
                 html+='<button type="button" class="btn btn-outline-info font-weight-bold" onclick="buttonVendorClick('+resp.id+')">'+roleName+'</button>';

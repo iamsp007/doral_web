@@ -117,9 +117,7 @@ function initMap() {
                     status:resp.status
                 }
               //  html += '<option value="' + resp.id + '">' + originName + '</option>';
-                if (resp.detail!=null){
-                    calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
-                }
+                calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
                 updateMap(destination, destinationName, resp.id,resp.parent_id)
             })
             $('#btn-roadl-group').html(html);

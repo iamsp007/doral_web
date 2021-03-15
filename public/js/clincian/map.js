@@ -77,8 +77,8 @@ function initMap() {
         success: function (response) {
             const sources = response;
             var html = '';
-            html+='<button type="button" class="btn btn-outline-info font-weight-bold active" onclick="buttonVendorClick(0)">All</button>';
-            sources.clinicians.map(function (resp) {
+            html+='<button type="button" class="btn btn-outline-info font-weight-bold active mr-2" onclick="buttonVendorClick(0)">All</button>';
+            sources.clinicians.map(function (resp,key) {
                 default_clinician_id = resp.id;
                 var roleName = resp.referral_type;
                 html+='<button type="button" class="btn btn-outline-info font-weight-bold mr-2" onclick="buttonVendorClick('+resp.id+')" style="border-color: '+resp.color+'">'+roleName+'</button>';
@@ -169,6 +169,8 @@ function updateMap(destination, name, id,parent_id) {
         var icon = data.icon;
         var originName = data.first_name + ' ' + data.last_name;
         if (referrals===undefined){
+            var html='<button type="button" class="btn btn-outline-info font-weight-bold mr-2" onclick="buttonVendorClick('+data.id+')" style="border-color: '+data.color+'">'+data.referral_type+'</button>';
+            $('#btn-roadl-group').append(html);
             referral_type[data.id] = {
                 directionsService: new google.maps.DirectionsService(),
                 directionsRenderer: new google.maps.DirectionsRenderer({ suppressMarkers: true }),
@@ -194,8 +196,12 @@ function updateMap(destination, name, id,parent_id) {
             referral_type[data.id].status=data.status;
         }
         referrals = referral_type[data.id];
-        console.log(referrals)
         calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
+        if(default_clinician_id===data.id){
+            map.setZoom(30)
+            map.setCenter(referrals.marker.getPosition());
+        }
+
     })
 }
 $('#referral_type').on('change', function (event) {

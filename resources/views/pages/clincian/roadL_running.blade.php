@@ -42,7 +42,7 @@
            <input type="hidden" name="patient_request_id"  id="patient_request_id" value="{{ $patient_request_id }}"/>
         </div>
         <div style="width:20%;position:absolute;right:0;top:0;">
-             <div id="infoPanel"></div>
+{{--             <div id="infoPanel" class="active"></div>--}}
         </div>
     </div>
 @endsection

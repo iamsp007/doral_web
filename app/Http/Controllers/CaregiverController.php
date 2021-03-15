@@ -108,7 +108,7 @@ class CaregiverController extends Controller
                 $city_state = '';
                 if ($q->demographic) {
                     $city_state_json =  json_decode($q->demographic->address);
-                    if (count($city_state_json)>0){
+                    if (is_array($city_state_json)){
                         if ($city_state_json[0]) {
                             if ($city_state_json[0]->City) {
                                 $city_state .= $city_state_json[0]->City;

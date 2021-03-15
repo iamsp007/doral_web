@@ -90,7 +90,7 @@ function initMap() {
                 var destinationName = response.patient.first_name + ' ' + response.patient.last_name + '  Role : Patient';
                 var originName = null;
                 var current = '';
-                if (resp.status==='active' || resp.status==='cancel'){
+                if (resp.clincial_id===null){
                     destination = new google.maps.LatLng(response.patient.latitude, response.patient.longitude);
                     originName = null;
                     current = null;
@@ -117,7 +117,9 @@ function initMap() {
                     status:resp.status
                 }
               //  html += '<option value="' + resp.id + '">' + originName + '</option>';
-                calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
+                if (current!==null){
+                    calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
+                }
                 updateMap(destination, destinationName, resp.id,resp.parent_id)
             })
             $('#btn-roadl-group').html(html);
@@ -196,10 +198,10 @@ function updateMap(destination, name, id,parent_id) {
             referral_type[data.id].status=data.status;
         }
         referrals = referral_type[data.id];
-        calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
         if(default_clinician_id===data.id){
             map.setZoom(30)
             map.setCenter(referrals.marker.getPosition());
+            calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
         }
 
     })

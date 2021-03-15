@@ -81,7 +81,7 @@ function initMap() {
             sources.clinicians.map(function (resp) {
                 default_clinician_id = resp.id;
                 var roleName = resp.referral_type;
-                html+='<button type="button" class="btn btn-outline-info font-weight-bold" onclick="buttonVendorClick('+resp.id+')">'+roleName+'</button>';
+                html+='<button type="button" class="btn btn-outline-info font-weight-bold mr-2" onclick="buttonVendorClick('+resp.id+')" style="border-color: '+resp.color+'">'+roleName+'</button>';
                 var destination = '';
                 var role = 'Role:' + roleName;
                 var color = resp.color;
@@ -211,6 +211,8 @@ $('#referral_type').on('change', function (event) {
 })
 
 function buttonVendorClick(id) {
+    $('#btn-roadl-group').find('.active').removeClass('active');
+    $(this).addClass('active');
     var referrals = referral_type[id];
     if (referrals!==undefined){
         if (referrals.status!=='active'){
@@ -218,6 +220,13 @@ function buttonVendorClick(id) {
             map.setZoom(30)
             map.setCenter(referrals.marker.getPosition());
         }
+    }else {
+        navigator.geolocation.getCurrentPosition(function (param) {
+            var center = new google.maps.LatLng(param.coords.latitude, param.coords.longitude);
+            map.setZoom(8)
+            map.setCenter(center);
+        })
+
     }
 }
 
@@ -244,7 +253,7 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
             directionsRenderer.setPanel(document.getElementById('infoPanel'));
             directionsRenderer.setDirections(response)
             directionsRenderer.setOptions({
-                draggable: true,
+                draggable: false,
                 hideRouteIndex: false,
                 polylineOptions: {
                     strokeColor: referrals.color,

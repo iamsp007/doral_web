@@ -60,7 +60,7 @@ class CaregiverController extends Controller
                 }
             })
             ->with('demographic')->orderBy('id', 'DESC');
-            
+
         $datatble = DataTables::of($patientList)
           ->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
@@ -108,15 +108,16 @@ class CaregiverController extends Controller
                 $city_state = '';
                 if ($q->demographic) {
                     $city_state_json =  json_decode($q->demographic->address);
+                    if (is_array($city_state_json)){
+                        if ($city_state_json[0]) {
+                            if ($city_state_json[0]->City) {
+                                $city_state .= $city_state_json[0]->City;
+                            }
+                            if ($city_state_json[0]->State) {
+                                $city_state .= ' - ' . $city_state_json[0]->State;
+                            }
 
-                    if ($city_state_json[0]) {
-                        if ($city_state_json[0]->City) {
-                            $city_state .= $city_state_json[0]->City;
                         }
-                        if ($city_state_json[0]->State) {
-                            $city_state .= ' - ' . $city_state_json[0]->State;
-                        }
-
                     }
                 }
                 return $city_state;
@@ -160,7 +161,7 @@ class CaregiverController extends Controller
     {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
-        
+
         $from = "12089104598";
         $api_key = "bb78dfeb";
         $api_secret = "PoZ5ZWbnhEYzP9m4";
@@ -168,7 +169,7 @@ class CaregiverController extends Controller
         $text = "This message is from Doral health Connect :
 Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now.
 https://doralhealthconnect.com/book_appointment.html";
-            
+
         $to = 5166000122;
         $fields = '&from=' . urlencode($from) .
                 '&text=' . urlencode($text) .
@@ -184,7 +185,7 @@ https://doralhealthconnect.com/book_appointment.html";
         $result = curl_exec($res);
         $result = json_decode($result);
         curl_close($res);
-        
+
         $too = 9293989855;
         $fields = '&from=' . urlencode($from) .
                 '&text=' . urlencode($text) .

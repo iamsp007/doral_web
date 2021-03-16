@@ -19,17 +19,6 @@
         </div>
         <div>
             <div>
-                <select class="form-control form-control-lg">
-                    <option value="">--Select--</option>
-                    <option value="All">All</option>
-                    <option value="Lab">Lab</option>
-                    <option value="Radiology">Radiology</option>
-                    <option value="CHHA">CHHA</option>
-                    <option value="HOME OXYGEN">HOME OXYGEN</option>
-                    <option value="HOME INFUSION">HOME INFUSION</option>
-                    <option value="WOUND CARE">WOUND CARE</option>
-                    <option value="DME">DME</option>
-                </select>
                 <!-- <select id="referral_type" class="form-control form-control-lg">
                     <option value="chicago, il">Chicago</option>
                     <option value="st louis, mo">St Louis</option>
@@ -53,7 +42,7 @@
            <input type="hidden" name="patient_request_id"  id="patient_request_id" value="{{ $patient_request_id }}"/>
         </div>
         <div style="width:20%;position:absolute;right:0;top:0;">
-            <!-- <div id="infoPanel"></div> -->
+{{--             <div id="infoPanel" class="active"></div>--}}
         </div>
     </div>
 @endsection

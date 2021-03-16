@@ -77,11 +77,11 @@ function initMap() {
         success: function (response) {
             const sources = response;
             var html = '';
-            html+='<button type="button" class="btn btn-outline-info font-weight-bold active" onclick="buttonVendorClick(0)">All</button>';
-            sources.clinicians.map(function (resp) {
+            html+='<button type="button" class="btn btn-outline-info font-weight-bold active mr-2" onclick="buttonVendorClick(0)">All</button>';
+            sources.clinicians.map(function (resp,key) {
                 default_clinician_id = resp.id;
                 var roleName = resp.referral_type;
-                html+='<button type="button" class="btn btn-outline-info font-weight-bold" onclick="buttonVendorClick('+resp.id+')">'+roleName+'</button>';
+                html+='<button type="button" class="btn btn-outline-info font-weight-bold mr-2" onclick="buttonVendorClick('+resp.id+')" style="border-color: '+resp.color+'">'+roleName+'</button>';
                 var destination = '';
                 var role = 'Role:' + roleName;
                 var color = resp.color;
@@ -90,7 +90,7 @@ function initMap() {
                 var destinationName = response.patient.first_name + ' ' + response.patient.last_name + '  Role : Patient';
                 var originName = null;
                 var current = '';
-                if (resp.status==='active' || resp.status==='cancel'){
+                if (resp.clincial_id===null){
                     destination = new google.maps.LatLng(response.patient.latitude, response.patient.longitude);
                     originName = null;
                     current = null;
@@ -117,7 +117,7 @@ function initMap() {
                     status:resp.status
                 }
               //  html += '<option value="' + resp.id + '">' + originName + '</option>';
-                if (resp.detail!=null){
+                if (current!==null){
                     calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
                 }
                 updateMap(destination, destinationName, resp.id,resp.parent_id)
@@ -171,6 +171,8 @@ function updateMap(destination, name, id,parent_id) {
         var icon = data.icon;
         var originName = data.first_name + ' ' + data.last_name;
         if (referrals===undefined){
+            var html='<button type="button" class="btn btn-outline-info font-weight-bold mr-2" onclick="buttonVendorClick('+data.id+')" style="border-color: '+data.color+'">'+data.referral_type+'</button>';
+            $('#btn-roadl-group').append(html);
             referral_type[data.id] = {
                 directionsService: new google.maps.DirectionsService(),
                 directionsRenderer: new google.maps.DirectionsRenderer({ suppressMarkers: true }),
@@ -196,8 +198,12 @@ function updateMap(destination, name, id,parent_id) {
             referral_type[data.id].status=data.status;
         }
         referrals = referral_type[data.id];
-        console.log(referrals)
-        calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
+        if(default_clinician_id===data.id){
+            map.setZoom(30)
+            map.setCenter(referrals.marker.getPosition());
+            calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
+        }
+
     })
 }
 $('#referral_type').on('change', function (event) {
@@ -213,6 +219,8 @@ $('#referral_type').on('change', function (event) {
 })
 
 function buttonVendorClick(id) {
+    $('#btn-roadl-group').find('.active').removeClass('active');
+    $(this).addClass('active');
     var referrals = referral_type[id];
     if (referrals!==undefined){
         if (referrals.status!=='active'){
@@ -220,6 +228,13 @@ function buttonVendorClick(id) {
             map.setZoom(30)
             map.setCenter(referrals.marker.getPosition());
         }
+    }else {
+        navigator.geolocation.getCurrentPosition(function (param) {
+            var center = new google.maps.LatLng(param.coords.latitude, param.coords.longitude);
+            map.setZoom(8)
+            map.setCenter(center);
+        })
+
     }
 }
 
@@ -246,7 +261,7 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
             directionsRenderer.setPanel(document.getElementById('infoPanel'));
             directionsRenderer.setDirections(response)
             directionsRenderer.setOptions({
-                draggable: true,
+                draggable: false,
                 hideRouteIndex: false,
                 polylineOptions: {
                     strokeColor: referrals.color,

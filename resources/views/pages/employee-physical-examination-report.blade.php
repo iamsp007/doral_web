@@ -416,15 +416,7 @@
                                  <table id="tblAddRow" class="mt-3" border="1">
                                  <thead>
                                     <tr>
-                                       <th>
-<!--                                          <div id="checkbox">
-                                             <label class="containera">
-                                                <input type="checkbox" id="checkedAll" name="checkedAll">
-                                                <span class="checkmark"></span>
-                                             </label>
-                                          </div>-->
-                                          Sr No.
-                                       </th>
+                                       <th>Sr No.</th>
                                        <th>Test Name</th>
                                        <th>Date Performed</th>
                                        <th>Results</th>
@@ -441,13 +433,12 @@
                                      </label>
                                  </td>
                                  <td>
-                                     <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="test_name[1]">
-                                         <option value="0">Select Type</option>
+                                     <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="test_name[1]" required>
+                                         <option>Select Type</option>
                                        @foreach ($labReportTypes as $key => $item)
-                                       @if($key !=1 && $key !=7 && $key !=12)
-                                            
-                                            <option value="{{ $key }}">{{ $item }}</option>
-                                       @endif
+                                          @if($key !=1 && $key !=7 && $key !=12)
+                                             <option value="{{ $key }}">{{ $item }}</option>
+                                          @endif
                                        @endforeach
                                     </select>
                                  </td>
@@ -457,16 +448,17 @@
                                           <span class="input-group-addon">
                                              <i class="fa fa-calendar"></i>
                                           </span>
-                                          <input type="text" class="form-control date_performed" name="date_performed[1]" />
+                                          <input type="text" class="form-control date_performed" name="date_performed[1]" required />
                                        </div>
                                     </div>
                                  </td>
-                                 
                                  <td>
-                                    <select class="form-control result result1" name="result[1]"></select>
+                                    <select class="form-control result result_1" name="result[1]" required>
+                                       <option>Select Result</option>
+                                    </select>
                                  </td>
                                  <td>
-                                    <input class="lab_value" name="lab_value[1]" />
+                                    <input class="lab_value" name="lab_value[1]" required />
                                  </td>
                                  <td>
                                     <button type="button"
@@ -475,49 +467,6 @@
                                           class="las la-binoculars la-2x mr-2"></i> View</button>
                                  </td>
                               </tr>
-<!--                              <tr class="tr_class">
-                                 <td>
-                                    <div id="checkbox">
-                                       <label class="containera">
-                                          <input type="checkbox" class="record" name="record[2]" />
-                                          <span class="checkmark"></span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="test_name[2]">
-                                       @foreach ($labReportTypes as $item)
-                                           <option value="{{ $key }}">{{ $item }}</option>
-                                       @endforeach
-                                    </select>
-                                 </td>
-                                 <td>
-                                    <div class="form-group datea">
-                                       <div class="input-group date">
-                                          <span class="input-group-addon">
-                                             <i class="fa fa-calendar"></i>
-                                          </span>
-                                          <input type="text" class="form-control date_performed" name="date_performed[2]" />
-                                       </div>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    <select class="form-control result" name="result[2]">
-                                       <option>Immune</option>
-                                       <option>None Immune</option>
-                                    </select>
-                                 </td>
-                                 <td>
-                                    <input class="lab_value" name="lab_value[2]" />
-                                 </td>
-                                 <td>
-                                    <button type="button"
-                                          class="btn btn-outline-green d-flex align-items-center" onclick="downloadReport(1)"
-                                          data-toggle="modal" data-target="#labreportModal" name=""><i
-                                          class="las la-binoculars la-2x mr-2"></i> View Lab
-                                      Reports</button>
-                                 </td>
-                              </tr>-->
                            </tbody>
                         </table>
                      </div>
@@ -531,7 +480,7 @@
                               <div class="col-lg-12">
                                  <div class="card-a">
                                     <label class="containera">This individual is free from any health impairment that is a potential risk to the patient or another employee of which may interfere with the performance of his/her duties including the habituation or addiction to drugs or alcohol.
-                                       <input type="checkbox" name="checkbox_one">
+                                       <input type="radio" name="eper">
                                        <span class="checkmark"></span>
                                     </label>
                                  </div>
@@ -539,7 +488,7 @@
                               <div class="col-lg-12"><div class="card-a">
                                  <label class="containera">This individual is able to work with the following limitations<br>
                                     <span> It is a long established fact fact that a reader will be by the the readable content of a page.</span>
-                                    <input type="checkbox" name="checkbox_two">
+                                    <input type="radio" name="eper">
                                     <span class="checkmark"></span>
                                  </label>
                                  </div>
@@ -547,7 +496,7 @@
                               <div class="col-lg-12"> <div class="card-a">
                                  <label class="containera">Return to Work This individual is NOT physically/mentally able to work (specify reason)<br>
                                     <span style="display: block;"> I    It is a long established fact fact that a reader will be by the the readable content of a page.</span>
-                                    <input type="checkbox" name="checkbox_three">
+                                    <input type="radio" name="eper">
                                     <span class="checkmark"></span>
                                  </label>
                               </div>
@@ -636,7 +585,7 @@
             var lastRow = $('#tblAddRow tbody tr:last').clone();
 
             var lookup = parseInt($(lastRow).find('input:first').attr('name').replace ( /[^\d.]/g, '' )) + 1;
-            console.log(lookup);
+            // console.log(lookup);
             $(lastRow).find('.srNO').html(lookup);
 //            $(lastRow).find('input.record').attr('name', 'record['+lookup+']')
 
@@ -644,8 +593,7 @@
 
             $(lastRow).find('input.date_performed').attr('name', 'date_performed['+lookup+']')
 
-            $(lastRow).find('select.res').attr('class', 'result'+lookup)
-            $(lastRow).find('select.result').attr('name', 'result['+lookup+']')
+            $(lastRow).find('select.result').attr('name', 'result['+lookup+']').addClass('result_'+lookup)
 
             $(lastRow).find('input.lab_value').attr('name', 'lab_value['+lookup+']')
 
@@ -656,7 +604,8 @@
                keyboardNavigation: false,
                forceParse: false,
                calendarWeeks: true,
-               autoclose: true
+               autoclose: true,
+               endDate: "today"
             });
          });
          
@@ -700,7 +649,8 @@
             keyboardNavigation: false,
             forceParse: false,
             calendarWeeks: true,
-            autoclose: true
+            autoclose: true,
+            endDate: "today"
          });
       </script>
     <script type="text/javascript">
@@ -851,17 +801,16 @@
        });
        function getAndSetLabReport(e,id) {
            var getRowName = e.target.name;
-           var getSplit = getRowName.split('[');
-           var getSplit = getSplit[1].split(']');
-           var rowNo = getSplit[0];
+           var lookup = parseInt(getRowName.replace ( /[^\d.]/g, '' ));
+           console.log(lookup)
            if(id >=1 && 6 >= id) {
-               $(".result"+rowNo).html('<option>Positive</option><option>Negative</option>');
-           }else if(id >= 7 && 11 >= id) {
-               $(".result"+rowNo).html('<option>Immune</option><option>Non Immune</option>');
-           }else if(id >= 12 && 14 >= id) {
-               $(".result"+rowNo).html('<option>Positive</option><option>Negative</option>');
-           }else {
-               $(".result"+rowNo).html('<option>Completed</option><option>Overdue</option>');
+               $('.result_'+lookup).html('<option>Positive</option><option>Negative</option>');
+           } else if(id >= 7 && 11 >= id) {
+               $('.result_'+lookup).html('<option>Immune</option><option>Non Immune</option>');
+           } else if(id >= 12 && 14 >= id) {
+               $('.result_'+lookup).html('<option>Positive</option><option>Negative</option>');
+           } else {
+               $('.result_'+lookup).html('<option>Completed</option><option>Overdue</option>');
            }
        }
     </script>

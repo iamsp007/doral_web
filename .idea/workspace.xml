@@ -3,15 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadL_running.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/clincian/roadl.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/home_care.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/home_care.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/drug-screen.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/drug-screen.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/immunization.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/immunization.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/tb-screen.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/patient_detail/lab/tb-screen.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +185,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_html" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../doral_api" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -642,7 +633,9 @@
       <workItem from="1615910586283" duration="1754000" />
       <workItem from="1615912449622" duration="1970000" />
       <workItem from="1615915013522" duration="1991000" />
-      <workItem from="1615917039150" duration="1423000" />
+      <workItem from="1615917039150" duration="1920000" />
+      <workItem from="1615919082865" duration="324000" />
+      <workItem from="1615920399645" duration="72000" />
     </task>
     <servers />
   </component>

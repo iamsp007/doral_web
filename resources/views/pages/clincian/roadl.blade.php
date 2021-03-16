@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="content">
                                     <h1 class="_t11">
-                                        <a href="{{ url('/patient-detail/'.$value->patient_detail->id) }}">
+                                        <a href="{{ route('patient.details',['patient_id'=>$value->patient_detail->id]) }}">
                                             {{ $value->patient_detail->first_name }} {{ $value->patient_detail->last_name }}
                                         </a>
                                         <span class="contact"><a href="tel:8866246684" class="secondary_tel"></a>
@@ -207,5 +207,4 @@
             window.location.href='{{ url("/clinician/roadl/") }}'+'?type='+event.target.value;
         })
     </script>
-    <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
 @endpush

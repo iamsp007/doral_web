@@ -77,6 +77,7 @@ function initMap() {
         success: function (response) {
             const sources = response;
             var html = '';
+            var requestInfo = '';
             html+='<button type="button" class="btn btn-outline-info font-weight-bold active mr-2" onclick="buttonVendorClick(0)">All</button>';
             sources.clinicians.map(function (resp,key) {
                 default_clinician_id = resp.id;
@@ -120,8 +121,25 @@ function initMap() {
                 if (current!==null){
                     calculateAndDisplayRoute(current, destination, resp.id, referral_type[resp.id])
                 }
+                requestInfo+='<li>\n' +
+                    '                        <div class="requestInfo labBlock" style="border-color: '+color+'">\n' +
+                    '                            <div class="p-3 border-bottom">\n' +
+                    '                                <div class="name" id="vendor-name-'+resp.id+'" style="color: '+color+'">'+originName+'</div>\n' +
+                    '                                <div class="role" id="vendor-role-'+resp.id+'">Role: '+roleName+' Technician</div>\n' +
+                    '                                <div class="role" id="vendor-status-'+resp.id+'">Status: '+resp.status+'</div>\n' +
+                    '                            </div>\n' +
+                    '                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">\n' +
+                    '                                <div class="status" id="vendor-duration-'+resp.id+'"><span class="mr-2">Duration:</span>0KM</div>\n' +
+                    '                                <div class="status mt-1" id="vendor-distance-'+resp.id+'"><span class="mr-2">Distance:</span>0 Mins</div>\n' +
+                    '                            </div>\n' +
+                    '                        </div>\n' +
+                    '                    </li>';
+
                 updateMap(destination, destinationName, resp.id,resp.parent_id)
+                $('#patient-name').html(destinationName);
             })
+
+            $('#requestInfo').html(requestInfo);
             $('#btn-roadl-group').html(html);
         },
         error: function (error) {
@@ -188,6 +206,20 @@ function updateMap(destination, name, id,parent_id) {
                 current: current,
                 status:data.status
             }
+            var requestInfo='<li>\n' +
+                '                        <div class="requestInfo labBlock" style="border-color: '+color+'">\n' +
+                '                            <div class="p-3 border-bottom">\n' +
+                '                                <div class="name" style="color: '+color+'">'+originName+'</div>\n' +
+                '                                <div class="role">Role: '+data.referral_type+' Technician</div>\n' +
+                '                                <div class="role">Status: '+data.status+'</div>\n' +
+                '                            </div>\n' +
+                '                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">\n' +
+                '                                <div class="status" id="vendor-duration-'+data.id+'"><span class="mr-2">Duration:</span>0KM</div>\n' +
+                '                                <div class="status mt-1" id="vendor-distance-'+data.id+'"><span class="mr-2">Distance:</span>0 Mins</div>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </li>';
+            $('#requestInfo').append(requestInfo);
         }else{
             referral_type[data.id].icon=icon;
             referral_type[data.id].color=color;
@@ -203,6 +235,11 @@ function updateMap(destination, name, id,parent_id) {
             map.setCenter(referrals.marker.getPosition());
             calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
         }
+        $('#vendor-name-'+data.id).html(referrals.originName);
+        $('#vendor-name-'+data.id).css({'color': color});
+        $('#vendor-role-'+data.id).html('Role: '+referrals.roleName+' Technician');
+        $('#vendor-status-'+data.id).html('Status: '+referrals.status);
+
 
     })
 }
@@ -283,6 +320,10 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 map.setZoom(30)
                 map.setCenter(referral_type[type].marker.getPosition());
             }
+            var duration_text='<span class="mr-2">Duration:</span>'+leg.duration.text;
+            var distance_text='<span class="mr-2">Distance:</span>'+leg.distance.text;
+            $('#vendor-duration-'+type).html(duration_text);
+            $('#vendor-distance-'+type).html(distance_text);
             // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );
         }else {
             console.log(status)

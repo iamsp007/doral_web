@@ -19,7 +19,7 @@
             </div>
             <div>
                <ul class="shortdesc">
-                  <li>Status: <span>{{ isset($status) ? $status->Name : '' }}</span></li>
+                  <li>Status: <span>{{ isset($status->Name) ? $status->Name : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender_data }}</span></li>
                   <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
@@ -659,7 +659,7 @@
    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-   
+
    <script>
       var lab_referral_url="{{ route('patient.lab.report.referral') }}";
       var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
@@ -698,17 +698,17 @@
             });
          }
       }
-      
+
       $(document).ready(function() {
          $('.insurance_company').hide();
-         
+
          $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"]').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 1901,
             maxDate: new Date()
          });
-         
+
          $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
             var selectedDate = new Date($('[name="lab_due_date"]').val());
             var date = selectedDate.getDate();
@@ -749,7 +749,7 @@
                      } else if (data.type == 'physical') {
                         var explodercounter = 'physical' + Number($(document).find(".physical-main-tr").length + 1);
                      }
-                  
+
                      var html = '<tr class="';
                      if (data.resultdata.result === 'Positive') {
                         html += 'bg-positive text-white';
@@ -799,7 +799,7 @@
                }
             });
          });
-         
+
          $(document).on('click','.save_record',function(event) {
             event.preventDefault();
             var t = $(this);
@@ -809,7 +809,7 @@
             } else if (action === 'edit') {
                var data = $(this).parents("tr").find('form').serializeArray();
             }
-          
+
             var url = "{{ Route('insurance.store') }}";
 
             $.ajax({
@@ -833,10 +833,10 @@
 
                      if (data.action === 'add') {
                         // alert(data.action);
-                        $('.insurance-list-order tr:last').after(html);  
+                        $('.insurance-list-order tr:last').after(html);
                      } else if (data.action === 'edit') {
                         // alert(data.action);
-                        t.parents("tr").replaceWith(html);  
+                        t.parents("tr").replaceWith(html);
                      }
                      $('.insurance_company').hide();
                      t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
@@ -865,7 +865,7 @@
         $("body").on('click','.save_btn',function () {
             var val = $(document).find('.phone').val();
             var id = $(this).attr("data-id");
-            
+
             $.ajax({
                 'type': 'POST',
                 'url': "{{ route('insurance.updateInsurance') }}",

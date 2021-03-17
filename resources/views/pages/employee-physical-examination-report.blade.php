@@ -44,29 +44,29 @@
                                  <div class="row">
                                        <div class="col-lg-4">
                                           <div class="custom-control custom-radio">
-                                             <input type="radio" class="custom-control-input" id="customRadio4" value="16" name="pre_employment_physical_assessment">
-                                             <label class="custom-control-label" for="customRadio4">Pre-Employment  Physical Assessment</label>
+                                             <input type="radio" class="custom-control-input" id="assessment1" name="physical_assessment" value="Pre-Employment Physical Assessment" checked>
+                                             <label class="custom-control-label" for="assessment1">Pre-Employment Physical Assessment</label>
                                           </div> 
                                        </div>
                                        <div class="col-lg-3">
                                           <div class="custom-control custom-radio">
-                                             <input type="radio" class="custom-control-input" id="customRadio3" value="17" name="annual_assessment">
-                                             <label class="custom-control-label" for="customRadio3">
+                                             <input type="radio" class="custom-control-input" id="assessment2" name="physical_assessment" value="Annual Assessment">
+                                             <label class="custom-control-label" for="assessment2">
                                                 Annual Assessment
                                              </label>
                                           </div>
                                        </div>
                                        <div class="col-lg-3">  <div class="custom-control custom-radio">
-                                          <input type="radio" class="custom-control-input" id="customRadio2" value="18" name="return_to_work_or_loa">
-                                          <label class="custom-control-label" for="customRadio2">
+                                          <input type="radio" class="custom-control-input" id="assessment3" name="physical_assessment" value="Return to Work / LOA">
+                                          <label class="custom-control-label" for="assessment3">
                                              Return to Work / LOA
                                           </label>
                                        </div>
                                     </div>
                                     <div class="col-lg-2">
                                        <div class="custom-control custom-radio">
-                                          <input type="radio" class="custom-control-input" id="customRadio1" value="19" name="other">
-                                          <label class="custom-control-label" for="customRadio1">
+                                          <input type="radio" class="custom-control-input" id="assessment4" name="physical_assessment" value="Other">
+                                          <label class="custom-control-label" for="assessment4">
                                              Other
                                           </label>
                                        </div> 
@@ -79,7 +79,7 @@
                   </div>
                   <div class="innerSpace">
                      <h2 class="t1 fadeIn">AUTHORIZATION TO RELEASE INFORMATION</h2>
-                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ auth()->user()->first_name.' '.auth()->user()->last_name }}" class="form-control inline-style">to release all health information about me to Doral Health Connect. 
+                     <p class="text-left">I hereby authorize<input type="text" name="name" value="{{ $patient->first_name }} {{ $patient->last_name }}" class="form-control inline-style">to release all health information about me to Doral Health Connect. 
                      </p>
                   </div>
                   <p class="text-right">Employee Signature
@@ -132,18 +132,20 @@
                            <div class="form-group">
                               <select class="form-control" name="marital_status">
                                  <option>Marital Status </option>
-                                 <option>Married </option>
-                                 <option>Widowed </option>
-                                 <option>Separated </option>
-                                 <option>Divorced  </option>
+                                 <option {{ $maritalStatus->Name === 'Single'  ? "selected" : null }}>Single </option>
+                                 <option {{ $maritalStatus->Name === 'Married'  ? "selected" : null }}>Married </option>
+                                 <option {{ $maritalStatus->Name === 'Separated'  ? "selected" : null }}>Separated </option>
+                                 <option {{ $maritalStatus->Name === 'Widowed'  ? "selected" : null }}>Widowed </option>
+                                 <option {{ $maritalStatus->Name === 'Divorced'  ? "selected" : null }}>Divorced  </option>
                               </select>
                            </div>
                         </div>
                         <div class="col-lg-6">
-                           <div class="form-group"><input type="text" class="form-control" placeholder="SSN Number" name="ssn"></div>
+                           <div class="form-group"><input type="text" class="form-control" placeholder="SSN Number" name="ssn" value="{{$patient->demographic->ssn}}"></div>
                         </div>
                         <div class="col-lg-6">
-                           <div class="form-group"><input type="text" class="form-control" placeholder="Address" name="address"></div>
+                           <div class="form-group">
+                              <textarea id="address" name="address" rows="4" cols="62" class="form-control-plaintext _detail no-height" readonly placeholder=""> Address1: {{ $address->Street1 }} &#13;&#10; Address2: {{ $address->Street2 }} &#13;&#10; City: {{ $address->City }} &#13;&#10; State: {{ $address->State }} &#13;&#10; Zip4: {{ $address->Zip4 }} &#13;&#10; Zip5: {{ $address->Zip5 }}</textarea></div>
                         </div>
                      </div>
                   </div>
@@ -155,37 +157,161 @@
                         <div class="col-lg-4">
                            <div class="form-group">
                               <label>HT:</label>
-                              <input type="text" class="form-control" placeholder="HT:" name="ht">
+                              <!-- <input type="text" class="form-control" placeholder="HT:" name="ht"> -->
+                              <select name="height" class="form-control" required="" name="ht">
+                                 <option value="">Select Height</option>
+                                 <option value="131">131 CM</option>
+                                 <option value="132">132 CM</option>
+                                 <option value="130">130 CM</option>
+                                 <option value="133">133 CM</option>
+                                 <option value="134">134 CM</option>
+                                 <option value="135">135 CM</option>
+                                 <option value="136">136 CM</option>
+                                 <option value="137">137 CM</option>
+                                 <option value="138">138 CM</option>
+                                 <option value="139">139 CM</option>
+                                 <option value="140">140 CM</option>
+                                 <option value="141">141 CM</option>
+                                 <option value="142">142 CM</option>
+                                 <option value="143">143 CM</option>
+                                 <option value="144">144 CM</option>
+                                 <option value="145">145 CM</option>
+                                 <option value="146">146 CM</option>
+                                 <option value="147">147 CM</option>
+                                 <option value="148">148 CM</option>
+                                 <option value="149">149 CM</option>
+                                 <option value="150">150 CM</option>
+                                 <option value="151">151 CM</option>
+                                 <option value="152">152 CM</option>
+                                 <option value="153">153 CM</option>
+                                 <option value="154">154 CM</option>
+                                 <option value="155">155 CM</option>
+                                 <option value="156">156 CM</option>
+                                 <option value="157">157 CM</option>
+                                 <option value="158">158 CM</option>
+                                 <option value="159">159 CM</option>
+                                 <option value="160">160 CM</option>
+                                 <option value="161">161 CM</option>
+                                 <option value="162">162 CM</option>
+                                 <option value="163">163 CM</option>
+                                 <option value="164">164 CM</option>
+                                 <option value="165">165 CM</option>
+                                 <option value="166">166 CM</option>
+                                 <option value="167">167 CM</option>
+                                 <option value="168">168 CM</option>
+                                 <option value="169">169 CM</option>
+                                 <option value="170">170 CM</option>
+                                 <option value="171">171 CM</option>
+                                 <option value="172">172 CM</option>
+                                 <option value="173">173 CM</option>
+                                 <option value="174">174 CM</option>
+                                 <option value="175">175 CM</option>
+                                 <option value="176">176 CM</option>
+                                 <option value="177">177 CM</option>
+                                 <option value="178">178 CM</option>
+                                 <option value="179">179 CM</option>
+                                 <option value="180">180 CM</option>
+                                 <option value="181">181 CM</option>
+                                 <option value="182">182 CM</option>
+                                 <option value="183">183 CM</option>
+                                 <option value="184">184 CM</option>
+                                 <option value="185">185 CM</option>
+                                 <option value="186">186 CM</option>
+                                 <option value="187">187 CM</option>
+                                 <option value="188">188 CM</option>
+                                 <option value="189">189 CM</option>
+                                 <option value="190">190 CM</option>
+                              </select>
                            </div>
                         </div>
                         <div class="col-lg-4">
                            <div class="form-group">
                               <label>WT:</label>
-                              <input type="text" class="form-control" placeholder="WT:" name="wt">
+                              <!-- <input type="text" class="form-control" placeholder="WT:" name="wt"> -->
+                              <select name="weight" class="form-control required" required="" name="wt">
+                                 <option value="">Select Weight</option>
+                                 <option value="35">35 Kg</option>
+                                 <option value="36">36 Kg</option>
+                                 <option value="37">37 Kg</option>
+                                 <option value="38">38 Kg</option>
+                                 <option value="39">39 Kg</option>
+                                 <option value="40">40 Kg</option>
+                                 <option value="41">41 Kg</option>
+                                 <option value="42">42 Kg</option>
+                                 <option value="43">43 Kg</option>
+                                 <option value="44">44 Kg</option>
+                                 <option value="45">45 Kg</option>
+                                 <option value="46">46 Kg</option>
+                                 <option value="47">47 Kg</option>
+                                 <option value="48">48 Kg</option>
+                                 <option value="49">49 Kg</option>
+                                 <option value="50">50 Kg</option>
+                                 <option value="51">51 Kg</option>
+                                 <option value="52">52 Kg</option>
+                                 <option value="53">53 Kg</option>
+                                 <option value="54">54 Kg</option>
+                                 <option value="55">55 Kg</option>
+                                 <option value="56">56 Kg</option>
+                                 <option value="57">57 Kg</option>
+                                 <option value="58">58 Kg</option>
+                                 <option value="59">59 Kg</option>
+                                 <option value="60">60 Kg</option>
+                                 <option value="61">61 Kg</option>
+                                 <option value="62">62 Kg</option>
+                                 <option value="63">63 Kg</option>
+                                 <option value="64">64 Kg</option>
+                                 <option value="65">65 Kg</option>
+                                 <option value="66">66 Kg</option>
+                                 <option value="67">67 Kg</option>
+                                 <option value="68">68 Kg</option>
+                                 <option value="69">69 Kg</option>
+                                 <option value="70">70 Kg</option>
+                                 <option value="71">71 Kg</option>
+                                 <option value="72">72 Kg</option>
+                                 <option value="73">73 Kg</option>
+                                 <option value="74">74 Kg</option>
+                                 <option value="75">75 Kg</option>
+                                 <option value="76">76 Kg</option>
+                                 <option value="77">77 Kg</option>
+                                 <option value="78">78 Kg</option>
+                                 <option value="79">79 Kg</option>
+                                 <option value="80">80 Kg</option>
+                                 <option value="81">81 Kg</option>
+                                 <option value="82">82 Kg</option>
+                                 <option value="83">83 Kg</option>
+                                 <option value="84">84 Kg</option>
+                                 <option value="85">85 Kg</option>
+                                 <option value="86">86 Kg</option>
+                                 <option value="87">87 Kg</option>
+                                 <option value="88">88 Kg</option>
+                                 <option value="89">89 Kg</option>
+                                 <option value="90">90 Kg</option>
+                              </select>
                            </div>
                         </div>
                         <div class="col-lg-4">
                            <div class="form-group">
                               <label>B/P:</label>
-                              <input type="text" class="form-control" placeholder="B/P:" name="bp">
+                              <input type="text" class="form-control" placeholder="B/P(mmHg)" name="bp">
+                         
                            </div>
                         </div>
                         <div class="col-lg-4">
                            <div class="form-group">
                               <label>PULSE:</label>
-                              <input type="text" class="form-control" placeholder="PULSE" name="pulse">
+                              <input type="text" class="form-control" placeholder="PULSE(BPM)" name="pulse">
                            </div>
                         </div>
                         <div class="col-lg-4">
                            <div class="form-group">
                               <label>RESP:</label>
-                              <input type="text" class="form-control" placeholder="RESP:" name="resp">
+                              <input type="text" class="form-control" placeholder="RESP" name="resp">
                            </div>
                         </div>
                         <div class="col-lg-4">
                            <div class="form-group">
                               <label>TEMP:</label>
-                              <input type="text" class="form-control" placeholder="TEMP:" name="temp">
+                              <input type="text" class="form-control" placeholder="TEMP(Celsius)" name="temp">
                            </div>
                         </div>
                      </div>
@@ -433,12 +559,14 @@
                                      </label>
                                  </td>
                                  <td>
-                                     <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="test_name[1]" required>
-                                         <option>Select Type</option>
+                                 <!-- onchange="getAndSetLabReport(event,this.value)" -->
+                                 <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="report[1][test_name]">
+                                         <option value="0">Select Type</option>
                                        @foreach ($labReportTypes as $key => $item)
-                                          @if($key !=1 && $key !=7 && $key !=12)
-                                             <option value="{{ $key }}">{{ $item }}</option>
-                                          @endif
+                                       @if($key !=1 && $key !=7 && $key !=12)
+                                            
+                                            <option value="{{ $item }}">{{ $item }}</option>
+                                       @endif
                                        @endforeach
                                     </select>
                                  </td>
@@ -448,7 +576,8 @@
                                           <span class="input-group-addon">
                                              <i class="fa fa-calendar"></i>
                                           </span>
-                                          <input type="text" class="form-control date_performed" name="date_performed[1]" required />
+                                          <input type="text" class="form-control date_performed" name="report[1][date_performed]" />
+                                          <input type="text" class="form-control date_experied" name="report[1][date_experied]" style="display:none;"/>
                                        </div>
                                     </div>
                                  </td>
@@ -458,7 +587,7 @@
                                     </select>
                                  </td>
                                  <td>
-                                    <input class="lab_value" name="lab_value[1]" required />
+                                    <input class="lab_value" name="report[1][lab_value]" />
                                  </td>
                                  <td>
                                     <button type="button"
@@ -479,26 +608,26 @@
                            <div class="row">
                               <div class="col-lg-12">
                                  <div class="card-a">
-                                    <label class="containera">This individual is free from any health impairment that is a potential risk to the patient or another employee of which may interfere with the performance of his/her duties including the habituation or addiction to drugs or alcohol.
-                                       <input type="radio" name="eper">
-                                       <span class="checkmark"></span>
-                                    </label>
+                                    <div class="custom-control custom-radio">
+                                       <input type="radio" class="custom-control-input" id="physical_note1" name="physical_note" value="1">
+                                       <label class="custom-control-label" for="physical_note1">This individual is free from any health impairment that is a potential risk to the patient or another employee of which may interfere with the performance of his/her duties including the habituation or addiction to drugs or alcohol.</label>
+                                    </div> 
                                  </div>
                               </div>
-                              <div class="col-lg-12"><div class="card-a">
-                                 <label class="containera">This individual is able to work with the following limitations<br>
-                                    <span> It is a long established fact fact that a reader will be by the the readable content of a page.</span>
-                                    <input type="radio" name="eper">
-                                    <span class="checkmark"></span>
-                                 </label>
+                              <div class="col-lg-12">
+                                 <div class="card-a">
+                                    <div class="custom-control custom-radio">
+                                       <input type="radio" class="custom-control-input" id="physical_note2" name="physical_note" value="2">
+                                       <label class="custom-control-label" for="physical_note2">This individual is able to work with the following limitations<br><span> It is a long established fact fact that a reader will be by the the readable content of a page.</label>
+                                    </div> 
                                  </div>
                               </div>
                               <div class="col-lg-12"> <div class="card-a">
-                                 <label class="containera">Return to Work This individual is NOT physically/mentally able to work (specify reason)<br>
-                                    <span style="display: block;"> I    It is a long established fact fact that a reader will be by the the readable content of a page.</span>
-                                    <input type="radio" name="eper">
-                                    <span class="checkmark"></span>
-                                 </label>
+                                 <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="physical_note3" name="physical_note" value="3">
+                                    <label class="custom-control-label" for="physical_note3">Return to Work This individual is NOT physically/mentally able to work (specify reason)<br>
+                                    <span style="display: block;"> I It is a long established fact fact that a reader will be by the the readable content of a page.</span></label>
+                                 </div>   
                               </div>
                            </div>
                         </div>
@@ -512,12 +641,12 @@
                   <div class="row">
                      <div class="col-lg-6">
                         <div class="form-group">
-                           <input type="text" class="form-control" placeholder="Physician  Name" name="physician_name">
+                           <input type="text" class="form-control" placeholder="Physician  Name" name="physician_name" value="{{ $loginUser->full_name }}">
                         </div>
                      </div>
                      <div class="col-lg-6">
                         <div class="form-group">
-                           <input type="text" class="form-control" placeholder="Physician License No" name="physician_license_no">
+                           <input type="text" class="form-control" placeholder="Physician License No" name="physician_license_no" value="">
                         </div>
                      </div>
                   </div>
@@ -579,23 +708,26 @@
             //e.preventDefault();
             $(this).closest('#tblAddRow').find('td input:checkbox').prop('checked', this.checked);
          });
-         
+       
+                  //  yearRange: new Date().getFullYear() + ':' + new Date().getFullYear()
+                
          // Add row the table
          $('#btnAddRow').on('click', function() {
-            var lastRow = $('#tblAddRow tbody tr:last').clone();
-
+            var lastRow = $('#tblAddRow tbody tr:last').clone().find("input").val("").end();
+           
             var lookup = parseInt($(lastRow).find('input:first').attr('name').replace ( /[^\d.]/g, '' )) + 1;
-            // console.log(lookup);
+           
             $(lastRow).find('.srNO').html(lookup);
 //            $(lastRow).find('input.record').attr('name', 'record['+lookup+']')
 
-            $(lastRow).find('select.test_name').attr('name', 'test_name['+lookup+']')
+            $(lastRow).find('select.test_name').attr('name', 'report['+lookup+'][test_name]')
 
-            $(lastRow).find('input.date_performed').attr('name', 'date_performed['+lookup+']')
+            $(lastRow).find('input.date_performed').attr('name', 'report['+lookup+'][date_performed]')
 
-            $(lastRow).find('select.result').attr('name', 'result['+lookup+']').addClass('result_'+lookup)
+            // $(lastRow).find('select.res').attr('class', 'report[result]')
+            $(lastRow).find('select.result').attr('name', 'report['+lookup+'][result]').addClass('result_'+lookup)
 
-            $(lastRow).find('input.lab_value').attr('name', 'lab_value['+lookup+']')
+            $(lastRow).find('input.lab_value').attr('name', 'report['+lookup+'][lab_value]')
 
             lastRow.insertAfter('#tblAddRow tbody tr:last');
 
@@ -650,7 +782,7 @@
             forceParse: false,
             calendarWeeks: true,
             autoclose: true,
-            endDate: "today"
+            endDate: "today",
          });
       </script>
     <script type="text/javascript">
@@ -801,8 +933,12 @@
        });
        function getAndSetLabReport(e,id) {
            var getRowName = e.target.name;
+          
+           var getSplit = getRowName.split('[');
+           var getSplit = getSplit[1].split(']');
+           var rowNo = getSplit[0];
            var lookup = parseInt(getRowName.replace ( /[^\d.]/g, '' ));
-           console.log(lookup)
+          
            if(id >=1 && 6 >= id) {
                $('.result_'+lookup).html('<option>Positive</option><option>Negative</option>');
            } else if(id >= 7 && 11 >= id) {

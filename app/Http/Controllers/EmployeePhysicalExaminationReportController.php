@@ -40,11 +40,10 @@ class EmployeePhysicalExaminationReportController extends Controller
         $patient = $apiResponse->data;
        
         $maritalStatus = $address = [];
-        if ($patient->caregiver_info->marital_status) {
+        if (isset($patient->caregiver_info->marital_status)) {
             $maritalStatus = json_decode($patient->caregiver_info->marital_status);
         }
 
-       
         if (isset($patient->demographic->address)) {
             $address = json_decode($patient->demographic->address);
         }

@@ -76,7 +76,7 @@
     input, .label {
         color: black;
     }
-    .phone-text, .while_edit {
+    .phone-text, .fullname-text, .ssn-text, .address-text,  .while_edit {
         display: none;
     }
 </style>
@@ -97,13 +97,12 @@
         columnDaTa.push(
             {data: 'DT_RowIndex', orderable: false, searchable: false},
             {data: 'full_name'},
-            {data: 'gender'},
-            {data: 'ssn'},
-            {data: 'home_phone', class: 'editable text'},
+            {data: 'gender', name:'gender', orderable: true, searchable: true},
+            {data: 'demographic.ssn'},
+            {data: 'phone', class: 'editable text'},
             {data: 'service_id'},
-            {data: 'doral_id'},
+            {data: 'demographic.doral_id'},
             {data: 'city_state'},
-            
         );
         if ($("#status").val() === 'active') {
             columnDaTa.push({data:'dob',name:'dob'});
@@ -112,10 +111,10 @@
         }
         $('#get_patient-table').DataTable({
             "processing": true,
+            "serverSide": true,
             "language": {
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
-            "serverSide": true,
             ajax: {
                 'type': 'POST',
                 'url': "{{ route('clinician.caregiver.ajax') }}",
@@ -127,27 +126,38 @@
                 },
             },
             columns:columnDaTa,
-            "order": [[ 1, "desc" ]],
+       
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
             'columnDefs': [
                 {
-                    targets: [0, 8],
+                    "order": [ 1, "desc"],
+                    // targets: [0, 8],
                     // 'searchable': false,
-                    'orderable': false,
+                    // 'orderable': false,
                 }
             ],
         });
         $("body").on('click','.edit_btn',function () {
-            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
+            $(this).parents("tr").find(".phone-text, .fullname-text, .ssn-text, .address-text, .while_edit").css("display",'block');
             $(this).parents("tr").find("span, .normal").css("display",'none');
         });
         $("body").on('click','.cancel_edit',function () {
-            $(this).parents("tr").find(".phone-text, .while_edit").css("display",'none');
+            $(this).parents("tr").find(".phone-text, .fullname-text, .ssn-text, .address-text, .while_edit").css("display",'none');
             $(this).parents("tr").find("span, .normal").css("display",'block');
         });
         $("body").on('click','.save_btn',function () {
-            var val = $(document).find('.phone').val();
+            var first_name = $(document).find('.first_name').val();
+            var last_name = $(document).find('.last_name').val();
+            var ssn = $(document).find('.ssn').val();
+            var phone = $(document).find('.phone').val();
+            var city = $(document).find('.city').val();
+            var state = $(document).find('.state').val();
+            
             var id = $(this).attr("data-id");
+            if (phone == '') {
+                alert('Please enter phone number');
+                return false;
+            }
             
             $.ajax({
                 'type': 'POST',
@@ -157,7 +167,12 @@
                 },
                 data: {
                     "id": id,
-                    "phone" : val
+                    "first_name" : first_name,
+                    "last_name" : last_name,
+                    "ssn" : ssn,
+                    "phone" : phone,
+                    "city" : city,
+                    "state" : state,
                 },
                 'success': function (data) {
                     if(data.status == 400) {

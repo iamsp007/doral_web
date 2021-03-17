@@ -59,35 +59,52 @@ class CaregiverController extends Controller
                     });
                 }
             })
-            ->with('demographic')->orderBy('id', 'DESC');
+            ->with('demographic','patientLabReport.labReportType')->orderBy('id', 'DESC');
             
         $datatble = DataTables::of($patientList)
           ->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
             })
             ->addIndexColumn()
-            ->addColumn('full_name', function($q){
-                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
+            ->addColumn('full_name', function($q) use($request) {
+                if ($request['status'] == 'initial') {
+                    $full_name = "<span class='label'>".$q->full_name."</span>";
+                    $full_name .= "<div class='fullname-text'><input class='first_name form-control' required type='text' name='first_name' value='".$q->first_name."'></div>";
+                    $full_name .= "<div class='fullname-text'><input class='last_name form-control' type='text' name='last_name' value='".$q->last_name."'></div>";
+                    return $full_name;
+                } else {
+                    return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
+                }
+                // return $full_name;
             })
             ->addColumn('gender', function($q){
                 return $q->gender_data;
             })
-            ->addColumn('ssn', function($q) {
-                $ssn = '';
-                if ($q->demographic) {
-                    $ssn =  $q->demographic->ssn;
-                }
-                return $ssn;
-            })
-            ->addColumn('home_phone', function($q) use($request){
-                $phone = '';
-                if ($q->phone) {
-                    $phone = "<span class='label'><a href='tel:".$q->phone."'><i class='las la-phone circle'></i>".$q->phone."</a></span>";
-                    $phone .= "<div class='phone-text'><input class='phone' type='text' name='phone' value=".$q->phone."></div>";
+            ->addColumn('ssn', function($q) use($request) {
+                if ($request['status'] == 'initial') {
+                    $ssn_data = '';
+                    if ($q->demographic) {
+                        $ssn_data = $q->demographic->ssn;
+                    }
+                   
+                    $ssn = "<span class='label'>".$ssn_data."</span>";
+                    $ssn .= "<div class='ssn-text'><input class='ssn form-control' type='text' name='ssn' value='".$ssn_data."'></div>";
+                    return $ssn;
                 } else {
-                    $phone .= "<div class='phone-text'><input class='phone' type='text' name='phone' value=".$q->phone."></div>";
+                    $ssn_data = '';
+                    if ($q->demographic) {
+                        $ssn_data = $q->demographic->ssn;
+                    }
+                    return "<span class='label'>".$ssn_data."</span>";
                 }
-
+            })
+            ->addColumn('phone', function($q) use($request){
+                $phone = '';
+                if ($request['status'] == 'initial') {
+                    $phone .= "<div class='phone-text'><input class='phone form-control' required type='text' name='phone' value=''></div>";
+                } else {
+                    $phone .= "<span class='label'><a href='tel:".$q->phone."'><i class='las la-phone circle'></i>".$q->phone."</a></span>";
+                }
                 return $phone;
             })
             ->addColumn('service_id', function($q) {
@@ -104,22 +121,43 @@ class CaregiverController extends Controller
                 }
                 return $doral_id;
             })
-            ->addColumn('city_state', function($q){
-                $city_state = '';
-                if ($q->demographic) {
-                    $city_state_json =  json_decode($q->demographic->address);
+            ->addColumn('city_state', function($q) use($request) {
+                if ($request['status'] == 'initial') {
+                    $city = $state = '';
+                    if ($q->demographic) {
+                        $city_state_json =  json_decode($q->demographic->address);
 
-                    if ($city_state_json[0]) {
-                        if ($city_state_json[0]->City) {
-                            $city_state .= $city_state_json[0]->City;
+                        if ($city_state_json) {
+                            if ($city_state_json->City) {
+                                $city = $city_state_json->City;
+                            }
+                            if ($city_state_json->State) {
+                                $state = $city_state_json->State;
+                            }
                         }
-                        if ($city_state_json[0]->State) {
-                            $city_state .= ' - ' . $city_state_json[0]->State;
-                        }
-
                     }
+                    $city_state = "<span class='label'>".$city . ' - ' . $state . "</span>";
+                    $city_state .= "<div class='address-text'><input class='city form-control' type='text' name='city' value='".$city."'></div>";
+                    $city_state .= "<div class='address-text'><input class='state form-control' type='text' name='state' value='".$state."'></div>";
+                    return $city_state;
+                } else {
+                    $city_state = '';
+                    if ($q->demographic) {
+                        $city_state_json =  json_decode($q->demographic->address);
+
+                        if ($city_state_json) {
+                            if ($city_state_json->City) {
+                                $city_state .= $city_state_json->City;
+                            }
+                            if ($city_state_json->State) {
+                                $city_state .= ' - ' . $city_state_json->State;
+                            }
+
+                        }
+                    }
+                    return $city_state;
                 }
-                return $city_state;
+               
             });
             if($request['status'] == 'active') {
                 $datatble->addColumn('dob', function($row) use($request){
@@ -127,6 +165,7 @@ class CaregiverController extends Controller
                 });
             } else {
                 $datatble->addColumn('action', function($row) use($request){
+                    
                     $btn = '';
                     if ($request['status'] == 'occupational-health' || $request['status'] == 'md-order' || $request['status'] == 'vbc' || $request['status'] == 'initial') {
 
@@ -135,6 +174,15 @@ class CaregiverController extends Controller
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
                         } else {
                             if ($row->status === '5') {
+                                // $btn .= '<select class="form-control js-example-matcher-start select" name="referralType"
+                                //     id="referralType">';
+                                //     if ($row->patientLabReport) {
+                                //         foreach ($row->patientLabReport as $value) {
+                                //            $btn .= '<option value="'.$value->labReportType->id.'">'.$value->labReportType->name.'</option>';
+                                //         }
+                                //     }
+                                    
+                                // $btn .='</select>';
                                 $btn .= '<a target="_blank" href="https://doralhealthconnect.com/HTML%20FOR%20PDF/PDF.html"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
                             } else {
                                 $btn .= $row->status_data;
@@ -152,7 +200,7 @@ class CaregiverController extends Controller
                     return $btn;
                 });
             }
-            $datatble->rawColumns(['full_name', 'action', 'checkbox_id', 'home_phone']);
+            $datatble->rawColumns(['full_name', 'ssn', 'city_state', 'action', 'checkbox_id', 'phone']);
             return $datatble->make(true);
     }
 
@@ -161,45 +209,45 @@ class CaregiverController extends Controller
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
         
-        $from = "12089104598";
-        $api_key = "bb78dfeb";
-        $api_secret = "PoZ5ZWbnhEYzP9m4";
-        $uri = 'https://rest.nexmo.com/sms/json';
-        $text = "This message is from Doral health Connect :
-Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now.
-https://doralhealthconnect.com/book_appointment.html";
-            
-        $to = 5166000122;
-        $fields = '&from=' . urlencode($from) .
-                '&text=' . urlencode($text) .
-                '&to=+1' . urlencode($to) .
-                '&api_key=' . urlencode($api_key) .
-                '&api_secret=' . urlencode($api_secret);
-        $res = curl_init($uri);
-        curl_setopt($res, CURLOPT_POST, TRUE);
-        curl_setopt($res, CURLOPT_RETURNTRANSFER, TRUE); // don't echo
-        curl_setopt($res, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($res, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($res, CURLOPT_POSTFIELDS, $fields);
-        $result = curl_exec($res);
-        $result = json_decode($result);
-        curl_close($res);
-        
-        $too = 9293989855;
-        $fields = '&from=' . urlencode($from) .
-                '&text=' . urlencode($text) .
-                '&to=+1' . urlencode($too) .
-                '&api_key=' . urlencode($api_key) .
-                '&api_secret=' . urlencode($api_secret);
-        $res = curl_init($uri);
-        curl_setopt($res, CURLOPT_POST, TRUE);
-        curl_setopt($res, CURLOPT_RETURNTRANSFER, TRUE); // don't echo
-        curl_setopt($res, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($res, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($res, CURLOPT_POSTFIELDS, $fields);
-        $result = curl_exec($res);
-        $result = json_decode($result);
-        curl_close($res);
+        //         $from = "12089104598";
+        //         $api_key = "bb78dfeb";
+        //         $api_secret = "PoZ5ZWbnhEYzP9m4";
+        //         $uri = 'https://rest.nexmo.com/sms/json';
+        //         $text = "This message is from Doral health Connect :
+        // Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now.
+        // https://doralhealthconnect.com/book_appointment.html";
+                    
+        //         $to = 5166000122;
+        //         $fields = '&from=' . urlencode($from) .
+        //                 '&text=' . urlencode($text) .
+        //                 '&to=+1' . urlencode($to) .
+        //                 '&api_key=' . urlencode($api_key) .
+        //                 '&api_secret=' . urlencode($api_secret);
+        //         $res = curl_init($uri);
+        //         curl_setopt($res, CURLOPT_POST, TRUE);
+        //         curl_setopt($res, CURLOPT_RETURNTRANSFER, TRUE); // don't echo
+        //         curl_setopt($res, CURLOPT_SSL_VERIFYPEER, FALSE);
+        //         curl_setopt($res, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        //         curl_setopt($res, CURLOPT_POSTFIELDS, $fields);
+        //         $result = curl_exec($res);
+        //         $result = json_decode($result);
+        //         curl_close($res);
+                
+        //         $too = 9293989855;
+        //         $fields = '&from=' . urlencode($from) .
+        //                 '&text=' . urlencode($text) .
+        //                 '&to=+1' . urlencode($too) .
+        //                 '&api_key=' . urlencode($api_key) .
+        //                 '&api_secret=' . urlencode($api_secret);
+        //         $res = curl_init($uri);
+        //         curl_setopt($res, CURLOPT_POST, TRUE);
+        //         curl_setopt($res, CURLOPT_RETURNTRANSFER, TRUE); // don't echo
+        //         curl_setopt($res, CURLOPT_SSL_VERIFYPEER, FALSE);
+        //         curl_setopt($res, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        //         curl_setopt($res, CURLOPT_POSTFIELDS, $fields);
+        //         $result = curl_exec($res);
+        //         $result = json_decode($result);
+        //         curl_close($res);
 
         if ($response->status === true){
             return response()->json($response,200);
@@ -301,20 +349,7 @@ https://doralhealthconnect.com/book_appointment.html";
         return $getPatientDetailsController->curlCall($data, $method);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createMedical($cargiver_id)
-    {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><CreateCaregiverMedical xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><CaregiverMedicalInfo><CaregiverID>' . $cargiver_id . '</CaregiverID><MedicalID>int</MedicalID><DueDate>dateTime</DueDate><DateCompleted>dateTime</DateCompleted><Notes>string</Notes><ResultID>int</ResultID></CaregiverMedicalInfo>67467</CreateCaregiverMedical></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-
-        $method = 'POST';
-        $getPatientDetailsController = new GetPatientDetailsController();
-        return $getPatientDetailsController->curlCall($data, $method);
-    }
-
+   
     public static function saveUser($demographicDetails)
     {
         $email = null;

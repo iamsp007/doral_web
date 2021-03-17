@@ -397,6 +397,7 @@
 
         });
     </script>
+    <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
 
 @stack('scripts')
 </body>

@@ -69,7 +69,7 @@
                                         <div>
                                             <input type="text" class="form-control-plaintext _detail "
                                                 readonly name="dob"
-                                                data-id="dob" id="dob" 
+                                                data-id="dob" id="dob"
                                                 placeholder="DOB" value="{{ ($patient->dob) ? date('m-d-Y', strtotime($patient->dob)) : '' }}">
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="col-12 col-sm-3 col-md-3">
                                 <div class="input_box">
                                     <div class="ls"><i class="las la-angle-double-right circle"></i></div>
@@ -206,7 +206,7 @@
                             </div>
                         </div>
                     </div>
-                
+
                     <div class="collapse mt-4" id="collapseExample">
                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                             height="200" frameborder="0" scrolling="no" marginheight="0"
@@ -215,7 +215,7 @@
                     </div>
 
                     <!-- Address Detail -->
-                    @if(isset($address[0]))
+                    @if(isset($address))
                         <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                         data-name="emergency_contact_detail">
                             <div class="app-card-header">
@@ -230,7 +230,7 @@
                                                     <div class="ls"><i class="las la-address-book circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Address1</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="street1" data-id="street1" id="street1" placeholder="Address1" value="{{ ($address[0]->Street1) ? $address[0]->Street1 : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="street1" data-id="street1" id="street1" placeholder="Address1" value="{{ ($address->Street1) ? $address->Street1 : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -239,7 +239,7 @@
                                                     <div class="ls"><i class="las la-address-book circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Address2</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="street2" data-id="street2" id="street2" placeholder="Address2" value="{{ ($address[0]->Street2) ? $address[0]->Street2 : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="street2" data-id="street2" id="street2" placeholder="Address2" value="{{ ($address->Street2) ? $address->Street2 : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -248,7 +248,7 @@
                                                     <div class="ls"><i class="las la-city circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">City</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ ($address[0]->City) ? $address[0]->City : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ ($address->City) ? $address->City : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -257,7 +257,7 @@
                                                     <div class="ls"><i class="las la-archway circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">State</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ ($address[0]->State) ? $address[0]->State : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ ($address->State) ? $address->State : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -270,7 +270,7 @@
                                                     <div class="ls"><i class="las la-code circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Zip4</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="zip4" data-id="zip4" id="zip4" placeholder="Zip4" value="{{ ($address[0]->Zip4) ? $address[0]->Zip4 : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="zip4" data-id="zip4" id="zip4" placeholder="Zip4" value="{{ ($address->Zip4) ? $address->Zip4 : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -279,7 +279,7 @@
                                                     <div class="ls"><i class="las la-code circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Zip5</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="zip5" data-id="zip5" id="zip5" placeholder="Zip5" value="{{ ($address[0]->Zip5) ? $address[0]->Zip5 : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="zip5" data-id="zip5" id="zip5" placeholder="Zip5" value="{{ ($address->Zip5) ? $address->Zip5 : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -307,7 +307,7 @@
                                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Email</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ ($notificationPreferences->Email) ? $notificationPreferences->Email : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ isset($notificationPreferences->Email) ? $notificationPreferences->Email : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -316,7 +316,7 @@
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Method Name</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ ($notificationPreferences->Method->Name) ? $notificationPreferences->Method->Name : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ isset($notificationPreferences->Method->Name) ? $notificationPreferences->Method->Name : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -325,7 +325,7 @@
                                                     <div class="ls"><i class="las la-sms circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Mobile Or SMS</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ ($patient->caregiverInfo) ? $patient->caregiverInfo->mobile_phone : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ isset($patient->caregiverInfo) ? $patient->caregiverInfo->mobile_phone : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -334,7 +334,7 @@
                                                     <div class="ls"><i class="las la-voicemail circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Voice Message</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ ($notificationPreferences->VoiceMessage) ? $notificationPreferences->VoiceMessage : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ isset($notificationPreferences->VoiceMessage) ? $notificationPreferences->VoiceMessage : '' }}">
                                                     </div>
                                                 </div>
                                             </div>

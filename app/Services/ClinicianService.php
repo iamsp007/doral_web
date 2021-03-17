@@ -42,7 +42,6 @@ class ClinicianService
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
         }
     }
 
@@ -67,8 +66,13 @@ class ClinicianService
         try {
 
             $response = $this->client->request(
-                'GET',
-                '/get-roadl-proccess/'.$patient_request_id
+                'POST',
+                '/get-roadl-proccess-new',
+                [
+                    'json'=>array(
+                        'parent_id'=>$patient_request_id
+                    )
+                ]
             );
 
 
@@ -206,7 +210,7 @@ class ClinicianService
                     'json'=>$data
                 ]
             );
-          
+
             $response = $response->getBody()->getContents();
             $data = json_decode($response);
             return $data;
@@ -214,7 +218,7 @@ class ClinicianService
             dd($exception->getMessage());
         }
     }
-    
+
     public function updatePhoneNumber($data){
         try {
 
@@ -225,7 +229,7 @@ class ClinicianService
                     'json'=>$data
                 ]
             );
-          
+
             $response = $response->getBody()->getContents();
             $data = json_decode($response);
             return $data;
@@ -379,6 +383,24 @@ class ClinicianService
             return $data;
         }catch (\Exception $exception){
 
+        }
+    }
+
+    public function getVendorList($data){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/vendor-list',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
         }
     }
 }

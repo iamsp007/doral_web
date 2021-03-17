@@ -241,6 +241,49 @@
         </section>
     </section>
 </section>
+    <div class="modal" id="roadl-request-modal" tabindex="-1" style="top: 80px !important;" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Referral Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReferralPopup()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="broadcast_form" >
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="hidden" id="patient_id" name="patient_id" class="input-skin" >
+                                    <select name="type_id" id="type_id">
+                                        <option value="5">LAB</option>
+                                        <option value="6">Radiology</option>
+                                        <option value="7">CHHA</option>
+                                        <option value="8">Clinician</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="text" name="test_name" class="input-skin" id="selectRole1" placeholder="Enter test name...">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="text" name="reason" class="input-skin" placeholder="Enter Reason...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <input type="button" value="Submit" class="btn btn--submit btn-lg" onclick="onAppointmentBroadCastSubmit(this)">
+                            <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @yield('app-video')
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
@@ -249,7 +292,7 @@
     <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
- 
+
     <script src="{{ asset('assets/js/app.clinician.patient.details.min.js') }}"></script>
     <script>
         var base_url = $('#base_url').val();
@@ -354,6 +397,7 @@
 
         });
     </script>
+    <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
 
 @stack('scripts')
 </body>

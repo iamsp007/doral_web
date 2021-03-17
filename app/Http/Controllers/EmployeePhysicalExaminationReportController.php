@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\EmployeePhysicalExaminationReport;
 use App\Models\LabReportType;
 use App\Models\User;
+use App\Models\PatientReport;
 use App\Services\AdminService;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
@@ -184,8 +185,7 @@ class EmployeePhysicalExaminationReportController extends Controller
         // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', ['report' => $data]);
         // return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
         /* start enable code block and remove above 3 line of code*/
-       
-
+        // dd($report->report_details);
         $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
                 'report' => $report->report_details,
         ]);

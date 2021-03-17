@@ -542,15 +542,7 @@
                                  <table id="tblAddRow" class="mt-3" border="1">
                                  <thead>
                                     <tr>
-                                       <th>
-<!--                                          <div id="checkbox">
-                                             <label class="containera">
-                                                <input type="checkbox" id="checkedAll" name="checkedAll">
-                                                <span class="checkmark"></span>
-                                             </label>
-                                          </div>-->
-                                          Sr No.
-                                       </th>
+                                       <th>Sr No.</th>
                                        <th>Test Name</th>
                                        <th>Date Performed</th>
                                        <th>Results</th>
@@ -568,7 +560,7 @@
                                  </td>
                                  <td>
                                  <!-- onchange="getAndSetLabReport(event,this.value)" -->
-                                 <select class="form-control test_name" name="report[1][test_name]">
+                                 <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="report[1][test_name]">
                                          <option value="0">Select Type</option>
                                        @foreach ($labReportTypes as $key => $item)
                                        @if($key !=1 && $key !=7 && $key !=12)
@@ -589,10 +581,10 @@
                                        </div>
                                     </div>
                                  </td>
-                                 
                                  <td>
-                                    <select class="form-control result result1" name="report[1][result]">  <option>Positive</option>
-                                       <option>Negative</option></select>
+                                    <select class="form-control result result_1" name="result[1]" required>
+                                       <option>Select Result</option>
+                                    </select>
                                  </td>
                                  <td>
                                     <input class="lab_value" name="report[1][lab_value]" />
@@ -604,49 +596,6 @@
                                           class="las la-binoculars la-2x mr-2"></i> View</button>
                                  </td>
                               </tr>
-<!--                              <tr class="tr_class">
-                                 <td>
-                                    <div id="checkbox">
-                                       <label class="containera">
-                                          <input type="checkbox" class="record" name="record[2]" />
-                                          <span class="checkmark"></span>
-                                       </label>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="test_name[2]">
-                                       @foreach ($labReportTypes as $item)
-                                           <option value="{{ $key }}">{{ $item }}</option>
-                                       @endforeach
-                                    </select>
-                                 </td>
-                                 <td>
-                                    <div class="form-group datea">
-                                       <div class="input-group date">
-                                          <span class="input-group-addon">
-                                             <i class="fa fa-calendar"></i>
-                                          </span>
-                                          <input type="text" class="form-control date_performed" name="date_performed[2]" />
-                                       </div>
-                                    </div>
-                                 </td>
-                                 <td>
-                                    <select class="form-control result" name="result[2]">
-                                       <option>Immune</option>
-                                       <option>None Immune</option>
-                                    </select>
-                                 </td>
-                                 <td>
-                                    <input class="lab_value" name="lab_value[2]" />
-                                 </td>
-                                 <td>
-                                    <button type="button"
-                                          class="btn btn-outline-green d-flex align-items-center" onclick="downloadReport(1)"
-                                          data-toggle="modal" data-target="#labreportModal" name=""><i
-                                          class="las la-binoculars la-2x mr-2"></i> View Lab
-                                      Reports</button>
-                                 </td>
-                              </tr>-->
                            </tbody>
                         </table>
                      </div>
@@ -776,7 +725,7 @@
             $(lastRow).find('input.date_performed').attr('name', 'report['+lookup+'][date_performed]')
 
             // $(lastRow).find('select.res').attr('class', 'report[result]')
-            $(lastRow).find('select.result').attr('name', 'report['+lookup+'][result]')
+            $(lastRow).find('select.result').attr('name', 'report['+lookup+'][result]').addClass('result_'+lookup)
 
             $(lastRow).find('input.lab_value').attr('name', 'report['+lookup+'][lab_value]')
 
@@ -787,7 +736,8 @@
                keyboardNavigation: false,
                forceParse: false,
                calendarWeeks: true,
-               autoclose: true
+               autoclose: true,
+               endDate: "today"
             });
          });
          
@@ -987,14 +937,16 @@
            var getSplit = getRowName.split('[');
            var getSplit = getSplit[1].split(']');
            var rowNo = getSplit[0];
+           var lookup = parseInt(getRowName.replace ( /[^\d.]/g, '' ));
+          
            if(id >=1 && 6 >= id) {
-               $(".result"+rowNo).html('<option>Positive</option><option>Negative</option>');
-           }else if(id >= 7 && 11 >= id) {
-               $(".result"+rowNo).html('<option>Immune</option><option>Non Immune</option>');
-           }else if(id >= 12 && 14 >= id) {
-               $(".result"+rowNo).html('<option>Positive</option><option>Negative</option>');
-           }else {
-               $(".result"+rowNo).html('<option>Completed</option><option>Overdue</option>');
+               $('.result_'+lookup).html('<option>Positive</option><option>Negative</option>');
+           } else if(id >= 7 && 11 >= id) {
+               $('.result_'+lookup).html('<option>Immune</option><option>Non Immune</option>');
+           } else if(id >= 12 && 14 >= id) {
+               $('.result_'+lookup).html('<option>Positive</option><option>Negative</option>');
+           } else {
+               $('.result_'+lookup).html('<option>Completed</option><option>Overdue</option>');
            }
        }
     </script>

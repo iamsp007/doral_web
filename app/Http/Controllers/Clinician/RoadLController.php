@@ -20,7 +20,7 @@ class RoadLController extends Controller
     //
     public function index(Request $request){
 
-        $type='latest';
+        $type='0';
         if ($request->has('type')){
             $type=$request->type;
         }
@@ -67,6 +67,15 @@ class RoadLController extends Controller
     public function getNearByClinicianList(Request $request,$patient_request_id){
 
         $response = $this->clinicianService->getNearByClinicianList($patient_request_id);
+        if ($response->status===true){
+            $clinicianList = $response->data;
+            return response()->json($clinicianList,200);
+        }
+        return response()->json($response,422);
+    }
+
+    public function getVendorList(Request $request){
+        $response = $this->clinicianService->getVendorList($request->all());
         if ($response->status===true){
             $clinicianList = $response->data;
             return response()->json($clinicianList,200);

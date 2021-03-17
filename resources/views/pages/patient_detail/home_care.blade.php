@@ -64,7 +64,7 @@
                                  @foreach($services as $s_row)
                                     <div class="custom-control custom-checkbox">
                                        <input type="checkbox" class="custom-control-input"
-                                          id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(",",$patient->caregiverInfo->company->services))) { echo "checked";} ?>>
+                                          id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], isset($patient->caregiverInfo->company->services) ? explode(",",$patient->caregiverInfo->company->services) : [])) { echo "checked";} ?>>
                                        <label class="custom-control-label t5"
                                           for="customCheck{{$s_row['id']}}">{{$s_row['name']}}</label>
                                     </div>

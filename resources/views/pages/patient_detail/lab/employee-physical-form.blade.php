@@ -51,7 +51,7 @@
                     <tr>
                         <form id="physicalScreenForm">
                             @csrf
-                            <th scope="row" class="physical-sequence">{{ ($employeePhysical) ? $employeePhysicalForm->count() + 1 : '' }}</th>
+                            <th scope="row" class="physical-sequence">{{ ($employeePhysicalForm) ? $employeePhysicalForm->count() + 1 : '' }}</th>
                             <td>
                                 <select name="lab_report_type_id" class="form-control physical_lab_report_types">
                                     <option value="">Select a test type</option>

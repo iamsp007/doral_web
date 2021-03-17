@@ -585,15 +585,14 @@
             var lastRow = $('#tblAddRow tbody tr:last').clone();
 
             var lookup = parseInt($(lastRow).find('input:first').attr('name').replace ( /[^\d.]/g, '' )) + 1;
-            // console.log(lookup);
+
             $(lastRow).find('.srNO').html(lookup);
-//            $(lastRow).find('input.record').attr('name', 'record['+lookup+']')
 
             $(lastRow).find('select.test_name').attr('name', 'test_name['+lookup+']')
 
             $(lastRow).find('input.date_performed').attr('name', 'date_performed['+lookup+']')
 
-            $(lastRow).find('select.result').attr('name', 'result['+lookup+']').addClass('result_'+lookup)
+            $(lastRow).find('select.result').removeClass('result_'+(lookup-1)).attr('name', 'result['+lookup+']').addClass('result_'+lookup)
 
             $(lastRow).find('input.lab_value').attr('name', 'lab_value['+lookup+']')
 
@@ -636,7 +635,7 @@
             var lenRow      = $('#tblAddRow tbody tr').length;
             var lenChecked  = $("#tblAddRow input[type='checkbox']:checked").length;
             var row = $("#tblAddRow tbody input[type='checkbox']:checked").parent().parent();
-            //alert(lenRow + ' - ' + lenChecked);
+
             if (lenRow == 1 || lenRow <= 1 || lenChecked >= lenRow) {
                alert("Can't remove all row!");
             } else {
@@ -654,7 +653,7 @@
          });
       </script>
     <script type="text/javascript">
-        $(function () { //
+        $(function () {
             $("#chkPassport").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassport").show();
@@ -664,7 +663,7 @@
                 }
             });
         });
-           $(function () { //
+           $(function () {
             $("#chkPassporta").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassporta").show();
@@ -674,7 +673,7 @@
                 }
             });
         });
-            $(function () { //
+            $(function () {
             $("#chkPassportb").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportb").show();
@@ -684,7 +683,7 @@
                 }
             });
         });
-             $(function () {
+         $(function () {
             $("#chkPassportc").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportc").show();
@@ -693,7 +692,7 @@
                 }
             });
         });
-              $(function () {
+         $(function () {
             $("#chkPassportd").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportd").show();
@@ -702,7 +701,7 @@
                 }
             });
         });
-               $(function () {
+         $(function () {
             $("#chkPassporte").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassporte").show();
@@ -711,7 +710,7 @@
                 }
             });
         });
-                $(function () {
+         $(function () {
             $("#chkPassportt").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportt").show();
@@ -720,7 +719,7 @@
                 }
             });
         });
-                 $(function () { //
+         $(function () {
             $("#chkPassportk").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportk").show();
@@ -730,7 +729,7 @@
                 }
             });
         });
-                  $(function () { //
+         $(function () {
             $("#chkPassportu").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportu").show();
@@ -740,7 +739,7 @@
                 }
             });
         });
-                     $(function () { //
+         $(function () {
             $("#chkPassportn").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportn").show();
@@ -750,7 +749,7 @@
                 }
             });
         });
-                         $(function () { //
+         $(function () {
             $("#chkPassportla").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportla").show();
@@ -760,7 +759,7 @@
                 }
             });
         });
-                            $(function () { //
+         $(function () {
             $("#chkPassportlb").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportlb").show();
@@ -770,7 +769,7 @@
                 }
             });
         });
-                              $(function () { //
+         $(function () {
             $("#chkPassportaa").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportaa").show();
@@ -780,7 +779,7 @@
                 }
             });
         });
-                                       $(function () {
+         $(function () {
             $("#chkPassportlc").click(function () {
                 if ($(this).is(":checked")) {
                     $("#dvPassportlc").show();
@@ -789,7 +788,7 @@
                 }
             });
         });
-       $(function () { //
+       $(function () {
           $("#chkPassportl").click(function () {
              if ($(this).is(":checked")) {
                 $("#dvPassportl").show();
@@ -802,7 +801,6 @@
        function getAndSetLabReport(e,id) {
            var getRowName = e.target.name;
            var lookup = parseInt(getRowName.replace ( /[^\d.]/g, '' ));
-           console.log(lookup)
            if(id >=1 && 6 >= id) {
                $('.result_'+lookup).html('<option>Positive</option><option>Negative</option>');
            } else if(id >= 7 && 11 >= id) {

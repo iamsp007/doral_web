@@ -245,7 +245,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Referral Request</h5>
+                    <h5 class="modal-title">RoadL Request</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReferralPopup()">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -255,8 +255,8 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-12">
-                                    <input type="hidden" id="patient_id" name="patient_id" class="input-skin" >
-                                    <select name="type_id" id="type_id">
+                                    <input type="hidden" id="patient_id" name="patient_id" class="input-skin">
+                                    <select name="type_id" id="type_id" class="input-skin">
                                         <option value="5">LAB</option>
                                         <option value="6">Radiology</option>
                                         <option value="7">CHHA</option>

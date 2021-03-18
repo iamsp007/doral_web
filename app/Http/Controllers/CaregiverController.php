@@ -324,7 +324,7 @@ class CaregiverController extends Controller
             if (! $userCaregiver) {
                 $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
                 $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                dump($cargiver_id);
+
                 self::saveUser($demographicDetails);
             }
 

@@ -371,8 +371,7 @@
                <div class="modal-body">
                    <div class="pb-5">
                        <div class="d-flex justify-content-end mb-4">
-                           <button type="submit" class="btn btn-outline-green d-flex align-items-center"
-                                   name="Download">Download All Reports</button>
+                           <a class="btn btn-outline-green d-flex align-items-center download_all_lab_report" data-id="" href="javascript:void(0)">Download All Reports</a>
                        </div>
                        <div class="scrollbar scrollbar9" id="view-lab-report-file">
                            <div class="row">
@@ -750,12 +749,7 @@
                         var explodercounter = 'physical' + Number($(document).find(".physical-main-tr").length + 1);
                      }
 
-                     var html = '<tr class="';
-                     if (data.resultdata.result === 'Positive') {
-                        html += 'bg-positive text-white';
-                     }
-
-                     html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.resultdata.lab_report_type.name +'</td><td>' + data.resultdata.due_date + '</td>';
+                     var html = '<tr><th scope="row">' + data.count + '</th><td scope="row">' + data.resultdata.lab_report_type.name +'</td><td>' + data.resultdata.due_date + '</td>';
                      if (data.type == 'emmune' || data.type == 'drug' || data.type == 'physical') {
                         html += '<td>' + data.resultdata.perform_date + '</td>';
                      }

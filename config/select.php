@@ -11,4 +11,9 @@ return [
         'immune' => 'Immune',
         'non_immune' => 'Non Immune'
     ],
+
+    'employeePhysicalResult' => [
+        'completed' => 'Completed',
+        'overdue' => 'Overdue'
+    ],
 ];

@@ -58,6 +58,12 @@ $(document).ready(function() {
     reportable.on( 'draw', function () {
         $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
     });
+
+    $(document).on('change', '.uploadLabResult', function(e) {
+        var id= $(this).attr('id');
+        
+        singleLabReportUpload($(this), id)
+    });
 });
 Dropzone.autoDiscover = false;
 
@@ -262,12 +268,11 @@ function singleLabReportUpload(e,id) {
         },
         method:'POST',
         data:formData,
-        processData: false,  // tell jQuery not to process the data
-        contentType: false,  // tell jQuery not to set contentType
+        processData: false,
+        contentType: false,
         success : function(response) {
-            alert(response.message);
-            window.location.reload();
+            alertText(response.message,'success');
+            $(".uploadLabResult").val('');
         }
     });
-
 }

@@ -43,7 +43,7 @@
                                             class="las la-plus la-2x"></i></span>
                                     <a href="javascript:void(0)" class="deleteLabResult" id="{{ $drugLabReport->id }}"><i
                                             class="las la-trash la-2x pl-4"></i></a>-->
-                                    <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,'{{ $drugLabReport->labReportType->id }}')" id="{{ $drugLabReport->labReportType->id }}" data-id="{{ $drugLabReport->labReportType->id }}" >
+                                    <input type="file" class="uploadLabResult" id="{{ $drugLabReport->labReportType->id }}" data-id="{{ $drugLabReport->labReportType->id }}" >
                                     <!--<i class="las la-upload la-2x pl-4" ></i>-->
                                     </input>
                                 </td>

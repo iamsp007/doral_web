@@ -463,27 +463,13 @@
                 <tr style="background: #f8f8f8;">
                     <td style="width: 2%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">{{ $number }}</td>
                     <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">{{ $reports['test_name'] }}</td>
-                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
-                    {{ $reports['date_performed'] }}</td>
-                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
-                    </td>
-                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">{{ $reports['result'] }}
-                    </td>
-                    <td style="width: 18%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">
-                    {{ $reports['lab_value'] }}</td>
+                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">{{ $reports['date_performed'] }}</td>
+                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center"></td>
+                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">{{ isset($reports['result']) ? $reports['result'] : '-' }}</td>
+                    <td style="width: 18%;text-align: left;border-bottom: 1px solid #a5a5a5;text-align:center">{{ $reports['lab_value'] }}</td>
                 </tr>
                 @php $number++; @endphp
             @endforeach
-            
-            <!-- <tr style="background: #fff;">
-                <td style="width: 2%;text-align: left;text-align:center">2</td>
-                <td style="width: 20%;text-align: left;text-align:center">#</td>
-                <td style="width: 20%;text-align: left;text-align:center">03/04/2014</td>
-                <td style="width: 20%;text-align: left;text-align:center">
-                    03/04/2014</td>
-                <td style="width: 20%;text-align: left;text-align:center">Immune</td>
-                <td style="width: 18%;text-align: left;text-align:center">Positive</td>
-            </tr> -->
         </tbody>
     </table>
 </div>

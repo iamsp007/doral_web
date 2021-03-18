@@ -10,10 +10,10 @@ class PatientReport extends Model
 {
     use HasFactory;
 
-    public function getFileNameAttribute($fileName)
-    {
-        return env('APP_URL').'patient_report/'.$fileName;
-    }
+    // public function getFileNameAttribute($fileName)
+    // {
+    //     return env('APP_URL').'storage/patient_report/'.$fileName;
+    // }
 
     public function labReports(){
         return $this->hasOne(LabReportType::class,'id','lab_report_type_id');

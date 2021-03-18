@@ -13,7 +13,7 @@
 				margin: 15px;
 				margin-footer: 18pt;
             marks: crop cross;
-            size: A4 landscape;
+            /* size: A4 landscape; */
       }
       @font-face {
             font-family: 'robotoblack';
@@ -73,25 +73,21 @@
     <tr>
         <td style="width: 40%;vertical-align: text-top;">
             <input type="radio" style="vertical-align: middle;" id="customRadio4" name="example1" {{ ($report['physical_assessment'] == 'Pre-Employment Physical Assessment') ? 'checked' : '' }}>
-            <label for="customRadio4" style="vertical-align: middle;">Pre-Employment Physical
-                Assessment</label>
+            <label for="customRadio4" style="vertical-align: middle;">Pre-Employment Physical Assessment</label>
         </td>
         <td style="width: 25%;vertical-align: top;">
-            <input type="radio" style="vertical-align: middle;" id="customRadio3" name="example1" {{
-                ($report['physical_assessment'] == 'Annual Assessment') ? 'checked' : '' }}>
-            <label for="customRadio3" style="vertical-align: middle;">Annual Assessment
-            </label>
+            <input type="radio" style="vertical-align: middle;" id="customRadio3" name="example1" {{ ($report['physical_assessment'] == 'Annual Assessment') ? 'checked' : '' }}>
+            <label for="customRadio3" style="vertical-align: middle;">Annual Assessment</label>
         </td>
+    </tr>
+    <tr>
         <td style="width: 25%;vertical-align: top;">
-            <input type="radio" style="vertical-align: middle;" id="customRadio2" name="example1" {{
-                ($report['physical_assessment'] == 'Return to Work / LOA') ? 'checked' : '' }}>
+            <input type="radio" style="vertical-align: middle;" id="customRadio2" name="example1" {{ ($report['physical_assessment'] == 'Return to Work / LOA') ? 'checked' : '' }}>
             <label for="customRadio2" style="vertical-align: middle;">Return to Work / LOA</label>
         </td>
         <td style="width: 10%;vertical-align:top;">
-            <input type="radio" style="vertical-align: middle;" id="customRadio1" name="example1" {{
-                ($report['physical_assessment'] == 'Other') ? 'checked' : '' }}>
-            <label for="customRadio1" style="vertical-align: middle;">Other
-            </label>
+            <input type="radio" style="vertical-align: middle;" id="customRadio1" name="example1" {{ ($report['physical_assessment'] == 'Other') ? 'checked' : '' }}>
+            <label for="customRadio1" style="vertical-align: middle;">Other</label>
         </td>
     </tr>
 </table>
@@ -197,6 +193,7 @@
         </tr>
     </table>
 </div>
+<div class="page-break"></div>
 <div style="width: 100%;margin-top:15px">
     <div
         style="padding: 0;font-size: 24px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600; text-align:center">

@@ -1,8 +1,10 @@
 <div class="tab-pane fade" id="insurance" role="tabpanel" aria-labelledby="insurance-tab">
    <div class="app-card app-card-custom" data-name="insurance">
       <div class="app-card-header"> <h1 class="title">Insurance</h1>
-         <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('insurance')">
-         <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('insurance')">
+         @role('clinician')
+            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('insurance')">
+            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('insurance')">
+         @endrole
       </div>
       <div class="head scrollbar scrollbar12">
          <div class="p-3">
@@ -11,7 +13,9 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3" data-name="medicaid">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Medicaid</h1>
-                     <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
+                     @role('clinician')
+                        <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
+                     @endrole
                   </div>
                   <div class="head">
                      <div class="p-3">
@@ -20,7 +24,7 @@
                               <div class="input_box">
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                  <div class="rs">
-                                    <h3 class="_title">Madicaid No</h3>
+                                    <h3 class="_title">Medicaid No</h3>
                                     <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}">
                                  </div>
                               </div>
@@ -37,7 +41,9 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3" data-name="medicare">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Medicare</h1>
-                     <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
+                     @role('clinician')
+                        <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
+                     @endrole
                   </div>
                   <div class="head">
                      <div class="p-3">
@@ -66,7 +72,9 @@
             <div class="app-card app-card-custom no-minHeight box-shadow-none _add_new_company" data-name="croley_insurance_and_financial">
                <div class="app-card-header">
                   <h1 class="title mr-2">Insurance Details</h1>
-                  <a class="add_new_company" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Insurance Company"><i class="las la-plus-circle la-2x"></i></a>
+                  @role('clinician')
+                     <a class="add_new_company" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Insurance Company"><i class="las la-plus-circle la-2x"></i></a>
+                  @endrole
                </div>
                <div class="card-body text-info">
                   <table class="table m-0 insurance-list-order">
@@ -131,14 +139,27 @@
             <!-- Insurance Company Form Start -->
             <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 insurance_company">
                <form class="insurance_form">
-                  <div class="app-card-header">
+                  <!-- <div class="app-card-header">
                      <input type="hidden" name="user_id" value="{{ $patient->id }}">
                      <input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name">
-                  </div>
+                  </div> -->
                   <span class="name-invalid-feedback text-danger" role="alert"></span>
                   <div class="head">
                      <div class="p-3">
                         <div class="row">
+                           <div class="col-12 col-sm-4">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Name</h3>
+                                    <div class="_detail">
+                                       <input type="text" class="form-control form-control-lg" id="name" name="name" 
+                                       aria-describedby="nameHelp" placeholder="Enter Name">
+                                       <span class="payer_id-invalid-feedback text-danger" role="alert"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
                            <div class="col-12 col-sm-4">
                               <div class="input_box">
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>
@@ -164,6 +185,10 @@
                                  </div>
                               </div>
                            </div>
+                        </div>
+                     </div>
+                     <div class="p-3">
+                        <div class="row">
                            <div class="col-12 col-sm-4">
                               <div class="input_box">
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>

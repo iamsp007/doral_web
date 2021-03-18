@@ -1,16 +1,13 @@
 <div class="app-vbc ppd_block p-3">
     <div class="add-new-patient">
         <div class="icon"><img src="{{ asset('assets/img/icons/patient-img.svg') }}" class="img-fluid" /></div>
-{{--        <button type="submit"--}}
-{{--                class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" id="tbbtn"--}}
-{{--                style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"--}}
-{{--                onclick="openRoadL('tbbtn')" name="RoadL Request">RoadL Request--}}
-{{--        </button>--}}
-        <button type="button" onclick="onBroadCastOpen({{ $patient->id }})"
-                class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3"
-                style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
-        >Add New Request <span></span>
-        </button>
+        @role('clinician')
+            <button type="button" onclick="onBroadCastOpen({{ $patient->id }})"
+                    class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3"
+                    style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
+            >Add New Request <span></span>
+            </button>
+        @endrole
         <div class="row">
             <div class="col-12 col-sm-1"></div>
             <div class="col-12 col-sm-10">
@@ -22,31 +19,35 @@
                             <th scope="col">Insert/Screening Date</th>
                             <th scope="col">Expiry Date</th>
                             <th scope="col">Result</th>
+                            @role('clinician')
                             <th width="11%">Reports</th>
+                            @endrole
                         </tr>
                     </thead>
                     <tbody>
                         @php $number = 1; @endphp
 
                         @foreach($tbpatientLabReports as $tbpatientLabReport)
-                            <tr class="@if ($tbpatientLabReport->result === 'Positive') bg-positive @endif tb-main-tr">
+                            <tr class="tb-main-tr">
                                 <td scope="row">{{ $number }}</td>
                                 <td scope="row">{{ ($tbpatientLabReport->labReportType) ? $tbpatientLabReport->labReportType->name : ''}}</td>
 
                                 <td>{{ $tbpatientLabReport->due_date }}</td>
                                 <td>{{ $tbpatientLabReport->expiry_date }}</td>
                                 <td>{{ $tbpatientLabReport->result }}</td>
-                                <td class='text-center'>
-<!--                                    <span
-                                        onclick="exploder('tb{{$number}}')" id="tb{{$number}}"
-                                        class="exploder"><i
-                                            class="las la-plus la-2x"></i></span>
-                                    <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}"><i class="las la-trash la-2x pl-4" ></i></a>-->
-                                    <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,'{{ $tbpatientLabReport->labReportType->id }}')" id="{{ $tbpatientLabReport->lab_report_type_id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}" >
-                                    <!--<i class="las la-upload la-2x pl-4" ></i>-->
-                                    <!--<i class="las la-file-upload la-2x mr-2"></i>-->
-                                    </input>
-                                </td>
+                                @role('clinician')
+                                    <td class='text-center'>
+    <!--                                    <span
+                                            onclick="exploder('tb{{$number}}')" id="tb{{$number}}"
+                                            class="exploder"><i
+                                                class="las la-plus la-2x"></i></span>
+                                        <a href="javascript:void(0)" class="deleteLabResult" id="{{ $tbpatientLabReport->id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}"><i class="las la-trash la-2x pl-4" ></i></a>-->
+                                        <input type="file" class="uploadLabResult" onchange="singleLabReportUpload(this,'{{ $tbpatientLabReport->labReportType->id }}')" id="{{ $tbpatientLabReport->lab_report_type_id }}" data-id="{{ $tbpatientLabReport->patient_referral_id }}" >
+                                        <!--<i class="las la-upload la-2x pl-4" ></i>-->
+                                        <!--<i class="las la-file-upload la-2x mr-2"></i>-->
+                                        </input>
+                                    </td>
+                                @endrole
                             </tr>
                             <tr class="explode1 d-none">
                                 <td colspan="6">
@@ -56,6 +57,7 @@
                             </tr>
                             @php $number++; @endphp
                         @endforeach
+                        @role('clinician')
                         <tr>
                             <div class="alert alert-danger print-error-msg" style="display:none">
                                 <ul></ul>
@@ -96,13 +98,16 @@
                                 <td></td>
                             </form>
                         </tr>
+                        @endrole
                     </tbody>
                 </table>
             </div>
             <div class="col-12 col-sm-1"></div>
         </div>
+        @role('clinician')
         <div class="d-flex pt-4 justify-content-center">
             <button type="submit" class="btn btn-outline-green patient-detail-lab-report" name="Save">Save</button>
         </div>
+        @endrole
     </div>
 </div>

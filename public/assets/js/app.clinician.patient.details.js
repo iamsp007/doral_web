@@ -10,6 +10,8 @@ function editAllField(sectionId) {
     $('.normal_gender_div').removeClass('d-block').addClass('d-none');
     $('.editable_gender_div').removeClass('d-none').addClass('d-block');
     
+    $('.normal_service_div').removeClass('d-block').addClass('d-none');
+    $('.editable_service_div').removeClass('d-none').addClass('d-block');
 }
 function updateAllField(sectionId) {
     if (sectionId==="demographic"){

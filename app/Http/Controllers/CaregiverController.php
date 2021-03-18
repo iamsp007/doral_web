@@ -6,6 +6,7 @@ use App\Jobs\HHAApiCaregiver;
 use App\Models\CaregiverInfo;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
+use App\Models\PatientReport;
 use App\Models\User;
 use App\Services\ClinicianService;
 use Carbon\Carbon;
@@ -16,7 +17,10 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Log;
+use ZipArchive;
 
 class CaregiverController extends Controller
 {
@@ -59,10 +63,10 @@ class CaregiverController extends Controller
                     });
                 }
             })
-            ->with('demographic','patientLabReport.labReportType')->orderBy('id', 'DESC');
+            ->with('demographic','patientReport.labReports')->orderBy('id', 'DESC');
             
         $datatble = DataTables::of($patientList)
-          ->addColumn('checkbox_id', function($q) use($request) {
+            ->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
             })
             ->addIndexColumn()
@@ -165,7 +169,7 @@ class CaregiverController extends Controller
                 });
             } else {
                 $datatble->addColumn('action', function($row) use($request){
-                    
+                  
                     $btn = '';
                     if ($request['status'] == 'occupational-health' || $request['status'] == 'md-order' || $request['status'] == 'vbc' || $request['status'] == 'initial') {
 
@@ -174,16 +178,19 @@ class CaregiverController extends Controller
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
                         } else {
                             if ($row->status === '5') {
-                                // $btn .= '<select class="form-control js-example-matcher-start select" name="referralType"
-                                //     id="referralType">';
-                                //     if ($row->patientLabReport) {
-                                //         foreach ($row->patientLabReport as $value) {
-                                //            $btn .= '<option value="'.$value->labReportType->id.'">'.$value->labReportType->name.'</option>';
+                                // $btn .= '<select class="form-control download_lab_report" name="referralType" id="referralType">';
+                                //     if ($row->patientReport) {
+                                //         foreach ($row->patientReport as $value) {
+                                //             if ($value->labReports) {
+                                //                 $btn .= '<option value="'.$value->labReports->id.'" data-value="single">'.$value->labReports->name.'</option>';
+                                //             }
                                 //         }
                                 //     }
                                     
-                                // $btn .='</select>';
-                                $btn .= '<a target="_blank" href="https://doralhealthconnect.com/HTML%20FOR%20PDF/PDF.html"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
+                                // $btn .='<option value="" data-value="multiple" data-id="'.$row->id.'">Download All</option>';
+                                // $btn .= '</select>';
+                                
+                                $btn .= '<a class="download_all_lab_report" data-id="'.$row->id.'" href="javascript:void(0)"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
                             } else {
                                 $btn .= $row->status_data;
                             }
@@ -264,6 +271,32 @@ class CaregiverController extends Controller
             return response()->json($response,200);
         }
         return response()->json($response,422);
+    }
+
+    public function downloadLabReport(Request $request)
+    {
+        $input = $request->all();
+        $patientReports = PatientReport::where('user_id', $request['user_id'])->get();
+
+        if (! $patientReports) {
+            $response["status"] = false;
+            $response["code"] = 400;
+            $response["message"] = 'Lab Report Not Found';
+
+            return response()->json($response, 400);
+        }
+        $zip = new ZipArchive;
+        $fileName = 'patient_lab_report.zip';
+
+        if ($zip->open(public_path('patient_report/zip/'.$fileName), ZipArchive::CREATE) === TRUE)
+        {
+            foreach ($patientReports as $key => $patientReport) {
+                $relativeNameInZipFile = basename($patientReport->file_name);
+                $pdf = public_path('patient_report/'.$patientReport->file_name);
+                $zip->addFile($pdf, $relativeNameInZipFile); 
+            }
+        }
+        return response()->download(public_path('patient_report/zip/'.$fileName));
     }
 
     /**

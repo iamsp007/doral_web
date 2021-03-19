@@ -321,7 +321,6 @@ class CaregiverController extends Controller
             $relation = $value->relation;
             $relation_decode = json_decode($value->relation, true);
             if (isset($relation_decode[0])) {
-                dump($relation_decode[0]['Name']);
                 PatientEmergencyContact::find($value->id)->update([
                     'relation' => $relation_decode[0]['Name']
                 ]);

@@ -151,8 +151,8 @@
                     <div class="user-photo">
                         <div class="userContent">
                             <div>
-                                <img src="{{asset('assets/img/user/01.png') }}" class="user_photo" alt=""
-                                    srcset="{{asset('assets/img/user/01.png') }}">
+                                <img src="{{asset('assets/img/user/avatar.jpg') }}" class="user_photo" alt=""
+                                    srcset="{{asset('assets/img/user/avatar.jpg') }}">
                             </div>
                             <div class="user-info">
                                 <h1 class="title">{{ $record[0]['first_name']}} {{ $record[0]['last_name'] }}</h1>

@@ -63,7 +63,7 @@ class CaregiverController extends Controller
                     });
                 }
             })
-            ->with('demographic','patientReport.labReports')->orderBy('id', 'DESC');
+            ->with('demographic', 'patientReport', 'patientReport.labReports')->orderBy('id', 'DESC');
             
         $datatble = DataTables::of($patientList)
             ->addColumn('checkbox_id', function($q) use($request) {
@@ -177,7 +177,9 @@ class CaregiverController extends Controller
                             $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
                         } else {
+                         
                             if ($row->status === '5') {
+                              
                                 // $btn .= '<select class="form-control download_lab_report" name="referralType" id="referralType">';
                                 //     if ($row->patientReport) {
                                 //         foreach ($row->patientReport as $value) {
@@ -189,8 +191,7 @@ class CaregiverController extends Controller
                                     
                                 // $btn .='<option value="" data-value="multiple" data-id="'.$row->id.'">Download All</option>';
                                 // $btn .= '</select>';
-                              
-                                $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
+                                    $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
                             } else {
                                 $btn .= $row->status_data;
                             }

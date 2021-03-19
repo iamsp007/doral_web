@@ -288,10 +288,6 @@
     </div>
     <!-- Add Permission Start Here -->
     <div class="permissonControl">
-        <a href="javascript:void(0)" class="permission_icon _addpermission" id="addPatientToggle">
-            <img src="{{ asset('new/assets/img/icons/permission_icon.svg') }}" class="active" alt="">
-            <img src="{{ asset('new/assets/img/icons/permission_icon_hover.svg') }}" class="hover" alt="">
-        </a>
         <a href="javascript:void(0)" class="permission_icon mt-2" id="doralPatientToggle">
             <img src="{{ asset('new/assets/img/icons/search_patients.svg') }}" class="active" alt="">
             <img src="{{ asset('new/assets/img/icons/search_patients_hover.svg') }}" class="hover" alt="">
@@ -432,139 +428,139 @@
                 </a>
             </div>
         </section>
-        <section class="p-4 custom-shadow custom-border bg-white">
-            <div>
-                <div class="_title4 mb-3 color-green">Doral Patient</div>
-                <div class="bg-gray">
-                    <div class="p-4">
-                        <h1 class="_title4">Filter List</h1>
-                        <form action="#" class="formCSS mt-4" id="doralPatientSearchForm" novalidate>
-                            <div class="f-group">
-                                <div class="f-column">
-                                    <input type="text" class="input-skin" placeholder="Patient Name" name="patientName"
-                                           id="patientName" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a patient name.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="f-column">
-                                    <input type="text" class="input-skin" placeholder="123-45-6789" name="ssn" id="ssn"
-                                           onkeypress="return isNumber(event)" onBlur="SSNumber('ssn')" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a SSN No.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="f-column">
-                                    <input type="text" class="input-skin dob" name="dob" placeholder="DOB" value=""
-                                           id="dob" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a DOB.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="f-column">
-                                    <select class="input-skin" name="city" id="city" required>
-                                        <option value="">Select City</option>
-                                        <option value="City 1">City 1</option>
-                                        <option value="City 2">City 2</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please select city.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="f-column">
-                                    <select class="input-skin" name="state" id="state" required>
-                                        <option value="">Select State</option>
-                                        <option value="State 1">State 1</option>
-                                        <option value="State 2">State 2</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please select state.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="f-column d-flex align-items-center">
-                                    <label>
-                                        <input class="with-gap" name="group3" type="radio" checked />
-                                        <span>Male</span>
-                                    </label>
-                                    <label>
-                                        <input class="with-gap" name="group3" type="radio" checked />
-                                        <span>Female</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="f-group mt-3">
-                                <div class="f-column">
-                                    <select class="input-skin" name="statuss" id="statuss" required>
-                                        <option value="">Select Status</option>
-                                        <option value="Status 1">Status 1</option>
-                                        <option value="Status 2">Status 2</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please select status.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="f-column">
-                                    <select class="input-skin" name="servicess" id="servicess" required>
-                                        <option value="">Select Services</option>
-                                        <option value="Services 1">Services 1</option>
-                                        <option value="Services 2">Services 2</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Please select service.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="f-column">
-                                    <input type="text" class="input-skin" placeholder="Zip Code"
-                                           onkeypress="return isNumber(event)" value="" name="zipp" id="zipp" required>
-                                    <div class="invalid-feedback">
-                                        Please provide a zip code.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="f-column">
-                                    <input type="text" class="input-skin" placeholder="Other" name="others" id="others"
-                                           required>
-                                    <div class="invalid-feedback">
-                                        Please enter others.
-                                    </div>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                                <div class="f-column">
-                                    <input type="submit" value="Submit" class="btn btn--submit-dark btn-lg">
-                                </div>
-                                <div class="f-column">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+{{--        <section class="p-4 custom-shadow custom-border bg-white">--}}
+{{--            <div>--}}
+{{--                <div class="_title4 mb-3 color-green">Doral Patient</div>--}}
+{{--                <div class="bg-gray">--}}
+{{--                    <div class="p-4">--}}
+{{--                        <h1 class="_title4">Filter List</h1>--}}
+{{--                        <form action="#" class="formCSS mt-4" id="doralPatientSearchForm" novalidate>--}}
+{{--                            <div class="f-group">--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <input type="text" class="input-skin" placeholder="Patient Name" name="patientName"--}}
+{{--                                           id="patientName" required>--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Please provide a patient name.--}}
+{{--                                    </div>--}}
+{{--                                    <div class="valid-feedback">--}}
+{{--                                        Looks good!--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <input type="text" class="input-skin" placeholder="123-45-6789" name="ssn" id="ssn"--}}
+{{--                                           onkeypress="return isNumber(event)" onBlur="SSNumber('ssn')" required>--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Please provide a SSN No.--}}
+{{--                                    </div>--}}
+{{--                                    <div class="valid-feedback">--}}
+{{--                                        Looks good!--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <input type="text" class="input-skin dob" name="dob" placeholder="DOB" value=""--}}
+{{--                                           id="dob" required>--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Please provide a DOB.--}}
+{{--                                    </div>--}}
+{{--                                    <div class="valid-feedback">--}}
+{{--                                        Looks good!--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <select class="input-skin" name="city" id="city" required>--}}
+{{--                                        <option value="">Select City</option>--}}
+{{--                                        <option value="City 1">City 1</option>--}}
+{{--                                        <option value="City 2">City 2</option>--}}
+{{--                                    </select>--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Please select city.--}}
+{{--                                    </div>--}}
+{{--                                    <div class="valid-feedback">--}}
+{{--                                        Looks good!--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <select class="input-skin" name="state" id="state" required>--}}
+{{--                                        <option value="">Select State</option>--}}
+{{--                                        <option value="State 1">State 1</option>--}}
+{{--                                        <option value="State 2">State 2</option>--}}
+{{--                                    </select>--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Please select state.--}}
+{{--                                    </div>--}}
+{{--                                    <div class="valid-feedback">--}}
+{{--                                        Looks good!--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column d-flex align-items-center">--}}
+{{--                                    <label>--}}
+{{--                                        <input class="with-gap" name="group3" type="radio" checked />--}}
+{{--                                        <span>Male</span>--}}
+{{--                                    </label>--}}
+{{--                                    <label>--}}
+{{--                                        <input class="with-gap" name="group3" type="radio" checked />--}}
+{{--                                        <span>Female</span>--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="f-group mt-3">--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <select class="input-skin" name="statuss" id="statuss" required>--}}
+{{--                                        <option value="">Select Status</option>--}}
+{{--                                        <option value="Status 1">Status 1</option>--}}
+{{--                                        <option value="Status 2">Status 2</option>--}}
+{{--                                    </select>--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Please select status.--}}
+{{--                                    </div>--}}
+{{--                                    <div class="valid-feedback">--}}
+{{--                                        Looks good!--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <select class="input-skin" name="servicess" id="servicess" required>--}}
+{{--                                        <option value="">Select Services</option>--}}
+{{--                                        <option value="Services 1">Services 1</option>--}}
+{{--                                        <option value="Services 2">Services 2</option>--}}
+{{--                                    </select>--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Please select service.--}}
+{{--                                    </div>--}}
+{{--                                    <div class="valid-feedback">--}}
+{{--                                        Looks good!--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <input type="text" class="input-skin" placeholder="Zip Code"--}}
+{{--                                           onkeypress="return isNumber(event)" value="" name="zipp" id="zipp" required>--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Please provide a zip code.--}}
+{{--                                    </div>--}}
+{{--                                    <div class="valid-feedback">--}}
+{{--                                        Looks good!--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <input type="text" class="input-skin" placeholder="Other" name="others" id="others"--}}
+{{--                                           required>--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Please enter others.--}}
+{{--                                    </div>--}}
+{{--                                    <div class="valid-feedback">--}}
+{{--                                        Looks good!--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column">--}}
+{{--                                    <input type="submit" value="Submit" class="btn btn--submit-dark btn-lg">--}}
+{{--                                </div>--}}
+{{--                                <div class="f-column">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </section>--}}
         <section class="mt-3 custom-shadow custom-border bg-white">
             <div class="p-4">
                 <div class="scrollbar scrollbar8">

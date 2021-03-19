@@ -190,7 +190,7 @@ console.log(123)
             },
         ],
         "order": [[ 1, "desc" ]],
-        "pageLength": 3,
+        "pageLength": 5,
         "lengthMenu": [ [5, 10,20, 25,100, -1], [5, 10,20, 25,100, "All"] ],
         'columnDefs': [
             {

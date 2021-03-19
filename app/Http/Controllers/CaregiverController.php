@@ -277,10 +277,15 @@ class CaregiverController extends Controller
     {
         $patientReports = PatientReport::where('user_id', $id)->get();
 
+     
         $public_dir=public_path();
         $zipFileName = 'invoicezipfile-'.$id.'.zip';
        
         $zip = new ZipArchive;
+
+        if (!file_exists($public_dir.'/zip')) {
+            mkdir($public_dir.'/zip', 0777, true);
+        }
         
         if ($zip->open($public_dir . '/zip' . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
             foreach ($patientReports as $key => $patientReport) {

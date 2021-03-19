@@ -276,25 +276,25 @@ class CaregiverController extends Controller
     public function downloadLabReport($id)
     {
         $patientReports = PatientReport::where('user_id', $id)->get();
-        
+
         $public_dir=public_path();
-        $zipFileName = 'reportzipfile'.$id.time().'.zip';
+        $zipFileName = 'invoicezipfile-'.$id.'.zip';
+       
         $zip = new ZipArchive;
         
-        if ($zip->open($public_dir . '/patient_report_zip/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
-            // Add File in ZipArchive
+        if ($zip->open($public_dir . '/zip' . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
             foreach ($patientReports as $key => $patientReport) {
                 $invoice_file = $patientReport->file_name;
                 $zip->addFile($public_dir . '/patient_report/'.$invoice_file,$invoice_file);
-               
             }
+            // $zip->close();
         }
-        $zip->close();
+        // dd($zip);
         // Set Header
         $headers = array(
             'Content-Type' => 'application/octet-stream',
         );
-        $filetopath=$public_dir.'/patient_report_zip/'.$zipFileName;
+        $filetopath=$public_dir. '/zip' . '/'.$zipFileName;
        
         // Create Download Response
         if(file_exists($filetopath)){

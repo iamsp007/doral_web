@@ -11,7 +11,7 @@
          <div class="leftItem">
             <div class="userIcon">
                <div class="icon">
-                  <img src="{{ asset('assets/img/user/01.png') }}" alt="" srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                  <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="" srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                </div>
                <div class="name">
                   {{ $patient->first_name }}  {{ $patient->last_name }}
@@ -371,7 +371,7 @@
                <div class="modal-body">
                    <div class="pb-5">
                        <div class="d-flex justify-content-end mb-4">
-                           <a class="btn btn-outline-green d-flex align-items-center download_all_lab_report" data-id="" href="javascript:void(0)">Download All Reports</a>
+                           <a href="{{ route('caregiver.downloadLabReport',['user_id'=>$patient->id]) }}" class="btn btn-outline-green d-flex align-items-center download_all_lab_report">Download All Reports</a>
                        </div>
                        <div class="scrollbar scrollbar9" id="view-lab-report-file">
                            <div class="row">
@@ -664,6 +664,7 @@
       var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
       var lab_report_data_url="{{ route('patient.lab.report.data') }}";
       var patient_id='{{ $patient->id }}';
+    
       var map;
       function initMap() {
          var lat = $('#address').attr('data-lat');

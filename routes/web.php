@@ -97,3 +97,6 @@ Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|
     Route::get('/get-caregiver/{status}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
     Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
     Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');
+    // Route::post('/download-lab-report','App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');   
+    Route::get('download-lab-report/{user_id}', 'App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
+    

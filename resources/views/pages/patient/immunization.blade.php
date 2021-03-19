@@ -49,7 +49,7 @@
                         <tbody>
                             @php $number = 1; @endphp
                             @foreach($immunizationLabReports  as $immunizationLabReportType)
-                                <tr class="@if ($immunizationLabReportType->result === '1') bg-positive text-white @endif">
+                                <tr>
                                     <th scope="row">{{ $number }}</th>
                                     <td scope="row">{{ ($immunizationLabReportType->labReportType) ? $immunizationLabReportType->labReportType->name : ''}}</th>
                                     <td>{{ $immunizationLabReportType->due_date }}</td>

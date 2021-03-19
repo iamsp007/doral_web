@@ -354,60 +354,30 @@
                      @endforeach
                   </ul>
                   <div class="tab-content" id="pills-tabContent">
-                    @foreach($labReportTypes as $key => $labReportType)
-
+                     @foreach($labReportTypes as $key => $labReportType)
                         @php
-                            $type=1;
-
+                           $type=1;
                         @endphp
-                          @if($labReportType->id===1)
+                        @if($labReportType->id===1)
                               @php $type=1; @endphp
-                          @elseif($labReportType->id===7)
+                        @elseif($labReportType->id===7)
                               @php $type=2; @endphp
-                          @elseif($labReportType->id===12)
+                        @elseif($labReportType->id===12)
                               @php $type=3; @endphp
-                          @endif
+                        @endif
 
-                          <div class="{{ $key===0?'tab-pane fade active show':'tab-pane fade show' }}"
-                               id="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}"
-                               role="tabpanel"
-                               aria-labelledby="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab"
-                          >
-                              <div class="d-flex justify-content-end mb-3">
-                                <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center">
-                                    <i class="las la-file-upload la-2x mr-2"></i>
-                                    <a target="_blank" href="{{route('get-employee-physical-examination-report', ['id' => $patient->id])}}">Employee Physical Form</a>
-                                </button>
-                                  
-                                  <button type="button"
-                                          class="btn btn-outline-green mr-3 d-flex align-items-center" onclick="openLabReports({{ $type }})"
-                                          data-toggle="modal" data-target="#uploadLabReportModal"><i
-                                          class="las la-file-upload la-2x mr-2"></i>Upload Lab
-                                      Reports</button>
-                                  <button type="button"
-                                          class="btn btn-outline-green d-flex align-items-center" onclick="viewLabReports({{ $type }})"
-                                          data-toggle="modal" data-target="#labreportModal" name=""><i
-                                          class="las la-binoculars la-2x mr-2"></i> View Lab
-                                      Reports</button>
-                              </div>
-                              @include('pages.patient_detail.lab.'.(new \App\Helpers\Helper)->clean($labReportType->name))
-                          </div>
-                    @endforeach
-{{--                     <!-- TB Screen Start -->--}}
-{{--                        @include('pages.patient_detail.lab.tb-screen')--}}
-{{--                     <!-- TB Screen End -->--}}
-
-{{--                     <!-- Immunization Start -->--}}
-{{--                        @include('pages.patient_detail.lab.immunization')--}}
-{{--                     <!-- Immunization End -->--}}
-
-{{--                     <!-- Drug Screen Start -->--}}
-{{--                        @include('pages.patient_detail.lab.drug-screen')--}}
-{{--                     <!-- Drug Screen End -->--}}
-
-{{--                     <!-- Lab Report Screen Start -->--}}
-{{--                        @include('pages.patient_detail.lab.lab-reports')--}}
-                     <!-- Lab Report Screen End -->
+                        <div class="{{ $key===0?'tab-pane fade active show':'tab-pane fade show' }}" id="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}" role="tabpanel" aria-labelledby="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab">
+                           <div class="d-flex justify-content-end mb-3">
+                              @role('clinician')
+                                 <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center"><i class="las la-file-upload la-2x mr-2"></i><a target="_blank" href="{{route('get-employee-physical-examination-report', ['id' => $patient->id])}}">Employee Physical Form</a>
+                                 </button>
+                                 <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center" onclick="openLabReports({{ $type }})" data-toggle="modal" data-target="#uploadLabReportModal"><i class="las la-file-upload la-2x mr-2"></i>Upload Lab Reports</button>
+                              @endrole
+                              <button type="button" class="btn btn-outline-green d-flex align-items-center" onclick="viewLabReports({{ $type }})" data-toggle="modal" data-target="#labreportModal" name=""><i class="las la-binoculars la-2x mr-2"></i> View Lab Reports</button>
+                           </div>
+                           @include('pages.patient_detail.lab.'.(new \App\Helpers\Helper)->clean($labReportType->name))
+                        </div>
+                     @endforeach
                   </div>
                </div>
                <!-- Lab End-->

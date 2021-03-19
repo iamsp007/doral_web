@@ -7,9 +7,11 @@ use App\Models\PatientReport;
 use App\Services\AdminService;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
-use Exception, PDF, Storage;
+use Exception, PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+
 class EmployeePhysicalExaminationReportController extends Controller
 {
     protected $adminServices;
@@ -69,7 +71,6 @@ class EmployeePhysicalExaminationReportController extends Controller
      */
     public function postEmployeePhysicalExaminationReport(Request $request, $id)
     {
-        User::where('id', $id)->update(['status' => 6]);
         $status = 0;
         $message = "Something went wrong";
         $record = [];
@@ -85,6 +86,7 @@ class EmployeePhysicalExaminationReportController extends Controller
             $report->report_details = $lookup;
             if ($report->save()) {
                 // $this->createMedical($id);
+                $report['patient_id'] = $id;
                 return $this->pdfEmployeePhysicalExaminationReport($report);
                 // return redirect()->route('patient.details', $id);
             }
@@ -180,23 +182,32 @@ class EmployeePhysicalExaminationReportController extends Controller
     public function pdfEmployeePhysicalExaminationReport($report)
     {
         try {
-        // $report = EmployeePhysicalExaminationReport::find($report);
-        // $data = $report['report_details'];
-        // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', ['report' => $data]);
-        // return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
-        /* start enable code block and remove above 3 line of code*/
-        // dd($report->report_details);
-        $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
+            // $report = EmployeePhysicalExaminationReport::find($report);
+            // $data = $report['report_details'];
+            // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', ['report' => $data]);
+            // return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
+            /* start enable code block and remove above 3 line of code*/
+            $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
                 'report' => $report->report_details,
-        ]);
+            ]);
+            $pdf->setPaper('a4', 'portrait');
+            $path = public_path('patient_report/');
+            $fileName =  'employee-physical-examination-report-'.$report->id.'.pdf';
+            $pdf->save($path . '/' . $fileName);
+        
+            $patientReport = new PatientReport();
+            $patientReport->file_name = 'employee-physical-examination-report-'.$report->id.'.pdf';
+            $patientReport->original_file_name = 'employee-physical-examination-report-'.$report->id.'.pdf';
+            $patientReport->user_id = $report->patient_id;
+            $patientReport->lab_report_type_id = '15';
+            $patientReport->save();
 
+            User::where('id', $report->patient_id)->update(['status' => 5]);
 
-        // Storage::put('public/pdf/employee-physical-examination-report-'.$report->id.'.pdf', $pdf->output());
-        return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf')->header('Content-Type','application/pdf');
-        /* end enable code block*/
+            return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf')->header('Content-Type','application/pdf');
+            /* end enable code block*/
         } catch(Exception $e) {
             Log::error($e->getMessage());
-            dd($e->getMessage());
         }
     }
 

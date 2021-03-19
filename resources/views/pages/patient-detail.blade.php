@@ -130,12 +130,14 @@
                                         <!-- <a href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add More">
                                            <img src="../assets/img/icons/add_more_item.svg" alt="">
                                         </a> -->
-                                        <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip"
-                                             data-placement="bottom" title="Edit" class="cursor-pointer d-block edit-icon" alt=""
-                                             onclick="editAllField('demographic')">
-                                        <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
-                                             data-placement="bottom" title="Update ADSD" class="cursor-pointer d-none update-icon" alt=""
-                                             onclick="updateAllField('demographic')">
+                                        @role('clinician')
+                                            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip"
+                                                data-placement="bottom" title="Edit" class="cursor-pointer d-block edit-icon" alt=""
+                                                onclick="editAllField('demographic')">
+                                            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
+                                                data-placement="bottom" title="Update ADSD" class="cursor-pointer d-none update-icon" alt=""
+                                                onclick="updateAllField('demographic')">
+                                        @endrole
                                     </div>
                                     <div class="head scrollbar scrollbar4">
                                         <form id="demographic_form">
@@ -538,12 +540,14 @@
                                     <div class="app-card app-card-custom" data-name="demographics">
                                         <div class="app-card-header">
                                             <h1 class="title">Insurance</h1>
-                                            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip"
-                                                 data-placement="bottom" title="Edit" class="cursor-pointer d-block edit-icon" alt=""
-                                                 onclick="editAllField('insurance')">
-                                            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
-                                                 data-placement="bottom" title="Update" class="cursor-pointer d-none update-icon" alt=""
-                                                 onclick="updateAllField('insurance')">
+                                            @role('clinician')
+                                                <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip"
+                                                    data-placement="bottom" title="Edit" class="cursor-pointer d-block edit-icon" alt=""
+                                                    onclick="editAllField('insurance')">
+                                                <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
+                                                    data-placement="bottom" title="Update" class="cursor-pointer d-none update-icon" alt=""
+                                                    onclick="updateAllField('insurance')">
+                                            @endrole
                                             <!-- <a href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add More">
                                                <img src="../assets/img/icons/add_more_item.svg" alt="">
                                             </a> -->
@@ -996,12 +1000,15 @@
                                     <div class="app-card app-card-custom" data-name="home_care">
                                     <div class="app-card-header">
                                         <h1 class="title mr-2">{{ isset($details->detail->referral->referral->name) && $details->detail->referral->referral->name==='Home Care'?$details->detail->referral->referral->name:'ADD Home Care' }}</h1>
-                                        <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip"
-                                             data-placement="bottom" title="Edit" class="cursor-pointer d-block edit-icon" alt=""
-                                             onclick="editAllField('homecare')">
-                                        <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
-                                             data-placement="bottom" title="Update" class="cursor-pointer d-none update-icon" alt=""
-                                             onclick="updateAllField('homecare')">
+                                        
+                                        @role('clinician')
+                                            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip"
+                                                data-placement="bottom" title="Edit" class="cursor-pointer d-block edit-icon" alt=""
+                                                onclick="editAllField('homecare')">
+                                            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
+                                                data-placement="bottom" title="Update" class="cursor-pointer d-none update-icon" alt=""
+                                                onclick="updateAllField('homecare')">
+                                        @endrole 
                                     </div>
                                     <div class="head scrollbar scrollbar4">
                                         <input type="hidden" name="patient_id" value="{{ $details->id }}">
@@ -2449,13 +2456,7 @@
                             } else {
                                 $(".print-error-msg").hide();
                                 
-                                var html = '<tr class="';
-                                if (data.result.result === '1') {
-                                
-                                    html += 'bg-positive text-white';
-                                }
-                            
-                                html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td>';
+                                var html = '<tr><th scope="row">' + data.count + '</th><td scope="row">' + data.result.lab_report_type.name +'</td><td>' + data.result.due_date + '</td>';
                                 if (data.type == 'emmune' || data.type == 'drug') {
                                     html += '<td>' + data.result.perform_date + '</td>';
                                 }

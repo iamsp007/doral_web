@@ -2,8 +2,10 @@
     <div class="app-card app-card-custom" data-name="demographics">
         <div class="app-card-header">
             <h1 class="title">Demographics</h1>
-            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
-            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
+            @role('clinician')
+                <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
+                <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
+            @endrole
         </div>
         <div class="head scrollbar scrollbar12">
             <form id="demographic_form">
@@ -111,50 +113,6 @@
                         <div class="row">
                             <div class="col-12 col-sm-3 col-md-3">
                                 <div class="input_box">
-                                    <div class="ls">
-                                        <i class="las la-sort-numeric-down circle"></i>
-                                    </div>
-                                    <div class="rs">
-                                        <h3 class="_title">Professional License Number</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="professional_licensenumber" data-id="professional_licensenumber" id="professional_licensenumber" placeholder="Professional License Number" value="{{ isset($patient->caregiverInfo) && isset($patient->caregiverInfo->professional_licensenumber) ? $patient->caregiverInfo->professional_licensenumber : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-3 col-md-3">
-                                <div class="input_box">
-                                    <div class="ls">
-                                        <i class="las la-sort-numeric-down circle"></i>
-                                    </div>
-                                    <div class="rs">
-                                        <h3 class="_title">Npi Number</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="npi_number" data-id="npi_number" id="npi_number" placeholder="Npi Number" value="{{ isset($patient->caregiverInfo) && isset($patient->caregiverInfo->npi_number) ? $patient->caregiverInfo->npi_number : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-3 col-md-3">
-                                <div class="input_box">
-                                    <div class="ls"><i class="las la-phone circle"></i></i></div>
-                                    <div class="rs">
-                                        <h3 class="_title">Home Phone</h3>
-                                        <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="home_phone" data-id="home_phone" id="home_phone" placeholder="Home Phone" value="{{ ($patient->phone) ? $patient->phone : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-3 col-md-3">
-                                <div class="input_box">
-                                    <div class="ls"><i class="las la-phone circle"></i></i></div>
-                                    <div class="rs">
-                                        <h3 class="_title">Telephone</h3>
-                                        <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="phone2" data-id="phone2" id="phone2" placeholder="Telephone" value="{{ isset($patient->demographic) && isset($patient->demographic->telephone) ? $patient->demographic->telephone : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-12 col-sm-3 col-md-3">
-                                <div class="input_box">
                                     <div class="ls"><i class="las la-language circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Language1</h3>
@@ -193,6 +151,15 @@
                     </div>
                     <div class="form-group">
                         <div class="row">
+                            <div class="col-12 col-sm-3 col-md-3">
+                                <div class="input_box">
+                                    <div class="ls"><i class="las la-phone circle"></i></i></div>
+                                    <div class="rs">
+                                        <h3 class="_title">Home Phone</h3>
+                                        <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="home_phone" data-id="home_phone" id="home_phone" placeholder="Home Phone" value="{{ ($patient->phone) ? $patient->phone : '' }}">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-12 col-sm-3 col-md-3">
                                 <div class="input_box">
                                     <div class="ls">

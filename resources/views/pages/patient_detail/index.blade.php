@@ -11,7 +11,7 @@
          <div class="leftItem">
             <div class="userIcon">
                <div class="icon">
-                  <img src="{{ asset('assets/img/user/01.png') }}" alt="" srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                  <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="" srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                </div>
                <div class="name">
                   {{ $patient->first_name }}  {{ $patient->last_name }}
@@ -371,8 +371,8 @@
                <div class="modal-body">
                    <div class="pb-5">
                        <div class="d-flex justify-content-end mb-4">
-                           <button type="submit" class="btn btn-outline-green d-flex align-items-center"
-                                   name="Download">Download All Reports</button>
+                           <a href="{{ route('caregiver.downloadLabReport',['user_id'=>$patient->id]) }}" class="btn btn-outline-green d-flex align-items-center download_all_lab_report">Download All Reports</a>
+                          
                        </div>
                        <div class="scrollbar scrollbar9" id="view-lab-report-file">
                            <div class="row">
@@ -665,6 +665,7 @@
       var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
       var lab_report_data_url="{{ route('patient.lab.report.data') }}";
       var patient_id='{{ $patient->id }}';
+    
       var map;
       function initMap() {
          var lat = $('#address').attr('data-lat');
@@ -750,12 +751,7 @@
                         var explodercounter = 'physical' + Number($(document).find(".physical-main-tr").length + 1);
                      }
 
-                     var html = '<tr class="';
-                     if (data.resultdata.result === 'Positive') {
-                        html += 'bg-positive text-white';
-                     }
-
-                     html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.resultdata.lab_report_type.name +'</td><td>' + data.resultdata.due_date + '</td>';
+                     var html = '<tr><th scope="row">' + data.count + '</th><td scope="row">' + data.resultdata.lab_report_type.name +'</td><td>' + data.resultdata.due_date + '</td>';
                      if (data.type == 'emmune' || data.type == 'drug' || data.type == 'physical') {
                         html += '<td>' + data.resultdata.perform_date + '</td>';
                      }
@@ -764,7 +760,7 @@
                      if (data.type == 'emmune') {
                         html += '<td>' + data.resultdata.titer + '</td>';
                      }
-                     html +='<td>' + data.resultdata.result + '</td><td class="text-center"><span onclick="exploder(\'' + explodercounter + '\')" id="' + explodercounter + '" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.resultdata.id + '" /></td></tr>';
+                     html +='<td>' + data.resultdata.result + '</td><td class="text-center"><input type="file" class="uploadLabResult" id="' + data.resultdata.lab_report_type_id + '" data-id="' + data.resultdata.patient_referral_id + '" ></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.resultdata.id + '" /></td></tr>';
 
                      if (data.type == 'tb') {
                         $('.tb-list-order tr:last').before(html);

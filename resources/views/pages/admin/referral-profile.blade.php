@@ -10,8 +10,8 @@ Refferal Profile
          <div class="user-photo">
             <div class="userContent">
                <div>
-                  <img src="{{asset('assets/img/user/01.png')}}" class="user_photo" alt=""
-                     srcset="{{asset('assets/img/user/01.png')}}">
+                  <img src="{{asset('assets/img/user/avatar.jpg')}}" class="user_photo" alt=""
+                     srcset="{{asset('assets/img/user/avatar.jpg')}}">
                </div>
                <div class="user-info">
                   <h1 class="title">{{$record->name}}</h1>
@@ -238,16 +238,20 @@ Refferal Profile
                               <label class="label">Type of Services:</label>
                               <div class="row mt-3">
                                  @if(isset($services)&&!empty($services))
-                                 @foreach($services as $s_row)
-                                 <div class="col-12 col-sm-6 mt-3">
-                                    <div class="custom-control custom-checkbox">
-                                       <input type="checkbox" class="custom-control-input"
-                                          id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(',', ($record->services) ? $record->services : ''))) { echo "checked";} ?> disabled>
-                                       <label class="custom-control-label t5"
-                                          for="customCheck{{$s_row['id']}}">{{$s_row['name']}}</label>
-                                    </div>
-                                 </div>
-                                 @endforeach
+                                    @foreach($services as $s_row)
+                                       @role('admin')
+                                          <div class="col-12 col-sm-6 mt-3">
+                                             <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                   id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(',', ($record->services) ? $record->services : ''))) { echo "checked";} ?> disabled>
+                                                <label class="custom-control-label t5"
+                                                   for="customCheck{{$s_row['id']}}">{{$s_row['name']}}</label>
+                                             </div>
+                                          </div>
+                                       @else
+                                          <input type="text" class="form-control-plaintext _detail t5" readonly value="{{$s_row['name']}}">
+                                       @endrole
+                                    @endforeach
                                  @endif
                               </div>
                            </li>

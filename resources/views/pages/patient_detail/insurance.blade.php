@@ -20,7 +20,7 @@
                               <div class="input_box">
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                  <div class="rs">
-                                    <h3 class="_title">Madicaid No</h3>
+                                    <h3 class="_title">Medicaid No</h3>
                                     <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}">
                                  </div>
                               </div>
@@ -131,14 +131,27 @@
             <!-- Insurance Company Form Start -->
             <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 insurance_company">
                <form class="insurance_form">
-                  <div class="app-card-header">
+                  <!-- <div class="app-card-header">
                      <input type="hidden" name="user_id" value="{{ $patient->id }}">
                      <input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name">
-                  </div>
+                  </div> -->
                   <span class="name-invalid-feedback text-danger" role="alert"></span>
                   <div class="head">
                      <div class="p-3">
                         <div class="row">
+                           <div class="col-12 col-sm-4">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Name</h3>
+                                    <div class="_detail">
+                                       <input type="text" class="form-control form-control-lg" id="name" name="name" 
+                                       aria-describedby="nameHelp" placeholder="Enter Name">
+                                       <span class="payer_id-invalid-feedback text-danger" role="alert"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
                            <div class="col-12 col-sm-4">
                               <div class="input_box">
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>
@@ -164,6 +177,10 @@
                                  </div>
                               </div>
                            </div>
+                        </div>
+                     </div>
+                     <div class="p-3">
+                        <div class="row">
                            <div class="col-12 col-sm-4">
                               <div class="input_box">
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>

@@ -81,6 +81,11 @@ class User extends Authenticatable
         return $this->hasMany(PatientLabReport::class,'patient_referral_id','id');
     }
     
+    public function patientReport()
+    {
+        return $this->hasMany(PatientReport::class,'user_id','id');
+    }
+
     /**
      * Create full name with combine first name and last name
      */

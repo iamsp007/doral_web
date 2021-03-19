@@ -71,7 +71,6 @@ class EmployeePhysicalExaminationReportController extends Controller
      */
     public function postEmployeePhysicalExaminationReport(Request $request, $id)
     {
-        User::where('id', $id)->update(['status' => 6]);
         $status = 0;
         $message = "Something went wrong";
         $record = [];
@@ -86,6 +85,7 @@ class EmployeePhysicalExaminationReportController extends Controller
             $report->patient_id = $id;
             $report->report_details = $lookup;
             if ($report->save()) {
+                User::where('id', $id)->update(['status' => 5]);
                 // $this->createMedical($id);
                 $report['patient_id'] = $id;
                 return $this->pdfEmployeePhysicalExaminationReport($report);
@@ -183,14 +183,13 @@ class EmployeePhysicalExaminationReportController extends Controller
     public function pdfEmployeePhysicalExaminationReport($report)
     {
         try {
-           
             // $report = EmployeePhysicalExaminationReport::find($report);
             // $data = $report['report_details'];
             // $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', ['report' => $data]);
             // return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf');
             /* start enable code block and remove above 3 line of code*/
             $pdf = PDF::loadView('pages.pdf.employee-physical-examination-report', [
-                    'report' => $report->report_details,
+                'report' => $report->report_details,
             ]);
             $pdf->setPaper('a4', 'portrait');
             $path = public_path('patient_report/');

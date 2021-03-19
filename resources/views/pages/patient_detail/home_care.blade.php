@@ -62,12 +62,10 @@
                            <div class="ls"><i class="lab la-servicestack circle"></i></div>
                            <div class="rs">
                               <h3 class="_title">Services</h3>
-                              
-
                               @if(isset($services)&&!empty($services))
                                  @foreach($services as $s_row)
                                     <div class="normal_service_div">
-                                       <input type="text" class="form-control-plaintext _detail" readonly name="last_name" data-id="last_name" id="last_name" placeholder="Last Name" value="{{$s_row['name']}}">
+                                       <input type="text" class="form-control-plaintext _detail" readonly value="{{$s_row['name']}}">
                                     </div>
                                     <div class="editable_service_div">
                                        <div class="custom-control custom-checkbox">

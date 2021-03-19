@@ -31,6 +31,7 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
+        
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
@@ -295,7 +296,7 @@ class CaregiverController extends Controller
             }
             // $zip->close();
         }
-        // dd($zip);
+       
         // Set Header
         $headers = array(
             'Content-Type' => 'application/octet-stream',
@@ -315,8 +316,20 @@ class CaregiverController extends Controller
      */
     public function searchCaregivers()
     {
-        $searchCaregiverIds = $this->searchCaregiverDetails();
-        $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
+        $patientEmergencyContact = PatientEmergencyContact::get();
+        foreach ($patientEmergencyContact as $key => $value) {
+            $relation = $value->relation;
+            $relation_decode = json_decode($value->relation, true);
+            if (isset($relation_decode[0])) {
+                dump($relation_decode[0]['Name']);
+                PatientEmergencyContact::find($value->id)->update([
+                    'relation' => $relation_decode[0]['Name']
+                ]);
+            }
+        }
+
+        // $searchCaregiverIds = $this->searchCaregiverDetails();
+        // $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
         //dump(count($caregiverArray));
         // whereIn($caregiverArray)
         // $data = HHAApiCaregiver::dispatch($caregiverArray);
@@ -324,25 +337,25 @@ class CaregiverController extends Controller
         // return 'Update successfully';
 
         // dump($counter);2960
-        foreach (array_slice($caregiverArray, 0 , 2960) as $cargiver_id) {
+        // foreach (array_slice($caregiverArray, 0 , 2960) as $cargiver_id) {
 
-            // foreach ($caregiverArray as $cargiver_id) {
-            /** Store patirnt demographic detail */
-            $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
+        //     // foreach ($caregiverArray as $cargiver_id) {
+        //     /** Store patirnt demographic detail */
+        //     $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
 
-            if (! $userCaregiver) {
-                $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
-                $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+        //     if (! $userCaregiver) {
+        //         $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
+        //         $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
 
-                self::saveUser($demographicDetails);
-            }
+        //         self::saveUser($demographicDetails);
+        //     }
 
 
             // $getChangesV2 = $this->getChangesV2();
             // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
 
             // $createMedical = $this->createMedical($cargiver_id);
-        }
+        // }
     }
     /**
      * Display a listing of the resource.

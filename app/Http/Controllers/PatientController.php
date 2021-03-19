@@ -85,7 +85,6 @@ class PatientController extends Controller
     }
 
     public function demographyDataUpdate(Request $request){
-
         try {
             $response = $this->adminServices->demographyDataUpdate($request->all());
             if ($response->status===true){

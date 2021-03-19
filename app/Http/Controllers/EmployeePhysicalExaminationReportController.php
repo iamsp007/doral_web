@@ -85,7 +85,6 @@ class EmployeePhysicalExaminationReportController extends Controller
             $report->patient_id = $id;
             $report->report_details = $lookup;
             if ($report->save()) {
-                User::where('id', $id)->update(['status' => 5]);
                 // $this->createMedical($id);
                 $report['patient_id'] = $id;
                 return $this->pdfEmployeePhysicalExaminationReport($report);
@@ -202,6 +201,8 @@ class EmployeePhysicalExaminationReportController extends Controller
             $patientReport->user_id = $report->patient_id;
             $patientReport->lab_report_type_id = '15';
             $patientReport->save();
+
+            User::where('id', $report->patient_id)->update(['status' => 5]);
 
             return $pdf->stream('employee-physical-examination-report-'.$report->id.'.pdf')->header('Content-Type','application/pdf');
             /* end enable code block*/

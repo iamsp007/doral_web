@@ -8,6 +8,7 @@
         <div class="pt-2">
             <table class="display responsive nowrap" style="width:100%" id="appointmentScheduled">
                 <thead>
+
                     <tr>
                         <th><input type="checkbox" class="selectall"></th>
                         <th>Patient Name</th>

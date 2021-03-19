@@ -74,13 +74,14 @@ $(document).ready(function(){
             // console.log('Service worker registration failed, error:', err);
         });
     }
-console.log(123)
+
     var patientResult = $('#patientResultTable').DataTable({
+        searching: false,
         "processing": true,
         "language": {
             processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
         },
-        "serverSide": false,
+        "serverSide": true,
         ajax: base_url+'all-patient-list',
         columns:[
             {data:'id',name:'id'},
@@ -106,8 +107,8 @@ console.log(123)
                 }
             },
             {
-                data:'patient_detail.filetype.name',
-                name:'patient_detail.filetype.name',
+                data:'dob',
+                name:'dob',
                 "bSortable": true,
                 render:function(data, type, row, meta){
                     if (data){
@@ -115,6 +116,11 @@ console.log(123)
                     }
                     return '--';
                 }
+            },
+            {
+                data:'patient_detail.service.name',
+                name:'patient_detail.service.name',
+                "bSortable": true
             },
             {
                 data:'patient_detail.gender',
@@ -131,13 +137,8 @@ console.log(123)
                 }
             },
             {
-                data:'dob',
-                name:'dob',
-                "bSortable": true
-            },
-            {
-                data:'patient_detail.Zip',
-                name:'patient_detail.Zip',
+                data:'patient_detail.address_1',
+                name:'patient_detail.address_1',
                 "bSortable": true,
                 render:function(data, type, row, meta){
                     if (data){
@@ -158,14 +159,14 @@ console.log(123)
                 }
             },
             {
-                data:'patient_detail.city',
-                name:'patient_detail.city',
+                data:'patient_detail.Zip',
+                name:'patient_detail.Zip',
                 "bSortable": true,
-                render:function (data, type, row, meta) {
-                    if (row.patient_detail){
-                        return row.patient_detail.city+ ' - '+row.patient_detail.state;
+                render:function(data, type, row, meta){
+                    if (data){
+                        return data;
                     }
-                    return '-';
+                    return '--';
                 }
             },
             {
@@ -190,7 +191,7 @@ console.log(123)
             },
         ],
         "order": [[ 1, "desc" ]],
-        "pageLength": 5,
+        "pageLength": 10,
         "lengthMenu": [ [5, 10,20, 25,100, -1], [5, 10,20, 25,100, "All"] ],
         'columnDefs': [
             {
@@ -209,4 +210,7 @@ console.log(123)
         },
     });
 
+    patientResult.on( 'draw', function () {
+        $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
+    });
 });

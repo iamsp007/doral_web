@@ -147,37 +147,6 @@
             $(this).parents("tr").find("span, .normal").css("display",'block');
         });
 
-        $('body').on('click', '.download_all_lab_report', function(e){
-            var user_id = $(this).attr("data-id");
-
-            $.ajax({
-                'type': 'POST',
-                'url': "{{ route('caregiver.downloadLabReport') }}",
-                'headers': {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                data: {
-                    "user_id": user_id,
-                },
-                xhrFields: {
-                    responseType: 'blob'
-                },
-                'success': function (response) {
-                    console.log(response);
-                    var blob = new Blob([response]);
-                    var link = document.createElement('a');
-                    link.href = window.URL.createObjectURL(blob);
-                   
-                    link.download = "Sample.zip";
-                    link.click();
-                },
-                "error":function () {
-                    alertText("Server Timeout! Please try again",'error');
-                    $("#loader-wrapper").hide();
-                }
-            });
-        });
-
         $("body").on('click','.save_btn',function () {
             var first_name = $(document).find('.first_name').val();
             var last_name = $(document).find('.last_name').val();

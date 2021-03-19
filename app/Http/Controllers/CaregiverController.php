@@ -189,8 +189,8 @@ class CaregiverController extends Controller
                                     
                                 // $btn .='<option value="" data-value="multiple" data-id="'.$row->id.'">Download All</option>';
                                 // $btn .= '</select>';
-                                
-                                $btn .= '<a class="download_all_lab_report" data-id="'.$row->id.'" href="javascript:void(0)"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
+                              
+                                $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
                             } else {
                                 $btn .= $row->status_data;
                             }
@@ -273,30 +273,33 @@ class CaregiverController extends Controller
         return response()->json($response,422);
     }
 
-    public function downloadLabReport(Request $request)
+    public function downloadLabReport($id)
     {
-        $input = $request->all();
-        $patientReports = PatientReport::where('user_id', $request['user_id'])->get();
-
-        if (! $patientReports) {
-            $response["status"] = false;
-            $response["code"] = 400;
-            $response["message"] = 'Lab Report Not Found';
-
-            return response()->json($response, 400);
-        }
+        $patientReports = PatientReport::where('user_id', $id)->get();
+        
+        $public_dir=public_path();
+        $zipFileName = 'reportzipfile'.$id.time().'.zip';
         $zip = new ZipArchive;
-        $fileName = 'patient_lab_report.zip';
-
-        if ($zip->open(public_path('patient_report/zip/'.$fileName), ZipArchive::CREATE) === TRUE)
-        {
+        
+        if ($zip->open($public_dir . '/patient_report_zip/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
+            // Add File in ZipArchive
             foreach ($patientReports as $key => $patientReport) {
-                $relativeNameInZipFile = basename($patientReport->file_name);
-                $pdf = public_path('patient_report/'.$patientReport->file_name);
-                $zip->addFile($pdf, $relativeNameInZipFile); 
+                $invoice_file = $patientReport->file_name;
+                $zip->addFile($public_dir . '/patient_report/'.$invoice_file,$invoice_file);
+               
             }
         }
-        return response()->download(public_path('patient_report/zip/'.$fileName));
+        $zip->close();
+        // Set Header
+        $headers = array(
+            'Content-Type' => 'application/octet-stream',
+        );
+        $filetopath=$public_dir.'/patient_report_zip/'.$zipFileName;
+       
+        // Create Download Response
+        if(file_exists($filetopath)){
+            return response()->download($filetopath,$zipFileName,$headers);
+        }
     }
 
     /**

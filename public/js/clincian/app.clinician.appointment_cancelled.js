@@ -237,7 +237,7 @@ function startVideoCall(id) {
 }
 
 function setVideoCallinginformation(data) {
-    var userImg = base_url+'assets/img/user/01.png';
+    var userImg = base_url+'assets/img/user/avatar.jpg';
     if (data.patients.avatar){
         userImg = base_url+'assets/img/user/'+data.patients.avatar;
     }

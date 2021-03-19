@@ -7,3 +7,6 @@ img.update-icon {display: none;}
 
 .editable_gender_div {display: none;}
 .editable_service_div {display: none;}
+.no-record-tr td {
+    text-align: center;
+}

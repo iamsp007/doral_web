@@ -106,8 +106,8 @@ console.log(123)
                 }
             },
             {
-                data:'patient_detail.filetype.name',
-                name:'patient_detail.filetype.name',
+                data:'dob',
+                name:'dob',
                 "bSortable": true,
                 render:function(data, type, row, meta){
                     if (data){
@@ -115,6 +115,11 @@ console.log(123)
                     }
                     return '--';
                 }
+            },
+            {
+                data:'patient_detail.service.name',
+                name:'patient_detail.service.name',
+                "bSortable": true
             },
             {
                 data:'patient_detail.gender',
@@ -131,13 +136,8 @@ console.log(123)
                 }
             },
             {
-                data:'dob',
-                name:'dob',
-                "bSortable": true
-            },
-            {
-                data:'patient_detail.Zip',
-                name:'patient_detail.Zip',
+                data:'patient_detail.address_1',
+                name:'patient_detail.address_1',
                 "bSortable": true,
                 render:function(data, type, row, meta){
                     if (data){
@@ -158,14 +158,14 @@ console.log(123)
                 }
             },
             {
-                data:'patient_detail.city',
-                name:'patient_detail.city',
+                data:'patient_detail.Zip',
+                name:'patient_detail.Zip',
                 "bSortable": true,
-                render:function (data, type, row, meta) {
-                    if (row.patient_detail){
-                        return row.patient_detail.city+ ' - '+row.patient_detail.state;
+                render:function(data, type, row, meta){
+                    if (data){
+                        return data;
                     }
-                    return '-';
+                    return '--';
                 }
             },
             {
@@ -190,7 +190,7 @@ console.log(123)
             },
         ],
         "order": [[ 1, "desc" ]],
-        "pageLength": 3,
+        "pageLength": 10,
         "lengthMenu": [ [5, 10,20, 25,100, -1], [5, 10,20, 25,100, "All"] ],
         'columnDefs': [
             {

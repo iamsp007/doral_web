@@ -1,10 +1,8 @@
 <div class="tab-pane fade" id="insurance" role="tabpanel" aria-labelledby="insurance-tab">
    <div class="app-card app-card-custom" data-name="insurance">
       <div class="app-card-header"> <h1 class="title">Insurance</h1>
-         @role('clinician')
-            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('insurance')">
-            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('insurance')">
-         @endrole
+         <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('insurance')">
+         <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('insurance')">
       </div>
       <div class="head scrollbar scrollbar12">
          <div class="p-3">
@@ -13,9 +11,7 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3" data-name="medicaid">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Medicaid</h1>
-                     @role('clinician')
-                        <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
-                     @endrole
+                     <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
                   </div>
                   <div class="head">
                      <div class="p-3">
@@ -41,9 +37,7 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none mb-3" data-name="medicare">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Medicare</h1>
-                     @role('clinician')
-                        <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
-                     @endrole
+                     <button type="button" class="btn btn-sm btn-info">Verify Recertification Date</button>
                   </div>
                   <div class="head">
                      <div class="p-3">
@@ -72,9 +66,7 @@
             <div class="app-card app-card-custom no-minHeight box-shadow-none _add_new_company" data-name="croley_insurance_and_financial">
                <div class="app-card-header">
                   <h1 class="title mr-2">Insurance Details</h1>
-                  @role('clinician')
-                     <a class="add_new_company" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Insurance Company"><i class="las la-plus-circle la-2x"></i></a>
-                  @endrole
+                  <a class="add_new_company" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Insurance Company"><i class="las la-plus-circle la-2x"></i></a>
                </div>
                <div class="card-body text-info">
                   <table class="table m-0 insurance-list-order">

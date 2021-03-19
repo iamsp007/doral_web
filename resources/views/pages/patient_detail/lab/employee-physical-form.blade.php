@@ -1,6 +1,8 @@
 <div class="app-vbc ppd_block p-3">
     <div class="add-new-patient">
-        <div class="icon"><img src="{{ asset('assets/img/icons/patient-img.svg') }}" class="img-fluid" /></div>
+        @role('clinician')
+            <div class="icon"><img src="{{ asset('assets/img/icons/patient-img.svg') }}" class="img-fluid" /></div>
+        @endrole
         <div class="row">
             <div class="col-12 col-sm-1"></div>
             <div class="col-12 col-sm-10">

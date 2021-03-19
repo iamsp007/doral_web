@@ -74,7 +74,7 @@ $(document).ready(function(){
             // console.log('Service worker registration failed, error:', err);
         });
     }
-console.log(123)
+
     var patientResult = $('#patientResultTable').DataTable({
         "processing": true,
         "language": {

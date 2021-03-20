@@ -1,3 +1,24 @@
+
+$("body").on('keyup','.ssnedit, #ssn',function () {
+    
+    var val = this.value.replace(/\D/g, '');
+    var newVal = '';
+    var sizes = [3, 2, 4];
+    var maxSize = 10;
+
+    for (var i in sizes) {
+        if (val.length > sizes[i]) {
+            newVal += val.substr(0, sizes[i]) + '-';
+            val = val.substr(sizes[i]);
+        } else { 
+            break; 
+        }       
+    }
+
+    newVal += val;
+    this.value = newVal;  
+}); 
+
 function editAllField(sectionId) {
     
     $('#'+sectionId+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(

@@ -141,6 +141,14 @@
                         <img src="{{ asset('assets/img/icons/icons_pharmacy_active.svg') }}" alt=""
                            class="mr-2 activeIcon">Reports</a>
                   </li>
+                  <li>
+                     <a class="nav-link d-flex align-items-center" id="due_patients-tab" data-toggle="pill"
+                        href="#due_patients" role="tab" aria-controls="due_patients" aria-selected="false">
+                        <img src="{{ asset('assets/img/icons/icons_pharmacy.svg') }}" alt="" class="mr-2 inactiveIcon">
+                        <img src="{{ asset('assets/img/icons/icons_pharmacy_active.svg') }}" alt=""
+                           class="mr-2 activeIcon">Due Patients</a>
+                  </li>
+                 
                </ul>
             </div>
             <div class="col-12 col-sm-10">
@@ -202,6 +210,9 @@
                   <!-- Pharmacy Start -->
                      @include('pages.patient_detail.physician')
                   <!-- Pharmacy End -->
+
+                  @include('pages.patient_detail.due_patient_report')
+                  
                </div>
             </div>
          </div>
@@ -640,7 +651,9 @@
    </div>
 
 @endsection
+
 @push('styles')
+  
    <style>
       input, .label {
          color: black;
@@ -651,20 +664,49 @@
    </style>
 @endpush
 @push('scripts')
-   <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
-   <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
-   <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
-   <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-   <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
    <script>
       var lab_referral_url="{{ route('patient.lab.report.referral') }}";
       var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
       var lab_report_data_url="{{ route('patient.lab.report.data') }}";
       var patient_id='{{ $patient->id }}';
-    
+      
+      $('#due_patient_list').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "language": {
+                processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
+            },
+            ajax: {
+                'type': 'POST',
+                'url': "{{ route('clinician.due-detail.ajax') }}",
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {
+                  due_user_id: $(document).find(".due_user_id").val(),
+                },
+            },
+            columns:[
+               {data: 'DT_RowIndex', orderable: false, searchable: false},
+               {data: 'report_type'},
+               {data: 'due_date'},
+               {data: 'result'},
+            ],
+       
+            "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
+            'columnDefs': [
+                {
+                    "order": [ 1, "desc"],
+                    // targets: [0, 8],
+                    // 'searchable': false,
+                    // 'orderable': false,
+                }
+            ],
+        });
+
+
       // var map;
       // function initMap() {
       //    var lat = $('#address').attr('data-lat');
@@ -970,25 +1012,6 @@
          $(this).parents('.added_more_contact_div').remove();
       });  
 
-      $('#ssntest').keyup(function() {
-         var val = this.value.replace(/\D/g, '');
-         var newVal = '';
-         var sizes = [3, 2, 4];
-         var maxSize = 10;
-
-         for (var i in sizes) {
-            if (val.length > sizes[i]) {
-               newVal += val.substr(0, sizes[i]) + '-';
-               val = val.substr(sizes[i]);
-            } else { 
-               break; 
-            }       
-         }
-
-         newVal += val;
-         this.value = newVal;  
-      }); 
-
       // $('body').on('blur', '.note-area', function(e){
       //    e.preventDefault();
       //    var txtAval=$(this).val();
@@ -1043,7 +1066,6 @@
 {{--        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"--}}
 {{--        defer--}}
 {{--    ></script>--}}
-   <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
    @stack('patient-detail-js')
 @endpush

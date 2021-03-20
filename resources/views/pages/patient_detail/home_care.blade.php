@@ -37,7 +37,7 @@
                               <div class="ls"><i class="las la-phone circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Phone</h3>
-                                 <input type="tel" class="form-control-plaintext _detail " readonly name="phone" data-id="phone" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Phone" value="{{ ($patient->caregiverInfo->company->phone) ? $patient->caregiverInfo->company->phone : '' }}">
+                                 <input type="tel" class="form-control-plaintext _detail" readonly name="phone" data-id="phone" placeholder="Phone" value="{{ ($patient->caregiverInfo->company->phone) ? $patient->caregiverInfo->company->phone : '' }}">
                               </div>
                            </div>
                         </div>

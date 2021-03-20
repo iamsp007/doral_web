@@ -6,6 +6,7 @@ use App\Jobs\HHAApiCaregiver;
 use App\Models\CaregiverInfo;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
+use App\Models\PatientLabReport;
 use App\Models\PatientReport;
 use App\Models\User;
 use App\Services\ClinicianService;
@@ -31,7 +32,6 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
-        
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
@@ -85,7 +85,7 @@ class CaregiverController extends Controller
             ->addColumn('gender', function($q){
                 return $q->gender_data;
             })
-            ->addColumn('ssn', function($q) use($request) {
+            ->addColumn('ssn_data', function($q) use($request) {
                 if ($request['status'] == 'initial') {
                     $ssn_data = '';
                     if ($q->demographic) {
@@ -93,7 +93,8 @@ class CaregiverController extends Controller
                     }
                    
                     $ssn = "<span class='label'>".$ssn_data."</span>";
-                    $ssn .= "<div class='ssn-text'><input class='ssn form-control' type='text' name='ssn' value='".$ssn_data."'></div>";
+                    $ssn .= "<div class='ssn-text'><input class='ssn ssnedit form-control' type='text' name='ssn'  maxlength='11' value='".$ssn_data."'></div>";
+                    
                     return $ssn;
                 } else {
                     $ssn_data = '';
@@ -127,25 +128,25 @@ class CaregiverController extends Controller
                 return $doral_id;
             })
             ->addColumn('city_state', function($q) use($request) {
-                if ($request['status'] == 'initial') {
-                    $city = $state = '';
-                    if ($q->demographic) {
-                        $city_state_json =  json_decode($q->demographic->address);
+                // if ($request['status'] == 'initial') {
+                //     $city = $state = '';
+                //     if ($q->demographic) {
+                //         $city_state_json =  json_decode($q->demographic->address);
 
-                        if ($city_state_json) {
-                            if ($city_state_json->City) {
-                                $city = $city_state_json->City;
-                            }
-                            if ($city_state_json->State) {
-                                $state = $city_state_json->State;
-                            }
-                        }
-                    }
-                    $city_state = "<span class='label'>".$city . ' - ' . $state . "</span>";
-                    $city_state .= "<div class='address-text'><input class='city form-control' type='text' name='city' value='".$city."'></div>";
-                    $city_state .= "<div class='address-text'><input class='state form-control' type='text' name='state' value='".$state."'></div>";
-                    return $city_state;
-                } else {
+                //         if ($city_state_json) {
+                //             if ($city_state_json->City) {
+                //                 $city = $city_state_json->City;
+                //             }
+                //             if ($city_state_json->State) {
+                //                 $state = $city_state_json->State;
+                //             }
+                //         }
+                //     }
+                //     $city_state = "<span class='label'>".$city . ' - ' . $state . "</span>";
+                //     $city_state .= "<div class='address-text'><input class='city form-control' type='text' name='city' value='".$city."'></div>";
+                //     $city_state .= "<div class='address-text'><input class='state form-control' type='text' name='state' value='".$state."'></div>";
+                //     return $city_state;
+                // } else {
                     $city_state = '';
                     if ($q->demographic) {
                         $city_state_json =  json_decode($q->demographic->address);
@@ -161,7 +162,7 @@ class CaregiverController extends Controller
                         }
                     }
                     return $city_state;
-                }
+                // }
                
             });
             if($request['status'] == 'active') {
@@ -209,10 +210,123 @@ class CaregiverController extends Controller
                     return $btn;
                 });
             }
-            $datatble->rawColumns(['full_name', 'ssn', 'city_state', 'action', 'checkbox_id', 'phone']);
+            $datatble->rawColumns(['full_name', 'ssn_data', 'city_state', 'action', 'checkbox_id', 'phone']);
+            return $datatble->make(true);
+    }
+    
+    public function duePatientView()
+    {
+        return view('pages.patient_detail.due_patients');
+    }
+
+    public function getDuePatients(Request $request)
+    {
+        $dateBetween['today'] =  date('Y-m-d');
+        
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
+  
+        $dateBetween['newDate'] = $date->format('Y-m-d');
+
+        $patientList = User::whereHas('roles',function ($q) {
+            $q->where('name','=','patient');
+        })->whereHas('patientLabReport',function ($q) use($dateBetween) {
+            $q->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
+        })->with('demographic')->orderBy('id', 'DESC');
+
+        $datatble = DataTables::of($patientList)
+            ->addIndexColumn()
+            ->addColumn('full_name', function($q) {
+                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
+            })
+            ->addColumn('gender', function($q){
+                return $q->gender_data;
+            })
+            ->addColumn('ssn', function($q) {
+                $ssn_data = '';
+                if ($q->demographic) {
+                    $ssn_data = $q->demographic->ssn;
+                }
+                return $ssn_data;
+            })
+            ->addColumn('phone', function($q) {
+                $phone = '';
+                if ($q->phone) {
+                    $phone .= $q->phone;
+                }
+                return $phone;
+            })
+            ->addColumn('service_id', function($q) {
+                $services = '';
+                if ($q->caregiverInfo && $q->caregiverInfo->services) {
+                    $services =  $q->caregiverInfo->services->name;
+                }
+                return $services;
+            })
+            ->addColumn('doral_id', function($q){
+                $doral_id = '';
+                if ($q->demographic) {
+                    $doral_id =  $q->demographic->doral_id;
+                }
+                return $doral_id;
+            })
+            ->addColumn('city_state', function($q) {
+                $city_state = '';
+                if ($q->demographic) {
+                    $city_state_json =  json_decode($q->demographic->address);
+
+                    if ($city_state_json) {
+                        if ($city_state_json->City) {
+                            $city_state .= $city_state_json->City;
+                        }
+                        if ($city_state_json->State) {
+                            $city_state .= ' - ' . $city_state_json->State;
+                        }
+
+                    }
+                }
+
+                return $city_state;
+            })
+            ->addColumn('action', function($row){
+                return '<a href="javascript:void(0)" data-toggle="tooltip" id="' . $row->id . '" data-original-title="Due Report" class="btn btn-sm viewMessage" style="background: #006c76; color: #fff">Due Report</a>';
+            });
+          
+            $datatble->rawColumns(['full_name','action']);
             return $datatble->make(true);
     }
 
+
+    public function getDueDetail(Request $request)
+    {
+        $dateBetween['today'] =  date('Y-m-d');
+        
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
+  
+        $dateBetween['newDate'] = $date->format('Y-m-d');
+
+        $patientList = PatientLabReport::where('patient_referral_id', $request['due_user_id'])->with('user','user.demographic','labReportType');
+         
+        $datatble = DataTables::of($patientList->get())
+            ->addIndexColumn()
+          
+            ->addColumn('report_type', function($row){
+                $report_type = '';
+                    if ($row->labReportType) {
+                        $report_type = $row->labReportType->name;
+                    }
+                    return $report_type;
+            });
+          
+            return $datatble->make(true);
+    }
+
+    public function getDuePatientDetail($id)
+    {
+        
+        $patientData = User::where('id', $id)->with('patientLabReport','patientLabReport.labReportType')->first();
+       
+        return view('pages.patient_detail.view_patient_due_report', compact('patientData'));
+    }
     public function updatePatientStatus(Request $request)
     {
         $clinicianService = new ClinicianService();

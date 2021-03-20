@@ -30,6 +30,11 @@ return [
                     'name'=>'Patient Lists',
                     'url'=>env('APP_URL').'get-caregiver/active',
                     'route'=>'get-caregiver/active','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                ],
+                [
+                    'name'=>'Due Patients',
+                    'url'=>env('APP_URL').'get-due-detail',
+                    'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
                 ]
             ]
         ],

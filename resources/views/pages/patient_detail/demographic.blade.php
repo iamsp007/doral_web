@@ -861,7 +861,7 @@
                                           class="form-control-plaintext _detail " readonly
                                           name="name"
                                           onclick="editableField('name')"
-                                          data-id="name" id="name"
+                                          data-id="name"
                                           placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
                                     </div>
                                  </div>

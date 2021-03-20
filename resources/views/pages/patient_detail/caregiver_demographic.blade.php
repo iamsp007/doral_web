@@ -387,16 +387,19 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
+                              
                             </div>
-                         
                         @endforeach
                     @endif
+                    @role('clinician')
                         <div class="add_more_contact_div">
                             
-                            </div>
-                    <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
+                        </div>
+                        <button type="button" name="add" id="add" class="btn btn-success">Add More Emergency Contact</button>
+                    @endrole
                     <!-- Emergency contact Detail -->
                 </div>
             </form>

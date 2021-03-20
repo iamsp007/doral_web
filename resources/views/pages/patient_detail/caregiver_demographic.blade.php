@@ -36,7 +36,7 @@
                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Email</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -46,10 +46,10 @@
                                     <div class="rs">
                                         <h3 class="_title">Gender</h3>
                                         <div class="normal_gender_div">
-                                            <input type="text" class="form-control-plaintext _detail" readonly name="gender" data-id="gender" id="gender" placeholder="gender" value="{{ $patient->gender_data }}">
+                                            <input type="text" class="form-control-plaintext _detail" readonly name="gender" data-id="gender" placeholder="gender" value="{{ $patient->gender_data }}">
                                         </div>
                                         <div class="editable_gender_div">
-                                            <select class="form-control" name="gender" data-id="gender" id="gender" >
+                                            <select class="form-control" name="gender" data-id="gender">
                                                 <option>Gender</option>
                                                 <option value="1" {{ $patient->gender == 1 ? "selected" : null }}>Male</option>
                                                 <option value="2" {{ $patient->gender == 2 ? "selected" : null }}>Female</option>
@@ -82,7 +82,7 @@
                                     <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">SSN</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="ssn" data-id="ssn" id="ssn" placeholder="SSN" value="{{ isset($patient->demographic) && isset($patient->demographic->ssn) ? $patient->demographic->ssn : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="ssn" data-id="ssn" id="ssntest" placeholder="SSN" value="{{ isset($patient->demographic) && isset($patient->demographic->ssn) ? $patient->demographic->ssn : '' }}" maxlength="11">
                                     </div>
                                 </div>
                             </div>
@@ -321,6 +321,7 @@
                                 <div class="app-card-header">
                                     <h1 class="title">Emergency Contact Detail</h1>
                                 </div>
+                               
                                 <div>
                                     <div class="p-3">
                                         <div class="form-group">
@@ -332,7 +333,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Contact Name</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="contact_name" data-id="contact_name" id="contact_name" placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="contact_name[]" data-id="contact_name" placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -343,7 +344,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Phone1</h3>
-                                                            <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="phone1" data-id="phone1" id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}">
+                                                            <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -354,7 +355,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Phone2</h3>
-                                                                <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="phone2" data-id="phone2" id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}">
+                                                                <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -365,7 +366,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Address</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="address" data-id="address" id="address" placeholder="Address" value="{{ $patientEmergencyContact->address }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="address[]" data-id="address" placeholder="Address" value="{{ $patientEmergencyContact->address }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -373,26 +374,32 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                                @foreach(json_decode($patientEmergencyContact->relation, true) as $value)
-                                                    <div class="col-12 col-sm-3 col-md-3">
-                                                        <div class="input_box">
-                                                            <div class="ls">
-                                                                <i class="las la-user-nurse circle"></i>
-                                                            </div>
-                                                            <div class="rs">
-                                                                <h3 class="_title">Relationship Name</h3>
-                                                                <input type="text" class="form-control-plaintext _detail" readonly name="relationship_name" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value="{{ $value['Name']}}">
-                                                            </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls">
+                                                            <i class="las la-user-nurse circle"></i>
+                                                        </div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Relationship Name</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship Name" value="{{ $patientEmergencyContact->relation }}">
                                                         </div>
                                                     </div>
-                                                @endforeach
+                                                </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
+                              
                             </div>
                         @endforeach
                     @endif
+                    @role('clinician')
+                        <div class="add_more_contact_div">
+                            
+                        </div>
+                        <button type="button" name="add" id="add" class="btn btn-success">Add More Emergency Contact</button>
+                    @endrole
                     <!-- Emergency contact Detail -->
                 </div>
             </form>

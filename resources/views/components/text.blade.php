@@ -2,7 +2,6 @@
     type="text"
     class="form-control {{ $class ?? '' }}"
     name="{{ $name ?? '' }}"
-    id="{{ $id ?? '' }}"
     value="{{ $value ?? '' }}"
     placeholder="{{ $placeholder ?? str_replace('_','',ucfirst($name)) }}"/>
 

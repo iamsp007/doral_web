@@ -657,7 +657,6 @@
    <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-   <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
    <script>
@@ -666,39 +665,39 @@
       var lab_report_data_url="{{ route('patient.lab.report.data') }}";
       var patient_id='{{ $patient->id }}';
     
-      var map;
-      function initMap() {
-         var lat = $('#address').attr('data-lat');
-         var lng = $('#address').attr('data-lng');
-         const iconBase =
-               base_url+"assets/img/icons/patient-icon.svg";
-         if (lat) {
-            map = new google.maps.Map(document.getElementById('map'), {
-               center: new google.maps.LatLng(lat, lng),
-               zoom: 13,
-               mapTypeId: 'roadmap'
-            });
+      // var map;
+      // function initMap() {
+      //    var lat = $('#address').attr('data-lat');
+      //    var lng = $('#address').attr('data-lng');
+      //    const iconBase =
+      //          base_url+"assets/img/icons/patient-icon.svg";
+      //    if (lat) {
+      //       map = new google.maps.Map(document.getElementById('map'), {
+      //          center: new google.maps.LatLng(lat, lng),
+      //          zoom: 13,
+      //          mapTypeId: 'roadmap'
+      //       });
 
-            var marker = new google.maps.Marker({
-               position: new google.maps.LatLng(lat,lng),
-               icon:iconBase,
-               map: map,
-               title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-            });
-         } else {
-            map = new google.maps.Map(document.getElementById('map'), {
-               center: {lat: 40.741895, lng: 73.989308},
-               zoom: 8
-            });
+      //       var marker = new google.maps.Marker({
+      //          position: new google.maps.LatLng(lat,lng),
+      //          icon:iconBase,
+      //          map: map,
+      //          title: "{{ $patient->first_name }} {{ $patient->last_name }}"
+      //       });
+      //    } else {
+      //       map = new google.maps.Map(document.getElementById('map'), {
+      //          center: {lat: 40.741895, lng: 73.989308},
+      //          zoom: 8
+      //       });
 
-            var marker = new google.maps.Marker({
-               position: new google.maps.LatLng(lat,lng),
-               icon:iconBase,
-               map: map,
-               title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-            });
-         }
-      }
+      //       var marker = new google.maps.Marker({
+      //          position: new google.maps.LatLng(lat,lng),
+      //          icon:iconBase,
+      //          map: map,
+      //          title: "{{ $patient->first_name }} {{ $patient->last_name }}"
+      //       });
+      //    }
+      // }
 
       $(document).ready(function() {
          $('.insurance_company').hide();
@@ -958,28 +957,60 @@
          });
       });
 
-      $('body').on('blur', '.note-area', function(e){
-         e.preventDefault();
-         var txtAval=$(this).val();
+      var i =0;
+      $(document).find("#add").click(function(){
+         i++;
+         $(".add_more_contact_div").append('<div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none added_more_contact_div" data-name="emergency_contact_detail"><div class="app-card-header"><h1 class="title">Emergency Contact Detail</h1></div><div><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Contact Name</h3><input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Contact Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Phone1</h3><input type="text" class="form-control-plaintext _detail phoneNumber" name="phone1[]" data-id="phone1" id="phone1" placeholder="Phone1" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Phone2</h3><input type="text" class="form-control-plaintext _detail phoneNumber" name="phone2[]" data-id="phone2" id="phone2" placeholder="Phone2" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address</h3><input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship Name</h3><input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value=""></div></div></div></div></div><div style="display:flex;justify-content:center;align-items:center"><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div></div></div>');
 
-         var patient_lab_report_id = $(this).next("input[name=patient_lab_report_id]").val();
-
-         $.ajax({
-            headers: {
-               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: "POST",
-            url: "{{ route('lab-report-note.store') }}",
-            data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
-            dataType: "json",
-            success: function(response) {
-               $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
-            },
-            error: function(error) {
-               alert('Something went wrong');
-            }
-         });
+         $(document).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+         $(document).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
       });
+
+      $(document).on('click', '.remove-tr', function(){ 
+         $(this).parents('.added_more_contact_div').remove();
+      });  
+
+      $('#ssntest').keyup(function() {
+         var val = this.value.replace(/\D/g, '');
+         var newVal = '';
+         var sizes = [3, 2, 4];
+         var maxSize = 10;
+
+         for (var i in sizes) {
+            if (val.length > sizes[i]) {
+               newVal += val.substr(0, sizes[i]) + '-';
+               val = val.substr(sizes[i]);
+            } else { 
+               break; 
+            }       
+         }
+
+         newVal += val;
+         this.value = newVal;  
+      }); 
+
+      // $('body').on('blur', '.note-area', function(e){
+      //    e.preventDefault();
+      //    var txtAval=$(this).val();
+
+      //    var patient_lab_report_id = $(this).next("input[name=patient_lab_report_id]").val();
+
+      //    $.ajax({
+      //       headers: {
+      //          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      //       },
+      //       type: "POST",
+      //       url: "{{ route('lab-report-note.store') }}",
+      //       data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
+      //       dataType: "json",
+      //       success: function(response) {
+      //          $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+      //       },
+      //       error: function(error) {
+      //          alert('Something went wrong');
+      //       }
+      //    });
+      // });
 
       function alertText(text,status) {
          const Toast = Swal.mixin({

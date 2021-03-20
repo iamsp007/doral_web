@@ -70,9 +70,7 @@
 @endsection
 
 @push('styles')
-    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet">
-    <link type="text/css" href="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+    
     <style>
     input, .label {
         color: black;
@@ -84,11 +82,7 @@
 @endpush
 
 @push('scripts')
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
-    <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var columnDaTa = [];
       
@@ -99,7 +93,7 @@
             {data: 'DT_RowIndex', orderable: false, searchable: false},
             {data: 'full_name'},
             {data: 'gender', name:'gender', orderable: true, searchable: true},
-            {data: 'demographic.ssn'},
+            {data: 'ssn_data'},
             {data: 'phone', class: 'editable text'},
             {data: 'service_id'},
             {data: 'demographic.doral_id'},
@@ -138,10 +132,13 @@
                 }
             ],
         });
+      
+
         $("body").on('click','.edit_btn',function () {
             $(this).parents("tr").find(".phone-text, .fullname-text, .ssn-text, .address-text, .while_edit").css("display",'block');
             $(this).parents("tr").find("span, .normal").css("display",'none');
         });
+
         $("body").on('click','.cancel_edit',function () {
             $(this).parents("tr").find(".phone-text, .fullname-text, .ssn-text, .address-text, .while_edit").css("display",'none');
             $(this).parents("tr").find("span, .normal").css("display",'block');

@@ -75,6 +75,21 @@ class HomeController extends Controller
                     return $contact->state;
                 else
                     return '--';
+            })->editColumn('patient_detail.address_1', function ($contact){
+                if($contact->address_1!='')
+                    return $contact->address_1;
+                else
+                    return '--';
+            })->editColumn('patient_detail.service.name', function ($contact){
+                if($contact->service!='')
+                    return $contact->service->name;
+                else
+                    return '--';
+            })->editColumn('patient_detail.gender', function ($contact){
+                if($contact->gender!='')
+                    return $contact->gender;
+                else
+                    return 'Other';
             })
             ->make(true);
     }

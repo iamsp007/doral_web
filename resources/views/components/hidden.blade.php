@@ -1,4 +1,5 @@
 <input 
     type="hidden"
     name="{{ $name ?? '' }}"
-    value="{{ $value ?? '' }}" />
+    value="{{ $value ?? '' }}" 
+    class="{{ $class ?? '' }}"/>

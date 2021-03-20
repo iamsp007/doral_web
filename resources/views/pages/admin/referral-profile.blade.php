@@ -342,7 +342,6 @@ Refferal Profile
 </div>
 @push('scripts')
    <script src="{{ asset('assets/js/app.refferal.profile.min.js') }}"></script>
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
    <script>
       $(document).ready(function () {
          $.ajaxSetup({

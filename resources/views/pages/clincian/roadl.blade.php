@@ -192,7 +192,356 @@
         @endif
     </ul>
 @endsection
+
+@section('app-video')
+    <!-- Add Permission Start Here -->
+    <div class="permissonControl">
+        <a href="javascript:void(0)" class="permission_icon mt-2" id="doralPatientToggle">
+            <img src="{{ asset('new/assets/img/icons/search_patients.svg') }}" class="active" alt="">
+            <img src="{{ asset('new/assets/img/icons/search_patients_hover.svg') }}" class="hover" alt="">
+        </a>
+    </div>
+    <section id="slider" class="addPermission _addPermission slideout d-none">
+        <div class="permissonControl _open">
+            <a href="javascript:void(0)" class="close_menu_icon close_add_permission">
+                <img src="{{ asset('new/assets/img/icons/closed_icon.svg') }}" alt="">
+            </a>
+            <a href="javascript:void(0)" class="permission_icon mt-2 _open_search_patient">
+                <img src="{{ asset('new/assets/img/icons/search_patients.svg') }}" class="active" alt="">
+                <img src="{{ asset('new/assets/img/icons/search_patients_hover.svg') }}" class="hover" alt="">
+            </a>
+        </div>
+        <div class="p-4 custom-shadow custom-border bg-white">
+            <div class="_title4 mb-3"><span>Add</span> Permission</div>
+            <p class="text-justify">It is a long established fact that a reader will be
+                distracted by the readable
+                content of a page when looking at its layout. </p>
+            <div class="row mt-4 nogutter">
+                <div class="col-12 col-sm-9">
+                    <div class="searchItem">
+                        <input type="search" class="search--control" placeholder="Global Search">
+                        <i class="icon la la-search"></i>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <button class="btn btn--search btn-lg">Search</button>
+                </div>
+            </div>
+            <div class="form-group mt-4">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="selectRole" class="label-custom"><span>Select</span>
+                            Role</label>
+                        <!-- <input type="text" class="input-skin" id="selectRole1"> -->
+                        <span class="autocomplete-selectrole"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="permission" class="label-custom">Permission</label>
+                        <!-- <input type="text" class="input-skin multi-select" id="permission"> -->
+                        <span class="autocomplete-permission"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <a href="javascript:void(0)" class="addSubpermission">
+                    <!-- <i class="las la-plus-circle icon mr-2"></i> -->
+                    <img src="{{ asset('new/assets/img/icons/add_permission.svg') }}" class="inactive mr-2" alt="">
+                    <img src="{{ asset('new/assets/img/icons/add_permission_active.svg') }}" class="active mr-2" alt="">
+                    Add Subpermission
+                </a>
+            </div>
+            <div class="_subpermission">
+                <div class="sleft">
+                    <label>
+                        <input type="checkbox" id="checkAll">
+                        <span></span>
+                    </label>
+                </div>
+                <div class="rleft">
+                    <div class="symbol">
+                        <div class="okay-green">
+                            <i class="las la-check"></i>
+                        </div>
+                    </div>
+                    <input type="text" placeholder="Patient Profile........" class="input-custom-skin input-green"
+                           id="selectRole">
+                    <a href="javascript:void(0)" class="trash">
+                        <i class="las la-trash"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="_subpermission mt-3">
+                <div class="sleft">
+                    <label>
+                        <input type="checkbox" id="checkAll">
+                        <span></span>
+                    </label>
+                </div>
+                <div class="rleft">
+                    <div class="symbol">
+                        <div class="okay-orange">
+                            <i class="las la-check"></i>
+                        </div>
+                    </div>
+                    <input type="text" placeholder="Patient Profile........" class="input-custom-skin input-orange"
+                           id="selectRole2">
+                    <a href="javascript:void(0)" class="trash">
+                        <i class="las la-trash"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="_subpermission mt-3">
+                <div class="sleft">
+                    <label>
+                        <input type="checkbox" id="checkAll">
+                        <span></span>
+                    </label>
+                </div>
+                <div class="rleft">
+                    <div class="symbol">
+                        <div class="okay-purple">
+                            <i class="las la-check"></i>
+                        </div>
+                    </div>
+                    <input type="text" placeholder="Patient Profile........" class="input-custom-skin input-purple"
+                           id="selectRole3">
+                    <a href="javascript:void(0)" class="trash">
+                        <i class="las la-trash"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <div class="d-flex mt-4">
+                    <input type="submit" value="Submit" class="btn btn--submit btn-lg">
+                    <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Add Permission End Here -->
+    <!-- Search Doral Patient Start Here -->
+    <section id="slider1" class="addPermission doralPatient _searchDoralPatients slideout d-none ">
+        <section>
+            <div class="permissonControl _open doralOpen">
+                <a href="javascript:void(0)" class="close_menu_icon close_search_doral_patient">
+                    <img src="{{ asset('new/assets/img/icons/closed_icon.svg') }}" alt="">
+                </a>
+                <a href="javascript:void(0)" class="permission_icon mt-2 _open_add_permission">
+                    <img src="{{ asset('new/assets/img/icons/permission_icon.svg') }}" class="active" alt="">
+                    <img src="{{ asset('new/assets/img/icons/permission_icon_hover.svg') }}" class="hover" alt="">
+                </a>
+            </div>
+        </section>
+        {{--        <section class="p-4 custom-shadow custom-border bg-white">--}}
+        {{--            <div>--}}
+        {{--                <div class="_title4 mb-3 color-green">Doral Patient</div>--}}
+        {{--                <div class="bg-gray">--}}
+        {{--                    <div class="p-4">--}}
+        {{--                        <h1 class="_title4">Filter List</h1>--}}
+        {{--                        <form action="#" class="formCSS mt-4" id="doralPatientSearchForm" novalidate>--}}
+        {{--                            <div class="f-group">--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <input type="text" class="input-skin" placeholder="Patient Name" name="patientName"--}}
+        {{--                                           id="patientName" required>--}}
+        {{--                                    <div class="invalid-feedback">--}}
+        {{--                                        Please provide a patient name.--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="valid-feedback">--}}
+        {{--                                        Looks good!--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <input type="text" class="input-skin" placeholder="123-45-6789" name="ssn" id="ssn"--}}
+        {{--                                           onkeypress="return isNumber(event)" onBlur="SSNumber('ssn')" required>--}}
+        {{--                                    <div class="invalid-feedback">--}}
+        {{--                                        Please provide a SSN No.--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="valid-feedback">--}}
+        {{--                                        Looks good!--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <input type="text" class="input-skin dob" name="dob" placeholder="DOB" value=""--}}
+        {{--                                           id="dob" required>--}}
+        {{--                                    <div class="invalid-feedback">--}}
+        {{--                                        Please provide a DOB.--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="valid-feedback">--}}
+        {{--                                        Looks good!--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <select class="input-skin" name="city" id="city" required>--}}
+        {{--                                        <option value="">Select City</option>--}}
+        {{--                                        <option value="City 1">City 1</option>--}}
+        {{--                                        <option value="City 2">City 2</option>--}}
+        {{--                                    </select>--}}
+        {{--                                    <div class="invalid-feedback">--}}
+        {{--                                        Please select city.--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="valid-feedback">--}}
+        {{--                                        Looks good!--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <select class="input-skin" name="state" id="state" required>--}}
+        {{--                                        <option value="">Select State</option>--}}
+        {{--                                        <option value="State 1">State 1</option>--}}
+        {{--                                        <option value="State 2">State 2</option>--}}
+        {{--                                    </select>--}}
+        {{--                                    <div class="invalid-feedback">--}}
+        {{--                                        Please select state.--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="valid-feedback">--}}
+        {{--                                        Looks good!--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column d-flex align-items-center">--}}
+        {{--                                    <label>--}}
+        {{--                                        <input class="with-gap" name="group3" type="radio" checked />--}}
+        {{--                                        <span>Male</span>--}}
+        {{--                                    </label>--}}
+        {{--                                    <label>--}}
+        {{--                                        <input class="with-gap" name="group3" type="radio" checked />--}}
+        {{--                                        <span>Female</span>--}}
+        {{--                                    </label>--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                            <div class="f-group mt-3">--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <select class="input-skin" name="statuss" id="statuss" required>--}}
+        {{--                                        <option value="">Select Status</option>--}}
+        {{--                                        <option value="Status 1">Status 1</option>--}}
+        {{--                                        <option value="Status 2">Status 2</option>--}}
+        {{--                                    </select>--}}
+        {{--                                    <div class="invalid-feedback">--}}
+        {{--                                        Please select status.--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="valid-feedback">--}}
+        {{--                                        Looks good!--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <select class="input-skin" name="servicess" id="servicess" required>--}}
+        {{--                                        <option value="">Select Services</option>--}}
+        {{--                                        <option value="Services 1">Services 1</option>--}}
+        {{--                                        <option value="Services 2">Services 2</option>--}}
+        {{--                                    </select>--}}
+        {{--                                    <div class="invalid-feedback">--}}
+        {{--                                        Please select service.--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="valid-feedback">--}}
+        {{--                                        Looks good!--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <input type="text" class="input-skin" placeholder="Zip Code"--}}
+        {{--                                           onkeypress="return isNumber(event)" value="" name="zipp" id="zipp" required>--}}
+        {{--                                    <div class="invalid-feedback">--}}
+        {{--                                        Please provide a zip code.--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="valid-feedback">--}}
+        {{--                                        Looks good!--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <input type="text" class="input-skin" placeholder="Other" name="others" id="others"--}}
+        {{--                                           required>--}}
+        {{--                                    <div class="invalid-feedback">--}}
+        {{--                                        Please enter others.--}}
+        {{--                                    </div>--}}
+        {{--                                    <div class="valid-feedback">--}}
+        {{--                                        Looks good!--}}
+        {{--                                    </div>--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                    <input type="submit" value="Submit" class="btn btn--submit-dark btn-lg">--}}
+        {{--                                </div>--}}
+        {{--                                <div class="f-column">--}}
+        {{--                                </div>--}}
+        {{--                            </div>--}}
+        {{--                        </form>--}}
+        {{--                    </div>--}}
+        {{--                </div>--}}
+        {{--            </div>--}}
+        {{--        </section>--}}
+        <section class="mt-3 custom-shadow custom-border bg-white">
+            <div class="p-4">
+                <div class="scrollbar scrollbar8">
+                    <table class="table " style="width: 100%;" id="patientResultTable">
+                        <thead>
+                        <tr>
+                            <th>
+                                <label>
+                                    <input type="checkbox" class="selectall" />
+                                    <span></span>
+                                </label>
+                            </th>
+                            <th width="2%">Sr.No</th>
+                            <th width="15%">Patient Name</th>
+                            <th width="10%">SSN No.</th>
+                            <th width="8%">DOB</th>
+                            <th width="8%">Service Name</th>
+                            <th width="8%">Gender</th>
+                            <th width="10%">Address</th>
+                            <th width="8%">City-State</th>
+                            <th width="8%">Zip Code</th>
+                            <th width="23%">
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn--active btn--fixed--w mr-2">Active</button>
+                                    <button type="button" class="btn btn--InActive btn--fixed--w">InActive</button>
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <label>
+                                    <input type="checkbox" />
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td>1</td>
+                            <td>John Willams Doe</td>
+                            <td>xxx-xx-1515</td>
+                            <td>06-17-1995</td>
+                            <td>Value Base Care</td>
+                            <td>Male</td>
+                            <td>1797 Pitkin Avenue</td>
+                            <td>Brooklyn-NY</td>
+                            <td>1212</td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn--active btn--fixed--w mr-2">Active</button>
+                                    <button type="button" class="btn btn--call mr-2">
+                                        <img src="{{ asset('new/assets/img/icons/call.svg') }}" class="actives" alt="" srcset="">
+                                        <img src="{{ asset('new/assets/img/icons/active_call.svg') }}" class="inactives" alt=""
+                                             srcset="">
+                                    </button>
+                                    <button type="button" class="btn btn--video mr-2">
+                                        <img src="{{ asset('new/assets/img/icons/video.svg') }}" class="actives" alt="" srcset="">
+                                        <img src="{{ asset('new/assets/img/icons/active_video.svg') }}" class="inactives" alt=""
+                                             srcset=""></button>
+                                    <button type="button" class="btn btn--dark">Rodal Start</button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </section>
+    <!-- Search Doral Patient End Here -->
+@endsection
+
 @push('styles')
+
     <style>
         .app .app-content .app-body .app-broadcasting .rside ._lside {width: 300px;}
         .app .app-content .app-body .app-broadcasting .rside .specification li.referralCompany{color: #000;font-weight: 600;}
@@ -200,6 +549,11 @@
     </style>
 @endpush
 @push('scripts')
+    <script src="{{ asset('new/assets/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/new/apexcharts.js') }}"></script>
+    <script src="{{ asset('js/new/validation.js') }}"></script>
+    <script src="{{ asset('js/new/selectpure.min.js') }}"></script>
+    <script src="{{ asset('js/new/patientSearch.js') }}"></script>
     <script>
         var patientRequestList='{{ route('clinician.roadl.patientRequestList') }}';
         $('#filter').on('change',function (event) {

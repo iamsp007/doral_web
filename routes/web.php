@@ -76,9 +76,11 @@ Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|
     Route::get('/pdf-employee-physical-examination-report/{id}','App\Http\Controllers\EmployeePhysicalExaminationReportController@pdfEmployeePhysicalExaminationReport')->name('pdf-employee-physical-examination-report');
 
     Route::get('/roadl-vendor-list','App\Http\Controllers\Clinician\RoadLController@getVendorList')->name('roadl.vendor.list');
+    Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
+    Route::get('/all-patient-list','\App\Http\Controllers\HomeController@allPatientList')->name('all.patient.list');
 });
 
-    Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
+
 
     Route::post('/start','\App\Http\Controllers\Clinician\RoomController@startArchive');
     Route::post('/zoom-generate_signature','\App\Http\Controllers\Clinician\RoomController@zoomGenerateSignature');

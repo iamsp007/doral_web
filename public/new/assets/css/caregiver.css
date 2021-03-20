@@ -1,0 +1,24 @@
+/* Caregiver Page CSS Start */
+.header{padding:5px 0;margin:0;background:var(--primary-color);width:100%;-webkit-box-shadow:0 5px 10px -5px rgba(0,0,0,0.41);-moz-box-shadow:0 5px 10px -5px rgba(0,0,0,0.41);box-shadow:0 5px 10px -5px rgba(0,0,0,0.41);display:flex;align-items:center;justify-content:space-between}
+.header .block{display:flex;align-items:center;justify-content:space-between}
+.header .logo img{width:121px}
+
+.middle .top_back{width:70px;height:70px;border:solid 4px var(--pink);border-radius:100px;position:absolute;left:-20px;top:-20px;z-index:-1}
+.middle .mid{width:100%;border-radius:15px;border:solid #00afbf!important;background:var(--white);box-shadow:0 2px 2px rgba(100,100,100,0.5)}
+.middle .btm_back{position:absolute;bottom:-40px;right:-40px;z-index:-1;background:url(../img/polygon.png);width:106px;height:100px}
+
+.caregiver_response .middle{padding:45px 0;margin:0;display:block}
+.caregiver_response .middle.register{padding:45px 0 90px;margin:0;display:block}
+.caregiver_response .middle .innerSpace{padding:0 0 40px;margin:0;display:block}
+.caregiver_response{position:relative}
+.caregiver_response .mid .p50{padding:30px}
+.caregiver_response .label {margin-bottom: 5px;font-weight: 600;font-size: 12px;display: block;}
+.caregiver_response .card-header{color:var(--sidebar-color);font-size:16px;font-weight:600;padding:4px 0;margin:0;text-align: center;}
+.caregiver_response .t5{font-size: 12px;line-height: 16px;color: var(--sidebar-color);}
+.caregiver_response .t2{color:var(--sidebar-color);font-size:18px;font-weight:700;text-transform:capitalize;display:flex;align-items:center}
+.caregiver_response .hr_border{border-top: 1px solid rgb(0 175 191);}
+.caregiver_response .f-20{font-size:20px;}
+.caregiver_response .tail-select .select-label .label-count {margin: 6px -5px 0 9px!important;background-color: #07737A!important;}
+.caregiver_response .search-input{display: none!important;}
+.caregiver_response  .dropdown-search{display: none!important;}
+/* Caregiver Page CSS Start */

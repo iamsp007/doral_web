@@ -288,7 +288,10 @@
         </div>
     </div>
 
+<<<<<<< HEAD
     <div class="modal fade messageViewModel" id="modal" role="dialog"></div>
+=======
+>>>>>>> 669ed5404dcc49a2fb0f71fc8dea6767110c252b
 @yield('app-video')
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
@@ -302,12 +305,12 @@
     <script>
         var base_url = $('#base_url').val();
         var socket_url = '{{ env("SOCKET_IO_URL") }}';
+        var save_token_url = '{{ route("save-token") }}';
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
     <script src="{{ asset('assets/js/sidebar.js') }}"></script>
-    <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('js/toastr.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
@@ -324,89 +327,9 @@
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
 
-
-        $(document).ready(function(){
-            $("#loader-wrapper").hide();
-
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('{{ asset("js/firebase-messaging-sw.js") }}')
-                    .then(function(registration) {
-                        // console.log('Registration successful, scope is:', registration.scope);
-                        const config = {
-                            apiKey: "AIzaSyCRAJgZT7W43PSBlhKIu_0uN58Onqb_o7w",
-                            projectId: "doctorapp-b4032",
-                            messagingSenderId: "409560615341",
-                            appId: "1:409560615341:web:5d352036d35e5a5aed3924"
-                        };
-                        firebase.initializeApp(config);
-                        const messaging = firebase.messaging();
-                        messaging.useServiceWorker(registration)
-                        messaging
-                        .requestPermission()
-                        .then(function () {
-                            // console.log("Notification permission granted.");
-
-                            // get the token in the form of promise
-                            return messaging.getToken()
-                        })
-                        .then(function(token) {
-                            // print the token on the HTML page
-                            $("#loader-wrapper").show();
-                            $.ajax({
-                                headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                },
-                                url:'{{ route("save-token") }}',
-                                method:'POST',
-                                dataType:'json',
-                                data:{
-                                    device_token:token
-                                },
-                                success:function (response) {
-                                    $("#loader-wrapper").hide();
-                                },
-                                error:function (error) {
-                                    // console.log(error.responseJSON.status+': '+error.responseJSON.message);
-                                    $("#loader-wrapper").hide();
-                                }
-                            })
-                        })
-                        .catch(function (err) {
-                            // console.log("Unable to get permission to notify.", err);
-                        });
-
-                        messaging.onMessage(function(payload) {
-                            // var data = JSON.parse(payload.notification.body);
-                            const noteTitle = payload.notification.title;
-                            const noteOptions = {
-                                body: noteTitle,
-                                icon: payload.notification.icon,
-                            };
-
-                            new Notification(noteTitle, noteOptions).onclick = function (event) {
-
-                                if (payload.data['gcm.notification.notification_type']==='1'){
-                                    window.location.href=base_url+'clinician/start-roadl/'+payload.data.id;
-                                }else if (payload.data['gcm.notification.notification_type']==="2"){
-                                    window.location.href=base_url+'clinician/running-roadl/'+payload.data.id;
-                                }else if (payload.data['gcm.notification.notification_type']==="3"){
-                                    window.location.href=base_url+'clinician/scheduled-appointment';
-                                }else if (payload.data['gcm.notification.notification_type']==="4"){
-                                    window.location.href=base_url+'clinician/scheduled-appointment';
-                                }
-                            };
-                        });
-
-                    }).catch(function(err) {
-                        // console.log('Service worker registration failed, error:', err);
-                    });
-            }
-
-        });
-    </script>
     <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
+    <script src="{{ asset('js/global.js') }}"></script>
 
 @stack('scripts')
 </body>

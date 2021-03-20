@@ -430,13 +430,13 @@ class CaregiverController extends Controller
      */
     public function searchCaregivers()
     {
-        $patientEmergencyContact = PatientEmergencyContact::get();
-        foreach ($patientEmergencyContact as $key => $value) {
-            $relation = $value->relation;
-            $relation_decode = json_decode($value->relation, true);
-            if (isset($relation_decode[0])) {
+        $demographic = Demographic::get();
+        foreach ($demographic as $key => $value) {
+            // $relation = $value->language;
+            $language_decode = json_decode($value->language, true);
+            if (isset($language_decode[0])) {
                 PatientEmergencyContact::find($value->id)->update([
-                    'relation' => $relation_decode[0]['Name']
+                    'relation' => $language_decode[0]['Name']
                 ]);
             }
         }

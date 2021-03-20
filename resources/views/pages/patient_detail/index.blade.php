@@ -657,7 +657,6 @@
    <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
    <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-   <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
    <script>
@@ -666,39 +665,39 @@
       var lab_report_data_url="{{ route('patient.lab.report.data') }}";
       var patient_id='{{ $patient->id }}';
     
-      var map;
-      function initMap() {
-         var lat = $('#address').attr('data-lat');
-         var lng = $('#address').attr('data-lng');
-         const iconBase =
-               base_url+"assets/img/icons/patient-icon.svg";
-         if (lat) {
-            map = new google.maps.Map(document.getElementById('map'), {
-               center: new google.maps.LatLng(lat, lng),
-               zoom: 13,
-               mapTypeId: 'roadmap'
-            });
+      // var map;
+      // function initMap() {
+      //    var lat = $('#address').attr('data-lat');
+      //    var lng = $('#address').attr('data-lng');
+      //    const iconBase =
+      //          base_url+"assets/img/icons/patient-icon.svg";
+      //    if (lat) {
+      //       map = new google.maps.Map(document.getElementById('map'), {
+      //          center: new google.maps.LatLng(lat, lng),
+      //          zoom: 13,
+      //          mapTypeId: 'roadmap'
+      //       });
 
-            var marker = new google.maps.Marker({
-               position: new google.maps.LatLng(lat,lng),
-               icon:iconBase,
-               map: map,
-               title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-            });
-         } else {
-            map = new google.maps.Map(document.getElementById('map'), {
-               center: {lat: 40.741895, lng: 73.989308},
-               zoom: 8
-            });
+      //       var marker = new google.maps.Marker({
+      //          position: new google.maps.LatLng(lat,lng),
+      //          icon:iconBase,
+      //          map: map,
+      //          title: "{{ $patient->first_name }} {{ $patient->last_name }}"
+      //       });
+      //    } else {
+      //       map = new google.maps.Map(document.getElementById('map'), {
+      //          center: {lat: 40.741895, lng: 73.989308},
+      //          zoom: 8
+      //       });
 
-            var marker = new google.maps.Marker({
-               position: new google.maps.LatLng(lat,lng),
-               icon:iconBase,
-               map: map,
-               title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-            });
-         }
-      }
+      //       var marker = new google.maps.Marker({
+      //          position: new google.maps.LatLng(lat,lng),
+      //          icon:iconBase,
+      //          map: map,
+      //          title: "{{ $patient->first_name }} {{ $patient->last_name }}"
+      //       });
+      //    }
+      // }
 
       $(document).ready(function() {
          $('.insurance_company').hide();
@@ -967,7 +966,25 @@
       $(document).on('click', '.remove-tr', function(){  
          $(this).parents('.add_more_contact_div').remove();
       });  
-      
+
+      $('#ssntest').keyup(function() {
+         var val = this.value.replace(/\D/g, '');
+         var newVal = '';
+         var sizes = [3, 2, 4];
+         var maxSize = 10;
+
+         for (var i in sizes) {
+            if (val.length > sizes[i]) {
+               newVal += val.substr(0, sizes[i]) + '-';
+               val = val.substr(sizes[i]);
+            } else { 
+               break; 
+            }       
+         }
+
+         newVal += val;
+         this.value = newVal;  
+      }); 
 
       // $('body').on('blur', '.note-area', function(e){
       //    e.preventDefault();

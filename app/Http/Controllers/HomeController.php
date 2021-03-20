@@ -90,6 +90,11 @@ class HomeController extends Controller
                     return $contact->gender;
                 else
                     return 'Other';
+            })->editColumn('patient_detail.ssn', function ($contact){
+                if($contact->ssn!='')
+                    return $contact->ssn;
+                else
+                    return '--';
             })
             ->make(true);
     }

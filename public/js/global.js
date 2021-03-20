@@ -85,20 +85,19 @@ $(document).ready(function(){
         ajax: base_url+'all-patient-list',
         columns:[
             {data:'id',name:'id'},
-            {data:'id',name:'id'},
+            {data:'id',name:'id',"bSortable": true},
             {
-                data:'first_name',
+                data:'full_name',
                 name:'first_name',
                 "bSortable": true,
                 render:function(data, type, row, meta){
-                    data = '<a href='+ base_url + '/patient-detail/' + row.id + '>' + row.first_name +' '+ row.last_name + '</a>';
-                    return data;
+                    return '<a href="'+base_url+'patient-details/'+row.id+'">'+data+'</a>';
                 }
             },
             {
                 data:'patient_detail.ssn',
                 name:'patient_detail.ssn',
-                "bSortable": true,
+                "bSortable": false,
                 render:function(data, type, row, meta){
                     if (data){
                         return data;
@@ -120,26 +119,17 @@ $(document).ready(function(){
             {
                 data:'patient_detail.service.name',
                 name:'patient_detail.service.name',
-                "bSortable": true
+                "bSortable": false
             },
             {
-                data:'patient_detail.gender',
-                name:'patient_detail.gender',
-                "bSortable": true,
-                render:function(data, type, row, meta){
-                    if (data == 'MALE') {
-                        return 'Male';
-                    } else if (data == 'FEMALE') {
-                        return 'Female';
-                    } else {
-                        return 'Other';
-                    }
-                }
+                data:'gender_name',
+                name:'gender_name',
+                "bSortable": false,
             },
             {
                 data:'patient_detail.address_1',
                 name:'patient_detail.address_1',
-                "bSortable": true,
+                "bSortable": false,
                 render:function(data, type, row, meta){
                     if (data){
                         return data;
@@ -150,7 +140,7 @@ $(document).ready(function(){
             {
                 data:'patient_detail.city',
                 name:'patient_detail.city',
-                "bSortable": true,
+                "bSortable": false,
                 render:function (data, type, row, meta) {
                     if (row.patient_detail){
                         return row.patient_detail.city+ ' - '+row.patient_detail.state;
@@ -161,7 +151,7 @@ $(document).ready(function(){
             {
                 data:'patient_detail.Zip',
                 name:'patient_detail.Zip',
-                "bSortable": true,
+                "bSortable": false,
                 render:function(data, type, row, meta){
                     if (data){
                         return data;

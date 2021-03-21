@@ -1,6 +1,6 @@
 <div class="tab-pane fade" id="due_patients" role="tabpanel" aria-labelledby="due_patients-tab">
    <div class="app-card app-card-custom" data-name="due_patients">
-      <div class="app-card-header"> <h1 class="title">Due Patients</h1></div>
+      <div class="app-card-header"> <h1 class="title">Patient Report Details</h1></div>
       <div class="head scrollbar scrollbar12">
       <div class="p-3">
                   <table class="display responsive" id="due_patient_list" style="width: 100%;">

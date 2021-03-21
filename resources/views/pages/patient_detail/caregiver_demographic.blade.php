@@ -113,42 +113,19 @@
                                 <div class="input_box">
                                     <div class="ls"><i class="las la-language circle"></i></div>
                                     <div class="rs">
-                                        <h3 class="_title">Language1</h3>
-                                        <input type="text" class="form-control-plaintext _detail " readonly name="language1" data-id="language1" id="language1" placeholder="Language1" value="{{ isset($language) && isset($language->Language1) ? $language->Language1 : '' }}">
+                                        <h3 class="_title">Language</h3>
+                                        @if(isset($language[0]) && isset($language[0]->Language1) && $language[0]->Language1 != '')
+                                            <input type="text" class="form-control-plaintext _detail " readonly name="language1" data-id="language1" id="language1" placeholder="Language1" value="{{ isset($language[0]) && isset($language[0]->Language1) ? $language[0]->Language1 : '' }}">
+                                        @elseif(isset($language[0]) && isset($language[0]->Language2) && $language[0]->Language2 != '')
+                                            <input type="text" class="form-control-plaintext _detail " readonly name="language2" data-id="language2" id="language2" placeholder="Language2" value="{{ isset($language[0]) && isset($language[0]->Language2) ? $language[0]->Language2 : '' }}">
+                                        @elseif(isset($language[0]) && isset($language[0]->Language3) && $language[0]->Language3 != '')
+                                            <input type="text" class="form-control-plaintext _detail " readonly name="language3" data-id="language3" id="language3" placeholder="Language3" value="{{ isset($language[0]) && isset($language[0]->Language3) ? $language[0]->Language3 : '' }}">
+                                        @elseif(isset($language[0]) && isset($language[0]->Language4) && $language[0]->Language4 != '')
+                                            <input type="text" class="form-control-plaintext _detail " readonly name="language4" data-id="language4" id="language4" placeholder="Language4" value="{{ isset($language[0]) && isset($language[0]->Language4) ? $language[0]->Language4 : '' }}">
+                                            @endif
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-3 col-md-3">
-                                <div class="input_box">
-                                    <div class="ls"><i class="las la-language circle"></i></div>
-                                    <div class="rs">
-                                        <h3 class="_title">Language2</h3>
-                                        <input type="text" class="form-control-plaintext _detail " readonly name="language2" data-id="language2" id="language2" placeholder="Language2" value="{{ isset($language) && isset($language->Language2) ? $language->Language2 : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-3 col-md-3">
-                                <div class="input_box">
-                                    <div class="ls"><i class="las la-language circle"></i></div>
-                                    <div class="rs">
-                                        <h3 class="_title">Language3</h3>
-                                        <input type="text" class="form-control-plaintext _detail " readonly name="language3" data-id="language3" id="language3" placeholder="Language3" value="{{ isset($language) && isset($language->Language3) ? $language->Language3 : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-3 col-md-3">
-                                <div class="input_box">
-                                    <div class="ls"><i class="las la-language circle"></i></div>
-                                    <div class="rs">
-                                        <h3 class="_title">Language4</h3>
-                                        <input type="text" class="form-control-plaintext _detail " readonly name="language4" data-id="language4" id="language4" placeholder="Language4" value="{{ isset($language) && isset($language->Language4) ? $language->Language4 : '' }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
                             <div class="col-12 col-sm-3 col-md-3">
                                 <div class="input_box">
                                     <div class="ls"><i class="las la-phone circle"></i></i></div>
@@ -171,7 +148,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="collapse mt-4" id="collapseExample">
                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                             height="200" frameborder="0" scrolling="no" marginheight="0"
@@ -234,17 +210,12 @@
                                                 <div class="input_box">
                                                     <div class="ls"><i class="las la-code circle"></i></div>
                                                     <div class="rs">
-                                                        <h3 class="_title">Zip4</h3>
+                                                        <h3 class="_title">Zipcode</h3>
+                                                        @if($address->Zip4 != '')
                                                         <input type="text" class="form-control-plaintext _detail " readonly name="zip4" data-id="zip4" id="zip4" placeholder="Zip4" value="{{ ($address->Zip4) ? $address->Zip4 : '' }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-code circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Zip5</h3>
+                                                        @else
                                                         <input type="text" class="form-control-plaintext _detail " readonly name="zip5" data-id="zip5" id="zip5" placeholder="Zip5" value="{{ ($address->Zip5) ? $address->Zip5 : '' }}">
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -341,7 +312,7 @@
                                                             <i class="las la-phone circle"></i>
                                                         </div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Phone1</h3>
+                                                            <h3 class="_title">Home Phone</h3>
                                                             <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}" maxlength="14">
                                                         </div>
                                                     </div>
@@ -352,7 +323,7 @@
                                                             <i class="las la-phone circle"></i>
                                                         </div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Phone2</h3>
+                                                            <h3 class="_title">Cell Phone</h3>
                                                                 <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}" maxlength="14">
                                                         </div>
                                                     </div>

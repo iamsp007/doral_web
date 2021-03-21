@@ -301,6 +301,8 @@
     <script>
         var base_url = $('#base_url').val();
         var socket_url = '{{ env("SOCKET_IO_URL") }}';
+        window.socket_url = '{{ env("SOCKET_IO_URL") }}';
+        window.laravel_echo_port='{{env("LARAVEL_ECHO_PORT")}}';
         var save_token_url = '{{ route("save-token") }}';
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>

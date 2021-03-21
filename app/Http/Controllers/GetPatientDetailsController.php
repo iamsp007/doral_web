@@ -15,6 +15,7 @@ use App\Models\PatientClinicalDetail;
 use App\Models\PatientCoordinator;
 use App\Models\PatientDetail;
 use App\Models\PatientEmergencyContact;
+use App\Models\CompanyPaymentPlanInfo;
 use App\Models\PatientInsurance;
 use App\Models\PatientLabReport;
 use App\Models\PatientReferralInfo;
@@ -85,7 +86,11 @@ class GetPatientDetailsController extends Controller
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
         $patient = User::with('caregiverInfo', 'caregiverInfo.company', 'demographic', 'patientEmergency')->find($paient_id);
-
+        
+        $payment = CompanyPaymentPlanInfo::where('service_id',$patient->caregiverInfo->service_id)->where('company_id',$patient->caregiverInfo->company_id)->get();
+        if($payment) {
+            $payment = json_decode($payment);
+        }
         $emergencyPreparednesValue = '';
         if ($patient->emergencyPreparednes) {
             $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);
@@ -151,8 +156,7 @@ class GetPatientDetailsController extends Controller
                 $language = json_decode($patient->demographic->language);
             }
         }
-
-        return view('pages.patient_detail.index', compact('patient', 'labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances'));
+        return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances'));
     }
 
     /**

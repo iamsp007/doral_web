@@ -168,7 +168,7 @@
                                  <div class="rs">
                                     <h3 class="_title">Phone</h3>
                                     <div class="_detail">
-                                       <input type="text" class="form-control form-control-lg" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number">
+                                       <input type="text" class="form-control form-control-lg" name="phone" id="insurance_detail_phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number">
                                        <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                     </div>
                                  </div>

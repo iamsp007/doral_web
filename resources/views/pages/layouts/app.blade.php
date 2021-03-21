@@ -298,7 +298,6 @@
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
 
-    
     <script>
         var base_url = $('#base_url').val();
         var socket_url = '{{ env("SOCKET_IO_URL") }}';

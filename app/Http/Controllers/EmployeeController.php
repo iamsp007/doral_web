@@ -18,7 +18,7 @@ class EmployeeController extends Controller
         try {
             $employeeServices = new EmployeeService();
             $responseArray = $employeeServices->getEmployee();
-            //dd($responseArray);
+            
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data'];
@@ -107,7 +107,7 @@ class EmployeeController extends Controller
             }
              
             $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
+            
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data']['Employee_id'];
@@ -131,7 +131,7 @@ class EmployeeController extends Controller
             'message' => $message,
             'data' => $record
         ];
-        //dd($response);
+        
         return redirect('/admin/employee');
     }
 
@@ -163,7 +163,7 @@ class EmployeeController extends Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, $Data);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headerValue);
             $curlResponse = curl_exec($ch);
-            //dd($curlResponse);
+            
             if(curl_errno($ch)) {
                 throw new Exception(curl_error($ch));
             }
@@ -183,14 +183,13 @@ class EmployeeController extends Controller
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
-            //dd($message);
         }
 
         $response = [
             'status' => $status,
             'message' => $message
         ];
-        //dd($response);
+        
         return redirect('/admin/employee');
     }
 
@@ -207,11 +206,11 @@ class EmployeeController extends Controller
         try {
             $employeeServices = new EmployeeService();
             $responseArray = $employeeServices->getProfile($id);
-            //dd($responseArray);
+            
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data']['employee'];
-                //dd($record);
+                
                 return view('pages.admin.employee-view')->with('record',$record);
             }
             $message = $responseArray['message'];
@@ -243,11 +242,11 @@ class EmployeeController extends Controller
         try {
             $employeeServices = new EmployeeService();
             $responseArray = $employeeServices->removeEmployee($id);
-            //dd($responseArray);
+            
             if($responseArray['status']) {
                 $status = 1;
                 $record = $responseArray['data']['employee'];
-                //dd($record);
+                
                 return view('pages.admin.employee-view')->with('record',$record);
             }
             $message = $responseArray['message'];

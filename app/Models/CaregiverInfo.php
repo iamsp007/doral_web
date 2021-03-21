@@ -66,8 +66,7 @@ class CaregiverInfo extends Model
         if ($this->notification_preferences) {
             $address = json_decode($this->notification_preferences);
             if ($address && $address->MobileOrSMS) {
-                $mobile = str_replace("-","",$address->MobileOrSMS);
-                $phoneData = "(".substr($mobile, 0, 3).") ".substr($mobile, 3, 3)."-".substr($mobile,6);
+                $phoneData = "(".substr($address->MobileOrSMS, 0, 3).") ".substr($address->MobileOrSMS, 3, 3)."-".substr($address->MobileOrSMS,6);
             }
         }
         return $phoneData;

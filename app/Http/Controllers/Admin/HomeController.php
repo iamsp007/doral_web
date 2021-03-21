@@ -54,7 +54,7 @@ class HomeController extends Controller
             curl_close($ch);
 
             $responseArray = json_decode($curlResponse, true);
-            dd($responseArray);
+            
             if($responseArray['message'] == 'Login Successfully!') {
                 $status = 1;
                 session(['token' => $responseArray['data']['access_token']]);

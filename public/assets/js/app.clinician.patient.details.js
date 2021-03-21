@@ -25,7 +25,7 @@ $("body").on('keypress','#medicare_number',function (event) {
     }
 });
 
-$("body").on('keypress','#home_phone, #mobile_or_sms, .emergencyPhone1, .emergencyPhone2, #company_phone, #administrator_phone_no',function (event) {
+$("body").on('keypress','#home_phone, #mobile_or_sms, .emergencyPhone1, .emergencyPhone2, #company_phone, #administrator_phone_no, #insurance_detail_phone',function (event) {
     if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
         event.preventDefault();
     }

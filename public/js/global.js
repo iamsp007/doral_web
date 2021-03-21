@@ -84,7 +84,7 @@ $(document).ready(function(){
         "serverSide": true,
         ajax: base_url+'all-patient-list',
         columns:[
-            {data:'id',name:'id'},
+//            {data:'id',name:'id'},
             {data:'id',name:'id',"bSortable": true},
             {
                 data:'full_name',

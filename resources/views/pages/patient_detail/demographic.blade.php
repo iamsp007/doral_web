@@ -861,7 +861,7 @@
                                           class="form-control-plaintext _detail " readonly
                                           name="name"
                                           onclick="editableField('name')"
-                                          data-id="name" id="name"
+                                          data-id="name"
                                           placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
                                     </div>
                                  </div>
@@ -872,7 +872,7 @@
                                        <i class="las la-phone circle"></i>
                                     </div>
                                     <div class="rs">
-                                       <h3 class="_title">Phone1</h3>
+                                       <h3 class="_title">Home Phone</h3>
                                        <input type="text"
                                           class="form-control-plaintext _detail " readonly
                                           name="phone1"
@@ -888,7 +888,7 @@
                                        <i class="las la-phone circle"></i>
                                     </div>
                                     <div class="rs">
-                                       <h3 class="_title">Phone2</h3>
+                                       <h3 class="_title">Cell Phone</h3>
                                           <input type="text"
                                           class="form-control-plaintext _detail " readonly
                                           name="phone2"

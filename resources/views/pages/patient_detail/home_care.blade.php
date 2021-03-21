@@ -19,7 +19,7 @@
                               <div class="ls"><i class="las la-user-tie circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Name</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="name" data-id="name" id="name" placeholder="Name" value="{{ ($patient->caregiverInfo->company->name) ?$patient->caregiverInfo->company->name : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail" readonly name="name" data-id="name" placeholder="Name" value="{{ ($patient->caregiverInfo->company->name) ?$patient->caregiverInfo->company->name : '' }}">
                               </div>
                            </div>
                         </div>
@@ -28,7 +28,7 @@
                               <div class="ls"><i class="las la-envelope circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Email</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" id="email" placeholder="Email" value="{{ ($patient->caregiverInfo->company->email) ? $patient->caregiverInfo->company->email : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ ($patient->caregiverInfo->company->email) ? $patient->caregiverInfo->company->email : '' }}">
                               </div>
                            </div>
                         </div>
@@ -37,7 +37,7 @@
                               <div class="ls"><i class="las la-phone circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Phone</h3>
-                                 <input type="tel" class="form-control-plaintext _detail " readonly name="phone" data-id="phone" id="phone" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Phone" value="{{ ($patient->caregiverInfo->company->phone) ? $patient->caregiverInfo->company->phone : '' }}">
+                                 <input type="tel" class="form-control-plaintext _detail" readonly name="phone" id="company_phone" data-id="phone" placeholder="Phone" value="{{ ($patient->caregiverInfo->company->phone) ? $patient->caregiverInfo->company->phone : '' }}" maxlength="14">
                               </div>
                            </div>
                         </div>
@@ -174,7 +174,7 @@
                                        <div class="ls"><i class="llas la-phone circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Administrator Phone Number</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->administrator_phone_no) ? $patient->caregiverInfo->company->administrator_phone_no : '' }}">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->administrator_phone_no) ? $patient->caregiverInfo->company->administrator_phone_no : '' }}" maxlength="14">
                                        </div>
                                     </div>
                                  </div>

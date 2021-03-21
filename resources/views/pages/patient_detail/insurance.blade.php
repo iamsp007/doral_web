@@ -22,6 +22,7 @@
                                  <div class="rs">
                                     <h3 class="_title">Medicaid No</h3>
                                     <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}">
+                                    <span class="medicaid_number-invalid-feedback text-danger" role="alert"></span>
                                  </div>
                               </div>
                            </div>
@@ -49,7 +50,7 @@
                                  </div>
                                  <div class="rs">
                                     <h3 class="_title">Medicare No</h3>
-                                    <input type="text" class="form-control-plaintext _detail" readonly name="medicare_number" data-id="medicare_number" id="medicare_number" placeholder="Medicare Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicare_number) ? $patient->demographic->medicare_number : '' }}">
+                                    <input type="text" class="form-control-plaintext _detail" readonly name="medicare_number" data-id="medicare_number" id="medicare_number" placeholder="Medicare Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicare_number) ? $patient->demographic->medicare_number : '' }}" maxlength="11" pattern="\d{11}">
                                  </div>
                               </div>
                            </div>
@@ -88,7 +89,7 @@
                                  <td>
                                     <span class='label'>{{ $insurance->name }}</span>
                                     <div class='phone-text'>
-                                       <input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="{{ $insurance->name }}">
+                                       <input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="{{ $insurance->name }}">
                                        <span class="name-invalid-feedback text-danger" role="alert"></span>
                                     </div>
                                  </td>
@@ -102,7 +103,7 @@
                                  <td>
                                     <span class='label'>{{ $insurance->phone }}</span>
                                     <div class='phone-text'>
-                                       <input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number" value="{{ $insurance->phone }}">
+                                       <input type="text" class="form-control form-control-lg" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number" value="{{ $insurance->phone }}">
                                     </div>
                                     <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                  </td>
@@ -131,10 +132,6 @@
             <!-- Insurance Company Form Start -->
             <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 insurance_company">
                <form class="insurance_form">
-                  <!-- <div class="app-card-header">
-                     <input type="hidden" name="user_id" value="{{ $patient->id }}">
-                     <input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name">
-                  </div> -->
                   <span class="name-invalid-feedback text-danger" role="alert"></span>
                   <div class="head">
                      <div class="p-3">
@@ -145,7 +142,7 @@
                                  <div class="rs">
                                     <h3 class="_title">Name</h3>
                                     <div class="_detail">
-                                       <input type="text" class="form-control form-control-lg" id="name" name="name" 
+                                       <input type="text" class="form-control form-control-lg" name="name" 
                                        aria-describedby="nameHelp" placeholder="Enter Name">
                                        <span class="payer_id-invalid-feedback text-danger" role="alert"></span>
                                     </div>
@@ -171,7 +168,7 @@
                                  <div class="rs">
                                     <h3 class="_title">Phone</h3>
                                     <div class="_detail">
-                                       <input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number">
+                                       <input type="text" class="form-control form-control-lg" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number">
                                        <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                     </div>
                                  </div>

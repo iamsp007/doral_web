@@ -2,10 +2,8 @@
     <div class="app-card app-card-custom" data-name="demographics">
         <div class="app-card-header">
             <h1 class="title">Demographics</h1>
-            @role('clinician')
-                <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
-                <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
-            @endrole
+            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
+            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
         </div>
         <div class="head scrollbar scrollbar12">
             <form id="demographic_form">
@@ -36,7 +34,7 @@
                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Email</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -46,10 +44,10 @@
                                     <div class="rs">
                                         <h3 class="_title">Gender</h3>
                                         <div class="normal_gender_div">
-                                            <input type="text" class="form-control-plaintext _detail" readonly name="gender" data-id="gender" id="gender" placeholder="gender" value="{{ $patient->gender_data }}">
+                                            <input type="text" class="form-control-plaintext _detail" readonly name="gender" data-id="gender" placeholder="gender" value="{{ $patient->gender_data }}">
                                         </div>
                                         <div class="editable_gender_div">
-                                            <select class="form-control" name="gender" data-id="gender" id="gender" >
+                                            <select class="form-control" name="gender" data-id="gender">
                                                 <option>Gender</option>
                                                 <option value="1" {{ $patient->gender == 1 ? "selected" : null }}>Male</option>
                                                 <option value="2" {{ $patient->gender == 2 ? "selected" : null }}>Female</option>
@@ -67,7 +65,7 @@
                                 <div class="input_box">
                                     <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                     <div class="rs">
-                                        <h3 class="_title">DOB</h3>
+                                        <h3 class="_title">Date Of Birth</h3>
                                         <div>
                                             <input type="text" class="form-control-plaintext _detail "
                                                 readonly name="dob"
@@ -82,7 +80,7 @@
                                     <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">SSN</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="ssn" data-id="ssn" id="ssn" placeholder="SSN" value="{{ isset($patient->demographic) && isset($patient->demographic->ssn) ? $patient->demographic->ssn : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="ssn" data-id="ssn" id="ssn" placeholder="SSN" value="{{ isset($patient->demographic) && isset($patient->demographic->ssn) ? $patient->demographic->ssn : '' }}" maxlength="11">
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +131,7 @@
                                     <div class="ls"><i class="las la-phone circle"></i></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Home Phone</h3>
-                                        <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="home_phone" data-id="home_phone" id="home_phone" placeholder="Home Phone" value="{{ ($patient->phone) ? $patient->phone : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="home_phone" data-id="home_phone" id="home_phone" placeholder="Home Phone" value="{{ ($patient->phone) ? $patient->phone : '' }}" maxlength="14">
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +243,7 @@
                                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Email</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ isset($notificationPreferences->Email) ? $notificationPreferences->Email : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ $notificationPreferences->Email ? $notificationPreferences->Email : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -254,7 +252,7 @@
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Method Name</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ isset($notificationPreferences->Method->Name) ? $notificationPreferences->Method->Name : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ $notificationPreferences->Method->Name ? $notificationPreferences->Method->Name : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -263,7 +261,7 @@
                                                     <div class="ls"><i class="las la-sms circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Mobile Or SMS</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ isset($patient->caregiverInfo) ? $patient->caregiverInfo->mobile_phone : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ $notificationPreferences->MobileOrSMS ? $notificationPreferences->MobileOrSMS : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -272,7 +270,7 @@
                                                     <div class="ls"><i class="las la-voicemail circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Voice Message</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ isset($notificationPreferences->VoiceMessage) ? $notificationPreferences->VoiceMessage : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ $notificationPreferences->VoiceMessage ? $notificationPreferences->VoiceMessage : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -304,7 +302,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Contact Name</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="contact_name[]" data-id="contact_name" placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -314,8 +312,8 @@
                                                             <i class="las la-phone circle"></i>
                                                         </div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Phone1</h3>
-                                                            <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="phone1[]" data-id="phone1" id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}">
+                                                            <h3 class="_title">Home Phone</h3>
+                                                            <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -325,8 +323,8 @@
                                                             <i class="las la-phone circle"></i>
                                                         </div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Phone2</h3>
-                                                                <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="phone2[]" data-id="phone2" id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}">
+                                                            <h3 class="_title">Cell Phone</h3>
+                                                                <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -337,7 +335,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Address</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="address[]" data-id="address" id="address" placeholder="Address" value="{{ $patientEmergencyContact->address }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="address[]" data-id="address" placeholder="Address" value="{{ $patientEmergencyContact->address }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -352,7 +350,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Relationship Name</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value="{{ $patientEmergencyContact->relation }}">
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship Name" value="{{ $patientEmergencyContact->relation }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -361,13 +359,10 @@
                                     </div>
                                 </div>
                             </div>
-                         
                         @endforeach
                     @endif
-                        <div class="add_more_contact_div">
-                            
-                            </div>
-                    <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
+                    <div class="add_more_contact_div"></div>
+                    <button type="button" name="add" id="add" class="btn btn-success">Add More Emergency Contact</button>
                     <!-- Emergency contact Detail -->
                 </div>
             </form>

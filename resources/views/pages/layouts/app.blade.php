@@ -288,10 +288,7 @@
         </div>
     </div>
 
-<<<<<<< HEAD
     <div class="modal fade messageViewModel" id="modal" role="dialog"></div>
-=======
->>>>>>> 669ed5404dcc49a2fb0f71fc8dea6767110c252b
 @yield('app-video')
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>

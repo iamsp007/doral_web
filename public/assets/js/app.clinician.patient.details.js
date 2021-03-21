@@ -19,6 +19,30 @@ $("body").on('keyup','.ssnedit, #ssn',function () {
     this.value = newVal;  
 }); 
 
+$("body").on('keypress','#medicare_number',function (event) {
+    if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+        event.preventDefault();
+    }
+});
+
+$("body").on('keypress','#home_phone, #mobile_or_sms, .emergencyPhone1, .emergencyPhone2',function (event) {
+    if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+        event.preventDefault();
+    }
+
+    $(this).val($(this).val().replace(/^(\d{3})(\d{3})(\d+)$/, "($1) $2-$3"));
+});
+
+$("body").on('blur','#medicaid_number',function (event) {
+    var str = $(this).val();
+   
+    if (! str.match("^[A-Z]{2}\s*[0-9]{5}\s*[A-Z]{1}\s*$")) {
+        $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');
+    } 
+
+    $(this).val($(this).val());
+});
+
 function editAllField(sectionId) {
     
     $('#'+sectionId+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
@@ -33,6 +57,7 @@ function editAllField(sectionId) {
     
     $('.normal_service_div').removeClass('d-block').addClass('d-none');
     $('.editable_service_div').removeClass('d-none').addClass('d-block');
+    
 }
 function updateAllField(sectionId) {
     if (sectionId==="demographic"){

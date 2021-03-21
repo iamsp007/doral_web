@@ -22,6 +22,7 @@
                                  <div class="rs">
                                     <h3 class="_title">Medicaid No</h3>
                                     <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}">
+                                    <span class="medicaid_number-invalid-feedback text-danger" role="alert"></span>
                                  </div>
                               </div>
                            </div>

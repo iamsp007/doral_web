@@ -156,7 +156,7 @@
                                     <div class="ls"><i class="las la-phone circle"></i></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Home Phone</h3>
-                                        <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="home_phone" data-id="home_phone" id="home_phone" placeholder="Home Phone" value="{{ ($patient->phone) ? $patient->phone : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="home_phone" data-id="home_phone" id="home_phone" placeholder="Home Phone" value="{{ ($patient->phone) ? $patient->phone : '' }}" maxlength="14">
                                     </div>
                                 </div>
                             </div>
@@ -344,7 +344,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Phone1</h3>
-                                                            <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}">
+                                                            <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}" minlength="14" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -355,7 +355,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Phone2</h3>
-                                                                <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}">
+                                                                <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>

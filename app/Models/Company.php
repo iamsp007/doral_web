@@ -24,15 +24,14 @@ class Company extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function getPhoneAttribute($phone)
-    {
-        $phoneData = '';
-        if ($phone) {
-            $mobile = str_replace("-","",$phone);
-            $phoneData = "(".substr($mobile, 0, 3).") ".substr($mobile, 3, 3)."-".substr($mobile,6);
-        }
-        return $phoneData;
-    }
+    // public function getPhoneAttribute($phone)
+    // {
+    //     $phoneData = '';
+    //     if ($phone) {
+    //         $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
+    //     }
+    //     return $phoneData;
+    // }
 
     public function getExpirationDateAttribute($date)
     {
@@ -43,13 +42,12 @@ class Company extends Authenticatable
         return $dateData;
     }
 
-    public function getAdministratorPhoneNoAttribute($phone)
-    {
-        $phoneData = '';
-        if ($phone) {
-            $mobile = str_replace("-","",$phone);
-            $phoneData = "(".substr($mobile, 0, 3).") ".substr($mobile, 3, 3)."-".substr($mobile,6);
-        }
-        return $phoneData;
-    }
+    // public function getAdministratorPhoneNoAttribute($phone)
+    // {
+    //     $phoneData = '';
+    //     if ($phone) {
+    //         $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
+    //     }
+    //     return $phoneData;
+    // }
 }

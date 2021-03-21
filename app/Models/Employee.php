@@ -58,7 +58,6 @@ class Employee extends Model
             if (!$resp) {
                 throw new Exception("No Appointment found");
             }
-            dd($resp);
             $status =  true;
             $response = [
                 'status' => $status,

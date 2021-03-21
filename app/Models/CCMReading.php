@@ -20,7 +20,6 @@ class CCMReading extends Model
 //     */
 //    public function setReadingTypeAttribute($value)
 //    {
-////dd($this->reading_value);
 ////        $reading_level = 1;
 ////        $reading_type = 'Blood Pressure';
 ////        $user = User::find($this->user_id);

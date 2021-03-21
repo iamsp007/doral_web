@@ -2,10 +2,8 @@
     <div class="app-card app-card-custom" data-name="demographics">
         <div class="app-card-header">
             <h1 class="title">Demographics</h1>
-            @role('clinician')
-                <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
-                <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
-            @endrole
+            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
+            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
         </div>
         <div class="head scrollbar scrollbar12">
             <form id="demographic_form">
@@ -344,7 +342,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Phone1</h3>
-                                                            <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}" minlength="14" maxlength="14">
+                                                            <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -387,19 +385,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                     </div>
                                 </div>
-                              
                             </div>
                         @endforeach
                     @endif
-                    @role('clinician')
-                        <div class="add_more_contact_div">
-                            
-                        </div>
-                        <button type="button" name="add" id="add" class="btn btn-success">Add More Emergency Contact</button>
-                    @endrole
+                    <div class="add_more_contact_div"></div>
+                    <button type="button" name="add" id="add" class="btn btn-success">Add More Emergency Contact</button>
                     <!-- Emergency contact Detail -->
                 </div>
             </form>

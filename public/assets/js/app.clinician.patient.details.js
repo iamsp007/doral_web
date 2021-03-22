@@ -39,7 +39,7 @@ $("body").on('blur','#medicaid_number',function (event) {
     if (! str.match("^[A-Z]{2}\s*[0-9]{5}\s*[A-Z]{1}\s*$")) {
         $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');
     } 
-
+    $(document).find(".medicaid_number-invalid-feedback").val('');
     $(this).val($(this).val());
 });
 

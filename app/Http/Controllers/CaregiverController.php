@@ -9,6 +9,7 @@ use App\Models\PatientEmergencyContact;
 use App\Models\PatientLabReport;
 use App\Models\PatientReport;
 use App\Models\User;
+use App\Services\AdminService;
 use App\Services\ClinicianService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +33,7 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
+        
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
@@ -42,7 +44,7 @@ class CaregiverController extends Controller
                     $query->where('status', '1');
                 } else if($request['status'] == 'initial') {
                     $query->where('status', '4');
-                    $query->whereHas('caregiverInfo',function ($q) use($request) {
+                    $query->whereHas('caregiverInfo',function ($q) {
                         $company_id = Auth::guard('referral')->user()->id;
                         $q->where('service_id', '3')->where('company_id', $company_id);
                     });
@@ -63,6 +65,20 @@ class CaregiverController extends Controller
                         $q->where('service_id', '1')->where('company_id', $company_id);
                     });
                 }
+            })
+            ->when($request['status_id'], function ($query) use($request){
+                $query->where('status', $request['status_id']);
+            })
+            ->when($request['user_name'], function ($query) use($request){
+                $query->where('id', $request['user_name']);
+            })
+            ->whereHas('patientLabReport',function ($query) use($request) {
+                $query->when($request['lab_due_date'], function ($query) use($request){
+                    $date= explode('-', $request['lab_due_date']);
+                    $startDate  = date('Y-m-d', strtotime($date[0]));
+                    $endDate = date('Y-m-d', strtotime($date[1]));
+                    $query->whereBetween('due_date',[$startDate,$endDate]);
+                });
             })
             ->with('demographic', 'patientReport', 'patientReport.labReports')->orderBy('id', 'DESC');
             
@@ -423,6 +439,23 @@ class CaregiverController extends Controller
         }
     }
 
+
+    public function getUserData(Request $request)
+    {
+        
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+           
+            $data =User::select("id","first_name", 'last_name')
+            		->where('first_name','LIKE',"%$search%")
+            		->get();
+        }
+       
+        return response()->json($data);
+    }
+    
     /**
      * Display a listing of the resource.
      *

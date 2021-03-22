@@ -38,6 +38,45 @@
 @endrole
 
 @section('content')
+    <div class="form-group">
+        <div class="row">
+            <div class="col-3 col-sm-3 col-md-3">
+                <div class="input-group">
+                    <select name="status_id" id="status_id" class="form-control form-control-lg">
+                        <option value="">Select a status</option>
+                        @foreach (config('select.userStatus') as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3">
+                <div class="input-group">
+                    <x-text name="lab_due_date" class="lab_due_date" /></td>
+                </div>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3">
+                <div class="input-group">
+                    <select class="user_name form-control select2_dropdown" id="user_name" data-id="user_name_search" name="user_name"></select>
+                </div>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3">
+                <select class="form-control" name="gender" data-id='2'>
+                    <option value="">select gender</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <option value="3">Other</option>
+                </select>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3">
+                <input type="text" class="form-control-plaintext _detail " readonly name="dob" id="dob" placeholder="DOB">
+            </div>
+            <div class="col-3 col-sm-3 col-md-3">
+                <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
+                <button class="reset_button btn btn-default" type="button">Clear</button> 
+            </div>
+        </div>
+    </div>
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
         <button type="button" onclick="doaction('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
         <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
@@ -49,7 +88,7 @@
        
         <tr>
             @if($status === 'pending')
-            <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
+                <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
             @endif
             <th>Sr No.</th>
             <th>Patient Name</th>
@@ -70,7 +109,7 @@
 @endsection
 
 @push('styles')
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
     <style>
     input, .label {
         color: black;
@@ -83,6 +122,7 @@
 
 @push('scripts')
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
         var columnDaTa = [];
       
@@ -96,7 +136,7 @@
             {data: 'ssn_data'},
             {data: 'phone', class: 'editable text'},
             {data: 'service_id'},
-            {data: 'demographic.doral_id'},
+            {data: 'doral_id'},
             {data: 'city_state'},
         );
         if ($("#status").val() === 'active') {
@@ -116,9 +156,18 @@
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                data: {
-                    status: $("#status").val(),
+                'data': function (d) {
+                    d.due_date = $('input[name="daterange"]').val();
+                    d.status_id = $('select[name="status_id"]').val();
+                    d.lab_due_date = $('input[name="lab_due_date"]').val();
+                    d.user_name = $('select[name="user_name"]').val();
+                    d.gender = $('select[name="gender"]').val();
+                    d.dob = $('input[name="dob"]').val();
+                    d.status = $("#status").val();
                 },
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
             },
             columns:columnDaTa,
        
@@ -132,7 +181,35 @@
                 }
             ],
         });
+
+        /*table reload at filter time*/
+        $("#filter_btn").click(function () {
+            refresh();
+        });
       
+        $('input[name="lab_due_date"]').daterangepicker();
+
+        $('#user_name').select2({
+            minimumInputLength: 3,
+            placeholder: 'Select a name',
+            ajax: {
+                type: "POST",
+                url: "{{ route('clinician.get-user-data') }}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.first_name + ' ' + item.last_name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
 
         $("body").on('click','.edit_btn',function () {
             $(this).parents("tr").find(".phone-text, .fullname-text, .ssn-text, .address-text, .while_edit").css("display",'block');

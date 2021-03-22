@@ -35,18 +35,24 @@
                                     <span class="errorText employeeID"></span>
                                 </div>
                             </div>
-<!--                            <div class="col-12 col-sm-4">
+                           <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label for="selectRole" class="label">Select Roles</label>
                                     <div class="input-group">
                                         <span class="input-group-text input-group-text-custom"><i
                                                 class="las la-user-tie"></i></span>
-                                        <select class="form-control" name="" id="">
+                                        <select class="form-control" name="role_id" id="role_id">
                                             <option value="">Select Role</option>
+                                            @foreach(\App\Models\Role::where('guard_name','=','partner')->get() as $key=>$value)
+                                                <option value="{{ $value->name }}">{{ $value->name }}</option>
+                                            @endforeach
+                                            @foreach(\App\Models\Referral::where('guard_name','=','partner')->get() as $key=>$value)
+                                                <option value="4,{{ $value->role_id }}">{{ $value->name }} (Field Visitor)</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
-                            </div>-->
+                            </div>
                             <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label for="firstName" class="label">First Name</label>
@@ -77,7 +83,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            
+
                             <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label for="emailID" class="label">Email ID</label>
@@ -199,10 +205,10 @@
                     </p>
                     <div class="mt-5 d-flex">
                         <div>
-                            <img src="../assets/img/icons/mobile_app.svg" class="img-fluid" alt="">
+                            <img src="{{ asset('assets/img/icons/mobile_app.svg') }}" class="img-fluid" alt="">
                         </div>
                         <div>
-                            <img src="../assets/img/icons/mobile_app_1.svg" class="img-fluid" alt="">
+                            <img src="{{ asset('assets/img/icons/mobile_app_1.svg') }}" class="img-fluid" alt="">
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-center">
@@ -278,9 +284,4 @@
     <script src="{{ asset('assets/js/partner/add-employee.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/js/additional-methods.js') }}"></script>
-    <script>
-        $(function () {
-            
-        });
-    </script>
 @endpush

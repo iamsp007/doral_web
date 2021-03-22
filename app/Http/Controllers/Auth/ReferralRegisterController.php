@@ -125,7 +125,7 @@ class ReferralRegisterController extends Controller
 
         $request->merge([
             'password'=>env('PARTNER_PASSWORD'),
-            'type'=>'admin',
+            'type'=>$request->referralType,
             'name'=>$request->company
         ]);
         event(new Registered($user = $this->createPartner($request->all())));
@@ -211,7 +211,7 @@ class ReferralRegisterController extends Controller
         $company->phone = $data['mobile'];
         $company->referal_id = $data['referralType'];
         $company->password = Hash::make($data['password']);
-        $company->assignRole('admin');
+        $company->assignRole($data['type']);
         return $company->save();
     }
 }

@@ -93,7 +93,7 @@ class PartnerController extends Controller
             $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
             $user->dob = date('Y-m-d', strtotime($request->dob));
             $user->status = '1';
-            $user->assignRole('clinician','LAB')->syncPermissions(Permission::all());
+            $user->assignRole($request->role_id)->syncPermissions(Permission::all());
             if ($user->save()) {
                 return redirect()->route('employees.list');
             } else {
@@ -122,7 +122,7 @@ class PartnerController extends Controller
     public function updateEmployee(Request $request, $id)
     {
         try {
-            
+
             $linkType = 'IOS';
             if($request->linkType == 1) {
                 $linkType = 'Android';

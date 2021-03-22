@@ -2,8 +2,10 @@
    <div class="app-card app-card-custom" data-name="home_care">
       <div class="app-card-header">
          <h1 class="title mr-2">Home Care</h1>
-         <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('homecare')">
-         <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('homecare')">
+         @role('clinician')
+            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('homecare')">
+            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('homecare')">
+         @endrole
       </div>
       <div class="head scrollbar scrollbar12">
          <div class="p-3">
@@ -17,7 +19,7 @@
                               <div class="ls"><i class="las la-user-tie circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Name</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="name" data-id="name" id="name" placeholder="Name" value="{{ ($patient->caregiverInfo->company->name) ?$patient->caregiverInfo->company->name : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail" readonly name="name" data-id="name" placeholder="Name" value="{{ ($patient->caregiverInfo->company->name) ?$patient->caregiverInfo->company->name : '' }}">
                               </div>
                            </div>
                         </div>
@@ -26,7 +28,7 @@
                               <div class="ls"><i class="las la-envelope circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Email</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" id="email" placeholder="Email" value="{{ ($patient->caregiverInfo->company->email) ? $patient->caregiverInfo->company->email : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ ($patient->caregiverInfo->company->email) ? $patient->caregiverInfo->company->email : '' }}">
                               </div>
                            </div>
                         </div>
@@ -35,7 +37,7 @@
                               <div class="ls"><i class="las la-phone circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Phone</h3>
-                                 <input type="tel" class="form-control-plaintext _detail " readonly name="phone" data-id="phone" id="phone" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Phone" value="{{ ($patient->caregiverInfo->company->phone) ? $patient->caregiverInfo->company->phone : '' }}">
+                                 <input type="tel" class="form-control-plaintext _detail" readonly name="phone" id="company_phone" data-id="phone" placeholder="Phone" value="{{ ($patient->caregiverInfo->company->phone) ? $patient->caregiverInfo->company->phone : '' }}" maxlength="14">
                               </div>
                            </div>
                         </div>
@@ -62,11 +64,16 @@
                               <h3 class="_title">Services</h3>
                               @if(isset($services)&&!empty($services))
                                  @foreach($services as $s_row)
-                                    <div class="custom-control custom-checkbox">
-                                       <input type="checkbox" class="custom-control-input"
-                                          id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(",",isset($patient->caregiverInfo->company->services)?$patient->caregiverInfo->company->services:''))) { echo "checked";} ?>>
-                                       <label class="custom-control-label t5"
-                                          for="customCheck{{$s_row['id']}}">{{$s_row['name']}}</label>
+                                    <div class="normal_service_div">
+                                       <input type="text" class="form-control-plaintext _detail" readonly value="{{$s_row['name']}}">
+                                    </div>
+                                    <div class="editable_service_div">
+                                       <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input"
+                                             id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(",",isset($patient->caregiverInfo->company->services)?$patient->caregiverInfo->company->services:''))) { echo "checked";} ?>>
+                                          <label class="custom-control-label t5"
+                                             for="customCheck{{$s_row['id']}}">{{$s_row['name']}}</label>
+                                       </div>
                                     </div>
                                  @endforeach
                               @endif
@@ -167,7 +174,7 @@
                                        <div class="ls"><i class="llas la-phone circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Administrator Phone Number</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->administrator_phone_no) ? $patient->caregiverInfo->company->administrator_phone_no : '' }}">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->administrator_phone_no) ? $patient->caregiverInfo->company->administrator_phone_no : '' }}" maxlength="14">
                                        </div>
                                     </div>
                                  </div>

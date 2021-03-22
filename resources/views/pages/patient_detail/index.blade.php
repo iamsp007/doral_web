@@ -11,7 +11,7 @@
          <div class="leftItem">
             <div class="userIcon">
                <div class="icon">
-                  <img src="{{ asset('assets/img/user/01.png') }}" alt="" srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                  <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="" srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                </div>
                <div class="name">
                   {{ $patient->first_name }}  {{ $patient->last_name }}
@@ -136,11 +136,12 @@
                   </li>
                   <li>
                      <a class="nav-link d-flex align-items-center" id="reports-tab" data-toggle="pill"
-                        href="#reports" role="tab" aria-controls="reports" aria-selected="false">
-                        <img src="{{ asset('assets/img/icons/icons_pharmacy.svg') }}" alt="" class="mr-2 inactiveIcon">
-                        <img src="{{ asset('assets/img/icons/icons_pharmacy_active.svg') }}" alt=""
+                        href="#due_patients" role="tab" aria-controls="due_patients" aria-selected="false">
+                        <img src="{{ asset('assets/img/icons/icons_insurance.svg') }}" alt="" class="mr-2 inactiveIcon">
+                        <img src="{{ asset('assets/img/icons/icons_insurance_active.svg') }}" alt=""
                            class="mr-2 activeIcon">Reports</a>
                   </li>
+                 
                </ul>
             </div>
             <div class="col-12 col-sm-10">
@@ -202,6 +203,9 @@
                   <!-- Pharmacy Start -->
                      @include('pages.patient_detail.physician')
                   <!-- Pharmacy End -->
+
+                  @include('pages.patient_detail.due_patient_report')
+                  
                </div>
             </div>
          </div>
@@ -371,8 +375,8 @@
                <div class="modal-body">
                    <div class="pb-5">
                        <div class="d-flex justify-content-end mb-4">
-                           <button type="submit" class="btn btn-outline-green d-flex align-items-center"
-                                   name="Download">Download All Reports</button>
+                           <a href="{{ route('caregiver.downloadLabReport',['user_id'=>$patient->id]) }}" class="btn btn-outline-green d-flex align-items-center download_all_lab_report">Download All Reports</a>
+                          
                        </div>
                        <div class="scrollbar scrollbar9" id="view-lab-report-file">
                            <div class="row">
@@ -640,7 +644,9 @@
    </div>
 
 @endsection
+
 @push('styles')
+  
    <style>
       input, .label {
          color: black;
@@ -651,53 +657,82 @@
    </style>
 @endpush
 @push('scripts')
-   <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
-   <script src="{{ asset('assets/js/buttons.bootstrap4.min.js') }}"></script>
-   <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
-   <script src="{{ asset('assets/js/buttons.print.min.js') }}"></script>
-   <script src="{{ asset('assets/js/dataTables.fixedColumns.min.js') }}"></script>
    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-   <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
    <script>
       var lab_referral_url="{{ route('patient.lab.report.referral') }}";
       var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
       var lab_report_data_url="{{ route('patient.lab.report.data') }}";
       var patient_id='{{ $patient->id }}';
-      var map;
-      function initMap() {
-         var lat = $('#address').attr('data-lat');
-         var lng = $('#address').attr('data-lng');
-         const iconBase =
-               base_url+"assets/img/icons/patient-icon.svg";
-         if (lat) {
-            map = new google.maps.Map(document.getElementById('map'), {
-               center: new google.maps.LatLng(lat, lng),
-               zoom: 13,
-               mapTypeId: 'roadmap'
-            });
+      
+      $('#due_patient_list').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "language": {
+                processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
+            },
+            ajax: {
+                'type': 'POST',
+                'url': "{{ route('clinician.due-detail.ajax') }}",
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {
+                  due_user_id: $(document).find(".due_user_id").val(),
+                },
+            },
+            columns:[
+               {data: 'DT_RowIndex', orderable: false, searchable: false},
+               {data: 'report_type'},
+               {data: 'due_date'},
+               {data: 'result'},
+            ],
+       
+            "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
+            'columnDefs': [
+                {
+                    "order": [ 1, "desc"],
+                    // targets: [0, 8],
+                    // 'searchable': false,
+                    // 'orderable': false,
+                }
+            ],
+        });
 
-            var marker = new google.maps.Marker({
-               position: new google.maps.LatLng(lat,lng),
-               icon:iconBase,
-               map: map,
-               title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-            });
-         } else {
-            map = new google.maps.Map(document.getElementById('map'), {
-               center: {lat: 40.741895, lng: 73.989308},
-               zoom: 8
-            });
 
-            var marker = new google.maps.Marker({
-               position: new google.maps.LatLng(lat,lng),
-               icon:iconBase,
-               map: map,
-               title: "{{ $patient->first_name }} {{ $patient->last_name }}"
-            });
-         }
-      }
+      // var map;
+      // function initMap() {
+      //    var lat = $('#address').attr('data-lat');
+      //    var lng = $('#address').attr('data-lng');
+      //    const iconBase =
+      //          base_url+"assets/img/icons/patient-icon.svg";
+      //    if (lat) {
+      //       map = new google.maps.Map(document.getElementById('map'), {
+      //          center: new google.maps.LatLng(lat, lng),
+      //          zoom: 13,
+      //          mapTypeId: 'roadmap'
+      //       });
+
+      //       var marker = new google.maps.Marker({
+      //          position: new google.maps.LatLng(lat,lng),
+      //          icon:iconBase,
+      //          map: map,
+      //          title: "{{ $patient->first_name }} {{ $patient->last_name }}"
+      //       });
+      //    } else {
+      //       map = new google.maps.Map(document.getElementById('map'), {
+      //          center: {lat: 40.741895, lng: 73.989308},
+      //          zoom: 8
+      //       });
+
+      //       var marker = new google.maps.Marker({
+      //          position: new google.maps.LatLng(lat,lng),
+      //          icon:iconBase,
+      //          map: map,
+      //          title: "{{ $patient->first_name }} {{ $patient->last_name }}"
+      //       });
+      //    }
+      // }
 
       $(document).ready(function() {
          $('.insurance_company').hide();
@@ -750,12 +785,7 @@
                         var explodercounter = 'physical' + Number($(document).find(".physical-main-tr").length + 1);
                      }
 
-                     var html = '<tr class="';
-                     if (data.resultdata.result === 'Positive') {
-                        html += 'bg-positive text-white';
-                     }
-
-                     html +='"><th scope="row">' + data.count + '</th><td scope="row">' + data.resultdata.lab_report_type.name +'</td><td>' + data.resultdata.due_date + '</td>';
+                     var html = '<tr><th scope="row">' + data.count + '</th><td scope="row">' + data.resultdata.lab_report_type.name +'</td><td>' + data.resultdata.due_date + '</td>';
                      if (data.type == 'emmune' || data.type == 'drug' || data.type == 'physical') {
                         html += '<td>' + data.resultdata.perform_date + '</td>';
                      }
@@ -764,7 +794,7 @@
                      if (data.type == 'emmune') {
                         html += '<td>' + data.resultdata.titer + '</td>';
                      }
-                     html +='<td>' + data.resultdata.result + '</td><td class="text-center"><span onclick="exploder(\'' + explodercounter + '\')" id="' + explodercounter + '" class="exploder"><i class="las la-plus la-2x"></i></span><a href="javascript:void(0)" class="deleteLabResult" data-id="1"><i class="las la-trash la-2x text-white pl-4"></i></a></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.resultdata.id + '" /></td></tr>';
+                     html +='<td>' + data.resultdata.result + '</td><td class="text-center"><input type="file" class="uploadLabResult" id="' + data.resultdata.lab_report_type_id + '" data-id="' + data.resultdata.patient_referral_id + '" ></td></tr><tr class="explode1 d-none"><td colspan="6"><textarea name="note" rows="4" cols="62" class="form-control note-area" placeholder="Enter note"></textarea><input type="hidden" name="patient_lab_report_id" id="patient_lab_report_id" value="' + data.resultdata.id + '" /></td></tr>';
 
                      if (data.type == 'tb') {
                         $('.tb-list-order tr:last').before(html);
@@ -962,28 +992,41 @@
          });
       });
 
-      $('body').on('blur', '.note-area', function(e){
-         e.preventDefault();
-         var txtAval=$(this).val();
+      var i =0;
+      $(document).find("#add").click(function(){
+         i++;
+         $(".add_more_contact_div").append('<div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none added_more_contact_div" data-name="emergency_contact_detail"><div class="app-card-header"><h1 class="title">Emergency Contact Detail</h1></div><div><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Contact Name</h3><input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Contact Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Home Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Cell Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address</h3><input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship Name</h3><input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value=""></div></div></div></div></div><div style="display:flex;justify-content:center;align-items:center"><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div></div></div>');
 
-         var patient_lab_report_id = $(this).next("input[name=patient_lab_report_id]").val();
-
-         $.ajax({
-            headers: {
-               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: "POST",
-            url: "{{ route('lab-report-note.store') }}",
-            data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
-            dataType: "json",
-            success: function(response) {
-               $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
-            },
-            error: function(error) {
-               alert('Something went wrong');
-            }
-         });
+         $(document).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+         $(document).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
       });
+
+      $(document).on('click', '.remove-tr', function(){ 
+         $(this).parents('.added_more_contact_div').remove();
+      });  
+
+      // $('body').on('blur', '.note-area', function(e){
+      //    e.preventDefault();
+      //    var txtAval=$(this).val();
+
+      //    var patient_lab_report_id = $(this).next("input[name=patient_lab_report_id]").val();
+
+      //    $.ajax({
+      //       headers: {
+      //          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      //       },
+      //       type: "POST",
+      //       url: "{{ route('lab-report-note.store') }}",
+      //       data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
+      //       dataType: "json",
+      //       success: function(response) {
+      //          $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+      //       },
+      //       error: function(error) {
+      //          alert('Something went wrong');
+      //       }
+      //    });
+      // });
 
       function alertText(text,status) {
          const Toast = Swal.mixin({
@@ -1016,7 +1059,6 @@
 {{--        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"--}}
 {{--        defer--}}
 {{--    ></script>--}}
-   <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
    @stack('patient-detail-js')
 @endpush

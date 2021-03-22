@@ -30,6 +30,16 @@ return [
                     'name'=>'Patient Lists',
                     'url'=>env('APP_URL').'get-caregiver/active',
                     'route'=>'get-caregiver/active','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                ],
+                [
+                    'name'=>'Add Patient',
+                    'url'=>env('APP_URL').'add-patient',
+                    'route'=>'add-patient','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Add patient',
+                ],
+                [
+                    'name'=>'Due Reports',
+                    'url'=>env('APP_URL').'get-due-detail',
+                    'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
                 ]
             ]
         ],
@@ -82,7 +92,8 @@ return [
                     'icon_title'=>'Technical Requests',
                 ]
             ]
-        ]
+        ],
+//        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'referral'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'referral/dashboard','route'=>'referral/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
@@ -124,7 +135,7 @@ return [
                 ]
             ]
         ],
-//        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/add-patient','route'=>'referral/add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
+        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'admin'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'admin/dashboard','route'=>'admin/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],

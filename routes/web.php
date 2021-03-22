@@ -76,9 +76,11 @@ Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|
     Route::get('/pdf-employee-physical-examination-report/{id}','App\Http\Controllers\EmployeePhysicalExaminationReportController@pdfEmployeePhysicalExaminationReport')->name('pdf-employee-physical-examination-report');
 
     Route::get('/roadl-vendor-list','App\Http\Controllers\Clinician\RoadLController@getVendorList')->name('roadl.vendor.list');
+    Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
+    Route::get('/all-patient-list','\App\Http\Controllers\HomeController@allPatientList')->name('all.patient.list');
 });
 
-    Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
+
 
     Route::post('/start','\App\Http\Controllers\Clinician\RoomController@startArchive');
     Route::post('/zoom-generate_signature','\App\Http\Controllers\Clinician\RoomController@zoomGenerateSignature');
@@ -95,3 +97,12 @@ Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|
     Route::get('/get-caregiver/{status}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
     Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
     Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');
+    // Route::post('/download-lab-report','App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');   
+    Route::get('download-lab-report/{user_id}', 'App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
+    Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
+    Route::post('/get-due-detail','App\Http\Controllers\CaregiverController@getDueDetail')->name('clinician.due-detail.ajax');
+
+    Route::get('/get-due-detail','App\Http\Controllers\CaregiverController@duePatientView')->name('clinician.due-detail');
+    Route::post('/get-patient-due-detail','App\Http\Controllers\CaregiverController@getDuePatients')->name('clinician.due-patient-detail.ajax');
+    Route::get('/get-patient-due-detail/{id}', 'App\Http\Controllers\CaregiverController@getDuePatientDetail');
+    Route::post('get-user-data','App\Http\Controllers\CaregiverController@getUserData')->name('clinician.get-user-data');

@@ -8,24 +8,7 @@
         <div class="pt-2">
             <table class="display responsive nowrap" style="width:100%" id="appointmentScheduled">
                 <thead>
-                    <tr>
-                        <th></th>
-                        <th><select class="patient_name form-control" id="patient_name" name="" data-id='1'>
-            </select></th>
-                        <th><select class="item2 form-control" name="item2" data-id='6'>
-                    <option value="">select status</option>
-                    <option value="open">open</option>
-                    <option value="running">running</option>
-                    <option value="completed">completed</option>
-                    <option value="cancel">cancel</option>
-                    <option value="reject">reject</option>
-            </select></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
+
                     <tr>
                         <th><input type="checkbox" class="selectall"></th>
                         <th>Patient Name</th>

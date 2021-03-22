@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="24px" height="24px" viewbox="0 0 24 24" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L24 0L24 24L0 24L0 0Z" id="path_1" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="direct-download">
+    <path d="M0 0L24 0L24 24L0 24L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+    <g clip-path="url(#mask_1)">
+      <path d="M6.00068 14C5.79568 14 5.59968 13.916 5.45868 13.768L0.208677 8.268C-0.246323 7.792 0.0916772 7 0.750677 7L3.50068 7L3.50068 1.25C3.50068 0.561 4.06168 0 4.75068 0L7.25068 0C7.93968 0 8.50068 0.561 8.50068 1.25L8.50068 7L11.2507 7C11.9097 7 12.2477 7.792 11.7927 8.268L6.54268 13.768C6.40168 13.916 6.20568 14 6.00068 14L6.00068 14Z" transform="translate(5.9993286 2)" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+      <path d="M22.25 4L1.75 4C0.785 4 0 3.215 0 2.25L0 1.75C0 0.785 0.785 0 1.75 0L22.25 0C23.215 0 24 0.785 24 1.75L24 2.25C24 3.215 23.215 4 22.25 4L22.25 4Z" transform="translate(0 18)" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+    </g>
+  </g>
+</svg>

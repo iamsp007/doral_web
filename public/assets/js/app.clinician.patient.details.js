@@ -1,3 +1,48 @@
+
+$("body").on('keyup','.ssnedit, #ssn',function () {
+    
+    var val = this.value.replace(/\D/g, '');
+    var newVal = '';
+    var sizes = [3, 2, 4];
+    var maxSize = 10;
+
+    for (var i in sizes) {
+        if (val.length > sizes[i]) {
+            newVal += val.substr(0, sizes[i]) + '-';
+            val = val.substr(sizes[i]);
+        } else { 
+            break; 
+        }       
+    }
+
+    newVal += val;
+    this.value = newVal;  
+}); 
+
+$("body").on('keypress','#medicare_number',function (event) {
+    if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+        event.preventDefault();
+    }
+});
+
+$("body").on('keypress','#home_phone, #mobile_or_sms, .emergencyPhone1, .emergencyPhone2, #company_phone, #administrator_phone_no, #insurance_detail_phone',function (event) {
+    if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+        event.preventDefault();
+    }
+
+    $(this).val($(this).val().replace(/^(\d{3})(\d{3})(\d+)$/, "($1) $2-$3"));
+});
+
+$("body").on('blur','#medicaid_number',function (event) {
+    var str = $(this).val();
+   
+    if (! str.match("^[A-Z]{2}\s*[0-9]{5}\s*[A-Z]{1}\s*$")) {
+        $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');
+    } 
+    $(document).find(".medicaid_number-invalid-feedback").val('');
+    $(this).val($(this).val());
+});
+
 function editAllField(sectionId) {
     
     $('#'+sectionId+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
@@ -9,6 +54,9 @@ function editAllField(sectionId) {
     
     $('.normal_gender_div').removeClass('d-block').addClass('d-none');
     $('.editable_gender_div').removeClass('d-none').addClass('d-block');
+    
+    $('.normal_service_div').removeClass('d-block').addClass('d-none');
+    $('.editable_service_div').removeClass('d-none').addClass('d-block');
     
 }
 function updateAllField(sectionId) {

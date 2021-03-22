@@ -33,7 +33,6 @@ class ReferralService
             );
 
             $response = $response->getBody()->getContents();
-            dd($response);
 
             $data = json_decode($response,true);
             return $data;
@@ -57,9 +56,7 @@ class ReferralService
                 ]
             );
 
-
             $response = $response->getBody()->getContents();
-            dd($response);
 
             $data = json_decode($response,true);
             return $data;
@@ -147,9 +144,7 @@ class ReferralService
                 '/auth/mdforms'
             );
 
-
             $response = $response->getBody()->getContents();
-            //dd($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){

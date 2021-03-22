@@ -274,7 +274,7 @@ class CompanyController extends Controller
             $url = CurlFunction::getURL().'/api/auth/company/login';
             $curlResponse = CurlFunction::withOutToken($url, $data);
             $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray['data']['Company']['referal_id']);
+            
             if($responseArray['status']) {
                 $status = 1;
                 session(['referral_id' => $responseArray['data']['Company']['referal_id']]);
@@ -326,7 +326,7 @@ class CompanyController extends Controller
             $curlResponse = curl_exec($ch);
             curl_close($ch);
             $responseArray = json_decode($curlResponse, true);
-            //dd($responseArray);
+            
             if($responseArray['status'] == 1) {
                 $status = 1;
             }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <desc>Created with Lunacy</desc>
+  <defs>
+    <path d="M0 0L20 0L20 20L0 20L0 0Z" id="path_1" />
+    <path d="M0 9.67742C0 4.33273 4.33273 0 9.67742 0C15.0221 0 19.3548 4.33273 19.3548 9.67742C19.3548 15.0221 15.0221 19.3548 9.67742 19.3548C4.33273 19.3548 0 15.0221 0 9.67742L0 9.67742Z" id="path_2" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_2" />
+    </clipPath>
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="radio-btn-green">
+    <path d="M0 0L20 0L20 20L0 20L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+    <g clip-path="url(#mask_1)">
+      <g id="Radio-btn" transform="translate(0.32258034 0.32258034)">
+        <g id="Ellipse-2">
+          <use stroke="none" fill="#FFFFFF" xlink:href="#path_2" fill-rule="evenodd" />
+          <g clip-path="url(#clip_1)">
+            <use xlink:href="#path_2" fill="none" stroke="#006C76" stroke-width="1" />
+          </g>
+        </g>
+        <path d="M0 4.83871C0 2.16636 2.16636 0 4.83871 0C7.51103 0 9.67742 2.16636 9.67742 4.83871C9.67742 7.51103 7.51103 9.67742 4.83871 9.67742C2.16636 9.67742 0 7.51103 0 4.83871L0 4.83871Z" transform="translate(4.838709 4.838709)" id="Ellipse-3" fill="#007C88" fill-rule="evenodd" stroke="none" />
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+.upload-your-files{text-align:center;padding:50px 25px;border-radius:2px;border:dashed 2px gray;background:#fbfeff;margin: 0;}
+.upload-custom{padding:50px 0;}
+.upload-your-files h1{color:#616161;font-size:25px;font-weight:700;text-align:center;padding:0 0 15px}
+.upload-your-files p{font-size:15px;font-weight:400;}
+.upload-your-files .upload-files {padding: 15px;margin: 20px auto 0 auto;display: block;width: 298px;height: 295px;border: 1px dashed var(--sidebar-color);display: flex;justify-content: center;flex-direction: column;}
+.upload-your-files .upload_icon {background: url(../img/icons/upload-icon.svg) center center no-repeat;width: 80px;height: 80px;margin: 0 auto;}
+.upload-your-files ._title {color: #ff104b;font-size: 36px;font-weight: 400;line-height: 44px;}

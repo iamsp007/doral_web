@@ -31,6 +31,10 @@ class PatientLabReport extends Model
         return $this->hasOne(LabReportType::class,'id','lab_report_type_id');
     }
 
+    public function user() {
+        return $this->hasOne(User::class,'id','patient_referral_id');
+    }
+
     public function getResultAttribute($result)
     {
         return ucfirst($result);

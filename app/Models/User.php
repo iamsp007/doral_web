@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,9 +58,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = [
-        'profile_photo_url',
-    ];
+    protected $appends = ['profile_photo_url','gender_name','avatar_image','phone_format','full_name'];
 
     public function patientDetail()
     {
@@ -80,7 +79,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(PatientLabReport::class,'patient_referral_id','id');
     }
-    
+
+    public function patientReport()
+    {
+        return $this->hasMany(PatientReport::class,'user_id','id');
+    }
+
     /**
      * Create full name with combine first name and last name
      */
@@ -152,5 +156,53 @@ class User extends Authenticatable
             $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
         }
         return $phoneData;
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getGenderNameAttribute()
+    {
+        return $this->gender==='1'?'Male':($this->gender==='2'?'Female':'Other');
+    }
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getAvatarImageAttribute()
+    {
+        if (isset($this->image) && !empty($this->image)) {
+            return env('WEB_URL').'assets/img/user/'. $this->image;
+        } else {
+            return env('WEB_URL').'assets/img/user/01.png';
+        }
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getDobAttribute($value)
+    {
+        return Carbon::parse(strtotime($value))->format('m/d/Y');
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getPhoneFormatAttribute()
+    {
+        $value=$this->phone;
+        if ($value){
+            $cleaned = preg_replace('/[^[:digit:]]/', '', $value);
+            preg_match('/(\d{3})(\d{3})(\d{4})/', $cleaned, $matches);
+            return "({$matches[1]}) {$matches[2]}-{$matches[3]}";
+        }
     }
 }

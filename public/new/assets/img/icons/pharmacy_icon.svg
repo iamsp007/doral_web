@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="25px" height="25px" viewbox="0 0 25 25" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L21 0L21 21L0 21L0 0Z" id="path_1" />
+    <path d="M0 0L21 0L21 21L0 21L0 0L0 0L0 0Z" id="path_2" />
+    <rect width="25" height="25" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+    <clipPath id="mask_2">
+      <use xlink:href="#path_2" />
+    </clipPath>
+  </defs>
+  <g id="Pixelbook" clip-path="url(#clip_1)">
+    <use xlink:href="#artboard_1" stroke="none" fill="#FFFFFF" />
+    <g id="pharmacy_icon" transform="translate(2 2)">
+      <g id="Mask-group">
+        <path d="M0 0L21 0L21 21L0 21L0 0Z" id="artboard_1" fill="none" fill-rule="evenodd" stroke="none" />
+        <g clip-path="url(#mask_1)">
+          <g id="Pixelbook">
+            <path d="M0 0L21 0L21 21L0 21L0 0Z" id="artboard_1" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+      </g>
+      <g id="pharmacy_icon">
+        <g id="Insurance-8">
+          <g id="pharmacy">
+            <path d="M0 0L21 0L21 21L0 21L0 0L0 0L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+            <g id="Mask-group">
+              <path d="M0 0L21 0L21 21L0 21L0 0L0 0L0 0Z" id="path_2" fill="none" fill-rule="evenodd" stroke="none" />
+              <g id="Mask-group">
+                <path d="M0 0L21 0L21 21L0 21L0 0L0 0L0 0Z" id="path_1" fill="none" fill-rule="evenodd" stroke="none" />
+                <g clip-path="url(#mask_2)">
+                  <g id="Group" transform="translate(0.98437494 1.640625)">
+                    <g id="Group">
+                      <g id="flat">
+                        <path d="M19.0313 2.29688L0 2.29688L0.65625 0L18.375 0L19.0313 2.29688L19.0313 2.29688L19.0313 2.29688Z" transform="translate(0 0.98437494)" id="Shape" fill="#B11E48" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L15.75 0L15.75 11.8125L0 11.8125L0 0L0 0L0 0Z" transform="translate(1.6406251 4.59375)" id="Shape#1" fill="#EAE9E1" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L6.5625 0L6.5625 5.90625L0 5.90625L0 0L0 0L0 0Z" transform="translate(2.953125 9.1875)" id="Shape#2" fill="#007C88" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L0 2.625C0 2.98744 0.293813 3.28125 0.65625 3.28125L1.3125 3.28125C1.67494 3.28125 1.96875 2.98744 1.96875 2.625L1.96875 0L0 0L0 0L0 0Z" transform="translate(1.6406251 4.59375)" id="Shape#3" fill="#DD3E46" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L0 2.625C0 2.98744 0.293814 3.28125 0.65625 3.28125L1.3125 3.28125C1.67494 3.28125 1.96875 2.98744 1.96875 2.625L1.96875 0L0 0L0 0L0 0Z" transform="translate(3.6093752 4.59375)" id="Shape#4" fill="#B11E48" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L0 2.625C0 2.98744 0.293814 3.28125 0.65625 3.28125L1.3125 3.28125C1.67494 3.28125 1.96875 2.98744 1.96875 2.625L1.96875 0L0 0L0 0L0 0Z" transform="translate(5.578125 4.59375)" id="Shape#5" fill="#DD3E46" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L0 2.625C0 2.98744 0.293814 3.28125 0.65625 3.28125L1.3125 3.28125C1.67494 3.28125 1.96875 2.98744 1.96875 2.625L1.96875 0L0 0L0 0L0 0Z" transform="translate(7.5468755 4.59375)" id="Shape#6" fill="#B11E48" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L0 2.625C0 2.98744 0.293814 3.28125 0.65625 3.28125L1.3125 3.28125C1.67494 3.28125 1.96875 2.98744 1.96875 2.625L1.96875 0L0 0L0 0L0 0Z" transform="translate(9.515625 4.59375)" id="Shape#7" fill="#DD3E46" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L0 2.625C0 2.98744 0.293813 3.28125 0.65625 3.28125L1.3125 3.28125C1.67494 3.28125 1.96875 2.98744 1.96875 2.625L1.96875 0L0 0L0 0L0 0Z" transform="translate(11.484375 4.59375)" id="Shape#8" fill="#B11E48" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L0 2.625C0 2.98744 0.293813 3.28125 0.65625 3.28125L1.3125 3.28125C1.67494 3.28125 1.96875 2.98744 1.96875 2.625L1.96875 0L0 0L0 0L0 0Z" transform="translate(13.453126 4.59375)" id="Shape#9" fill="#DD3E46" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L0 2.625C0 2.98744 0.293813 3.28125 0.65625 3.28125L1.3125 3.28125C1.67494 3.28125 1.96875 2.98744 1.96875 2.625L1.96875 0L0 0L0 0L0 0Z" transform="translate(15.421876 4.59375)" id="Shape#10" fill="#B11E48" fill-rule="evenodd" stroke="none" />
+                        <path d="M3.28125 0.984371L2.29688 0.984371L2.29688 0L0.984371 0L0.984371 0.984371L0 0.984371L0 2.29688L0.984371 2.29688L0.984371 3.28125L2.29688 3.28125L2.29688 2.29688L3.28125 2.29688L3.28125 0.984371L3.28125 0.984371L3.28125 0.984371Z" transform="translate(4.59375 10.5)" id="Shape#11" fill="#F4F4E6" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L17.0625 0L17.0625 1.3125L0 1.3125L0 0L0 0L0 0Z" transform="translate(0.98437506 16.40625)" id="Shape#12" fill="#007C88" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L4.59375 0L4.59375 7.21875L0 7.21875L0 0L0 0L0 0Z" transform="translate(11.15625 9.1875)" id="Shape#13" fill="#007C88" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L4.59375 0L4.59375 1.3125L0 1.3125L0 0L0 0L0 0Z" transform="translate(11.15625 15.09375)" id="Shape#14" fill="#DD3E46" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L1.96875 0L1.96875 3.28125L0 3.28125L0 0L0 0L0 0Z" transform="translate(12.468751 10.5)" id="Shape#15" fill="#F4F4E6" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0L17.7188 0L17.7188 1.3125L0 1.3125L0 0L0 0L0 0Z" transform="translate(0.65625 3.28125)" id="Shape#16" fill="#F98C96" fill-rule="evenodd" stroke="none" />
+                        <path d="M2.625 0.984379C2.625 0.440719 2.18429 0 1.64063 0L0 0L0 1.96875L1.64063 1.96875C2.18429 1.96875 2.625 1.52804 2.625 0.984379L2.625 0.984379L2.625 0.984379L2.625 0.984379Z" transform="translate(9.515625 0)" id="Shape#17" fill="#F9BB4B" fill-rule="evenodd" stroke="none" />
+                        <path d="M0 0.984379C0 0.440719 0.440719 0 0.984379 0L2.625 0L2.625 1.96875L0.984379 1.96875C0.440719 1.96875 0 1.52804 0 0.984379L0 0.984379L0 0.984379L0 0.984379Z" transform="translate(6.8906255 0)" id="Shape#18" fill="#55B56A" fill-rule="evenodd" stroke="none" />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

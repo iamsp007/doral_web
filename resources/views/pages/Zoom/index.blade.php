@@ -12,8 +12,8 @@
                             <div class="col-12 col-sm-3">
                                 <div class="d-flex">
                                     <div class="mr-2">
-                                        <img src="{{ asset('assets/img/user/01.png') }}" class="user_photo" alt=""
-                                             srcset="{{ asset('assets/img/user/01.png') }}">
+                                        <img src="{{ asset('assets/img/user/avatar.jpg') }}" class="user_photo" alt=""
+                                             srcset="{{ asset('assets/img/user/avatar.jpg') }}">
                                     </div>
                                     <div>
                                         <h1 class="title text-info">Alex Doe</h1>

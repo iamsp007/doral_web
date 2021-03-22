@@ -554,18 +554,16 @@
                               <tbody>
                               <tr class="tr_class">
                                  <td>
-                                    <label class="containera srNO" >
-                                        1
-                                     </label>
+                                    <label class="containera srNO">1</label>
                                  </td>
                                  <td>
                                  <!-- onchange="getAndSetLabReport(event,this.value)" -->
-                                 <select onchange="getAndSetLabReport(event,this.value)" class="form-control test_name" name="report[1][test_name]">
-                                       <option>Select Type</option>
+                                 <select class="form-control test_name report_type" name="report[1][test_name]">
+                                         <option value="0">Select Type</option>
                                        @foreach ($labReportTypes as $key => $item)
-                                       @if($key !=1 && $key !=7 && $key !=12)
-                                            <option value="{{ $key }}">{{ $item }}</option>
-                                       @endif
+                                          @if($key !=1 && $key !=7 && $key !=12)
+                                             <option value="{{ $item }}" data-id="{{ $key }}">{{ $item }}</option>
+                                          @endif
                                        @endforeach
                                     </select>
                                  </td>
@@ -927,7 +925,12 @@
                 $("#txtPassportl").val('');
              }
           });
-       });
+
+         $(document).on('change','.report_type', function(e){
+            var id = $(this).find('option:selected').data('id')
+            getAndSetLabReport(e,id);
+         });
+      });
        function getAndSetLabReport(e,id) {
            var getRowName = e.target.name;
            var lookup = parseInt(getRowName.replace ( /[^\d.]/g, '' ));

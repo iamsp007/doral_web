@@ -25,8 +25,8 @@
                             <div class="patient-detail">
                                 <div class="p-20">
                                     <div class="img-50">
-                                        <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                            srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                        <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                            srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -43,8 +43,8 @@
                             <div class="patient-detail">
                                 <div class="p-20">
                                     <div class="img-50">
-                                        <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                            srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                        <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                            srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -61,8 +61,8 @@
                             <div class="patient-detail">
                                 <div class="p-20">
                                     <div class="img-50">
-                                        <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                            srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                        <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                            srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -79,8 +79,8 @@
                             <div class="patient-detail">
                                 <div class="p-20">
                                     <div class="img-50">
-                                        <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                            srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                        <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                            srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -97,8 +97,8 @@
                             <div class="patient-detail">
                                 <div class="p-20">
                                     <div class="img-50">
-                                        <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                            srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                        <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                            srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                     </div>
                                     <h1 class="patient-name">Edword Norton</h1>
                                 </div>
@@ -173,9 +173,9 @@
                                         <li>
                                             <div class="Level-3">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Edword Norton</h1>
@@ -188,9 +188,9 @@
                                         <li>
                                             <div class="Level-2">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">John Jeo</h1>
@@ -203,9 +203,9 @@
                                         <li>
                                             <div class="Level-1">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Invanka</h1>
@@ -218,9 +218,9 @@
                                         <li>
                                             <div class="elevated">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Angelina</h1>
@@ -232,9 +232,9 @@
                                         <li>
                                             <div class="normal">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Clinton</h1>
@@ -245,9 +245,9 @@
                                         <li>
                                             <div class="Level-3">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Edword Norton</h1>
@@ -260,9 +260,9 @@
                                         <li>
                                             <div class="Level-2">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">John Jeo</h1>
@@ -275,9 +275,9 @@
                                         <li>
                                             <div class="Level-1">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Invanka</h1>
@@ -290,9 +290,9 @@
                                         <li>
                                             <div class="elevated">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Angelina</h1>
@@ -304,9 +304,9 @@
                                         <li>
                                             <div class="normal">
                                                 <div class="img-30">
-                                                    <img src="{{ asset('assets/img/user/01.png') }}"
+                                                    <img src="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         alt="Welcome to Doral"
-                                                        srcset="{{ asset('assets/img/user/01.png') }}"
+                                                        srcset="{{ asset('assets/img/user/avatar.jpg') }}"
                                                         class="img-fluid">
                                                 </div>
                                                 <h1 class="patient-name">Clinton</h1>
@@ -351,8 +351,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Edword Norton</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -366,8 +366,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">John Jeo</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -381,8 +381,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Invanka</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -396,8 +396,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">John Abraham</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -411,8 +411,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Tom Poter</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -426,8 +426,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Edword Norton</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -441,8 +441,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">John Jeo</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -456,8 +456,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Invanka</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -471,8 +471,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">John Abraham</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>
@@ -486,8 +486,8 @@
                                 <li>
                                     <div class="block">
                                         <div class="img-30">
-                                            <img src="{{ asset('assets/img/user/01.png') }}" alt="Welcome to Doral"
-                                                srcset="{{ asset('assets/img/user/01.png') }}" class="img-fluid">
+                                            <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="Welcome to Doral"
+                                                srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                                         </div>
                                         <h1 class="patient-name">Tom Poter</h1>
                                         <h3 class="title">Cause Of Appointment : <span>MD Order Form</span>

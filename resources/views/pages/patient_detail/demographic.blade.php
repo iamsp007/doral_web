@@ -2,8 +2,10 @@
    <div class="app-card app-card-custom" data-name="demographics">
       <div class="app-card-header">
          <h1 class="title">Demographics</h1>
-         <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
-         <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
+         @role('clinician')
+            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
+            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
+         @endrole
       </div>
       <div class="head scrollbar scrollbar12">
          <div class="p-3">
@@ -859,7 +861,7 @@
                                           class="form-control-plaintext _detail " readonly
                                           name="name"
                                           onclick="editableField('name')"
-                                          data-id="name" id="name"
+                                          data-id="name"
                                           placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
                                     </div>
                                  </div>
@@ -870,7 +872,7 @@
                                        <i class="las la-phone circle"></i>
                                     </div>
                                     <div class="rs">
-                                       <h3 class="_title">Phone1</h3>
+                                       <h3 class="_title">Home Phone</h3>
                                        <input type="text"
                                           class="form-control-plaintext _detail " readonly
                                           name="phone1"
@@ -886,7 +888,7 @@
                                        <i class="las la-phone circle"></i>
                                     </div>
                                     <div class="rs">
-                                       <h3 class="_title">Phone2</h3>
+                                       <h3 class="_title">Cell Phone</h3>
                                           <input type="text"
                                           class="form-control-plaintext _detail " readonly
                                           name="phone2"

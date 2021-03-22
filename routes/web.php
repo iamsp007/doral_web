@@ -105,3 +105,4 @@ Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|
     Route::get('/get-due-detail','App\Http\Controllers\CaregiverController@duePatientView')->name('clinician.due-detail');
     Route::post('/get-patient-due-detail','App\Http\Controllers\CaregiverController@getDuePatients')->name('clinician.due-patient-detail.ajax');
     Route::get('/get-patient-due-detail/{id}', 'App\Http\Controllers\CaregiverController@getDuePatientDetail');
+    Route::post('get-user-data','App\Http\Controllers\CaregiverController@getUserData')->name('clinician.get-user-data');

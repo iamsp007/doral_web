@@ -132,7 +132,6 @@
             <!-- Insurance Company Form Start -->
             <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 insurance_company">
                <form class="insurance_form">
-                  <input type="hidden" name="insurance_id" value="{{ $insurance->id }}">
                   <input type="hidden" name="user_id" value="{{ $patient->id }}">
                   <span class="name-invalid-feedback text-danger" role="alert"></span>
                   <div class="head">

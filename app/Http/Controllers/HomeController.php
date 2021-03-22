@@ -25,7 +25,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (Auth::guard('partner')->check()){
+            return redirect()->route('partner.dashboard');
+        }elseif (Auth::guard('referral')->check()){
+            return redirect()->route('referral.dashboard');
+        }else if (Auth::user()->hasRole('admin')){
+            return redirect()->route('admin.dashboard');
+        }else if (Auth::user()->hasRole('clinician')){
+            return redirect()->route('clinician.dashboard');
+        }else if (Auth::user()->hasRole('supervisor')){
+            return redirect()->route('supervisor.dashboard');
+        }else if (Auth::user()->hasRole('coordinator')){
+            return redirect()->route('coordinator.dashboard');
+        }
+        return redirect()->route('login');
     }
 
 

@@ -50,36 +50,37 @@
                     <a href="#" class="icon-logo"></a>
                 </div>
                 <ul class="cbp-vimenu">
-                    @hasrole('admin', 'partner')
+
+                    @if(\Illuminate\Support\Facades\Auth::guard('partner')->check())
                         @php
                             $file='menu.partner';
                         @endphp
+                    @elseif(\Illuminate\Support\Facades\Auth::guard('referral')->check())
+                        @php
+                            $file='menu.referral';
+                        @endphp
                     @else
-                        @php
-                            $file='menu.admin';
-                        @endphp
-                    @endrole
-
-                    @hasrole('clinician')
-                        @php
-                          $file='menu.clinician';
-                        @endphp
-                    @endrole
-                    @hasrole('referral')
-                        @php
-                          $file='menu.referral';
-                        @endphp
-                    @endrole
-                    @hasrole('supervisor')
-                        @php
-                          $file='menu.supervisor';
-                        @endphp
-                    @endrole
-                    @hasrole('co-ordinator')
-                        @php
-                          $file='menu.co-ordinator';
-                        @endphp
-                    @endrole
+                        @hasrole('admin')
+                            @php
+                                $file='menu.partner';
+                            @endphp
+                        @endrole
+                        @hasrole('clinician')
+                            @php
+                                $file='menu.clinician';
+                            @endphp
+                        @endrole
+                        @hasrole('supervisor')
+                            @php
+                                $file='menu.supervisor';
+                            @endphp
+                        @endrole
+                        @hasrole('co-ordinator')
+                            @php
+                                $file='menu.co-ordinator';
+                            @endphp
+                        @endrole
+                    @endif
                     @foreach(config($file) as $key=>$value)
                         @if(!isset($value['menu']))
 
@@ -167,7 +168,11 @@
                             <i class="las la-bars white"></i>
                         </span></button>
                     <h1 class="title">
-                        @hasrole('referral')
+                        @if(\Illuminate\Support\Facades\Auth::guard('partner')->check())
+                            @foreach(Auth::guard('partner')->user()->roles->pluck('name') as $key=>$value)
+                                {{ ucfirst($value) }}
+                            @endforeach
+                        @elseif(\Illuminate\Support\Facades\Auth::guard('referral')->check())
                             @foreach(Auth::guard('referral')->user()->roles->pluck('name') as $key=>$value)
                                 {{ ucfirst($value) }}
                             @endforeach
@@ -177,7 +182,7 @@
                                     {{ ucfirst($value) }}
                                 @endforeach
                             @endauth
-                        @endrole
+                        @endif
                     </h1>
                 </div>
                 <div>
@@ -193,39 +198,52 @@
                                 <div class="user dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
                                      aria-haspopup="true" aria-expanded="false">
 
-
-                                    @hasrole('referral')
-                                        <span>Hi, {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                                    @if(\Illuminate\Support\Facades\Auth::guard('partner')->check())
+                                        <span>Hi, {{ \Illuminate\Support\Facades\Auth::guard('partner')->user()->name }}</span>
+                                    @elseif(\Illuminate\Support\Facades\Auth::guard('referral')->check())
+                                        <span>Hi, {{ \Illuminate\Support\Facades\Auth::guard('referral')->user()->name }}</span>
                                     @else
-                                        @hasrole('admin','partner')
-                                            <span>Hi, {{ Auth::guard('partner')->user()->name }}</span>
-                                        @else
-                                            @if(\Illuminate\Support\Facades\Auth::check())
-                                                <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
-                                            @else
-                                                <span>Hi, {{ Auth::guard('referral')->user()->name }}</span>
-                                            @endif
-
-                                        @endrole
-                                    @endrole
-
+                                        <span>Hi, {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+                                    @endif
                                     <a href="javascript:void(0)">
                                         <i class="las la-user-circle la-3x ml-2"></i>
                                     </a>
                                 </div>
                                 <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
-                                    @hasrole('referral')
-                                     <a class="dropdown-item" href="{{ url('referral/profile') }}"
-                                    >Profile</a>
-                                     @endrole
-                                    <a class="dropdown-item" href="{{ url('logout') }}"
-                                       onclick="event.preventDefault();
+                                    @if(\Illuminate\Support\Facades\Auth::guard('partner')->check())
+                                        <a class="dropdown-item" href="{{ url('partner/profile') }}"
+                                        >Profile</a>
+                                        <a class="dropdown-item" href="{{ url('partner/logout') }}"
+                                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"
-                                    >Logout</a>
+                                        >Logout</a>
 
-                                    <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+                                        <form id="logout-form" action="{{ route('partner.logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    @elseif(\Illuminate\Support\Facades\Auth::guard('referral')->check())
+                                        <a class="dropdown-item" href="{{ url('referral/profile') }}"
+                                        >Profile</a>
+                                        <a class="dropdown-item" href="{{ url('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                                        >Logout</a>
+
+                                        <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    @else
+                                        <a class="dropdown-item" href="{{ url('/profile') }}"
+                                        >Profile</a>
+                                        <a class="dropdown-item" href="{{ url('logout') }}"
+                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                                        >Logout</a>
+
+                                        <form id="logout-form" action="{{ url('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </li>

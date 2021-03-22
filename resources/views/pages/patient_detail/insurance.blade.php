@@ -22,7 +22,7 @@
                                  <div class="rs">
                                     <h3 class="_title">Medicaid No</h3>
                                     <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}">
-                                    <span class="medicaid_number-invalid-feedback text-danger" role="alert"></span>
+                                    <span class="medicaid_number-invalid-feedback text-danger" role="alert" maxlength="8"></span>
                                  </div>
                               </div>
                            </div>
@@ -132,6 +132,8 @@
             <!-- Insurance Company Form Start -->
             <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 insurance_company">
                <form class="insurance_form">
+                  <input type="hidden" name="insurance_id" value="{{ $insurance->id }}">
+                  <input type="hidden" name="user_id" value="{{ $patient->id }}">
                   <span class="name-invalid-feedback text-danger" role="alert"></span>
                   <div class="head">
                      <div class="p-3">
@@ -169,7 +171,7 @@
                                     <h3 class="_title">Phone</h3>
                                     <div class="_detail">
                                        <input type="text" class="form-control form-control-lg" name="phone" id="insurance_detail_phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number">
-                                       <span class="phone-invalid-feedback text-danger" role="alert"></span>
+                                       <span class="phone-invalid-feedback text-danger" role="alert" maxlength="14"></span>
                                     </div>
                                  </div>
                               </div>

@@ -41,5 +41,8 @@ Route::group(['prefix'=>'/clinician','middleware'=>['role:clinician','check']],f
         Route::post('/add-insurance','\App\Http\Controllers\PatientController@addInsurance')->name('patient.addInsurance');
         Route::get('/ccm-reading-level-high','\App\Http\Controllers\PatientController@ccmReadingLevelHigh')->name('patient.ccm-reading-level-high');
         Route::post('/appointments','\App\Http\Controllers\PatientController@appointments')->name('appointments');
+
+        Route::get('/covid-19','\App\Http\Controllers\Clinician\PatientController@covid19')->name('clinician.covid-19');
+        Route::get('/covid-19-patient-list','\App\Http\Controllers\Clinician\PatientController@covid19PatientList')->name('clinician.covid-19-patient-list');
     });
 });

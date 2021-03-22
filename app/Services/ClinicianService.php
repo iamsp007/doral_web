@@ -11,6 +11,7 @@ namespace App\Services;
 use App\BaseClient;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Mockery\Exception;
 
 class ClinicianService
@@ -77,11 +78,11 @@ class ClinicianService
 
 
             $response = $response->getBody()->getContents();
-            \Log::info($response);
+            Log::info($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-            \Log::info($exception->getMessage());
+            Log::info($exception->getMessage());
         }
     }
 
@@ -269,11 +270,11 @@ class ClinicianService
                 ]
             );
             $response = $response->getBody()->getContents();
-            \Log::info($response);
+            Log::info($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-            \Log::info($exception->getMessage());
+            Log::info($exception->getMessage());
         }
     }
 
@@ -400,7 +401,30 @@ class ClinicianService
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-            \Log::info($exception);
+            Log::info($exception);
+        }
+    }
+
+    /**
+     * getCovid19PatientList
+     * 
+     * @return $data;
+     */
+    public function getCovid19PatientList()
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/get-covid-19-patient-list'
+            );
+
+            $response = $response->getBody()->getContents();
+
+            $data = json_decode($response);
+
+            return $data;
+        }catch (\Exception $exception){
+            Log::error($exception->getMessage());
         }
     }
 }

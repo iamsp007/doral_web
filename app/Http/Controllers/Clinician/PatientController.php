@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
+use App\Models\CovidForm;
 use App\Models\Patient;
 use App\Models\PatientReferral;
 use App\Models\User;
@@ -244,4 +245,38 @@ class PatientController extends Controller
         }
         return response()->json($response,422);
  }
+
+    /**
+     * Covid 19 data table
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function covid19()
+    {
+        return view($this->view_path.'covid-19-datatable');
+    }
+
+    /**
+     * Covid 19 data will display
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function covid19PatientList()
+    {
+        $patientList = CovidForm::all();
+
+        return  DataTables::of($patientList)
+            ->addIndexColumn()
+            ->addColumn('pdf', function(){
+                return env('APP_URL')."pdf/new.pdf";
+            })
+            ->rawColumns(['pdf'])->make(true);
+
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->getCovid19PatientList();
+        if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
+    }
 }

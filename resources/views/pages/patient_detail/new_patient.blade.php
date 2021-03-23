@@ -38,60 +38,61 @@
 @endrole
 
 @section('content')
-    <form id="search_form" method="post">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-3 col-sm-3 col-md-3">
-                    <div class="input-group">
-                        <select name="status" id="status" class="form-control form-control-lg">
-                            <option value="">Select a status</option>
-                            @foreach (config('select.userStatus') as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
-                            @endforeach
+    @if(!$pendingStatus)
+        <form id="search_form" method="post">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <select name="status" id="status" class="form-control form-control-lg">
+                                <option value="">Select a status</option>
+                                @foreach (config('select.userStatus') as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <x-text name="lab_due_date" class="lab_due_date" id="lab_due_date" placeholder="Due Date"/></td>
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <select class="form-control" name="service_id" id="service_id">
+                            <option value="">Select service</option>
+                            <option value="1">VBC</option>
+                            <option value="2">MD Order</option>
+                            <option value="3">Occupational Health</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-3 col-sm-3 col-md-3">
-                    <div class="input-group">
-                        <x-text name="lab_due_date" class="lab_due_date" id="lab_due_date" placeholder="Due Date"/></td>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <select class="form-control" name="gender" id="gender">
+                            <option value="">Select gender</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <input type="text" class="form-control" name="dob" id="dob" placeholder="DOB">
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
                     </div>
                 </div>
-                <div class="col-3 col-sm-3 col-md-3">
-                    <div class="input-group">
-                        <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
-                    </div>
-                </div>
-                <div class="col-3 col-sm-3 col-md-3">
-                    <select class="form-control" name="service_id" id="service_id">
-                        <option value="">Select service</option>
-                        <option value="1">VBC</option>
-                        <option value="2">MD Order</option>
-                        <option value="3">Occupational Health</option>
-                    </select>
-                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-3 col-sm-3 col-md-3">
-                    <select class="form-control" name="gender" id="gender">
-                        <option value="">Select gender</option>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
-                        <option value="3">Other</option>
-                    </select>
-                </div>
-                <div class="col-3 col-sm-3 col-md-3">
-                    <input type="text" class="form-control" name="dob" id="dob" placeholder="DOB">
-                </div>
-                <div class="col-3 col-sm-3 col-md-3">
-                    <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
-                    <input type="button" name="reset" value="Reset" id="reset123" onclick="customReset();"/>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
+    @endif
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
         <button type="button" onclick="doaction('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
         <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
@@ -338,17 +339,6 @@
                     }
                 }
             }
-        }
-
-        function customReset()
-        {
-            $(document).find('#status').val('');
-            $(document).find('#lab_due_date').val('');
-            $(document).find('#user_name').val(0);
-            $(document).find('#user_name option:selected').prop("selected", false)
-            $(document).find('#service_id').val('');
-            $(document).find('#gender').val('');
-            $(document).find('#dob').val('');
         }
 
         function doaction(status) 

@@ -131,7 +131,7 @@
                                     <div class="ls"><i class="las la-phone circle"></i></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Home Phone</h3>
-                                        <input type="text" class="form-control-plaintext _detail phoneNumber" readonly name="home_phone" data-id="home_phone" id="home_phone" placeholder="Home Phone" value="{{ ($patient->phone) ? $patient->phone : '' }}" maxlength="14">
+                                        <input type="text" class="form-control-plaintext _detail phoneNumber phone_format" readonly name="home_phone" data-id="home_phone" id="home_phone" placeholder="Home Phone" value="{{ ($patient->phone) ? $patient->phone : '' }}" maxlength="14">
                                     </div>
                                 </div>
                             </div>

@@ -44,7 +44,7 @@
                         <tbody>
                             @php $number = 1; @endphp
                             @foreach($drugLabReports as $drugLabReport)
-                                <tr class="@if ($drugLabReport->result === '1') bg-positive text-white @endif">
+                                <tr>
                                     <td scope="row">{{ $number }}</td>
                                     <td scope="row">{{ ($drugLabReport->labReportType) ? $drugLabReport->labReportType->name : ''}}</th>
                                     <td>{{ $drugLabReport->due_date }}</td>
@@ -61,8 +61,8 @@
                                 </tr>
                                 <tr class="explode1 d-none">
                                     <td colspan="6">
-                                        <x-text-area name="note" id="note" placeholder="Enter note" value="{{$drugLabReport->note}}"/>
-                                        <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $drugLabReport->id }}" />
+                                        <x-text-area name="note" class="note" placeholder="Enter note" value="{{$drugLabReport->note}}"/>
+                                        <x-hidden name="patient_lab_report_id" class="patient_lab_report_id" value="{{ $drugLabReport->id }}" />
                                     </td>
                                 </tr>
                                 @php $number++; @endphp
@@ -82,10 +82,10 @@
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td><x-text name="lab_due_date" id="lab_due_date" /></td>
-                                    <td><x-text name="lab_perform_date" id="lab_perform_date" /></td>
-                                    <x-hidden name="patient_referral_id" id="patient_referral_id" value="{{ $paient_id }}" />
-                                    <x-hidden name="lab_expiry_date" id="lab_expiry_date" />
+                                    <td><x-text name="lab_due_date" class="lab_due_date" /></td>
+                                    <td><x-text name="lab_perform_date" class="lab_perform_date" /></td>
+                                    <x-hidden name="patient_referral_id" class="patient_referral_id" value="{{ $paient_id }}" />
+                                    <x-hidden name="lab_expiry_date" class="lab_expiry_date" />
                                     <td class="lab-expiry-date"></td>
                                     <td>
                                         <select name="result" class="form-control">

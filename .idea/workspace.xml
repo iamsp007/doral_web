@@ -3,7 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/clincian/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/clincian/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/PartnerLoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/PartnerLoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Partner/PartnerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Partner/PartnerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/partner/add-employee.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/partner/add-employee.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/partner-register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/partner-register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/partner/add-employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/partner/add-employee.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/clinician.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinician.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/coordinator.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/coordinator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/partner.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/partner.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/referral.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/referral.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/supervisor.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/supervisor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,6 +183,11 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
       <path value="$PROJECT_DIR$/vendor/predis/predis" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
     </include_path>
   </component>
   <component name="ProjectId" id="1jExBQGjb0JrI2cHx9rLuxWcHW8" />
@@ -189,11 +208,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/pages/layouts" />
       <recent name="$PROJECT_DIR$/app/Models" />
-      <recent name="$PROJECT_DIR$/public/assets/img/user" />
       <recent name="$PROJECT_DIR$/public/assets/css" />
-      <recent name="$PROJECT_DIR$/resources/views/auth" />
-      <recent name="$PROJECT_DIR$/app/Http/Controllers/Auth" />
+      <recent name="$PROJECT_DIR$/public/assets/js" />
+      <recent name="$PROJECT_DIR$/public/assets/img/user" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public" />
@@ -574,11 +593,90 @@
       <workItem from="1613658522369" duration="1340000" />
       <workItem from="1613660256842" duration="1241000" />
       <workItem from="1613662789451" duration="2035000" />
+      <workItem from="1613744109974" duration="1004000" />
+      <workItem from="1613745199233" duration="161000" />
+      <workItem from="1613747170982" duration="1290000" />
+      <workItem from="1613795357417" duration="716000" />
+      <workItem from="1613818198793" duration="1783000" />
+      <workItem from="1613821919723" duration="1666000" />
+      <workItem from="1613824072245" duration="867000" />
+      <workItem from="1613825602584" duration="1578000" />
+      <workItem from="1613829961052" duration="6083000" />
+      <workItem from="1613844200622" duration="1376000" />
+      <workItem from="1613845641023" duration="827000" />
+      <workItem from="1613983975144" duration="896000" />
+      <workItem from="1614004000512" duration="3496000" />
+      <workItem from="1614013730583" duration="1607000" />
+      <workItem from="1614016133290" duration="1465000" />
+      <workItem from="1614051179217" duration="136000" />
+      <workItem from="1614059031694" duration="3597000" />
+      <workItem from="1614074803544" duration="4619000" />
+      <workItem from="1614967843375" duration="628000" />
+      <workItem from="1614998238069" duration="8299000" />
+      <workItem from="1615021083541" duration="344000" />
+      <workItem from="1615123331445" duration="3793000" />
+      <workItem from="1615206642210" duration="4533000" />
+      <workItem from="1615284890454" duration="4753000" />
+      <workItem from="1615524644715" duration="833000" />
+      <workItem from="1615525808931" duration="940000" />
+      <workItem from="1615526778995" duration="1818000" />
+      <workItem from="1615528623857" duration="304000" />
+      <workItem from="1615529593443" duration="340000" />
+      <workItem from="1615530112825" duration="1248000" />
+      <workItem from="1615531432774" duration="1891000" />
+      <workItem from="1615533782541" duration="1456000" />
+      <workItem from="1615535656034" duration="1430000" />
+      <workItem from="1615537494400" duration="924000" />
+      <workItem from="1615540574929" duration="599000" />
+      <workItem from="1615546363947" duration="673000" />
+      <workItem from="1615549083738" duration="1575000" />
+      <workItem from="1615551006728" duration="1848000" />
+      <workItem from="1615552931161" duration="1782000" />
+      <workItem from="1615554781748" duration="13000" />
+      <workItem from="1615570082033" duration="1799000" />
+      <workItem from="1615571913572" duration="1782000" />
+      <workItem from="1615573725058" duration="1715000" />
+      <workItem from="1615577385051" duration="471000" />
+      <workItem from="1615607361029" duration="139000" />
+      <workItem from="1615617979692" duration="868000" />
+      <workItem from="1615619128622" duration="61000" />
+      <workItem from="1615619216409" duration="364000" />
+      <workItem from="1615825821152" duration="1957000" />
+      <workItem from="1615827843633" duration="735000" />
+      <workItem from="1615829279152" duration="1251000" />
+      <workItem from="1615831816658" duration="950000" />
+      <workItem from="1615910586283" duration="1754000" />
+      <workItem from="1615912449622" duration="1970000" />
+      <workItem from="1615915013522" duration="1991000" />
+      <workItem from="1615917039150" duration="1920000" />
+      <workItem from="1615919082865" duration="324000" />
+      <workItem from="1615920399645" duration="72000" />
+      <workItem from="1616082606117" duration="1433000" />
+      <workItem from="1616084433523" duration="102000" />
+      <workItem from="1616084640869" duration="9519000" />
+      <workItem from="1616169917997" duration="347000" />
+      <workItem from="1616217693928" duration="304000" />
+      <workItem from="1616233396802" duration="471000" />
+      <workItem from="1616429304359" duration="1790000" />
+      <workItem from="1616431125577" duration="1785000" />
+      <workItem from="1616432941215" duration="2098000" />
+      <workItem from="1616435134643" duration="599000" />
+      <workItem from="1616439655634" duration="1274000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

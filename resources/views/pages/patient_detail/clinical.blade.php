@@ -49,7 +49,7 @@
                </li>
             </ul>
          </div>
-         <div class="p-3 scrollbar scrollbar4">
+         <div class="p-3 scrollbar scrollbar12">
             <div class="tab-content" id="pills-tabContent">
                <!-- Social Pro Start-->
                <div class="tab-pane fade" id="social-pro" role="tabpanel"
@@ -342,28 +342,43 @@
                <!-- Cover Note End-->
                <!-- Lab Start-->
                <div class="tab-pane fade show active" id="lab-report" role="tabpanel" aria-labelledby="lab-tab">
-                  <ul class="nav nav-pills nav-clinical-nested shadow-sm mb-3" id="pills-tab" role="tablist">
-                     @foreach($labReportTypes as $key => $labReportType)
-                        <li class="nav-item" role="presentation">
-                              <a class="nav-link @if ($key === 0) active @endif" id="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab" data-toggle="pill"
-                                 href='#{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}'
-                                 role="tab" aria-controls="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}"
-                                 aria-selected="false">{{ $labReportType->name }}</a>
-                        </li>
-                     @endforeach
-                  </ul>
-                  <div class="tab-content" id="pills-tabContent">
-                     <!-- TB Screen Start -->
-                        @include('pages.patient_detail.lab.tb-screen')
-                     <!-- TB Screen End -->
-                 
-                     <!-- Immunization Start -->
-                        @include('pages.patient_detail.lab.immunization')
-                     <!-- Immunization End -->
 
-                     <!-- Drug Screen Start -->
-                        @include('pages.patient_detail.lab.drug-screen')
-                     <!-- Drug Screen End -->
+                <ul class="nav nav-pills nav-clinical-nested shadow-sm mb-3" id="pills-tab" role="tablist">
+                   @foreach($labReportTypes as $key => $labReportType)
+                      <li class="nav-item" role="presentation">
+                          <a class="nav-link @if ($key === 0) active @endif" id="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab" data-toggle="pill"
+                             href='#{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}'
+                             role="tab" aria-controls="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}"
+                             aria-selected="false">{{ $labReportType->name }}
+                          </a>
+                      </li>
+                   @endforeach
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                     @foreach($labReportTypes as $key => $labReportType)
+                        @php
+                           $type=1;
+                        @endphp
+                        @if($labReportType->id===1)
+                              @php $type=1; @endphp
+                        @elseif($labReportType->id===7)
+                              @php $type=2; @endphp
+                        @elseif($labReportType->id===12)
+                              @php $type=3; @endphp
+                        @endif
+
+                        <div class="{{ $key===0?'tab-pane fade active show':'tab-pane fade show' }}" id="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}" role="tabpanel" aria-labelledby="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab">
+                           <div class="d-flex justify-content-end mb-3">
+                              @role('clinician')
+                                 <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center"><i class="las la-file-upload la-2x mr-2"></i><a target="_blank" href="{{route('get-employee-physical-examination-report', ['id' => $patient->id])}}">Employee Physical Form</a>
+                                 </button>
+                                 <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center" onclick="openLabReports({{ $type }})" data-toggle="modal" data-target="#uploadLabReportModal"><i class="las la-file-upload la-2x mr-2"></i>Upload Lab Reports</button>
+                              @endrole
+                              <button type="button" class="btn btn-outline-green d-flex align-items-center" onclick="viewLabReports({{ $type }})" data-toggle="modal" data-target="#labreportModal" name=""><i class="las la-binoculars la-2x mr-2"></i> View Lab Reports</button>
+                           </div>
+                           @include('pages.patient_detail.lab.'.(new \App\Helpers\Helper)->clean($labReportType->name))
+                        </div>
+                     @endforeach
                   </div>
                </div>
                <!-- Lab End-->
@@ -372,3 +387,27 @@
       </div>
    </div>
 </div>
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/uploadfiles.css') }}">
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" />
+    <style>
+       
+        .app .app-content .app-header-block._fullwidth {
+            width: calc(100% - 7rem);
+            position: fixed;
+            right: 0;
+            z-index: 0;
+        }
+        .app .app-content .app-body{overflow:hidden;padding-left:0;padding-right:0}
+        .modal-backdrop{z-index: 0!important;}
+        .modal-backdrop.show{z-index: -1!important;}
+        .scrollbar12{height:600px}
+    </style>
+@endpush
+
+@push('patient-detail-js')
+    <script src="{{ asset('assets/js/uploadfiles.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script src="{{ asset('js/lab-reports.js') }}"></script>
+@endpush

@@ -7,6 +7,10 @@
             style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
             onclick="openRoadL('tbbtn')" name="RoadL Request">RoadL Request
          </button>  
+         <a href="{{ route('get-employee-physical-examination-report', $details->id) }}" class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3"
+            style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"
+            name="EMPLOYEE PHYSICAL EXAMINATION REPORT" target="__blank">EMPLOYEE PHYSICAL EXAMINATION REPORT
+         </a>
          <div class="recieved_roadl d-none">
             <div class="row">
                <div class="col-12 col-sm-4"></div>
@@ -43,7 +47,7 @@
                   <tbody>
                      @php $number = 1; @endphp
                      @foreach($tbpatientLabReports as $tbpatientLabReport)
-                        <tr class="@if ($tbpatientLabReport->result === '1') bg-positive text-white @endif">
+                        <tr>
                            <th scope="row">{{ $number }}</th>
                            <td scope="row">{{ ($tbpatientLabReport->labReportType) ? $tbpatientLabReport->labReportType->name : ''}}</th>
                            <td>{{ $tbpatientLabReport->due_date }}</td>
@@ -84,12 +88,12 @@
                                  </span>
                               @enderror
                            </td>
-                           <td><x-text name="lab_due_date" id="lab_due_date" /></td>
-                           <x-hidden name="patient_referral_id" id="patient_referral_id" value="{{ $paient_id }}" />
-                           <x-hidden name="lab_expiry_date" id="lab_expiry_date" />
+                           <td><x-text name="lab_due_date" class="lab_due_date" /></td>
+                           <x-hidden name="patient_referral_id" class="patient_referral_id" value="{{ $paient_id }}" />
+                           <x-hidden name="lab_expiry_date" class="lab_expiry_date" />
                            <td class="lab-expiry-date"></td>
                            <td>
-                              <select name="result" id="result" class="form-control">
+                              <select name="result" class="result" class="form-control">
                                  <option value="">Select a result</option>
                                  @foreach(config('select.labResult') as $key => $labResult)
                                     <option value="{{ $key }}">{{ $labResult }}</option>

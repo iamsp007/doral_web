@@ -55,7 +55,7 @@ class CurlFunction
         ));
 
         $curlResponse = curl_exec($ch);
-        //dd($curlResponse);
+        
         curl_close($ch);
 
         return $curlResponse;

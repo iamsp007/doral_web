@@ -1,10 +1,63 @@
+
+$("body").on('keyup','.ssnedit, #ssn',function () {
+    
+    var val = this.value.replace(/\D/g, '');
+    var newVal = '';
+    var sizes = [3, 2, 4];
+    var maxSize = 10;
+
+    for (var i in sizes) {
+        if (val.length > sizes[i]) {
+            newVal += val.substr(0, sizes[i]) + '-';
+            val = val.substr(sizes[i]);
+        } else { 
+            break; 
+        }       
+    }
+
+    newVal += val;
+    this.value = newVal;  
+}); 
+
+$("body").on('keypress','#medicare_number',function (event) {
+    if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+        event.preventDefault();
+    }
+});
+
+$("body").on('keypress','#home_phone, #mobile_or_sms, .emergencyPhone1, .emergencyPhone2, #company_phone, #administrator_phone_no, #insurance_detail_phone',function (event) {
+    if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
+        event.preventDefault();
+    }
+
+    $(this).val($(this).val().replace(/^(\d{3})(\d{3})(\d+)$/, "($1) $2-$3"));
+});
+
+$("body").on('blur','#medicaid_number',function (event) {
+    var str = $(this).val();
+   
+    if (! str.match("^[A-Z]{2}\s*[0-9]{5}\s*[A-Z]{1}\s*$")) {
+        $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');
+    } 
+    $(document).find(".medicaid_number-invalid-feedback").val('');
+    $(this).val($(this).val());
+});
+
 function editAllField(sectionId) {
+    
     $('#'+sectionId+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
         'p-new');
         this.contentEditable = 'true';
     $('#'+sectionId+' [data-id]').attr('readOnly', false)
     $('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
     $('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+    
+    $('.normal_gender_div').removeClass('d-block').addClass('d-none');
+    $('.editable_gender_div').removeClass('d-none').addClass('d-block');
+    
+    $('.normal_service_div').removeClass('d-block').addClass('d-none');
+    $('.editable_service_div').removeClass('d-none').addClass('d-block');
+    
 }
 function updateAllField(sectionId) {
     if (sectionId==="demographic"){
@@ -12,11 +65,11 @@ function updateAllField(sectionId) {
         data.push({name: 'type', value: 1});
         demographyDataUpdate(data)
     }else if (sectionId==="insurance"){
-        var data = $('#insurance_form').serializeArray();
+        var data = $('#medicare_form').serializeArray();
         data.push({name: 'type', value: 2});
         demographyDataUpdate(data)
     }else if (sectionId==="homecare"){
-        var data = $('#homecare-form').serializeArray();
+        var data = $('#homecare_form').serializeArray();
         data.push({name: 'type', value: 3});
         demographyDataUpdate(data)
     }
@@ -27,6 +80,7 @@ function updateAllField(sectionId) {
 }
 
 function demographyDataUpdate(data) {
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -36,15 +90,34 @@ function demographyDataUpdate(data) {
         data: data,
         dataType: "json",
         success: function(response) {
-            alert(response.message)
+            $("#loader-wrapper").hide();
             $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+            alertText(response.message,'success');
         },
         error: function(error) {
-            alert(error.responseText)
+            $("#loader-wrapper").hide();
+            alertText("Server Timeout! Please try again",'error');
         }
     });
 }
+function alertText(text,status) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
 
+    Toast.fire({
+        icon: status,
+        title: text
+    })
+}
 let editableField = f => {
     var x = $("#" + f);
     x.attr("onclick", "updateField('" + f + "')");
@@ -67,15 +140,26 @@ let updateField = f => {
     y.attr('readOnly', true).attr("onclick", "editableField('" + f + "')");
     y.focus();
 }
+$(document).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+});
 var medprofileTable;
 medprofileTable = $('#med-profile-table').DataTable({
     "order": [[ 1, "desc" ]],
     "dom": '<"top d-flex align-items-center justify-content-between"<f><"d-flex align-items-center justify-content-between width250"Bl>>rt<"bottom"<"float-left"i><"float-right pb-3"p>><"clear">',
     'columnDefs': [{
-        "targets": [0, 14],
+        "targets": [0,13],
         "orderable": true
     }],
     processing: true,
+    "language": {
+        processing: '<div id="loader-wrapper">  <div class="overlay"></div> <div class="pulse"></div></div>'
+    },
     serverSide: true,
     ajax: base_url+'patient-medicine-list/'+patient_id,
     columns:[
@@ -89,9 +173,9 @@ medprofileTable = $('#med-profile-table').DataTable({
         {data:'start_date',name:'start_date',bSortable: true},
         {data:'taught_date',name:'taught_date',bSortable: true},
         {data:'discontinue_date',name:'discontinue_date',bSortable: true},
+        {data:'comment',name:'comment',bSortable: true},
         {data:'discontinue_order_date',name:'discontinue_order_date',bSortable: true},
         {data:'preferred_pharmacy.name',name:'preferred_pharmacy.name',bSortable: true},
-        {data:'comment',name:'comment',bSortable: true},
         {data:'status',name:'status',bSortable: true},
     ],
     buttons: [
@@ -187,6 +271,7 @@ var arr = [
 
 function addPatientMedication(patient_id) {
     var data = $('#patient-medication-info').serializeArray();
+    $("#loader-wrapper").show();
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -196,11 +281,13 @@ function addPatientMedication(patient_id) {
         data: data,
         dataType: "json",
         success: function(response) {
+            $("#loader-wrapper").hide();
             alert(response.message)
             $('#patientMedicateInfo').modal('hide');
             medprofileTable.ajax.reload();
         },
         error: function(error) {
+            $("#loader-wrapper").hide();
             const sources = JSON.parse(error.responseText);
             alert(sources.message)
         }
@@ -224,6 +311,7 @@ $(function () {
         e.preventDefault();
         var fields=[];
         var datastring = $("#insurance_company_form").serializeArray();
+        $("#loader-wrapper").show();
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -233,10 +321,12 @@ $(function () {
             data: datastring,
             dataType: "json",
             success: function(response) {
+                $("#loader-wrapper").hide();
                 alert(response.message)
                 window.location.reload();
             },
             error: function(error) {
+                $("#loader-wrapper").hide();
                 alert(error.responseText)
             }
         });

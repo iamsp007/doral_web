@@ -25,19 +25,45 @@ class PatientLabReport extends Model
         'note',
     ];
 
-    protected $appends = ['lab_result'];
+    // protected $appends = ['result'];
 
     public function labReportType() {
         return $this->hasOne(LabReportType::class,'id','lab_report_type_id');
     }
 
-    public function getLabResultAttribute()
-    {
-        $result = 'Positive';
-        if ($this->result === '0') {
-            $result = 'Negative';
-        } 
+    public function user() {
+        return $this->hasOne(User::class,'id','patient_referral_id');
+    }
 
-        return $result;
+    public function getResultAttribute($result)
+    {
+        return ucfirst($result);
+    }
+
+    public function getDueDateAttribute($date)
+    {
+        $dateData = '';
+        if ($date) {
+            $dateData = date('m-d-Y', strtotime($date));
+        }
+        return $dateData;
+    }
+
+    public function getPerformDateAttribute($date)
+    {
+        $dateData = '';
+        if ($date) {
+            $dateData = date('m-d-Y', strtotime($date));
+        }
+        return $dateData;
+    }
+
+    public function getExpiryDateAttribute($date)
+    {
+        $dateData = '';
+        if ($date) {
+            $dateData = date('m-d-Y', strtotime($date));
+        }
+        return $dateData;
     }
 }

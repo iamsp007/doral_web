@@ -1,9 +1,9 @@
 <input 
     type="text"
-    class="form-control"
+    class="form-control {{ $class ?? '' }}"
     name="{{ $name ?? '' }}"
-    id="{{ $id ?? '' }}"
-    value="{{ $value ?? '' }}" />
+    value="{{ $value ?? '' }}"
+    placeholder="{{ $placeholder ?? str_replace('_','',ucfirst($name)) }}"/>
 
     @error($name)
         <span class="invalid-feedback" role="alert">

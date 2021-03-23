@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="25px" height="25px" viewbox="0 0 25 25" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L24 0L24 24L0 24L0 0Z" id="path_1" />
+    <rect width="25" height="25" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Pixelbook" clip-path="url(#clip_1)">
+    <use xlink:href="#artboard_1" stroke="none" fill="#FFFFFF" />
+    <g id="mortarboard">
+      <path d="M0 0L24 0L24 24L0 24L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+      <g clip-path="url(#mask_1)">
+        <path d="M23.5308 4.02591L12.234 0.0400781C12.0826 -0.0133594 11.9175 -0.0133594 11.7661 0.0400781L0.469219 4.02591C0.188344 4.125 0.000375579 4.39031 5.61944e-07 4.68816C-0.000374456 4.986 0.186985 5.25173 0.467626 5.35148L11.7645 9.36759C11.8407 9.39469 11.9204 9.40823 12 9.40823C12.0797 9.40823 12.1593 9.39469 12.2355 9.36759L23.5324 5.35148C23.813 5.25173 24.0003 4.986 24 4.68816C23.9996 4.39031 23.8117 4.125 23.5308 4.02591L23.5308 4.02591Z" transform="translate(0 1.9906862)" id="Shape" fill="#17A2B8" fill-rule="evenodd" stroke="none" />
+        <path d="M2.11523 6.13313L2.11523 0L0.708984 0.499922L0.708984 6.13313C0.285421 6.37692 0 6.83372 0 7.35755C0 7.88133 0.285421 8.33817 0.708984 8.58197L0.708984 12.0374C0.708984 12.4257 1.0238 12.7405 1.41211 12.7405C1.80042 12.7405 2.11523 12.4257 2.11523 12.0374L2.11523 8.58202C2.5388 8.33827 2.82422 7.88138 2.82422 7.35759C2.82422 6.83377 2.53884 6.37692 2.11523 6.13313L2.11523 6.13313Z" transform="translate(20.196001 9.268782)" id="Shape" fill="#17A2B8" fill-rule="evenodd" stroke="none" />
+        <path d="M7.05731 2.37961C6.81595 2.37961 6.57825 2.33859 6.35077 2.25774L0 0L0 3.09413C0 3.85111 0.789703 4.49128 2.34717 4.99678C3.70472 5.43741 5.3775 5.68008 7.05731 5.68008C8.73712 5.68008 10.4099 5.43741 11.7675 4.99678C13.3249 4.49128 14.1146 3.85111 14.1146 3.09413L14.1146 0L7.76391 2.25774C7.53638 2.33859 7.29867 2.37961 7.05731 2.37961L7.05731 2.37961Z" transform="translate(4.9426947 10.425568)" id="Shape" fill="#17A2B8" fill-rule="evenodd" stroke="none" />
+      </g>
+    </g>
+  </g>
+</svg>

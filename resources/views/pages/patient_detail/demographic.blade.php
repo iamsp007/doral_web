@@ -2,10 +2,12 @@
    <div class="app-card app-card-custom" data-name="demographics">
       <div class="app-card-header">
          <h1 class="title">Demographics</h1>
-         <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
-         <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
+         @role('clinician')
+            <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
+            <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
+         @endrole
       </div>
-      <div class="head scrollbar scrollbar4">
+      <div class="head scrollbar scrollbar12">
          <div class="p-3">
             <div class="form-group">
                <div class="row">
@@ -90,11 +92,10 @@
                      <div class="input_box">
                         <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
-                           <h3 class="_title">Medicaid Number</h3>
+                           <h3 class="_title">Patient Status ID</h3>
                            <input type="text" class="form-control-plaintext _detail "
-                              readonly name="medicaid_number" onclick="editableField('medicaid_number')"
-                              data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number"
-                              value="{{ $patient->medicaid_number}}">
+                              readonly name="patient_status_id" onclick="editableField('patient_status_id')"
+                              data-id="patient_status_id" id="patient_status_id" placeholder="Patient Status ID" value="{{ $patient->patient_status_id}}">
                         </div>
                      </div>
                   </div>
@@ -102,11 +103,10 @@
                      <div class="input_box">
                         <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                         <div class="rs">
-                           <h3 class="_title">Medicare Number</h3>
+                           <h3 class="_title">Patient Status Name</h3>
                            <input type="text" class="form-control-plaintext _detail "
-                              readonly name="medicare_number" onclick="editableField('medicare_number')"
-                              data-id="medicare_number" id="medicare_number" placeholder="Medicare Number"
-                              value="{{ $patient->medicare_number}}">
+                              readonly name="patient_status_name" onclick="editableField('patient_status_name')"
+                              data-id="patient_status_name" id="patient_status_name" placeholder="Patient Status Name" value="{{ $patient->patient_status_name}}">
                         </div>
                      </div>
                   </div>
@@ -200,7 +200,7 @@
                                        name="nurse_id"
                                        onclick="editableField('nurse_id')"
                                        data-id="nurse_id" id="nurse_id"
-                                       placeholder="Nurse ID" value="{{ ($patient->nurse) ? $patient->nurse->nurse_id : '-' }}">
+                                       placeholder="Nurse ID" value="{{ $patient->nurse_id }}">
                                  </div>
                               </div>
                            </div>
@@ -214,7 +214,7 @@
                                        name="nurse_name"
                                        onclick="editableField('nurse_name')"
                                        data-id="nurse_name" id="nurse_name"
-                                       placeholder="Nurse Name" value="{{ ($patient->nurse) ? $patient->nurse->name : '-' }}">
+                                       placeholder="Nurse Name" value="{{ $patient->nurse_name }}">
                                  </div>
                               </div>
                            </div>
@@ -240,13 +240,15 @@
                               <div class="input_box">
                                  <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                  <div class="rs">
-                                    <h3 class="_title">Name</h3>
-                                    <input type="text"
-                                       class="form-control-plaintext _detail " readonly
-                                       name="service_name"
-                                       onclick="editableField('service_name')"
-                                       data-id="service_name" id="service_name"
-                                       placeholder="Nurse Name" value="{{ $acceptedService->service_name }}">
+                                    <h3 class="_title">type</h3>
+                                    <ul>
+                                       <li>{{ $acceptedService->type }}</li>
+                                       @foreach(json_decode($acceptedService->value) as $value)
+                                          <ul>
+                                             <li>{{ $value }}</li>
+                                          </ul>
+                                       @endforeach
+                                    </ul>
                                  </div>
                               </div>
                            </div>
@@ -301,10 +303,10 @@
                                     <h3 class="_title">Source Of Admission ID</h3>
                                     <input type="text"
                                        class="form-control-plaintext _detail " readonly
-                                       name="source_of_admission_id"
-                                       onclick="editableField('source_of_admission_id')"
-                                       data-id="source_of_admission_id" id="source_of_admission_id"
-                                       placeholder="Source Of Admission ID" value="{{ ($patient->sourceOfAdmission) ? $patient->sourceOfAdmission->source_of_admission_id : '-' }}">
+                                       name="source_admission_id"
+                                       onclick="editableField('source_admission_id')"
+                                       data-id="source_admission_id" id="source_admission_id"
+                                       placeholder="Source Of Admission ID" value="{{ $patient->source_admission_id }}">
                                  </div>
                               </div>
                            </div>
@@ -315,10 +317,10 @@
                                     <h3 class="_title">Source Of Admission Name</h3>
                                     <input type="text"
                                        class="form-control-plaintext _detail " readonly
-                                       name="source_of_admission_name"
-                                       onclick="editableField('source_of_admission_name')"
-                                       data-id="source_of_admission_name" id="source_of_admission_name"
-                                       placeholder="Source Of Admission Name" value="{{ ($patient->sourceOfAdmission) ? $patient->sourceOfAdmission->source_of_admission_name : '-' }}">
+                                       name="source_admission_name"
+                                       onclick="editableField('source_admission_name')"
+                                       data-id="source_admission_name" id="source_admission_name"
+                                       placeholder="Source Of Admission Name" value="{{ $patient->source_admission_name }}">
                                  </div>
                               </div>
                            </div>
@@ -349,7 +351,7 @@
                                        name="team_id"
                                        onclick="editableField('team_id')"
                                        data-id="team_id" id="team_id"
-                                       placeholder="Team ID" value="{{ ($patient->team) ? $patient->team->team_id : '-' }}">
+                                       placeholder="Team ID" value="{{ $patient->team_id }}">
                                  </div>
                               </div>
                            </div>
@@ -363,7 +365,7 @@
                                        name="team_name"
                                        onclick="editableField('team_name')"
                                        data-id="team_name" id="team_name"
-                                       placeholder="Team Name" value="{{ ($patient->team) ? $patient->team->name : '-' }}">
+                                       placeholder="Team Name" value="{{ $patient->team_name }}">
                                  </div>
                               </div>
                            </div>
@@ -394,7 +396,7 @@
                                        name="location_id"
                                        onclick="editableField('location_id')"
                                        data-id="location_id" id="location_id"
-                                       placeholder="Location ID" value="{{ ($patient->location) ? $patient->location->location_id : '-' }}">
+                                       placeholder="Location ID" value="{{ $patient->location_id }}">
                                  </div>
                               </div>
                            </div>
@@ -408,7 +410,7 @@
                                        name="location_name"
                                        onclick="editableField('location_name')"
                                        data-id="location_name" id="location_name"
-                                       placeholder="Location Name" value="{{ ($patient->location) ? $patient->location->name : '-' }}">
+                                       placeholder="Location Name" value="{{ $patient->location_name }}">
                                  </div>
                               </div>
                            </div>
@@ -439,7 +441,7 @@
                                        name="branch_id"
                                        onclick="editableField('branch_id')"
                                        data-id="branch_id" id="branch_id"
-                                       placeholder="Branch ID" value="{{ ($patient->branch) ? $patient->branch->branch_id : '-' }}">
+                                       placeholder="Branch ID" value="{{ $patient->branch_id }}">
                                  </div>
                               </div>
                            </div>
@@ -453,7 +455,7 @@
                                        name="branch_name"
                                        onclick="editableField('branch_name')"
                                        data-id="branch_name" id="branch_name"
-                                       placeholder="Branch Name" value="{{ ($patient->branch) ? $patient->branch->name : '-' }}">
+                                       placeholder="Branch Name" value="{{ $patient->branch_name }}">
                                  </div>
                               </div>
                            </div>
@@ -859,7 +861,7 @@
                                           class="form-control-plaintext _detail " readonly
                                           name="name"
                                           onclick="editableField('name')"
-                                          data-id="name" id="name"
+                                          data-id="name"
                                           placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
                                     </div>
                                  </div>
@@ -870,7 +872,7 @@
                                        <i class="las la-phone circle"></i>
                                     </div>
                                     <div class="rs">
-                                       <h3 class="_title">Phone1</h3>
+                                       <h3 class="_title">Home Phone</h3>
                                        <input type="text"
                                           class="form-control-plaintext _detail " readonly
                                           name="phone1"
@@ -886,7 +888,7 @@
                                        <i class="las la-phone circle"></i>
                                     </div>
                                     <div class="rs">
-                                       <h3 class="_title">Phone2</h3>
+                                       <h3 class="_title">Cell Phone</h3>
                                           <input type="text"
                                           class="form-control-plaintext _detail " readonly
                                           name="phone2"
@@ -918,6 +920,38 @@
                      <div class="p-3">
                         <div class="">
                            <div class="row">
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-user-nurse circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Relationship ID</h3>
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="relationship_id"
+                                          onclick="editableField('relationship_id')"
+                                          data-id="relationship_id" id="relationship_id"
+                                          placeholder="Relationship ID" value="{{ $patientEmergencyContact->relationship_id }}">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-3 col-md-3">
+                                 <div class="input_box">
+                                    <div class="ls">
+                                       <i class="las la-user-nurse circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                       <h3 class="_title">Relationship Name</h3>
+                                       <input type="text"
+                                          class="form-control-plaintext _detail " readonly
+                                          name="relationship_name"
+                                          onclick="editableField('relationship_name')"
+                                          data-id="relationship_name" id="relationship_name"
+                                          placeholder="Relationship Name" value="{{ $patientEmergencyContact->relationship_name }}">
+                                    </div>
+                                 </div>
+                              </div>
                               <div class="col-12 col-sm-3 col-md-3">
                                  <div class="input_box">
                                     <div class="ls">
@@ -978,7 +1012,7 @@
                                        name="type"
                                        onclick="editableField('type')"
                                        data-id="type" id="type"
-                                       placeholder="Type" value="{{ ($patient->emergencyPreparedness) ? $patient->emergencyPreparedness->type : '' }}">
+                                       placeholder="Type" value="{{ ($patient->emergencyPreparednes) ? $patient->emergencyPreparednes->type : '' }}">
                                  </div>
                               </div>
                            </div>
@@ -992,7 +1026,7 @@
                                        name="emergency_preparedness_id"
                                        onclick="editableField('emergency_preparedness_id')"
                                        data-id="emergency_preparedness_id" id="emergency_preparedness_id"
-                                       placeholder="Emergency Preparedness ID" value="{{ ($patient->emergencyPreparedness) ? $patient->emergencyPreparedness->emergency_preparedness_id : '' }}">
+                                       placeholder="Emergency Preparedness ID" value="">
                                  </div>
                               </div>
                            </div>
@@ -1006,7 +1040,7 @@
                                        name="emergency_preparedness_name"
                                        onclick="editableField('emergency_preparedness_name')"
                                        data-id="emergency_preparedness_name" id="emergency_preparedness_name"
-                                       placeholder="Name" value="{{ ($patient->emergencyPreparedness) ? $patient->emergencyPreparedness->emergency_preparedness_name : '' }}">
+                                       placeholder="Name" value="">
                                  </div>
                               </div>
                            </div>
@@ -1037,7 +1071,7 @@
                                        name="payer_id"
                                        onclick="editableField('payer_id')"
                                        data-id="payer_id" id="payer_id"
-                                       placeholder="Nurse ID" value="{{ $patient->payer_id }}">
+                                       placeholder="Payer ID" value="{{ $patient->payer_id }}">
                                  </div>
                               </div>
                            </div>
@@ -1153,6 +1187,139 @@
                                        onclick="editableField('secondary_language')"
                                        data-id="secondary_language" id="secondary_language"
                                        placeholder="Primary Language" value="{{ $patient->secondary_language }}">
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Language-->
+
+            <!-- Language -->
+            <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+               data-name="emergency_contact_detail">
+               <div class="app-card-header">
+                  <h1 class="title">Wage Parity</h1>
+               </div>
+               <div>
+                  <div class="p-3">
+                     <div class="">
+                        <div class="row">
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity"
+                                       onclick="editableField('wage_parity')"
+                                       data-id="wage_parity" id="wage_parity"
+                                       placeholder="Wage Parity" value="{{ $patient->wage_parity }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity From Date1</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_from_date1"
+                                       onclick="editableField('wage_parity_from_date1')"
+                                       data-id="wage_parity_from_date1" id="wage_parity_from_date1"
+                                       placeholder="Wage Parity From Date1" value="{{ $patient->wage_parity_from_date1 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity To Date1</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_to_date1"
+                                       onclick="editableField('wage_parity_to_date1')"
+                                       data-id="wage_parity_to_date1" id="wage_parity_to_date1"
+                                       placeholder="Wage Parity To Date1" value="{{ $patient->wage_parity_to_date1 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity From Date2</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_from_date2"
+                                       onclick="editableField('wage_parity_from_date2')"
+                                       data-id="wage_parity_from_date2" id="wage_parity_from_date2"
+                                       placeholder="Wage Parity From Date2" value="{{ $patient->wage_parity_from_date2 }}">
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="">
+                        <div class="row">
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity To Date2</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_to_date2"
+                                       onclick="editableField('wage_parity_to_date2')"
+                                       data-id="wage_parity_to_date2" id="wage_parity_to_date2"
+                                       placeholder="Wage Parity To Date2" value="{{ $patient->wage_parity_to_date2 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity From Date1</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_from_date1"
+                                       onclick="editableField('wage_parity_from_date1')"
+                                       data-id="wage_parity_from_date1" id="wage_parity_from_date1"
+                                       placeholder="Wage Parity From Date1" value="{{ $patient->wage_parity_from_date1 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity To Date1</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_to_date1"
+                                       onclick="editableField('wage_parity_to_date1')"
+                                       data-id="wage_parity_to_date1" id="wage_parity_to_date1"
+                                       placeholder="Wage Parity To Date1" value="{{ $patient->wage_parity_to_date1 }}">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-12 col-sm-3 col-md-3">
+                              <div class="input_box">
+                                 <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                 <div class="rs">
+                                    <h3 class="_title">Wage Parity From Date2</h3>
+                                    <input type="text"
+                                       class="form-control-plaintext _detail " readonly
+                                       name="wage_parity_from_date2"
+                                       onclick="editableField('wage_parity_from_date2')"
+                                       data-id="wage_parity_from_date2" id="wage_parity_from_date2"
+                                       placeholder="Wage Parity From Date2" value="{{ $patient->wage_parity_from_date2 }}">
                                  </div>
                               </div>
                            </div>

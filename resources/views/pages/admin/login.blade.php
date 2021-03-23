@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../assets/css/fonts/Montserrat.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/style.min.css">
-    <link rel="stylesheet" href="../assets/css/responsive.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Welcome to Doral</title>
 </head>
@@ -225,14 +225,15 @@
         });
 
         $("#login").click(function() {
+            $("#loader-wrapper").show();
             var email = $("#username").val();
             var password = $("#password").val();
-            
             $.ajax({
                 method: 'POST',
                 url: '/admin/loginaccess',
                 data: {email, password},
                 success: function( response ){
+                    $("#loader-wrapper").hide();
                     if(response.status == 1)
                         window.location = "/admin/referral-approval";
                     else 
@@ -241,6 +242,7 @@
                     
                 },
                 error: function( e ) {
+                    $("#loader-wrapper").hide();
                     alert('Something went wrong!');
                 }
             });

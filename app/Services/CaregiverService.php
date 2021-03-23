@@ -18,7 +18,7 @@ class CaregiverService
     }
 
     public function storeAction($data) {
-        dd($data);
+        
         try {
 
             $response = $this->client->request(

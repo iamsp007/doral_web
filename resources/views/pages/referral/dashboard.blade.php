@@ -1,6 +1,5 @@
 @extends('pages.layouts.app')
-
-@section('title','Welcome to Doral')
+@section('title','Referral Dashboard')
 @section('pageTitleSection')
     Dashboard
 @endsection
@@ -565,7 +564,7 @@
                                                     It has roots in a piece of
                                                     classical Latin literature from 45 BC, making it over 2000
                                                     years
-                                                    old. Contrary to popular belief, Lorem Ipsum is not simply
+                                                    old. Contrary to popular belief, --- is not simply
                                                     random
                                                     text.
                                                 </div>
@@ -576,7 +575,7 @@
                                                     It has roots in a piece of
                                                     classical Latin literature from 45 BC, making it over 2000
                                                     years
-                                                    old. Contrary to popular belief, Lorem Ipsum is not simply
+                                                    old. Contrary to popular belief, --- is not simply
                                                     random
                                                     text.
                                                 </div>

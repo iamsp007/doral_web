@@ -1,0 +1,450 @@
+  .header{
+    background-color: #07737A;
+    padding: 10px;display: block;margin: 0 auto;
+  }
+  #form-inner h1{
+    padding: 10px;
+    border: 1px solid #006C76;
+    font-size: 20px;
+    margin: 10px 0px;
+    text-align: center;
+    color: #006C76;
+
+  }
+   #form-inner h2{
+    padding: 30px 10px;
+    font-size: 24px;
+    margin: 10px 0px;
+    text-align: center;
+    color: #006C76;
+
+  }
+    #form-inner .card{
+      background-color: rgba(0, 108, 118, 0.08);
+      padding: 10px;
+      /*padding-top: 15px;*/
+    }
+  #checkbox  .containera {
+  /* display: flex; */
+  position: relative;
+  padding-left: 35px;
+  /*margin-bottom: 12px;*/
+  cursor: pointer;
+  font-size: 17px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  align-items: unset;
+  /*font-weight: bold;*/
+}
+
+/* Hide the browser's default checkbox */
+#checkbox .containera input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+#checkbox .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border: 2px solid #B2AFAF;
+}
+
+/* On mouse-over, add a grey background color */
+#checkbox .containera:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+#checkbox .containera input:checked ~ .checkmark {
+  background-color: #07737a;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+#checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+#checkbox .containera input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+#checkbox .containera .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.inline-style{
+  display: inline;
+    width: inherit;
+    border: none;
+    border-bottom: 2px solid;
+    border-radius: 0px;
+}
+  #form-inner p{
+    font-weight: bold;
+    font-size: 19px;
+    text-align: left;
+    box-shadow: none;
+  }
+    #form-inner .form-control{
+      color: #000;
+    }
+      #form-inner  .form-group{
+      display: flex;
+      align-items: center;
+
+    }
+      #formdive  label{
+        margin-right: 5px;
+        font-size: 17px;
+    font-weight: bold;
+    min-width: 80px;
+      }
+      #formdive .form-control{
+background: rgba(196, 196, 196, 0.15) !important;
+      }
+
+
+ .panel-heading {
+  padding: 0;
+
+  border:0;
+}
+  .panel-title>a, .panel-title>a:active{
+  display:block;
+  padding:15px;
+  color:#555;
+  font-size:16px;
+  font-weight:bold;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  word-spacing:3px;
+  text-decoration:none;
+}
+ .panel-heading  a:before {
+ position: relative;
+    padding: 5px;
+    margin: 30px auto;
+    background: #000;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    transition: all 0.2s linear;
+}
+ .panel-heading.active >h4  a .button-up{
+  display: block;
+} 
+.panel-heading.active > h4 a .button-down{
+  display: none;
+} 
+ .accordion-toggle:after {
+    font-family: 'FontAwesome';
+    content: "\f078";    
+    float: right;
+}
+.accordion-opened .accordion-toggle:after {    
+    content: "\f054";    
+}
+
+    .accordion .fa{
+        margin-right: 0.5rem;
+        font-size: 24px;
+        font-weight: bold;
+        position: relative;
+      top: 2px;
+    }
+#accordionExample-form h2{
+  padding: 0px;
+     
+          font-size: 24px;
+    margin: 10px 0px;
+    text-align: center;
+    color: #006C76;
+}#accordionExample-form .btn-link{
+  font-weight: bold;
+  color: #006c76;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0px;
+  padding: 15px;
+  font-size: 18px;
+  background: #f6f6f6;
+}
+#accordionExample-form button{
+  display: flex;justify-content: space-between;
+}
+#accordionExample-form button:hover{
+  text-decoration: none;
+
+}
+#accordionExample-form  .card{
+  padding: 0px;
+  background-color: none; 
+}
+#accordionExample-form  .btn-link.focus,#accordionExample-form  .btn-link:focus {
+    text-decoration: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+#accordionExample-form   .collapse{
+  background-color: #fff;
+}
+#accordionExample-form .card-header {
+    padding: 0;
+    margin-bottom: 0;
+    background-color: rgb(248 248 248 / 3%);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+#accordionExample-form  .card-body{
+background: rgba(0, 108, 118, 0.08);  
+}
+.grey{
+  color: grey;
+}
+#tblAddRow input{background-color: #efeeee;width: 100%;padding: 10px;border-color: #8080a1;border: 1px solid #c7c3c3;}
+#tblAddRow th{
+  padding: 10px;text-align: center;
+
+}#tblAddRow td{
+  text-align: center;
+}
+#tblAddRow{
+  width: 100%;
+      border: 1px solid #d4d3d3;
+}
+.input-group-addon {
+   background-color: #efeeee;
+   border: 1px solid #c7c3c3;
+   border-radius: 1px;
+   color: inherit;
+   font-size: 18px;
+   font-weight: 400;
+   line-height: 1;
+   padding: 15px 12px 4px 12px;
+   text-align: center;
+}
+.input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+.datea .input-group input{
+  width: 80% !important;
+}
+.datea .input-group input:focus{
+  outline: none;
+  box-shadow: none;
+}
+.datea{
+  margin-bottom: 0px;
+}
+.btn-pr{
+  padding: 10px 20px;
+  background-color: #07737a;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+    border-radius: 5px;
+    box-shadow: none;
+border: none;
+
+}
+.btn-pr:hover{
+  
+  background-color: #179ca5;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;cursor: pointer;
+
+
+}
+th .checkmark{
+      top: -9px !important;
+      left: 6px !important;
+}
+td .checkmark{
+      top: -7px !important;
+      left: 4px !important;
+}
+.input-group.date .input-group-addon i {
+   
+    color: #07737a;
+}
+#form-inner .input-group-addon{
+  padding-top: 8px !important
+}
+#form-inner .form-group{
+  width: 100%;
+}
+#cont-a .card-a
+{
+  padding: 10px;
+  background-color:#fff;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+#cont-a span{
+  font-size: 14px;
+  display: block;
+  width: 100%;
+}
+
+.file-upload {
+  background-color: #ffffff;
+  /*width: 600px;*/
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.file-upload-btn {
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  background: #1FB264;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #15824B;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.file-upload-btn:hover {
+  background: #1AA059;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+      border: 1px solid #e2e2e2;
+  position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.remove-image {
+  width: 200px;
+  margin: 0;
+  color: #fff;
+  background: #cd4535;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  border-bottom: 4px solid #b02818;
+  transition: all .2s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.remove-image:hover {
+  background: #c13b2a;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.remove-image:active {
+  border: 0;
+  transition: all .2s ease;
+}.cardb{
+  height: 120px;
+  background-color: #fff;
+}
+#PHYSICAN .form-group{
+  display: block !important;
+
+}#PHYSICAN label{
+  font-weight: bold;
+}
+.custom-radio .custom-control-input:checked~.custom-control-label::before {
+    background-color: #07737a;
+}
+#tblAddRow select{
+  background-color: #efeeee;
+    width: 100%;
+    /*padding: 10px;*/
+    border-color: #8080a1;
+    border: 1px solid #c7c3c3;
+        height: 46px;
+}

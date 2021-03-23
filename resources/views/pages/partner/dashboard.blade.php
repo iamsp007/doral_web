@@ -13,8 +13,8 @@
                                     <div class="_block">
                                         <div class="sideLeft">
                                             <div class="_t1">Total Employees</div>
-                                            <h1 class="_t2 red">1000</h1>
-                                            <button type="submit" class="btn btn-outline-red btn-outline-admin mt-3"
+                                            <h1 class="_t2 red">{{ $total ?? 0 }}</h1>
+                                            <button onclick="window.location='{{ route('employees.list') }}'" type="submit" class="btn btn-outline-red btn-outline-admin mt-3"
                                                     name="signup">VIEW ALL</button>
                                         </div>
                                         <div class="sideRight">
@@ -34,8 +34,8 @@
                                     <div class="_block">
                                         <div class="sideLeft">
                                             <div class="_t1">Active Employees</div>
-                                            <h1 class="_t2 purple">500</h1>
-                                            <button type="submit" class="btn btn-outline-purple btn-outline-admin mt-3"
+                                            <h1 class="_t2 purple">{{ isset($employee[1]) ? $employee[1]['total'] : 0 }}</h1>
+                                            <button onclick="window.location='{{ route('employees.list') }}'" type="submit" class="btn btn-outline-purple btn-outline-admin mt-3"
                                                     name="signup">VIEW ALL</button>
                                         </div>
                                         <div class="sideRight">
@@ -55,8 +55,8 @@
                                     <div class="_block">
                                         <div class="sideLeft">
                                             <div class="_t1">Deactivate Employees</div>
-                                            <h1 class="_t2 red">500</h1>
-                                            <button type="submit" class="btn btn-outline-red btn-outline-admin mt-3"
+                                            <h1 class="_t2 red">{{ isset($employee[2]) ? $employee[2]['total'] : 0 }}</h1>
+                                            <button onclick="window.location='{{ route('employees.list') }}'" type="submit" class="btn btn-outline-red btn-outline-admin mt-3"
                                                     name="signup">VIEW ALL</button>
                                         </div>
                                         <div class="sideRight">

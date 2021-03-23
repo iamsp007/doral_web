@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="50px" height="50px" viewbox="0 0 50 50" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L40 0L40 40L0 40L0 0Z" id="path_1" />
+    <rect width="50" height="50" id="artboard_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#artboard_1" clip-rule="evenodd" />
+    </clipPath>
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Pixelbook" clip-path="url(#clip_1)">
+    <g id="bar-chart" transform="translate(5 5)">
+      <path d="M0 0L40 0L40 40L0 40L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+      <g clip-path="url(#mask_1)">
+        <g id="Group" transform="translate(0.016647339 18.333359)">
+          <g id="Group">
+            <path d="M9.16672 0L0.833359 0C0.373359 0 0 0.37336 0 0.83336L0 20.8334C-2.32831e-08 21.2933 0.373359 21.6666 0.833359 21.6666L9.16672 21.6666C9.62672 21.6666 10.0001 21.2933 10.0001 20.8333L10.0001 0.833281C10 0.373281 9.62836 0 9.16672 0L9.16672 0Z" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+        <g id="Group" transform="translate(14.983276 0)">
+          <g id="Group">
+            <path d="M9.16672 0L0.833359 0C0.373359 0 0 0.373359 0 0.833359L0 39.1667C0 39.6267 0.37336 40.0001 0.833359 40.0001L9.16672 40.0001C9.62672 40.0001 10.0001 39.6267 10.0001 39.1667L10.0001 0.833359C10.0001 0.373359 9.62672 0 9.16672 0L9.16672 0Z" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+        <g id="Group" transform="translate(29.983276 8.333359)">
+          <g id="Group">
+            <path d="M9.16672 0L0.833359 0C0.373359 0 0 0.373359 0 0.833359L0 30.8334C0 31.2934 0.373359 31.6667 0.833359 31.6667L9.16672 31.6667C9.62672 31.6667 10.0001 31.2934 10.0001 30.8334L10.0001 0.833358C10.0001 0.373281 9.62672 0 9.16672 0L9.16672 0Z" id="Shape" fill="#006C76" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

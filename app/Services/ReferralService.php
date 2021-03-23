@@ -33,7 +33,6 @@ class ReferralService
             );
 
             $response = $response->getBody()->getContents();
-            dd($response);
 
             $data = json_decode($response,true);
             return $data;
@@ -57,9 +56,7 @@ class ReferralService
                 ]
             );
 
-
             $response = $response->getBody()->getContents();
-            dd($response);
 
             $data = json_decode($response,true);
             return $data;
@@ -147,9 +144,7 @@ class ReferralService
                 '/auth/mdforms'
             );
 
-
             $response = $response->getBody()->getContents();
-            //dd($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
@@ -234,4 +229,54 @@ class ReferralService
         } catch (\Exception $exception) {
         }
     }
+
+    public function occupationalHealthFailData($serviceId){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/patient-referral-failed/'.$serviceId,
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response,true);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+ public function viewoccupationalHealthGetFaileData($id) {
+    try {
+
+            $response = $this->client->request(
+                'GET',
+                '/auth/patient-referral-failed-view/'.$id,
+                [
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                        'X-Requested-With' => 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin' => 'http://localhost'
+                    ]
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response,true);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+ }
 }

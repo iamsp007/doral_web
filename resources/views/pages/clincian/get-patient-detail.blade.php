@@ -38,7 +38,7 @@
         var table = $('#get_patient-table').DataTable({
             "processing": true,
             "language": {
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> '
+                processing: '<div id="loader-wrapper">  <div class="overlay"></div> <div class="pulse"></div></div>'
             },
             "serverSide": true,
             ajax: "{{  route('clinician.patientDetail.ajax') }}",
@@ -50,7 +50,7 @@
                 {data: 'ssn', name: 'SSN'},
                 {data: 'home_phone', name: 'home_phone'},
                 {data: 'patient_id', name: 'PatientID'},            
-                {data: 'action', name: 'action'},
+                {data: 'action', name: 'action', "bSortable": false},
             
             ],
             "order": [[ 1, "desc" ]],
@@ -65,6 +65,9 @@
             'select': {
                 'style': 'multi'
             },
+        });
+        table.on( 'draw', function () {
+            $('.dataTables_wrapper .dataTables_paginate .paginate_button').addClass('custompagination');
         });
     </script>
 @endpush

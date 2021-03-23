@@ -3,7 +3,7 @@
                         <div class="app-card-header">
                            <h1 class="title">Diagnosis</h1>
                         </div>
-                        <div class="head scrollbar scrollbar4">
+                        <div class="head scrollbar scrollbar12">
                            <div class="p-3">
                               <table class="table table-bordered" style="width: 100%;" id="employee-table">
                                  <thead class="thead-inverse">
@@ -20,9 +20,9 @@
                                     <tr class="table-success">
                                        <td>1</td>
                                        <td class="text-green">56745</td>
-                                       <td>Lorem Ipsum</td>
+                                       <td>---</td>
                                        <td>Sunday, 1 October 2020</td>
-                                       <td>Lorem Ipsum</td>
+                                       <td>---</td>
                                        <td>
                                           <a href="#" class="btn btn-info btn-sm btn-block">Set as a Primary
                                              Diagnosis Code</a>
@@ -31,9 +31,9 @@
                                     <tr>
                                        <td>2</td>
                                        <td>4365</td>
-                                       <td>Lorem Ipsum</td>
+                                       <td>---</td>
                                        <td>Sunday, 1 October 2020</td>
-                                       <td>Lorem Ipsum</td>
+                                       <td>---</td>
                                        <td>
                                           <a href="#" class="btn btn-info btn-sm btn-block">Set as a Primary
                                              Diagnosis Code</a>

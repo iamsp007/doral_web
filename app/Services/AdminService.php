@@ -191,12 +191,12 @@ class AdminService
         }
     }
 
-    public function getClinicianList()
+    public function getClinicianList($status_id)
     {
         try {
             $response = $this->client->request(
                 'GET',
-                '/auth/get-clinician-list'
+                '/auth/get-clinician-list/'.$status_id
             );
             $response = $response->getBody()->getContents();
             $data = json_decode($response);
@@ -218,6 +218,27 @@ class AdminService
             return $data;
         } catch (\Exception $exception) {
             \Log::info($exception);
+        }
+    }
+
+    public function getClinicianData($data)
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/auth/get-clinician-data',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
         }
     }
 
@@ -318,6 +339,25 @@ class AdminService
         }
     }
 
+    public function insertUpdateServicePayment($data) {
+        try {
+
+             $response = $this->client->request(
+                'POST',
+                '/auth/company/insert-update-service-payment',
+                [
+                    'json'=>$data
+                    ]
+                );
+                $response = $response->getBody()->getContents();
+                $data = json_decode($response);
+                return $data;
+            } catch (\Exception $exception) {
+             
+            \Log::info($exception);
+            throw new \Exception($exception->getMessage());
+        }
+    }
     public function appointments($payload)
     {
         try {

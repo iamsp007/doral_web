@@ -3,12 +3,26 @@
 return [
 
     'labResult' => [
-        1 => 'Positive',
-        0 => 'Negative'
+        'positive' => 'Positive',
+        'negative' => 'Negative'
     ],
 
     'labImmunizationResult' => [
-        1 => 'Immune',
-        0 => 'Non Immune'
+        'immune' => 'Immune',
+        'non_immune' => 'Non Immune'
+    ],
+
+    'employeePhysicalResult' => [
+        'completed' => 'Completed',
+        'overdue' => 'Overdue'
+    ],
+
+    'userStatus' => [
+        '0' => 'Pending',
+        '1' => 'Active',
+        '2' => 'InActive',
+        '3' => 'Reject',
+        '4' => 'Initial',
+        '5' => 'Completed'
     ],
 ];

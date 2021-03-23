@@ -4,7 +4,8 @@
 <div class="p-3 app-partner">
     <div class="row">
         <div class="col-12 col-sm-9">
-            <form action="" name="myForm">
+            <form method="post" name="myForm" action="{{ route('partner.saveEmployee') }}" id="addEmployee">
+                @csrf
                 <div class="app-card no-minHeight">
                     <div class="app-card-header">
                         <div class="titleBox">
@@ -31,20 +32,27 @@
                                                aria-describedby="Employee ID" id="employeeID" value=""
                                                name="employeeID">
                                     </div>
+                                    <span class="errorText employeeID"></span>
                                 </div>
                             </div>
-<!--                            <div class="col-12 col-sm-4">
+                           <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label for="selectRole" class="label">Select Roles</label>
                                     <div class="input-group">
                                         <span class="input-group-text input-group-text-custom"><i
                                                 class="las la-user-tie"></i></span>
-                                        <select class="form-control" name="" id="">
+                                        <select class="form-control" name="role_id" id="role_id">
                                             <option value="">Select Role</option>
+                                            @foreach(\App\Models\Role::where('guard_name','=','partner')->get() as $key=>$value)
+                                                <option value="{{ $value->name }}">{{ $value->name }}</option>
+                                            @endforeach
+                                            @foreach(\App\Models\Referral::where('guard_name','=','partner')->get() as $key=>$value)
+                                                <option value="4,{{ $value->role_id }}">{{ $value->name }} (Field Visitor)</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
-                            </div>-->
+                            </div>
                             <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label for="firstName" class="label">First Name</label>
@@ -54,8 +62,9 @@
                                         <input type="text" class="form-control form-control-lg"
                                                placeholder="" aria-label="firstName"
                                                aria-describedby="firstName" id="firstName" value=""
-                                               name="employeeID">
+                                               name="firstName">
                                     </div>
+                                    <span class="errorText firstName"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
@@ -69,11 +78,12 @@
                                                aria-describedby="Last Name" id="lastName" value=""
                                                name="lastName">
                                     </div>
+                                    <span class="errorText lastName"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            
+
                             <div class="col-12 col-sm-4">
                                 <div class="form-group">
                                     <label for="emailID" class="label">Email ID</label>
@@ -83,8 +93,9 @@
                                         <input type="email" class="form-control form-control-lg"
                                                placeholder="" aria-label="Email ID"
                                                aria-describedby="Email ID" id="emailID" value=""
-                                               name="employeeID">
+                                               name="emailID">
                                     </div>
+                                    <span class="errorText emailID"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
@@ -98,6 +109,7 @@
                                                aria-describedby="Phone Number" id="phoneNumber" value=""
                                                name="phoneNumber">
                                     </div>
+                                    <span class="errorText phoneNumber"></span>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +125,7 @@
                                                aria-describedby="Driving License Number" id="dlNumber"
                                                value="" name="dlNumber">
                                     </div>
+                                    <span class="errorText dlNumber"></span>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
@@ -125,9 +138,8 @@
                                                placeholder="" aria-label="DOB" aria-describedby="DOB"
                                                id="dob" value="" name="dob">
                                     </div>
+                                    <span class="errorText dob"></span>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-4">
                             </div>
                         </div>
                         <div class="row">
@@ -139,7 +151,7 @@
                                         <div class="popovers-inner">
                                             <div class="popovers-content">
                                                 <div class="d-flex justify-content-end">
-                                                    <a href="javsacript:void(0)" class="p-2 closeBox">
+                                                    <a href="javsacript:void(0)" class="p-2 closeBox" id="close">
                                                         <i class="las la-times la-2x text-green"></i>
                                                     </a>
                                                 </div>
@@ -156,19 +168,21 @@
                                                             One</p>
                                                         <div
                                                             class="d-flex align-items-center justify-content-center mt-4">
-                                                            <div
-                                                                class="mt-1 d-flex align-items-center justify-content-center shareBox">
-                                                                <a onclick="saveLinkType(1)" href="javascript:void(0)"
-                                                                   class="androidStore _store"><span
-                                                                        class="_android"></span>Android</a>
-                                                                <a onclick="saveLinkType(2)" href="javascript:void(0)"
-                                                                        class="iosStore _store mr-2"><span
-                                                                        class="_ios"></span>IOS</a>
+                                                            <div class="mt-1 d-flex align-items-center justify-content-center shareBox">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="linkType" id="android" value="Android">
+                                                                    <label class="form-check-label" for="android">
+                                                                        Android
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="linkType" id="ios" value="IOS" checked>
+                                                                    <label class="form-check-label" for="ios">
+                                                                        IOS
+                                                                    </label>
+                                                                </div>
+
                                                             </div>
-                                                        </div>
-                                                        <div class="d-flex justify-content-center mt-5">
-                                                            <button type="button"
-                                                                    class="btn btn-outline-green btn-lg areyousure" onclick="employeeSave()">Submit Employee Details</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -191,10 +205,10 @@
                     </p>
                     <div class="mt-5 d-flex">
                         <div>
-                            <img src="../assets/img/icons/mobile_app.svg" class="img-fluid" alt="">
+                            <img src="{{ asset('assets/img/icons/mobile_app.svg') }}" class="img-fluid" alt="">
                         </div>
                         <div>
-                            <img src="../assets/img/icons/mobile_app_1.svg" class="img-fluid" alt="">
+                            <img src="{{ asset('assets/img/icons/mobile_app_1.svg') }}" class="img-fluid" alt="">
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-center">
@@ -252,3 +266,22 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/add-employee.css') }}">
+	<style>
+		.errorText {
+			color: red;
+			/* visibility: hidden; */
+		}
+	</style>
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/js/partner/add-employee.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/additional-methods.js') }}"></script>
+@endpush

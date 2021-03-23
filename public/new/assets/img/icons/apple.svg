@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="20px" height="20px" viewbox="0 0 20 20" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L20 0L20 20L0 20L0 0Z" id="path_1" />
+    <path d="M0 0L19.0926 0L19.0926 19.0926L0 19.0926L0 0Z" id="path_2" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+    <clipPath id="mask_2">
+      <use xlink:href="#path_2" />
+    </clipPath>
+  </defs>
+  <g id="apple_active">
+    <path d="M0 0L20 0L20 20L0 20L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+    <g clip-path="url(#mask_1)">
+      <g id="Mask-group" transform="translate(0.17700195 0)">
+        <path d="M0 0L19.0926 0L19.0926 19.0926L0 19.0926L0 0Z" id="Rectangle" fill="none" fill-rule="evenodd" stroke="none" />
+        <g clip-path="url(#mask_2)">
+          <g id="Group" transform="translate(1.7160645 0)">
+            <path d="M5.19204 14.6939C2.35048 14.6776 0 8.87702 0 5.92292C0 1.09738 3.61995 0.0409498 5.01506 0.0409498C5.64377 0.0409498 6.31511 0.28785 6.90724 0.50633C7.32132 0.65873 7.74956 0.81606 7.98773 0.81606C8.13033 0.81606 8.46623 0.68223 8.76283 0.5648C9.39543 0.31298 10.1825 0 11.0991 0C11.1007 0 11.1029 0 11.1045 0C11.789 0 13.8642 0.15021 15.1118 2.02382L15.404 2.46299L14.9834 2.78037C14.3826 3.23374 13.2862 4.06077 13.2862 5.69892C13.2862 7.63922 14.5279 8.38542 15.1244 8.74432C15.3877 8.90272 15.6602 9.06602 15.6602 9.42322C15.6602 9.65652 13.7986 14.665 11.0953 14.665C10.4338 14.665 9.96623 14.4662 9.55373 14.2908C9.13643 14.1133 8.77643 13.9604 8.18163 13.9604C7.88007 13.9604 7.49878 14.1029 7.09511 14.2542C6.54348 14.4601 5.91909 14.6939 5.21061 14.6939L5.19204 14.6939L5.19204 14.6939Z" transform="translate(0 4.3986816)" id="Shape" fill="#BFC0C0" fill-rule="evenodd" stroke="none" />
+            <path d="M3.58695 0C3.65735 2.53858 1.84185 4.29972 0.0284767 4.18927C-0.270333 2.1634 1.84165 0 3.58695 0L3.58695 0Z" transform="translate(7.798584 0)" id="Shape" fill="#BFC0C0" fill-rule="evenodd" stroke="none" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

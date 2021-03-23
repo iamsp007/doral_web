@@ -18,7 +18,8 @@
                         <div class="top_back"></div>
                         <div class="mid">
                             <div class="p50">
-                                <h1 class="t2"><img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
+                                <h1 class="t2">
+                                    <img src="{{ asset('assets/img/icons/doctor.svg') }}" alt=""
                                                     srcset="{{ asset('assets/img/icons/doctor.svg') }}" class="mr-2">Partner Sign Up</h1>
 
                                 <form method="POST" action="{{ route('partner.register') }}">
@@ -29,14 +30,14 @@
                                                 <div class="alert alert-danger" role="alert">
                                                     {{ $error }}
                                                 </div>
-                                        @endforeach
-                                    @endif
+                                            @endforeach
+                                        @endif
                                         <!-- Your Referral Type -->
                                         <div class="form-group mt-4 pt-2">
                                             <label for="referralType" class="label d-block">Partner Type</label>
                                             <select class="form-control js-example-matcher-start select" name="referralType"
                                                     id="referralType">
-                                                @foreach(\App\Models\Referral::where('guard_name','=','partner')->get() as $referral)
+                                                @foreach(\App\Models\Role::where('guard_name','=','partner')->get() as $referral)
                                                     <option value="{{ $referral->id }}">{{ $referral->name }}</option>
                                                 @endforeach
                                             </select>

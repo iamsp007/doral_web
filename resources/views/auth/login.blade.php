@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title','Login')
 @section('content')
     <div class="middle">
         <div class="container">
@@ -76,8 +77,8 @@
                                             <input autocomplete="off" type="password" class="form-control form-control-lg" id="password"
                                                    name="password" value="">
                                             <span toggle="#password" class="view-password toggle-password">
-                                                <img src="assets/img/icons/pass-show.svg" class="pass-show d-block">
-                                                <img src="assets/img/icons/pass-hide.svg" class="pass-hide d-none">
+                                                <img src="assets/img/icons/pass-show.svg" class="pass-show d-none">
+                                                <img src="assets/img/icons/pass-hide.svg" class="pass-hide d-block">
                                             </span>
                                             @if ($errors->has('password'))
                                             <span class="invalid-feedback" role="alert" style="display: block;">
@@ -113,6 +114,7 @@
     </div>
 @endsection
 @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         function changeLoginRole(type) {
             if (type==='1'){
@@ -120,19 +122,19 @@
             }else {
                 $('#loginForm').attr('action',"{{ route('referral.login') }}");
             }
-            console.log(type)
+            // console.log(type)
         }
-        $(".toggle-password").click(function() {
         $('.pass-show').click(function (event) {
             $(".pass-hide").addClass('d-block').removeClass('d-none');
             $(".pass-show").addClass('d-none').removeClass('d-block');
-            
+
         });
         $('.pass-hide').click(function (event) {
             $(".pass-hide").addClass('d-none').removeClass('d-block');
             $(".pass-show").addClass('d-block').removeClass('d-none');
-            
+
         });
+        $(".toggle-password").click(function() {
         var input = $($(this).attr("toggle"));
         if (input.attr("type") == "password") {
           input.attr("type", "text");

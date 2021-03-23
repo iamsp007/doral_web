@@ -11,6 +11,7 @@ namespace App\Services;
 use App\BaseClient;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Mockery\Exception;
 
 class ClinicianService
@@ -23,7 +24,7 @@ class ClinicianService
         $this->client = new BaseClient(env('API_URL'), env('API_URL'));
     }
 
-    public function getPatientRequestList(){
+    public function getPatientRequestList($type){
         try {
 
             $response = $this->client->request(
@@ -31,7 +32,7 @@ class ClinicianService
                 '/clinician-patient-request-list',
                 [
                     'json'=>array(
-                        'type'=>'latest'
+                        'type'=>$type
                     )
                 ]
             );
@@ -42,7 +43,6 @@ class ClinicianService
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-
         }
     }
 
@@ -67,17 +67,22 @@ class ClinicianService
         try {
 
             $response = $this->client->request(
-                'GET',
-                '/get-roadl-proccess/'.$patient_request_id
+                'POST',
+                '/get-roadl-proccess-new',
+                [
+                    'json'=>array(
+                        'parent_id'=>$patient_request_id
+                    )
+                ]
             );
 
 
             $response = $response->getBody()->getContents();
-            \Log::info($response);
+            Log::info($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-            \Log::info($exception->getMessage());
+            Log::info($exception->getMessage());
         }
     }
 
@@ -138,6 +143,27 @@ class ClinicianService
         }
     }
 
+    public function scheduleAppoimentListData($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/get-schedule-appoiment-list-data',
+                [
+                    'json'=>$data
+                ]
+            );
+
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
+
+
     public function cancelAppoimentList($data){
         try {
 
@@ -175,6 +201,44 @@ class ClinicianService
         }
     }
 
+    public function updatePatientStatus($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/update-patient-status',
+                [
+                    'json'=>$data
+                ]
+            );
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            dump($exception->getMessage());
+        }
+    }
+
+    public function updatePhoneNumber($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/update-patient-phone',
+                [
+                    'json'=>$data
+                ]
+            );
+
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            dump($exception->getMessage());
+        }
+    }
+
     public function cancelAppointmentStatus($data){
         try {
 
@@ -206,11 +270,11 @@ class ClinicianService
                 ]
             );
             $response = $response->getBody()->getContents();
-            \Log::info($response);
+            Log::info($response);
             $data = json_decode($response);
             return $data;
         }catch (\Exception $exception){
-            \Log::info($exception->getMessage());
+            Log::info($exception->getMessage());
         }
     }
 
@@ -265,6 +329,102 @@ class ClinicianService
             return $data;
         }catch (\Exception $exception){
 
+        }
+    }
+
+
+    public function newpatientData($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/newpatient-data',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function patientData($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/patient-data',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function cancelAppoimentListData($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/get-cancel-appoiment-list-data',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+
+        }
+    }
+
+    public function getVendorList($data){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/vendor-list',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            Log::info($exception);
+        }
+    }
+
+    /**
+     * getCovid19PatientList
+     * 
+     * @return $data;
+     */
+    public function getCovid19PatientList()
+    {
+        try {
+            $response = $this->client->request(
+                'GET',
+                '/get-covid-19-patient-list'
+            );
+
+            $response = $response->getBody()->getContents();
+
+            $data = json_decode($response);
+
+            return $data;
+        }catch (\Exception $exception){
+            Log::error($exception->getMessage());
         }
     }
 }

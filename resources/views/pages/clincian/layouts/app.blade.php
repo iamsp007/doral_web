@@ -7,14 +7,12 @@
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
-
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
     @stack('styles')
     <title>@yield('title','Welcome to Doral')</title>
 </head>
-<body >
+<body>
     <div id="loader-wrapper">
         <div class="pulse"></div>
     </div>
@@ -116,7 +114,7 @@
 <script src="{{ asset('assets/js/app.common.js') }}"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
-<script src="{{ asset('js/socket.js') }}"></script>
+{{-- <script src="{{ asset('js/socket.js') }}"></script> --}}
 <script>
     var base_url = $('#base_url').val();
 </script>

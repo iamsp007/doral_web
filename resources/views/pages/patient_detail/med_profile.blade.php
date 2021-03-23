@@ -1,7 +1,7 @@
 <div class="tab-pane fade" id="medProfile" role="tabpanel" aria-labelledby="medProfile-tab">
    <div class="app-card app-card-custom" data-name="med_profile">
       <div class="app-card-header"><h1 class="title">Med Profile</h1></div>
-      <div class="head scrollbar scrollbar4">
+      <div class="head scrollbar scrollbar12">
          <div class="p-3">
             <div>
                <div class="table-responsive">

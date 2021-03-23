@@ -15,12 +15,33 @@ class PatientEmergencyContact extends Model
      * @var array
      */
     protected $fillable = [
-        'patient_id',
+        'user_id',
         'name',
+        'relation',
         'lives_with_patient',
         'have_keys',
         'phone1',
         'phone2',
         'address',
     ];
+    
+    public function getPhone1Attribute($phone)
+    {
+        $phoneData = '';
+        if ($phone) {
+            $mobile = str_replace("-","",$phone);
+            $phoneData = "(".substr($mobile, 0, 3).") ".substr($mobile, 3, 3)."-".substr($mobile,6);
+        }
+        return $phoneData;
+    }
+
+    public function getPhone2Attribute($phone)
+    {
+        $phoneData = '';
+        if ($phone) {
+            $mobile = str_replace("-","",$phone);
+            $phoneData = "(".substr($mobile, 0, 3).") ".substr($mobile, 3, 3)."-".substr($mobile,6);
+        }
+        return $phoneData;
+    }
 }

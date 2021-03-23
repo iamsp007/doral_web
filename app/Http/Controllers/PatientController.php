@@ -25,13 +25,19 @@ class PatientController extends Controller
                 $labReportTypes = LabReportType::where('status','1')->whereNull('parent_id')->orderBy('sequence', 'asc')->get();
 
                 $tbpatientLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
-                $tbLabReportTypes = LabReportType::where('status','1')->where('parent_id', 1)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
-
+                $tbLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
+                    $query->where('patient_referral_id', $paient_id);
+                })->where('status','1')->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
+                
                 $immunizationLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
-                $immunizationLabReportTypes = LabReportType::where('status','1')->where('parent_id', 2)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
+                $immunizationLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
+                    $query->where('patient_referral_id', $paient_id);
+                })->where('status','1')->where('parent_id', 2)->orderBy('sequence', 'asc')->get();
 
                 $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
-                $drugLabReportTypes = LabReportType::where('status','1')->where('parent_id', 3)->doesntHave('patientLabReport')->orderBy('sequence', 'asc')->get();
+                $drugLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
+                    $query->where('patient_referral_id', $paient_id);
+                })->where('status','1')->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
 
                 return view('pages.patient-detail',compact('details', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id'));
             }
@@ -79,7 +85,6 @@ class PatientController extends Controller
     }
 
     public function demographyDataUpdate(Request $request){
-
         try {
             $response = $this->adminServices->demographyDataUpdate($request->all());
             if ($response->status===true){

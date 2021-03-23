@@ -208,6 +208,7 @@
                                        <div class="ls"><i class="las la-calendar circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Expiration Date</h3>
+
                                           <input type="date" class="form-control-plaintext _detail" readonly name="expiration_date" data-id="expiration_date" id="expiration_date" placeholder="Expiration Date" value="{{ ($patient->caregiverInfo->company->expiration_date) ? $patient->caregiverInfo->company->expiration_date : ''}}">
                                        </div>
                                     </div>
@@ -252,7 +253,7 @@
 
         });
     }
-    
+ 
 $(document).ready (function (){
   $('.date').datetimepicker({
     format: 'MM-DD-YYYY',

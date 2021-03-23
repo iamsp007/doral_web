@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,12 +58,31 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = [
-        'profile_photo_url',
-    ];
+    protected $appends = ['profile_photo_url','gender_name','avatar_image','phone_format','full_name'];
 
-    public function patientDetail(){
+    public function patientDetail()
+    {
         return $this->hasOne(PatientReferral::class,'user_id','id')->with(['service','filetype']);
+    }
+
+    public function caregiverInfo()
+    {
+        return $this->hasOne(CaregiverInfo::class,'user_id','id');
+    }
+
+    public function demographic()
+    {
+        return $this->hasOne(Demographic::class,'user_id','id');
+    }
+
+    public function patientLabReport()
+    {
+        return $this->hasMany(PatientLabReport::class,'patient_referral_id','id');
+    }
+
+    public function patientReport()
+    {
+        return $this->hasMany(PatientReport::class,'user_id','id');
     }
 
     /**
@@ -73,4 +93,116 @@ class User extends Authenticatable
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getStatusDataAttribute()
+    {
+        if ($this->status === '0') {
+            $statusData = '<p class="text-primary">Pending</p>';
+        } else if ($this->status === '1') {
+            $statusData = '<p class="text-success">Active</p>';
+        } else if ($this->status === '2') {
+            $statusData = '<p class="text-secondary">Inactive</p>';
+        } else if ($this->status === '3') {
+            $statusData = '<p class="text-danger">Reject</p>';
+        } else if ($this->status === '4') {
+            $statusData = '<p class="text-info">Initial</p>';
+        } else if ($this->status === '5') {
+            $statusData = '<p class="text-info">Completed</p>';
+        }
+        return $statusData;
+    }
+
+    public function patientEmergency()
+    {
+        return $this->hasMany(PatientEmergencyContact::class,'user_id','id');
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function setGenderAttribute($gender)
+    {
+        if ($gender === 'Male') {
+            $gender = '1';
+        } else if ($gender === 'Female') {
+            $gender = '2';
+        } else {
+            $gender = '3';
+        }
+        return $gender;
+    }
+
+    /**
+     * Get gender value and set label according to gender value
+     */
+    public function getGenderDataAttribute()
+    {
+        if ($this->gender === '1') {
+            $gender = 'Male';
+        } else if ($this->gender === '2') {
+            $gender = 'Female';
+        } else {
+            $gender = 'Other';
+        }
+        return $gender;
+    }
+
+    public function getPhoneAttribute($phone)
+    {
+        $phoneData = '';
+        if ($phone) {
+            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
+        }
+        return $phoneData;
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getGenderNameAttribute()
+    {
+        return $this->gender==='1'?'Male':($this->gender==='2'?'Female':'Other');
+    }
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getAvatarImageAttribute()
+    {
+        if (isset($this->image) && !empty($this->image)) {
+            return env('WEB_URL').'assets/img/user/'. $this->image;
+        } else {
+            return env('WEB_URL').'assets/img/user/01.png';
+        }
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getDobAttribute($value)
+    {
+        return Carbon::parse(strtotime($value))->format('m/d/Y');
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getPhoneFormatAttribute()
+    {
+        $value=$this->phone;
+        if ($value){
+            $cleaned = preg_replace('/[^[:digit:]]/', '', $value);
+            preg_match('/(\d{3})(\d{3})(\d{4})/', $cleaned, $matches);
+            return "({$matches[1]}) {$matches[2]}-{$matches[3]}";
+        }
+    }
 }

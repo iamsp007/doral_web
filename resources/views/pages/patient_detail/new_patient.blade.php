@@ -88,7 +88,7 @@
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
                         <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
-                        <button class="btn btn-primary" type="button" id="reset_btn" style="background-color: orange;border-color: orange;">Reset</button>
+                        <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
                     </div>
                 </div>
             </div>

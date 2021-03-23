@@ -45,32 +45,17 @@ $("body").on('blur','#medicaid_number',function (event) {
     else{
         $(document).find(".medicaid_number-invalid-feedback").html('');
     }
-   // $(document).find(".medicaid_number-invalid-feedback").remove('<strong></strong>');
-    //$(this).val($(this).val());
 });
-$(".zip").on('keyup change', function(event) {
+$(".zip").on('keyup change', function() {
     var str = $(this).val();
      //$(this).closest('span').remove();
     if (! str.match("^[0-9]{5}\s*$")) {
-        //alert("valid foramt");
-        //$('<span></span>').insertAfter(this);
-        
-        //$('.error_span').prev().hide();
         $('<span class="error_span_zip" style="color:red">Please Valid Format.</span>').insertAfter(this);
         $('.error_span_zip').next().hide();
-
-        //$(document).find(".zip").html('');
-        //$(this).closest('.zip').find(selector).text('Please Valid Format.');
-        //$(document).find(".zip").append('<strong>Medicaid No Format is invalid.</strong>');
     }
     else{
         $('.error_span_zip').hide();
-        //$(this).closest('.zip').find(selector).text('');
-        //$(document).find(".zip").html('');
     }
-    event.preventDefault();
-   // $(document).find(".medicaid_number-invalid-feedback").remove('<strong></strong>');
-    //$(this).val($(this).val());
 });
 
 function editAllField(sectionId) {

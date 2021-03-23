@@ -34,13 +34,42 @@ $("body").on('keypress','#home_phone, #mobile_or_sms, .emergencyPhone1, .emergen
 });
 
 $("body").on('blur','#medicaid_number',function (event) {
+    event.preventDefault();
     var str = $(this).val();
    
     if (! str.match("^[A-Z]{2}\s*[0-9]{5}\s*[A-Z]{1}\s*$")) {
+        $(document).find(".medicaid_number-invalid-feedback").html('');
         $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');
-    } 
-    $(document).find(".medicaid_number-invalid-feedback").val('');
-    $(this).val($(this).val());
+    }
+    else{
+        $(document).find(".medicaid_number-invalid-feedback").html('');
+    }
+   // $(document).find(".medicaid_number-invalid-feedback").remove('<strong></strong>');
+    //$(this).val($(this).val());
+});
+$(".zip").on('keyup change', function(event) {
+    var str = $(this).val();
+     //$(this).closest('span').remove();
+    if (! str.match("^[0-9]{5}\s*$")) {
+        //alert("valid foramt");
+        //$('<span></span>').insertAfter(this);
+        
+        //$('.error_span').prev().hide();
+        $('<span class="error_span_zip" style="color:red">Please Valid Format.</span>').insertAfter(this);
+        $('.error_span_zip').next().hide();
+
+        //$(document).find(".zip").html('');
+        //$(this).closest('.zip').find(selector).text('Please Valid Format.');
+        //$(document).find(".zip").append('<strong>Medicaid No Format is invalid.</strong>');
+    }
+    else{
+        $('.error_span_zip').hide();
+        //$(this).closest('.zip').find(selector).text('');
+        //$(document).find(".zip").html('');
+    }
+    event.preventDefault();
+   // $(document).find(".medicaid_number-invalid-feedback").remove('<strong></strong>');
+    //$(this).val($(this).val());
 });
 
 function editAllField(sectionId) {

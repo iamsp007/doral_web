@@ -88,6 +88,7 @@
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
                         <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
+                        <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
                     </div>
                 </div>
             </div>
@@ -156,6 +157,7 @@
         );
        
         $('#get_patient-table').DataTable({
+            retrieve: true,
             "processing": true,
             "serverSide": true,
             "language": {
@@ -196,8 +198,16 @@
 
         /*table reload at filter time*/
         $("#filter_btn").click(function () {
+            console.log("rerre");
             refresh();
         });
+        
+        $("#reset_btn").click(function () {
+            $('#search_form').trigger("reset");
+            $(".user_name")[0].selectedIndex = -1;
+            $('#select2-user_name-container').empty()
+             refresh();
+        })
 
         $('input[name="lab_due_date"]').daterangepicker({
             autoUpdateInput: false,

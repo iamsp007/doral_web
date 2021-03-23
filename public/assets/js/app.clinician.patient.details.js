@@ -35,13 +35,27 @@ $("body").on('keypress','.phone_format',function(event) {
 });
 
 $("body").on('blur','#medicaid_number',function (event) {
+    event.preventDefault();
     var str = $(this).val();
    
     if (! str.match("^[A-Z]{2}\s*[0-9]{5}\s*[A-Z]{1}\s*$")) {
+        $(document).find(".medicaid_number-invalid-feedback").html('');
         $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');
-    } 
-    $(document).find(".medicaid_number-invalid-feedback").val('');
-    $(this).val($(this).val());
+    }
+    else{
+        $(document).find(".medicaid_number-invalid-feedback").html('');
+    }
+});
+$(".zip").on('keyup change', function() {
+    var str = $(this).val();
+     //$(this).closest('span').remove();
+    if (! str.match("^[0-9]{5}\s*$")) {
+        $('<span class="error_span_zip" style="color:red">Please Valid Format.</span>').insertAfter(this);
+        $('.error_span_zip').next().hide();
+    }
+    else{
+        $('.error_span_zip').hide();
+    }
 });
 
 function editAllField(sectionId) {

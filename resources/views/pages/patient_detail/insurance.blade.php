@@ -21,7 +21,7 @@
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                  <div class="rs">
                                     <h3 class="_title">Medicaid No</h3>
-                                    <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}">
+                                    <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}" maxlength="8">
                                     <span class="medicaid_number-invalid-feedback text-danger" role="alert" maxlength="8"></span>
                                  </div>
                               </div>

@@ -18,11 +18,11 @@ return [
     ],
 
     'userStatus' => [
-        '0' => 'Pending',
-        '1' => 'Active',
-        '2' => 'InActive',
-        '3' => 'Reject',
-        '4' => 'Initial',
-        '5' => 'Completed'
+        'pending' => 'Pending',
+        'active' => 'Active',
+        'inactive' => 'InActive',
+        'reject' => 'Reject',
+        'initial' => 'Initial',
+        'completed' => 'Completed'
     ],
 ];

@@ -15,7 +15,6 @@
         <tr>
             <th>ID</th>
             <th>Employee Name</th>
-            <th>Role</th>
             <th>Employee ID</th>
             <th>Date Of Birth</th>
             <th>Phone Number</th>
@@ -59,7 +58,6 @@
                         return data;
                     }
                 },
-                {data:'role_name', name:'role_name', "bSortable": true},
                 {data:'employeeID', name:'employeeID', "bSortable": true},
                 {data:'dob', name:'dob', "bSortable": true},
                 {data:'phone', name:'phone', "bSortable": true},

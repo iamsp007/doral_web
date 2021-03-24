@@ -65,9 +65,6 @@ $(".zip").on('keyup change', function() {
 });
 
 function editAllField(sectionId) {
-    console.log(sectionId);
-    //$('a[data-toggle="tooltip"]').on('show.bs.tab', function (e) { localStorage.setItem('activeTab', $(e.target).attr('href')); });
-   // var activeTab = localStorage.getItem('activeTab');
    var activeTab = "#"+sectionId;
     if (activeTab) {
     $(activeTab+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
@@ -82,8 +79,6 @@ function editAllField(sectionId) {
     
     $(activeTab).find('.normal_service_div').removeClass('d-block').addClass('d-none');
     $(activeTab).find('.editable_service_div').removeClass('d-none').addClass('d-block'); 
-    } else {
- 
     }
 }
 function updateAllField(sectionId) {
@@ -101,7 +96,6 @@ function updateAllField(sectionId) {
         demographyDataUpdate(data,sectionId)
     }
     var activeTab = "#"+sectionId;
-
     if (activeTab) {
             $(activeTab+' [data-id]').addClass('form-control-plaintext').removeClass('form-control').addClass(
             'p-new');
@@ -114,11 +108,6 @@ function updateAllField(sectionId) {
 
            $(activeTab).find('.normal_service_div').removeClass('d-none').addClass('d-block');
            $(activeTab).find('.editable_service_div').removeClass('d-block').addClass('d-none');
-
-
-            }
-            else{
-   
             }
 }
 
@@ -225,7 +214,6 @@ medprofileTable = $('#med-profile-table').DataTable({
         'print', {
             text: 'Add',
             action: function (e, dt, node, config) {
-                // alert( 'Button activated' );
                 $('#patientMedicateInfo').modal('toggle')
             }
         }
@@ -325,14 +313,14 @@ function addPatientMedication(patient_id) {
         dataType: "json",
         success: function(response) {
             $("#loader-wrapper").hide();
-            alert(response.message)
+            alertText(response.message)
             $('#patientMedicateInfo').modal('hide');
             medprofileTable.ajax.reload();
         },
         error: function(error) {
             $("#loader-wrapper").hide();
             const sources = JSON.parse(error.responseText);
-            alert(sources.message)
+            alertText(sources.message)
         }
     });
 }
@@ -365,16 +353,14 @@ $(function () {
             dataType: "json",
             success: function(response) {
                 $("#loader-wrapper").hide();
-                alert(response.message)
+                alertText(response.message)
                 window.location.reload();
             },
             error: function(error) {
                 $("#loader-wrapper").hide();
-                alert(error.responseText)
+                alertText(error.responseText)
             }
         });
-
-        // $('.insurance_company').hide();
     });
     $('.dt-delete').each(function () {
         $(this).on('click', function (evt) {

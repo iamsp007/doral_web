@@ -236,13 +236,13 @@
             data:{patient_id:patientId},
             success:function (response) {
                $("#loader-wrapper").hide();
-                alert('Caregiver updated successfully.');
+                alertText('Caregiver updated successfully.');
                 location.reload();
             }
             ,
             error:function (error) {
                $("#loader-wrapper").hide();
-                alert('Something is wrong. Please try again later.');
+                alertText('Something is wrong. Please try again later.');
                 location.reload();
             }
 

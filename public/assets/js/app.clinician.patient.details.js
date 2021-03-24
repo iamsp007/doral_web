@@ -65,42 +65,64 @@ $(".zip").on('keyup change', function() {
 });
 
 function editAllField(sectionId) {
-    
-    $('#'+sectionId+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
+    console.log(sectionId);
+    //$('a[data-toggle="tooltip"]').on('show.bs.tab', function (e) { localStorage.setItem('activeTab', $(e.target).attr('href')); });
+   // var activeTab = localStorage.getItem('activeTab');
+   var activeTab = "#"+sectionId;
+    if (activeTab) {
+    $(activeTab+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
         'p-new');
-        this.contentEditable = 'true';
-    $('#'+sectionId+' [data-id]').attr('readOnly', false)
-    $('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
-    $('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+    this.contentEditable = 'true';
+    $(activeTab+' [data-id]').attr('readOnly', false)
+    $(activeTab).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+    $(activeTab).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
     
-    $('.normal_gender_div').removeClass('d-block').addClass('d-none');
-    $('.editable_gender_div').removeClass('d-none').addClass('d-block');
+    $(activeTab).find('.normal_gender_div').removeClass('d-block').addClass('d-none');
+    $(activeTab).find('.editable_gender_div').removeClass('d-none').addClass('d-block');
     
-    $('.normal_service_div').removeClass('d-block').addClass('d-none');
-    $('.editable_service_div').removeClass('d-none').addClass('d-block');
-    
+    $(activeTab).find('.normal_service_div').removeClass('d-block').addClass('d-none');
+    $(activeTab).find('.editable_service_div').removeClass('d-none').addClass('d-block'); 
+    } else {
+ 
+    }
 }
 function updateAllField(sectionId) {
     if (sectionId==="demographic"){
         var data = $('#demographic_form').serializeArray();
         data.push({name: 'type', value: 1});
-        demographyDataUpdate(data)
+        demographyDataUpdate(data,sectionId)
     }else if (sectionId==="insurance"){
         var data = $('#medicare_form').serializeArray();
         data.push({name: 'type', value: 2});
-        demographyDataUpdate(data)
+        demographyDataUpdate(data,sectionId)
     }else if (sectionId==="homecare"){
         var data = $('#homecare_form').serializeArray();
         data.push({name: 'type', value: 3});
-        demographyDataUpdate(data)
+        demographyDataUpdate(data,sectionId)
     }
-    $('#'+sectionId+' [data-id]').addClass('form-control-plaintext').removeClass('form-control').addClass(
-        'p-new');
-    $('#'+sectionId+' [data-id]').attr('readOnly', false)
-    $('.edit-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+    var activeTab = "#"+sectionId;
+
+    if (activeTab) {
+            $(activeTab+' [data-id]').addClass('form-control-plaintext').removeClass('form-control').addClass(
+            'p-new');
+           $(activeTab+' [data-id]').attr('readOnly', false)
+           $(activeTab).find('.edit-icon').fadeOut("slow").removeClass('d-none').addClass('d-block');
+           $(activeTab).find('.update-icon').fadeIn("slow").removeClass('d-block').addClass('d-none');
+
+           $(activeTab).find('.normal_gender_div').removeClass('d-none').addClass('d-block');
+           $(activeTab).find('.editable_gender_div').removeClass('d-block').addClass('d-none');
+
+           $(activeTab).find('.normal_service_div').removeClass('d-none').addClass('d-block');
+           $(activeTab).find('.editable_service_div').removeClass('d-block').addClass('d-none');
+
+
+            }
+            else{
+   
+            }
 }
 
-function demographyDataUpdate(data) {
+function demographyDataUpdate(data,sectionId) {
     $("#loader-wrapper").show();
     $.ajax({
         headers: {
@@ -112,7 +134,7 @@ function demographyDataUpdate(data) {
         dataType: "json",
         success: function(response) {
             $("#loader-wrapper").hide();
-            $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+            $(activeTab).find('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
             alertText(response.message,'success');
         },
         error: function(error) {

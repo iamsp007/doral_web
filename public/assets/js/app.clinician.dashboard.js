@@ -156,58 +156,60 @@ $(document).ready(function(){
 });
 
 function bloodPressure(data) {
-    if (typeof data[3] !== undefined) {
-        html = '';
-        html += '<div class="request-roadl">' +
-            '<ul class=" owl-carousel owl-theme">';
-        $.each(data[3] , function(index, val) {
-            html += '<li class="item">' +
-                    '<div class="patient-detail">' +
-                    '<div class="p-20">' +
-                    '<div class="img-50">' +
+    if(data){
+        if (typeof data[3] !== undefined) {
+            html = '';
+            html += '<div class="request-roadl">' +
+                '<ul class=" owl-carousel owl-theme">';
+            $.each(data[3] , function(index, val) {
+                html += '<li class="item">' +
+                        '<div class="patient-detail">' +
+                        '<div class="p-20">' +
+                        '<div class="img-50">' +
+                        '<img src="'+val.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user.avatar_image+'" class="img-fluid">' +
+                        '</div>' +
+                        '<h1 class="patient-name">'+val.user.first_name+' '+val.user.last_name+'</h1>' +
+                        '</div>' +
+                        '<div class="emergency-detail p-20">' +
+                        '<h3 class="title">Blood Pressure</h3>' +
+                        '<h1 class="counts">'+val.reading_value+'</h1>' +
+                        '<a href="javascript:void(0)" class="roadl-btn">' +
+                        '<span></span>' +
+                        '</a>' +
+                        '</div>' +
+                        '</div>' +
+                    '</li>';
+            });
+            html += '</ul>'+
+                '</div>';
+            $('#bloodPressure').html(html);
+            owlCarousel();
+        }
+        if (typeof data[2] !== undefined) {
+            html = '';
+            html += '<div>' +
+                '<h1 class="reports-title">Blood Pressure</h1>' +
+                '<div class="detail">' +
+                '<ul>';
+            $.each(data[2] , function(index, val) {
+                html += '<li>' +
+                    '<div class="Level-2">' +
+                    '<div class="img-30">' +
                     '<img src="'+val.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user.avatar_image+'" class="img-fluid">' +
                     '</div>' +
                     '<h1 class="patient-name">'+val.user.first_name+' '+val.user.last_name+'</h1>' +
+                    '<h3 class="title">Blood Pressure: '+val.reading_value+'</h3>' +
+                    '<a href="javascript:void(0)" class="Level-2-btn">Level 2</a>' +
+                    '<a href="javascript:void(0)" class="level2-btn">Seek emergency care</a>' +
                     '</div>' +
-                    '<div class="emergency-detail p-20">' +
-                    '<h3 class="title">Blood Pressure</h3>' +
-                    '<h1 class="counts">'+val.reading_value+'</h1>' +
-                    '<a href="javascript:void(0)" class="roadl-btn">' +
-                    '<span></span>' +
-                    '</a>' +
-                    '</div>' +
-                    '</div>' +
-                '</li>';
-        });
-        html += '</ul>'+
-            '</div>';
-        $('#bloodPressure').html(html);
-        owlCarousel();
-    }
-    if (typeof data[2] !== undefined) {
-        html = '';
-        html += '<div>' +
-            '<h1 class="reports-title">Blood Pressure</h1>' +
-            '<div class="detail">' +
-            '<ul>';
-        $.each(data[2] , function(index, val) {
-            html += '<li>' +
-                '<div class="Level-2">' +
-                '<div class="img-30">' +
-                '<img src="'+val.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user.avatar_image+'" class="img-fluid">' +
+                    '</li>';
+            });
+            html += '</ul>' +
                 '</div>' +
-                '<h1 class="patient-name">'+val.user.first_name+' '+val.user.last_name+'</h1>' +
-                '<h3 class="title">Blood Pressure: '+val.reading_value+'</h3>' +
-                '<a href="javascript:void(0)" class="Level-2-btn">Level 2</a>' +
-                '<a href="javascript:void(0)" class="level2-btn">Seek emergency care</a>' +
-                '</div>' +
-                '</li>';
-        });
-        html += '</ul>' +
-            '</div>' +
-            '</div>';                     
-        $('#bloodPressuredailyupdate').html(html);
-        owlCarousel();
+                '</div>';                     
+            $('#bloodPressuredailyupdate').html(html);
+            owlCarousel();
+        }
     }
 }
 
@@ -268,57 +270,59 @@ function bloodSugar(data) {
 }
 
 function pulseOxymeter(data) {
-    if (typeof data[3] !== undefined) {
-        html = '';
-        html += '<div class="request-roadl">' +
-            '<ul class=" owl-carousel owl-theme">';
-        $.each(data[3] , function(index, val) {
-            html += '<li class="item">' +
-                    '<div class="patient-detail">' +
-                    '<div class="p-20">' +
-                    '<div class="img-50">' +
+    if(data){
+        if (typeof data[3] !== undefined) {
+            html = '';
+            html += '<div class="request-roadl">' +
+                '<ul class=" owl-carousel owl-theme">';
+            $.each(data[3] , function(index, val) {
+                html += '<li class="item">' +
+                        '<div class="patient-detail">' +
+                        '<div class="p-20">' +
+                        '<div class="img-50">' +
+                        '<img src="'+val.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user.avatar_image+'" class="img-fluid">' +
+                        '</div>' +
+                        '<h1 class="patient-name">'+val.user.first_name+' '+val.user.last_name+'</h1>' +
+                        '</div>' +
+                        '<div class="emergency-detail p-20">' +
+                        '<h3 class="title">Pulse Oxymeter</h3>' +
+                        '<h1 class="counts">'+val.reading_value+'</h1>' +
+                        '<a href="javascript:void(0)" class="roadl-btn">' +
+                        '<span></span>' +
+                        '</a>' +
+                        '</div>' +
+                        '</div>' +
+                    '</li>';
+            });
+            html += '</ul>'+
+                '</div>';
+            $('#pulseOxymeter').html(html);
+            owlCarousel();
+        }
+        if (typeof data[2] !== undefined) {
+            html = '';
+            html += '<div>' +
+                '<h1 class="reports-title">Pulse Oxymeter</h1>' +
+                '<div class="detail">' +
+                '<ul>';
+            $.each(data[2] , function(index, val) {
+                html += '<li>' +
+                    '<div class="Level-2">' +
+                    '<div class="img-30">' +
                     '<img src="'+val.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user.avatar_image+'" class="img-fluid">' +
                     '</div>' +
                     '<h1 class="patient-name">'+val.user.first_name+' '+val.user.last_name+'</h1>' +
+                    '<h3 class="title">Pulse Oxymeter: '+val.reading_value+'</h3>' +
+                    '<a href="javascript:void(0)" class="Level-2-btn">Level 2</a>' +
+                    '<a href="javascript:void(0)" class="level2-btn">Seek emergency care</a>' +
                     '</div>' +
-                    '<div class="emergency-detail p-20">' +
-                    '<h3 class="title">Pulse Oxymeter</h3>' +
-                    '<h1 class="counts">'+val.reading_value+'</h1>' +
-                    '<a href="javascript:void(0)" class="roadl-btn">' +
-                    '<span></span>' +
-                    '</a>' +
-                    '</div>' +
-                    '</div>' +
-                '</li>';
-        });
-        html += '</ul>'+
-            '</div>';
-        $('#pulseOxymeter').html(html);
-        owlCarousel();
-    }
-    if (typeof data[2] !== undefined) {
-        html = '';
-        html += '<div>' +
-            '<h1 class="reports-title">Pulse Oxymeter</h1>' +
-            '<div class="detail">' +
-            '<ul>';
-        $.each(data[2] , function(index, val) {
-            html += '<li>' +
-                '<div class="Level-2">' +
-                '<div class="img-30">' +
-                '<img src="'+val.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user.avatar_image+'" class="img-fluid">' +
+                    '</li>';
+            });
+            html += '</ul>' +
                 '</div>' +
-                '<h1 class="patient-name">'+val.user.first_name+' '+val.user.last_name+'</h1>' +
-                '<h3 class="title">Pulse Oxymeter: '+val.reading_value+'</h3>' +
-                '<a href="javascript:void(0)" class="Level-2-btn">Level 2</a>' +
-                '<a href="javascript:void(0)" class="level2-btn">Seek emergency care</a>' +
-                '</div>' +
-                '</li>';
-        });
-        html += '</ul>' +
-            '</div>' +
-            '</div>';                     
-        $('#pulseOxymeterdailyupdate').html(html);
-        owlCarousel();
+                '</div>';                     
+            $('#pulseOxymeterdailyupdate').html(html);
+            owlCarousel();
+        }
     }
 }

@@ -48,9 +48,15 @@ $("body").on('blur','#medicaid_number',function (event) {
 });
 $(".zip").on('keyup change', function() {
     var str = $(this).val();
+    if (/\D/g.test(this.value))
+  {
+    // Filter non-digits from input value.
+    this.value = this.value.replace(/\D/g, '');
+  }
+    $(this).attr('maxlength', 5);
      //$(this).closest('span').remove();
     if (! str.match("^[0-9]{5}\s*$")) {
-        $('<span class="error_span_zip" style="color:red">Please Valid Format.</span>').insertAfter(this);
+        $('<span class="error_span_zip" style="color:red">Only allowed 5 digit number in zip.</span>').insertAfter(this);
         $('.error_span_zip').next().hide();
     }
     else{

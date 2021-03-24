@@ -380,7 +380,7 @@
                        </div>
                        <div class="scrollbar scrollbar9" id="view-lab-report-file">
                            <div class="row">
-                               <div class="col-12 col-sm-2 mt-4">
+<!--                               <div class="col-12 col-sm-2 mt-4">
                                    <div class="card shadow-sm">
                                        <div class="card-body">
                                            <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
@@ -563,7 +563,7 @@
                                            </div>
                                        </div>
                                    </div>
-                               </div>
+                               </div>-->
                            </div>
                        </div>
                    </div>

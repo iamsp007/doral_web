@@ -140,6 +140,8 @@ function viewLabReports(id) {
             var sources = response.data;
             var html='<div class="row">';
             sources.map(function (value) {
+                //alert(value);
+                $("#labreportModal").modal('toggle');
                 var img = base_url+'assets/img/All Banner copy.docx.png';
                 html+='<div class="col-12 col-sm-2 mt-4">\n' +
                     '                                   <div class="card shadow-sm">\n' +
@@ -176,7 +178,7 @@ function viewLabReports(id) {
         error:function (error) {
             var sources = JSON.parse(error.responseText);
             $('#view-lab-report-file').html('');
-            alert(sources.message)
+            alertText(sources.message)
         }
 
     });

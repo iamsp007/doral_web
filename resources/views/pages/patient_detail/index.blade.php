@@ -753,7 +753,7 @@
             var monthf = selectedDate.getMonth() + 1;
             var month  = (monthf < 10 ? '0' : '') + monthf;
             var year = selectedDate.getFullYear() + 1;
-            var expirydate = month + '/'+ date + '/'+ year;
+            var expirydate = month + '-'+ date + '-'+ year;
             $(".lab-expiry-date").text(expirydate);
             // $("#lab_expiry_date").val(expirydate);
          });

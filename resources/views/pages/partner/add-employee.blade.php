@@ -46,8 +46,21 @@
                                             @foreach(\App\Models\Role::where('guard_name','=','partner')->get() as $key=>$value)
                                                 <option value="{{ $value->name }}">{{ $value->name }}</option>
                                             @endforeach
+                                            <option value="fieldvisitor">Field Visitor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                           <div class="col-12 col-sm-4">
+                                <div class="form-group">
+                                    <label for="selectRole" class="label">FieldVisitor Roles</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text input-group-text-custom"><i
+                                                class="las la-user-tie"></i></span>
+                                        <select class="form-control" name="field_role_id" id="field_role_id">
+                                            <option value="">Select Role</option>
                                             @foreach(\App\Models\Referral::where('guard_name','=','partner')->get() as $key=>$value)
-                                                <option value="4,{{ $value->role_id }}">{{ $value->name }} (Field Visitor)</option>
+                                                <option value="4,{{ $value->role_id }}">{{ $value->name }} </option>
                                             @endforeach
                                         </select>
                                     </div>

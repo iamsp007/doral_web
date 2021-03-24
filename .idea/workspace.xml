@@ -3,21 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/PartnerLoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/PartnerLoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/ReferralRegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Partner/PartnerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Partner/PartnerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/partner/add-employee.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/partner/add-employee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/partner-register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/partner-register.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/partner/add-employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/partner/add-employee.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/clinician.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/clinician.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/coordinator.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/coordinator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/partner.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/partner.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/referral.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/referral.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/supervisor.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/supervisor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -661,7 +648,8 @@
       <workItem from="1616431125577" duration="1785000" />
       <workItem from="1616432941215" duration="2098000" />
       <workItem from="1616435134643" duration="599000" />
-      <workItem from="1616439655634" duration="1274000" />
+      <workItem from="1616439655634" duration="1540000" />
+      <workItem from="1616520446961" duration="1217000" />
     </task>
     <servers />
   </component>

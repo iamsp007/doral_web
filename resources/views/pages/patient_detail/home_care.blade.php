@@ -174,7 +174,7 @@
                                        <div class="ls"><i class="llas la-phone circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Administrator Phone Number</h3>
-                                          <input type="tel" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->administrator_phone_no) ? $patient->caregiverInfo->company->administrator_phone_no : '' }}" maxlength="14">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->administrator_phone_no) ? $patient->caregiverInfo->company->administrator_phone_no : '' }}" maxlength="14">
                                        </div>
                                     </div>
                                  </div>
@@ -208,7 +208,6 @@
                                        <div class="ls"><i class="las la-calendar circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Expiration Date</h3>
-
                                           <input type="text" class="form-control-plaintext _detail" readonly name="expiration_date" data-id="expiration_date" id="expiration_date" placeholder="Expiration Date" value="{{ ($patient->caregiverInfo->company->expiration_date) ? $patient->caregiverInfo->company->expiration_date : ''}}">
                                        </div>
                                     </div>
@@ -224,7 +223,6 @@
       </div>
    </div>
 </div>
-
 <script type="text/javascript">
     function updateCaregiver(patientId) {
          $("#loader-wrapper").show();
@@ -239,29 +237,17 @@
             success:function (response) {
                $("#loader-wrapper").hide();
                 alert('Caregiver updated successfully.');
-                location.reload();
+//                location.reload();
             }
             ,
             error:function (error) {
                $("#loader-wrapper").hide();
                 alert('Something is wrong. Please try again later.');
-                location.reload();
+//                location.reload();
             }
+           
 
 
         });
     }
-//      $('.expiration_date').datepicker({
-//      format: '{{ config('app.date_format_js') }}'
-//      });   
-//    });
-    $(document).ready(function() {
-    $('input[name="expiration_date"]').daterangepicker({
-     singleDatePicker: true,
-            showDropdowns: true,
-             locale: {
-                    format: 'MM-DD-YYY'
-                }
-        });
-    })
 </script>

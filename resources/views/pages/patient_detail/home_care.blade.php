@@ -174,7 +174,7 @@
                                        <div class="ls"><i class="llas la-phone circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Administrator Phone Number</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->administrator_phone_no) ? $patient->caregiverInfo->company->administrator_phone_no : '' }}" maxlength="14">
+                                          <input type="tel" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->administrator_phone_no) ? $patient->caregiverInfo->company->administrator_phone_no : '' }}" maxlength="14">
                                        </div>
                                     </div>
                                  </div>
@@ -208,7 +208,8 @@
                                        <div class="ls"><i class="las la-calendar circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Expiration Date</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="expiration_date" data-id="expiration_date" id="expiration_date" placeholder="Expiration Date" value="{{ ($patient->caregiverInfo->company->expiration_date) ? $patient->caregiverInfo->company->expiration_date : ''}}">
+
+                                          <input type="date" class="form-control-plaintext _detail" readonly name="expiration_date" data-id="expiration_date" id="expiration_date" placeholder="Expiration Date" value="{{ ($patient->caregiverInfo->company->expiration_date) ? $patient->caregiverInfo->company->expiration_date : ''}}">
                                        </div>
                                     </div>
                                  </div>
@@ -223,6 +224,9 @@
       </div>
    </div>
 </div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
 <script type="text/javascript">
     function updateCaregiver(patientId) {
          $("#loader-wrapper").show();
@@ -250,4 +254,11 @@
 
         });
     }
+ 
+$(document).ready (function (){
+  $('.date').datetimepicker({
+    format: 'MM-DD-YYYY',
+    locale: 'en'
+  });
+}
 </script>

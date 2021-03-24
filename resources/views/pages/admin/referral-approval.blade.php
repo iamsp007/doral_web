@@ -1,6 +1,9 @@
 @extends('pages.layouts.app')
 @section('title','Admin - Referrals')
 @section('pageTitleSection')
+
+    Admin - Referrals
+
     @if(Request::is('admin/referral-approval'))
         Pending Referral
     @elseif(Request::is('admin/referral-active'))
@@ -8,6 +11,7 @@
     @elseif(Request::is('admin/referral-rejected'))
         Reject Referral
     @endif
+
 @endsection
 @section('content')
     <table id="referral-table" class="display responsive nowrap" style="width:100%">

@@ -5,6 +5,7 @@ $(document).ready(function () {
     var steps = $("fieldset").length;
     setProgressBar(current);
     $(".next").click(function () {
+
         if ( ! $('[name="service"]').is(':checked') && $(this).attr('id') == 'service' ) {
             $("span.service").text('Please Select Service').addClass('d-flex justify-content-center align-items-center mt-4');
             return false;
@@ -22,28 +23,8 @@ $(document).ready(function () {
 //            return false;
 //        } else {
 //            $("span.insuran").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
-//        }
-        current_fs = $(this).parent();
-        next_fs = $(this).parent().next();
-        //Add Class Active
-        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-        //show the next fieldset
-        next_fs.show();
-        //hide the current fieldset with style
-        current_fs.animate({ opacity: 0 }, {
-            step: function (now) {
-                // for making fielset appear animation
-                opacity = 1 - now;
-                current_fs.css({
-                    'display': 'none',
-                    'position': 'relative'
-                });
-                next_fs.css({ 'opacity': opacity });
-            },
-            duration: 500
-        });
-        setProgressBar(++current);
-    });
+//   
+   
     $(".previous").click(function () {
         current_fs = $(this).parent();
         previous_fs = $(this).parent().prev();
@@ -72,54 +53,10 @@ $(document).ready(function () {
         $(".progress-bar")
             .css("width", percent + "%")
     }
-    // $(".submit").click(function () {
-    //     return false;
-    // })
-});
+    $(".submit").click(function () {
+        return false;
+    })
 
-$(function () {
-    $('input[name="dob"]').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format('YYYY'), 10)
-    }, function (start, end, label) {
-        var years = moment().diff(start, 'years');
-        alert("You are " + years + " years old!");
-    });
-    $('.existing_patient').hide()
-    $('[name="enrollment"]').on('change', function (e) {
-        e.preventDefault();
-        if ($(this).val() == 'boarding') {
-            // alert('boarding')
-            $('.existing_patient').hide()
-        }
-        if ($(this).val() == 'existing_patient') {
-            // alert('boarding')
-            $('.existing_patient').show()
-        }
-        $("span.enrollment").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
-    })
-    $('input[name="creation_date"]').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format('YYYY'), 10)
-    }, function (start, end, label) {
-        var years = moment().diff(start, 'years');
-        alert("You are " + years + " years old!");
-    });
-    $('.if-CDPAP').hide()
-    $('[name="services"]').on('change', function (e) {
-        e.preventDefault();
-        if ($(this).val() == 'cdpap') {
-            $('.if-CDPAP').show()
-        }
-        if ($(this).val() == 'lhcsa') {
-            $('.if-CDPAP').hide()
-        }
-        $("span.services").text('').removeClass('d-flex justify-content-center align-items-center mt-4');
-    })
     $('.on_hmo').hide()
     $('[name="insurance"]').on('change', function (e) {
         e.preventDefault();
@@ -177,4 +114,5 @@ $(function () {
             }
         });
     });
+
 });

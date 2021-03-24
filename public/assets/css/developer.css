@@ -10,3 +10,6 @@ img.update-icon {display: none;}
 .no-record-tr td {
     text-align: center;
 }
+.reset_btn{
+    background-color: orange;border-color: orange;
+}

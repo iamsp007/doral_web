@@ -25,7 +25,8 @@ $("body").on('keypress','#medicare_number',function (event) {
     }
 });
 
-$("body").on('keypress','#home_phone, #mobile_or_sms, .emergencyPhone1, .emergencyPhone2, #company_phone, #administrator_phone_no, #insurance_detail_phone',function (event) {
+// $("body").on('keypress','#home_phone, #mobile_or_sms, .emergencyPhone1, .emergencyPhone2, #company_phone, #administrator_phone_no, #insurance_detail_phone',function (event) {
+$("body").on('keypress','.phone_format',function(event) {
     if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
         event.preventDefault();
     }
@@ -34,13 +35,27 @@ $("body").on('keypress','#home_phone, #mobile_or_sms, .emergencyPhone1, .emergen
 });
 
 $("body").on('blur','#medicaid_number',function (event) {
+    event.preventDefault();
     var str = $(this).val();
    
     if (! str.match("^[A-Z]{2}\s*[0-9]{5}\s*[A-Z]{1}\s*$")) {
+        $(document).find(".medicaid_number-invalid-feedback").html('');
         $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');
-    } 
-    $(document).find(".medicaid_number-invalid-feedback").val('');
-    $(this).val($(this).val());
+    }
+    else{
+        $(document).find(".medicaid_number-invalid-feedback").html('');
+    }
+});
+$(".zip").on('keyup change', function() {
+    var str = $(this).val();
+     //$(this).closest('span').remove();
+    if (! str.match("^[0-9]{5}\s*$")) {
+        $('<span class="error_span_zip" style="color:red">Please Valid Format.</span>').insertAfter(this);
+        $('.error_span_zip').next().hide();
+    }
+    else{
+        $('.error_span_zip').hide();
+    }
 });
 
 function editAllField(sectionId) {

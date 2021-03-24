@@ -276,7 +276,7 @@ Add Patient
                                                 <div class="row">
                                                     <div class="form-group col-md-6 col-sm-6">
                                                         <label for="AddressEntity_Zipcode">Zip</label><span class="text-danger"> *</span>
-                                                        <input type="text" class="form-control" placeholder="Enter Zip" autoComplete="off" id="AddressEntity_Zipcode" name="AddressEntity.Zipcode" value="">
+                                                        <input type="text" class="form-control zip" placeholder="Enter Zip" autoComplete="off" id="AddressEntity_Zipcode" name="AddressEntity.Zipcode" value="">
                                                         <span class="text-danger field-validation-valid" data-valmsg-for="AddressEntity.Zipcode" data-valmsg-replace="true"></span>
                                                     </div>
                                                     <div class="form-group col-md-6">
@@ -591,7 +591,7 @@ Add Patient
                                                 <div class="row">
                                                     <div class="form-group col-md-6 col-sm-6">
                                                         <label for="AddressEntity_Zipcode">Zip</label><span class="text-danger"> *</span>
-                                                        <input type="text" class="form-control" placeholder="Enter Zip" autoComplete="off" id="AddressEntity_Zipcode" name="AddressEntity.Zipcode" value="">
+                                                        <input type="text" class="form-control zip" placeholder="Enter Zip" autoComplete="off" id="AddressEntity_Zipcode" name="AddressEntity.Zipcode" value="">
                                                         <span class="text-danger field-validation-valid" data-valmsg-for="AddressEntity.Zipcode" data-valmsg-replace="true"></span>
                                                     </div>
                                                     <div class="form-group col-md-6">
@@ -675,7 +675,7 @@ Add Patient
                                                 <div class="row">
                                                     <div class="form-group col-md-6 col-sm-6">
                                                         <label for="AddressEntity_Zipcode">Zip</label><span class="text-danger"> *</span>
-                                                        <input type="text" class="form-control" placeholder="Enter Zip" autoComplete="off" id="AddressEntity_Zipcode" name="AddressEntity.Zipcode" value="">
+                                                        <input type="text" class="form-control zip" placeholder="Enter Zip" autoComplete="off" id="AddressEntity_Zipcode" name="AddressEntity.Zipcode" value="">
                                                         <span class="text-danger field-validation-valid" data-valmsg-for="AddressEntity.Zipcode" data-valmsg-replace="true"></span>
                                                     </div>
                                                     <div class="form-group col-md-6">
@@ -757,7 +757,7 @@ Add Patient
                                                 <div class="row">
                                                     <div class="form-group col-md-6 col-sm-6">
                                                         <label for="AddressEntity_Zipcode">Zip</label><span class="text-danger"> *</span>
-                                                        <input type="text" class="form-control" placeholder="Enter Zip" autoComplete="off" id="AddressEntity_Zipcode" name="AddressEntity.Zipcode" value="">
+                                                        <input type="text" class="form-control zip" placeholder="Enter Zip" autoComplete="off" id="AddressEntity_Zipcode" name="AddressEntity.Zipcode" value="">
                                                         <span class="text-danger field-validation-valid" data-valmsg-for="AddressEntity.Zipcode" data-valmsg-replace="true"></span>
                                                     </div>
                                                     <div class="form-group col-md-6">

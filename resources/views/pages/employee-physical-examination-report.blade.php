@@ -132,20 +132,20 @@
                            <div class="form-group">
                               <select class="form-control" name="marital_status">
                                  <option>Marital Status </option>
-                                 <option {{ $maritalStatus->Name === 'Single'  ? "selected" : null }}>Single </option>
-                                 <option {{ $maritalStatus->Name === 'Married'  ? "selected" : null }}>Married </option>
-                                 <option {{ $maritalStatus->Name === 'Separated'  ? "selected" : null }}>Separated </option>
-                                 <option {{ $maritalStatus->Name === 'Widowed'  ? "selected" : null }}>Widowed </option>
-                                 <option {{ $maritalStatus->Name === 'Divorced'  ? "selected" : null }}>Divorced  </option>
+                                 <option {{ (isset($maritalStatus->name) && $maritalStatus->name === 'Single')  ? "selected" : null }}>Single </option>
+                                 <option {{ (isset($maritalStatus->name) && $maritalStatus->name === 'Married')  ? "selected" : null }}>Married </option>
+                                 <option {{ (isset($maritalStatus->name) && $maritalStatus->name === 'Separated')  ? "selected" : null }}>Separated </option>
+                                 <option {{ (isset($maritalStatus->name) && $maritalStatus->name === 'Widowed')  ? "selected" : null }}>Widowed </option>
+                                 <option {{ (isset($maritalStatus->name) && $maritalStatus->name === 'Divorced')  ? "selected" : null }}>Divorced  </option>
                               </select>
                            </div>
                         </div>
                         <div class="col-lg-6">
-                           <div class="form-group"><input type="text" class="form-control" placeholder="SSN Number" name="ssn" value="{{$patient->demographic->ssn}}"></div>
+                           <div class="form-group"><input type="text" class="form-control" placeholder="SSN Number" name="ssn" value="{{$patient->demographic->ssn ?? ''}}"></div>
                         </div>
                         <div class="col-lg-6">
                            <div class="form-group">
-                              <textarea id="address" name="address" rows="4" cols="62" class="form-control-plaintext _detail no-height" readonly placeholder=""> Address1: {{ $address->Street1 }} &#13;&#10; Address2: {{ $address->Street2 }} &#13;&#10; City: {{ $address->City }} &#13;&#10; State: {{ $address->State }} &#13;&#10; Zip4: {{ $address->Zip4 }} &#13;&#10; Zip5: {{ $address->Zip5 }}</textarea></div>
+                              <textarea id="address" name="address" rows="4" cols="62" class="form-control-plaintext _detail no-height" readonly placeholder=""> Address1: {{ $address->Street1 ?? '' }} &#13;&#10; Address2: {{ $address->Street2 ?? '' }} &#13;&#10; City: {{ $address->City ?? '' }} &#13;&#10; State: {{ $address->State ?? '' }} &#13;&#10; Zip4: {{ $address->Zip4 ?? '' }} &#13;&#10; Zip5: {{ $address->Zip5 ?? '' }}</textarea></div>
                         </div>
                      </div>
                   </div>
@@ -159,7 +159,7 @@
                               <label>HT:</label>
                               <!-- <input type="text" class="form-control" placeholder="HT:" name="ht"> -->
                               <select name="height" class="form-control" required="" name="ht">
-                                 <option value="">Select Height</option>
+                                 <option>Select Height</option>
                                  <option value="131">131 CM</option>
                                  <option value="132">132 CM</option>
                                  <option value="130">130 CM</option>
@@ -229,7 +229,7 @@
                               <label>WT:</label>
                               <!-- <input type="text" class="form-control" placeholder="WT:" name="wt"> -->
                               <select name="weight" class="form-control required" required="" name="wt">
-                                 <option value="">Select Weight</option>
+                                 <option>Select Weight</option>
                                  <option value="35">35 Kg</option>
                                  <option value="36">36 Kg</option>
                                  <option value="37">37 Kg</option>
@@ -588,7 +588,7 @@
                                  </td>
                                  <td>
                                     <button type="button"
-                                          class="btn btn-outline-green d-flex align-items-center" onclick="downloadReport(1)"
+                                          class="btn btn-outline-green d-flex align-items-center" onclick="downloadReport(this)"
                                           data-toggle="modal" data-target="#labreportModal" name=""><i
                                           class="las la-binoculars la-2x mr-2"></i> View</button>
                                  </td>
@@ -710,9 +710,10 @@
                 
          // Add row the table
          $('#btnAddRow').on('click', function() {
-            var lastRow = $('#tblAddRow tbody tr:last').clone().find("input").val("").end();
+            var lastRow = $('#tblAddRow tbody tr:last').clone();
            
             var lookup = parseInt($(lastRow).find('input:first').attr('name').replace ( /[^\d.]/g, '' )) + 1;
+            
             $(lastRow).find('.srNO').html(lookup);
 
             $(lastRow).find('select.test_name').attr('name', 'report['+lookup+'][test_name]')
@@ -933,15 +934,20 @@
        function getAndSetLabReport(e,id) {
            var getRowName = e.target.name;
            var lookup = parseInt(getRowName.replace ( /[^\d.]/g, '' ));
+           console.log(lookup, id);
            if(id >=1 && 6 >= id) {
-               $('.result_'+lookup).html('<option>Positive</option><option>Negative</option>');
+               $('.result_'+lookup).html('<option value="Positive">Positive</option><option value="Negative">Negative</option>');
            } else if(id >= 7 && 11 >= id) {
-               $('.result_'+lookup).html('<option>Immune</option><option>Non Immune</option>');
+               $('.result_'+lookup).html('<option value="Immune">Immune</option><option value="Non Immune">Non Immune</option>');
            } else if(id >= 12 && 14 >= id) {
-               $('.result_'+lookup).html('<option>Positive</option><option>Negative</option>');
+               $('.result_'+lookup).html('<option value="Positive">Positive</option><option value="Negative">Negative</option>');
            } else {
-               $('.result_'+lookup).html('<option>Completed</option><option>Overdue</option>');
+               $('.result_'+lookup).html('<option value="Completed">Completed</option><option value="Overdue">Overdue</option>');
            }
+       }
+
+       function downloadReport(elem) {
+          console.log(elem)
        }
     </script>
     

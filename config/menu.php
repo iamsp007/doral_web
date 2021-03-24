@@ -11,36 +11,36 @@ return [
             'icon_hover'=>'chart-sb-select.svg',
             'icon_title'=>'Patient Chart',
             'menu'=>[
-                // [
-                //     'name'=>'New Patients',
-                //     'url'=>env('APP_URL').'clinician/new-patient-list',
-                //     'route'=>'clinician/new-patient-list','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Services',
-                // ],
+                [
+                    'name'=>'New Patients',
+                    'url'=>env('APP_URL').'patients/pending',
+                    'route'=>'clinician/new-patient-list','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Services',
+                ],
                 // [
                 //     'name'=>'Patient Lists',
                 //     'url'=>env('APP_URL').'clinician/patient-list',
                 //     'route'=>'clinician/patient-list','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
                 // ],
                 [
-                    'name'=>'New Patient',
-                    'url'=>env('APP_URL').'get-caregiver/pending',
-                    'route'=>'get-caregiver/pending','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                    'name'=>'Search Patient',
+                    'url'=>env('APP_URL').'patients',
+                    'route'=>'patients','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
                 ],
-                [
-                    'name'=>'Patient Lists',
-                    'url'=>env('APP_URL').'get-caregiver/active',
-                    'route'=>'get-caregiver/active','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
-                ],
+                // [
+                //     'name'=>'Patient Lists',
+                //     'url'=>env('APP_URL').'get-caregiver/active',
+                //     'route'=>'get-caregiver/active','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                // ],
                 [
                     'name'=>'Add Patient',
                     'url'=>env('APP_URL').'add-patient',
                     'route'=>'add-patient','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Add patient',
                 ],
-                [
-                    'name'=>'Due Reports',
-                    'url'=>env('APP_URL').'get-due-detail',
-                    'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
-                ]
+                // [
+                //     'name'=>'Due Reports',
+                //     'url'=>env('APP_URL').'get-due-detail',
+                //     'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
+                // ]
             ]
         ],
         // ['name'=>'Patient Details Update','url'=>env('APP_URL').'get-patient-detail','route'=>'get-patient-detail','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Patient Details Update'],
@@ -92,6 +92,14 @@ return [
                     'icon_title'=>'Technical Requests',
                 ]
             ]
+        ],
+        [
+            'name'=>'Covid-19',
+            'url'=>env('APP_URL').'clinician/covid-19',
+            'route'=>'clinician/covid-19',
+            'icon'=>'home-sb-select.svg',
+            'icon_hover'=>'home-sb.svg',
+            'icon_title'=>'Covid-19'
         ],
 //        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],

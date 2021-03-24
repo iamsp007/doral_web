@@ -209,7 +209,7 @@
                                        <div class="rs">
                                           <h3 class="_title">Expiration Date</h3>
 
-                                          <input type="date" class="form-control-plaintext _detail" readonly name="expiration_date" data-id="expiration_date" id="expiration_date" placeholder="Expiration Date" value="{{ ($patient->caregiverInfo->company->expiration_date) ? $patient->caregiverInfo->company->expiration_date : ''}}">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="expiration_date" data-id="expiration_date" id="expiration_date" placeholder="Expiration Date" value="{{ ($patient->caregiverInfo->company->expiration_date) ? $patient->caregiverInfo->company->expiration_date : ''}}">
                                        </div>
                                     </div>
                                  </div>
@@ -224,8 +224,6 @@
       </div>
    </div>
 </div>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
 <script type="text/javascript">
     function updateCaregiver(patientId) {
@@ -253,11 +251,17 @@
 
         });
     }
- 
-$(document).ready (function (){
-  $('.date').datetimepicker({
-    format: 'MM-DD-YYYY',
-    locale: 'en'
-  });
-}
+//      $('.expiration_date').datepicker({
+//      format: '{{ config('app.date_format_js') }}'
+//      });   
+//    });
+    $(document).ready(function() {
+    $('input[name="expiration_date"]').daterangepicker({
+     singleDatePicker: true,
+            showDropdowns: true,
+             locale: {
+                    format: 'MM-DD-YYY'
+                }
+        });
+    })
 </script>

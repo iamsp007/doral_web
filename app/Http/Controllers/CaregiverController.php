@@ -221,7 +221,7 @@ class CaregiverController extends Controller
                         if ($row->status === '0') {
                             $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
 
-                            $btn .= ' <a target="_blank" href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                            $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
                         }  else if ($row->status === '1') {
                             $btn .= '<p class="text-success">Accept</p>';
                         }

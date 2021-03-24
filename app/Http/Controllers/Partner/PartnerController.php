@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
+use App\Models\Partner;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Log;
@@ -44,9 +48,8 @@ class PartnerController extends Controller
      * Ajax feature for all employees list
      */
     public function employeesByAjax(){
-        $employeeList = User::whereHas('roles',function ($q){
-                    $q->whereIn('role_id',['4', '6']);
-                })->get();
+
+        $employeeList = User::with('roles')->where('company_id','=',Auth::guard('partner')->user()->id);
 
         return DataTables::of($employeeList)
             ->editColumn('dob', function ($row) {
@@ -64,6 +67,9 @@ class PartnerController extends Controller
             ->editColumn('dlNumber', function ($row) {
                 return $row->dlNumber ?? '--';
             })
+            ->addColumn('role_name', function($row){
+                return implode(',',$row->roles->pluck('name')->toArray());
+            })
             ->addColumn('action', function($row){
                 $action = '';
                 $action .= '<a href="' . route('partner.viewEmployee', ['id' => $row->id]) . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Employee" data-original-title="View Employee Chart"><i class="las la-search"></i></a>';
@@ -71,7 +77,7 @@ class PartnerController extends Controller
                 $action .= '<a href="' . route('partner.deleteEmployee', ['id' => $row->id]) . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Delete Employee" data-original-title="Delete Employee Chart"><i class="la la-remove"></i></a>';
                 return $action;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','role_name'])
             ->make(true);
     }
 
@@ -80,35 +86,49 @@ class PartnerController extends Controller
      */
     public function saveEmployee(Request $request)
     {
+        $this->validate($request,[
+            'employeeID'=>'required',
+            'role_id'=>'required',
+            'firstName'=>'required',
+            'lastName'=>'required',
+            'emailID'=>'required',
+            'phoneNumber'=>'required|unique:users,phone',
+            'dlNumber'=>'required',
+            'dob'=>'required',
+        ]);
         try {
-            $user = new User();
+            if ($request->field_role_id) {
+                $user = new User();
+            }else{
+                $user = new Partner();
+            }
+            $user->company_id = Auth::guard('partner')->user()->id;
             $user->first_name = $request->firstName;
             $user->last_name = $request->lastName;
             $user->email = $request->emailID;
             $user->phone = $request->phoneNumber;
             $user->employeeID = $request->employeeID;
             $user->dlNumber = $request->dlNumber;
-            $user->deviceType = $request->linkType ?? "IOS";
+            $user->device_type = $request->linkType;
             $user->email_verified_at = now();
-            $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
+            $user->password = Hash::make('password');
             $user->dob = date('Y-m-d', strtotime($request->dob));
             $user->status = '1';
-            if ($request->role_id==="fieldvisitor"){
-                $user->assignRole($request->field_role_id)->syncPermissions(Permission::all());
+            if ($request->field_role_id){
+                $roles = Role::whereIn('id',explode(',',$request->field_role_id))->pluck('name');
+                $roles = $roles->toArray();
             }else{
-                $user->assignRole($request->role_id)->syncPermissions(Permission::all());
-
+                $roles = $request->role_id;
             }
+            $user->assignRole($roles);
             if ($user->save()) {
-                return redirect()->route('employees.list');
+                return redirect()->route('employees.list')->with('success','Employee Add Successfully!');
             } else {
-                return redirect()->back();
+                return redirect()->back()->with('error','Something Went Wrong!');
             }
-
         } catch (\Exception $ex) {
-            dd($ex->getMessage());
             Log::error($ex->getMessage());
-            return redirect()->back();
+            return redirect()->back()->with('error',$ex->getMessage());
         }
     }
 

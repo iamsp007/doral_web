@@ -4,7 +4,11 @@
     <list default="true" id="471dbdfe-3ba1-438e-a733-b85d17eea0d0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Partner/PartnerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Partner/PartnerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Company.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Company.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Partner.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Partner.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/partner/add-employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/partner/add-employee.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/partner/employees.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/partner/employees.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +194,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -650,6 +654,13 @@
       <workItem from="1616435134643" duration="599000" />
       <workItem from="1616439655634" duration="1540000" />
       <workItem from="1616520446961" duration="1217000" />
+      <workItem from="1616601979670" duration="1713000" />
+      <workItem from="1616603827349" duration="1724000" />
+      <workItem from="1616606225180" duration="1753000" />
+      <workItem from="1616608155281" duration="258000" />
+      <workItem from="1616608552725" duration="1694000" />
+      <workItem from="1616610369936" duration="1816000" />
+      <workItem from="1616612434238" duration="1737000" />
     </task>
     <servers />
   </component>

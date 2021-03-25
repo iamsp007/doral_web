@@ -346,7 +346,7 @@
                 <ul class="nav nav-pills nav-clinical-nested shadow-sm mb-3" id="pills-tab" role="tablist">
                    @foreach($labReportTypes as $key => $labReportType)
                       <li class="nav-item" role="presentation">
-                          <a class="nav-link <?php if ($key === 0) echo 'active';?>" id="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab" data-toggle="pill"
+                          <a class="nav-link @if ($key === 0) active @endif" id="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}-tab" data-toggle="pill"
                              href='#{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}'
                              role="tab" aria-controls="{{  (new \App\Helpers\Helper)->clean($labReportType->name) }}"
                              aria-selected="false">{{ $labReportType->name }}

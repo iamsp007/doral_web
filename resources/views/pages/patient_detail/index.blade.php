@@ -14,7 +14,7 @@
                   <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="" srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                </div>
                <div class="name">
-                  {{ $patient->name }}  {{ $patient->last_name }}
+                  {{ $patient->first_name }}  {{ $patient->last_name }}
                </div>
             </div>
             <div>

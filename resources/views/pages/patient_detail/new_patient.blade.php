@@ -144,22 +144,22 @@
       
         columnDaTa.push(
             {data:'checkbox_id'},
-            {data: 'DT_RowIndex', orderable: false, searchable: false},
-            {data: 'full_name'},
-            {data: 'gender', name:'gender', orderable: true, searchable: true},
-            {data: 'ssn_data'},
-            {data: 'phone', class: 'editable text'},
-            {data: 'service_id'},
-            {data: 'doral_id'},
-            {data: 'city_state'},
-            {data:'dob',name:'dob'},
-            {data: 'action'}
+            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center",},
+            {data: 'full_name',"className": "text-center",},
+            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center",},
+            {data: 'ssn_data',"className": "text-center",},
+            {data: 'phone', class: 'editable text',"className": "text-center",},
+            {data: 'service_id',"className": "text-center",},
+            {data: 'doral_id',"className": "text-center",},
+            {data: 'city_state',"className": "text-center",},
+            {data:'dob',name:'dob',"className": "text-center",},
+            {data: 'action',"className": "text-center",}
         );
        
         $('#get_patient-table').DataTable({
-            retrieve: true,
             "processing": true,
             "serverSide": true,
+            "searching": false,
             "language": {
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },

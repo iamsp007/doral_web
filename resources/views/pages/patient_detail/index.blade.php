@@ -1054,7 +1054,14 @@
             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
          });
       }
-   </script>
+      $("#demographic_form").validate({
+      rules: {
+         email: {
+            required: true,
+            email: true
+         }
+      }
+      });   </script>
 {{--    <script--}}
 {{--        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"--}}
 {{--        defer--}}

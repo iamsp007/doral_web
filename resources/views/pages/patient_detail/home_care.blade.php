@@ -245,6 +245,7 @@
                 alertText('Something is wrong. Please try again later.');
                 location.reload();
             }
+           
 
 
         });

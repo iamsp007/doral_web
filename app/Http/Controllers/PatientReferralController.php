@@ -314,8 +314,9 @@ class PatientReferralController extends Controller
         $client = new Client();
         $states = $client->request('GET', env('API_URL').'/auth/states');
         $states = json_decode($states->getBody()->getContents());
-
+       
         return view('pages.referral.add-patient',compact('states'));
+    
     }
 
     public function getCities(Request $request)

@@ -34,7 +34,7 @@
                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Email</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}" onclick="return isEmail(this)">
+                                        <input type="email" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}" onclick="return isEmail(this)">
                                     </div>
                                 </div>
                             </div>
@@ -243,7 +243,7 @@
                                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Email</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ $notificationPreferences->Email ? $notificationPreferences->Email : '' }}">
+                                                        <input type="email" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ $notificationPreferences->Email ? $notificationPreferences->Email : '' }}" onclick="return isEmail(this)">
                                                     </div>
                                                 </div>
                                             </div>

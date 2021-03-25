@@ -160,7 +160,7 @@ function viewLabReports(id) {
                     '                                                       <i class="las la-ellipsis-v"></i>\n' +
                     '                                                   </button>\n' +
                     '                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
-                    '                                                       <a class="dropdown-item" href="'+value.file_name+'">Download File</a>\n' +
+                    '                                                       <a class="dropdown-item" href="'+base_url+'patient_report/'+value.file_name+'">Download File</a>\n' +
                     '                                                       <a onclick="viewFile('+value.id+')" class="dropdown-item" data-toggle="modal" data-target="#docViewerModal"\n' +
                     '                                                          >View Details</a>\n' +
                     '                                                   </div>\n' +

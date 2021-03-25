@@ -739,13 +739,25 @@
       // }
 
       $(document).ready(function() {
+<<<<<<< HEAD
          $('.insurance_company').hide();
 
-         $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"]').daterangepicker({
+         $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
+=======
+        $('.insurance_company').hide();
+        $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
+>>>>>>> bb5d2e6c7bee5f5f083c4c294b06fa0d27db155e
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 1901,
-            maxDate: new Date()
+            maxDate: new Date(),
+<<<<<<< HEAD
+             locale: {
+=======
+            locale: {
+>>>>>>> bb5d2e6c7bee5f5f083c4c294b06fa0d27db155e
+                    format: 'MM-DD-YYYY'
+            }           
          });
 
          $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
@@ -754,7 +766,7 @@
             var monthf = selectedDate.getMonth() + 1;
             var month  = (monthf < 10 ? '0' : '') + monthf;
             var year = selectedDate.getFullYear() + 1;
-            var expirydate = month + '/'+ date + '/'+ year;
+            var expirydate = month + '-'+ date + '-'+ year;
             $(".lab-expiry-date").text(expirydate);
             // $("#lab_expiry_date").val(expirydate);
          });

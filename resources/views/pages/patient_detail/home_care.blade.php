@@ -236,15 +236,20 @@
             data:{patient_id:patientId},
             success:function (response) {
                $("#loader-wrapper").hide();
-                alertText('Caregiver updated successfully.');
-                location.reload();
+
+                alert('Caregiver updated successfully.');
+//                location.reload();
+
             }
             ,
             error:function (error) {
                $("#loader-wrapper").hide();
-                alertText('Something is wrong. Please try again later.');
-                location.reload();
+
+                alert('Something is wrong. Please try again later.');
+//                location.reload();
+
             }
+           
 
 
         });

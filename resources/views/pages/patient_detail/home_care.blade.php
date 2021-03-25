@@ -237,13 +237,13 @@
             success:function (response) {
                $("#loader-wrapper").hide();
                 alert('Caregiver updated successfully.');
-//                location.reload();
+                location.reload();
             }
             ,
             error:function (error) {
                $("#loader-wrapper").hide();
                 alert('Something is wrong. Please try again later.');
-//                location.reload();
+                location.reload();
             }
            
 

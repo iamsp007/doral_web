@@ -470,9 +470,9 @@
                                                                     </div>
                                                                     <div class="col-12 col-sm-3 col-md-3">
                                                                         <div class="d-flex align-items-center">
-<!--                                                                            <div>
+                                                                            <div>
                                                                                 <i class="las la-phone circle"></i>
-                                                                            </div>-->
+                                                                            </div>
                                                                             <div>
                                                                                 <h3 class="_title">Home Phone</h3>
                                                                                 <!-- <h1 class="_detail">985471236</h1> -->

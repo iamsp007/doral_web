@@ -124,7 +124,7 @@ class CaregiverController extends Controller
                 }
             })
             ->addColumn('phone', function($q) use($request){
-                $phone ='';
+                $phone = '';
                 if ($request['status'] == 'initial') {
                     $phone .= "<div class='phone-text'><input class='phone form-control' required type='text' name='phone' value=''></div>";
                 } else {
@@ -133,7 +133,7 @@ class CaregiverController extends Controller
                         $phone .= "<span class='label'><a href='tel:".$q->phone."'><i class='las la-phone circle'></i>".$q->phone."</a></span>";
                     }
                 }
-                 return $phone;
+                return $phone;
             })
             ->addColumn('service_id', function($q) {
                 $services = '';

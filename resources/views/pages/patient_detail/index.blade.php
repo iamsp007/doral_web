@@ -380,6 +380,9 @@
                        </div>
                        <div class="scrollbar scrollbar9" id="view-lab-report-file">
                            <div class="row">
+                               <?php
+                               // comment code for feature environment
+                               /*
                                <div class="col-12 col-sm-2 mt-4">
                                    <div class="card shadow-sm">
                                        <div class="card-body">
@@ -564,6 +567,7 @@
                                        </div>
                                    </div>
                                </div>
+                                */ ?>
                            </div>
                        </div>
                    </div>

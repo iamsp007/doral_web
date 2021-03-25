@@ -198,7 +198,6 @@
 
         /*table reload at filter time*/
         $("#filter_btn").click(function () {
-            console.log("rerre");
             refresh();
         });
         

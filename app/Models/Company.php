@@ -15,7 +15,7 @@ class Company extends Authenticatable
 
     protected $guard = 'referral';
 
-    protected $table='users';
+    protected $table='companies';
     protected $primaryKey='id';
 
     protected $fillable = [

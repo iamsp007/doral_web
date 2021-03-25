@@ -13,7 +13,7 @@
                             <th scope="col">Test Type</th>
                             <th scope="col">Due Date</th>
                             <th scope="col">Performed Date</th>
-                            <th scope="col">Expiry Date</th>
+                            <th scope="col"  style="width: 11%">Expiry Date</th>
                             <th scope="col">Result</th>
                             @role('clinician')
                                 <th width="11%">Action</th>

@@ -48,9 +48,15 @@ $("body").on('blur','#medicaid_number',function (event) {
 });
 $(".zip").on('keyup change', function() {
     var str = $(this).val();
+    if (/\D/g.test(this.value))
+  {
+    // Filter non-digits from input value.
+    this.value = this.value.replace(/\D/g, '');
+  }
+    $(this).attr('maxlength', 5);
      //$(this).closest('span').remove();
     if (! str.match("^[0-9]{5}\s*$")) {
-        $('<span class="error_span_zip" style="color:red">Please Valid Format.</span>').insertAfter(this);
+        $('<span class="error_span_zip" style="color:red">Only allowed 5 digit number in zip.</span>').insertAfter(this);
         $('.error_span_zip').next().hide();
     }
     else{
@@ -59,42 +65,53 @@ $(".zip").on('keyup change', function() {
 });
 
 function editAllField(sectionId) {
-    
-    $('#'+sectionId+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
+   var activeTab = "#"+sectionId;
+    if (activeTab) {
+    $(activeTab+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
         'p-new');
-        this.contentEditable = 'true';
-    $('#'+sectionId+' [data-id]').attr('readOnly', false)
-    $('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
-    $('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+    this.contentEditable = 'true';
+    $(activeTab+' [data-id]').attr('readOnly', false)
+    $(activeTab).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+    $(activeTab).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
     
-    $('.normal_gender_div').removeClass('d-block').addClass('d-none');
-    $('.editable_gender_div').removeClass('d-none').addClass('d-block');
+    $(activeTab).find('.normal_gender_div').removeClass('d-block').addClass('d-none');
+    $(activeTab).find('.editable_gender_div').removeClass('d-none').addClass('d-block');
     
-    $('.normal_service_div').removeClass('d-block').addClass('d-none');
-    $('.editable_service_div').removeClass('d-none').addClass('d-block');
-    
+    $(activeTab).find('.normal_service_div').removeClass('d-block').addClass('d-none');
+    $(activeTab).find('.editable_service_div').removeClass('d-none').addClass('d-block'); 
+    }
 }
 function updateAllField(sectionId) {
     if (sectionId==="demographic"){
         var data = $('#demographic_form').serializeArray();
         data.push({name: 'type', value: 1});
-        demographyDataUpdate(data)
+        demographyDataUpdate(data,sectionId)
     }else if (sectionId==="insurance"){
         var data = $('#medicare_form').serializeArray();
         data.push({name: 'type', value: 2});
-        demographyDataUpdate(data)
+        demographyDataUpdate(data,sectionId)
     }else if (sectionId==="homecare"){
         var data = $('#homecare_form').serializeArray();
         data.push({name: 'type', value: 3});
-        demographyDataUpdate(data)
+        demographyDataUpdate(data,sectionId)
     }
-    $('#'+sectionId+' [data-id]').addClass('form-control-plaintext').removeClass('form-control').addClass(
-        'p-new');
-    $('#'+sectionId+' [data-id]').attr('readOnly', false)
-    $('.edit-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+    var activeTab = "#"+sectionId;
+    if (activeTab) {
+            $(activeTab+' [data-id]').addClass('form-control-plaintext').removeClass('form-control').addClass(
+            'p-new');
+           $(activeTab+' [data-id]').attr('readOnly', false)
+           $(activeTab).find('.edit-icon').fadeOut("slow").removeClass('d-none').addClass('d-block');
+           $(activeTab).find('.update-icon').fadeIn("slow").removeClass('d-block').addClass('d-none');
+
+           $(activeTab).find('.normal_gender_div').removeClass('d-none').addClass('d-block');
+           $(activeTab).find('.editable_gender_div').removeClass('d-block').addClass('d-none');
+
+           $(activeTab).find('.normal_service_div').removeClass('d-none').addClass('d-block');
+           $(activeTab).find('.editable_service_div').removeClass('d-block').addClass('d-none');
+            }
 }
 
-function demographyDataUpdate(data) {
+function demographyDataUpdate(data,sectionId) {
     $("#loader-wrapper").show();
     $.ajax({
         headers: {
@@ -106,7 +123,7 @@ function demographyDataUpdate(data) {
         dataType: "json",
         success: function(response) {
             $("#loader-wrapper").hide();
-            $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+            $(activeTab).find('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
             alertText(response.message,'success');
         },
         error: function(error) {
@@ -197,7 +214,6 @@ medprofileTable = $('#med-profile-table').DataTable({
         'print', {
             text: 'Add',
             action: function (e, dt, node, config) {
-                // alert( 'Button activated' );
                 $('#patientMedicateInfo').modal('toggle')
             }
         }
@@ -297,14 +313,14 @@ function addPatientMedication(patient_id) {
         dataType: "json",
         success: function(response) {
             $("#loader-wrapper").hide();
-            alert(response.message)
+            alertText(response.message)
             $('#patientMedicateInfo').modal('hide');
             medprofileTable.ajax.reload();
         },
         error: function(error) {
             $("#loader-wrapper").hide();
             const sources = JSON.parse(error.responseText);
-            alert(sources.message)
+            alertText(sources.message)
         }
     });
 }
@@ -337,16 +353,14 @@ $(function () {
             dataType: "json",
             success: function(response) {
                 $("#loader-wrapper").hide();
-                alert(response.message)
+                alertText(response.message)
                 window.location.reload();
             },
             error: function(error) {
                 $("#loader-wrapper").hide();
-                alert(error.responseText)
+                alertText(error.responseText)
             }
         });
-
-        // $('.insurance_company').hide();
     });
     $('.dt-delete').each(function () {
         $(this).on('click', function (evt) {

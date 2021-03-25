@@ -380,6 +380,9 @@
                        </div>
                        <div class="scrollbar scrollbar9" id="view-lab-report-file">
                            <div class="row">
+                               <?php
+                               // comment code for feature environment
+                               /*
                                <div class="col-12 col-sm-2 mt-4">
                                    <div class="card shadow-sm">
                                        <div class="card-body">
@@ -564,6 +567,7 @@
                                        </div>
                                    </div>
                                </div>
+                                */ ?>
                            </div>
                        </div>
                    </div>
@@ -669,7 +673,7 @@
             "processing": true,
             "serverSide": true,
             "language": {
-                processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
+                processing: '<div id="loader-wrapper"><div class=""></div><div class="pulse"></div></div>'
             },
             ajax: {
                 'type': 'POST',
@@ -735,14 +739,23 @@
       // }
 
       $(document).ready(function() {
+<<<<<<< HEAD
          $('.insurance_company').hide();
 
          $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
+=======
+        $('.insurance_company').hide();
+        $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
+>>>>>>> bb5d2e6c7bee5f5f083c4c294b06fa0d27db155e
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 1901,
             maxDate: new Date(),
+<<<<<<< HEAD
              locale: {
+=======
+            locale: {
+>>>>>>> bb5d2e6c7bee5f5f083c4c294b06fa0d27db155e
                     format: 'MM-DD-YYYY'
             }           
          });
@@ -753,7 +766,7 @@
             var monthf = selectedDate.getMonth() + 1;
             var month  = (monthf < 10 ? '0' : '') + monthf;
             var year = selectedDate.getFullYear() + 1;
-            var expirydate = month + '/'+ date + '/'+ year;
+            var expirydate = month + '-'+ date + '-'+ year;
             $(".lab-expiry-date").text(expirydate);
             // $("#lab_expiry_date").val(expirydate);
          });
@@ -865,10 +878,8 @@
                      var html = '<tr><form class="insurance_form5"><input type="hidden" name="insurance_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.name + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="' + data.resultdata.name + '"></div></td><td><span class="label">' + data.resultdata.payer_id + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" aria-describedby="payerIdHelp" placeholder="Enter Payer ID" value="' + data.resultdata.payer_id + '"></div></td><td><span class="label">' + data.resultdata.phone + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.phone + '"></div></td><td><span class="label">' + data.resultdata.policy_no + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="' + data.resultdata.policy_no + '"></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
 
                      if (data.action === 'add') {
-                        // alert(data.action);
                         $('.insurance-list-order tr:last').after(html);
                      } else if (data.action === 'edit') {
-                        // alert(data.action);
                         t.parents("tr").replaceWith(html);
                      }
                      $('.insurance_company').hide();
@@ -974,7 +985,7 @@
 
                            var select = $('#lab_report_type_id').empty();
                            select.append('<option value="">Select a test type</option>');
-                           alert(data.tbLabReportTypes);
+                           alertText(data.tbLabReportTypes);
                            $.each(data.tbLabReportTypes, function (key, value) {
                                  select.append('<option value="' + value.id + '">' + value.name + '</option>');
                            });

@@ -1201,11 +1201,11 @@
                                                                     <div>
                                                                         <h3 class="_title">Phone</h3>
                                                                         <!-- <h1 class="_detail">(555) 555-5555</h1> -->
-                                                                        <input type="tel"
+                                                                        <input type="text"
                                                                                class="form-control-plaintext _detail no-height" readonly
                                                                                name="a_phone" data-id="a_phone"
                                                                                onclick="editableField('a_phone')" id="a_phone"
-                                                                               placeholder="(555) 555-5555" value="(555) 555-5555">
+                                                                               placeholder="(555) 555-5555" value="(555) 555-5555" maxlength="14">
                                                                     </div>
                                                                 </div>
                                                             </div>

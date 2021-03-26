@@ -739,14 +739,14 @@
       // }
 
       $(document).ready(function() {
-        $('.insurance_company').hide();
-        $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
+         $('.insurance_company').hide();
+         $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
+
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 1901,
             maxDate: new Date(),
         locale: {
-
                     format: 'MM-DD-YYYY'
                 }           
          });

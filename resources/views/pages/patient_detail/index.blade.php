@@ -739,25 +739,16 @@
       // }
 
       $(document).ready(function() {
-<<<<<<< HEAD
-         $('.insurance_company').hide();
-
-         $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
-=======
         $('.insurance_company').hide();
         $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
->>>>>>> bb5d2e6c7bee5f5f083c4c294b06fa0d27db155e
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 1901,
             maxDate: new Date(),
-<<<<<<< HEAD
-             locale: {
-=======
-            locale: {
->>>>>>> bb5d2e6c7bee5f5f083c4c294b06fa0d27db155e
+        locale: {
+
                     format: 'MM-DD-YYYY'
-            }           
+                }           
          });
 
          $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {

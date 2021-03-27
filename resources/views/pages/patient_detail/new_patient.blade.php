@@ -38,68 +38,83 @@
 @endrole
 
 @section('content')
-    <div class="form-group">
-        <div class="row">
-            <div class="col-3 col-sm-3 col-md-3">
-                <div class="input-group">
-                    <select name="status_id" id="status_id" class="form-control form-control-lg">
-                        <option value="">Select a status</option>
-                        @foreach (config('select.userStatus') as $key => $value)
-                        <option value="{{ $key }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
+    @if(!$pendingStatus)
+        <form id="search_form" method="post">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <select name="status" id="status" class="form-control form-control-lg">
+                                <option value="">Select a status</option>
+                                @foreach (config('select.userStatus') as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <x-text name="lab_due_date" class="lab_due_date" id="lab_due_date" placeholder="Due Date"/></td>
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <select class="form-control" name="service_id" id="service_id">
+                            <option value="">Select service</option>
+                            <option value="1">VBC</option>
+                            <option value="2">MD Order</option>
+                            <option value="3">Occupational Health</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="col-3 col-sm-3 col-md-3">
-                <div class="input-group">
-                    <x-text name="lab_due_date" class="lab_due_date" /></td>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <select class="form-control" name="gender" id="gender">
+                            <option value="">Select gender</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <input type="text" class="form-control" name="dob" id="dob" placeholder="DOB">
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
+                        <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-3 col-sm-3 col-md-3">
-                <div class="input-group">
-                    <select class="user_name form-control select2_dropdown" id="user_name" data-id="user_name_search" name="user_name"></select>
-                </div>
-            </div>
-            <div class="col-3 col-sm-3 col-md-3">
-                <select class="form-control" name="gender" data-id='2'>
-                    <option value="">select gender</option>
-                    <option value="1">Male</option>
-                    <option value="2">Female</option>
-                    <option value="3">Other</option>
-                </select>
-            </div>
-            <div class="col-3 col-sm-3 col-md-3">
-                <input type="text" class="form-control-plaintext _detail " readonly name="dob" id="dob" placeholder="DOB">
-            </div>
-            <div class="col-3 col-sm-3 col-md-3">
-                <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
-                <button class="reset_button btn btn-default" type="button">Clear</button> 
-            </div>
-        </div>
-    </div>
+        </form>
+    @endif
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
         <button type="button" onclick="doaction('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
         <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
     </div>
     
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
-        <input type="hidden" value="{{ $status }}" id="status" name="status" />
+        <input type="hidden" value="{{ $pendingStatus }}" id="pendingStatus" name="pendingStatus" />
         <thead>
-       
-        <tr>
-            @if($status === 'pending')
+            <tr>
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
-            @endif
-            <th>Sr No.</th>
-            <th>Patient Name</th>
-            <th>Gender</th>
-            <th>SSN</th>
-            <th>Home Phone</th>
-            <th>Services</th>
-            <th>Doral Id</th>
-            <th>City - State</th>
-            <th>@if($status === 'active') DOB  @else Status @endif</th>
-        </tr>
+                <th>Sr No.</th>
+                <th>Patient Name</th>
+                <th>Gender</th>
+                <th>SSN</th>
+                <th>Home Phone</th>
+                <th>Services</th>
+                <th>Doral Id</th>
+                <th>City - State</th>
+                <th>DOB</th>
+                <th>Status</th>
+            </tr>
         </thead>
         <tbody>
         </tbody>
@@ -124,29 +139,27 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
+
         var columnDaTa = [];
       
-        if ($("#status").val() === 'pending') {
-            columnDaTa.push({data:'checkbox_id'});
-        }
         columnDaTa.push(
-            {data: 'DT_RowIndex', orderable: false, searchable: false},
-            {data: 'full_name'},
-            {data: 'gender', name:'gender', orderable: true, searchable: true},
-            {data: 'ssn_data'},
-            {data: 'phone', class: 'editable text'},
-            {data: 'service_id'},
-            {data: 'doral_id'},
-            {data: 'city_state'},
+            {data:'checkbox_id'},
+            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center",},
+            {data: 'full_name',"className": "text-center",},
+            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center",},
+            {data: 'ssn_data',"className": "text-center",},
+            {data: 'phone', class: 'editable text',"className": "text-center",},
+            {data: 'service_id',"className": "text-center",},
+            {data: 'doral_id',"className": "text-center",},
+            {data: 'city_state',"className": "text-center",},
+            {data:'dob',name:'dob',"className": "text-center",},
+            {data: 'action',"className": "text-center",}
         );
-        if ($("#status").val() === 'active') {
-            columnDaTa.push({data:'dob',name:'dob'});
-        } else {
-            columnDaTa.push({data: 'action'});
-        }
+       
         $('#get_patient-table').DataTable({
             "processing": true,
             "serverSide": true,
+            "searching": false,
             "language": {
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
@@ -156,14 +169,15 @@
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                'data': function (d) {
+                data: function (d) {
                     d.due_date = $('input[name="daterange"]').val();
-                    d.status_id = $('select[name="status_id"]').val();
+                    d.status = $('select[name="status"]').val();
                     d.lab_due_date = $('input[name="lab_due_date"]').val();
                     d.user_name = $('select[name="user_name"]').val();
+                    d.service_id = $('select[name="service_id"]').val();
                     d.gender = $('select[name="gender"]').val();
                     d.dob = $('input[name="dob"]').val();
-                    d.status = $("#status").val();
+                    d.pendingStatus = $('input[name="pendingStatus"]').val();
                 },
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -186,8 +200,33 @@
         $("#filter_btn").click(function () {
             refresh();
         });
-      
-        $('input[name="lab_due_date"]').daterangepicker();
+        
+        $("#reset_btn").click(function () {
+            $('#search_form').trigger("reset");
+            $(".user_name")[0].selectedIndex = -1;
+            $('#select2-user_name-container').empty()
+             refresh();
+        })
+
+        $('input[name="lab_due_date"]').daterangepicker({
+            autoUpdateInput: false,
+        });
+
+        $('input[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('MM-DD-YYYY') + ' - ' + picker.endDate.format('MM-DD-YYYY'));
+        });
+
+        $('input[name="dob"]').daterangepicker({
+            autoUpdateInput: false,
+            singleDatePicker: true,
+            // showDropdowns: true,
+            // minYear: 1901,
+            // maxYear: parseInt(moment().format('YYYY'), 10)
+        });
+
+        $('input[name="dob"]').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('MM-DD-YYYY'));
+        });
 
         $('#user_name').select2({
             minimumInputLength: 3,

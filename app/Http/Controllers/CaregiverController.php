@@ -26,55 +26,59 @@ use ZipArchive;
 
 class CaregiverController extends Controller
 {
-    public function index($status)
+    public function index($pendingStatus = null)
     {
-        return view('pages.patient_detail.new_patient', compact('status'));
+        return view('pages.patient_detail.new_patient', compact('pendingStatus'));
     }
 
     public function getCaregiverDetail(Request $request)
     {
-        
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
+            })
+            ->when($request['pendingStatus'] ,function ($query) use($request) {
+                $query->where('status', '0');
             })
             ->when($request['status'], function ($query) use($request) {
                 if ($request['status'] == 'pending') {
                     $query->where('status', '0');
                 } else if($request['status'] == 'active') {
                     $query->where('status', '1');
+                } else if($request['status'] == 'inactive') {
+                    $query->where('status', '2');
+                } else if($request['status'] == 'reject') {
+                    $query->where('status', '3');
                 } else if($request['status'] == 'initial') {
                     $query->where('status', '4');
                     $query->whereHas('caregiverInfo',function ($q) {
-                        $company_id = Auth::guard('referral')->user()->id;
-                        $q->where('service_id', '3')->where('company_id', $company_id);
+                        $company_id =
+                        $q->where('service_id', '3');
+                        if(Auth::user()->hasRole('referral')) {
+                            $q->where('company_id', $company_id);
+                        }
                     });
-                } else if($request['status'] == 'occupational-health') {
-                    $query->whereIn('status', ['0', '1', '2', '3', '5']);
-                    $query->whereHas('caregiverInfo',function ($q) use($request) {
-                        $company_id = Auth::guard('referral')->user()->id;
-                        $q->where('service_id', '3')->where('company_id', $company_id);
-                    });
-                } else if($request['status'] == 'md-order') {
-                    $query->whereHas('caregiverInfo',function ($q) use($request) {
-                        $company_id = Auth::guard('referral')->user()->id;
-                        $q->where('service_id', '2')->where('company_id', $company_id);
-                    });
-                } else if($request['status'] == 'vbc') {
-                    $query->whereHas('caregiverInfo',function ($q) use($request) {
-                        $company_id = Auth::guard('referral')->user()->id;
-                        $q->where('service_id', '1')->where('company_id', $company_id);
-                    });
-                }
+                } else if($request['status'] == 'completed') {
+                    $query->where('status', '5');
+                } 
             })
-            ->when($request['status_id'], function ($query) use($request){
-                $query->where('status', $request['status_id']);
+            ->when($request['service_id'], function ($query) use($request) {
+                $query->whereHas('caregiverInfo',function ($q) use($request) {
+                    $q->where('service_id', $request['service_id']);
+                });
             })
             ->when($request['user_name'], function ($query) use($request){
                 $query->where('id', $request['user_name']);
             })
+            ->when($request['gender'], function ($query) use($request){
+                $query->where('gender', $request['gender']);
+            })
+            ->when($request['dob'], function ($query) use($request){
+                $dob = date('Y-d-m', strtotime($request['dob']));
+                $query->where('dob', $dob);
+            })
             ->whereHas('patientLabReport',function ($query) use($request) {
                 $query->when($request['lab_due_date'], function ($query) use($request){
-                    $date= explode('-', $request['lab_due_date']);
+                    $date = explode('-', $request['lab_due_date']);
                     $startDate  = date('Y-m-d', strtotime($date[0]));
                     $endDate = date('Y-m-d', strtotime($date[1]));
                     $query->whereBetween('due_date',[$startDate,$endDate]);
@@ -96,7 +100,6 @@ class CaregiverController extends Controller
                 } else {
                     return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
                 }
-                // return $full_name;
             })
             ->addColumn('gender', function($q){
                 return $q->gender_data;
@@ -125,7 +128,10 @@ class CaregiverController extends Controller
                 if ($request['status'] == 'initial') {
                     $phone .= "<div class='phone-text'><input class='phone form-control' required type='text' name='phone' value=''></div>";
                 } else {
-                    $phone .= "<span class='label'><a href='tel:".$q->phone."'><i class='las la-phone circle'></i>".$q->phone."</a></span>";
+                    $phone .= '';
+                    if($q->phone){
+                        $phone .= "<span class='label'><a href='tel:".$q->phone."'><i class='las la-phone circle'></i>".$q->phone."</a></span>";
+                    }
                 }
                 return $phone;
             })
@@ -181,11 +187,11 @@ class CaregiverController extends Controller
                 // }
                
             });
-            if($request['status'] == 'active') {
+            // if($request['status'] == 'active') {
                 $datatble->addColumn('dob', function($row) use($request){
                     return date('m-d-Y', strtotime($row->dob));
                 });
-            } else {
+            // } else {
                 $datatble->addColumn('action', function($row) use($request){
                   
                     $btn = '';
@@ -218,14 +224,14 @@ class CaregiverController extends Controller
                         if ($row->status === '0') {
                             $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
 
-                            $btn .= ' <a target="_blank" href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                            $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
                         }  else if ($row->status === '1') {
                             $btn .= '<p class="text-success">Accept</p>';
                         }
                     }
                     return $btn;
                 });
-            }
+            // }
             $datatble->rawColumns(['full_name', 'ssn_data', 'city_state', 'action', 'checkbox_id', 'phone']);
             return $datatble->make(true);
     }

@@ -10,7 +10,8 @@
                 <th>Patient Name</th>
                 <th>Phone</th>
                 <th>Dose</th>
-                <th width="280px">PDF</th>
+                <!-- <th width="150px">PDF</th> -->
+                <th width="100px">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -52,11 +53,12 @@
                 {data:'patient_name',name:'patient_name'},
                 {data:'phone',name:'phone'},
                 {data:'dose',name:'dose'},
-                {
-                    data: 'pdf',name: 'pdf', "render": function ( data, type, row, meta ) {
-                        return '<a href="'+data+'" target="__blank">Download or Print</a>';
-                    }
-                }
+                // {
+                //     data: 'pdf',name: 'pdf', "render": function ( data, type, row, meta ) {
+                //         return '<a href="'+data+'" target="__blank">Download or Print</a>';
+                //     }
+                // },
+                {data: 'action',name: 'action', "bSortable": false}
             ],
             "pageLength": 5,
             "lengthMenu": [ [5, 10,20, 25,100, -1], [5, 10,20, 25,100, "All"] ]

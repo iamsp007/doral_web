@@ -826,9 +826,9 @@
         <div style="position:absolute;left:29.64px;top:366.32px" class="cls_007"><span class="cls_007">authorize release of all information needed (including but not limited to medical records, copies of claims and itemized bills)</span></div>
         <div style="position:absolute;left:30.64px;top:379.56px" class="cls_007"><span class="cls_007">to verify payment and as needed for other public health purposes, including reporting to applicable vaccine registries.</span></div>
         <div style="position:absolute;left:36.20px;top:400.16px" class="cls_021">
-            @if($patient->recipient_signature)
+            @isset($patient->recipient_signature)
             <img src="{{ $patient->recipient_signature }}">
-            @endif
+            @endisset
         </div>
         <div style="position:absolute;left:36.20px;top:425.16px" class="cls_021">
         
@@ -845,9 +845,9 @@
         <div style="position:absolute;left:226.51px;top:452.16px" class="cls_021"><b>{{ isset($data['telephonic_interpreter_datetime']) ? date('m d Y', strtotime($data['telephonic_interpreter_datetime'])) : '' }}</b><br><span class="cls_021">Date / Time</span></div>
         <div style="position:absolute;left:62.76px;top:472.00px" class="cls_024"><span class="cls_024">OR</span></div>
         <div style="position:absolute;left:34.37px;top:484.08px" class="cls_021">
-        @if($patient->interpreter_signature)
+        @isset($patient->interpreter_signature)
         <img src="{{ $patient->interpreter_signature }}">
-        @endif
+        @endisset
         </div>
         <div style="position:absolute;left:34.37px;top:508.08px" class="cls_021">
         <span class="cls_021">Signature: Interpreter</span></div>
@@ -1039,9 +1039,9 @@
         <div style="position:absolute;left:40.03px;top:706.80px" class="cls_007"><span class="cls_007">to vaccination was obtained.</span></div>
         <div style="position:absolute;left:40.08px;top:730.56px" class="cls_007"><span class="cls_007">Vaccinator Signature:</span></div>
         <div style="position:absolute;left:165.86px;top:715.56px" class="cls_007"><span class="cls_007">
-        @if($patient->vaccination_signature)
+        @isset($patient->vaccination_signature)
         <img src="{{ $patient->vaccination_signature }}">
-        @endif
+        @endisset
         </span></div>
         <div style="position:absolute;left:23.52px;top:750.48px" class="cls_011"><span class="cls_011">*Use of this form is optional. In the ongoing effort to address health disparities it is essential that all demographic information is collected at</span></div>
         <div style="position:absolute;left:23.52px;top:762.72px" class="cls_011"><span class="cls_011">the time of COVID-19 vaccination including sex/gender identity and race/ethnicity.</span></div>

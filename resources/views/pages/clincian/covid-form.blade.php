@@ -410,7 +410,7 @@
         <div style="position:absolute;left:270.61px;top:300.48px" class="cls_007"><span class="cls_007">Phone<br><b>{{ isset($data['phone']) ? $data['phone'] : '' }}</b></span></div>
         <div style="position:absolute;left:401.07px;top:300.48px" class="cls_007"><span class="cls_007">Preferred Language<br><b>{{ isset($data['preferred_language']) ? $data['preferred_language'] : '' }}</b></span></div>
         <div style="position:absolute;left:36.66px;top:327.12px" class="cls_007"><span class="cls_007">Ethnicity</span></div>
-        <div style="position:absolute;left:138.78px;top:328.08px" class="cls_008"><span class="cls_008">Et Ethnicity Key:</span></div>
+        <div style="position:absolute;left:138.78px;top:328.08px" class="cls_008"><span class="cls_008">Ethnicity Key:</span></div>
         <div style="position:absolute;left:270.61px;top:326.88px" class="cls_007"><span class="cls_007">Race</span></div>
         <div style="position:absolute;left:362.36px;top:326.88px" class="cls_008"><span class="cls_008">Race Key:</span></div>
         <div style="position:absolute;left:36.91px;top:339.36px" class="cls_012"><span class="cls_012">Indicate Ethnicity Below:</span><span class="cls_007"> DECL - Declined</span><br><b>{{ isset($data['ethnicity']) ? $data['ethnicity'] : '' }}</b></div>
@@ -668,8 +668,6 @@
         </span>
         @endif
         <span class="cls_015">Unknown</span></div>
-
-        <div style="position:absolute;left:37.68px;top:745.92px" class="cls_002"><span class="cls_002">161327 v.2</span></div>
     </div>
     <div style="position:absolute;left:50%;margin-left:-306px;top:802px;width:612px;height:792px;border-style:outset;overflow:hidden">
         <div style="position:absolute;left:0px;top:0px">
@@ -827,16 +825,32 @@
         <div style="position:absolute;left:29.96px;top:354.47px" class="cls_012"><span class="cls_012">purposes, including reporting to applicable vaccine registries.</span><span class="cls_007">third parties who are financially responsible for my medical care. I</span></div>
         <div style="position:absolute;left:29.64px;top:366.32px" class="cls_007"><span class="cls_007">authorize release of all information needed (including but not limited to medical records, copies of claims and itemized bills)</span></div>
         <div style="position:absolute;left:30.64px;top:379.56px" class="cls_007"><span class="cls_007">to verify payment and as needed for other public health purposes, including reporting to applicable vaccine registries.</span></div>
-        <div style="position:absolute;left:36.20px;top:404.16px" class="cls_021"><span class="cls_021">Recipient/Surrogate/Guardian (Signature)</span></div>
+        <div style="position:absolute;left:36.20px;top:400.16px" class="cls_021">
+            @if($patient->recipient_signature)
+            <img src="{{ $patient->recipient_signature }}">
+            @endif
+        </div>
+        <div style="position:absolute;left:36.20px;top:425.16px" class="cls_021">
+        
+        <span class="cls_021">Recipient/Surrogate/Guardian (Signature)</span>
+        <br>
+        <span class="cls_021">recipient</span>
+        </div>
         <div style="position:absolute;left:227.48px;top:403.92px" class="cls_021"><b>{{ isset($data['recipient_signature_datetime']) ? date('m d Y', strtotime($data['recipient_signature_datetime'])) : '' }}</b><br><span class="cls_021">Date / Time</span></div>
         <div style="position:absolute;left:318.68px;top:403.92px" class="cls_021"><b>{{ isset($data['print_name']) ? $data['print_name'] : '' }}</b><br><span class="cls_021">Print Name</span></div>
         <div style="position:absolute;left:465.76px;top:404.40px" class="cls_021"><b>{{ isset($data['recipient_relation']) ? $data['recipient_relation'] : '' }}</b><br><span class="cls_023">Relationship to Patient</span></div>
-        <div style="position:absolute;left:36.20px;top:414.48px" class="cls_021"><span class="cls_021">recipient</span></div>
+        
         <div style="position:absolute;left:467.72px;top:425.20px" class="cls_023"><span class="cls_023">(if other than recipient)</span></div>
         <div style="position:absolute;left:34.42px;top:452.16px" class="cls_021"><b>{{ isset($data['telephonic_interpreter_id']) ? $data['telephonic_interpreter_id'] : '' }}</b><br><span class="cls_021">Telephonic Interpreter’s ID #</span></div>
         <div style="position:absolute;left:226.51px;top:452.16px" class="cls_021"><b>{{ isset($data['telephonic_interpreter_datetime']) ? date('m d Y', strtotime($data['telephonic_interpreter_datetime'])) : '' }}</b><br><span class="cls_021">Date / Time</span></div>
         <div style="position:absolute;left:62.76px;top:472.00px" class="cls_024"><span class="cls_024">OR</span></div>
-        <div style="position:absolute;left:34.37px;top:496.08px" class="cls_021"><span class="cls_021">Signature: Interpreter</span></div>
+        <div style="position:absolute;left:34.37px;top:484.08px" class="cls_021">
+        @if($patient->interpreter_signature)
+        <img src="{{ $patient->interpreter_signature }}">
+        @endif
+        </div>
+        <div style="position:absolute;left:34.37px;top:508.08px" class="cls_021">
+        <span class="cls_021">Signature: Interpreter</span></div>
         <div style="position:absolute;left:226.58px;top:496.08px" class="cls_021"><b>{{ isset($data['interpreter_signature_datetime']) ? date('m d Y', strtotime($data['interpreter_signature_datetime'])) : '' }}</b><br><span class="cls_021">Date/ Time</span></div>
         <div style="position:absolute;left:317.88px;top:496.08px" class="cls_021"><b>{{ isset($data['interpreter_relation']) ? $data['interpreter_relation'] : '' }}</b><br><span class="cls_021">Print: Interpreter’s Name and Relationship to Patient</span></div>
         <div style="position:absolute;left:181.30px;top:522.72px" class="cls_026"><span class="cls_026">Area Below to be Completed by Vaccinator</span></div>
@@ -1011,10 +1025,24 @@
         @endif
         </div>
         <div style="position:absolute;left:273.85px;top:681.84px" class="cls_007"><span class="cls_007">0.3 ml</span></div>
-        <div style="position:absolute;left:40.02px;top:694.56px" class="cls_010"><span class="cls_010">□</span><span class="cls_007"> I have provided the patient (and/or parent, guardian or surrogate, as applicable) with information about the vaccine and consent</span></div>
+        <div style="position:absolute;left:40.02px;top:694.56px" class="cls_010"><span class="cls_010">
+        @isset($data['is_accept_term'])
+        <span style="font-family: Arial Unicode MS, Lucida Grande">
+            &#9745;
+        </span>
+        @else
+        <span style="font-family: Arial Unicode MS, Lucida Grande">
+            &#9744;
+        </span>
+        @endisset
+        </span><span class="cls_007"> I have provided the patient (and/or parent, guardian or surrogate, as applicable) with information about the vaccine and consent</span></div>
         <div style="position:absolute;left:40.03px;top:706.80px" class="cls_007"><span class="cls_007">to vaccination was obtained.</span></div>
         <div style="position:absolute;left:40.08px;top:730.56px" class="cls_007"><span class="cls_007">Vaccinator Signature:</span></div>
-        <div style="position:absolute;left:141.86px;top:730.56px" class="cls_007"><span class="cls_007">______</span></div>
+        <div style="position:absolute;left:165.86px;top:715.56px" class="cls_007"><span class="cls_007">
+        @if($patient->vaccination_signature)
+        <img src="{{ $patient->vaccination_signature }}">
+        @endif
+        </span></div>
         <div style="position:absolute;left:23.52px;top:750.48px" class="cls_011"><span class="cls_011">*Use of this form is optional. In the ongoing effort to address health disparities it is essential that all demographic information is collected at</span></div>
         <div style="position:absolute;left:23.52px;top:762.72px" class="cls_011"><span class="cls_011">the time of COVID-19 vaccination including sex/gender identity and race/ethnicity.</span></div>
         <div style="position:absolute;left:455.52px;top:762.72px" class="cls_008"><span class="cls_008">Updated January 20, 2021</span></div>

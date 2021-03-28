@@ -263,7 +263,7 @@ class PatientController extends Controller
      */
     public function covid19PatientList()
     {
-        $patientList = CovidForm::all();
+        $patientList = CovidForm::with('clinician')->get();
 
         return  DataTables::of($patientList)
             ->addIndexColumn()

@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Clinician Name</th>
                 <th>Patient Name</th>
                 <th>Phone</th>
                 <th>Dose</th>
@@ -50,6 +51,10 @@
             ajax: "{{ route('clinician.covid-19-patient-list') }}",
             columns:[
                 {data:'id',name:'id'},
+                {data:'clinician.first_name',name:'clinician.first_name', render: function ( data, type, row, meta ) {
+                        return row.clinician.first_name+' '+row.clinician.last_name;
+                    }
+                },
                 {data:'patient_name',name:'patient_name'},
                 {data:'phone',name:'phone'},
                 {data:'dose',name:'dose'},

@@ -271,7 +271,11 @@ class PatientController extends Controller
             //     return env('APP_URL')."pdf/new.pdf";
             // })
             ->addColumn('action', function($row){
-                $btn = '<a href="'.route('clinician.covid-19.info',['id'=>$row->id]).'" class="btn btn-primary btn-sm mr-2" target="__blank">View</a>';
+                $btn = '<a onclick="return popEmail('.$row->id.')" class="btn btn-info btn-sm mr-2" target="__blank">Email</a>';
+
+                $btn .= '<a onclick="return popText('.$row->id.')" class="btn btn-info btn-sm mr-2" target="__blank">Text</a>';
+
+                $btn .= '<a href="'.route('clinician.covid-19.info',['id'=>$row->id]).'" class="btn btn-primary btn-sm mr-2" target="__blank">View</a>';
 
                 $btn .= '<a href="'.route('clinician.covid-19.remove',['id'=>$row->id]).'" class="btn btn-warning btn-sm">Remove</a>';
 

@@ -139,27 +139,31 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
-
+        var serching = false;
+        var status = $("#pendingStatus").val();
+        if(status == "pending"){
+            var serching = true;
+        }
         var columnDaTa = [];
       
         columnDaTa.push(
-            {data:'checkbox_id'},
-            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center",},
-            {data: 'full_name',"className": "text-center",},
-            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center",},
-            {data: 'ssn_data',"className": "text-center",},
-            {data: 'phone', class: 'editable text',"className": "text-center",},
-            {data: 'service_id',"className": "text-center",},
-            {data: 'doral_id',"className": "text-center",},
-            {data: 'city_state',"className": "text-center",},
-            {data:'dob',name:'dob',"className": "text-center",},
+            {data:'checkbox_id',"className": "text-center"},
+            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
+            {data: 'full_name',"className": "text-left"},
+            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},
+            {data: 'ssn_data',"className": "text-left"},
+            {data: 'phone', class: 'editable text',"className": "text-left"},
+            {data: 'service_id',"className": "text-left"},
+            {data: 'doral_id',"className": "text-left"},
+            {data: 'city_state',"className": "text-left"},
+            {data:'dob',name:'dob',"className": "text-left"},
             {data: 'action',"className": "text-center",}
         );
        
         $('#get_patient-table').DataTable({
             "processing": true,
             "serverSide": true,
-            "searching": false,
+            "searching": serching,
             "language": {
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },

@@ -123,7 +123,7 @@ class GetPatientDetailsController extends Controller
             }
 
             if (isset($patient->caregiverInfo->notification_preferences)) {
-                $notificationPreferences = json_decode($patient->caregiverInfo->notification_preferences);
+                $notificationPreferences = $patient->caregiverInfo->notification_preferences;
             }
 
             if (isset($patient->caregiverInfo->caregiver_offices)) {

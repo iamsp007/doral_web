@@ -155,78 +155,6 @@
                             src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                     </div>
 
-                    <!-- Address Detail -->
-                    @if(isset($address))
-                        <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
-                        data-name="emergency_contact_detail">
-                            <div class="app-card-header">
-                                <h1 class="title">Address Detail</h1>
-                            </div>
-                            <div>
-                                <div class="p-3">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-address-book circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Address1</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="street1" data-id="street1" id="street1" placeholder="Address1" value="{{ ($address->Street1) ? $address->Street1 : '' }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-address-book circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Address2</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="street2" data-id="street2" id="street2" placeholder="Address2" value="{{ ($address->Street2) ? $address->Street2 : '' }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-city circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">City</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ ($address->City) ? $address->City : '' }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-archway circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">State</h3>
-                                                        <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ ($address->State) ? $address->State : '' }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-code circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Zipcode</h3>
-                                                        @if($address->Zip4 != '')
-                                                        <input type="text" class="form-control-plaintext _detail zip " readonly name="zip4" data-id="zip4" id="zip4" placeholder="Zip4" value="{{ ($address->Zip4) ? $address->Zip4 : '' }}">
-                                                        @else
-                                                        <input type="text" class="form-control-plaintext _detail zip " readonly name="zip5" data-id="zip5" id="zip5" placeholder="Zip5" value="{{ ($address->Zip5) ? $address->Zip5 : '' }}">
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    <!-- Address Detail -->
-
                     <!-- Referral Source  Detail -->
                     @if(isset($notificationPreferences))
                         <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
@@ -243,7 +171,7 @@
                                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Email</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ $notificationPreferences->Email ? $notificationPreferences->Email : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ $notificationPreferences->email ? $notificationPreferences->email : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -252,7 +180,7 @@
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Method Name</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ $notificationPreferences->Method->Name ? $notificationPreferences->Method->Name : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ $notificationPreferences->method ? $notificationPreferences->method : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -261,7 +189,7 @@
                                                     <div class="ls"><i class="las la-sms circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Mobile Or SMS</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ $notificationPreferences->MobileOrSMS ? $notificationPreferences->MobileOrSMS : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ $notificationPreferences->mobile_or_SMS ? $notificationPreferences->mobile_or_SMS : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -270,7 +198,7 @@
                                                     <div class="ls"><i class="las la-voicemail circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Voice Message</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ $notificationPreferences->VoiceMessage ? $notificationPreferences->VoiceMessage : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ $notificationPreferences->voice_message ? $notificationPreferences->voice_message : '' }}">
                                                     </div>
                                                 </div>
                                             </div>

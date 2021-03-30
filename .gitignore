@@ -12,7 +12,4 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /public/patient_report
-<<<<<<< HEAD
 /public/zip
-=======
->>>>>>> 243573f4695dd6ddf3bcbcb4361c1912043e5f2c

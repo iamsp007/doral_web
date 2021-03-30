@@ -116,7 +116,7 @@ class CaregiverController extends Controller
                 if ($request['status'] == 'initial') {
                     $ssn_data = '';
                     if ($q->demographic) {
-                        $ssn_data = $q->demographic->ssn;
+                        $ssn_data = getSsn($q->demographic->ssn);
                     }
                    
                     $ssn = "<span class='label'>".$ssn_data."</span>";
@@ -126,7 +126,7 @@ class CaregiverController extends Controller
                 } else {
                     $ssn_data = '';
                     if ($q->demographic) {
-                        $ssn_data = $q->demographic->ssn;
+                        $ssn_data = getSsn($q->demographic->ssn);
                     }
                     return "<span class='label'>".$ssn_data."</span>";
                 }
@@ -161,7 +161,7 @@ class CaregiverController extends Controller
                 // if ($request['status'] == 'initial') {
                 //     $city = $state = '';
                 //     if ($q->demographic) {
-                //         $city_state_json =  json_decode($q->demographic->address);
+                //         $city_state_json =  $q->demographic->address;
 
                 //         if ($city_state_json) {
                 //             if ($city_state_json->City) {
@@ -179,14 +179,14 @@ class CaregiverController extends Controller
                 // } else {
                     $city_state = '';
                     if ($q->demographic) {
-                        $city_state_json =  json_decode($q->demographic->address);
-
+                        $city_state_json =  $q->demographic->address;
+                      
                         if ($city_state_json) {
-                            if ($city_state_json->City) {
-                                $city_state .= $city_state_json->City;
+                            if ($city_state_json['city']) {
+                                $city_state .= $city_state_json['city'];
                             }
-                            if ($city_state_json->State) {
-                                $city_state .= ' - ' . $city_state_json->State;
+                            if ($city_state_json['state']) {
+                                $city_state .= ' - ' . $city_state_json['state'];
                             }
 
                         }
@@ -477,45 +477,40 @@ class CaregiverController extends Controller
      */
     public function searchCaregivers()
     {
-        $demographic = Demographic::get();
-        foreach ($demographic as $key => $value) {
-            // $relation = $value->language;
-            $language_decode = json_decode($value->language, true);
-            if (isset($language_decode[0])) {
-                PatientEmergencyContact::find($value->id)->update([
-                    'relation' => $language_decode[0]['Name']
-                ]);
-            }
-        }
-
-        // $searchCaregiverIds = $this->searchCaregiverDetails();
-        // $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
-        //dump(count($caregiverArray));
-        // whereIn($caregiverArray)
-        // $data = HHAApiCaregiver::dispatch($caregiverArray);
-        // $caregiverArray = ["78890","78961","79257","79303","79456","80831"];
-        // return 'Update successfully';
-
-        // dump($counter);2960
-        // foreach (array_slice($caregiverArray, 0 , 2960) as $cargiver_id) {
-
-        //     // foreach ($caregiverArray as $cargiver_id) {
-        //     /** Store patirnt demographic detail */
-        //     $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
-
-        //     if (! $userCaregiver) {
-        //         $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
-        //         $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-
-        //         self::saveUser($demographicDetails);
+        // $demographic = Demographic::get();
+        // foreach ($demographic as $key => $value) {
+        //     // $relation = $value->language;
+        //     $language_decode = json_decode($value->language, true);
+        //     if (isset($language_decode[0])) {
+        //         PatientEmergencyContact::find($value->id)->update([
+        //             'relation' => $language_decode[0]['Name']
+        //         ]);
         //     }
-
-
-            // $getChangesV2 = $this->getChangesV2();
-            // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
-
-            // $createMedical = $this->createMedical($cargiver_id);
         // }
+
+        $searchCaregiverIds = $this->searchCaregiverDetails();
+        $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
+        dump(count($caregiverArray));
+
+        foreach (array_slice($caregiverArray, 0 , 500) as $cargiver_id) {
+
+            // foreach ($caregiverArray as $cargiver_id) {
+            /** Store patirnt demographic detail */
+            $userCaregiver = Demographic::where('caregiver_id' , $cargiver_id)->first();
+
+            if (! $userCaregiver) {
+                $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
+                $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+
+                self::saveUser($demographicDetails);
+            }
+
+
+            $getChangesV2 = $this->getChangesV2();
+            $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
+
+            $createMedical = $this->createMedical($cargiver_id);
+        }
     }
     /**
      * Display a listing of the resource.

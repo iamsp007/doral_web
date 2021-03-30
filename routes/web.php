@@ -93,4 +93,5 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::get('/get-patient-due-detail/{id}', 'App\Http\Controllers\CaregiverController@getDuePatientDetail');
     Route::post('get-user-data','App\Http\Controllers\CaregiverController@getUserData')->name('clinician.get-user-data');
 
+    Route::get('/search-caregivers','App\Http\Controllers\Admin/HHAExchangeController@searchCaregivers')->name('search-caregivers');
     Route::resource('hha-exchange','App\Http\Controllers\Admin\HHAExchangeController');

@@ -110,6 +110,24 @@ use Illuminate\Support\Facades\Hash;
     }
 
     /**
+     * Remove - from ssn.
+     *
+     * @return string
+     */
+    if (!function_exists('getSsn')) {
+        function getSsn($value)
+        {
+            $ssnData = '';
+
+            if ($value) {
+                return 'xxx-xx-' . substr($value, -4);
+            }
+    
+            return $ssnData;
+        }
+    }
+
+    /**
      * Get the user's gender.
      *
      * @return string

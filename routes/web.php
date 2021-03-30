@@ -24,13 +24,12 @@ Route::post('/provider/login','\App\Http\Controllers\Auth\ReferralLoginControlle
 Route::get('/register','\App\Http\Controllers\Auth\ReferralRegisterController@showRegistrationForm')->name('referral.showRegistrationForm');
 Route::post('/register','\App\Http\Controllers\Auth\ReferralRegisterController@register')->name('referral.register');
 
-Route::get('/partner/register','\App\Http\Controllers\Auth\ReferralRegisterController@showPartnerRegistrationForm')->name('partner.register');
-Route::post('/partner/register','\App\Http\Controllers\Auth\ReferralRegisterController@partnerRegister')->name('partner.register');
-Route::post('/partner/login','\App\Http\Controllers\Auth\PartnerLoginController@login')->name('partner.login');
-Route::get('/partner/login','\App\Http\Controllers\Auth\PartnerLoginController@showLoginForm')->name('partner.login');
+/**
+ *  Public covid-19 form
+ */
+Route::get('/covid-19/{id}/detail','\App\Http\Controllers\Clinician\PatientController@covid19Info');
 
-
-Route::group(['middleware'=>'auth'],function (){
+Route::group(['middleware'=>'auth:partner,referral,web'],function (){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('check');
     // Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
     Route::post('/add-insurance','\App\Http\Controllers\PatientController@addInsurance')->name('patient.addInsurance');
@@ -38,16 +37,16 @@ Route::group(['middleware'=>'auth'],function (){
 Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
 
 // Admin Panel
-Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
-Route::get('/caregiver/2', 'App\Http\Controllers\Admin\HomeController@clinicianResponse');
-Route::get('/caregiver/3', 'App\Http\Controllers\Admin\HomeController@caregiverforGluco');
-Route::get('/caregiver/4', 'App\Http\Controllers\Admin\HomeController@caregiverforGlucoHigh');
-Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
+    Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
+    Route::get('/caregiver/2', 'App\Http\Controllers\Admin\HomeController@clinicianResponse');
+    Route::get('/caregiver/3', 'App\Http\Controllers\Admin\HomeController@caregiverforGluco');
+    Route::get('/caregiver/4', 'App\Http\Controllers\Admin\HomeController@caregiverforGlucoHigh');
+    Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
 
 // get medicine list
-Route::get('/patient-medicine-list/{patient_id}','\App\Http\Controllers\PatientController@patientMedicineList')->name('patient.medician.list');
+    Route::get('/patient-medicine-list/{patient_id}','\App\Http\Controllers\PatientController@patientMedicineList')->name('patient.medician.list');
 
-Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|referral|clinician|co-ordinator']],function (){
+
     Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
     Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
@@ -68,9 +67,6 @@ Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|
     Route::get('/roadl-vendor-list','App\Http\Controllers\Clinician\RoadLController@getVendorList')->name('roadl.vendor.list');
     Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
     Route::get('/all-patient-list','\App\Http\Controllers\HomeController@allPatientList')->name('all.patient.list');
-});
-
-
 
     Route::post('/start','\App\Http\Controllers\Clinician\RoomController@startArchive');
     Route::post('/zoom-generate_signature','\App\Http\Controllers\Clinician\RoomController@zoomGenerateSignature');
@@ -87,7 +83,7 @@ Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|
     Route::get('/patients/{status?}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
     Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
     Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');
-    // Route::post('/download-lab-report','App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');   
+    // Route::post('/download-lab-report','App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
     Route::get('download-lab-report/{user_id}', 'App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
     Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
     Route::post('/get-due-detail','App\Http\Controllers\CaregiverController@getDueDetail')->name('clinician.due-detail.ajax');

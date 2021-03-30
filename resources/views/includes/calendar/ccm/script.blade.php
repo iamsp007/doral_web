@@ -94,6 +94,8 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+  <script src="{{asset('assets/js/jquery.min.js')}}" type="text/javascript"></script>
+
 <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');

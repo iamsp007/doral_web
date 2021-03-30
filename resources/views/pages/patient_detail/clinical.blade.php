@@ -374,7 +374,7 @@
                                  </button>
                                  <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center" onclick="openLabReports({{ $type }})" data-toggle="modal" data-target="#uploadLabReportModal"><i class="las la-file-upload la-2x mr-2"></i>Upload Lab Reports</button>
                               @endrole
-                              <button type="button" class="btn btn-outline-green d-flex align-items-center" onclick="viewLabReports({{ $type }})" data-toggle="modal" data-target="#labreportModal" name=""><i class="las la-binoculars la-2x mr-2"></i> View Lab Reports</button>
+                              <button type="button" class="btn btn-outline-green d-flex align-items-center" onclick="viewLabReports({{ $type }})"  name=""><i class="las la-binoculars la-2x mr-2"></i> View Lab Reports</button>
                            </div>
                            @include('pages.patient_detail.lab.'.(new \App\Helpers\Helper)->clean($labReportType->name))
                         </div>
@@ -397,7 +397,6 @@
             width: calc(100% - 7rem);
             position: fixed;
             right: 0;
-            z-index: 0;
         }
         .app .app-content .app-body{overflow:hidden;padding-left:0;padding-right:0}
         .modal-backdrop{z-index: 0!important;}

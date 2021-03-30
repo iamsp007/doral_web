@@ -89,6 +89,7 @@
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
                         <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
+                        <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
                     </div>
                 </div>
             </div>
@@ -139,26 +140,31 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
-
+        var serching = false;
+        var status = $("#pendingStatus").val();
+        if(status == "pending"){
+            var serching = true;
+        }
         var columnDaTa = [];
       
         columnDaTa.push(
-            {data:'checkbox_id'},
-            {data: 'DT_RowIndex', orderable: false, searchable: false},
-            {data: 'full_name'},
-            {data: 'gender', name:'gender', orderable: true, searchable: true},
-            {data: 'ssn_data'},
-            {data: 'phone', class: 'editable text'},
-            {data: 'service_id'},
-            {data: 'doral_id'},
-            {data: 'city_state'},
-            {data:'dob',name:'dob'},
-            {data: 'action'}
+            {data:'checkbox_id',"className": "text-center"},
+            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
+            {data: 'full_name',"className": "text-left"},
+            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},
+            {data: 'ssn_data',"className": "text-left"},
+            {data: 'phone', class: 'editable text',"className": "text-left"},
+            {data: 'service_id',"className": "text-left"},
+            {data: 'doral_id',"className": "text-left"},
+            {data: 'city_state',"className": "text-left"},
+            {data:'dob',name:'dob',"className": "text-left"},
+            {data: 'action',"className": "text-center",}
         );
        
         $('#get_patient-table').DataTable({
             "processing": true,
             "serverSide": true,
+            "searching": serching,
             "language": {
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
@@ -199,6 +205,13 @@
         $("#filter_btn").click(function () {
             refresh();
         });
+        
+        $("#reset_btn").click(function () {
+            $('#search_form').trigger("reset");
+            $(".user_name")[0].selectedIndex = -1;
+            $('#select2-user_name-container').empty()
+             refresh();
+        })
 
         $('input[name="lab_due_date"]').daterangepicker({
             autoUpdateInput: false,

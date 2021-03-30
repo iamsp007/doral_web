@@ -2,7 +2,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['prefix'=>'/co-ordinator','middleware'=>['auth','role:co-ordinator']],function (){
+Route::group(['prefix'=>'/co-ordinator','middleware'=>['auth:web','role:co-ordinator']],function (){
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@getPatientDetail')->name('patient.detail');
     Route::get('/','\App\Http\Controllers\Coordinator\CoordinatorController@index')->name('coordinator.dashboard');
     Route::get('/patient-list-show','\App\Http\Controllers\Coordinator\CoordinatorController@patientListShow')->name('coordinator.patientListShow');

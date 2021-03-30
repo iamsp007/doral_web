@@ -86,7 +86,7 @@
                               <div class="ls"><i class="las la-code circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Zip</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="zip" data-id="zip" id="zip" placeholder="Zip" value="{{ ($patient->caregiverInfo->company->zip) ? $patient->caregiverInfo->company->zip : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail zip" readonly name="zip" data-id="zip" id="zip" placeholder="Zip" value="{{ ($patient->caregiverInfo->company->zip) ? $patient->caregiverInfo->company->zip : '' }}">
                               </div>
                            </div>
                         </div>
@@ -236,15 +236,20 @@
             data:{patient_id:patientId},
             success:function (response) {
                $("#loader-wrapper").hide();
+
                 alert('Caregiver updated successfully.');
-                location.reload();
+//                location.reload();
+
             }
             ,
             error:function (error) {
                $("#loader-wrapper").hide();
+
                 alert('Something is wrong. Please try again later.');
-                location.reload();
+//                location.reload();
+
             }
+           
 
 
         });

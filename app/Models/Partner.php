@@ -14,12 +14,26 @@ class Partner extends Authenticatable
 
     protected $guard = 'partner';
 
-    protected $table='companies';
+    protected $table='users';
     protected $primaryKey='id';
 
-    protected $fillable=['name','email','referal_id','status','password'];
+    protected $fillable = [
+        'first_name', 'last_name', 'dob', 'phone', 'email', 'email_verified_at', 'password', 'status', 'remember_token', 'level', 'api_token'
+    ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    protected $appends = ['name'];
+
+
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }

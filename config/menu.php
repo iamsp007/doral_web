@@ -93,6 +93,14 @@ return [
                 ]
             ]
         ],
+        [
+            'name'=>'Covid-19',
+            'url'=>env('APP_URL').'clinician/covid-19',
+            'route'=>'clinician/covid-19',
+            'icon'=>'home-sb-select.svg',
+            'icon_hover'=>'home-sb.svg',
+            'icon_title'=>'Covid-19'
+        ],
 //        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'referral'=>[

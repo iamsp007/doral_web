@@ -61,7 +61,6 @@ $(document).ready(function() {
 
     $(document).on('change', '.uploadLabResult', function(e) {
         var id= $(this).attr('id');
-        
         singleLabReportUpload($(this), id)
     });
 });
@@ -140,6 +139,7 @@ function viewLabReports(id) {
             var sources = response.data;
             var html='<div class="row">';
             sources.map(function (value) {
+                $("#labreportModal").modal('toggle');
                 var img = base_url+'assets/img/All Banner copy.docx.png';
                 html+='<div class="col-12 col-sm-2 mt-4">\n' +
                     '                                   <div class="card shadow-sm">\n' +
@@ -160,7 +160,7 @@ function viewLabReports(id) {
                     '                                                       <i class="las la-ellipsis-v"></i>\n' +
                     '                                                   </button>\n' +
                     '                                                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">\n' +
-                    '                                                       <a class="dropdown-item" href="'+value.file_name+'">Download File</a>\n' +
+                    '                                                       <a class="dropdown-item" href="'+base_url+'patient_report/'+value.file_name+'">Download File</a>\n' +
                     '                                                       <a onclick="viewFile('+value.id+')" class="dropdown-item" data-toggle="modal" data-target="#docViewerModal"\n' +
                     '                                                          >View Details</a>\n' +
                     '                                                   </div>\n' +
@@ -176,7 +176,7 @@ function viewLabReports(id) {
         error:function (error) {
             var sources = JSON.parse(error.responseText);
             $('#view-lab-report-file').html('');
-            alert(sources.message)
+            alertText(sources.message)
         }
 
     });
@@ -203,7 +203,7 @@ function openLabReports(id) {
             $('#selectRole').html(html);
         },
         error:function (error) {
-            console.log(error)
+            alertText(error)
         }
 
     });
@@ -222,18 +222,17 @@ function deleteLabReport(id) {
         dataType: 'json',
         success:function (response) {
             var sources = response.data;
-            alert(response.message)
+            alertText(response.message)
             reportable.ajax.reload();
         },
         error:function (error) {
-            console.log(error)
+            alertText(error)
         }
 
     });
 }
 
 function viewFile(id) {
-    console.log(id)
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -249,7 +248,7 @@ function viewFile(id) {
             $('#iframeModal').attr('src',sources.file_name);
         },
         error:function (error) {
-            console.log(error)
+            alertText(error)
         }
 
     });

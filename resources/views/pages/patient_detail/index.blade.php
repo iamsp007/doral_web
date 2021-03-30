@@ -19,7 +19,7 @@
             </div>
             <div>
                <ul class="shortdesc">
-                  <li>Status: <span>{{ isset($status->Name) ? $status->Name : '' }}</span></li>
+                  <!-- <li>Status: <span>{{ isset($status->Name) ? $status->Name : '' }}</span></li> -->
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender_data }}</span></li>
                   <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
@@ -148,9 +148,9 @@
                <div class="tab-content" id="v-pills-tabContent">
                   <!-- Demographics Start -->
                   @if($patient->demographic)
-                     @if($patient->demographic->type === 'Patient')
+                     @if($patient->demographic->type === '1')
                         @include('pages.patient_detail.demographic')
-                     @elseif($patient->demographic->type === 'Caregiver')
+                     @elseif($patient->demographic->type === '2')
                         @include('pages.patient_detail.caregiver_demographic')
                      @endif
                   @endif

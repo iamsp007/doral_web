@@ -37,16 +37,6 @@ Route::group(['middleware'=>'auth'],function (){
 });
 Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
 
-//
-//Auth::routes();
-//
-
-//Auth::routes();*/
-
-//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('check')->name('home');
-
-
-
 // Admin Panel
 Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
 Route::get('/caregiver/2', 'App\Http\Controllers\Admin\HomeController@clinicianResponse');
@@ -106,3 +96,5 @@ Route::group(['middleware'=>['auth:referral,partner,web','role:admin|supervisor|
     Route::post('/get-patient-due-detail','App\Http\Controllers\CaregiverController@getDuePatients')->name('clinician.due-patient-detail.ajax');
     Route::get('/get-patient-due-detail/{id}', 'App\Http\Controllers\CaregiverController@getDuePatientDetail');
     Route::post('get-user-data','App\Http\Controllers\CaregiverController@getUserData')->name('clinician.get-user-data');
+
+    Route::resource('hha-exchange','App\Http\Controllers\Admin\HHAExchangeController');

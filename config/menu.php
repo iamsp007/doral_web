@@ -132,6 +132,14 @@ return [
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
+                ],
+                [
+                    'name'=>'6',
+                    'url'=>env('APP_URL').'referral/service/covid-19',
+                    'route'=>'referral/covid-19',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Services'
                 ]
             ]
         ],

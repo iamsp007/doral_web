@@ -4,7 +4,7 @@
     <div class="middle register">
         <div class="container">
             <div class="innerSpace">
-                <h1 class="t1 fadeIn">Always Connected For Your Health</h1>
+                <h1 class="t1 fadeIn">Always Connected For Your Health2</h1>
             </div>
             <div class="row">
                 <div class="col-12 col-xl-7 col-lg-7 col-md-7 col-sm-12">

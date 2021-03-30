@@ -26,9 +26,9 @@ use ZipArchive;
 
 class CaregiverController extends Controller
 {
-    public function index($pendingStatus = null)
+    public function index($serviceStatus = null)
     {
-        return view('pages.patient_detail.new_patient', compact('pendingStatus'));
+        return view('pages.patient_detail.new_patient', compact('serviceStatus'));
     }
 
     public function getCaregiverDetail(Request $request)
@@ -36,33 +36,41 @@ class CaregiverController extends Controller
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
-            ->when($request['pendingStatus'] ,function ($query) use($request) {
-                $query->where('status', '0');
-            })
             ->when($request['status'], function ($query) use($request) {
-                if ($request['status'] == 'pending') {
-                    $query->where('status', '0');
-                } else if($request['status'] == 'active') {
-                    $query->where('status', '1');
-                } else if($request['status'] == 'inactive') {
-                    $query->where('status', '2');
-                } else if($request['status'] == 'reject') {
-                    $query->where('status', '3');
-                } else if($request['status'] == 'initial') {
-                    $query->where('status', '4');
-                    $query->whereHas('caregiverInfo',function ($q) {
-                        $company_id =
+                $query->where('status', $request['status']);
+                if($request['status'] == 4) {
+                    $query->whereHas('demographic',function ($q) {
+                    $company_id = Auth::user()->hasRole('referral')->id;
                         $q->where('service_id', '3');
                         if(Auth::user()->hasRole('referral')) {
                             $q->where('company_id', $company_id);
                         }
                     });
-                } else if($request['status'] == 'completed') {
-                    $query->where('status', '5');
-                } 
+                }
+            })
+            ->when($request['serviceStatus'] ,function ($query) use($request) {
+                if ($request['serviceStatus'] == 'vbc') {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', 1);
+                    });
+                } else if($request['serviceStatus'] == 'md-order') {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', 2);
+                    });
+                } else if($request['serviceStatus'] == 'occupational-health') {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', 3);
+                    });
+                } else if($request['serviceStatus'] == 'covid-19') {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', 6);
+                    });
+                } else if ($request['serviceStatus'] == 'pending') {
+                    $query->where('status', '0');
+                }
             })
             ->when($request['service_id'], function ($query) use($request) {
-                $query->whereHas('caregiverInfo',function ($q) use($request) {
+                $query->whereHas('demographic',function ($q) use($request) {
                     $q->where('service_id', $request['service_id']);
                 });
             })
@@ -137,8 +145,8 @@ class CaregiverController extends Controller
             })
             ->addColumn('service_id', function($q) {
                 $services = '';
-                if ($q->caregiverInfo && $q->caregiverInfo->services) {
-                    $services =  $q->caregiverInfo->services->name;
+                if ($q->demographic && $q->demographic->services) {
+                    $services =  $q->demographic->services->name;
                 }
                 return $services;
             })
@@ -279,8 +287,8 @@ class CaregiverController extends Controller
             })
             ->addColumn('service_id', function($q) {
                 $services = '';
-                if ($q->caregiverInfo && $q->caregiverInfo->services) {
-                    $services =  $q->caregiverInfo->services->name;
+                if ($q->demographic && $q->demographic->services) {
+                    $services =  $q->demographic->services->name;
                 }
                 return $services;
             })

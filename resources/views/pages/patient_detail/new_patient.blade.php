@@ -38,7 +38,7 @@
 @endrole
 
 @section('content')
-    @if(!$pendingStatus)
+    @if(!$serviceStatus)
         <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
@@ -69,6 +69,7 @@
                             <option value="1">VBC</option>
                             <option value="2">MD Order</option>
                             <option value="3">Occupational Health</option>
+                            <option value="5">Covid-19</option>
                         </select>
                     </div>
                 </div>
@@ -100,7 +101,7 @@
     </div>
     
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
-        <input type="hidden" value="{{ $pendingStatus }}" id="pendingStatus" name="pendingStatus" />
+        <input type="hidden" value="{{ $serviceStatus }}" id="serviceStatus" name="serviceStatus" />
         <thead>
             <tr>
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
@@ -181,7 +182,7 @@
                     d.service_id = $('select[name="service_id"]').val();
                     d.gender = $('select[name="gender"]').val();
                     d.dob = $('input[name="dob"]').val();
-                    d.pendingStatus = $('input[name="pendingStatus"]').val();
+                    d.serviceStatus = $('input[name="serviceStatus"]').val();
                 },
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'

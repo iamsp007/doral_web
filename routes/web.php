@@ -24,6 +24,11 @@ Route::post('/provider/login','\App\Http\Controllers\Auth\ReferralLoginControlle
 Route::get('/register','\App\Http\Controllers\Auth\ReferralRegisterController@showRegistrationForm')->name('referral.showRegistrationForm');
 Route::post('/register','\App\Http\Controllers\Auth\ReferralRegisterController@register')->name('referral.register');
 
+/**
+ *  Public covid-19 form
+ */
+Route::get('/covid-19/{id}/detail','\App\Http\Controllers\Clinician\PatientController@covid19Info');
+
 Route::group(['middleware'=>'auth:partner,referral,web'],function (){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('check');
     // Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');

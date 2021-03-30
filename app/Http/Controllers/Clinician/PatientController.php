@@ -263,14 +263,25 @@ class PatientController extends Controller
      */
     public function covid19PatientList()
     {
-        $patientList = CovidForm::all();
+        $patientList = CovidForm::with('clinician')->get();
 
         return  DataTables::of($patientList)
             ->addIndexColumn()
-            ->addColumn('pdf', function(){
-                return env('APP_URL')."pdf/new.pdf";
+            // ->addColumn('pdf', function(){
+            //     return env('APP_URL')."pdf/new.pdf";
+            // })
+            ->addColumn('action', function($row){
+                $btn = '<a onclick="return popEmail('.$row->id.')" class="btn btn-info btn-sm mr-2" target="__blank">Email</a>';
+
+                $btn .= '<a onclick="return popText('.$row->id.')" class="btn btn-info btn-sm mr-2" target="__blank">Text</a>';
+
+                $btn .= '<a href="'.route('clinician.covid-19.info',['id'=>$row->id]).'" class="btn btn-primary btn-sm mr-2" target="__blank">View</a>';
+
+                $btn .= '<a href="'.route('clinician.covid-19.remove',['id'=>$row->id]).'" class="btn btn-warning btn-sm">Remove</a>';
+
+                return $btn;
             })
-            ->rawColumns(['pdf'])->make(true);
+            ->rawColumns(['action'])->make(true);
 
         $clinicianService = new ClinicianService();
         $response = $clinicianService->getCovid19PatientList();
@@ -278,5 +289,33 @@ class PatientController extends Controller
             return response()->json($response,200);
         }
         return response()->json($response,422);
+    }
+
+    /**
+     * Covid 19 data will display
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function covid19Info($id)
+    {
+        $patient = CovidForm::find($id);
+
+        $data = $patient->data;
+
+        return view($this->view_path.'covid-form', compact('patient', 'data'));
+    }
+
+    /**
+     * Covid 19 data will remove
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function covid19Remove($id)
+    {
+        $patient = CovidForm::find($id);
+
+        if ($patient->delete()) {
+            return redirect()->back();
+        }
     }
 }

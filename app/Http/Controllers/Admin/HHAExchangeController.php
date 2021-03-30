@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\HHAExchange;
+use App\Models\Demographic;
+use App\Models\PatientEmergencyContact;
+use App\Models\User;
 
 class HHAExchangeController extends Controller
 {
@@ -17,21 +20,21 @@ class HHAExchangeController extends Controller
         // HHAExchange::dispatch();
         $searchPatientIds = $this->searchPatientDetails();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        dd($patientArray);
+        // dd($patientArray);
         // dump(count($patientArray));
         //array_slice($patientArray, 0 , 1)
         // foreach ($patientArray as $patient_id) {
         foreach (array_slice($patientArray, 0 , 1) as $patient_id) {
             $apiResponse = $this->getDemographicDetails($patient_id);
             $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
-            dd($demographics);
-            // $user_id = self::storeUser($demographics);
+            // dd($demographics);
+            $user_id = self::storeUser($demographics);
 
-            // if ($user_id) {
-            //     self::storeDemographic($apiResponse, $user_id);
+            if ($user_id) {
+                self::storeDemographic($apiResponse, $user_id);
 
-            //     self::storeEmergencyContact($apiResponse, $user_id);
-            // }
+                self::storeEmergencyContact($apiResponse, $user_id);
+            }
         }
     }
 
@@ -85,5 +88,97 @@ class HHAExchangeController extends Controller
         $method = 'POST';
 
         return $this->curlCall($data, $method);
+    }
+
+    public static function storeUser($demographics)
+    {      
+
+        $doral_id = createDoralId();
+        $password = str_replace(" ", "",$demographics['FirstName']) . '@' . $doral_id;
+
+        $user = new User();
+        $user->first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
+        $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
+        $user->password = setPassword($password);
+        $user->phone = setPhone($demographics['HomePhone']);
+        $user->phone_verified_at = now();
+
+        $user->gender = setGender($demographics['Gender']);
+        
+        $user->dob = dateFormat($demographics['BirthDate']);
+        $user->tele_phone = setPhone($demographics['Phone2']);
+        $user->save();
+
+        return $user->id;
+    }
+
+    public static function storeDemographic($demographics, $user_id)
+    {
+        $doral_id = createDoralId();
+
+        $demographic = new Demographic();
+        
+        $demographic->doral_id = $doral_id;
+        $demographic->user_id = $user_id;
+        $demographic->service_id = config('constant.MDOrder');
+        $demographic->patient_id = isset($demographics['PatientID']) ? $demographics['PatientID'] : '';
+        $demographic->ssn = setSsn(isset($demographics['SSN']) ? $demographics['SSN'] : '');
+
+        $accepted_services = [
+            'Discipline' => isset($demographics['AcceptedServices']['Discipline']) ? $demographics['AcceptedServices']['Discipline'] : ''
+        ];
+        $demographic->accepted_services = $accepted_services;
+        
+        if (isset($demographics['Addresses']['Address'])) {
+            $address = $demographics['Addresses']['Address'];
+
+            $addressData = [
+                'address1' => isset($address['Address1']) ? $address['Address1'] : '',
+                'address2' => isset($address['Address2']) ? $address['Address2'] : '',
+                'crossStreet' => isset($address['CrossStreet']) ? $address['CrossStreet'] : '',
+                'city' => isset($address['City']) ? $address['City'] : '',
+                'zip5' => isset($address['Zip5']) ? $address['Zip5'] : '',
+                'zip4' => isset($address['Zip4']) ? $address['Zip4'] : '',
+                'state' => isset($address['State']) ? $address['State'] : '',
+                'county' => isset($address['County']) ? $address['County'] : '',
+                'isPrimaryAddress' => isset($address['IsPrimaryAddress']) ? $address['IsPrimaryAddress'] : '',
+                'addressTypes' => isset($address['AddressTypes']) ? $address['AddressTypes'] : '',
+            ];
+
+            $demographic->address = $addressData;
+        }
+
+        $language = [
+            'language1' => isset($demographics['PrimaryLanguage']) ? $demographics['PrimaryLanguage'] : '',
+            'language2' => isset($demographics['SecondaryLanguage']) ? $demographics['SecondaryLanguage'] : '',
+        ];
+        $demographic->status = 'Active';
+        $demographic->language = $language;
+        $demographic->type = config('constant.PatientType');
+
+        $demographic->save();
+    }
+
+    public static function storeEmergencyContact($demographics, $user_id)
+    {
+        foreach ($demographics['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
+            if($emergencyContact['Name']) {
+                $relationship = '';
+                if ($emergencyContact['Relationship'] && $emergencyContact['Relationship']['Name']) {
+                    $relationship = $emergencyContact['Relationship']['Name'];
+                }
+             
+                $patientEmergencyContact = new PatientEmergencyContact();
+
+                $patientEmergencyContact->user_id = $user_id;
+                $patientEmergencyContact->name = $emergencyContact['Name'];
+                $patientEmergencyContact->relation = $relationship;
+                $patientEmergencyContact->lives_with_patient = ($emergencyContact['LivesWithPatient']) ? $emergencyContact['LivesWithPatient'] : '';
+                $patientEmergencyContact->phone1 = ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '';
+                $patientEmergencyContact->phone2 = ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '';
+                $patientEmergencyContact->address = ($emergencyContact['Address']) ? $emergencyContact['Address'] : '';
+                $patientEmergencyContact->save();
+            }
+        }
     }
 }

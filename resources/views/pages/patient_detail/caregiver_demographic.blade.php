@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="rs">
                                         <h3 class="_title">Country Of Birth</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="country_of_birth" data-id="country_of_birth" id="country_of_birth" placeholder="Country Of Birth" value="{{ isset($patient->caregiverInfo) && isset($patient->caregiverInfo->country_of_birth) ? $patient->caregiverInfo->country_of_birth : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="country_of_birth" data-id="country_of_birth" id="country_of_birth" placeholder="Country Of Birth" value="{{ isset($patient->demographic) && isset($patient->demographic->country_of_birth) ? $patient->demographic->country_of_birth : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                                     <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Ethnicity</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="ethnicity" data-id="ethnicity" id="ethnicity" placeholder="Ethnicity" value="{{ isset($ethnicity) && isset($ethnicity->Name) ? $ethnicity->Name : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="ethnicity" data-id="ethnicity" id="ethnicity" placeholder="Ethnicity" value="{{ isset($patient->demographic) && isset($patient->demographic->ethnicity) ? $patient->demographic->ethnicity : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -114,15 +114,15 @@
                                     <div class="ls"><i class="las la-language circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Language</h3>
-                                        @if(isset($language) && isset($language->Language1) && $language->Language1 != '')
-                                            <input type="text" class="form-control-plaintext _detail " readonly name="language1" data-id="language1" id="language1" placeholder="Language1" value="{{ isset($language) && isset($language->Language1) ? $language->Language1 : '' }}">
-                                        @elseif(isset($language) && isset($language->Language2) && $language->Language2 != '')
-                                            <input type="text" class="form-control-plaintext _detail " readonly name="language2" data-id="language2" id="language2" placeholder="Language2" value="{{ isset($language) && isset($language->Language2) ? $language->Language2 : '' }}">
-                                        @elseif(isset($language) && isset($language->Language3) && $language->Language3 != '')
-                                            <input type="text" class="form-control-plaintext _detail " readonly name="language3" data-id="language3" id="language3" placeholder="Language3" value="{{ isset($language) && isset($language->Language3) ? $language->Language3 : '' }}">
-                                        @elseif(isset($language) && isset($language->Language4) && $language->Language4 != '')
-                                            <input type="text" class="form-control-plaintext _detail " readonly name="language4" data-id="language4" id="language4" placeholder="Language4" value="{{ isset($language) && isset($language->Language4) ? $language->Language4 : '' }}">
-                                            @endif
+                                        @if(isset($language) && isset($language->language1) && $language->language1 != '')
+                                            <input type="text" class="form-control-plaintext _detail " readonly name="language1" data-id="language1" id="language1" placeholder="language1" value="{{ isset($language) && isset($language->language1) ? $language->language1 : '' }}">
+                                        @elseif(isset($language) && isset($language->language2) && $language->language2 != '')
+                                            <input type="text" class="form-control-plaintext _detail " readonly name="language2" data-id="language2" id="language2" placeholder="language2" value="{{ isset($language) && isset($language->language2) ? $language->language2 : '' }}">
+                                        @elseif(isset($language) && isset($language->language3) && $language->language3 != '')
+                                            <input type="text" class="form-control-plaintext _detail " readonly name="language3" data-id="language3" id="language3" placeholder="language3" value="{{ isset($language) && isset($language->language3) ? $language->language3 : '' }}">
+                                        @elseif(isset($language) && isset($language->language4) && $language->language4 != '')
+                                            <input type="text" class="form-control-plaintext _detail " readonly name="language4" data-id="language4" id="language4" placeholder="language4" value="{{ isset($language) && isset($language->language4) ? $language->language4 : '' }}">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                                     </div>
                                     <div class="rs">
                                         <h3 class="_title">Marital Status</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="marital_status" data-id="marital_status" id="marital_status" placeholder="Marital Status" value="{{ isset($maritalStatus) && isset($maritalStatus->Name) ? $maritalStatus->Name : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="marital_status" data-id="marital_status" id="marital_status" placeholder="Marital Status" value="{{ isset($patient->demographic) && isset($patient->demographic->marital_status) ? $patient->demographic->marital_status : '' }}">
                                     </div>
                                 </div>
                             </div>

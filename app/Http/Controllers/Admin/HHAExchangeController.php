@@ -28,13 +28,14 @@ class HHAExchangeController extends Controller
             $apiResponse = $this->getDemographicDetails($patient_id);
             $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
            
-            $user_id = self::storeUser($demographics);
+            $type = config('constant.PatientType');
+            $user_id = self::storeUser($demographics, $type);
 
             if ($user_id) {
-                $type = config('constant.PatientType');
+
                 self::storeDemographic($demographics, $user_id, $type);
 
-                self::storeEmergencyContact($demographics, $user_id);
+                self::storeEmergencyContact($demographics, $user_id, $type);
             }
         }
     }
@@ -91,9 +92,27 @@ class HHAExchangeController extends Controller
         return $this->curlCall($data, $method);
     }
 
-    public static function storeUser($demographics)
+    public static function storeUser($demographics, $type)
     {      
-        $phone_number = setPhone($demographics['HomePhone']);
+        if ($type === '1') {
+            $phone_number = setPhone($demographics['HomePhone']);
+            $tele_phone = setPhone($demographics['Phone2']);
+        } else {
+            $phone_number = setPhone($demographics['Address']['HomePhone']);
+            $tele_phone = setPhone($demographics['Address']['Phone2']);
+
+            $email = null;
+            if (isset($demographics['NotificationPreferences']) && isset($demographics['NotificationPreferences']['Email'])) {
+                $email = $demographics['NotificationPreferences']['Email'];
+            }
+    
+            // $userDuplicateEmail = User::whereNotNull('email')->where('email', $email)->first();
+            // dd($userDuplicateEmail);
+            // if ($userDuplicateEmail) {
+            //     return;
+            // }
+        }
+      
         if ($phone_number == '') {
             $status = '4';
         } else {
@@ -112,15 +131,15 @@ class HHAExchangeController extends Controller
         $user->first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
         $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
         $user->password = setPassword($password);
-        $user->phone = setPhone($demographics['HomePhone']);
+        $user->phone = $phone_number;
         $user->phone_verified_at = now();
         $user->status = $status;
         $user->gender = setGender($demographics['Gender']);
         
         $user->dob = dateFormat($demographics['BirthDate']);
-        $user->tele_phone = setPhone($demographics['Phone2']);
+        $user->tele_phone = $tele_phone;
         $user->save();
-
+       
         return $user->id;
     }
 
@@ -132,16 +151,21 @@ class HHAExchangeController extends Controller
         
         $demographic->doral_id = $doral_id;
         $demographic->user_id = $user_id;
-        $demographic->service_id = config('constant.MDOrder');
-        $demographic->patient_id = $demographics['PatientID'] ? $demographics['PatientID'] : '';
-        $demographic->ssn = setSsn(isset($demographics['SSN']) ? $demographics['SSN'] : '');
+       
+        if ($type === '1') {
+            $demographic->service_id = config('constant.MDOrder');
 
-        $accepted_services = [
-            'Discipline' => isset($demographics['AcceptedServices']['Discipline']) ? $demographics['AcceptedServices']['Discipline'] : ''
-        ];
-        $demographic->accepted_services = $accepted_services;
-        
-        if (isset($demographics['Addresses']['Address'])) {
+            $demographic->patient_id = $demographics['PatientID'] ? $demographics['PatientID'] : '';
+            $accepted_services = [
+                'Discipline' => isset($demographics['AcceptedServices']['Discipline']) ? $demographics['AcceptedServices']['Discipline'] : ''
+            ];
+            $demographic->accepted_services = $accepted_services;
+
+            $language = [
+                'language1' => isset($demographics['PrimaryLanguage']) ? $demographics['PrimaryLanguage'] : '',
+                'language2' => isset($demographics['SecondaryLanguage']) ? $demographics['SecondaryLanguage'] : '',
+            ];
+
             $address = $demographics['Addresses']['Address'];
 
             $addressData = [
@@ -156,14 +180,44 @@ class HHAExchangeController extends Controller
                 'isPrimaryAddress' => isset($address['IsPrimaryAddress']) ? $address['IsPrimaryAddress'] : '',
                 'addressTypes' => isset($address['AddressTypes']) ? $address['AddressTypes'] : '',
             ];
+            
+        } else {
+            $demographic->service_id = config('constant.OccupationalHealth');
+            $demographic->patient_id = $demographics['ID'] ? $demographics['ID'] : '';
+            $demographic->ethnicity = ($demographics['Ethnicity'] && $demographics['Ethnicity']['Name']) ? $demographics['Ethnicity']['Name'] : '';
 
-            $demographic->address = $addressData;
+            $language = [
+                'language1' => isset($demographics['Language1']) ? $demographics['Language1'] : '',
+                'language2' => isset($demographics['Language2']) ? $demographics['Language2'] : '',
+                'language3' => isset($demographics['Language3']) ? $demographics['Language3'] : '',
+                'language4' => isset($demographics['Language4']) ? $demographics['Language4'] : '',
+            ];
+
+            $addressData = [];
+            if ($demographics['Address']) {
+                $address = $demographics['Address'];
+
+                $addressData = [
+                    'address1' => isset($address['Street1']) ? $address['Street1'] : '',
+                    'address2' => isset($address['Street2']) ? $address['Street2'] : '',
+                    'crossStreet' => isset($address['CrossStreet']) ? $address['CrossStreet'] : '',
+                    'city' => isset($address['City']) ? $address['City'] : '',
+                    'zip5' => isset($address['Zip5']) ? $address['Zip5'] : '',
+                    'zip4' => isset($address['Zip4']) ? $address['Zip4'] : '',
+                    'state' => isset($address['State']) ? $address['State'] : '',
+                ];
+            }
+
+            $demographic->country_of_birth = isset($demographics['CountryOfBirth']) ? $demographics['CountryOfBirth'] : '';
+            $demographic->employee_type =  isset($demographics['EmployeeType']) ? $demographics['EmployeeType'] : '';
+            $demographic->marital_status = isset($demographics['MaritalStatus']) ? $demographics['MaritalStatus']['Name'] : '';
+            
+            // $demographic->notification_preferences = isset($demographics['NotificationPreferences']) ? $demographics['NotificationPreferences'] : '';
+
         }
 
-        $language = [
-            'language1' => isset($demographics['PrimaryLanguage']) ? $demographics['PrimaryLanguage'] : '',
-            'language2' => isset($demographics['SecondaryLanguage']) ? $demographics['SecondaryLanguage'] : '',
-        ];
+        $demographic->ssn = setSsn(isset($demographics['SSN']) ? $demographics['SSN'] : '');
+        $demographic->address = $addressData;
         $demographic->status = 'Active';
         $demographic->language = $language;
         $demographic->type = $type;
@@ -171,7 +225,7 @@ class HHAExchangeController extends Controller
         $demographic->save();
     }
 
-    public static function storeEmergencyContact($demographics, $user_id)
+    public static function storeEmergencyContact($demographics, $user_id, $type)
     {
         if (isset($demographics['EmergencyContacts']['EmergencyContact'])) {
             foreach ($demographics['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
@@ -186,8 +240,10 @@ class HHAExchangeController extends Controller
                     $patientEmergencyContact->user_id = $user_id;
                     $patientEmergencyContact->name = $emergencyContact['Name'];
                     $patientEmergencyContact->relation = $relationship;
+                    if ($type === '1') {
                     $patientEmergencyContact->lives_with_patient = ($emergencyContact['LivesWithPatient']) ? $emergencyContact['LivesWithPatient'] : '';
                     $patientEmergencyContact->have_keys = ($emergencyContact['HaveKeys']) ? $emergencyContact['HaveKeys'] : '';
+                    }
                     $patientEmergencyContact->phone1 = setPhone($emergencyContact['Phone1'] ? $emergencyContact['Phone1'] : '');
                     $patientEmergencyContact->phone2 = setPhone($emergencyContact['Phone2'] ? $emergencyContact['Phone2'] : '');
                     
@@ -211,25 +267,28 @@ class HHAExchangeController extends Controller
         $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
         dump(count($caregiverArray));
 
-        foreach (array_slice($caregiverArray, 0 , 1) as $cargiver_id) {
+        foreach (array_slice($caregiverArray, 1 , 1) as $cargiver_id) {
 
             // foreach ($caregiverArray as $cargiver_id) {
             /** Store patirnt demographic detail */
-            $userCaregiver = Demographic::where('caregiver_id' , $cargiver_id)->first();
+            // $userCaregiver = Demographic::where('patient_id' , $cargiver_id)->first();
 
-            if (! $userCaregiver) {
-                $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
+            // if (! $userCaregiver) {
+                $getdemographicDetails = $this->getCaregiverDemographicDetails($cargiver_id);
                 $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                dump($demographics);
-                $user_id = self::storeUser($demographics);
+                // dump($demographics);
+
+                $type = config('constant.CaregiverType');
+                $user_id = self::storeUser($demographics, $type);
 
                 if ($user_id) {
-                    $type = config('constant.CaregiverType');
+                    dump($user_id);
+                 
                     self::storeDemographic($demographics, $user_id, $type);
     
-                    self::storeEmergencyContact($demographics, $user_id);
+                    self::storeEmergencyContact($demographics, $user_id, $type);
                 }
-            }
+            // }
         }
     }
 

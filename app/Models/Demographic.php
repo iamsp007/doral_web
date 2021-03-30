@@ -43,6 +43,7 @@ class Demographic extends Model
         'accepted_services' => 'array',
         'address' => 'array',
         'language' => 'array',
+        'notification_preferences' => 'array',
     ];
 
     // /**

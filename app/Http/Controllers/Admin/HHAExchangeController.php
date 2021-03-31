@@ -298,29 +298,42 @@ class HHAExchangeController extends Controller
         $searchCaregiverIds = $this->searchCaregiverDetails();
         $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
         //dump(count($caregiverArray));3017
+        $missing_patient_id = [];
+        $userCaregiver1 = Demographic::get();
+        foreach ($userCaregiver1 as $userCaregivers) { 
+            $missing_patient_id[] = $userCaregivers->patient_id;
+        }
+        // dd($missing_patient_id);
+        $data = [];
 
-        foreach (array_slice($caregiverArray, 700 , 300) as $cargiver_id) {
+        foreach (array_slice($caregiverArray, 0 , 3017) as $cargiver_id) {
             // $cargiver_id = 110560;
             // foreach ($caregiverArray as $cargiver_id) {
             /** Store patirnt demographic detail */
-            $userCaregiver = Demographic::where('patient_id' , $cargiver_id)->first();
+             if (! in_array($cargiver_id, $missing_patient_id))
+            {
+                $data[] = $cargiver_id;
+                $userCaregiver = Demographic::where('patient_id' , $cargiver_id)->first();
 
-            if (! $userCaregiver) {
-                $getdemographicDetails = $this->getCaregiverDemographicDetails($cargiver_id);
-                $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-                dump($cargiver_id);
+                if (! $userCaregiver) {
+                    $getdemographicDetails = $this->getCaregiverDemographicDetails($cargiver_id);
+                    $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+                    dump($cargiver_id);
 
-                $type = config('constant.CaregiverType');
-                $user_id = self::storeUser($demographics, $type);
+                    $type = config('constant.CaregiverType');
+                    $user_id = self::storeUser($demographics, $type);
 
-                if ($user_id) {
-                 
-                    self::storeDemographic($demographics, $user_id, $type);
-    
-                    self::storeEmergencyContact($demographics, $user_id, $type);
+                    if ($user_id) {
+                    
+                        self::storeDemographic($demographics, $user_id, $type);
+        
+                        self::storeEmergencyContact($demographics, $user_id, $type);
+                    }
                 }
             }
         }
+        dump(count($data));
+        // dump($data);
     }
 
      /**

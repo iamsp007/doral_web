@@ -43,7 +43,7 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
     Route::get('/occupational-health-failed-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthFailData')->name('referral.occupational-health-failed-data');
     Route::get('/vbc-failed-data', 'App\Http\Controllers\PatientReferralController@vbcFailData')->name('referral.vbc-failed-data');
     Route::get('/md-order-failed-data', 'App\Http\Controllers\PatientReferralController@mdorderFailData')->name('referral.md-order-failed-data');
-
+    Route::get('/covid-19', 'App\Http\Controllers\PatientReferralController@covid19UploadBulk')->name('referral.covid-19');
 
 
     # Referral-Patient api

@@ -24,18 +24,22 @@ class HHAExchangeController extends Controller
         dump(count($patientArray));
 
         // foreach ($patientArray as $patient_id) {
-        foreach (array_slice($patientArray, 0 , 500) as $patient_id) {
+        foreach (array_slice($patientArray, 0 , 100) as $patient_id) {
             $apiResponse = $this->getDemographicDetails($patient_id);
             $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
            
             $type = config('constant.PatientType');
-            $user_id = self::storeUser($demographics, $type);
+            dump($patient_id);
+            $userCaregiver = Demographic::where('patient_id' , $patient_id)->first();
+            if (! $userCaregiver) {
+                $user_id = self::storeUser($demographics, $type);
 
-            if ($user_id) {
+                if ($user_id) {
 
-                self::storeDemographic($demographics, $user_id, $type);
+                    self::storeDemographic($demographics, $user_id, $type);
 
-                self::storeEmergencyContact($demographics, $user_id, $type);
+                    self::storeEmergencyContact($demographics, $user_id, $type);
+                }
             }
         }
     }
@@ -97,23 +101,24 @@ class HHAExchangeController extends Controller
         $user = new User();
 
         if ($type === '1') {
-            $phone_number = setPhone($demographics['HomePhone']);
-            $tele_phone = setPhone($demographics['Phone2']);
+            $phone_number = $demographics['HomePhone'];
+            $tele_phone = $demographics['Phone2'];
         } else {
-            $phone_number = setPhone($demographics['Address']['HomePhone']);
-            $tele_phone = setPhone($demographics['Address']['Phone2']);
+            $phone_number = $demographics['Address']['HomePhone'];
+            $tele_phone = $demographics['Address']['Phone2'];
            
             if ($demographics['NotificationPreferences'] && $demographics['NotificationPreferences']['Email']) {
-                $user->email = $demographics['NotificationPreferences']['Email'];
+                $email = $demographics['NotificationPreferences']['Email'];
+                 $user->email = $email;
             }
           
-            // $userDuplicateEmail = User::whereNotNull('email')->where('email', $email)->first();
-            // dd($userDuplicateEmail);
-            // if ($userDuplicateEmail) {
-            //     return;
-            // }
+            $userDuplicateEmail = User::whereNotNull('email')->where('email', $email)->first();
+           
+            if ($userDuplicateEmail) {
+                return;
+            }
         }
-        dump($phone_number);
+        $phone_number = setPhone($phone_number);
         if ($phone_number == '') {
             $status = '4';
         } else {
@@ -127,7 +132,6 @@ class HHAExchangeController extends Controller
 
         $doral_id = createDoralId();
         $password = str_replace(" ", "",$demographics['FirstName']) . '@' . $doral_id;
-
        
         $user->first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
         $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
@@ -139,7 +143,7 @@ class HHAExchangeController extends Controller
         
         $user->dob = dateFormat($demographics['BirthDate']);
         $user->tele_phone = $tele_phone;
-        // dd($user);
+        
         $user->save();
        
         return $user->id;
@@ -284,9 +288,9 @@ class HHAExchangeController extends Controller
 
             // foreach ($caregiverArray as $cargiver_id) {
             /** Store patirnt demographic detail */
-            // $userCaregiver = Demographic::where('patient_id' , $cargiver_id)->first();
+            $userCaregiver = Demographic::where('patient_id' , $cargiver_id)->first();
 
-            // if (! $userCaregiver) {
+            if (! $userCaregiver) {
                 $getdemographicDetails = $this->getCaregiverDemographicDetails($cargiver_id);
                 $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
                 // dump($demographics);
@@ -300,7 +304,7 @@ class HHAExchangeController extends Controller
     
                     self::storeEmergencyContact($demographics, $user_id, $type);
                 }
-            // }
+            }
         }
     }
 

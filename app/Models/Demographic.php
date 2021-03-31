@@ -18,6 +18,7 @@ class Demographic extends Model
         'doral_id',
         'user_id',
         'service_id',
+        'company_id',
         'patient_id',
         'ssn',
         'medicaid_number',
@@ -42,7 +43,6 @@ class Demographic extends Model
     protected $casts = [
         'accepted_services' => 'array',
         'address' => 'array',
-        'language' => 'array',
         'notification_preferences' => 'array',
     ];
 

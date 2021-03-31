@@ -291,7 +291,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Home Phone</h3>
-                                                            <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}" maxlength="14">
+                                                            <input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -302,7 +302,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Cell Phone</h3>
-                                                                <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}" maxlength="14">
+                                                                <input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>

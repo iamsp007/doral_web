@@ -290,7 +290,7 @@
                         </div>
                         @if(count($patient->patientEmergency) > 0 )
                             @foreach($patient->patientEmergency as $key => $patientEmergencyContact)
-                                <div>
+                                <div class="main_div">
                                     <div class="p-3">
                                         <div class="form-group">
                                             <div class="row">

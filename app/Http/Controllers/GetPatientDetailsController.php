@@ -101,51 +101,10 @@ class GetPatientDetailsController extends Controller
         $ethnicity = $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
 
         if (isset($patient->caregiverInfo)) {
-
-            // if (isset($patient->caregiverInfo->ethnicity)) {
-            //     $ethnicity = json_decode($patient->caregiverInfo->ethnicity);
-            // }
-
-            // if (isset($patient->caregiverInfo->mobile)) {
-            //     $mobile = json_decode($patient->caregiverInfo->mobile);
-            // }
-
-            // if (isset($patient->caregiverInfo->marital_status)) {
-            //     $maritalStatus = json_decode($patient->caregiverInfo->marital_status);
-            // }
-
-            // if (isset($patient->caregiverInfo->status)) {
-            //     $status = json_decode($patient->caregiverInfo->status);
-            // }
-
-            // if (isset($patient->caregiverInfo->referral_source)) {
-            //     $referralSource = json_decode($patient->caregiverInfo->referral_source);
-            // }
-
-            if (isset($patient->caregiverInfo->notification_preferences)) {
-                $notificationPreferences = $patient->caregiverInfo->notification_preferences;
+            if (isset($patient->demographic->notification_preferences)) {
+                $notificationPreferences = $patient->demographic->notification_preferences;
             }
-
-            // if (isset($patient->caregiverInfo->caregiver_offices)) {
-            //     $caregiverOffices = json_decode($patient->caregiverInfo->caregiver_offices);
-            // }
-
-            // if (isset($patient->caregiverInfo->inactive_reason_detail)) {
-            //     $inactiveReasonDetail = json_decode($patient->caregiverInfo->inactive_reason_detail);
-            // }
-
-            // if (isset($patient->demographic->team)) {
-            //     $team = json_decode($patient->demographic->team);
-            // }
-
-            // if (isset($patient->demographic->location)) {
-            //     $location = json_decode($patient->demographic->location);
-            // }
-
-            // if (isset($patient->demographic->branch)) {
-            //     $branch = json_decode($patient->demographic->branch);
-            // }
-
+       
             if (isset($patient->demographic->accepted_services)) {
                 $acceptedServices = $patient->demographic->accepted_services;
             }
@@ -158,6 +117,7 @@ class GetPatientDetailsController extends Controller
                 $language = $patient->demographic->language;
             }
         }
+
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances'));
     }
 

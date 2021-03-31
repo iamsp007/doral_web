@@ -155,6 +155,78 @@
                             src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                     </div>
 
+                    <!-- Address Detail -->
+                    @if(isset($address))
+                        <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                        data-name="emergency_contact_detail">
+                            <div class="app-card-header">
+                                <h1 class="title">Address Detail</h1>
+                            </div>
+                            <div>
+                                <div class="p-3">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">Address1</h3>
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="address1" data-id="address1" id="address1" placeholder="Address1" value="{{ ($address['address1']) ? $address['address1'] : '' }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">Address2</h3>
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="address2" data-id="address2" id="address2" placeholder="Address2" value="{{ ($address['address2']) ? $address['address2'] : '' }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-city circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">City</h3>
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ ($address['city']) ? $address['city'] : '' }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-archway circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">State</h3>
+                                                        <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ ($address['state']) ? $address['state'] : '' }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-code circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">Zipcode</h3>
+                                                        @if($address['zip4'] != '')
+                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="zip4" data-id="zip4" id="zip4" placeholder="Zipcode" value="{{ ($address['zip4']) ? $address['zip4'] : '' }}">
+                                                        @else
+                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="zip5" data-id="zip5" id="zip5" placeholder="Zipcode" value="{{ ($address['zip5']) ? $address['zip5'] : '' }}">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    <!-- Address Detail -->
+
                     <!-- Referral Source  Detail -->
                     @if(isset($notificationPreferences))
                         <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
@@ -171,7 +243,7 @@
                                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Email</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ $notificationPreferences->email ? $notificationPreferences->email : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ isset($notificationPreferences['email']) ? $notificationPreferences['email'] : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -180,7 +252,7 @@
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Method Name</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ $notificationPreferences->method ? $notificationPreferences->method : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ isset($notificationPreferences['method']) ? $notificationPreferences['method'] : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,7 +261,7 @@
                                                     <div class="ls"><i class="las la-sms circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Mobile Or SMS</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ $notificationPreferences->mobile_or_SMS ? $notificationPreferences->mobile_or_SMS : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ isset($notificationPreferences['mobile_or_SMS']) ? $notificationPreferences['mobile_or_SMS'] : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -198,7 +270,7 @@
                                                     <div class="ls"><i class="las la-voicemail circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Voice Message</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ $notificationPreferences->voice_message ? $notificationPreferences->voice_message : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ isset($notificationPreferences['voice_message']) ? $notificationPreferences['voice_message'] : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -211,14 +283,13 @@
                     <!-- Referral Source  Detail -->
 
                     <!-- Emergency contact Detail -->
-                    @if($patient->patientEmergency)
-                        @foreach($patient->patientEmergency as $key => $patientEmergencyContact)
-                            <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
-                                data-name="emergency_contact_detail">
-                                <div class="app-card-header">
-                                    <h1 class="title">Emergency Contact Detail</h1>
-                                </div>
-                               
+                    <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
+                        data-name="emergency_contact_detail">
+                        <div class="app-card-header">
+                            <h1 class="title">Emergency Contact Detail</h1>
+                        </div>
+                        @if(count($patient->patientEmergency) > 0 )
+                            @foreach($patient->patientEmergency as $key => $patientEmergencyContact)
                                 <div>
                                     <div class="p-3">
                                         <div class="form-group">
@@ -285,11 +356,75 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="bottom-horizontal"></div>
                                 </div>
+                            @endforeach
+                        @else
+                            <div class="main_div">
+                                <div class="p-3">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-portrait circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">Contact Name</h3>
+                                                        <input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Contact Name" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-phone circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">Home Phone</h3>
+                                                        <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-phone circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">Cell Phone</h3>
+                                                        <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">Address</h3>
+                                                        <input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="input_box">
+                                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                                    <div class="rs">
+                                                        <h3 class="_title">Relationship Name</h3>
+                                                        <input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display:flex;justify-content:center;align-items:center">
+                                        <button type="button" class="btn btn-danger remove-tr text-center">Remove</button>
+                                    </div>
+                                </div>
+                                <div class="bottom-horizontal"></div>
                             </div>
-                        @endforeach
-                    @endif
-                    <div class="add_more_contact_div"></div>
+                        @endif
+                        <div class="add_more_contact_div"></div>
+                    </div>
+                 
                     <button type="button" name="add" id="add" class="btn btn-success">Add More Emergency Contact</button>
                     <!-- Emergency contact Detail -->
                 </div>

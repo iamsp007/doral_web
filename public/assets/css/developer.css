@@ -13,3 +13,8 @@ img.update-icon {display: none;}
 .reset_btn{
     background-color: orange;border-color: orange;
 }
+
+.bottom-horizontal {
+    border-bottom: 1px solid #d0d0d0;
+    margin: 0px 44px;
+}

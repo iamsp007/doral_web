@@ -114,15 +114,8 @@
                                     <div class="ls"><i class="las la-language circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Language</h3>
-                                        @if(isset($language) && isset($language->language1) && $language->language1 != '')
-                                            <input type="text" class="form-control-plaintext _detail " readonly name="language1" data-id="language1" id="language1" placeholder="language1" value="{{ isset($language) && isset($language->language1) ? $language->language1 : '' }}">
-                                        @elseif(isset($language) && isset($language->language2) && $language->language2 != '')
-                                            <input type="text" class="form-control-plaintext _detail " readonly name="language2" data-id="language2" id="language2" placeholder="language2" value="{{ isset($language) && isset($language->language2) ? $language->language2 : '' }}">
-                                        @elseif(isset($language) && isset($language->language3) && $language->language3 != '')
-                                            <input type="text" class="form-control-plaintext _detail " readonly name="language3" data-id="language3" id="language3" placeholder="language3" value="{{ isset($language) && isset($language->language3) ? $language->language3 : '' }}">
-                                        @elseif(isset($language) && isset($language->language4) && $language->language4 != '')
-                                            <input type="text" class="form-control-plaintext _detail " readonly name="language4" data-id="language4" id="language4" placeholder="language4" value="{{ isset($language) && isset($language->language4) ? $language->language4 : '' }}">
-                                        @endif
+                                        <input type="text" class="form-control-plaintext _detail " readonly name="language1" data-id="language1" id="language" placeholder="language1" value="{{ isset($patient->demographic) && isset($patient->demographic->language) ? $patient->demographic->language : '' }}">
+                                        
                                     </div>
                                 </div>
                             </div>

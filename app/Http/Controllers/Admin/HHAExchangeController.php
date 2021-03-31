@@ -157,7 +157,7 @@ class HHAExchangeController extends Controller
         
         $demographic->doral_id = $doral_id;
         $demographic->user_id = $user_id;
-       
+        $demographic->company_id = '9';
         if ($type === '1') {
             $demographic->service_id = config('constant.MDOrder');
 
@@ -167,10 +167,7 @@ class HHAExchangeController extends Controller
             ];
             $demographic->accepted_services = $accepted_services;
 
-            $language = [
-                'language1' => isset($demographics['PrimaryLanguage']) ? $demographics['PrimaryLanguage'] : '',
-                'language2' => isset($demographics['SecondaryLanguage']) ? $demographics['SecondaryLanguage'] : '',
-            ];
+            $language = isset($demographics['PrimaryLanguage']) ? $demographics['PrimaryLanguage'] : '';
 
             $address = $demographics['Addresses']['Address'];
 
@@ -192,25 +189,24 @@ class HHAExchangeController extends Controller
             $demographic->patient_id = $demographics['ID'] ? $demographics['ID'] : '';
             $demographic->ethnicity = ($demographics['Ethnicity'] && $demographics['Ethnicity']['Name']) ? $demographics['Ethnicity']['Name'] : '';
 
-            $language = [
-                'language1' => isset($demographics['Language1']) ? $demographics['Language1'] : '',
-                'language2' => isset($demographics['Language2']) ? $demographics['Language2'] : '',
-                'language3' => isset($demographics['Language3']) ? $demographics['Language3'] : '',
-                'language4' => isset($demographics['Language4']) ? $demographics['Language4'] : '',
-            ];
+            $language = isset($demographics['Language1']) ? $demographics['Language1'] : '';
 
             $addressData = [];
             if ($demographics['Address']) {
                 $address = $demographics['Address'];
-
+                $zip = '';
+                if($address['Zip4'] != ''){
+                    $zip = $address['Zip4'];
+                } else if($address['Zip5'] != ''){
+                    $zip = $address['Zip5'];
+                }
                 $addressData = [
                     'address1' => isset($address['Street1']) ? $address['Street1'] : '',
                     'address2' => isset($address['Street2']) ? $address['Street2'] : '',
                     'crossStreet' => isset($address['CrossStreet']) ? $address['CrossStreet'] : '',
                     'city' => isset($address['City']) ? $address['City'] : '',
-                    'zip5' => isset($address['Zip5']) ? $address['Zip5'] : '',
-                    'zip4' => isset($address['Zip4']) ? $address['Zip4'] : '',
                     'state' => isset($address['State']) ? $address['State'] : '',
+                    'zip_code' => $zip,
                 ];
             }
 

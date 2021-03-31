@@ -211,11 +211,7 @@
                                                     <div class="ls"><i class="las la-code circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Zipcode</h3>
-                                                        @if($address['zip4'] != '')
-                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="zip4" data-id="zip4" id="zip4" placeholder="Zipcode" value="{{ ($address['zip4']) ? $address['zip4'] : '' }}">
-                                                        @else
-                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="zip5" data-id="zip5" id="zip5" placeholder="Zipcode" value="{{ ($address['zip5']) ? $address['zip5'] : '' }}">
-                                                        @endif
+                                                        <input type="text" class="form-control-plaintext _detail zip " readonly name="zip_code" data-id="zip_code" id="zip_code" placeholder="Zipcode" value="{{ ($address['zip_code']) ? $address['zip_code'] : '' }}">
                                                     </div>
                                                 </div>
                                             </div>

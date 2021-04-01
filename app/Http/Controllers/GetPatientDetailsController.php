@@ -87,8 +87,8 @@ class GetPatientDetailsController extends Controller
 
         $patient = User::with('caregiverInfo', 'caregiverInfo.company', 'demographic', 'patientEmergency')->find($paient_id);
         $payment = array();
-        if(isset($patient->caregiverInfo->service_id) and isset($patient->caregiverInfo->company_id)){
-            $payment = CompanyPaymentPlanInfo::where('service_id',$patient->caregiverInfo->service_id)->where('company_id',$patient->caregiverInfo->company_id)->get();
+        if(isset($patient->demographic->service_id) and isset($patient->demographic->company_id)){
+            $payment = CompanyPaymentPlanInfo::where('service_id',$patient->demographic->service_id)->where('company_id',$patient->demographic->company_id)->get();
             if($payment) {
                 $payment = json_decode($payment);
             }
@@ -100,7 +100,7 @@ class GetPatientDetailsController extends Controller
 
         $ethnicity = $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
 
-        if (isset($patient->caregiverInfo)) {
+        if (isset($patient->demographic)) {
             if (isset($patient->demographic->notification_preferences)) {
                 $notificationPreferences = $patient->demographic->notification_preferences;
             }
@@ -112,6 +112,7 @@ class GetPatientDetailsController extends Controller
             if (isset($patient->demographic->address)) {
                 $address = $patient->demographic->address;
             }
+         
         }
 
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances'));

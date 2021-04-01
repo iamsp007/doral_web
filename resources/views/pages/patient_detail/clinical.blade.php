@@ -398,7 +398,7 @@
             position: fixed;
             right: 0;
         }
-        .app .app-content .app-body{overflow:hidden;padding-left:0;padding-right:0}
+        .app .app-content .app-body{overflow:auto;padding-left:0;padding-right:0}
         .modal-backdrop{z-index: 0!important;}
         .modal-backdrop.show{z-index: -1!important;}
         .scrollbar12{height:600px}

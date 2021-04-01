@@ -5,7 +5,6 @@
             <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
             <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
         </div>
-        <div class="head scrollbar scrollbar12">
             <form id="demographic_form">
                 <div class="p-3">
                     <div class="form-group">
@@ -259,7 +258,7 @@
                                                     <div class="ls"><i class="las la-voicemail circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Voice Message</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ isset($notificationPreferences['voice_message']) ? $notificationPreferences['voice_message'] : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ isset($notificationPreferences['voice_message']) && !empty($notificationPreferences['voice_message']) ? $notificationPreferences['voice_message'] : '' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -345,7 +344,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-horizontal"></div>
                                 </div>
                             @endforeach
                         @else
@@ -408,7 +406,6 @@
                                         <button type="button" class="btn btn-danger remove-tr text-center">Remove</button>
                                     </div>
                                 </div>
-                                <div class="bottom-horizontal"></div>
                             </div>
                         @endif
                         <div class="add_more_contact_div"></div>
@@ -418,7 +415,6 @@
                     <!-- Emergency contact Detail -->
                 </div>
             </form>
-        </div>
     </div>
     <!-- Demographics End -->
 </div>

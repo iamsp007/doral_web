@@ -1394,3 +1394,11 @@ tr th,tr td{vertical-align: middle!important;}
 .modal-large{max-width: 1500px;}
 .modal-size-1{max-width: 600px;}
 .pointer-none{pointer-events: none;}
+/* 
+add by shruti
+date:26/3/2021
+for:error coior
+*/
+.error{
+  color:red;
+}

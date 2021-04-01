@@ -34,7 +34,7 @@
                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Email</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}">
+                                        <input type="email" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -139,8 +139,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-sm-3 col-md-3">
+                                <div class="input_box">
+                                    <div class="ls"><i class="las la-address-book circle"></i></div>
+                                        <div class="rs">
+                                            <h3 class="_title">Address1</h3>
+                                            <input type="text" class="form-control-plaintext _detail" readonly name="street1" data-id="street1" id="street1" placeholder="Address1" value="{{ ($address->Street1) ? $address->Street1 : '' }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     <div class="collapse mt-4" id="collapseExample">
                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
                             height="200" frameborder="0" scrolling="no" marginheight="0"
@@ -150,13 +159,10 @@
 
                     <!-- Address Detail -->
                     @if(isset($address))
-                        <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
-                        data-name="emergency_contact_detail">
-                            <div class="app-card-header">
-                                <h1 class="title">Address Detail</h1>
-                            </div>
+                        <div class="app=card app-card-custom no-minHeight mb-3 box-shadow-none"
+                        data-name="emergency_contect_detail">
                             <div>
-                                <div class="p-3">
+                                <div class="p-1">
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-12 col-sm-3 col-md-3">
@@ -195,10 +201,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
                                             <div class="col-12 col-sm-3 col-md-3">
                                                 <div class="input_box">
                                                     <div class="ls"><i class="las la-code circle"></i></div>
@@ -210,21 +212,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    <!-- Address Detail -->
-
-                    <!-- Referral Source  Detail -->
-                    @if(isset($notificationPreferences))
-                        <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
-                        data-name="emergency_contact_detail">
-                            <div class="app-card-header">
-                                <h1 class="title">Notification Preferences Detail</h1>
-                            </div>
-                            <div>
-                                <div class="p-3">
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-12 col-sm-3 col-md-3">
@@ -262,14 +249,14 @@
                                                         <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="@if($patient->demographic->type === '2') {{ $notificationPreferences['voice_message'] ? $notificationPreferences['voice_message'] : '' }} @endif">
                                                     </div>
                                                 </div>
-                                            </div>
+                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endif
-                    <!-- Referral Source  Detail -->
+                    <!-- Address Detail -->
 
                     <!-- Emergency contact Detail -->
                     <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
@@ -301,7 +288,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Home Phone</h3>
-                                                            <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}" maxlength="14">
+                                                            <input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="{{ $patientEmergencyContact->phone1 }}" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -312,7 +299,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Cell Phone</h3>
-                                                                <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}" maxlength="14">
+                                                                <input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="{{ $patientEmergencyContact->phone2 }}" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>

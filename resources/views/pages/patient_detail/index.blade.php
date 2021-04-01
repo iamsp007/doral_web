@@ -733,6 +733,7 @@
       // }
 
       $(document).ready(function() {
+
          $('.insurance_company').hide();
          $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
             singleDatePicker: true,
@@ -1052,7 +1053,22 @@
             $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
          });
       }
-   </script>
+      $("#demographic_form").validate({
+      rules: {
+         email: {
+            required: true,
+            email: true
+         }
+      }
+      }); 
+      $("#homecare_form").validate({
+      rules: {
+         email: {
+            required: true,
+            email: true
+         }
+      }
+      });  </script>
 {{--    <script--}}
 {{--        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"--}}
 {{--        defer--}}

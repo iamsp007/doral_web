@@ -98,30 +98,46 @@ class CaregiverController extends Controller
                         $q->where('service_id', 6);
                     });
                 } else if ($request['serviceStatus'] == 'pending') {
-                    $query->where('status', "0");
+
+                    $query->where('status', '0');
+                } else if ($request['serviceStatus'] == 'initial') {
+                    $query->where('status', '4');
+
+                    $query->whereHas('demographic',function ($q) {
+                        $q->where('service_id', '3');
+                        if(Auth::guard('referral')) {
+                            $company_id = Auth::guard('referral')->user()->id;
+                            $q->where('company_id', $company_id);
+                        }
+                    });
                 }
             })
-            ->when($request['service_id'], function ($query) use($request) {
-                $query->whereHas('demographic',function ($q) use($request) {
-                    $q->where('service_id', $request['service_id']);
-                });
-            })
-            ->when($request['user_name'], function ($query) use($request){
-                $query->where('id', $request['user_name']);
-            })
-            ->when($request['gender'], function ($query) use($request){
-                $query->where('gender', $request['gender']);
-            })
-            ->when($request['dob'], function ($query) use($request){
-                $dob = date('Y-d-m', strtotime($request['dob']));
-                $query->where('dob', $dob);
-            })
-            ->whereHas('patientLabReport',function ($query) use($request) {
-                $query->when($request['lab_due_date'], function ($query) use($request){
-                    $date = explode('-', $request['lab_due_date']);
-                    $startDate  = date('Y-m-d', strtotime($date[0]));
-                    $endDate = date('Y-m-d', strtotime($date[1]));
-                    $query->whereBetween('due_date',[$startDate,$endDate]);
+            ->when(! $request['serviceStatus'] ,function ($query) use($request) {
+                $query->when($request['service_id'], function ($query) use($request) {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', $request['service_id']);
+                    });
+                })
+                ->when($request['status'], function ($query) use($request) {
+                    $query->where('status', $request['status']);
+                })
+                ->when($request['user_name'], function ($query) use($request){
+                    $query->where('id', $request['user_name']);
+                })
+                ->when($request['gender'], function ($query) use($request){
+                    $query->where('gender', $request['gender']);
+                })
+                ->when($request['dob'], function ($query) use($request){
+                    $dob = date('Y-d-m', strtotime($request['dob']));
+                    $query->where('dob', $dob);
+                })
+                ->whereHas('patientLabReport',function ($query) use($request) {
+                    $query->when($request['lab_due_date'], function ($query) use($request){
+                        $date = explode('-', $request['lab_due_date']);
+                        $startDate  = date('Y-m-d', strtotime($date[0]));
+                        $endDate = date('Y-m-d', strtotime($date[1]));
+                        $query->whereBetween('due_date',[$startDate,$endDate]);
+                    });
                 });
             })
             ->with('demographic', 'patientReport', 'patientReport.labReports')->orderBy('id', 'DESC');

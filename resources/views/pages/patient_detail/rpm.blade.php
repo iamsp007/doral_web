@@ -4,6 +4,7 @@
         <div class="app-card-header">
             <h1 class="title">RPM</h1>
         </div>
+        @include('includes.calendar.head')
         @include('includes.calendar.rpm.script')
     </div>
 </div>

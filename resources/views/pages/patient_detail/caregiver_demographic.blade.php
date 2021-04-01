@@ -231,7 +231,7 @@
                                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Email</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ isset($notificationPreferences['email']) ? $notificationPreferences['email'] : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="@if($patient->demographic->type === '2') {{ $notificationPreferences['email'] ? $notificationPreferences['email'] : '' }} @endif">
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,7 +240,7 @@
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Method Name</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ isset($notificationPreferences['method']) ? $notificationPreferences['method'] : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="@if($patient->demographic->type === '2') {{ $notificationPreferences['method'] ? $notificationPreferences['method'] : '' }} @endif">
                                                     </div>
                                                 </div>
                                             </div>
@@ -249,7 +249,7 @@
                                                     <div class="ls"><i class="las la-sms circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Mobile Or SMS</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ isset($notificationPreferences['mobile_or_SMS']) ? $notificationPreferences['mobile_or_SMS'] : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="@if($patient->demographic->type === '2') {{ $notificationPreferences['mobile_or_SMS'] ? $notificationPreferences['mobile_or_SMS'] : '' }} @endif">
                                                     </div>
                                                 </div>
                                             </div>
@@ -258,7 +258,7 @@
                                                     <div class="ls"><i class="las la-voicemail circle"></i></div>
                                                     <div class="rs">
                                                         <h3 class="_title">Voice Message</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ isset($notificationPreferences['voice_message']) && !empty($notificationPreferences['voice_message']) ? $notificationPreferences['voice_message'] : '' }}">
+                                                        <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="@if($patient->demographic->type === '2') {{ $notificationPreferences['voice_message'] ? $notificationPreferences['voice_message'] : '' }} @endif">
                                                     </div>
                                                 </div>
                                             </div>

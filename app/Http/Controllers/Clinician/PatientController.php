@@ -318,4 +318,32 @@ class PatientController extends Controller
             return redirect()->back();
         }
     }
+
+    public function sendEmail(Request $request)
+    {
+        $patient = CovidForm::find($request->id);
+    }
+
+    public function sendMessage(Request $request)
+    {
+        try {
+            $patient = CovidForm::find($request->id);
+            $basic  = new \Nexmo\Client\Credentials\Basic(getenv("NEXMO_KEY"), getenv("NEXMO_SECRET"));
+            $client = new \Nexmo\Client($basic);
+  
+            $receiverNumber = "91846XXXXX";
+            $message = "This is testing from ItSolutionStuff.com";
+  
+            $message = $client->message()->send([
+                'to' => $receiverNumber,
+                'from' => 'Vonage APIs',
+                'text' => $message
+            ]);
+  
+            dd('SMS Sent Successfully.');
+              
+        } catch (Exception $e) {
+            dd("Error: ". $e->getMessage());
+        }
+    }
 }

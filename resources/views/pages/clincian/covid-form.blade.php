@@ -827,7 +827,7 @@
         <div style="position:absolute;left:30.64px;top:379.56px" class="cls_007"><span class="cls_007">to verify payment and as needed for other public health purposes, including reporting to applicable vaccine registries.</span></div>
         <div style="position:absolute;left:36.20px;top:400.16px" class="cls_021">
             @isset($patient->recipient_signature)
-            <img src="{{ $patient->recipient_signature }}">
+            <img src="{{ $patient->recipient_signature }}" width="20%" height="auto">
             @endisset
         </div>
         <div style="position:absolute;left:36.20px;top:425.16px" class="cls_021">
@@ -846,7 +846,7 @@
         <div style="position:absolute;left:62.76px;top:472.00px" class="cls_024"><span class="cls_024">OR</span></div>
         <div style="position:absolute;left:34.37px;top:484.08px" class="cls_021">
         @isset($patient->interpreter_signature)
-        <img src="{{ $patient->interpreter_signature }}">
+        <img src="{{ $patient->interpreter_signature }}" width="20%" height="auto">
         @endisset
         </div>
         <div style="position:absolute;left:34.37px;top:508.08px" class="cls_021">
@@ -1040,7 +1040,7 @@
         <div style="position:absolute;left:40.08px;top:730.56px" class="cls_007"><span class="cls_007">Vaccinator Signature:</span></div>
         <div style="position:absolute;left:165.86px;top:715.56px" class="cls_007"><span class="cls_007">
         @isset($patient->vaccination_signature)
-        <img src="{{ $patient->vaccination_signature }}">
+        <img src="{{ $patient->vaccination_signature }}" width="20%" height="auto">
         @endisset
         </span></div>
         <div style="position:absolute;left:23.52px;top:750.48px" class="cls_011"><span class="cls_011">*Use of this form is optional. In the ongoing effort to address health disparities it is essential that all demographic information is collected at</span></div>

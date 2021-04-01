@@ -121,6 +121,9 @@
                                                     if($value['name'] == '3'):
                                                         $name = 'Occupational Health';
                                                     endif;
+                                                    if($value['name'] == '6'):
+                                                        $name = 'Covid-19';
+                                                    endif;
                                                 @endphp
                                                 <li><a href="{{ $value['url'] }}">{{ $name }}</a></li>
                                             @endif

@@ -26,9 +26,9 @@ use ZipArchive;
 
 class CaregiverController extends Controller
 {
-    public function index($pendingStatus = null)
+    public function index($serviceStatus = null)
     {
-        return view('pages.patient_detail.new_patient', compact('pendingStatus'));
+        return view('pages.patient_detail.new_patient', compact('serviceStatus'));
     }
 
     public function getCaregiverDetail(Request $request)
@@ -36,52 +36,63 @@ class CaregiverController extends Controller
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
-            ->when($request['pendingStatus'] ,function ($query) use($request) {
-                $query->where('status', '0');
-            })
-            ->when($request['status'], function ($query) use($request) {
-                if ($request['status'] == 'pending') {
+            ->when($request['serviceStatus'] ,function ($query) use($request) {
+                if ($request['serviceStatus'] == 'vbc') {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', 1);
+                    });
+                } else if($request['serviceStatus'] == 'md-order') {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', 2);
+                    });
+                } else if($request['serviceStatus'] == 'occupational-health') {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', 3);
+                    });
+                } else if($request['serviceStatus'] == 'covid-19') {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', 6);
+                    });
+                } else if ($request['serviceStatus'] == 'pending') {
                     $query->where('status', '0');
-                } else if($request['status'] == 'active') {
-                    $query->where('status', '1');
-                } else if($request['status'] == 'inactive') {
-                    $query->where('status', '2');
-                } else if($request['status'] == 'reject') {
-                    $query->where('status', '3');
-                } else if($request['status'] == 'initial') {
+                } else if ($request['serviceStatus'] == 'initial') {
                     $query->where('status', '4');
-                    $query->whereHas('caregiverInfo',function ($q) {
-                        $company_id =
+
+                    $query->whereHas('demographic',function ($q) {
                         $q->where('service_id', '3');
-                        if(Auth::user()->hasRole('referral')) {
+                        if(Auth::guard('referral')) {
+                            $company_id = Auth::guard('referral')->user()->id;
                             $q->where('company_id', $company_id);
                         }
                     });
-                } else if($request['status'] == 'completed') {
-                    $query->where('status', '5');
-                } 
+                }
             })
-            ->when($request['service_id'], function ($query) use($request) {
-                $query->whereHas('caregiverInfo',function ($q) use($request) {
-                    $q->where('service_id', $request['service_id']);
-                });
-            })
-            ->when($request['user_name'], function ($query) use($request){
-                $query->where('id', $request['user_name']);
-            })
-            ->when($request['gender'], function ($query) use($request){
-                $query->where('gender', $request['gender']);
-            })
-            ->when($request['dob'], function ($query) use($request){
-                $dob = date('Y-d-m', strtotime($request['dob']));
-                $query->where('dob', $dob);
-            })
-            ->whereHas('patientLabReport',function ($query) use($request) {
-                $query->when($request['lab_due_date'], function ($query) use($request){
-                    $date = explode('-', $request['lab_due_date']);
-                    $startDate  = date('Y-m-d', strtotime($date[0]));
-                    $endDate = date('Y-m-d', strtotime($date[1]));
-                    $query->whereBetween('due_date',[$startDate,$endDate]);
+            ->when(! $request['serviceStatus'] ,function ($query) use($request) {
+                $query->when($request['service_id'], function ($query) use($request) {
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $q->where('service_id', $request['service_id']);
+                    });
+                })
+                ->when($request['status'], function ($query) use($request) {
+                    $query->where('status', $request['status']);
+                })
+                ->when($request['user_name'], function ($query) use($request){
+                    $query->where('id', $request['user_name']);
+                })
+                ->when($request['gender'], function ($query) use($request){
+                    $query->where('gender', $request['gender']);
+                })
+                ->when($request['dob'], function ($query) use($request){
+                    $dob = date('Y-d-m', strtotime($request['dob']));
+                    $query->where('dob', $dob);
+                })
+                ->whereHas('patientLabReport',function ($query) use($request) {
+                    $query->when($request['lab_due_date'], function ($query) use($request){
+                        $date = explode('-', $request['lab_due_date']);
+                        $startDate  = date('Y-m-d', strtotime($date[0]));
+                        $endDate = date('Y-m-d', strtotime($date[1]));
+                        $query->whereBetween('due_date',[$startDate,$endDate]);
+                    });
                 });
             })
             ->with('demographic', 'patientReport', 'patientReport.labReports')->orderBy('id', 'DESC');
@@ -108,7 +119,7 @@ class CaregiverController extends Controller
                 if ($request['status'] == 'initial') {
                     $ssn_data = '';
                     if ($q->demographic) {
-                        $ssn_data = $q->demographic->ssn;
+                        $ssn_data = getSsn($q->demographic->ssn);
                     }
                    
                     $ssn = "<span class='label'>".$ssn_data."</span>";
@@ -118,7 +129,7 @@ class CaregiverController extends Controller
                 } else {
                     $ssn_data = '';
                     if ($q->demographic) {
-                        $ssn_data = $q->demographic->ssn;
+                        $ssn_data = getSsn($q->demographic->ssn);
                     }
                     return "<span class='label'>".$ssn_data."</span>";
                 }
@@ -137,8 +148,8 @@ class CaregiverController extends Controller
             })
             ->addColumn('service_id', function($q) {
                 $services = '';
-                if ($q->caregiverInfo && $q->caregiverInfo->services) {
-                    $services =  $q->caregiverInfo->services->name;
+                if ($q->demographic && $q->demographic->services) {
+                    $services =  $q->demographic->services->name;
                 }
                 return $services;
             })
@@ -153,7 +164,7 @@ class CaregiverController extends Controller
                 // if ($request['status'] == 'initial') {
                 //     $city = $state = '';
                 //     if ($q->demographic) {
-                //         $city_state_json =  json_decode($q->demographic->address);
+                //         $city_state_json =  $q->demographic->address;
 
                 //         if ($city_state_json) {
                 //             if ($city_state_json->City) {
@@ -171,14 +182,14 @@ class CaregiverController extends Controller
                 // } else {
                     $city_state = '';
                     if ($q->demographic) {
-                        $city_state_json =  json_decode($q->demographic->address);
-
+                        $city_state_json =  $q->demographic->address;
+                      
                         if ($city_state_json) {
-                            if ($city_state_json->City) {
-                                $city_state .= $city_state_json->City;
+                            if ($city_state_json['city']) {
+                                $city_state .= $city_state_json['city'];
                             }
-                            if ($city_state_json->State) {
-                                $city_state .= ' - ' . $city_state_json->State;
+                            if ($city_state_json['state']) {
+                                $city_state .= ' - ' . $city_state_json['state'];
                             }
 
                         }
@@ -279,8 +290,8 @@ class CaregiverController extends Controller
             })
             ->addColumn('service_id', function($q) {
                 $services = '';
-                if ($q->caregiverInfo && $q->caregiverInfo->services) {
-                    $services =  $q->caregiverInfo->services->name;
+                if ($q->demographic && $q->demographic->services) {
+                    $services =  $q->demographic->services->name;
                 }
                 return $services;
             })
@@ -469,45 +480,40 @@ class CaregiverController extends Controller
      */
     public function searchCaregivers()
     {
-        $demographic = Demographic::get();
-        foreach ($demographic as $key => $value) {
-            // $relation = $value->language;
-            $language_decode = json_decode($value->language, true);
-            if (isset($language_decode[0])) {
-                PatientEmergencyContact::find($value->id)->update([
-                    'relation' => $language_decode[0]['Name']
-                ]);
-            }
-        }
-
-        // $searchCaregiverIds = $this->searchCaregiverDetails();
-        // $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
-        //dump(count($caregiverArray));
-        // whereIn($caregiverArray)
-        // $data = HHAApiCaregiver::dispatch($caregiverArray);
-        // $caregiverArray = ["78890","78961","79257","79303","79456","80831"];
-        // return 'Update successfully';
-
-        // dump($counter);2960
-        // foreach (array_slice($caregiverArray, 0 , 2960) as $cargiver_id) {
-
-        //     // foreach ($caregiverArray as $cargiver_id) {
-        //     /** Store patirnt demographic detail */
-        //     $userCaregiver = CaregiverInfo::where('caregiver_id' , $cargiver_id)->first();
-
-        //     if (! $userCaregiver) {
-        //         $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
-        //         $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-
-        //         self::saveUser($demographicDetails);
+        // $demographic = Demographic::get();
+        // foreach ($demographic as $key => $value) {
+        //     // $relation = $value->language;
+        //     $language_decode = json_decode($value->language, true);
+        //     if (isset($language_decode[0])) {
+        //         PatientEmergencyContact::find($value->id)->update([
+        //             'relation' => $language_decode[0]['Name']
+        //         ]);
         //     }
-
-
-            // $getChangesV2 = $this->getChangesV2();
-            // $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
-
-            // $createMedical = $this->createMedical($cargiver_id);
         // }
+
+        $searchCaregiverIds = $this->searchCaregiverDetails();
+        $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
+        dump(count($caregiverArray));
+
+        foreach (array_slice($caregiverArray, 0 , 500) as $cargiver_id) {
+
+            // foreach ($caregiverArray as $cargiver_id) {
+            /** Store patirnt demographic detail */
+            $userCaregiver = Demographic::where('caregiver_id' , $cargiver_id)->first();
+
+            if (! $userCaregiver) {
+                $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
+                $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+
+                self::saveUser($demographicDetails);
+            }
+
+
+            $getChangesV2 = $this->getChangesV2();
+            $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
+
+            $createMedical = $this->createMedical($cargiver_id);
+        }
     }
     /**
      * Display a listing of the resource.

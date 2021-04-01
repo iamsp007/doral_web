@@ -24,7 +24,7 @@
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Import Patients</a>
             </div>
-        @else (request()->segment(count(request()->segments())) == "occupational-health-upload-bulk-data")
+        @elseif (request()->segment(count(request()->segments())) == "occupational-health-upload-bulk-data")
             <div class="d-flex">
                 <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
@@ -33,12 +33,15 @@
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     ACTIVE Patients</a>
             </div>
+        @elseif (request()->segment(count(request()->segments())) == "covid-19")
+            <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Import Patients</a>
         @endif
     @endsection
 @endrole
 
 @section('content')
-    @if(!$pendingStatus)
+    @if(!$serviceStatus)
         <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
@@ -69,6 +72,7 @@
                             <option value="1">VBC</option>
                             <option value="2">MD Order</option>
                             <option value="3">Occupational Health</option>
+                            <option value="5">Covid-19</option>
                         </select>
                     </div>
                 </div>
@@ -100,7 +104,7 @@
     </div>
     
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
-        <input type="hidden" value="{{ $pendingStatus }}" id="pendingStatus" name="pendingStatus" />
+        <input type="hidden" value="{{ $serviceStatus }}" id="serviceStatus" name="serviceStatus" />
         <thead>
             <tr>
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
@@ -181,7 +185,7 @@
                     d.service_id = $('select[name="service_id"]').val();
                     d.gender = $('select[name="gender"]').val();
                     d.dob = $('input[name="dob"]').val();
-                    d.pendingStatus = $('input[name="pendingStatus"]').val();
+                    d.serviceStatus = $('input[name="serviceStatus"]').val();
                 },
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'

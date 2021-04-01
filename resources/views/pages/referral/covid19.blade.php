@@ -85,9 +85,9 @@
                 });
                 this.on("success", function(file, responseText) {
                     // alert(responseText.message)
-                    // setTimeout(function () {
-                    //    window.location.href=base_url+'referral/service/occupational-health';
-                    // },1000)
+                    setTimeout(function () {
+                       window.location.href=base_url+'referral/service/covid-19';
+                    },1000)
                 });
             },
             paramName: 'file_name',

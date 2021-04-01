@@ -123,13 +123,16 @@ class HHAExchangeController extends Controller
            
             if ($demographics['NotificationPreferences'] && isset($demographics['NotificationPreferences']['Email'])) {
                 $email = $demographics['NotificationPreferences']['Email'];
-                $user->email = $email;
+                if ($email) {
+                    $user->email = $email;
+                } 
+                
 
-                $userDuplicateEmail = User::whereNotNull('email')->where('email', $email)->first();
+                // $userDuplicateEmail = User::whereNotNull('email')->where('email', $email)->first();
            
-                if ($userDuplicateEmail) {
-                    return;
-                }
+                // if ($userDuplicateEmail) {
+                //     return;
+                // }
             }
         }
         $phone_number = setPhone($phone_number);
@@ -137,31 +140,32 @@ class HHAExchangeController extends Controller
             $status = '4';
         } else {
             $status = '0';
-
-            $userDuplicatePhone = User::whereNotNull('phone')->where('phone', $phone_number)->first();
-            // dump($userDuplicatePhone->id);
-            if (! $userDuplicatePhone) {
-                
-                $doral_id = createDoralId();
-                $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
-                $password = str_replace(" ", "",$first_name) . '@' . $doral_id;
-               
-                $user->first_name = $first_name;
-                $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
-                $user->password = setPassword($password);
-                $user->phone = $phone_number;
-                $user->phone_verified_at = now();
-                $user->status = $status;
-                $user->gender = setGender($demographics['Gender']);
-                
-                $user->dob = dateFormat($demographics['BirthDate']);
-                $user->tele_phone = setPhone($tele_phone);
-                
-                $user->save();
-               
-                return $user->id;
-            }
         }
+
+        $userDuplicatePhone = User::whereNotNull('phone')->where('phone', $phone_number)->first();
+        // dump($userDuplicatePhone->id);
+        if (! $userDuplicatePhone) {
+            
+            $doral_id = createDoralId();
+            $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
+            $password = str_replace(" ", "",$first_name) . '@' . $doral_id;
+            
+            $user->first_name = $first_name;
+            $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
+            $user->password = setPassword($password);
+            $user->phone = $phone_number;
+            $user->phone_verified_at = now();
+            $user->status = $status;
+            $user->gender = setGender($demographics['Gender']);
+            
+            $user->dob = dateFormat($demographics['BirthDate']);
+            $user->tele_phone = setPhone($tele_phone);
+            
+            $user->save();
+            
+            return $user->id;
+        }
+        // }
     }
 
     public static function storeDemographic($demographics, $user_id, $type)

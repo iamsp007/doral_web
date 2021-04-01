@@ -44,7 +44,7 @@ class RoadLController extends Controller
     public function startRoadLRequest(Request $request,$patient_request_id){
 
 //        $patientRequestList = PatientRequest::with('patientDetail','ccrm')
-//            ->where([['clincial_id','=',Auth::user()->id],['status','=','active']])
+//            ->where([['clincial_id','=',Auth::user()->id],['status','=','1']])
 //            ->get();
 
         return view($this->view_path.'roadL_view',compact('patient_request_id'));

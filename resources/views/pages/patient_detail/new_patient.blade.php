@@ -148,21 +148,21 @@
         if(status == "pending"){
             var serching = true;
         }
-//        var columnDaTa = [];
-//      
-//        columnDaTa.push(
-//            {data:'checkbox_id',"className": "text-center"},
-//            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
-//            {data: 'full_name',"className": "text-left"},
-//            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},
-//            {data: 'ssn_data',"className": "text-left"},
-//            {data: 'phone', class: 'editable text',"className": "text-left"},
-//            {data: 'service_id',"className": "text-left"},
-//            {data: 'doral_id',"className": "text-left"},
-//            {data: 'city_state',"className": "text-left"},
-//            {data:'dob',name:'dob',"className": "text-left"},
-//            {data: 'action',"className": "text-center",}
-//        );
+        var columnDaTa = [];
+      
+        columnDaTa.push(
+            {data:'checkbox_id',"className": "text-center"},
+            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
+            {data: 'full_name',"className": "text-left"},
+            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},
+            {data: 'ssn_data',"className": "text-left"},
+            {data: 'phone', class: 'editable text',"className": "text-left"},
+            {data: 'service_id',"className": "text-left"},
+            {data: 'doral_id',"className": "text-left"},
+            {data: 'city_state',"className": "text-left"},
+            {data:'dob',name:'dob',"className": "text-left"},
+            {data: 'action',"className": "text-center",}
+        );
        
         $('#get_patient-table').DataTable({
             "processing": true,
@@ -192,19 +192,7 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
             },
-             columns: [
-            {data:'checkbox_id',"className": "text-center"},
-            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
-            {data: 'full_name',"className": "text-left"},
-            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},
-            {data: 'ssn_data',"className": "text-left"},
-            {data: 'phone', class: 'editable text',"className": "text-left"},
-            {data: 'service_id',"className": "text-left"},
-            {data: 'doral_id',"className": "text-left"},
-            {data: 'city_state',"className": "text-left"},
-            {data:'dob',name:'dob',"className": "text-left"},
-            {data: 'action',"className": "text-center",}
-        ],
+            columns:columnDaTa,
        
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
             'columnDefs': [

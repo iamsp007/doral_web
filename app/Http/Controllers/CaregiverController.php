@@ -36,38 +36,38 @@ class CaregiverController extends Controller
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
-            ->where(function($query) use ($request){
-                        $search = $request->post("search");
-                        $search = $search['value'];
-                if (!empty($search)) {
-                    if(strtolower($search)== 'male'){
-                        
-                        $query->orwhere('gender', 'like', 1);
-                    }
-                    elseif(strtolower($search)== 'female'){
-                        
-                        $query->orwhere('gender', 'like', 2);
-                    } 
-                    $query->orwhere('first_name', 'like', '%'.$search.'%');
-                    $query->orwhere('last_name', 'like', '%'.$search.'%');
-                    $query->whereHas('demographic',function ($q) use($request) {
-                        $search = $request->post("search");
-                        $search = $search['value'];
-                        $q->orwhere('ssn1', 'like', '%'.$search.'%');
-                        $q->orwhere('doral_id', 'like', '%'.$search.'%');
-                        $q->orwhere('address', 'like', '%'.$search.'%');
-                    });
-                    $phoneString = preg_replace('/[^0-9]/', '', $search);  
-                    $query->orwhere('phone', 'like', '%'.$phoneString.'%');                    
-                    //$where = "'first_name' like '%$search%'";
-                    //$where = "['first_name', 'like', '%$search%']";
-                    //$where .= "`last_name` LIKE '%$search%' OR ";	
-                    //$where .= "`gender` LIKE '%$search%')";
-                    //echo $where;
-                    //$query->where($where);
-                    
-                }
-            })
+//            ->where(function($query) use ($request){
+//                        $search = $request->post("search");
+//                        $search = $search['value'];
+//                if (!empty($search)) {
+//                    if(strtolower($search)== 'male'){
+//                        
+//                        $query->orwhere('gender', 'like', 1);
+//                    }
+//                    elseif(strtolower($search)== 'female'){
+//                        
+//                        $query->orwhere('gender', 'like', 2);
+//                    } 
+//                    $query->orwhere('first_name', 'like', '%'.$search.'%');
+//                    $query->orwhere('last_name', 'like', '%'.$search.'%');
+//                    $query->whereHas('demographic',function ($q) use($request) {
+//                        $search = $request->post("search");
+//                        $search = $search['value'];
+//                        $q->orwhere('ssn1', 'like', '%'.$search.'%');
+//                        $q->orwhere('doral_id', 'like', '%'.$search.'%');
+//                        $q->orwhere('address', 'like', '%'.$search.'%');
+//                    });
+//                    $phoneString = preg_replace('/[^0-9]/', '', $search);  
+//                    $query->orwhere('phone', 'like', '%'.$phoneString.'%');                    
+//                    //$where = "'first_name' like '%$search%'";
+//                    //$where = "['first_name', 'like', '%$search%']";
+//                    //$where .= "`last_name` LIKE '%$search%' OR ";	
+//                    //$where .= "`gender` LIKE '%$search%')";
+//                    //echo $where;
+//                    //$query->where($where);
+//                    
+//                }
+//            })
             ->when($request['status'], function ($query) use($request) {
                 $query->where('status', $request['status']);
                 if($request['status'] == 4) {

@@ -132,7 +132,7 @@
 
         function sendEmail(id) {
             var email = $('#email-'+id).val();
-            alert(id+'='+email);
+            // alert(id+'='+email);
             $("#loader-wrapper").show();
             $.ajax({
                 headers: {
@@ -147,6 +147,7 @@
                 },
                 success:function (response) {
                     $("#loader-wrapper").hide();
+                    $('#emailModal').modal("hide");
                 },
                 error:function (error) {
                     $("#loader-wrapper").hide();
@@ -156,7 +157,7 @@
 
         function sendText(id) {
             var phone = $('#phone-'+id).val();
-            alert(id+'='+phone);
+            // alert(id+'='+phone);
             $("#loader-wrapper").show();
             $.ajax({
                 headers: {
@@ -171,6 +172,7 @@
                 },
                 success:function (response) {
                     $("#loader-wrapper").hide();
+                    $('#textModal').modal("hide");
                 },
                 error:function (error) {
                     $("#loader-wrapper").hide();

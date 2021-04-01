@@ -19,7 +19,7 @@
             </div>
             <div>
                <ul class="shortdesc">
-                  <li>Status: <span>{{ isset($status->Name) ? $status->Name : '' }}</span></li>
+                  <!-- <li>Status: <span>{{ isset($status->Name) ? $status->Name : '' }}</span></li> -->
                   <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender_data }}</span></li>
                   <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
@@ -147,13 +147,7 @@
             <div class="col-12 col-sm-10">
                <div class="tab-content" id="v-pills-tabContent">
                   <!-- Demographics Start -->
-                  @if($patient->demographic)
-                     @if($patient->demographic->type === 'Patient')
-                        @include('pages.patient_detail.demographic')
-                     @elseif($patient->demographic->type === 'Caregiver')
-                        @include('pages.patient_detail.caregiver_demographic')
-                     @endif
-                  @endif
+                     @include('pages.patient_detail.caregiver_demographic')
                   <!-- Demographics End -->
 
                   <!-- Patient Referral Start -->
@@ -739,23 +733,13 @@
       // }
 
       $(document).ready(function() {
-<<<<<<< HEAD
          $('.insurance_company').hide();
-
          $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
-=======
-        $('.insurance_company').hide();
-        $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
->>>>>>> bb5d2e6c7bee5f5f083c4c294b06fa0d27db155e
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 1901,
             maxDate: new Date(),
-<<<<<<< HEAD
-             locale: {
-=======
             locale: {
->>>>>>> bb5d2e6c7bee5f5f083c4c294b06fa0d27db155e
                     format: 'MM-DD-YYYY'
             }           
          });
@@ -1009,14 +993,14 @@
       var i =0;
       $(document).find("#add").click(function(){
          i++;
-         $(".add_more_contact_div").append('<div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none added_more_contact_div" data-name="emergency_contact_detail"><div class="app-card-header"><h1 class="title">Emergency Contact Detail</h1></div><div><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Contact Name</h3><input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Contact Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Home Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Cell Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address</h3><input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship Name</h3><input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value=""></div></div></div></div></div><div style="display:flex;justify-content:center;align-items:center"><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div></div></div>');
+         $(".add_more_contact_div").append('<div class="main_div"><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Contact Name</h3><input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Contact Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Home Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Cell Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address</h3><input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship Name</h3><input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value=""></div></div></div></div></div><div style="display:flex;justify-content:center;align-items:center"><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div><div class="bottom-horizontal"></div></div>');
 
          $(document).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
          $(document).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
       });
 
       $(document).on('click', '.remove-tr', function(){ 
-         $(this).parents('.added_more_contact_div').remove();
+         $(this).parents('.main_div').remove();
       });  
 
       // $('body').on('blur', '.note-area', function(e){

@@ -24,7 +24,7 @@
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Import Patients</a>
             </div>
-        @else (request()->segment(count(request()->segments())) == "occupational-health-upload-bulk-data")
+        @elseif (request()->segment(count(request()->segments())) == "occupational-health-upload-bulk-data")
             <div class="d-flex">
                 <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
@@ -33,12 +33,15 @@
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     ACTIVE Patients</a>
             </div>
+        @elseif (request()->segment(count(request()->segments())) == "covid-19")
+            <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Import Patients</a>
         @endif
     @endsection
 @endrole
 
 @section('content')
-    @if(!$pendingStatus)
+    @if(!$serviceStatus)
         <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
@@ -69,6 +72,7 @@
                             <option value="1">VBC</option>
                             <option value="2">MD Order</option>
                             <option value="3">Occupational Health</option>
+                            <option value="5">Covid-19</option>
                         </select>
                     </div>
                 </div>
@@ -100,7 +104,7 @@
     </div>
     
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
-        <input type="hidden" value="{{ $pendingStatus }}" id="pendingStatus" name="pendingStatus" />
+        <input type="hidden" value="{{ $serviceStatus }}" id="serviceStatus" name="serviceStatus" />
         <thead>
             <tr>
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
@@ -139,27 +143,31 @@
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
-
+        var serching = false;
+        var status = $("#pendingStatus").val();
+        if(status == "pending"){
+            var serching = true;
+        }
         var columnDaTa = [];
       
         columnDaTa.push(
-            {data:'checkbox_id'},
-            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center",},
-            {data: 'full_name',"className": "text-center",},
-            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center",},
-            {data: 'ssn_data',"className": "text-center",},
-            {data: 'phone', class: 'editable text',"className": "text-center",},
-            {data: 'service_id',"className": "text-center",},
-            {data: 'doral_id',"className": "text-center",},
-            {data: 'city_state',"className": "text-center",},
-            {data:'dob',name:'dob',"className": "text-center",},
+            {data:'checkbox_id',"className": "text-center"},
+            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
+            {data: 'full_name',"className": "text-left"},
+            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},
+            {data: 'ssn_data',"className": "text-left"},
+            {data: 'phone', class: 'editable text',"className": "text-left"},
+            {data: 'service_id',"className": "text-left"},
+            {data: 'doral_id',"className": "text-left"},
+            {data: 'city_state',"className": "text-left"},
+            {data:'dob',name:'dob',"className": "text-left"},
             {data: 'action',"className": "text-center",}
         );
        
         $('#get_patient-table').DataTable({
             "processing": true,
             "serverSide": true,
-            "searching": false,
+            "searching": serching,
             "language": {
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
@@ -177,7 +185,7 @@
                     d.service_id = $('select[name="service_id"]').val();
                     d.gender = $('select[name="gender"]').val();
                     d.dob = $('input[name="dob"]').val();
-                    d.pendingStatus = $('input[name="pendingStatus"]').val();
+                    d.serviceStatus = $('input[name="serviceStatus"]').val();
                 },
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'

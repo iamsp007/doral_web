@@ -397,7 +397,6 @@
             width: calc(100% - 7rem);
             position: fixed;
             right: 0;
-            z-index: 0;
         }
         .app .app-content .app-body{overflow:hidden;padding-left:0;padding-right:0}
         .modal-backdrop{z-index: 0!important;}

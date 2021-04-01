@@ -32,6 +32,11 @@ class PatientReferralController extends Controller
         return view('pages.referral.occupational-health-upload-bulk-data');
     }
 
+    public function covid19UploadBulk() {
+        return view('pages.referral.covid19');
+    }
+
+
      public function getEmployeePhysicalExaminationReport($id)
     {
         $labReportTypes = LabReportType::pluck('name', 'id');

@@ -113,6 +113,7 @@ function updateAllField(sectionId) {
 
 function demographyDataUpdate(data,sectionId) {
     $("#loader-wrapper").show();
+    var activeTab = "#"+sectionId;
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

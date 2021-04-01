@@ -36,6 +36,38 @@ class CaregiverController extends Controller
         $patientList = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })
+            ->where(function($query) use ($request){
+                        $search = $request->post("search");
+                        $search = $search['value'];
+                if (!empty($search)) {
+                    if(strtolower($search)== 'male'){
+                        
+                        $query->orwhere('gender', 'like', 1);
+                    }
+                    elseif(strtolower($search)== 'female'){
+                        
+                        $query->orwhere('gender', 'like', 2);
+                    } 
+                    $query->orwhere('first_name', 'like', '%'.$search.'%');
+                    $query->orwhere('last_name', 'like', '%'.$search.'%');
+                    $query->whereHas('demographic',function ($q) use($request) {
+                        $search = $request->post("search");
+                        $search = $search['value'];
+                        $q->orwhere('ssn1', 'like', '%'.$search.'%');
+                        $q->orwhere('doral_id', 'like', '%'.$search.'%');
+                        $q->orwhere('address', 'like', '%'.$search.'%');
+                    });
+                    $phoneString = preg_replace('/[^0-9]/', '', $search);  
+                    $query->orwhere('phone', 'like', '%'.$phoneString.'%');                    
+                    //$where = "'first_name' like '%$search%'";
+                    //$where = "['first_name', 'like', '%$search%']";
+                    //$where .= "`last_name` LIKE '%$search%' OR ";	
+                    //$where .= "`gender` LIKE '%$search%')";
+                    //echo $where;
+                    //$query->where($where);
+                    
+                }
+            })
             ->when($request['status'], function ($query) use($request) {
                 $query->where('status', $request['status']);
                 if($request['status'] == 4) {
@@ -66,7 +98,7 @@ class CaregiverController extends Controller
                         $q->where('service_id', 6);
                     });
                 } else if ($request['serviceStatus'] == 'pending') {
-                    $query->where('status', '0');
+                    $query->where('status', "0");
                 }
             })
             ->when($request['service_id'], function ($query) use($request) {
@@ -93,7 +125,7 @@ class CaregiverController extends Controller
                 });
             })
             ->with('demographic', 'patientReport', 'patientReport.labReports')->orderBy('id', 'DESC');
-            
+           
         $datatble = DataTables::of($patientList)
             ->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
@@ -241,6 +273,10 @@ class CaregiverController extends Controller
                 });
             // }
             $datatble->rawColumns(['full_name', 'ssn_data', 'city_state', 'action', 'checkbox_id', 'phone']);
+            
+            
+                
+
             return $datatble->make(true);
     }
     

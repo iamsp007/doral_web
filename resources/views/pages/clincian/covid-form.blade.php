@@ -375,13 +375,13 @@
         <div style="position:absolute;left:0px;top:0px">
             <img src="{{ asset('assets/img/background1.jpg') }}" width="612" height="792"></div>
         <div style="position:absolute;left:155.31px;top:90.00px" class="cls_005"><span class="cls_005">COVID-19 Immunization Screening and Consent Form*</span><span class="cls_006">*</span></div>
-        <div style="position:absolute;left:36.66px;top:108.24px" class="cls_007"><span class="cls_007">Recipient Name (please print)<br><b>{{ isset($data['recipient_name']) ? $data['recipient_name'] : '' }}<b></span></div>
-        <div style="position:absolute;left:270.61px;top:108.24px" class="cls_007"><span class="cls_007">Preferred Name<br><b>{{ isset($data['preferred_name']) ? $data['preferred_name'] : '' }}</b></span></div>
-        <div style="position:absolute;left:36.66px;top:135.36px" class="cls_007"><span class="cls_007">DOB<br><b>{{ isset($data['dob']) ? date('m d Y', strtotime($data['dob'])) : '' }}</b></span></div>
+        <div style="position:absolute;left:36.66px;top:108.24px;" class="cls_007"><span class="cls_007">Recipient Name (please print)<br><b style="text-decoration: underline;">{{ isset($data['recipient_name']) ? $data['recipient_name'] : '' }}<b></span></div>
+        <div style="position:absolute;left:270.61px;top:108.24px" class="cls_007"><span class="cls_007">Preferred Name<br><b style="text-decoration: underline;">{{ isset($data['preferred_name']) ? $data['preferred_name'] : '' }}</b></span></div>
+        <div style="position:absolute;left:36.66px;top:135.36px" class="cls_007"><span class="cls_007">DOB<br><b style="text-decoration: underline;">{{ isset($data['dob']) ? date('F d, Y', strtotime($data['dob'])) : '' }}</b></span></div>
         <div style="position:absolute;left:113.17px;top:135.36px" class="cls_007"><span class="cls_007">Current Gender ID</span></div>
         <div style="position:absolute;left:214.86px;top:135.36px" class="cls_008"><span class="cls_008">Key:</span></div>
         <div style="position:absolute;left:214.91px;top:145.68px" class="cls_007"><span class="cls_007">W - Woman/Girl TW - Transgender Woman/Girl M - Man/Boy</span></div>
-        <div style="position:absolute;left:112.69px;top:154.56px" class="cls_012"><span class="cls_012">Indicate ID Below:<br><b>{{ isset($data['gender_id']) ? $data['gender_id'] : '' }}</b></span></div>
+        <div style="position:absolute;left:112.69px;top:154.56px" class="cls_012"><span class="cls_012">Indicate ID Below:<br><b style="text-decoration: underline;">{{ isset($data['gender_id']) ? $data['gender_id'] : '' }}</b></span></div>
         <div style="position:absolute;left:215.17px;top:159.12px" class="cls_007"><span class="cls_007">TM - Transgender Man/Boy NB - Non-Binary Person GNC - Gender Non-Conforming</span></div>
         <div style="position:absolute;left:217.17px;top:171.60px" class="cls_007"><span class="cls_007">Q - Not Sure/Questioning</span></div>
         <div style="position:absolute;left:344.76px;top:171.60px" class="cls_007"><span class="cls_007">NR - Chose not to Respond</span></div>
@@ -391,8 +391,8 @@
         <div style="position:absolute;left:146.26px;top:208.56px" class="cls_008"><span class="cls_008">Key:</span></div>
         <div style="position:absolute;left:274.03px;top:208.80px" class="cls_007"><span class="cls_007">Marital Status</span></div>
         <div style="position:absolute;left:385.37px;top:208.80px" class="cls_008"><span class="cls_008">Key:</span></div>
-        <div style="position:absolute;left:36.41px;top:220.56px" class="cls_012"><span class="cls_012">Indicate Sex Below:<br><b>{{ isset($data['sex_at_birth']) ? $data['sex_at_birth'] : '' }}</b></span></div>
-        <div style="position:absolute;left:274.08px;top:220.80px" class="cls_012"><span class="cls_012">Indicate Status Below:<br><b>{{ isset($data['marital_staus']) ? $data['marital_staus'] : '' }}</b></span></div>
+        <div style="position:absolute;left:36.41px;top:220.56px" class="cls_012"><span class="cls_012">Indicate Sex Below:<br><b style="text-decoration: underline;">{{ isset($data['sex_at_birth']) ? $data['sex_at_birth'] : '' }}</b></span></div>
+        <div style="position:absolute;left:274.08px;top:220.80px" class="cls_012"><span class="cls_012">Indicate Status Below:<br><b style="text-decoration: underline;">{{ isset($data['marital_staus']) ? $data['marital_staus'] : '' }}</b></span></div>
         <div style="position:absolute;left:385.14px;top:220.80px" class="cls_007"><span class="cls_007">S - Single</span></div>
         <div style="position:absolute;left:446.03px;top:220.80px" class="cls_007"><span class="cls_007">D - Divorced M - Married</span></div>
         <div style="position:absolute;left:138.50px;top:232.80px" class="cls_007"><span class="cls_007">M - Male F - Female</span></div>
@@ -401,20 +401,20 @@
         <div style="position:absolute;left:385.66px;top:244.79px" class="cls_007"><span class="cls_007">SEPARATED - Legally Separated</span></div>
         <div style="position:absolute;left:85.22px;top:256.56px" class="cls_007"><span class="cls_007">SNL - Sexual Orientation not Listed (write-in)</span></div>
         <div style="position:absolute;left:385.66px;top:256.55px" class="cls_007"><span class="cls_007">PARTNER - Life Partner</span></div>
-        <div style="position:absolute;left:36.66px;top:270.00px" class="cls_007"><span class="cls_007">Address<br><b>{{ isset($data['address']) ? $data['address'] : '' }}</b></span></div>
-        <div style="position:absolute;left:216.16px;top:270.00px" class="cls_007"><span class="cls_007">City<br><b>{{ isset($data['city']) ? $data['city'] : '' }}</b></span></div>
-        <div style="position:absolute;left:322.12px;top:270.00px" class="cls_007"><span class="cls_007">State<br><b>{{ isset($data['state']) ? $data['state'] : '' }}</b></span></div>
-        <div style="position:absolute;left:365.76px;top:270.00px" class="cls_007"><span class="cls_007">Zip<br><b>{{ isset($data['zip']) ? $data['zip'] : '' }}</b></span></div>
+        <div style="position:absolute;left:36.66px;top:270.00px" class="cls_007"><span class="cls_007">Address<br><b style="text-decoration: underline;">{{ isset($data['address']) ? $data['address'] : '' }}</b></span></div>
+        <div style="position:absolute;left:216.16px;top:270.00px" class="cls_007"><span class="cls_007">City<br><b style="text-decoration: underline;">{{ isset($data['city']) ? $data['city'] : '' }}</b></span></div>
+        <div style="position:absolute;left:322.12px;top:270.00px" class="cls_007"><span class="cls_007">State<br><b style="text-decoration: underline;">{{ isset($data['state']) ? $data['state'] : '' }}</b></span></div>
+        <div style="position:absolute;left:365.76px;top:270.00px" class="cls_007"><span class="cls_007">Zip<br><b style="text-decoration: underline;">{{ isset($data['zip']) ? $data['zip'] : '' }}</b></span></div>
         <div style="position:absolute;left:401.12px;top:270.00px" class="cls_007"><span class="cls_007">Email Address<br><b>{{ isset($data['email']) ? $data['email'] : '' }}</b></span></div>
-        <div style="position:absolute;left:36.66px;top:300.48px" class="cls_007"><span class="cls_007">Parent/Guardian/ Surrogate (if applicable, please print)<br><b>{{ isset($data['parent_name']) ? $data['parent_name'] : '' }}</b></span></div>
-        <div style="position:absolute;left:270.61px;top:300.48px" class="cls_007"><span class="cls_007">Phone<br><b>{{ isset($data['phone']) ? $data['phone'] : '' }}</b></span></div>
-        <div style="position:absolute;left:401.07px;top:300.48px" class="cls_007"><span class="cls_007">Preferred Language<br><b>{{ isset($data['preferred_language']) ? $data['preferred_language'] : '' }}</b></span></div>
+        <div style="position:absolute;left:36.66px;top:300.48px" class="cls_007"><span class="cls_007">Parent/Guardian/ Surrogate (if applicable, please print)<br><b style="text-decoration: underline;">{{ isset($data['parent_name']) ? $data['parent_name'] : '' }}</b></span></div>
+        <div style="position:absolute;left:270.61px;top:300.48px" class="cls_007"><span class="cls_007">Phone<br><b style="text-decoration: underline;">{{ isset($data['phone']) ? $data['phone'] : '' }}</b></span></div>
+        <div style="position:absolute;left:401.07px;top:300.48px" class="cls_007"><span class="cls_007">Preferred Language<br><b style="text-decoration: underline;">{{ isset($data['preferred_language']) ? $data['preferred_language'] : '' }}</b></span></div>
         <div style="position:absolute;left:36.66px;top:327.12px" class="cls_007"><span class="cls_007">Ethnicity</span></div>
         <div style="position:absolute;left:138.78px;top:328.08px" class="cls_008"><span class="cls_008">Ethnicity Key:</span></div>
         <div style="position:absolute;left:270.61px;top:326.88px" class="cls_007"><span class="cls_007">Race</span></div>
         <div style="position:absolute;left:362.36px;top:326.88px" class="cls_008"><span class="cls_008">Race Key:</span></div>
-        <div style="position:absolute;left:36.91px;top:339.36px" class="cls_012"><span class="cls_012">Indicate Ethnicity Below:</span><span class="cls_007"> DECL - Declined</span><br><b>{{ isset($data['ethnicity']) ? $data['ethnicity'] : '' }}</b></div>
-        <div style="position:absolute;left:270.91px;top:339.36px" class="cls_012"><span class="cls_012">Indicate Race Below: </span><span class="cls_007">AIA - Native American or Alaskan ASN - Asian</span><br><b>{{ isset($data['race']) ? $data['race'] : '' }}</b></div>
+        <div style="position:absolute;left:36.91px;top:339.36px" class="cls_012"><span class="cls_012">Indicate Ethnicity Below:</span><span class="cls_007"> DECL - Declined</span><br><b style="text-decoration: underline;">{{ isset($data['ethnicity']) ? $data['ethnicity'] : '' }}</b></div>
+        <div style="position:absolute;left:270.91px;top:339.36px" class="cls_012"><span class="cls_012">Indicate Race Below: </span><span class="cls_007">AIA - Native American or Alaskan ASN - Asian</span><br><b style="text-decoration: underline;">{{ isset($data['race']) ? $data['race'] : '' }}</b></div>
         <div style="position:absolute;left:137.28px;top:352.80px" class="cls_007"><span class="cls_007">HIHIS - Hispanic Origin</span></div>
         <div style="position:absolute;left:360.98px;top:351.12px" class="cls_007"><span class="cls_007">BAA - African American or Black</span></div>
         <div style="position:absolute;left:137.28px;top:364.80px" class="cls_007"><span class="cls_007">NHNHL - Non-Hispanic Origin</span></div>
@@ -423,24 +423,24 @@
         <div style="position:absolute;left:360.98px;top:375.60px" class="cls_007"><span class="cls_007">NHP - Native Hawaiian or Pacific Islander</span></div>
         <div style="position:absolute;left:360.98px;top:387.12px" class="cls_007"><span class="cls_007">WHT - White</span></div>
         <div style="position:absolute;left:451.22px;top:387.12px" class="cls_007"><span class="cls_007">OTH - Other or Multiracial</span></div>
-        <div style="position:absolute;left:36.66px;top:400.56px" class="cls_007"><span class="cls_007">Primary Insurance Name<br><b>{{ isset($data['primary_insurance_name']) ? $data['primary_insurance_name'] : '' }}</b></span></div>
-        <div style="position:absolute;left:270.61px;top:400.56px" class="cls_007"><span class="cls_007">Primary Insurance ID#<br><b>{{ isset($data['primary_insurance_id']) ? $data['primary_insurance_id'] : '' }}</b></span></div>
-        <div style="position:absolute;left:401.12px;top:400.56px" class="cls_007"><span class="cls_007">Subscriber Name/DOB</span><br><b>{{ isset($data['primary_subscriber_dob']) ? date('m d Y', strtotime($data['primary_subscriber_dob'])) : '' }}</b></div>
+        <div style="position:absolute;left:36.66px;top:400.56px" class="cls_007"><span class="cls_007">Primary Insurance Name<br><b style="text-decoration: underline;">{{ isset($data['primary_insurance_name']) ? $data['primary_insurance_name'] : '' }}</b></span></div>
+        <div style="position:absolute;left:270.61px;top:400.56px" class="cls_007"><span class="cls_007">Primary Insurance ID#<br><b style="text-decoration: underline;">{{ isset($data['primary_insurance_id']) ? $data['primary_insurance_id'] : '' }}</b></span></div>
+        <div style="position:absolute;left:401.12px;top:400.56px" class="cls_007"><span class="cls_007">Subscriber Name/DOB</span><br><b style="text-decoration: underline;">{{ isset($data['primary_subscriber_dob']) ? date('F d, Y', strtotime($data['primary_subscriber_dob'])) : '' }}</b></div>
         <div style="position:absolute;left:504.75px;top:400.32px" class="cls_007"><span class="cls_007">Subscriber Relation</span></div>
-        <div style="position:absolute;left:504.75px;top:412.56px" class="cls_007"><span class="cls_007">to Patient</span><br><b>{{ isset($data['primary_relation_patient']) ? $data['primary_relation_patient'] : '' }}</b></div>
-        <div style="position:absolute;left:36.66px;top:437.52px" class="cls_007"><span class="cls_007">Primary Insurance Address</span><br><b>{{ isset($data['primary_insurance_address']) ? $data['primary_insurance_address'] : '' }}</b></div>
-        <div style="position:absolute;left:270.61px;top:437.52px" class="cls_007"><span class="cls_007">Primary Insurance Group #</span><br><b>{{ isset($data['primary_insurance_group']) ? $data['primary_insurance_group'] : '' }}</b></div>
-        <div style="position:absolute;left:401.12px;top:437.52px" class="cls_007"><span class="cls_007">Primary Insurance Phone #</span><br><b>{{ isset($data['primary_insurance_phone']) ? $data['primary_insurance_phone'] : '' }}</b></div>
-        <div style="position:absolute;left:36.66px;top:464.88px" class="cls_007"><span class="cls_007">Secondary Insurance Name</span><br><b>{{ isset($data['secondary_insurance_name']) ? $data['secondary_insurance_name'] : '' }}</b></div>
-        <div style="position:absolute;left:270.61px;top:464.88px" class="cls_007"><span class="cls_007">Secondary Insurance ID#</span><br><b>{{ isset($data['secondary_insurance_id']) ? $data['secondary_insurance_id'] : '' }}</b></div>
-        <div style="position:absolute;left:401.12px;top:464.88px" class="cls_007"><span class="cls_007">Subscriber Name/DOB</span><br><b>{{ isset($data['secondary_subscriber_dob']) ? date('m d Y', strtotime($data['secondary_subscriber_dob'])) : '' }}</b></div>
+        <div style="position:absolute;left:504.75px;top:412.56px" class="cls_007"><span class="cls_007">to Patient</span><br><b style="text-decoration: underline;">{{ isset($data['primary_relation_patient']) ? $data['primary_relation_patient'] : '' }}</b></div>
+        <div style="position:absolute;left:36.66px;top:437.52px" class="cls_007"><span class="cls_007">Primary Insurance Address</span><br><b style="text-decoration: underline;">{{ isset($data['primary_insurance_address']) ? $data['primary_insurance_address'] : '' }}</b></div>
+        <div style="position:absolute;left:270.61px;top:437.52px" class="cls_007"><span class="cls_007">Primary Insurance Group #</span><br><b style="text-decoration: underline;">{{ isset($data['primary_insurance_group']) ? $data['primary_insurance_group'] : '' }}</b></div>
+        <div style="position:absolute;left:401.12px;top:437.52px" class="cls_007"><span class="cls_007">Primary Insurance Phone #</span><br><b style="text-decoration: underline;">{{ isset($data['primary_insurance_phone']) ? $data['primary_insurance_phone'] : '' }}</b></div>
+        <div style="position:absolute;left:36.66px;top:464.88px" class="cls_007"><span class="cls_007">Secondary Insurance Name</span><br><b style="text-decoration: underline;">{{ isset($data['secondary_insurance_name']) ? $data['secondary_insurance_name'] : '' }}</b></div>
+        <div style="position:absolute;left:270.61px;top:464.88px" class="cls_007"><span class="cls_007">Secondary Insurance ID#</span><br><b style="text-decoration: underline;">{{ isset($data['secondary_insurance_id']) ? $data['secondary_insurance_id'] : '' }}</b></div>
+        <div style="position:absolute;left:401.12px;top:464.88px" class="cls_007"><span class="cls_007">Subscriber Name/DOB</span><br><b style="text-decoration: underline;">{{ isset($data['secondary_subscriber_dob']) ? date('F d, Y', strtotime($data['secondary_subscriber_dob'])) : '' }}</b></div>
         <div style="position:absolute;left:504.75px;top:464.64px" class="cls_007"><span class="cls_007">Subscriber Relation</span></div>
-        <div style="position:absolute;left:504.75px;top:476.88px" class="cls_007"><span class="cls_007">to Patient</span><br><b>{{ isset($data['secondary_relation_patient']) ? $data['secondary_relation_patient'] : '' }}</b></div>
-        <div style="position:absolute;left:36.66px;top:501.84px" class="cls_007"><span class="cls_007">Secondary Insurance Address</span><br><b>{{ isset($data['secondary_insurance_address']) ? $data['secondary_insurance_address'] : '' }}</b></div>
-        <div style="position:absolute;left:270.61px;top:501.84px" class="cls_007"><span class="cls_007">Secondary Insurance Group #</span><br><b>{{ isset($data['secondary_insurance_group']) ? $data['secondary_insurance_group'] : '' }}</b></div>
-        <div style="position:absolute;left:401.12px;top:501.84px" class="cls_007"><span class="cls_007">Secondary Insurance Phone #</span><br><b>{{ isset($data['secondary_insurance_phone']) ? $data['secondary_insurance_phone'] : '' }}</b></div>
-        <div style="position:absolute;left:36.66px;top:528.96px" class="cls_007"><span class="cls_007">Clinic/Office Site Where Vaccine is Administered</span><br><b>{{ isset($data['clinic_site']) ? $data['clinic_site'] : '' }}</b></div>
-        <div style="position:absolute;left:270.66px;top:528.96px" class="cls_007"><span class="cls_007">Primary Care Physician Address/Phone Number</span><br><b>{{ isset($data['primary_care']) ? $data['primary_care'] : '' }}</b></div>
+        <div style="position:absolute;left:504.75px;top:476.88px" class="cls_007"><span class="cls_007">to Patient</span><br><b style="text-decoration: underline;">{{ isset($data['secondary_relation_patient']) ? $data['secondary_relation_patient'] : '' }}</b></div>
+        <div style="position:absolute;left:36.66px;top:501.84px" class="cls_007"><span class="cls_007">Secondary Insurance Address</span><br><b style="text-decoration: underline;">{{ isset($data['secondary_insurance_address']) ? $data['secondary_insurance_address'] : '' }}</b></div>
+        <div style="position:absolute;left:270.61px;top:501.84px" class="cls_007"><span class="cls_007">Secondary Insurance Group #</span><br><b style="text-decoration: underline;">{{ isset($data['secondary_insurance_group']) ? $data['secondary_insurance_group'] : '' }}</b></div>
+        <div style="position:absolute;left:401.12px;top:501.84px" class="cls_007"><span class="cls_007">Secondary Insurance Phone #</span><br><b style="text-decoration: underline;">{{ isset($data['secondary_insurance_phone']) ? $data['secondary_insurance_phone'] : '' }}</b></div>
+        <div style="position:absolute;left:36.66px;top:528.96px" class="cls_007"><span class="cls_007">Clinic/Office Site Where Vaccine is Administered</span><br><b style="text-decoration: underline;">{{ isset($data['clinic_site']) ? $data['clinic_site'] : '' }}</b></div>
+        <div style="position:absolute;left:270.66px;top:528.96px" class="cls_007"><span class="cls_007">Primary Care Physician Address/Phone Number</span><br><b style="text-decoration: underline;">{{ isset($data['primary_care']) ? $data['primary_care'] : '' }}</b></div>
         <div style="position:absolute;left:238.27px;top:558.24px" class="cls_009"><span class="cls_009">Screening Questionnaire</span></div>
         <div style="position:absolute;left:38.79px;top:577.45px" class="cls_013"><span class="cls_013">1.</span></div>
         <div style="position:absolute;left:60.81px;top:577.45px" class="cls_013"><span class="cls_013">Are you feeling sick today?</span></div>
@@ -523,7 +523,7 @@
 
         <div style="position:absolute;left:38.89px;top:631.45px" class="cls_013"><span class="cls_013">3.</span></div>
         <div style="position:absolute;left:59.81px;top:631.45px" class="cls_013"><span class="cls_013">Have you been treated with antibody therapy or convalescent plasma for COVID-19 in the past</span></div>
-        <div style="position:absolute;left:59.83px;top:643.21px" class="cls_013"><span class="cls_013">90 days (3 months)? </span><span class="cls_016">If yes, when did you receive the last dose? </span><span class="cls_013">Date: <b>{{ isset($data['questionnaire'][2]['date']) ? date('m d Y', strtotime($data['questionnaire'][2]['date'])) : '' }}</b></span></div>
+        <div style="position:absolute;left:59.83px;top:643.21px" class="cls_013"><span class="cls_013">90 days (3 months)? </span><span class="cls_016">If yes, when did you receive the last dose? </span><span class="cls_013">Date: <b>{{ isset($data['questionnaire'][2]['date']) ? date('F d, Y', strtotime($data['questionnaire'][2]['date'])) : '' }}</b></span></div>
         
         <div style="position:absolute;left:456.03px;top:637.4px" class="cls_007">@if($data['questionnaire'][2]['ans'] == 'Yes')
         <span style="font-family: Arial Unicode MS, Lucida Grande">
@@ -631,7 +631,7 @@
         <span class="cls_015">Unknown</span></div>
 
         <div style="position:absolute;left:62.56px;top:699.36px" class="cls_007"><span class="cls_007">you had any vaccines in the past 14 days (2 weeks) including flu shot? </span></div>
-        <div style="position:absolute;left:59.81px;top:709.69px" class="cls_016"><span class="cls_016">If yes, how long ago was your most recent vaccine? </span><span class="cls_013"> Date: <b>{{ isset($data['questionnaire'][4]['date']) ? date('m d Y', strtotime($data['questionnaire'][4]['date'])) : '' }}</b></span></div>
+        <div style="position:absolute;left:59.81px;top:709.69px" class="cls_016"><span class="cls_016">If yes, how long ago was your most recent vaccine? </span><span class="cls_013"> Date: <b>{{ isset($data['questionnaire'][4]['date']) ? date('F d, Y', strtotime($data['questionnaire'][4]['date'])) : '' }}</b></span></div>
 
         <div style="position:absolute;left:38.96px;top:726.97px" class="cls_013"><span class="cls_013">6.</span></div>
         <div style="position:absolute;left:59.81px;top:726.73px" class="cls_013"><span class="cls_013">Are</span></div>
@@ -793,7 +793,7 @@
         </span>
         @endif
         <span class="cls_015">No</span></div>
-        <div style="position:absolute;left:527.19px;top:109.21px" class="cls_013"><span class="cls_013">Date:</span><br>{{ isset($data['questionnaire'][9]['date']) ? date('m d Y', strtotime($data['questionnaire'][9]['date'])) : '' }}</div>
+        <div style="position:absolute;left:527.19px;top:109.21px" class="cls_013"><span class="cls_013">Date:</span><br><b>{{ isset($data['questionnaire'][9]['date']) ? date('F d, Y', strtotime($data['questionnaire'][9]['date'])) : '' }}</b></div>
         <div style="position:absolute;left:426.12px;top:121.68px" class="cls_015">@if($data['questionnaire'][9]['vaccine'] == 'Pfizer')
         <span style="font-family: Arial Unicode MS, Lucida Grande">
             &#9745;
@@ -836,13 +836,13 @@
         <br>
         <span class="cls_021">recipient</span>
         </div>
-        <div style="position:absolute;left:227.48px;top:403.92px" class="cls_021"><b>{{ isset($data['recipient_signature_datetime']) ? date('m d Y', strtotime($data['recipient_signature_datetime'])) : '' }}</b><br><span class="cls_021">Date / Time</span></div>
-        <div style="position:absolute;left:318.68px;top:403.92px" class="cls_021"><b>{{ isset($data['print_name']) ? $data['print_name'] : '' }}</b><br><span class="cls_021">Print Name</span></div>
-        <div style="position:absolute;left:465.76px;top:404.40px" class="cls_021"><b>{{ isset($data['recipient_relation']) ? $data['recipient_relation'] : '' }}</b><br><span class="cls_023">Relationship to Patient</span></div>
+        <div style="position:absolute;left:227.48px;top:403.92px" class="cls_021"><b style="text-decoration: underline;">{{ isset($data['recipient_signature_datetime']) ? date('F d, Y', strtotime($data['recipient_signature_datetime'])) : '' }}</b><br><span class="cls_021">Date / Time</span></div>
+        <div style="position:absolute;left:318.68px;top:403.92px" class="cls_021"><b style="text-decoration: underline;">{{ isset($data['print_name']) ? $data['print_name'] : '' }}</b><br><span class="cls_021">Print Name</span></div>
+        <div style="position:absolute;left:465.76px;top:404.40px" class="cls_021"><b style="text-decoration: underline;">{{ isset($data['recipient_relation']) ? $data['recipient_relation'] : '' }}</b><br><span class="cls_023">Relationship to Patient</span></div>
         
         <div style="position:absolute;left:467.72px;top:425.20px" class="cls_023"><span class="cls_023">(if other than recipient)</span></div>
-        <div style="position:absolute;left:34.42px;top:452.16px" class="cls_021"><b>{{ isset($data['telephonic_interpreter_id']) ? $data['telephonic_interpreter_id'] : '' }}</b><br><span class="cls_021">Telephonic Interpreter’s ID #</span></div>
-        <div style="position:absolute;left:226.51px;top:452.16px" class="cls_021"><b>{{ isset($data['telephonic_interpreter_datetime']) ? date('m d Y', strtotime($data['telephonic_interpreter_datetime'])) : '' }}</b><br><span class="cls_021">Date / Time</span></div>
+        <div style="position:absolute;left:34.42px;top:452.16px" class="cls_021"><b style="text-decoration: underline;">{{ isset($data['telephonic_interpreter_id']) ? $data['telephonic_interpreter_id'] : '' }}</b><br><span class="cls_021">Telephonic Interpreter’s ID #</span></div>
+        <div style="position:absolute;left:226.51px;top:452.16px" class="cls_021"><b style="text-decoration: underline;">{{ isset($data['telephonic_interpreter_datetime']) ? date('F d, Y', strtotime($data['telephonic_interpreter_datetime'])) : '' }}</b><br><span class="cls_021">Date / Time</span></div>
         <div style="position:absolute;left:62.76px;top:472.00px" class="cls_024"><span class="cls_024">OR</span></div>
         <div style="position:absolute;left:34.37px;top:484.08px" class="cls_021">
         @isset($patient->interpreter_signature)
@@ -851,8 +851,8 @@
         </div>
         <div style="position:absolute;left:34.37px;top:508.08px" class="cls_021">
         <span class="cls_021">Signature: Interpreter</span></div>
-        <div style="position:absolute;left:226.58px;top:496.08px" class="cls_021"><b>{{ isset($data['interpreter_signature_datetime']) ? date('m d Y', strtotime($data['interpreter_signature_datetime'])) : '' }}</b><br><span class="cls_021">Date/ Time</span></div>
-        <div style="position:absolute;left:317.88px;top:496.08px" class="cls_021"><b>{{ isset($data['interpreter_relation']) ? $data['interpreter_relation'] : '' }}</b><br><span class="cls_021">Print: Interpreter’s Name and Relationship to Patient</span></div>
+        <div style="position:absolute;left:226.58px;top:496.08px" class="cls_021"><b style="text-decoration: underline;">{{ isset($data['interpreter_signature_datetime']) ? date('F d, Y', strtotime($data['interpreter_signature_datetime'])) : '' }}</b><br><span class="cls_021">Date/ Time</span></div>
+        <div style="position:absolute;left:317.88px;top:496.08px" class="cls_021"><b style="text-decoration: underline;">{{ isset($data['interpreter_relation']) ? $data['interpreter_relation'] : '' }}</b><br><span class="cls_021">Print: Interpreter’s Name and Relationship to Patient</span></div>
         <div style="position:absolute;left:181.30px;top:522.72px" class="cls_026"><span class="cls_026">Area Below to be Completed by Vaccinator</span></div>
         <div style="position:absolute;left:35.60px;top:541.20px" class="cls_008"><span class="cls_008">Which vaccine is the patient receiving today?</span></div>
         <div style="position:absolute;left:470.44px;top:557.52px" class="cls_007"><span class="cls_007">Manufacturer &amp; Lot</span></div>
@@ -882,7 +882,7 @@
         @endif
         <span class="cls_007">Second Dose</span></div>
         @if($data['vaccine_name'] == 'Pfizer/ BioNTech' && isset($data['fact_dose_date']))
-        <div style="position:absolute;left:343.80px;top:584.28px" class="cls_007"><span class="cls_007">{{ $data['fact_dose_date'] }}</span></div>
+        <div style="position:absolute;left:343.80px;top:584.28px" class="cls_007"><span class="cls_007">{{ isset($data['fact_dose_date']) ? date('F d, Y', strtotime($data['fact_dose_date'])) : '' }}</span></div>
         @endif
         @if($data['vaccine_name'] == 'Pfizer/ BioNTech' && isset($data['manufacture_lot_number']))
         <div style="position:absolute;left:470.80px;top:584.28px" class="cls_007"><span class="cls_007">{{ $data['manufacture_lot_number'] }}</span></div>
@@ -910,7 +910,7 @@
         @endif
         <span class="cls_007">Second Dose</span></div>
         @if($data['vaccine_name'] == 'Moderna' && isset($data['fact_dose_date']))
-        <div style="position:absolute;left:343.80px;top:601.28px" class="cls_007"><span class="cls_007">{{ $data['fact_dose_date'] }}</span></div>
+        <div style="position:absolute;left:343.80px;top:601.28px" class="cls_007"><span class="cls_007">{{ isset($data['fact_dose_date']) ? date('F d, Y', strtotime($data['fact_dose_date'])) : '' }}</span></div>
         @endif
         @if($data['vaccine_name'] == 'Moderna' && isset($data['manufacture_lot_number']))
         <div style="position:absolute;left:470.80px;top:601.28px" class="cls_007"><span class="cls_007">{{ $data['manufacture_lot_number'] }}</span></div>
@@ -938,7 +938,7 @@
         @endif
         <span class="cls_007">Second Dose</span></div>
         @if($data['vaccine_name'] == 'Astra-Zeneca' && isset($data['fact_dose_date']))
-        <div style="position:absolute;left:343.80px;top:617.28px" class="cls_007"><span class="cls_007">{{ $data['fact_dose_date'] }}</span></div>
+        <div style="position:absolute;left:343.80px;top:617.28px" class="cls_007"><span class="cls_007">{{ isset($data['fact_dose_date']) ? date('F d, Y', strtotime($data['fact_dose_date'])) : '' }}</span></div>
         @endif
         @if($data['vaccine_name'] == 'Astra-Zeneca' && isset($data['manufacture_lot_number']))
         <div style="position:absolute;left:470.80px;top:617.28px" class="cls_007"><span class="cls_007">{{ $data['manufacture_lot_number'] }}</span></div>
@@ -956,7 +956,7 @@
         @endif
         <span class="cls_007">Single Dose</span></div>
         @if($data['vaccine_name'] == 'Johnson and Johnson' && isset($data['fact_dose_date']))
-        <div style="position:absolute;left:343.80px;top:633.28px" class="cls_007"><span class="cls_007">{{ $data['fact_dose_date'] }}</span></div>
+        <div style="position:absolute;left:343.80px;top:633.28px" class="cls_007"><span class="cls_007">{{ isset($data['fact_dose_date']) ? date('F d, Y', strtotime($data['fact_dose_date'])) : '' }}</span></div>
         @endif
         @if($data['vaccine_name'] == 'Johnson and Johnson' && isset($data['manufacture_lot_number']))
         <div style="position:absolute;left:470.80px;top:633.28px" class="cls_007"><span class="cls_007">{{ $data['manufacture_lot_number'] }}</span></div>
@@ -1045,7 +1045,7 @@
         </span></div>
         <div style="position:absolute;left:23.52px;top:750.48px" class="cls_011"><span class="cls_011">*Use of this form is optional. In the ongoing effort to address health disparities it is essential that all demographic information is collected at</span></div>
         <div style="position:absolute;left:23.52px;top:762.72px" class="cls_011"><span class="cls_011">the time of COVID-19 vaccination including sex/gender identity and race/ethnicity.</span></div>
-        <div style="position:absolute;left:455.52px;top:762.72px" class="cls_008"><span class="cls_008">Updated January 20, 2021</span></div>
+        <div style="position:absolute;left:455.52px;top:762.72px" class="cls_008"><span class="cls_008">Updated {{ date('F d, Y', strtotime($patient['created_at'])) }}</span></div>
     </div>
 </body>
 

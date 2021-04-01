@@ -45,4 +45,6 @@ Route::group(['prefix'=>'/clinician','middleware'=>['auth:web','role:clinician']
     Route::get('/covid-19-patient-list','\App\Http\Controllers\Clinician\PatientController@covid19PatientList')->name('clinician.covid-19-patient-list');
     Route::get('/covid-19/{id}/detail','\App\Http\Controllers\Clinician\PatientController@covid19Info')->name('clinician.covid-19.info');
     Route::get('/covid-19/{id}/remove','\App\Http\Controllers\Clinician\PatientController@covid19Remove')->name('clinician.covid-19.remove');
+    Route::post('/covid-19/send-email','\App\Http\Controllers\Clinician\PatientController@sendEmail')->name('clinician.covid-19.send-email');
+    Route::post('/covid-19/send-message','\App\Http\Controllers\Clinician\PatientController@sendMessage')->name('clinician.covid-19.send-message');
 });

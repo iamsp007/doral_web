@@ -130,15 +130,15 @@ class CaregiverController extends Controller
                 ->when($request['dob'], function ($query) use($request){
                     $dob = date('Y-d-m', strtotime($request['dob']));
                     $query->where('dob', $dob);
-                })
-                ->whereHas('patientLabReport',function ($query) use($request) {
-                    $query->when($request['lab_due_date'], function ($query) use($request){
-                        $date = explode('-', $request['lab_due_date']);
-                        $startDate  = date('Y-m-d', strtotime($date[0]));
-                        $endDate = date('Y-m-d', strtotime($date[1]));
-                        $query->whereBetween('due_date',[$startDate,$endDate]);
-                    });
                 });
+                // ->whereHas('patientLabReport',function ($query) use($request) {
+                //     $query->when($request['lab_due_date'], function ($query) use($request){
+                //         $date = explode('-', $request['lab_due_date']);
+                //         $startDate  = date('Y-m-d', strtotime($date[0]));
+                //         $endDate = date('Y-m-d', strtotime($date[1]));
+                //         $query->whereBetween('due_date',[$startDate,$endDate]);
+                //     });
+                // });
             })
             ->with('demographic', 'patientReport', 'patientReport.labReports')->orderBy('id', 'DESC');
            

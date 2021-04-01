@@ -132,12 +132,56 @@
 
         function sendEmail(id) {
             var email = $('#email-'+id).val();
-            alert(id+'='+email);
+            // alert(id+'='+email);
+            $("#loader-wrapper").show();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:"{{ route('clinician.covid-19.send-email') }}",
+                method:'POST',
+                dataType:'json',
+                data:{
+                    id:id,
+                    email:email
+                },
+                success:function (response) {
+                    $("#loader-wrapper").hide();
+                    $('#emailModal').modal("hide");
+                },
+                error:function (error) {
+                    $("#loader-wrapper").hide();
+                }
+            });
         }
 
         function sendText(id) {
             var phone = $('#phone-'+id).val();
-            alert(id+'='+phone);
+            // alert(id+'='+phone);
+            $("#loader-wrapper").show();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:"{{ route('clinician.covid-19.send-message') }}",
+                method:'POST',
+                dataType:'json',
+                data:{
+                    id:id,
+                    phone:phone
+                },
+                success:function (response) {
+                    $("#loader-wrapper").hide();
+                    $('#textModal').modal("hide");
+                },
+                error:function (error) {
+                    $("#loader-wrapper").hide();
+                }
+            });
+        }
+
+        function changePatientStatus(element,status) {
+            
         }
     </script>
 @endpush

@@ -103,14 +103,14 @@
                                  <td>
                                     <span class='label'>{{ $insurance->phone }}</span>
                                     <div class='phone-text'>
-                                       <input type="text" class="form-control form-control-lg" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number" value="{{ $insurance->phone }}">
+                                       <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number" value="{{ $insurance->phone }}">
                                     </div>
                                     <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                  </td>
                                  <td>
                                     <span class='label'>{{ $insurance->policy_no }}</span>
                                     <div class='phone-text'>
-                                       <input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="{{ $insurance->policy_no }}">
+                                       <input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="{{ $insurance->policy_no }}" maxlength="14">
                                     </div>
                                     <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
                                  </td>
@@ -169,8 +169,8 @@
                                  <div class="rs">
                                     <h3 class="_title">Phone</h3>
                                     <div class="_detail">
-                                       <input type="text" class="form-control form-control-lg" name="phone" id="insurance_detail_phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number">
-                                       <span class="phone-invalid-feedback text-danger" role="alert" maxlength="14"></span>
+                                       <input type="text" class="form-control form-control-lg phone_format" name="phone" id="insurance_detail_phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" maxlength="14">
+                                       <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                     </div>
                                  </div>
                               </div>

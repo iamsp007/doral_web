@@ -2,7 +2,7 @@
 
 @section('title','Patient Detail')
 @section('pageTitleSection')
-    Patient
+    {{ ucwords(str_replace("-"," ",$serviceStatus)) }} - Patient
 @endsection
 @hasrole('referral')
     @section('upload-btn')
@@ -135,19 +135,24 @@
         <input type="hidden" value="{{ $serviceStatus }}" id="serviceStatus" name="serviceStatus" />
         <thead>
             <tr>
+                @if($serviceStatus === 'pending')
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
+                @endif
                 <th>Sr No.</th>
                 <th>Patient Name</th>
                 <th>Gender</th>
                 <th>SSN</th>
                 <th>Home Phone</th>
-                @if(!$serviceStatus)
+                @if(!$serviceStatus || $serviceStatus === 'pending')
                 <th>Services</th>
                 @endif
                 <th>Doral Id</th>
                 <th>City - State</th>
                 <th>DOB</th>
+                @if(!$serviceStatus)
                 <th>Status</th>
+                @endif
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -175,28 +180,34 @@
     <script>
         var serching = false;
         var status = $("#serviceStatus").val();
-        if(status == "pending"){
+        if(status === "pending"){
             var serching = true;
         }
         var columnDaTa = [];
-      
+        if(status === 'pending'){
+            columnDaTa.push(
+                {data:'checkbox_id',"className": "text-center"},
+            );
+        }
         columnDaTa.push(
-            {data:'checkbox_id',"className": "text-center"},
             {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
             {data: 'full_name',"className": "text-left"},
             {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},
             {data: 'ssn_data',"className": "text-left"},
             {data: 'phone', class: 'editable text',"className": "text-left"},
         );
-        if(status == ""){
+        if(status == "" || status === 'pending'){
             columnDaTa.push({data: 'service_id',"className": "text-left"},);
         }
         columnDaTa.push({data: 'doral_id',"className": "text-left"},
             {data: 'city_state',"className": "text-left"},
             {data:'dob',name:'dob',"className": "text-left"},
-            {data: 'action',"className": "text-center"}
         );
-       
+        if(status == ""){
+            columnDaTa.push({data: 'status',"className": "text-center"},);
+        }
+        columnDaTa.push({data: 'action',"className": "text-center"});
+
         $('#get_patient-table').DataTable({
             "processing": true,
             "serverSide": true,

@@ -109,8 +109,8 @@ class GetPatientDetailsController extends Controller
                 $acceptedServices = $patient->demographic->accepted_services;
             }
 
-            if (isset($patient->demographic->address)) {
-                $address = $patient->demographic->address;
+            if (isset($patient->demographic->address_old)) {
+                $address = $patient->demographic->address_old;
             }
          
         }

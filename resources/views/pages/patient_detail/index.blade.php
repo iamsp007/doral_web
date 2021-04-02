@@ -21,7 +21,7 @@
                <ul class="shortdesc">
                   <li>Status: <span>{{ isset($patient->demographic) ? $patient->demographic->status : '' }}</span></li>
                   @if ($patient->demographic && $patient->demographic->service_id != 6)
-                  <li>Doral ID: <span>{{ ($patient->demographic) ? $patient->demographic->doral_id : '' }}</span></li>
+                     <li>Doral ID: <span>{{ ($patient->demographic) ? $patient->demographic->doral_id : '' }}</span></li>
                   @endif
                   <li>Service: <span>{{ ($patient->demographic && $patient->demographic->services) ? $patient->demographic->services->name : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender_data }}</span></li>

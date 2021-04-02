@@ -11,6 +11,8 @@ use App\Services\ClinicianService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use Nexmo\Laravel\Facade\Nexmo;
+use Mail;
 
 class PatientController extends Controller
 {
@@ -316,6 +318,44 @@ class PatientController extends Controller
 
         if ($patient->delete()) {
             return redirect()->back();
+        }
+    }
+
+    public function sendEmail(Request $request)
+    {
+        try {
+            $patient = CovidForm::find($request->id);
+
+            $url = env('APP_URL').'covid-19/'.$patient->id.'/detail';
+
+            $response = Mail::send([], [], function ($message) use ($request, $patient, $url) {
+                $message->to($request->email)
+                    ->subject(env('APP_NAME'))
+                    ->setBody('COVID-19 report of '.$patient->patient_name.'. Here is the report: <a href='.$url.'>'.$url.'</a>', 'text/html');
+            });
+
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            dd("Error: ". $e->getMessage());
+        }
+    }
+
+    public function sendMessage(Request $request)
+    {
+        try {
+            $patient = CovidForm::find($request->id);
+
+            $sendSms = Nexmo::message()->send([
+                'to' => $request->phone,
+                'from' => env('APP_NAME'),
+                'text' => 'COVID-19 report of '.$patient->patient_name.'. Here is the report: '.env('APP_URL').'covid-19/'.$patient->id.'/detail'
+            ]);
+
+            $response = $sendSms->getResponseData();
+
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            dd("Error: ". $e->getMessage());
         }
     }
 }

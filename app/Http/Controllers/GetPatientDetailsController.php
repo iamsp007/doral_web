@@ -87,8 +87,8 @@ class GetPatientDetailsController extends Controller
 
         $patient = User::with('caregiverInfo', 'caregiverInfo.company', 'demographic', 'patientEmergency')->find($paient_id);
         $payment = array();
-        if(isset($patient->caregiverInfo->service_id) and isset($patient->caregiverInfo->company_id)){
-            $payment = CompanyPaymentPlanInfo::where('service_id',$patient->caregiverInfo->service_id)->where('company_id',$patient->caregiverInfo->company_id)->get();
+        if(isset($patient->demographic->service_id) and isset($patient->demographic->company_id)){
+            $payment = CompanyPaymentPlanInfo::where('service_id',$patient->demographic->service_id)->where('company_id',$patient->demographic->company_id)->get();
             if($payment) {
                 $payment = json_decode($payment);
             }
@@ -100,64 +100,21 @@ class GetPatientDetailsController extends Controller
 
         $ethnicity = $mobile = $maritalStatus = $status = $referralSource = $notificationPreferences = $caregiverOffices = $inactiveReasonDetail = $team = $location = $branch = $acceptedServices = $address = $language = [];
 
-        if (isset($patient->caregiverInfo)) {
-
-            if (isset($patient->caregiverInfo->ethnicity)) {
-                $ethnicity = json_decode($patient->caregiverInfo->ethnicity);
+        if (isset($patient->demographic)) {
+            if (isset($patient->demographic->notification_preferences)) {
+                $notificationPreferences = $patient->demographic->notification_preferences;
             }
-
-            if (isset($patient->caregiverInfo->mobile)) {
-                $mobile = json_decode($patient->caregiverInfo->mobile);
-            }
-
-            if (isset($patient->caregiverInfo->marital_status)) {
-                $maritalStatus = json_decode($patient->caregiverInfo->marital_status);
-            }
-
-            if (isset($patient->caregiverInfo->status)) {
-                $status = json_decode($patient->caregiverInfo->status);
-            }
-
-            if (isset($patient->caregiverInfo->referral_source)) {
-                $referralSource = json_decode($patient->caregiverInfo->referral_source);
-            }
-
-            if (isset($patient->caregiverInfo->notification_preferences)) {
-                $notificationPreferences = json_decode($patient->caregiverInfo->notification_preferences);
-            }
-
-            if (isset($patient->caregiverInfo->caregiver_offices)) {
-                $caregiverOffices = json_decode($patient->caregiverInfo->caregiver_offices);
-            }
-
-            if (isset($patient->caregiverInfo->inactive_reason_detail)) {
-                $inactiveReasonDetail = json_decode($patient->caregiverInfo->inactive_reason_detail);
-            }
-
-            if (isset($patient->demographic->team)) {
-                $team = json_decode($patient->demographic->team);
-            }
-
-            if (isset($patient->demographic->location)) {
-                $location = json_decode($patient->demographic->location);
-            }
-
-            if (isset($patient->demographic->branch)) {
-                $branch = json_decode($patient->demographic->branch);
-            }
-
+       
             if (isset($patient->demographic->accepted_services)) {
-                $acceptedServices = json_decode($patient->demographic->accepted_services);
+                $acceptedServices = $patient->demographic->accepted_services;
             }
 
             if (isset($patient->demographic->address)) {
-                $address = json_decode($patient->demographic->address);
+                $address = $patient->demographic->address;
             }
-
-            if (isset($patient->demographic->language)) {
-                $language = json_decode($patient->demographic->language);
-            }
+         
         }
+
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances'));
     }
 
@@ -366,7 +323,8 @@ class GetPatientDetailsController extends Controller
     {
         $searchPatientIds = $this->searchPatientDetails();
 
-        // $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+        $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+        dd($patientArray);
         $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','490045','504356','516752','517000','518828','532337','540428','541579','542628','1005036','1008858','1009943','1010785','1010967','1015287','1019171','1030319','1031322','1048580','688245','695223','697606','698180','698859','698935','701845','704228','742010','742023','762544','762584','772465','772468','772470','783693','817770','826323','832638','894642','904265','909877','916609','916702','946557','948750','952551','961283','987170','989414','990437','994958','996056','841005','854502','865729','965077'];
 
         $counter = 0;
@@ -381,7 +339,7 @@ class GetPatientDetailsController extends Controller
                     dump($getpatientDemographicDetails);
                     $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails, 'add');
 
-                    if($patient_detail_id) {
+                    // if($patient_detail_id) {
 
                         /** Pending store process start*/
 
@@ -390,15 +348,15 @@ class GetPatientDetailsController extends Controller
                         // $this->storePatientDetail($patientChangesV2, 'edit');
 
                         /** Get and Store Patient Referral Detail */
-                        $patientReferralInfo = $this->getPatientReferralInfo($patient_id);
+                        // $patientReferralInfo = $this->getPatientReferralInfo($patient_id);
 
-                        if (isset($patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'])) {
-                            $getPatientReferralInfo = $patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
+                        // if (isset($patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'])) {
+                        //     $getPatientReferralInfo = $patientReferralInfo['soapBody']['GetPatientReferralInfoResponse']['GetPatientReferralInfoResult']['PatientReferralInfo'];
 
-                            if ($getPatientReferralInfo['ReferralMasterId'] != 0) {
-                                $this->storePatientReferralInfo($getPatientReferralInfo, $patient_detail_id);
-                            }
-                        }
+                        //     if ($getPatientReferralInfo['ReferralMasterId'] != 0) {
+                        //         $this->storePatientReferralInfo($getPatientReferralInfo, $patient_detail_id);
+                        //     }
+                        // }
 
                         /** Get and Store Schedule Info */
                         // $visitID = $searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
@@ -406,9 +364,9 @@ class GetPatientDetailsController extends Controller
                         // $this->storeScheduleInfo($scheduleInfo, $patient_detail_id);
 
                         /** Get and Store Patient Clinical Info */
-                        $getPatientClinicalInfo = $this->getPatientClinicalInfo($patient_id);
-                        $this->storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id);
-                    }
+                        // $getPatientClinicalInfo = $this->getPatientClinicalInfo($patient_id);
+                        // $this->storePatientClinicalDetail($getPatientClinicalInfo, $patient_detail_id);
+                    // }
                 }
             }
             $counter++;

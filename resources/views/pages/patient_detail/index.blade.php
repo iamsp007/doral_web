@@ -832,9 +832,10 @@
                }
             });
          });
-
+       
          $(document).on('click','.save_record',function(event) {
             event.preventDefault();
+            $('.insurance_company').hide();
             var t = $(this);
             var action = t.attr('data-action');
             if (action === 'add') {
@@ -854,6 +855,7 @@
                },
                success: function(data) {
                   if(data.status == 400) {
+                   
                      $.each( data.message, function( key, value ) {
                         if (data.action === 'add') {
                            t.parents('.insurance_company').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');

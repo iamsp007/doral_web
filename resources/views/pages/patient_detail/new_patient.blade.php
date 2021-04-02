@@ -34,16 +34,19 @@
                     ACTIVE Patients</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "covid-19")
-            <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Pending Patients</a>
-            <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Import Patients</a>
+            <div class="d-flex">
+                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                        <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                        Pending Patients</a>
+                <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                        Import Patients</a>
+            </div>
         @elseif (request()->segment(count(request()->segments())) == "md-order")
             <div class="d-flex">
                 <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
+            </div>
         @endif
     @endsection
 @endrole

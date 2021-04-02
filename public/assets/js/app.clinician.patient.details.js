@@ -1,5 +1,5 @@
 
-$("body").on('keyup','.ssnedit, #ssn',function () {
+$("body").on('keyup','.ssn_format',function () {
     
     var val = this.value.replace(/\D/g, '');
     var newVal = '';

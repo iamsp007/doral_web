@@ -103,14 +103,14 @@
                                  <td>
                                     <span class='label'>{{ $insurance->phone }}</span>
                                     <div class='phone-text'>
-                                       <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" onkeyup="this.value=this.value.replace(/[^\d]/,'')" placeholder="Enter Phone Number" value="{{ $insurance->phone }}">
+                                       <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $insurance->phone }}" maxlength="14">
                                     </div>
                                     <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                  </td>
                                  <td>
                                     <span class='label'>{{ $insurance->policy_no }}</span>
                                     <div class='phone-text'>
-                                       <input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="{{ $insurance->policy_no }}" maxlength="14">
+                                       <input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="{{ $insurance->policy_no }}">
                                     </div>
                                     <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
                                  </td>

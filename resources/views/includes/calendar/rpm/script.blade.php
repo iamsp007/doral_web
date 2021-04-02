@@ -1,5 +1,4 @@
-
-
+@include('includes.calendar.head')
 <div id='calendar2'></div>
 <div class="modal fade fade2 dialogue" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

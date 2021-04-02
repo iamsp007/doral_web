@@ -1,5 +1,5 @@
-
-<div id='calendar'></div>
+@include('includes.calendar.head')
+<div id='calendar1'></div>
 <div class="modal fade fade2 dialogue" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -98,11 +98,11 @@
 
 <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
+            var calendarEl = document.getElementById('calendar1');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 timeZone: 'IST',
                 initialView: 'timeGridDay',
-                height: '100%',
+                height: '1000px',
                 themeSystem: 'bootstrap4',
                 aspectRatio: 2,
                 windowResizeDelay: 100,

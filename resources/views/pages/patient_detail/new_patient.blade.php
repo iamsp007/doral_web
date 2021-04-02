@@ -34,8 +34,19 @@
                     ACTIVE Patients</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "covid-19")
-            <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Import Patients</a>
+            <div class="d-flex">
+                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                        <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                        Pending Patients</a>
+                <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                        Import Patients</a>
+            </div>
+        @elseif (request()->segment(count(request()->segments())) == "md-order")
+            <div class="d-flex">
+                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Pending Patients</a>
+            </div>
         @endif
     @endsection
 @endrole
@@ -97,6 +108,23 @@
                 </div>
             </div>
         </form>
+    @elseif($serviceStatus === 'covid-19')
+        <form id="search_form" method="post">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                        <input type="zip_code" class="form-control" name="zip_code" id="zip_code" placeholder="Zipcode">
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
+                        <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     @endif
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
         <button type="button" onclick="doaction('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
@@ -113,11 +141,16 @@
                 <th>Gender</th>
                 <th>SSN</th>
                 <th>Home Phone</th>
+                @if(!$serviceStatus || $serviceStatus === 'pending')
                 <th>Services</th>
+                @endif
                 <th>Doral Id</th>
                 <th>City - State</th>
                 <th>DOB</th>
+                @if(!$serviceStatus)
                 <th>Status</th>
+                @endif
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -144,8 +177,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
         var serching = false;
-        var status = $("#pendingStatus").val();
-        if(status == "pending"){
+        var status = $("#serviceStatus").val();
+        if(status === "pending"){
             var serching = true;
         }
         var columnDaTa = [];
@@ -157,13 +190,19 @@
             {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},
             {data: 'ssn_data',"className": "text-left"},
             {data: 'phone', class: 'editable text',"className": "text-left"},
-            {data: 'service_id',"className": "text-left"},
-            {data: 'doral_id',"className": "text-left"},
+        );
+        if(status == "" || status === 'pending'){
+            columnDaTa.push({data: 'service_id',"className": "text-left"},);
+        }
+        columnDaTa.push({data: 'doral_id',"className": "text-left"},
             {data: 'city_state',"className": "text-left"},
             {data:'dob',name:'dob',"className": "text-left"},
-            {data: 'action',"className": "text-center",}
         );
-       
+        if(status == ""){
+            columnDaTa.push({data: 'status',"className": "text-center"},);
+        }
+        columnDaTa.push({data: 'action',"className": "text-center"});
+
         $('#get_patient-table').DataTable({
             "processing": true,
             "serverSide": true,
@@ -177,6 +216,7 @@
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
+                
                 data: function (d) {
                     d.due_date = $('input[name="daterange"]').val();
                     d.status = $('select[name="status"]').val();
@@ -186,6 +226,8 @@
                     d.gender = $('select[name="gender"]').val();
                     d.dob = $('input[name="dob"]').val();
                     d.serviceStatus = $('input[name="serviceStatus"]').val();
+                    d.zip_code = $('input[name="zip_code"]').val();
+                    
                 },
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'

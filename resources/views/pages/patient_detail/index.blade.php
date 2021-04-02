@@ -19,10 +19,13 @@
             </div>
             <div>
                <ul class="shortdesc">
-                  <!-- <li>Status: <span>{{ isset($status->Name) ? $status->Name : '' }}</span></li> -->
-                  <li>Doral ID: <span>{{ ($patient->caregiverInfo) ? $patient->demographic->doral_id : '' }}</span></li>
+                  <li>Status: <span>{{ isset($patient->demographic) ? $patient->demographic->status : '' }}</span></li>
+                  @if ($patient->demographic && $patient->demographic->service_id != 6)
+                     <li>Doral ID: <span>{{ ($patient->demographic) ? $patient->demographic->doral_id : '' }}</span></li>
+                  @endif
+                  <li>Service: <span>{{ ($patient->demographic && $patient->demographic->services) ? $patient->demographic->services->name : '' }}</span></li>
                   <li>Gender: <span>{{ $patient->gender_data }}</span></li>
-                  <li>DOB: <span>{{ ($patient->caregiverInfo) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
+                  <li>DOB: <span>{{ ($patient->dob) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
 <!--                  <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center">
                       <i class="las la-file-upload la-2x mr-2"></i>
                       <a target="_blank" href="{{route('get-employee-physical-examination-report', ['id' => $patient->id])}}">Employee Physical Form</a></button>-->
@@ -829,9 +832,10 @@
                }
             });
          });
-
+       
          $(document).on('click','.save_record',function(event) {
             event.preventDefault();
+            $('.insurance_company').hide();
             var t = $(this);
             var action = t.attr('data-action');
             if (action === 'add') {
@@ -851,6 +855,7 @@
                },
                success: function(data) {
                   if(data.status == 400) {
+                   
                      $.each( data.message, function( key, value ) {
                         if (data.action === 'add') {
                            t.parents('.insurance_company').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
@@ -993,7 +998,7 @@
       var i =0;
       $(document).find("#add").click(function(){
          i++;
-         $(".add_more_contact_div").append('<div class="main_div"><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Contact Name</h3><input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Contact Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Home Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Cell Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address</h3><input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship Name</h3><input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value=""></div></div></div></div></div><div style="display:flex;justify-content:center;align-items:center"><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div><div class="bottom-horizontal"></div></div>');
+         $(".add_more_contact_div").append('<div class="main_div"><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Contact Name</h3><input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Contact Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Home Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1 phone_format" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Cell Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone2 phone_format" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address</h3><input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship Name</h3><input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value=""></div></div></div></div></div><div style="display:flex;justify-content:center;align-items:center"><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div><div class="bottom-horizontal"></div></div>');
 
          $(document).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
          $(document).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');

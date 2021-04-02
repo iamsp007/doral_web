@@ -24,12 +24,16 @@ class HHAExchangeController extends Controller
        
         // dump(count($patientArray));2513
 
-        // $missing_patient_id = [];
-        // $userCaregiver1 = Demographic::get();
-        // foreach ($userCaregiver1 as $userCaregivers) { 
-        //     $missing_patient_id[] = $userCaregivers->patient_id;
-        // }
-        // dd($missing_patient_id);
+        $missing_address = [];
+        // $userCaregiver1 = User::whereHsaget();
+        $patientList = User::whereHas('roles',function ($q){
+            $q->where('name','=','patient');
+        })->with('demographic');
+        dd($patientList->count());
+        foreach ($patientList as $userCaregivers) { 
+            $missing_address[] = $patientList->address;
+        }
+        dd($missing_address);
         // $data = [];
         foreach (array_slice($patientArray, 0 , 2513) as $patient_id) {
             // if (! in_array($patient_id, $missing_patient_id))

@@ -114,7 +114,7 @@
                                     <div class="ls"><i class="las la-language circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Language</h3>
-                                        <input type="text" class="form-control-plaintext _detail " readonly name="language1" data-id="language1" id="language" placeholder="language1" value="{{ isset($patient->demographic) && isset($patient->demographic->language) ? $patient->demographic->language : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail " readonly name="language" data-id="language" id="language" placeholder="Language" value="{{ isset($patient->demographic) && isset($patient->demographic->language) ? $patient->demographic->language : '' }}">
                                         
                                     </div>
                                 </div>

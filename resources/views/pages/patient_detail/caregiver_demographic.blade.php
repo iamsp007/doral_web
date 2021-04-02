@@ -5,7 +5,7 @@
             <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('demographic')">
             <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('demographic')">
         </div>
-        <div class="head scrollbar scrollbar12">
+        <div class="head">
             <form id="demographic_form">
                 <div class="p-3">
                     <div class="form-group">
@@ -345,7 +345,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bottom-horizontal"></div>
                                 </div>
                             @endforeach
                         @else
@@ -408,7 +407,6 @@
                                         <button type="button" class="btn btn-danger remove-tr text-center">Remove</button>
                                     </div>
                                 </div>
-                                <div class="bottom-horizontal"></div>
                             </div>
                         @endif
                         <div class="add_more_contact_div"></div>

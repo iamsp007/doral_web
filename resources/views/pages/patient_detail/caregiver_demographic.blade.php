@@ -274,11 +274,14 @@
                     <!-- Emergency contact Detail -->
                     <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                         data-name="emergency_contact_detail">
-                        <div class="app-card-header">
-                            <h1 class="title">Emergency Contact Detail</h1>
-                        </div>
                         @if(count($patient->patientEmergency) > 0 )
+                            @php
+                            $i = 1;
+                            @endphp
                             @foreach($patient->patientEmergency as $key => $patientEmergencyContact)
+                            <div class="app-card-header">
+                                <h1 class="title">Emergency Contact Detail {{$i++}}</h1>
+                            </div>
                                 <div class="main_div">
                                     <div class="p-3">
                                         <div class="form-group">

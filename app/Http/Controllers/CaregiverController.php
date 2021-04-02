@@ -38,18 +38,26 @@ class CaregiverController extends Controller
             })
             ->when($request['serviceStatus'] ,function ($query) use($request) {
                 if ($request['serviceStatus'] == 'vbc') {
+                    $query->whereIn('status', ['0', '1', '2', '3', '5']);
+
                     $query->whereHas('demographic',function ($q) use($request) {
                         $q->where('service_id', 1);
                     });
                 } else if($request['serviceStatus'] == 'md-order') {
+                    $query->whereIn('status', ['0', '1', '2', '3', '5']);
+                    
                     $query->whereHas('demographic',function ($q) use($request) {
                         $q->where('service_id', 2);
                     });
                 } else if($request['serviceStatus'] == 'occupational-health') {
+                    $query->whereIn('status', ['0', '1', '2', '3', '5']);
+
                     $query->whereHas('demographic',function ($q) use($request) {
                         $q->where('service_id', 3);
                     });
                 } else if($request['serviceStatus'] == 'covid-19') {
+                    $query->where('status', '0');
+
                     $query->whereHas('demographic',function ($query) use($request) {
                         $query->where('service_id', 6);
                         
@@ -59,13 +67,10 @@ class CaregiverController extends Controller
                             if ($zip_code) {
                                 if ($zip_code['zip_code']) {
                                     $zip_code->where('zip_code',$request['zip_code']);
-                                    // $query->where('zip_code',$request['zip_code']);
                                 }
                             }
                         });
                     });
-
-                    
                 } else if ($request['serviceStatus'] == 'pending') {
                     $query->where('status', '0');
                 } else if ($request['serviceStatus'] == 'initial') {
@@ -81,6 +86,7 @@ class CaregiverController extends Controller
                 }
             })
             ->when(! $request['serviceStatus'] ,function ($query) use($request) {
+                $query->whereIn('status', ['1', '2', '3', '5']);
                 $query->when($request['service_id'], function ($query) use($request) {
                     $query->whereHas('demographic',function ($q) use($request) {
                         $q->where('service_id', $request['service_id']);
@@ -159,7 +165,7 @@ class CaregiverController extends Controller
                 }
                 return $phone;
             });
-            if(! $request['serviceStatus']) {
+            if(! $request['serviceStatus'] || $request['serviceStatus'] === 'pending') {
                 $datatble->addColumn('service_id', function($q) {
                     $services = '';
                     if ($q->demographic && $q->demographic->services) {
@@ -176,92 +182,65 @@ class CaregiverController extends Controller
                 return $doral_id;
             })
             ->addColumn('city_state', function($q) use($request) {
-                // if ($request['serviceStatus'] == 'initial') {
-                //     $city = $state = '';
-                //     if ($q->demographic) {
-                //         $city_state_json =  $q->demographic->address;
-
-                //         if ($city_state_json) {
-                //             if ($city_state_json->City) {
-                //                 $city = $city_state_json->City;
-                //             }
-                //             if ($city_state_json->State) {
-                //                 $state = $city_state_json->State;
-                //             }
-                //         }
-                //     }
-                //     $city_state = "<span class='label'>".$city . ' - ' . $state . "</span>";
-                //     $city_state .= "<div class='address-text'><input class='city form-control' type='text' name='city' value='".$city."'></div>";
-                //     $city_state .= "<div class='address-text'><input class='state form-control' type='text' name='state' value='".$state."'></div>";
-                //     return $city_state;
-                // } else {
-                    $city_state = '';
-                    if ($q->demographic) {
-                        $city_state_json =  $q->demographic->address;
-                      
-                        if ($city_state_json) {
-                            if ($city_state_json['city']) {
-                                $city_state .= $city_state_json['city'];
-                            }
-                            if ($city_state_json['state']) {
-                                $city_state .= ' - ' . $city_state_json['state'];
-                            }
-
+                $city_state = '';
+                if ($q->demographic) {
+                    $city_state_json =  $q->demographic->address;
+                    
+                    if ($city_state_json) {
+                        if ($city_state_json['city']) {
+                            $city_state .= $city_state_json['city'];
                         }
+                        if ($city_state_json['state']) {
+                            $city_state .= ' - ' . $city_state_json['state'];
+                        }
+
                     }
-                    return $city_state;
-                // }
-               
+                }
+                return $city_state;
             });
-            // if($request['serviceStatus'] == 'active') {
-                $datatble->addColumn('dob', function($row) use($request){
-                    return date('m-d-Y', strtotime($row->dob));
-                });
-            // } else {
-                $datatble->addColumn('action', function($row) use($request){
-                  
+            $datatble->addColumn('dob', function($row) use($request){
+                return date('m-d-Y', strtotime($row->dob));
+            });
+            if (! $request['serviceStatus']) {
+                $datatble->addColumn('status', function($row) use($request){
                     $btn = '';
-                    if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'initial') {
-
-                        if ($request['serviceStatus'] == 'initial') {
-                            $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
-                            $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
-                        } else {
-                         
-                            if ($row->status === '5') {
-                              
-                                // $btn .= '<select class="form-control download_lab_report" name="referralType" id="referralType">';
-                                //     if ($row->patientReport) {
-                                //         foreach ($row->patientReport as $value) {
-                                //             if ($value->labReports) {
-                                //                 $btn .= '<option value="'.$value->labReports->id.'" data-value="single">'.$value->labReports->name.'</option>';
-                                //             }
-                                //         }
-                                //     }
-                                    
-                                // $btn .='<option value="" data-value="multiple" data-id="'.$row->id.'">Download All</option>';
-                                // $btn .= '</select>';
-                                    $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
-                            } else {
-                                $btn .= $row->status_data;
-                            }
-                        }
-                    } else if($request['serviceStatus'] == 'covid-19') {
-                        $btn .= '<button type="button" class="btn btn-danger text-capitalize btn--sm assign" data-toggle="modal" data-target="#exampleModal" title="">Assign Clinician</button>';
-                    } else {
-                        if ($row->status === '0') {
-                            $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
-
-                            $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
-                        }  else if ($row->status === '1') {
-                            $btn .= '<p class="text-success">Accept</p>';
-                        }
-                        $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;">Add New Request<span></span></button>';
+                    if ($row->status === '1') {
+                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                    } else if ($row->status === '3') {
+                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+                    } else if ($row->status === '5') {
+                        $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
                     }
                     return $btn;
                 });
-            // }
-            $datatble->rawColumns(['full_name', 'ssn_data', 'city_state', 'action', 'checkbox_id', 'phone']);
+            }
+            $datatble->addColumn('action', function($row) use($request){
+                $btn = '';
+                if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial') {
+                    if ($request['serviceStatus'] == 'initial') {
+                        $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
+                        $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
+                    } else if($request['serviceStatus'] == 'covid-19') {
+                        $btn .= '<button type="button" class="btn btn-danger text-capitalize btn--sm assign" data-toggle="modal" data-target="#exampleModal" title="">Assign Clinician</button>';
+                    } else {
+                        if ($row->status === '5') {
+                            $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
+                        } else {
+                            $btn .= $row->status_data;
+                        }
+                    }
+                } else {
+                    if ($row->status === '0') {
+                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+
+                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                    } else { 
+                        $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn w-600 d-table mr-auto ml-auto" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"><img src="https://app.doralhealthconnect.com/assets/img/icons/Request_RoadL.svg" alt="RoadL Request" class="icon_90 selected"><span></span></button>';
+                    }
+                }
+                return $btn;
+            });
+            $datatble->rawColumns(['full_name', 'ssn_data', 'city_state', 'action', 'checkbox_id', 'phone','status']);
             return $datatble->make(true);
     }
     

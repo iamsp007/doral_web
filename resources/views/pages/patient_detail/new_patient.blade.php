@@ -141,13 +141,16 @@
                 <th>Gender</th>
                 <th>SSN</th>
                 <th>Home Phone</th>
-                @if(!$serviceStatus)
+                @if(!$serviceStatus || $serviceStatus === 'pending')
                 <th>Services</th>
                 @endif
                 <th>Doral Id</th>
                 <th>City - State</th>
                 <th>DOB</th>
+                @if(!$serviceStatus)
                 <th>Status</th>
+                @endif
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -175,7 +178,7 @@
     <script>
         var serching = false;
         var status = $("#serviceStatus").val();
-        if(status == "pending"){
+        if(status === "pending"){
             var serching = true;
         }
         var columnDaTa = [];
@@ -188,15 +191,18 @@
             {data: 'ssn_data',"className": "text-left"},
             {data: 'phone', class: 'editable text',"className": "text-left"},
         );
-        if(status == ""){
+        if(status == "" || status === 'pending'){
             columnDaTa.push({data: 'service_id',"className": "text-left"},);
         }
         columnDaTa.push({data: 'doral_id',"className": "text-left"},
             {data: 'city_state',"className": "text-left"},
             {data:'dob',name:'dob',"className": "text-left"},
-            {data: 'action',"className": "text-center"}
         );
-       
+        if(status == ""){
+            columnDaTa.push({data: 'status',"className": "text-center"},);
+        }
+        columnDaTa.push({data: 'action',"className": "text-center"});
+
         $('#get_patient-table').DataTable({
             "processing": true,
             "serverSide": true,

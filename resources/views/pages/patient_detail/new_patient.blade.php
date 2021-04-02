@@ -171,7 +171,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
         var serching = false;
-        var status = $("#pendingStatus").val();
+        var status = $("#serviceStatus").val();
         if(status == "pending"){
             var serching = true;
         }
@@ -207,6 +207,7 @@
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
+                
                 data: function (d) {
                     d.due_date = $('input[name="daterange"]').val();
                     d.status = $('select[name="status"]').val();

@@ -46,6 +46,16 @@ class Demographic extends Model
         'notification_preferences' => 'array',
     ];
 
+    public function company()
+    {
+        return $this->hasOne(Company::class,'id','company_id');
+    }
+
+    public function services()
+    {
+        return $this->hasOne(Services::class,'id','service_id');
+    }
+    
     // /**
     //  * Create ssn number
     //  */

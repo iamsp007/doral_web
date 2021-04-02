@@ -50,9 +50,22 @@ class CaregiverController extends Controller
                         $q->where('service_id', 3);
                     });
                 } else if($request['serviceStatus'] == 'covid-19') {
-                    $query->whereHas('demographic',function ($q) use($request) {
-                        $q->where('service_id', 6);
+                    $query->whereHas('demographic',function ($query) use($request) {
+                        $query->where('service_id', 6);
+                        
+                        $query->when($request['zip_code'], function ($query) use($request) {
+                            $zip_code =  $query->demographic->address;
+                      
+                            if ($zip_code) {
+                                if ($zip_code['zip_code']) {
+                                    $zip_code->where('zip_code',$request['zip_code']);
+                                    // $query->where('zip_code',$request['zip_code']);
+                                }
+                            }
+                        });
                     });
+
+                    
                 } else if ($request['serviceStatus'] == 'pending') {
                     $query->where('status', '0');
                 } else if ($request['serviceStatus'] == 'initial') {
@@ -95,15 +108,15 @@ class CaregiverController extends Controller
                 //     });
                 // });
             })
-            ->with('demographic', 'patientReport', 'patientReport.labReports')->orderBy('id', 'DESC');
+            ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports');
             
-        $datatble = DataTables::of($patientList)
+        $datatble = DataTables::of($patientList->get())
             ->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
             })
             ->addIndexColumn()
             ->addColumn('full_name', function($q) use($request) {
-                if ($request['status'] == 'initial') {
+                if ($request['serviceStatus'] == 'initial') {
                     $full_name = "<span class='label'>".$q->full_name."</span>";
                     $full_name .= "<div class='fullname-text'><input class='first_name form-control' required type='text' name='first_name' value='".$q->first_name."'></div>";
                     $full_name .= "<div class='fullname-text'><input class='last_name form-control' type='text' name='last_name' value='".$q->last_name."'></div>";
@@ -116,7 +129,7 @@ class CaregiverController extends Controller
                 return $q->gender_data;
             })
             ->addColumn('ssn_data', function($q) use($request) {
-                if ($request['status'] == 'initial') {
+                if ($request['serviceStatus'] == 'initial') {
                     $ssn_data = '';
                     if ($q->demographic) {
                         $ssn_data = getSsn($q->demographic->ssn);
@@ -136,7 +149,7 @@ class CaregiverController extends Controller
             })
             ->addColumn('phone', function($q) use($request){
                 $phone = '';
-                if ($request['status'] == 'initial') {
+                if ($request['serviceStatus'] == 'initial') {
                     $phone .= "<div class='phone-text'><input class='phone form-control' required type='text' name='phone' value=''></div>";
                 } else {
                     $phone .= '';
@@ -145,15 +158,17 @@ class CaregiverController extends Controller
                     }
                 }
                 return $phone;
-            })
-            ->addColumn('service_id', function($q) {
-                $services = '';
-                if ($q->demographic && $q->demographic->services) {
-                    $services =  $q->demographic->services->name;
-                }
-                return $services;
-            })
-            ->addColumn('doral_id', function($q){
+            });
+            if(! $request['serviceStatus']) {
+                $datatble->addColumn('service_id', function($q) {
+                    $services = '';
+                    if ($q->demographic && $q->demographic->services) {
+                        $services =  $q->demographic->services->name;
+                    }
+                    return $services;
+                });
+            }
+            $datatble->addColumn('doral_id', function($q){
                 $doral_id = '';
                 if ($q->demographic) {
                     $doral_id =  $q->demographic->doral_id;
@@ -161,7 +176,7 @@ class CaregiverController extends Controller
                 return $doral_id;
             })
             ->addColumn('city_state', function($q) use($request) {
-                // if ($request['status'] == 'initial') {
+                // if ($request['serviceStatus'] == 'initial') {
                 //     $city = $state = '';
                 //     if ($q->demographic) {
                 //         $city_state_json =  $q->demographic->address;
@@ -198,7 +213,7 @@ class CaregiverController extends Controller
                 // }
                
             });
-            // if($request['status'] == 'active') {
+            // if($request['serviceStatus'] == 'active') {
                 $datatble->addColumn('dob', function($row) use($request){
                     return date('m-d-Y', strtotime($row->dob));
                 });
@@ -206,9 +221,9 @@ class CaregiverController extends Controller
                 $datatble->addColumn('action', function($row) use($request){
                   
                     $btn = '';
-                    if ($request['status'] == 'occupational-health' || $request['status'] == 'md-order' || $request['status'] == 'vbc' || $request['status'] == 'initial') {
+                    if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'initial') {
 
-                        if ($request['status'] == 'initial') {
+                        if ($request['serviceStatus'] == 'initial') {
                             $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
                             $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
                         } else {
@@ -231,6 +246,8 @@ class CaregiverController extends Controller
                                 $btn .= $row->status_data;
                             }
                         }
+                    } else if($request['serviceStatus'] == 'covid-19') {
+                        $btn .= '<button type="button" class="btn btn-danger text-capitalize btn--sm assign" data-toggle="modal" data-target="#exampleModal" title="">Assign Clinician</button>';
                     } else {
                         if ($row->status === '0') {
                             $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
@@ -239,6 +256,7 @@ class CaregiverController extends Controller
                         }  else if ($row->status === '1') {
                             $btn .= '<p class="text-success">Accept</p>';
                         }
+                        $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;">Add New Request<span></span></button>';
                     }
                     return $btn;
                 });

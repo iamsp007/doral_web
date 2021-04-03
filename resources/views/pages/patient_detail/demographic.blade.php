@@ -856,13 +856,13 @@
                                        <i class="las la-user-nurse circle"></i>
                                     </div>
                                     <div class="rs">
-                                       <h3 class="_title">Contact Name</h3>
+                                       <h3 class="_title">Name</h3>
                                        <input type="text"
                                           class="form-control-plaintext _detail " readonly
                                           name="name"
                                           onclick="editableField('name')"
                                           data-id="name"
-                                          placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
+                                          placeholder="Name" value="{{ $patientEmergencyContact->name }}">
                                     </div>
                                  </div>
                               </div>
@@ -942,13 +942,13 @@
                                        <i class="las la-user-nurse circle"></i>
                                     </div>
                                     <div class="rs">
-                                       <h3 class="_title">Relationship Name</h3>
+                                       <h3 class="_title">Relationship</h3>
                                        <input type="text"
                                           class="form-control-plaintext _detail " readonly
                                           name="relationship_name"
                                           onclick="editableField('relationship_name')"
                                           data-id="relationship_name" id="relationship_name"
-                                          placeholder="Relationship Name" value="{{ $patientEmergencyContact->relationship_name }}">
+                                          placeholder="Relationship" value="{{ $patientEmergencyContact->relationship_name }}">
                                     </div>
                                  </div>
                               </div>

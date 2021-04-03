@@ -2,7 +2,7 @@
 
 @section('title','Patient Detail')
 @section('pageTitleSection')
-    Patient
+    {{ ucwords(str_replace("-"," ",$serviceStatus)) }} - Patient
 @endsection
 @hasrole('referral')
     @section('upload-btn')
@@ -135,7 +135,9 @@
         <input type="hidden" value="{{ $serviceStatus }}" id="serviceStatus" name="serviceStatus" />
         <thead>
             <tr>
+                @if($serviceStatus === 'pending')
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
+                @endif
                 <th>Sr No.</th>
                 <th>Patient Name</th>
                 <th>Gender</th>
@@ -182,9 +184,12 @@
             var serching = true;
         }
         var columnDaTa = [];
-      
+        if(status === 'pending'){
+            columnDaTa.push(
+                {data:'checkbox_id',"className": "text-center"},
+            );
+        }
         columnDaTa.push(
-            {data:'checkbox_id',"className": "text-center"},
             {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
             {data: 'full_name',"className": "text-left"},
             {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},

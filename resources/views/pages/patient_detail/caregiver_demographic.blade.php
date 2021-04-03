@@ -7,8 +7,9 @@
         $voice_message_notify = $notificationPreferences['voice_message'] ? $notificationPreferences['voice_message'] : '';
     endif;
   
-    $address1 = $address2 = $address_city = $address_state = $address_zip_code = '';
+    $aptBuilding = $address1 = $address2 = $address_city = $address_state = $address_zip_code = '';
     if(count($address) > 0):
+        $aptBuilding = '';
         $address1 =  $address['address1'] ? $address['address1'] : '';
         $address2 = $address['address2'] ? $address['address2'] : '';
         $address_city = $address['city'] ? $address['city'] : '';
@@ -153,33 +154,26 @@
                                         <i class="las la-ring circle"></i>
                                     </div>
                                     <div class="rs">
-                                        <h3 class="_title">Notification</h3>
-                                        <label for="chkPassport" class="containera">
-                                            <input type="checkbox"  id="chkPassport" name="notification_preferences_email" >
-                                            <span class="checkmark"></span>
-                                            Email
-                                        </label>
-                                        <label for="chkPassport" class="containera">
-                                            <input type="checkbox"  id="chkPassport" name="mobile_or_sms" >
-                                            <span class="checkmark"></span>
-                                            SMS
-                                        </label>
-                                        <label for="chkPassport" class="containera">
-                                            <input type="checkbox"  id="chkPassport" name="voice_call" >
-                                            <span class="checkmark"></span>
-                                            Call
-                                        </label>
+                                        <h3 class="_title">Marital Status</h3>
+                                        <input type="text" class="form-control-plaintext _detail" readonly name="marital_status" data-id="marital_status" id="marital_status" placeholder="Marital Status" value="{{ isset($patient->demographic) && isset($patient->demographic->marital_status) ? $patient->demographic->marital_status : '' }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-3 col-md-3">
                                 <div class="input_box">
                                     <div class="ls">
-                                        <i class="las la-ring circle"></i>
+                                        <i class="lab la-servicestack circle"></i>
                                     </div>
                                     <div class="rs">
-                                        <h3 class="_title">Marital Status</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="marital_status" data-id="marital_status" id="marital_status" placeholder="Marital Status" value="{{ isset($patient->demographic) && isset($patient->demographic->marital_status) ? $patient->demographic->marital_status : '' }}">
+                                        <h3 class="_title">Notification</h3>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="email" name="notification[]" value="">
+                                            <label class="custom-control-label t5" for="email">Email</label>
+                                            <input type="checkbox" class="custom-control-input" id="sms" name="notification[]" value="">
+                                            <label class="custom-control-label t5" for="sms">SMS</label>
+                                            <input type="checkbox" class="custom-control-input" id="call" name="notification[]" value="">
+                                            <label class="custom-control-label t5" for="call">Call</label>
+                                       </div>
                                     </div>
                                 </div>
                             </div>

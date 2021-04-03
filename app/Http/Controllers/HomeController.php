@@ -9,6 +9,7 @@ use App\Services\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -124,31 +125,34 @@ class HomeController extends Controller
             $state = '';
             $zipcode = '';
             if(!empty($address)) {
-                if($address['Street1'] != '') {
-                    $street1 = $address['Street1'];
+                if($address['address1'] != '') {
+                    $street1 = $address['address1'];
                 }
-                if($address['Street2'] != '') {
-                    $street2 = $address['Street2'];
+                if($address['address2'] != '') {
+                    $street2 = $address['address2'];
                 }
-                if($address['City'] != '') {
-                    $city = $address['City'];
+                if($address['city'] != '') {
+                    $city = $address['city'];
                 }
-                if($address['State'] != '') {
-                    $state = $address['State'];
+                if($address['state'] != '') {
+                    $state = $address['state'];
                 }
-                if($address['Zip4'] != '') {
-                    $zipcode = $address['Zip4'];
-                }else if($address['Zip5'] != '') {
-                    $zipcode = $address['Zip5'];
+                if($address['zip_code'] != '') {
+                    $zipcode = $address['zip_code'];
                 }
             }
             $address = $street1." ".$street2." ".$city." ".$state." ".$zipcode;
-            
             $apiKey = 'AIzaSyAOHZY4U-K9nbXK78shinqKD4sUQw5a-wk';
             $geocode=file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($address).'&sensor=false&key='.$apiKey);
             $json= json_decode($geocode);
             $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
             $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+            $user = User::find($user_id);
+            if ($user){
+                $user->latitude = $lat;
+                $user->longitude = $long;
+                $user->save();
+            }
         }
     }
 }

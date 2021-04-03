@@ -117,18 +117,29 @@ class HomeController extends Controller
     public function convertLatLongFromAddress() {
         $user = Demographic::all();
         foreach ($user as $v) {
+            echo"<pre>";
+            print_r($v->user_id);
+//            exit();
             $user_id = $v->user_id;
             $address = $v->address;
+            
             $street1 = '';
             $street2 = '';
             $city = '';
             $state = '';
             $zipcode = '';
             if(!empty($address)) {
-                if($address['address1'] != '') {
+                
+                if(is_array($address['address1'] != '')) {
+                    $street1 = $address['address1'];
+                }else if($address['address1'] != '') {
                     $street1 = $address['address1'];
                 }
-                if($address['address2'] != '') {
+                if(is_array($address['address2'])) {
+                    if(!empty($address['address2'])) {
+                        $street2 = $address['address2'];
+                    }
+                }else if($address['address2'] != '') {
                     $street2 = $address['address2'];
                 }
                 if($address['city'] != '') {
@@ -141,17 +152,19 @@ class HomeController extends Controller
                     $zipcode = $address['zip_code'];
                 }
             }
-            $address = $street1." ".$street2." ".$city." ".$state." ".$zipcode;
-            $apiKey = 'AIzaSyAOHZY4U-K9nbXK78shinqKD4sUQw5a-wk';
-            $geocode=file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($address).'&sensor=false&key='.$apiKey);
-            $json= json_decode($geocode);
-            $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
-            $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
-            $user = User::find($user_id);
-            if ($user){
-                $user->latitude = $lat;
-                $user->longitude = $long;
-                $user->save();
+            if($street1 != '' || $street2 != '') {
+                $address = $street1." ".$street2." ".$city." ".$state." ".$zipcode;
+                $apiKey = 'AIzaSyAOHZY4U-K9nbXK78shinqKD4sUQw5a-wk';
+                $geocode=file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($address).'&sensor=false&key='.$apiKey);
+                $json= json_decode($geocode);
+                $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+                $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+                $user = User::find($user_id);
+                if ($user){
+                    $user->latitude = $lat;
+                    $user->longitude = $long;
+                    $user->save();
+                }
             }
         }
     }

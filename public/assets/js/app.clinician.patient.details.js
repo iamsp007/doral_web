@@ -37,7 +37,10 @@ $("body").on('keypress','.phone_format',function(event) {
 $("body").on('blur','#medicaid_number',function (event) {
     event.preventDefault();
     var str = $(this).val();
-   
+    $(document).find(".medicaid_number-invalid-feedback").html('');
+    if(str ==''){
+        return $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid is required.</strong>');
+    }
     if (! str.match("^[A-Z]{2}\s*[0-9]{5}\s*[A-Z]{1}\s*$")) {
         $(document).find(".medicaid_number-invalid-feedback").html('');
         $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');

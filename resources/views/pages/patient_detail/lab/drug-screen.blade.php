@@ -2,7 +2,7 @@
     <div class="add-new-patient">
         @role('clinician')
             <div class="icon"><img src="{{ asset('assets/img/icons/patient-img.svg') }}" class="img-fluid" /></div>
-            <button type="button" onclick="onBroadCastOpen('{{ $patient->id }}')" class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;">RodL Request<span></span></button>
+            <button type="button" onclick="onBroadCastOpen('{{ $patient->id }}')" class="btn btn-outline-green w-600 d-table mr-auto ml-auto mt-3" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;">RoadL Request<span></span></button>
         @endrole
         <div class="row">
             <div class="col-12 col-sm-1"></div>

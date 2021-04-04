@@ -116,15 +116,17 @@ class CaregiverController extends Controller
             })
             ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports');
             
-        $datatble = DataTables::of($patientList->get())
-            ->addColumn('checkbox_id', function($q) use($request) {
-                return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
-            })
-            ->addIndexColumn()
+        $datatble = DataTables::of($patientList->get());
+            if($request['serviceStatus'] === 'pending') {
+                $datatble->addColumn('checkbox_id', function($q) use($request) {
+                    return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
+                });
+            }
+            $datatble->addIndexColumn()
             ->addColumn('full_name', function($q) use($request) {
                 if ($request['serviceStatus'] == 'initial') {
                     $full_name = "<span class='label'>".$q->full_name."</span>";
-                    $full_name .= "<div class='fullname-text'><input class='first_name form-control' required type='text' name='first_name' value='".$q->first_name."'></div>";
+                    $full_name .= "<div class='fullname-text'><input class='first_name form-control' required type='text' name='first_name' value='".$q->first_name."' style='margin-bottom: 10px;'></div>";
                     $full_name .= "<div class='fullname-text'><input class='last_name form-control' type='text' name='last_name' value='".$q->last_name."'></div>";
                     return $full_name;
                 } else {
@@ -218,7 +220,7 @@ class CaregiverController extends Controller
                 $btn = '';
                 if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial') {
                     if ($request['serviceStatus'] == 'initial') {
-                        $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div> ';
+                        $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff;">Edit</a></div> ';
                         $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
                     } else if($request['serviceStatus'] == 'covid-19') {
                         $btn .= '<button type="button" class="btn btn-danger text-capitalize btn--sm assign" data-toggle="modal" data-target="#exampleModal" title="">Assign Clinician</button>';

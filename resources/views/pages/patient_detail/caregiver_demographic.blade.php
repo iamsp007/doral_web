@@ -7,8 +7,9 @@
         $voice_message_notify = $notificationPreferences['voice_message'] ? $notificationPreferences['voice_message'] : '';
     endif;
   
-    $address1 = $address2 = $address_city = $address_state = $address_zip_code = '';
+    $aptBuilding = $address1 = $address2 = $address_city = $address_state = $address_zip_code = '';
     if(count($address) > 0):
+        $aptBuilding = '';
         $address1 =  $address['address1'] ? $address['address1'] : '';
         $address2 = $address['address2'] ? $address['address2'] : '';
         $address_city = $address['city'] ? $address['city'] : '';
@@ -158,6 +159,24 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-sm-3 col-md-3">
+                                <div class="input_box">
+                                    <div class="ls">
+                                        <i class="lab la-servicestack circle"></i>
+                                    </div>
+                                    <div class="rs">
+                                        <h3 class="_title">Notification</h3>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="email" name="notification[]" value="">
+                                            <label class="custom-control-label t5" for="email">Email</label>
+                                            <input type="checkbox" class="custom-control-input" id="sms" name="notification[]" value="">
+                                            <label class="custom-control-label t5" for="sms">SMS</label>
+                                            <input type="checkbox" class="custom-control-input" id="call" name="notification[]" value="">
+                                            <label class="custom-control-label t5" for="call">Call</label>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="collapse mt-4" id="collapseExample">
@@ -178,6 +197,15 @@
                             <div class="p-3">
                                 <div class="form-group">
                                     <div class="row">
+                                        <div class="col-12 col-sm-3 col-md-3">
+                                            <div class="input_box">
+                                                <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                <div class="rs">
+                                                    <h3 class="_title">Apt building</h3>
+                                                    <input type="text" class="form-control-plaintext _detail" readonly name="apt_building" data-id="apt_building" id="apt_building" placeholder="apt_building" value="{{ $aptBuilding }}">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
@@ -205,6 +233,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-archway circle"></i></div>
@@ -214,10 +246,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-code circle"></i></div>
@@ -232,61 +260,7 @@
                             </div>
                         </div>
                     </div>
-                  
                     <!-- Address Detail -->
-
-                    <!-- Referral Source  Detail -->
-                    <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
-                    data-name="emergency_contact_detail">
-                        <div class="app-card-header">
-                            <h1 class="title">Notification Preferences Detail</h1>
-                        </div>
-                        <div>
-                            <div class="p-3">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-3 col-md-3">
-                                            <div class="input_box">
-                                                <div class="ls"><i class="las la-envelope circle"></i></div>
-                                                <div class="rs">
-                                                    <h3 class="_title">Email</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="notification_preferences_email" data-id="notification_preferences_email" id="notification_preferences_email" placeholder="Email" value="{{ $email_notify }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-3 col-md-3">
-                                            <div class="input_box">
-                                                <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                                <div class="rs">
-                                                    <h3 class="_title">Method Name</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="method_name" data-id="method_name" id="method_name" placeholder="Method Name" value="{{ $method_notify }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-3 col-md-3">
-                                            <div class="input_box">
-                                                <div class="ls"><i class="las la-sms circle"></i></div>
-                                                <div class="rs">
-                                                    <h3 class="_title">Mobile Or SMS</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="mobile_or_sms" data-id="mobile_or_sms" id="mobile_or_sms" placeholder="Mobile Or SMS" value="{{ $mobile_or_SMS_notify }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-3 col-md-3">
-                                            <div class="input_box">
-                                                <div class="ls"><i class="las la-voicemail circle"></i></div>
-                                                <div class="rs">
-                                                    <h3 class="_title">Voice Message</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="voice_message" data-id="voice_message" id="voice_message" placeholder="Voice Message" value="{{ $voice_message_notify }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Referral Source  Detail -->
 
                     <!-- Emergency contact Detail -->
                     <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
@@ -306,8 +280,8 @@
                                                             <i class="las la-portrait circle"></i>
                                                         </div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Contact Name</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="contact_name[]" data-id="contact_name" placeholder="Contact Name" value="{{ $patientEmergencyContact->name }}">
+                                                            <h3 class="_title">Name</h3>
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="contact_name[]" data-id="contact_name" placeholder="Name" value="{{ $patientEmergencyContact->name }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -354,8 +328,8 @@
                                                             <i class="las la-user-nurse circle"></i>
                                                         </div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Relationship Name</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship Name" value="{{ $patientEmergencyContact->relation }}">
+                                                            <h3 class="_title">Relationship</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship" value="{{ $patientEmergencyContact->relation }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -373,8 +347,8 @@
                                                 <div class="input_box">
                                                     <div class="ls"><i class="las la-portrait circle"></i></div>
                                                     <div class="rs">
-                                                        <h3 class="_title">Contact Name</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Contact Name" value="">
+                                                        <h3 class="_title">Name</h3>
+                                                        <input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Name" value="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -413,8 +387,8 @@
                                                 <div class="input_box">
                                                     <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                                     <div class="rs">
-                                                        <h3 class="_title">Relationship Name</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship Name" value="">
+                                                        <h3 class="_title">Relationship</h3>
+                                                        <input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship" value="">
                                                     </div>
                                                 </div>
                                             </div>

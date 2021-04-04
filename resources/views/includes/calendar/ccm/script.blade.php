@@ -135,11 +135,11 @@
                         titleFormat: { year: 'numeric', month: 'short', day: 'numeric' }
                         // other view-specific options here
                     },
-//                    timeGridFourDay: {
-//                        type: 'timeGrid',
-//                        duration: { days: 6 },
-//                        buttonText: '4 day'
-//                    }
+                    timeGridFourDay: {
+                        type: 'timeGrid',
+                        duration: { days: 6 },
+                        buttonText: '4 day'
+                    }
                 },
                 eventClick: function (arg, event, element) {
 

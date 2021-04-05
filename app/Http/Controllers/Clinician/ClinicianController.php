@@ -24,13 +24,22 @@ class ClinicianController extends Controller
             $data = [
                 'data' => $response->data
             ];
-
+           
             return  DataTables::of($data['data'])
-                ->editColumn('dob', function ($user){
-                    if($user->dob!='')
-                    return date('m-d-Y', strtotime($user->dob));
+                ->addIndexColumn()
+                ->addColumn('dob', function ($user){
+                    if ($user->dob != '')
+                        return date('m-d-Y', strtotime($user->dob));
                     else
-                    return '--';
+                        return '--';
+                })
+                ->addColumn('designation_id', function ($user){
+                    $designation = '';
+                    
+                    if ($user->designation) {
+                        $designation = $user->designation->name;
+                    }
+                    return $designation;
                 })
                 ->make(true);
         }

@@ -160,6 +160,157 @@
         <!-- Left Section End -->
     </section>
     <section class="app-content _new">
+     @if (\Request::is('patient-details/*'))
+        <!-- Modal For Med Profile Start -->
+   <div class="modal" tabindex="-1" id="patientMedicateInfo">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Patient Medication Info</h5>
+               <button type="button" class="btn btn-outline-green ml-2">Add New</button>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-12 col-sm-4">
+                        <div class="form-group">
+                           <label for="status" class="label">Status</label>
+                           <div class="d-flex">
+                              <div class="custom-control custom-radio">
+                                 <input type="radio" id="new" name="customRadio" class="custom-control-input">
+                                 <label class="custom-control-label" for="new">New</label>
+                              </div>
+                              <div class="custom-control custom-radio ml-2">
+                                 <input type="radio" id="existing" name="customRadio" class="custom-control-input">
+                                 <label class="custom-control-label" for="existing">Existing</label>
+                              </div>
+                           </div>
+                           <!-- <small id="usernameHelp" class="form-text text-muted mt-2">Assistive Text</small> -->
+                        </div>
+                     </div>
+                     <div class="col-12 col-sm-4">
+                        <label for="medication" class="label">Medication</label>
+                        <input type="text" class="form-control form-control-lg" id="medication" name="medication"
+                           aria-describedby="medicationHelp">
+                     </div>
+                     <div class="col-12 col-sm-4">
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-12 col-sm-4">
+                        <label for="dose" class="label">Dose</label>
+                        <select class="form-control" name="dose" id="dose">
+                           <option value="Select">Select</option>
+                        </select>
+                     </div>
+                     <div class="col-12 col-sm-4">
+                        <label for="form" class="label">Form</label>
+                        <select class="form-control" name="form" id="form">
+                           <option value="Select">Select</option>
+                        </select>
+                     </div>
+                     <div class="col-12 col-sm-4">
+                        <label for="route" class="label">Route</label>
+                        <select class="form-control" name="route" id="route">
+                           <option value="Select">Select</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-12 col-sm-4">
+                        <label for="amount2" class="label">Amount</label>
+                        <input type="text" class="form-control form-control-lg" id="amount2" name="amount2"
+                           aria-describedby="amountHelp2">
+                     </div>
+                     <div class="col-12 col-sm-4">
+                        <label for="class" class="label">Class</label>
+                        <input type="text" class="form-control form-control-lg" id="class" name="class"
+                           aria-describedby="classHelp">
+                     </div>
+                     <div class="col-12 col-sm-4">
+                        <label for="frequency" class="label">Frequency</label>
+                        <select class="form-control" name="frequency" id="frequency">
+                           <option value="Select">Select</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-12 col-sm-4">
+                        <label for="startdate" class="label">Start Date</label>
+                        <input type="text" class="form-control form-control-lg" id="startdate" name="startdate"
+                           aria-describedby="startdateHelp">
+                     </div>
+                     <div class="col-12 col-sm-4">
+                        <label for="orderdate" class="label">Order Date</label>
+                        <input type="text" class="form-control form-control-lg" id="orderdate" name="orderdate"
+                           aria-describedby="orderdateHelp">
+                     </div>
+                     <div class="col-12 col-sm-4">
+                        <label for="taughtdate" class="label">Taught Date</label>
+                        <input type="text" class="form-control form-control-lg" id="taughtdate" name="taughtdate"
+                           aria-describedby="taughtdateHelp">
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-12 col-sm-4">
+                        <label for="discontinuedate" class="label">Discontinue Date</label>
+                        <input type="text" class="form-control form-control-lg" id="discontinuedate"
+                           name="discontinuedate" aria-describedby="discontinuedateHelp">
+                     </div>
+                     <div class="col-12 col-sm-4">
+                        <label for="discountinueorderdate" class="label">Discontinue Order Date</label>
+                        <input type="text" class="form-control form-control-lg" id="discountinueorderdate"
+                           name="discountinueorderdate" aria-describedby="discountinueorderdateHelp">
+                     </div>
+                     <div class="col-12 col-sm-4">
+                        <label for="preferredPharmacy" class="label">Preferred Pharmacy</label>
+                        <select class="form-control" name="preferredPharmacy" id="preferredPharmacy">
+                           <option value="Select">Select</option>
+                        </select>
+                     </div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="comment" class="label">Comment</label>
+                  <textarea class="form-control" id="comment" name="comment" cols="30" rows="5"></textarea>
+               </div>
+               <div class="form-group">
+                  <div class="custom-control custom-checkbox mb-3">
+                     <input type="checkbox" id="customCheckbox1" name="customCheckbox" class="custom-control-input">
+                     <label class="custom-control-label" for="customCheckbox1">Include new medication in the MD
+                        Order</label>
+                  </div>
+                  <div class="custom-control custom-checkbox">
+                     <input type="checkbox" id="customCheckbox2" name="customCheckbox" class="custom-control-input">
+                     <label class="custom-control-label" for="customCheckbox2">Create an interim order for the new
+                        medication</label>
+                  </div>
+               </div>
+               <div>
+                  Note: The 'Include New Medication in the MD Order' checkbox will add the medication in 'New' MD
+                  only.
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-outline-gray mr-3" data-dismiss="modal">Save</button>
+               <button type="button" class="btn btn-outline-green">Submit</button>
+            </div>
+         </div>
+      </div>
+   </div>
+   @endif
+   <!-- Modal For Med Profile End -->
         <!-- Right section Start-->
         <header class="app-header-block _fullwidth">
             <div class="app-header">

@@ -165,15 +165,26 @@
                                         <i class="lab la-servicestack circle"></i>
                                     </div>
                                     <div class="rs">
-                                        <h3 class="_title">Notification</h3>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="email" name="notification[]" value="">
-                                            <label class="custom-control-label t5" for="email">Email</label>
-                                            <input type="checkbox" class="custom-control-input" id="sms" name="notification[]" value="">
-                                            <label class="custom-control-label t5" for="sms">SMS</label>
-                                            <input type="checkbox" class="custom-control-input" id="call" name="notification[]" value="">
-                                            <label class="custom-control-label t5" for="call">Call</label>
+                                    <h3 class="_title">Notification</h3>
+                                    <div class="">
+                                       <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheckemail" name="notification[]" value="1" {{$selected1}}/>
+                                          <label class="custom-control-label t5" for="customCheckemail">Email</label>
                                        </div>
+                                    </div>
+                                    <div class="">
+                                       <div class="custom-control custom-checkbox">
+                                           <input type="checkbox" class="custom-control-input" id="customChecksms" name="notification[]" value="2" {{$selected2}}/>
+                                          <label class="custom-control-label t5" for="customChecksms">SMS</label>
+                                       </div>
+                                    </div>
+                                    <div class="">
+                                       <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheckcall" name="notification[]" value="3" {{$selected3}}>
+                                          <label class="custom-control-label t5" for="customCheckcall">Call</label>
+                                       </div>
+                                    </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

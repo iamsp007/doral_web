@@ -342,63 +342,68 @@
                                 </div>
                             @endforeach
                         @else
-                            <div class="main_div">
-                                <div class="p-3">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-portrait circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Name</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Name" value="">
+                            <div class="app-card-header">
+                                <h1 class="title">Emergency Contact Detail 1</h1>
+                            </div>
+                            <div class="add_more_contact_div">
+                                <div class="main_div">
+                                    <div class="p-3">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-portrait circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Name</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Name" value="">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-phone circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Home Phone</h3>
-                                                        <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1 phone_format" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-phone circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Home Phone</h3>
+                                                            <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1 phone_format" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-phone circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Cell Phone</h3>
-                                                        <input type="text" class="form-control-plaintext _detail phone_format phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-phone circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Cell Phone</h3>
+                                                            <input type="text" class="form-control-plaintext _detail phone_format phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-address-book circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Address</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Relationship</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship" value="">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Address</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value="">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div style="display:flex;justify-content:center;align-items:center">
-                                        <button type="button" class="btn btn-danger remove-tr text-center">Remove</button>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Relationship</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex;justify-content:center;align-items:center">
+                                            <button type="button" class="btn btn-danger remove-tr text-center">Remove</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -16,6 +16,22 @@
         $address_state = $address['state'] ? $address['state'] : '';
         $address_zip_code = $address['zip_code'] ? $address['zip_code'] : '';
     endif;
+
+    $selected1 = '';
+    $selected2 = '';
+    $selected3 = '';
+    if(isset($patient->demographic) && !empty($patient->demographic)){
+    $notification_arr = explode(',',$patient->demographic->notification);
+    if (in_array("1", $notification_arr))
+    {
+        $selected1 = "checked";
+    }
+    if (in_array("2", $notification_arr)){
+        $selected2 = "checked";
+    }
+    if (in_array("3", $notification_arr)){
+        $selected3 = "checked";
+    }
 @endphp
 
 <div class="tab-pane fade show active" id="demographic" role="tabpanel" aria-labelledby="demographic">

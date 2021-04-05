@@ -260,7 +260,7 @@
                                                 <div class="ls"><i class="las la-city circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">City</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ $city }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ $address_city }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -273,7 +273,7 @@
                                                 <div class="ls"><i class="las la-archway circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">State</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ $state }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ $address_state }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -282,7 +282,7 @@
                                                 <div class="ls"><i class="las la-code circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Zipcode</h3>
-                                                    <input type="text" class="form-control-plaintext _detail zip " readonly name="zip_code" data-id="zip_code" id="zip_code" placeholder="Zipcode" value="{{ $zip_code }}">
+                                                    <input type="text" class="form-control-plaintext _detail zip " readonly name="zip_code" data-id="zip_code" id="zip_code" placeholder="Zipcode" value="{{ $address_zip_code }}">
                                                 </div>
                                             </div>
                                         </div>

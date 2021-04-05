@@ -123,7 +123,7 @@ Refferal Profile
                                  onkeyup="erroMessage()" data-id="i_phone_no"
                                  id="administrator_phone_no" placeholder="Phone Number"
                                  value="{{ $record->administrator_phone_no ? $record->administrator_phone_no : '' }}" maxlength="14">
-                                 <span class="error-message" id="phone_error">Phone Number is not Valid</span>
+                                 @php /*<span class="error-message" id="phone_error">Phone Number is not Valid</span>*/@endphp
                            </li>
                         </ul>
                      </div>
@@ -436,7 +436,7 @@ Refferal Profile
             $("#address_error").css("display", "block");
             count++;
          }
-
+         
 //         if(!(phone.match(phoneno))) {
 //            $("#company_phone_error").css("display", "block");
 //            count++;

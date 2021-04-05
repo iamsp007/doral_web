@@ -1,39 +1,4 @@
 @php
-$address_data = json_decode($patient->patientEmergency[0]['address']);
-if(isset($address_data) && !empty($address_data)){
-$emergency_apt_building = isset($address_data->apt_building) ? $address_data->apt_building : '';
-$emergency_address1 = isset($address_data->address1) ? $address_data->address1 : '';
-$emergency_address2 = isset($address_data->address2) ? $address_data->address2 : '';
-$emergency_zip_code = isset($address_data->zip_code) ? $address_data->zip_code : '';
-$emergency_city = isset($address_data->city) ? $address_data->city : '';
-$emergency_state = isset($address_data->state) ? $address_data->state: '';
-}
-else{
-$emergency_apt_building = '';
-$emergency_address1 = '';
-$emergency_address2 = '';
-$emergency_city = '';
-$emergency_zip_code = '';
-$emergency_state = '';
-}
-$selected1 = '';
-$selected2 = '';
-$selected3 = '';
-if(isset($patient->demographic) && !empty($patient->demographic)){
-$notification_arr = explode(',',$patient->demographic->notification);
-if (in_array("1", $notification_arr))
-{
-    $selected1 = "checked";
-}
-if (in_array("2", $notification_arr)){
-    $selected2 = "checked";
-}
-if (in_array("3", $notification_arr)){
-    $selected3 = "checked";
-}
-
-}
-
     $email_notify = $method_notify = $mobile_or_SMS_notify = $voice_message_notify = '';
     if(count($notificationPreferences) > 0 && ($patient->demographic && $patient->demographic->type === '2')):
         $email_notify =  $notificationPreferences['email'] ? $notificationPreferences['email'] : '';

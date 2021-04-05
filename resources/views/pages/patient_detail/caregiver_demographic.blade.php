@@ -242,7 +242,7 @@
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Address1</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="address1" data-id="address1" id="address1" placeholder="Address1" value="{{ $emergency_address1 }}">
+                                                    <input type="text" class="form-control-plaintext _detail" readonly name="address1" data-id="address1" id="address1" placeholder="Address1" value="{{ $address1 }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -251,7 +251,7 @@
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Address2</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="address2" data-id="address2" id="address2" placeholder="Address2" value="{{$emergency_address2 }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="address2" data-id="address2" id="address2" placeholder="Address2" value="{{$address2 }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -260,7 +260,7 @@
                                                 <div class="ls"><i class="las la-city circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">City</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ $emergency_city }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ $city }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -273,7 +273,7 @@
                                                 <div class="ls"><i class="las la-archway circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">State</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ $emergency_state }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ $state }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -282,7 +282,7 @@
                                                 <div class="ls"><i class="las la-code circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Zipcode</h3>
-                                                    <input type="text" class="form-control-plaintext _detail zip " readonly name="zip_code" data-id="zip_code" id="zip_code" placeholder="Zipcode" value="{{ $emergency_zip_code }}">
+                                                    <input type="text" class="form-control-plaintext _detail zip " readonly name="zip_code" data-id="zip_code" id="zip_code" placeholder="Zipcode" value="{{ $zip_code }}">
                                                 </div>
                                             </div>
                                         </div>

@@ -9,7 +9,7 @@
   
     $aptBuilding = $address1 = $address2 = $address_city = $address_state = $address_zip_code = '';
     if(count($address) > 0):
-        $aptBuilding = '';
+        $aptBuilding = (isset($address['apt_building']) && !empty($address['apt_building'])) ? $address['apt_building'] : '';
         $address1 =  $address['address1'] ? $address['address1'] : '';
         $address2 = $address['address2'] ? $address['address2'] : '';
         $address_city = $address['city'] ? $address['city'] : '';
@@ -20,18 +20,18 @@
     $selected1 = '';
     $selected2 = '';
     $selected3 = '';
-    if(isset($patient->demographic) && !empty($patient->demographic)){
+    if(isset($patient->demographic) && !empty($patient->demographic)):
     $notification_arr = explode(',',$patient->demographic->notification);
-    if (in_array("1", $notification_arr))
-    {
-        $selected1 = "checked";
-    }
-    if (in_array("2", $notification_arr)){
-        $selected2 = "checked";
-    }
-    if (in_array("3", $notification_arr)){
-        $selected3 = "checked";
-    }
+        if (in_array("1", $notification_arr)):
+            $selected1 = "checked";
+        endif;
+        if (in_array("2", $notification_arr)):
+            $selected2 = "checked";
+        endif;
+        if (in_array("3", $notification_arr)):
+            $selected3 = "checked";
+        endif;
+    endif;
 @endphp
 
 <div class="tab-pane fade show active" id="demographic" role="tabpanel" aria-labelledby="demographic">
@@ -181,26 +181,25 @@
                                         <i class="lab la-servicestack circle"></i>
                                     </div>
                                     <div class="rs">
-                                    <h3 class="_title">Notification</h3>
-                                    <div class="">
-                                       <div class="custom-control custom-checkbox">
-                                          <input type="checkbox" class="custom-control-input" id="customCheckemail" name="notification[]" value="1" {{$selected1}}/>
-                                          <label class="custom-control-label t5" for="customCheckemail">Email</label>
-                                       </div>
-                                    </div>
-                                    <div class="">
-                                       <div class="custom-control custom-checkbox">
-                                           <input type="checkbox" class="custom-control-input" id="customChecksms" name="notification[]" value="2" {{$selected2}}/>
-                                          <label class="custom-control-label t5" for="customChecksms">SMS</label>
-                                       </div>
-                                    </div>
-                                    <div class="">
-                                       <div class="custom-control custom-checkbox">
-                                          <input type="checkbox" class="custom-control-input" id="customCheckcall" name="notification[]" value="3" {{$selected3}}>
-                                          <label class="custom-control-label t5" for="customCheckcall">Call</label>
-                                       </div>
-                                    </div>
-                                    </div>
+                                        <h3 class="_title">Notification</h3>
+                                        <div class="">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheckemail" name="notification[]" value="1" {{$selected1}}/>
+                                                <label class="custom-control-label t5" for="customCheckemail">Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customChecksms" name="notification[]" value="2" {{$selected2}}/>
+                                                <label class="custom-control-label t5" for="customChecksms">SMS</label>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheckcall" name="notification[]" value="3" {{$selected3}}>
+                                                <label class="custom-control-label t5" for="customCheckcall">Call</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -228,8 +227,8 @@
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
-                                                    <h3 class="_title">Apt building</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="apt_building" data-id="apt_building" id="apt_building" placeholder="apt_building" value="{{ $aptBuilding }}">
+                                                    <h3 class="_title">Apt Building</h3>
+                                                    <input type="text" class="form-control-plaintext _detail" readonly name="apt_building" data-id="apt_building" id="apt_building" placeholder="Apt Building" value="{{ $aptBuilding }}">
                                                 </div>
                                             </div>
                                         </div>

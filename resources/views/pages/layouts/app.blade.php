@@ -50,7 +50,6 @@
                     <a href="#" class="icon-logo"></a>
                 </div>
                 <ul class="cbp-vimenu">
-
                     @if(\Illuminate\Support\Facades\Auth::guard('partner')->check())
                         @php
                             $file='menu.partner';
@@ -62,7 +61,7 @@
                     @else
                         @hasrole('admin')
                             @php
-                                $file='menu.partner';
+                                $file='menu.admin';
                             @endphp
                         @endrole
                         @hasrole('clinician')

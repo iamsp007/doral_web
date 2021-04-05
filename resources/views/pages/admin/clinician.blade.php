@@ -27,8 +27,9 @@
             <th></th>
         </tr>
         <tr>
-            <th></th>
+            <th>Sr No.</th>
             <th>Applicant Name</th>
+            <th>Designation</th>
             <th>Gender</th>
             <th>DOB</th>
             <th>Phone</th>
@@ -53,7 +54,7 @@
     <script src="https://gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
-        if("{{Request::is('admin/clinician-approval')}}"){
+        if("{{Request::is('admin/clinician-approval')}}"){  
             var clinicianurl = "{{ url('admin/clinician-list/0') }}" ;
             var clinician_status = 0;
         } else if("{{Request::is('admin/clinician-active')}}"){
@@ -73,7 +74,7 @@
 
             $("#applicant_name").select2({
                 ajax: { 
-                    url: '{{ route('admin.clinician-data-get') }}',
+                    url: "{{ route('admin.clinician-data-get') }}",
                     type: "POST",
                     dataType: 'json',
                     delay: 250,
@@ -140,10 +141,7 @@
             serverSide: true,
             ajax: clinicianurl,
             columns:[
-                {
-                    data:'id',
-                    name:'id'
-                },
+                {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
                 {
                     data:'first_name',
                     name:'first_name',
@@ -152,6 +150,10 @@
                         data = "<a href={{ url('admin/clinician-detail/') }}/" + row.id + ">" + row.first_name+' '+row.last_name + "</a>";
                         return data;
                     }
+                },
+                {
+                    data:'designation_id',
+                    name:'designation_id',
                 },
                 {
                     data:'gender',
@@ -199,17 +201,17 @@
                 }
             ],
             "order": [[ 1, "desc" ]],
-            'columnDefs': [
-                {
-                    'targets': 0,
-                    'checkboxes': {
-                        'selectRow': true
-                    }
-                }
-            ],
-            'select': {
-                'style': 'multi'
-            },
+            // 'columnDefs': [
+            //     {
+            //         'targets': 0,
+            //         'checkboxes': {
+            //             'selectRow': true
+            //         }
+            //     }
+            // ],
+            // 'select': {
+            //     'style': 'multi'
+            // },
         });
 
         table.on( 'draw', function () {

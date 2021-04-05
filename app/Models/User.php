@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'dob', 'phone', 'email', 'email_verified_at', 'password', 'status', 'remember_token', 'level', 'api_token'
+        'first_name', 'last_name', 'dob', 'phone', 'email', 'email_verified_at', 'password', 'status', 'remember_token', 'level', 'api_token', 'designation_id',
     ];
 
     /**
@@ -59,6 +59,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = ['profile_photo_url','gender_name','avatar_image','phone_format','full_name'];
+
+    public function designation()
+    {
+        return $this->hasOne(Designation::class,'id','designation_id');
+    }
 
     public function patientDetail()
     {

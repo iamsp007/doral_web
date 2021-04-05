@@ -1,39 +1,4 @@
 @php
-$address_data = json_decode($patient->patientEmergency[0]['address']);
-if(isset($address_data) && !empty($address_data)){
-$emergency_apt_building = isset($address_data->apt_building) ? $address_data->apt_building : '';
-$emergency_address1 = isset($address_data->address1) ? $address_data->address1 : '';
-$emergency_address2 = isset($address_data->address2) ? $address_data->address2 : '';
-$emergency_zip_code = isset($address_data->zip_code) ? $address_data->zip_code : '';
-$emergency_city = isset($address_data->city) ? $address_data->city : '';
-$emergency_state = isset($address_data->state) ? $address_data->state: '';
-}
-else{
-$emergency_apt_building = '';
-$emergency_address1 = '';
-$emergency_address2 = '';
-$emergency_city = '';
-$emergency_zip_code = '';
-$emergency_state = '';
-}
-$selected1 = '';
-$selected2 = '';
-$selected3 = '';
-if(isset($patient->demographic) && !empty($patient->demographic)){
-$notification_arr = explode(',',$patient->demographic->notification);
-if (in_array("1", $notification_arr))
-{
-    $selected1 = "checked";
-}
-if (in_array("2", $notification_arr)){
-    $selected2 = "checked";
-}
-if (in_array("3", $notification_arr)){
-    $selected3 = "checked";
-}
-
-}
-
     $email_notify = $method_notify = $mobile_or_SMS_notify = $voice_message_notify = '';
     if(count($notificationPreferences) > 0 && ($patient->demographic && $patient->demographic->type === '2')):
         $email_notify =  $notificationPreferences['email'] ? $notificationPreferences['email'] : '';
@@ -44,12 +9,28 @@ if (in_array("3", $notification_arr)){
   
     $aptBuilding = $address1 = $address2 = $address_city = $address_state = $address_zip_code = '';
     if(count($address) > 0):
-        $aptBuilding = '';
+        $aptBuilding = (isset($address['apt_building']) && !empty($address['apt_building'])) ? $address['apt_building'] : '';
         $address1 =  $address['address1'] ? $address['address1'] : '';
         $address2 = $address['address2'] ? $address['address2'] : '';
         $address_city = $address['city'] ? $address['city'] : '';
         $address_state = $address['state'] ? $address['state'] : '';
         $address_zip_code = $address['zip_code'] ? $address['zip_code'] : '';
+    endif;
+
+    $selected1 = '';
+    $selected2 = '';
+    $selected3 = '';
+    if(isset($patient->demographic) && !empty($patient->demographic)):
+    $notification_arr = explode(',',$patient->demographic->notification);
+        if (in_array("1", $notification_arr)):
+            $selected1 = "checked";
+        endif;
+        if (in_array("2", $notification_arr)):
+            $selected2 = "checked";
+        endif;
+        if (in_array("3", $notification_arr)):
+            $selected3 = "checked";
+        endif;
     endif;
 @endphp
 
@@ -251,8 +232,8 @@ if (in_array("3", $notification_arr)){
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
-                                                    <h3 class="_title">Apt building</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="apt_building" data-id="apt_building" id="apt_building" placeholder="apt_building" value="{{ $emergency_apt_building }}">
+                                                    <h3 class="_title">Apt Building</h3>
+                                                    <input type="text" class="form-control-plaintext _detail" readonly name="apt_building" data-id="apt_building" id="apt_building" placeholder="Apt Building" value="{{ $aptBuilding }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -261,7 +242,7 @@ if (in_array("3", $notification_arr)){
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Address1</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="address1" data-id="address1" id="address1" placeholder="Address1" value="{{ $emergency_address1 }}">
+                                                    <input type="text" class="form-control-plaintext _detail" readonly name="address1" data-id="address1" id="address1" placeholder="Address1" value="{{ $address1 }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -270,7 +251,7 @@ if (in_array("3", $notification_arr)){
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Address2</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="address2" data-id="address2" id="address2" placeholder="Address2" value="{{$emergency_address2 }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="address2" data-id="address2" id="address2" placeholder="Address2" value="{{$address2 }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -279,7 +260,7 @@ if (in_array("3", $notification_arr)){
                                                 <div class="ls"><i class="las la-city circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">City</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ $emergency_city }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ $address_city }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -292,7 +273,7 @@ if (in_array("3", $notification_arr)){
                                                 <div class="ls"><i class="las la-archway circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">State</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ $emergency_state }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ $address_state }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -301,7 +282,7 @@ if (in_array("3", $notification_arr)){
                                                 <div class="ls"><i class="las la-code circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Zipcode</h3>
-                                                    <input type="text" class="form-control-plaintext _detail zip " readonly name="zip_code" data-id="zip_code" id="zip_code" placeholder="Zipcode" value="{{ $emergency_zip_code }}">
+                                                    <input type="text" class="form-control-plaintext _detail zip " readonly name="zip_code" data-id="zip_code" id="zip_code" placeholder="Zipcode" value="{{ $address_zip_code }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -360,17 +341,17 @@ if (in_array("3", $notification_arr)){
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-sm-3 col-md-3">
+                                                <!-- <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls">
                                                             <i class="las la-address-book circle"></i>
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Address</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="address[]" data-id="address" placeholder="Address" value="{{ $patientEmergencyContact->address }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="address[]" data-id="address" placeholder="Address" value="{{ $patientEmergencyContact->address_old }}">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -392,63 +373,68 @@ if (in_array("3", $notification_arr)){
                                 </div>
                             @endforeach
                         @else
-                            <div class="main_div">
-                                <div class="p-3">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-portrait circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Name</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Name" value="">
+                            <div class="app-card-header">
+                                <h1 class="title">Emergency Contact Detail 1</h1>
+                            </div>
+                            <div class="add_more_contact_div">
+                                <div class="main_div">
+                                    <div class="p-3">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-portrait circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Name</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Name" value="">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-phone circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Home Phone</h3>
-                                                        <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1 phone_format" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-phone circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Home Phone</h3>
+                                                            <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1 phone_format" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-phone circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Cell Phone</h3>
-                                                        <input type="text" class="form-control-plaintext _detail phone_format phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-phone circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Cell Phone</h3>
+                                                            <input type="text" class="form-control-plaintext _detail phone_format phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14">
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <!-- <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Address</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value="">
+                                                        </div>
+                                                    </div>
+                                                </div> -->
                                             </div>
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-address-book circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Address</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value="">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Relationship</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship" value="">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-12 col-sm-3 col-md-3">
-                                                <div class="input_box">
-                                                    <div class="ls"><i class="las la-user-nurse circle"></i></div>
-                                                    <div class="rs">
-                                                        <h3 class="_title">Relationship</h3>
-                                                        <input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship" value="">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div style="display:flex;justify-content:center;align-items:center">
+                                            <button type="button" class="btn btn-danger remove-tr text-center">Remove</button>
                                         </div>
-                                    </div>
-                                    <div style="display:flex;justify-content:center;align-items:center">
-                                        <button type="button" class="btn btn-danger remove-tr text-center">Remove</button>
                                     </div>
                                 </div>
                             </div>

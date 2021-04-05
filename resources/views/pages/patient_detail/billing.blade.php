@@ -1,7 +1,7 @@
 <div class="tab-pane fade" id="billing" role="tabpanel" aria-labelledby="billing-tab">
    <div class="app-card app-card-custom" data-name="billing">
       <div class="app-card-header"><h1 class="title">Billing</h1></div>
-      <div class="head scrollbar scrollbar12">
+      <div class="head">
          <div class="p-3">
             @foreach($payment as $pay)
             @if($pay->service_payment_plan_details_id == 6 || $pay->service_payment_plan_details_id == 9 || $pay->service_payment_plan_details_id == 12)

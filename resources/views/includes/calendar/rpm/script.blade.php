@@ -110,7 +110,7 @@
                     center: '',
                     right: 'dayGridMonth timeGridDay today prev,next'
                 },
-                initialDate: '2021-02-07',
+                initialDate: '2021-04-07',
                 expandRows: true,
                 navLinks: true, // can click day/week names to navigate views
                 selectable: true,
@@ -153,20 +153,20 @@
                     {
                         id: 'a',
                         title: 'Blood Pressure',
-                        start: '2021-02-08'
+                        start: '2021-04-09'
                     },
                     {
                         id: 'b',
                         title: 'Blood Sugar',
-                        start: '2021-02-08'
+                        start: '2021-04-09'
                     },{
                         id: 'c',
                         title: 'Plus Oxymeter',
-                        start: '2021-02-08'
+                        start: '2021-04-09'
                     },{
                         id: 'd',
                         title: 'ECG',
-                        start: '2021-02-08'
+                        start: '2021-04-09'
                     },
 //                    
 //                    {

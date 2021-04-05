@@ -101,6 +101,7 @@
             var calendarEl = document.getElementById('calendar1');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 timeZone: 'IST',
+                defaultView: 'month',
                 initialView: 'timeGridDay',
                 height: '1000px',
                 themeSystem: 'bootstrap4',
@@ -112,7 +113,7 @@
                     center: '',
                     right: 'dayGridMonth timeGridDay today prev,next'
                 },
-                initialDate: '2021-02-07',
+                initialDate: '2021-04-07',
                 expandRows: true,
                 navLinks: true, // can click day/week names to navigate views
                 selectable: true,
@@ -135,11 +136,11 @@
                         titleFormat: { year: 'numeric', month: 'short', day: 'numeric' }
                         // other view-specific options here
                     },
-                    timeGridFourDay: {
-                        type: 'timeGrid',
-                        duration: { days: 6 },
-                        buttonText: '4 day'
-                    }
+//                    timeGridFourDay: {
+//                        type: 'timeGrid',
+//                        duration: { days: 6 },
+//                        buttonText: '4 day'
+//                    }
                 },
                 eventClick: function (arg, event, element) {
 
@@ -155,20 +156,20 @@
                     {
                         id: 'a',
                         title: 'Blood Pressure',
-                        start: '2021-02-08'
+                        start: '2021-04-08'
                     },
                     {
                         id: 'b',
                         title: 'Blood Sugar',
-                        start: '2021-02-08'
+                        start: '2021-04-08'
                     },{
                         id: 'c',
                         title: 'Plus Oxymeter',
-                        start: '2021-02-08'
+                        start: '2021-04-08'
                     },{
                         id: 'd',
                         title: 'ECG',
-                        start: '2021-02-08'
+                        start: '2021-04-08'
                     },
 //                    
 //                    {

@@ -7,7 +7,7 @@
             <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('homecare')">
          @endrole
       </div>
-      <div class="head scrollbar scrollbar12">
+      <div class="head">
          <div class="p-3">
             <form id="homecare_form">
                <input type="hidden" name="company_id" value="{{ ($patient->caregiverInfo &&  $patient->caregiverInfo->company) ? $patient->caregiverInfo->company->id : '' }}">

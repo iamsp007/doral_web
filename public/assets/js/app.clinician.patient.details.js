@@ -37,7 +37,10 @@ $("body").on('keypress','.phone_format',function(event) {
 $("body").on('blur','#medicaid_number',function (event) {
     event.preventDefault();
     var str = $(this).val();
-   
+    $(document).find(".medicaid_number-invalid-feedback").html('');
+    if(str ==''){
+        return $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid is required.</strong>');
+    }
     if (! str.match("^[A-Z]{2}\s*[0-9]{5}\s*[A-Z]{1}\s*$")) {
         $(document).find(".medicaid_number-invalid-feedback").html('');
         $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');
@@ -79,6 +82,9 @@ function editAllField(sectionId) {
     
     $(activeTab).find('.normal_service_div').removeClass('d-block').addClass('d-none');
     $(activeTab).find('.editable_service_div').removeClass('d-none').addClass('d-block'); 
+    
+    $(activeTab).find('.normal_notifaication_div').removeClass('d-block').addClass('d-none');
+    $(activeTab).find('.editable_notifaication_div').removeClass('d-none').addClass('d-block'); 
     }
 }
 function updateAllField(sectionId) {
@@ -108,6 +114,9 @@ function updateAllField(sectionId) {
 
            $(activeTab).find('.normal_service_div').removeClass('d-none').addClass('d-block');
            $(activeTab).find('.editable_service_div').removeClass('d-block').addClass('d-none');
+           
+           $(activeTab).find('.normal_notifaication_div').removeClass('d-none').addClass('d-block');
+           $(activeTab).find('.editable_notifaication_div').removeClass('d-block').addClass('d-none'); 
             }
 }
 
@@ -380,3 +389,16 @@ $(function () {
         search: true
     })
 });
+function editAllProfileField(e) {
+    var a = $("#" + e).closest(".app-card").attr("id");
+    $(".custom-control-input").each(function() {
+        $(this).prop("disabled", !1)
+    }), $("#" + e + " [data-id]").removeClass("form-control-plaintext").addClass("form-control"), $("#" + e + " [data-id]").attr("readOnly", !1), $("#" + a).find(".update-icon").show(), $("#" + a).find(".edit-icon").hide()
+}
+
+function updateAllProfileField(e) {
+    var a = $("#" + e).closest(".app-card").attr("id");
+    $(".custom-control-input").each(function() {
+        $(this).prop("disabled", !0)
+    }), $("#" + e + " [data-id]").addClass("form-control-plaintext").removeClass("form-control"), $("#" + e + " [data-id]").attr("readOnly", 1), $("#" + a).find(".update-icon").hide(), $("#" + a).find(".edit-icon").show()
+}

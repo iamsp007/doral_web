@@ -181,25 +181,30 @@
                                         <i class="lab la-servicestack circle"></i>
                                     </div>
                                     <div class="rs">
-                                        <h3 class="_title">Notification</h3>
-                                        <div class="">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheckemail" name="notification[]" value="1" {{$selected1}}/>
-                                                <label class="custom-control-label t5" for="customCheckemail">Email</label>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customChecksms" name="notification[]" value="2" {{$selected2}}/>
-                                                <label class="custom-control-label t5" for="customChecksms">SMS</label>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="customCheckcall" name="notification[]" value="3" {{$selected3}}>
-                                                <label class="custom-control-label t5" for="customCheckcall">Call</label>
-                                            </div>
-                                        </div>
+                                    <h3 class="_title">Notification</h3>
+                                    <div class="normal_notifaication_div">
+                                       <input type="text" class="form-control-plaintext _detail" readonly value="Email">
+                                       <input type="text" class="form-control-plaintext _detail" readonly value="SMS">
+                                       <input type="text" class="form-control-plaintext _detail" readonly value="Call">
+                                    </div>
+                                    <div class="editable_notifaication_div" style="display:none">
+                                       <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheckemail" name="notification[]" value="1" {{$selected1}}/>
+                                          <label class="custom-control-label t5" for="customCheckemail">Email</label>
+                                       </div>
+                                    </div>
+                                    <div class="editable_notifaication_div" style="display:none">
+                                       <div class="custom-control custom-checkbox">
+                                           <input type="checkbox" class="custom-control-input" id="customChecksms" name="notification[]" value="2" {{$selected2}}/>
+                                          <label class="custom-control-label t5" for="customChecksms">SMS</label>
+                                       </div>
+                                    </div>
+                                    <div class="editable_notifaication_div" style="display:none">
+                                       <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="customCheckcall" name="notification[]" value="3" {{$selected3}}>
+                                          <label class="custom-control-label t5" for="customCheckcall">Call</label>
+                                       </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +242,7 @@
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Address1</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="address1" data-id="address1" id="address1" placeholder="Address1" value="{{ $address1 }}">
+                                                    <input type="text" class="form-control-plaintext _detail" readonly name="address1" data-id="address1" id="address1" placeholder="Address1" value="{{ $emergency_address1 }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -246,7 +251,7 @@
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Address2</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="address2" data-id="address2" id="address2" placeholder="Address2" value="{{ $address2 }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="address2" data-id="address2" id="address2" placeholder="Address2" value="{{$emergency_address2 }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -255,7 +260,7 @@
                                                 <div class="ls"><i class="las la-city circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">City</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ $address_city }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="city" data-id="city" id="city" placeholder="City" value="{{ $emergency_city }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -268,7 +273,7 @@
                                                 <div class="ls"><i class="las la-archway circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">State</h3>
-                                                    <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ $address_state }}">
+                                                    <input type="text" class="form-control-plaintext _detail " readonly name="state" data-id="state" id="state" placeholder="State" value="{{ $emergency_state }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -277,7 +282,7 @@
                                                 <div class="ls"><i class="las la-code circle"></i></div>
                                                 <div class="rs">
                                                     <h3 class="_title">Zipcode</h3>
-                                                    <input type="text" class="form-control-plaintext _detail zip " readonly name="zip_code" data-id="zip_code" id="zip_code" placeholder="Zipcode" value="{{ $address_zip_code }}">
+                                                    <input type="text" class="form-control-plaintext _detail zip " readonly name="zip_code" data-id="zip_code" id="zip_code" placeholder="Zipcode" value="{{ $emergency_zip_code }}">
                                                 </div>
                                             </div>
                                         </div>

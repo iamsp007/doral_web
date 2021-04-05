@@ -79,7 +79,7 @@
                   </li>
                   <li>
                      <a class="nav-link d-flex align-items-center" id="ccm-tab" data-toggle="pill"
-                        href="#ccm" role="tab" aria-controls="ccm" aria-selected="false">
+                        href="#ccm" role="tab" aria-controls="ccm" aria-selected="false" onclick="calendarClick()">
                         <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_home_care_active.svg') }}" alt=""
                            class="mr-2 activeIcon">CCM
@@ -87,7 +87,7 @@
                   </li>
                   <li>
                      <a class="nav-link d-flex align-items-center" id="rpm-tab" data-toggle="pill"
-                        href="#rpm" role="tab" aria-controls="rpm" aria-selected="false">
+                        href="#rpm" role="tab" aria-controls="rpm" aria-selected="false" onclick="calendarClick()">
                         <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_home_care_active.svg') }}" alt=""
                            class="mr-2 activeIcon">RPM

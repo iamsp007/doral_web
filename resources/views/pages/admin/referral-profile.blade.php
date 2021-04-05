@@ -118,11 +118,11 @@ Refferal Profile
                            </li>
                            <li>
                               <label class="label">Phone Number:</label>
-                              <input type="text" class="form-control-plaintext _detail t5"
+                              <input type="text" class="form-control-plaintext _detail t5 phone_format"
                                  readonly name="administrator_phone_no"
                                  onkeyup="erroMessage()" data-id="i_phone_no"
                                  id="administrator_phone_no" placeholder="Phone Number"
-                                 value="{{ $record->administrator_phone_no ? $record->administrator_phone_no : '' }}">
+                                 value="{{ $record->administrator_phone_no ? $record->administrator_phone_no : '' }}" maxlength="14">
                                  <span class="error-message" id="phone_error">Phone Number is not Valid</span>
                            </li>
                         </ul>
@@ -224,10 +224,10 @@ Refferal Profile
                            </li>
                            <li>
                               <label class="label">Phone Number:</label>
-                              <input type="text" class="form-control-plaintext _detail t5"
+                              <input type="text" class="form-control-plaintext _detail t5 phone_format"
                                  readonly name="phone_no" onkeyup="companyerror()"
                                  data-id="phone_no" id="phone_no" placeholder="Phone Number"
-                                 value="{{ $record->phone ? $record->phone : '' }}">
+                                 value="{{ $record->phone ? $record->phone : '' }}" maxlength="14">
                                  <span class="error-message" id="company_phone_error">Phone Number is not valid</span>
                            </li>
                         </ul>
@@ -437,10 +437,10 @@ Refferal Profile
             count++;
          }
 
-         if(!(phone.match(phoneno))) {
-            $("#company_phone_error").css("display", "block");
-            count++;
-         }
+//         if(!(phone.match(phoneno))) {
+//            $("#company_phone_error").css("display", "block");
+//            count++;
+//         }
 
          if(!(email.match(emailformat))) {
             $("#company_email_error").css("display", "block");
@@ -521,10 +521,10 @@ Refferal Profile
             count++;
          }
 
-         if(!(administrator_phone_no.match(phoneno))) {
-         $("#phone_error").css("display", "block");
-            count++;
-         }
+//         if(!(administrator_phone_no.match(phoneno))) {
+//         $("#phone_error").css("display", "block");
+//            count++;
+//         }
          
          if (count > 0) {
             return false;

@@ -17,6 +17,16 @@
         $address_zip_code = $address['zip_code'] ? $address['zip_code'] : '';
     endif;
 
+    $emergencyAptBuilding = $emergencyAddress1 = $emergencyAddress2 = $emergencyAddress_city = $emergencyAddress_state = $emergencyAddress_zip_code = '';
+    if(count($emergencyAddress) > 0):
+        $emergencyAptBuilding = (isset($address['apt_building']) && !empty($address['apt_building'])) ? $address['apt_building'] : '';
+        $emergencyAddress1 =  $address['address1'] ? $address['address1'] : '';
+        $emergencyAddress2 = $address['address2'] ? $address['address2'] : '';
+        $emergencyAddress_city = $address['city'] ? $address['city'] : '';
+        $emergencyAddress_state = $address['state'] ? $address['state'] : '';
+        $emergencyAddress_zip_code = $address['zip_code'] ? $address['zip_code'] : '';
+    endif;
+
     $selected1 = '';
     $selected2 = '';
     $selected3 = '';
@@ -341,6 +351,17 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls">
+                                                            <i class="las la-user-nurse circle"></i>
+                                                        </div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Relationship</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship" value="{{ $patientEmergencyContact->relation }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <!-- <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls">
@@ -354,16 +375,64 @@
                                                 </div> -->
                                             </div>
                                         </div>
+                                      
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
-                                                        <div class="ls">
-                                                            <i class="las la-user-nurse circle"></i>
-                                                        </div>
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Relationship</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship" value="{{ $patientEmergencyContact->relation }}">
+                                                            <h3 class="_title">Apt Building</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="{{ $emergencyAptBuilding }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Address1</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAddress1" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value="{{ $emergencyAddress1 }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Address2</h3>
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value="{{ $emergencyAddress2 }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-city circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">City</h3>
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value="{{ $emergencyAddress_city }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-archway circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">State</h3>
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value="{{ $emergencyAddress_state }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-code circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Zipcode</h3>
+                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value="{{ $emergencyAddress_zip_code }}">
                                                         </div>
                                                     </div>
                                                 </div>

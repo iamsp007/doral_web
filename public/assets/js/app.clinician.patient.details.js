@@ -82,6 +82,9 @@ function editAllField(sectionId) {
     
     $(activeTab).find('.normal_service_div').removeClass('d-block').addClass('d-none');
     $(activeTab).find('.editable_service_div').removeClass('d-none').addClass('d-block'); 
+    
+    $(activeTab).find('.normal_notifaication_div').removeClass('d-block').addClass('d-none');
+    $(activeTab).find('.editable_notifaication_div').removeClass('d-none').addClass('d-block'); 
     }
 }
 function updateAllField(sectionId) {
@@ -111,6 +114,9 @@ function updateAllField(sectionId) {
 
            $(activeTab).find('.normal_service_div').removeClass('d-none').addClass('d-block');
            $(activeTab).find('.editable_service_div').removeClass('d-block').addClass('d-none');
+           
+           $(activeTab).find('.normal_notifaication_div').removeClass('d-none').addClass('d-block');
+           $(activeTab).find('.editable_notifaication_div').removeClass('d-block').addClass('d-none'); 
             }
 }
 
@@ -383,3 +389,16 @@ $(function () {
         search: true
     })
 });
+function editAllProfileField(e) {
+    var a = $("#" + e).closest(".app-card").attr("id");
+    $(".custom-control-input").each(function() {
+        $(this).prop("disabled", !1)
+    }), $("#" + e + " [data-id]").removeClass("form-control-plaintext").addClass("form-control"), $("#" + e + " [data-id]").attr("readOnly", !1), $("#" + a).find(".update-icon").show(), $("#" + a).find(".edit-icon").hide()
+}
+
+function updateAllProfileField(e) {
+    var a = $("#" + e).closest(".app-card").attr("id");
+    $(".custom-control-input").each(function() {
+        $(this).prop("disabled", !0)
+    }), $("#" + e + " [data-id]").addClass("form-control-plaintext").removeClass("form-control"), $("#" + e + " [data-id]").attr("readOnly", 1), $("#" + a).find(".update-icon").hide(), $("#" + a).find(".edit-icon").show()
+}

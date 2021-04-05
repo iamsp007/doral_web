@@ -201,19 +201,24 @@ if (in_array("3", $notification_arr)){
                                     </div>
                                     <div class="rs">
                                     <h3 class="_title">Notification</h3>
-                                    <div class="">
+                                    <div class="normal_notifaication_div">
+                                       <input type="text" class="form-control-plaintext _detail" readonly value="Email">
+                                       <input type="text" class="form-control-plaintext _detail" readonly value="SMS">
+                                       <input type="text" class="form-control-plaintext _detail" readonly value="Call">
+                                    </div>
+                                    <div class="editable_notifaication_div" style="display:none">
                                        <div class="custom-control custom-checkbox">
                                           <input type="checkbox" class="custom-control-input" id="customCheckemail" name="notification[]" value="1" {{$selected1}}/>
                                           <label class="custom-control-label t5" for="customCheckemail">Email</label>
                                        </div>
                                     </div>
-                                    <div class="">
+                                    <div class="editable_notifaication_div" style="display:none">
                                        <div class="custom-control custom-checkbox">
                                            <input type="checkbox" class="custom-control-input" id="customChecksms" name="notification[]" value="2" {{$selected2}}/>
                                           <label class="custom-control-label t5" for="customChecksms">SMS</label>
                                        </div>
                                     </div>
-                                    <div class="">
+                                    <div class="editable_notifaication_div" style="display:none">
                                        <div class="custom-control custom-checkbox">
                                           <input type="checkbox" class="custom-control-input" id="customCheckcall" name="notification[]" value="3" {{$selected3}}>
                                           <label class="custom-control-label t5" for="customCheckcall">Call</label>

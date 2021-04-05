@@ -103,3 +103,6 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
 
     Route::get('/search-caregivers','App\Http\Controllers\Admin\HHAExchangeController@searchCaregivers')->name('search-caregivers');
     Route::resource('hha-exchange','App\Http\Controllers\Admin\HHAExchangeController');
+    
+    // Convert Address to Lat-Long
+    Route::get('lat-long','App\Http\Controllers\HomeController@convertLatLongFromAddress');

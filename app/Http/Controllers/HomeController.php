@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\PatientReferral;
 use App\Models\User;
+use App\Models\Demographic;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -110,5 +112,60 @@ class HomeController extends Controller
                     return '--';
             })
             ->make(true);
+    }
+    
+    public function convertLatLongFromAddress() {
+        $user = Demographic::all();
+        foreach ($user as $v) {
+            echo"<pre>";
+            print_r($v->user_id);
+//            exit();
+            $user_id = $v->user_id;
+            $address = $v->address;
+            
+            $street1 = '';
+            $street2 = '';
+            $city = '';
+            $state = '';
+            $zipcode = '';
+            if(!empty($address)) {
+                
+                if(is_array($address['address1'] != '')) {
+                    $street1 = $address['address1'];
+                }else if($address['address1'] != '') {
+                    $street1 = $address['address1'];
+                }
+                if(is_array($address['address2'])) {
+                    if(!empty($address['address2'])) {
+                        $street2 = $address['address2'];
+                    }
+                }else if($address['address2'] != '') {
+                    $street2 = $address['address2'];
+                }
+                if($address['city'] != '') {
+                    $city = $address['city'];
+                }
+                if($address['state'] != '') {
+                    $state = $address['state'];
+                }
+                if($address['zip_code'] != '') {
+                    $zipcode = $address['zip_code'];
+                }
+            }
+            if($street1 != '' || $street2 != '') {
+                $address = $street1." ".$street2." ".$city." ".$state." ".$zipcode;
+                $apiKey = 'AIzaSyAOHZY4U-K9nbXK78shinqKD4sUQw5a-wk';
+                $geocode=file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($address).'&sensor=false&key='.$apiKey);
+                $json= json_decode($geocode);
+                $lat = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lat'};
+                $long = $json->{'results'}[0]->{'geometry'}->{'location'}->{'lng'};
+                $user = User::find($user_id);
+                if ($user){
+                    $user->latitude = $lat;
+                    $user->longitude = $long;
+                    $user->save();
+                }
+            }
+        }
     }
 }

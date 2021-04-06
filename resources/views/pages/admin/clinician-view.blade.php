@@ -42,7 +42,7 @@
                               </li>
                               @endif
                               <li class="list-group-item"><span>{{ isset($data->email) ? $data->email : null }}</span></li>
-                              <li class="list-group-item"> 
+                              <li class="list-group-item">
                                  <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="TeleHealth">
                                     <label class="form-check-label" for="inlineCheckbox1">TeleHealth</label>
@@ -105,9 +105,12 @@
                            <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork"
                               data-parent="#profileAccordion">
                               <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                 <li class="nav-item">
-                                    <a class="nav-link active" id="Details-tab" data-toggle="tab" href="#Details" role="tab" aria-controls="Details" aria-selected="true">DETAILS</a>
-                                 </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link active" id="Details-tab" data-toggle="tab" href="#Details" role="tab" aria-controls="Details" aria-selected="true">DETAILS</a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link active" id="Details-tab" data-toggle="tab" href="#Details" role="tab" aria-controls="Details" aria-selected="true">DETAILS</a>
+                                  </li>
                                  <li class="nav-item">
                                     <a class="nav-link" id="Address-tab" data-toggle="tab" href="#Address" role="tab" aria-controls="Address" aria-selected="false">ADDRESS</a>
                                  </li>
@@ -908,7 +911,7 @@
                                                       </div>
                                                    </div>
                                                 </div>
-                                                
+
                                              </div>
                                           </div>
                                        </div>
@@ -955,7 +958,7 @@
                                                       </div>
                                                    </div>
                                                 </div>
-                                                
+
                                              </div>
                                           </div>
                                        </div>
@@ -1165,7 +1168,7 @@
                                                             </div>
                                                          </div>
                                                       </div>
-                                                     
+
                                                    </div>
                                                 </div>
                                              </div>
@@ -1315,7 +1318,7 @@
                                        <div class="_card mt-3">
                                           <div class="_card_header">
                                              <div class="title-head">
-                                                Additional Attestions 
+                                                Additional Attestions
                                              </div>
                                           </div>
                                           <div class="_card_body">
@@ -1345,7 +1348,7 @@
                                                 </li>
                                                 @endif
                                              </ul>
-                                            
+
                                           </div>
                                        </div>
                                        @endif
@@ -1732,8 +1735,8 @@
                            <div class="app-card" style="min-height: auto;">
                               <div class="card-header" id="step2">
                                  <div class="d-flex align-items-center">
-                                    <img src="/assets/img/icons/document-clinician.svg" alt=""
-                                       srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2"></a>
+                                    <img src="{{ asset('assets/img/icons/document-clinician.svg') }}" alt=""
+                                       srcset="{{ asset('assets/img/icons/document-clinician.svg') }}" class="_icon mr-2"></a>
                                        Documents Verifiaction
                                  </div>
                                  <hr>
@@ -1741,141 +1744,164 @@
                               <div class="card-body collapse show" id="collapseWork" aria-labelledby="collapseWork"
                                  data-parent="#profileAccordion">
                                  <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                       <a class="nav-link active" id="Details-tab" data-toggle="tab" href="#IDProof" role="tab" aria-controls="IDProof" aria-selected="true">ID Proof</a>
-                                    </li>
-                                    <li class="nav-item">
-                                       <a class="nav-link" id="Address-tab" data-toggle="tab" href="#DegreeProof" role="tab" aria-controls="DegreeProof" aria-selected="false">Degree Proof</a>
-                                    </li>
-                                    <li class="nav-item">
-                                       <a class="nav-link" id="Address-tab" data-toggle="tab" href="#MedicalReport" role="tab" aria-controls="MedicalReport" aria-selected="false">Medical Report</a>
-                                    </li>
-                                    <li class="nav-item">
-                                       <a class="nav-link" id="Address-tab" data-toggle="tab" href="#InsuranceReports" role="tab" aria-controls="InsuranceReports" aria-selected="false">Insurance Reports</a>
-                                    </li>
+                                     @foreach($data->documents as $key=>$value)
+                                         <li class="nav-item {{ $key===0?'active':'' }}">
+                                             <a class="nav-link {{ $key===0?'active':'' }}" id="Details-tab" data-toggle="tab" href="#{{ $value->file_type }}" role="tab" aria-controls="{{ $value->file_type }}" aria-selected="true">{{ strtoupper($value->file_type) }}</a>
+                                         </li>
+                                     @endforeach
+
+{{--                                    <li class="nav-item">--}}
+{{--                                       <a class="nav-link" id="Address-tab" data-toggle="tab" href="#DegreeProof" role="tab" aria-controls="DegreeProof" aria-selected="false">Degree Proof</a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                       <a class="nav-link" id="Address-tab" data-toggle="tab" href="#MedicalReport" role="tab" aria-controls="MedicalReport" aria-selected="false">Medical Report</a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                       <a class="nav-link" id="Address-tab" data-toggle="tab" href="#InsuranceReports" role="tab" aria-controls="InsuranceReports" aria-selected="false">Insurance Reports</a>--}}
+{{--                                    </li>--}}
                                    </ul>
                                  <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="IDProof" role="tabpanel" aria-labelledby="IDProof-tab">
-                                     <!-- View ID Proof button Start -->
-                                       <ul>
-                                         <!-- <li>
-                                          <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
-                                         </li>
-                                         <li>
-                                          <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                         </li>
-                                         <li> -->
-                                            @isset($data->documents)
-                                          @foreach($data->documents as $document)
-                                          @if($document->type == 1)
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                               {{ $document->file_name }}
-                                               <div>
-                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                   srcset="/assets/img/icons/direct-download.svg"
-                                                   class="_icon mr-2"></a>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          @endif
-                                          @endforeach
-                                            @endisset
-                                         </li>
-                                       </ul>
-                                        <!-- View ID Proof button End -->
-                                   </div>
-                                    <div class="tab-pane fade" id="DegreeProof" role="tabpanel" aria-labelledby="DegreeProof-tab">
-                                       <!-- View Degree Proof button Start -->
-                                       <ul>
-                                          <!-- <li>
-                                           <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li>
-                                          <li>
-                                           <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li> -->
-                                          <li>
-                                             @isset($data->documents)
-                                           @foreach($data->documents as $document)
-                                          @if($document->type == 2)
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                               {{ $document->file_name }}
-                                               <div>
-                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                   srcset="/assets/img/icons/direct-download.svg"
-                                                   class="_icon mr-2"></a>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          @endif
-                                          @endforeach
-                                          @endisset
-                                          </li>
-                                        </ul>
-                                         <!-- View Degree Proof button End -->
-                                    </div>
-                                    <div class="tab-pane fade" id="MedicalReport" role="tabpanel" aria-labelledby="MedicalReport-tab">
-                                      <!-- View Medical Report button Start -->
-                                      <ul>
-                                       <!-- <li>
-                                        <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
-                                       </li>
-                                       <li>
-                                        <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                       </li> -->
-                                       <li>
-                                          @isset($data->documents)
-                                       @foreach($data->documents as $document)
-                                       @if($document->type == 3)
-                                       <div class="_card mt-3">
-                                          <div class="_card_header">
-                                            {{ $document->file_name }}
-                                            <div>
-                                                <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                srcset="/assets/img/icons/direct-download.svg"
-                                                class="_icon mr-2"></a>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       @endif
-                                       @endforeach
-                                       @endisset
-                                       </li>
-                                     </ul>
-                                      <!-- View Medical Report button End -->
-                                    </div>
-                                     <div class="tab-pane fade" id="InsuranceReports" role="tabpanel" aria-labelledby="InsuranceReports-tab">
-                                       <!-- View Insurance Reports button Start -->
-                                       <ul>
-                                          <!-- <li>
-                                           <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li>
-                                          <li>
-                                           <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li> -->
-                                          <li>
-                                             @isset($data->documents)
-                                          @foreach($data->documents as $document)
-                                          @if($document->type == 4)
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                               {{ $document->file_name }}
-                                               <div>
-                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                   srcset="/assets/img/icons/direct-download.svg"
-                                                   class="_icon mr-2"></a>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          @endif
-                                          @endforeach
-                                          @endisset
-                                          </li>
-                                        </ul>
-                                         <!-- View Insurance Reports button End -->
+                                     @foreach($data->documents as $key=>$value)
+                                     <div class="tab-pane fade {{ $key===0?'show active':'' }}" id="{{ $value->file_type }}" role="tabpanel" aria-labelledby="{{ $value->file_type }}-tab">
+                                         <ul>
+                                             <li>
+                                                 <div class="_card mt-3">
+                                                     <div class="_card_header">
+                                                         {{ ucfirst($value->file_type) }}
+                                                         <div>
+                                                             <a href="{{ $value->file_url }}" target="_blank">
+                                                                 <img src="{{ asset('assets/img/icons/direct-download.svg') }}" alt=""
+                                                                                               srcset="{{ asset('assets/img/icons/direct-download.svg') }}"
+                                                                                               class="_icon mr-2"></a>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </li>
+                                         </ul>
                                      </div>
-                                    </div>
+                                     @endforeach
+
+{{--                                    <div class="tab-pane fade show active" id="IDProof" role="tabpanel" aria-labelledby="IDProof-tab">--}}
+{{--                                     <!-- View ID Proof button Start -->--}}
+{{--                                       <ul>--}}
+{{--                                         <!-- <li>--}}
+{{--                                          <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>--}}
+{{--                                         </li>--}}
+{{--                                         <li>--}}
+{{--                                          <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>--}}
+{{--                                         </li>--}}
+{{--                                         <li> -->--}}
+{{--                                            @isset($data->documents)--}}
+{{--                                          @foreach($data->documents as $document)--}}
+{{--                                          @if($document->type == 1)--}}
+{{--                                          <div class="_card mt-3">--}}
+{{--                                             <div class="_card_header">--}}
+{{--                                               {{ $document->file_url }}--}}
+{{--                                               <div>--}}
+{{--                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""--}}
+{{--                                                   srcset="/assets/img/icons/direct-download.svg"--}}
+{{--                                                   class="_icon mr-2"></a>--}}
+{{--                                                </div>--}}
+{{--                                             </div>--}}
+{{--                                          </div>--}}
+{{--                                          @endif--}}
+{{--                                          @endforeach--}}
+{{--                                            @endisset--}}
+{{--                                         </li>--}}
+{{--                                       </ul>--}}
+{{--                                        <!-- View ID Proof button End -->--}}
+{{--                                   </div>--}}
+{{--                                    <div class="tab-pane fade" id="DegreeProof" role="tabpanel" aria-labelledby="DegreeProof-tab">--}}
+{{--                                       <!-- View Degree Proof button Start -->--}}
+{{--                                       <ul>--}}
+{{--                                          <!-- <li>--}}
+{{--                                           <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>--}}
+{{--                                          </li>--}}
+{{--                                          <li>--}}
+{{--                                           <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>--}}
+{{--                                          </li> -->--}}
+{{--                                          <li>--}}
+{{--                                             @isset($data->documents)--}}
+{{--                                           @foreach($data->documents as $document)--}}
+{{--                                          @if($document->type == 2)--}}
+{{--                                          <div class="_card mt-3">--}}
+{{--                                             <div class="_card_header">--}}
+{{--                                               {{ $document->file_name }}--}}
+{{--                                               <div>--}}
+{{--                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""--}}
+{{--                                                   srcset="/assets/img/icons/direct-download.svg"--}}
+{{--                                                   class="_icon mr-2"></a>--}}
+{{--                                                </div>--}}
+{{--                                             </div>--}}
+{{--                                          </div>--}}
+{{--                                          @endif--}}
+{{--                                          @endforeach--}}
+{{--                                          @endisset--}}
+{{--                                          </li>--}}
+{{--                                        </ul>--}}
+{{--                                         <!-- View Degree Proof button End -->--}}
+{{--                                    </div>--}}
+{{--                                    <div class="tab-pane fade" id="MedicalReport" role="tabpanel" aria-labelledby="MedicalReport-tab">--}}
+{{--                                      <!-- View Medical Report button Start -->--}}
+{{--                                      <ul>--}}
+{{--                                       <!-- <li>--}}
+{{--                                        <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>--}}
+{{--                                       </li>--}}
+{{--                                       <li>--}}
+{{--                                        <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>--}}
+{{--                                       </li> -->--}}
+{{--                                       <li>--}}
+{{--                                          @isset($data->documents)--}}
+{{--                                       @foreach($data->documents as $document)--}}
+{{--                                       @if($document->type == 3)--}}
+{{--                                       <div class="_card mt-3">--}}
+{{--                                          <div class="_card_header">--}}
+{{--                                            {{ $document->file_name }}--}}
+{{--                                            <div>--}}
+{{--                                                <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""--}}
+{{--                                                srcset="/assets/img/icons/direct-download.svg"--}}
+{{--                                                class="_icon mr-2"></a>--}}
+{{--                                             </div>--}}
+{{--                                          </div>--}}
+{{--                                       </div>--}}
+{{--                                       @endif--}}
+{{--                                       @endforeach--}}
+{{--                                       @endisset--}}
+{{--                                       </li>--}}
+{{--                                     </ul>--}}
+{{--                                      <!-- View Medical Report button End -->--}}
+{{--                                    </div>--}}
+{{--                                     <div class="tab-pane fade" id="InsuranceReports" role="tabpanel" aria-labelledby="InsuranceReports-tab">--}}
+{{--                                       <!-- View Insurance Reports button Start -->--}}
+{{--                                       <ul>--}}
+{{--                                          <!-- <li>--}}
+{{--                                           <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>--}}
+{{--                                          </li>--}}
+{{--                                          <li>--}}
+{{--                                           <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>--}}
+{{--                                          </li> -->--}}
+{{--                                          <li>--}}
+{{--                                             @isset($data->documents)--}}
+{{--                                          @foreach($data->documents as $document)--}}
+{{--                                          @if($document->type == 4)--}}
+{{--                                          <div class="_card mt-3">--}}
+{{--                                             <div class="_card_header">--}}
+{{--                                               {{ $document->file_name }}--}}
+{{--                                               <div>--}}
+{{--                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""--}}
+{{--                                                   srcset="/assets/img/icons/direct-download.svg"--}}
+{{--                                                   class="_icon mr-2"></a>--}}
+{{--                                                </div>--}}
+{{--                                             </div>--}}
+{{--                                          </div>--}}
+{{--                                          @endif--}}
+{{--                                          @endforeach--}}
+{{--                                          @endisset--}}
+{{--                                          </li>--}}
+{{--                                        </ul>--}}
+{{--                                         <!-- View Insurance Reports button End -->--}}
+{{--                                     </div>--}}
+{{--                                    </div>--}}
                                </div>
                            </div>
                         </div>
@@ -1901,6 +1927,6 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
     <script>
-        
+
     </script>
 @endpush

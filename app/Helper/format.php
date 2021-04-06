@@ -66,6 +66,22 @@ use Illuminate\Support\Facades\Hash;
         }
     }
 
+    /**
+     * Change date format.
+     * 
+     * @return string
+     */
+    if (!function_exists('viewDateFormat')) {
+        function viewDateFormat($value)
+        {
+            $date = '';
+            if ($value) {
+                $date = date('m-d-Y', strtotime($value));
+            }
+
+            return $date;
+        }
+    }
 
     /**
      * Create doral id.

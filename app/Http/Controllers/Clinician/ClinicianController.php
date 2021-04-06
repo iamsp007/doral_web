@@ -92,13 +92,13 @@ class ClinicianController extends Controller
         $data = array();
         if ($response != null && $response->status === true) {
             $data = $response->data;
-            if ($data->designation_id == 1) {
+//            if ($data->designation_id == 1) {
                 return view('pages.admin.nurse-view', compact('data'));
-            } else if ($data->designation_id == 2) {
-                return view('pages.admin.rn-view', compact('data'));
-            } else {
-                return view('pages.admin.clinician-view', compact('data'));
-            }
+//            } else if ($data->designation_id == 2) {
+//                return view('pages.admin.rn-view', compact('data'));
+//            } else {
+//                return view('pages.admin.clinician-view', compact('data'));
+//            }
         }
 
         return redirect()->back();

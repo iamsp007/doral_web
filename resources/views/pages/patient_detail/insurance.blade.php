@@ -4,7 +4,7 @@
          <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('insurance')">
          <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('insurance')">
       </div>
-      <div class="head scrollbar scrollbar12">
+      <div class="head">
          <div class="p-3">
             <form id="medicare_form">
                <input type="hidden" name="user_id" value="{{ $patient->id }}">
@@ -20,8 +20,8 @@
                               <div class="input_box">
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                  <div class="rs">
-                                    <h3 class="_title">Medicaid No</h3>
-                                    <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="Medicaid Number" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}" maxlength="8">
+                                    <h3 class="_title">Medicaid No (e.g.AB12345C)</h3>
+                                    <input type="text" class="form-control-plaintext _detail" readonly name="medicaid_number" data-id="medicaid_number" id="medicaid_number" placeholder="" value="{{ isset($patient->demographic) && isset($patient->demographic->medicaid_number) ? $patient->demographic->medicaid_number : '' }}" maxlength="8">
                                     <span class="medicaid_number-invalid-feedback text-danger" role="alert" maxlength="8"></span>
                                  </div>
                               </div>

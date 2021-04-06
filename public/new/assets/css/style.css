@@ -1394,3 +1394,4 @@ tr th,tr td{vertical-align: middle!important;}
 .modal-large{max-width: 1500px;}
 .modal-size-1{max-width: 600px;}
 .pointer-none{pointer-events: none;}
+.table td, .table th{border-top: none;}

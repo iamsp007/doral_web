@@ -60,69 +60,61 @@
                <ul class="patient-nav nav">
                   <li class="mb-2">
                      <a href="#ApplicantDetail" class="active" data-toggle="pill" role="tab">
-                     <img src="/assets/img/icons/applicant-clinician.svg" alt=""
-                        srcset="/assets/img/icons/applicant-clinician.svg"
-                        class="_icon mr-2">Applicant Details</a>
+                     <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Applicant Details</a>
                   </li>
                   <li class="mb-2">
                      <a href="#EducationDetails" data-toggle="pill" role="tab">
-                     <img src="/assets/img/icons/education-clinician.svg" alt=""
-                        srcset="/assets/img/icons/education-clinician.svg" class="_icon mr-2">Education Details</a>
+                     <img src="/assets/img/icons/education-clinician.svg" alt="" srcset="/assets/img/icons/education-clinician.svg" class="_icon mr-2">Education Details</a>
                   </li>
-                  <li class="mb-2"><a href="#ProfessionalDetails" data-toggle="pill" role="tab"><img
-                     src="/assets/img/icons/md-order-selected-sb.svg" alt=""
-                     srcset="/assets/img/icons/md-order-selected-sb.svg" class="_icon mr-2">Professional Details</a></li>
-                  <li class="mb-2"><a href="#DepositDetails" data-toggle="pill" role="tab"><img
-                     src="/assets/img/icons/deposit-clinician.svg" alt=""
-                     srcset="/assets/img/icons/deposit-clinician.svg" class="_icon mr-2">Deposit Details</a></li>
-                  <li class="mb-2"><a href="#BackgroundDetails" data-toggle="pill" role="tab"><img
-                     src="/assets/img/icons/background-clinician.svg" alt=""
-                     srcset="/assets/img/icons/background-clinician.svg" class="_icon mr-2">Background Details</a>
+                  <li class="mb-2">
+                     <a href="#ProfessionalDetails" data-toggle="pill" role="tab">
+                     <img src="/assets/img/icons/md-order-selected-sb.svg" alt="" srcset="/assets/img/icons/md-order-selected-sb.svg" class="_icon mr-2">Professional Details</a>
                   </li>
-                  <li class="mb-2"><a href="#VerifyIdentity" data-toggle="pill" role="tab"><img
-                     src="/assets/img/icons/identity-clinician.svg" alt=""
-                     srcset="/assets/img/icons/identity-clinician.svg" class="_icon mr-2">Verify Identity</a></li>
-                  <li class="mb-2"><a href="#DocumentsVerifiaction" data-toggle="pill" role="tab"><img
-                     src="/assets/img/icons/document-clinician.svg" alt=""
-                     srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Documents Verifiaction</a></li>
+                  <li class="mb-2">
+                     <a href="#DepositDetails" data-toggle="pill" role="tab">
+                     <img src="/assets/img/icons/deposit-clinician.svg" alt="" srcset="/assets/img/icons/deposit-clinician.svg" class="_icon mr-2">Deposit Details</a></li>
+                  <li class="mb-2">
+                     <a href="#BackgroundDetails" data-toggle="pill" role="tab">
+                     <img src="/assets/img/icons/background-clinician.svg" alt="" srcset="/assets/img/icons/background-clinician.svg" class="_icon mr-2">Background Details</a>
+                  </li>
+                  <li class="mb-2">
+                     <a href="#VerifyIdentity" data-toggle="pill" role="tab">
+                     <img src="/assets/img/icons/identity-clinician.svg" alt="" srcset="/assets/img/icons/identity-clinician.svg" class="_icon mr-2">Verify Identity</a>
+                  </li>
+                  <li class="mb-2">
+                     <a href="#DocumentsVerifiaction" data-toggle="pill" role="tab">
+                     <img src="/assets/img/icons/document-clinician.svg" alt="" srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Documents Verifiaction</a></li>
                   <li class="mb-2">
                      <a href="#FamilyDetails" data-toggle="pill" role="tab">
-                     <img src="/assets/img/icons/employee-sb-select.svg" alt=""
-                        srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Family Details</a>
+                     <img src="/assets/img/icons/employee-sb-select.svg" alt="" srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Family Details</a>
                   </li>
                   <li class="mb-2">
                      <a href="#Military_detail" data-toggle="pill" role="tab">
-                     <img src="/assets/img/icons/employee-sb-select.svg" alt=""
-                        srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Military Details</a>
+                     <img src="/assets/img/icons/employee-sb-select.svg" alt="" srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Military Details</a>
                   </li>
                   <li class="mb-2">
                      <a href="#Security_detail" data-toggle="pill" role="tab">
-                     <img src="/assets/img/icons/background-clinician.svg" alt=""
-                        srcset="/assets/img/icons/background-clinician.svg" class="_icon mr-2">Security Details</a>
+                     <img src="/assets/img/icons/background-clinician.svg" alt="" srcset="/assets/img/icons/background-clinician.svg" class="_icon mr-2">Security Details</a>
                   </li>
                   <li class="mb-2">
                      <a href="#Employer_detail" data-toggle="pill" role="tab">
-                     <img src="/assets/img/icons/employee-sb-select.svg" alt=""
-                        srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Employer Details</a>
+                     <img src="/assets/img/icons/employee-sb-select.svg" alt="" srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Employer Details</a>
                   </li>
                   <li class="mb-2">
                      <a href="#Language_detail" data-toggle="pill" role="tab">
-                     <img src="/assets/img/icons/employee-sb-select.svg" alt=""
-                        srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Language Details</a>
+                     <img src="/assets/img/icons/employee-sb-select.svg" alt="" srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Language Details</a>
                   </li>
                   <li class="mb-2">
                      <a href="#skill_detail" data-toggle="pill" role="tab">
-                     <img src="/assets/img/icons/employee-sb-select.svg" alt=""
-                        srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Skill Details</a>
+                     <img src="/assets/img/icons/employee-sb-select.svg" alt="" srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Skill Details</a>
                   </li>
                   <li class="mb-2">
                      <a href="#Payroll_details" data-toggle="pill" role="tab">
-                     <img src="/assets/img/icons/employee-sb-select.svg" alt=""
-                        srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Payroll Details</a>
+                     <img src="/assets/img/icons/employee-sb-select.svg" alt="" srcset="/assets/img/icons/employee-sb-select.svg" class="_icon mr-2">Payroll Details</a>
                   </li>
-                  
                </ul>
             </div>
+         </div>
       </section>
       <section class="details-content scrollbar-detail scrollbar">
          <!-- Right section Start-->
@@ -135,8 +127,7 @@
                         <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2"></a>Applicant Details
                      </div>
                   </div>
-                  <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork"
-                     data-parent="#profileAccordion">
+                  <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
                      <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                            <a class="nav-link active" id="Details-tab" data-toggle="tab" href="#Details" role="tab" aria-controls="Details" aria-selected="true">DETAILS</a>
@@ -157,9 +148,7 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div>
-                                          <i class="las la-user-nurse circle-icon"></i>
-                                       </div>
+                                       <div><i class="las la-user-nurse circle-icon"></i></div>
                                        <div>
                                           <h3 class="_title">Applicant Name</h3>
                                           <h1 class="_detail">{{ isset($data->applicant->applicant_name) ? $data->applicant->applicant_name : null }}</h1>
@@ -170,9 +159,7 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div>
-                                          <i class="las la-user-nurse circle-icon"></i>
-                                       </div>
+                                       <div><i class="las la-user-nurse circle-icon"></i></div>
                                        <div>
                                           <h3 class="_title">Other Name (if applicable)</h3>
                                           <h1 class="_detail">{{ isset($data->applicant->other_name) ? $data->applicant->other_name : null }}</h1>
@@ -183,9 +170,7 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div>
-                                          <i class="las la-angle-double-right circle-icon"></i>
-                                       </div>
+                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                        <div>
                                           <h3 class="_title">SSN</h3>
                                           <h1 class="_detail">{{ isset($data->applicant->ssn) ? getSsn($data->applicant->ssn) : null }}</h1>
@@ -198,9 +183,7 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div>
-                                          <i class="las la-phone  circle-icon"></i>
-                                       </div>
+                                       <div><i class="las la-phone  circle-icon"></i></div>
                                        <div>
                                           <h3 class="_title">Phone No.</h3>
                                           <h1 class="_detail">{{ isset($data->applicant->phone) ? getPhone($data->applicant->phone) : null }}</h1>
@@ -211,9 +194,7 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div>
-                                          <i class="las la-phone  circle-icon"></i>
-                                       </div>
+                                       <div><i class="las la-phone  circle-icon"></i></div>
                                        <div>
                                           <h3 class="_title">Home Home</h3>
                                           <h1 class="_detail">{{ isset($data->applicant->home_phone) ? getPhone($data->applicant->home_phone) : null }}</h1>
@@ -224,9 +205,7 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div>
-                                          <i class="las la-phone  circle-icon"></i>
-                                       </div>
+                                       <div><i class="las la-phone  circle-icon"></i></div>
                                        <div>
                                           <h3 class="_title">Emergency Phone</h3>
                                           <h1 class="_detail">{{ isset($data->applicant->emergency_phone) ? getPhone($data->applicant->emergency_phone) : null }}</h1>
@@ -239,9 +218,7 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div>
-                                          <i class="las la-calendar circle-icon"></i>
-                                       </div>
+                                       <div><i class="las la-calendar circle-icon"></i></div>
                                        <div>
                                           <h3 class="_title">Date Available</h3>
                                           <h1 class="_detail">{{ isset($data->applicant->date) ? viewDateFormat($data->applicant->date) : null }}</h1>
@@ -284,6 +261,7 @@
                        
                      </div>
                   </div>
+               </div>
                </div>
                <!--  Applicant Details End -->
 

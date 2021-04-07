@@ -188,6 +188,7 @@ use Illuminate\Support\Facades\Hash;
     if (!function_exists('isBoolean')) {
         function isBoolean($value)
         {
+            $boolValue = '';
             if ($value == '1') {
                 $boolValue = 'True';
             } else if ($value == '2') {

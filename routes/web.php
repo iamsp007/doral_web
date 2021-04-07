@@ -37,7 +37,10 @@ Route::group(['middleware'=>'auth:partner,referral,web'],function (){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('check');
     // Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
     Route::post('/add-insurance','\App\Http\Controllers\PatientController@addInsurance')->name('patient.addInsurance');
+    // Add New Patient Form
+    Route::get('add-new-patient',[\App\Http\Controllers\Clinician\PatientController::class,'addNewPatient'])->name('add.new.patient');
 });
+
 Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
 
 // Admin Panel
@@ -84,11 +87,11 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::post('/caregiver-update/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@checkCurrentVisitorDetails')->name('patient.caregiver.update');
 
     Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searchCaregivers');
-    
+
     Route::group(['middleware'=>['auth:web','role:clinician']],function (){
     Route::get('/patients/{status?}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
     });
-    
+
     Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
     Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');
     // Route::post('/download-lab-report','App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
@@ -103,6 +106,6 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
 
     Route::get('/search-caregivers','App\Http\Controllers\Admin\HHAExchangeController@searchCaregivers')->name('search-caregivers');
     Route::resource('hha-exchange','App\Http\Controllers\Admin\HHAExchangeController');
-    
+
     // Convert Address to Lat-Long
     Route::get('lat-long','App\Http\Controllers\HomeController@convertLatLongFromAddress');

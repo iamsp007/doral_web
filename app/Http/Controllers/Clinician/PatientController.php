@@ -250,7 +250,7 @@ class PatientController extends Controller
 
     /**
      * Covid 19 data table
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function covid19()
@@ -260,7 +260,7 @@ class PatientController extends Controller
 
     /**
      * Covid 19 data will display
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function covid19PatientList()
@@ -295,7 +295,7 @@ class PatientController extends Controller
 
     /**
      * Covid 19 data will display
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function covid19Info($id)
@@ -309,7 +309,7 @@ class PatientController extends Controller
 
     /**
      * Covid 19 data will remove
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function covid19Remove($id)
@@ -357,5 +357,10 @@ class PatientController extends Controller
         } catch (Exception $e) {
             dd("Error: ". $e->getMessage());
         }
+    }
+
+    // Add New Patient Form
+    public function addNewPatient(){
+        return view('pages.patient_detail.add_new');
     }
 }

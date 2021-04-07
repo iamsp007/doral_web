@@ -19,7 +19,7 @@
                                 <div class="col-12 col-sm-2 mt-4">
                                     <div class="card shadow-sm">
                                         <div class="card-footer file-footer">
-                                            <a href="{{ $document->file_url }}" class="d-flex align-items-center text-success">
+                                            <a href="{{ $document->file_url }}" target="_blank" class="d-flex align-items-center text-success">
                                               
                                                 <img onclick="openfancy();" src="{{ $document->file_url }}" alt="Document" srcset="{{ $document->file_url }}" class="img-fluid img-100">
                                             </a>

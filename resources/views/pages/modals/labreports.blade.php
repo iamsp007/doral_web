@@ -11,11 +11,11 @@
                 <div class="pb-5">
                     <div class="d-flex justify-content-end mb-4">
                         <button type="submit" class="btn btn-outline-green d-flex align-items-center"
-                                name="Download">Download All Reports</button>
+                                name="Download">Download All Reports1</button>
                     </div>
                     <div class="scrollbar scrollbar9" id="view-lab-report-file">
                         <div class="row">
-                            <div class="col-12 col-sm-2 mt-4">
+                            <!-- <div class="col-12 col-sm-2 mt-4">
                                 <div class="card shadow-sm">
                                     <div class="card-body">
                                         <img class="img-fluid" alt="" jsaction="load:G7tQM" data-drive-wiz-load-handling=""
@@ -198,7 +198,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

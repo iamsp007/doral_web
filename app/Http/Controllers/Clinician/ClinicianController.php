@@ -89,11 +89,77 @@ class ClinicianController extends Controller
         $services = new AdminService();
         $response = $services->getClinicianDetail($id);
 
-        $data = array();
+        $data = [];
         if ($response != null && $response->status === true) {
             $data = $response->data;
+            $family_detail = $military_detail = $security_detail = $address_detail = $reference_detail = $employer_detail = $education_detail = $language_detail = $skill_detail = $emergency_detail = $payroll_details = $position_detail = [];
+            if ($data->applicant) {
+                if ($data->applicant->family_detail) {
+                    $family_detail = $data->applicant->family_detail;
+                }
+
+                if ($data->applicant->military_detail) {
+                    $military_detail = $data->applicant->military_detail;
+                }
+
+                if ($data->applicant->security_detail) {
+                    $security_detail = $data->applicant->security_detail;
+                }
+
+                if ($data->applicant->address_detail && $data->applicant->address_detail->address) {
+                    $address_detail = $data->applicant->address_detail->address;
+                }
+
+                if ($data->applicant->reference_detail) {
+                    $reference_detail = $data->applicant->reference_detail;
+                }
+
+                if ($data->applicant->employer_detail && $data->applicant->employer_detail->employer) {
+                    $employer_detail = $data->applicant->employer_detail->employer;
+                }
+
+                if ($data->applicant->employer_detail && $data->applicant->employer_detail->position) {
+                    $position_detail = $data->applicant->employer_detail->position;
+                }
+                
+                if ($data->applicant->education_detail) {
+                    $education_detail = $data->applicant->education_detail;
+                }
+
+                if ($data->applicant->language_detail) {
+                    $language_detail = $data->applicant->language_detail;
+                }
+
+                if ($data->applicant->skill_detail) {
+                    $skill_detail = $data->applicant->skill_detail;
+                }
+
+                if ($data->applicant->emergency_detail) {
+                    $emergency_detail = $data->applicant->emergency_detail;
+                }
+                
+                if ($data->applicant->payroll_details) {
+                    $payroll_details = $data->applicant->payroll_details;
+                }
+            }
+
+            // return view('pages.admin.clinician-view', compact(
+            //     'data',
+            //     'family_detail',
+            //     'military_detail',
+            //     'security_detail',
+            //     'address_detail',
+            //     'reference_detail',
+            //     'employer_detail',
+            //     'position_detail',
+            //     'education_detail',
+            //     'language_detail',
+            //     'skill_detail',
+            //     'emergency_detail',
+            //     'payroll_details')
+            // );
 //            if ($data->designation_id == 1) {
-                return view('pages.admin.nurse-view', compact('data'));
+                return view('pages.admin.nurse-view', compact('data', 'security_detail'));
 //            } else if ($data->designation_id == 2) {
 //                return view('pages.admin.rn-view', compact('data'));
 //            } else {

@@ -538,78 +538,70 @@
                                  <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
                                        <ul>
-                                          @isset($data->applicant->education_detail)
-                                          @foreach($data->applicant->education_detail as $index => $education)
+                                          @isset($security_detail)
+                                         
                                           <li>
                                              <div class="_card mt-3">
                                                 <div class="_card_header">
-                                                   <div class="title-head">Security {{ $index + 1 }}</div>
+                                                   <div class="title-head">Security {{ $index }}</div>
                                                 </div>
                                                 <div class="_card_body">
-                                                   <div class="row">
+                                                   <div class="row mt-3">
                                                       <div class="col-12 col-sm-4">
                                                          <div class="d-flex align-items-center">
                                                             <div>
                                                                <i class="las la-angle-double-right circle-icon"></i>
                                                             </div>
                                                             <div>
-                                                               <h3 class="_title">Degree</h3>
-                                                               <h1 class="_detail">{{ isset($education->Degree) ? $education->Degree : null }}</h1>
+                                                               <h3 class="_title">Have you ever been bonded?Bond</h3>
+                                                               <h1 class="_detail">{{ isset($security_detail->bond) ? isBoolean($security_detail->bond) : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
-                                                      <div class="col-12 col-sm-4">
-                                                         <div class="d-flex align-items-center">
-                                                            <div>
-                                                               <i class="las la-angle-double-right circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Is Graduate?</h3>
-                                                               <h1 class="_detail">{{ isset($education->isGraduate) ? $education->isGraduate : null }}</h1>
+                                                      @if ($security_detail->bond == '1')
+                                                         <div class="col-12 col-sm-4">
+                                                            <div class="d-flex align-items-center">
+                                                               <div>
+                                                                  <i class="las la-angle-double-right circle-icon"></i>
+                                                               </div>
+                                                               <div>
+                                                                  <h3 class="_title">If So, Exaplain</h3>
+                                                                  <h1 class="_detail">{{ isset($security_detail->bond_explain) ? $security_detail->bond_explain : null }}</h1>
+                                                               
+                                                               </div>
                                                             </div>
                                                          </div>
-                                                      </div>
+                                                      @endif
                                                       <div class="col-12 col-sm-4">
                                                          <div class="d-flex align-items-center">
                                                             <div>
                                                                <i class="las la-angle-double-right circle-icon"></i>
                                                             </div>
                                                             <div>
-                                                               <h3 class="_title">Year</h3>
-                                                               <h1 class="_detail">{{ isset($education->year) ? $education->year : null }}</h1>
+                                                               <h3 class="_title">Have you been convicted of a falcony within the last 5 years?</h3>
+                                                               <h1 class="_detail">{{ isset($security_detail->convict) ? isBoolean($security_detail->convict) : null }}</h1>
                                                             </div>
                                                          </div>
                                                       </div>
                                                    </div>
                                                    <div class="row mt-3">
-                                                      <div class="col-12 col-sm-12">
-                                                         <div class="d-flex align-items-center mb-3">
-                                                            <div>
-                                                               <i class="las la-map-marker circle-icon"></i>
-                                                            </div>
-                                                            <div>
-                                                               <h3 class="_title">Address</h3>
-                                                               <h1 class="_detail">
-                                                                  {{ isset($education->address) ? $education->address : null }}
-                                                                  <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View
-                                                                  Map</a>
-                                                               </h1>
+                                                      @if ($security_detail->convict == '1')
+                                                         <div class="col-12 col-sm-4">
+                                                            <div class="d-flex align-items-center">
+                                                               <div>
+                                                                  <i class="las la-angle-double-right circle-icon"></i>
+                                                               </div>
+                                                               <div>
+                                                                  <h3 class="_title">If so, exaplain(this will not necessarily exclude you from consideration)</h3>
+                                                                  <h1 class="_detail">{{ isset($security_detail->convict_explain) ? $security_detail->convict_explain : null }}</h1>
+                                                               </div>
                                                             </div>
                                                          </div>
-                                                      </div>
+                                                      @endif
                                                    </div>
-                                                   <div class="collapse mb-4" id="collapseExample1">
-                                                      <div class="card card-body">
-                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%"
-                                                            height="200" frameborder="0" scrolling="no" marginheight="0"
-                                                            marginwidth="0"
-                                                            src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                      </div>
-                                                   </div>
-                                                 </div>
+                                                </div>
                                              </div>
                                           </li>
-                                          @endforeach
                                           @endisset
                                        </ul>
                                     </div>
@@ -1212,14 +1204,13 @@
                            </div>
                         </div>
                         <!-- Verify Identity End -->
+
                         <!--  Documents Verifiaction Start -->
                         <div class="tab-pane fade" id="DocumentsVerifiaction" role="tabpanel" aria-labelledby="v-pills-DocumentsVerifiaction-tab">
                            <div class="app-card" style="min-height: auto;">
                               <div class="card-header" id="step2">
                                  <div class="d-flex align-items-center">
-                                    <img src="/assets/img/icons/document-clinician.svg" alt=""
-                                       srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2"></a>
-                                       Documents Verifiaction
+                                    <img src="/assets/img/icons/document-clinician.svg" alt="" srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2"></a>Documents Verifiaction
                                  </div>
                                  <hr>
                               </div>
@@ -1238,99 +1229,100 @@
                                     <li class="nav-item">
                                        <a class="nav-link" id="Address-tab" data-toggle="tab" href="#InsuranceReports" role="tab" aria-controls="InsuranceReports" aria-selected="false">Insurance Reports</a>
                                     </li>
-                                   </ul>
+                                 </ul>
                                  <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="IDProof" role="tabpanel" aria-labelledby="IDProof-tab">
-                                     <!-- View ID Proof button Start -->
+                                       <!-- View ID Proof button Start -->
                                        <ul>
-                                         <!-- <li>
-                                          <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
-                                         </li>
-                                         <li>
-                                          <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                         </li>
-                                         <li> -->
-                                            @isset($data->documents)
-                                          @foreach($data->documents as $document)
-                                          @if($document->type == 1)
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                               {{ $document->file_name }}
-                                               <div>
-                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                   srcset="/assets/img/icons/direct-download.svg"
-                                                   class="_icon mr-2"></a>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          @endif
-                                          @endforeach
-                                            @endisset
+                                          <!--<li>
+                                             <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
+                                          </li>
+                                          <li>
+                                             <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
+                                          </li> -->
+                                          <li>
+                                             @isset($data->documents)
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 1)
+                                                      <div class="_card mt-3">
+                                                         <div class="_card_header">
+                                                         <iframe src="http://www.onlineicttutor.com/wp-content/uploads/2016/04/pdf-at-iframe.pdf" width="100%" height="300"></iframe>
+                                                         <iframe src="{{ $document->file_url }}">Your browser isn't compatible</iframe>
+                                                         <div>
+                                                               <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
+                                                               srcset="/assets/img/icons/direct-download.svg"
+                                                               class="_icon mr-2"></a>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   @endif
+                                                @endforeach
+                                             @endisset
                                          </li>
                                        </ul>
-                                        <!-- View ID Proof button End -->
-                                   </div>
+                                       <!-- View ID Proof button End -->
+                                    </div>
                                     <div class="tab-pane fade" id="DegreeProof" role="tabpanel" aria-labelledby="DegreeProof-tab">
                                        <!-- View Degree Proof button Start -->
                                        <ul>
                                           <!-- <li>
-                                           <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
+                                          <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
                                           </li>
                                           <li>
-                                           <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
+                                          <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
                                           </li> -->
                                           <li>
                                              @isset($data->documents)
-                                           @foreach($data->documents as $document)
-                                          @if($document->type == 2)
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                               {{ $document->file_name }}
-                                               <div>
-                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                   srcset="/assets/img/icons/direct-download.svg"
-                                                   class="_icon mr-2"></a>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          @endif
-                                          @endforeach
-                                          @endisset
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 2)
+                                                      <div class="_card mt-3">
+                                                         <div class="_card_header">
+                                                         {{ $document->file_name }}
+                                                         <div>
+                                                               <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
+                                                               srcset="/assets/img/icons/direct-download.svg"
+                                                               class="_icon mr-2"></a>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   @endif
+                                                @endforeach
+                                                @endisset
                                           </li>
                                         </ul>
                                          <!-- View Degree Proof button End -->
                                     </div>
                                     <div class="tab-pane fade" id="MedicalReport" role="tabpanel" aria-labelledby="MedicalReport-tab">
-                                      <!-- View Medical Report button Start -->
-                                      <ul>
+                                       <!-- View Medical Report button Start -->
+                                       <ul>
                                        <!-- <li>
                                         <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
                                        </li>
                                        <li>
                                         <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
                                        </li> -->
-                                       <li>
-                                          @isset($data->documents)
-                                       @foreach($data->documents as $document)
-                                       @if($document->type == 3)
-                                       <div class="_card mt-3">
-                                          <div class="_card_header">
-                                            {{ $document->file_name }}
-                                            <div>
-                                                <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                srcset="/assets/img/icons/direct-download.svg"
-                                                class="_icon mr-2"></a>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       @endif
-                                       @endforeach
-                                       @endisset
-                                       </li>
-                                     </ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 3)
+                                                      <div class="_card mt-3">
+                                                         <div class="_card_header">
+                                                         {{ $document->file_name }}
+                                                         <div>
+                                                               <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
+                                                               srcset="/assets/img/icons/direct-download.svg"
+                                                               class="_icon mr-2"></a>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   @endif
+                                                @endforeach
+                                             @endisset
+                                          </li>
+                                       </ul>
                                       <!-- View Medical Report button End -->
                                     </div>
-                                     <div class="tab-pane fade" id="InsuranceReports" role="tabpanel" aria-labelledby="InsuranceReports-tab">
+                                    <div class="tab-pane fade" id="InsuranceReports" role="tabpanel" aria-labelledby="InsuranceReports-tab">
                                        <!-- View Insurance Reports button Start -->
                                        <ul>
                                           <!-- <li>

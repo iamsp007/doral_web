@@ -66,6 +66,22 @@ use Illuminate\Support\Facades\Hash;
         }
     }
 
+    /**
+     * Change date format.
+     * 
+     * @return string
+     */
+    if (!function_exists('viewDateFormat')) {
+        function viewDateFormat($value)
+        {
+            $date = '';
+            if ($value) {
+                $date = date('m-d-Y', strtotime($value));
+            }
+
+            return $date;
+        }
+    }
 
     /**
      * Create doral id.
@@ -163,3 +179,22 @@ use Illuminate\Support\Facades\Hash;
             return $genderData;
         }
     }
+    
+    /**
+     * Get the user's gender.
+     *
+     * @return string
+     */
+    if (!function_exists('isBoolean')) {
+        function isBoolean($value)
+        {
+            $boolValue = '';
+            if ($value == '1') {
+                $boolValue = 'True';
+            } else if ($value == '2') {
+                $boolValue = 'False';
+            } 
+            return $boolValue;
+        }
+    }
+    

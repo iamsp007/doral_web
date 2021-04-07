@@ -1221,158 +1221,305 @@
                                        <a class="nav-link active" id="Details-tab" data-toggle="tab" href="#IDProof" role="tab" aria-controls="IDProof" aria-selected="true">ID Proof</a>
                                     </li>
                                     <li class="nav-item">
-                                       <a class="nav-link" id="Address-tab" data-toggle="tab" href="#DegreeProof" role="tab" aria-controls="DegreeProof" aria-selected="false">Degree Proof</a>
+                                    <a class="nav-link" id="socialSecurity-tab" data-toggle="tab" href="#socialSecurity" role="tab" aria-controls="socialSecurity" aria-selected="true">Social Security</a>
                                     </li>
                                     <li class="nav-item">
-                                       <a class="nav-link" id="Address-tab" data-toggle="tab" href="#MedicalReport" role="tab" aria-controls="MedicalReport" aria-selected="false">Medical Report</a>
+                                       <a class="nav-link" id="professionalReferrance-tab" data-toggle="tab" href="#professionalReferrance" role="tab" aria-controls="professionalReferrance" aria-selected="false">Professional Referrance</a>
                                     </li>
                                     <li class="nav-item">
-                                       <a class="nav-link" id="Address-tab" data-toggle="tab" href="#InsuranceReports" role="tab" aria-controls="InsuranceReports" aria-selected="false">Insurance Reports</a>
+                                       <a class="nav-link" id="mainPracticeInsurance-tab" data-toggle="tab" href="#mainPracticeInsurance" role="tab" aria-controls="mainPracticeInsurance" aria-selected="false">Main Practice Insurance</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="nycNurseCertificate-tab" data-toggle="tab" href="#nycNurseCertificate" role="tab" aria-controls="nycNurseCertificate" aria-selected="false">Nyc Nurse Certificate</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="CPR-tab" data-toggle="tab" href="#CPR" role="tab" aria-controls="CPR" aria-selected="false">CPR</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="physical-tab" data-toggle="tab" href="#physical" role="tab" aria-controls="physical" aria-selected="false">Physical</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="forensicDrugScreen-tab" data-toggle="tab" href="#forensicDrugScreen" role="tab" aria-controls="forensicDrugScreen" aria-selected="false">Forensic Drug Screen</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="RubellaImmunization-tab" data-toggle="tab" href="#RubellaImmunization" role="tab" aria-controls="RubellaImmunization" aria-selected="false">Rubella Immunization</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="RubellaMeasiesImmunization-tab" data-toggle="tab" href="#RubellaMeasiesImmunization" role="tab" aria-controls="RubellaMeasiesImmunization" aria-selected="false">Rubella Measies Immunization</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="MalpracticeInsurance-tab" data-toggle="tab" href="#MalpracticeInsurance" role="tab" aria-controls="MalpracticeInsurance" aria-selected="false">Malpractice Insurance</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="Flu-tab" data-toggle="tab" href="#Flu" role="tab" aria-controls="Flu" aria-selected="false">Flu</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="AnnualPPD-tab" data-toggle="tab" href="#AnnualPPD" role="tab" aria-controls="AnnualPPD" aria-selected="false">Annual PPD</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="ChestXRay-tab" data-toggle="tab" href="#ChestXRay" role="tab" aria-controls="ChestXRay" aria-selected="false">Chest X-Ray</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link" id="AnnualTubeScreening-tab" data-toggle="tab" href="#AnnualTubeScreening" role="tab" aria-controls="AnnualTubeScreening" aria-selected="false">Annual Tube Screening</a>
                                     </li>
                                  </ul>
                                  <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="IDProof" role="tabpanel" aria-labelledby="IDProof-tab">
-                                       <!-- View ID Proof button Start -->
                                        <ul>
-                                          <!--<li>
-                                             <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li>
                                           <li>
-                                             <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li> -->
-                                          <li>
-                                             @isset($data->documents)
-                                             @php
-                                                $type = '';
-                                             @endphp
-                                                @foreach($data->documents as $document)
-                                                   @if($document->type == 1)
-                                                      <div class="_card mt-3">
-                                                         <div class="_card_header">
-                                                         @php $type = $document->type; @endphp
-                                                         <!-- {{ $document->file_url }} -->
-                                                         <!-- {{ $document->file_name }} -->
-                                                         <!-- <div>
-                                                               <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                               srcset="/assets/img/icons/direct-download.svg"
-                                                               class="_icon mr-2"></a>
-                                                            </div>
-                                                         </div>onclick="viewDocument('{{ $data->id }}')"
-                                                      </div> -->
-                                                   @endif
-                                                @endforeach
-                                             @endisset
-                                          
-                                             <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
-                                         </li>
-                                       </ul>
-                                       <!-- View ID Proof button End -->
-                                    </div>
-                                    <div class="tab-pane fade" id="DegreeProof" role="tabpanel" aria-labelledby="DegreeProof-tab">
-                                       <!-- View Degree Proof button Start -->
-                                       <ul>
-                                          <!-- <li>
-                                          <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li>
-                                          <li>
-                                          <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li> -->
-                                          <li>
-                                             @isset($data->documents)
-                                             @php
-                                                $type = '';
-                                             @endphp
-                                                @foreach($data->documents as $document)
-                                                   @if($document->type == 2)
-                                                      <div class="_card mt-3">
-                                                         <div class="_card_header">
-                                                         @php $type = $document->type; @endphp
-                                                         <!-- {{ $document->file_name }}
-                                                            <div>
-                                                               <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                               srcset="/assets/img/icons/direct-download.svg"
-                                                               class="_icon mr-2"></a>
-                                                            </div> -->
-                                                         </div>
-                                                      </div>
-                                                   @endif
-                                                @endforeach
-                                                @endisset
-
-                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
-                                               
-                                          </li>
-                                        </ul>
-                                         <!-- View Degree Proof button End -->
-                                    </div>
-                                    <div class="tab-pane fade" id="MedicalReport" role="tabpanel" aria-labelledby="MedicalReport-tab">
-                                       <!-- View Medical Report button Start -->
-                                       <ul>
-                                       <!-- <li>
-                                        <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
-                                       </li>
-                                       <li>
-                                        <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                       </li> -->
-                                          <li>
-                                          
                                              @isset($data->documents)
                                                 @php
                                                    $type = '';
                                                 @endphp
                                                 @foreach($data->documents as $document)
-                                                   @if($document->type == 3)
-                                                      <div class="_card mt-3">
-                                                         <div class="_card_header">
-                                                         @php $type = $document->type; @endphp
-                                                         <!-- {{ $document->file_name }}
-                                                         <div>
-                                                               <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                               srcset="/assets/img/icons/direct-download.svg"
-                                                               class="_icon mr-2"></a>
-                                                            </div> -->
-                                                         </div>
-                                                      </div>
+                                                   @if($document->type == 1)
+                                                      @php $type = $document->type; @endphp
                                                    @endif
                                                 @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
                                              @endisset
-                                             <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
-                                          </li>
+                                         </li>
                                        </ul>
-                                      <!-- View Medical Report button End -->
                                     </div>
-                                    <div class="tab-pane fade" id="InsuranceReports" role="tabpanel" aria-labelledby="InsuranceReports-tab">
-                                       <!-- View Insurance Reports button Start -->
+                                    <div class="tab-pane fade" id="socialSecurity" role="tabpanel" aria-labelledby="socialSecurity-tab">
                                        <ul>
-                                          <!-- <li>
-                                           <button class="btn btn-primary file-upload mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li>
-                                          <li>
-                                           <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
-                                          </li> -->
                                           <li>
                                              @isset($data->documents)
-                                          @foreach($data->documents as $document)
-                                          @if($document->type == 4)
-                                          <div class="_card mt-3">
-                                             <div class="_card_header">
-                                               {{ $document->file_name }}
-                                               <div>
-                                                   <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
-                                                   srcset="/assets/img/icons/direct-download.svg"
-                                                   class="_icon mr-2"></a>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          @endif
-                                          @endforeach
-                                          @endisset
-                                          </li>
-                                        </ul>
-                                         <!-- View Insurance Reports button End -->
-                                     </div>
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 5)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
                                     </div>
-                               </div>
+                                    <div class="tab-pane fade" id="professionalReferrance" role="tabpanel" aria-labelledby="professionalReferrance-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 6)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="mainPracticeInsurance" role="tabpanel" aria-labelledby="mainPracticeInsurance-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 7)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="nycNurseCertificate" role="tabpanel" aria-labelledby="nycNurseCertificate-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 8)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="CPR" role="tabpanel" aria-labelledby="CPR-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 9)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="physical" role="tabpanel" aria-labelledby="physical-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 10)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="forensicDrugScreen" role="tabpanel" aria-labelledby="forensicDrugScreen-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 11)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="RubellaImmunization" role="tabpanel" aria-labelledby="RubellaImmunization-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 12)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="RubellaMeasiesImmunization" role="tabpanel" aria-labelledby="RubellaMeasiesImmunization-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 13)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="MalpracticeInsurance" role="tabpanel" aria-labelledby="MalpracticeInsurance-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 14)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="Flu" role="tabpanel" aria-labelledby="Flu-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 15)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="AnnualPPD" role="tabpanel" aria-labelledby="AnnualPPD-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 16)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="ChestXRay" role="tabpanel" aria-labelledby="ChestXRay-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 17)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                    <div class="tab-pane fade" id="AnnualTubeScreening" role="tabpanel" aria-labelledby="AnnualTubeScreening-tab">
+                                       <ul>
+                                          <li>
+                                             @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
+                                                @foreach($data->documents as $document)
+                                                   @if($document->type == 18)
+                                                      @php $type = $document->type; @endphp
+                                                   @endif
+                                                @endforeach
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                             @endisset
+                                         </li>
+                                       </ul>
+                                    </div>
+                                 </div>
                            </div>
                         </div>
                         <!--  Documents Verifiaction End -->

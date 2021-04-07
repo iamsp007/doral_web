@@ -109,3 +109,6 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
 
     // Convert Address to Lat-Long
     Route::get('lat-long','App\Http\Controllers\HomeController@convertLatLongFromAddress');
+
+	Route::post('get-document', 'App\Http\Controllers\Clinician\ClinicianController@getDocument')->name('clinician.getDocument');
+    Route::get('download-document/{user_id}', 'App\Http\Controllers\Clinician\ClinicianController@downloadDocument')->name('clinician.downloadDocument');

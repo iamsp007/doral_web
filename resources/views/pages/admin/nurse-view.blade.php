@@ -543,7 +543,7 @@
                                           <li>
                                              <div class="_card mt-3">
                                                 <div class="_card_header">
-                                                   <div class="title-head">Security {{ $index }}</div>
+                                                   <div class="title-head">Security</div>
                                                 </div>
                                                 <div class="_card_body">
                                                    <div class="row mt-3">
@@ -1242,22 +1242,28 @@
                                           </li> -->
                                           <li>
                                              @isset($data->documents)
+                                             @php
+                                                $type = '';
+                                             @endphp
                                                 @foreach($data->documents as $document)
                                                    @if($document->type == 1)
                                                       <div class="_card mt-3">
                                                          <div class="_card_header">
-                                                         <iframe src="http://www.onlineicttutor.com/wp-content/uploads/2016/04/pdf-at-iframe.pdf" width="100%" height="300"></iframe>
-                                                         <iframe src="{{ $document->file_url }}">Your browser isn't compatible</iframe>
-                                                         <div>
+                                                         @php $type = $document->type; @endphp
+                                                         <!-- {{ $document->file_url }} -->
+                                                         <!-- {{ $document->file_name }} -->
+                                                         <!-- <div>
                                                                <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
                                                                srcset="/assets/img/icons/direct-download.svg"
                                                                class="_icon mr-2"></a>
                                                             </div>
-                                                         </div>
-                                                      </div>
+                                                         </div>onclick="viewDocument('{{ $data->id }}')"
+                                                      </div> -->
                                                    @endif
                                                 @endforeach
                                              @endisset
+                                          
+                                             <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
                                          </li>
                                        </ul>
                                        <!-- View ID Proof button End -->
@@ -1273,21 +1279,28 @@
                                           </li> -->
                                           <li>
                                              @isset($data->documents)
+                                             @php
+                                                $type = '';
+                                             @endphp
                                                 @foreach($data->documents as $document)
                                                    @if($document->type == 2)
                                                       <div class="_card mt-3">
                                                          <div class="_card_header">
-                                                         {{ $document->file_name }}
-                                                         <div>
+                                                         @php $type = $document->type; @endphp
+                                                         <!-- {{ $document->file_name }}
+                                                            <div>
                                                                <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
                                                                srcset="/assets/img/icons/direct-download.svg"
                                                                class="_icon mr-2"></a>
-                                                            </div>
+                                                            </div> -->
                                                          </div>
                                                       </div>
                                                    @endif
                                                 @endforeach
                                                 @endisset
+
+                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                               
                                           </li>
                                         </ul>
                                          <!-- View Degree Proof button End -->
@@ -1302,22 +1315,28 @@
                                         <button class="btn btn-light file-view mt-3 w-100" type="button">ID Proof.pdf</button>
                                        </li> -->
                                           <li>
+                                          
                                              @isset($data->documents)
+                                                @php
+                                                   $type = '';
+                                                @endphp
                                                 @foreach($data->documents as $document)
                                                    @if($document->type == 3)
                                                       <div class="_card mt-3">
                                                          <div class="_card_header">
-                                                         {{ $document->file_name }}
+                                                         @php $type = $document->type; @endphp
+                                                         <!-- {{ $document->file_name }}
                                                          <div>
                                                                <a href="javascript:void(0)"><img src="/assets/img/icons/direct-download.svg" alt=""
                                                                srcset="/assets/img/icons/direct-download.svg"
                                                                class="_icon mr-2"></a>
-                                                            </div>
+                                                            </div> -->
                                                          </div>
                                                       </div>
                                                    @endif
                                                 @endforeach
                                              @endisset
+                                             <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
                                           </li>
                                        </ul>
                                       <!-- View Medical Report button End -->
@@ -1369,6 +1388,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/detail.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" />
 @endpush
 
 @push('scripts')
@@ -1377,7 +1397,48 @@
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
+    <script src="{{ asset('js/dropzone.js') }}"></script>
     <script>
+         /*Open message in model */
+         $("body").on('click','.view_document',function () {
         
+            var user_id = $(this).attr('data-id');
+            var type_id = $(this).attr('data-type');
+          
+            var url = '{{route("clinician.getDocument")}}';
+            
+            $.ajax({
+              url : url,
+              type: 'POST',
+              data: {
+                 user_id: user_id,
+                 type_id: type_id,
+              },
+              headers: {
+                  'X_CSRF_TOKEN':'{{ csrf_token() }}',
+              },  
+              success:function(data, textStatus, jqXHR){
+              
+                $(".messageViewModel").html(data);
+                $(".messageViewModel").modal('show');
+
+              },
+              error: function(jqXHR, textStatus, errorThrown){
+              alert('error');
+                
+              }
+            });
+        });
+
+        function openfancy() {
+    $('.fancybox-media').fancybox({
+        openEffect: 'none',
+        closeEffect: 'none',
+        type : "image",
+        helpers: {
+            media: {}
+        }
+    });
+}
     </script>
 @endpush

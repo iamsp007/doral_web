@@ -378,6 +378,7 @@
                                                         <td>
                                                             <select name="employeeHealth" class="form-control tail employeeHealth"
                                                                 id="employeeHealth">
+                                                                <option value="">Select</option>
                                                                 <option value="1">Active</option>
                                                                 <option value="2">InActive</option>
                                                                 <option value="3">Reject</option>
@@ -387,12 +388,13 @@
                                                         </td>
                                                         <td>PPD or Quantiferon</td>
                                                         <td><a href="javascript:void(0)"
-                                                                class="text-underline text-secondary number_patient">100/500</a></td>
+                                                                class="text-underline text-secondary number_patient">0/0</a></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <select name="employeeHealth" class="form-control tail employeeHealth"
                                                                 id="employeeHealth">
+                                                                <option value="">Select</option>
                                                                 <option value="1">Active</option>
                                                                 <option value="2">InActive</option>
                                                                 <option value="3">Reject</option>
@@ -402,12 +404,13 @@
                                                         </td>
                                                         <td>Chest X-Ray</td>
                                                         <td><a href="javascript:void(0)"
-                                                                class="text-underline text-secondary number_patient">200/500</a></td>
+                                                                class="text-underline text-secondary number_patient">0/0</a></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <select name="employeeHealth3" class="form-control tail employeeHealth"
                                                                 id="employeeHealth">
+                                                                <option value="">Select</option>
                                                                 <option value="1">Active</option>
                                                                 <option value="2">InActive</option>
                                                                 <option value="3">Reject</option>
@@ -417,12 +420,13 @@
                                                         </td>
                                                         <td>MMR or Rubella/Rubeola</td>
                                                         <td><a href="javascript:void(0)"
-                                                                class="text-underline text-secondary number_patient">400/500</a></td>
+                                                                class="text-underline text-secondary number_patient">0/0</a></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <select name="employeeHealth4" class="form-control tail employeeHealth"
                                                                 id="employeeHealth">
+                                                                <option value="">Select</option>
                                                                 <option value="1">Active</option>
                                                                 <option value="2">InActive</option>
                                                                 <option value="3">Reject</option>
@@ -432,7 +436,7 @@
                                                         </td>
                                                         <td>Drug Screen</td>
                                                         <td><a href="javascript:void(0)"
-                                                                class="text-underline text-secondary number_patient">100/500</a></td>
+                                                                class="text-underline text-secondary number_patient">0/0</a></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

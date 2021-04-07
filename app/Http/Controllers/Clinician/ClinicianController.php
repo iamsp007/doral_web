@@ -143,21 +143,28 @@ class ClinicianController extends Controller
                 }
             }
 
-            return view('pages.admin.clinician-view', compact(
-                'data',
-                'family_detail',
-                'military_detail',
-                'security_detail',
-                'address_detail',
-                'reference_detail',
-                'employer_detail',
-                'position_detail',
-                'education_detail',
-                'language_detail',
-                'skill_detail',
-                'emergency_detail',
-                'payroll_details')
-            );
+            // return view('pages.admin.clinician-view', compact(
+            //     'data',
+            //     'family_detail',
+            //     'military_detail',
+            //     'security_detail',
+            //     'address_detail',
+            //     'reference_detail',
+            //     'employer_detail',
+            //     'position_detail',
+            //     'education_detail',
+            //     'language_detail',
+            //     'skill_detail',
+            //     'emergency_detail',
+            //     'payroll_details')
+            // );
+//            if ($data->designation_id == 1) {
+                return view('pages.admin.nurse-view', compact('data', 'security_detail'));
+//            } else if ($data->designation_id == 2) {
+//                return view('pages.admin.rn-view', compact('data'));
+//            } else {
+//                return view('pages.admin.clinician-view', compact('data'));
+//            }
         }
 
         return redirect()->back();

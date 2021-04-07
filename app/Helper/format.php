@@ -179,3 +179,21 @@ use Illuminate\Support\Facades\Hash;
             return $genderData;
         }
     }
+    
+    /**
+     * Get the user's gender.
+     *
+     * @return string
+     */
+    if (!function_exists('isBoolean')) {
+        function isBoolean($value)
+        {
+            if ($value == '1') {
+                $boolValue = 'True';
+            } else if ($value == '2') {
+                $boolValue = 'False';
+            } 
+            return $boolValue;
+        }
+    }
+    

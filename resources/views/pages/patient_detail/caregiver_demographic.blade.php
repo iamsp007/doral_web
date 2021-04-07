@@ -80,7 +80,7 @@
                                     <div class="ls"><i class="las la-envelope circle"></i></div>
                                     <div class="rs">
                                         <h3 class="_title">Email</h3>
-                                        <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}">
+                                        <input type="text" class="form-control-plaintext _detail email_format" readonly name="email" data-id="email" placeholder="Email" value="{{ isset($patient->email) ? $patient->email : '' }}">
                                     </div>
                                 </div>
                             </div>

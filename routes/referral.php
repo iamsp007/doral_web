@@ -6,9 +6,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:referral']], function () {
     Route::get('email_verified/{user_id}', 'App\Http\Controllers\ReferralController@emailVerified')->name('referral.emailVerified');
 
-    Route::get('/dashboard', function () {
-        return view('pages.referral.dashboard');
-    })->name('referral.dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('pages.referral.dashboard');
+    // })->name('referral.dashboard');
+
+    Route::get('dashboard', 'App\Http\Controllers\CaregiverController@dashboard')->name('referral.dashboard');
+    Route::post('dashboardAjaxPatient', 'App\Http\Controllers\CaregiverController@dashboardAjaxPatient')->name('referral.dashboardAjaxPatient');
 
 //        Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
     Route::get('filter-cities', 'App\Http\Controllers\PatientReferralController@getCities')->name('referral.filter-cities');

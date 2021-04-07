@@ -82,7 +82,7 @@ Add Patient
                                                 <div class="row">
                                                     <div class="form-group col-md-4 col-sm-6">
                                                         <label for="EmailId">Email</label>
-                                                        <input type="email" class="form-control" placeholder="Enter Email" autoComplete="off" data-val="true" data-val-email="Invalid email address." id="EmailId" name="EmailId" value="">
+                                                        <input type="email" class="form-control email_format" placeholder="Enter Email" autoComplete="off" data-val="true" data-val-email="Invalid email address." id="EmailId" name="EmailId" value="">
                                                         <span class="text-danger field-validation-valid" data-valmsg-for="EmailId" data-valmsg-replace="true"></span>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-6">
@@ -1852,7 +1852,7 @@ Add Patient
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="inputEmail4">SSN:</label>
-                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Enter SSN">
+                                            <input type="email" class="form-control email_format" id="inputEmail4" placeholder="Enter SSN">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -1862,7 +1862,7 @@ Add Patient
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputEmail4">Document Proof:</label>
-                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Enter SSN">
+                                            <input type="email" class="form-control email_format" id="inputEmail4" placeholder="Enter SSN">
                                         </div>
                                     </div>
                                     <p class="mb-3">

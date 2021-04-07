@@ -28,7 +28,7 @@
                               <div class="ls"><i class="las la-envelope circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Email</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="email" data-id="email" placeholder="Email" value="{{ ($patient->caregiverInfo->company->email) ? $patient->caregiverInfo->company->email : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail email_format" readonly name="email" data-id="email" placeholder="Email" value="{{ ($patient->caregiverInfo->company->email) ? $patient->caregiverInfo->company->email : '' }}">
                               </div>
                            </div>
                         </div>

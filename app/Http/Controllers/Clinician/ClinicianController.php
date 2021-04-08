@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
+use App\Models\Applicant;
 use App\Models\UploadDocuments;
 use Yajra\DataTables\DataTables;
 use App\Services\AdminService;
@@ -75,6 +76,8 @@ class ClinicianController extends Controller
 
                         $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $user->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
                     }
+                    
+                    $btn .= '<a href="'.route('clinician.info',['id' => $user->id]).'" class="btn btn-primary btn-sm mr-2" target="__blank">View</a>';
 
                     return $btn;
                 })
@@ -84,6 +87,20 @@ class ClinicianController extends Controller
         
         return DataTables::of($data)
             ->make(true);
+    }
+
+     /**
+     * Covid 19 data will display
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function clinicianInfo($id)
+    {
+        $user = Applicant::where('user_id', $id)->first();
+
+        // $data = $patient->data;
+
+        return view('pages.clincian.clinician-form', compact('user'));
     }
 
     public function getClinicianDetail($id)

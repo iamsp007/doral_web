@@ -31,6 +31,30 @@ class CaregiverController extends Controller
         return view('pages.patient_detail.new_patient', compact('serviceStatus'));
     }
 
+    public function dashboard()
+    {
+
+        $count['vbc'] = Demographic::whereIn('service_id',[1])->get()->count();
+        $count['mdorder'] = Demographic::whereIn('service_id', [2])->get()->count();
+        $count['occupational'] = Demographic::whereIn('service_id', [3])->get()->count();
+        $count['covid'] = Demographic::whereIn('service_id', [6])->get()->count();
+
+        return view('pages.referral.dashboard',compact('count'));
+    }
+
+     public function dashboardAjaxPatient(Request $request)
+    {
+        $avg = Demographic::whereIn('service_id', [3])->get()->count();
+        $count = User::whereHas('roles',function ($q){
+                $q->where('name','=','patient');
+            })->whereHas('patientLabReport',function ($q) use($request) {
+                $q->where('lab_report_type_id','=',$request['type_services']);
+            })->whereIn('status', [$request['status']])->get()->count();
+        $result['avg'] = $avg;
+        $result['total'] = $count;
+        return  $result;
+    }
+
     public function getCaregiverDetail(Request $request)
     {
         $patientList = User::whereHas('roles',function ($q){
@@ -465,8 +489,8 @@ class CaregiverController extends Controller
             $search = $request->q;
            
             $data =User::select("id","first_name", 'last_name')
-            		->where('first_name','LIKE',"%$search%")
-            		->get();
+                    ->where('first_name','LIKE',"%$search%")
+                    ->get();
         }
        
         return response()->json($data);

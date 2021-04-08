@@ -11,8 +11,8 @@
                                 <div class="col-12 col-sm-3">
                                     <div class="app-card no-minHeight">
                                         <div class="p-4">
-                                            <h1 class="t13">350</h1>
-                                            <div class="t14 mt-2 mb-2 blue">MD Compliance - M11Q</div>
+                                            <h1 class="t13">{{$count['vbc']}}</h1>
+                                            <div class="t14 mt-2 mb-2 blue">VBC</div>
                                             <p class="small-text">Morbi libero eros, tempor sit amet lorem ut,
                                                 pellentesque
                                                 faucibus risus.</p>
@@ -42,8 +42,8 @@
                                 <div class="col-12 col-sm-3">
                                     <div class="app-card no-minHeight">
                                         <div class="p-4">
-                                            <h1 class="t13">350</h1>
-                                            <div class="t14 mt-2 mb-2 green">MD Compliance - DOH-4359</div>
+                                            <h1 class="t13">{{$count['mdorder']}}</h1>
+                                            <div class="t14 mt-2 mb-2 green">MD Order</div>
                                             <p class="small-text">Morbi libero eros, tempor sit amet lorem ut,
                                                 pellentesque
                                                 faucibus risus.</p>
@@ -73,8 +73,8 @@
                                 <div class="col-12 col-sm-3">
                                     <div class="app-card no-minHeight">
                                         <div class="p-4">
-                                            <h1 class="t13">350</h1>
-                                            <div class="t14 mt-2 mb-2 orange">MD Compliance - MD-485</div>
+                                            <h1 class="t13">{{$count['occupational']}}</h1>
+                                            <div class="t14 mt-2 mb-2 orange">Occupational Health</div>
                                             <p class="small-text">Morbi libero eros, tempor sit amet lorem ut,
                                                 pellentesque
                                                 faucibus risus.</p>
@@ -104,8 +104,8 @@
                                 <div class="col-12 col-sm-3">
                                     <div class="app-card no-minHeight">
                                         <div class="p-4">
-                                            <h1 class="t13">350</h1>
-                                            <div class="t14 mt-2 mb-2 offRed">MD Compliance - CFEEC</div>
+                                            <h1 class="t13">{{$count['covid']}}</h1>
+                                            <div class="t14 mt-2 mb-2 offRed">Covid-19</div>
                                             <p class="small-text">Morbi libero eros, tempor sit amet lorem ut,
                                                 pellentesque
                                                 faucibus risus.</p>
@@ -376,39 +376,67 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <select name="employeeHealth" class="form-control tail"
-                                                                id="employeeHealth"></select>
+                                                            <select name="employeeHealth" class="form-control tail employeeHealth"
+                                                                id="employeeHealth">
+                                                                <option value="">Select</option>
+                                                                <option value="1">Active</option>
+                                                                <option value="2">InActive</option>
+                                                                <option value="3">Reject</option>
+                                                                <option value="5">Completed</option>
+                                                            </select>
+                                                            <input type="hidden" name="type_services" value="2">
                                                         </td>
                                                         <td>PPD or Quantiferon</td>
                                                         <td><a href="javascript:void(0)"
-                                                                class="text-underline text-secondary">100/500</a></td>
+                                                                class="text-underline text-secondary number_patient">0/0</a></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <select name="employeeHealth1" class="form-control tail"
-                                                                id="employeeHealth1"></select>
+                                                            <select name="employeeHealth" class="form-control tail employeeHealth"
+                                                                id="employeeHealth">
+                                                                <option value="">Select</option>
+                                                                <option value="1">Active</option>
+                                                                <option value="2">InActive</option>
+                                                                <option value="3">Reject</option>
+                                                                <option value="5">Completed</option>
+                                                            </select>
+                                                            <input type="hidden" name="type_services" value="4">
                                                         </td>
                                                         <td>Chest X-Ray</td>
                                                         <td><a href="javascript:void(0)"
-                                                                class="text-underline text-secondary">200/500</a></td>
+                                                                class="text-underline text-secondary number_patient">0/0</a></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <select name="employeeHealth2" class="form-control tail"
-                                                                id="employeeHealth2"></select>
+                                                            <select name="employeeHealth3" class="form-control tail employeeHealth"
+                                                                id="employeeHealth">
+                                                                <option value="">Select</option>
+                                                                <option value="1">Active</option>
+                                                                <option value="2">InActive</option>
+                                                                <option value="3">Reject</option>
+                                                                <option value="5">Completed</option>
+                                                            </select>
+                                                            <input type="hidden" name="type_services" value="10">
                                                         </td>
                                                         <td>MMR or Rubella/Rubeola</td>
                                                         <td><a href="javascript:void(0)"
-                                                                class="text-underline text-secondary">400/500</a></td>
+                                                                class="text-underline text-secondary number_patient">0/0</a></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <select name="employeeHealth3" class="form-control tail"
-                                                                id="employeeHealth3"></select>
+                                                            <select name="employeeHealth4" class="form-control tail employeeHealth"
+                                                                id="employeeHealth">
+                                                                <option value="">Select</option>
+                                                                <option value="1">Active</option>
+                                                                <option value="2">InActive</option>
+                                                                <option value="3">Reject</option>
+                                                                <option value="5">Completed</option>
+                                                            </select>
+                                                            <input type="hidden" name="type_services" value="13">
                                                         </td>
                                                         <td>Drug Screen</td>
                                                         <td><a href="javascript:void(0)"
-                                                                class="text-underline text-secondary">100/500</a></td>
+                                                                class="text-underline text-secondary number_patient">0/0</a></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -680,23 +708,23 @@
                 add_option(select_id, option_array[i]);
             }
         }
-        var planets = new Array("Completed", "In Progress", "Pending", "Requested");
-        var copd = new Array("Diabaté", "Non Diabaté");
-        function clear_combo(select_id) {
-            var select = document.getElementById(select_id);
-            select.options.length = 0;
-        }
-        load_combo("employeeHealth", planets)
-        load_combo("employeeHealth1", planets)
-        load_combo("employeeHealth2", planets)
-        load_combo("employeeHealth3", planets)
-        load_combo("healthScreening", planets)
-        load_combo("DiabitiesScreening", planets)
-        load_combo("BehaviourScreening", planets)
-        load_combo("copd", copd)
-        document.addEventListener("DOMContentLoaded", function () {
-            tail.select('.tail');
-        });
+        // var planets = new Array("Completed", "In Progress", "Pending", "Requested");
+        // var copd = new Array("Diabaté", "Non Diabaté");
+        // function clear_combo(select_id) {
+        //     var select = document.getElementById(select_id);
+        //     select.options.length = 0;
+        // }
+        // load_combo("employeeHealth", planets)
+        // load_combo("employeeHealth1", planets)
+        // load_combo("employeeHealth2", planets)
+        // load_combo("employeeHealth3", planets)
+        // load_combo("healthScreening", planets)
+        // load_combo("DiabitiesScreening", planets)
+        // load_combo("BehaviourScreening", planets)
+        // load_combo("copd", copd)
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     tail.select('.tail');
+        // });
         var slideIndex = 1;
         showSlides(slideIndex);
         // Next/previous controls
@@ -1422,6 +1450,29 @@
         //-------------------------------------------------------------------------//
         $('#totalMsg1').daterangepicker()
         $('#totalMsg2').daterangepicker()
-        $('#totalMsg3').daterangepicker()       
+        $('#totalMsg3').daterangepicker()
+       $(document).ready(function () {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $(".employeeHealth").change(function(){
+                    var status = $(this).val();
+                    var select = $(this);
+                    var type_services= $(this).parent().parent().find("input[name=type_services]").val();
+                    $.ajax({
+                    method: 'POST',
+                    url: '/referral/dashboardAjaxPatient',
+                    data: {status, type_services},
+                    type:'json',
+                    success: function (response) {
+                            $(select).parent().parent().find('.number_patient').html(response.avg+'/'+response.total);
+                        },
+                       
+                });
+                });
+            });    
     </script>
     @endpush

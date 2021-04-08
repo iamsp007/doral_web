@@ -542,14 +542,33 @@
             ],
        
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
-            'columnDefs': [
-                {
-                    "order": [ 1, "desc"],
-                    // targets: [0, 8],
-                    // 'searchable': false,
-                    // 'orderable': false,
-                }
-            ],
+            // 'columnDefs': [
+            //     {
+            //         "order": [ 1, "desc"],
+            //         // targets: [0, 8],
+            //         // 'searchable': false,
+            //         // 'orderable': false,
+            //     },
+                'columnDefs': [{targets: 3,
+                    render: function ( data, type, row ) {
+                      var color = 'black';
+                      
+                      if(data=='Positive')
+                            color = "green";
+                        else if(data=='Negative')
+                            color = "red";
+                        else if(data=='Completed')
+                            color = "yellow";
+                        else if(data=='Not Completed')
+                            color = "blue";
+                        else if(data=='Immune')
+                            color = "gray"; 
+                        else if(data=='Not Immune')
+                            color = "lightgray";  
+                      return '<span style="color:' + color + '">' + data + '</span>';
+                    }
+               }],
+            //],
         });
 
 
@@ -589,15 +608,7 @@
 
       $(document).ready(function() {
          $('.insurance_company').hide();
-         $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            minYear: 1901,
-            maxDate: new Date(),
-            locale: {
-                    format: 'MM-DD-YYYY'
-            }           
-         });
+         
 
          $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
             var selectedDate = new Date($('[name="lab_due_date"]').val());

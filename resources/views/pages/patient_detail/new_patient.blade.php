@@ -258,8 +258,7 @@
         
         $("#reset_btn").click(function () {
             $('#search_form').trigger("reset");
-            $(".user_name")[0].selectedIndex = -1;
-            $('#select2-user_name-container').empty()
+            $('#user_name').html('');
              refresh();
         })
 

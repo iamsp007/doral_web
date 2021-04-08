@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
+use App\Models\UploadDocuments;
 use Yajra\DataTables\DataTables;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
+use ZipArchive;
 
 class ClinicianController extends Controller
 {
@@ -92,6 +94,7 @@ class ClinicianController extends Controller
         $data = [];
         if ($response != null && $response->status === true) {
             $data = $response->data;
+          
             $family_detail = $military_detail = $security_detail = $address_detail = $reference_detail = $employer_detail = $education_detail = $language_detail = $skill_detail = $emergency_detail = $payroll_details = $position_detail = [];
             if ($data->applicant) {
                 if ($data->applicant->family_detail) {
@@ -185,4 +188,53 @@ class ClinicianController extends Controller
         return $data;
     }
 
+    public function getDocument(Request $request)
+    {
+        $input = $request->all();
+        $user_id = $input['user_id'];
+        $type_id = $input['type_id'];
+        $documents = UploadDocuments::where([
+            'user_id' => $input['user_id'],
+            'type' => $input['type_id']
+        ])->get();
+      
+        return view('pages.admin.clinician-detail.viewDocument', compact('documents', 'user_id', 'type_id'));
+    }
+    
+    public function downloadDocument($id,Request $request)
+    {
+        $uploadDocuments = UploadDocuments::where([
+            'user_id' => $id,
+            'type' => $request['type_id']
+        ])->get();
+     
+        $public_dir=public_path();
+        $zipFileName = 'documentzipfile-'.$id.'.zip';
+       
+        $zip = new ZipArchive;
+
+        if (!file_exists($public_dir.'/zip')) {
+            mkdir($public_dir.'/zip', 0777, true);
+        }
+        
+        if ($zip->open($public_dir . '/zip' . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
+            foreach ($uploadDocuments as $key => $uploadDocument) {
+                $document = $uploadDocument->file_name;
+                $path = $uploadDocument->file_url;
+                $zip->addFile($path.$document,$document);
+            }
+            // $zip->close();
+        }
+       
+        // Set Header
+        $headers = array(
+            'Content-Type' => 'application/octet-stream',
+        );
+        $filetopath=$public_dir. '/zip' . '/'.$zipFileName;
+       
+        // Create Download Response
+        if(file_exists($filetopath)){
+            return response()->download($filetopath,$zipFileName,$headers);
+        }
+    }
 }

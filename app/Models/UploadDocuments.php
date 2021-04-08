@@ -9,6 +9,8 @@ class UploadDocuments extends Model
 {
     use HasFactory;
 
+    protected $appends = ['file_url'];
+
     /**
      * Relation with user
      */
@@ -64,7 +66,7 @@ class UploadDocuments extends Model
                 $directory = 'annualTubeScreening';
             }
 
-            return env('WEB_URL').'storage/documents/' . $this->user_id . '/' . $directory . '/' . $this->file_name;
+            return env('API_PUBLIC_URL').'/storage/documents/' . $this->user_id . '/' . $directory . '/' . $this->file_name;
         } else {
             return null;
         }

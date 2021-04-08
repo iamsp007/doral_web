@@ -34,22 +34,22 @@ class CaregiverController extends Controller
     public function dashboard()
     {
 
-        $count['vbc'] = Demographic::whereIn('service_id',[1])->get()->count();
-        $count['mdorder'] = Demographic::whereIn('service_id', [2])->get()->count();
-        $count['occupational'] = Demographic::whereIn('service_id', [3])->get()->count();
-        $count['covid'] = Demographic::whereIn('service_id', [6])->get()->count();
+        $count['vbc'] = Demographic::where('service_id',[1])->count();
+        $count['mdorder'] = Demographic::where('service_id', [2])->count();
+        $count['occupational'] = Demographic::where('service_id', [3])->count();
+        $count['covid'] = Demographic::where('service_id', [6])->count();
 
         return view('pages.referral.dashboard',compact('count'));
     }
 
      public function dashboardAjaxPatient(Request $request)
     {
-        $avg = Demographic::whereIn('service_id', [3])->get()->count();
+        $avg = Demographic::where('service_id', [3])->count();
         $count = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })->whereHas('patientLabReport',function ($q) use($request) {
                 $q->where('lab_report_type_id','=',$request['type_services']);
-            })->whereIn('status', [$request['status']])->get()->count();
+            })->whereIn('status', [$request['status']])->count();
         $result['avg'] = $avg;
         $result['total'] = $count;
         return  $result;

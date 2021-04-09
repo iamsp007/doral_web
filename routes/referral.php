@@ -37,7 +37,7 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
     Route::get('/vbc-get-fail-data', 'App\Http\Controllers\PatientReferralController@vbcGetFaileData')->name('referral.vbc-get-fail-data');
     Route::get('/md-order-get-fail-data', 'App\Http\Controllers\PatientReferralController@mdorderGetFaileData')->name('referral.md-order-get-fail-data');
 
-
+    Route::get('/edit-profile', 'App\Http\Controllers\PatientReferralController@editProfile')->name('referral.edit-profile');
 
 
 

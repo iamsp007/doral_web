@@ -36,19 +36,22 @@ class PatientReferralController extends Controller
         return view('pages.referral.covid19');
     }
 
+    
+    public function editProfile() {
+        return view('pages.referral.profile');
+    }
 
-     public function getEmployeePhysicalExaminationReport($id)
+
+    public function getEmployeePhysicalExaminationReport($id)
     {
         $labReportTypes = LabReportType::pluck('name', 'id');
         $checkData = DB::table('employee_physical_examination_reports')->where('patient_id',$id)->first();
         if(!empty($checkData)) {
             return view('pages.autofill_employee-physical-examination-report', compact(['labReportTypes', 'checkData']));
         }
-
-
-
     }
-    public function mdOrderUploadBulk() {
+    public function mdOrderUploadBulk()
+    {
         $status = 0;
         $message = "";
         $record = [];

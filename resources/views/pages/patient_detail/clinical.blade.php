@@ -49,7 +49,7 @@
                </li>
             </ul>
          </div>
-         <div class="p-3 scrollbar scrollbar12">
+         <div class="p-3">
             <div class="tab-content" id="pills-tabContent">
                <!-- Social Pro Start-->
                <div class="tab-pane fade" id="social-pro" role="tabpanel"

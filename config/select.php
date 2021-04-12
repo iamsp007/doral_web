@@ -25,4 +25,10 @@ return [
         // '4' => 'Initial',
         '5' => 'Completed'
     ],
+    
+    'status' => [
+        '1' => 'Active',
+        '2' => 'InActive',
+    ],
+
 ];

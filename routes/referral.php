@@ -37,11 +37,12 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
     Route::get('/vbc-get-fail-data', 'App\Http\Controllers\PatientReferralController@vbcGetFaileData')->name('referral.vbc-get-fail-data');
     Route::get('/md-order-get-fail-data', 'App\Http\Controllers\PatientReferralController@mdorderGetFaileData')->name('referral.md-order-get-fail-data');
 
-    Route::get('/edit-profile', 'App\Http\Controllers\PatientReferralController@editProfile')->name('referral.edit-profile');
+    Route::get('/edit-profile', 'App\Http\Controllers\ApiRequest\ApiRequestController@create')->name('referral.edit-profile');
 
-
-
-
+    Route::get('/software', 'App\Http\Controllers\ApiRequest\ApiRequestController@getSoftware')->name('referral.get-software');
+    Route::get('/api/{id}', 'App\Http\Controllers\ApiRequest\ApiRequestController@getApi')->name('referral.get-api');
+    Route::get('/get-field/{id}', 'App\Http\Controllers\ApiRequest\ApiRequestController@getField')->name('referral.get-field');
+   
     Route::get('/occupational-health-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthUploadBulk')->name('referral.occupational-health-upload-bulk-data');
     Route::get('/occupational-health-failed-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthFailData')->name('referral.occupational-health-failed-data');
     Route::get('/vbc-failed-data', 'App\Http\Controllers\PatientReferralController@vbcFailData')->name('referral.vbc-failed-data');

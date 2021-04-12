@@ -36,12 +36,6 @@ class PatientReferralController extends Controller
         return view('pages.referral.covid19');
     }
 
-    
-    public function editProfile() {
-        return view('pages.referral.profile');
-    }
-
-
     public function getEmployeePhysicalExaminationReport($id)
     {
         $labReportTypes = LabReportType::pluck('name', 'id');

@@ -22,3 +22,7 @@ img.update-icon {display: none;}
 .main_div:last-child .bottom-horizontal {
     border-bottom: 0px solid #d0d0d0;
 }
+
+.add_more_field {
+    border: 1px solid gray;
+}

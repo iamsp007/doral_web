@@ -1,4 +1,7 @@
 <?php
+
+use App\Http\Controllers\ApiRequest\ApiController;
+use App\Http\Controllers\ApiRequest\SoftwareController;
 use Illuminate\Support\Facades\Route;
 
 // Admin Route
@@ -55,4 +58,12 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth:web','role:admin']],functi
     Route::post('/service-payment-insert-update', 'App\Http\Controllers\CompanyController@insertUpdateServicePayment')->name('admin.insertUpdateServicePayment');
 
     Route::get('/clinician-approval/{id}/detail','\App\Http\Controllers\Clinician\ClinicianController@clinicianInfo')->name('clinician.info');
+
+    Route::post('software/getAll', 'App\Http\Controllers\ApiRequest\SoftwareController@getAll')->name('software.getAll');
+
+    Route::resource('software',SoftwareController::class);
+
+    Route::post('api/getAll', 'App\Http\Controllers\ApiRequest\ApiController@getAll')->name('api.getAll');
+
+    Route::resource('api',ApiController::class);
 });

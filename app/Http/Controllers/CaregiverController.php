@@ -35,21 +35,21 @@ class CaregiverController extends Controller
     {
 
         $count['vbc'] = Demographic::where('service_id',[1])->count();
-        $count['vbc_active'] = $this->countStatus('1',null,'1');
-        $count['vbc_reject'] = $this->countStatus('1',null,'3');
-        $count['vbc_completed'] = $this->countStatus('1',null,'5');
+        $count['vbc_active'] = $this->countStatus('1','','1');
+        $count['vbc_reject'] = $this->countStatus('1','','3');
+        $count['vbc_completed'] = $this->countStatus('1','','5');
         $count['mdorder'] = Demographic::where('service_id', [2])->count();
-        $count['mdorder_active'] = $this->countStatus('2',null,'1');
-        $count['mdorder_reject'] = $this->countStatus('2',null,'3');
-        $count['mdorder_completed'] = $this->countStatus('2',null,'5');
+        $count['mdorder_active'] = $this->countStatus('2','','1');
+        $count['mdorder_reject'] = $this->countStatus('2','','3');
+        $count['mdorder_completed'] = $this->countStatus('2','','5');
         $count['occupational'] = Demographic::where('service_id', [3])->count();
-        $count['occupational_active'] = $this->countStatus('3',null,'1');
-        $count['occupational_reject'] = $this->countStatus('3',null,'3');
-        $count['occupational_completed'] = $this->countStatus('3',null,'5');
+        $count['occupational_active'] = $this->countStatus('3','','1');
+        $count['occupational_reject'] = $this->countStatus('3','','3');
+        $count['occupational_completed'] = $this->countStatus('3','','5');
         $count['covid'] = Demographic::where('service_id', [6])->count();
-        $count['covid_active'] = $this->countStatus('6',null,'1');
-        $count['covid_reject'] = $this->countStatus('6',null,'3');
-        $count['covid_completed'] = $this->countStatus('6',null,'5');
+        $count['covid_active'] = $this->countStatus('6','','1');
+        $count['covid_reject'] = $this->countStatus('6','','3');
+        $count['covid_completed'] = $this->countStatus('6','','5');
 
         return view('pages.referral.dashboard',compact('count'));
     }
@@ -67,7 +67,7 @@ class CaregiverController extends Controller
         $result['total'] = $count;
         return  $result;
     }
-    public static function countStatus($services,$type_services,$status) 
+    public static function countStatus($services,$type_services=null,$status) 
         { 
            return $count = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');

@@ -4,6 +4,13 @@
 @section('pageTitleSection')
     {{ ucwords(str_replace("-"," ",$serviceStatus)) }} - Patient
 @endsection
+@push('styles')
+<style type="text/css">
+table.dataTable thead th, table.dataTable thead td{
+    padding: 10px !important;
+}
+</style>
+@endpush
 @hasrole('referral')
     @section('upload-btn')
         @if (request()->segment(count(request()->segments())) == "occupational-health")
@@ -190,9 +197,9 @@
             );
         }
         columnDaTa.push(
-            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-center"},
+            {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-left"},
             {data: 'full_name',"className": "text-left"},
-            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-center"},
+            {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-left"},
             {data: 'ssn_data',"className": "text-left"},
             {data: 'phone', class: 'editable text',"className": "text-left"},
         );
@@ -204,9 +211,9 @@
             {data:'dob',name:'dob',"className": "text-left"},
         );
         if(status == ""){
-            columnDaTa.push({data: 'status',"className": "text-center"},);
+            columnDaTa.push({data: 'status',"className": "text-left"},);
         }
-        columnDaTa.push({data: 'action',"className": "text-center"});
+        columnDaTa.push({data: 'action',"className": "text-left"});
 
         $('#get_patient-table').DataTable({
             "processing": true,

@@ -68,6 +68,10 @@ $(".zip").on('keyup change', function() {
 });
 
 function editAllField(sectionId) {
+    $("input[name='dob']").attr("disabled", false);
+    $("input[name='lab_due_date']").attr("disabled", false);
+    $("input[name='lab_perform_date']").attr("disabled", false);
+    $("input[name='expiration_date']").attr("disabled", false);
     $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
@@ -84,6 +88,7 @@ function editAllField(sectionId) {
         $(this).after('<span class="error error-keyup-7"><font color="red">Invalid Email Format.</font></span>');
     } else {
         $('span.error-keyup-7').remove();
+
     }
 })
    var activeTab = "#"+sectionId;
@@ -106,18 +111,48 @@ function editAllField(sectionId) {
     }
 }
 function updateAllField(sectionId) {
+    
+    //$('input[name="dob"]').daterangepicker("destroy");
+    
     if (sectionId==="demographic"){
-        var data = $('#demographic_form').serializeArray();
-        data.push({name: 'type', value: 1});
-        demographyDataUpdate(data,sectionId)
+        
+        var email_foramt = $("#demographic_form :input[name='email']").val();
+        if(/([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{2,4}/.test(email_foramt))
+        {
+         var data = $('#demographic_form').serializeArray();   
+        $("input[name='dob']").attr("disabled", true);
+        $("input[name='lab_due_date']").attr("disabled", true);
+        $("input[name='lab_perform_date']").attr("disabled", true);
+        $("input[name='expiration_date']").attr("disabled", true);   
+            data.push({name: 'type', value: 1});
+            demographyDataUpdate(data,sectionId)
+        }
+        else{
+            alertText("Invalid Email Format.",'error');
+            return false;
+        }
     }else if (sectionId==="insurance"){
         var data = $('#medicare_form').serializeArray();
         data.push({name: 'type', value: 2});
         demographyDataUpdate(data,sectionId)
     }else if (sectionId==="homecare"){
-        var data = $('#homecare_form').serializeArray();
-        data.push({name: 'type', value: 3});
-        demographyDataUpdate(data,sectionId)
+        var email_foramt = $("#homecare_form :input[name='email']").val();
+        
+        if(/([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{2,4}/.test(email_foramt))
+        {
+         var data = $('#homecare_form').serializeArray();   
+        $("input[name='dob']").attr("disabled", true);
+        $("input[name='lab_due_date']").attr("disabled", true);
+        $("input[name='lab_perform_date']").attr("disabled", true);
+        $("input[name='expiration_date']").attr("disabled", true);   
+            data.push({name: 'type', value: 3});
+            demographyDataUpdate(data,sectionId)
+        }
+        else{
+            alertText("Invalid Email Format.",'error');
+            return false;
+        }
+        
     }
     var activeTab = "#"+sectionId;
     if (activeTab) {

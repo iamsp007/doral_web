@@ -68,10 +68,7 @@ $(".zip").on('keyup change', function() {
 });
 
 function editAllField(sectionId) {
-    $("input[name='dob']").attr("disabled", false);
-    $("input[name='lab_due_date']").attr("disabled", false);
-    $("input[name='lab_perform_date']").attr("disabled", false);
-    $("input[name='expiration_date']").attr("disabled", false);
+    
     $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
@@ -91,7 +88,10 @@ function editAllField(sectionId) {
 
     }
 })
+    
    var activeTab = "#"+sectionId;
+    $(activeTab).find("input[name='dob']").attr("disabled", true);
+    $(activeTab).find("input[name='expiration_date']").attr("disabled", true);
     if (activeTab) {
     $(activeTab+' [data-id]').removeClass('form-control-plaintext').addClass('form-control').addClass(
         'p-new');
@@ -108,22 +108,21 @@ function editAllField(sectionId) {
     
     $(activeTab).find('.normal_notifaication_div').removeClass('d-block').addClass('d-none');
     $(activeTab).find('.editable_notifaication_div').removeClass('d-none').addClass('d-block'); 
+
+    $(activeTab).find("input[name='dob']").attr("disabled", false);
+    $(activeTab).find("input[name='expiration_date']").attr("disabled", false);
     }
 }
 function updateAllField(sectionId) {
     
-    //$('input[name="dob"]').daterangepicker("destroy");
-    
+    $("#"+activeTab).find("input[name='dob']").attr("disabled", false);
+    $("#"+activeTab).find("input[name='expiration_date']").attr("disabled", false);  
     if (sectionId==="demographic"){
         
         var email_foramt = $("#demographic_form :input[name='email']").val();
         if(/([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{2,4}/.test(email_foramt))
         {
-         var data = $('#demographic_form').serializeArray();   
-        $("input[name='dob']").attr("disabled", true);
-        $("input[name='lab_due_date']").attr("disabled", true);
-        $("input[name='lab_perform_date']").attr("disabled", true);
-        $("input[name='expiration_date']").attr("disabled", true);   
+            var data = $('#demographic_form').serializeArray();
             data.push({name: 'type', value: 1});
             demographyDataUpdate(data,sectionId)
         }
@@ -142,8 +141,6 @@ function updateAllField(sectionId) {
         {
          var data = $('#homecare_form').serializeArray();   
         $("input[name='dob']").attr("disabled", true);
-        $("input[name='lab_due_date']").attr("disabled", true);
-        $("input[name='lab_perform_date']").attr("disabled", true);
         $("input[name='expiration_date']").attr("disabled", true);   
             data.push({name: 'type', value: 3});
             demographyDataUpdate(data,sectionId)
@@ -396,6 +393,17 @@ function addMore(item) {
     }
 }
 $(function () {
+    $("input[name='dob']").attr("disabled", true);
+    $("input[name='expiration_date']").attr("disabled", true);
+    $('input[name="lab_due_date"], input[name="lab_perform_date"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxDate: new Date(),
+            locale: {
+                    format: 'MM-DD-YYYY'
+            }           
+         });
     $('.insurance_company').hide();
     $('._add_new_company').on('click', function (e) {
         e.preventDefault();

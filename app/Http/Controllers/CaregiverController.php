@@ -67,7 +67,7 @@ class CaregiverController extends Controller
         $result['total'] = $count;
         return  $result;
     }
-    public static function countStatus($services,$type_services=null,$status) 
+    public static function countStatus($services,$status) 
         { 
            return $count = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');

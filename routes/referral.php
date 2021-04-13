@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiRequest\ApiRequestController;
 use App\Http\Controllers\PatientLabReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,7 +43,8 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
     Route::get('/software', 'App\Http\Controllers\ApiRequest\ApiRequestController@getSoftware')->name('referral.get-software');
     Route::get('/api/{id}', 'App\Http\Controllers\ApiRequest\ApiRequestController@getApi')->name('referral.get-api');
     Route::get('/get-field/{id}', 'App\Http\Controllers\ApiRequest\ApiRequestController@getField')->name('referral.get-field');
-   
+    Route::resource('api-request',ApiRequestController::class);
+
     Route::get('/occupational-health-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthUploadBulk')->name('referral.occupational-health-upload-bulk-data');
     Route::get('/occupational-health-failed-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthFailData')->name('referral.occupational-health-failed-data');
     Route::get('/vbc-failed-data', 'App\Http\Controllers\PatientReferralController@vbcFailData')->name('referral.vbc-failed-data');

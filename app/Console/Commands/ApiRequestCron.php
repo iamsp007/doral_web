@@ -1,0 +1,304 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Models\ApiRequest;
+use App\Models\Demographic;
+use App\Models\PatientEmergencyContact;
+use App\Models\User;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Permission;
+
+class ApiRequestCron extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'ApiRequest:cron';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        $apiRequests = ApiRequest::all();
+        foreach ($apiRequests as $apiRequest) {
+            $frequency = $apiRequest->schedule;
+            log::info('start api request job');
+            log::info($frequency);
+            log::info('end api request job');
+            if ($apiRequest->api->name === 'Get Patient Demographics') {
+                // $userCaregiver = Demographic::where('patient_id' , $apiRequest->search_field['Patient_ID'])->first();
+                // if (! $userCaregiver) {
+                    /* $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientDemographics xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>'.$apiRequest->authentication_field['App_Name'].'</AppName><AppSecret>'.$apiRequest->authentication_field['App_Secret'].'</AppSecret><AppKey>'.$apiRequest->authentication_field['App_Key'].'</AppKey></Authentication><PatientInfo><ID>'.$apiRequest->search_field['Patient_ID'].'</ID></PatientInfo></GetPatientDemographics></SOAP-ENV:Body></SOAP-ENV:Envelope>';*/
+
+                    // $method = 'POST';
+            
+                    // $apiResponse = $this->curlCall($data, $method);
+                
+                    // $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+                    
+                    // $type = config('constant.PatientType');
+
+                    // $user_id = self::storeUser($demographics, $type);
+
+                    // if ($user_id) {
+
+                    //     self::storeDemographic($demographics, $user_id, $type);
+
+                    //     self::storeEmergencyContact($demographics, $user_id, $type);
+                    // }
+                // }
+            }
+        }
+    }
+
+    public static function storeUser($demographics, $type)
+    {      
+        $user = new User();
+
+        if ($type === '1') {
+            $phone_number = $demographics['HomePhone'] ? $demographics['HomePhone'] : '';
+            $tele_phone = $demographics['Phone2'] ? $demographics['Phone2'] : '';
+        } else {
+            $phone_number = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
+            $tele_phone = $demographics['Address']['Phone2'] ? $demographics['Address']['Phone2']: '';
+           
+            if ($demographics['NotificationPreferences'] && isset($demographics['NotificationPreferences']['Email'])) {
+                $email = $demographics['NotificationPreferences']['Email'];
+               
+                if ($email) {
+                   
+                    $userDuplicateEmail = User::whereNotNull('email')->where('email', $email)->first();
+           
+                    if (! $userDuplicateEmail) {
+                        $user->email = $email;
+                    } else {
+                        $user->email = null;
+                    }
+                } else {
+                    $user->email = null;
+                }
+            }
+        }
+        $phone_number = setPhone($phone_number);
+        if ($phone_number == '') {
+            $status = '4';
+   
+            $doral_id = createDoralId();
+            $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
+            $password = str_replace(" ", "",$first_name) . '@' . $doral_id;
+            
+            $user->first_name = $first_name;
+            $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
+            $user->password = setPassword($password);
+            $user->phone = null;
+
+            $user->status = $status;
+            $user->gender = setGender($demographics['Gender']);
+            
+            $user->dob = dateFormat($demographics['BirthDate']);
+            $user->tele_phone = setPhone($tele_phone);
+            
+            $user->save();
+            $user->assignRole('patient')->syncPermissions(Permission::all());
+            return $user->id;
+        } else {
+            $status = '0';
+
+            $userDuplicatePhone = User::whereNotNull('phone')->where('phone', $phone_number)->first();
+          
+            if (empty($userDuplicatePhone)) {
+                // dd($userDuplicatePhone);
+                $doral_id = createDoralId();
+                $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
+                $password = str_replace(" ", "",$first_name) . '@' . $doral_id;
+                
+                $user->first_name = $first_name;
+                $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
+                $user->password = setPassword($password);
+                $user->phone = $phone_number;
+                $user->phone_verified_at = now();
+
+                $user->status = $status;
+                $user->gender = setGender($demographics['Gender']);
+                
+                $user->dob = dateFormat($demographics['BirthDate']);
+                $user->tele_phone = setPhone($tele_phone);
+                
+                $user->save();
+                $user->assignRole('patient')->syncPermissions(Permission::all());
+                return $user->id;
+            }
+        }
+        
+    }
+
+    public static function storeDemographic($demographics, $user_id, $type)
+    {
+        $doral_id = createDoralId();
+
+        $demographic = new Demographic();
+        
+        $demographic->doral_id = $doral_id;
+        $demographic->user_id = $user_id;
+        $demographic->company_id = '9';
+        if ($type === '1') {
+            $demographic->service_id = config('constant.MDOrder');
+
+            $demographic->patient_id = $demographics['PatientID'] ? $demographics['PatientID'] : '';
+            $accepted_services = [
+                'Discipline' => $demographics['AcceptedServices']['Discipline'] ? $demographics['AcceptedServices']['Discipline'] : ''
+            ];
+            $demographic->accepted_services = $accepted_services;
+
+            $language = $demographics['PrimaryLanguage'] ? $demographics['PrimaryLanguage'] : '';
+
+            $address = $demographics['Addresses']['Address'];
+            $zip = '';
+            if(isset($address['Zip4']) && $address['Zip4'] != ''){ 
+                $zip = $address['Zip4'];
+            } else if(isset($address['Zip5']) && $address['Zip5'] != ''){
+                $zip = $address['Zip5'];
+            }
+            $addressData = [
+                'address1' => isset($address['Address1']) ? $address['Address1'] : '',
+                'address2' => isset($address['Address2']) ? $address['Address2'] : '',
+                'crossStreet' => isset($address['CrossStreet']) ? $address['CrossStreet'] : '',
+                'city' => isset($address['City']) ? $address['City'] : '',
+                'state' => isset($address['State']) ? $address['State'] : '',
+                'county' => isset($address['County']) ? $address['County'] : '',
+                'zip_code' => $zip,
+                'isPrimaryAddress' => isset($address['IsPrimaryAddress']) ? $address['IsPrimaryAddress'] : '',
+                'addressTypes' => isset($address['AddressTypes']) ? $address['AddressTypes'] : '',
+            ];
+            
+        } else {
+            $demographic->service_id = config('constant.OccupationalHealth');
+            $demographic->patient_id = $demographics['ID'] ? $demographics['ID'] : '';
+            $demographic->ethnicity = $demographics['Ethnicity'] && $demographics['Ethnicity']['Name'] ? $demographics['Ethnicity']['Name'] : '';
+
+            $language = $demographics['Language1'] ? $demographics['Language1'] : '';
+
+            $addressData = [];
+            if ($demographics['Address']) {
+                $address = $demographics['Address'];
+                $zip = '';
+                if(isset($address['Zip4']) && $address['Zip4'] != ''){
+                    $zip = $address['Zip4'];
+                } else if(isset($address['Zip5']) && $address['Zip5'] != ''){
+                    $zip = $address['Zip5'];
+                }
+                $addressData = [
+                    'address1' => $address['Street1'] ? $address['Street1'] : '',
+                    'address2' => $address['Street2'] ? $address['Street2'] : '',
+                    'city' => $address['City'] ? $address['City'] : '',
+                    'state' => $address['State'] ? $address['State'] : '',
+                    'zip_code' => $zip,
+                ];
+            }
+
+            $notificationPreferencesData = [];
+            if ($demographics['NotificationPreferences']) {
+
+                $notificationPreferences = $demographics['NotificationPreferences'];
+                $notificationPreferencesData = [
+                    'method' => ($notificationPreferences['Method'] && $notificationPreferences['Method']['Name']) ? $notificationPreferences['Method']['Name'] : '',
+                    'email' => $notificationPreferences['Email'] ? $notificationPreferences['Email'] : '',
+                    'mobile_or_SMS' => $notificationPreferences['MobileOrSMS'] ? $notificationPreferences['MobileOrSMS'] : '',
+                    'voice_message' => $notificationPreferences['VoiceMessage'] ? $notificationPreferences['VoiceMessage'] : '',
+                ];
+            }
+            $demographic->country_of_birth = $demographics['CountryOfBirth'] ? $demographics['CountryOfBirth'] : '';
+            $demographic->employee_type =  $demographics['EmployeeType'] ? $demographics['EmployeeType'] : '';
+            $demographic->marital_status = ($demographics['MaritalStatus'] && $demographics['MaritalStatus']['Name']) ? $demographics['MaritalStatus']['Name'] : '';
+                       
+            $demographic->notification_preferences = $notificationPreferencesData;
+
+        }
+
+        $demographic->ssn = setSsn($demographics['SSN'] ? $demographics['SSN'] : '');
+        $demographic->address = $addressData;
+        $demographic->status = 'Active';
+        $demographic->language = $language;
+        $demographic->type = $type;
+
+        $demographic->save();
+    }
+
+    public static function storeEmergencyContact($demographics, $user_id, $type)
+    {
+        if ($demographics['EmergencyContacts']['EmergencyContact']) {
+            foreach ($demographics['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
+                if($emergencyContact['Name']) {
+                    $relationship = '';
+                    if ($emergencyContact['Relationship'] && $emergencyContact['Relationship']['Name']) {
+                        $relationship = $emergencyContact['Relationship']['Name'];
+                    }
+                 
+                    $patientEmergencyContact = new PatientEmergencyContact();
+    
+                    $patientEmergencyContact->user_id = $user_id;
+                    $patientEmergencyContact->name = $emergencyContact['Name'];
+                    $patientEmergencyContact->relation = $relationship;
+                    if ($type === '1') {
+                    $patientEmergencyContact->lives_with_patient = ($emergencyContact['LivesWithPatient']) ? $emergencyContact['LivesWithPatient'] : '';
+                    $patientEmergencyContact->have_keys = ($emergencyContact['HaveKeys']) ? $emergencyContact['HaveKeys'] : '';
+                    }
+                    $patientEmergencyContact->phone1 = setPhone($emergencyContact['Phone1'] ? $emergencyContact['Phone1'] : '');
+                    $patientEmergencyContact->phone2 = setPhone($emergencyContact['Phone2'] ? $emergencyContact['Phone2'] : '');
+                    
+                    $patientEmergencyContact->address = ($emergencyContact['Address']) ? $emergencyContact['Address'] : '';
+                    $patientEmergencyContact->save();
+                }
+            }
+        }
+       
+    }
+    
+    public function curlCall($data, $method)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => config('patientDetailAuthentication.AppUrl'),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => array(
+               'Content-Type: text/xml'
+            ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
+        $xml = new \SimpleXMLElement($response);
+        return json_decode(json_encode((array)$xml), TRUE);
+    }
+}

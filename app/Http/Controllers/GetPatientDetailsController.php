@@ -94,7 +94,7 @@ class GetPatientDetailsController extends Controller
             }
         }
         $emergencyPreparednesValue = '';
-        if ($patient->emergencyPreparednes) {
+        if (isset($patient->emergencyPreparednes) && !empty($patient->emergencyPreparednes)) {
             $emergencyPreparednesValue = json_decode($patient->emergencyPreparednes->value, true);
         }
 

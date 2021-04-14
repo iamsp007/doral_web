@@ -21,18 +21,19 @@
                                         <ul class="step1">
                                             <li class="active">
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">10</span>
+                                                    <span class="d-block">{{$count['vbc_active']}}</span>
                                                     <span class="d-block">Active</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">15 In Progress</span>
+                                                    <span class="d-block">{{$count['vbc_reject']}}</span>
+                                                    <span class="d-block">Reject</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">50</span>
+                                                    <span class="d-block">{{$count['vbc_completed']}}</span>
                                                     <span class="d-block">Completed</span>
                                                 </a>
                                             </li>
@@ -52,18 +53,19 @@
                                         <ul class="step2">
                                             <li>
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">10</span>
+                                                    <span class="d-block">{{$count['mdorder_active']}}</span>
                                                     <span class="d-block">Active</span>
                                                 </a>
                                             </li>
                                             <li class="active">
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">15 In Progress</span>
+                                                    <span class="d-block">{{$count['mdorder_reject']}}</span>
+                                                    <span class="d-block">Reject</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">50</span>
+                                                    <span class="d-block">{{$count['mdorder_completed']}}</span>
                                                     <span class="d-block">Completed</span>
                                                 </a>
                                             </li>
@@ -83,18 +85,20 @@
                                         <ul class="step3">
                                             <li>
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">10</span>
+                                                    <span class="d-block">{{$count['occupational_active']}}</span>
                                                     <span class="d-block">Active</span>
                                                 </a>
                                             </li>
                                             <li class="active">
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">15 In Progress</span>
+                                                    <span class="d-block">{{$count['occupational_reject']}}</span>
+                                                    <span class="d-block">Reject</span>
+                                                </a>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">50</span>
+                                                    <span class="d-block">{{$count['occupational_completed']}}</span>
                                                     <span class="d-block">Completed</span>
                                                 </a>
                                             </li>
@@ -114,18 +118,19 @@
                                         <ul class="step4">
                                             <li>
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">10</span>
+                                                    <span class="d-block">{{$count['covid_active']}}</span>
                                                     <span class="d-block">Active</span>
                                                 </a>
                                             </li>
                                             <li class="active">
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">15 In Progress</span>
+                                                    <span class="d-block">{{$count['occupational_reject']}}</span>
+                                                    <span class="d-block">Reject</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="javascript:void(0)">
-                                                    <span class="d-block">50</span>
+                                                    <span class="d-block">{{$count['covid_completed']}}</span>
                                                     <span class="d-block">Completed</span>
                                                 </a>
                                             </li>
@@ -133,6 +138,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php /*
                             <div class="row">
                                 <div class="col-12 col-sm-6">
                                     <div class="app-card mt-4 no-minHeight">
@@ -313,6 +319,7 @@
                                     </div>
                                 </div>
                             </div>
+                            */?>
                             <div class="row">
                                 <div class="col-12 col-sm-6">
                                     <div class="app-card mt-4">
@@ -708,23 +715,23 @@
                 add_option(select_id, option_array[i]);
             }
         }
-        // var planets = new Array("Completed", "In Progress", "Pending", "Requested");
-        // var copd = new Array("Diabaté", "Non Diabaté");
-        // function clear_combo(select_id) {
-        //     var select = document.getElementById(select_id);
-        //     select.options.length = 0;
-        // }
+        var planets = new Array("Completed", "In Progress", "Pending", "Requested");
+        var copd = new Array("Diabaté", "Non Diabaté");
+        function clear_combo(select_id) {
+            var select = document.getElementById(select_id);
+            select.options.length = 0;
+        }
         // load_combo("employeeHealth", planets)
         // load_combo("employeeHealth1", planets)
         // load_combo("employeeHealth2", planets)
         // load_combo("employeeHealth3", planets)
-        // load_combo("healthScreening", planets)
-        // load_combo("DiabitiesScreening", planets)
-        // load_combo("BehaviourScreening", planets)
-        // load_combo("copd", copd)
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     tail.select('.tail');
-        // });
+        load_combo("healthScreening", planets)
+        load_combo("DiabitiesScreening", planets)
+        load_combo("BehaviourScreening", planets)
+        load_combo("copd", copd)
+        document.addEventListener("DOMContentLoaded", function () {
+            tail.select('.tail');
+        });
         var slideIndex = 1;
         showSlides(slideIndex);
         // Next/previous controls
@@ -1364,15 +1371,15 @@
                 }
             },
         }
-        var chart7 = new ApexCharts(document.querySelector("#msg1Chart"), options7);
-        chart7.render();
-        chart7.updateOptions({
-            xaxis: {
-                labels: {
-                    show: false
-                }
-            }
-        })
+        // var chart7 = new ApexCharts(document.querySelector("#msg1Chart"), options7);
+        // chart7.render();
+        // chart7.updateOptions({
+        //     xaxis: {
+        //         labels: {
+        //             show: false
+        //         }
+        //     }
+        // })
         var options8 = {
             series: [{
                 name: 'Messages',
@@ -1436,15 +1443,15 @@
                 }
             },
         };
-        var chart8 = new ApexCharts(document.querySelector("#msg2Chart"), options8);
-        chart8.render();
-        chart8.updateOptions({
-            xaxis: {
-                labels: {
-                    show: false
-                }
-            }
-        })
+        // var chart8 = new ApexCharts(document.querySelector("#msg2Chart"), options8);
+        // chart8.render();
+        // chart8.updateOptions({
+        //     xaxis: {
+        //         labels: {
+        //             show: false
+        //         }
+        //     }
+        // })
         //-------------------------------------------------------------------------//
         // Total Number Of Text Message Chart End Here
         //-------------------------------------------------------------------------//

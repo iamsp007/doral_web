@@ -58,7 +58,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = ['profile_photo_url','gender_name','avatar_image','phone_format','full_name'];
+    protected $appends = ['profile_photo_url', 'gender_name', 'avatar_image', 'phone_format', 'full_name', 'age'];
 
     public function designation()
     {
@@ -212,5 +212,19 @@ class User extends Authenticatable
             }
         }
         return $value;
+    }
+
+    public function getAgeAttribute()
+    {
+        $year = Carbon::parse($this->dob)->age;
+
+        $age = '';
+        if ($year >= 18) {
+            $age = 'Yes';
+        } else {
+            $age = 'No';
+        }
+
+        return $age;
     }
 }

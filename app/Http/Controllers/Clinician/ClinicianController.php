@@ -7,6 +7,7 @@ use App\Models\Applicant;
 use App\Models\UploadDocuments;
 use Yajra\DataTables\DataTables;
 use App\Services\AdminService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use ZipArchive;
 
@@ -77,7 +78,7 @@ class ClinicianController extends Controller
                         $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $user->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
                     }
                     
-                    $btn .= '<a href="'.route('clinician.info',['id' => $user->id]).'" class="btn btn-primary btn-sm mr-2" target="__blank">View</a>';
+                    $btn .= '<a href="'.route('clinician.info',['id' => $user->id]).'" class="btn btn-primary btn-sm mr-2" target="__blank">Print</a>';
 
                     return $btn;
                 })
@@ -96,11 +97,9 @@ class ClinicianController extends Controller
      */
     public function clinicianInfo($id)
     {
-        $user = Applicant::where('user_id', $id)->first();
-
-        // $data = $patient->data;
-
-        return view('pages.clincian.clinician-form', compact('user'));
+        $users = Applicant::where('user_id', $id)->with('user', 'documents')->first();
+       
+        return view('pages.clincian.clinician-form', compact('users'));
     }
 
     public function getClinicianDetail($id)

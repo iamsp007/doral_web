@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to Doral</title>
+        <title>{{ ($users->user) ? $users->user->full_name : ''}}</title>
         <style>
             html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
                 margin: 0;
@@ -295,7 +295,7 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
                                                             <td>
-                                                                <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['how_long_resident'] : ''}} </span></p>
+                                                                <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']['how_long_resident']) ? $users->address_detail['address']['how_long_resident'] : ''}} </span></p>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -323,13 +323,13 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
                                                             <td>
-                                                                <p>City: <span>{{ ($users->address_detail['prior']) ? $users->address_detail['prior']['city'] : ''}}</span></p>
+                                                                <p>City: <span>{{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['city'] : ''}}</span></p>
                                                             </td>
                                                             <td>
-                                                                <p>State: <span>{{ ($users->address_detail['prior']) ? $users->address_detail['prior']['state'] : ''}}</span></p>
+                                                                <p>State: <span>{{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['state'] : ''}}</span></p>
                                                             </td>
                                                             <td>
-                                                                <p>Zip: <span>{{ ($users->address_detail['prior']) ? $users->address_detail['prior']['zipcode'] : ''}}</span></p>
+                                                                <p>Zip: <span>{{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['zipcode'] : ''}}</span></p>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -340,7 +340,7 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
                                                             <td>
-                                                                <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['how_long_resident'] : ''}}</span></p>
+                                                                <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']['how_long_resident']) ? $users->address_detail['address']['how_long_resident'] : ''}}</span></p>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -608,10 +608,10 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                         <tr>
                                                                             <td>
-                                                                                <p>Are you currently employed? <span>{{ ($users->employer_detail['position']['isCurrentEmployee']) ? 'Yes' : 'No' }}</span></p>
+                                                                                <p>Are you currently employed? <span>{{ isset($users->employer_detail['position']['isCurrentEmployee']) ? 'Yes' : 'No' }}</span></p>
                                                                             </td>
                                                                             <td>
-                                                                                <p>If so, may we contact your current employer?<span>{{ ($users->employer_detail['position']['isAllowContactToEmployer']) ? 'Yes' : 'No' }}</span></p>
+                                                                                <p>If so, may we contact your current employer?<span>{{ isset($users->employer_detail['position']['isAllowContactToEmployer']) ? 'Yes' : 'No' }}</span></p>
                                                                             </td>  
                                                                         </tr>
                                                                     </table>
@@ -621,7 +621,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            @if ($users->employer_detail['position']['isAllowContactToEmployer'])
+                                            @if (isset($users->employer_detail['position']['isAllowContactToEmployer']))
                                                 <tr>
                                                     <td>
                                                         <h4>Employment History</h4>
@@ -776,9 +776,9 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                         <tr>
                                                                             <td>
-                                                                                <p>Have you served in the militray?: <span>{{ ($users->military_detail['isMilitary']) ? 'Yes' : 'No' }}</span></p>
+                                                                                <p>Have you served in the militray?: <span>{{ isset($users->military_detail['isMilitary']) ? 'Yes' : 'No' }}</span></p>
                                                                             </td>
-                                                                            @if ($users->military_detail['isMilitary'])
+                                                                            @if (isset($users->military_detail['isMilitary']))
                                                                                 <td>
                                                                                     <p>Branch: <span>{{ ($users->military_detail['branch']) }}</span></p>
                                                                                 </td>
@@ -799,9 +799,9 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                         <tr>
                                                                             <td>
-                                                                                <p>Do you have any militray commitment, including National Guard service that would influence your work schedule?: <span>{{ ($users->military_detail['isCommited_explain']) ? 'Yes' : 'No' }}</span></p>
+                                                                                <p>Do you have any militray commitment, including National Guard service that would influence your work schedule?: <span>{{ isset($users->military_detail['isCommited_explain']) ? 'Yes' : 'No' }}</span></p>
                                                                             </td>
-                                                                            @if ($users->military_detail['isMilitary'])
+                                                                            @if (isset($users->military_detail['isMilitary']))
                                                                             <td>
                                                                                 <p>If so,explain: <span>{{ $users->military_detail['isCommited_explain'] }}</span></p>
                                                                             </td>
@@ -815,13 +815,13 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                         <tr>
                                                                             <td>
-                                                                                <p>Are you Vietnam veteran?: <span>{{ ($users->military_detail['isVietnam']) ? 'Yes' : 'No' }}</span></p>
+                                                                                <p>Are you Vietnam veteran?: <span>{{ isset($users->military_detail['isVietnam']) ? 'Yes' : 'No' }}</span></p>
                                                                             </td>
                                                                             <td>
-                                                                                <p>Are you Disable veteran?: <span>{{ ($users->military_detail['isDisableVetran']) ? 'Yes' : 'No' }}</span></p>
+                                                                                <p>Are you Disable veteran?: <span>{{ isset($users->military_detail['isDisableVetran']) ? 'Yes' : 'No' }}</span></p>
                                                                             </td>
                                                                             <td>
-                                                                                <p>Are you special disable veteran?: <span>{{ ($users->military_detail['isSpecialDisableVereran']) ? 'Yes' : 'No' }}</span></p>
+                                                                                <p>Are you special disable veteran?: <span>{{ isset($users->military_detail['isSpecialDisableVereran']) ? 'Yes' : 'No' }}</span></p>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -856,10 +856,9 @@
                                                                                     <p>{{ $language_detail['name'] }}
                                                                                     <input type="checkbox" {{ ($language_detail['read']) ? 'checked' : '' }}>Read
                                                                                     <input type="checkbox" {{ ($language_detail['write']) ? 'checked' : '' }}>Write
-                                                                                    <input type="checkbox" {{ ($language_detail['fluent']) ? 'checked' : '' }}>Write
-                                                                                    <input type="checkbox" {{ ($language_detail['minimal']) ? 'checked' : '' }}>Write
+                                                                                    <input type="checkbox" {{ ($language_detail['fluent']) ? 'checked' : '' }}>Fluent
+                                                                                    <input type="checkbox" {{ ($language_detail['minimal']) ? 'checked' : '' }}>Minimal
                                                                                 </td>
-                                                                            
                                                                             </tr>
                                                                         </table>
                                                                     </td>
@@ -907,6 +906,50 @@
                                                             </tr>
                                                         </table>
                                                     </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h4>Document Verification Detail</h4>
+                                                    <div>
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                            <tr>
+                                                                <td>
+                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <p>Upload Documentation. <span></span></p>
+                                                                        </td> 
+                                                                    </tr>
+                                                                </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table style="width: 100%;border: 1px solid #a5a5a5;margin-top: 20px;">
+                                                        <tr>
+                                                            <!-- <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: left;border-bottom: 1px solid #a5a5a5;">#</th>
+                                                            <th style="width: 20%;">
+                                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;"> Name of Document</h1>
+                                                            </th> -->
+                                                            <th style="width: 20%;">
+                                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Document</h1>
+                                                            </th>
+                                                        </tr>
+                                                        @php $counter = 1 @endphp
+                                                        @foreach ($users->documents as $document)
+                                                            <tr style="background: #f8f8f8;">
+                                                                <!-- <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{$counter}}</td>
+                                                                <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{!! $document->type_name !!}</td> -->
+                                                                <td style="width: 100%;text-align: left;border-bottom: 1px solid #a5a5a5;"><img style="width: 100%; height: 100%;" src="{{ $document->file_url }}" alt="Welcome to Doral" srcset="{{ $document->file_url }}"></td>
+                                                            </tr>
+                                                            @php $counter++ @endphp
+                                                        @endforeach
+                                                    </table>
                                                 </td>
                                             </tr>
                                             <tr>

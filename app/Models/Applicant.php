@@ -42,6 +42,26 @@ class Applicant extends Model
     ];
 
     /**
+     * The attributes that are casted.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'family_detail' => 'array',
+        'military_detail' => 'array',
+        'security_detail' => 'array',
+        'address_detail' => 'array',
+        'prior_detail' => 'array',
+        'reference_detail' => 'array',
+        'employer_detail' => 'array',
+        'education_detail' => 'array',
+        'language_detail' => 'array',
+        'skill_detail' => 'array',
+        'emergency_detail' => 'array',
+        'payroll_details' => 'array',
+    ];
+
+    /**
      * Relation with referances
      */
     public function references()
@@ -71,5 +91,13 @@ class Applicant extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
+
+        /**
+     * documents
+     */
+    public function documents()
+    {
+        return $this->hasMany(UploadDocuments::class, 'user_id', 'user_id');
     }
 }

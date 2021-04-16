@@ -1276,6 +1276,7 @@
                                                       @php $type = $document->type; @endphp
                                                    @endif
                                                 @endforeach
+
                                                 <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
                                              @endisset
                                          </li>
@@ -1304,13 +1305,21 @@
                                              @isset($data->documents)
                                                 @php
                                                    $type = '';
+                                                   $file_url = '';
                                                 @endphp
                                                 @foreach($data->documents as $document)
                                                    @if($document->type == 6)
-                                                      @php $type = $document->type; @endphp
+                                                      @php 
+                                                         $type = $document->type; 
+                                                         $file_url = $document->file_url;
+                                                      @endphp
                                                    @endif
                                                 @endforeach
+                                                @if(Str::contains($file_url, ['.pdf', '.PDF']))
+                                                   <iframe id="iframeModal" src="{{ $file_url }}" scrolling="no" frameborder="0" style="overflow:hidden !important; display:block; width:100%" height="768" width="100%"></iframe>
+                                                @endif
                                                 <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                               
                                              @endisset
                                          </li>
                                        </ul>
@@ -1321,13 +1330,18 @@
                                              @isset($data->documents)
                                                 @php
                                                    $type = '';
+                                                   $file_url = '';
                                                 @endphp
                                                 @foreach($data->documents as $document)
-                                                   @if($document->type == 7)
-                                                      @php $type = $document->type; @endphp
+                                                   @if($document->type == 4)
+                                                      @php $type = $document->type; $file_url = $document->file_url; @endphp
                                                    @endif
                                                 @endforeach
+                                                @if(Str::contains($file_url, ['.pdf', '.PDF']))
+                                                   <iframe id="iframeModal" src="{{ $file_url }}" scrolling="no" frameborder="0" style="overflow:hidden !important; display:block; width:100%" height="768" width="100%"></iframe>
+                                                @else
                                                 <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                                @endif
                                              @endisset
                                          </li>
                                        </ul>
@@ -1355,13 +1369,21 @@
                                              @isset($data->documents)
                                                 @php
                                                    $type = '';
+                                                   $file_url = '';
                                                 @endphp
                                                 @foreach($data->documents as $document)
                                                    @if($document->type == 9)
-                                                      @php $type = $document->type; @endphp
+                                                      @php 
+                                                         $type = $document->type;
+                                                         $file_url = $document->file_url;
+                                                      @endphp
                                                    @endif
                                                 @endforeach
-                                                <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                                @if(Str::contains($file_url, ['.pdf', '.PDF']))
+                                                   <iframe id="iframeModal" src="{{ $file_url }}" scrolling="no" frameborder="0" style="overflow:hidden !important; display:block; width:100%" height="768" width="100%"></iframe>
+                                                @else
+                                                   <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                                @endif
                                              @endisset
                                          </li>
                                        </ul>
@@ -1491,13 +1513,21 @@
                                              @isset($data->documents)
                                                 @php
                                                    $type = '';
+                                                   $file_url = '';
                                                 @endphp
                                                 @foreach($data->documents as $document)
                                                    @if($document->type == 17)
-                                                      @php $type = $document->type; @endphp
+                                                      @php 
+                                                         $type = $document->type; 
+                                                         $file_url = $document->file_url;
+                                                      @endphp
                                                    @endif
                                                 @endforeach
+                                                @if(Str::contains($file_url, ['.pdf', '.PDF', '.docx']))
+                                                      <iframe src="{{ $file_url }}"></iframe>
+                                                @else
                                                 <button type="button" class="btn btn-outline-green d-flex align-items-center view_document" data-id="{{ $data->id }}" data-type="{{ $type }}" name=""><i class="las la-binoculars la-2x mr-2"></i> View Documents</button>
+                                                @endif
                                              @endisset
                                          </li>
                                        </ul>

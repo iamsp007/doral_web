@@ -8,6 +8,7 @@ use App\Models\UploadDocuments;
 use Yajra\DataTables\DataTables;
 use App\Services\AdminService;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use ZipArchive;
 
@@ -96,10 +97,16 @@ class ClinicianController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function clinicianInfo($id)
-    {
-        $users = Applicant::where('user_id', $id)->with('user', 'documents')->first();
-       
-        return view('pages.clincian.clinician-form', compact('users'));
+    { 
+        try {
+            $users = Applicant::where('user_id', $id)->with('user', 'documents')->first();
+            
+            if ($users) {
+                return view('pages.clincian.clinician-form', compact('users'));
+            }  
+        } catch (Exception $e) {
+            dd("Error: ". $e->getMessage());
+        }     
     }
 
     public function getClinicianDetail($id)

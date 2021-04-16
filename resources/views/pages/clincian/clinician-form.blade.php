@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ ($users->user) ? $users->user->full_name : ''}}</title>
+        <title>View data</title>
         <style>
             html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
                 margin: 0;
@@ -233,10 +233,10 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
                                                             <td>
-                                                                <p>Name: <span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
+                                                                <p>Name: <span>{{ isset($users->user) ? $users->user->full_name : ''}}</span></p>
                                                             </td>
                                                             <td>
-                                                                <p>SNN: <span>{{ ($users->user && $users->user->demographic) ? $users->user->ssn : ''}}</span></p>
+                                                                <p>SNN: <span>{{ isset($users->user) && isset($users->user->demographic) ? $users->user->ssn : ''}}</span></p>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -247,10 +247,10 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                         <tr>
                                                             <td>
-                                                                <p>Home Phone: <span>{{ $users->home_phone }}</span></p>
+                                                                <p>Home Phone: <span>{{ isset($users->home_phone) ? $users->home_phone : '' }}</span></p>
                                                             </td>
                                                             <td>
-                                                                <p>Cell Phone: <span>{{ $users->phone }}</span></p>
+                                                                <p>Cell Phone: <span>{{ isset($users->phone) ? $users->phone : '' }}</span></p>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -352,11 +352,11 @@
                                                         <tr>
                                                             <td>
                                                                 <p>Are you over 18 years of age?: <span>
-                                                                    <input type="checkbox" {{ ($users->user && $users->user->age == 'Yes') ? 'checked' : '' }}>Yes
-                                                                    <input type="checkbox" {{ ($users->user && $users->user->age == 'No') ? 'checked' : '' }}>No</span></p>
+                                                                    <input type="checkbox" {{ isset($users->user) && $users->user->age == 'Yes' ? 'checked' : '' }}>Yes
+                                                                    <input type="checkbox" {{ isset($users->user) && $users->user->age == 'No' ? 'checked' : '' }}>No</span></p>
                                                             </td>
                                                             <td>
-                                                                <p>Sex: <span>{{ ($users->user) ? $users->user->gender_data : '' }}</span></p>
+                                                                <p>Sex: <span>{{ isset($users->user) ? $users->user->gender_data : '' }}</span></p>
                                                             </td>  
                                                         </tr>
                                                     </table>
@@ -392,6 +392,9 @@
                                                     <h4>Reference Detail</h4>
                                                     <div>
                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                            @if ($users->reference_detail != '')
+                                                                
+                                                           
                                                             @foreach ($users->reference_detail as $reference_detail)
                                                                 <tr>
                                                                     <td>
@@ -448,6 +451,7 @@
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
+                                                            @endif
                                                         </table>
                                                     </div>
                                                 </td>
@@ -458,6 +462,7 @@
                                                     <h4>Emergency Detail</h4>
                                                     <div>
                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                        @if ($users->reference_detail != '')
                                                             @foreach ($users->emergency_detail as $emergency_detail)
                                                                 <tr>
                                                                     <td>
@@ -514,6 +519,7 @@
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
+                                                            @endif
                                                         </table>
                                                     </div>
                                                 </td>
@@ -594,10 +600,10 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                         <tr>
                                                                             <td>
-                                                                                <p>Position: <span>{{ $users->employer_detail['position'] ? $users->employer_detail['position']['position'] : '' }}</span>
+                                                                                <p>Position: <span>{{ isset($users->employer_detail['position']) ? $users->employer_detail['position']['position'] : '' }}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <p>Start date position: <span>{{ $users->employer_detail['position'] ? $users->employer_detail['position']['date'] : '' }}</span>
+                                                                                <p>Start date position: <span>{{ isset($users->employer_detail['position']) ? $users->employer_detail['position'] ['date'] : '' }}</span>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -662,6 +668,7 @@
                                                                 </th>
                                                             </tr>
                                                             @php $counter = 1 @endphp
+                                                            @if ($users->employer_detail != '')
                                                             @foreach ($users->employer_detail['employer'] as $employer_detail)
                                                                 <tr style="background: #f8f8f8;">
                                                                     <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{ $counter }}</td>
@@ -672,6 +679,7 @@
                                                                 </tr>
                                                                 @php $counter++ @endphp
                                                             @endforeach
+                                                            @endif
                                                         </table>
                                                     </td>
                                                 </tr>
@@ -714,16 +722,18 @@
                                                                 <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Major/Degree</h1>
                                                             </th>
                                                         </tr>
-                                                        @foreach ($users->education_detail as $education_detail)
-                                                            <tr style="background: #f8f8f8;">
-                                                                <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">1</td>
-                                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['address'] }}</td>
-                                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['year'] }}</td>
-                                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['isGraduate'] }}</td>
-                                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['Degree'] }}
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
+                                                        @if ($users->education_detail != '')
+                                                            @foreach ($users->education_detail as $education_detail)
+                                                                <tr style="background: #f8f8f8;">
+                                                                    <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">1</td>
+                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['address'] }}</td>
+                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['year'] }}</td>
+                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['isGraduate'] }}</td>
+                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['Degree'] }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
                                                     </table>
                                                 </td>
                                             </tr>
@@ -847,6 +857,7 @@
                                                                     </table>
                                                                 </td>
                                                             </tr>
+                                                            @if($users->language_detail != '')
                                                             @foreach ($users->language_detail['language'] as $language_detail)
                                                                 <tr>
                                                                     <td>
@@ -864,6 +875,7 @@
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
+                                                            @endif
                                                         </table>
                                                     </div>
                                                 </td>
@@ -941,6 +953,7 @@
                                                             </th>
                                                         </tr>
                                                         @php $counter = 1 @endphp
+                                                        @if($users->documents != '')
                                                         @foreach ($users->documents as $document)
                                                             <tr style="background: #f8f8f8;">
                                                                 <!-- <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{$counter}}</td>
@@ -949,6 +962,7 @@
                                                             </tr>
                                                             @php $counter++ @endphp
                                                         @endforeach
+                                                        @endif
                                                     </table>
                                                 </td>
                                             </tr>

@@ -39,6 +39,7 @@ class Applicant extends Model
         'emergency_address',
         'emergency_phone',
         'emergency_relationship',
+        'signature',
     ];
 
     /**
@@ -61,6 +62,7 @@ class Applicant extends Model
         'payroll_details' => 'array',
     ];
 
+    protected $appends = ['signature_url'];
     /**
      * Relation with referances
      */
@@ -99,5 +101,19 @@ class Applicant extends Model
     public function documents()
     {
         return $this->hasMany(UploadDocuments::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getSignatureUrlAttribute()
+    {
+        if (isset($this->signature) && !empty($this->signature)) {
+            return env('API_PUBLIC_URL').'/storage/signature/' . $this->user_id . '/' . $this->signature;
+        }
+        
+        return null;
     }
 }

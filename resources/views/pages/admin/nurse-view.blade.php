@@ -96,6 +96,7 @@
                               src="/assets/img/icons/document-clinician.svg" alt=""
                               srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Documents Verifiaction</a></li>
                            </ul>
+                           
                      </div>
                      </div>
                   </section>
@@ -127,6 +128,9 @@
                                  </li>
                                  <li class="nav-item">
                                     <a class="nav-link" id="Emergency-tab" data-toggle="tab" href="#Emergency" role="tab" aria-controls="Emergency" aria-selected="false">EMERGENCY</a>
+                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" id="notification-tab" data-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">Send Notification</a>
                                  </li>
                               </ul>
                               <div class="tab-content" id="myTabContent">
@@ -425,6 +429,13 @@
                                        @endisset
                                     </ul>
                                  </div>
+                                 <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                                    <ul>
+                                       <li>
+                                          <button type="button" class="btn btn-outline-green d-flex align-items-center send_notification" data-id="{{ $data->id }}"><i class="las la-binoculars la-2x mr-2"></i> Send Notification</button>
+                                       </li>
+                                    </ul>
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -558,7 +569,7 @@
                                                             </div>
                                                          </div>
                                                       </div>
-                                                      @if ($security_detail->bond == '1')
+                                                      @if (isset($security_detail->bond) && $security_detail->bond == '1')
                                                          <div class="col-12 col-sm-4">
                                                             <div class="d-flex align-items-center">
                                                                <div>
@@ -585,7 +596,7 @@
                                                       </div>
                                                    </div>
                                                    <div class="row mt-3">
-                                                      @if ($security_detail->convict == '1')
+                                                      @if (isset($security_detail->convict) && $security_detail->convict == '1')
                                                          <div class="col-12 col-sm-4">
                                                             <div class="d-flex align-items-center">
                                                                <div>
@@ -1551,32 +1562,78 @@
         
             var user_id = $(this).attr('data-id');
             var type_id = $(this).attr('data-type');
-          
+         
             var url = '{{route("clinician.getDocument")}}';
             
             $.ajax({
-              url : url,
-              type: 'POST',
-              data: {
-                 user_id: user_id,
-                 type_id: type_id,
-              },
-              headers: {
-                  'X_CSRF_TOKEN':'{{ csrf_token() }}',
-              },  
-              success:function(data, textStatus, jqXHR){
-              
-                $(".messageViewModel").html(data);
-                $(".messageViewModel").modal('show');
+               url : url,
+               type: 'POST',
+               data: {
+                  user_id: user_id,
+                  type_id: type_id,
+               },
+               headers: {
+                     'X_CSRF_TOKEN':'{{ csrf_token() }}',
+               },  
+               success:function(data, textStatus, jqXHR){
+               
+                  $(".messageViewModel").html(data);
+                  $(".messageViewModel").modal('show');
 
-              },
-              error: function(jqXHR, textStatus, errorThrown){
-              alert('error');
-                
-              }
+               },
+               error: function(jqXHR, textStatus, errorThrown){
+               alert('error');
+                  
+               }
             });
-        });
+         });
+        
+         /*Open message in model */
+         $("body").on('click','.send_notification',function () {
+        
+            var user_id = $(this).attr('data-id');
+            var url = '{{route("notification.send")}}';
+            
+            $.ajax({
+               url : url,
+               type: 'POST',
+               data: {
+                  user_id: user_id,
+               },
+               headers: {
+                  'X_CSRF_TOKEN':'{{ csrf_token() }}',
+               },  
+               success:function(data, textStatus, jqXHR){
+                  if(data.status == 400) {
+                     alertText(data.message,'error');
+                  } else {
+                     alertText(data.message,'success');
+                  }
+               },
+               error: function(jqXHR, textStatus, errorThrown){
+                  alertText("Server Timeout! Please try again",'warning');
+               }
+            });
+         });
+         
+         function alertText(text,status) {
+         const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+         })
 
+         Toast.fire({
+            icon: status,
+            title: text
+         })
+      }
         function openfancy() {
     $('.fancybox-media').fancybox({
         openEffect: 'none',

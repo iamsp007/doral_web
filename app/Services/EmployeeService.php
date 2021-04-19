@@ -235,7 +235,24 @@ class EmployeeService
         } catch (\Exception $exception) {
         }
     }
-
+    
+    //sendNotification
+    public function sendNotification( $post_data )
+    {
+        try {
+            $response = $this->client->request(
+                'POST',
+                '/send-address-notification',
+                [
+                    'json' => $post_data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        } catch (\Exception $exception) {
+        }
+    }
 
     //auth/service
     public function getAllPatient()

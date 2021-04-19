@@ -44,7 +44,6 @@ class UploadDocuments extends Model
                 $directory = 'mainPracticeInsurance';
             } elseif ($this->type === "8") {
                 $directory = 'nycNurseCertificate';
-                // $directory = 'mainPracticeInsurance';
             } elseif ($this->type === "9") {
                 $directory = 'CPR';
             } elseif ($this->type === "10") {
@@ -66,7 +65,6 @@ class UploadDocuments extends Model
             } elseif ($this->type === "18") {
                 $directory = 'annualTubeScreening';
             }
-
             return env('API_PUBLIC_URL').'/storage/documents/' . $this->user_id . '/' . $directory . '/' . $this->file_name;
         } else {
             return null;

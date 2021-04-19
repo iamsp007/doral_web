@@ -120,73 +120,73 @@
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5; font-weight: bold; border-top: 1px solid #a5a5a5;">1</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; padding: 10px;">1 of these <span style="font-weight: bold; text-decoration: underline;">UNEXPIRED:</span><br>*NYS Driver's License<br>*Passport<br>*Permanent Resident Card<br>*Work Authorization Card</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; vertical-align: middle; vertical-align: middle;">I.D</td>
-                                            <td style="width: 20%;text-align: left;text-align: center;vertical-align: middle; border-top: 1px solid #a5a5a5; ">1</td>
+                                            <td style="width: 20%;text-align: left;text-align: center;vertical-align: middle; border-top: 1px solid #a5a5a5; ">{{ $idProof }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5; font-weight: bold; border-top: 1px solid #a5a5a5;">2</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">Social Security (original only)</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; vertical-align: middle; vertical-align: middle;">I.D</td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">1</td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $socialSecurity }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">3</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">Professional Reference Letters or Personal Reference <span style="font-weight: bold;">must be completed within 3 months: Dated of thisyear, English language, Valid Phone, NO RELATIVES</span></td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; ">References</td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">2</td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $professionalReferrance }} </td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;"> 4</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">NYS Nurse certificate</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; "></td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; "></td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $nycNurseCertificate }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">5</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">Malpractice Insurance</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; "></td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; "></td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $insuranceReport }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">6</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">CPR</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; "></td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; "></td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $cpr }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">7</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">Physical (<span style="font-weight: bold;">completed within 1 year)</span></td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; ">(Pre-employment)</td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">1</td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $physical }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">8</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">Forensic Drug Screen (<span style="font-weight: bold;">completed within 6 months</span>) <span style="text-decoration: underline;">LAB REPORT</span>*</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; ">(Pre-employment)</td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">1</td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $forensicDrugScreen }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">9</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">Rubella Immunization *<span style="text-decoration: underline;">Lab Report</span>*</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; ">Medical</td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">1</td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $rubellaImmunization }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">10</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">Rubeolla/Measles Immunization *<span style="text-decoration: underline;">Lab Report</span>*</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; ">Medical</td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">1</td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $rubellaMeasiesImmunization }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">11</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">Annual PPD <span style="text-decoration: underline;">OR</span> Quantiferon results (completed within year)</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; ">Medical</td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">1</td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $annualPPD }}</td>
                                         </tr>
                                         <tr>
                                             <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">12</td>
                                             <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">Flu Vaccination (Flu Shot) For Current Year</td>
                                             <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; ">Medical</td>
-                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">1</td>
+                                            <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $flu }}</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -417,6 +417,9 @@
                                                     <h4>Reference Detail</h4>
                                                     <div>
                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                            @if (isset($users->reference_detail))
+                                                                
+                                                            
                                                             @foreach ($users->reference_detail as $reference_detail)
                                                                 <tr>
                                                                     <td>
@@ -473,6 +476,7 @@
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
+                                                            @endif
                                                         </table>
                                                     </div>
                                                 </td>
@@ -612,10 +616,10 @@
                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                         <tr>
                                                                             <td>
-                                                                                <p>Position: <span>{{ $users->employer_detail['position'] ? $users->employer_detail['position']['position'] : '' }}</span></p>
+                                                                                <p>Position: <span>{{ isset($users->employer_detail['position']) ? $users->employer_detail['position']['position'] : '' }}</span></p>
                                                                             </td>
                                                                             <td>
-                                                                                <p>Date you can start work: <span>{{ $users->employer_detail['position'] ? viewDateFormat($users->employer_detail['position']['date']) : '' }}</span></p>
+                                                                                <p>Date you can start work: <span>{{ isset($users->employer_detail['position']) ? viewDateFormat($users->employer_detail['position']['date']) : '' }}</span></p>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -693,6 +697,7 @@
                                                                 </th>
                                                             </tr>
                                                             @php $counter = 1 @endphp
+                                                            @if (isset($users->employer_detail['employer']))
                                                             @foreach ($users->employer_detail['employer'] as $employer_detail)
                                                                 <tr style="background: #f8f8f8;">
                                                                     <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{ $counter }}</td>
@@ -703,6 +708,7 @@
                                                                 </tr>
                                                                 @php $counter++ @endphp
                                                             @endforeach
+                                                            @endif
                                                         </table>
                                                     </td>
                                                 </tr>
@@ -747,6 +753,7 @@
                                                                         </th>
                                                                     </tr>
                                                                     @php $counter = 1 @endphp
+                                                                    @if (isset($users->education_detail))
                                                                     @foreach ($users->education_detail as $education_detail)
                                                                         <tr style="background: #f8f8f8;">
                                                                             <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{$counter}}</td>
@@ -758,6 +765,7 @@
                                                                         </tr>
                                                                         @php $counter++ @endphp
                                                                     @endforeach
+                                                                    @endif
                                                                 </table>
                                                             </td>
                                                         </tr>
@@ -782,6 +790,7 @@
                                                                         </table>
                                                                     </td>
                                                                 </tr>
+                                                                @if(isset($users->language_detail['language']))
                                                                 @foreach ($users->language_detail['language'] as $language_detail)
                                                                     <tr>
                                                                         <td>
@@ -809,6 +818,7 @@
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
+                                                                @endif
                                                                 <!-- Skill and language detail section end -->
 
                                                                 <!-- Security detail section start -->
@@ -822,8 +832,8 @@
                                                                                         <td>
                                                                                             <p>Have you ever been bonded? 
                                                                                                 <span>
-                                                                                                    <input type="checkbox" {{ ($users->security_detail['bond'] === 'true') ? 'checked' : '' }}>Yes
-                                                                                                    <input type="checkbox" {{ ($users->security_detail['bond'] === 'false') ? 'checked' : '' }}>No
+                                                                                                    <input type="checkbox" {{ isset($users->security_detail['bond']) && $users->security_detail['bond'] === 'true' ? 'checked' : '' }}>Yes
+                                                                                                    <input type="checkbox" {{  isset($users->security_detail['bond']) && $users->security_detail['bond'] === 'false' ? 'checked' : '' }}>No
                                                                                                 </span>
                                                                                             </p>
                                                                                         </td>
@@ -837,8 +847,8 @@
                                                                                         <td>
                                                                                             <p>Have you been convicted of a felony within the past 5 years?     
                                                                                                 <span>
-                                                                                                    <input type="checkbox" {{ ($users->security_detail['convict'] === 'true') ? 'checked' : '' }}>Yes
-                                                                                                    <input type="checkbox" {{ ($users->security_detail['convict'] === 'false') ? 'checked' : '' }}
+                                                                                                    <input type="checkbox" {{ isset($users->security_detail['convict']) && $users->security_detail['convict'] === 'true' ? 'checked' : '' }}>Yes
+                                                                                                    <input type="checkbox" {{ isset($users->security_detail['convict']) && $users->security_detail['convict'] === 'false' ? 'checked' : '' }}
                                                                                                 </span>
                                                                                             </p>
                                                                                         </td>
@@ -995,7 +1005,11 @@
                                                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                         <tr>
                                                                                                             <td>
-                                                                                                                <p>Employee Signature:<span><img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign"></span></p>
+                                                                                                                <p>Employee Signature:<span>
+                                                                                                                    @if($users->signature_url)
+                                                                                                                        <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
+                                                                                                                    @endif
+                                                                                                                </span></p>
                                                                                                             </td>
                                                                                                             <td>
                                                                                                                 <p>Date:<span>{{ viewDateFormat(now()) }}</span></p>
@@ -1033,6 +1047,9 @@
                                                                                                 </td>
                                                                                             </tr>
                                                                                             @php $number=1; @endphp
+                                                                                            @if (isset($users->emergency_detail))
+                                                                                                
+                                                                                          
                                                                                             @foreach ($users->emergency_detail as $emergency_detail)
                                                                                                 <tr>
                                                                                                     <td>
@@ -1066,7 +1083,7 @@
                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                             <tr>
                                                                                                                 <td>
-                                                                                                                    <p>Address:  <span>{{ isset($emergency_detail['address_line_1']) ? $emergency_detail['address_line_1'] : '' }}, {{ isset($emergency_detail['address_line_2']) ? $emergency_detail['address_line_2'] : ''}}, {{ isset($emergency_detail['building']) ? $emergency_detail['building'] : '' }}, {{ isset($emergency_detail['state_id']) ? $emergency_detail['state_id'] : '' }}, {{ isset($emergency_detail['city_id']) ? $emergency_detail['city_id'] : '' }}, {{ isset($emergency_detail['zipcode']) ? $emergency_detail['zipcode'] : '' }}</span></p>
+                                                                                                                    <p>Address:  <span>{{ isset($emergency_detail['address_line_1']) ? $emergency_detail['address_line_1'] : '' }} {{ isset($emergency_detail['address_line_2']) ? $emergency_detail['address_line_2'] : ''}} {{ isset($emergency_detail['building']) ? $emergency_detail['building'] : '' }} {{ isset($emergency_detail['state_id']) ? $emergency_detail['state_id'] : '' }} {{ isset($emergency_detail['city_id']) ? $emergency_detail['city_id'] : '' }} {{ isset($emergency_detail['zipcode']) ? $emergency_detail['zipcode'] : '' }}</span></p>
                                                                                                                 </td>
                                                                                                             </tr>
                                                                                                         </table>
@@ -1096,6 +1113,7 @@
                                                                                                 </tr>
                                                                                             @php $number++; @endphp
                                                                                             @endforeach
+                                                                                            @endif
                                                                                             <table style="width: 100%;">
                                                                                                 <thead style=" background-color: #07737A;padding: 10px;display: block;margin: 0 auto;display: flex;justify-content: center;align-items: center;">
                                                                                                     <tr>

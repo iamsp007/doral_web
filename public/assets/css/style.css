@@ -1142,7 +1142,7 @@ td{color: #37474F;}
 .b-nav-tab .active {background-color: #00D2E6;}
 .video_container{background: #000;width: 100%;height: 100%;}
 .app .app-content .app-body .app-clinician-patient-chart{padding: 0;margin: 0;}
-.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header{padding: 12px;margin: 0;background: #C3FBFF;box-shadow: 0 2px 4px rgba(100,100,100,.2);display: flex;justify-content: space-between;align-items: center;position: -webkit-sticky; /* Safari */position: inherit;top:0;z-index: 99;}
+.app .app-content .app-body .app-clinician-patient-chart .patient-chart-header{padding: 12px;margin: 0;background: #C3FBFF;box-shadow: 0 2px 4px rgba(100,100,100,.2);display: flex;justify-content: space-between;align-items: center;position: -webkit-sticky; /* Safari */position: sticky;top:0;z-index: 99;}
 .app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem{padding: 0;margin: 0;display: flex;align-items: center;}
 .app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .shortdesc{display: flex;justify-content: flex-start;align-items: center;font-size:12px;}
 .app .app-content .app-body .app-clinician-patient-chart .patient-chart-header .leftItem .shortdesc li{padding: 0;margin: 0;}
@@ -1288,8 +1288,8 @@ p{line-height: 1.6em;font-size:16px}
 .addPermission p{font-style: normal;font-weight: normal;font-size: 14px;color: #AAA7A7;line-height: 1.6em;}
 .btn--search{background: linear-gradient(106.17deg, #077883 10.67%, #2EC2D0 88.37%);border-radius: 10px;font-size: 16px;color: #fff;border: none;transition: 0.3s;padding: 15px;}
 .btn--search:hover{background:#077883;border-radius: 10px;font-size: 16px;color: #fff;border: none;transition: 5s;}
-.btn--submit{background: #2EC2D0;border-radius: 10px;font-size: 16px;color: #fff;border: 2px solid transparent;transition:1s;padding:15px 25px;font-weight: 600;}
-.btn--submit:hover,.btn--submit:focus{background: #FFFFFF;border-radius: 10px;font-size: 16px;color: #2EC2D0;border: 2px solid #2EC2D0;transition: 1s;padding:15px 25px;font-weight: 600;}
+.btn--submit{background: #2EC2D0;border-radius: 10px;font-size: 16px;color: #fff;border: 2px solid transparent;transition:1s;padding:12px 25px;font-weight: 600;}
+.btn--submit:hover,.btn--submit:focus{background: #FFFFFF;border-radius: 10px;font-size: 16px;color: #2EC2D0;border: 2px solid #2EC2D0;transition: 1s;padding:12px 25px;font-weight: 600;}
 .btn--submit-dark{background: #077883;border-radius: 10px;font-size: 16px;color: #fff;border: 2px solid transparent;transition: 1s;padding:11px 25px;font-weight: 600;}
 .btn--submit-dark:hover,.btn--submit-dark:focus{background: #FFFFFF;border-radius: 10px;font-size: 16px;color: #2EC2D0;border: 2px solid #077883;transition: 1s;padding:11px 25px;font-weight: 600;}
 .btn--reset{background: #FFFFFF;border-radius: 10px;font-size: 16px;color: #9EA0A5;border: 2px solid #9EA0A5;transition: 1s;padding:15px 25px;font-weight: 600;}
@@ -1394,3 +1394,4 @@ tr th,tr td{vertical-align: middle!important;}
 .modal-large{max-width: 1500px;}
 .modal-size-1{max-width: 600px;}
 .pointer-none{pointer-events: none;}
+.table td, .table th{border-top: none;}

@@ -460,7 +460,7 @@
         <div class="modal fade messageViewModel" id="modal" role="dialog"></div>
     </section>
 </section>
-
+@yield('permissonControl')
 @yield('app-video')
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>

@@ -97,9 +97,26 @@ class ClinicianController extends Controller
      */
     public function clinicianInfo($id)
     {
-        $users = Applicant::where('user_id', $id)->with('user', 'documents')->first();
-       
-        return view('pages.clincian.clinician-form', compact('users'));
+        $users = Applicant::where('user_id', $id)->with('user', 'documents','state','city')->first();
+
+        $idProof = $insuranceReport = $socialSecurity = '';
+        if ($users->documents) {
+            $idProof = $users->documents->where('type', 1)->count();
+            $socialSecurity = $users->documents->where('type', 5)->count();
+            $professionalReferrance = $users->documents->where('type', 6)->count();
+            $nycNurseCertificate = $users->documents->where('type', 8)->count();
+            $insuranceReport = $users->documents->where('type', 4)->count();
+            $cpr = $users->documents->where('type', 9)->count();
+            $physical = $users->documents->where('type', 10)->count();
+            $forensicDrugScreen = $users->documents->where('type', 11)->count();
+            $rubellaImmunization = $users->documents->where('type', 12)->count();
+            $rubellaMeasiesImmunization = $users->documents->where('type', 13)->count();
+            $annualPPD = $users->documents->where('type', 16)->count();
+            $flu = $users->documents->where('type', 15)->count();
+            
+        }
+
+        return view('pages.clincian.clinician-form', compact('users', 'idProof', 'socialSecurity', 'professionalReferrance', 'nycNurseCertificate', 'insuranceReport', 'cpr', 'physical', 'forensicDrugScreen', 'rubellaImmunization', 'rubellaMeasiesImmunization', 'annualPPD', 'flu'));
     }
 
     public function getClinicianDetail($id)

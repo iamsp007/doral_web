@@ -6,275 +6,203 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ ($users->user) ? $users->user->full_name : ''}}</title>
         <style>
-         html,
-         body,
-         div,
-         span,
-         applet,
-         object,
-         iframe,
-         h1,
-         h2,
-         h3,
-         h4,
-         h5,
-         h6,
-         p,
-         blockquote,
-         pre,
-         a,
-         abbr,
-         acronym,
-         address,
-         big,
-         cite,
-         code,
-         del,
-         dfn,
-         em,
-         img,
-         ins,
-         kbd,
-         q,
-         s,
-         samp,
-         small,
-         strike,
-         strong,
-         sub,
-         sup,
-         tt,
-         var,
-         b,
-         u,
-         i,
-         center,
-         dl,
-         dt,
-         dd,
-         ol,
-         ul,
-         li,
-         fieldset,
-         form,
-         label,
-         legend,
-         table,
-         caption,
-         tbody,
-         tfoot,
-         thead,
-         tr,
-         th,
-         td,
-         article,
-         aside,
-         canvas,
-         details,
-         embed,
-         figure,
-         figcaption,
-         footer,
-         header,
-         hgroup,
-         menu,
-         nav,
-         output,
-         ruby,
-         section,
-         summary,
-         time,
-         mark,
-         audio,
-         video {
-         margin: 0;
-         padding: 0;
-         border: 0;
-         font-size: 100%;
-         font: inherit;
-         vertical-align: baseline;
-         }
-         /* HTML5 display-role reset for older browsers */
-         article,
-         aside,
-         details,
-         figcaption,
-         figure,
-         footer,
-         header,
-         hgroup,
-         menu,
-         nav,
-         section {
-         display: block;
-         }
-         body {
-         line-height: 1;
-         }
-         ol,
-         ul {
-         list-style: none;
-         font-size: 14px;
-         }
-         blockquote,
-         q {
-         quotes: none;
-         }
-         blockquote:before,
-         blockquote:after,
-         q:before,
-         q:after {
-         content: '';
-         content: none;
-         }
-         table {
-         border-collapse: collapse;
-         border-spacing: 0;
-         }
-         label-a label{
-            font-weight: normal;
-         }
-         body {
-         margin: 0;
-         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-         font-size: 1rem;
-         font-weight: 400;
-         line-height: 1.5;
-         color: #212529;
-         text-align: left;
-         background-color: #fff;
-         }
-         table {
-         border-collapse: separate;
-         border-spacing: 0;
-         }
-         h4{
-         background: #07737a;
-         color: #FFF;
-         font-size: 18px;
-         margin: 10px 0px;
-         padding: 10px;
-         }
-         p{
-         white-space: nowrap;
-         font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none; display:inline-flex
-         }
-         span{
-         width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;    font-weight: normal;
-         font-weight: normal;
-         padding-left: 10px;
-         }
-         .break{
-         page-break-before: always;
-         }
-         body{
-         /*width: 80%;*/
-         margin: 0px auto;
-         font-family: Arial, Helvetica, sans-serif;
-         }
-         .Page{
-         width: 100%;
-         height: 100%;
-         border-color: #000;
-         margin: 30px auto;
-         }
-         table{
-         width: 100%;
-         border-collapse: collapse;
-         border-spacing: 0;
-         }
-         ul, ol{
-         list-style-type:square;
-         margin: 8px 0;
-         }
-         ul li{
-         margin-bottom: 5px
-         }
-         ul li:last-child {
-         margin-bottom: 0px;
-         }
-         td{
-         font-size: 13px   ;
-         border-collapse: collapse;
-         }
-         p{
-         margin: 0 0 5px 0;
-         font-size: 14px;
-         }
-         label{
-         font-weight: bold;
-         font-size: 16px;
-         }
-         .Sigdate{
-         display: block;width: 100%;
-         }
-         .Sigdate div{
-         display: inline-block;
-         width: 40%;
-         float: left;
-         line-height: 15px;
-         font-weight: bold;
-         }
-         .Sigdate div.Sign span{
-         display: block;
-         padding-bottom: 5px;
-         margin-bottom: 5px;
-         height: 100px;
-         border-bottom: 2px solid #000;
-         position: relative;
-         }
-         .Sigdate div.Sign span img{
-         position: absolute;
-         bottom: 5px;
-         }
-         .Sigdate div.Date p{
-         padding-bottom: 5px;
-         margin-bottom: 5px;
-         border-bottom: 2px solid #000;
-         }
-         .Sigdate div.Date {
-         margin-left: 15px;
-         margin-top: 80px;
-         }
-         .pagebreakavoid{
-  page-break-inside: avoid;
-}
-.mystyle p{
-   white-space: normal;
-   word-break: break-all;
-   /*text-transform: lowercase;*/
+            html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 100%;
+                font: inherit;
+                vertical-align: baseline;
+            }
 
-}
-.mystyle label{
-  font-weight: normal;
-  padding: 8px 0px;
-   /*text-transform: lowercase;*/
+            /* HTML5 display-role reset for older browsers */
+            article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+                display: block;
+            }
 
-}
+            body {
+                line-height: 1;
+            }
 
-.mystylea p, 
-.mystylea li{
-   white-space: normal;
-   word-break: break-all;
-   font-weight: normal;
-   font-size: 12px;
-   /*text-transform: lowercase;*/
+            ol,ul {
+                list-style: none;
+                font-size: 14px;
+            }
 
-}
-.white-spacenone{
-   white-space: normal;
-   word-break: break-all;
-   /*text-transform: lowercase;*/
+            blockquote,q {
+                quotes: none;
+            }
+            
+            blockquote:before,blockquote:after,q:before,q:after {
+                content: '';
+                content: none;
+            }
 
-}
-b{
-   font-weight: bold;
-}
-input{
-   margin-right: 10px;
-}
-.myspan span { padding-left:0px} 
-      </style>
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+
+            label-a label{
+                font-weight: normal;
+            }
+
+            body {
+                margin: 0;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                text-align: left;
+                background-color: #fff;
+            }
+
+            table {
+                border-collapse: separate;
+                border-spacing: 0;
+            }
+            h4{
+                background: #07737a;
+                color: #FFF;
+                font-size: 18px;
+                margin: 10px 0px;
+                padding: 10px;
+            }
+
+            p {
+                white-space: nowrap;
+                font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none; display:inline-flex
+            }
+
+            span {
+                width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;    font-weight: normal;
+                font-weight: normal;
+                padding-left: 10px;
+            }
+
+            .break{
+                page-break-before: always;
+            }
+
+            body {
+                margin: 0px auto;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .Page{
+                width: 100%;
+                height: 100%;
+                border-color: #000;
+                margin: 30px auto;
+            }
+
+            table{
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+            }
+
+            ul, ol{
+                list-style-type:square;
+                margin: 8px 0;
+            }
+
+            ul li{
+                margin-bottom: 5px
+            }
+
+            ul li:last-child {
+                margin-bottom: 0px;
+            }
+
+            td {
+                font-size: 13px   ;
+                border-collapse: collapse;
+            }
+
+            p {
+                margin: 0 0 5px 0;
+                font-size: 14px;
+            }
+
+            label {
+                font-weight: bold;
+                font-size: 16px;
+            }
+
+            .Sigdate {
+                display: block;width: 100%;
+            }
+
+            .Sigdate div {
+                display: inline-block;
+                width: 40%;
+                float: left;
+                line-height: 15px;
+                font-weight: bold;
+            }
+
+            .Sigdate div.Sign span {
+                display: block;
+                padding-bottom: 5px;
+                margin-bottom: 5px;
+                height: 100px;
+                border-bottom: 2px solid #000;
+                position: relative;
+            }
+
+            .Sigdate div.Sign span img {
+                position: absolute;
+                bottom: 5px;
+            }
+            .Sigdate div.Date p {
+                padding-bottom: 5px;
+                margin-bottom: 5px;
+                border-bottom: 2px solid #000;
+            }
+
+            .Sigdate div.Date {
+                margin-left: 15px;
+                margin-top: 80px;
+            }
+
+            .pagebreakavoid {
+                page-break-inside: avoid;
+            }
+
+            .mystyle p{
+                white-space: normal;
+                word-break: break-all;
+            }
+
+            .mystyle label{
+                font-weight: normal;
+                padding: 8px 0px;
+            }
+
+            .mystylea p, .mystylea li{
+                white-space: normal;
+                word-break: break-all;
+                font-weight: normal;
+                font-size: 12px;
+            }
+
+            .white-spacenone{
+                white-space: normal;
+                word-break: break-all;
+            }
+
+            b{
+                font-weight: bold;
+            }
+
+            input{
+                margin-right: 10px;
+            }
+
+            .myspan span { padding-left:0px} 
+        </style>
     </head>
     <body style="padding: 0;margin: 0;">
         <div style="max-width: 900px; margin: 0 auto; display: block;" >
@@ -446,7 +374,7 @@ input{
                                                                                 <p>Name: <span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
                                                                             </td>
                                                                             <td>
-                                                                                <p>SNN: <span>{{ ($users->user && $users->user->demographic) ? $users->user->ssn : ''}}</span></p>
+                                                                                <p>SNN: <span>{{ ($users->ssn) ? $users->ssn : ''}}</span></p>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -802,7 +730,7 @@ input{
                                                                                 </th>
                                                                             </tr>
                                                                             @php $counter = 1 @endphp
-                                                                            @if (count($users->employer_detail['employer']) > 0)
+                                                                            @if (isset($users->employer_detail) && count($users->employer_detail['employer']) > 0)
                                                                                 @foreach ($users->employer_detail['employer'] as $employer_detail)
                                                                                     <tr style="background: #f8f8f8;">
                                                                                         <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{ $counter }}</td>
@@ -815,25 +743,7 @@ input{
                                                                                 @endforeach
                                                                             @else 
                                                                                 <tr style="background: #f8f8f8;">
-                                                                                    <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">1</td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                </tr>
-                                                                                <tr style="background: #f8f8f8;">
-                                                                                    <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">2</td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                </tr>
-                                                                                <tr style="background: #f8f8f8;">
-                                                                                    <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">3</td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
+                                                                                    <td colspan="5" style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">Record(s) Not Found</td>
                                                                                 </tr>                                                          
                                                                             @endif
                                                                         </table>
@@ -880,7 +790,7 @@ input{
                                                                                         </th>
                                                                                     </tr>
                                                                                     @php $counter = 1 @endphp
-                                                                                    @if (count($users->education_detail) > 0)
+                                                                                    @if (isset($users->education_detail) && count($users->education_detail) > 0)
                                                                                     @foreach ($users->education_detail as $education_detail)
                                                                                         <tr style="background: #f8f8f8;">
                                                                                             <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{$counter}}</td>
@@ -893,26 +803,8 @@ input{
                                                                                     @endforeach
                                                                                     @else 
                                                                                         <tr style="background: #f8f8f8;">
-                                                                                            <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">1</td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                        </tr>
-                                                                                        <tr style="background: #f8f8f8;">
-                                                                                            <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">2</td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                        </tr>
-                                                                                        <tr style="background: #f8f8f8;">
-                                                                                            <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">3</td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                            <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;"></td>
-                                                                                        </tr>    
+                                                                                            <td colspan="5" style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">Record(s) Not Found</td>
+                                                                                        </tr>      
                                                                                     @endif
                                                                                 </table>
                                                                             </td>
@@ -978,69 +870,7 @@ input{
                                                                                                 <tbody>
                                                                                                     <tr>
                                                                                                         <td>
-                                                                                                            <p><span></span></p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Minimal</p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Fluent</p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Read</p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Write</p>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                <tbody>
-                                                                                                    <tr>
-                                                                                                        <td>
-                                                                                                            <p><span></span></p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Minimal</p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Fluent</p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Read</p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Write</p>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>
-                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                <tbody>
-                                                                                                    <tr>
-                                                                                                        <td>
-                                                                                                            <p><span></span></p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Minimal</p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Fluent</p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Read</p>
-                                                                                                        </td>
-                                                                                                        <td>
-                                                                                                            <p><input type="checkbox">Write</p>
+                                                                                                            Record(s) Not Found
                                                                                                         </td>
                                                                                                     </tr>
                                                                                                 </tbody>
@@ -1281,10 +1111,9 @@ input{
                                                                                                                 </td>
                                                                                                             </tr>
                                                                                                             @php $number=1; @endphp
-                                                                                                            @if (isset($users->emergency_detail))
-                                                                                                                
+                                                                                                            @if (isset($users->reference_detail))
                                                                                                         
-                                                                                                            @foreach ($users->emergency_detail as $emergency_detail)
+                                                                                                            @foreach ($users->reference_detail as $reference_detail)
                                                                                                                 <tr>
                                                                                                                     <td>
                                                                                                                         <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Contact Information {{ $number}} </h1>
@@ -1295,7 +1124,7 @@ input{
                                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                             <tr>
                                                                                                                                 <td>
-                                                                                                                                    <p>Contact Name: <span>{{ isset($emergency_detail['name']) ? $emergency_detail['name'] : ''}}</span></p>
+                                                                                                                                    <p>Contact Name: <span>{{ isset($reference_detail['name']) ? $reference_detail['name'] : '' }}</span></p>
                                                                                                                                 </td>
                                                                                                                             </tr>
                                                                                                                         </table>
@@ -1306,7 +1135,7 @@ input{
                                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                             <tr>
                                                                                                                                 <td>
-                                                                                                                                    <p>Relationship to Employee: <span>{{ isset($emergency_detail['relation']) ? $emergency_detail['relation'] : '' }}</span></p>
+                                                                                                                                    <p>Relationship to Employee: <span>{{ isset($reference_detail['relation']) ? $reference_detail['relation'] : '' }}</span></p>
                                                                                                                                 </td>
                                                                                                                             </tr>
                                                                                                                         </table>
@@ -1317,7 +1146,7 @@ input{
                                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                             <tr>
                                                                                                                                 <td>
-                                                                                                                                    <p>Address:  <span>{{ isset($emergency_detail['address_line_1']) ? $emergency_detail['address_line_1'] : '' }} {{ isset($emergency_detail['address_line_2']) ? $emergency_detail['address_line_2'] : ''}} {{ isset($emergency_detail['building']) ? $emergency_detail['building'] : '' }} {{ isset($emergency_detail['state_id']) ? $emergency_detail['state_id'] : '' }} {{ isset($emergency_detail['city_id']) ? $emergency_detail['city_id'] : '' }} {{ isset($emergency_detail['zipcode']) ? $emergency_detail['zipcode'] : '' }}</span></p>
+                                                                                                                                    <p>Address:  <span>{{ $reference_detail['address_line_1'] }} {{ $reference_detail['address_line_2'] }} {{ $reference_detail['building'] }} {{ isset($reference_detail['city_id']) ? $reference_detail['city_id'] : '' }} {{ isset($reference_detail['zipcode']) ? $reference_detail['zipcode'] : '' }} </span></p>
                                                                                                                                 </td>
                                                                                                                             </tr>
                                                                                                                         </table>
@@ -1328,7 +1157,7 @@ input{
                                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                             <tr>
                                                                                                                                 <td>
-                                                                                                                                    <p>Emergency Contact Phone Home #: <span>{{ isset($emergency_detail['phoneNo']) ? $emergency_detail['phoneNo'] : '' }}</span></p>
+                                                                                                                                    <p>Emergency Contact Phone Home #: <span>{{ isset($reference_detail['phoneNo']) ? $reference_detail['phoneNo'] : '' }}</span></p>
                                                                                                                                 </td>
                                                                                                                             </tr>
                                                                                                                         </table>
@@ -1347,6 +1176,19 @@ input{
                                                                                                                 </tr>
                                                                                                             @php $number++; @endphp
                                                                                                             @endforeach
+                                                                                                            @else
+                                                                                                                
+                                                                                                                <tr>
+                                                                                                                    <td>
+                                                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                                                                            <tr>
+                                                                                                                                <td>
+                                                                                                                                    <p>Record(s) not found <span></span></p>
+                                                                                                                                </td>
+                                                                                                                            </tr>
+                                                                                                                        </table>
+                                                                                                                    </td>
+                                                                                                                </tr>
                                                                                                             @endif
                                                                                                             <table style="width: 100%;">
                                                                                                                 <thead style=" background-color: #07737A;padding: 10px;display: block;margin: 0 auto;display: flex;justify-content: center;align-items: center;">
@@ -1394,10 +1236,10 @@ input{
                                                                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                         <tr>
                                                                                                                             <td>
-                                                                                                                                <p>ADDRESS:<span></span></p>
+                                                                                                                                <p>ADDRESS:<span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}</span></p>
                                                                                                                             </td>
                                                                                                                             <td>
-                                                                                                                                <p>CITY, STATE, ZIP:<span></span></p>
+                                                                                                                                <p>CITY, STATE, ZIP:<span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['city'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['state'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['zipcode'] : ''}}</span></p>
                                                                                                                             </td>   
                                                                                                                         </tr>
                                                                                                                     </table>
@@ -1685,760 +1527,730 @@ input{
 
                             </tbody>
                         </table>
-            
-        
-     <!-- page 7 -->
-       <div class="break"></div>
-   <table width="100%">    <tr>
-                          <td>
-                             <table style="width: 100%;">
-                                <thead style=" background-color: #07737A;padding: 10px;display: block;margin: 0 auto;display: flex;justify-content: center;align-items: center;">
-                                   <tr>
-                                      <td>
-                                         <a href="index.html" title="Welcome to Doral">
-                                         <img style="width: 180px; height: 84px;" src="{{ asset('assets/img/green_logo.jpg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}">
-                                         </a>
-                                      </td>
-                                   </tr>
-                                </thead>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">
-                                EMPLOYMENT VERIFICATION
-                             </h1>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td style="
-                                         width: 50%;
-                                         ">
-                                         <p>Name of Applicant:<span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>SSN:<span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Name of Company:<span>
-                                            </span> 
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td style="
-                                         width: 50%;
-                                         ">
-                                         <p>Phone:<span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Fax:<span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Address:<span>
-                                            </span> 
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                    <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>City,State,Zip:<span>
-                                            </span> 
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p style="display: inline-block; font-weight: normal;" class="white-spacenone"><b>APPLICANT'S AUTHORIZATION RELEASE: </b>I hereby authorize the release of any information requested by House Calls HC concerning my employment in your company.</p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td style="
-                                         width: 50%;
-                                         ">
-                                         <p>Applicant's Signature:<span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Date:<span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">
-                                DO NOT WRITE BELOW THIS BOX — TO BE COMPLETED BY EMPLOYER ONLY
-                             </h1>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p style="font-weight: normal;" class="white-spacenone">Dear Sir/Madam,<br>The person listed has given your name as a source of reference and has also signed a statement authorizing the inquiry. We would appreciate a statement of your experiences with this person, and an assessment of his/her potential in your opinion. Any information released will be held in strict confidence.</p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">
-                                PLEASE COMPLETE THIS SECTION:
-                             </h1>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Position Held:<span>
-                                            </span> 
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td style="
-                                         width: 50%;
-                                         ">
-                                         <p>Date Employment Began:<span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Date Employment Ended:<span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Reason for Leaving:<span>
-                                            </span> 
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Overall Job Performance:
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Excellent <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Good <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p> Average <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p> Poor <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Attendance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Excellent <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Good <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p> Average <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p> Poor <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Punctuality:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Excellent <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Good <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p> Average <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p> Poor <input type="checkbox" checked="">
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Eligible for Rehire:  <input type="checkbox" checked="">
-                                            Yes
-                                            <input type="checkbox">
-                                            No    
-                                         </p>
-                                         <p> If No, Please Explain:<span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Additional Comments:     <span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Reference Given By:     <span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Title:     <span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>Date:     <span>
-                                            </span>
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Thank you for your cooperation.     
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>Sincerely,<br></p>
-                                         <p style="text-decoration: underline;">Human Resources</p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr></table>
-  <!-- page 8 -->
-     <div class="break"></div>
-<table border="0" cellspacing="0" cellpadding="0" width="100%" align="center">
-  <!-- Page 13 -->
-  <tbody><tr>
-     <td>
-        <table style="margin-top: 30px;">
-           <tbody><tr>
-              <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;">
-                 <table>
-                    <tbody><tr><td style="padding: 0 15px 10px">Form <b style="font-size: 15px">W-4</b></td></tr>
-                    <tr><td style="padding: 0 15px">Department of the Treasury<br> Internal Revenue Service</td></tr>
-                 </tbody></table>
-              </td>
-              <td align="center" style="padding: 10px 30px 10px 30px;border-bottom: 1px solid #000;border-right: 1px solid #000;">
-                 <label align="center"><b style="font-size: 16px">Employee's Withholding Certificate </b></label>
-                 <ul align="left">
-                    <li>Complete Form W-4 so that your employer can withhold the correct federal income tax from your pay</li>
-                    <li>Give Form W-4 to your employer.</li>
-                    <li>Your withholding is subject to review by the IRS.</li>
-                 </ul>
-              </td>
-              <td valign="top" style="border-bottom: 1px solid #000;">
-                 <table cellspacing="0">
-                    <tbody><tr><td style="border-bottom: 1px solid #000;padding: 10px 15px">OMB No. 1545-0074</td></tr>
-                    <tr>
-                       <td style="font-size: 24px;font-weight: bold;padding: 10px 15px">2021</td>
-                    </tr>
-                    
-                 </tbody></table>
-              </td>
-           </tr>
-        </tbody></table>
-     </td>
-  </tr>
-  
-  <tr>
-      <td>
-        <table border="0" cellspacing="0" cellpadding="0" width="100%" align="center">
-           <tbody><tr>
-              <td valign="top" style="border-right: 1px solid #000;border-bottom: 1px solid #000;">
-                 <table>
-                    <tbody><tr>
-                       <td style="font-size: 16px;line-height: 22px;font-weight: bold;padding: 3px  15px 15px">
-                          Step 1: <br>
-                          Enter<br>
-                          Personal<br>
-                          Information
-                       </td>
-                    </tr>
-                 </tbody></table>
-              </td>
-              <td style="border-bottom: 1px solid #000;">
-                 <table>
-                    <tbody><tr>
-                       <td style="padding: 3px 15px; width: calc(40% - 40px);display: inline-block;border-bottom: 1px solid #000; ">
-                          <p>First name and middle initial</p>
-                          <label>{{ ($users->user) ? $users->user->first_name : ''}}</label>
-                       </td>
-                       <td style="padding: 3px 15px;width: calc(20% - 19px);display: inline-block;border-bottom: 1px solid #000;border-right: 1px solid #000;" align="left">
-                          <p>Last name</p>
-                          <label>{{ ($users->user) ? $users->user->last_name : ''}}</label>
-                       </td>
-                       <td style="padding: 3px 15px;width: calc(40% - 40px);display: inline-block;border-bottom: 1px solid #000;">
-                          <p style="font-weight: normal;">Your Social Security number</p>
-                          <label></label>
-                       </td>
-                    </tr>
-                  </tbody></table>
-                 <table>
-                       
-                    <tbody><tr>
-                       <td width="100%" style="border-bottom: 1px solid #000;">
-                       <table cellspacing="0">
-                          <tbody><tr>
-                          <td width="60%" style="border-right: 1px solid #000;" valign="top">
-                             <table>
-                                <tbody><tr>
-                                   <td valign="top" style="padding: 3px 15px;border-bottom: 1px solid #000;">
-                                      <p style=" font-weight: normal;">Address</p>
-                                      <label>Palnpur</label>
-                                   </td>
+
+                        <!-- page 7 -->
+                        <div class="break"></div>
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <table style="width: 100%;">
+                                            <thead style=" background-color: #07737A;padding: 10px;display: block;margin: 0 auto;display: flex;justify-content: center;align-items: center;">
+                                                <tr>
+                                                    <td>
+                                                        <a href="index.html" title="Welcome to Doral"><img style="width: 180px; height: 84px;" src="{{ asset('assets/img/green_logo.jpg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}"></a>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </td>
                                 </tr>
                                 <tr>
-                                   <td style="padding: 3px 15px;">
-                                      <p style="font-weight: normal;">City or town, state, and ZIP code</p>
-                                      <label>ahmedanad Alaska 380015</label>
-                                   </td>
+                                    <td>
+                                        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">EMPLOYMENT VERIFICATION</h1>
+                                    </td>
                                 </tr>
-                             </tbody></table>
-                          </td>
-                          <td width="40%" style="padding: 3px 15px;;font-weight: bold;">
-                             &bull; Does your name match the name on 
-                             your social security
-                             card? If not, to ensure 
-                             you get credit for your
-                             earnings, contact SSA
-                             at 800-772-1213 or go
-                             to www.ssa.gov.
-                          </td>
-                          </tr>
-                       </tbody></table>
-                       </td>
-                    </tr>
-                  </tbody></table>
-                 <table>     
-                    <tbody><tr>
-                       <td style="padding: 3px 15px;">
-                          <table>
-                             <tbody><tr>
-                                <td valign="top">
-                                   (C)
-                                </td>
-                                <td>
-                                   <div style="">
-                                      <span style="width: 100%; border:0px;display: block;"> 
-                                         <input type="checkbox">
-                                                  Single or Married filing separately
-                                                  </span>
-                                                  <span style="width: 100%;display: block;  border:0px;">
-                                                  <input type="checkbox" checked="checked">
-                                                  Married filing jointly (or Qualifying widow(err))
-                                              </span>
-                                              <span style="width: 100%; border:0px;display: block;">
-                                                  <input type="checkbox">
-                                                  Head of household (Check only if you're unmarried and pay more than half the costs of keeping up a
-                                         home for yourself and a qualifying individual.</span>
-                                              </div>
-                                </td>
-                             </tr>
-                          </tbody></table>
-                       </td>
-                    </tr>
-                 </tbody></table>
-              </td>
-           </tr>
-        </tbody></table>
-     </td>
-  </tr>
-  <tr>
-     <td>
-        <table cellspacing="0" cellpadding="0" width="100%" align="center" style="padding: 5px 0">
-           <tbody><tr>
-              <td style="padding: 5px 0 2px 0;font-size: 16px">
-                 <b>Complete Steps 2-4 ONLY if they apply to you; otherwise, skip to Step 5.</b> See page 2 for more information on each step, who can claim
-                 exemption from withholding, when to use the online estimator, and privacy.
-              </td>
-           </tr>
-           <tr>
-              <td>
-                 <table>
-                    <tbody><tr>
-                       <td width="15%" valign="top" style="font-size: 16px; line-height: 22px;font-weight: bold;padding: 5px 0 15px 15px;">
-                          Step 2: <br>
-                          Multiple Jobs<br>
-                          or Spouse<br>
-                          Works
-                       </td>
-                       <td width="85%" style="padding: 10px 15px 5px 15px; font-size: 12px; ">
-                          Complete this step if you (1) hold more than one job at a time, or (2) are married filing jointly and your spouse also works. The correct amount of withholding depends on income earned from all of these jobs.
-                          <br>
-                          Do only one of the following.
-                          <ol type="a" style="list-style: none;">
-                             <li><b>(a)</b> Use the estimator at www.irs.gov/W4App for most accurate withholding for this step (and Steps 3-4); or</li>
-                             <li><b>(b)</b> Use the Multiple Jobs Worksheet on page 3 and enter the result in Step 4(c) below for roughly accurate withholding; or</li>
-                             <li value="option3"><b>(c)</b> If there are only two jobs total, you may check this box. Do the same on Form W-4 for the other job. This option is accurate for jobs with similar pay;
-                             otherwise, more tax than necessary may be withheld......................... <input type="checkbox">
-                             </li>
-                          </ol>
-                          TIP: To be accurate, submit a 2021 Form W-4 for all other jobs. If you (or your spouse) have self-employment income, including as an independent contractor, use the estimator
-                       </td>
-                    </tr>
-                 </tbody></table>
-              </td>
-           </tr>
-           <tr>
-              <td style="padding: 5px 0; font-size: 14px">
-                 <b>Complete Steps 3–4(b) on Form W-4 for only ONE of these jobs.</b> Leave those steps blank for the other jobs. (Your withholding will be most
-                 accurate if you complete Steps 3–4(b) on the Form W-4 for the highest paying job.)
-              </td>
-           </tr>
-        </tbody></table>
-     </td> 
-  </tr>
-  <tr>
-     <td>
-     <table>
-        <tbody><tr>
-           <td width="15%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px; border-top: 1px solid #000;border-bottom: 1px solid #000;">
-              Step 3: <br>
-              Claim <br>
-              Dependents
-           </td>
-           <td width="60%" valign="top" style="padding: 10px 0 15px 0; border-right: 1px solid #000;border-top: 1px solid #000;border-bottom: 1px solid #000;" >
-              <label style="font-size: 14px; font-weight: normal;">
-                 If your income will be $200,000 or less ($400,000 or less if married
-                 filing jointly):
-              </label>
-              <ul>
-                 <li style="list-style-type: none; font-weight: normal;">
-                    Multiply the number of qualifying children under age 17 by $2,000: $ <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 50%;">
+                                                        <p>Name of Applicant:<span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>SSN:<span>{{ ($users->ssn) ? $users->ssn : ''}}</span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Name of Company:<span></span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 50%;">
+                                                        <p>Phone:<span></span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Fax:<span></span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Address:<span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}</span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>City,State,Zip:<span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['city'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['state'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['zipcode'] : ''}}</span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p style="display: inline-block; font-weight: normal;" class="white-spacenone"><b>APPLICANT'S AUTHORIZATION RELEASE: </b>I hereby authorize the release of any information requested by House Calls HC concerning my employment in your company.</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 50%;">
+                                                        <p>Applicant's Signature:<span>@if($users->signature_url)
+                                                                <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
+                                                            @endif</span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Date:<span>{{ ($users->user) ? viewDateFormat($users->user->created_at) : '' }}</span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>  
 
-                 </li>
-                 <li style="list-style-type: none; font-weight: normal;">
-                    Multiply the number of other dependents by $500......... $<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                 </li>
-              </ul>
-              <label style="font-size: 14px; font-weight: normal;">Add the amounts above and enter the total here . . . . . . . . .</label>
-           </td>
-           <td width="5%" valign="top" style="border-right: 1px solid #000;border-top: 1px solid #000;border-bottom: 1px solid #000;">
-              <table>
-                 <tbody><tr>
-                    <td align="right" style="padding: 5px 10px; font-weight: bold;">3</td>
-                 </tr>
-                             
-              </tbody></table>
-           </td>
-           <td width="20%" valign="top" style="border-top: 1px solid #000;border-bottom: 1px solid #000;">
-              <table>
-                 <tbody><tr>
-                    <td style="padding: 5px 10px;font-weight: bold;">$</td>
-                 </tr>
-                           
-              </tbody></table>
-           </td>
-        </tr>
-     </tbody></table>
-  </td>
-  </tr>
-  <tr>
-     <td>
-     <table>
-        <tbody><tr>
-           <td width="15%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px;">
-              Step 4: <br>
-              (optional):<br>
-              Other<br>
-              Adjustments
-           </td>
-           <td width="60%" style=" font-weight: normal;padding: 10px 0 10px 0;">
-              <table>
-                 <tbody><tr>
-                    <td style="padding-bottom: 8px">
-                        <b> (a) Other income (not from jobs).</b> If you want tax withheld for other
-                       income you expect this year that won’t have withholding, enter the
-                       amount of other income here. This may include interest, dividends,
-                       and retirement income
-                    </td>
-                 </tr>
-                 <tr>
-                    <td style="padding-bottom: 8px">
-                        <b> (b) Deductions.</b> If you expect to claim deductions other than the
-                       standard deduction and want to reduce your withholding, use the
-                       Deductions Worksheet on page 3 and enter the result here . . . . . . . .
-                       . . . . . . . . . . . . .
-                    </td>
-                 </tr>
-                 <tr>
-                    <td>  
-                    <b>   (c) Extra withholding.</b>  Enter any additional tax you want withheld
-                       each pay period
-                    </td>
-                 </tr>                                  
-              </tbody></table>
-           </td>
-           <td width="25%" valign="top">
-              <table border="0" cellspacing="0" cellpadding="0">
-                 <tbody><tr>
-                    <td width="5%" valign="top">
-                       <table border="1" style="border-right: none;border-top: none;" cellspacing="0" cellpadding="0">
-                          <tbody><tr>
-                             <td style="padding: 15px 0;text-align: center; border:1px solid #000;border-right: none;border-top: none;">4(a)</td>
-                          </tr>
-                          <tr>
-                             <td style="padding: 15px 0;text-align: center; border:1px solid #000;border-right: none;border-top: none;">4(b)</td>
-                          </tr>
-                          <tr>
-                             <td style="padding: 15px 0;text-align: center; border:1px solid #000;border-right: none;border-top: none;">4(c)</td>
-                          </tr>
-                       </tbody></table>
-                    </td>
-                    <td width="20%" valign="top">
-                       <table border="1" cellspacing="0" cellpadding="0" style="border-top: none;">
-                          <tbody><tr>
-                             <td style="padding: 15px;text-align: left; border:1px solid #000;border-top: none;">$ 2550.00</td>
-                          </tr>
-                          <tr>
-                             <td style="padding: 15px;text-align: left; border:1px solid #000;">$ 45550.00</td>
-                          </tr>
-                          <tr>
-                             <td style="padding: 15px;text-align: left; border:1px solid #000;">$ 445.00</td>
-                          </tr>
-                       </tbody></table>
-                    </td>
-                 </tr>
-              </tbody></table>
-           </td>
-           
-        </tr>
-     </tbody></table>
-  </td>
-  </tr>
-  
-  <tr>
-     <td>
-     <table style="border-top: 1px solid #000;">
-        <tbody><tr>
-           <td width="15%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px; border-bottom: 1px solid #000;">
-              Step 5: <br>
-              Sign<br>
-              Here
-           </td>
-           <td width="85%" valign="top" style="border-bottom: 1px solid #000; font-weight: bold;padding: 10px 0 10px 15px;border-left: 1px solid #000">
-              <label style="font-size:14px; font-weight: normal; ">Under penalties of perjury, I declare that this certificate, to the best of my knowledge and belief, is true, correct, and complete.</label>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">DO NOT WRITE BELOW THIS BOX — TO BE COMPLETED BY EMPLOYER ONLY</h1>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p style="font-weight: normal;" class="white-spacenone">Dear Sir/Madam,<br>The person listed has given your name as a source of reference and has also signed a statement authorizing the inquiry. We would appreciate a statement of your experiences with this person, and an assessment of his/her potential in your opinion. Any information released will be held in strict confidence.</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">PLEASE COMPLETE THIS SECTION:</h1>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Position Held:<span></span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="
+                                                        width: 50%;
+                                                        ">
+                                                        <p>Date Employment Began:<span></span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Date Employment Ended:<span></span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Reason for Leaving:<span></span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Overall Job Performance:</p>
+                                                </td>
+                                                <td>
+                                                    <p>Excellent <input type="checkbox"></p>
+                                                </td>
+                                                <td>
+                                                    <p>Good <input type="checkbox"></p>
+                                                </td>
+                                                <td>
+                                                    <p>Average <input type="checkbox"></p>
+                                                </td>
+                                                <td>
+                                                    <p>Poor <input type="checkbox"></p>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Attendance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Excellent <input type="checkbox"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Good <input type="checkbox"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Average <input type="checkbox"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Poor <input type="checkbox"></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Punctuality:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Excellent <input type="checkbox"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Good <input type="checkbox"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Average <input type="checkbox"></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Poor <input type="checkbox"></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Eligible for Rehire:  
+                                                            <input type="checkbox">Yes
+                                                            <input type="checkbox">No    
+                                                        </p>
+                                                        <p> If No, Please Explain:<span></span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Additional Comments: <span></span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Reference Given By: <span></span>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Title: <span></span>
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Date: <span></span>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Thank you for your cooperation.</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <p>Sincerely,<br></p>
+                                                        <p style="text-decoration: underline;">Human Resources</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
 
-              <div class="Sigdate">
-                 <div class="Sign">
-                    <span> 
-                        @if($users->signature_url)
-                            <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
-                        @endif
-                    </span>
-                    Signature <br>
-                    Employee’s signature (This form is not valid<br>
-                    unless you sign it.)
-                 </div>
-                 <div class="Date">
-                    <p>{{ ($users->user) ? viewDateFormat($users->user->created_at) : '' }}</p>
-                    Date
-                 </div>
-              </div>
-           </td>
-        </tr>
-     </tbody></table>
-  </td>
-  </tr>
-  <tr>
-     <td>
-     <table>
-        <tbody><tr>
-           <td width="15%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px; border-right: 1px solid #000;border-bottom: 1px solid #000;">
-              Employers <br>
-              Only
-           </td>
+                        <!-- page 8 -->
+                        <div class="break"></div>
+                            <table border="0" cellspacing="0" cellpadding="0" width="100%" align="center">
+                                <!-- Page 13 -->
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <table style="margin-top: 30px;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="border-bottom: 1px solid #000;border-right: 1px solid #000;">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="padding: 0 15px 10px">
+                                                                            Form <b style="font-size: 15px">W-4</b>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding: 0 15px">
+                                                                            Department of the Treasury<br> Internal Revenue Service
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td align="center" style="padding: 10px 30px 10px 30px;border-bottom: 1px solid #000;border-right: 1px solid #000;">
+                                                            <label align="center"><b style="font-size: 16px">Employee's Withholding Certificate </b></label>
+                                                            <ul align="left">
+                                                                <li>Complete Form W-4 so that your employer can withhold the correct federal income tax from your pay</li>
+                                                                <li>Give Form W-4 to your employer.</li>
+                                                                <li>Your withholding is subject to review by the IRS.</li>
+                                                            </ul>
+                                                        </td>
+                                                        <td valign="top" style="border-bottom: 1px solid #000;">
+                                                            <table cellspacing="0">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="border-bottom: 1px solid #000;padding: 10px 15px">
+                                                                            OMB No. 1545-0074
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="font-size: 24px;font-weight: bold;padding: 10px 15px">
+                                                                            2021
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table border="0" cellspacing="0" cellpadding="0" width="100%" align="center">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="top" style="border-right: 1px solid #000;border-bottom: 1px solid #000;">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="font-size: 16px;line-height: 22px;font-weight: bold;padding: 3px  15px 15px">
+                                                                            Step 1: <br>Enter<br>Personal<br>Information
+                                                                        </td>
+                                                                     </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td style="border-bottom: 1px solid #000;">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="padding: 3px 15px; width: calc(40% - 40px);display: inline-block;border-bottom: 1px solid #000; ">
+                                                                            <p>First name and middle initial</p>
+                                                                            <label>{{ ($users->user) ? $users->user->first_name : ''}}</label>
+                                                                        </td>
+                                                                        <td style="padding: 3px 15px;width: calc(20% - 19px);display: inline-block;border-bottom: 1px solid #000;border-right: 1px solid #000;" align="left">
+                                                                            <p>Last name</p>
+                                                                            <label>{{ ($users->user) ? $users->user->last_name : ''}}</label>
+                                                                        </td>
+                                                                        <td style="padding: 3px 15px;width: calc(40% - 40px);display: inline-block;border-bottom: 1px solid #000;">
+                                                                            <p style="font-weight: normal;">Your Social Security number</p>
+                                                                            <label>{{ ($users->ssn) ? $users->ssn : ''}}</label>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td width="100%" style="border-bottom: 1px solid #000;">
+                                                                            <table cellspacing="0">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td width="60%" style="border-right: 1px solid #000;" valign="top">
+                                                                                            <table>
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td valign="top" style="padding: 3px 15px;border-bottom: 1px solid #000;">
+                                                                                                            <p style=" font-weight: normal;">Address</p>
+                                                                                                            <label>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}</label>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td style="padding: 3px 15px;">
+                                                                                                            <p style="font-weight: normal;">City or town, state, and ZIP code</p>
+                                                                                                            <label>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['city'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['state'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['zipcode'] : ''}}</label>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                        <td width="40%" style="padding: 3px 15px;;font-weight: bold;">
+                                                                                            &bull; Does your name match the name on 
+                                                                                            your social security
+                                                                                            card? If not, to ensure 
+                                                                                            you get credit for your
+                                                                                            earnings, contact SSA
+                                                                                            at 800-772-1213 or go
+                                                                                            to www.ssa.gov.
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table>     
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="padding: 3px 15px;">
+                                                                            <table>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td valign="top">
+                                                                                            (C)
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div>
+                                                                                                <span style="width: 100%; border:0px;display: block;"> 
+                                                                                                    <input type="checkbox">
+                                                                                                        Single or Married filing separately
+                                                                                                </span>
+                                                                                                <span style="width: 100%;display: block;  border:0px;">
+                                                                                                    <input type="checkbox" checked="checked">
+                                                                                                        Married filing jointly (or Qualifying widow(err))
+                                                                                                    </span>
+                                                                                                <span style="width: 100%; border:0px;display: block;">
+                                                                                                    <input type="checkbox">
+                                                                                                    Head of household (Check only if you're unmarried and pay more than half the costs of keeping up a home for yourself and a qualifying individual.
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table cellspacing="0" cellpadding="0" width="100%" align="center" style="padding: 5px 0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="padding: 5px 0 2px 0;font-size: 16px">
+                                                            <b>Complete Steps 2-4 ONLY if they apply to you; otherwise, skip to Step 5.</b> See page 2 for more information on each step, who can claim exemption from withholding, when to use the online estimator, and privacy.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td width="15%" valign="top" style="font-size: 16px; line-height: 22px;font-weight: bold;padding: 5px 0 15px 15px;">
+                                                                            Step 2: <br>Multiple Jobs<br>or Spouse<br>Works
+                                                                        </td>
+                                                                        <td width="85%" style="padding: 10px 15px 5px 15px; font-size: 12px; ">
+                                                                            Complete this step if you (1) hold more than one job at a time, or (2) are married filing jointly and your spouse also works. The correct amount of withholding depends on income earned from all of these jobs.
+                                                                            <br>
+                                                                            Do only one of the following.
+                                                                            <ol type="a" style="list-style: none;">
+                                                                                <li><b>(a)</b> Use the estimator at www.irs.gov/W4App for most accurate withholding for this step (and Steps 3-4); or</li>
+                                                                                <li><b>(b)</b> Use the Multiple Jobs Worksheet on page 3 and enter the result in Step 4(c) below for roughly accurate withholding; or</li>
+                                                                                <li value="option3"><b>(c)</b> If there are only two jobs total, you may check this box. Do the same on Form W-4 for the other job. This option is accurate for jobs with similar pay; otherwise, more tax than necessary may be withheld......................... <input type="checkbox"></li>
+                                                                            </ol>
+                                                                            TIP: To be accurate, submit a 2021 Form W-4 for all other jobs. If you (or your spouse) have self-employment income, including as an independent contractor, use the estimator
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 5px 0; font-size: 14px">
+                                                            <b>Complete Steps 3–4(b) on Form W-4 for only ONE of these jobs.</b> Leave those steps blank for the other jobs. (Your withholding will be most
+                                                            accurate if you complete Steps 3–4(b) on the Form W-4 for the highest paying job.)
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="15%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px; border-top: 1px solid #000;border-bottom: 1px solid #000;">
+                                                            Step 3: <br>Claim <br>Dependents
+                                                        </td>
+                                                        <td width="60%" valign="top" style="padding: 10px 0 15px 0; border-right: 1px solid #000;border-top: 1px solid #000;border-bottom: 1px solid #000;" >
+                                                            <label style="font-size: 14px; font-weight: normal;">
+                                                                If your income will be $200,000 or less ($400,000 or less if married
+                                                                filing jointly):
+                                                            </label>
+                                                            <ul>
+                                                                <li style="list-style-type: none; font-weight: normal;">
+                                                                    Multiply the number of qualifying children under age 17 by $2,000: $ <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                                </li>
+                                                                <li style="list-style-type: none; font-weight: normal;">
+                                                                    Multiply the number of other dependents by $500......... $<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                                </li>
+                                                            </ul>
+                                                            <label style="font-size: 14px; font-weight: normal;">Add the amounts above and enter the total here . . . . . . . . .</label>
+                                                        </td>
+                                                        <td width="5%" valign="top" style="border-right: 1px solid #000;border-top: 1px solid #000;border-bottom: 1px solid #000;">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td align="right" style="padding: 5px 10px; font-weight: bold;">3</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td width="20%" valign="top" style="border-top: 1px solid #000;border-bottom: 1px solid #000;">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="padding: 5px 10px;font-weight: bold;">$</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="15%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px;">
+                                                            Step 4: <br>(optional):<br>Other<br>Adjustments
+                                                        </td>
+                                                        <td width="60%" style=" font-weight: normal;padding: 10px 0 10px 0;">
+                                                            <table>
+                                                                <tbody><tr>
+                                                                    <td style="padding-bottom: 8px">
+                                                                        <b> (a) Other income (not from jobs).</b> If you want tax withheld for other
+                                                                    income you expect this year that won’t have withholding, enter the
+                                                                    amount of other income here. This may include interest, dividends,
+                                                                    and retirement income
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding-bottom: 8px">
+                                                                        <b> (b) Deductions.</b> If you expect to claim deductions other than the
+                                                                    standard deduction and want to reduce your withholding, use the
+                                                                    Deductions Worksheet on page 3 and enter the result here . . . . . . . .
+                                                                    . . . . . . . . . . . . .
+                                                                    </td>
+                                                                </tr>
+                                                            <tr>
+                                                                <td>  
+                                                                <b>   (c) Extra withholding.</b>  Enter any additional tax you want withheld
+                                                                each pay period
+                                                                </td>
+                                                            </tr>                                  
+                                                        </tbody></table>
+                                                    </td>
+                                            <td width="25%" valign="top">
+                                                <table border="0" cellspacing="0" cellpadding="0">
+                                                    <tbody><tr>
+                                                        <td width="5%" valign="top">
+                                                        <table border="1" style="border-right: none;border-top: none;" cellspacing="0" cellpadding="0">
+                                                            <tbody><tr>
+                                                                <td style="padding: 15px 0;text-align: center; border:1px solid #000;border-right: none;border-top: none;">4(a)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 15px 0;text-align: center; border:1px solid #000;border-right: none;border-top: none;">4(b)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 15px 0;text-align: center; border:1px solid #000;border-right: none;border-top: none;">4(c)</td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                        </td>
+                                                        <td width="20%" valign="top">
+                                                        <table border="1" cellspacing="0" cellpadding="0" style="border-top: none;">
+                                                            <tbody><tr>
+                                                                <td style="padding: 15px;text-align: left; border:1px solid #000;border-top: none;">$</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 15px;text-align: left; border:1px solid #000;">$</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="padding: 15px;text-align: left; border:1px solid #000;">$</td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody></table>
+                                            </td>
+                                            
+                                            </tr>
+                                        </tbody></table>
+                                    </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>
+                                        <table style="border-top: 1px solid #000;">
+                                            <tbody><tr>
+                                            <td width="15%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px; border-bottom: 1px solid #000;">
+                                                Step 5: <br>
+                                                Sign<br>
+                                                Here
+                                            </td>
+                                            <td width="85%" valign="top" style="border-bottom: 1px solid #000; font-weight: bold;padding: 10px 0 10px 15px;border-left: 1px solid #000">
+                                                <label style="font-size:14px; font-weight: normal; ">Under penalties of perjury, I declare that this certificate, to the best of my knowledge and belief, is true, correct, and complete.</label>
+
+                                                <div class="Sigdate">
+                                                    <div class="Sign">
+                                                        <span> 
+                                                            @if($users->signature_url)
+                                                                <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
+                                                            @endif
+                                                        </span>
+                                                        Signature <br>
+                                                        Employee’s signature (This form is not valid<br>
+                                                        unless you sign it.)
+                                                    </div>
+                                                    <div class="Date">
+                                                        <p>{{ ($users->user) ? viewDateFormat($users->user->created_at) : '' }}</p>
+                                                        Date
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            </tr>
+                                        </tbody></table>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        <table>
+                                            <tbody><tr>
+                                            <td width="15%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px; border-right: 1px solid #000;border-bottom: 1px solid #000;">
+                                                Employers <br>
+                                                Only
+                                            </td>
            <td width="50%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px; border-right: 1px solid #000;border-bottom: 1px solid #000;">
-              Kaushik P Prajapati Palnpur <br>
-              HouseCalls Home Care Palnpur 380015
+              {{ ($users->user) ? $users->user->full_name : ''}} <br>
+              {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['city'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['state'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['zipcode'] : ''}}
            </td>
            <td width="15%" valign="top" style="font-size: 16px;line-height: 22px; font-weight: bold;padding: 5px 15px 15px; border-right: 1px solid #000;border-bottom: 1px solid #000;">
               First date of<br>
@@ -2481,11 +2293,11 @@ input{
                  <tr>
                  <td width="60%"  style="padding: 5px 15px; line-height: 22px; font-weight: bold;border-bottom: 1px solid #000000;">
                     First name andmiddle initial <br>
-                    Kaushik
+                    {{ ($users->user) ? $users->user->first_name : ''}}
                  </td>
                  <td width="40%" style="line-height: 22px;padding: 5px 15px;font-weight: bold;border-bottom: 1px solid #000000;">
                     Last name <br>
-                    Prajapati
+                    {{ ($users->user) ? $users->user->last_name : ''}}
                  </td>
               </tr>
               </table>
@@ -2493,11 +2305,11 @@ input{
               <tr>
                  <td width="60%" style="border-bottom: 1px solid #000;line-height: 22px;padding: 5px 15px;font-weight: bold;">
                     Permanent home address (number andstreet or ruralroute)<br>
-                    Palnpur
+                    {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}}
                  </td>
                  <td width="40%" style="border-bottom: 1px solid #000;line-height: 22px;padding: 5px 15px;font-weight: bold;">
                     Apartment number<br>
-                    01/14
+                    {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}
                  </td>
               </tr>
               </table>
@@ -2505,15 +2317,15 @@ input{
               <tr>
                  <td width="40%" style="padding: 5px 15px;line-height: 22px;">
                     City, village, or post office<br>
-                    <b>123654</b>
+                    <b>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['city'] : ''}}</b>
                  </td>
                  <td width="20%" style="padding: 5px 15px;line-height: 22px;">
                     State<br>
-                    <b>Alaska</b>
+                    <b>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['state'] : ''}}</b>
                  </td>
                  <td width="20%" style="text-align: left;padding: 5px 15px;line-height: 22px;">
                     ZIPcode<br>
-                    <b>380015</b>
+                    <b>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['zipcode'] : ''}}</b>
                  </td>
               </tr>
               </table>
@@ -2523,7 +2335,7 @@ input{
                  <tr>
                     <td style="border-bottom: 1px solid #000;padding: 5px 15px;line-height: 22px;font-weight: bold;">
                        Your Social Securitynumber <br>
-                       123
+                       {{ ($users->ssn) ? $users->ssn : ''}}
                     </td>
                  </tr>
                  <tr>                    
@@ -2633,10 +2445,10 @@ input{
              <b style="font-weight: bold;">Employer:Keepthis certificatewithyour records.</b> <br>
               Mark anXinbox Aand/or box Btoindicatewhyyouare sendinga copyof this formtoNew York State (see instructions):<br>
               A Employee claimedmore than14 exemptionallowances for NYS.........A <input type="checkbox"><br>
-              Employee is a new hire or a rehire ...B<input type="checkbox"> First date employee performedservices for pay(mm-dd-yyyy) (see instr.):<span>04/27/2021</span><br>
-              Are dependent healthinsurance benefits available for this employee?.................. Yes <input type="checkbox">   No <input type="checkbox" checked="checked">
+              Employee is a new hire or a rehire ...B<input type="checkbox"> First date employee performedservices for pay(mm-dd-yyyy) (see instr.):<span></span><br>
+              Are dependent healthinsurance benefits available for this employee?.................. Yes <input type="checkbox">   No <input type="checkbox">
               <br>
-              If Yes, enter the date the employee qualifies (mm-dd-yyyy): <b><span>04/27/2021</span></b>
+              If Yes, enter the date the employee qualifies (mm-dd-yyyy): <b><span></span></b>
               <br>
               <table border="1" style="border: 1px solid #000;">
                  <tr>
@@ -2734,14 +2546,17 @@ input{
                  <tr>
                     <td width="100%" style="border: 1px solid #000; line-height: 22px;padding: 10px;font-weight: bold;">
                        1. Employer Information <br>
-                       Name: HouseCalls Home Care<br><br>
+                       Name: Doral Investors Group LLC<br><br>
                        Doing Business As (DBA) Name(s):<br>
                        HouseCalls Home Care<br><br>
                        FEIN(Optional):<br>
+                       270381133<br><br>
                        physical Address:<br>
-                       Palnpur<br><br>
+                       2440 Fulton Street<br>
+                       Brooklyn NY 11233<br><br>
                        Malling Address:<br>
-                       Palnpur<br>
+                       2440 Fulton Street<br>
+                       Brooklyn NY 11233<br><br>
                        Phone: 718-9200-9200
                     </td>
                  </tr>
@@ -2762,7 +2577,7 @@ input{
               </div>
               <div style="margin-bottom: 10px">
                  4. Allowances taken:<br>
-                 <input type="checkbox">None<br>
+                 <input type="checkbox" checked="checked">None<br>
                  <input type="checkbox">Tips<span>&nbsp;&nbsp;</span>per hour<br>
                  <input type="checkbox">Meals<span>&nbsp;&nbsp;</span>per hour<br>
                  <input type="checkbox">Lodging<span>&nbsp;&nbsp;</span><br>
@@ -2774,13 +2589,13 @@ input{
               </div>
               <div style="margin-bottom: 10px">
                  6. Pay is:
-                 <input type="checkbox">Weekly<br>
+                 <input type="checkbox" checked="checked">Weekly<br>
                  <input type="checkbox">Bi-Weekly<br>
-                 <input type="checkbox" checked="checked">Other
+                 <input type="checkbox">Other
               </div>
               <div>
                  7. Overtime Pay Rate:<br>
-                 &nbsp;&nbsp;&nbsp;&nbsp;$ 51.00 per hour (This must be at least<br>
+                 &nbsp;&nbsp;&nbsp;&nbsp;$ <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> per hour (This must be at least<br>
                  &nbsp;&nbsp;&nbsp;&nbsp;1/2 times thew worker's regular rate<br>
                  &nbsp;&nbsp;&nbsp;&nbsp;withfew exceptions.)
               </div>
@@ -2804,7 +2619,7 @@ input{
                  language.
               </div>
               <div style="display: block;width: 100%;margin-bottom: 15px">
-                 <label style="border-bottom: 1px solid #000;display: block;padding-bottom: 5px;margin-bottom: 5px;">Kaushik P Prajapati</label>
+                 <label style="border-bottom: 1px solid #000;display: block;padding-bottom: 5px;margin-bottom: 5px;">{{ ($users->user) ? $users->user->full_name : ''}}</label>
                  <p style="font-weight: normal;">Print Employee Name</p>
               </div>
 
@@ -2823,7 +2638,7 @@ input{
               </div>
 
               <div style="display: block;width: 100%;margin-bottom: 15px">
-                 <label style="border-bottom: 1px solid #000;display: block;padding-bottom: 5px;margin-bottom: 5px;">Kaushik P Prajapati</label>
+                 <label style="border-bottom: 1px solid #000;display: block;padding-bottom: 5px;margin-bottom: 5px;"></label>
                  <p style="font-weight: normal;">Preparer's Name and Title</p>
               </div>
 
@@ -2890,12 +2705,12 @@ input{
      <td style="padding-top: 15px;padding-bottom: 5px;">
         <table>
            <tbody><tr>
-              <td width="50%" style="padding-bottom: 5px;">Your name: <span>Kaushik P Prajapati</span></td>
-              <td>Social security number <span style="  ">123</span></td>
+              <td width="50%" style="padding-bottom: 5px;">Your name: <span>{{ ($users->user) ? $users->user->full_name : '' }}</span></td>
+              <td>Social security number <span>{{ ($users->ssn) ? $users->ssn : '' }}</span></td>
            </tr>
            <tr>
               <td width="50%">First date of employment</td>
-              <td>Name of employer <span>HouseCalls Home Care</span></td>
+              <td>Name of employer <span></span></td>
            </tr>
         </tbody></table>
      </td>
@@ -3075,7 +2890,7 @@ input{
                                 <tbody>
                                    <tr>
                                       <td>
-                                         <p style="" class="white-spacenone">I am declining the Hepatitis B Vaccination
+                                         <p  class="white-spacenone">I am declining the Hepatitis B Vaccination
                                             </p>
                                             <p style="font-weight: normal; white-space: normal;">
                                             I understand that due to my occupational exposure to blood or other potential infectious materials, I may be at risk of acquiring Hepatitis B Virus (HEW) infection. I have been given the opportunity to be vaccinated with the Hepatitis B Vaccine. I have also been asked if I have questions regarding this information and ill had questions, they were fully answered to my satisfaction. I have been offered the  opportunity to be vaccinated with the Hepatitis B Vaccine at no charge to myself.
@@ -3166,7 +2981,7 @@ input{
                                       </td>
                                       <td>
                                          <p>SSN:<span>
-                                         {{ ($users->user && $users->user->demographic) ? $users->user->ssn : ''}}</span>
+                                         {{ ($users->ssn) ? $users->ssn : ''}}</span>
                                          </p>
                                       </td>
                                    </tr>

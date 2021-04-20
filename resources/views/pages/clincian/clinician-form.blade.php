@@ -734,7 +734,14 @@
                                                                                 @foreach ($users->employer_detail['employer'] as $employer_detail)
                                                                                     <tr style="background: #f8f8f8;">
                                                                                         <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{ $counter }}</td>
-                                                                                        <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['company']}}</td>
+                                                                                        <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
+                                                                                        @if (isset($employer_detail['company']))
+                                                                                            {{ $employer_detail['company']}}
+
+                                                                                        @elseif (isset($employer_detail['companyName']))
+                                                                                            {{ $employer_detail['companyName']}}
+                                                                                        @endif
+                                                                                      </td>
                                                                                         <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['address']}} </td>
                                                                                         <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['phoneNo']}}</td>
                                                                                         <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['supervisor']}}</td>
@@ -896,8 +903,8 @@
                                                                                                         <td>
                                                                                                             <p>Have you ever been bonded? 
                                                                                                                 <span>
-                                                                                                                    <input type="checkbox" {{ isset($users->security_detail['bond']) && $users->security_detail['bond'] === 'true' ? 'checked' : '' }}>Yes
-                                                                                                                    <input type="checkbox" {{  isset($users->security_detail['bond']) && $users->security_detail['bond'] === 'false' ? 'checked' : '' }}>No
+                                                                                                                    <input type="checkbox" {{ ($users->security_detail['bond']) ? 'checked' : '' }}>Yes
+                                                                                                                    <input type="checkbox" {{ ($users->security_detail['bond']) ? '' : 'checked' }} }}>No
                                                                                                                 </span>
                                                                                                             </p>
                                                                                                         </td>
@@ -911,8 +918,8 @@
                                                                                                         <td>
                                                                                                             <p>Have you been convicted of a felony within the past 5 years?     
                                                                                                                 <span>
-                                                                                                                    <input type="checkbox" {{ isset($users->security_detail['convict']) && $users->security_detail['convict'] === 'true' ? 'checked' : '' }}>Yes
-                                                                                                                    <input type="checkbox" {{ isset($users->security_detail['convict']) && $users->security_detail['convict'] === 'false' ? 'checked' : '' }}>No
+                                                                                                                    <input type="checkbox" {{ ($users->security_detail['convict']) ? 'checked' : '' }}>Yes
+                                                                                                                    <input type="checkbox" {{ ($users->security_detail['convict']) ? '' : 'checked' }}>No
                                                                                                                 </span>
                                                                                                             </p>
                                                                                                         </td>
@@ -958,10 +965,10 @@
                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                             <tr>
                                                                                                                 <td>
-                                                                                                                    <p>Served Start Date:<span>{{ isset($users->military_detail['serve_start_date']) ? $users->military_detail['serve_start_date'] : '' }}</span></p>
+                                                                                                                    <p>Served Served from:<span>{{ isset($users->military_detail['serve_start_date']) ? $users->military_detail['serve_start_date'] : '' }} to {{ isset($users->military_detail['serve_end_date']) ? $users->military_detail['serve_end_date'] : '' }}</span></p>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <p>Serve End Date:<span>{{ isset($users->military_detail['serve_end_date']) ? $users->military_detail['serve_end_date'] : '' }}</span></p>
+                                                                                                                    <p>Rank:<span></span></p>
                                                                                                                 </td>     
                                                                                                             </tr>
                                                                                                         </table>
@@ -988,7 +995,7 @@
                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                             <tr>
                                                                                                                 <td>
-                                                                                                                    <p>If so, explain: <span>{{ isset($users->military_detail['isCommited_explain']) }}</span></p>
+                                                                                                                    <p>If so, explain: <span>{{ ($users->military_detail['isCommited_explain']) ? $users->military_detail['isCommited_explain'] : ''}}</span></p>
                                                                                                                 </td> 
                                                                                                             </tr>
                                                                                                         </table>
@@ -1001,16 +1008,16 @@
                                                                                                                 <td>
                                                                                                                     <p>Are you a Vietnam veteran?  
                                                                                                                         <span>
-                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isVietnam']) ? 'checked' : '' }}>Yes
-                                                                                                                            <input type="checkbox"{{ isset($users->military_detail['isVietnam']) ? '' : 'checked' }}>No
+                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isVietnam']) ? 'checked' : '' }}>Yes
+                                                                                                                            <input type="checkbox"{{ ($users->military_detail['isVietnam']) ? '' : 'checked' }}>No
                                                                                                                         </span>
                                                                                                                     </p>
                                                                                                                 </td> 
                                                                                                                 <td>
                                                                                                                     <p>Are you a disabled veteran? 
                                                                                                                         <span>
-                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isDisableVetran']) ? 'checked' : '' }}>Yes
-                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isDisableVetran']) ? '' : 'checked' }}>No
+                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isDisableVetran']) ? 'checked' : '' }}>Yes
+                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isDisableVetran']) ? '' : 'checked' }}>No
                                                                                                                         </span>
                                                                                                                     </p>
                                                                                                                 </td> 
@@ -1025,8 +1032,8 @@
                                                                                                                 <td>
                                                                                                                     <p>Are you a special disabled veteran?
                                                                                                                         <span>
-                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isSpecialDisableVereran']) ? 'checked' : '' }}>Yes
-                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isSpecialDisableVereran']) ? '' : 'checked' }}>No
+                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isSpecialDisableVereran']) ? 'checked' : '' }}>Yes
+                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isSpecialDisableVereran']) ? '' : 'checked' }}>No
                                                                                                                         </span>
                                                                                                                     </p>
                                                                                                                 </td> 
@@ -1071,7 +1078,7 @@
                                                                                                                             <td>
                                                                                                                                 <p>Employee Signature:<span>
                                                                                                                                     @if($users->signature_url)
-                                                                                                                                        <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
+                                                                                                                                    <img src="{{ $users->signature_url }}" alt="sign"  style="max-width: 70px;">
                                                                                                                                     @endif
                                                                                                                                 </span></p>
                                                                                                                             </td>
@@ -1111,7 +1118,7 @@
                                                                                                                 </td>
                                                                                                             </tr>
                                                                                                             @php $number=1; @endphp
-                                                                                                            @if (isset($users->reference_detail))
+                                                                                                            @if (count($users->reference_detail) > 0)
                                                                                                         
                                                                                                             @foreach ($users->reference_detail as $reference_detail)
                                                                                                                 <tr>
@@ -1135,7 +1142,7 @@
                                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                             <tr>
                                                                                                                                 <td>
-                                                                                                                                    <p>Relationship to Employee: <span>{{ isset($reference_detail['relation']) ? $reference_detail['relation'] : '' }}</span></p>
+                                                                                                                                    <p>Relationship to Employee: <span>{{ isset($reference_detail['personRelation']) ? $reference_detail['personRelation'] : '' }}</span></p>
                                                                                                                                 </td>
                                                                                                                             </tr>
                                                                                                                         </table>
@@ -1225,7 +1232,7 @@
                                                                                                                                 <p>POSITION:<span>{{ isset($users->employer_detail['position']) ? $users->employer_detail['position']['position'] : '' }}</span></p>
                                                                                                                             </td>
                                                                                                                             <td>
-                                                                                                                                <p>DEPARTMENT:<span></span></p>
+                                                                                                                                <p>DEPARTMENT:<span>{{ ($users->user && $users->user->designation) ? $users->user->designation->name : '' }}</span></p>
                                                                                                                             </td>   
                                                                                                                         </tr>
                                                                                                                     </table>
@@ -1417,7 +1424,7 @@
                                                                                                                             <td>
                                                                                                                                 <p>Employee Signature:<span>
                                                                                                                                     @if($users->signature_url)
-                                                                                                                                        <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
+                                                                                                                                    <img src="{{ $users->signature_url }}" alt="sign"  style="max-width: 70px;">
                                                                                                                                     @endif
                                                                                                                                 </span></p>
                                                                                                                             </td>
@@ -1469,45 +1476,7 @@
                                                                                                         </div>
                                                                                                     </td>
                                                                                                 </tr> -->
-                                                                                                <!-- <tr>
-                                                                                                    <td>
-                                                                                                        <h4>Document Verification Detail</h4>
-                                                                                                        <div>
-                                                                                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                <tr>
-                                                                                                                    <td>
-                                                                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                                                                            <tr>
-                                                                                                                                <td>
-                                                                                                                                    <p>Upload Documentation. <span></span></p>
-                                                                                                                                </td> 
-                                                                                                                            </tr>
-                                                                                                                        </table>
-                                                                                                                    </td>
-                                                                                                                </tr>
-                                                                                                            </table>
-                                                                                                        </div>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td>
-                                                                                                        <table style="width: 100%;border: 1px solid #a5a5a5;margin-top: 20px;">
-                                                                                                            <tr>
-                                                                                                                <th style="width: 20%;">
-                                                                                                                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Document</h1>
-                                                                                                                </th>
-                                                                                                            </tr>
-                                                                                                            @php $counter = 1 @endphp
-                                                                                                            @foreach ($users->documents as $document)
-                                                                                                                <tr style="background: #f8f8f8;">
-                                                                                                                    <td style="width: 100%;text-align: left;border-bottom: 1px solid #a5a5a5;"><img style="width: 100%; height: 100%;" src="{{ $document->file_url }}" alt="Welcome to Doral" srcset="{{ $document->file_url }}"></td>
-                                                                                                                </tr>
-                                                                                                                @php $counter++ @endphp
-                                                                                                            @endforeach
-                                                                                                        </table>
-                                                                                                    </td>
-                                                                                                </tr> -->
-                                                                                            
+                                                                                                                                                                                            
                                                                                             </table>
                                                                                         </div>
                                                                                     </td>
@@ -1530,202 +1499,237 @@
 
                         <!-- page 7 -->
                         <div class="break"></div>
-                            <table width="100%">
-                                <tr>
-                                    <td>
-                                        <table style="width: 100%;">
-                                            <thead style=" background-color: #07737A;padding: 10px;display: block;margin: 0 auto;display: flex;justify-content: center;align-items: center;">
-                                                <tr>
-                                                    <td>
-                                                        <a href="index.html" title="Welcome to Doral"><img style="width: 180px; height: 84px;" src="{{ asset('assets/img/green_logo.jpg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}"></a>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">EMPLOYMENT VERIFICATION</h1>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width: 50%;">
-                                                        <p>Name of Applicant:<span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>SSN:<span>{{ ($users->ssn) ? $users->ssn : ''}}</span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Name of Company:<span></span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width: 50%;">
-                                                        <p>Phone:<span></span></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Fax:<span></span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Address:<span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}</span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>City,State,Zip:<span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['city'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['state'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['zipcode'] : ''}}</span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p style="display: inline-block; font-weight: normal;" class="white-spacenone"><b>APPLICANT'S AUTHORIZATION RELEASE: </b>I hereby authorize the release of any information requested by House Calls HC concerning my employment in your company.</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width: 50%;">
-                                                        <p>Applicant's Signature:<span>@if($users->signature_url)
-                                                                <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
-                                                            @endif</span></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Date:<span>{{ ($users->user) ? viewDateFormat($users->user->created_at) : '' }}</span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>  
-
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">DO NOT WRITE BELOW THIS BOX — TO BE COMPLETED BY EMPLOYER ONLY</h1>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p style="font-weight: normal;" class="white-spacenone">Dear Sir/Madam,<br>The person listed has given your name as a source of reference and has also signed a statement authorizing the inquiry. We would appreciate a statement of your experiences with this person, and an assessment of his/her potential in your opinion. Any information released will be held in strict confidence.</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">PLEASE COMPLETE THIS SECTION:</h1>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Position Held:<span></span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="
-                                                        width: 50%;
-                                                        ">
-                                                        <p>Date Employment Began:<span></span></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Date Employment Ended:<span></span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Reason for Leaving:<span></span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <table style="width: 100%;">
+                                        <thead style=" background-color: #07737A;padding: 10px;display: block;margin: 0 auto;display: flex;justify-content: center;align-items: center;">
                                             <tr>
                                                 <td>
-                                                    <p>Overall Job Performance:</p>
+                                                    <a href="index.html" title="Welcome to Doral"><img style="width: 180px; height: 84px;" src="{{ asset('assets/img/green_logo.jpg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}"></a>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">EMPLOYMENT VERIFICATION</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 50%;">
+                                                    <p>Name of Applicant:<span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
+                                                </td>
+                                                <td>
+                                                    <p>SSN:<span>{{ ($users->ssn) ? $users->ssn : ''}}</span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Name of Company:<span>
+                                                    @if(isset($users->employer_detail['employer'][0]))
+                                                        @if (isset($users->employer_detail['employer'][0]['company']))
+                                                            {{ $users->employer_detail['employer'][0]['company']}}
+
+                                                        @elseif (isset($users->employer_detail['employer'][0]['companyName']))
+                                                            {{ $users->employer_detail['employer'][0]['companyName']}}
+                                                        @endif
+                                                    @endif
+                                                    </span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 50%;">
+                                                    <p>Phone:<span></span></p>
+                                                </td>
+                                                <td>
+                                                    <p>Fax:<span></span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Address:<span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}</span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>City,State,Zip:<span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['city'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['state'] : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['zipcode'] : ''}}</span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p style="display: inline-block; font-weight: normal;" class="white-spacenone"><b>APPLICANT'S AUTHORIZATION RELEASE: </b>I hereby authorize the release of any information requested by House Calls HC concerning my employment in your company.</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 50%;">
+                                                    <p>Applicant's Signature:<span>@if($users->signature_url)
+                                                    <img src="{{ $users->signature_url }}" alt="sign"  style="max-width: 70px;">
+                                                        @endif</span></p>
+                                                </td>
+                                                <td>
+                                                    <p>Date:<span>{{ ($users->user) ? viewDateFormat($users->user->created_at) : '' }}</span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>  
+
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">DO NOT WRITE BELOW THIS BOX — TO BE COMPLETED BY EMPLOYER ONLY</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p style="font-weight: normal;" class="white-spacenone">Dear Sir/Madam,<br>The person listed has given your name as a source of reference and has also signed a statement authorizing the inquiry. We would appreciate a statement of your experiences with this person, and an assessment of his/her potential in your opinion. Any information released will be held in strict confidence.</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">PLEASE COMPLETE THIS SECTION:</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Position Held:<span></span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="
+                                                    width: 50%;
+                                                    ">
+                                                    <p>Date Employment Began:<span></span></p>
+                                                </td>
+                                                <td>
+                                                    <p>Date Employment Ended:<span></span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Reason for Leaving:<span></span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <p>Overall Job Performance:</p>
+                                            </td>
+                                            <td>
+                                                <p>Excellent <input type="checkbox"></p>
+                                            </td>
+                                            <td>
+                                                <p>Good <input type="checkbox"></p>
+                                            </td>
+                                            <td>
+                                                <p>Average <input type="checkbox"></p>
+                                            </td>
+                                            <td>
+                                                <p>Poor <input type="checkbox"></p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Attendance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </p>
                                                 </td>
                                                 <td>
                                                     <p>Excellent <input type="checkbox"></p>
@@ -1740,141 +1744,115 @@
                                                     <p>Poor <input type="checkbox"></p>
                                                 </td>
                                             </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Attendance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Excellent <input type="checkbox"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Good <input type="checkbox"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Average <input type="checkbox"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Poor <input type="checkbox"></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Punctuality:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Excellent <input type="checkbox"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Good <input type="checkbox"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Average <input type="checkbox"></p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Poor <input type="checkbox"></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Eligible for Rehire:  
-                                                            <input type="checkbox">Yes
-                                                            <input type="checkbox">No    
-                                                        </p>
-                                                        <p> If No, Please Explain:<span></span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Additional Comments: <span></span></p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Reference Given By: <span></span>
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Title: <span></span>
-                                                        </p>
-                                                    </td>
-                                                    <td>
-                                                        <p>Date: <span></span>
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Thank you for your cooperation.</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Sincerely,<br></p>
-                                                        <p style="text-decoration: underline;">Human Resources</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Punctuality:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                </td>
+                                                <td>
+                                                    <p>Excellent <input type="checkbox"></p>
+                                                </td>
+                                                <td>
+                                                    <p>Good <input type="checkbox"></p>
+                                                </td>
+                                                <td>
+                                                    <p>Average <input type="checkbox"></p>
+                                                </td>
+                                                <td>
+                                                    <p>Poor <input type="checkbox"></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Eligible for Rehire:  
+                                                        <input type="checkbox">Yes
+                                                        <input type="checkbox">No    
+                                                    </p>
+                                                    <p> If No, Please Explain:<span></span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Additional Comments: <span></span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Reference Given By: <span></span>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>Title: <span></span>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p>Date: <span></span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Thank you for your cooperation.</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>Sincerely,<br></p>
+                                                    <p style="text-decoration: underline;">Human Resources</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
 
                         <!-- page 8 -->
                         <div class="break"></div>
@@ -2024,7 +2002,7 @@
                                                                                                         Single or Married filing separately
                                                                                                 </span>
                                                                                                 <span style="width: 100%;display: block;  border:0px;">
-                                                                                                    <input type="checkbox" checked="checked">
+                                                                                                    <input type="checkbox">
                                                                                                         Married filing jointly (or Qualifying widow(err))
                                                                                                     </span>
                                                                                                 <span style="width: 100%; border:0px;display: block;">
@@ -2223,7 +2201,7 @@
                                                     <div class="Sign">
                                                         <span> 
                                                             @if($users->signature_url)
-                                                                <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
+                                                            <img src="{{ $users->signature_url }}" alt="sign"  style="max-width: 70px;">
                                                             @endif
                                                         </span>
                                                         Signature <br>
@@ -2926,7 +2904,7 @@
                                    <tr>
                                       <td>
                                          <p>Signature<span>  @if($users->signature_url)
-                                                <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
+                                         <img src="{{ $users->signature_url }}" alt="sign"  style="max-width: 70px;">
                                             @endif
                                             </span>
                                          </p>
@@ -3034,7 +3012,7 @@
                                          ">
                                          <p>Employee Signature:<span>
                                             @if($users->signature_url)
-                                                <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
+                                            <img src="{{ $users->signature_url }}" alt="sign"  style="max-width: 70px;">
                                             @endif
                                         </span>
                                          </p>
@@ -3071,215 +3049,220 @@
                              </table>
                           </td>
                        </tr></table>
-   <!-- page 14 -->
-   <div class="break"></div>
-   <table width="100%">      <!-- page no 14 -->
-                       <tr>
-                          <td>
-                             <table style="width: 100%;" class="break">
-                                <thead style=" background-color: #07737A;padding: 10px;display: block;margin: 0 auto;display: flex;justify-content: center;align-items: center;">
-                                   <tr>
-                                      <td>
-                                         <a href="index.html" title="Welcome to Doral">
-                                         <img style="width: 180px; height: 84px;" src="{{ asset('assets/img/green_logo.jpg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}">
-                                         </a>
-                                      </td>
-                                   </tr>
-                                </thead>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">
-                                DECLINATION FORM FOR SEASONAL INFLUENZA VACCINE
-                             </h1>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tbody>
-                                   <tr>
-                                      <td style="
-                                         width: 50%;
-                                         ">
-                                         <p>Name: <span>{{ ($users->user) ? $users->user->full_name : ''}}
-                                            </span>
-                                         </p>
-                                      </td>
-                                      <td>
-                                         <p>DOB: <span>{{ ($users->user) ? $users->user->dob : ''}} 
-                                            </span>
-                                         </p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mystyle">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p  style="font-weight: normal; font-style: italic;">Facility: This facility has recommended that I receive influenza vaccination in order to protect myself and the patients serve.</p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">
-                                I DO NOT WANT A FLU SHOT:
-                             </h1>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mystyle">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <p>I acknowledge that I am aware of the following facts:</p>
-                                      </td>
-                                   </tr>
-                                </tbody>
-                             </table>
-                          </td>
-                       </tr>
-                       <tr>
-                          <td>
-                             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mystyle">
-                                <tbody>
-                                   <tr>
-                                      <td>
-                                         <ul style=" padding-left: 25px;">
-                                            <li>
-                                                Influenza iss-a serious respiratory disease; on average, 36,000 Americans die every year from influenza-relatedcauses.
-                                            </li>
-                                            <li> Influenza virus may be shed for up to 24 hours before symptoms begin, increasing the risk of transmission toothers.</li>
-                                            <li> Some people with influenza have no symptoms, increasing the risk of transmission to others.</li>
-                                            <li> Influenza virus changes often, making annual vaccination necessary. Immunity following vaccination is strongestfor 2 to 6 months. [In California, influenza usually begins circulating in early January and continues throughFebruary or March.]</li>
-                                            <li> I understand that the influenza vaccine cannot transmit influenza and it does not prevent all disease.</li>
-                                            <li> I have declined to receive the influenza vaccine for the 2019-2021 season. I acknowledge that influenzavaccination is recommended by the Centers for Disease Control and Prevention for all healthcare workers in orderto prevent infection from and transmission of influenza and its complications, including death, to patients, mycoworkers, my family, and my community.</li>
-                                         </ul>
-                                      </td>
-                                   </tr>
-                                   <!-- </table>
-                                      </td>
-                                      </tr> -->
-                                   <tr>
-                                      <td>
-                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mystyle">
-                                            <tbody>
-                                               <tr>
-                                                  <td>
-                                                     <p>Knowing these facts, I choose to decline vaccination at this time. 
-                                                        <div style="font-weight: normal; font-size: 14px; display: inline-block;">I may change my mind and accept vaccination later,if vaccine is available_ I have read and fully understand the information on this declination form. I am declining due to thefollowing reasons (check all that apply):</div></p>
-                                                  </td>
-                                               </tr>
-                                            </tbody>
-                                         </table>
-                                      </td>
-                                   </tr>
-                                   <tr>
-                                      <td>
-                                         <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-weight: normal;">
-                                            <tbody>
-                                               <tr style="font-weight: normal;">
-                                                  <td>
-                                                     <input type="checkbox">I believe I will get influenza if I get the vaccine.
-                                                  </td>
-                                               </tr>
-                                               <tr style="font-weight: normal;">
-                                                  <td>
-                                                     <input type="checkbox">I do not like needles.
-                                                  </td>
-                                               </tr>
-                                               <tr style="font-weight: normal;">
-                                                  <td>
-                                                     <input type="checkbox">My philosophical or religious beliefs prohibit vaccination
-                                                  </td>
-                                               </tr>
-                                               <tr style="font-weight: normal;">
-                                                  <td>
-                                                     <input type="checkbox">I have an allergy or medical contraindication to receiving the vaccine.
-                                                  </td>
-                                               </tr>
-                                               <tr style="font-weight: normal;">
-                                                  <td>
-                                                     <p style="font-weight: normal; white-space: nowrap; font-size: 13px;">
-                                                     <input type="checkbox">Other reason — please tell us:<span>&nbsp; &nbsp; &nbsp;</span>
-                                                  </p>
-                                                  </td>
-                                               </tr>
-                                            </tbody>
-                                         </table>
-                                      </td>
-                                   </tr>
-                                   <tr>
-                                      <td>
-                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                               <tr>
-                                                  <td>
-                                                     <ul style=" padding-left: 25px;">
-                                                        <li> I understand that if I choose to decline the influenza vaccine, and my job duties may cause me to infect patients or to becomeinfected, I will be required to wear a surgical mask or respirator, as appropriate, within 6 feet of patients or in designatedareas during influenza season.</li>
-                                                        <li> I understand that I may change my mind at any time and accept influenza vaccination, if vaccine is available.</li>
-                                                        <li> I have read and fully understand the information on this declination form</li>
-                                                     </ul>
-                                                  </td>
-                                               </tr>
-                                            </tbody>
-                                         </table>
-                                      </td>
-                                   </tr>
-                                   <tr>
-                                      <td>
-                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                               <tr>
-                                                  <td width="50%">
-                                                     <p style="white-space: nowrap">Employee Signature:<span>
-                                                     @if($users->signature_url)
-                                                        <img width="100px" height="100px" src="{{ $users->signature_url }}" alt="sign">
-                                                    @endif</span>
-                                                     </p>
-                                                  </td>
-                                                  <td>
-                                                     <p style="white-space: nowrap;">Date:<span>
-                                                     {{ ($users->user) ? viewDateFormat($users->user->created_at) : '' }} </span>
-                                                     </p>
-                                                  </td>
-                                               </tr>
-                                            </tbody>
-                                         </table>
-                                      </td>
-                                   </tr>
-                                   <tr>
-                                      <td>
-                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                               <tr>
-                                                  <td width="50%">
-                                                     <p style="white-space: nowrap;">Administrative Signature:<span>
-                                                        </span>
-                                                     </p>
-                                                  </td>
-                                                    <td>
-                                                        <p style="white-space: nowrap;">Date:<span>
-                                                            </span>
-                                                        </p>
-                                                            </td>
-                                                        </tr>
+            <!-- page 14 -->
+                        <div class="break"></div>
+                        <table width="100%">     
+                            <tr>
+                                <td>
+                                    <table style="width: 100%;" class="break">
+                                        <thead style=" background-color: #07737A;padding: 10px;display: block;margin: 0 auto;display: flex;justify-content: center;align-items: center;">
+                                            <tr>
+                                                <td>
+                                                    <a href="index.html" title="Welcome to Doral"><img style="width: 180px; height: 84px;" src="{{ asset('assets/img/green_logo.jpg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}"></a>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">DECLINATION FORM FOR SEASONAL INFLUENZA VACCINE</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 50%;">
+                                                    <p>Name: <span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
+                                                </td>
+                                                <td>
+                                                    <p>DOB: <span>{{ ($users->user) ? $users->user->dob : ''}}</span></p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mystyle">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p style="font-weight: normal; font-style: italic;">Facility: This facility has recommended that I receive influenza vaccination in order to protect myself and the patients serve.</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">I DO NOT WANT A FLU SHOT:</h1>
+                                </td>
+                            </tr>    
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mystyle">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p>I acknowledge that I am aware of the following facts:</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mystyle">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <ul style=" padding-left: 25px;">
+                                                        <li>Influenza iss-a serious respiratory disease; on average, 36,000 Americans die every year from influenza-relatedcauses.</li>
+                                                        <li> Influenza virus may be shed for up to 24 hours before symptoms begin, increasing the risk of transmission toothers.</li>
+                                                        <li> Some people with influenza have no symptoms, increasing the risk of transmission to others.</li>
+                                                        <li> Influenza virus changes often, making annual vaccination necessary. Immunity following vaccination is strongestfor 2 to 6 months. [In California, influenza usually begins circulating in early January and continues throughFebruary or March.]</li>
+                                                        <li> I understand that the influenza vaccine cannot transmit influenza and it does not prevent all disease.</li>
+                                                        <li> I have declined to receive the influenza vaccine for the 2019-2021 season. I acknowledge that influenzavaccination is recommended by the Centers for Disease Control and Prevention for all healthcare workers in orderto prevent infection from and transmission of influenza and its complications, including death, to patients, mycoworkers, my family, and my community.</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mystyle">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <p>Knowing these facts, I choose to decline vaccination at this time.<div style="font-weight: normal; font-size: 14px; display: inline-block;">I may change my mind and accept vaccination later,if vaccine is available_ I have read and fully understand the information on this declination form. I am declining due to thefollowing reasons (check all that apply):</div></p>
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td>
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-weight: normal;">
+                                                        <tbody>
+                                                            <tr style="font-weight: normal;">
+                                                                <td>
+                                                                    <input type="checkbox">I believe I will get influenza if I get the vaccine.
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="font-weight: normal;">
+                                                                <td>
+                                                                    <input type="checkbox">I do not like needles.
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="font-weight: normal;">
+                                                                <td>
+                                                                    <input type="checkbox">My philosophical or religious beliefs prohibit vaccination
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="font-weight: normal;">
+                                                                <td>
+                                                                    <input type="checkbox">I have an allergy or medical contraindication to receiving the vaccine.
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="font-weight: normal;">
+                                                                <td>
+                                                                    <p style="font-weight: normal; white-space: nowrap; font-size: 13px;">
+                                                                    <input type="checkbox">Other reason — please tell us:<span>&nbsp; &nbsp; &nbsp;</span></p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <ul style=" padding-left: 25px;">
+                                                                        <li> I understand that if I choose to decline the influenza vaccine, and my job duties may cause me to infect patients or to becomeinfected, I will be required to wear a surgical mask or respirator, as appropriate, within 6 feet of patients or in designatedareas during influenza season.</li>
+                                                                        <li> I understand that I may change my mind at any time and accept influenza vaccination, if vaccine is available.</li>
+                                                                        <li> I have read and fully understand the information on this declination form</li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="50%">
+                                                                    <p style="white-space: nowrap">Employee Signature:
+                                                                        <span>
+                                                                            @if($users->signature_url)
+                                                                                <img src="{{ $users->signature_url }}" alt="sign"  style="max-width: 70px;">
+                                                                            @endif
+                                                                        </span>
+                                                                    </p>
+                                                                </td>
+                                                                <td>
+                                                                    <p style="white-space: nowrap;">Date:
+                                                                        <span>
+                                                                            {{ ($users->user) ? viewDateFormat($users->user->created_at) : '' }} 
+                                                                        </span>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td width="50%">
+                                                                    <p style="white-space: nowrap;">Administrative Signature:<span></span></p>
+                                                                </td>
+                                                                <td>
+                                                                    <p style="white-space: nowrap;">Date:<span></span></p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="break"></div>
+                        <table width="100%">     
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Upload Documentation.</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody>
+                                            @php $counter = 1 @endphp
+                                            @foreach ($users->documents as $document)
+                                                <tr style="background: #f8f8f8;">
+                                                    <td style="width: 100%;text-align: left;border-bottom: 1px solid #a5a5a5;"><img style="width: 100%; height: 100%;" src="{{ $document->file_url }}" alt="Welcome to Doral" srcset="{{ $document->file_url }}"></td>
+                                                </tr>
+                                                @php $counter++ @endphp
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </td>

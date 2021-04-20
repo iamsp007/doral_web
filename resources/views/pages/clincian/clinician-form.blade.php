@@ -606,10 +606,10 @@
                                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                         <tr>
                                                                                             <td>
-                                                                                                <p>City: <span> {{ isset($emergency_detail['city_id']) ? $emergency_detail['city_id'] : '' }}</span></p>
+                                                                                                <p>City: <span> {{ isset($emergency_detail['city_id']) ? \App\Models\City::find($emergency_detail['city_id'])->city : '' }}</span></p>
                                                                                             </td>
                                                                                             <td>
-                                                                                                <p>State: <span>{{ isset($emergency_detail['state_id']) ? $emergency_detail['state_id'] : '' }}</span></p>
+                                                                                                <p>State: <span>{{ isset($emergency_detail['state_id']) ? \App\Models\State::find($emergency_detail['state_id'])->state : '' }}</span></p>
                                                                                             </td>
                                                                                             <td>
                                                                                                 <p>Zip: <span>{{ isset($emergency_detail['zipcode']) ? $emergency_detail['zipcode'] : '' }}</span></p>
@@ -1146,7 +1146,7 @@
                                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                                             <tr>
                                                                                                                                 <td>
-                                                                                                                                    <p>Address:  <span>{{ $reference_detail['address_line_1'] }} {{ $reference_detail['address_line_2'] }} {{ $reference_detail['building'] }} {{ isset($reference_detail['city_id']) ? $reference_detail['city_id'] : '' }} {{ isset($reference_detail['zipcode']) ? $reference_detail['zipcode'] : '' }} </span></p>
+                                                                                                                                    <p>Address:  <span>{{ $reference_detail['address_line_1'] }} {{ $reference_detail['address_line_2'] }} {{ $reference_detail['building'] }} {{ isset($reference_detail['city_id']) ? \App\Models\City::find($reference_detail['city_id'])->city : '' }} {{ isset($reference_detail['zipcode']) ? $reference_detail['zipcode'] : '' }} </span></p>
                                                                                                                                 </td>
                                                                                                                             </tr>
                                                                                                                         </table>

@@ -15,9 +15,7 @@
     Clinician Details
 @endsection
 @php
-
 $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = 1;
-
 @endphp
 @foreach($data->documents as $document)
 @if($document->type == 1)

@@ -806,7 +806,7 @@ input{
                                                                                 @foreach ($users->employer_detail['employer'] as $employer_detail)
                                                                                     <tr style="background: #f8f8f8;">
                                                                                         <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{ $counter }}</td>
-                                                                                        <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['companyName']}}</td>
+                                                                                        <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['company']}}</td>
                                                                                         <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['address']}} </td>
                                                                                         <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['phoneNo']}}</td>
                                                                                         <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['supervisor']}}</td>

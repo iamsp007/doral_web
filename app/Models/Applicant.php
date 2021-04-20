@@ -116,4 +116,9 @@ class Applicant extends Model
         
         return null;
     }
+
+
+    public function states() {
+        return $this->belongsTo(State::class, 'object->state_id');
+    }
 }

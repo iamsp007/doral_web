@@ -543,7 +543,7 @@
                                                                             <td>
                                                                                 <p>Have you worked for this company in the past
                                                                                     <span>
-                                                                                        <input type="checkbox" checked>Yes
+                                                                                        <input type="checkbox">Yes
                                                                                         <input type="checkbox" >No
                                                                                     </span>
                                                                                     <span>If so,when?</span>

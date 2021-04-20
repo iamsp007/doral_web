@@ -100,8 +100,8 @@ class ClinicianController extends Controller
     public function clinicianInfo($id)
     { 
         try {
-            $users = Applicant::where('user_id', $id)->with('user', 'documents','states')->first();
-            
+            $users = Applicant::where('user_id', $id)->with('user', 'documents')->first();
+             
             if ($users) {
                 $idProof = $socialSecurity = $professionalReferrance = $nycNurseCertificate = $insuranceReport = $cpr = $physical = $forensicDrugScreen = $rubellaImmunization = $rubellaMeasiesImmunization = $annualPPD = $flu = '';
                 if ($users->documents) {

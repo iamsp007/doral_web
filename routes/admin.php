@@ -53,4 +53,8 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth:web','role:admin']],functi
 
     // service payment details insert / update
     Route::post('/service-payment-insert-update', 'App\Http\Controllers\CompanyController@insertUpdateServicePayment')->name('admin.insertUpdateServicePayment');
+
+    Route::get('/clinician-approval/{id}/detail','\App\Http\Controllers\Clinician\ClinicianController@clinicianInfo')->name('clinician.info');
+
+    Route::post('send-address-notification', 'App\Http\Controllers\NotificationController@store')->name('notification.send');
 });

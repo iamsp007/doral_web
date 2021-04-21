@@ -92,7 +92,7 @@
             "language": {
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },
-            "serverSide": false,
+            "serverSide": true,
             ajax: "{{ route('clinician.covid-19-patient-list') }}",
             columns:[
                 {data:'id',name:'id'},

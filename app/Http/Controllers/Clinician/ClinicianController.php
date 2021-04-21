@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
+use App\Models\Applicant;
 use App\Models\UploadDocuments;
 use Yajra\DataTables\DataTables;
 use App\Services\AdminService;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use ZipArchive;
+use PDF;
 
 class ClinicianController extends Controller
 {
@@ -75,6 +79,8 @@ class ClinicianController extends Controller
 
                         $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $user->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
                     }
+                    
+                    $btn .= '<a href="'.route('clinician.info',['id' => $user->id]).'" class="btn btn-primary btn-sm mr-2">Print</a>';
 
                     return $btn;
                 })
@@ -84,6 +90,59 @@ class ClinicianController extends Controller
         
         return DataTables::of($data)
             ->make(true);
+    }
+
+     /**
+     * Covid 19 data will display
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function clinicianInfo($id)
+    { 
+        try {
+            $users = Applicant::where('user_id', $id)->with('user', 'documents', 'user.designation')->first();
+             
+            if ($users) {
+                $idProof = $socialSecurity = $professionalReferrance = $nycNurseCertificate = $insuranceReport = $cpr = $physical = $forensicDrugScreen = $rubellaImmunization = $rubellaMeasiesImmunization = $annualPPD = $flu = '';
+                if ($users->documents) {
+                    $idProof = $users->documents->where('type', 1)->count();
+                    $socialSecurity = $users->documents->where('type', 5)->count();
+                    $professionalReferrance = $users->documents->where('type', 6)->count();
+                    $nycNurseCertificate = $users->documents->where('type', 8)->count();
+                    $insuranceReport = $users->documents->where('type', 4)->count();
+                    $cpr = $users->documents->where('type', 9)->count();
+                    $physical = $users->documents->where('type', 10)->count();
+                    $forensicDrugScreen = $users->documents->where('type', 11)->count();
+                    $rubellaImmunization = $users->documents->where('type', 12)->count();
+                    $rubellaMeasiesImmunization = $users->documents->where('type', 13)->count();
+                    $annualPPD = $users->documents->where('type', 16)->count();
+                    $flu = $users->documents->where('type', 15)->count();
+                    
+                }
+
+                $data = [
+                    'users' => $users, 
+                    'idProof' => $idProof,
+                    'socialSecurity' => $socialSecurity,
+                    'professionalReferrance' => $professionalReferrance,
+                    'nycNurseCertificate' => $nycNurseCertificate,
+                    'insuranceReport' => $insuranceReport,
+                    'cpr' => $cpr,
+                    'physical' => $physical,
+                    'forensicDrugScreen' => $forensicDrugScreen,
+                    'rubellaImmunization' => $rubellaImmunization,
+                    'rubellaMeasiesImmunization' => $rubellaMeasiesImmunization,
+                    'annualPPD' => $annualPPD,
+                    'flu' => $flu,
+                ];
+                // $pdf = PDF::loadView('pages.clincian.clinician-form', $data);
+          
+                // return $pdf->download($users->full_name .'.pdf');
+                return view('pages.clincian.clinician-form', compact('users','idProof', 'socialSecurity', 'professionalReferrance', 'nycNurseCertificate', 'insuranceReport', 'cpr', 'physical', 'forensicDrugScreen', 'rubellaImmunization', 'rubellaMeasiesImmunization', 'annualPPD', 'flu'));
+            }  
+        } catch (Exception $e) {
+            dd("Error: ". $e->getMessage());
+        }     
     }
 
     public function getClinicianDetail($id)

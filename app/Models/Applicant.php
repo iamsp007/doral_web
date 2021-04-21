@@ -39,8 +39,30 @@ class Applicant extends Model
         'emergency_address',
         'emergency_phone',
         'emergency_relationship',
+        'signature',
     ];
 
+    /**
+     * The attributes that are casted.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'family_detail' => 'array',
+        'military_detail' => 'array',
+        'security_detail' => 'array',
+        'address_detail' => 'array',
+        'prior_detail' => 'array',
+        'reference_detail' => 'array',
+        'employer_detail' => 'array',
+        'education_detail' => 'array',
+        'language_detail' => 'array',
+        'skill_detail' => 'array',
+        'emergency_detail' => 'array',
+        'payroll_details' => 'array',
+    ];
+
+    protected $appends = ['signature_url'];
     /**
      * Relation with referances
      */
@@ -71,5 +93,32 @@ class Applicant extends Model
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
+
+    /**
+     * documents
+     */
+    public function documents()
+    {
+        return $this->hasMany(UploadDocuments::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public function getSignatureUrlAttribute()
+    {
+        if (isset($this->signature) && !empty($this->signature)) {
+            return env('API_PUBLIC_URL').'/storage/signature/' . $this->user_id . '/' . $this->signature;
+        }
+        
+        return null;
+    }
+
+
+    public function states() {
+        return $this->belongsTo(State::class, 'object->state_id');
     }
 }

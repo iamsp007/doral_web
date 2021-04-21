@@ -35,9 +35,9 @@
             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
             <th>Sr No.</th>
             <th>Applicant Name</th>
+            <th>Gender</th>
             <th width="80px">Designation</th>
             <th>Email</th>
-            <th>Gender</th>
             <th>DOB</th>
             <th>Phone</th>
             <th>Created At</th>
@@ -163,16 +163,6 @@
                     width:"10%"
                 },
                 {
-                    data:'designation_id',
-                    name:'designation_id',
-                    width:"10%"
-                },
-                {
-                    data:'email',
-                    name:'email',
-                    width:"15%"
-                },
-                {
                     data:'gender',
                     name:'gender',
                     "bSortable": true,
@@ -191,6 +181,17 @@
                     } ,
                     width:"10%"
                 },
+                {
+                    data:'designation_id',
+                    name:'designation_id',
+                    width:"10%"
+                },
+                {
+                    data:'email',
+                    name:'email',
+                    width:"15%"
+                },
+               
                 {
                     data:'dob',
                     name:'dob',

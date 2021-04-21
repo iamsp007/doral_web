@@ -250,7 +250,8 @@ return [
                     'icon_title'=>'Employees'
                 ]
             ]
-        ]
+        ],
+        ['name'=>'Add Patient','url'=>env('APP_URL').'admin/patient/create','route'=>'patient.create','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'supervisor'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'supervisor','route'=>'supervisor','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],

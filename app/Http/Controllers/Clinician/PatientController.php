@@ -369,10 +369,5 @@ class PatientController extends Controller
         $response = $clinicianService->calendarAppoimentListData();
         return view($this->view_path.'calendar', compact('response', 'response'));
 
-        
-//        if ($response->status===true){
-//            return response()->json($response,200);
-//        }
-//        return response()->json($response,422);
     }
 }

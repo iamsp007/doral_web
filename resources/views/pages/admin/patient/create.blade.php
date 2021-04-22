@@ -6,7 +6,22 @@
 
 @section('content')
     <!-- Demographics Start Here -->
-    <form class="add_patient_form" id="add_patient_form" action="{{ route('patient.store') }}" method="POST">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+    <form class="add_patient_form" id="add_patient_form">
     @csrf
         <table class="table table-borderless table-sm patientTable shadow">
             <thead>
@@ -32,6 +47,11 @@
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
                                                         <input type="text" class="input-small-skin" name="first_name" id="first_name">
+                                                        @if ($errors->has('first_name'))
+                                                            <span class="invalid feedback"role="alert">
+                                                                <strong class="alert alert-danger">{{ $errors->first('first_name') }}.</strong>
+                                                            </span>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -49,7 +69,7 @@
                                                     <td class="border-0" style="width: 70%;">
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <div style="width: 45%;">
-                                                                <select name="Gender" id="Gender" class="input-small-skin select2">
+                                                                <select name="gender" id="Gender" class="input-small-skin select2">
                                                                     @foreach (config('select.gender') as $key => $gender)
                                                                         <option value="{{ $key }}">{{ $gender }}</option>
                                                                     @endforeach
@@ -82,7 +102,7 @@
                                                         Ethnicity :
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
-                                                        <select name="Ethnicity" id="Ethnicity" class="input-small-skin select2">
+                                                        <select name="ethnicity" id="ethnicity" class="input-small-skin select2">
                                                             <option selected="selected" value="">Select</option>
                                                             @foreach (config('select.ethnicity') as $key => $ethnicity)
                                                                 <option value="{{ $key }}">{{ $ethnicity }}</option>
@@ -444,7 +464,8 @@
                                                         <div
                                                             class="d-flex align-items-center justify-content-between">
                                                             <div style="width: 45%;">
-                                                                <input type="text" name="dob" class="input-small-skin">
+                                                                <input type="text" name="dateOfBirth" class="input-small-skin">
+                                                  
                                                             </div>
                                                             <div style="width: 55%;">
                                                                 <table style="width: 100%;">
@@ -1025,7 +1046,7 @@
                             <tr>
                                 <th style="width: 30%;" class="text-right">Name :</th>
                                 <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin" name="name">
+                                    <input type="text" class="input-small-skin" name="name[]">
                                 </td>
                             </tr>
                             <tr>
@@ -1034,7 +1055,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div style="width: 5%;">
                                             <label>
-                                                <input type="checkbox" name="lives_with_patient">
+                                                <input type="checkbox" name="lives_with_patient[]">
                                                 <span style="font-size:12px; padding-left: 25px;"></span>
                                             </label>
                                         </div>
@@ -1044,7 +1065,7 @@
                                                     <th style="width: 14%;">Have Keys</th>
                                                     <td style="width: 86%;">
                                                         <label>
-                                                            <input type="checkbox" name="have_keys">
+                                                            <input type="checkbox" name="have_keys[]">
                                                             <span style="font-size:12px; padding-left: 25px;"></span>
                                                         </label>
                                                     </td>
@@ -1057,7 +1078,7 @@
                             <tr>
                                 <th style="width: 30%;" class="text-right">Address :</th>
                                 <td style="width: 70%;">
-                                    <textarea name="address_old" id="address_old" class="input-small-skin" cols="30" rows="5"></textarea>
+                                    <textarea name="address_old[]" id="address_old" class="input-small-skin" cols="30" rows="5"></textarea>
                                 </td>
                             </tr>
                         </table>
@@ -1067,10 +1088,11 @@
                             <tr>
                                 <th style="width: 30%;" class="text-right">Relationship :</th>
                                 <td style="width: 70%;">
-                                    <select name="relation" id="relation" class="input-small-skin select2">
+                                    <select name="relation[]" id="relation" class="input-small-skin select2">
                                         <option value="">Select</option>
-                                        <option value="274859">Babysitter</option>
-                                        <option value="274858">Babysitter and Friend</option>
+                                        @foreach (config('select.relations') as $key => $relation)
+                                        <option value="{{$key}}">{{$relation}}</option>
+                                        @endforeach
                                     </select>
                                 </td>
                             </tr>
@@ -2757,27 +2779,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
    
     <script>
-        $(document).on('click','.save_record',function(event) {
-        // $('#add_patient_form').on('submit', function(event){
+        // $(document).on('click','.save_record',function(event) {
+        $('#add_patient_form').on('submit', function(event){
             event.preventDefault();
-        //    alert();
-                 
-            var formdata = new FormData($("#add_patient_form")[0]);
-            // var formdata = $("#add_patient_form").serializeArray();
-            // console.log(formdata);
+          
             var url = "{{ Route('patient.store') }}";
-            // alert(url);
             $.ajax({
                type:"POST",
                url:url,
-               data:formdata,
+               data:new FormData(this),
                headers: {
                      'X_CSRF_TOKEN': '{{ csrf_token() }}',
                },
-               processData: false,
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
                success: function(data) {
-                //   if(data.status == 400) {
-                   alert('success');
+                  if(data.status == 400) {
+                   alert('data.message');
                     //  $.each( data.message, function( key, value ) {
                     //     if (data.action === 'add') {
                     //        t.parents('.insurance_company').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
@@ -2785,8 +2805,8 @@
                     //        t.parents("tr").find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
                     //     }
                     //  });
-                //   } else {
-                    alert('error');
+                  } else {
+                    alert('success');
                     //  var html = '<tr><form class="insurance_form5"><input type="hidden" name="insurance_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.name + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="' + data.resultdata.name + '"></div></td><td><span class="label">' + data.resultdata.payer_id + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" aria-describedby="payerIdHelp" placeholder="Enter Payer ID" value="' + data.resultdata.payer_id + '"></div></td><td><span class="label">' + data.resultdata.phone + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.phone + '"></div></td><td><span class="label">' + data.resultdata.policy_no + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="' + data.resultdata.policy_no + '"></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
 
                     //  if (data.action === 'add') {
@@ -2798,7 +2818,7 @@
                     //  t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
                     //  t.parents("tr").find("span, .normal").css("display",'block');
                     //  alertText(data.message,'success');
-                //   }
+                  }
                },
                error: function()
                {
@@ -2854,6 +2874,15 @@
                 alert("You are " + years + " years old!");
             });
             $('input[name="serviceRequestStartDate"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                maxYear: parseInt(moment().format('YYYY'), 10)
+            }, function (start, end, label) {
+                var years = moment().diff(start, 'years');
+                alert("You are " + years + " years old!");
+            });
+            $('input[name="dateOfBirth"]').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 minYear: 1901,

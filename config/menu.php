@@ -101,6 +101,8 @@ return [
             'icon_hover'=>'home-sb.svg',
             'icon_title'=>'Covid-19'
         ],
+        ['name'=>'Calendar','url'=>env('APP_URL').'clinician/calendar','route'=>'clinician/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
+
 //        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'referral'=>[
@@ -151,7 +153,8 @@ return [
                 ]
             ]
         ],
-        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
+        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient'],
+        ['name'=>'Calendar','url'=>env('APP_URL').'referral/calendar','route'=>'referral/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar']
     ],
     'admin'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'admin/dashboard','route'=>'admin/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
@@ -250,7 +253,9 @@ return [
                     'icon_title'=>'Employees'
                 ]
             ]
-        ]
+        ],
+        ['name'=>'Calendar','url'=>env('APP_URL').'admin/calendar','route'=>'admin/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
+
     ],
     'supervisor'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'supervisor','route'=>'supervisor','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
@@ -279,6 +284,8 @@ return [
                 ]
             ]
         ],
+        ['name'=>'Calendar','url'=>env('APP_URL').'supervisor/calendar','route'=>'supervisor/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
+
     ],
     'co-ordinator'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'co-ordinator','route'=>'co-ordinator','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
@@ -302,6 +309,8 @@ return [
                 ]
             ]
         ],
+        ['name'=>'Calendar','url'=>env('APP_URL').'co-ordinator/calendar','route'=>'co-ordinator/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
+
     ],
     'partner'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'partner','route'=>'partner','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
@@ -329,7 +338,8 @@ return [
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Employees'
                 ]
-            ]
+            ],
+            ['name'=>'Calendar','url'=>env('APP_URL').'partner/calendar','route'=>'partner/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
         ]
     ],
     

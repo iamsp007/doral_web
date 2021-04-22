@@ -65,4 +65,7 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
 
     Route::post('/insurance/store', 'App\Http\Controllers\InsuranceController@store')->name('insurance.store');
     Route::post('/edit-insurance', 'App\Http\Controllers\InsuranceController@updateInsurance')->name('insurance.updateInsurance');
+    Route::get('/calendar', function () {
+        return view('pages.referral.calendar');
+    });
 });

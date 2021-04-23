@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'dob', 'phone', 'email', 'email_verified_at', 'password', 'status', 'remember_token', 'level', 'api_token', 'designation_id',
+        'first_name', 'last_name', 'dob', 'phone', 'email', 'email_verified_at', 'password', 'status', 'remember_token', 'level', 'api_token', 'designation_id', 'gender',
     ];
 
     /**
@@ -124,20 +124,21 @@ class User extends Authenticatable
         return $this->hasMany(PatientEmergencyContact::class,'user_id','id');
     }
 
-    /**
-     * Get gender value and set label according to gender value
-     */
-    public function setGenderAttribute($gender)
-    {
-        if ($gender === 'Male') {
-            $gender = '1';
-        } else if ($gender === 'Female') {
-            $gender = '2';
-        } else {
-            $gender = '3';
-        }
-        return $gender;
-    }
+    // /**
+    //  * Get gender value and set label according to gender value
+    //  */
+    // public function setGenderAttribute($gender)
+    // {
+    //     if ($gender === 'Male' || $gender === 'MALE' || $gender === '1') {
+    //         $gender = '1';
+    //     } else if ($gender === 'Female' || $gender === 'FEMALE' || $gender === '2') {
+    //         $gender = '2';
+    //     } else {
+    //         $gender = '3';
+    //     }
+       
+    //     return $gender;
+    // }
 
     /**
      * Get gender value and set label according to gender value

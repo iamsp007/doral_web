@@ -96,7 +96,7 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');
     // Route::post('/download-lab-report','App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
     Route::get('download-lab-report/{user_id}', 'App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
-    Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
+    // Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
     Route::post('/get-due-detail','App\Http\Controllers\CaregiverController@getDueDetail')->name('clinician.due-detail.ajax');
 
     Route::get('/get-due-detail','App\Http\Controllers\CaregiverController@duePatientView')->name('clinician.due-detail');
@@ -112,3 +112,7 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
 
     Route::post('get-document', 'App\Http\Controllers\Clinician\ClinicianController@getDocument')->name('clinician.getDocument');
     Route::get('download-document/{user_id}', 'App\Http\Controllers\Clinician\ClinicianController@downloadDocument')->name('clinician.downloadDocument');
+
+  
+    Route::get('{role}/patient/create', 'App\Http\Controllers\patient\PatientController@create')->name('patient.create');
+    Route::resource('patient', 'App\Http\Controllers\patient\PatientController');

@@ -23,6 +23,16 @@ class PatientEmergencyContact extends Model
         'phone1',
         'phone2',
         'address',
+        'address_old',
+    ];
+    
+    /**
+     * The attributes that are casted.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'address' => 'array',
     ];
     
     public function getPhone1Attribute($phone)

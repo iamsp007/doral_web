@@ -17,7 +17,7 @@ Route::group(['prefix'=>'/co-ordinator','middleware'=>['auth:web','role:co-ordin
         Route::post('/store', 'App\Http\Controllers\Coordinator\AppointmentController@store')->name('coordinator.appointment.store');
 	    Route::get('/{pid}','\App\Http\Controllers\Coordinator\AppointmentController@index')->name('coordinator.appointment');
    });
-   Route::get('/calendar', function () {
-        return view('pages.coordinator.calendar');
-    });
+   
+   Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
+
 });

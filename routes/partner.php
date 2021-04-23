@@ -17,7 +17,5 @@ Route::group(['prefix'=>'/partner','middleware'=>['auth:partner']],function (){
     Route::post('/update-employee/{id}','\App\Http\Controllers\Partner\PartnerController@updateEmployee')->name('partner.updateEmployee');
     Route::get('/view-employee/{id}','\App\Http\Controllers\Partner\PartnerController@viewEmployee')->name('partner.viewEmployee');
     Route::get('/delete-employee/{id}','\App\Http\Controllers\Partner\PartnerController@deleteEmployee')->name('partner.deleteEmployee');
-    Route::get('/calendar', function () {
-        return view('pages.partner.calendar');
-    });
+    Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
 });

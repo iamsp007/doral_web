@@ -12,7 +12,6 @@ Route::group(['prefix'=>'/supervisor','middleware'=>['auth:web','role:supervisor
     Route::post('/update-case-management','\App\Http\Controllers\Supervisor\SuperVisorController@update_case_management');
     Route::post('/case_management','\App\Http\Controllers\Supervisor\SuperVisorController@case_management');
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@getPatientDetail')->name('patient.detail');
-    Route::get('/calendar', function () {
-        return view('pages.supervisor.calendar');
-    });
+    Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
+
 });

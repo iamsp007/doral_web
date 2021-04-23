@@ -171,7 +171,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         <span class="mendate">*</span> Accepted Services :
                                                     </td>
@@ -423,6 +423,24 @@
                                                             <div class="blocks"></div>
                                                         </div>
                                                     </td>
+                                                </tr> -->
+                                                <tr>
+                                                    <td style="width: 30%;" class="text-right border-0">
+                                                        Company :
+                                                    </td>
+                                                    <td class="border-0" style="width: 70%;">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div style="width: 45%;">
+                                                                <select name="company_id" id="company_id" class="input-small-skin select2">
+                                                                    <option selected="selected" value="">Select</option>
+                                                                    
+                                                                    @foreach ($companies as $key => $company)
+                                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
@@ -560,7 +578,7 @@
                                                     <td class="border-0" style="width: 70%;">
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <div style="width: 45%;">
-                                                                <input type="text" class="input-small-skin" name="doral_id" id="doral_id">
+                                                                <input type="text" class="input-small-skin" name="doral_id" id="doral_id" value="{{ createDoralId() }}" readonly>
                                                             </div>
                                                             <div style="width: 55%;padding-right: 0;">
                                                                 <table style="width: 100%;">
@@ -568,6 +586,7 @@
                                                                         <td style="width: 45%;" class="text-right border-0">Medicaid Number :</td>
                                                                         <td class="border-0" style="width: 55%;padding-right: 0;" maxlength="20">
                                                                             <input type="text" class="input-small-skin" name="medicaid_number" id="medicaid_number">
+                                                                            <span class="medicaid_number-invalid-feedback text-danger" role="alert" maxlength="8"></span>
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -582,7 +601,7 @@
                                                     <td class="border-0" style="width: 70%;">
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <div style="width: 45%;">
-                                                                <input type="text" class="input-small-skin" maxlength="25" name="medicare_number" id="medicare_number">
+                                                                <input type="text" class="input-small-skin" maxlength="11" name="medicare_number" id="medicare_number">
                                                             </div>
                                                             <div style="width: 55%;">
                                                                 <table style="width: 100%;">
@@ -655,7 +674,7 @@
                                                     <td style="width: 30%;" class="text-right border-0">SSN :#</td>
                                                     <td class="border-0" style="width: 70%;">
                                                         <div class="d-flex align-items-center">
-                                                            <div><input type="text" maxlength="11" class="input-small-skin" name="ssn" id="ssn"></div>
+                                                            <div><input type="text" maxlength="11" class="input-small-skin ssn_format" name="ssn" id="ssn"></div>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="ml-2 mr-2">
                                                                     Allow Duplicate :
@@ -1782,108 +1801,11 @@
                                                     <td style="width: 70%;">
                                                         <select name="language[]" id="primaryLanguage1"
                                                             class="input-small-skin select2">
-                                                            <option selected="selected" value="">Select
-                                                            </option>
-                                                            <option value="44">African</option>
-                                                            <option value="19">Albanian</option>
-                                                            <option value="64">American Sign Language</option>
-                                                            <option value="66">Amharic</option>
-                                                            <option value="11">Arabic</option>
-                                                            <option value="51">Armenian</option>
-                                                            <option value="45">Ashanti</option>
-                                                            <option value="81">Azerbaijani</option>
-                                                            <option value="83">Belarusian</option>
-                                                            <option value="30">Bengali</option>
-                                                            <option value="46">Bilingual</option>
-                                                            <option value="70">Bosnian</option>
-                                                            <option value="31">Bulgaria</option>
-                                                            <option value="90">Burmese</option>
-                                                            <option value="15">Cantonese</option>
-                                                            <option value="4">Chinese</option>
-                                                            <option value="12">Creole</option>
-                                                            <option value="97">Croatian</option>
-                                                            <option value="82">Czech</option>
-                                                            <option value="84">Danish</option>
-                                                            <option value="71">Dari</option>
-                                                            <option value="57">Dutch</option>
-                                                            <option value="68">Edo/Bini</option>
-                                                            <option value="2">English</option>
-                                                            <option value="85">Estonian</option>
-                                                            <option value="72">Ethiopian</option>
-                                                            <option value="25">Farsi</option>
-                                                            <option value="65">Filipino</option>
-                                                            <option value="5">French</option>
-                                                            <option value="14">Fukkianese</option>
-                                                            <option value="78">Fula/Fulani</option>
-                                                            <option value="54">Fuzhounese</option>
-                                                            <option value="33">Georgian</option>
-                                                            <option value="37">German</option>
-                                                            <option value="47">Ghana</option>
-                                                            <option value="34">Greek</option>
-                                                            <option value="73">Gujarati</option>
-                                                            <option value="63">Guyanese</option>
-                                                            <option value="98">Haitian</option>
-                                                            <option value="55">Hakka</option>
-                                                            <option value="79">Hausa</option>
-                                                            <option value="6">Hebrew</option>
-                                                            <option value="17">Hindi</option>
-                                                            <option value="8">Hungarian</option>
-                                                            <option value="67">IGBO</option>
-                                                            <option value="96">Indonesian</option>
-                                                            <option value="10">Italian</option>
-                                                            <option value="48">Jamaican</option>
-                                                            <option value="49">Japanese</option>
-                                                            <option value="21">Kajainese</option>
-                                                            <option value="89">Kannada</option>
-                                                            <option value="87">Kazakh</option>
-                                                            <option value="93">khmer</option>
-                                                            <option value="62">Khmer/Cambodian</option>
-                                                            <option value="101">Kinyarwanda</option>
-                                                            <option value="18">Korean</option>
-                                                            <option value="60">Krio</option>
-                                                            <option value="100">Kurdish</option>
-                                                            <option value="58">Kyrgyz</option>
-                                                            <option value="94">Lao</option>
-                                                            <option value="43">Latvian</option>
-                                                            <option value="99">Lingala</option>
-                                                            <option value="86">Lithuanian</option>
-                                                            <option value="95">Malayalam</option>
-                                                            <option value="50">Mandarin</option>
-                                                            <option value="74">Nepali</option>
-                                                            <option value="75">Pashto</option>
-                                                            <option value="28">Patwa</option>
-                                                            <option value="35">Persian</option>
-                                                            <option value="13">Polish</option>
-                                                            <option value="52">Portuguese</option>
-                                                            <option value="61">POTWARI</option>
-                                                            <option value="53">Punjabi</option>
-                                                            <option value="26">Romanian</option>
-                                                            <option value="7">Russian</option>
-                                                            <option value="91">Serbian</option>
-                                                            <option value="23">Shanghainese</option>
-                                                            <option value="69">Sinhala</option>
-                                                            <option value="76">Somali</option>
-                                                            <option value="77">Soninke</option>
-                                                            <option value="1">Spanish</option>
-                                                            <option value="38">Swahili</option>
-                                                            <option value="36">Tagalog</option>
-                                                            <option value="56">Taishan</option>
-                                                            <option value="16">Taishanese</option>
-                                                            <option value="22">Taiwanese</option>
-                                                            <option value="80">Tajik</option>
-                                                            <option value="59">Temne</option>
-                                                            <option value="92">Thai</option>
-                                                            <option value="88">Tibetan</option>
-                                                            <option value="27">Turkish</option>
-                                                            <option value="39">Twi</option>
-                                                            <option value="40">Ukrainian</option>
-                                                            <option value="29">Urdu</option>
-                                                            <option value="20">Uzbek</option>
-                                                            <option value="41">Vietnamese</option>
-                                                            <option value="24">Wenzhounese</option>
-                                                            <option value="3">Yiddish</option>
-                                                            <option value="42">Yoruba</option>
-                                                            <option value="32">Yugoslavia</option>
+                                                            <option selected="selected" value="">Select</option>
+                                                            
+                                                            @foreach (config('select.language') as $key => $language)
+                                                                <option value="{{ $key}}">{{$language}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -1919,108 +1841,10 @@
                                                     <td style="width: 70%;">
                                                         <select name="language[]" id="primaryLanguage"
                                                             class="input-small-skin select2">
-                                                            <option selected="selected" value="">Select
-                                                            </option>
-                                                            <option value="44">African</option>
-                                                            <option value="19">Albanian</option>
-                                                            <option value="64">American Sign Language</option>
-                                                            <option value="66">Amharic</option>
-                                                            <option value="11">Arabic</option>
-                                                            <option value="51">Armenian</option>
-                                                            <option value="45">Ashanti</option>
-                                                            <option value="81">Azerbaijani</option>
-                                                            <option value="83">Belarusian</option>
-                                                            <option value="30">Bengali</option>
-                                                            <option value="46">Bilingual</option>
-                                                            <option value="70">Bosnian</option>
-                                                            <option value="31">Bulgaria</option>
-                                                            <option value="90">Burmese</option>
-                                                            <option value="15">Cantonese</option>
-                                                            <option value="4">Chinese</option>
-                                                            <option value="12">Creole</option>
-                                                            <option value="97">Croatian</option>
-                                                            <option value="82">Czech</option>
-                                                            <option value="84">Danish</option>
-                                                            <option value="71">Dari</option>
-                                                            <option value="57">Dutch</option>
-                                                            <option value="68">Edo/Bini</option>
-                                                            <option value="2">English</option>
-                                                            <option value="85">Estonian</option>
-                                                            <option value="72">Ethiopian</option>
-                                                            <option value="25">Farsi</option>
-                                                            <option value="65">Filipino</option>
-                                                            <option value="5">French</option>
-                                                            <option value="14">Fukkianese</option>
-                                                            <option value="78">Fula/Fulani</option>
-                                                            <option value="54">Fuzhounese</option>
-                                                            <option value="33">Georgian</option>
-                                                            <option value="37">German</option>
-                                                            <option value="47">Ghana</option>
-                                                            <option value="34">Greek</option>
-                                                            <option value="73">Gujarati</option>
-                                                            <option value="63">Guyanese</option>
-                                                            <option value="98">Haitian</option>
-                                                            <option value="55">Hakka</option>
-                                                            <option value="79">Hausa</option>
-                                                            <option value="6">Hebrew</option>
-                                                            <option value="17">Hindi</option>
-                                                            <option value="8">Hungarian</option>
-                                                            <option value="67">IGBO</option>
-                                                            <option value="96">Indonesian</option>
-                                                            <option value="10">Italian</option>
-                                                            <option value="48">Jamaican</option>
-                                                            <option value="49">Japanese</option>
-                                                            <option value="21">Kajainese</option>
-                                                            <option value="89">Kannada</option>
-                                                            <option value="87">Kazakh</option>
-                                                            <option value="93">khmer</option>
-                                                            <option value="62">Khmer/Cambodian</option>
-                                                            <option value="101">Kinyarwanda</option>
-                                                            <option value="18">Korean</option>
-                                                            <option value="60">Krio</option>
-                                                            <option value="100">Kurdish</option>
-                                                            <option value="58">Kyrgyz</option>
-                                                            <option value="94">Lao</option>
-                                                            <option value="43">Latvian</option>
-                                                            <option value="99">Lingala</option>
-                                                            <option value="86">Lithuanian</option>
-                                                            <option value="95">Malayalam</option>
-                                                            <option value="50">Mandarin</option>
-                                                            <option value="74">Nepali</option>
-                                                            <option value="75">Pashto</option>
-                                                            <option value="28">Patwa</option>
-                                                            <option value="35">Persian</option>
-                                                            <option value="13">Polish</option>
-                                                            <option value="52">Portuguese</option>
-                                                            <option value="61">POTWARI</option>
-                                                            <option value="53">Punjabi</option>
-                                                            <option value="26">Romanian</option>
-                                                            <option value="7">Russian</option>
-                                                            <option value="91">Serbian</option>
-                                                            <option value="23">Shanghainese</option>
-                                                            <option value="69">Sinhala</option>
-                                                            <option value="76">Somali</option>
-                                                            <option value="77">Soninke</option>
-                                                            <option value="1">Spanish</option>
-                                                            <option value="38">Swahili</option>
-                                                            <option value="36">Tagalog</option>
-                                                            <option value="56">Taishan</option>
-                                                            <option value="16">Taishanese</option>
-                                                            <option value="22">Taiwanese</option>
-                                                            <option value="80">Tajik</option>
-                                                            <option value="59">Temne</option>
-                                                            <option value="92">Thai</option>
-                                                            <option value="88">Tibetan</option>
-                                                            <option value="27">Turkish</option>
-                                                            <option value="39">Twi</option>
-                                                            <option value="40">Ukrainian</option>
-                                                            <option value="29">Urdu</option>
-                                                            <option value="20">Uzbek</option>
-                                                            <option value="41">Vietnamese</option>
-                                                            <option value="24">Wenzhounese</option>
-                                                            <option value="3">Yiddish</option>
-                                                            <option value="42">Yoruba</option>
-                                                            <option value="32">Yugoslavia</option>
+                                                            <option selected="selected" value="">Select</option>
+                                                            @foreach (config('select.language') as $key => $language)
+                                                                <option value="{{ $key}}">{{$language}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -2779,6 +2603,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
    
     <script>
+        // $(document).ready(function() {
+        //     alert(createDoralId());
+        // });
         // $(document).on('click','.save_record',function(event) {
         $('#add_patient_form').on('submit', function(event){
             event.preventDefault();
@@ -2797,7 +2624,7 @@
                 processData: false,
                success: function(data) {
                   if(data.status == 400) {
-                   alert('data.message');
+                    alertText(data.message,'error');
                     //  $.each( data.message, function( key, value ) {
                     //     if (data.action === 'add') {
                     //        t.parents('.insurance_company').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
@@ -2806,24 +2633,13 @@
                     //     }
                     //  });
                   } else {
-                    alert('success');
-                    //  var html = '<tr><form class="insurance_form5"><input type="hidden" name="insurance_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.name + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="' + data.resultdata.name + '"></div></td><td><span class="label">' + data.resultdata.payer_id + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" aria-describedby="payerIdHelp" placeholder="Enter Payer ID" value="' + data.resultdata.payer_id + '"></div></td><td><span class="label">' + data.resultdata.phone + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.phone + '"></div></td><td><span class="label">' + data.resultdata.policy_no + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="' + data.resultdata.policy_no + '"></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
-
-                    //  if (data.action === 'add') {
-                    //     $('.insurance-list-order tr:last').after(html);
-                    //  } else if (data.action === 'edit') {
-                    //     t.parents("tr").replaceWith(html);
-                    //  }
-                    //  $('.insurance_company').hide();
-                    //  t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
-                    //  t.parents("tr").find("span, .normal").css("display",'block');
-                    //  alertText(data.message,'success');
+                    alertText(data.message,'success');
                   }
                },
                error: function()
                {
-                alert('error');
-                //   alertText("Server Timeout! Please try again",'warning');
+               
+                  alertText("Server Timeout! Please try again",'warning');
                }
             });
         });
@@ -2952,5 +2768,24 @@
                 });
             })
         });
+
+        function alertText(text,status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: status,
+                title: text
+            })
+        }
     </script>
 @endpush

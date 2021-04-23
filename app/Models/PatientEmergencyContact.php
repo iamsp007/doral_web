@@ -23,6 +23,7 @@ class PatientEmergencyContact extends Model
         'phone1',
         'phone2',
         'address',
+        'address_old',
     ];
     
     public function getPhone1Attribute($phone)

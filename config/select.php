@@ -173,5 +173,5 @@ return [
         'Yiddish'=>  'Yiddish',
         'Yoruba' => 'Yoruba',
         'Yugoslavia' => 'Yugoslavia',
-    ];
+    ],
 ];

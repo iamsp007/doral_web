@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\patient;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
@@ -30,7 +31,10 @@ class PatientController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.patient.create');
+     
+        $companies = Company::orderBy('name','ASC')->get();
+       
+        return view('pages.admin.patient.create',compact('companies'));
     }
 
     /**
@@ -42,7 +46,7 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        // dd($input);
+       
         $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -61,19 +65,20 @@ class PatientController extends Controller
         $validator = Validator::make($input, $rules, $messages);
 
         if ($validator->fails()) {
-            $arr = array('status' => 400, 'message' => $validator->getMessageBag()->toArray(), 'result' => array(), 'action' => $action);
+            $arr = array('status' => 400, 'message' => $validator->getMessageBag()->toArray(), 'result' => array());
         } else {
             try {
-                // $parts = explode('-',$input['dob']);
-                // $yyyy_mm_dd = $parts[2] . '-' . $parts[0] . '-' . $parts[1];
+                
+                $password = str_replace(" ", "",$input['first_name']) . '@' . $input['doral_id'];
+
                 $user = new User();
               
                 $user->first_name = $input['first_name'];
                 $user->last_name = $input['last_name'];
-                $user->gender = $input['gender'];
-                // $user->dob = $yyyy_mm_dd;
-                $user->password = Hash::make('patient@doral');
-                
+                $user->gender = setGender($input['gender']);
+                $user->dob = dateFormat($input['dateOfBirth']);
+                $user->password = setPassword($password);
+             
                 $user->save();
 
                 $address = [
@@ -84,20 +89,25 @@ class PatientController extends Controller
                     'country' => $input['country'],
                     'zip_code' => $input['zip_code'],
                 ];
+
+                $language = '';
+                if (isset($input['language'])) {
+                    $language = implode(",",$input['language']);
+                }
+                
                 $demographic = new Demographic();
             
-                $demographic->ssn = $input['ssn'];
                 $demographic->user_id = $user->id;
                 $demographic->service_id = $input['service_id'];
-                $demographic->company_id = '1';
+                $demographic->company_id = $input['company_id'];
                 $demographic->doral_id = $input['doral_id'];
                 $demographic->ethnicity = $input['ethnicity'];
                 $demographic->medicaid_number = $input['medicaid_number'];
                 $demographic->medicare_number = $input['medicare_number'];
-                $demographic->ssn = $input['ssn'];
-                $demographic->doral_id = $input['doral_id'];
+                $demographic->ssn = setSsn($input['ssn']);
+                $demographic->doral_id = createDoralId();
                 $demographic->address = $address;
-
+                $demographic->language = $language;
                 $demographic->save();
 
                 $contactName = $input['name'];
@@ -105,14 +115,19 @@ class PatientController extends Controller
                 $phone2 = $input['phone2'];
                 $relation = $input['relation'];
                 $address = $input['address_old'];
-                
+                $lives_with_patient = $input['lives_with_patient'];
+                $have_keys = $input['have_keys'];
                 foreach ($contactName as $index => $value) {
+                   
                     PatientEmergencyContact::create([
                         'user_id' => $user->id,
                         'name' => ($contactName[$index]) ? $contactName[$index] : '',
+                        'relation' => ($relation[$index]) ? $relation[$index] : '',
+                        'lives_with_patient' => ($lives_with_patient[$index]) ? $lives_with_patient[$index] : '',
+                        'lives_with_patient' => ($have_keys[$index]) ? $have_keys[$index] : '',
                         'phone1' => ($phone1[$index]) ? $phone1[$index] : '',
                         'phone2' => ($phone2[$index]) ? $phone2[$index] : '',
-                        'relation' => ($relation[$index]) ? $relation[$index] : '',
+                        'address_old' => ($address[$index]) ? $address[$index] : '',
                         // 'address' => [
                         //     'apt_building' => $input['emergencyAptBuilding'],
                         //     'address1' => $input['emergencyAddress1'],
@@ -121,7 +136,7 @@ class PatientController extends Controller
                         //     'state' => $input['emergencyAddress_state'],
                         //     'zip_code' => $input['emergencyAddress_zip_code'],
                         // ],
-                        'address_old' => ($address[$index]) ? $address[$index] : '',
+                       
                         // 'address' => $emergencyAddress,
                     ]);
                 }

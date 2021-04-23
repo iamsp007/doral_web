@@ -101,6 +101,7 @@ return [
             'icon_hover'=>'home-sb.svg',
             'icon_title'=>'Covid-19'
         ],
+        ['name'=>'Add Patient','url'=>env('APP_URL').'clinician/patient/create','route'=>'patient.create','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
 //        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'referral'=>[
@@ -151,7 +152,8 @@ return [
                 ]
             ]
         ],
-        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
+        // ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
+        ['name'=>'Add Patient','url'=>env('APP_URL').'referral/patient/create','route'=>'patient.create','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'admin'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'admin/dashboard','route'=>'admin/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
@@ -280,6 +282,7 @@ return [
                 ]
             ]
         ],
+        ['name'=>'Add Patient','url'=>env('APP_URL').'supervisor/patient/create','route'=>'patient.create','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'co-ordinator'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'co-ordinator','route'=>'co-ordinator','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
@@ -303,6 +306,7 @@ return [
                 ]
             ]
         ],
+        ['name'=>'Add Patient','url'=>env('APP_URL').'co-ordinator/patient/create','route'=>'patient.create','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'partner'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'partner','route'=>'partner','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],

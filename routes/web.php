@@ -113,3 +113,6 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::post('get-document', 'App\Http\Controllers\Clinician\ClinicianController@getDocument')->name('clinician.getDocument');
     Route::get('download-document/{user_id}', 'App\Http\Controllers\Clinician\ClinicianController@downloadDocument')->name('clinician.downloadDocument');
 
+  
+    Route::get('{role}/patient/create', 'App\Http\Controllers\patient\PatientController@create')->name('patient.create');
+    Route::resource('patient', 'App\Http\Controllers\patient\PatientController');

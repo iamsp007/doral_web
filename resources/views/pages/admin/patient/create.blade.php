@@ -43,6 +43,41 @@
                                             <tbody>
                                                 <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
+                                                        <span class="mendate">*</span> Referral :
+                                                    </td>
+                                                    <td class="border-0" style="width: 70%;">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div style="width: 50%;">
+                                                                <select name="company_id" id="company_id" class="input-small-skin select2">
+                                                                    <option selected="selected" value="">Select</option>
+                                                                    @foreach ($companies as $key => $company)
+                                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            <div style="width: 50%;">
+                                                                <table style="width: 100%;">
+                                                                    <tr>
+                                                                        <td style="width: 30%;" class="text-right border-0">
+                                                                        <span class="mendate">*</span> Service :
+                                                                        </td>
+                                                                        <td class="border-0" style="width: 70%;padding-right: 0;">
+                                                                            <select name="service_id" id="service_id" class="input-small-skin select2">
+                                                                                <option selected="selected" value="">Select</option>
+                                                                                
+                                                                                @foreach ($services as $key => $service)
+                                                                                    <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 30%;" class="text-right border-0">
                                                         <span class="mendate">*</span> First Name :
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
@@ -82,13 +117,11 @@
                                                                             Race :
                                                                         </td>
                                                                         <td class="border-0" style="width: 80%;padding-right: 0;">
-                                                                            <select name="Race" id="Race" class="input-small-skin select2" disabled>
+                                                                            <select name="race" id="race" class="input-small-skin select2">
                                                                                 <option selected="selected" value="">Select</option>
-                                                                                <option value="1">American Indian or Alaska Native</option>
-                                                                                <option value="2">Asian</option>
-                                                                                <option value="3">Black or African American</option>
-                                                                                <option value="4">Native Hawaiian or Other Pacific Islander</option>
-                                                                                <option value="5">White</option>
+                                                                                @foreach (config('select.race') as $key => $race)
+                                                                                    <option value="{{$key}}">{{$race}}</option>
+                                                                                @endforeach
                                                                             </select>
                                                                         </td>
                                                                     </tr>
@@ -115,10 +148,10 @@
                                                         Service Request Start Date :
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
-                                                        <input type="text" name="serviceRequestStartDate" class="input-small-skin" disabled>
+                                                        <input type="text" name="serviceRequestStartDate" class="input-small-skin">
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         Source Of Admission :
                                                     </td>
@@ -142,8 +175,8 @@
                                                             <option value="218">Other</option>
                                                         </select>
                                                     </td>
-                                                </tr>
-                                                <tr>
+                                                </tr> -->
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         Team :
                                                     </td>
@@ -170,7 +203,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                </tr>
+                                                </tr> -->
                                                 <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         <span class="mendate">*</span> Accepted Services :
@@ -424,56 +457,22 @@
                                                         </div>
                                                     </td>
                                                 </tr> -->
-                                                <tr>
-                                                    <td style="width: 30%;" class="text-right border-0">
-                                                        Company :
-                                                    </td>
-                                                    <td class="border-0" style="width: 70%;">
-                                                        <div class="d-flex align-items-center justify-content-between">
-                                                            <div style="width: 45%;">
-                                                                <select name="company_id" id="company_id" class="input-small-skin select2">
-                                                                    <option selected="selected" value="">Select</option>
-                                                                    
-                                                                    @foreach ($companies as $key => $company)
-                                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 30%;" class="text-right border-0">
-                                                        Service :
-                                                    </td>
-                                                    <td class="border-0" style="width: 70%;">
-                                                        <div class="d-flex align-items-center justify-content-between">
-                                                            <div style="width: 45%;">
-                                                                <select name="service_id" id="service_id" class="input-small-skin select2">
-                                                                    <option selected="selected" value="">Select</option>
-                                                                    
-                                                                    @foreach (config('select.services') as $key => $services)
-                                                                        <option value="{{ $key }}">{{ $services }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                
+                                               
                                             </tbody>
                                         </table>
                                     </th>
                                     <th class="p-0" style="width: 50%;vertical-align: top!important;">
                                         <table class="table table-borderless border-0">
                                             <tbody>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         Middle Name :
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
                                                         <input type="text" class="input-small-skin" disabled>
                                                     </td>
-                                                </tr>
+                                                </tr> -->
                                                 <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         <span class="mendate">*</span> DOB :
@@ -485,7 +484,7 @@
                                                                 <input type="text" name="dateOfBirth" class="input-small-skin">
                                                   
                                                             </div>
-                                                            <div style="width: 55%;">
+                                                            <!-- <div style="width: 55%;">
                                                                 <table style="width: 100%;">
                                                                     <tr>
                                                                         <td style="width: 30%;" class="text-right border-0">
@@ -502,11 +501,24 @@
                                                                         </td>
                                                                     </tr>
                                                                 </table>
+                                                            </div> -->
+                                                            <div style="width: 55%;">
+                                                                <table style="width: 100%;">
+                                                                    <tr>
+                                                                        <td style="width: 30%;" class="text-right border-0">
+                                                                            <span class="mendate">*</span>SSN :# :
+                                                                        </td>
+                                                                        <td class="border-0" style="width: 70%;padding-right: 0;">
+                                                                            <input type="text" maxlength="11" class="input-small-skin ssn_format" name="ssn" id="ssn" placeholder="(e.g. xxx-xx-xxxx)">
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
                                                             </div>
+                                                           
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         Coordinator 2 :
                                                     </td>
@@ -537,8 +549,8 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                </tr>
-                                                <tr>
+                                                </tr> -->
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         EVV Required :
                                                     </td>
@@ -570,8 +582,8 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                </tr>
-                                                <tr>
+                                                </tr> -->
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         Doral ID :
                                                     </td>
@@ -593,7 +605,7 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                </tr>
+                                                </tr> -->
                                                 <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         Medicare Number :
@@ -603,7 +615,18 @@
                                                             <div style="width: 45%;">
                                                                 <input type="text" class="input-small-skin" maxlength="11" name="medicare_number" id="medicare_number">
                                                             </div>
-                                                            <div style="width: 55%;">
+                                                            <div style="width: 55%;padding-right: 0;">
+                                                                <table style="width: 100%;">
+                                                                    <tr>
+                                                                        <td style="width: 45%;" class="text-right border-0">Medicaid Number :</td>
+                                                                        <td class="border-0" style="width: 55%;padding-right: 0;" maxlength="20">
+                                                                            <input type="text" class="input-small-skin" name="medicaid_number" id="medicaid_number">
+                                                                            <span class="medicaid_number-invalid-feedback text-danger" role="alert" maxlength="8"></span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                            <!-- <div style="width: 55%;">
                                                                 <table style="width: 100%;">
                                                                     <tr>
                                                                         <td style="width:45%;" class="text-right border-0">HI Claim Number :</td>
@@ -612,11 +635,11 @@
                                                                         </td>
                                                                     </tr>
                                                                 </table>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">Wage Parity :</td>
                                                     <td class="border-0" style="width: 70%;">
                                                         <label>
@@ -624,8 +647,8 @@
                                                             <span style="font-size:12px">(Contract setup overrides Patient setup)</span>
                                                         </label>
                                                     </td>
-                                                </tr>
-                                                <tr>
+                                                </tr> -->
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         From Date
                                                     </td>
@@ -647,8 +670,8 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                </tr>
-                                                <tr>
+                                                </tr> -->
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         From Date :
                                                     </td>
@@ -669,8 +692,8 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                </tr>
-                                                <tr>
+                                                </tr> -->
+                                                <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">SSN :#</td>
                                                     <td class="border-0" style="width: 70%;">
                                                         <div class="d-flex align-items-center">
@@ -689,6 +712,42 @@
                                                         </div>
                                                         (e.g. xxx-xx-xxxx)
                                                     </td>
+                                                </tr> -->
+                                                <tr>
+                                                    <td style="width: 30%;" class="text-right border-0">
+                                                        Profile Picture :
+                                                    </td>
+                                                    <td class="border-0" style="width: 70%;">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div style="width: 45%;">
+                                                                <input type="file" class="form-control"
+                                                                        style="height: inherit;" id="avatar"
+                                                                        name="avatar" aria-describedby="uploadphoto">
+                                                                <img class="imageThumb" src="" id="s1" heigth="100" width="100" >
+                                                            </div>
+                                                            <!-- <div style="width: 55%;padding-right: 0;">
+                                                                <table style="width: 100%;">
+                                                                    <tr>
+                                                                        <td style="width: 45%;" class="text-right border-0">Medicaid Number :</td>
+                                                                        <td class="border-0" style="width: 55%;padding-right: 0;" maxlength="20">
+                                                                            <input type="text" class="input-small-skin" name="medicaid_number" id="medicaid_number">
+                                                                            <span class="medicaid_number-invalid-feedback text-danger" role="alert" maxlength="8"></span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div> -->
+                                                            <!-- <div style="width: 55%;">
+                                                                <table style="width: 100%;">
+                                                                    <tr>
+                                                                        <td style="width:45%;" class="text-right border-0">HI Claim Number :</td>
+                                                                        <td class="border-0" style="width:55%;padding-right: 0;">
+                                                                            <input type="text" class="input-small-skin" maxlength="9" disabled>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div> -->
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -701,8 +760,7 @@
                                                 Alerts :
                                             </td>
                                             <td style="width: 85%;" class="border-0">
-                                                <textarea class="input-small-skin" name="" id="" cols="30"
-                                                    rows="5"></textarea>
+                                                <textarea class="input-small-skin" name="alert" id="" cols="30" rows="5"></textarea>
                                             </td>
                                         </table>
                                     </td>
@@ -719,10 +777,10 @@
             <tbody>
                 <tr class="table-active">
                     <td>Address</td>
-                    <td>
+                    <!-- <td>
                         <a href="javascript:void(0)" data-toggle="modal" data-target="#addressModal"
                             class="btn btn-light btn-sm font-weight-bold p-0 pl-2 pr-2">ADD</a>
-                    </td>
+                    </td> -->
                 </tr>
                 <tr>
                     <td>
@@ -735,7 +793,6 @@
                                     <th>State</th>
                                     <th>Country</th>
                                     <th>Zip</th>
-                                    <th>Cross Street</th>
                                     <th>Primary</th>
                                     <th>Address Type(s)</th>
                                     <th>Notes</th>
@@ -750,63 +807,21 @@
                                         <input type="text" class="input-small-skin" name="address2">
                                     </td>
                                     <td>
-                                        <input type="text" class="input-small-skin" name="city">
+
+                                        <select name="city" class="input-small-skin select2">
+                                            <option selected="selected" value="">Select</option>
+                                            
+                                            @foreach ($cities as $key => $city)
+                                                <option value="{{ $city->city }}">{{ $city->city }}</option>
+                                            @endforeach
+                                        </select>
                                     </td>
                                     <td>
-                                        <select id="ddlState0" class="input-small-skin select2" name="state">
-                                            <option value="">Select</option>
-                                            <option value="AK">AK</option>
-                                            <option value="AL">AL</option>
-                                            <option value="AR">AR</option>
-                                            <option value="AZ">AZ</option>
-                                            <option value="CA">CA</option>
-                                            <option value="CO">CO</option>
-                                            <option value="CT">CT</option>
-                                            <option value="DC">DC</option>
-                                            <option value="DE">DE</option>
-                                            <option value="FL">FL</option>
-                                            <option value="GA">GA</option>
-                                            <option value="HI">HI</option>
-                                            <option value="IA">IA</option>
-                                            <option value="ID">ID</option>
-                                            <option value="IL">IL</option>
-                                            <option value="IN">IN</option>
-                                            <option value="KS">KS</option>
-                                            <option value="KY">KY</option>
-                                            <option value="LA">LA</option>
-                                            <option value="MA">MA</option>
-                                            <option value="MD">MD</option>
-                                            <option value="ME">ME</option>
-                                            <option value="MI">MI</option>
-                                            <option value="MN">MN</option>
-                                            <option value="MO">MO</option>
-                                            <option value="MS">MS</option>
-                                            <option value="MT">MT</option>
-                                            <option value="NC">NC</option>
-                                            <option value="ND">ND</option>
-                                            <option value="NE">NE</option>
-                                            <option value="NH">NH</option>
-                                            <option value="NJ">NJ</option>
-                                            <option value="NM">NM</option>
-                                            <option value="NV">NV</option>
-                                            <option value="NY">NY</option>
-                                            <option value="OH">OH</option>
-                                            <option value="OK">OK</option>
-                                            <option value="OR">OR</option>
-                                            <option value="PA">PA</option>
-                                            <option value="PR">PR</option>
-                                            <option value="RI">RI</option>
-                                            <option value="SC">SC</option>
-                                            <option value="SD">SD</option>
-                                            <option value="TN">TN</option>
-                                            <option value="TX">TX</option>
-                                            <option value="UT">UT</option>
-                                            <option value="VA">VA</option>
-                                            <option value="VT">VT</option>
-                                            <option value="WA">WA</option>
-                                            <option value="WI">WI</option>
-                                            <option value="WV">WV</option>
-                                            <option value="WY">WY</option>
+                                        <select class="input-small-skin select2" name="state">
+                                            <option selected="selected" value="">Select</option>
+                                            @foreach ($states as $key => $state)
+                                                <option value="{{ $state->state }}">{{ $state->state }}</option>
+                                            @endforeach
                                         </select>
                                     </td>
                                     <td>
@@ -815,27 +830,27 @@
                                             <option value="">USA</option>
                                         </select>
                                     </td>
-                                    <td>
+                                    <td style="width: 10%;">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <div style="width: 49%;">
+                                            <!-- <div style="width: 49%;"> -->
                                                 <input type="text" maxlength="5" onpaste="return false" class="input-small-skin" name="zip_code">
-                                            </div>
-                                            <div style="width: 49%;">
+                                            <!-- </div> -->
+                                            <!-- <div style="width: 49%;">
                                                 <input type="text" maxlength="4" onpaste="return false" class="input-small-skin" disabled>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <input type="text" class="input-small-skin" disabled>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <label>
-                                            <input type="checkbox" disabled>
+                                            <input type="checkbox" name="primary">
                                             <span style="font-size:12px; padding-left: 25px;"></span>
                                         </label>
                                     </td>
                                     <td>
-                                        <select name="addressType" class="input-small-skin select2" id="addressType" disabled>
+                                        <select name="addressType" class="input-small-skin select2" id="addressType">
                                             <option value="">Select</option>
                                            @foreach (config('select.address_type') as $key => $address_type)
                                                 <option value="{{ $key }}">{{ $address_type }}</option>
@@ -847,11 +862,11 @@
                                             <div style="width: 50%;">
                                                 <a href="javascript:void(0)" target="_blank" data-toggle="modal" data-target="#addNotesModal" class="text-underline" rel="noopener noreferrer" disabled>Add</a>
                                             </div>
-                                            <div style="width: 50%;">
+                                            <!-- <div style="width: 50%;">
                                                 <a href="javascript:void(0)" class="closebtnIcons">
                                                     <i class="lar la-window-close"></i>
                                                 </a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -884,12 +899,12 @@
                                                 <div class="step">
                                                     <input type="text" class="input-small-skin">
                                                 </div>
-                                                <div class="step">
+                                                <!-- <div class="step">
                                                     <input type="text" class="input-small-skin">
                                                 </div>
                                                 <div class="step">
                                                     <input type="text" class="input-small-skin">
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <div style="width: 55%;">
@@ -1059,7 +1074,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+        
+                <tr class="add_more_contact_div">
+             
                     <td style="width: 50%;" class="border-0">
                         <table style="width: 100%;" class="table table-borderless table-sm m-0 border-0">
                             <tr>
@@ -1095,9 +1112,25 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">Address :</th>
+                                <!-- <th style="width: 30%;" class="text-right">Address :</th>
                                 <td style="width: 70%;">
                                     <textarea name="address_old[]" id="address_old" class="input-small-skin" cols="30" rows="5"></textarea>
+                                </td> -->
+                                <th style="width: 30%;" class="text-right">Apt Building :</th>
+                                <td style="width: 70%;">
+                                    <input type="text" class="input-small-skin" name="emergency_apt_building[]">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width: 30%;" class="text-right">Address 1 :</th>
+                                <td style="width: 70%;">
+                                    <input type="text" class="input-small-skin" name="emergency_address1[]">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width: 30%;" class="text-right">Address 2 :</th>
+                                <td style="width: 70%;">
+                                    <input type="text" class="input-small-skin" name="emergency_address2[]">
                                 </td>
                             </tr>
                         </table>
@@ -1118,55 +1151,44 @@
                             <tr>
                                 <th style="width: 30%;" class="text-right">Phone 1 :</th>
                                 <td style="width: 70%;">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div style="width: 45%;">
-                                            <div class="homePhone">
-                                                <div class="step">
-                                                    <input type="text" class="input-small-skin" name="phone1">
-                                                </div>
-                                                <!-- <div class="step">
-                                                    <input type="text" class="input-small-skin" maxlength="3">
-                                                </div>
-                                                <div class="step">
-                                                    <input type="text" class="input-small-skin" maxlength="3">
-                                                </div> -->
-                                            </div>
-                                        </div>
-                                        <div style="width: 55%;">
-                                        </div>
-                                    </div>
+                                    <input type="text" class="input-small-skin phone_format" name="phone1[]" maxlength="14">
                                 </td>
                             </tr>
                             <tr>
                                 <th style="width: 30%;" class="text-right">Phone 2 :</th>
                                 <td style="width: 70%;">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div style="width: 45%;">
-                                            <div class="homePhone">
-                                                <div class="step">
-                                                    <input type="text" class="input-small-skin" name="phone2">
-                                                </div>
-                                                <!-- <div class="step">
-                                                    <input type="text" class="input-small-skin" maxlength="3">
-                                                </div>
-                                                <div class="step">
-                                                    <input type="text" class="input-small-skin" maxlength="3">
-                                                </div> -->
-                                            </div>
-                                        </div>
-                                        <div style="width: 55%;">
-                                        </div>
-                                    </div>
+                                    <input type="text" class="input-small-skin phone_format" name="phone2[]" maxlength="14">
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
+                                <th style="width: 30%;" class="text-right">City :</th>
+                                <td style="width: 70%;">
+                                    <select name="emergency_city[]" id="emergency_city_id" class="input-small-skin select2">
+                                        <option selected="selected" value="">Select</option>
+                                        
+                                        @foreach ($cities as $key => $city)
+                                            <option value="{{ $city->city }}">{{ $city->city }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
-                                <td></td>
+                                <th style="width: 30%;" class="text-right">State :</th>
+                                <td style="width: 70%;">
+                                    
+                                    <select id="emergency_state_id" class="input-small-skin select2" name="emergency_state[]">
+                                        <option selected="selected" value="">Select</option>
+                                        @foreach ($states as $key => $state)
+                                            <option value="{{ $state->state }}">{{ $state->state }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
-                                <td></td>
+                                <th style="width: 30%;" class="text-right">ZipCode :</th>
+                                <td style="width: 70%;">
+                                    <input type="text" class="input-small-skin" name="emergency_zip_code[]">
+                                </td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -1185,12 +1207,17 @@
                             </tr>
                         </table>
                     </td>
+               
+              
+                </tr>
+                <tr>
+                <button type="button" name="add" id="add" class="btn btn-success">Add More Emergency Contact</button>
                 </tr>
             </tbody>
         </table>
         <!-- Emergency Contact Information End Here -->
         <!-- Emergency Preparedness Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <th colspan="2">
@@ -1295,10 +1322,10 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <!-- Emergency Preparedness End Here -->
         <!-- Clinical Info Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <th colspan="2">
@@ -1356,10 +1383,10 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <!-- Clinical Info End Here -->
         <!-- Allergies Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <td colspan="2">
@@ -1435,10 +1462,10 @@
                     </table>
                 </td>
             </tbody>
-        </table>
+        </table> -->
         <!-- Allergies End Here -->
         <!-- Allergy Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <th>
@@ -1520,10 +1547,10 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <!-- Allergy End Here -->
         <!-- Advanced Directive(s) Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <th>
@@ -1567,10 +1594,10 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <!-- Advanced Directive(s) End Here -->
         <!-- Physicians Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <th>
@@ -1615,10 +1642,10 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <!-- Physicians End Here -->
         <!-- Md Orders Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <td>
@@ -1633,10 +1660,10 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <!-- Md Orders End Here -->
         <!-- Diagnosis Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <th>
@@ -1687,10 +1714,10 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <!-- Diagnosis End Here -->
         <!-- Patient Preferences: Used for Scheduling Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <th>
@@ -1762,7 +1789,7 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <!-- Patient Preferences: Used for Scheduling End Here -->
         <!-- Patient Preferences: Not Used for Scheduling Start Here -->
         <table class="table table-borderless table-sm patientTable shadow">
@@ -1784,9 +1811,9 @@
             <tbody>
                 <tr>
                     <td>
-                        <div class="alert alert-warning text-center mb-0" role="alert">
+                        <!-- <div class="alert alert-warning text-center mb-0" role="alert">
                             No preferences found
-                        </div>
+                        </div> -->
                         <table style="width: 100%;">
                             <tbody>
                                 <tr>
@@ -1812,7 +1839,7 @@
                                             </tbody>
                                         </table>
                                     </td>
-                                    <td style="width: 33%;" class="border-0">
+                                    <!-- <td style="width: 33%;" class="border-0">
                                         <table style="width: 100%;"
                                             class="table table-borderless table-sm m-0 border-0">
                                             <tbody>
@@ -1829,7 +1856,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </td>
+                                    </td> -->
                                     <td style="width: 33%;" class="border-0">
                                         <table style="width: 100%;"
                                             class="table table-borderless table-sm m-0 border-0">
@@ -1854,7 +1881,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table style="width: 100%;">
+                        <!-- <table style="width: 100%;">
                             <tr>
                                 <th style="width: 10%;" class="text-right">
                                     Other :
@@ -1864,7 +1891,7 @@
                                         rows="5" disabled></textarea>
                                 </td>
                             </tr>
-                        </table>
+                        </table> -->
                     </td>
                 </tr>
             </tbody>
@@ -2331,7 +2358,7 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="city" class="label"><span class="mendate">*</span>City</label>
-                                    <input type="text" class="input-skin" id="city" aria-describedby="cityHelp">
+                                    <input type="text" class="input-skin" id="city" name="city" aria-describedby="cityHelp">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6">
@@ -2362,9 +2389,9 @@
                                             </div>
                                             <div class="col-12 col-sm-4">
                                                 <div class="form-group">
-                                                    <label for="phone101111111111111111" class="label">&nbsp;</label>
-                                                    <input type="text" class="input-skin" id="phone101111111111111111"
-                                                        aria-describedby="phone101111111111111111Help">
+                                                    <label for="phone1" class="label">&nbsp;</label>
+                                                    <input type="text" class="input-skin" id="phone1"
+                                                        aria-describedby="phone1Help">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-4">
@@ -2634,6 +2661,7 @@
                     //  });
                   } else {
                     alertText(data.message,'success');
+                    $('#add_patient_form')[0].reset();
                   }
                },
                error: function()
@@ -2642,6 +2670,18 @@
                   alertText("Server Timeout! Please try again",'warning');
                }
             });
+
+            $(document).on("#add",'click',function(){
+            
+              
+                $(".add_more_contact_div").append('<tr><td style="width: 50%;" class="border-0"><table style="width: 100%;" class="table table-borderless table-sm m-0 border-0"><tr><th style="width: 30%;" class="text-right">Name :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="name[]"></td></tr><tr><th style="width: 30%;" class="text-right">Lives with Patient :</th><td style="width: 70%;"><div class="d-flex justify-content-between align-items-center"><div style="width: 5%;"><label><input type="checkbox" name="lives_with_patient[]"><span style="font-size:12px; padding-left: 25px;"></span></label></div><div style="width: 95%;"><table style="width: 100%;"><tr><th style="width: 14%;">Have Keys</th><td style="width: 86%;"><label><input type="checkbox" name="have_keys[]"><span style="font-size:12px; padding-left: 25px;"></span></label></td></tr></table></div></div></td></tr><tr><th style="width: 30%;" class="text-right">Apt Building :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="emergency_apt_building[]"></td></tr><tr><th style="width: 30%;" class="text-right">Address 1 :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="emergency_address1[]"></td></tr><tr><th style="width: 30%;" class="text-right">Address 2 :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="emergency_address2[]"></td></tr></table></td><td style="width: 50%;" class="border-0"><table style="width: 100%;" class="table table-borderless table-sm m-0 border-0"><tr><th style="width: 30%;" class="text-right">Relationship :</th><td style="width: 70%;"><select name="relation[]" id="relation" class="input-small-skin select2"><option value="">Select</option></select></td></tr><tr><th style="width: 30%;" class="text-right">Phone 1 :</th><td style="width: 70%;"><input type="text" class="input-small-skin phone_format" name="phone1[]" maxlength="14"></td></tr><tr><th style="width: 30%;" class="text-right">Phone 2 :</th><td style="width: 70%;"><input type="text" class="input-small-skin phone_format" name="phone2[]" maxlength="14"></td></tr><tr><th style="width: 30%;" class="text-right">City :</th><td style="width: 70%;"><select name="emergency_city[]" id="emergency_city_id" class="input-small-skin select2"><option selected="selected" value="">Select</option></select></td></tr><tr><th style="width: 30%;" class="text-right">State :</th><td style="width: 70%;"><select id="emergency_state_id" class="input-small-skin select2" name="emergency_state[]"><option selected="selected" value="">Select</option></select></td></tr><tr><th style="width: 30%;" class="text-right">ZipCode :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="emergency_zip_code[]"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr>');
+              
+            });
+
+            $(document).on('click', '.remove-tr', function(){ 
+                $(".add_more_contact_div").children("div[class=main_div]:last").remove();
+              
+            });  
         });
         $(function () {
             $('input[name="formDate1"]').daterangepicker({
@@ -2767,6 +2807,11 @@
                     keyboard: false
                 });
             })
+
+            /*@ Image preview */
+            $("#avatar").change(function() {
+                profileimage(this);
+            });
         });
 
         function alertText(text,status) {
@@ -2786,6 +2831,23 @@
                 icon: status,
                 title: text
             })
+        }
+
+        function profileimage(input) {
+            var fileTypes = ['jpg', 'jpeg', 'png'];
+            if (input.files && input.files[0]) {
+                var extension = input.files[0].name.split('.').pop().toLowerCase();
+                isSuccess = fileTypes.indexOf(extension) > -1;
+                if (isSuccess) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#s1').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }else{
+                    $('#s1').css({'display':'none'});
+                }
+            }
         }
     </script>
 @endpush

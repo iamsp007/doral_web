@@ -174,4 +174,12 @@ return [
         'Yoruba' => 'Yoruba',
         'Yugoslavia' => 'Yugoslavia',
     ],
+
+    'race' => [
+        'American Indian or Alaska Native' => 'American Indian or Alaska Native',
+        'Asian' => 'Asian',
+        'Black or African American' => 'Black or African American',
+        'Native Hawaiian or Other Pacific Islander' => 'Native Hawaiian or Other Pacific Islander',
+        'White' => 'White',
+    ],
 ];

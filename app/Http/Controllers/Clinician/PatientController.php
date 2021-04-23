@@ -363,4 +363,11 @@ class PatientController extends Controller
     public function addNewPatient(){
         return view('pages.patient_detail.add_new');
     }
+    public function calendarAppoimentListData(){
+
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->calendarAppoimentListData();
+        return view($this->view_path.'calendar', compact('response', 'response'));
+
+    }
 }

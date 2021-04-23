@@ -427,4 +427,19 @@ class ClinicianService
             Log::error($exception->getMessage());
         }
     }
+        public function calendarAppoimentListData(){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/calendarAppoimentListData'
+                
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
 }

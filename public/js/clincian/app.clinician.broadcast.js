@@ -42,7 +42,7 @@ function onBroadCastOpen(patient_id) {
             $("#loader-wrapper").hide();
             var html='';
             response.map(function (value) {
-                html+='<option onchange="getClinicianList('+value.role_id+')" value="'+value.role_id+'">'+value.name+'</option>';
+                html+='<option value="'+value.role_id+'">'+value.name+'</option>';
             })
             $('#broadcast_form').find('#type_id').html(html);
             $('#roadl-request-modal').find("#selectRole1").val('');
@@ -86,6 +86,9 @@ function getClinicianList(role_id) {
                 $("#loader-wrapper").hide();
             }
         })
+    }else {
+        $('#roadl-request-modal').find('#clinician_list_id').val('');
+        $('#roadl-request-modal').find('#clinician_role_list_tr').hide();
     }
 }
 

@@ -455,7 +455,7 @@
                                                                 </td>
                                                                 <td style="width: 70%;" class="border-0">
                                                                     <input type="hidden" id="patient_id" name="patient_id" class="input-skin">
-                                                                    <select name="type_id" id="type_id" class="input-small-skin select2" tabindex="0" aria-hidden="false">
+                                                                    <select onchange="getClinicianList(this.value)" name="type_id" id="type_id" class="input-small-skin select2" tabindex="0" aria-hidden="false">
                                                                     <!--BY AJAX-->
                                                                     </select>
                                                                 </td>
@@ -471,7 +471,7 @@
                                                                     Select RN / NP :
                                                                 </td>
                                                                 <td style="width: 70%;" class="border-0">
-                                                                    <select onchange="getClinicianList(this.value)" name="clinician_list_id" id="clinician_list_id" class="input-small-skin select2" tabindex="0" aria-hidden="false">
+                                                                    <select name="clinician_list_id" id="clinician_list_id" class="input-small-skin select2" tabindex="0" aria-hidden="false">
                                                                             
                                                                     </select>
                                                                 </td>

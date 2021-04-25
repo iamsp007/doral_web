@@ -33,8 +33,8 @@ return [
                 // ],
                 [
                     'name'=>'Add Patient',
-                    'url'=>env('APP_URL').'add-patient',
-                    'route'=>'add-patient','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Add patient',
+                    'url'=>env('APP_URL').'clinician/patient/create',
+                    'route'=>'patient.create','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Add patient',
                 ],
                 // [
                 //     'name'=>'Due Reports',
@@ -66,45 +66,49 @@ return [
         ],
         ['name'=>'RoadL Request','url'=>env('APP_URL').'clinician/roadl','route'=>'clinician/roadl','icon'=>'Request_RoadL.svg','icon_hover'=>'Request_RoadL.svg',
             'icon_title'=>'RoadL Request'],
+//        [
+//            'name'=>'Requests',
+//            'url'=>'javascript:void(0)',
+//            'route'=>'javascript:void(0)',
+//            'icon'=>'requests-sb.svg',
+//            'icon_hover'=>'requests-sb-select.svg',
+//            'icon_title'=>'Request Section',
+//            'menu'=>[
+//                [
+//                    'name'=>'Clinical Requests',
+//                    'url'=>env('APP_URL').'clinician/roadl',
+//                    'route'=>'clinician/roadl',
+//                    'icon'=>'home-sb-select.svg',
+//                    'icon_hover'=>'home-sb.svg',
+//                    'icon_title'=>'Clinical Requests',
+//
+//                ],
+//                [
+//                    'name'=>'Technical Requests',
+//                    'url'=>env('APP_URL').'clinician/roadl',
+//                    'route'=>'clinician/roadl',
+//                    'icon'=>'home-sb-select.svg',
+//                    'icon_hover'=>'home-sb.svg',
+//                    'icon_title'=>'Technical Requests',
+//                ]
+//            ]
+//        ],
         [
-            'name'=>'Requests',
+            'name'=>'Reports',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',
-            'icon'=>'requests-sb.svg',
-            'icon_hover'=>'requests-sb-select.svg',
-            'icon_title'=>'Request Section',
+            'icon'=>'service-sb.svg',
+            'icon_hover'=>'service-sb-select.svg',
+            'icon_title'=>'Reports',
             'menu'=>[
                 [
-                    'name'=>'Clinical Requests',
-                    'url'=>env('APP_URL').'clinician/roadl',
-                    'route'=>'clinician/roadl',
-                    'icon'=>'home-sb-select.svg',
-                    'icon_hover'=>'home-sb.svg',
-                    'icon_title'=>'Clinical Requests',
-
+                    'name'=>'COVID-19',
+                    'url'=>env('APP_URL').'clinician/covid-19',
+                    'route'=>'clinician/covid-19','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'COVID-19',
                 ],
-                [
-                    'name'=>'Technical Requests',
-                    'url'=>env('APP_URL').'clinician/roadl',
-                    'route'=>'clinician/roadl',
-                    'icon'=>'home-sb-select.svg',
-                    'icon_hover'=>'home-sb.svg',
-                    'icon_title'=>'Technical Requests',
-                ]
             ]
         ],
-        [
-            'name'=>'Covid-19',
-            'url'=>env('APP_URL').'clinician/covid-19',
-            'route'=>'clinician/covid-19',
-            'icon'=>'home-sb-select.svg',
-            'icon_hover'=>'home-sb.svg',
-            'icon_title'=>'Covid-19'
-        ],
-        ['name'=>'Add Patient','url'=>env('APP_URL').'clinician/patient/create','route'=>'patient.create','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient'],
         ['name'=>'Calendar','url'=>env('APP_URL').'clinician/calendar','route'=>'clinician/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
-
-//        ['name'=>'Add Patient','url'=>env('APP_URL').'add-patient','route'=>'add-patient','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient']
     ],
     'referral'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'referral/dashboard','route'=>'referral/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],

@@ -471,7 +471,7 @@
                                                                     Select RN / NP :
                                                                 </td>
                                                                 <td style="width: 70%;" class="border-0">
-                                                                    <select name="clinician_list_id" id="clinician_list_id" class="input-small-skin select2" tabindex="0" aria-hidden="false">
+                                                                    <select onchange="getClinicianList(this.value)" name="clinician_list_id" id="clinician_list_id" class="input-small-skin select2" tabindex="0" aria-hidden="false">
                                                                             
                                                                     </select>
                                                                 </td>

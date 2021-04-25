@@ -76,9 +76,11 @@ function getClinicianList(role_id) {
             success:function (response) {
                 $("#loader-wrapper").hide();
                 var html='';
+                html+='<option value="0">Select Clinician</option>';
                 response.map(function (value) {
                     html+='<option value="'+value.id+'">'+value.first_name+' '+value.last_name+'</option>';
                 })
+                html+='<option value="0">Not Applicable</option>';
                 $('#roadl-request-modal').find('#clinician_role_list_tr').show();
                 $('#roadl-request-modal').find('#clinician_list_id').html(html);
             },
@@ -111,6 +113,7 @@ function onAppointmentBroadCastSubmit() {
             success:function (response) {
                 $("#loader-wrapper").hide();
                 alert(response.message)
+                $('#roadl-request-modal').find("#clinician_list_id").val('');
                 $('#roadl-request-modal').find("#selectRole1").val('');
                 $('#roadl-request-modal').find("input[name='reason']").val('');
                 $('#roadl-request-modal').modal('hide');

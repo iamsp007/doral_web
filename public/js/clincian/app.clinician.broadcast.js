@@ -42,10 +42,11 @@ function onBroadCastOpen(patient_id) {
             $("#loader-wrapper").hide();
             var html='';
             response.map(function (value) {
-                html+='<option value="'+value.role_id+'">'+value.name+'</option>';
+                html+='<option onchange="getClinicianList('+value.role_id+')" value="'+value.role_id+'">'+value.name+'</option>';
             })
             $('#broadcast_form').find('#type_id').html(html);
             $('#roadl-request-modal').find("#selectRole1").val('');
+            $('#roadl-request-modal').find("#clinician_list_id").val('');
             $('#roadl-request-modal').find("input[name='reason']").val('');
             $('#roadl-request-modal').modal('show');
         },
@@ -55,6 +56,37 @@ function onBroadCastOpen(patient_id) {
             alert(sources.message)
         }
     })
+}
+
+function getClinicianList(role_id) {
+    if(role_id == 1 || role_id == 2) {
+        $.ajax({
+            beforeSend: function(){
+                $("#loader-wrapper").show();
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:base_url+'clinician-role-list',
+            method:'GET',
+            data:{
+                role_id:role_id
+            },
+            dataType:'json',
+            success:function (response) {
+                $("#loader-wrapper").hide();
+                var html='';
+                response.map(function (value) {
+                    html+='<option value="'+value.id+'">'+value.first_name+' '+value.last_name+'</option>';
+                })
+                $('#roadl-request-modal').find('#clinician_role_list_tr').show();
+                $('#roadl-request-modal').find('#clinician_list_id').html(html);
+            },
+            error:function (error,responseText) {
+                $("#loader-wrapper").hide();
+            }
+        })
+    }
 }
 
 

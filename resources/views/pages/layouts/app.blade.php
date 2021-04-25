@@ -487,7 +487,7 @@
                                                                     Test Name :
                                                                 </td>
                                                                 <td style="width: 70%;" class="border-0">
-                                                                    <input type="text" class="input-small-skin" name="test_name" id="selectRole1" placeholder="COVID-19" value="COVID-19" readonly="">
+                                                                    <input type="text" class="input-small-skin" name="test_name" id="selectRole1" placeholder="COVID-19" value="COVID-19">
                                                                 </td>
                                                             </tr></tbody></table>
                                                         </td>

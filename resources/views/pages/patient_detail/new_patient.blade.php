@@ -90,7 +90,7 @@ table.dataTable thead th, table.dataTable thead td{
                             <option value="1">VBC</option>
                             <option value="2">MD Order</option>
                             <option value="3">Occupational Health</option>
-                            <option value="5">Covid-19</option>
+                            <option value="6">Covid-19</option>
                         </select>
                     </div>
                 </div>

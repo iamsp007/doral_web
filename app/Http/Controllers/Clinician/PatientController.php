@@ -266,12 +266,19 @@ class PatientController extends Controller
     public function covid19PatientList()
     {
         $patientList = CovidForm::with('clinician')->get();
-
+     
         return  DataTables::of($patientList)
             ->addIndexColumn()
             // ->addColumn('pdf', function(){
             //     return env('APP_URL')."pdf/new.pdf";
             // })
+            ->addColumn('full_name', function($q){
+                $fullName = '';
+                if ($q->clinician) {
+                    $fullName = $q->clinician->full_name;
+                }
+                return $fullName;
+            })
             ->addColumn('action', function($row){
                 $btn = '<a onclick="return popEmail('.$row->id.')" class="btn btn-info btn-sm mr-2" target="__blank">Email</a>';
 

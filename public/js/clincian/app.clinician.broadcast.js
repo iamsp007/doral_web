@@ -59,6 +59,7 @@ function onBroadCastOpen(patient_id) {
 }
 
 function getClinicianList(role_id) {
+   
     if(role_id == 1 || role_id == 2) {
         $.ajax({
             beforeSend: function(){
@@ -80,7 +81,7 @@ function getClinicianList(role_id) {
                 response.map(function (value) {
                     html+='<option value="'+value.id+'">'+value.first_name+' '+value.last_name+'</option>';
                 })
-                html+='<option value="0">Not Applicable</option>';
+                // html+='<option value="0">Not Applicable</option>';
                 $('#roadl-request-modal').find('#clinician_role_list_tr').show();
                 $('#roadl-request-modal').find('#clinician_list_id').html(html);
             },

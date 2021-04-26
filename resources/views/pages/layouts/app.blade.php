@@ -501,7 +501,7 @@
                                                                         Note :
                                                                 </td>
                                                                 <td style="width: 70%;" class="border-0">
-                                                                    <textarea class="input-small-skin" name="reason" placeholder="Enter note" id="" cols="30" rows="5" spellcheck="false"></textarea>
+                                                                    <textarea class="input-small-skin" name="reason" placeholder="Enter note (Optional)" id="" cols="30" rows="5" spellcheck="false"></textarea>
                                                                 </td>
                                                             </tr></tbody></table>
                                                         </td>

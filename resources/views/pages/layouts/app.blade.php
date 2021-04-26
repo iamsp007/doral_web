@@ -487,7 +487,7 @@
                                                                     Test Name :
                                                                 </td>
                                                                 <td style="width: 70%;" class="border-0">
-                                                                    <input type="text" class="input-small-skin" name="test_name" id="selectRole1" placeholder="COVID-19" value="COVID-19">
+                                                                    <input type="text" class="input-small-skin" name="test_name" id="test_name" value="COVID-19" readonly>
                                                                 </td>
                                                             </tr></tbody></table>
                                                         </td>
@@ -501,7 +501,7 @@
                                                                         Note :
                                                                 </td>
                                                                 <td style="width: 70%;" class="border-0">
-                                                                    <textarea class="input-small-skin" name="reason" placeholder="Enter note (Optional)" id="" cols="30" rows="5" spellcheck="false"></textarea>
+                                                                    <textarea class="input-small-skin" name="reason" placeholder="Enter note" id="" cols="30" rows="5" spellcheck="false"></textarea>
                                                                 </td>
                                                             </tr></tbody></table>
                                                         </td>

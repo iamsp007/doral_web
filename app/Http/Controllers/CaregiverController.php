@@ -124,6 +124,7 @@ class CaregiverController extends Controller
             })
             ->when(! $request['serviceStatus'] ,function ($query) use($request) {
                 $query->whereIn('status', ['1', '2', '3', '5']);
+           
                 $query->when($request['service_id'], function ($query) use($request) {
                     $query->whereHas('demographic',function ($q) use($request) {
                         $q->where('service_id', $request['service_id']);
@@ -136,12 +137,13 @@ class CaregiverController extends Controller
                     $query->where('id', $request['user_name']);
                 })
                 ->when($request['gender'], function ($query) use($request){
+                 
                     $query->where('gender', $request['gender']);
                 })
                 ->when($request['dob'], function ($query) use($request){
                     $dob = date('Y-d-m', strtotime($request['dob']));
                     $query->where('dob', $dob);
-                });
+                // })
                 // ->whereHas('patientLabReport',function ($query) use($request) {
                 //     $query->when($request['lab_due_date'], function ($query) use($request){
                 //         $date = explode('-', $request['lab_due_date']);
@@ -149,7 +151,7 @@ class CaregiverController extends Controller
                 //         $endDate = date('Y-m-d', strtotime($date[1]));
                 //         $query->whereBetween('due_date',[$startDate,$endDate]);
                 //     });
-                // });
+                });
             })
             ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports');
             
@@ -501,8 +503,8 @@ class CaregiverController extends Controller
         if($request->has('q')){
             $search = $request->q;
            
-            $data =User::select("id","first_name", 'last_name')
-                    ->where('first_name','LIKE',"%$search%")
+            $data =User::whereIn('status', ['1', '2', '3', '5'])->select("id","first_name", 'last_name')
+                    ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
                     ->get();
         }
        

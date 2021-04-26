@@ -405,6 +405,24 @@ class ClinicianService
         }
     }
 
+    public function getClinicianList($data){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/clinician-list',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            Log::info($exception);
+        }
+    }
+
     /**
      * getCovid19PatientList
      * 

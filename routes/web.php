@@ -72,6 +72,7 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::get('/pdf-employee-physical-examination-report/{id}','App\Http\Controllers\EmployeePhysicalExaminationReportController@pdfEmployeePhysicalExaminationReport')->name('pdf-employee-physical-examination-report');
 
     Route::get('/roadl-vendor-list','App\Http\Controllers\Clinician\RoadLController@getVendorList')->name('roadl.vendor.list');
+    Route::get('/clinician-role-list','App\Http\Controllers\Clinician\RoadLController@getClinicianList')->name('clinician.role.list');
     Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
     Route::get('/all-patient-list','\App\Http\Controllers\HomeController@allPatientList')->name('all.patient.list');
 

@@ -39,10 +39,13 @@ table.dataTable thead th, table.dataTable thead td{
                 <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     ACTIVE Patients</a>
+                    <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Auto Import</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "covid-19")
             <div class="d-flex">
-                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                <a href="{{ url('search-caregivers') }}" class="bulk-upload-btn">
                         <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                         Pending Patients</a>
                 <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
@@ -53,6 +56,9 @@ table.dataTable thead th, table.dataTable thead td{
                 <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
+                    <a href="{{ url('hha-exchange') }}" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Auto Import</a>
             </div>
         @endif
     @endsection

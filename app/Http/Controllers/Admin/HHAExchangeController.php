@@ -20,28 +20,27 @@ class HHAExchangeController extends Controller
     {
         // HHAExchange::dispatch();
         $searchPatientIds = $this->searchPatientDetails();
-        $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-       
-        // dump(count($patientArray));2513
+        // $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+        $patientArray = ["1009943", "1039551","1275166","3441817", "4167073","4504347","7253633", "7340504","9460723", "9631427", "10627089", "10644590", "10649625", "11480065", "11601922","407321", "4651290", "4692900","6525242", "9356067", "10621669", "11456679", "11457980", "12001282", "12007263", "12007781", "12042016", "12042913", "12200770", "12432604", "12464304", "12510537", "12522880", "12629434", "12629435", "12635317", "12657429", "12662061", "12662228", "12662506", "12662622", "12697403", "12697858", "12708620", "12710126", "12710192", "12710196", "12710700", "12711343", "12714234", "12714291", "12715172", "12718761", "12718784", "12719038", "12725777","12728790", "12728865", "12729155", "12732892", "12733576", "12733587", "12736351", "12736536", "12736648", "12736936", "12736954", "12739937", "12739939", "12740232", "12740260", "12740508", "12740524", "12740548", "12743144", "12743222", "12743447", "12743523", "12743692", "12744504", "12758376", "12758955", "12759118","12761186", "12761315", "12761441", "12761724", "12761923", "12762006","12764338", "12764556", "12772823", "12773051", "12778071", "12778619","12778690", "12778961", "12779277", "12779735", "12787295", "12787433", "12787905", "12790510", "12790681","12790999", "12791097", "12791134", "12791212", "12791258", "12794738", "12794843", "12794872", "12797533", "12797818", "12797947", "12801252", "12801277", "12802007", "12802093", "12807135", "12807262", "12807322", "12807412", "12807495", "12807544","12807562", "12808019"];
+        // dd(count($patientArray));
+        //2513 - 2389
 
-        $missing_address = [];
-        // $userCaregiver1 = User::whereHsaget();
-        $patientList = User::whereHas('roles',function ($q){
-            $q->where('name','=','patient');
-        })->with('demographic');
-        dd($patientList->count());
-        foreach ($patientList as $userCaregivers) { 
-            $missing_address[] = $patientList->address;
-        }
-        dd($missing_address);
+        // $missing_patient_id = [];
+        // $userCaregiver1 = Demographic::get();
+        // foreach ($userCaregiver1 as $userCaregivers) { 
+        //     $missing_patient_id[] = $userCaregivers->patient_id;
+        // }
+        // dd($missing_patient_id);
+        // $data = [];
+      
         // $data = [];
         foreach (array_slice($patientArray, 0 , 2513) as $patient_id) {
             // if (! in_array($patient_id, $missing_patient_id))
             // {
-                // $data[] = $patient_id;
+            //     $data[] = $patient_id;
                 $apiResponse = $this->getDemographicDetails($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
-                // dump($patient_id);
+                // // dump($patient_id);
                 $type = config('constant.PatientType');
             
                 $userCaregiver = Demographic::where('patient_id' , $patient_id)->first();
@@ -55,8 +54,8 @@ class HHAExchangeController extends Controller
                         self::storeEmergencyContact($demographics, $user_id, $type);
                     }
                 }
-            // }
-        }
+            }
+        // }
 
     // dump(count($data));
     // dump($data);
@@ -136,7 +135,7 @@ class HHAExchangeController extends Controller
                     if (! $userDuplicateEmail) {
                         $user->email = $email;
                     } else {
-                        $user->email = null;
+                        $user->email = $userDuplicateEmail->email;
                     }
                 } else {
                     $user->email = null;

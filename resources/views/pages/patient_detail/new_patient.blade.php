@@ -21,6 +21,9 @@ table.dataTable thead th, table.dataTable thead td{
                 <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Import Patients</a>
+                <a href="javascript:void(0)" id="autoImportCaregiver" class="bulk-upload-btn">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Auto Import</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "initial")
             <div class="d-flex">
@@ -39,9 +42,7 @@ table.dataTable thead th, table.dataTable thead td{
                 <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     ACTIVE Patients</a>
-                    <a href="javascript:void(0)" id="autoImportCaregiver" class="bulk-upload-btn">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Auto Import</a>
+                  
             </div>
         @elseif (request()->segment(count(request()->segments())) == "covid-19")
             <div class="d-flex">

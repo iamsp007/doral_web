@@ -2670,7 +2670,7 @@
                   alertText("Server Timeout! Please try again",'warning');
                }
             });
-
+        });
             $(document).on("#add",'click',function(){
             
               
@@ -2682,7 +2682,7 @@
                 $(".add_more_contact_div").children("div[class=main_div]:last").remove();
               
             });  
-        });
+        
         $(function () {
             $('input[name="formDate1"]').daterangepicker({
                 singleDatePicker: true,

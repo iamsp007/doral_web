@@ -56,7 +56,8 @@ table.dataTable thead th, table.dataTable thead td{
                 <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
-                    <a href="{{ url('hha-exchange') }}" class="bulk-upload-btn">
+                    <!-- {{ url('hha-exchange') }} -->
+                    <a href="#" id="autoImport" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Auto Import</a>
             </div>
@@ -262,6 +263,36 @@ table.dataTable thead th, table.dataTable thead td{
                     // 'orderable': false,
                 }
             ],
+        });
+
+        
+        $("#autoImport").click(function () {
+            event.preventDefault();
+          
+          var url = "{{ url('hha-exchange') }}";
+          $("#loader-wrapper").show();
+          $.ajax({
+             type:"get",
+             url:url,
+            
+             success: function(data) {
+                if(data.status == 400) {
+                  alertText(data.message,'error');
+                 
+                } else {
+                  alertText(data.message,'success');
+                  
+                 
+                }
+                $("#loader-wrapper").hide();
+             },
+             error: function()
+             {
+             
+                alertText("Server Timeout! Please try again",'warning');
+                $("#loader-wrapper").hide();
+             }
+          });
         });
 
         /*table reload at filter time*/

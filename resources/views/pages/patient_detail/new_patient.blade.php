@@ -39,7 +39,7 @@ table.dataTable thead th, table.dataTable thead td{
                 <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     ACTIVE Patients</a>
-                    <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                    <a href="javascript:void(0)" id="autoImportCaregiver" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Auto Import</a>
             </div>
@@ -57,7 +57,7 @@ table.dataTable thead th, table.dataTable thead td{
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
                     <!-- {{ url('hha-exchange') }} -->
-                    <a href="#" id="autoImport" class="bulk-upload-btn">
+                    <a href="javascript:void(0)" id="autoImportPatient" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Auto Import</a>
             </div>
@@ -266,16 +266,47 @@ table.dataTable thead th, table.dataTable thead td{
         });
 
         
-        $("#autoImport").click(function () {
-            event.preventDefault();
+        $("#autoImportPatient").click(function () {
+            // event.preventDefault();
           
           var url = "{{ url('hha-exchange') }}";
           $("#loader-wrapper").show();
           $.ajax({
-             type:"get",
+             type:"GET",
              url:url,
             
              success: function(data) {
+                //  alert(data.message);
+                if(data.status == 400) {
+                  alertText(data.message,'error');
+                 
+                } else {
+                  alertText(data.message,'success');
+                  
+                 
+                }
+                $("#loader-wrapper").hide();
+             },
+             error: function()
+             {
+             
+                alertText("Server Timeout! Please try again",'warning');
+                $("#loader-wrapper").hide();
+             }
+          });
+        });
+
+        $("#autoImportCaregiver").click(function () {
+            // event.preventDefault();
+          
+          var url = "{{ url('search-caregivers') }}";
+          $("#loader-wrapper").show();
+          $.ajax({
+             type:"GET",
+             url:url,
+            
+             success: function(data) {
+                //  alert(data.message);
                 if(data.status == 400) {
                   alertText(data.message,'error');
                  

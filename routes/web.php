@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\testQueue;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +24,7 @@ Route::get('/download-application',function (){
 });
 
 Route::get('/check-queue',function (){
-    Mail::to('koladaramanisha176@gmail.com')->send(new TestMail());
+    testQueue::dispatch();
 
     return 'working';
 });

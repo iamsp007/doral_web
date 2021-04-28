@@ -357,9 +357,9 @@ class HHAExchangeController extends Controller
         // // dd($missing_patient_id);
         // $data = [];
 
-        foreach (array_slice($caregiverArray, 0 , 200) as $cargiver_id) {
+        // foreach (array_slice($caregiverArray, 0 , 400) as $cargiver_id) {
             // $cargiver_id = 110560;
-            // foreach ($caregiverArray as $cargiver_id) {
+        foreach ($caregiverArray as $cargiver_id) {
             /** Store patirnt demographic detail */
             //  if (! in_array($cargiver_id, $missing_patient_id))
             // {

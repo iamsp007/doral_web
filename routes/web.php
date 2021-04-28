@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +20,12 @@ Route::get('/clear-route', function() {
 });
 Route::get('/download-application',function (){
     return view('home');
+});
+
+Route::get('/check-queue',function (){
+    Mail::to('koladaramanisha176@gmail.com')->send(new TestMail());
+
+    return 'working';
 });
 
 \Illuminate\Support\Facades\Auth::routes();

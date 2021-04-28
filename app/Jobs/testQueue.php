@@ -40,8 +40,8 @@ class testQueue implements ShouldQueue
         $user->first_name = 'manisha-queue-test';
         $user->last_name = 'manisha-queue-test';
         $user->password = setPassword($password);
-        $user->home_phone = '2323232323';
-        $user->home_verified_at = now();
+        $user->phone = '2323232323';
+        // $user->home_verified_at = now();
 
         $user->gender = '2';
         

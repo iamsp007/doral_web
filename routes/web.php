@@ -126,3 +126,6 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
   
     Route::get('{role}/patient/create', 'App\Http\Controllers\patient\PatientController@create')->name('patient.create');
     Route::resource('patient', 'App\Http\Controllers\patient\PatientController');
+
+    
+    Route::resource('import-patient-from-hha','App\Http\Controllers\Admin\PatientImportController');

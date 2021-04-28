@@ -270,7 +270,7 @@ table.dataTable thead th, table.dataTable thead td{
         $("#autoImportPatient").click(function () {
             // event.preventDefault();
           
-          var url = "{{ url('hha-exchange') }}";
+          var url = "{{ url('import-patient-from-hha') }}";
           $("#loader-wrapper").show();
           $.ajax({
              type:"GET",

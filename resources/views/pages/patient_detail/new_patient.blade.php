@@ -21,7 +21,7 @@ table.dataTable thead th, table.dataTable thead td{
                 <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Import Patients</a>
-                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="import-caregiver-from-hha">
+                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Auto Import</a>
             </div>
@@ -58,7 +58,7 @@ table.dataTable thead th, table.dataTable thead td{
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
                     <!-- {{ url('hha-exchange') }} -->
-                    <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="import-patient-from-hha">
+                    <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-patient-from-hha') }}">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Auto Import</a>
             </div>

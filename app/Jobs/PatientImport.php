@@ -54,10 +54,10 @@ class PatientImport implements ShouldQueue
         $stored_user_id = [];
         foreach ($patientArray as $patient_id) {
             if (! in_array($patient_id, $missing_patient_id)) {
-                $patient_id = 388069;
+                // $patient_id = 388069;
                 $apiResponse = $this->getDemographicDetails($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
-
+               
                 $user_id = self::storeUser($demographics);
                 
                 if ($user_id) {
@@ -73,11 +73,11 @@ class PatientImport implements ShouldQueue
         log::info('missing patient count'.count($data));
         log::info('hha exchange search patient detail end');
 
-        try {
-            Mail::to('manishak@hcbspro.com')->send(new SendPatientImpotNotification($stored_user_id));
-        }catch (\Exception $exception){
-            Log::info($exception->getMessage());
-        }
+        // try {
+        //     Mail::to('shashikant@hcbspro.com')->send(new SendPatientImpotNotification(count($stored_user_id)));
+        // }catch (\Exception $exception){
+        //     Log::info($exception->getMessage());
+        // }
     }
 
     /**
@@ -186,10 +186,10 @@ class PatientImport implements ShouldQueue
         
         $demographic->doral_id = $doral_id;
         $demographic->user_id = $user_id;
-        if(Auth::guard('referral')) {
-            $company_id = Auth::guard('referral')->user()->id;
-        }
-        $demographic->company_id = $company_id;
+        // if(Auth::guard('referral')) {
+        //     $company_id = Auth::guard('referral')->user()->id;
+        // }
+        $demographic->company_id = 9;
      
         $demographic->service_id = config('constant.MDOrder');
 
@@ -203,11 +203,14 @@ class PatientImport implements ShouldQueue
 
         $address = $demographics['Addresses']['Address'];
         $zip = '';
-        if(isset($address['Zip4'])){ 
+        if(isset($address['Zip5']) && $address['Zip5'] != ''){
+            log::info('if'.$address['Zip5']);
             $zip = $address['Zip4'];
-        } else if(isset($address['Zip5'])){
-            $zip = $address['Zip5'];
+        } else if(isset($address['Zip4']) && $address['Zip4'] != ''){
+            log::info('else'.$address['Zip4']);
+            $zip = $address['Zip4'];
         }
+        log::info('final zip'.$zip);
         $addressData = [
             'address1' => isset($address['Address1']) ? $address['Address1'] : '',
             'address2' => isset($address['Address2']) ? $address['Address2'] : '',

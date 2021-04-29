@@ -376,7 +376,8 @@
                                                 </div> -->
                                             </div>
                                         </div>
-                                      
+                                        
+                                        @if($patient->type === '1')
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-12 col-sm-3 col-md-3">
@@ -439,6 +440,22 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @else
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">address</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="{{ ($patientEmergencyContact->address_old) ? $patientEmergencyContact->address_old : '' }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+                                        
                                     </div>
                                 </div>
                             @endforeach

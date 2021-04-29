@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Mail\SendPatientImpotNotification;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
@@ -12,7 +13,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
 
 class PatientImport implements ShouldQueue
@@ -51,7 +54,7 @@ class PatientImport implements ShouldQueue
         $stored_user_id = [];
         foreach ($patientArray as $patient_id) {
             if (! in_array($patient_id, $missing_patient_id)) {
-
+                $patient_id = 388069;
                 $apiResponse = $this->getDemographicDetails($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
 
@@ -69,6 +72,12 @@ class PatientImport implements ShouldQueue
         log::info('stored user id'.count($stored_user_id));
         log::info('missing patient count'.count($data));
         log::info('hha exchange search patient detail end');
+
+        try {
+            Mail::to('manishak@hcbspro.com')->send(new SendPatientImpotNotification($stored_user_id));
+        }catch (\Exception $exception){
+            Log::info($exception->getMessage());
+        }
     }
 
     /**
@@ -177,7 +186,10 @@ class PatientImport implements ShouldQueue
         
         $demographic->doral_id = $doral_id;
         $demographic->user_id = $user_id;
-        $demographic->company_id = '9';
+        if(Auth::guard('referral')) {
+            $company_id = Auth::guard('referral')->user()->id;
+        }
+        $demographic->company_id = $company_id;
      
         $demographic->service_id = config('constant.MDOrder');
 
@@ -191,9 +203,9 @@ class PatientImport implements ShouldQueue
 
         $address = $demographics['Addresses']['Address'];
         $zip = '';
-        if(isset($address['Zip4']) && $address['Zip4'] != ''){ 
+        if(isset($address['Zip4'])){ 
             $zip = $address['Zip4'];
-        } else if(isset($address['Zip5']) && $address['Zip5'] != ''){
+        } else if(isset($address['Zip5'])){
             $zip = $address['Zip5'];
         }
         $addressData = [

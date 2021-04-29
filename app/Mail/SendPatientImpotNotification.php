@@ -30,6 +30,6 @@ class SendPatientImpotNotification extends Mailable
     public function build()
     {
         return $this->subject('Welcome Doral')
-            ->view('emails.referralWelcome');
+            ->view('emails.patient_import');
     }
 }

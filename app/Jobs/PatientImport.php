@@ -22,14 +22,15 @@ class PatientImport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $company_id;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($company_id)
     {
-        //
+        $this->company_id = $company_id;
     }
 
     /**
@@ -39,6 +40,7 @@ class PatientImport implements ShouldQueue
      */
     public function handle()
     {
+        
         $searchPatientIds = $this->searchPatientDetails();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
         log::info('hha exchange search patient detail start');
@@ -63,7 +65,7 @@ class PatientImport implements ShouldQueue
                 if ($user_id) {
                     $data[] = $patient_id;
                     $stored_user_id[] = $user_id;
-                    self::storeDemographic($demographics, $user_id);
+                    self::storeDemographic($demographics, $user_id, $this->company_id);
 
                     self::storeEmergencyContact($demographics, $user_id);
                 }
@@ -178,7 +180,7 @@ class PatientImport implements ShouldQueue
         return $user->id;
     }
 
-    public static function storeDemographic($demographics, $user_id)
+    public static function storeDemographic($demographics, $user_id, $company_id)
     {
         $doral_id = createDoralId();
 
@@ -186,10 +188,8 @@ class PatientImport implements ShouldQueue
         
         $demographic->doral_id = $doral_id;
         $demographic->user_id = $user_id;
-        // if(Auth::guard('referral')) {
-        //     $company_id = Auth::guard('referral')->user()->id;
-        // }
-        $demographic->company_id = 9;
+       
+        $demographic->company_id = $company_id;
      
         $demographic->service_id = config('constant.MDOrder');
 

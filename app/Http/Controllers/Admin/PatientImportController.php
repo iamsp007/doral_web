@@ -7,6 +7,7 @@ use App\Jobs\CaregiverImport;
 use App\Jobs\PatientImport;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PatientImportController extends Controller
 {
@@ -14,9 +15,14 @@ class PatientImportController extends Controller
     public function importPatient()
     {
         try {
-            PatientImport::dispatch();
+            $company_id='';
+            if(Auth::guard('referral')) {
+                $company_id = Auth::guard('referral')->user()->id;
+            } 
+            PatientImport::dispatch($company_id);
 
             $arr = array('status' => 200, 'message' => 'Please be patient, the import patient process is taking place in the background.', 'data' => []);
+            //Please be patient, the import patient process is taking place in the background. You will receive mail after the all patient imported successfully.
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
             if (isset($ex->errorInfo[2])) {

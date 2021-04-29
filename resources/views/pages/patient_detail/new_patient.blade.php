@@ -15,7 +15,8 @@ table.dataTable thead th, table.dataTable thead td{
     @section('upload-btn')
         @if (request()->segment(count(request()->segments())) == "occupational-health")
             <div class="d-flex">
-                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+           
+                <a href="{{ url('referral/service/occupational-health/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
                 <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
@@ -54,7 +55,7 @@ table.dataTable thead th, table.dataTable thead td{
             </div>
         @elseif (request()->segment(count(request()->segments())) == "md-order")
             <div class="d-flex">
-                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                <a href="{{ url('referral/service/md-order/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
                     <!-- {{ url('hha-exchange') }} -->
@@ -148,6 +149,7 @@ table.dataTable thead th, table.dataTable thead td{
     
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
         <input type="hidden" value="{{ $serviceStatus }}" id="serviceStatus" name="serviceStatus" />
+        <input type="hidden" value="{{ $initial }}" id="initial" name="initial" />
         <thead>
             <tr>
                 @if($serviceStatus === 'pending')
@@ -246,6 +248,7 @@ table.dataTable thead th, table.dataTable thead td{
                     d.gender = $('select[name="gender"]').val();
                     d.dob = $('input[name="dob"]').val();
                     d.serviceStatus = $('input[name="serviceStatus"]').val();
+                    d.initial = $('input[name="initial"]').val();
                     d.zip_code = $('input[name="zip_code"]').val();
                     
                 },

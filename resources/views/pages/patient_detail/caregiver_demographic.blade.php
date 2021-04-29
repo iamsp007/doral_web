@@ -376,56 +376,55 @@
                                                 </div> -->
                                             </div>
                                         </div>
-                                        
-                                        @if($patient->type === '1')
+                                      
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-12 col-sm-3 col-md-3">
+                                                <!-- <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Apt Building</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="{{ ($patientEmergencyContact->address) ? $patientEmergencyContact->address['apt_building'] : '' }}">
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Address1</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAddress1" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value="{{ ($patientEmergencyContact->address) ? $patientEmergencyContact->address['address1'] : '' }}">
+                                                            <h3 class="_title">Address</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAddress1" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address" value="{{ ($patientEmergencyContact->address_old) ? $patientEmergencyContact->address_old : '' }}">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-sm-3 col-md-3">
+                                                <!-- <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Address2</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value="{{ ($patientEmergencyContact->address) ? $patientEmergencyContact->address['address2'] : '' }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value="">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-md-3">
+                                                </div> -->
+                                                <!-- <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-city circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">City</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value="{{ ($patientEmergencyContact->address) ? $patientEmergencyContact->address['city'] : '' }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value="{">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="row">
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-archway circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">State</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value="{{ ($patientEmergencyContact->address) ? $patientEmergencyContact->address['state'] : '' }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -434,28 +433,12 @@
                                                         <div class="ls"><i class="las la-code circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Zipcode</h3>
-                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value="{{ ($patientEmergencyContact->address) ? $patientEmergencyContact->address['zip_code'] : '' }}">
+                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value="">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        @else
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-12 col-sm-3 col-md-3">
-                                                    <div class="input_box">
-                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
-                                                        <div class="rs">
-                                                            <h3 class="_title">address</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="{{ ($patientEmergencyContact->address_old) ? $patientEmergencyContact->address_old : '' }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endif
-                                        
+                                        </div> -->
                                     </div>
                                 </div>
                             @endforeach

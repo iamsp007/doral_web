@@ -18,14 +18,15 @@ class CaregiverImport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $company_id;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($company_id)
     {
-        //
+        $this->company_id = $company_id;
     }
 
     /**
@@ -61,7 +62,7 @@ class CaregiverImport implements ShouldQueue
                 if ($user_id) {
                     $data[] = $patient_id;
                     $stored_user_id[] = $user_id;
-                    self::storeDemographic($demographics, $user_id);
+                    self::storeDemographic($demographics, $user_id, $this->company_id);
 
                     self::storeEmergencyContact($demographics, $user_id);
                 }
@@ -181,7 +182,7 @@ class CaregiverImport implements ShouldQueue
         return $user->id;
     }
 
-    public static function storeDemographic($demographics, $user_id)
+    public static function storeDemographic($demographics, $user_id, $company_id)
     {
         $doral_id = createDoralId();
 
@@ -189,7 +190,7 @@ class CaregiverImport implements ShouldQueue
         
         $demographic->doral_id = $doral_id;
         $demographic->user_id = $user_id;
-        $demographic->company_id = '9';
+        $demographic->company_id = $company_id;
      
         $demographic->service_id = config('constant.OccupationalHealth');
         $demographic->patient_id = $demographics['ID'] ? $demographics['ID'] : '';

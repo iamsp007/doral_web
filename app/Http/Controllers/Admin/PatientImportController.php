@@ -43,7 +43,11 @@ class PatientImportController extends Controller
     public function importCaregiver()
     {
         try {
-            CaregiverImport::dispatch();
+            $company_id='';
+            if(Auth::guard('referral')) {
+                $company_id = Auth::guard('referral')->user()->id;
+            } 
+            CaregiverImport::dispatch($company_id);
 
             $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
         } catch (\Illuminate\Database\QueryException $ex) {

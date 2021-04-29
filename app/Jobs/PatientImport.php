@@ -204,13 +204,11 @@ class PatientImport implements ShouldQueue
         $address = $demographics['Addresses']['Address'];
         $zip = '';
         if(isset($address['Zip5']) && $address['Zip5'] != ''){
-            log::info('if'.$address['Zip5']);
             $zip = $address['Zip4'];
         } else if(isset($address['Zip4']) && $address['Zip4'] != ''){
-            log::info('else'.$address['Zip4']);
             $zip = $address['Zip4'];
         }
-        log::info('final zip'.$zip);
+      
         $addressData = [
             'address1' => isset($address['Address1']) ? $address['Address1'] : '',
             'address2' => isset($address['Address2']) ? $address['Address2'] : '',

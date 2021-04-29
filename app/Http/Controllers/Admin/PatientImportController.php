@@ -16,7 +16,7 @@ class PatientImportController extends Controller
         try {
             PatientImport::dispatch();
 
-            $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
+            $arr = array('status' => 200, 'message' => 'Please be patient, the import patient process is taking place in the background.', 'data' => []);
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
             if (isset($ex->errorInfo[2])) {

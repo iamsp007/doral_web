@@ -393,7 +393,7 @@
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Address</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAddress1" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address" value="{{ ($patientEmergencyContact->address_old) ? $patientEmergencyContact->address_old : '' }}">
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="address[]" data-id="address" id="address" placeholder="Address" value="{{ ($patientEmergencyContact->address_old) ? $patientEmergencyContact->address_old : '' }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -478,7 +478,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
@@ -486,7 +486,7 @@
                                                             <input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value="">
                                                         </div>
                                                     </div>
-                                                </div> -->
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">

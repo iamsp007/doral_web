@@ -33,6 +33,7 @@ class Demographic extends Model
         'status',
         'notification_preferences',
         'type',
+        'caregiver_code',
     ];
 
     /**
@@ -45,6 +46,12 @@ class Demographic extends Model
         'address' => 'array',
         'notification_preferences' => 'array',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
 
     public function company()
     {

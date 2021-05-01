@@ -395,7 +395,7 @@ class CaregiverController extends Controller
   
         $dateBetween['newDate'] = $date->format('Y-m-d');
 
-        $patientList = PatientLabReport::where('patient_referral_id', $request['due_user_id'])->with('user','user.demographic','labReportType');
+        $patientList = PatientLabReport::where('user_id', $request['due_user_id'])->with('user','user.demographic','labReportType');
          
         $datatble = DataTables::of($patientList->get())
             ->addIndexColumn()

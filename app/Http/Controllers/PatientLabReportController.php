@@ -64,7 +64,7 @@ class PatientLabReportController extends Controller
                 $message = 'Patient Lab Report added successfully..!';
 
                 $patientLabReport->lab_report_type_id = $input['lab_report_type_id'];
-                $patientLabReport->patient_referral_id = $input['patient_referral_id'];
+                $patientLabReport->user_id = $input['patient_referral_id'];
                 if (isset($input['lab_perform_date'])) {
                     $patientLabReport->perform_date = date('Y-m-d', strtotime($input['lab_perform_date']));
                 }
@@ -85,9 +85,9 @@ class PatientLabReportController extends Controller
                 $patientLabReport->save();
              
                 $result = PatientLabReport::where('id', $patientLabReport->id)->with('labReportType')->first();
-                $patientLabReportModel = PatientLabReport::with('labReportType')->where('patient_referral_id', $input['patient_referral_id']);
+                $patientLabReportModel = PatientLabReport::with('labReportType')->where('user_id', $input['patient_referral_id']);
                 $labReportTypeModel = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($input) {
-                    $query->where('patient_referral_id', $input['patient_referral_id']);
+                    $query->where('user_id', $input['patient_referral_id']);
                 })->where('status','1');
                 if (in_array($result->lab_report_type_id, ['2','3','4','5','6'])) {
                     $tbpatientLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
@@ -146,9 +146,9 @@ class PatientLabReportController extends Controller
         $patientLabReport = PatientLabReport::find($request->id);
         if ($patientLabReport) {
             $result = PatientLabReport::where('id', $request->id)->with('labReportType')->first();
-            $patientLabReportModel = PatientLabReport::with('labReportType')->where('patient_referral_id', $request->patient_referral_id);
+            $patientLabReportModel = PatientLabReport::with('labReportType')->where('user_id', $request->patient_referral_id);
             $labReportTypeModel = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($request) {
-                $query->where('patient_referral_id', $request->patient_referral_id);
+                $query->where('user_id', $request->patient_referral_id);
             })->where('status','1');
             if (in_array($result->lab_report_type_id, ['2','3','4','5','6'])) {
                 $tbpatientLabReports = $patientLabReportModel->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();

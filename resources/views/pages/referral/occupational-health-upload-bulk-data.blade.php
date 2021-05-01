@@ -112,7 +112,7 @@
                 service_id:3
             },
             maxFiles: 1,
-            timeout: 1800000,
+            timeout: 180000,
             autoProcessQueue: true,
             progress:true,
             accept: function(file, done) {

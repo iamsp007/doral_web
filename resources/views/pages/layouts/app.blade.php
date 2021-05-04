@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/fevicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/fevicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/fevicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('assets/img/fevicon/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ asset('assets/img/fevicon/safari-pinned-tab.svg') }}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
+  
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
@@ -417,36 +425,93 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">RoadL Request</h5>
+                        <h5 class="modal-title"><u>RoadL Request (COVID-19)</u></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeReferralPopup()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <form id="broadcast_form" >
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input type="hidden" id="patient_id" name="patient_id" class="input-skin">
-                                        <select name="type_id" id="type_id" class="input-skin">
-                                            <option value="5">LAB</option>
-                                            <option value="6">Radiology</option>
-                                            <option value="7">CHHA</option>
-                                            <option value="8">Clinician</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input type="text" name="test_name" class="input-skin" id="selectRole1" placeholder="Enter test name...">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input type="text" name="reason" class="input-skin" placeholder="Enter Reason...">
-                                    </div>
-                                </div>
-                            </div>
+                            <table class="table table-borderless table-sm patientTable shadow">
+                                <thead>
+                                    <tr class="table-active">
+                                        <td>
+                                            RoadL Request:
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-0">
+                                            <table class="table table-borderless table-sm m-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <table style="width: 100%;">
+                                                                <tbody>
+                                                            <tr>
+                                                                <td style="width: 30%;" class="text-right border-0">
+                                                                    Select Role :
+                                                                </td>
+                                                                <td style="width: 70%;" class="border-0">
+                                                                    <input type="hidden" id="patient_id" name="patient_id" class="input-skin">
+                                                                    <select onchange="getClinicianList(this.value)" name="type_id" id="type_id" class="input-small-skin select2" tabindex="0" aria-hidden="false">
+                                                                    <!--BY AJAX-->
+                                                                    </select>
+                                                                </td>
+                                                            </tr></tbody></table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="clinician_role_list_tr" style="display: none;">
+                                                        <td colspan="4">
+                                                            <table style="width: 100%;">
+                                                                <tbody>
+                                                            <tr>
+                                                                <td style="width: 30%;" class="text-right border-0">
+                                                                    Select RN/NP :
+                                                                </td>
+                                                                <td style="width: 70%;" class="border-0">
+                                                                    <select name="clinician_list_id" id="clinician_list_id" class="input-small-skin select2" tabindex="0" aria-hidden="false">
+                                                                            
+                                                                    </select>
+                                                                </td>
+                                                            </tr></tbody></table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <table style="width: 100%;">
+                                                                <tbody>
+                                                            <tr>
+                                                                <td style="width: 30%;" class="text-right border-0">
+                                                                    Test Name :
+                                                                </td>
+                                                                <td style="width: 70%;" class="border-0">
+                                                                    <input type="text" class="input-small-skin" name="test_name" id="test_name" value="COVID-19" readonly>
+                                                                </td>
+                                                            </tr></tbody></table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <table style="width: 100%;">
+                                                                <tbody>
+                                                            <tr>
+                                                                <td style="width: 30%;" class="text-right border-0">
+                                                                        Note :
+                                                                </td>
+                                                                <td style="width: 70%;" class="border-0">
+                                                                    <textarea class="input-small-skin" name="reason" placeholder="Enter note (Optional)" id="" cols="30" rows="5" spellcheck="false"></textarea>
+                                                                </td>
+                                                            </tr></tbody></table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <div class="d-flex mb-4">
                                 <input type="button" value="Submit" class="btn btn--submit btn-lg" onclick="onAppointmentBroadCastSubmit(this)">
                                 <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
@@ -458,6 +523,8 @@
         </div>
 
         <div class="modal fade messageViewModel" id="modal" role="dialog"></div>
+
+        @yield('modal')
     </section>
 </section>
 

@@ -89,7 +89,8 @@
     <script>
         var fileType = $('input[name="vbc_select"]').val();
         var myDropzone = new Dropzone("#dropzone-file-vbc", {
-            url:'{{ route('referral.vbc-upload-bulk-data-store') }}',
+            url:"{{ route('referral.vbc-upload-bulk-data-store') }}",
+            maxFilesize: 209715200,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -99,6 +100,7 @@
                 service_id:1
             },
             maxFiles: 1,
+            timeout: 180000,
             autoProcessQueue: true,
             progress:true,
             accept: function(file, done) {

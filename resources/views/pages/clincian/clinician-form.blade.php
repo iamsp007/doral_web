@@ -903,8 +903,8 @@
                                                                                                         <td>
                                                                                                             <p>Have you ever been bonded? 
                                                                                                                 <span>
-                                                                                                                    <input type="checkbox" {{ ($users->security_detail['bond']) ? 'checked' : '' }}>Yes
-                                                                                                                    <input type="checkbox" {{ ($users->security_detail['bond']) ? '' : 'checked' }} }}>No
+                                                                                                                    <input type="checkbox" {{ ($users->security_detail && $users->security_detail['bond']) ? 'checked' : '' }}>Yes
+                                                                                                                    <input type="checkbox" {{ ($users->security_detail && $users->security_detail['bond']) ? '' : 'checked' }} }}>No
                                                                                                                 </span>
                                                                                                             </p>
                                                                                                         </td>
@@ -918,8 +918,8 @@
                                                                                                         <td>
                                                                                                             <p>Have you been convicted of a felony within the past 5 years?     
                                                                                                                 <span>
-                                                                                                                    <input type="checkbox" {{ ($users->security_detail['convict']) ? 'checked' : '' }}>Yes
-                                                                                                                    <input type="checkbox" {{ ($users->security_detail['convict']) ? '' : 'checked' }}>No
+                                                                                                                    <input type="checkbox" {{ ($users->security_detail && $users->security_detail['convict']) ? 'checked' : '' }}>Yes
+                                                                                                                    <input type="checkbox" {{ ($users->security_detail && $users->security_detail['convict']) ? '' : 'checked' }}>No
                                                                                                                 </span>
                                                                                                             </p>
                                                                                                         </td>
@@ -995,7 +995,7 @@
                                                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                                                             <tr>
                                                                                                                 <td>
-                                                                                                                    <p>If so, explain: <span>{{ ($users->military_detail['isCommited_explain']) ? $users->military_detail['isCommited_explain'] : ''}}</span></p>
+                                                                                                                    <p>If so, explain: <span>{{ isset($users->military_detail['isCommited_explain']) ? $users->military_detail['isCommited_explain'] : ''}}</span></p>
                                                                                                                 </td> 
                                                                                                             </tr>
                                                                                                         </table>
@@ -1008,16 +1008,16 @@
                                                                                                                 <td>
                                                                                                                     <p>Are you a Vietnam veteran?  
                                                                                                                         <span>
-                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isVietnam']) ? 'checked' : '' }}>Yes
-                                                                                                                            <input type="checkbox"{{ ($users->military_detail['isVietnam']) ? '' : 'checked' }}>No
+                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isVietnam']) ? 'checked' : '' }}>Yes
+                                                                                                                            <input type="checkbox"{{ isset($users->military_detail['isVietnam']) ? '' : 'checked' }}>No
                                                                                                                         </span>
                                                                                                                     </p>
                                                                                                                 </td> 
                                                                                                                 <td>
                                                                                                                     <p>Are you a disabled veteran? 
                                                                                                                         <span>
-                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isDisableVetran']) ? 'checked' : '' }}>Yes
-                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isDisableVetran']) ? '' : 'checked' }}>No
+                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isDisableVetran']) ? 'checked' : '' }}>Yes
+                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isDisableVetran']) ? '' : 'checked' }}>No
                                                                                                                         </span>
                                                                                                                     </p>
                                                                                                                 </td> 
@@ -1032,8 +1032,8 @@
                                                                                                                 <td>
                                                                                                                     <p>Are you a special disabled veteran?
                                                                                                                         <span>
-                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isSpecialDisableVereran']) ? 'checked' : '' }}>Yes
-                                                                                                                            <input type="checkbox" {{ ($users->military_detail['isSpecialDisableVereran']) ? '' : 'checked' }}>No
+                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isSpecialDisableVereran']) ? 'checked' : '' }}>Yes
+                                                                                                                            <input type="checkbox" {{ isset($users->military_detail['isSpecialDisableVereran']) ? '' : 'checked' }}>No
                                                                                                                         </span>
                                                                                                                     </p>
                                                                                                                 </td> 
@@ -1118,7 +1118,7 @@
                                                                                                                 </td>
                                                                                                             </tr>
                                                                                                             @php $number=1; @endphp
-                                                                                                            @if (count($users->reference_detail) > 0)
+                                                                                                            @if (isset($users->reference_detail) && count($users->reference_detail) > 0)
                                                                                                         
                                                                                                             @foreach ($users->reference_detail as $reference_detail)
                                                                                                                 <tr>

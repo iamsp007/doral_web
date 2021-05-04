@@ -1,5 +1,8 @@
 <?php
 
+use App\Jobs\testQueue;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +21,12 @@ Route::get('/clear-route', function() {
 });
 Route::get('/download-application',function (){
     return view('home');
+});
+
+Route::get('/check-queue',function (){
+    testQueue::dispatch();
+
+    return 'working';
 });
 
 \Illuminate\Support\Facades\Auth::routes();
@@ -72,6 +81,7 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::get('/pdf-employee-physical-examination-report/{id}','App\Http\Controllers\EmployeePhysicalExaminationReportController@pdfEmployeePhysicalExaminationReport')->name('pdf-employee-physical-examination-report');
 
     Route::get('/roadl-vendor-list','App\Http\Controllers\Clinician\RoadLController@getVendorList')->name('roadl.vendor.list');
+    Route::get('/clinician-role-list','App\Http\Controllers\Clinician\RoadLController@getClinicianList')->name('clinician.role.list');
     Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
     Route::get('/all-patient-list','\App\Http\Controllers\HomeController@allPatientList')->name('all.patient.list');
 
@@ -96,7 +106,7 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');
     // Route::post('/download-lab-report','App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
     Route::get('download-lab-report/{user_id}', 'App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
-    Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
+    // Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
     Route::post('/get-due-detail','App\Http\Controllers\CaregiverController@getDueDetail')->name('clinician.due-detail.ajax');
 
     Route::get('/get-due-detail','App\Http\Controllers\CaregiverController@duePatientView')->name('clinician.due-detail');
@@ -112,3 +122,12 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
 
     Route::post('get-document', 'App\Http\Controllers\Clinician\ClinicianController@getDocument')->name('clinician.getDocument');
     Route::get('download-document/{user_id}', 'App\Http\Controllers\Clinician\ClinicianController@downloadDocument')->name('clinician.downloadDocument');
+
+
+  
+    Route::get('{role}/patient/create', 'App\Http\Controllers\patient\PatientController@create')->name('patient.create');
+    Route::resource('patient', 'App\Http\Controllers\patient\PatientController');
+
+    
+    Route::get('import-patient-from-hha','App\Http\Controllers\Admin\PatientImportController@importPatient');
+    Route::get('import-caregiver-from-hha','App\Http\Controllers\Admin\PatientImportController@importCaregiver');

@@ -15,12 +15,16 @@ table.dataTable thead th, table.dataTable thead td{
     @section('upload-btn')
         @if (request()->segment(count(request()->segments())) == "occupational-health")
             <div class="d-flex">
-                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+           
+                <a href="{{ url('referral/service/occupational-health/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
                 <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Import Patients</a>
+                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Auto Import</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "initial")
             <div class="d-flex">
@@ -39,10 +43,11 @@ table.dataTable thead th, table.dataTable thead td{
                 <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     ACTIVE Patients</a>
+                  
             </div>
         @elseif (request()->segment(count(request()->segments())) == "covid-19")
             <div class="d-flex">
-                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                <a href="{{ url('search-caregivers') }}" class="bulk-upload-btn">
                         <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                         Pending Patients</a>
                 <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
@@ -50,9 +55,13 @@ table.dataTable thead th, table.dataTable thead td{
             </div>
         @elseif (request()->segment(count(request()->segments())) == "md-order")
             <div class="d-flex">
-                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
+                <a href="{{ url('referral/service/md-order/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
+                    <!-- {{ url('hha-exchange') }} -->
+                    <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-patient-from-hha') }}">
+                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
+                    Auto Import</a>
             </div>
         @endif
     @endsection
@@ -90,7 +99,7 @@ table.dataTable thead th, table.dataTable thead td{
                             <option value="1">VBC</option>
                             <option value="2">MD Order</option>
                             <option value="3">Occupational Health</option>
-                            <option value="5">Covid-19</option>
+                            <option value="6">Covid-19</option>
                         </select>
                     </div>
                 </div>
@@ -140,6 +149,7 @@ table.dataTable thead th, table.dataTable thead td{
     
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
         <input type="hidden" value="{{ $serviceStatus }}" id="serviceStatus" name="serviceStatus" />
+        <input type="hidden" value="{{ $initial }}" id="initial" name="initial" />
         <thead>
             <tr>
                 @if($serviceStatus === 'pending')
@@ -238,6 +248,7 @@ table.dataTable thead th, table.dataTable thead td{
                     d.gender = $('select[name="gender"]').val();
                     d.dob = $('input[name="dob"]').val();
                     d.serviceStatus = $('input[name="serviceStatus"]').val();
+                    d.initial = $('input[name="initial"]').val();
                     d.zip_code = $('input[name="zip_code"]').val();
                     
                 },
@@ -256,6 +267,31 @@ table.dataTable thead th, table.dataTable thead td{
                     // 'orderable': false,
                 }
             ],
+        });
+
+        
+        $(".autoImportPatient").click(function () {
+          
+            var url = $(this).attr('data-url');
+            $("#loader-wrapper").show();
+            $.ajax({
+                type:"GET",
+                url:url,
+                success: function(data) {
+                    if(data.status == 200) {
+                        alertText(data.message,'success');
+                        refresh();
+                    } else {
+                        alertText(data.message,'error');
+                    }
+                    $("#loader-wrapper").hide();
+                },
+                error: function()
+                {
+                    alertText("Server Timeout! Please try again",'warning');
+                    $("#loader-wrapper").hide();
+                }
+            });
         });
 
         /*table reload at filter time*/

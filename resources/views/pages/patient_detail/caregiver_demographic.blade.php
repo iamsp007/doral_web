@@ -311,6 +311,7 @@
                             $i = 1;
                             @endphp
                             @foreach($patient->patientEmergency as $key => $patientEmergencyContact)
+                          
                             <div class="app-card-header">
                                 <h1 class="title">Emergency Contact Detail {{$i++}}</h1>
                             </div>
@@ -378,52 +379,52 @@
                                       
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-12 col-sm-3 col-md-3">
+                                                <!-- <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Apt Building</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="{{ $emergencyAptBuilding }}">
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Address1</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAddress1" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value="{{ $emergencyAddress1 }}">
+                                                            <h3 class="_title">Address</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="address[]" data-id="address" id="address" placeholder="Address" value="{{ ($patientEmergencyContact->address_old) ? $patientEmergencyContact->address_old : '' }}">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-sm-3 col-md-3">
+                                                <!-- <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Address2</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value="{{ $emergencyAddress2 }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value="">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-md-3">
+                                                </div> -->
+                                                <!-- <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-city circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">City</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value="{{ $emergencyAddress_city }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value="{">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <div class="row">
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-archway circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">State</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value="{{ $emergencyAddress_state }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -432,12 +433,12 @@
                                                         <div class="ls"><i class="las la-code circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Zipcode</h3>
-                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value="{{ $emergencyAddress_zip_code }}">
+                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value="">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             @endforeach
@@ -477,7 +478,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- <div class="col-12 col-sm-3 col-md-3">
+                                                <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
@@ -485,7 +486,7 @@
                                                             <input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value="">
                                                         </div>
                                                     </div>
-                                                </div> -->
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">

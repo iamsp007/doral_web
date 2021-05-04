@@ -7,12 +7,14 @@ use App\Models\CovidForm;
 use App\Models\Patient;
 use App\Models\PatientReferral;
 use App\Models\User;
+use App\Models\Remindar;
 use App\Services\ClinicianService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use Nexmo\Laravel\Facade\Nexmo;
 use Mail;
+use DB;
 
 class PatientController extends Controller
 {
@@ -366,8 +368,39 @@ class PatientController extends Controller
     public function calendarAppoimentListData(){
 
         $clinicianService = new ClinicianService();
-        $response = $clinicianService->calendarAppoimentListData();
+        $response['datarow'] = $clinicianService->calendarAppoimentListData();
+        $calendarCategory = new ClinicianService();
+        $response['datacat'] = $clinicianService->calendarCategory();
+        $response['dataremindar'] = Remindar::select(DB::raw('count(*) as total,startdate,start_end_time'))
+                ->groupby('startdate','start_end_time')
+                ->orderBy('startdate','asc')
+                ->get();
         return view($this->view_path.'calendar', compact('response', 'response'));
 
     }
+    public function calendarAppoimentSaveData(Request $request){
+       try {
+           if(isset($request->id)){
+            $data = Remindar::where('id', $request->id)->update($request->all());
+           }
+           else{
+               $data = Remindar::insert($request->all());
+           }
+            $response['status'] = 'true';
+            $response['message'] = 'Successfully saved';
+        } catch (\Exception $e) {
+            $response['status'] = 'false';
+            $response['message'] = $e->getMessage();
+        }
+        return $response;
+
+    }
+    
+    public function calendarRemindarListData(){
+        $clinicianService = new ClinicianService();
+        $response['datacat'] = $clinicianService->calendarCategory();
+        $response['dataremindar'] = Remindar::all();
+        return view($this->view_path.'remindar-calendar', compact('response', 'response'));
+    }
+    
 }

@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 /public/patient_report
 /public/zip
+/public/lblog/nbproject/private/

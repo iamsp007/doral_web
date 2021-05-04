@@ -442,4 +442,20 @@ class ClinicianService
             return $exception->getMessage();
         }
     }
+    
+     public function calendarCategory(){
+        try {
+
+            $response = $this->client->request(
+                'GET',
+                '/calendarCategory'
+                
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
 }

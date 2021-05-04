@@ -50,3 +50,7 @@ Route::group(['prefix'=>'/clinician','middleware'=>['auth:web','role:clinician']
     
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
 });
+Route::group(['prefix'=>'/clinician','middleware'=>['auth:web']],function (){
+        Route::post('/save-calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentSaveData')->name('clinician.save.calendar');
+
+});

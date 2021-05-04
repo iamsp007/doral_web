@@ -59,24 +59,24 @@ class GetPatientDetailsController extends Controller
     {
         $labReportTypes = LabReportType::where('status','1')->whereNull('parent_id')->orderBy('sequence', 'asc')->get();
 
-        $tbpatientLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
+        $tbpatientLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
         $tbLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
-            $query->where('patient_referral_id', $paient_id);
+            $query->where('user_id', $paient_id);
            })->where('status','1')->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
         
-        $immunizationLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
+        $immunizationLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
         $immunizationLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
-            $query->where('patient_referral_id', $paient_id);
+            $query->where('user_id', $paient_id);
            })->where('status','1')->where('parent_id', 2)->orderBy('sequence', 'asc')->get();
 
-        $drugLabReports = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
+        $drugLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
         $drugLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
-            $query->where('patient_referral_id', $paient_id);
+            $query->where('user_id', $paient_id);
            })->where('status','1')->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
 
-        $employeePhysicalForm = PatientLabReport::with('labReportType')->where('patient_referral_id', $paient_id)->whereIn('lab_report_type_id', ['16','17','18','19'])->get();
+        $employeePhysicalForm = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['16','17','18','19'])->get();
         $employeePhysicalFormTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
-            $query->where('patient_referral_id', $paient_id);
+            $query->where('user_id', $paient_id);
            })->where('status','1')->where('parent_id', 4)->orderBy('sequence', 'asc')->get();
 
         $services = Services::select('id','name')->where('display_type',1)->get();
@@ -116,7 +116,7 @@ class GetPatientDetailsController extends Controller
             if (isset($patient->patientEmergency->address)) {
                 $emergencyAddress = $patient->patientEmergency->address;
             }
-         
+       
         }
 
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress'));

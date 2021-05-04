@@ -26,9 +26,9 @@ use ZipArchive;
 
 class CaregiverController extends Controller
 {
-    public function index($serviceStatus = null)
+    public function index($serviceStatus = null,$initial = null)
     {
-        return view('pages.patient_detail.new_patient', compact('serviceStatus'));
+        return view('pages.patient_detail.new_patient', compact('serviceStatus', 'initial'));
     }
 
     public function dashboard()
@@ -88,16 +88,34 @@ class CaregiverController extends Controller
                         $q->where('service_id', 1);
                     });
                 } else if($request['serviceStatus'] == 'md-order') {
-                    $query->whereIn('status', ['0', '1', '2', '3', '5']);
-                    
-                    $query->whereHas('demographic',function ($q) use($request) {
-                        $q->where('service_id', 2);
+
+                    if(! $request['initial']) {
+                        $query->whereIn('status', ['0', '1', '2', '3', '5']);
+                    } else {
+                        $query->where('status', '4');
+                    }
+
+                    $query->whereHas('demographic',function ($q) {
+                        $q->where('service_id', '2');
+                        if(Auth::guard('referral')) {
+                            $company_id = Auth::guard('referral')->user()->id;
+                            $q->where('company_id', $company_id);
+                        }
                     });
                 } else if($request['serviceStatus'] == 'occupational-health') {
-                    $query->whereIn('status', ['0', '1', '2', '3', '5']);
-
-                    $query->whereHas('demographic',function ($q) use($request) {
-                        $q->where('service_id', 3);
+                    
+                    if(! $request['initial']) {
+                        $query->whereIn('status', ['0', '1', '2', '3', '5']);
+                    } else {
+                        $query->where('status', '4');
+                    }
+                    
+                    $query->whereHas('demographic',function ($q) {
+                        $q->where('service_id', '3');
+                        if(Auth::guard('referral')) {
+                            $company_id = Auth::guard('referral')->user()->id;
+                            $q->where('company_id', $company_id);
+                        }
                     });
                 } else if($request['serviceStatus'] == 'covid-19') {
                     $query->where('status', '0');
@@ -110,20 +128,23 @@ class CaregiverController extends Controller
                     });
                 } else if ($request['serviceStatus'] == 'pending') {
                     $query->where('status', '0');
-                } else if ($request['serviceStatus'] == 'initial') {
-                    $query->where('status', '4');
+                } 
+                // else if ($request['serviceStatus'] == 'initial') {
+                   
+                //     $query->where('status', '4');
 
-                    $query->whereHas('demographic',function ($q) {
-                        $q->where('service_id', '3');
-                        if(Auth::guard('referral')) {
-                            $company_id = Auth::guard('referral')->user()->id;
-                            $q->where('company_id', $company_id);
-                        }
-                    });
-                }
+                //     $query->whereHas('demographic',function ($q) {
+                //         $q->where('service_id', '3');
+                //         if(Auth::guard('referral')) {
+                //             $company_id = Auth::guard('referral')->user()->id;
+                //             $q->where('company_id', $company_id);
+                //         }
+                //     });
+                // }
             })
             ->when(! $request['serviceStatus'] ,function ($query) use($request) {
                 $query->whereIn('status', ['1', '2', '3', '5']);
+           
                 $query->when($request['service_id'], function ($query) use($request) {
                     $query->whereHas('demographic',function ($q) use($request) {
                         $q->where('service_id', $request['service_id']);
@@ -136,12 +157,13 @@ class CaregiverController extends Controller
                     $query->where('id', $request['user_name']);
                 })
                 ->when($request['gender'], function ($query) use($request){
+                 
                     $query->where('gender', $request['gender']);
                 })
                 ->when($request['dob'], function ($query) use($request){
                     $dob = date('Y-d-m', strtotime($request['dob']));
                     $query->where('dob', $dob);
-                });
+                // })
                 // ->whereHas('patientLabReport',function ($query) use($request) {
                 //     $query->when($request['lab_due_date'], function ($query) use($request){
                 //         $date = explode('-', $request['lab_due_date']);
@@ -149,7 +171,7 @@ class CaregiverController extends Controller
                 //         $endDate = date('Y-m-d', strtotime($date[1]));
                 //         $query->whereBetween('due_date',[$startDate,$endDate]);
                 //     });
-                // });
+                });
             })
             ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports');
             
@@ -373,7 +395,7 @@ class CaregiverController extends Controller
   
         $dateBetween['newDate'] = $date->format('Y-m-d');
 
-        $patientList = PatientLabReport::where('patient_referral_id', $request['due_user_id'])->with('user','user.demographic','labReportType');
+        $patientList = PatientLabReport::where('user_id', $request['due_user_id'])->with('user','user.demographic','labReportType');
          
         $datatble = DataTables::of($patientList->get())
             ->addIndexColumn()
@@ -501,8 +523,8 @@ class CaregiverController extends Controller
         if($request->has('q')){
             $search = $request->q;
            
-            $data =User::select("id","first_name", 'last_name')
-                    ->where('first_name','LIKE',"%$search%")
+            $data =User::whereIn('status', ['1', '2', '3', '5'])->select("id","first_name", 'last_name')
+                    ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
                     ->get();
         }
        

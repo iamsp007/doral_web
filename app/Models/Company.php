@@ -19,23 +19,14 @@ class Company extends Authenticatable
     protected $primaryKey='id';
 
     protected $fillable = [
-        'first_name', 'last_name', 'dob', 'phone', 'email', 'email_verified_at', 'password', 'status', 'remember_token', 'level', 'api_token'
+        'name', 'dob', 'phone', 'email', 'email_verified_at', 'password', 'status', 'remember_token', 'level', 'api_token'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    protected $appends = ['name'];
-
-
-    /**
-     * Create full name with combine first name and last name
-     */
-    public function getNameAttribute()
-    {
-        return $this->first_name . ' ' . $this->last_name;
-    }
+    // protected $appends = ['name'];
 
     // public function getPhoneAttribute($phone)
     // {

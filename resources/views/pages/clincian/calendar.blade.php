@@ -228,6 +228,7 @@ $event=json_encode($event);
         });
         
         $("#save-event").click(function(){
+            var base_url = "<?php echo url('/');?>";
             var id = $('#_id').val();
             var user_id = '1';
             var title = $('#_title').val();
@@ -244,15 +245,13 @@ $event=json_encode($event);
         });
 
         $.ajax({
-           //url:base_url+"clinician/save-calendar",
-           url:'http://127.0.0.1:8000/clinician/save-calendar',
+           url:base_url+"/clinician/save-calendar",
            method:"POST",
            data:{'id':id,'user_id':user_id,'title':title,'cat_id':cat_id,'sub_cat_id':sub_cat_id,'notes':notes,'start_end_time':time,'startdate':orignal_startdate},
            success:function(data)
            {
              alertText(data.message);
-             //window.location = base_url+"calendar";
-             //window.location = "http://127.0.0.1:8000/clinician/calendar";
+             window.location = base_url+"/calendar";
              location.reload();
            }
           });

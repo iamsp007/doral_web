@@ -49,8 +49,9 @@ Route::group(['prefix'=>'/clinician','middleware'=>['auth:web','role:clinician']
     Route::post('/covid-19/send-message','\App\Http\Controllers\Clinician\PatientController@sendMessage')->name('clinician.covid-19.send-message');
     
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
-});
-Route::group(['prefix'=>'/clinician','middleware'=>['auth:web']],function (){
-        Route::post('/save-calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentSaveData')->name('clinician.save.calendar');
+    Route::get('/remindar-calendar/{date}','\App\Http\Controllers\Clinician\PatientController@calendarRemindarListData')->name('clinician.remindar.calendar');
 
+});
+Route::group(['prefix'=>'/clinician'],function (){
+        Route::post('/save-calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentSaveData')->name('clinician.save.calendar');
 });

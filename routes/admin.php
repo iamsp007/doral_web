@@ -59,5 +59,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth:web','role:admin']],functi
     Route::post('send-address-notification', 'App\Http\Controllers\NotificationController@store')->name('notification.send');
     
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
+    
+    Route::get('/remindar-calendar/{date}','\App\Http\Controllers\Clinician\PatientController@calendarRemindarListData')->name('clinician.remindar.calendar');
 
 });

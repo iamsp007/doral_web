@@ -18,4 +18,6 @@ Route::group(['prefix'=>'/partner','middleware'=>['auth:partner']],function (){
     Route::get('/view-employee/{id}','\App\Http\Controllers\Partner\PartnerController@viewEmployee')->name('partner.viewEmployee');
     Route::get('/delete-employee/{id}','\App\Http\Controllers\Partner\PartnerController@deleteEmployee')->name('partner.deleteEmployee');
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
+    Route::get('/remindar-calendar/{date}','\App\Http\Controllers\Clinician\PatientController@calendarRemindarListData')->name('clinician.remindar.calendar');
+
 });

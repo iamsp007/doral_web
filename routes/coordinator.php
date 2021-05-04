@@ -19,5 +19,5 @@ Route::group(['prefix'=>'/co-ordinator','middleware'=>['auth:web','role:co-ordin
    });
    
    Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
-
+   Route::get('/remindar-calendar/{date}','\App\Http\Controllers\Clinician\PatientController@calendarRemindarListData')->name('clinician.remindar.calendar');
 });

@@ -66,5 +66,5 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
     Route::post('/insurance/store', 'App\Http\Controllers\InsuranceController@store')->name('insurance.store');
     Route::post('/edit-insurance', 'App\Http\Controllers\InsuranceController@updateInsurance')->name('insurance.updateInsurance');
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
-
+    Route::get('/remindar-calendar/{date}','\App\Http\Controllers\Clinician\PatientController@calendarRemindarListData')->name('clinician.remindar.calendar');
 });

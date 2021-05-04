@@ -13,5 +13,5 @@ Route::group(['prefix'=>'/supervisor','middleware'=>['auth:web','role:supervisor
     Route::post('/case_management','\App\Http\Controllers\Supervisor\SuperVisorController@case_management');
     Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\PatientController@getPatientDetail')->name('patient.detail');
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
-
+    Route::get('/remindar-calendar/{date}','\App\Http\Controllers\Clinician\PatientController@calendarRemindarListData')->name('clinician.remindar.calendar');
 });

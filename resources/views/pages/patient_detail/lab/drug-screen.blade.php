@@ -30,7 +30,7 @@
                                     <td scope="row">{{ $number }}</td>
                                     <td scope="row">{{ ($drugLabReport->labReportType) ? $drugLabReport->labReportType->name : ''}}</th>
                                     <td>{{ $drugLabReport->due_date }}</td>
-                                    <td>{{ $drugLabReport->perform_date }}</td>
+                                    <td>{{ ($drugLabReport->perform_date) ? $drugLabReport->perform_date : 'N/A' }}</td>
                                     <td>{{ $drugLabReport->expiry_date }}</td>
                                     <td>{{ $drugLabReport->result }}</td>
                                     @role('clinician')

@@ -30,7 +30,7 @@
                                     <td scope="row">{{ $number }}</td>
                                     <td scope="row">{{ ($employeePhysical->labReportType) ? $employeePhysical->labReportType->name : ''}}</th>
                                     <td>{{ $employeePhysical->due_date }}</td>
-                                    <td>{{ $employeePhysical->perform_date }}</td>
+                                    <td>{{ ($employeePhysical->perform_date) ? $employeePhysical->perform_date : 'N/A' }}</td>
                                     <td>{{ $employeePhysical->expiry_date }}</td>
                                     <td>{{ $employeePhysical->result }}</td>
                                     @role('clinician')

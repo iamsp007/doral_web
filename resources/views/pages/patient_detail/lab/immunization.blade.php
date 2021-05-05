@@ -31,7 +31,7 @@
                                     <th scope="row">{{ $number }}</th>
                                     <td scope="row">{{ ($immunizationLabReportType->labReportType) ? $immunizationLabReportType->labReportType->name : ''}}</th>
                                     <td>{{ $immunizationLabReportType->due_date }}</td>
-                                    <td>{{ $immunizationLabReportType->perform_date }}</td>
+                                    <td>{{ ($immunizationLabReportType->perform_date) ? $immunizationLabReportType->perform_date :'N/A' }}</td>
                                     <td>{{ $immunizationLabReportType->expiry_date }}</td>
                                     <td>{{ $immunizationLabReportType->titer }}</td>
                                     <td>{{ $immunizationLabReportType->result }}</td>

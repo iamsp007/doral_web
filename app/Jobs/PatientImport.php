@@ -59,13 +59,13 @@ class PatientImport implements ShouldQueue
                 // $patient_id = 388069;
                 $apiResponse = $this->getDemographicDetails($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
-               
-                $user_id = self::storeUser($demographics);
+                $doral_id = createDoralId();
+                $user_id = self::storeUser($demographics, $doral_id);
                 
                 if ($user_id) {
                     $data[] = $patient_id;
                     $stored_user_id[] = $user_id;
-                    self::storeDemographic($demographics, $user_id, $this->company_id);
+                    self::storeDemographic($demographics, $user_id, $this->company_id, $doral_id);
 
                     self::storeEmergencyContact($demographics, $user_id);
                 }
@@ -134,7 +134,7 @@ class PatientImport implements ShouldQueue
         return json_decode(json_encode((array)$xml), TRUE);
     }
 
-    public static function storeUser($demographics)
+    public static function storeUser($demographics, $doral_id)
     {      
         $user = new User();
       
@@ -157,7 +157,6 @@ class PatientImport implements ShouldQueue
             $status = '4';
         }
         
-        $doral_id = createDoralId();
         $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
         $password = str_replace(" ", "",$first_name) . '@' . $doral_id;
             
@@ -180,10 +179,8 @@ class PatientImport implements ShouldQueue
         return $user->id;
     }
 
-    public static function storeDemographic($demographics, $user_id, $company_id)
+    public static function storeDemographic($demographics, $user_id, $company_id, $doral_id)
     {
-        $doral_id = createDoralId();
-
         $demographic = new Demographic();
         
         $demographic->doral_id = $doral_id;

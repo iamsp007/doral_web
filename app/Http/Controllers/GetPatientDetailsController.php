@@ -57,26 +57,27 @@ class GetPatientDetailsController extends Controller
 
     public function show($paient_id)
     {
+       
         $labReportTypes = LabReportType::where('status','1')->whereNull('parent_id')->orderBy('sequence', 'asc')->get();
 
-        $tbpatientLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['2','3','4','5','6'])->get();
+        $tbpatientLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['1','2','3','4','5','6'])->get();
         $tbLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
-            $query->where('user_id', $paient_id);
+            $query->where('user_id', $paient_id)->whereDate('expiry_date', '>=', date('Y-m-d', strtotime(now())));
            })->where('status','1')->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
         
-        $immunizationLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['8','9','10','11'])->get();
+        $immunizationLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['7','8','9','10','11'])->get();
         $immunizationLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
-            $query->where('user_id', $paient_id);
+            $query->where('user_id', $paient_id)->whereDate('expiry_date', '>=', date('Y-m-d', strtotime(now())));
            })->where('status','1')->where('parent_id', 2)->orderBy('sequence', 'asc')->get();
 
-        $drugLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['13','14'])->get();
+        $drugLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['12','13','14'])->get();
         $drugLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
-            $query->where('user_id', $paient_id);
+            $query->where('user_id', $paient_id)->whereDate('expiry_date', '>=', date('Y-m-d', strtotime(now())));
            })->where('status','1')->where('parent_id', 3)->orderBy('sequence', 'asc')->get();
 
-        $employeePhysicalForm = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['16','17','18','19'])->get();
+        $employeePhysicalForm = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['15','16','17','18','19'])->get();
         $employeePhysicalFormTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
-            $query->where('user_id', $paient_id);
+            $query->where('user_id', $paient_id)->whereDate('expiry_date', '>=', date('Y-m-d', strtotime(now())));
            })->where('status','1')->where('parent_id', 4)->orderBy('sequence', 'asc')->get();
 
         $services = Services::select('id','name')->where('display_type',1)->get();

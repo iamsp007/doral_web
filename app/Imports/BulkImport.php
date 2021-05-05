@@ -136,7 +136,7 @@ class BulkImport implements ToModel, WithHeadingRow, WithValidation,SkipsOnFailu
                     } else {
                         $labReportType = new LabReportType();
                         $labReportType->name = $row['compliance_item'];
-                        $labReportType->status = 1;
+                        $labReportType->status = '1';
                         $labReportType->sequence = 1;
 
                         $labReportType->save();

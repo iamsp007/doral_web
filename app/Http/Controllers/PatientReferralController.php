@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\PatientImportSheet;
 use App\Models\PatientReferral;
 use App\Models\CurlModel\CurlFunction;
 use GuzzleHttp\Client;
@@ -253,57 +254,60 @@ class PatientReferralController extends Controller
     public function store(Request $request)
     {
         $user = Auth::guard('referral')->user();
-        $referral_id = $user->referal_id;
-        try {
-            $file_path = $request->file('file_name')->getPathname();
-            $file_mime = $request->file('file_name')->getmimeType();
-            $file_org  = $request->file('file_name')->getClientOriginalName();
+      
+        $request['referral_id'] = $user->referal_id;
+        $this->validate($request, ['file_name' => 'required', 'vbc_select' => 'required', 'referral_id' => 'required', 'service_id' => 'required', ]);
 
-            $client = new Client();
-            $response = $client->request(
-                'POST',
-                env('API_URL').'/auth/patient-referral/store',
-                [
-                    'multipart' => [
-                        [
-                            'name'=>'referral_id',
-                            'contents'=>$referral_id
-                        ],
-                        [
-                            'name'=>'service_id',
-                            'contents'=>$request->service_id
-                        ],
-                        [
-                            'name'=>'file_type',
-                            'contents'=>$request->vbc_select
-                        ],
-                        [
-                            'name'=>'form_id',
-                            'contents'=>isset($request->formSelect) ? $request->formSelect : NULL
-                        ],
-                        [
-                            'name'     => 'file_name',
-                            'filename' => $file_org,
-                            'Mime-Type'=> $file_mime,
-                            'contents' => fopen( $file_path, 'r' ),
-                        ]
-                    ],
-                    'headers' => [
-                        'X-Requested-With' => 'XMLHttpRequest',
-                        'Access-Control-Allow-Origin' => 'http://localhost'
-                    ]
-                ]
-            );
-            $resp = json_decode($response->getBody()->getContents());
-            $status = $resp->status===true?1:0;
-            $message = $resp->message;
+        try {
+              $folder = 'csv';
+            if ($request->vbc_select === 1)
+            {
+                $folder = "demographic";
+            }
+            elseif ($request->vbc_select === 2)
+            {
+                $folder = "clinical";
+            }
+            elseif ($request->vbc_select === 3)
+            {
+                $folder = "compliance_due";
+            }
+            elseif ($request->vbc_select === 4)
+            {
+                $folder = "previous_md";
+            }
+
+            if ($request->hasFile('file_name'))
+            {
+                $filenameWithExt = $request->file('file_name')
+                ->getClientOriginalName();
+
+                $filename = preg_replace("/[^a-z0-9\_\-\.]/i", '_', pathinfo($filenameWithExt, PATHINFO_FILENAME));
+                $extension = $request->file('file_name')
+                    ->getClientOriginalExtension();
+                $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+                $path = $request->file('file_name')
+                    ->storeAs($folder, $fileNameToStore);
+
+                $filePath = storage_path('app/' . $path);
+                $import = PatientImportSheet::dispatch($request->referral_id, $request->service_id, $request->vbc_select, $request->formSelect, $filenameWithExt, $filePath);
+
+                $response = [
+                    'status' => true,
+                    'message' => 'CSV Uploaded successfully.',
+                    'data' => $import
+                ];
+                return response()->json($response,200);
+            }
+
             $response = [
-                'status' => $status,
-                'message' => $message,
-                'data' => $resp->data
+                'status' => false,
+                'message' => 'Something Went Wrong!.',
+                'data' => null
             ];
-            return response()->json($response,$status===1?200:422);
-        } catch(Exception $e) {
+            return response()->json($response,200);
+
+        } catch (Exception $e) {
             $status = 0;
             $message = $e->getMessage();
             $response = [

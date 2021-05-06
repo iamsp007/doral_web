@@ -34,6 +34,7 @@ class Demographic extends Model
         'notification_preferences',
         'type',
         'caregiver_code',
+        'phone_info',
     ];
 
     /**
@@ -45,6 +46,7 @@ class Demographic extends Model
         'accepted_services' => 'array',
         'address' => 'array',
         'notification_preferences' => 'array',
+        'phone_info' => 'array',
     ];
 
     public function user()

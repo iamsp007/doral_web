@@ -113,6 +113,10 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::post('/get-patient-due-detail','App\Http\Controllers\CaregiverController@getDuePatients')->name('clinician.due-patient-detail.ajax');
     Route::get('/get-patient-due-detail/{id}', 'App\Http\Controllers\CaregiverController@getDuePatientDetail');
     Route::post('get-user-data','App\Http\Controllers\CaregiverController@getUserData')->name('clinician.get-user-data');
+    Route::get('get-city-data/{id?}','App\Http\Controllers\CaregiverController@getCityData')->name('get-city-data');
+    Route::post('get-city-data','App\Http\Controllers\CaregiverController@getSelectCityData')->name('get-city-data');
+    Route::get('get-state-data/{id?}','App\Http\Controllers\CaregiverController@getStateData')->name('get-state-data');
+    Route::post('get-state-data','App\Http\Controllers\CaregiverController@getSelectStateData')->name('get-state-data');
 
     Route::get('/search-caregivers','App\Http\Controllers\Admin\HHAExchangeController@searchCaregivers')->name('search-caregivers');
     Route::resource('hha-exchange','App\Http\Controllers\Admin\HHAExchangeController');

@@ -34,12 +34,11 @@ class PatientController extends Controller
      */
     public function create()
     {
-     
         $companies = Company::select('id','name')->orderBy('name','ASC')->get();
         $services = Services::select('id','name')->orderBy('name','ASC')->get();
         $cities = City::select('id','city')->take(2)->orderBy('city','ASC')->get();
      
-        $states = State::select('id','state')->orderBy('state','ASC')->get();
+        $states = State::select('id','state', 'state_code')->orderBy('state','ASC')->get();
         
         return view('pages.admin.patient.create',compact('companies', 'services', 'cities', 'states'));
     }
@@ -88,7 +87,7 @@ class PatientController extends Controller
                     $file->move($filePath,$name);
                     $user->avatar = $file;
                 }
-              
+
                 $user->first_name = $input['first_name'];
                 $user->last_name = $input['last_name'];
                 $user->gender = setGender($input['gender']);
@@ -100,12 +99,19 @@ class PatientController extends Controller
                 $address = [
                     'address1' => $input['address1'],
                     'address2' => $input['address2'],
+                    'apt_building' => $input['apt_building'],
                     'city' => $input['city'],
                     'state' => $input['state'],
-                    'country' => $input['country'],
                     'zip_code' => $input['zip_code'],
                     'primary' => $input['primary'],
                     'addressType' => $input['addressType'],
+                    'notes' => $input['address_note']
+                ];
+
+                $phone_info = [
+                    'home_phone' => $input['home_phone'],
+                    'cell_phone' => $input['cell_phone'],
+                    'alternate_phone' => $input['alternate_phone'],
                 ];
 
                 $language = '';
@@ -114,7 +120,7 @@ class PatientController extends Controller
                 }
                 
                 $demographic = new Demographic();
-            
+                
                 $demographic->user_id = $user->id;
                 $demographic->service_id = $input['service_id'];
                 $demographic->company_id = $input['company_id'];
@@ -129,48 +135,31 @@ class PatientController extends Controller
                 $demographic->race = $input['race'];
                 $demographic->alert = $input['alert'];
                 $demographic->service_request_start_date =  dateFormat($input['serviceRequestStartDate']);
+                $demographic->phone_info = $phone_info;
+                
                 $demographic->save();
 
-                $contactName = $input['name'];
-                $phone1 = setPhone($input['phone1']);
-                $phone2 = setPhone($input['phone2']);
-                $relation = $input['relation'];
-                // $address = $input['address_old'];
-                $lives_with_patient = $input['lives_with_patient'];
-                $have_keys = $input['have_keys'];
-                $emergency_apt_building= $input['emergency_apt_building'];
-                $emergency_address1 = $input['emergency_address1'];
-                $emergency_address2 = $input['emergency_address2'];
-                $emergency_city = $input['emergency_city'];
-                $emergency_state = $input['emergency_state'];
-                $emergency_zip_code = $input['emergency_zip_code'];
-              
+                $address = [
+                    'address1' => $input['emergency_address1'],
+                    'address2' => $input['emergency_address2'],
+                    'apt_building' => $input['emergency_apt_building'],
+                    'city' => $input['emergency_city'],
+                    'state' => $input['emergency_state'],
+                    'zip_code' => $input['emergency_zip_code'],
+                ];
 
-                foreach ($contactName as $index => $value) {
-
-                    $address = [
-                        'apt_building' => $emergency_apt_building[$index],
-                        'address1' => $emergency_address1[$index],
-                        'address2' => $emergency_address2[$index],
-                        'city' => $emergency_city[$index],
-                        'state' => $emergency_state[$index],
-                        'zip_code' => $emergency_zip_code[$index],
-                    ];
-
-                    PatientEmergencyContact::create([
-                        'user_id' => $user->id,
-                        'name' => ($contactName[$index]) ? $contactName[$index] : '',
-                        'relation' => ($relation[$index]) ? $relation[$index] : '',
-                        'lives_with_patient' => ($lives_with_patient[$index]) ? $lives_with_patient[$index] : '',
-                        'lives_with_patient' => ($have_keys[$index]) ? $have_keys[$index] : '',
-                        'phone1' => ($phone1[$index]) ? $phone1[$index] : '',
-                        'phone2' => ($phone2[$index]) ? $phone2[$index] : '',
-                        // 'address_old' => ($address[$index]) ? $address[$index] : '',
-                        'address' => $address,
-                       
-                        // 'address' => $emergencyAddress,
-                    ]);
-                }
+                PatientEmergencyContact::create([
+                    'user_id' => $user->id,
+                    'name' => $input['name'],
+                    'relation' => $input['relation'],
+                    'lives_with_patient' => $input['lives_with_patient'],
+                    'have_keys' =>  $input['have_keys'],
+                    'phone1' => $input['phone1'],
+                    'phone2' => $input['phone2'],
+                    'address' => $address,
+                    
+                    // 'address' => $emergencyAddress,
+                ]);
 
                 $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
             } catch (\Illuminate\Database\QueryException $ex) {

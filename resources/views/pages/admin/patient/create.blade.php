@@ -21,7 +21,7 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    <form class="add_patient_form" id="add_patient_form">
+    <form class="add_patient_form">
     @csrf
         <table class="table table-borderless table-sm patientTable shadow">
             <thead>
@@ -789,10 +789,10 @@
                                 <tr>
                                     <th>Address Line 1</th>
                                     <th>Address Line 2</th>
+                                    <th>Apt#</th>
                                     <th>City</th>
                                     <th>State</th>
-                                    <th>Country</th>
-                                    <th>Zip</th>
+                                    <th>Zipcode</th>
                                     <th>Primary</th>
                                     <th>Address Type(s)</th>
                                     <th>Notes</th>
@@ -807,29 +807,24 @@
                                         <input type="text" class="input-small-skin" name="address2">
                                     </td>
                                     <td>
-
-                                        <select name="city" class="input-small-skin select2">
-                                            <option selected="selected" value="">Select</option>
-                                            
-                                            @foreach ($cities as $key => $city)
-                                                <option value="{{ $city->city }}">{{ $city->city }}</option>
-                                            @endforeach
+                                        <input type="text" class="input-small-skin" name="apt_building">
+                                    </td>
+                                    <td>
+                                        <select name="city" id="city_id" class="input-small-skin select2 cityValue">
+                                            <option value="">Select</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="input-small-skin select2" name="state">
-                                            <option selected="selected" value="">Select</option>
-                                            @foreach ($states as $key => $state)
-                                                <option value="{{ $state->state }}">{{ $state->state }}</option>
-                                            @endforeach
+                                        <select class="input-small-skin stateValue" name="state" id="state_id">
+                                            <option value="">Select a state</option>
                                         </select>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <select name="country" class="input-small-skin select2" name="country">
                                             <option value="">Select</option>
                                             <option value="">USA</option>
                                         </select>
-                                    </td>
+                                    </td> -->
                                     <td style="width: 10%;">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <!-- <div style="width: 49%;"> -->
@@ -861,6 +856,7 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div style="width: 50%;">
                                                 <a href="javascript:void(0)" target="_blank" data-toggle="modal" data-target="#addNotesModal" class="text-underline" rel="noopener noreferrer" disabled>Add</a>
+                                                <input type="hidden" class="input-small-skin" name="address_note">
                                             </div>
                                             <!-- <div style="width: 50%;">
                                                 <a href="javascript:void(0)" class="closebtnIcons">
@@ -877,8 +873,48 @@
             </tbody>
         </table>
         <!-- Address End Here -->
+
+         <!-- Phone Number Information Start Here -->
+         <table class="table table-borderless table-sm patientTable shadow">
+            <tbody>
+                <tr class="table-active">
+                    <td>Phone Number Information</td>
+                    <!-- <td>
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#addressModal"
+                            class="btn btn-light btn-sm font-weight-bold p-0 pl-2 pr-2">ADD</a>
+                    </td> -->
+                </tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%;" class="table table-borderless table-sm m-0">
+                            <thead>
+                                <tr>
+                                    <th>Home Phone</th>
+                                    <th>Cell Phone</th>
+                                    <th>Alternate Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" class="input-small-skin phone_format" name="home_phone">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="input-small-skin phone_format" name="cell_phone">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="input-small-skin phone_format" name="alternate_phone">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Phone Number Information End Here -->
         <!-- Phone Number Information Start Here -->
-        <table class="table table-borderless table-sm patientTable shadow">
+        <!-- <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
                     <th colspan="2">
@@ -899,12 +935,12 @@
                                                 <div class="step">
                                                     <input type="text" class="input-small-skin">
                                                 </div>
-                                                <!-- <div class="step">
+                                                <div class="step">
                                                     <input type="text" class="input-small-skin">
                                                 </div>
                                                 <div class="step">
                                                     <input type="text" class="input-small-skin">
-                                                </div> -->
+                                                </div> 
                                             </div>
                                         </div>
                                         <div style="width: 55%;">
@@ -1062,7 +1098,7 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <!-- Phone Number Information End Here -->
         <!-- Emergency Contact Information Start Here -->
         <table class="table table-borderless table-sm patientTable shadow">
@@ -1073,16 +1109,14 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
-        
-                <tr class="add_more_contact_div">
-             
+            <tbody class="add_more_contact_div">
+                <tr>
                     <td style="width: 50%;" class="border-0">
                         <table style="width: 100%;" class="table table-borderless table-sm m-0 border-0">
                             <tr>
                                 <th style="width: 30%;" class="text-right">Name :</th>
                                 <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin" name="name[]">
+                                    <input type="text" class="input-small-skin" name="name">
                                 </td>
                             </tr>
                             <tr>
@@ -1091,7 +1125,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div style="width: 5%;">
                                             <label>
-                                                <input type="checkbox" name="lives_with_patient[]">
+                                                <input type="checkbox" name="lives_with_patient">
                                                 <span style="font-size:12px; padding-left: 25px;"></span>
                                             </label>
                                         </div>
@@ -1101,7 +1135,7 @@
                                                     <th style="width: 14%;">Have Keys</th>
                                                     <td style="width: 86%;">
                                                         <label>
-                                                            <input type="checkbox" name="have_keys[]">
+                                                            <input type="checkbox" name="have_keys">
                                                             <span style="font-size:12px; padding-left: 25px;"></span>
                                                         </label>
                                                     </td>
@@ -1112,25 +1146,25 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th style="width: 30%;" class="text-right">Address 1 :</th>
+                                <td style="width: 70%;">
+                                    <input type="text" class="input-small-skin" name="emergency_address1">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width: 30%;" class="text-right">Address 2 :</th>
+                                <td style="width: 70%;">
+                                    <input type="text" class="input-small-skin" name="emergency_address2">
+                                </td>
+                            </tr>
+                            <tr>
                                 <!-- <th style="width: 30%;" class="text-right">Address :</th>
                                 <td style="width: 70%;">
                                     <textarea name="address_old[]" id="address_old" class="input-small-skin" cols="30" rows="5"></textarea>
                                 </td> -->
                                 <th style="width: 30%;" class="text-right">Apt Building :</th>
                                 <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin" name="emergency_apt_building[]">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th style="width: 30%;" class="text-right">Address 1 :</th>
-                                <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin" name="emergency_address1[]">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th style="width: 30%;" class="text-right">Address 2 :</th>
-                                <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin" name="emergency_address2[]">
+                                    <input type="text" class="input-small-skin" name="emergency_apt_building">
                                 </td>
                             </tr>
                         </table>
@@ -1140,7 +1174,7 @@
                             <tr>
                                 <th style="width: 30%;" class="text-right">Relationship :</th>
                                 <td style="width: 70%;">
-                                    <select name="relation[]" id="relation" class="input-small-skin select2">
+                                    <select name="relation" id="relation" class="input-small-skin select2">
                                         <option value="">Select</option>
                                         @foreach (config('select.relations') as $key => $relation)
                                         <option value="{{$key}}">{{$relation}}</option>
@@ -1149,48 +1183,60 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th style="width: 30%;" class="text-right">Phone 1  :</th>
+                                <td class="border-0" style="width: 70%;">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div style="width: 45%;">
+                                            <input type="text" class="input-small-skin phone_format" name="phone1" maxlength="14">
+                                        </div>
+                                        <div style="width: 55%;">
+                                            <table style="width: 100%;">
+                                                <tr>
+                                                    <th style="width: 23%;" class="text-right">Phone 2 :</th>
+                                                    <td class="border-0" style="width: 80%;padding-right: 0;">
+                                                        <input type="text" class="input-small-skin phone_format" name="phone2" maxlength="14">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- <tr>
                                 <th style="width: 30%;" class="text-right">Phone 1 :</th>
                                 <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin phone_format" name="phone1[]" maxlength="14">
+                                    <input type="text" class="input-small-skin phone_format" name="phone1" maxlength="14">
                                 </td>
                             </tr>
                             <tr>
                                 <th style="width: 30%;" class="text-right">Phone 2 :</th>
                                 <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin phone_format" name="phone2[]" maxlength="14">
+                                    <input type="text" class="input-small-skin phone_format" name="phone2" maxlength="14">
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <th style="width: 30%;" class="text-right">City :</th>
                                 <td style="width: 70%;">
-                                    <select name="emergency_city[]" id="emergency_city_id" class="input-small-skin select2">
+                                    <select name="emergency_city" id="emergency_city_id" class="input-small-skin select2 cityValue">
                                         <option selected="selected" value="">Select</option>
-                                        
-                                        @foreach ($cities as $key => $city)
-                                            <option value="{{ $city->city }}">{{ $city->city }}</option>
-                                        @endforeach
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th style="width: 30%;" class="text-right">State :</th>
-                                <td style="width: 70%;">
-                                    
-                                    <select id="emergency_state_id" class="input-small-skin select2" name="emergency_state[]">
+                                <td style="width: 70%;" class="thisis">
+                                    <select id="emergency_state_id" class="input-small-skin select2 stateValue" name="emergency_state">
                                         <option selected="selected" value="">Select</option>
-                                        @foreach ($states as $key => $state)
-                                            <option value="{{ $state->state }}">{{ $state->state }}</option>
-                                        @endforeach
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th style="width: 30%;" class="text-right">ZipCode :</th>
                                 <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin" name="emergency_zip_code[]">
+                                    <input type="text" class="input-small-skin" name="emergency_zip_code">
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td></td>
                             </tr>
                             <tr>
@@ -1204,14 +1250,9 @@
                             </tr>
                             <tr>
                                 <td></td>
-                            </tr>
+                            </tr> -->
                         </table>
                     </td>
-               
-              
-                </tr>
-                <tr>
-                <button type="button" name="add" id="add" class="btn btn-success">Add More Emergency Contact</button>
                 </tr>
             </tbody>
         </table>
@@ -1905,7 +1946,7 @@
 @endsection 
 @section('modal')            
     <!-- Modal of Add Address Start Here-->
-    <div class="modal fade" id="addressModal" tabindex="" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="addressModal" tabindex="" aria-labelledby="addressModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1922,7 +1963,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Modal of Add Address End Here-->
     <!-- Modal of Add Notes Start Here-->
     <div class="modal fade" id="addNotesModal" tabindex="" aria-labelledby="allergyModalLabel" aria-hidden="true">
@@ -1935,24 +1976,26 @@
                     </button>
                 </div>
                 <div class="modal-body pb-4">
-                    <form>
+                    <!-- <form class="add_patient_form"> -->
+                      
                         <div class="form-group">
-                            <label for="Notes" class="label">Notes</label>
-                            <textarea name="Notes" class="input-skin" id="notes" cols="30" rows="10"></textarea>
+                            <label for="notes" class="label">Notes</label>
+                            <textarea name="notes" class="input-skin" id="notes" cols="30" rows="10"></textarea>
                             <p>Note: Upto 500 Characters.</p>
+                            <span class="note_error"></span>
                         </div>
                         <div class="d-flex mt-4 justify-content-end">
-                            <input type="submit" value="Submit" class="btn btn--submit btn-lg">
+                            <input type="submit" value="Submit" id="add_note" class="btn btn--submit btn-lg">
                             <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
                         </div>
-                    </form>
+                    <!-- </form> -->
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal of Add Notes End Here-->
     <!-- Modal of Add Allergy Start Here-->
-    <div class="modal fade" id="addAllergyModal" tabindex="" aria-labelledby="allergyModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="addAllergyModal" tabindex="" aria-labelledby="allergyModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2025,10 +2068,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Modal of Add Allergy End Here-->
     <!-- Modal of Add Physicians Start Here-->
-    <div class="modal fade" id="addPhysiciansModal" tabindex="" aria-labelledby="addPhysiciansModalLabel"
+    <!-- <div class="modal fade" id="addPhysiciansModal" tabindex="" aria-labelledby="addPhysiciansModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -2206,10 +2249,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Modal of Add Physicians End Here-->
     <!-- Modal of Add Physicians Start Here-->
-    <div class="modal fade" id="addPhysicModal" tabindex="" aria-labelledby="addPhysicModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="addPhysicModal" tabindex="" aria-labelledby="addPhysicModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2323,10 +2366,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Modal of Add Physicians End Here-->
     <!-- Modal of Add Physicians Address Start Here-->
-    <div class="modal fade" id="addPhysicAddressModal" tabindex="" aria-labelledby="addPhysicAddressModalLabel"
+    <!-- <div class="modal fade" id="addPhysicAddressModal" tabindex="" aria-labelledby="addPhysicAddressModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
@@ -2513,9 +2556,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Modal of Add Physicians Address End Here-->
-    <div class="modal fade" id="PatientDiagnosisInfoModal" tabindex=""
+    <!-- <div class="modal fade" id="PatientDiagnosisInfoModal" tabindex=""
         aria-labelledby="PatientDiagnosisInfoModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
@@ -2614,27 +2657,128 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 @endsection
 
 
 @push('scripts')
 <link rel="stylesheet" href="{{ asset('assets/css/patient_ref_form.min.css') }}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
-        integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw=="
-        crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('scripts')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
-        // $(document).ready(function() {
-        //     alert(createDoralId());
+        $('#add_note').click(function() {
+            var notes = $('textarea[name="notes"]').val();
+           
+            if (notes == '') {
+                $('.note_error').text('Please enter note');
+            } else {
+                $('.note_error').text('');
+                $('input[name="address_note"]').val(notes);
+                $('#addNotesModal').modal('hide');
+            }
+        });
+        $(document).on('change', '.stateValue', function () {
+            var temp = $(this);
+            var item_type_is = temp.val();
+            
+            if (item_type_is != "") {
+                $.ajax({
+                    type: "GET",
+                    url: "{{url('get-city-data')}}/" + item_type_is,
+                    dataType: "JSON",
+                    success: function (data) {
+                        temp.parents('tr').find('.cityValue').html('');
+                        if (data.status == 200) {
+                            if (data.result != '') {
+                                $.each(data.result, function (key, value) {
+                                    var id = value['state_code'];
+                                    var name = value['city'];
+                                    temp.parents('tr').find('.cityValue').append('<option value="' + id + '">' + name + '</option>');
+                                });
+                            }
+                        }
+                      
+                    },
+                });
+            } 
+        });
+
+        $(document).on('change', '.cityValue', function () {
+            var temp = $(this);
+            var item_type_is = temp.val();
+              
+            if (item_type_is != "") {
+                $.ajax({
+                    type: "GET",
+                    url: "{{url('get-state-data')}}/" + item_type_is,
+                    dataType: "JSON",
+                    success: function (data) {
+                      
+                        temp.parents('tr').find('.stateValue').html('');
+                        if (data.status == 200) {
+                            if (data.result != '') {
+                                $.each(data.result, function (key, value) {
+                                    var id = value['state_code'];
+                                    var name = value['state'];
+                                    temp.parents('tr').find('.stateValue').append('<option value="' + id + '">' + name + '</option>');
+                                });
+                            }
+                        }
+                      
+                    },
+                });
+            } 
+        });
+
+        // $('.stateValue').select2({
+        //     minimumInputLength: 2,
+        //     placeholder: 'Select a state',
+        //     ajax: {
+        //         type: "POST",
+        //         url: "{{ route('get-state-data') }}",
+        //         dataType: 'json',
+        //         delay: 250,
+        //         processResults: function (data) {
+                  
+        //             return {
+        //                 results:  $.map(data, function (item) {
+        //                     return {
+        //                         text: item.state,
+        //                         id: item.state_code
+        //                     }
+        //                 })
+        //             };
+        //         },
+        //         cache: true
+        //     }
         // });
-        // $(document).on('click','.save_record',function(event) {
-        $('#add_patient_form').on('submit', function(event){
+        
+        $('.cityValue').select2({
+            minimumInputLength: 2,
+            placeholder: 'Select a state',
+            ajax: {
+                type: "POST",
+                url: "{{ route('get-city-data') }}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                  
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.city,
+                                id: item.state_code
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+        $('.add_patient_form').on('submit', function(event){
             event.preventDefault();
           
             var url = "{{ Route('patient.store') }}";
@@ -2661,7 +2805,7 @@
                     //  });
                   } else {
                     alertText(data.message,'success');
-                    $('#add_patient_form')[0].reset();
+                    $('.add_patient_form')[0].reset();
                   }
                },
                error: function()
@@ -2671,64 +2815,8 @@
                }
             });
         });
-            $(document).on("#add",'click',function(){
-            
-              
-                $(".add_more_contact_div").append('<tr><td style="width: 50%;" class="border-0"><table style="width: 100%;" class="table table-borderless table-sm m-0 border-0"><tr><th style="width: 30%;" class="text-right">Name :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="name[]"></td></tr><tr><th style="width: 30%;" class="text-right">Lives with Patient :</th><td style="width: 70%;"><div class="d-flex justify-content-between align-items-center"><div style="width: 5%;"><label><input type="checkbox" name="lives_with_patient[]"><span style="font-size:12px; padding-left: 25px;"></span></label></div><div style="width: 95%;"><table style="width: 100%;"><tr><th style="width: 14%;">Have Keys</th><td style="width: 86%;"><label><input type="checkbox" name="have_keys[]"><span style="font-size:12px; padding-left: 25px;"></span></label></td></tr></table></div></div></td></tr><tr><th style="width: 30%;" class="text-right">Apt Building :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="emergency_apt_building[]"></td></tr><tr><th style="width: 30%;" class="text-right">Address 1 :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="emergency_address1[]"></td></tr><tr><th style="width: 30%;" class="text-right">Address 2 :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="emergency_address2[]"></td></tr></table></td><td style="width: 50%;" class="border-0"><table style="width: 100%;" class="table table-borderless table-sm m-0 border-0"><tr><th style="width: 30%;" class="text-right">Relationship :</th><td style="width: 70%;"><select name="relation[]" id="relation" class="input-small-skin select2"><option value="">Select</option></select></td></tr><tr><th style="width: 30%;" class="text-right">Phone 1 :</th><td style="width: 70%;"><input type="text" class="input-small-skin phone_format" name="phone1[]" maxlength="14"></td></tr><tr><th style="width: 30%;" class="text-right">Phone 2 :</th><td style="width: 70%;"><input type="text" class="input-small-skin phone_format" name="phone2[]" maxlength="14"></td></tr><tr><th style="width: 30%;" class="text-right">City :</th><td style="width: 70%;"><select name="emergency_city[]" id="emergency_city_id" class="input-small-skin select2"><option selected="selected" value="">Select</option></select></td></tr><tr><th style="width: 30%;" class="text-right">State :</th><td style="width: 70%;"><select id="emergency_state_id" class="input-small-skin select2" name="emergency_state[]"><option selected="selected" value="">Select</option></select></td></tr><tr><th style="width: 30%;" class="text-right">ZipCode :</th><td style="width: 70%;"><input type="text" class="input-small-skin" name="emergency_zip_code[]"></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr></table></td></tr>');
-              
-            });
-
-            $(document).on('click', '.remove-tr', function(){ 
-                $(".add_more_contact_div").children("div[class=main_div]:last").remove();
-              
-            });  
-        
+  
         $(function () {
-            $('input[name="formDate1"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-            $('input[name="toDate1"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-            $('input[name="formDate2"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-            $('input[name="toDate2"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-            $('input[name="dob"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
             $('input[name="serviceRequestStartDate"]').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
@@ -2747,54 +2835,7 @@
                 var years = moment().diff(start, 'years');
                 alert("You are " + years + " years old!");
             });
-            $('input[name="SuspensionDate"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-            $('input[name="LicenseExpirationDate"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-            $('input[name="revokeDate"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-            $('input[name="_date"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-            $('input[name="historicalAsOf"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-            $('.select2').select2({
-                theme: "doral"
-            });
+          
             $('#addPhysicBtn').on('click', function () {
                 $('#addPhysiciansModal').modal('hide');
                 $('#addPhysicModal').modal({

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Jobs\HHAApiCaregiver;
 use App\Models\CaregiverInfo;
+use App\Models\City;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\PatientLabReport;
 use App\Models\PatientReport;
+use App\Models\State;
 use App\Models\User;
 use App\Services\AdminService;
 use App\Services\ClinicianService;
@@ -530,7 +532,58 @@ class CaregiverController extends Controller
        
         return response()->json($data);
     }
+
+    public function getCityData($state_code)
+    {
+        $city = City::select('id', 'city', 'state_code')->where('state_code', $state_code)->orderBy('city','ASC')->get();
+      
+        if (count($city) > 0) {
+            $arr = array("status" => 200, "msg" => "Success", "result" => $city);
+        } else {
+            $arr = array("status" => 400, "msg" => "This item has no any types.", "users" => []);
+        }
+        return \Response::json($arr);
+    }
+
+    public function getStateData($state_code)
+    {
+        $state = State::select('id','state','state_code')->where('state_code', $state_code)->orderBy('state','ASC')->get();
+        
+        if (count($state) > 0) {
+            $arr = array("status" => 200, "msg" => "Success", "result" => $state);
+        } else {
+            $arr = array("status" => 400, "msg" => "This item has no any types.", "users" => []);
+        }
+
+       
+        return \Response::json($arr);
+    }
+
+    public function getSelectStateData(Request $request)
+    {
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+           
+            $data =State::select('id','state','state_code')->where('state','LIKE',"%$search%")->get();
+        }
+        
+        return response()->json($data);
+    }
     
+    public function getSelectCityData(Request $request)
+    {
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+           
+            $data =City::select('id','city','state_code')->where('city','LIKE',"%$search%")->get();
+        }
+        
+        return response()->json($data);
+    }
     /**
      * Display a listing of the resource.
      *

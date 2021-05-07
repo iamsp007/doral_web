@@ -238,20 +238,12 @@
                             <div class="p-3">
                                 <div class="form-group">
                                     <div class="row">
+                                       
                                         <div class="col-12 col-sm-3 col-md-3">
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
-                                                    <h3 class="_title">Apt Building</h3>
-                                                    <input type="text" class="form-control-plaintext _detail" readonly name="apt_building" data-id="apt_building" id="apt_building" placeholder="Apt Building" value="{{ $aptBuilding }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-3 col-md-3">
-                                            <div class="input_box">
-                                                <div class="ls"><i class="las la-address-book circle"></i></div>
-                                                <div class="rs">
-                                                    <h3 class="_title">Address1</h3>
+                                                    <h3 class="_title">Address Line 1</h3>
                                                     <input type="text" class="form-control-plaintext _detail" readonly name="address1" data-id="address1" id="address1" placeholder="Address1" value="{{ $address1 }}">
                                                 </div>
                                             </div>
@@ -260,8 +252,17 @@
                                             <div class="input_box">
                                                 <div class="ls"><i class="las la-address-book circle"></i></div>
                                                 <div class="rs">
-                                                    <h3 class="_title">Address2</h3>
+                                                    <h3 class="_title">Address Line 2</h3>
                                                     <input type="text" class="form-control-plaintext _detail " readonly name="address2" data-id="address2" id="address2" placeholder="Address2" value="{{$address2 }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-3 col-md-3">
+                                            <div class="input_box">
+                                                <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                <div class="rs">
+                                                    <h3 class="_title">Apt Building</h3>
+                                                    <input type="text" class="form-control-plaintext _detail" readonly name="apt_building" data-id="apt_building" id="apt_building" placeholder="Apt Building" value="{{ $aptBuilding }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -365,22 +366,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($patientEmergencyContact->address)
                                         <div class="form-group">
                                             <div class="row">
+                                              
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Apt Building</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="{{ $emergencyAptBuilding }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-sm-3 col-md-3">
-                                                    <div class="input_box">
-                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
-                                                        <div class="rs">
-                                                            <h3 class="_title">Address1</h3>
+                                                            <h3 class="_title">Address Line1</h3>
                                                             <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress1" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value="{{ $emergencyAddress1 }}">
                                                         </div>
                                                     </div>
@@ -389,8 +383,17 @@
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Address1</h3>
+                                                            <h3 class="_title">Address Line2</h3>
                                                             <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value="{{ $emergencyAddress2 }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Apt Building</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="{{ $emergencyAptBuilding }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -427,6 +430,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach

@@ -12,6 +12,7 @@ use App\Models\State;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
@@ -75,6 +76,8 @@ class PatientController extends Controller
             $arr = array('status' => 400, 'message' => $validator->errors()->first(), 'result' => array());
         } else {
             try {
+                DB::beginTransaction();
+
                 $user = new User();
 
                 $doral_id = createDoralId();
@@ -93,7 +96,7 @@ class PatientController extends Controller
                 if ($phone_number != '') {
            
                     $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
-                   
+              
                     if (empty($userDuplicatePhone)) {
                         $user->phone = setPhone($phone_number);
                         $user->phone_verified_at = now();
@@ -170,14 +173,13 @@ class PatientController extends Controller
                     'user_id' => $user->id,
                     'name' => $input['name'],
                     'relation' => $input['relation'],
-                    'lives_with_patient' => $input['lives_with_patient'],
-                    'have_keys' =>  $input['have_keys'],
+                    'lives_with_patient' => isset($input['lives_with_patient']) ? $input['lives_with_patient'] : '',
+                    'have_keys' => isset($input['have_keys']) ? $input['have_keys'] : '',
                     'phone1' => setPhone($input['phone1']),
                     'phone2' => setPhone($input['phone2']),
                     'address' => $address,
-                    
-                    // 'address' => $emergencyAddress,
                 ]);
+                DB::commit();
 
                 $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
             } catch (\Illuminate\Database\QueryException $ex) {
@@ -185,12 +187,16 @@ class PatientController extends Controller
                 if (isset($ex->errorInfo[2])) {
                     $message = $ex->errorInfo[2];
                 }
+                DB::rollBack();
+
                 $arr = array("status" => 400, "message" => $message, "resultdata" => array());
             } catch (Exception $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {
                     $message = $ex->errorInfo[2];
                 }
+                DB::rollBack();
+                
                 $arr = array("status" => 400, "message" => $message, "resultdata" => array());
             }
         } 

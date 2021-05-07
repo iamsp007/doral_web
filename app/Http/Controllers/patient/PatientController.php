@@ -81,11 +81,11 @@ class PatientController extends Controller
                 $password = str_replace(" ", "",$input['first_name']) . '@' . $doral_id;
 
                 if (isset($input['avatar']) && !empty($input['avatar'])) {
-                    $file = $input['avatar'];
-                    $name = time() .'.'.$file->getClientOriginalExtension();
-                    $filePath = 'avatar';
-                    $file->move($filePath,$name);
-                    $user->avatar = $file;
+                    $uploadFolder = 'users';
+                    $image = $input['avatar'];
+                    $image_uploaded_path = $image->store($uploadFolder, 'public');
+                  
+                    $user->avatar = basename($image_uploaded_path);
                 }
 
                 $user->first_name = $input['first_name'];
@@ -109,9 +109,9 @@ class PatientController extends Controller
                 ];
 
                 $phone_info = [
-                    'home_phone' => $input['home_phone'],
-                    'cell_phone' => $input['cell_phone'],
-                    'alternate_phone' => $input['alternate_phone'],
+                    'home_phone' => setPhone($input['home_phone']),
+                    'cell_phone' => setPhone($input['cell_phone']),
+                    'alternate_phone' => setPhone($input['alternate_phone']),
                 ];
 
                 $language = '';
@@ -136,7 +136,8 @@ class PatientController extends Controller
                 $demographic->alert = $input['alert'];
                 $demographic->service_request_start_date =  dateFormat($input['serviceRequestStartDate']);
                 $demographic->phone_info = $phone_info;
-                
+                $demographic->type = '3';
+
                 $demographic->save();
 
                 $address = [
@@ -154,8 +155,8 @@ class PatientController extends Controller
                     'relation' => $input['relation'],
                     'lives_with_patient' => $input['lives_with_patient'],
                     'have_keys' =>  $input['have_keys'],
-                    'phone1' => $input['phone1'],
-                    'phone2' => $input['phone2'],
+                    'phone1' => setPhone($input['phone1']),
+                    'phone2' => setPhone($input['phone2']),
                     'address' => $address,
                     
                     // 'address' => $emergencyAddress,

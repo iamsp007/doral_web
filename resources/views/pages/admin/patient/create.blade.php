@@ -810,12 +810,12 @@
                                         <input type="text" class="input-small-skin" name="apt_building">
                                     </td>
                                     <td style="display:none" class="selectedCityState"> 
-                                        <select name="city" id="city_id" class="input-small-skin cityStateValue">
+                                        <select name="city" class="input-small-skin cityStateValue">
                                             <option value="">Select a city</option>
                                         </select>
                                     </td>
                                     <td class="selectedCity"> 
-                                        <select name="city" id="city_id1" class="input-small-skin cityValue">
+                                        <select name="city" class="input-small-skin cityValue">
                                             <option value="">Select a city</option>
                                         </select>
                                     </td>
@@ -1224,27 +1224,16 @@
                                     <input type="text" class="input-small-skin phone_format" name="phone2" maxlength="14">
                                 </td>
                             </tr> -->
-                            <td style="display:none" class="selectedStateCity"> 
-                                        <select class="input-small-skin stateCityValue" name="state">
-                                            <option value="">Select a state</option>
-                                        </select>
-                                    </td>
-                                    <td class="selectedState"> 
-                                        <select class="input-small-skin stateValue" name="state">
-                                            <option value="">Select a state</option>
-                                        </select>
-                                    </td>
                             <tr>
                                 <th style="width: 30%;" class="text-right">City :</th>
-                                
                                 <td style="width: 70%;display:none;" class="selectedCityState">
-                                    <select name="emergency_city" id="emergency_city_id" class="input-small-skin cityStateValue">
-                                        <option selected="selected" value="">Select</option>
+                                    <select name="emergency_city" class="input-small-skin cityStateValue">
+                                        <option value="">Select a city</option>
                                     </select>
                                 </td>
                                 <td style="width: 70%;" class="selectedCity">
-                                    <select name="emergency_city" id="emergency_city_id" class="input-small-skin cityValue">
-                                        <option selected="selected" value="">Select</option>
+                                    <select name="emergency_city" class="input-small-skin cityValue">
+                                        <option value="">Select a city</option>
                                     </select>
                                 </td>
                             </tr>
@@ -1255,7 +1244,7 @@
                                         <option selected="selected" value="">Select a state</option>
                                     </select>
                                 </td>
-                                <td style="width: 70%;display:none;" class="selectedStateCity">
+                                <td style="width: 70%;" class="selectedState">
                                     <select class="input-small-skin stateValue" name="emergency_state">
                                         <option selected="selected" value="">Select a state</option>
                                     </select>
@@ -2744,7 +2733,7 @@
         $(document).on('change', '.cityValue', function () {
             var temp = $(this);
             var item_type_is = temp.val();
-              
+                
             if (item_type_is != "") {
                 $.ajax({
                     type: "GET",
@@ -2784,7 +2773,7 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.state,
+                                text: item.state + '(' + item.state_code + ')',
                                 id: item.state_code
                             }
                         })

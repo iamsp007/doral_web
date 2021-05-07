@@ -535,6 +535,7 @@ class CaregiverController extends Controller
 
     public function getCityData($state_code)
     {
+     
         $city = City::select('id', 'city', 'state_code')->where('state_code', $state_code)->orderBy('city','ASC')->get();
       
         if (count($city) > 0) {
@@ -547,7 +548,10 @@ class CaregiverController extends Controller
 
     public function getStateData($state_code)
     {
-        $state = State::select('id','state','state_code')->where('state_code', $state_code)->orderBy('state','ASC')->get();
+        
+        $state_code = explode("-",$state_code);
+
+        $state = State::select('id','state','state_code')->where('state_code', $state_code[1])->orderBy('state','ASC')->get();
         
         if (count($state) > 0) {
             $arr = array("status" => 200, "msg" => "Success", "result" => $state);
@@ -578,7 +582,7 @@ class CaregiverController extends Controller
 
         if($request->has('q')){
             $search = $request->q;
-           
+            
             $data =City::select('id','city','state_code')->where('city','LIKE',"%$search%")->get();
         }
         

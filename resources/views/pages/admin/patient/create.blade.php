@@ -2720,7 +2720,7 @@
                                 $.each(data.result, function (key, value) {
                                     var id = value['state_code'];
                                     var name = value['city'];
-                                    temp.parents('tr').find('.cityStateValue').append('<option value="' + id + '">' + name + '</option>');
+                                    temp.parents('tr').find('.cityStateValue').append('<option value="' + name + '">' + name + '</option>');
                                 });
                             }
                         }
@@ -2733,7 +2733,7 @@
         $(document).on('change', '.cityValue', function () {
             var temp = $(this);
             var item_type_is = temp.val();
-                
+        
             if (item_type_is != "") {
                 $.ajax({
                     type: "GET",
@@ -2750,7 +2750,7 @@
                                 $.each(data.result, function (key, value) {
                                     var id = value['state_code'];
                                     var name = value['state'];
-                                    temp.parents('tr').find('.stateCityValue').append('<option value="' + id + '">' + name + '</option>');
+                                    temp.parents('tr').find('.stateCityValue').append('<option value="' + name + '">' + name + '</option>');
                                 });
                             }
                         }
@@ -2773,7 +2773,7 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.state + '(' + item.state_code + ')',
+                                text: item.state + '-' + item.state_code,
                                 id: item.state_code
                             }
                         })
@@ -2796,8 +2796,8 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.city + '(' + item.state_code + ')',
-                                id: item.state_code
+                                text: item.city + '-' + item.state_code,
+                                id: item.city + '-' + item.state_code
                             }
                         })
                     };

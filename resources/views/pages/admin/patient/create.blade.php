@@ -49,7 +49,7 @@
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <div style="width: 50%;">
                                                                 <select name="company_id" id="company_id" class="input-small-skin select2">
-                                                                    <option selected="selected" value="">Select</option>
+                                                                    <option selected="selected" value="">Select a company</option>
                                                                     @foreach ($companies as $key => $company)
                                                                         <option value="{{ $company->id }}">{{ $company->name }}</option>
                                                                     @endforeach
@@ -63,7 +63,7 @@
                                                                         </td>
                                                                         <td class="border-0" style="width: 70%;padding-right: 0;">
                                                                             <select name="service_id" id="service_id" class="input-small-skin select2">
-                                                                                <option selected="selected" value="">Select</option>
+                                                                                <option selected="selected" value="">Select a service</option>
                                                                                 
                                                                                 @foreach ($services as $key => $service)
                                                                                     <option value="{{ $service->id }}">{{ $service->name }}</option>
@@ -105,6 +105,7 @@
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <div style="width: 45%;">
                                                                 <select name="gender" id="Gender" class="input-small-skin select2">
+                                                                <option selected="selected" value="">Select a gender</option>
                                                                     @foreach (config('select.gender') as $key => $gender)
                                                                         <option value="{{ $key }}">{{ $gender }}</option>
                                                                     @endforeach
@@ -118,7 +119,7 @@
                                                                         </td>
                                                                         <td class="border-0" style="width: 80%;padding-right: 0;">
                                                                             <select name="race" id="race" class="input-small-skin select2">
-                                                                                <option selected="selected" value="">Select</option>
+                                                                                <option selected="selected" value="">Select a race</option>
                                                                                 @foreach (config('select.race') as $key => $race)
                                                                                     <option value="{{$key}}">{{$race}}</option>
                                                                                 @endforeach
@@ -136,7 +137,7 @@
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
                                                         <select name="ethnicity" id="ethnicity" class="input-small-skin select2">
-                                                            <option selected="selected" value="">Select</option>
+                                                            <option selected="selected" value="">Select a ethnicity</option>
                                                             @foreach (config('select.ethnicity') as $key => $ethnicity)
                                                                 <option value="{{ $key }}">{{ $ethnicity }}</option>
                                                             @endforeach
@@ -810,12 +811,12 @@
                                         <input type="text" class="input-small-skin" name="apt_building">
                                     </td>
                                     <td style="display:none" class="selectedCityState"> 
-                                        <select name="city" id="city_id" class="input-small-skin cityStateValue">
+                                        <select name="city" class="input-small-skin cityStateValue">
                                             <option value="">Select a city</option>
                                         </select>
                                     </td>
                                     <td class="selectedCity"> 
-                                        <select name="city" id="city_id1" class="input-small-skin cityValue">
+                                        <select name="city" class="input-small-skin cityValue">
                                             <option value="">Select a city</option>
                                         </select>
                                     </td>
@@ -856,7 +857,7 @@
                                     </td>
                                     <td>
                                         <select name="addressType" class="input-small-skin select2" id="addressType">
-                                            <option value="">Select</option>
+                                            <option value="">Select a address type</option>
                                            @foreach (config('select.address_type') as $key => $address_type)
                                                 <option value="{{ $key }}">{{ $address_type }}</option>
                                             @endforeach
@@ -1185,7 +1186,7 @@
                                 <th style="width: 30%;" class="text-right">Relationship :</th>
                                 <td style="width: 70%;">
                                     <select name="relation" id="relation" class="input-small-skin select2">
-                                        <option value="">Select</option>
+                                        <option value="">Select a relation</option>
                                         @foreach (config('select.relations') as $key => $relation)
                                         <option value="{{$key}}">{{$relation}}</option>
                                         @endforeach
@@ -1224,27 +1225,16 @@
                                     <input type="text" class="input-small-skin phone_format" name="phone2" maxlength="14">
                                 </td>
                             </tr> -->
-                            <td style="display:none" class="selectedStateCity"> 
-                                        <select class="input-small-skin stateCityValue" name="state">
-                                            <option value="">Select a state</option>
-                                        </select>
-                                    </td>
-                                    <td class="selectedState"> 
-                                        <select class="input-small-skin stateValue" name="state">
-                                            <option value="">Select a state</option>
-                                        </select>
-                                    </td>
                             <tr>
                                 <th style="width: 30%;" class="text-right">City :</th>
-                                
                                 <td style="width: 70%;display:none;" class="selectedCityState">
-                                    <select name="emergency_city" id="emergency_city_id" class="input-small-skin cityStateValue">
-                                        <option selected="selected" value="">Select</option>
+                                    <select name="emergency_city" class="input-small-skin cityStateValue">
+                                        <option value="">Select a city</option>
                                     </select>
                                 </td>
                                 <td style="width: 70%;" class="selectedCity">
-                                    <select name="emergency_city" id="emergency_city_id" class="input-small-skin cityValue">
-                                        <option selected="selected" value="">Select</option>
+                                    <select name="emergency_city" class="input-small-skin cityValue">
+                                        <option value="">Select a city</option>
                                     </select>
                                 </td>
                             </tr>
@@ -1255,7 +1245,7 @@
                                         <option selected="selected" value="">Select a state</option>
                                     </select>
                                 </td>
-                                <td style="width: 70%;display:none;" class="selectedStateCity">
+                                <td style="width: 70%;" class="selectedState">
                                     <select class="input-small-skin stateValue" name="emergency_state">
                                         <option selected="selected" value="">Select a state</option>
                                     </select>
@@ -1900,7 +1890,7 @@
                                                     <td style="width: 70%;">
                                                         <select name="language[]" id="primaryLanguage1"
                                                             class="input-small-skin select2">
-                                                            <option selected="selected" value="">Select</option>
+                                                            <option selected="selected" value="">Select a primary language</option>
                                                             
                                                             @foreach (config('select.language') as $key => $language)
                                                                 <option value="{{ $key}}">{{$language}}</option>
@@ -1940,7 +1930,7 @@
                                                     <td style="width: 70%;">
                                                         <select name="language[]" id="primaryLanguage"
                                                             class="input-small-skin select2">
-                                                            <option selected="selected" value="">Select</option>
+                                                            <option selected="selected" value="">Select a secondary language</option>
                                                             @foreach (config('select.language') as $key => $language)
                                                                 <option value="{{ $key}}">{{$language}}</option>
                                                             @endforeach
@@ -2731,7 +2721,7 @@
                                 $.each(data.result, function (key, value) {
                                     var id = value['state_code'];
                                     var name = value['city'];
-                                    temp.parents('tr').find('.cityStateValue').append('<option value="' + id + '">' + name + '</option>');
+                                    temp.parents('tr').find('.cityStateValue').append('<option value="' + name + '">' + name + '</option>');
                                 });
                             }
                         }
@@ -2744,7 +2734,7 @@
         $(document).on('change', '.cityValue', function () {
             var temp = $(this);
             var item_type_is = temp.val();
-              
+        
             if (item_type_is != "") {
                 $.ajax({
                     type: "GET",
@@ -2761,7 +2751,7 @@
                                 $.each(data.result, function (key, value) {
                                     var id = value['state_code'];
                                     var name = value['state'];
-                                    temp.parents('tr').find('.stateCityValue').append('<option value="' + id + '">' + name + '</option>');
+                                    temp.parents('tr').find('.stateCityValue').append('<option value="' + name + '">' + name + '</option>');
                                 });
                             }
                         }
@@ -2784,7 +2774,7 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.state,
+                                text: item.state + '-' + item.state_code,
                                 id: item.state_code
                             }
                         })
@@ -2807,8 +2797,8 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.city + '(' + item.state_code + ')',
-                                id: item.state_code
+                                text: item.city + '-' + item.state_code,
+                                id: item.city + '-' + item.state_code
                             }
                         })
                     };
@@ -2819,7 +2809,8 @@
 
         $('.cityStateValue').select2();
         $('.stateCityValue').select2();
-
+        $('#company_id, #service_id, #Gender, #race, #ethnicity, #relation, #primaryLanguage1, #primaryLanguage, #addressType').select2();
+        
         $('.add_patient_form').on('submit', function(event){
             event.preventDefault();
           

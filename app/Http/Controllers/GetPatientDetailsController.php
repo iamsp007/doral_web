@@ -114,10 +114,9 @@ class GetPatientDetailsController extends Controller
                 $address = $patient->demographic->address;
             }
 
-            if (isset($patient->patientEmergency->address)) {
-                $emergencyAddress = $patient->patientEmergency->address;
+            if (isset($patient->patientEmergency)) {
+                $emergencyAddress = $patient->patientEmergency;
             }
-       
         }
 
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress'));

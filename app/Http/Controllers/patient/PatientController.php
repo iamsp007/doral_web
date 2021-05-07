@@ -12,8 +12,10 @@ use App\Models\State;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
 
 class PatientController extends Controller
 {
@@ -74,6 +76,8 @@ class PatientController extends Controller
             $arr = array('status' => 400, 'message' => $validator->errors()->first(), 'result' => array());
         } else {
             try {
+                DB::beginTransaction();
+
                 $user = new User();
 
                 $doral_id = createDoralId();
@@ -81,21 +85,38 @@ class PatientController extends Controller
                 $password = str_replace(" ", "",$input['first_name']) . '@' . $doral_id;
 
                 if (isset($input['avatar']) && !empty($input['avatar'])) {
-                    $file = $input['avatar'];
-                    $name = time() .'.'.$file->getClientOriginalExtension();
-                    $filePath = 'avatar';
-                    $file->move($filePath,$name);
-                    $user->avatar = $file;
+                    $uploadFolder = 'users';
+                    $image = $input['avatar'];
+                    $image_uploaded_path = $image->store($uploadFolder, 'public');
+                  
+                    $user->avatar = basename($image_uploaded_path);
                 }
 
+                $phone_number = $input['home_phone'] ? $input['home_phone'] : '';
+                if ($phone_number != '') {
+           
+                    $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
+              
+                    if (empty($userDuplicatePhone)) {
+                        $user->phone = setPhone($phone_number);
+                        $user->phone_verified_at = now();
+                        $status = '0';
+                    } else {
+                        $status = '4';
+                    }
+                } else {
+                    $status = '4';
+                }
                 $user->first_name = $input['first_name'];
                 $user->last_name = $input['last_name'];
                 $user->gender = setGender($input['gender']);
                 $user->dob = dateFormat($input['dateOfBirth']);
                 $user->password = setPassword($password);
-             
+                $user->status = $status;
                 $user->save();
 
+                $user->assignRole('patient')->syncPermissions(Permission::all());
+                
                 $address = [
                     'address1' => $input['address1'],
                     'address2' => $input['address2'],
@@ -109,9 +130,9 @@ class PatientController extends Controller
                 ];
 
                 $phone_info = [
-                    'home_phone' => $input['home_phone'],
-                    'cell_phone' => $input['cell_phone'],
-                    'alternate_phone' => $input['alternate_phone'],
+                    'home_phone' => ($input['home_phone']) ? setPhone($input['home_phone']) : '',
+                    'cell_phone' => ($input['cell_phone']) ? setPhone($input['cell_phone']) : '',
+                    'alternate_phone' => ($input['alternate_phone']) ? setPhone($input['alternate_phone']) : '',
                 ];
 
                 $language = '';
@@ -129,14 +150,14 @@ class PatientController extends Controller
                 $demographic->medicaid_number = $input['medicaid_number'];
                 $demographic->medicare_number = $input['medicare_number'];
                 $demographic->ssn = setSsn($input['ssn']);
-                $demographic->doral_id = createDoralId();
                 $demographic->address = $address;
                 $demographic->language = $language;
                 $demographic->race = $input['race'];
                 $demographic->alert = $input['alert'];
                 $demographic->service_request_start_date =  dateFormat($input['serviceRequestStartDate']);
                 $demographic->phone_info = $phone_info;
-                
+                $demographic->type = '3';
+
                 $demographic->save();
 
                 $address = [
@@ -152,14 +173,13 @@ class PatientController extends Controller
                     'user_id' => $user->id,
                     'name' => $input['name'],
                     'relation' => $input['relation'],
-                    'lives_with_patient' => $input['lives_with_patient'],
-                    'have_keys' =>  $input['have_keys'],
-                    'phone1' => $input['phone1'],
-                    'phone2' => $input['phone2'],
+                    'lives_with_patient' => isset($input['lives_with_patient']) ? $input['lives_with_patient'] : '',
+                    'have_keys' => isset($input['have_keys']) ? $input['have_keys'] : '',
+                    'phone1' => setPhone($input['phone1']),
+                    'phone2' => setPhone($input['phone2']),
                     'address' => $address,
-                    
-                    // 'address' => $emergencyAddress,
                 ]);
+                DB::commit();
 
                 $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
             } catch (\Illuminate\Database\QueryException $ex) {
@@ -167,12 +187,16 @@ class PatientController extends Controller
                 if (isset($ex->errorInfo[2])) {
                     $message = $ex->errorInfo[2];
                 }
+                DB::rollBack();
+
                 $arr = array("status" => 400, "message" => $message, "resultdata" => array());
             } catch (Exception $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {
                     $message = $ex->errorInfo[2];
                 }
+                DB::rollBack();
+                
                 $arr = array("status" => 400, "message" => $message, "resultdata" => array());
             }
         } 

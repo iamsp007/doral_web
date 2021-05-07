@@ -2,7 +2,7 @@
 
 @section('title','Patient Detail')
 @section('pageTitleSection')
-    <img src="{{ asset('assets/img/icons/computer-icon.svg') }}" class="vbcIcon mr-2"> Patient Detail
+    <img src="{{ $patient->avatar_image }}" class="vbcIcon mr-2"> Patient Detail
 @endsection
 
 @section('content')

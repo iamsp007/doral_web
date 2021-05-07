@@ -809,13 +809,23 @@
                                     <td>
                                         <input type="text" class="input-small-skin" name="apt_building">
                                     </td>
-                                    <td>
-                                        <select name="city" id="city_id" class="input-small-skin select2 cityValue">
-                                            <option value="">Select</option>
+                                    <td style="display:none" class="selectedCityState"> 
+                                        <select name="city" id="city_id" class="input-small-skin cityStateValue">
+                                            <option value="">Select a city</option>
                                         </select>
                                     </td>
-                                    <td>
-                                        <select class="input-small-skin stateValue" name="state" id="state_id">
+                                    <td class="selectedCity"> 
+                                        <select name="city" id="city_id1" class="input-small-skin cityValue">
+                                            <option value="">Select a city</option>
+                                        </select>
+                                    </td>
+                                    <td style="display:none" class="selectedStateCity"> 
+                                        <select class="input-small-skin stateCityValue" name="state">
+                                            <option value="">Select a state</option>
+                                        </select>
+                                    </td>
+                                    <td class="selectedState"> 
+                                        <select class="input-small-skin stateValue" name="state">
                                             <option value="">Select a state</option>
                                         </select>
                                     </td>
@@ -1214,19 +1224,40 @@
                                     <input type="text" class="input-small-skin phone_format" name="phone2" maxlength="14">
                                 </td>
                             </tr> -->
+                            <td style="display:none" class="selectedStateCity"> 
+                                        <select class="input-small-skin stateCityValue" name="state">
+                                            <option value="">Select a state</option>
+                                        </select>
+                                    </td>
+                                    <td class="selectedState"> 
+                                        <select class="input-small-skin stateValue" name="state">
+                                            <option value="">Select a state</option>
+                                        </select>
+                                    </td>
                             <tr>
                                 <th style="width: 30%;" class="text-right">City :</th>
-                                <td style="width: 70%;">
-                                    <select name="emergency_city" id="emergency_city_id" class="input-small-skin select2 cityValue">
+                                
+                                <td style="width: 70%;display:none;" class="selectedCityState">
+                                    <select name="emergency_city" id="emergency_city_id" class="input-small-skin cityStateValue">
+                                        <option selected="selected" value="">Select</option>
+                                    </select>
+                                </td>
+                                <td style="width: 70%;" class="selectedCity">
+                                    <select name="emergency_city" id="emergency_city_id" class="input-small-skin cityValue">
                                         <option selected="selected" value="">Select</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th style="width: 30%;" class="text-right">State :</th>
-                                <td style="width: 70%;" class="thisis">
-                                    <select id="emergency_state_id" class="input-small-skin select2 stateValue" name="emergency_state">
-                                        <option selected="selected" value="">Select</option>
+                                <td style="width: 70%;display:none;" class="selectedStateCity">
+                                    <select class="input-small-skin stateCityValue" name="emergency_state">
+                                        <option selected="selected" value="">Select a state</option>
+                                    </select>
+                                </td>
+                                <td style="width: 70%;display:none;" class="selectedStateCity">
+                                    <select class="input-small-skin stateValue" name="emergency_state">
+                                        <option selected="selected" value="">Select a state</option>
                                     </select>
                                 </td>
                             </tr>
@@ -2690,13 +2721,17 @@
                     url: "{{url('get-city-data')}}/" + item_type_is,
                     dataType: "JSON",
                     success: function (data) {
-                        temp.parents('tr').find('.cityValue').html('');
+                        temp.parents('tr').find('.selectedCityState').css({"display" : "block"});
+                        temp.parents('tr').find('.selectedCity').css({"display" : "none"});
+                        temp.parents('tr').find('.cityStateValue').html('');
                         if (data.status == 200) {
+                            
                             if (data.result != '') {
+                                
                                 $.each(data.result, function (key, value) {
                                     var id = value['state_code'];
                                     var name = value['city'];
-                                    temp.parents('tr').find('.cityValue').append('<option value="' + id + '">' + name + '</option>');
+                                    temp.parents('tr').find('.cityStateValue').append('<option value="' + id + '">' + name + '</option>');
                                 });
                             }
                         }
@@ -2716,14 +2751,17 @@
                     url: "{{url('get-state-data')}}/" + item_type_is,
                     dataType: "JSON",
                     success: function (data) {
-                      
+                        temp.parents('tr').find('.selectedStateCity').css({"display" : "block"});
+                        temp.parents('tr').find('.selectedState').css({"display" : "none"});
+                        temp.parents('tr').find('.stateCityValue').html('');
+
                         temp.parents('tr').find('.stateValue').html('');
                         if (data.status == 200) {
                             if (data.result != '') {
                                 $.each(data.result, function (key, value) {
                                     var id = value['state_code'];
                                     var name = value['state'];
-                                    temp.parents('tr').find('.stateValue').append('<option value="' + id + '">' + name + '</option>');
+                                    temp.parents('tr').find('.stateCityValue').append('<option value="' + id + '">' + name + '</option>');
                                 });
                             }
                         }
@@ -2732,33 +2770,33 @@
                 });
             } 
         });
-
-        // $('.stateValue').select2({
-        //     minimumInputLength: 2,
-        //     placeholder: 'Select a state',
-        //     ajax: {
-        //         type: "POST",
-        //         url: "{{ route('get-state-data') }}",
-        //         dataType: 'json',
-        //         delay: 250,
-        //         processResults: function (data) {
-                  
-        //             return {
-        //                 results:  $.map(data, function (item) {
-        //                     return {
-        //                         text: item.state,
-        //                         id: item.state_code
-        //                     }
-        //                 })
-        //             };
-        //         },
-        //         cache: true
-        //     }
-        // });
-        
-        $('.cityValue').select2({
+       
+        $('.stateValue').select2({
             minimumInputLength: 2,
             placeholder: 'Select a state',
+            ajax: {
+                type: "POST",
+                url: "{{ route('get-state-data') }}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                  
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.state,
+                                id: item.state_code
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+                
+        $('.cityValue').select2({
+            minimumInputLength: 2,
+            placeholder: 'Select a city',
             ajax: {
                 type: "POST",
                 url: "{{ route('get-city-data') }}",
@@ -2769,7 +2807,7 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.city,
+                                text: item.city + '(' + item.state_code + ')',
                                 id: item.state_code
                             }
                         })
@@ -2778,6 +2816,10 @@
                 cache: true
             }
         });
+
+        $('.cityStateValue').select2();
+        $('.stateCityValue').select2();
+
         $('.add_patient_form').on('submit', function(event){
             event.preventDefault();
           
@@ -2822,9 +2864,6 @@
                 showDropdowns: true,
                 minYear: 1901,
                 maxYear: parseInt(moment().format('YYYY'), 10)
-            }, function (start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
             });
             $('input[name="dateOfBirth"]').daterangepicker({
                 singleDatePicker: true,

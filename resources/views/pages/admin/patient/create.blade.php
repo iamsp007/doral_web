@@ -788,12 +788,12 @@
                         <table style="width: 100%;" class="table table-borderless table-sm m-0">
                             <thead>
                                 <tr>
-                                    <th>Address Line 1</th>
-                                    <th>Address Line 2</th>
-                                    <th>Apt#</th>
-                                    <th>City</th>
-                                    <th>State</th>
-                                    <th>Zipcode</th>
+                                    <th><span class="mendate">*</span> Address Line 1</th>
+                                    <th> Address Line 2</th>
+                                    <th><span class="mendate">*</span> Apt#</th>
+                                    <th><span class="mendate">*</span> City</th>
+                                    <th><span class="mendate">*</span> State</th>
+                                    <th><span class="mendate">*</span> Zipcode</th>
                                     <th>Primary</th>
                                     <th>Address Type(s)</th>
                                     <th>Notes</th>
@@ -900,7 +900,7 @@
                         <table style="width: 100%;" class="table table-borderless table-sm m-0">
                             <thead>
                                 <tr>
-                                    <th>Home Phone</th>
+                                    <th><span class="mendate">*</span> Home Phone</th>
                                     <th>Cell Phone</th>
                                     <th>Alternate Phone</th>
                                 </tr>
@@ -1125,7 +1125,7 @@
                     <td style="width: 50%;" class="border-0">
                         <table style="width: 100%;" class="table table-borderless table-sm m-0 border-0">
                             <tr>
-                                <th style="width: 30%;" class="text-right">Name :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Name :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="name">
                                 </td>
@@ -1157,13 +1157,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">Address 1 :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Address Line 1 :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="emergency_address1">
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">Address 2 :</th>
+                                <th style="width: 30%;" class="text-right">Address Line 2 :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="emergency_address2">
                                 </td>
@@ -1173,7 +1173,7 @@
                                 <td style="width: 70%;">
                                     <textarea name="address_old[]" id="address_old" class="input-small-skin" cols="30" rows="5"></textarea>
                                 </td> -->
-                                <th style="width: 30%;" class="text-right">Apt Building :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Apt Building :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="emergency_apt_building">
                                 </td>
@@ -1183,7 +1183,7 @@
                     <td style="width: 50%;" class="border-0">
                         <table style="width: 100%;" class="table table-borderless table-sm m-0 border-0">
                             <tr>
-                                <th style="width: 30%;" class="text-right">Relationship :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Relationship :</th>
                                 <td style="width: 70%;">
                                     <select name="relation" id="relation" class="input-small-skin select2">
                                         <option value="">Select a relation</option>
@@ -1194,7 +1194,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">Phone 1  :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Phone 1  :</th>
                                 <td class="border-0" style="width: 70%;">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div style="width: 45%;">
@@ -1226,7 +1226,7 @@
                                 </td>
                             </tr> -->
                             <tr>
-                                <th style="width: 30%;" class="text-right">City :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> City :</th>
                                 <td style="width: 70%;display:none;" class="selectedCityState">
                                     <select name="emergency_city" class="input-small-skin cityStateValue">
                                         <option value="">Select a city</option>
@@ -1239,7 +1239,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">State :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> State :</th>
                                 <td style="width: 70%;display:none;" class="selectedStateCity">
                                     <select class="input-small-skin stateCityValue" name="emergency_state">
                                         <option selected="selected" value="">Select a state</option>
@@ -1252,7 +1252,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">ZipCode :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> ZipCode :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="emergency_zip_code">
                                 </td>

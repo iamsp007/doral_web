@@ -60,6 +60,7 @@ class PatientController extends Controller
             'service_id' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
+            'email' => 'required',
             'gender' => 'required',
             'dateOfBirth' => 'required',
             'ssn' => 'required',
@@ -84,6 +85,7 @@ class PatientController extends Controller
             'service_id.required' => 'Please select service.',
             'first_name.required' => 'Please enter first name.',
             'last_name.required' => 'Please enter last name.',
+            'email.required' => 'Please enter email.',
             'gender.required' => 'Please enter gender.',
             'dateOfBirth.required' => 'Please select date of birth.',
             'ssn.required' => 'Please enter ssn number.',
@@ -116,8 +118,7 @@ class PatientController extends Controller
 
                 $doral_id = createDoralId();
 
-                $password = str_replace(" ", "",$input['first_name']) . '@' . $doral_id;
-
+                $password = str_replace("-", "@",$doral_id);
                 if (isset($input['avatar']) && !empty($input['avatar'])) {
                     $uploadFolder = 'users';
                     $image = $input['avatar'];
@@ -143,6 +144,7 @@ class PatientController extends Controller
                 }
                 $user->first_name = $input['first_name'];
                 $user->last_name = $input['last_name'];
+                $user->email = $input['email'];
                 $user->gender = setGender($input['gender']);
                 $user->dob = dateFormat($input['dateOfBirth']);
                 $user->password = setPassword($password);
@@ -190,6 +192,8 @@ class PatientController extends Controller
                 $demographic->alert = $input['alert'];
                 $demographic->service_request_start_date =  dateFormat($input['serviceRequestStartDate']);
                 $demographic->phone_info = $phone_info;
+                $demographic->marital_status = $input['marital_status'];
+                
                 $demographic->type = '3';
 
                 $demographic->save();

@@ -119,6 +119,7 @@ class ReferralRegisterController extends Controller
      */
     public function partnerRegister(Request $request)
     {
+     
         $this->redirectTo = RouteServiceProvider::PARTNER_LOGIN;
 
         $this->partnerValidator($request->all())->validate();
@@ -128,6 +129,7 @@ class ReferralRegisterController extends Controller
             'type'=>$request->referralType,
             'name'=>$request->company
         ]);
+      
         event(new Registered($user = $this->createPartner($request->all())));
         $details = [
             'name' => $request->company,
@@ -135,6 +137,7 @@ class ReferralRegisterController extends Controller
             'href' => route('partner.login'),
             'email' => $request->email
         ];
+       
         try {
             \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
         }catch (\Exception $exception){
@@ -206,10 +209,10 @@ class ReferralRegisterController extends Controller
     protected function createPartner(array $data)
     {
         $company = new Partner();
-        $company->name = $data['name'];
+        $company->first_name = $data['name'];
         $company->email = $data['email'];
         $company->phone = $data['mobile'];
-        $company->referal_id = $data['referralType'];
+        // $company->referal_id = $data['referralType'];
         $company->password = Hash::make($data['password']);
         $company->assignRole($data['type']);
         return $company->save();

@@ -99,6 +99,14 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
+                                                        <span class="mendate">*</span> Email :
+                                                    </td>
+                                                    <td class="border-0" style="width: 70%;">
+                                                        <input type="text" class="input-small-skin email_format" name="email" id="email">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 30%;" class="text-right border-0">
                                                         <span class="mendate">*</span> Gender :
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
@@ -114,15 +122,16 @@
                                                             <div style="width: 55%;">
                                                                 <table style="width: 100%;">
                                                                     <tr>
-                                                                        <td style="width: 20%;" class="text-right border-0">
-                                                                            Race :
+                                                                        <td style="width: 40%;" class="text-right border-0">
+                                                                        Marital Status :
                                                                         </td>
                                                                         <td class="border-0" style="width: 80%;padding-right: 0;">
-                                                                            <select name="race" id="race" class="input-small-skin select2">
-                                                                                <option selected="selected" value="">Select a race</option>
-                                                                                @foreach (config('select.race') as $key => $race)
-                                                                                    <option value="{{$key}}">{{$race}}</option>
-                                                                                @endforeach
+                                                                            <select class="input-small-skin" name="marital_status" id="marital_status">
+                                                                                <option>Marital Status</option>
+                                                                                <option value="married">Married</option>
+                                                                                <option value="widowed">Widowed</option>
+                                                                                <option value="separated">Separated</option>
+                                                                                <option value="divorced">Divorced</option>
                                                                             </select>
                                                                         </td>
                                                                     </tr>
@@ -146,12 +155,42 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
+                                                        <span class="mendate">*</span> Service Request Start Date :
+                                                    </td>
+                                                    <td class="border-0" style="width: 70%;">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div style="width: 45%;">
+                                                                <input type="text" name="serviceRequestStartDate" class="input-small-skin">
+                                                            </div>
+                                                            <div style="width: 55%;">
+                                                                <table style="width: 100%;">
+                                                                    <tr>
+                                                                        <td style="width: 20%;" class="text-right border-0">
+                                                                            Race :
+                                                                        </td>
+                                                                        <td class="border-0" style="width: 80%;padding-right: 0;">
+                                                                            <select name="race" id="race" class="input-small-skin select2">
+                                                                                <option selected="selected" value="">Select a race</option>
+                                                                                @foreach (config('select.race') as $key => $race)
+                                                                                    <option value="{{$key}}">{{$race}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!-- <tr>
+                                                    <td style="width: 30%;" class="text-right border-0">
                                                         Service Request Start Date :
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
                                                         <input type="text" name="serviceRequestStartDate" class="input-small-skin">
                                                     </td>
                                                 </tr>
+                                               -->
                                                 <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         Source Of Admission :
@@ -2809,7 +2848,7 @@
 
         $('.cityStateValue').select2();
         $('.stateCityValue').select2();
-        $('#company_id, #service_id, #Gender, #race, #ethnicity, #relation, #primaryLanguage1, #primaryLanguage, #addressType').select2();
+        $('#company_id, #service_id, #Gender, #race, #ethnicity, #relation, #primaryLanguage1, #primaryLanguage, #addressType, #marital_status').select2();
         
         $('.add_patient_form').on('submit', function(event){
             event.preventDefault();

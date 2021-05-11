@@ -99,6 +99,14 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
+                                                        <span class="mendate">*</span> Email :
+                                                    </td>
+                                                    <td class="border-0" style="width: 70%;">
+                                                        <input type="text" class="input-small-skin email_format" name="email" id="email">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 30%;" class="text-right border-0">
                                                         <span class="mendate">*</span> Gender :
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
@@ -114,15 +122,16 @@
                                                             <div style="width: 55%;">
                                                                 <table style="width: 100%;">
                                                                     <tr>
-                                                                        <td style="width: 20%;" class="text-right border-0">
-                                                                            Race :
+                                                                        <td style="width: 40%;" class="text-right border-0">
+                                                                        Marital Status :
                                                                         </td>
                                                                         <td class="border-0" style="width: 80%;padding-right: 0;">
-                                                                            <select name="race" id="race" class="input-small-skin select2">
-                                                                                <option selected="selected" value="">Select a race</option>
-                                                                                @foreach (config('select.race') as $key => $race)
-                                                                                    <option value="{{$key}}">{{$race}}</option>
-                                                                                @endforeach
+                                                                            <select class="input-small-skin" name="marital_status" id="marital_status">
+                                                                                <option>Marital Status</option>
+                                                                                <option value="married">Married</option>
+                                                                                <option value="widowed">Widowed</option>
+                                                                                <option value="separated">Separated</option>
+                                                                                <option value="divorced">Divorced</option>
                                                                             </select>
                                                                         </td>
                                                                     </tr>
@@ -146,12 +155,42 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
+                                                        <span class="mendate">*</span> Service Request Start Date :
+                                                    </td>
+                                                    <td class="border-0" style="width: 70%;">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div style="width: 45%;">
+                                                                <input type="text" name="serviceRequestStartDate" class="input-small-skin">
+                                                            </div>
+                                                            <div style="width: 55%;">
+                                                                <table style="width: 100%;">
+                                                                    <tr>
+                                                                        <td style="width: 20%;" class="text-right border-0">
+                                                                            Race :
+                                                                        </td>
+                                                                        <td class="border-0" style="width: 80%;padding-right: 0;">
+                                                                            <select name="race" id="race" class="input-small-skin select2">
+                                                                                <option selected="selected" value="">Select a race</option>
+                                                                                @foreach (config('select.race') as $key => $race)
+                                                                                    <option value="{{$key}}">{{$race}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!-- <tr>
+                                                    <td style="width: 30%;" class="text-right border-0">
                                                         Service Request Start Date :
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
                                                         <input type="text" name="serviceRequestStartDate" class="input-small-skin">
                                                     </td>
                                                 </tr>
+                                               -->
                                                 <!-- <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         Source Of Admission :
@@ -788,12 +827,12 @@
                         <table style="width: 100%;" class="table table-borderless table-sm m-0">
                             <thead>
                                 <tr>
-                                    <th>Address Line 1</th>
-                                    <th>Address Line 2</th>
-                                    <th>Apt#</th>
-                                    <th>City</th>
-                                    <th>State</th>
-                                    <th>Zipcode</th>
+                                    <th><span class="mendate">*</span> Address Line 1</th>
+                                    <th> Address Line 2</th>
+                                    <th><span class="mendate">*</span> Apt#</th>
+                                    <th><span class="mendate">*</span> City</th>
+                                    <th><span class="mendate">*</span> State</th>
+                                    <th><span class="mendate">*</span> Zipcode</th>
                                     <th>Primary</th>
                                     <th>Address Type(s)</th>
                                     <th>Notes</th>
@@ -900,7 +939,7 @@
                         <table style="width: 100%;" class="table table-borderless table-sm m-0">
                             <thead>
                                 <tr>
-                                    <th>Home Phone</th>
+                                    <th><span class="mendate">*</span> Home Phone</th>
                                     <th>Cell Phone</th>
                                     <th>Alternate Phone</th>
                                 </tr>
@@ -1125,7 +1164,7 @@
                     <td style="width: 50%;" class="border-0">
                         <table style="width: 100%;" class="table table-borderless table-sm m-0 border-0">
                             <tr>
-                                <th style="width: 30%;" class="text-right">Name :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Name :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="name">
                                 </td>
@@ -1157,13 +1196,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">Address 1 :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Address Line 1 :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="emergency_address1">
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">Address 2 :</th>
+                                <th style="width: 30%;" class="text-right">Address Line 2 :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="emergency_address2">
                                 </td>
@@ -1173,7 +1212,7 @@
                                 <td style="width: 70%;">
                                     <textarea name="address_old[]" id="address_old" class="input-small-skin" cols="30" rows="5"></textarea>
                                 </td> -->
-                                <th style="width: 30%;" class="text-right">Apt Building :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Apt Building :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="emergency_apt_building">
                                 </td>
@@ -1183,7 +1222,7 @@
                     <td style="width: 50%;" class="border-0">
                         <table style="width: 100%;" class="table table-borderless table-sm m-0 border-0">
                             <tr>
-                                <th style="width: 30%;" class="text-right">Relationship :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Relationship :</th>
                                 <td style="width: 70%;">
                                     <select name="relation" id="relation" class="input-small-skin select2">
                                         <option value="">Select a relation</option>
@@ -1194,7 +1233,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">Phone 1  :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Phone 1  :</th>
                                 <td class="border-0" style="width: 70%;">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div style="width: 45%;">
@@ -1226,7 +1265,7 @@
                                 </td>
                             </tr> -->
                             <tr>
-                                <th style="width: 30%;" class="text-right">City :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> City :</th>
                                 <td style="width: 70%;display:none;" class="selectedCityState">
                                     <select name="emergency_city" class="input-small-skin cityStateValue">
                                         <option value="">Select a city</option>
@@ -1239,7 +1278,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">State :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> State :</th>
                                 <td style="width: 70%;display:none;" class="selectedStateCity">
                                     <select class="input-small-skin stateCityValue" name="emergency_state">
                                         <option selected="selected" value="">Select a state</option>
@@ -1252,7 +1291,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th style="width: 30%;" class="text-right">ZipCode :</th>
+                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> ZipCode :</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="emergency_zip_code">
                                 </td>
@@ -2809,7 +2848,7 @@
 
         $('.cityStateValue').select2();
         $('.stateCityValue').select2();
-        $('#company_id, #service_id, #Gender, #race, #ethnicity, #relation, #primaryLanguage1, #primaryLanguage, #addressType').select2();
+        $('#company_id, #service_id, #Gender, #race, #ethnicity, #relation, #primaryLanguage1, #primaryLanguage, #addressType, #marital_status').select2();
         
         $('.add_patient_form').on('submit', function(event){
             event.preventDefault();

@@ -56,18 +56,54 @@ class PatientController extends Controller
         $input = $request->all();
        
         $rules = [
+            'company_id' => 'required',
+            'service_id' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
+            'email' => 'required',
             'gender' => 'required',
-            'service_id' => 'required',
-            // 'doral_id' => 'required',
+            'dateOfBirth' => 'required',
+            'ssn' => 'required',
+            'address1' => 'required',
+            'apt_building' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'zip_code' => 'required',
+            'home_phone' => 'required',
+            'name' => 'required',
+            'relation' => 'required',
+            'phone1' => 'required',
+            'emergency_address1' => 'required',
+            'emergency_apt_building' => 'required',
+            'emergency_city' => 'required',
+            'emergency_state' => 'required',
+            'emergency_zip_code' => 'required',
         ];
 
         $messages = [
+            'company_id.required' => 'Please select company .',
+            'service_id.required' => 'Please select service.',
             'first_name.required' => 'Please enter first name.',
-            // 'payer_id.required' => 'Please enter payer id.',
-            // 'phone.required' => 'Please enter phone.',
-            // 'policy_no.required' => 'Please enter policy no.',
+            'last_name.required' => 'Please enter last name.',
+            'email.required' => 'Please enter email.',
+            'gender.required' => 'Please enter gender.',
+            'dateOfBirth.required' => 'Please select date of birth.',
+            'ssn.required' => 'Please enter ssn number.',
+            'address1.required' => 'Please enter address line 1.',
+            'apt_building.required' => 'Please enter apt#.',
+            'city.required' => 'Please select city.',
+            'state.required' => 'Please select state.',
+            'zip_code.required' => 'Please enter zipcode.',
+            'home_phone.required' => 'Please enter home phone.',
+            'name.required' => 'Please enter name.',
+            'relation.required' => 'Please select relation.',
+            'phone1.required' => 'Please enter phone1.',
+            'emergency_address1.required' => 'Please enter address line 1.',
+            'emergency_apt_building.required' => 'Please enter apt#.',
+            'emergency_city.required' => 'Please select city.',
+            'emergency_state.required' => 'Please select state.',
+            'emergency_zip_code.required' => 'Please enter zipcode.',
+          
         ];
 
         $validator = Validator::make($input, $rules, $messages);
@@ -82,8 +118,7 @@ class PatientController extends Controller
 
                 $doral_id = createDoralId();
 
-                $password = str_replace(" ", "",$input['first_name']) . '@' . $doral_id;
-
+                $password = str_replace("-", "@",$doral_id);
                 if (isset($input['avatar']) && !empty($input['avatar'])) {
                     $uploadFolder = 'users';
                     $image = $input['avatar'];
@@ -109,6 +144,7 @@ class PatientController extends Controller
                 }
                 $user->first_name = $input['first_name'];
                 $user->last_name = $input['last_name'];
+                $user->email = $input['email'];
                 $user->gender = setGender($input['gender']);
                 $user->dob = dateFormat($input['dateOfBirth']);
                 $user->password = setPassword($password);
@@ -124,7 +160,7 @@ class PatientController extends Controller
                     'city' => $input['city'],
                     'state' => $input['state'],
                     'zip_code' => $input['zip_code'],
-                    'primary' => $input['primary'],
+                    'primary' => isset($input['primary']) ? $input['primary'] : '',
                     'addressType' => $input['addressType'],
                     'notes' => $input['address_note']
                 ];
@@ -156,6 +192,8 @@ class PatientController extends Controller
                 $demographic->alert = $input['alert'];
                 $demographic->service_request_start_date =  dateFormat($input['serviceRequestStartDate']);
                 $demographic->phone_info = $phone_info;
+                $demographic->marital_status = $input['marital_status'];
+                
                 $demographic->type = '3';
 
                 $demographic->save();

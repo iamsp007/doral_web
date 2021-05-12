@@ -17,6 +17,11 @@ return [
         'overdue' => 'Overdue'
     ],
 
+    'status' => [
+        '1' => 'Active',
+        '0' => 'InActive',
+    ],
+    
     'userStatus' => [
         // '0' => 'Pending',
         '1' => 'Active',
@@ -41,6 +46,13 @@ return [
         '1' => 'VBC',
         '2' => 'MD Order',
         '3' => 'Occupational Health',
+    ],
+
+    'designation' => [
+        'admin' => 'Admin',
+        'supervisior' => 'Supervisior',
+        'coordinator' => 'Coordinator',
+        'fieldvisitor' => 'Field Visitor',
     ],
 
     'address_type' => [

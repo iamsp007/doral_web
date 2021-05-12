@@ -10,6 +10,20 @@ class PatientRequest extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'clincial_id',
+        'test_name',
+        'type_id',
+        'status',
+    ];
+
+
     public function detail(){
 
         return $this->hasOne(User::class,'id','clincial_id');

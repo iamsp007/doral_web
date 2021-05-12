@@ -46,6 +46,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                            
                                         </div>
                                         <!-- Company Name -->
                                         <div class="form-group">
@@ -69,9 +70,9 @@
                                         </div>
                                         <!-- Email -->
                                         <div class="form-group">
-                                            <label for="mobile" class="label">Mobile</label>
-                                            <input type="number" class="form-control" id="mobile" name="mobile" placeholder="Mobile" value="{{ old('mobile') }}">
-                                            @error('mobile')
+                                            <label for="phone" class="label">Mobile</label>
+                                            <input type="number" class="form-control" id="phone" name="phone" placeholder="phone" value="{{ old('mobile') }}">
+                                            @error('phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

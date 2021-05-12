@@ -544,7 +544,9 @@
         window.laravel_echo_port='{{env("LARAVEL_ECHO_PORT")}}';
         var save_token_url = '{{ route("save-token") }}';
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script> -->
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/additional-methods.js') }}"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
     <script src="{{ asset('assets/js/sidebar.js') }}"></script>

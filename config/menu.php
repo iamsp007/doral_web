@@ -333,16 +333,16 @@ return [
             'menu'=>[
                 [
                     'name'=>'Add New Employee',
-                    'url'=>env('APP_URL').'partner/add-employee',
-                    'route'=>'partner/add-employee',
+                    'url'=>env('APP_URL').'partner/employee/create',
+                    'route'=>'partner/employee/create',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Add Employee'
                 ],
                 [
                     'name'=>'Employees',
-                    'url'=>env('APP_URL').'partner/employees',
-                    'route'=>'partner/employees',
+                    'url'=>env('APP_URL').'partner/employee',
+                    'route'=>'partner/employee',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Employees'

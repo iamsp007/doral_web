@@ -69,10 +69,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(PatientReferral::class,'user_id','id')->with(['service','filetype']);
     }
-
-    public function caregiverInfo()
+    
+    public function employee()
     {
-        return $this->hasOne(CaregiverInfo::class,'user_id','id');
+        return $this->hasOne(Employee::class,'user_id','id');
     }
 
     public function demographic()

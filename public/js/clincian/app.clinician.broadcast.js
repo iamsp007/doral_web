@@ -44,6 +44,7 @@ function onBroadCastOpen(patient_id) {
             response.map(function (value) {
                 html+='<option value="'+value.role_id+'">'+value.name+'</option>';
             })
+            html+='<option value="4">Broadcast</option>'; 
             $('#broadcast_form').find('#type_id').html(html);
             $('#roadl-request-modal').find("#selectRole1").val('');
             $('#roadl-request-modal').find("#clinician_list_id").val('');

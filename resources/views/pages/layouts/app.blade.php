@@ -487,7 +487,7 @@
                                                                     Test Name :
                                                                 </td>
                                                                 <td style="width: 70%;" class="border-0">
-                                                                    <input type="text" class="input-small-skin" name="test_name" id="test_name" value="COVID-19" readonly>
+                                                                    <input type="text" class="input-small-skin" name="test_name" id="test_name" value="">
                                                                 </td>
                                                             </tr></tbody></table>
                                                         </td>
@@ -567,7 +567,7 @@
     <script src="{{ asset('assets/js/app.clinician.patient.details.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    <script src="{{ asset('js/clincian/app.clinician.broadcast.js') }}"></script>
+    <script src="{{ asset('js/clincian/app.clinician.broadcast.js?ver=2') }}"></script>
     <script src="{{ asset('js/global.js') }}"></script>
 
 @stack('scripts')

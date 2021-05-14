@@ -9,13 +9,24 @@ Route::post('/partner/logout','\App\Http\Controllers\Auth\PartnerLoginController
 
 Route::group(['prefix'=>'/partner','middleware'=>['auth:partner']],function (){
     Route::get('/','\App\Http\Controllers\Partner\DashboardController@index')->name('partner.dashboard');
-    Route::get('/add-employee','\App\Http\Controllers\Partner\PartnerController@addEmployee')->name('add.employee');
-    Route::post('/save-employee','\App\Http\Controllers\Partner\PartnerController@saveEmployee')->name('partner.saveEmployee');
+    // Route::get('/add-employee','\App\Http\Controllers\Partner\PartnerController@addEmployee')->name('add.employee');
+    // Route::post('/save-employee','\App\Http\Controllers\Partner\PartnerController@saveEmployee')->name('partner.saveEmployee');
     Route::get('/employees','\App\Http\Controllers\Partner\PartnerController@employees')->name('employees.list');
-    Route::get('/employees-ajax','\App\Http\Controllers\Partner\PartnerController@employeesByAjax')->name('partner.employees.ajax');
-    Route::get('/edit-employee/{id}','\App\Http\Controllers\Partner\PartnerController@editEmployee')->name('partner.editEmployee');
-    Route::post('/update-employee/{id}','\App\Http\Controllers\Partner\PartnerController@updateEmployee')->name('partner.updateEmployee');
-    Route::get('/view-employee/{id}','\App\Http\Controllers\Partner\PartnerController@viewEmployee')->name('partner.viewEmployee');
-    Route::get('/delete-employee/{id}','\App\Http\Controllers\Partner\PartnerController@deleteEmployee')->name('partner.deleteEmployee');
+    // Route::get('/employees-ajax','\App\Http\Controllers\Partner\PartnerController@employeesByAjax')->name('partner.employees.ajax');
+    // Route::get('/edit-employee/{id}','\App\Http\Controllers\Partner\PartnerController@editEmployee')->name('partner.editEmployee');
+    // Route::post('/update-employee/{id}','\App\Http\Controllers\Partner\PartnerController@updateEmployee')->name('partner.updateEmployee');
+    // Route::get('/view-employee/{id}','\App\Http\Controllers\Partner\PartnerController@viewEmployee')->name('partner.viewEmployee');
+    // Route::get('/delete-employee/{id}','\App\Http\Controllers\Partner\PartnerController@deleteEmployee')->name('partner.deleteEmployee');
+ 
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
+    Route::get('/employee/resend/{id}', '\App\Http\Controllers\Employee\EmployeeController@resendEmail');
+    Route::get('/employee/status/{id}', '\App\Http\Controllers\Employee\EmployeeController@updateStatus');
+    Route::post('/employee/getList','\App\Http\Controllers\Employee\EmployeeController@getList')->name('employee.getList');
+    Route::resource('employee','\App\Http\Controllers\Employee\EmployeeController');
+
+    Route::get('/designation/status/{id}', '\App\Http\Controllers\Designation\DesignationController@updateStatus');
+    Route::post('/designation/getList','\App\Http\Controllers\Designation\DesignationController@getList')->name('designation.getList');
+    Route::resource('designation','\App\Http\Controllers\Designation\DesignationController');
 });
+
+Route::get('user/verify/{verification_code}', '\App\Http\Controllers\Employee\EmployeeController@verifyUser');

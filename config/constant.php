@@ -9,4 +9,8 @@ return [
     /** Patient type */
     'PatientType' => '1',
     'CaregiverType' => '2',
+
+    /** User status */
+    'active' => '1',
+    'inactive' => '0',
 ];

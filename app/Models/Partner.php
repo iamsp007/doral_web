@@ -18,7 +18,7 @@ class Partner extends Authenticatable
     protected $primaryKey='id';
 
     protected $fillable = [
-        'first_name', 'last_name', 'dob', 'phone', 'email', 'email_verified_at', 'password', 'status', 'remember_token', 'level', 'api_token'
+        'first_name', 'last_name', 'dob', 'phone', 'email', 'designation_id', 'password', 'status', 'remember_token', 'level', 'api_token'
     ];
 
     protected $hidden = [

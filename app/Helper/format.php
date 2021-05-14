@@ -1,6 +1,6 @@
 <?php
 
-   
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
     /**
@@ -94,6 +94,19 @@ use Illuminate\Support\Facades\Hash;
             return 'DOR-' . mt_rand(100000, 999999);
         }
     }
+
+    /**
+     * Create doral id.
+     * 
+     * @return string
+     */
+    if (!function_exists('createEmployeeId')) {
+        function createEmployeeId($value)
+        {
+            return $value. '-' . mt_rand(100000, 999999);
+        }
+    }
+
 
     /**
      * Create password.
@@ -199,3 +212,20 @@ use Illuminate\Support\Facades\Hash;
         }
     }
     
+    if (!function_exists('begin')) {
+        function begin() {
+            DB::beginTransaction();
+        }
+    }
+
+    if (!function_exists('commit')) {
+        function commit() {
+            DB::commit();
+        }
+    }
+
+    if (!function_exists('rollback')) {
+        function rollback() {
+            DB::rollBack();
+        }
+    }

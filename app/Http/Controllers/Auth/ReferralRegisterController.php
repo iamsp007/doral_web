@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\ReferralWelcomeMail;
 use App\Models\Company;
+use App\Models\Designation;
 use App\Models\Partner;
 use App\Models\Referral;
 use App\Models\Role;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use URL;
+use Illuminate\Support\Str;
 
 class ReferralRegisterController extends Controller
 {
@@ -41,7 +43,9 @@ class ReferralRegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('auth.referral-register');
+        $referrals = Referral::where('guard_name','=','referral')->get();
+       
+        return view('auth.referral-register',compact('referrals'));
     }
     /**
      * Show the application registration form.
@@ -99,7 +103,7 @@ class ReferralRegisterController extends Controller
         try {
             \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
         }catch (\Exception $exception){
-            \Log::info($exception->getMessage());
+            // \Log::info($exception->getMessage());
         }
 
         if ($response = $this->registered($request, $user)) {
@@ -119,30 +123,39 @@ class ReferralRegisterController extends Controller
      */
     public function partnerRegister(Request $request)
     {
-     
+       
         $this->redirectTo = RouteServiceProvider::PARTNER_LOGIN;
 
         $this->partnerValidator($request->all())->validate();
 
+        $password = Str::random(8);
         $request->merge([
-            'password'=>env('PARTNER_PASSWORD'),
-            'type'=>$request->referralType,
-            'name'=>$request->company
+            'password' => $password,
+            'type' => $request->referralType,
+            'name' => $request->company
         ]);
-      
+       
         event(new Registered($user = $this->createPartner($request->all())));
+
+        $designation = new Designation();
+        $designation->name = 'Field Visitor';
+        $designation->role_id = $request->referralType;
+        $designation->save();
+
         $details = [
             'name' => $request->company,
-            'password' => env('PARTNER_PASSWORD'),
+            'password' => $password,
             'href' => route('partner.login'),
             'email' => $request->email
         ];
        
-        try {
-            \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
-        }catch (\Exception $exception){
-            \Log::info($exception->getMessage());
-        }
+        $mail = \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
+        // try {
+        //     $mail = \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
+         
+        // }catch (\Exception $exception){
+        //     \Log::info($exception->getMessage());
+        // }
 
         if ($response = $this->registered($request, $user)) {
             return $response;
@@ -177,8 +190,14 @@ class ReferralRegisterController extends Controller
         return Validator::make($data, [
             'referralType' => ['required'],
             'company' => ['required'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:companies'],
-            'mobile' => ['required', 'regex:/[0-9]{9}/']
+            'email' => ['required', 'email', 'unique:users'],
+            'phone' => ['required', 'regex:/[0-9]{9}/','unique:users']
+        ],[
+            'referralType.required' => 'Please select partner type.',
+            'company.required' => 'Please enter company name.',
+            'email.required' => 'Please enter email.',
+            'email.email' => 'Please enter valid email.',
+            'phone.required'  => 'Please enter phone.',
         ]);
     }
 
@@ -211,10 +230,10 @@ class ReferralRegisterController extends Controller
         $company = new Partner();
         $company->first_name = $data['name'];
         $company->email = $data['email'];
-        $company->phone = $data['mobile'];
-        // $company->referal_id = $data['referralType'];
-        $company->password = Hash::make($data['password']);
+        $company->phone = $data['phone'];
+        $company->password = setPassword($data['password']);
         $company->assignRole($data['type']);
+        
         return $company->save();
     }
 }

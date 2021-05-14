@@ -30,7 +30,7 @@
                                             <label for="referralType" class="label d-block">Your Referral Type</label>
                                             <select class="form-control js-example-matcher-start select" name="referralType"
                                                     id="referralType">
-                                                @foreach(\App\Models\Referral::where('guard_name','=','referral')->get() as $referral)
+                                                @foreach($referrals as $referral)
                                                     <option value="{{ $referral->id }}">{{ $referral->name }}</option>
                                                 @endforeach
 {{--                                                    <option value="2">Home Care</option>--}}

@@ -1395,3 +1395,6 @@ tr th,tr td{vertical-align: middle!important;}
 .modal-size-1{max-width: 600px;}
 .pointer-none{pointer-events: none;}
 .table td, .table th{border-top: none;}
+.mendate {
+  color: tomato;
+}

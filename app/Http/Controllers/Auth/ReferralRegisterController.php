@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\ReferralWelcomeMail;
 use App\Models\Company;
+use App\Models\Designation;
 use App\Models\Partner;
 use App\Models\Referral;
 use App\Models\Role;
@@ -102,7 +103,7 @@ class ReferralRegisterController extends Controller
         try {
             \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
         }catch (\Exception $exception){
-            \Log::info($exception->getMessage());
+            // \Log::info($exception->getMessage());
         }
 
         if ($response = $this->registered($request, $user)) {
@@ -122,6 +123,7 @@ class ReferralRegisterController extends Controller
      */
     public function partnerRegister(Request $request)
     {
+       
         $this->redirectTo = RouteServiceProvider::PARTNER_LOGIN;
 
         $this->partnerValidator($request->all())->validate();
@@ -132,8 +134,13 @@ class ReferralRegisterController extends Controller
             'type' => $request->referralType,
             'name' => $request->company
         ]);
-      
+       
         event(new Registered($user = $this->createPartner($request->all())));
+
+        $designation = new Designation();
+        $designation->name = 'Field Visitor';
+        $designation->role_id = $request->referralType;
+        $designation->save();
 
         $details = [
             'name' => $request->company,

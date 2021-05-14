@@ -19,7 +19,14 @@ Route::group(['prefix'=>'/partner','middleware'=>['auth:partner']],function (){
     // Route::get('/delete-employee/{id}','\App\Http\Controllers\Partner\PartnerController@deleteEmployee')->name('partner.deleteEmployee');
  
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
+    Route::get('/employee/resend/{id}', '\App\Http\Controllers\Employee\EmployeeController@resendEmail');
     Route::get('/employee/status/{id}', '\App\Http\Controllers\Employee\EmployeeController@updateStatus');
     Route::post('/employee/getList','\App\Http\Controllers\Employee\EmployeeController@getList')->name('employee.getList');
     Route::resource('employee','\App\Http\Controllers\Employee\EmployeeController');
+
+    Route::get('/designation/status/{id}', '\App\Http\Controllers\Designation\DesignationController@updateStatus');
+    Route::post('/designation/getList','\App\Http\Controllers\Designation\DesignationController@getList')->name('designation.getList');
+    Route::resource('designation','\App\Http\Controllers\Designation\DesignationController');
 });
+
+Route::get('user/verify/{verification_code}', '\App\Http\Controllers\Employee\EmployeeController@verifyUser');

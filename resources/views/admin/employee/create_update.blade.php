@@ -4,7 +4,7 @@
 @php
     /*Fetching data while editing records*/
 
-    $employee_ID = $designation_id = $first_name = $last_name = $email = $phone = $driving_license = $dob = '';
+    $designation_id = $first_name = $last_name = $email = $phone = $driving_license = $dob = '';
     if(!empty($user)):
         $employee_ID = $user->employee->employee_ID;
         $designation_id = $user->designation_id;
@@ -36,7 +36,7 @@
                                     <label for="EmployeeID" class="label"><span class="mendate">*</span> Employee ID</label>
                                     <div class="input-group">
                                         <span class="input-group-text input-group-text-custom"><i class="las la-user-tie"></i></span>
-                                        <input type="text" class="form-control form-control-lg" placeholder="Employee ID" id="employee_ID" value="{{ $employee_ID }}" name="employee_ID">
+                                        <input type="text" class="form-control form-control-lg" placeholder="Employee ID" id="employee_ID" value="{{ $employee_ID }}" readonly name="employee_ID">
                                     </div>
                                     <span class="errorText employee_ID_error"></span>
                                 </div>

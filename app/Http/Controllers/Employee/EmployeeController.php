@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
+use App\Mail\ReferralWelcomeMail;
+use App\Mail\VerifyEmail;
 use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Partner;
@@ -13,17 +15,13 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
 {
-    /**
-     * View file path prefix
-     */
-    protected $view_path='employee.';
-
     /**
      * Display a listing of the resource.
      *
@@ -51,18 +49,19 @@ class EmployeeController extends Controller
             $q->where('role_id', $role_id);
         })
         ->with('employee')
-        ->when($input['designation_id'], function ($query) use($input){
-            $query->where('designation_id', $input['designation_id']);
-        })
-        ->when($input['date_of_birth'], function ($query) use($input){
-            $query->where('dob', dateFormat($input['date_of_birth']));
-        })
-        ->when($input['email'], function ($query) use($input){
-            $query->where('email', $input['email']);
-        })
-        ->when($input['status'], function ($query) use($input){
-            $query->where('status', $input['status']);
-        })->get();
+        // ->when($input['designation_id'], function ($query) use($input){
+        //     $query->where('designation_id', $input['designation_id']);
+        // })
+        // ->when($input['date_of_birth'], function ($query) use($input){
+        //     $query->where('dob', dateFormat($input['date_of_birth']));
+        // })
+        // ->when($input['email'], function ($query) use($input){
+        //     $query->where('email', $input['email']);
+        // })
+        // ->when($input['status'], function ($query) use($input){
+        //     $query->where('status', $input['status']);
+        // })
+        ->get();
       
         return DataTables::of($employeeList)
         // <a href="/partner/view-employee/'+row.id+'">' + row.first_name +' '+ row.last_name + '</a>
@@ -101,10 +100,13 @@ class EmployeeController extends Controller
                 } else {
                     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-warning btn-sm mr-2" data-id="Active" id="' . $row->id . '" title="Deactive">Deactive</a>';
                 }
-                $action .= '<a href="employee/' . $row->id . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Employee" data-original-title="View Employee Chart"><i class="las la-search"></i></a>';
-                $action .= '<a href="employee/' . $row->id . '/edit" class="btn btn-warning btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Edit Employee" data-original-title="Edit Employee Chart"><i class="las la-edit"></i></a>';
-                $action .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 deleting" data-toggle="tooltip" data-placement="left" title="Delete Employee" data-original-title="Delete Employee Chart"><i class="la la-remove"></i></a>';
-
+                $action .= '<a href="employee/' . $row->id . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Employee" data-original-title="View Employee"><i class="las la-search"></i></a>';
+                $action .= '<a href="employee/' . $row->id . '/edit" class="btn btn-warning btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Edit Employee" data-original-title="Edit Employee"><i class="las la-edit"></i></a>';
+                $action .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 deleting" data-toggle="tooltip" data-placement="left" title="Delete Employee" data-original-title="Delete Employee"><i class="la la-remove"></i></a>';
+                if ($row->status === config('constant.inactive')) {
+                    $action .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 resendEmail" data-toggle="tooltip" data-placement="left" title="Resend Email Verify Email" data-original-title="Resend Email Verify Email"><i class="las la-redo-alt"></i></a>';
+                }
+                
                 return $action;
             })
             ->rawColumns(['action','role_name','status'])
@@ -117,10 +119,11 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        $employee_ID = createEmployeeId(substr(Auth::user()->first_name,0,3));
         $roles = Role::where('guard_name','=','partner')->get();
         $designations = Designation::where('role_id',18)->get();
 
-        return view('admin.employee.create_update', compact('roles', 'designations'));
+        return view('admin.employee.create_update', compact('roles', 'designations', 'employee_ID'));
     }
 
     /**
@@ -191,7 +194,7 @@ class EmployeeController extends Controller
                 $userInput['phone'] =setPhone($input['phone']);
                 $userInput['password'] = setPassword($password);
                 $userInput['dob'] = dateFormat($input['dateofbirth']);
-                $userInput['status'] = config('constant.active');
+                // $userInput['status'] = config('constant.inactive');
                 $userInput['designation_id'] = $input['designation_id'];
                 
                 $user->fill($userInput)->save();
@@ -200,15 +203,31 @@ class EmployeeController extends Controller
                 //     $roles = Role::whereIn('id',explode(',',$input['field_role_id']))->pluck('name');
                 //     $roles = $roles->toArray();
                 // }else{
-                //     $roles = $input['role_id'];
+                //  $roles = $input['role_id'];
                 // }
-                // $user->assignRole($roles);
+             
+                $user = Auth::user();
+                $role_id = implode(',',$user->roles->pluck('id')->toArray());
+                $user->assignRole($role_id);
 
                 Employee::updateOrCreate(['user_id' => $user->id], [
                     'employee_ID' => $input['employee_ID'],
                     'driving_license' => $input['driving_license'],
                 ]);
-               
+
+                if (! isset($input["id_for_update"])) {
+                    $first_name = Auth::user()->first_name;
+            
+                    $details = [
+                        'name' => $first_name,
+                        'password' => $password,
+                        'href' => url('user/verify/'.$user->id),
+                        'email' => $userInput['email'],
+                        'login_url' => route('partner.login'),
+                    ];
+                
+                    Mail::to($userInput['email'])->send(new VerifyEmail($details));
+                }
                 commit();
                 $arr = array('status' => 200 , 'message' => $message , 'result' => $user);
             } catch (QueryException $ex) {
@@ -302,6 +321,44 @@ class EmployeeController extends Controller
             $user->update(['status' => config('constant.active')]);
         }
         $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
+        return \Response::json($responce);
+    }
+
+    /**Change admin status */
+    public function verifyUser($id) 
+    {
+        $user = User::find($id);
+        $user_message = '';
+        if ($user->status === config('constant.active')) {
+        //   $user_message = 'Employee deactive successfully.';
+            $user->update(['status' => config('constant.inactive')]);
+        } else {
+        //   $user_message = 'Employee active successfully.';
+            $user->update(['status' => config('constant.active')]);
+        }
+
+        return redirect('/partner/login');
+    }
+
+    /** Resend email */
+    public function resendEmail($id) 
+    {
+        $first_name = Auth::user()->first_name;
+        $password = Str::random(8);
+
+        $user = User::find($id);
+        $user->update(['password' => setPassword($password)]);
+        $details = [
+            'name' => $first_name,
+            'password' => $password,
+            'href' => url('user/verify/'.$user->id),
+            'email' => $user->email,
+            'login_url' => route('partner.login'),
+        ];
+    
+        Mail::to($user->email)->send(new VerifyEmail($details));
+
+        $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
         return \Response::json($responce);
     }
 }

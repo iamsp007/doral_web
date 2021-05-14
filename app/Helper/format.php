@@ -96,6 +96,19 @@ use Illuminate\Support\Facades\Hash;
     }
 
     /**
+     * Create doral id.
+     * 
+     * @return string
+     */
+    if (!function_exists('createEmployeeId')) {
+        function createEmployeeId($value)
+        {
+            return $value. '-' . mt_rand(100000, 999999);
+        }
+    }
+
+
+    /**
      * Create password.
      * 
      * @return string

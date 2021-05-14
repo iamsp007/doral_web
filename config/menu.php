@@ -349,6 +349,33 @@ return [
                 ]
             ],
             ['name'=>'Calendar','url'=>env('APP_URL').'partner/calendar','route'=>'partner/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
+        ],
+        [
+            'name'=>'Designation Section',
+            'url'=>'javascript:void(0)',
+            'route'=>'javascript:void(0)',
+            'icon'=>'designation.svg',
+            'icon_hover'=>'designation.svg',
+            'icon_title'=>'Designation Section',
+            'menu'=>[
+                [
+                    'name'=>'Add New Designation',
+                    'url'=>env('APP_URL').'partner/designation/create',
+                    'route'=>'partner/designation/create',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Add Designation'
+                ],
+                [
+                    'name'=>'Designation',
+                    'url'=>env('APP_URL').'partner/designation',
+                    'route'=>'partner/designation',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Designation'
+                ]
+            ],
+            ['name'=>'Calendar','url'=>env('APP_URL').'partner/calendar','route'=>'partner/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
         ]
     ],
     

@@ -203,14 +203,11 @@ class CaregiverImport implements ShouldQueue
             $address = $demographics['Address'];
             $zip = '';
             if(isset($address['Zip5']) && $address['Zip5'] != ''){
-                log::info('if'.$address['Zip5']);
                 $zip = $address['Zip5'];
             } else if(isset($address['Zip4']) && $address['Zip4'] != ''){
-                log::info('else'.$address['Zip4']);
                 $zip = $address['Zip4'];
             }
-            log::info('final zip'.$zip);
-         
+
             $addressData = [
                 'address1' => $address['Street1'] ? $address['Street1'] : '',
                 'address2' => $address['Street2'] ? $address['Street2'] : '',
@@ -265,11 +262,16 @@ class CaregiverImport implements ShouldQueue
                     $patientEmergencyContact->phone1 = setPhone($emergencyContact['Phone1'] ? $emergencyContact['Phone1'] : '');
                     $patientEmergencyContact->phone2 = setPhone($emergencyContact['Phone2'] ? $emergencyContact['Phone2'] : '');
                     
-                    $patientEmergencyContact->address_old = ($emergencyContact['Address']) ? $emergencyContact['Address'] : '';
+                    if ($emergencyContact['Address']) {
+                        $addressData = [
+                            'address1' => ($emergencyContact['Address']) ? $emergencyContact['Address'] : ''
+                        ];
+    
+                        $patientEmergencyContact->address = $addressData;
+                    }
                     $patientEmergencyContact->save();
                 }
             }
         }
-       
     }
 }

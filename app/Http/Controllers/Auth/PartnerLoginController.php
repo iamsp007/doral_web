@@ -77,7 +77,7 @@ class PartnerLoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if (Auth::guard('partner')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+        if (Auth::guard('partner')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => '1'], $request->get('remember'))) {
 
             cache(['USERNAME' => $request->email]);
             cache(['PASSWORD'=>$request->password]);

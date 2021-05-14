@@ -16,10 +16,12 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use URL;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class ReferralRegisterController extends Controller
 {
@@ -142,15 +144,17 @@ class ReferralRegisterController extends Controller
         $designation->role_id = $request->referralType;
         $designation->save();
 
+        $users = User::where('email', $request->email)->first();
         $details = [
             'name' => $request->company,
             'password' => $password,
-            'href' => url('user/verify/'.$user->id),
+            'href' => url('user/verify/'.$users->id),
             'email' => $request->email,
             'login_url' => route('partner.login'),
         ];
        
-        $mail = \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
+        Mail::to($request->email)->send(new ReferralWelcomeMail($details));
+        
         // try {
         //     $mail = \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
          

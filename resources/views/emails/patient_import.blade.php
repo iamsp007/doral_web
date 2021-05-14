@@ -30,13 +30,20 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody>
                   <tr>
-                    <td align="center" class="hc_txt_20" style="font-family:Montserrat, Arial, sans-serif; font-size:24px; font-weight:700; line-height:26px; color:#24272A;">Thank you for Registration</td>
+                    <td align="center" class="hc_txt_20" style="font-family:Montserrat, Arial, sans-serif; font-size:24px; font-weight:700; line-height:26px; color:#24272A;">Hi {{ $company->name }}</td>
                   </tr>
                   <tr>
                     <td height="20" style="font-size:1px; line-height:1px;">&nbsp;</td>
                   </tr>
                   <tr>
-                    <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">Thank you for Registration with DORAL HEALTH CONNECT you will receive your password in your email. But you will be log-in once approved by ADMINISTRATOR, Please be patient till them.
+                    <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">Your patient import background process is complete!.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="30" class="hc_height">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">Thank you for choosing HHAExchange for the patient import process.
                     </td>
                   </tr>
                   <tr>
@@ -47,7 +54,6 @@
                       <table width="280" border="0" cellspacing="0" cellpadding="0" align="center">
                         <tbody><tr>     
                             <td valign="middle" align="center" height="35" bgcolor="#006C76" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; font-weight:700; color:#ffffff;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;">
-                          
                                 Total users are added: {{ $totalStoreUser }}</td>
                       </tr>
                       </tbody></table>

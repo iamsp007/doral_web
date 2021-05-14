@@ -22,15 +22,15 @@ class PatientImport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $company_id;
+    public $company;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($company_id)
+    public function __construct($company)
     {
-        $this->company_id = $company_id;
+        $this->company = $company;
     }
 
     /**
@@ -56,7 +56,7 @@ class PatientImport implements ShouldQueue
         $stored_user_id = [];
         foreach ($patientArray as $patient_id) {
             if (! in_array($patient_id, $missing_patient_id)) {
-                // $patient_id = 388069;
+                
                 $apiResponse = $this->getDemographicDetails($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
                 $doral_id = createDoralId();
@@ -65,7 +65,8 @@ class PatientImport implements ShouldQueue
                 if ($user_id) {
                     $data[] = $patient_id;
                     $stored_user_id[] = $user_id;
-                    self::storeDemographic($demographics, $user_id, $this->company_id, $doral_id);
+                    $company_id = $this->company->id;
+                    self::storeDemographic($demographics, $user_id, $company_id, $doral_id);
 
                     self::storeEmergencyContact($demographics, $user_id);
                 }
@@ -75,11 +76,15 @@ class PatientImport implements ShouldQueue
         log::info('missing patient count'.count($data));
         log::info('hha exchange search patient detail end');
 
-        // try {
-        //     Mail::to('shashikant@hcbspro.com')->send(new SendPatientImpotNotification(count($stored_user_id)));
-        // }catch (\Exception $exception){
-        //     Log::info($exception->getMessage());
-        // }
+        try {
+            $company_email = $this->company->email;
+            $company = $this->company;
+            
+            Mail::to($company_email)->send(new SendPatientImpotNotification($company, count($stored_user_id)));
+           
+        }catch (\Exception $exception){
+            Log::info($exception->getMessage());
+        }
     }
 
     /**
@@ -158,7 +163,7 @@ class PatientImport implements ShouldQueue
         }
         
         $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
-        $password = str_replace(" ", "",$first_name) . '@' . $doral_id;
+        $password = str_replace("-", "@",$doral_id);
             
         $user->first_name = $first_name;
         $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
@@ -249,7 +254,11 @@ class PatientImport implements ShouldQueue
                     $patientEmergencyContact->phone1 = setPhone($emergencyContact['Phone1'] ? $emergencyContact['Phone1'] : '');
                     $patientEmergencyContact->phone2 = setPhone($emergencyContact['Phone2'] ? $emergencyContact['Phone2'] : '');
                     
-                    $patientEmergencyContact->address = ($emergencyContact['Address']) ? $emergencyContact['Address'] : '';
+                    $addressData = [
+                        'address1' => ($emergencyContact['Address']) ? $emergencyContact['Address'] : ''
+                    ];
+
+                    $patientEmergencyContact->address = $addressData;
                     $patientEmergencyContact->save();
                 }
             }

@@ -15,11 +15,11 @@ class PatientImportController extends Controller
     public function importPatient()
     {
         try {
-            $company_id='';
+            $company='';
             if(Auth::guard('referral')) {
-                $company_id = Auth::guard('referral')->user()->id;
+                $company = Auth::guard('referral')->user();
             } 
-            PatientImport::dispatch($company_id);
+            PatientImport::dispatch($company);
 
             $arr = array('status' => 200, 'message' => 'Please be patient, the import patient process is taking place in the background.', 'data' => []);
             //Please be patient, the import patient process is taking place in the background. You will receive mail after the all patient imported successfully.

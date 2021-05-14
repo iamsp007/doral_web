@@ -145,8 +145,9 @@ class ReferralRegisterController extends Controller
         $details = [
             'name' => $request->company,
             'password' => $password,
-            'href' => route('partner.login'),
-            'email' => $request->email
+            'href' => url('user/verify/'.$user->id),
+            'email' => $request->email,
+            'login_url' => route('partner.login'),
         ];
        
         $mail = \Mail::to($request->email)->send(new ReferralWelcomeMail($details));

@@ -27,11 +27,7 @@ class Partner extends Authenticatable
 
 
     protected $appends = ['name'];
-    
-    public function getMorphClass()
-    {
-        return 'users';
-    }
+
 
     /**
      * Create full name with combine first name and last name

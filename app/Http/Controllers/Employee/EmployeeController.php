@@ -14,6 +14,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -41,11 +42,14 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
        
-        $role_id = implode(',',$user->roles->pluck('id')->toArray());
         $input = $request->all();
 
-        $employeeList = User::whereHas('designation',function($q) use($role_id) {
+        $employeeList = User::whereHas('designation',function($q) use($user) {
+
+            $role_id = implode(',',$user->roles->pluck('id')->toArray());
+
             $q->where('role_id', $role_id);
+            $q->where('partner_id', $user->id);
         })
         ->with('employee')
         // ->when($input['designation_id'], function ($query) use($input){
@@ -206,12 +210,20 @@ class EmployeeController extends Controller
                 //  $roles = $input['role_id'];
                 // }
              
-                $role_name = implode(',',Auth::user()->roles->pluck('name')->toArray());
-                $user->assignRole($role_name);
+                $role_id = implode(',',Auth::user()->roles->pluck('id')->toArray());
+                // dd($role_id);
+                $user->assignRole($role_id);
+                DB::table('model_has_roles')->insert([
+                    'role_id' => $role_id,
+                    'model_type' => User::class,
+                    'model_id' => $user->id,
+                ]);
+        
 
                 Employee::updateOrCreate(['user_id' => $user->id], [
                     'employee_ID' => $input['employee_ID'],
                     'driving_license' => $input['driving_license'],
+                    'partner_id' => $user->id
                 ]);
 
                 if (! isset($input["id_for_update"])) {

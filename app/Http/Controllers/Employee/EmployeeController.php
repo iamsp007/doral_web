@@ -186,7 +186,8 @@ class EmployeeController extends Controller
                     $message = 'Employee added successfully!';
                 }
               
-                $password = Str::random(8);
+                // $password = Str::random(8);
+                $password = 'password';
                 $userInput['first_name'] = $input['first_name'];
                 $userInput['last_name'] = $input['last_name'];
                 $userInput['email'] = $input['email'];
@@ -205,9 +206,8 @@ class EmployeeController extends Controller
                 //  $roles = $input['role_id'];
                 // }
              
-                $user = Auth::user();
-                $role_id = implode(',',$user->roles->pluck('id')->toArray());
-                $user->assignRole($role_id);
+                $role_name = implode(',',Auth::user()->roles->pluck('name')->toArray());
+                $user->assignRole($role_name);
 
                 Employee::updateOrCreate(['user_id' => $user->id], [
                     'employee_ID' => $input['employee_ID'],

@@ -253,12 +253,15 @@ class PatientImport implements ShouldQueue
                    
                     $patientEmergencyContact->phone1 = setPhone($emergencyContact['Phone1'] ? $emergencyContact['Phone1'] : '');
                     $patientEmergencyContact->phone2 = setPhone($emergencyContact['Phone2'] ? $emergencyContact['Phone2'] : '');
-                    
-                    $addressData = [
-                        'address1' => ($emergencyContact['Address']) ? $emergencyContact['Address'] : ''
-                    ];
-
-                    $patientEmergencyContact->address = $addressData;
+                   
+                    if ($emergencyContact['Address']) {
+                        $addressData = [
+                            'address1' => ($emergencyContact['Address']) ? $emergencyContact['Address'] : ''
+                        ];
+    
+                        $patientEmergencyContact->address = $addressData;
+                    }
+                   
                     $patientEmergencyContact->save();
                 }
             }

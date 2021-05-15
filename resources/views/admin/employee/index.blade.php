@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
                         <select class="form-control form-control-lg" name="designation_id" id="designation_id">
-                            <option value="default">Select Designation</option>
+                            <option value="">Select Designation</option>
                             @foreach ($designations as $designation)
                                 <option value="{{$designation->id}}">{{$designation->name}}</option>
                             @endforeach
@@ -41,13 +41,17 @@
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
                         <div class="input-group">
-                            <select name="status" id="status" class="form-control form-control-lg">
+                            <select name="status" class="form-control form-control-lg">
                                 <option value="">Select a status</option>
                                 @foreach (config('select.status') as $key => $value)
                                 <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
+                        <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
                     </div>
                 </div>
             </div>
@@ -97,6 +101,7 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: function (d) {
+                        d.user_name = $('select[name="user_name"]').val();
                         d.designation_id = $('select[name="designation_id"]').val();
                         d.date_of_birth = $('input[name="date_of_birth"]').val();
                         d.email = $('input[name="email"]').val();
@@ -147,6 +152,17 @@
                     cache: true
                 }
             });
+
+            /*table reload at filter time*/
+            $("#filter_btn").click(function () {
+                refresh();
+            });
+
+            $("#reset_btn").click(function () {
+                $('#search_form').trigger("reset");
+                $('#user_name').html('');
+                refresh();
+            })
 
             $('input[name="date_of_birth"]').daterangepicker({
                 singleDatePicker: true,
@@ -314,5 +330,9 @@
                 });
             });
         });
+        function refresh() {
+            $(".data-table").DataTable().ajax.reload(null, false);
+        }
+
     </script>
 @endpush

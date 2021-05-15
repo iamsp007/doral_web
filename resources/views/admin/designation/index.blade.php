@@ -25,6 +25,10 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-3 col-sm-3 col-md-3">
+                    <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
+                    <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
+                </div>
             </div>
         </div>
     </form>
@@ -138,6 +142,17 @@
                 });
             });
 
+            /*table reload at filter time*/
+            $("#filter_btn").click(function () {
+                refresh();
+            });
+
+            $("#reset_btn").click(function () {
+                $('#search_form').trigger("reset");
+                $('#user_name').html('');
+                refresh();
+            })
+
             /*@ Change admin status */
             $("body").on('click', '.user_status', function (event) {
                 var t = $(this);
@@ -192,5 +207,8 @@
                 });
             });
         });
+        function refresh() {
+            $(".data-table").DataTable().ajax.reload(null, false);
+        }
     </script>
 @endpush

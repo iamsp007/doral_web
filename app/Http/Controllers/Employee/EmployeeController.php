@@ -29,7 +29,10 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $designations = Designation::where('role_id',18)->get();
+        $user = Auth::user();
+        $role_id = implode(',',$user->roles->pluck('id')->toArray());
+
+        $designations = Designation::where([['role_id', '=', $role_id],['user_id', '=', $user->id]])->get();
         return view('admin.employee.index',compact('designations'));
     }
     
@@ -42,28 +45,36 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
        
+        $role_name = implode(',',$user->roles->pluck('name')->toArray());
         $input = $request->all();
-
-        $employeeList = User::whereHas('designation',function($q) use($user) {
-
-            $role_id = implode(',',$user->roles->pluck('id')->toArray());
-
-            $q->where('role_id', $role_id);
-            $q->where('partner_id', $user->id);
-        })
-        ->with('employee')
-        // ->when($input['designation_id'], function ($query) use($input){
-        //     $query->where('designation_id', $input['designation_id']);
-        // })
-        // ->when($input['date_of_birth'], function ($query) use($input){
-        //     $query->where('dob', dateFormat($input['date_of_birth']));
-        // })
-        // ->when($input['email'], function ($query) use($input){
-        //     $query->where('email', $input['email']);
-        // })
-        // ->when($input['status'], function ($query) use($input){
-        //     $query->where('status', $input['status']);
-        // })
+     
+        $employeeList = User::
+            // whereHas('roles',function ($q) use($role_name) {
+            //     $q->where('name','=',$role_name);
+            // })
+            // whereHas('designation',function($q) use($role_id) {
+            //     $q->where('role_id', $role_id);
+            // })
+            whereHas('employee',function($q) use($user) {
+                $q->where('partner_id', $user->id);
+            })
+            // 
+            ->when($input['designation_id'], function ($query) use($input){
+                $query->where('designation_id', $input['designation_id']);
+            })
+            ->when($input['user_name'], function ($query) use($input){
+                $query->where('id', $input['user_name']);
+            })
+            ->when($input['date_of_birth'], function ($query) use($input){
+                $query->where('dob', dateFormat($input['date_of_birth']));
+            })
+            ->when($input['email'], function ($query) use($input){
+                $query->where('email', $input['email']);
+            })
+            ->when($input['status'], function ($query) use($input){
+                dd($input['status']);
+                $query->where('status', $input['status']);
+            })
         ->get();
       
         return DataTables::of($employeeList)

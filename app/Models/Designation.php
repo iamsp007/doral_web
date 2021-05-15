@@ -21,5 +21,6 @@ class Designation extends Model
         'role_id',
         'parent_id',
         'status',
+        'user_id'
     ];
 }

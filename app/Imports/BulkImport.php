@@ -8,7 +8,6 @@ use App\Models\PatientReferralNotSsn;
 use App\Models\User;
 use App\Models\FailRecodeImport;
 use App\Models\LabReportType;
-use App\Models\CaregiverInfo;
 use App\Models\Demographic;
 use App\Models\PatientLabReport;
 use Carbon\Carbon;

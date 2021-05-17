@@ -72,7 +72,6 @@ class EmployeeController extends Controller
                 $query->where('email', $input['email']);
             })
             ->when($input['status'], function ($query) use($input){
-                dd($input['status']);
                 $query->where('status', $input['status']);
             })
         ->get();
@@ -220,16 +219,16 @@ class EmployeeController extends Controller
                 // }else{
                 //  $roles = $input['role_id'];
                 // }
-             
-                $role_id = implode(',',Auth::user()->roles->pluck('id')->toArray());
-                // dd($role_id);
-                $user->assignRole($role_id);
-                DB::table('model_has_roles')->insert([
-                    'role_id' => $role_id,
-                    'model_type' => User::class,
-                    'model_id' => $user->id,
-                ]);
-        
+                if (! isset($input["id_for_update"])) {
+                    $role_id = implode(',',Auth::user()->roles->pluck('id')->toArray());
+                    $user->assignRole($role_id);
+                    
+                    DB::table('model_has_roles')->insert([
+                        'role_id' => $role_id,
+                        'model_type' => User::class,
+                        'model_id' => $user->id,
+                    ]);
+                }
 
                 Employee::updateOrCreate(['user_id' => $user->id], [
                     'employee_ID' => $input['employee_ID'],

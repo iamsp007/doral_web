@@ -86,7 +86,7 @@ class GetPatientDetailsController extends Controller
 
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
-        $patient = User::with('caregiverInfo', 'caregiverInfo.company', 'demographic', 'patientEmergency')->find($paient_id);
+        $patient = User::with('demographic', 'patientEmergency')->find($paient_id);
         $payment = array();
         if(isset($patient->demographic->service_id) and isset($patient->demographic->company_id)){
             $payment = CompanyPaymentPlanInfo::where('service_id',$patient->demographic->service_id)->where('company_id',$patient->demographic->company_id)->get();

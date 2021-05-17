@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\HHAExchange;
+use App\Mail\SendPatientImpotNotification;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
+use App\Models\PatientRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
 
 class HHAExchangeController extends Controller
@@ -22,6 +25,31 @@ class HHAExchangeController extends Controller
     public function index()
     {
         try {
+            PatientRequest::find(8)->update([
+                'status' => '4'
+            ]);
+
+            $patientRequest = PatientRequest::where([['parent_id', 7],['status', '!=', 4]])->get();
+            if(count($patientRequest) == 0) {
+                PatientRequest::find(7)->update([
+                    'status' => '4'
+                ]);
+            };
+            // try {
+                //  $company='';
+                // if(Auth::guard('referral')) {
+                //     $company = Auth::guard('referral')->user();
+                // } 
+                // $company_email = $company->email;
+                // Mail::send('emails.patient_import', ["company" => $company], function ($m) use ($company_email){
+                //     $m->from('shashikant@hcbspro.com', env('MAIL_FROM_NAME'));
+                //     $m->to('shashikant@hcbspro.com')->subject('Patient import successfully.');
+                // });
+               
+            // }catch (\Exception $exception){
+            //     Log::info($exception->getMessage());
+            // }
+        //    return 'success';
             // $avg = User::whereHas('roles',function ($q){
             //     $q->where('name','=','patient');
             // })->get();
@@ -38,17 +66,17 @@ class HHAExchangeController extends Controller
             // }  
             // return 'success';
             // exit;
-            $demographic = Demographic::with('user')->get();
-            foreach ($demographic as $key => $value) {
-                $first_name = ($value->user->first_name) ? $value->user->first_name  : '';
-                $doral_id = ($value->doral_id) ? $value->doral_id: '';
-                $password =  $first_name. '@' . $doral_id;
-                Log::info($password);
-                $password = str_replace(" ", "",$password);
-                User::whereHas('roles',function ($q) {
-                    $q->where('name','=','patient');
-                })->find($value->user_id)->update(['password' => setPassword($password)]);
-            }
+            // $demographic = Demographic::with('user')->get();
+            // foreach ($demographic as $key => $value) {
+               
+            //     $doral_id = ($value->doral_id) ? $value->doral_id: '';
+            //     $password =  $first_name. '@' . $doral_id;
+            //     Log::info($password);
+            //     $password = str_replace(" ", "",$password);
+            //     User::whereHas('roles',function ($q) {
+            //         $q->where('name','=','patient');
+            //     })->find($value->user_id)->update(['password' => setPassword($password)]);
+            // }
 
             // $demographic->delete();
 
@@ -94,8 +122,11 @@ class HHAExchangeController extends Controller
                     // }
                 // }
             // }
+            // $stored_user_id = [];
+            // $mail = Mail::to('koladaramanisha176@gmail.com')->send(new SendPatientImpotNotification(count($stored_user_id)));
+          
 
-            $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
+            $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => count($patientRequest));
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
             if (isset($ex->errorInfo[2])) {

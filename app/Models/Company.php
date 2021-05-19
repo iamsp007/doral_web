@@ -19,23 +19,12 @@ class Company extends Authenticatable
     protected $primaryKey='id';
 
     protected $fillable = [
-        'name', 'dob', 'phone', 'email', 'email_verified_at', 'password', 'status', 'remember_token', 'level', 'api_token'
+        'name', 'dob', 'phone', 'email', 'email_verified', 'password', 'status', 'remember_token', 'level', 'api_token'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    // protected $appends = ['name'];
-
-    // public function getPhoneAttribute($phone)
-    // {
-    //     $phoneData = '';
-    //     if ($phone) {
-    //         $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
-    //     }
-    //     return $phoneData;
-    // }
 
     public function getExpirationDateAttribute($date)
     {
@@ -45,13 +34,4 @@ class Company extends Authenticatable
         }
         return $dateData;
     }
-
-    // public function getAdministratorPhoneNoAttribute($phone)
-    // {
-    //     $phoneData = '';
-    //     if ($phone) {
-    //         $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
-    //     }
-    //     return $phoneData;
-    // }
 }

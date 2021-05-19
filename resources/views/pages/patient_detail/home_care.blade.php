@@ -10,16 +10,16 @@
       <div class="head">
          <div class="p-3">
             <form id="homecare_form">
-               <input type="hidden" name="company_id" value="{{ ($patient->caregiverInfo &&  $patient->caregiverInfo->company) ? $patient->caregiverInfo->company->id : '' }}">
+               <input type="hidden" name="company_id" value="{{ ($patient->demographic &&  $patient->demographic->company) ? $patient->demographic->company->id : '' }}">
                <div class="form-group">
                   <div class="row">
-                     @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+                     @if(!empty($patient->demographic) && (!empty($patient->demographic->company)))
                         <div class="col-12 col-sm-4">
                            <div class="input_box">
                               <div class="ls"><i class="las la-user-tie circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Name</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="name" data-id="name" placeholder="Name" value="{{ ($patient->caregiverInfo->company->name) ?$patient->caregiverInfo->company->name : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail" readonly name="name" data-id="name" placeholder="Name" value="{{ ($patient->demographic->company->name) ?$patient->demographic->company->name : '' }}">
                               </div>
                            </div>
                         </div>
@@ -28,7 +28,7 @@
                               <div class="ls"><i class="las la-envelope circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Email</h3>
-                                 <input type="text" class="form-control-plaintext _detail email_format" readonly name="email" data-id="email" placeholder="Email" value="{{ ($patient->caregiverInfo->company->email) ? $patient->caregiverInfo->company->email : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail email_format" readonly name="email" data-id="email" placeholder="Email" value="{{ ($patient->demographic->company->email) ? $patient->demographic->company->email : '' }}">
                               </div>
                            </div>
                         </div>
@@ -37,7 +37,7 @@
                               <div class="ls"><i class="las la-phone circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Phone</h3>
-                                 <input type="tel" class="form-control-plaintext _detail" readonly name="phone" id="company_phone" data-id="phone" placeholder="Phone" value="{{ ($patient->caregiverInfo->company->phone) ? $patient->caregiverInfo->company->phone : '' }}" maxlength="14">
+                                 <input type="tel" class="form-control-plaintext _detail" readonly name="phone" id="company_phone" data-id="phone" placeholder="Phone" value="{{ ($patient->demographic->company->phone) ? $patient->demographic->company->phone : '' }}" maxlength="14">
                               </div>
                            </div>
                         </div>
@@ -46,13 +46,13 @@
                </div>
                <div class="form-group">
                   <div class="row">
-                     @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+                     @if(!empty($patient->demographic) && (!empty($patient->demographic->company)))
                         <div class="col-12 col-sm-4">
                            <div class="input_box">
                               <div class="ls"><i class="las la-fax circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Fax No</h3>
-                                 <input type="text" class="form-control-plaintext _detail" readonly name="fax_no" data-id="fax_no" id="fax_no" placeholder="Fax No" value="{{ ($patient->caregiverInfo->company->fax_no) ? $patient->caregiverInfo->company->fax_no : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail" readonly name="fax_no" data-id="fax_no" id="fax_no" placeholder="Fax No" value="{{ ($patient->demographic->company->fax_no) ? $patient->demographic->company->fax_no : '' }}">
                               </div>
                            </div>
                         </div>
@@ -70,7 +70,7 @@
                                     <div class="editable_service_div">
                                        <div class="custom-control custom-checkbox">
                                           <input type="checkbox" class="custom-control-input"
-                                             id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(",",isset($patient->caregiverInfo->company->services)?$patient->caregiverInfo->company->services:''))) { echo "checked";} ?>>
+                                             id="customCheck{{$s_row['id']}}" name="services[]" value="{{$s_row['id']}}"<?php if (in_array($s_row['id'], explode(",",isset($patient->demographic->company->services)?$patient->demographic->company->services:''))) { echo "checked";} ?>>
                                           <label class="custom-control-label t5"
                                              for="customCheck{{$s_row['id']}}">{{$s_row['name']}}</label>
                                        </div>
@@ -80,20 +80,20 @@
                            </div>
                         </div>
                      </div>
-                     @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+                     @if(!empty($patient->demographic) && (!empty($patient->demographic->company)))
                         <div class="col-12 col-sm-4">
                            <div class="input_box">
                               <div class="ls"><i class="las la-code circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Zip</h3>
-                                 <input type="text" class="form-control-plaintext _detail zip" readonly name="zip" data-id="zip" id="zip" placeholder="Zip" value="{{ ($patient->caregiverInfo->company->zip) ? $patient->caregiverInfo->company->zip : '' }}">
+                                 <input type="text" class="form-control-plaintext _detail zip" readonly name="zip" data-id="zip" id="zip" placeholder="Zip" value="{{ ($patient->demographic->company->zip) ? $patient->demographic->company->zip : '' }}">
                               </div>
                            </div>
                         </div>
                      @endif
                   </div>
                </div>
-               @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+               @if(!empty($patient->demographic) && (!empty($patient->demographic->company)))
                   <div class="form-group">
                      <div class="row">
                         <div class="col-12 col-sm-12">
@@ -101,7 +101,7 @@
                               <div class="ls"><i class="las la-map-marker circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Address1</h3>
-                                 <textarea id="address1" data-id="address1" name="address1" rows="4" cols="62" class="form-control-plaintext _detail" readonly placeholder="Address1">{!! ($patient->caregiverInfo->company->address1) ? $patient->caregiverInfo->company->address1 : '' !!}</textarea>
+                                 <textarea id="address1" data-id="address1" name="address1" rows="4" cols="62" class="form-control-plaintext _detail" readonly placeholder="Address1">{!! ($patient->demographic->company->address1) ? $patient->demographic->company->address1 : '' !!}</textarea>
                               </div>
                            </div>
                         </div>
@@ -110,7 +110,7 @@
                               <div class="ls"><i class="las la-map-marker circle"></i></div>
                               <div class="rs">
                                  <h3 class="_title">Address2</h3>
-                                 <textarea id="address2" data-id="address2" name="address2" rows="4" cols="62" class="form-control-plaintext _detail" readonly placeholder="Address2">{!! ($patient->caregiverInfo->company->address2) ? $patient->caregiverInfo->company->address2 : '' !!}</textarea>
+                                 <textarea id="address2" data-id="address2" name="address2" rows="4" cols="62" class="form-control-plaintext _detail" readonly placeholder="Address2">{!! ($patient->demographic->company->address2) ? $patient->demographic->company->address2 : '' !!}</textarea>
                               </div>
                            </div>
                         </div>
@@ -126,13 +126,13 @@
                      <div class="p-3">
                         <div class="form-group">
                            <div class="row">
-                              @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+                              @if(!empty($patient->demographic) && (!empty($patient->demographic->company)))
                                  <div class="col-12 col-sm-4">
                                     <div class="input_box">
                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Registration Name</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_name" data-id="administrator_name" id="administrator_name" placeholder="Registration Name" value="{{ ($patient->caregiverInfo->company->administrator_name) ? $patient->caregiverInfo->company->administrator_name : '' }}">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_name" data-id="administrator_name" id="administrator_name" placeholder="Registration Name" value="{{ ($patient->demographic->company->administrator_name) ? $patient->demographic->company->administrator_name : '' }}">
                                        </div>
                                     </div>
                                  </div>
@@ -141,7 +141,7 @@
                                        <div class="ls"><i class="las la-sort-numeric-down circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Registration No</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="registration_no" data-id="registration_no" id="registration_no" placeholder="Registration No" value="{{ ($patient->caregiverInfo->company->registration_no) ? $patient->caregiverInfo->company->registration_no : '' }}">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="registration_no" data-id="registration_no" id="registration_no" placeholder="Registration No" value="{{ ($patient->demographic->company->registration_no) ? $patient->demographic->company->registration_no : '' }}">
                                        </div>
                                     </div>
                                  </div>
@@ -150,7 +150,7 @@
                                        <div class="ls"><i class="las la-envelope circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Administrator Email</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_emailId" data-id="administrator_emailId" id="administrator_emailId" placeholder="Administrator Email" value="{{ ($patient->caregiverInfo->company->administrator_emailId) ? $patient->caregiverInfo->company->administrator_emailId : '' }}">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_emailId" data-id="administrator_emailId" id="administrator_emailId" placeholder="Administrator Email" value="{{ ($patient->demographic->company->administrator_emailId) ? $patient->demographic->company->administrator_emailId : '' }}">
                                        </div>
                                     </div>
                                  </div>
@@ -159,13 +159,13 @@
                         </div>
                         <div class="form-group">
                            <div class="row">
-                              @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+                              @if(!empty($patient->demographic) && (!empty($patient->demographic->company)))
                                  <div class="col-12 col-sm-4">
                                     <div class="input_box">
                                        <div class="ls"><i class="las la-sort-numeric-down circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Licence Number</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="licence_no" data-id="licence_no" id="licence_no" placeholder="Licence Number" value="{{ ($patient->caregiverInfo->company->licence_no) ? $patient->caregiverInfo->company->licence_no : '' }}">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="licence_no" data-id="licence_no" id="licence_no" placeholder="Licence Number" value="{{ ($patient->demographic->company->licence_no) ? $patient->demographic->company->licence_no : '' }}">
                                        </div>
                                     </div>
                                  </div>
@@ -174,7 +174,7 @@
                                        <div class="ls"><i class="llas la-phone circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Administrator Phone Number</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->administrator_phone_no) ? $patient->caregiverInfo->company->administrator_phone_no : '' }}" maxlength="14">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="administrator_phone_no" data-id="administrator_phone_no" id="administrator_phone_no" placeholder="Administrator Phone Number" value="{{ ($patient->demographic->company->administrator_phone_no) ? $patient->demographic->company->administrator_phone_no : '' }}" maxlength="14">
                                        </div>
                                     </div>
                                  </div>
@@ -193,13 +193,13 @@
                      <div class="p-3">
                         <div class="form-group">
                            <div class="row">
-                              @if(!empty($patient->caregiverInfo) && (!empty($patient->caregiverInfo->company)))
+                              @if(!empty($patient->demographic) && (!empty($patient->demographic->company)))
                                  <div class="col-12 col-sm-4">
                                     <div class="input_box">
                                        <div class="ls"><i class="las la-sort-numeric-down circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Insurance ID</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="insurance_id" data-id="insurance_id" id="insurance_id" placeholder="Administrator Phone Number" value="{{ ($patient->caregiverInfo->company->insurance_id) ? $patient->caregiverInfo->company->insurance_id : '' }}">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="insurance_id" data-id="insurance_id" id="insurance_id" placeholder="Administrator Phone Number" value="{{ ($patient->demographic->company->insurance_id) ? $patient->demographic->company->insurance_id : '' }}">
                                        </div>
                                     </div>
                                  </div>
@@ -208,7 +208,7 @@
                                        <div class="ls"><i class="las la-calendar circle"></i></div>
                                        <div class="rs">
                                           <h3 class="_title">Expiration Date</h3>
-                                          <input type="text" class="form-control-plaintext _detail" readonly name="expiration_date" data-id="expiration_date" id="expiration_date" placeholder="Expiration Date" value="{{ ($patient->caregiverInfo->company->expiration_date) ? $patient->caregiverInfo->company->expiration_date : ''}}">
+                                          <input type="text" class="form-control-plaintext _detail" readonly name="expiration_date" data-id="expiration_date" id="expiration_date" placeholder="Expiration Date" value="{{ ($patient->demographic->company->expiration_date) ? $patient->demographic->company->expiration_date : ''}}">
                                        </div>
                                     </div>
                                  </div>

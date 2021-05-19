@@ -135,11 +135,12 @@ class ClinicianController extends Controller
                     'annualPPD' => $annualPPD,
                     'flu' => $flu,
                 ];
-                $pdf = PDF::loadView('pages.clincian.clinician-form', $data);
-          
-                return $pdf->download($users->full_name .'.pdf');
                 
-                // return view('pages.clincian.clinician-form', compact('users','idProof', 'socialSecurity', 'professionalReferrance', 'nycNurseCertificate', 'insuranceReport', 'cpr', 'physical', 'forensicDrugScreen', 'rubellaImmunization', 'rubellaMeasiesImmunization', 'annualPPD', 'flu'));
+                // $pdf = PDF::loadView('pages.clincian.clinician-form', $data);
+          
+                // return $pdf->download($users->full_name .'.pdf');
+                
+                return view('pages.clincian.clinician-form', compact('users','idProof', 'socialSecurity', 'professionalReferrance', 'nycNurseCertificate', 'insuranceReport', 'cpr', 'physical', 'forensicDrugScreen', 'rubellaImmunization', 'rubellaMeasiesImmunization', 'annualPPD', 'flu'));
             }  
         } catch (Exception $e) {
             dd("Error: ". $e->getMessage());

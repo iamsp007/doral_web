@@ -37,6 +37,8 @@ Route::post('/provider/login','\App\Http\Controllers\Auth\ReferralLoginControlle
 Route::get('/register','\App\Http\Controllers\Auth\ReferralRegisterController@showRegistrationForm')->name('referral.showRegistrationForm');
 Route::post('/register','\App\Http\Controllers\Auth\ReferralRegisterController@register')->name('referral.register');
 
+Route::get('email_verified/{user_id}', 'App\Http\Controllers\Email\EmailVerifyController@emailVerified')->name('emailVerified');
+
 /**
  *  Public covid-19 form
  */

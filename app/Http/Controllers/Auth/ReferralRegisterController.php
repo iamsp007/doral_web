@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ReferralWelcomeMail;
+use App\Mail\VerifyEmail;
+use App\Mail\WelcomeEmail;
 use App\Models\Company;
 use App\Models\Designation;
 use App\Models\Partner;
@@ -87,27 +89,24 @@ class ReferralRegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
+        $passwordString = strtolower($request->company) . '@referral';
+        $password = str_replace(' ', '-', $passwordString);
         $request->merge([
             'name' => $request->company,
-            'password' => env('REFERRAL_PASSWORD'),
+            'password' => $password,
             'href' => route('login'),
             'email' => $request->email
         ]);
         event(new Registered($user = $this->create($request->all())));
-        $url = URL::to('/').'/referral/email_verified/'.base64_encode($user->id);
+        
+        $url = route('emailVerified', base64_encode($user->id));
         $details = [
             'name' => $request->company,
-            'password' => env('REFERRAL_PASSWORD'),
             'href' => $url,
-            'email' => $request->email
         ];
-        try {
-            \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
-        }catch (\Exception $exception){
-            // \Log::info($exception->getMessage());
-        }
-
+    
+        Mail::to($request->email)->send(new WelcomeEmail($details));
+        
         if ($response = $this->registered($request, $user)) {
             return $response;
         }
@@ -145,22 +144,16 @@ class ReferralRegisterController extends Controller
         $designation->save();
 
         $users = User::where('email', $request->email)->first();
+        
         $details = [
             'name' => $request->company,
             'password' => $password,
-            'href' => url('user/verify/'.$users->id),
+            'href' => url('user/verify/'.base64_encode($users->id)),
             'email' => $request->email,
             'login_url' => route('partner.login'),
         ];
-       
-        Mail::to($request->email)->send(new ReferralWelcomeMail($details));
-        
-        // try {
-        //     $mail = \Mail::to($request->email)->send(new ReferralWelcomeMail($details));
-         
-        // }catch (\Exception $exception){
-        //     \Log::info($exception->getMessage());
-        // }
+    
+        Mail::to($request->email)->send(new WelcomeEmail($details));
 
         if ($response = $this->registered($request, $user)) {
             return $response;

@@ -1,11 +1,8 @@
 <?php
 
-use App\Http\Controllers\PatientLabReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:referral']], function () {
-    Route::get('email_verified/{user_id}', 'App\Http\Controllers\ReferralController@emailVerified')->name('referral.emailVerified');
-
     // Route::get('/dashboard', function () {
     //     return view('pages.referral.dashboard');
     // })->name('referral.dashboard');

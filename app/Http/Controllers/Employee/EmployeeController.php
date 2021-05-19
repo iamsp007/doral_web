@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ReferralWelcomeMail;
+use App\Mail\UpdateStatusNotification;
 use App\Mail\VerifyEmail;
 use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Partner;
+use App\Models\PatientRequest;
 use App\Models\Role;
 use App\Models\User;
 use Exception;
@@ -15,6 +17,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -132,6 +135,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        $patientRequstModel = PatientRequest::where('id',11)->with('patient', 'detail')->first();
+       
         $employee_ID = createEmployeeId(substr(Auth::user()->first_name,0,3));
         $roles = Role::where('guard_name','=','partner')->get();
         $designations = Designation::where('role_id',18)->get();
@@ -259,8 +264,12 @@ class EmployeeController extends Controller
                 rollback();
                 $arr = array("status" => 400, "message" => $message, "result" => array());
             } catch (Exception $ex) {
+                $message = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) {
+                    $message = $ex->errorInfo[2];
+                }
                 rollback();
-                $arr = array("status" => 400, "message" => "error", "result" => array());
+                $arr = array("status" => 400, "message" => $message, "result" => array());
             }
         }
         return \Response::json($arr);
@@ -348,16 +357,14 @@ class EmployeeController extends Controller
     /**Change admin status */
     public function verifyUser($id) 
     {
-        $user = User::find($id);
-        $user_message = '';
-        if ($user->status === config('constant.active')) {
-        //   $user_message = 'Employee deactive successfully.';
-            $user->update(['status' => config('constant.inactive')]);
-        } else {
-        //   $user_message = 'Employee active successfully.';
-            $user->update(['status' => config('constant.active')]);
-        }
+        $userId = base64_decode($id);
+        $user = User::find($userId);
 
+        $user->update([
+            'status' => config('constant.active'),
+            'email_verified_at' => now(),
+        ]);
+       
         return redirect('/partner/login');
     }
 

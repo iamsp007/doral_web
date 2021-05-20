@@ -3,202 +3,134 @@
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Partner;
+use App\Mail\AcceptedMail;
 use App\Models\Role;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Yajra\DataTables\DataTables;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Yajra\DataTables\Facades\DataTables;
 
 class PartnerController extends Controller
 {
     /**
-     * View file path prefix
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    protected $view_path='pages.partner.';
-
-    /**
-     * Dashboard section
-     */
-    public function index()
+    public function index($partnerstatus)
     {
-        return view($this->view_path.'dashboard');
+        $roles = Role::where('guard_name','partner')->get();
+        return view('admin.partner.index',compact('partnerstatus','roles'));
     }
 
-    /**
-     * Add employee form
+       /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function addEmployee()
+    public function getList(Request $request)
     {
-        return view($this->view_path.'add-employee');
-    }
-
-    /**
-     * List of employee section
-     */
-    public function employees()
-    {
-        return view($this->view_path.'employees');
-    }
-
-    /**
-     * Ajax feature for all employees list
-     */
-    public function employeesByAjax(){
-
-        $employeeList = User::with('roles')->where('company_id','=',Auth::guard('partner')->user()->id);
-
+        $input = $request->all();
+     
+        $employeeList = User::where('designation_id',0)->whereHas('roles',function ($q){
+                $q->where('guard_name','partner');
+            })
+            ->when($request['partnerstatus'] ,function ($query) use($request) {
+                if ($request['partnerstatus'] == 'pending') {
+                    $query->where('status', '0');
+                } else if ($request['partnerstatus'] == 'active') {
+                    $query->where('status', '1');
+                } else if ($request['partnerstatus'] == 'rejected') {
+                    $query->where('status', '3');
+                }
+            })
+            ->when($input['role'], function ($query) use($input){
+                $query->whereHas('roles',function ($q) use($input){
+                    $q->where('id',$input['role']);
+                });
+            })
+            ->when($input['user_name'], function ($query) use($input){
+                $query->where('id', $input['user_name']);
+            })
+            ->when($input['email'], function ($query) use($input){
+                $query->where('email', $input['email']);
+            })
+        ->get();
+      
         return DataTables::of($employeeList)
-            ->editColumn('dob', function ($row) {
-                return $row->dob ? date('m-d-Y', strtotime($row->dob)) : '--';
+            ->addColumn('partner_type', function ($row) {
+                $role = '';
+                if ($row->roles) {
+                    $role = implode(',',$row->roles->pluck('name')->toArray());
+                    
+                }
+                return $role;
             })
-            ->editColumn('email', function ($row) {
-                return $row->email ?? '--';
-            })
-            ->editColumn('phone', function ($row) {
-                return $row->phone ?? '--';
-            })
-            ->editColumn('employeeID', function ($row) {
-                return $row->employeeID ?? '--';
-            })
-            ->editColumn('dlNumber', function ($row) {
-                return $row->dlNumber ?? '--';
-            })
-            ->addColumn('role_name', function($row){
-                return implode(',',$row->roles->pluck('name')->toArray());
+            ->addColumn('full_name', function ($row) {
+                return $row->full_name;
             })
             ->addColumn('action', function($row){
                 $action = '';
-                $action .= '<a href="' . route('partner.viewEmployee', ['id' => $row->id]) . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Employee" data-original-title="View Employee Chart"><i class="las la-search"></i></a>';
-                $action .= '<a href="' . route('partner.editEmployee', ['id' => $row->id]) . '" class="btn btn-warning btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Edit Employee" data-original-title="Edit Employee Chart"><i class="las la-edit"></i></a>';
-                $action .= '<a href="' . route('partner.deleteEmployee', ['id' => $row->id]) . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Delete Employee" data-original-title="Delete Employee Chart"><i class="la la-remove"></i></a>';
+
+                if ($row->status === '0') {
+                    $action .='<a class="btn btn-primary btn-green shadow-sm btn--sm mr-2 user_status change_status" data-value="1" data-id="Accept" id="' . $row->id . '" title="Accept">Accept</a>';
+                    $action .='<a class="btn btn-danger shadow-sm btn--sm mr-2 user_status change_status" data-value="3" data-id="Reject" id="' . $row->id . '" title="Reject">Reject</a>';
+    
+                } else if ($row->status === '1') {
+                    $action .='<a class="btn btn-danger shadow-sm btn--sm mr-2 user_status change_status" data-value="3" data-id="Reject" id="' . $row->id . '" title="Reject">Reject</a>';
+                } else if ($row->status === '3') {
+                    $action .='<a class="btn btn-primary btn-green shadow-sm btn--sm mr-2 user_status change_status" data-value="1" data-id="Accept" id="' . $row->id . '" title="Accept">Accept</a>';
+                }
+                $action .='<a href="' . route('partner.profile', ['id' => $row->id]) . '" class="btn btn-info shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Profile">View Profile</a>';
+
                 return $action;
             })
-            ->rawColumns(['action','role_name'])
+            ->rawColumns(['action','role_name','status'])
             ->make(true);
     }
-
-    /**
-     * Store employee method
-     */
-    public function saveEmployee(Request $request)
+    
+    public function getUserData(Request $request)
     {
-        $this->validate($request,[
-            'employeeID'=>'required',
-            'role_id'=>'required',
-            'firstName'=>'required',
-            'lastName'=>'required',
-            'emailID'=>'required',
-            'phoneNumber'=>'required|unique:users,phone',
-            'dlNumber'=>'required',
-            'dob'=>'required',
-        ]);
-        try {
-            if ($request->field_role_id) {
-                $user = new User();
-            }else{
-                $user = new Partner();
-            }
-            $user->company_id = Auth::guard('partner')->user()->id;
-            $user->first_name = $request->firstName;
-            $user->last_name = $request->lastName;
-            $user->email = $request->emailID;
-            $user->phone = $request->phoneNumber;
-            $user->employeeID = $request->employeeID;
-            $user->dlNumber = $request->dlNumber;
-            $user->device_type = $request->linkType;
-            $user->email_verified_at = now();
-            $user->password = Hash::make('password');
-            $user->dob = date('Y-m-d', strtotime($request->dob));
-            $user->status = '1';
-            if ($request->field_role_id){
-                $roles = Role::whereIn('id',explode(',',$request->field_role_id))->pluck('name');
-                $roles = $roles->toArray();
-            }else{
-                $roles = $request->role_id;
-            }
-            $user->assignRole($roles);
-            if ($user->save()) {
-                return redirect()->route('employees.list')->with('success','Employee Add Successfully!');
-            } else {
-                return redirect()->back()->with('error','Something Went Wrong!');
-            }
-        } catch (\Exception $ex) {
-            Log::error($ex->getMessage());
-            return redirect()->back()->with('error',$ex->getMessage());
+        
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+           
+            $data =User::whereHas('roles',function ($q){
+                    // $q->whereIn('name',['LAB', 'Radiology', 'CHHA', 'Home Oxygen', 'Home Influsion', 'Wound Care', 'DME']);
+                    $q->where('guard_name','partner');
+                })->whereIn('status', ['1', '2', '3', '5'])->select("id","first_name", 'last_name')
+                ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
+                ->get();
         }
+       
+        return response()->json($data);
     }
 
-    /**
-     * Edit employee form
-     */
-    public function editEmployee($id)
+    /**Accepted and rejected by admin admin status */
+    public function updateStatus(Request $request) 
     {
-        $employee = User::find($id);
+        $input = $request->all();
+     
+        $user = User::find($input['id']);
+        $user->update(['status' => $input['data_value']]);
+    
+        if ($user->status === '1') {
+            $details = [
+                'name' => $user->first_name,
+                'password' => env('REFERRAL_PASSWORD'),
+                'href' => url('user/verify/'.$user->id),
+                'email' => $user->email,
+                'login_url' => route('login'),
+            ];
+            Mail::to($user->email)->send(new AcceptedMail($details));
+        } 
 
-        return view($this->view_path.'edit-employee', compact('employee'));
-    }
-
-    /**
-     * Update employee method
-     */
-    public function updateEmployee(Request $request, $id)
-    {
-        try {
-
-            $linkType = 'IOS';
-            if($request->linkType == 1) {
-                $linkType = 'Android';
-            }
-            $user = User::find($id);
-            $user->first_name = $request->firstName;
-            $user->last_name = $request->lastName;
-            $user->email = $request->emailID;
-            $user->phone = $request->phoneNumber;
-            $user->employeeID = $request->employeeID;
-            $user->dlNumber = $request->dlNumber;
-            $user->deviceType = $linkType;
-            $user->email_verified_at = now();
-            $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
-            $user->dob = date('Y-m-d', strtotime($request->dob));
-            $user->status = '1';
-            $user->assignRole('clinician','LAB')->syncPermissions(Permission::all());
-            if ($user->save()) {
-                return redirect()->route('employees.list');
-            } else {
-                return redirect()->back();
-            }
-
-        } catch (\Exception $ex) {
-            Log::error($ex->getMessage());
-            return redirect()->back();
-        }
-    }
-
-    /**
-     * View employee page
-     */
-    public function viewEmployee($id)
-    {
-        $employee = User::find($id);
-
-        return view($this->view_path.'view-employee', compact('employee'));
-    }
-
-    /**
-     * Remove employee from the platform
-     */
-    public function deleteEmployee($id)
-    {
-        $user = User::find($id);
-
-        if ($user->delete()) {
-            return redirect()->route('employees.list');
-        } else {
-            return redirect()->back();
-        }
+        $user_message = 'Partner' . $input['status_name'] . 'successfully.';
+     
+        $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
+        return \Response::json($responce);
     }
 }

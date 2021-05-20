@@ -52,12 +52,6 @@ class EmployeeController extends Controller
         $input = $request->all();
      
         $employeeList = User::
-            // whereHas('roles',function ($q) use($role_name) {
-            //     $q->where('name','=',$role_name);
-            // })
-            // whereHas('designation',function($q) use($role_id) {
-            //     $q->where('role_id', $role_id);
-            // })
             whereHas('employee',function($q) use($user) {
                 $q->where('partner_id', $user->id);
             })
@@ -80,9 +74,7 @@ class EmployeeController extends Controller
         ->get();
       
         return DataTables::of($employeeList)
-        // <a href="/partner/view-employee/'+row.id+'">' + row.first_name +' '+ row.last_name + '</a>
             ->addColumn('full_name', function ($row) {
-                // return '<a href="' . route('patient.details', ['patient_id' => $row->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $row->full_name . '</a>';
                 return $row->full_name;
             })
             ->addColumn('designation_id', function ($row) {
@@ -188,19 +180,9 @@ class EmployeeController extends Controller
             begin();
             try {
                 if (isset($input["id_for_update"])) {
-                    // if ($input['field_role_id']) {
-                    //     $user = User::find($input['id_for_update']);
-                    // }else{
-                    //     $user = Partner::find($input['id_for_update']);
-                    // }
                     $user = Partner::find($input['id_for_update']);
                     $message = 'Employee updated successfully.';
                 } else {
-                    // if ($input['field_role_id']) {
-                    //     $user = new User();
-                    // }else{
-                    //     $user = new Partner();
-                    // }
                     $user = new Partner();
                     $message = 'Employee added successfully!';
                 }
@@ -213,17 +195,10 @@ class EmployeeController extends Controller
                 $userInput['phone'] =setPhone($input['phone']);
                 $userInput['password'] = setPassword($password);
                 $userInput['dob'] = dateFormat($input['dateofbirth']);
-                // $userInput['status'] = config('constant.inactive');
                 $userInput['designation_id'] = $input['designation_id'];
                 
                 $user->fill($userInput)->save();
 
-                // if ($input['field_role_id']){
-                //     $roles = Role::whereIn('id',explode(',',$input['field_role_id']))->pluck('name');
-                //     $roles = $roles->toArray();
-                // }else{
-                //  $roles = $input['role_id'];
-                // }
                 if (! isset($input["id_for_update"])) {
                     $role_id = implode(',',Auth::user()->roles->pluck('id')->toArray());
                     $user->assignRole($role_id);

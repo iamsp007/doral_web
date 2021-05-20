@@ -59,5 +59,9 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth:web','role:admin']],functi
     Route::post('send-address-notification', 'App\Http\Controllers\NotificationController@store')->name('notification.send');
     
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
-
+    Route::post('/partner/status', '\App\Http\Controllers\Partner\PartnerController@updateStatus')->name('partner.status');
+    Route::post('get-user-data','App\Http\Controllers\Partner\PartnerController@getUserData')->name('partner.get-user-data');
+    Route::post('/partner/getList','\App\Http\Controllers\Partner\PartnerController@getList')->name('partner.getList');
+    Route::get('/partner/{slug}', 'App\Http\Controllers\Partner\PartnerController@index');
+    // Route::resource('partner','\App\Http\Controllers\Partner\PartnerController');
 });

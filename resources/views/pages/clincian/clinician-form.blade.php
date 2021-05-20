@@ -336,7 +336,7 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <p>Phone: <span></span></p>
+                                            <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
                                             </td>
                                             <td>
                                                 <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']['how_long_resident']) ? $users->address_detail['address']['how_long_resident'] : ''}}</span></p>

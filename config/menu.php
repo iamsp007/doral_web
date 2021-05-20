@@ -235,6 +235,40 @@ return [
             ]
         ],
         [
+            'name'=>'Partner Section',
+            'url'=>'javascript:void(0)',
+            'route'=>'javascript:void(0)',
+            'icon'=>'employee-sb.svg',
+            'icon_hover'=>'employee-sb-select.svg',
+            'icon_title'=>'Partner Section',
+            'menu'=>[
+                [
+                    'name'=>'Pending Partner',
+                    'url'=>env('APP_URL').'admin/partner/pending',
+                    'route'=>'admin/partner/pending',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Services'
+                ],
+                [
+                    'name'=>'Active Partner',
+                    'url'=>env('APP_URL').'admin/partner/active',
+                    'route'=>'admin/partner/active',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Services'
+                ],
+                [
+                    'name'=>'Reject Partner',
+                    'url'=>env('APP_URL').'admin/partner/rejected',
+                    'route'=>'admin/partner/rejected',
+                    'icon'=>'home-sb-select.svg',
+                    'icon_hover'=>'home-sb.svg',
+                    'icon_title'=>'Services'
+                ]
+            ]
+        ],
+        [
             'name'=>'Employees Section',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',

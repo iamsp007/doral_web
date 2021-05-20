@@ -89,11 +89,11 @@ class ReferralRegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-        $passwordString = strtolower($request->company) . '@referral';
-        $password = str_replace(' ', '-', $passwordString);
+        // $passwordString = strtolower($request->company) . '@referral';
+        // $password = str_replace(' ', '-', $passwordString);
         $request->merge([
             'name' => $request->company,
-            'password' => $password,
+            'password' => env('REFERRAL_PASSWORD'),
             'href' => route('login'),
             'email' => $request->email
         ]);

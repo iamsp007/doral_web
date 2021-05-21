@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\HHAExchange;
-use App\Mail\SendPatientImpotNotification;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\PatientRequest;
 use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
 
 class HHAExchangeController extends Controller

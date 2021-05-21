@@ -280,6 +280,7 @@
             $("body").on('click', '.user_status', function (event) {
                 var t = $(this);
                 var id = t.attr("id");
+                var value = t.attr("data-value");
                 var status_name = t.attr("data-id");
 
                 const Toast = Swal.mixin({
@@ -306,10 +307,14 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            'type': 'get',
+                            'type': 'POST',
                             'url': '{{url("partner/employee/status")}}/' + id,
                             'headers': {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            data: {
+                                'value': value,
+                                'status_name': status_name
                             },
                             'success': function (data) {
                                 if (data.status == 400) {

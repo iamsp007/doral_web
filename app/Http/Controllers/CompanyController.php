@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AcceptedMail;
 use App\Models\Company;
 use App\Models\CurlModel\CurlFunction;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use App\Models\Services;
 use App\Models\ServicePaymentPlan;
-use App\Models\ServicePaymentPlanDetails;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use URL;
-use App\Mail\ReferralAcceptedMail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 
 class CompanyController extends Controller
@@ -422,16 +422,15 @@ class CompanyController extends Controller
                     $company->password = Hash::make($generate_password);
                     $company->save();
 
-                    $url = URL::to('/').'/login';
                     $details = [
-                        'name' => $company->name,
-                        'password' => $generate_password,
-                        'href' => $url,
-                        'email' => $email
+                        'name' =>  $company->name,
+                        'password' => env('REFERRAL_PASSWORD'),
+                        'email' => $email,
+                        'login_url' => route('login'),
                     ];
-
+                    
                     try {
-                        \Mail::to($email)->send(new ReferralAcceptedMail($details));
+                        Mail::to($email)->send(new AcceptedMail($details));
                     }catch (\Exception $exception){
                         \Log::info($exception->getMessage());
                     }

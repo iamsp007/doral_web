@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Mail\SendPatientImpotNotification;
+use App\Mail\WelcomeEmail;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
@@ -12,6 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
 
 class CaregiverImport implements ShouldQueue
@@ -71,6 +74,16 @@ class CaregiverImport implements ShouldQueue
         log::info('stored user id'.count($stored_user_id));
         log::info('missing caregiver count'.count($data));
         log::info('hha exchange search caregiver detail end');
+
+        try {
+            $company_email = $this->company->email;
+            $company = $this->company;
+            
+            Mail::to($company_email)->send(new SendPatientImpotNotification($company, count($stored_user_id)));
+           
+        }catch (\Exception $exception){
+            Log::info($exception->getMessage());
+        }
     }
 
     /**
@@ -178,7 +191,11 @@ class CaregiverImport implements ShouldQueue
        
         $user->save();
         $user->assignRole('patient')->syncPermissions(Permission::all());
-
+        $details = [
+            'name' => $user->first_name,
+            'href' => url('user/verify/'.base64_encode($user->id)),
+        ];
+        Mail::to($user->email)->send(new WelcomeEmail($details));
         return $user->id;
     }
 

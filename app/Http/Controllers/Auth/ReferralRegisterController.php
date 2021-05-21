@@ -3,24 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ReferralWelcomeMail;
-use App\Mail\VerifyEmail;
 use App\Mail\WelcomeEmail;
 use App\Models\Company;
 use App\Models\Designation;
 use App\Models\Partner;
 use App\Models\Referral;
-use App\Models\Role;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use Spatie\Permission\Models\Permission;
 use URL;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
@@ -99,7 +95,7 @@ class ReferralRegisterController extends Controller
         ]);
         event(new Registered($user = $this->create($request->all())));
         
-        $url = route('emailVerified', base64_encode($user->id));
+        $url = route('companyEmailVerified', base64_encode($user->id));
         $details = [
             'name' => $request->company,
             'href' => $url,
@@ -143,12 +139,11 @@ class ReferralRegisterController extends Controller
         $designation->role_id = $request->referralType;
         $designation->save();
 
-        $users = User::where('email', $request->email)->first();
-        
+        $url = route('partnerEmailVerified', base64_encode($user->id));
         $details = [
             'name' => $request->company,
             'password' => $password,
-            'href' => url('user/verify/'.base64_encode($users->id)),
+            'href' => $url,
             'email' => $request->email,
             'login_url' => route('partner.login'),
         ];
@@ -225,13 +220,22 @@ class ReferralRegisterController extends Controller
      */
     protected function createPartner(array $data)
     {
-        $company = new Partner();
-        $company->first_name = $data['name'];
-        $company->email = $data['email'];
-        $company->phone = $data['phone'];
-        $company->password = setPassword($data['password']);
-        $company->assignRole($data['type']);
-        
-        return $company->save();
+        $partner = new Partner();
+        $input['first_name'] = $data['name'];
+        $input['email'] = $data['email'];
+        $input['phone'] = $data['phone'];
+        $input['password'] = setPassword($data['password']);
+      
+        $partner->fill($input)->save();
+
+        $partner->assignRole($data['type']);
+          
+        DB::table('model_has_roles')->insert([
+            'role_id' => $data['type'],
+            'model_type' => User::class,
+            'model_id' => $partner->id,
+        ]);
+
+        return $partner;
     }
 }

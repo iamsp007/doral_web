@@ -7,7 +7,6 @@ use App\Mail\AcceptedMail;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -90,6 +89,14 @@ class PartnerController extends Controller
             ->make(true);
     }
     
+    
+    public function profile($id)
+    {
+        $user = User::find($id);
+
+        return view('admin.partner.profile',compact('user'));
+    }
+
     public function getUserData(Request $request)
     {
         
@@ -121,7 +128,6 @@ class PartnerController extends Controller
             $details = [
                 'name' => $user->first_name,
                 'password' => env('REFERRAL_PASSWORD'),
-                'href' => url('user/verify/'.$user->id),
                 'email' => $user->email,
                 'login_url' => route('login'),
             ];

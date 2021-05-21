@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
-use App\Mail\ReferralWelcomeMail;
-use App\Mail\UpdateStatusNotification;
-use App\Mail\VerifyEmail;
+use App\Mail\AcceptedMail;
+use App\Mail\WelcomeEmail;
 use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Partner;
@@ -17,7 +16,6 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -103,11 +101,14 @@ class EmployeeController extends Controller
             })
             ->addColumn('action', function($row){
                 $action = '';
-                if ($row->status === config('constant.active')) {
-                    $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-success btn-sm mr-2" data-id="Deactive" id="' . $row->id . '" title="Active">Active</a>';
-                } else {
-                    $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-warning btn-sm mr-2" data-id="Active" id="' . $row->id . '" title="Deactive">Deactive</a>';
-                }
+                // if ($row->status === config('constant.active')) {
+                //     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-success btn-sm mr-2" data-id="Deactive" id="' . $row->id . '" title="Active">Accept</a>';
+                // } else {
+                //     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-warning btn-sm mr-2" data-id="Active" id="' . $row->id . '" title="Deactive">Reject</a>';
+                // }
+                $action .='<a class="btn btn-primary btn-green shadow-sm btn--sm mr-2 user_status change_status" data-value="1" data-id="Accept" id="' . $row->id . '" title="Accept">Accept</a>';
+                $action .='<a class="btn btn-danger shadow-sm btn--sm mr-2 user_status change_status" data-value="3" data-id="Reject" id="' . $row->id . '" title="Reject">Reject</a>';
+
                 $action .= '<a href="employee/' . $row->id . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Employee" data-original-title="View Employee"><i class="las la-search"></i></a>';
                 $action .= '<a href="employee/' . $row->id . '/edit" class="btn btn-warning btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Edit Employee" data-original-title="Edit Employee"><i class="las la-edit"></i></a>';
                 $action .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 deleting" data-toggle="tooltip" data-placement="left" title="Delete Employee" data-original-title="Delete Employee"><i class="la la-remove"></i></a>';
@@ -219,15 +220,16 @@ class EmployeeController extends Controller
                 if (! isset($input["id_for_update"])) {
                     $first_name = Auth::user()->first_name;
             
+                    $url = route('partnerEmailVerified', base64_encode($user->id));
                     $details = [
-                        'name' => $first_name,
+                        'name' => $request->company,
                         'password' => $password,
-                        'href' => url('user/verify/'.$user->id),
-                        'email' => $userInput['email'],
+                        'href' => $url,
+                        'email' => $request->email,
                         'login_url' => route('partner.login'),
                     ];
                 
-                    Mail::to($userInput['email'])->send(new VerifyEmail($details));
+                    Mail::to($userInput['email'])->send(new WelcomeEmail($details));
                 }
                 commit();
                 $arr = array('status' => 200 , 'message' => $message , 'result' => $user);
@@ -259,7 +261,6 @@ class EmployeeController extends Controller
     public function show($id)
     {
         $user = User::with('employee')->find($id);
-        // dd($employee);
         return view('admin.employee.show', compact('user'));
     }
 
@@ -314,33 +315,25 @@ class EmployeeController extends Controller
     }
 
     /**Change admin status */
-    public function updateStatus($id) 
+    public function updateStatus(Request $request, $id) 
     {
+        $input = $request->all();
         $user = User::find($id);
-        $user_message = '';
-        if ($user->status === config('constant.active')) {
-            $user_message = 'Employee deactive successfully.';
-            $user->update(['status' => config('constant.inactive')]);
-        } else {
-            $user_message = 'Employee active successfully.';
-            $user->update(['status' => config('constant.active')]);
+        $user->update(['status' => $input['value']]);
+       
+        $user_message = 'Employee ' . $input['status_name'] . ' successfully.';
+
+        if ($input['value'] === '1') {
+            $details = [
+                'name' => $user->first_name,
+                'password' => env('REFERRAL_PASSWORD'),
+                'email' => $user->email,
+                'login_url' => route('login'),
+            ];
+            Mail::to($user->email)->send(new AcceptedMail($details));
         }
         $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
         return \Response::json($responce);
-    }
-
-    /**Change admin status */
-    public function verifyUser($id) 
-    {
-        $userId = base64_decode($id);
-        $user = User::find($userId);
-
-        $user->update([
-            'status' => config('constant.active'),
-            'email_verified_at' => now(),
-        ]);
-       
-        return redirect('/partner/login');
     }
 
     /** Resend email */
@@ -354,12 +347,11 @@ class EmployeeController extends Controller
         $details = [
             'name' => $first_name,
             'password' => $password,
-            'href' => url('user/verify/'.$user->id),
             'email' => $user->email,
             'login_url' => route('partner.login'),
         ];
     
-        Mail::to($user->email)->send(new VerifyEmail($details));
+        Mail::to($user->email)->send(new AcceptedMail($details));
 
         $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
         return \Response::json($responce);

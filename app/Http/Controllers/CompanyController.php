@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AcceptedMail;
 use App\Models\Company;
 use App\Models\CurlModel\CurlFunction;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use App\Models\Services;
 use App\Models\ServicePaymentPlan;
-use App\Models\ServicePaymentPlanDetails;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use URL;
-use App\Mail\ReferralAcceptedMail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 
 class CompanyController extends Controller
@@ -346,51 +346,6 @@ class CompanyController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function show(company $company)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(company $company)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, company $company)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(company $company)
-    {
-        //
-    }
-
-    /**
      * Update Status
      *
      * @return \Illuminate\Http\Response
@@ -422,16 +377,15 @@ class CompanyController extends Controller
                     $company->password = Hash::make($generate_password);
                     $company->save();
 
-                    $url = URL::to('/').'/login';
                     $details = [
-                        'name' => $company->name,
-                        'password' => $generate_password,
-                        'href' => $url,
-                        'email' => $email
+                        'name' =>  $company->name,
+                        'password' => env('REFERRAL_PASSWORD'),
+                        'email' => $email,
+                        'login_url' => route('login'),
                     ];
-
+                    
                     try {
-                        \Mail::to($email)->send(new ReferralAcceptedMail($details));
+                        Mail::to($email)->send(new AcceptedMail($details));
                     }catch (\Exception $exception){
                         \Log::info($exception->getMessage());
                     }
@@ -526,5 +480,4 @@ class CompanyController extends Controller
         $dataobj = $adminServices->insertUpdateServicePayment($data);
        return json_encode($dataobj);
     }
-
 }

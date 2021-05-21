@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\patient;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeEmail;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Demographic;
@@ -14,6 +15,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 
@@ -42,7 +44,7 @@ class PatientController extends Controller
      
         $states = State::select('id','state', 'state_code')->orderBy('state','ASC')->get();
         
-        return view('pages.admin.patient.create',compact('companies', 'services', 'cities', 'states'));
+        return view('admin.patient.create',compact('companies', 'services', 'cities', 'states'));
     }
 
     /**
@@ -217,7 +219,14 @@ class PatientController extends Controller
                     'phone2' => setPhone($input['phone2']),
                     'address' => $address,
                 ]);
+                
                 DB::commit();
+                $url = route('partnerEmailVerified', base64_encode($user->id));
+                $details = [
+                    'name' => $user->first_name,
+                    'href' => $url,
+                ];
+                Mail::to($user->email)->send(new WelcomeEmail($details));
 
                 $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
             } catch (\Illuminate\Database\QueryException $ex) {
@@ -239,50 +248,5 @@ class PatientController extends Controller
             }
         } 
         return \Response::json($arr);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

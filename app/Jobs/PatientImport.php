@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\SendPatientImpotNotification;
+use App\Mail\WelcomeEmail;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
@@ -13,7 +14,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
@@ -40,7 +40,6 @@ class PatientImport implements ShouldQueue
      */
     public function handle()
     {
-        
         $searchPatientIds = $this->searchPatientDetails();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
         log::info('hha exchange search patient detail start');
@@ -180,6 +179,12 @@ class PatientImport implements ShouldQueue
        
         $user->save();
         $user->assignRole('patient')->syncPermissions(Permission::all());
+        $url = route('partnerEmailVerified', base64_encode($user->id));
+        $details = [
+            'name' => $user->first_name,
+            'href' => $url
+        ];
+        Mail::to($user->email)->send(new WelcomeEmail($details));
 
         return $user->id;
     }

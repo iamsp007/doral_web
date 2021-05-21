@@ -221,10 +221,10 @@ class PatientController extends Controller
                 ]);
                 
                 DB::commit();
-
+                $url = route('partnerEmailVerified', base64_encode($user->id));
                 $details = [
                     'name' => $user->first_name,
-                    'href' => url('user/verify/'.base64_encode($user->id)),
+                    'href' => $url,
                 ];
                 Mail::to($user->email)->send(new WelcomeEmail($details));
 
@@ -248,50 +248,5 @@ class PatientController extends Controller
             }
         } 
         return \Response::json($arr);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

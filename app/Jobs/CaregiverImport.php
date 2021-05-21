@@ -191,10 +191,12 @@ class CaregiverImport implements ShouldQueue
        
         $user->save();
         $user->assignRole('patient')->syncPermissions(Permission::all());
+        $url = route('partnerEmailVerified', base64_encode($user->id));
         $details = [
             'name' => $user->first_name,
-            'href' => url('user/verify/'.base64_encode($user->id)),
+            'href' => $url,
         ];
+
         Mail::to($user->email)->send(new WelcomeEmail($details));
         return $user->id;
     }

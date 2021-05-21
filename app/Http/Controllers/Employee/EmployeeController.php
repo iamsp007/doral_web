@@ -220,14 +220,6 @@ class EmployeeController extends Controller
                 if (! isset($input["id_for_update"])) {
                     $first_name = Auth::user()->first_name;
             
-                    $details = [
-                        'name' => $first_name,
-                        'password' => $password,
-                        'href' => url('user/verify/'.$user->id),
-                        'email' => $userInput['email'],
-                        'login_url' => route('partner.login'),
-                    ];
-                
                     $url = route('partnerEmailVerified', base64_encode($user->id));
                     $details = [
                         'name' => $request->company,
@@ -269,7 +261,6 @@ class EmployeeController extends Controller
     public function show($id)
     {
         $user = User::with('employee')->find($id);
-        // dd($employee);
         return view('admin.employee.show', compact('user'));
     }
 
@@ -336,7 +327,6 @@ class EmployeeController extends Controller
             $details = [
                 'name' => $user->first_name,
                 'password' => env('REFERRAL_PASSWORD'),
-                'href' => url('user/verify/'.$user->id),
                 'email' => $user->email,
                 'login_url' => route('login'),
             ];
@@ -344,20 +334,6 @@ class EmployeeController extends Controller
         }
         $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
         return \Response::json($responce);
-    }
-
-    /**Change admin status */
-    public function verifyUser($id) 
-    {
-        $userId = base64_decode($id);
-        $user = User::find($userId);
-
-        $user->update([
-            'status' => config('constant.active'),
-            'email_verified_at' => now(),
-        ]);
-       
-        return redirect('/partner/login');
     }
 
     /** Resend email */
@@ -371,7 +347,6 @@ class EmployeeController extends Controller
         $details = [
             'name' => $first_name,
             'password' => $password,
-            'href' => url('user/verify/'.$user->id),
             'email' => $user->email,
             'login_url' => route('partner.login'),
         ];

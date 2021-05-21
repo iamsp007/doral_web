@@ -20,5 +20,3 @@ Route::group(['prefix'=>'/partner','middleware'=>['auth:partner']],function (){
     Route::post('/designation/getList','\App\Http\Controllers\Designation\DesignationController@getList')->name('designation.getList');
     Route::resource('designation','\App\Http\Controllers\Designation\DesignationController');
 });
-
-Route::get('user/verify/{verification_code}', '\App\Http\Controllers\Employee\EmployeeController@verifyUser');

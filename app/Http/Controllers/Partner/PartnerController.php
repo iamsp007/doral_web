@@ -128,7 +128,6 @@ class PartnerController extends Controller
             $details = [
                 'name' => $user->first_name,
                 'password' => env('REFERRAL_PASSWORD'),
-                'href' => url('user/verify/'.$user->id),
                 'email' => $user->email,
                 'login_url' => route('login'),
             ];

@@ -346,51 +346,6 @@ class CompanyController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function show(company $company)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(company $company)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, company $company)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(company $company)
-    {
-        //
-    }
-
-    /**
      * Update Status
      *
      * @return \Illuminate\Http\Response
@@ -525,5 +480,4 @@ class CompanyController extends Controller
         $dataobj = $adminServices->insertUpdateServicePayment($data);
        return json_encode($dataobj);
     }
-
 }

@@ -66,6 +66,15 @@
                                             <tr>
                                                 <td height="30" class="hc_height">&nbsp;</td>
                                             </tr>
+                                            <tr>
+                                                <td align="" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">Thanks,</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">The Doral Team.</td>
+                                            </tr>
+                                            <tr>
+                                                <td height="30" class="hc_height">&nbsp;</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </td>

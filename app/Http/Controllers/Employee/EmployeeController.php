@@ -71,6 +71,9 @@ class EmployeeController extends Controller
         ->get();
       
         return DataTables::of($employeeList)
+            ->addColumn('checkbox_id', function($q) use($request) {
+                return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
+            })
             ->addColumn('full_name', function ($row) {
                 return $row->full_name;
             })
@@ -100,15 +103,18 @@ class EmployeeController extends Controller
             })
             ->addColumn('action', function($row){
                 $action = '';
-                if ($row->status === config('constant.active')) {
-                    $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-success btn-sm mr-2" data-id="Deactive" id="' . $row->id . '" title="Active">Accept</a>';
-                } else {
-                    $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-warning btn-sm mr-2" data-id="Active" id="' . $row->id . '" title="Deactive">Reject</a>';
-                }
+                // if ($row->status === config('constant.active')) {
+                //     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-success btn-sm mr-2" data-id="Deactive" id="' . $row->id . '" title="Active">Accept</a>';
+                // } else {
+                //     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-warning btn-sm mr-2" data-id="Active" id="' . $row->id . '" title="Deactive">Reject</a>';
+                // }
 
                 if ($row->email_verified_at !='') {
-                    $action .='<a class="btn btn-primary btn-green shadow-sm btn--sm mr-2 user_status change_status" data-value="1" data-id="Accept" id="' . $row->id . '" title="Accept">Accept</a>';
-                    $action .='<a class="btn btn-danger shadow-sm btn--sm mr-2 user_status change_status" data-value="3" data-id="Reject" id="' . $row->id . '" title="Reject">Reject</a>';
+                    // $action .='<a class="btn btn-primary btn-green shadow-sm btn--sm mr-2 user_status change_status" data-value="1" data-id="Accept" id="' . $row->id . '" title="Accept">Accept</a>';
+                    // $action .='<a class="btn btn-danger shadow-sm btn--sm mr-2 user_status change_status" data-value="3" data-id="Reject" id="' . $row->id . '" title="Reject">Reject</a>';
+                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+
+                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
                 }
                 $action .= '<a href="employee/' . $row->id . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Employee" data-original-title="View Employee"><i class="las la-search"></i></a>';
                 $action .= '<a href="employee/' . $row->id . '/edit" class="btn btn-warning btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Edit Employee" data-original-title="Edit Employee"><i class="las la-edit"></i></a>';

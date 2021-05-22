@@ -265,7 +265,7 @@
                                 if (data.status == 400) {
                                     alertText(data.message,'error');
                                 } else {
-                                    $(".data-table").DataTable().ajax.reload(null, false);
+                                    refresh()
                                     alertText(data.message,'success');
                                 }
                                 $("#loader-wrapper").hide();
@@ -326,7 +326,7 @@
                                 if (data.status == 400) {
                                     alertText(data.message,'error');
                                 } else {
-                                    $(".data-table").DataTable().ajax.reload(null, false);
+                                    refresh();
                                     alertText(data.message,'success');
                                 }
                                 $("#loader-wrapper").hide();

@@ -78,7 +78,7 @@
 
                 var url = "@if(!isset($designation)){{ Route('designation.store') }} @else {{ Route('designation.update',[$designation->id]) }} @endif";
                 var fdata = new FormData($(".myForm")[0]);
-
+                $("#loader-wrapper").show();
                 $.ajax({
                     type:"POST",
                     url:url,
@@ -97,10 +97,11 @@
                                 window.location= "{{ Route('designation.index') }}";
                             }, 2000);
                         }
+                        $("#loader-wrapper").hide();
                     },
-                    error: function()
-                    {
+                    error: function() {
                         alertText("Server Timeout! Please try again",'warning');
+                        $("#loader-wrapper").hide();
                     }
                 });
             }

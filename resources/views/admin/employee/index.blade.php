@@ -197,6 +197,7 @@
                 reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        $("#loader-wrapper").show();
                         $.ajax({
                             'type': 'delete',
                             'url': "{{url('partner/employee')}}/" + id,
@@ -212,9 +213,11 @@
                                     });
                                     alertText(data.message,'success');
                                 }
+                                $("#loader-wrapper").hide();
                             },
                             "error":function () {
                                 alertText("Server Timeout! Please try again",'warning');
+                                $("#loader-wrapper").hide();
                             }
                         });
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -251,6 +254,7 @@
                 reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        $("#loader-wrapper").show();
                         $.ajax({
                             'type': 'get',
                             'url': '{{url("partner/employee/resend")}}/' + id,
@@ -264,10 +268,11 @@
                                     $(".data-table").DataTable().ajax.reload(null, false);
                                     alertText(data.message,'success');
                                 }
+                                $("#loader-wrapper").hide();
                             },
                             "error": function () {
                                 swal("Server Timeout!", "Please try again", "warning");
-                                unload();
+                                $("#loader-wrapper").hide();
                             }
                         });
                     } else if (result.dismiss === 'cancel') {
@@ -306,6 +311,7 @@
                 reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        $("#loader-wrapper").show();
                         $.ajax({
                             'type': 'POST',
                             'url': '{{url("partner/employee/status")}}/' + id,
@@ -323,10 +329,11 @@
                                     $(".data-table").DataTable().ajax.reload(null, false);
                                     alertText(data.message,'success');
                                 }
+                                $("#loader-wrapper").hide();
                             },
                             "error": function () {
                                 swal("Server Timeout!", "Please try again", "warning");
-                                unload();
+                                $("#loader-wrapper").hide();
                             }
                         });
                     } else if (result.dismiss === 'cancel') {

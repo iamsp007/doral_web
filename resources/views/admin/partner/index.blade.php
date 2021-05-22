@@ -47,8 +47,8 @@
                     <th>ID</th>
                     <th>Partner Type</th>
                     <th>Company Name</th>
-                    <th>Phone Number</th>
                     <th>Email</th>
+                    <th>Phone Number</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -167,6 +167,7 @@
                 reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        $("#loader-wrapper").show();
                         $.ajax({
                             'type': 'POST',
                             'url': '{{route("partner.status")}}',
@@ -182,12 +183,15 @@
                                 if (data.status == 400) {
                                     alertText(data.message,'error');
                                 } else {
-                                    $(".data-table").DataTable().ajax.reload(null, false);
+                                    refresh();
                                     alertText(data.message,'success');
+
                                 }
+                                $("#loader-wrapper").hide();
                             },
                             "error": function () {
                                 swal("Server Timeout!", "Please try again", "warning");
+                                $("#loader-wrapper").hide();
                             }
                         });
                     } else if (result.dismiss === 'cancel') {

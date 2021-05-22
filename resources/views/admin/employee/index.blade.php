@@ -273,7 +273,7 @@
                 });
             });
 
-            $('body').on('click', '.user_status', function () {
+            $('body').on('click', '.update-status', function () {
                
                 var status = $(this).attr("data-status");
                 $(".innerallchk, .mainchk").prop("checked","");

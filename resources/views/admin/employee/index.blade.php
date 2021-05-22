@@ -314,11 +314,12 @@
                         $("#loader-wrapper").show();
                         $.ajax({
                             'type': 'POST',
-                            'url': '{{url("partner/employee/status")}}/' + id,
+                            'url': '{{url("partner/employee/status")}}',
                             'headers': {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
                             },
                             data: {
+                                'id': id,
                                 'value': value,
                                 'status_name': status_name
                             },

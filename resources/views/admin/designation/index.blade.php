@@ -185,6 +185,7 @@
                 reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        $("#loader-wrapper").show();
                         $.ajax({
                             'type': 'get',
                             'url': '{{url("partner/designation/status")}}/' + id,
@@ -195,13 +196,14 @@
                                 if (data.status == 400) {
                                     alertText(data.message,'error');
                                 } else {
-                                    $(".data-table").DataTable().ajax.reload(null, false);
+                                    refresh()
                                     alertText(data.message,'success');
                                 }
+                                $("#loader-wrapper").hide();
                             },
                             "error": function () {
                                 swal("Server Timeout!", "Please try again", "warning");
-                                unload();
+                                $("#loader-wrapper").hide();
                             }
                         });
                     } else if (result.dismiss === 'cancel') {

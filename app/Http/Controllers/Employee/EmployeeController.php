@@ -100,11 +100,11 @@ class EmployeeController extends Controller
             })
             ->addColumn('action', function($row){
                 $action = '';
-                // if ($row->status === config('constant.active')) {
-                //     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-success btn-sm mr-2" data-id="Deactive" id="' . $row->id . '" title="Active">Accept</a>';
-                // } else {
-                //     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-warning btn-sm mr-2" data-id="Active" id="' . $row->id . '" title="Deactive">Reject</a>';
-                // }
+                if ($row->status === config('constant.active')) {
+                    $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-success btn-sm mr-2" data-id="Deactive" id="' . $row->id . '" title="Active">Accept</a>';
+                } else {
+                    $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-warning btn-sm mr-2" data-id="Active" id="' . $row->id . '" title="Deactive">Reject</a>';
+                }
 
                 if ($row->email_verified_at !='') {
                     $action .='<a class="btn btn-primary btn-green shadow-sm btn--sm mr-2 user_status change_status" data-value="1" data-id="Accept" id="' . $row->id . '" title="Accept">Accept</a>';
@@ -227,7 +227,7 @@ class EmployeeController extends Controller
             
                     $url = route('partnerEmailVerified', base64_encode($user->id));
                     $details = [
-                        'name' => $request->company,
+                        'name' => $first_name,
                         'password' => $password,
                         'href' => $url,
                         'email' => $request->email,

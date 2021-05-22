@@ -204,8 +204,9 @@
                             setTimeout(function () {
                                 window.location= "{{ Route('employee.index') }}";
                             }, 2000);
-                            $("#loader-wrapper").hide();
                         }
+                        
+                        $("#loader-wrapper").hide();
                     },
                     error: function() {
                         alertText("Server Timeout! Please try again",'warning');

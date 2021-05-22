@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class PartnerController extends Controller
 {
@@ -125,16 +126,19 @@ class PartnerController extends Controller
         $user->update(['status' => $input['data_value']]);
     
         if ($user->status === '1') {
+            $password = Str::random(8);
+            $user->update(['password' => $password]);
+
             $details = [
                 'name' => $user->first_name,
-                'password' => env('REFERRAL_PASSWORD'),
+                'password' => $password,
                 'email' => $user->email,
                 'login_url' => route('login'),
             ];
             Mail::to($user->email)->send(new AcceptedMail($details));
         } 
 
-        $user_message = 'Partner' . $input['status_name'] . 'successfully.';
+        $user_message = 'Partner ' . $input['status_name'] . ' successfully.';
      
         $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
         return \Response::json($responce);

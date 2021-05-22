@@ -326,10 +326,10 @@ class EmployeeController extends Controller
     }
 
     /**Change admin status */
-    public function updateStatus(Request $request, $id) 
+    public function updateStatus(Request $request) 
     {
         $input = $request->all();
-        $user = User::find($id);
+        $user = User::find($input['id']);
         $user->update(['status' => $input['value']]);
        
         $user_message = 'Employee ' . $input['status_name'] . ' successfully.';

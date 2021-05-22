@@ -103,15 +103,8 @@ class EmployeeController extends Controller
             })
             ->addColumn('action', function($row){
                 $action = '';
-                // if ($row->status === config('constant.active')) {
-                //     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-success btn-sm mr-2" data-id="Deactive" id="' . $row->id . '" title="Active">Accept</a>';
-                // } else {
-                //     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-warning btn-sm mr-2" data-id="Active" id="' . $row->id . '" title="Deactive">Reject</a>';
-                // }
 
                 if ($row->email_verified_at !='') {
-                    // $action .='<a class="btn btn-primary btn-green shadow-sm btn--sm mr-2 user_status change_status" data-value="1" data-id="Accept" id="' . $row->id . '" title="Accept">Accept</a>';
-                    // $action .='<a class="btn btn-danger shadow-sm btn--sm mr-2 user_status change_status" data-value="3" data-id="Reject" id="' . $row->id . '" title="Reject">Reject</a>';
                     $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
 
                     $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
@@ -125,7 +118,7 @@ class EmployeeController extends Controller
                 
                 return $action;
             })
-            ->rawColumns(['action','role_name','status'])
+            ->rawColumns(['action','role_name','status','checkbox_id'])
             ->make(true);
     }
     /**

@@ -274,7 +274,6 @@
             });
 
             $('body').on('click', '.update-status', function () {
-               
                 var status = $(this).attr("data-status");
                 $(".innerallchk, .mainchk").prop("checked","");
                 $(this).parents("tr").find(".innerallchk").prop("checked",true);

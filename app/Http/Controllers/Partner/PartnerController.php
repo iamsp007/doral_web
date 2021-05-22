@@ -127,7 +127,7 @@ class PartnerController extends Controller
     
         if ($user->status === '1') {
             $password = Str::random(8);
-            $user->update(['password' => $password]);
+            $user->update(['password' => setPassword($password)]);
 
             $details = [
                 'name' => $user->first_name,

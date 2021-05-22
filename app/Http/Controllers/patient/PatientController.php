@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\patient;
 
 use App\Http\Controllers\Controller;
-use App\Mail\WelcomeEmail;
+use App\Jobs\SendEmailJob;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Demographic;
@@ -14,8 +14,6 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 
@@ -226,7 +224,8 @@ class PatientController extends Controller
                     'name' => $user->first_name,
                     'href' => $url,
                 ];
-                Mail::to($user->email)->send(new WelcomeEmail($details));
+                
+                SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
 
                 $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
             } catch (\Illuminate\Database\QueryException $ex) {

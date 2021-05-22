@@ -2,8 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Mail\SendPatientImpotNotification;
-use App\Mail\WelcomeEmail;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
@@ -15,8 +13,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Str;
 
 class PatientImport implements ShouldQueue
 {
@@ -77,10 +75,13 @@ class PatientImport implements ShouldQueue
 
         try {
             $company_email = $this->company->email;
-            $company = $this->company;
+          
+            $details = [
+                'name' => $this->company->name,
+                'total' => count($stored_user_id),
+            ];
             
-            Mail::to($company_email)->send(new SendPatientImpotNotification($company, count($stored_user_id)));
-           
+            SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
         }catch (\Exception $exception){
             Log::info($exception->getMessage());
         }
@@ -162,7 +163,7 @@ class PatientImport implements ShouldQueue
         }
         
         $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
-        $password = str_replace("-", "@",$doral_id);
+        $password = Str::random(8);
             
         $user->first_name = $first_name;
         $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
@@ -184,7 +185,7 @@ class PatientImport implements ShouldQueue
             'name' => $user->first_name,
             'href' => $url
         ];
-        Mail::to($user->email)->send(new WelcomeEmail($details));
+        SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
 
         return $user->id;
     }

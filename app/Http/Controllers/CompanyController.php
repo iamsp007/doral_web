@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\AcceptedMail;
+use App\Jobs\SendEmailJob;
 use App\Models\Company;
 use App\Models\CurlModel\CurlFunction;
 use App\Services\AdminService;
@@ -13,7 +13,6 @@ use Exception;
 use Illuminate\Support\Facades\Hash;
 use URL;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 
 class CompanyController extends Controller
@@ -384,12 +383,7 @@ class CompanyController extends Controller
                         'login_url' => route('login'),
                     ];
                     
-                    try {
-                        Mail::to($email)->send(new AcceptedMail($details));
-                    }catch (\Exception $exception){
-                        \Log::info($exception->getMessage());
-                    }
-                    
+                    SendEmailJob::dispatch($email,$details,'AcceptedMail');
                 }
                 $record = $responseArray['data'];
             }

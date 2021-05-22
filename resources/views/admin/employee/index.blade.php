@@ -58,6 +58,7 @@
         </form>
    
     <table class="display responsive nowrap data-table" style="width:100%">
+        <input type="hidden" value="{{ ($employeeStatus) ? $employeeStatus : '' }}" id="employeeStatus" name="employeeStatus" />
         <thead>
         <tr>
             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
@@ -98,6 +99,7 @@
                         d.date_of_birth = $('input[name="date_of_birth"]').val();
                         d.email = $('input[name="email"]').val();
                         d.status = $('select[name="status"]').val();
+                        d.employeeStatus = $('input[name="employeeStatus"]').val();
                     },
                     'headers': {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -293,6 +295,7 @@
 
             function chkmain() {
                 var ch = $(".innerallchk").prop("checked");
+               
                 if(ch == true) {
                     $('#acceptRejectBtn').show();
                     var len = $(".innerallchk:unchecked").length;

@@ -11,15 +11,15 @@ class SendPatientImpotNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $totalStoreUser;
+    public $details;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($totalStoreUser)
+    public function __construct($details)
     {
-        $this->totalStoreUser = $totalStoreUser;
+        $this->details = $details;
     }
 
     /**

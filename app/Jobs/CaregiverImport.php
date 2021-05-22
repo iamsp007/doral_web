@@ -2,8 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Mail\SendPatientImpotNotification;
-use App\Mail\WelcomeEmail;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
@@ -14,7 +12,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
 
 class CaregiverImport implements ShouldQueue
@@ -79,8 +76,12 @@ class CaregiverImport implements ShouldQueue
             $company_email = $this->company->email;
             $company = $this->company;
             
-            Mail::to($company_email)->send(new SendPatientImpotNotification($company, count($stored_user_id)));
-           
+            $details = [
+                'name' => $this->company->name,
+                'total' => count($stored_user_id),
+            ];
+            
+            SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
         }catch (\Exception $exception){
             Log::info($exception->getMessage());
         }
@@ -197,7 +198,8 @@ class CaregiverImport implements ShouldQueue
             'href' => $url,
         ];
 
-        Mail::to($user->email)->send(new WelcomeEmail($details));
+        SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
+
         return $user->id;
     }
 

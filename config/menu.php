@@ -380,7 +380,31 @@ return [
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Employees'
-                ]
+                ],
+                // [
+                //     'name'=>'Pending Employee',
+                //     'url'=>env('APP_URL').'partner/employee/pending',
+                //     'route'=>'partner/employee/pending',
+                //     'icon'=>'home-sb-select.svg',
+                //     'icon_hover'=>'home-sb.svg',
+                //     'icon_title'=>'Services'
+                // ],
+                // [
+                //     'name'=>'Active Employee',
+                //     'url'=>env('APP_URL').'partner/employee/active',
+                //     'route'=>'partner/employee/active',
+                //     'icon'=>'home-sb-select.svg',
+                //     'icon_hover'=>'home-sb.svg',
+                //     'icon_title'=>'Services'
+                // ],
+                // [
+                //     'name'=>'Reject Employee',
+                //     'url'=>env('APP_URL').'partner/employee/rejected',
+                //     'route'=>'partner/employee/rejected',
+                //     'icon'=>'home-sb-select.svg',
+                //     'icon_hover'=>'home-sb.svg',
+                //     'icon_title'=>'Services'
+                // ]
             ],
             ['name'=>'Calendar','url'=>env('APP_URL').'partner/calendar','route'=>'partner/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
         ],

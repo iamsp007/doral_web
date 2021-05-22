@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
-use App\Mail\AcceptedMail;
+use App\Jobs\SendEmailJob;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 
@@ -135,7 +134,7 @@ class PartnerController extends Controller
                 'email' => $user->email,
                 'login_url' => route('login'),
             ];
-            Mail::to($user->email)->send(new AcceptedMail($details));
+            SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
         } 
 
         $user_message = 'Partner ' . $input['status_name'] . ' successfully.';

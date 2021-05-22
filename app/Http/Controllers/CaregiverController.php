@@ -424,46 +424,6 @@ class CaregiverController extends Controller
     {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
-        
-        //         $from = "12089104598";
-        //         $api_key = "bb78dfeb";
-        //         $api_secret = "PoZ5ZWbnhEYzP9m4";
-        //         $uri = 'https://rest.nexmo.com/sms/json';
-        //         $text = "This message is from Doral health Connect :
-        // Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now.
-        // https://doralhealthconnect.com/book_appointment.html";
-                    
-        //         $to = 5166000122;
-        //         $fields = '&from=' . urlencode($from) .
-        //                 '&text=' . urlencode($text) .
-        //                 '&to=+1' . urlencode($to) .
-        //                 '&api_key=' . urlencode($api_key) .
-        //                 '&api_secret=' . urlencode($api_secret);
-        //         $res = curl_init($uri);
-        //         curl_setopt($res, CURLOPT_POST, TRUE);
-        //         curl_setopt($res, CURLOPT_RETURNTRANSFER, TRUE); // don't echo
-        //         curl_setopt($res, CURLOPT_SSL_VERIFYPEER, FALSE);
-        //         curl_setopt($res, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        //         curl_setopt($res, CURLOPT_POSTFIELDS, $fields);
-        //         $result = curl_exec($res);
-        //         $result = json_decode($result);
-        //         curl_close($res);
-                
-        //         $too = 9293989855;
-        //         $fields = '&from=' . urlencode($from) .
-        //                 '&text=' . urlencode($text) .
-        //                 '&to=+1' . urlencode($too) .
-        //                 '&api_key=' . urlencode($api_key) .
-        //                 '&api_secret=' . urlencode($api_secret);
-        //         $res = curl_init($uri);
-        //         curl_setopt($res, CURLOPT_POST, TRUE);
-        //         curl_setopt($res, CURLOPT_RETURNTRANSFER, TRUE); // don't echo
-        //         curl_setopt($res, CURLOPT_SSL_VERIFYPEER, FALSE);
-        //         curl_setopt($res, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        //         curl_setopt($res, CURLOPT_POSTFIELDS, $fields);
-        //         $result = curl_exec($res);
-        //         $result = json_decode($result);
-        //         curl_close($res);
 
         if ($response->status === true){
             return response()->json($response,200);

@@ -186,7 +186,7 @@
 
                 var url = "@if(!isset($user)){{ Route('employee.store') }} @else {{ Route('employee.update',[$user->id]) }} @endif";
                 var fdata = new FormData($(".myForm")[0]);
-
+                $("#loader-wrapper").show();
                 $.ajax({
                     type:"POST",
                     url:url,
@@ -204,11 +204,12 @@
                             setTimeout(function () {
                                 window.location= "{{ Route('employee.index') }}";
                             }, 2000);
+                            $("#loader-wrapper").hide();
                         }
                     },
-                    error: function()
-                    {
+                    error: function() {
                         alertText("Server Timeout! Please try again",'warning');
+                        $("#loader-wrapper").hide();
                     }
                 });
             }

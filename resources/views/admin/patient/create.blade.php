@@ -2854,6 +2854,7 @@
             event.preventDefault();
           
             var url = "{{ Route('patient.store') }}";
+            $("#loader-wrapper").show();
             $.ajax({
                type:"POST",
                url:url,
@@ -2865,26 +2866,26 @@
                 contentType: false,
                 cache: false,
                 processData: false,
-               success: function(data) {
-                  if(data.status == 400) {
-                    alertText(data.message,'error');
-                    //  $.each( data.message, function( key, value ) {
-                    //     if (data.action === 'add') {
-                    //        t.parents('.insurance_company').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
-                    //     } else if (data.action === 'edit') {
-                    //        t.parents("tr").find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
-                    //     }
-                    //  });
-                  } else {
-                    alertText(data.message,'success');
-                    $('.add_patient_form')[0].reset();
-                  }
-               },
-               error: function()
-               {
-               
-                  alertText("Server Timeout! Please try again",'warning');
-               }
+                success: function(data) {
+                    if(data.status == 400) {
+                        alertText(data.message,'error');
+                        //  $.each( data.message, function( key, value ) {
+                        //     if (data.action === 'add') {
+                        //        t.parents('.insurance_company').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
+                        //     } else if (data.action === 'edit') {
+                        //        t.parents("tr").find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
+                        //     }
+                        //  });
+                    } else {
+                        alertText(data.message,'success');
+                        $('.add_patient_form')[0].reset();
+                    }
+                    $("#loader-wrapper").hide();
+                },
+                error: function() {
+                    alertText("Server Timeout! Please try again",'warning');
+                    $("#loader-wrapper").hide();
+                }
             });
         });
   

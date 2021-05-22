@@ -116,6 +116,7 @@
                 reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        $("#loader-wrapper").show();
                         $.ajax({
                             'type': 'delete',
                             'url': "{{url('partner/designation')}}/" + id,
@@ -131,9 +132,11 @@
                                     });
                                     alertText(data.message,'success');
                                 }
+                                $("#loader-wrapper").hide();
                             },
                             "error":function () {
                                 alertText("Server Timeout! Please try again",'warning');
+                                $("#loader-wrapper").hide();
                             }
                         });
                     } else if (result.dismiss === Swal.DismissReason.cancel) {

@@ -55,17 +55,12 @@
                     </div>
                 </div>
             </div>
-            
         </form>
-    
-    <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
-        <button type="button" onclick="doaction('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
-        <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
-    </div>
+   
     <table class="display responsive nowrap data-table" style="width:100%">
         <thead>
         <tr>
-            <th>ID</th>
+            <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
             <th>Employee Name</th>
             <th>Employee ID</th>
             <th>Designation</th>
@@ -91,9 +86,6 @@
             $('.data-table').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "language": {
-                    processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
-                },
                 ajax: {
                     'type': 'POST',
                     'url': "{{ route('employee.getList') }}",
@@ -112,7 +104,7 @@
                     }
                 },
                 columns:[
-                    {data:'id',"bSortable": true},
+                    {data:'checkbox_id',"className": "text-center"},
                     {data:'full_name', "bSortable": true},
                     {data:'employee_ID', "bSortable": true},
                     {data:'designation_id', "bSortable": true},
@@ -281,13 +273,66 @@
                 });
             });
 
-            /*@ Change admin status */
-            $("body").on('click', '.user_status', function (event) {
-                var t = $(this);
-                var id = t.attr("id");
-                var value = t.attr("data-value");
-                var status_name = t.attr("data-id");
+            $('body').on('click', '.update-status', function () {
+               
+                var status = $(this).attr("data-status");
+                $(".innerallchk, .mainchk").prop("checked","");
+                $(this).parents("tr").find(".innerallchk").prop("checked",true);
+                doaction(status) 
+            });
 
+            $(".mainchk").click(function () {
+                var ch = $(this).prop("checked");
+                if(ch == true) {
+                    $(".innerallchk").prop("checked","checked");
+                    $('#acceptRejectBtn').show();
+                } else {
+                    $(".innerallchk").prop("checked","");
+                    $('#acceptRejectBtn').hide();
+                }
+            });
+
+            function chkmain() {
+                var ch = $(".innerallchk").prop("checked");
+                if(ch == true) {
+                    $('#acceptRejectBtn').show();
+                    var len = $(".innerallchk:unchecked").length;
+                    if(len == 0) {
+                        $(".mainchk").prop("checked","checked");
+                    } else {
+                        $(".mainchk").prop("checked","");
+                    }
+                } else {
+                    var len = $(".innerallchk:checked").length;
+                    if(len == 0) {
+                        $('#acceptRejectBtn').hide();
+                    } else {
+                        $('#acceptRejectBtn').show();
+                        var len = $(".innerallchk:unchecked").length;
+                        if(len == 0) {
+                            $(".mainchk").prop("checked","checked");
+                        } else {
+                            $(".mainchk").prop("checked","");
+                        }
+                    }
+                }
+            }
+
+            function doaction(status) 
+            {
+                var len = $(".innerallchk:checked").length;
+                if (len == 0) {
+                    alertText('Please select at least one record to continue.','warning');
+                } else {
+                    var val = $('.innerallchk:checked').map(function () {
+                        return this.value;
+                    }).get();
+                    postdataforaction(status, val);
+                }
+            }
+            
+            function postdataforaction(status,val) {
+            
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -302,46 +347,48 @@
                 })
 
                 Toast.fire({
-                title: 'Are you sure?',
-                text: "Are you sure want to "+ status_name +" the record?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, change it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#loader-wrapper").show();
-                        $.ajax({
-                            'type': 'POST',
-                            'url': '{{url("partner/employee/status")}}',
-                            'headers': {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            data: {
-                                'id': id,
-                                'value': value,
-                                'status_name': status_name
-                            },
-                            'success': function (data) {
-                                if (data.status == 400) {
-                                    alertText(data.message,'error');
-                                } else {
-                                    refresh();
-                                    alertText(data.message,'success');
+                    title: 'Are you sure?',
+                    text: "Are you sure want to update status of this patient?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, change it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#loader-wrapper").show();
+                            $.ajax({
+                                'type': 'POST',
+                                'url': '{{url("partner/employee/status")}}',
+                                'headers': {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                data: {
+                                    "id": val,
+                                    "status" : status
+                                },
+                                'success': function (data) {
+                                    if(data.status == 400) {
+                                        alertText(data.message,'error');
+                                    } else {
+                                        alertText(data.message,'success');
+                                        $('#acceptRejectBtn').hide();
+                                        refresh();
+                                    }
+                                    $("#loader-wrapper").hide();
+                                },
+                                "error":function () {
+                                    alertText("Server Timeout! Please try again",'error');
+                                    $("#loader-wrapper").hide();
                                 }
-                                $("#loader-wrapper").hide();
-                            },
-                            "error": function () {
-                                swal("Server Timeout!", "Please try again", "warning");
-                                $("#loader-wrapper").hide();
-                            }
-                        });
-                    } else if (result.dismiss === 'cancel') {
-                        alertText("Your record is safe :)",'cancelled');
-                    }
+                            });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            alertText("Your file file is safe :)",'warning');
+                            $(".innerallchk, .mainchk").prop("checked","");
+                            $('#acceptRejectBtn').hide();
+                        }
                 });
-            });
+            }
         });
         function refresh() {
             $(".data-table").DataTable().ajax.reload(null, false);

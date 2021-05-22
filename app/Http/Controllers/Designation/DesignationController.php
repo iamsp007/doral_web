@@ -35,7 +35,7 @@ class DesignationController extends Controller
         $role_id = implode(',',$designation->roles->pluck('id')->toArray());
         $input = $request->all();
 
-        $designationList = Designation::where('user_id', $designation->id)
+        $designationList = Designation::where([['user_id', '=', $designation->id],['role_id', '=', $role_id]])
         ->when($input['name'], function ($query) use($input){
             $query->where('name', $input['name']);
         })->get();
@@ -81,7 +81,7 @@ class DesignationController extends Controller
         $input = $request->all();
       
         $rules = array(
-            'name'=>'required|unique',
+            'name'=>'required|unique:designations',
 		);
         
         $messages = array(

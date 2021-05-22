@@ -136,6 +136,7 @@ class ReferralRegisterController extends Controller
         $designation = new Designation();
         $designation->name = 'Field Visitor';
         $designation->role_id = $request->referralType;
+        $designation->user_id = $user->id;
         $designation->save();
 
         $url = route('partnerEmailVerified', base64_encode($user->id));

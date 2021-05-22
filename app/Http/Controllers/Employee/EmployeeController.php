@@ -45,8 +45,7 @@ class EmployeeController extends Controller
     public function getList(Request $request)
     {
         $user = Auth::user();
-       
-        $role_name = implode(',',$user->roles->pluck('name')->toArray());
+
         $input = $request->all();
      
         $employeeList = User::
@@ -60,9 +59,9 @@ class EmployeeController extends Controller
             ->when($input['user_name'], function ($query) use($input){
                 $query->where('id', $input['user_name']);
             })
-            ->when($input['date_of_birth'], function ($query) use($input){
-                $query->where('dob', dateFormat($input['date_of_birth']));
-            })
+            // ->when($input['date_of_birth'], function ($query) use($input){
+            //     $query->where('dob', dateFormat($input['date_of_birth']));
+            // })
             ->when($input['email'], function ($query) use($input){
                 $query->where('email', $input['email']);
             })
@@ -106,13 +105,15 @@ class EmployeeController extends Controller
                 // } else {
                 //     $action .= '<a class="user_status change_status btn m-btn--pill m-btn--air btn-warning btn-sm mr-2" data-id="Active" id="' . $row->id . '" title="Deactive">Reject</a>';
                 // }
-                $action .='<a class="btn btn-primary btn-green shadow-sm btn--sm mr-2 user_status change_status" data-value="1" data-id="Accept" id="' . $row->id . '" title="Accept">Accept</a>';
-                $action .='<a class="btn btn-danger shadow-sm btn--sm mr-2 user_status change_status" data-value="3" data-id="Reject" id="' . $row->id . '" title="Reject">Reject</a>';
 
+                if ($row->email_verified_at !='') {
+                    $action .='<a class="btn btn-primary btn-green shadow-sm btn--sm mr-2 user_status change_status" data-value="1" data-id="Accept" id="' . $row->id . '" title="Accept">Accept</a>';
+                    $action .='<a class="btn btn-danger shadow-sm btn--sm mr-2 user_status change_status" data-value="3" data-id="Reject" id="' . $row->id . '" title="Reject">Reject</a>';
+                }
                 $action .= '<a href="employee/' . $row->id . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Employee" data-original-title="View Employee"><i class="las la-search"></i></a>';
                 $action .= '<a href="employee/' . $row->id . '/edit" class="btn btn-warning btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Edit Employee" data-original-title="Edit Employee"><i class="las la-edit"></i></a>';
                 $action .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 deleting" data-toggle="tooltip" data-placement="left" title="Delete Employee" data-original-title="Delete Employee"><i class="la la-remove"></i></a>';
-                if ($row->status === config('constant.inactive')) {
+                if ($row->email_verified_at =='') {
                     $action .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 resendEmail" data-toggle="tooltip" data-placement="left" title="Resend Email Verify Email" data-original-title="Resend Email Verify Email"><i class="las la-redo-alt"></i></a>';
                 }
                 
@@ -132,7 +133,10 @@ class EmployeeController extends Controller
        
         $employee_ID = createEmployeeId(substr(Auth::user()->first_name,0,3));
         $roles = Role::where('guard_name','=','partner')->get();
-        $designations = Designation::where('role_id',18)->get();
+        $user = Auth::user();
+       
+        $role_id = implode(',',$user->roles->pluck('id')->toArray());
+        $designations = Designation::where([['role_id','=',$role_id],['user_id','=',$user->id]])->get();
 
         return view('admin.employee.create_update', compact('roles', 'designations', 'employee_ID'));
     }
@@ -211,10 +215,11 @@ class EmployeeController extends Controller
                     ]);
                 }
 
+                $authUserId = Auth::user()->id;
                 Employee::updateOrCreate(['user_id' => $user->id], [
                     'employee_ID' => $input['employee_ID'],
                     'driving_license' => $input['driving_license'],
-                    'partner_id' => $user->id
+                    'partner_id' => $authUserId
                 ]);
 
                 if (! isset($input["id_for_update"])) {
@@ -273,7 +278,13 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $user = User::with('employee')->find($id);
-        $designations = Designation::where('role_id',18)->get();
+        
+        $authUser = Auth::user();
+       
+        $role_id = implode(',',$authUser->roles->pluck('id')->toArray());
+       
+        $designations = Designation::where([['role_id','=',$role_id],['user_id','=',$authUser->id]])->get();
+       
         if(isset($user)) {
             return view('admin.employee.create_update',compact('user', 'designations'));
         } 
@@ -324,9 +335,11 @@ class EmployeeController extends Controller
         $user_message = 'Employee ' . $input['status_name'] . ' successfully.';
 
         if ($input['value'] === '1') {
+            $password = Str::random(8);
+            $user->update(['password' => setPassword($password)]);
             $details = [
                 'name' => $user->first_name,
-                'password' => env('REFERRAL_PASSWORD'),
+                'password' => $password,
                 'email' => $user->email,
                 'login_url' => route('login'),
             ];
@@ -344,14 +357,17 @@ class EmployeeController extends Controller
 
         $user = User::find($id);
         $user->update(['password' => setPassword($password)]);
-        $details = [
-            'name' => $first_name,
-            'password' => $password,
-            'email' => $user->email,
-            'login_url' => route('partner.login'),
-        ];
-    
-        Mail::to($user->email)->send(new AcceptedMail($details));
+
+        $url = route('partnerEmailVerified', base64_encode($user->id));
+            $details = [
+                'name' => $first_name,
+                'password' => $password,
+                'href' => $url,
+                'email' => $user->email,
+                'login_url' => route('partner.login'),
+            ];
+        
+            Mail::to($user->email)->send(new WelcomeEmail($details));
 
         $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
         return \Response::json($responce);

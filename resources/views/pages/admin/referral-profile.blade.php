@@ -156,7 +156,7 @@ Refferal Profile
                                  readonly name="insurance_id"
                                  onkeyup="erroMessageMal()"
                                  data-id="insurance_id" id="insurance_id"
-                                 placeholder="insurance_id" value="{{ $record->insurance_id ? $record->insurance_id : '' }}">
+                                 placeholder="insurance id" value="{{ $record->insurance_id ? $record->insurance_id : '' }}">
                                  <span class="error-message" id="insurance_error">Insurance Id is required</span>
                            </li>
                         </ul>

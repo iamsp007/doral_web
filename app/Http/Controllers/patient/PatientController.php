@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\patient;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailJob;
 use App\Models\City;
@@ -198,6 +199,8 @@ class PatientController extends Controller
 
                 $demographic->save();
 
+                self::getAddressLatlngAttribute($address, $user->id);
+
                 $address = [
                     'address1' => $input['emergency_address1'],
                     'address2' => $input['emergency_address2'],
@@ -247,5 +250,40 @@ class PatientController extends Controller
             }
         } 
         return \Response::json($arr);
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public static function getAddressLatlngAttribute($addressData, $user_id)
+    {
+        $address='';
+        if ($addressData['address1']){
+            $address.= $addressData['address1'];
+        }
+        if ($addressData['city']){
+            $address.=', '.$addressData['city'];
+        }
+        if ($addressData['state']){
+            $address.=', '.$addressData['state'];
+        }
+        if ($addressData['zip_code']){
+            $address.=', '.$addressData['zip_code'];
+        }
+
+        if ($address){
+            $helper = new Helper();
+            $response = $helper->getLatLngFromAddress($address);
+            if ($response->status === "OK"){
+                $latlong =  $response->results[0]->geometry->location;
+
+                User::find($user_id)->update([
+                    'latitude' => $latlong->lat,
+                    'longitude' => $latlong->lng,
+                ]);
+            }
+        }
     }
 }

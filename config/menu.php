@@ -176,24 +176,24 @@ return [
             'menu'=>[
                 [
                     'name'=>'Pending Referral',
-                    'url'=>env('APP_URL').'admin/referral-approval',
-                    'route'=>'admin/referral-approval',
+                    'url'=>env('APP_URL').'admin/referral/pending',
+                    'route'=>'admin/referral/pending',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
                     'name'=>'Active Referral',
-                    'url'=>env('APP_URL').'admin/referral-active',
-                    'route'=>'admin/referral-active',
+                    'url'=>env('APP_URL').'admin/referral/active',
+                    'route'=>'admin/referral/active',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
                     'name'=>'Reject Referral',
-                    'url'=>env('APP_URL').'admin/referral-rejected',
-                    'route'=>'admin/referral-rejected',
+                    'url'=>env('APP_URL').'admin/referral/rejected',
+                    'route'=>'admin/referral/rejected',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
@@ -210,24 +210,24 @@ return [
             'menu'=>[
                 [
                     'name'=>'Pending Clinician',
-                    'url'=>env('APP_URL').'admin/clinician-approval',
-                    'route'=>'admin/clinician-approval',
+                    'url'=>env('APP_URL').'admin/clinician/pending',
+                    'route'=>'admin/clinician/pending',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
                     'name'=>'Active Clinician',
-                    'url'=>env('APP_URL').'admin/clinician-active',
-                    'route'=>'admin/clinician-active',
+                    'url'=>env('APP_URL').'admin/clinician/active',
+                    'route'=>'admin/clinician/active',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
                     'name'=>'Reject Clinician',
-                    'url'=>env('APP_URL').'admin/clinician-rejected',
-                    'route'=>'admin/clinician-rejected',
+                    'url'=>env('APP_URL').'admin/clinician/rejected',
+                    'route'=>'admin/clinician/rejected',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
@@ -286,8 +286,8 @@ return [
                 ],
                 [
                     'name'=>'Employees',
-                    'url'=>env('APP_URL').'admin/referral-active',
-                    'route'=>'admin/referral-active',
+                    'url'=>env('APP_URL').'admin/referral/active',
+                    'route'=>'admin/referral/active',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Employees'

@@ -17,6 +17,7 @@
     <ul class="boradcast-list">
         @if(count($patientRequestList)>0)
             @foreach($patientRequestList as $key=>$value)
+           
                 <li class="mt-3">
                     <span class="badge rounded-pill bg-danger _ccm">C</span>
                     <div class="app-card app-card-broadcast raduis_5">
@@ -35,18 +36,47 @@
                                             </span>
                                     </h1>
                                     <p class="address">
-                                        @if(isset($value->patient_detail->detail->address_1) && !empty($value->patient_detail->detail->address_1))
-                                            {{ $value->patient_detail->detail->address_1 }}
-                                        @elseif(isset($value->patient_detail->detail->address_2) && !empty($value->patient_detail->detail->address_2))
-                                            {{ $value->patient_detail->detail->address_2 }}
-                                        @elseif(isset($value->patient_detail->detail->address_latlng) && !empty($value->patient_detail->detail->address_latlng))
-                                            {{ 'latitude : '.$value->patient_detail->detail->address_latlng->lat.', longitude : '.$value->patient_detail->detail->address_latlng->lng }}
-                                        @else
-                                            {{ 'latitude : '.$value->patient_detail->latitude.'  ,  longitude :'.$value->patient_detail->longitude }}
+                                        @if(isset($value->patient_detail->demographic) && !empty($value->patient_detail->demographic->address) && !empty($value->patient_detail->demographic->address->address1))
+                                           Address 1: {{ $value->patient_detail->demographic->address->address1 }}
+                                        @endif
+                                    </p>
+                                    <p class="address">
+                                        @if(isset($value->patient_detail->demographic) && !empty($value->patient_detail->demographic->address) && !empty($value->patient_detail->demographic->address->address2))
+                                            Address 2: {{ $value->patient_detail->demographic->address->address2 }}
+                                        @endif
+                                    </p>
+                                    <p class="address">
+                                        @if(isset($value->patient_detail->demographic) && !empty($value->patient_detail->demographic->address) && !empty($value->patient_detail->demographic->address->apt_building))
+                                            Apt#/Building: {{ $value->patient_detail->demographic->address->apt_building }}
+                                        @endif
+                                    </p>
+                                    <p class="address">
+                                        @if(isset($value->patient_detail->demographic) && !empty($value->patient_detail->demographic->address) && !empty($value->patient_detail->demographic->address->city))
+                                            City: {{ $value->patient_detail->demographic->address->city }}
+                                        @endif
+                                    </p>
+                                    <p class="address">
+                                        @if(isset($value->patient_detail->demographic) && !empty($value->patient_detail->demographic->address) && !empty($value->patient_detail->demographic->address->state))
+                                            City: {{ $value->patient_detail->demographic->address->state }}
+                                        @endif
+                                    </p>
+                                    <p class="address">
+                                        @if(isset($value->patient_detail->demographic) && !empty($value->patient_detail->demographic->address) && !empty($value->patient_detail->demographic->address->zip_code))
+                                            City: {{ $value->patient_detail->demographic->address->zip_code }}
+                                        @endif
+                                    </p>
+                                    <p class="address">
+                                        @if(isset($value->patient_detail->demographic) && isset($value->patient_detail->demographic->address_latlng))
+                                            latitude: {{ $value->patient_detail->demographic->address_latlng->lat }} 
+                                        @endif
+                                    </p>
+                                    <p class="address">
+                                        @if(isset($value->patient_detail->demographic) && isset($value->patient_detail->demographic->address_latlng))
+                                            longitude : {{ $value->patient_detail->demographic->address_latlng->lng }}
                                         @endif
                                     </p>
                                     <p class="emergency_contact mb-2 d-none"> Emergency Contact
-                                        <a href="tel:9966246684" class="primary_tel d-none">{{ $value->patient_detail->phone }}</a>
+                                        <a href="tel:{{$value->patient_detail->phone}}" class="primary_tel d-none">{{ $value->patient_detail->phone }}</a>
                                     </p>
                                 </div>
                             </div>

@@ -268,15 +268,16 @@ class CaregiverController extends Controller
                 $datatble->addColumn('status', function($row) use($request){
                     $btn = '';
                     if ($row->status === '1') {
-                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
                     } else if ($row->status === '3') {
-                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
                     } else if ($row->status === '5') {
                         $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
                     }
                     return $btn;
                 });
             }
+            
             $datatble->addColumn('action', function($row) use($request){
                 $btn = '';
                 if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial') {
@@ -294,10 +295,10 @@ class CaregiverController extends Controller
                     }
                 } else {
                     if ($row->status === '0') {
-                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
 
-                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
-                    } else { 
+                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                    } else {
                         $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn w-600 d-table mr-auto ml-auto" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"><img src="https://app.doralhealthconnect.com/assets/img/icons/Request_RoadL.svg" alt="RoadL Request" class="icon_90 selected"><span></span></button>';
                     }
                 }

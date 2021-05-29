@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Helpers\Helper;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
@@ -262,6 +263,44 @@ class CaregiverImport implements ShouldQueue
         $demographic->type = '1';
 
         $demographic->save();
+
+        self::getAddressLatlngAttribute($addressData, $user_id);
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public static function getAddressLatlngAttribute($addressData, $user_id)
+    {
+        $address='';
+        if ($addressData['address1']){
+            $address.= $addressData['address1'];
+        }
+        if ($addressData['city']){
+            $address.=', '.$addressData['city'];
+        }
+        if ($addressData['state']){
+            $address.=', '.$addressData['state'];
+        }
+       
+        if ($addressData['zip_code']){
+            $address.=', '.$addressData['zip_code'];
+        }
+
+        if ($address){
+            $helper = new Helper();
+            $response = $helper->getLatLngFromAddress($address);
+            if ($response->status === "OK"){
+                $latlong =  $response->results[0]->geometry->location;
+
+                User::find($user_id)->update([
+                    'latitude' => $latlong->lat,
+                    'longitude' => $latlong->lng,
+                ]);
+            }
+        }
     }
 
     public static function storeEmergencyContact($demographics, $user_id)

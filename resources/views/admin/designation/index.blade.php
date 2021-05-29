@@ -33,10 +33,6 @@
         </div>
     </form>
 
-    <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
-        <button type="button" onclick="doaction('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
-        <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
-    </div>
     <table class="display responsive nowrap data-table" style="width:100%">
         <thead>
         <tr>

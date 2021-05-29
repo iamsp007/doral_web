@@ -65,9 +65,9 @@ class EmployeeController extends Controller
             ->when($input['user_name'], function ($query) use($input){
                 $query->where('id', $input['user_name']);
             })
-            // ->when($input['date_of_birth'], function ($query) use($input){
-            //     $query->where('dob', dateFormat($input['date_of_birth']));
-            // })
+            ->when($input['date_of_birth'], function ($query) use($input){
+                $query->where('dob', dateFormat($input['date_of_birth']));
+            })
             ->when($input['email'], function ($query) use($input){
                 $query->where('email', $input['email']);
             })
@@ -110,15 +110,12 @@ class EmployeeController extends Controller
             ->addColumn('action', function($row){
                 $action = '';
                 if ($row->status === '0') {
-                // if ($row->email_verified_at !='') {
-                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
-
-                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
-                // }
+                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
+                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
                 } else if ($row->status === '1') {
-                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
                 } else if ($row->status === '3') {
-                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
                 }
                 $action .= '<a href="employee/' . $row->id . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Employee" data-original-title="View Employee"><i class="las la-search"></i></a>';
                 $action .= '<a href="employee/' . $row->id . '/edit" class="btn btn-warning btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Edit Employee" data-original-title="Edit Employee"><i class="las la-edit"></i></a>';
@@ -340,7 +337,7 @@ class EmployeeController extends Controller
         $users = User::whereIn('id',$input['id']);
         $users->update(['status' => $input['status']]);
        
-        $user_message = 'Employee  successfully.';
+        $user_message = 'Employee status change  successfully.';
 
         if ($input['status'] === '1') {
             foreach ($users as $user) {

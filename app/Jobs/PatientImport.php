@@ -2,8 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\SendPatientImpotNotification;
-use App\Mail\WelcomeEmail;
+use App\Helpers\Helper;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
@@ -15,8 +14,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Str;
 
 class PatientImport implements ShouldQueue
 {
@@ -77,10 +76,13 @@ class PatientImport implements ShouldQueue
 
         try {
             $company_email = $this->company->email;
-            $company = $this->company;
+          
+            $details = [
+                'name' => $this->company->name,
+                'total' => count($stored_user_id),
+            ];
             
-            Mail::to($company_email)->send(new SendPatientImpotNotification($company, count($stored_user_id)));
-           
+            SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
         }catch (\Exception $exception){
             Log::info($exception->getMessage());
         }
@@ -162,7 +164,7 @@ class PatientImport implements ShouldQueue
         }
         
         $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
-        $password = str_replace("-", "@",$doral_id);
+        $password = Str::random(8);
             
         $user->first_name = $first_name;
         $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
@@ -184,7 +186,7 @@ class PatientImport implements ShouldQueue
             'name' => $user->first_name,
             'href' => $url
         ];
-        Mail::to($user->email)->send(new WelcomeEmail($details));
+        SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
 
         return $user->id;
     }
@@ -227,7 +229,8 @@ class PatientImport implements ShouldQueue
             'isPrimaryAddress' => isset($address['IsPrimaryAddress']) ? $address['IsPrimaryAddress'] : '',
             'addressTypes' => isset($address['AddressTypes']) ? $address['AddressTypes'] : '',
         ];
-            
+       
+       
         $demographic->ssn = setSsn($demographics['SSN'] ? $demographics['SSN'] : '');
         $demographic->address = $addressData;
         $demographic->status = 'Active';
@@ -235,6 +238,46 @@ class PatientImport implements ShouldQueue
         $demographic->type = '1';
 
         $demographic->save();
+
+        self::getAddressLatlngAttribute($addressData, $user_id);
+    }
+
+    /**
+     * Get the user's Date Of Birth.
+     *
+     * @return string
+     */
+    public static function getAddressLatlngAttribute($addressData, $user_id)
+    {
+        $address='';
+        if ($addressData['address1']){
+            $address.= $addressData['address1'];
+        }
+        if ($addressData['city']){
+            $address.=', '.$addressData['city'];
+        }
+        if ($addressData['state']){
+            $address.=', '.$addressData['state'];
+        }
+        if ($addressData['county']){
+            $address.=', '.$addressData['county'];
+        }
+        if ($addressData['zip_code']){
+            $address.=', '.$addressData['zip_code'];
+        }
+
+        if ($address){
+            $helper = new Helper();
+            $response = $helper->getLatLngFromAddress($address);
+            if ($response->status === "OK"){
+                $latlong =  $response->results[0]->geometry->location;
+
+                User::find($user_id)->update([
+                    'latitude' => $latlong->lat,
+                    'longitude' => $latlong->lng,
+                ]);
+            }
+        }
     }
 
     public static function storeEmergencyContact($demographics, $user_id)

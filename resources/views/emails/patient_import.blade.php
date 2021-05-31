@@ -28,7 +28,7 @@
                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tbody>
                       <tr>
-                        <td align="center" class="hc_txt_20" style="font-family:Montserrat, Arial, sans-serif; font-size:24px; font-weight:700; line-height:26px; color:#24272A;">Hi {{ $company->name }}</td>
+                        <td align="center" class="hc_txt_20" style="font-family:Montserrat, Arial, sans-serif; font-size:24px; font-weight:700; line-height:26px; color:#24272A;">Hi {{ $details['name'] }}</td>
                       </tr>
                       <tr>
                         <td height="20" style="font-size:1px; line-height:1px;">&nbsp;</td>
@@ -50,7 +50,7 @@
                           <table width="280" border="0" cellspacing="0" cellpadding="0" align="center">
                             <tbody>
                               <tr>     
-                                <td valign="middle" align="center" height="35" bgcolor="#006C76" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; font-weight:700; color:#ffffff;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;">Total users are imported into the system are: {{ $totalStoreUser }}</td>
+                                <td valign="middle" align="center" height="35" bgcolor="#006C76" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; font-weight:700; color:#ffffff;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;">Total users are imported into the system are: {{ $details['total'] }}</td>
                               </tr>
                             </tbody>
                           </table>

@@ -268,15 +268,16 @@ class CaregiverController extends Controller
                 $datatble->addColumn('status', function($row) use($request){
                     $btn = '';
                     if ($row->status === '1') {
-                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
                     } else if ($row->status === '3') {
-                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
                     } else if ($row->status === '5') {
                         $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
                     }
                     return $btn;
                 });
             }
+            
             $datatble->addColumn('action', function($row) use($request){
                 $btn = '';
                 if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial') {
@@ -294,10 +295,10 @@ class CaregiverController extends Controller
                     }
                 } else {
                     if ($row->status === '0') {
-                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
+                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
 
-                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
-                    } else { 
+                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                    } else {
                         $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn w-600 d-table mr-auto ml-auto" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"><img src="https://app.doralhealthconnect.com/assets/img/icons/Request_RoadL.svg" alt="RoadL Request" class="icon_90 selected"><span></span></button>';
                     }
                 }
@@ -424,46 +425,6 @@ class CaregiverController extends Controller
     {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->updatePatientStatus($request->all());
-        
-        //         $from = "12089104598";
-        //         $api_key = "bb78dfeb";
-        //         $api_secret = "PoZ5ZWbnhEYzP9m4";
-        //         $uri = 'https://rest.nexmo.com/sms/json';
-        //         $text = "This message is from Doral health Connect :
-        // Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now.
-        // https://doralhealthconnect.com/book_appointment.html";
-                    
-        //         $to = 5166000122;
-        //         $fields = '&from=' . urlencode($from) .
-        //                 '&text=' . urlencode($text) .
-        //                 '&to=+1' . urlencode($to) .
-        //                 '&api_key=' . urlencode($api_key) .
-        //                 '&api_secret=' . urlencode($api_secret);
-        //         $res = curl_init($uri);
-        //         curl_setopt($res, CURLOPT_POST, TRUE);
-        //         curl_setopt($res, CURLOPT_RETURNTRANSFER, TRUE); // don't echo
-        //         curl_setopt($res, CURLOPT_SSL_VERIFYPEER, FALSE);
-        //         curl_setopt($res, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        //         curl_setopt($res, CURLOPT_POSTFIELDS, $fields);
-        //         $result = curl_exec($res);
-        //         $result = json_decode($result);
-        //         curl_close($res);
-                
-        //         $too = 9293989855;
-        //         $fields = '&from=' . urlencode($from) .
-        //                 '&text=' . urlencode($text) .
-        //                 '&to=+1' . urlencode($too) .
-        //                 '&api_key=' . urlencode($api_key) .
-        //                 '&api_secret=' . urlencode($api_secret);
-        //         $res = curl_init($uri);
-        //         curl_setopt($res, CURLOPT_POST, TRUE);
-        //         curl_setopt($res, CURLOPT_RETURNTRANSFER, TRUE); // don't echo
-        //         curl_setopt($res, CURLOPT_SSL_VERIFYPEER, FALSE);
-        //         curl_setopt($res, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        //         curl_setopt($res, CURLOPT_POSTFIELDS, $fields);
-        //         $result = curl_exec($res);
-        //         $result = json_decode($result);
-        //         curl_close($res);
 
         if ($response->status === true){
             return response()->json($response,200);

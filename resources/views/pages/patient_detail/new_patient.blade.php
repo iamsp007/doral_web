@@ -143,8 +143,7 @@ table.dataTable thead th, table.dataTable thead td{
         </form>
     @endif
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
-        <button type="button" onclick="doaction('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
-        <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
+        @include('admin.common.accept_reject_button',['status' => $serviceStatus])
     </div>
     
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
@@ -203,7 +202,7 @@ table.dataTable thead th, table.dataTable thead td{
         var columnDaTa = [];
         if(status === 'pending'){
             columnDaTa.push(
-                {data:'checkbox_id',"className": "text-center"},
+                {data:'checkbox_id',"className": "text-center","bSortable": false},
             );
         }
         columnDaTa.push(

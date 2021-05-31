@@ -39,18 +39,18 @@
                 <li><a class="{{ \Request::is('admin/roles')?'active':'' }} nav" href="{{ route('admin.roles') }}">Roles & Permission <span class="dot"></span></a></li>
                 <li><a class="{{ \Request::is('admin/employee')?'active':'' }} nav" href="{{ route('admin.employee') }}">Employee <span class="dot"></span></a></li>
                 <li data-toggle="collapse" data-target="#products">
-                    <a href="javascript:void(0)" data-target="{{ route('admin.referral.approval') }}" class="{{ (\Request::is('admin/referral-approval') || \Request::is('admin/referral-active') || \Request::is('admin/referral-rejected'))?'active':'' }} nav">
+                    <a href="javascript:void(0)" data-target="{{ route('admin.referral.pending') }}" class="{{ (\Request::is('admin/referral/pending') || \Request::is('admin/referral/active') || \Request::is('admin/referral/rejected'))?'active':'' }} nav">
                         Referral <i class="las la-angle-down _arrow"></i>
                     </a>
                     <ul class="sub collapse" id="products">
                         <li>
-                            <a class="{{ \Request::is('admin/referral-approval')?'active':'' }} _nav" href="{{ route('admin.referral.approval') }}">Approval Request<span class="dot"></span></a>
+                            <a class="{{ \Request::is('admin/referral/pending')?'active':'' }} _nav" href="{{ route('admin.referral.pending') }}">Approval Request<span class="dot"></span></a>
                         </li>
                         <li>
-                            <a class="{{ \Request::is('admin/referral-active')?'active':'' }} _nav" href="{{ route('admin.referral.active') }}">Active <span class="dot"></span></a>
+                            <a class="{{ \Request::is('admin/referral/active')?'active':'' }} _nav" href="{{ route('admin.referral.active') }}">Active <span class="dot"></span></a>
                         </li>
                         <li>
-                            <a class="{{ \Request::is('admin/referral-rejected')?'active':'' }} _nav" href="{{ route('admin.referral.rejected') }}">Rejected <span class="dot"></span></a>
+                            <a class="{{ \Request::is('admin/referral/rejected')?'active':'' }} _nav" href="{{ route('admin.referral.rejected') }}">Rejected <span class="dot"></span></a>
                         </li>
                     </ul>
                 </li>

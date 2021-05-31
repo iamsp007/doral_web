@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
 use App\Models\Applicant;
+use App\Models\Designation;
 use App\Models\UploadDocuments;
+use App\Models\User;
 use Yajra\DataTables\DataTables;
 use App\Services\AdminService;
 use Carbon\Carbon;
@@ -15,80 +17,102 @@ use PDF;
 
 class ClinicianController extends Controller
 {
-    public function clinician()
+    public function index($status)
     {
-        return view('pages.admin.clinician');
+        $designations = Designation::where('role_id', 4)->get();
+        return view('admin.clinician.index',compact('status', 'designations'));
     }
 
-    public function getClinicianList($status_id = 0)
+    public function getList(Request $request)
     {
-        $services = new AdminService();
-        $response = $services->getClinicianList($status_id);
-        
-        $data = array();
-        if ($response != null && $response->status === true) {
-            $data = [
-                'data' => $response->data
-            ];
-            
-            return  DataTables::of($data['data'])
-                ->addColumn('checkbox_id', function($q) {
-                   
-                    return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
-                })
-                ->addIndexColumn()
-                ->addColumn('dob', function ($user){
-                    if ($user->dob != '')
-                        return date('m-d-Y', strtotime($user->dob));
-                    else
-                        return $user->dob;
-                })
-                ->addColumn('designation_id', function ($user){
-                    $designation = '';
-                    
-                    if ($user->designation) {
-                        $designation = $user->designation->name;
-                    }
-                    return $designation;
-                })
-                ->addColumn('phone', function ($user){
-                    $designation = '';
-                    
-                    if ($user->phone) {
-                        $designation = getPhone($user->phone);
-                    }
-                    return $designation;
-                })
-                ->addColumn('created_at', function ($user){
-                    $created_at = '';
-                    
-                    if ($user->created_at) {
-                        $created_at = viewDateTimeFormat($user->created_at);
-                    }
-                    return $created_at;
-                })
-                ->addColumn('status', function ($user) use($data) {
-                    $btn = '';
-                  
-                    if ($user->status === '3') {
-                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $user->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1">Accept</a>';
-                    } else if ($user->status === '1') {
-                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $user->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
-                    } else {
-                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $user->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1">Accept</a>';
+        $input = $request->all();
 
-                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $user->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
-                    }
-                    
-                    $btn .= '<a href="'.route('clinician.info',['id' => $user->id]).'" class="btn btn-primary btn-sm mr-2">Print</a>';
+        $user = User::with('designation')
+            ->whereHas('roles', function($q) {
+                $q->where('name','=', 'clinician');
+            })
+            ->when($input['status'] ,function ($query) use($input) {
+                if ($input['status'] == 'pending') {
+                    $query->where('status', '0');
+                } else if ($input['status'] == 'active') {
+                    $query->where('status', '1');
+                } else if ($input['status'] == 'rejected') {
+                    $query->where('status', '3');
+                }
+            })
+            ->when($input['designation_id'], function ($query) use($input){
+                $query->where('designation_id', $input['designation_id']);
+            })
+            ->when($input['user_name'], function ($query) use($input){
+                $query->where('id', $input['user_name']);
+            })
+            ->when($input['date_of_birth'], function ($query) use($input){
+                $query->where('dob', dateFormat($input['date_of_birth']));
+            })
+            ->when($input['email'], function ($query) use($input){
+                $query->where('email', $input['email']);
+            })
+            ->when($input['gender'], function ($query) use($input){
+                $query->where('gender', $input['gender']);
+            })->get();
 
-                    return $btn;
-                })
-                ->rawColumns(['status', 'checkbox_id'])
-                ->make(true);
-        }
-        
-        return DataTables::of($data)
+        return  DataTables::of($user)
+            ->addColumn('checkbox_id', function($q) {
+                return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q['id'] . '" /><span></span></label></div>';
+            })
+            ->addColumn('name', function ($row){
+                return '<a href="'.url("/admin/clinician-detail/".$row['id']).'" title="View Profile">'.$row['full_name'].'</a>';
+            })
+            ->addColumn('gender', function ($user){
+                return $user->gender_data;
+            })
+            ->addColumn('dob', function ($user){
+                if ($user->dob != '')
+                    return date('m-d-Y', strtotime($user->dob));
+                else
+                    return $user->dob;
+            })
+            ->addColumn('designation_id', function ($user){
+                $designation = '';
+                
+                if ($user->designation) {
+                    $designation = $user->designation->name;
+                }
+                return $designation;
+            })
+            ->addColumn('phone', function ($user){
+                $designation = '';
+                
+                if ($user->phone) {
+                    $designation = $user->phone;
+                }
+                return $designation;
+            })
+            ->addColumn('created_at', function ($user){
+                $created_at = '';
+                
+                if ($user->created_at) {
+                    $created_at = viewDateTimeFormat($user->created_at);
+                }
+                return $created_at;
+            })
+            ->addColumn('action', function ($row){
+                
+                $action = '';
+                if ($row->status === '0') {
+                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
+                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                } else if ($row->status === '1') {
+                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                } else if ($row->status === '3') {
+                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
+                }
+                
+                $action .= '<a href="'.route('clinician.info',['id' => $row->id]).'" class="btn btn-primary btn-sm mr-2">Print</a>';
+
+                return $action;
+            })
+            ->rawColumns(['action', 'checkbox_id','name'])
             ->make(true);
     }
 

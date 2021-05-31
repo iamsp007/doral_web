@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
-use App\Mail\AcceptedMail;
-use App\Mail\WelcomeEmail;
+use App\Jobs\SendEmailJob;
 use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\Partner;
@@ -16,7 +15,6 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
@@ -52,16 +50,24 @@ class EmployeeController extends Controller
             whereHas('employee',function($q) use($user) {
                 $q->where('partner_id', $user->id);
             })
-            // 
+            ->when($request['employeeStatus'] ,function ($query) use($request) {
+                if ($request['employeeStatus'] == 'pending') {
+                    $query->where('status', '0');
+                } else if ($request['employeeStatus'] == 'active') {
+                    $query->where('status', '1');
+                } else if ($request['employeeStatus'] == 'rejected') {
+                    $query->where('status', '3');
+                }
+            })
             ->when($input['designation_id'], function ($query) use($input){
                 $query->where('designation_id', $input['designation_id']);
             })
             ->when($input['user_name'], function ($query) use($input){
                 $query->where('id', $input['user_name']);
             })
-            // ->when($input['date_of_birth'], function ($query) use($input){
-            //     $query->where('dob', dateFormat($input['date_of_birth']));
-            // })
+            ->when($input['date_of_birth'], function ($query) use($input){
+                $query->where('dob', dateFormat($input['date_of_birth']));
+            })
             ->when($input['email'], function ($query) use($input){
                 $query->where('email', $input['email']);
             })
@@ -103,11 +109,13 @@ class EmployeeController extends Controller
             })
             ->addColumn('action', function($row){
                 $action = '';
-
-                if ($row->email_verified_at !='') {
-                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-sm update-status" style="background: #006c76; color: #fff" data-status="1" patient-name="' . $row->full_name . '">Accept</a>';
-
-                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-sm update-status" style="background: #eaeaea; color: #000" data-status="3">Reject</a>';
+                if ($row->status === '0') {
+                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
+                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                } else if ($row->status === '1') {
+                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                } else if ($row->status === '3') {
+                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
                 }
                 $action .= '<a href="employee/' . $row->id . '" class="btn btn-primary btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="View Employee" data-original-title="View Employee"><i class="las la-search"></i></a>';
                 $action .= '<a href="employee/' . $row->id . '/edit" class="btn btn-warning btn-view shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="Edit Employee" data-original-title="Edit Employee"><i class="las la-edit"></i></a>';
@@ -227,13 +235,10 @@ class EmployeeController extends Controller
                     $url = route('partnerEmailVerified', base64_encode($user->id));
                     $details = [
                         'name' => $first_name,
-                        'password' => $password,
                         'href' => $url,
-                        'email' => $request->email,
-                        'login_url' => route('partner.login'),
                     ];
                 
-                    Mail::to($userInput['email'])->send(new WelcomeEmail($details));
+                    SendEmailJob::dispatch($request->email,$details,'WelcomeEmail');
                 }
                 commit();
                 $arr = array('status' => 200 , 'message' => $message , 'result' => $user);
@@ -328,21 +333,24 @@ class EmployeeController extends Controller
     public function updateStatus(Request $request) 
     {
         $input = $request->all();
-        $user = User::find($input['id']);
-        $user->update(['status' => $input['value']]);
+        
+        $users = User::whereIn('id',$input['id']);
+        $users->update(['status' => $input['status']]);
        
-        $user_message = 'Employee ' . $input['status_name'] . ' successfully.';
+        $user_message = 'Employee status change  successfully.';
 
-        if ($input['value'] === '1') {
-            $password = Str::random(8);
-            $user->update(['password' => setPassword($password)]);
-            $details = [
-                'name' => $user->first_name,
-                'password' => $password,
-                'email' => $user->email,
-                'login_url' => route('login'),
-            ];
-            Mail::to($user->email)->send(new AcceptedMail($details));
+        if ($input['status'] === '1') {
+            foreach ($users as $user) {
+                $password = Str::random(8);
+                $user->update(['password' => setPassword($password)]);
+                $details = [
+                    'name' => $user->first_name,
+                    'password' => $password,
+                    'email' => $user->email,
+                    'login_url' => route('login'),
+                ];
+                SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
+            }
         }
         $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
         return \Response::json($responce);
@@ -360,13 +368,10 @@ class EmployeeController extends Controller
         $url = route('partnerEmailVerified', base64_encode($user->id));
             $details = [
                 'name' => $first_name,
-                'password' => $password,
                 'href' => $url,
-                'email' => $user->email,
-                'login_url' => route('partner.login'),
             ];
         
-            Mail::to($user->email)->send(new WelcomeEmail($details));
+            SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
 
         $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
         return \Response::json($responce);

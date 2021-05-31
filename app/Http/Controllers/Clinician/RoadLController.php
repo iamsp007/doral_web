@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
 use App\Models\PatientRequest;
-use App\Models\RoadlInformation;
 use App\Services\ClinicianService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RoadLController extends Controller
 {
@@ -17,19 +15,22 @@ class RoadLController extends Controller
     public function __construct(ClinicianService $clinicianService){
         $this->clinicianService=$clinicianService;
     }
-    //
-    public function index(Request $request){
-
+   
+    public function index(Request $request)
+    {
         $type='0';
         if ($request->has('type')){
-            $type=$request->type;
+            $type = $request->type;
         }
+        
         $clinicianService = new ClinicianService();
         $response = $clinicianService->getPatientRequestList($type);
+        
         $patientRequestList=array();
         if ($response->status===true){
             $patientRequestList = $response->data;
         }
+        
         return view($this->view_path.'roadl',compact('patientRequestList'));
     }
 

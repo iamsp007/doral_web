@@ -14,6 +14,7 @@ Route::group(['prefix'=>'/partner','middleware'=>['auth:partner']],function (){
     Route::get('/employee/resend/{id}', '\App\Http\Controllers\Employee\EmployeeController@resendEmail');
     Route::post('/employee/status', '\App\Http\Controllers\Employee\EmployeeController@updateStatus');
     Route::post('/employee/getList','\App\Http\Controllers\Employee\EmployeeController@getList')->name('employee.getList');
+    // Route::get('/employee/{slug}', 'App\Http\Controllers\Employee\EmployeeController@index')->name('employee.index');
     Route::resource('employee','\App\Http\Controllers\Employee\EmployeeController');
 
     Route::get('/designation/status/{id}', '\App\Http\Controllers\Designation\DesignationController@updateStatus');

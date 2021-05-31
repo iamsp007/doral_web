@@ -7,57 +7,56 @@
 
 @section('content')
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
-        <button type="button" onclick="allSelectedAccept('1')" class="btn btn-primary btn-view  text-capitalize shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
-        <button type="button" onclick="allSelectedAccept('2')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
+        @include('admin.common.accept_reject_button',['status' => $status])
     </div>
-  
     <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <div class="form-group">
-                <div class="row">
-                   
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <div class="input-group">
-                            <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
-                        </div>
+        <div class="form-group">
+            <div class="row">
+                
+                <div class="col-3 col-sm-3 col-md-3">
+                    <div class="input-group">
+                        <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
                     </div>
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <select class="form-control form-control-lg" name="designation_id" id="designation_id">
-                            <option value="">Select Designation</option>
-                            @foreach ($designations as $designation)
-                                <option value="{{$designation->id}}">{{$designation->name}}</option>
+                </div>
+                <div class="col-3 col-sm-3 col-md-3">
+                    <select class="form-control form-control-lg" name="designation_id" id="designation_id">
+                        <option value="">Select Designation</option>
+                        @foreach ($designations as $designation)
+                            <option value="{{$designation->id}}">{{$designation->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-3 col-sm-3 col-md-3">
+                    <div class="input-group">
+                        <x-text name="date_of_birth" class="date_of_birth" id="date_of_birth" placeholder="Date of birth"/></td>
+                    </div>
+                </div>
+                <div class="col-3 col-sm-3 col-md-3">
+                    <div class="input-group">
+                        <x-text name="email" class="email" id="email" placeholder="Email"/></td>
+                    </div>
+                </div>
+                <div class="col-3 col-sm-3 col-md-3">
+                    <div class="input-group">
+                        <select name="status" class="form-control form-control-lg">
+                            <option value="">Select a status</option>
+                            @foreach (config('select.status') as $key => $value)
+                            <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <div class="input-group">
-                            <x-text name="date_of_birth" class="date_of_birth" id="date_of_birth" placeholder="Date of birth"/></td>
-                        </div>
-                    </div>
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <div class="input-group">
-                            <x-text name="email" class="email" id="email" placeholder="Email"/></td>
-                        </div>
-                    </div>
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <div class="input-group">
-                            <select name="status" class="form-control form-control-lg">
-                                <option value="">Select a status</option>
-                                @foreach (config('select.status') as $key => $value)
-                                <option value="{{ $key }}">{{ $value }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
-                        <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
-                    </div>
+                </div>
+                <div class="col-3 col-sm-3 col-md-3">
+                    <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
+                    <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
                 </div>
             </div>
-        </form>
+        </div>
+    </form>
    
     <table class="display responsive nowrap data-table" style="width:100%">
+        <input type="hidden" value="{{ ($employeeStatus) ? $employeeStatus : '' }}" id="employeeStatus" name="employeeStatus" />
         <thead>
         <tr>
             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
@@ -98,13 +97,14 @@
                         d.date_of_birth = $('input[name="date_of_birth"]').val();
                         d.email = $('input[name="email"]').val();
                         d.status = $('select[name="status"]').val();
+                        d.employeeStatus = $('input[name="employeeStatus"]').val();
                     },
                     'headers': {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }
                 },
                 columns:[
-                    {data:'checkbox_id',"className": "text-center"},
+                    {data:'checkbox_id',"className": "text-center","bSortable": false},
                     {data:'full_name', "bSortable": true},
                     {data:'employee_ID', "bSortable": true},
                     {data:'designation_id', "bSortable": true},
@@ -291,8 +291,12 @@
                 }
             });
 
-            function chkmain() {
+          
+        });
+
+        function chkmain() {
                 var ch = $(".innerallchk").prop("checked");
+               
                 if(ch == true) {
                     $('#acceptRejectBtn').show();
                     var len = $(".innerallchk:unchecked").length;
@@ -347,7 +351,7 @@
 
                 Toast.fire({
                     title: 'Are you sure?',
-                    text: "Are you sure want to update status of this patient?",
+                    text: "Are you sure want to update status of this patient? 1",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, change it!',
@@ -388,7 +392,6 @@
                         }
                 });
             }
-        });
         function refresh() {
             $(".data-table").DataTable().ajax.reload(null, false);
         }

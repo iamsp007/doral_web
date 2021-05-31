@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\WelcomeEmail;
+use App\Jobs\SendEmailJob;
 use App\Models\Company;
 use App\Models\Designation;
 use App\Models\Partner;
@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Mail;
 
 class ReferralRegisterController extends Controller
 {
@@ -100,8 +99,7 @@ class ReferralRegisterController extends Controller
             'href' => $url,
         ];
     
-        Mail::to($request->email)->send(new WelcomeEmail($details));
-        
+        SendEmailJob::dispatch($request->email,$details,'WelcomeEmail');
         if ($response = $this->registered($request, $user)) {
             return $response;
         }
@@ -142,14 +140,10 @@ class ReferralRegisterController extends Controller
         $url = route('partnerEmailVerified', base64_encode($user->id));
         $details = [
             'name' => $request->company,
-            'password' => $password,
             'href' => $url,
-            'email' => $request->email,
-            'login_url' => route('partner.login'),
         ];
     
-        Mail::to($request->email)->send(new WelcomeEmail($details));
-
+        SendEmailJob::dispatch($request->email,$details,'WelcomeEmail');
         if ($response = $this->registered($request, $user)) {
             return $response;
         }

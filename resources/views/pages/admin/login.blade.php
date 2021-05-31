@@ -235,7 +235,7 @@
                 success: function( response ){
                     $("#loader-wrapper").hide();
                     if(response.status == 1)
-                        window.location = "/admin/referral-approval";
+                        window.location = "/admin/referral/pending";
                     else 
                         $(".alert").show();    
                     $("#error").text(response.message);

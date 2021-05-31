@@ -19,7 +19,7 @@ class Company extends Authenticatable
     protected $primaryKey='id';
 
     protected $fillable = [
-        'name', 'dob', 'phone', 'email', 'email_verified', 'password', 'status', 'remember_token', 'level', 'api_token'
+        'name', 'dob', 'phone', 'email', 'email_verified', 'password', 'status', 'remember_token', 'level', 'api_token','referal_id',
     ];
 
     protected $hidden = [

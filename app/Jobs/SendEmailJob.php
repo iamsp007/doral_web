@@ -39,6 +39,13 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new $this->mailType($this->detail));
+        if ($this->mailType === 'AcceptedMail') {
+            Mail::to($this->email)->send(new AcceptedMail($this->detail));
+        } elseif ($this->mailType === 'WelcomeEmail') {
+            Mail::to($this->email)->send(new WelcomeEmail($this->detail));
+        } elseif ($this->mailType === 'SendPatientImpotNotification') {
+            Mail::to($this->email)->send(new SendPatientImpotNotification($this->detail));
+        }
+        
     }
 }

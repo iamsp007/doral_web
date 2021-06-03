@@ -37,7 +37,7 @@ class EmailVerifyController extends Controller
                 $partner->save();
             }
             
-            return redirect(route('login'));
+            return redirect(route('partner.login'));
         } catch (\Exception $exception){
             Log::info($exception->getMessage());
         }

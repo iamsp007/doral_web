@@ -7,6 +7,7 @@ use App\Jobs\SendEmailJob;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 
@@ -127,9 +128,11 @@ class PartnerController extends Controller
         $users->update(['status' => $input['status']]);
     
         $user_message = 'Partner status change successfully.';
-
+   
         if ($input['status'] === '1') {
-            foreach ($users as $user) {
+          
+            foreach ($users->get() as $user) {
+            
                 $password = Str::random(8);
                 $user->update(['password' => setPassword($password)]);
                 $details = [
@@ -141,6 +144,7 @@ class PartnerController extends Controller
                 SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
             }
         }
+       
         $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
         return \Response::json($responce);
     }

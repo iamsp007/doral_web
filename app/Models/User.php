@@ -228,4 +228,7 @@ class User extends Authenticatable
 
         return $age;
     }
+    public function detail(){
+        return $this->hasOne(PatientReferral::class,'user_id','id')->with('service','referral');
+    }
 }

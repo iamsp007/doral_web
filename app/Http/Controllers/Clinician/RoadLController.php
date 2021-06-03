@@ -22,15 +22,34 @@ class RoadLController extends Controller
         if ($request->has('type')){
             $type = $request->type;
         }
-        
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->getPatientRequestList($type);
+        $status = explode(",",$type);
+        $roles = \Auth::user()->roles->pluck('id');
+            $patientRequestLists = PatientRequest::with(['requests','detail','patient','requestType','patient_detail','ccrm'])
+                ->where(function ($q) use ($status,$type){
+                    if ($type!=='0'){
+                        $q->whereIn('status',$status);
+                    }
+                })
+                // ->whereIn('status',$status)
+                ->whereNotNull('parent_id')
+                // ->where(function ($q){
+                //     $q->where('clincial_id','=',\Auth::user()->id)
+                //         ->orWhere(function ($q){
+                //            $q->whereNull('clincial_id')
+                //                ->where('type_id','=',\Auth::user()->designation_id);
+                //         });
+                // })
+                ->groupBy('parent_id')
+                ->orderBy('id','asc')
+                ->get();
+                // dd($patientRequestLists);
+        // $clinicianService = new ClinicianService();
+        // $response = $clinicianService->getPatientRequestList($type);
         
         $patientRequestList=array();
-        if ($response->status===true){
-            $patientRequestList = $response->data;
+        if (count($patientRequestLists)>0){
+            $patientRequestList = $patientRequestLists;
         }
-        
         return view($this->view_path.'roadl',compact('patientRequestList'));
     }
 

@@ -33,7 +33,7 @@ class PatientRequest extends Model
 
         return $this->belongsTo(User::class,'user_id','id');
     }
-    public function patientDetail(){
+    public function patient_detail(){
 
         return $this->hasOne(User::class,'id','user_id')->with('detail');
     }
@@ -49,6 +49,21 @@ class PatientRequest extends Model
     public function meeting()
     {
         return $this->hasOne(VirtualRoom::class, 'appointment_id', 'id');
+    }
+
+    /**
+     * Get Meeting Reasons
+     */
+    public function requests()
+    {
+        return $this->hasMany(PatientRequest::class, 'parent_id', 'parent_id')->orderBy('id','desc')->with(['requestType','detail']);
+    }
+    /**
+     * Get Meeting Reasons
+     */
+    public function requestType()
+    {
+        return $this->hasOne(Referral::class, 'role_id', 'type_id')->select('id','role_id','name','color','icon');
     }
 
     public function getSymptomsAttribute($value){

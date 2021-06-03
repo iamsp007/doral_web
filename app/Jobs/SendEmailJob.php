@@ -40,10 +40,13 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
+      
+        Log::info('detail');
         if ($this->mailType === 'AcceptedMail') {
-            if($this->detail->type === 'Employee') {
+            if(isset($this->detail['type']) && $this->detail['type'] === 'Employee') {
+               
                 Log::info('msg start');
-                $this->sendsmsToMe($this->detail->message, $this->detail->phone);
+                $this->sendsmsToMe($this->detail['message'], $this->detail['phone']);
                 Log::info('msg end');
             }
             Mail::to($this->email)->send(new AcceptedMail($this->detail));

@@ -338,7 +338,7 @@ class EmployeeController extends Controller
         $users->update(['status' => $input['status']]);
        
         $user_message = 'Employee status change  successfully.';
-
+        $link=env("WEB_URL").'download-application';
         if ($input['status'] === '1') {
             foreach ($users->get() as $user) {
                 $password = Str::random(8);
@@ -348,6 +348,9 @@ class EmployeeController extends Controller
                     'password' => $password,
                     'email' => $user->email,
                     'login_url' => route('login'),
+                    'phone' => $user->phone,
+                    'type' => 'Employee',
+                    'message' => 'Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link,
                 ];
                 SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
             }

@@ -340,7 +340,7 @@ class EmployeeController extends Controller
         $user_message = 'Employee status change  successfully.';
 
         if ($input['status'] === '1') {
-            foreach ($users as $user) {
+            foreach ($users->get() as $user) {
                 $password = Str::random(8);
                 $user->update(['password' => setPassword($password)]);
                 $details = [

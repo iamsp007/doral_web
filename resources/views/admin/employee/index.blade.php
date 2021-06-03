@@ -6,9 +6,7 @@
 @endsection
 
 @section('content')
-    <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
-        @include('admin.common.accept_reject_button',['status' => $status])
-    </div>
+    
     <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
@@ -56,7 +54,7 @@
     </form>
    
     <table class="display responsive nowrap data-table" style="width:100%">
-        <input type="hidden" value="{{ ($employeeStatus) ? $employeeStatus : '' }}" id="employeeStatus" name="employeeStatus" />
+       
         <thead>
         <tr>
             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>

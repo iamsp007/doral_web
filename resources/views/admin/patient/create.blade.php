@@ -128,6 +128,7 @@
                                                                         <td class="border-0" style="width: 80%;padding-right: 0;">
                                                                             <select class="input-small-skin" name="marital_status" id="marital_status">
                                                                                 <option>Marital Status</option>
+                                                                                <option value="married">Single</option>
                                                                                 <option value="married">Married</option>
                                                                                 <option value="widowed">Widowed</option>
                                                                                 <option value="separated">Separated</option>
@@ -1212,7 +1213,7 @@
                                 <td style="width: 70%;">
                                     <textarea name="address_old[]" id="address_old" class="input-small-skin" cols="30" rows="5"></textarea>
                                 </td> -->
-                                <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Apt Building :</th>
+                                <th style="width: 30%;" class="text-right">APT#:</th>
                                 <td style="width: 70%;">
                                     <input type="text" class="input-small-skin" name="emergency_apt_building">
                                 </td>

@@ -19,15 +19,15 @@ class CaregiverImport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $company_id;
+    public $company;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($company_id)
+    public function __construct($company)
     {
-        $this->company_id = $company_id;
+        $this->company = $company;
     }
 
     /**
@@ -57,13 +57,15 @@ class CaregiverImport implements ShouldQueue
 
                 $getdemographicDetails = $this->getCaregiverDemographicDetails($patient_id);
                 $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-
-                $user_id = self::storeUser($demographics);
+                $doral_id = createDoralId();
+                $user_id = self::storeUser($demographics, $doral_id);
                 
                 if ($user_id) {
                     $data[] = $patient_id;
                     $stored_user_id[] = $user_id;
-                    self::storeDemographic($demographics, $user_id, $this->company_id);
+                    $company_id = $this->company->id;
+
+                    self::storeDemographic($demographics, $user_id, $company_id, $doral_id);
 
                     self::storeEmergencyContact($demographics, $user_id);
                 }
@@ -75,7 +77,6 @@ class CaregiverImport implements ShouldQueue
 
         try {
             $company_email = $this->company->email;
-            $company = $this->company;
             
             $details = [
                 'name' => $this->company->name,
@@ -140,10 +141,9 @@ class CaregiverImport implements ShouldQueue
         return json_decode(json_encode((array)$xml), TRUE);
     }
 
-    public static function storeUser($demographics)
+    public static function storeUser($demographics, $doral_id)
     {      
         $user = new User();
-      
            
         if ($demographics['NotificationPreferences'] && isset($demographics['NotificationPreferences']['Email'])) {
             $email = $demographics['NotificationPreferences']['Email'];
@@ -174,7 +174,6 @@ class CaregiverImport implements ShouldQueue
             $status = '4';
         }
         
-        $doral_id = createDoralId();
         $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
         $password = str_replace(" ", "",$first_name) . '@' . $doral_id;
             
@@ -199,15 +198,14 @@ class CaregiverImport implements ShouldQueue
             'href' => $url,
         ];
 
-        SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
-
+        if (isset($user->email)) {
+            SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
+        }
         return $user->id;
     }
 
-    public static function storeDemographic($demographics, $user_id, $company_id)
+    public static function storeDemographic($demographics, $user_id, $company_id, $doral_id)
     {
-        $doral_id = createDoralId();
-
         $demographic = new Demographic();
         
         $demographic->doral_id = $doral_id;

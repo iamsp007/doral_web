@@ -76,7 +76,7 @@ class PatientImport implements ShouldQueue
 
         try {
             $company_email = $this->company->email;
-          
+           
             $details = [
                 'name' => $this->company->name,
                 'total' => count($stored_user_id),
@@ -169,7 +169,7 @@ class PatientImport implements ShouldQueue
         $user->first_name = $first_name;
         $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
         $user->password = setPassword($password);
-
+        //$user->email = $demographics['email'];
         $user->status = $status;
         $user->gender = setGender($demographics['Gender']);
         
@@ -186,7 +186,10 @@ class PatientImport implements ShouldQueue
             'name' => $user->first_name,
             'href' => $url
         ];
-        SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
+    
+        if (isset($user->email)) {
+            SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
+        }
 
         return $user->id;
     }

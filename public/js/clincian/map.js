@@ -32,7 +32,7 @@ function CenterControl(controlDiv, map) {
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener("click", () => {
         var referrals = referral_type[default_clinician_id];
-        map.setZoom(8)
+        map.setZoom(15)
         map.setCenter(referrals.marker.getPosition());
     });
 }
@@ -40,7 +40,7 @@ function initMap() {
     navigator.geolocation.getCurrentPosition(function (param) {
         var center = new google.maps.LatLng(param.coords.latitude, param.coords.longitude);
         map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 8,
+            zoom: 15,
             center:center,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             mapTypeControl: true,

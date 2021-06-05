@@ -32,8 +32,8 @@ function CenterControl(controlDiv, map) {
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener("click", () => {
         var referrals = referral_type[default_clinician_id];
-        map.setZoom(15)
-        map.setCenter(referrals.marker.getPosition());
+        map.setZoom(10)
+        map.setCenter(referrals.patient_marker.getPosition());
     });
 }
 function initMap() {

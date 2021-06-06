@@ -182,6 +182,7 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, referrals=nu
 function updateMap(destination, name, id,parent_id) {
 
     socket.on('receive-location-' + parent_id, function (data) {
+        console.log("socket",data)
         var referrals = referral_type[data.id];
         var current = new google.maps.LatLng(data.latitude, data.longitude);
         var role = 'Role:' + data.referral_type;

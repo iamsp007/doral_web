@@ -182,7 +182,7 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, referrals=nu
 function updateMap(destination, name, id,parent_id) {
 
     socket.on('receive-location-' + parent_id, function (data) {
-        console.log("socket",data)
+        
         var referrals = referral_type[data.id];
         var current = new google.maps.LatLng(data.latitude, data.longitude);
         var role = 'Role:' + data.referral_type;
@@ -231,11 +231,13 @@ function updateMap(destination, name, id,parent_id) {
             referral_type[data.id].status=data.status;
         }
         referrals = referral_type[data.id];
+        console.log("socket",default_clinician_id===data.id)
         if(default_clinician_id===data.id){
             map.setZoom(30)
             map.setCenter(referrals.marker.getPosition());
-            calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
+            
         }
+        calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
         $('#vendor-name-'+data.id).html(referrals.originName);
         $('#vendor-name-'+data.id).css({'color': color});
         $('#vendor-role-'+data.id).html('Role: '+referrals.roleName+' Technician');

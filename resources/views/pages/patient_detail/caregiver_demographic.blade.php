@@ -17,16 +17,6 @@
         $address_zip_code = $address['zip_code'] ? $address['zip_code'] : '';
     endif;
 
-    $emergencyAptBuilding = $emergencyAddress1 = $emergencyAddress2 = $emergencyAddress_city = $emergencyAddress_state = $emergencyAddress_zip_code = '';
-    if(count($emergencyAddress) > 0):
-        $emergencyAptBuilding = (isset($address['apt_building']) && !empty($address['apt_building'])) ? $address['apt_building'] : '';
-        $emergencyAddress1 =  $address['address1'] ? $address['address1'] : '';
-        $emergencyAddress2 = $address['address2'] ? $address['address2'] : '';
-        $emergencyAddress_city = $address['city'] ? $address['city'] : '';
-        $emergencyAddress_state = $address['state'] ? $address['state'] : '';
-        $emergencyAddress_zip_code = $address['zip_code'] ? $address['zip_code'] : '';
-    endif;
-
     $selected1 = '';
     $selected2 = '';
     $selected3 = '';
@@ -313,9 +303,9 @@
                             @endphp
                             @foreach($patient->patientEmergency as $key => $patientEmergencyContact)
                           
-                            <div class="app-card-header">
-                                <h1 class="title">Emergency Contact Detail {{$i++}}</h1>
-                            </div>
+                                <div class="app-card-header">
+                                    <h1 class="title">Emergency Contact Detail {{$i++}}</h1>
+                                </div>
                                 <div class="main_div">
                                     <div class="p-3">
                                         <div class="form-group">
@@ -366,16 +356,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if($patientEmergencyContact->address)
+                                        @php
+                                            $emergencyAptBuilding = $emergencyAddress1 = $emergencyAddress2 = $emergencyAddress_city = $emergencyAddress_state = $emergencyAddress_zip_code = '';
+                                            if($patientEmergencyContact->address):
+                                                $emergencyAptBuilding = (isset($patientEmergencyContact->address['apt_building']) && !empty($patientEmergencyContact->address['apt_building'])) ? $address['apt_building'] : '';
+                                                $emergencyAddress1 = (isset($patientEmergencyContact->address['address1']) && !empty($patientEmergencyContact->address['address1'])) ? $address['address1'] : '';
+                                                $emergencyAddress2 =  (isset($patientEmergencyContact->address['address2']) && !empty($patientEmergencyContact->address['address2'])) ? $address['address2'] : ''; 
+                                                $emergencyAddress_city = (isset($patientEmergencyContact->address['city']) && !empty($patientEmergencyContact->address['city'])) ? $address['city'] : '';
+                                                $emergencyAddress_state = (isset($patientEmergencyContact->address['state']) && !empty($patientEmergencyContact->address['state'])) ? $address['state'] : '';
+                                                $emergencyAddress_zip_code =  (isset($patientEmergencyContact->address['zip_code']) && !empty($patientEmergencyContact->address['zip_code'])) ? $address['zip_code'] : '';
+                                            endif;
+                                        @endphp
+                                        
                                         <div class="form-group">
                                             <div class="row">
-                                              
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Address Line1</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress1" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value="{{ $emergencyAddress1 }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress1[]" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value="{{ $emergencyAddress1 }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -384,7 +384,7 @@
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Address Line2</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value="{{ $emergencyAddress2 }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2[]" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value="{{ $emergencyAddress2 }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -393,7 +393,7 @@
                                                         <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Apt Building</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="{{ $emergencyAptBuilding }}">
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding[]" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="{{ $emergencyAptBuilding }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -402,7 +402,7 @@
                                                         <div class="ls"><i class="las la-city circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">City</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value="{{ $emergencyAddress_city }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city[]" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value="{{ $emergencyAddress_city }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -415,7 +415,7 @@
                                                         <div class="ls"><i class="las la-archway circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">State</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value="{{ $emergencyAddress_state }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state[]" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value="{{ $emergencyAddress_state }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -424,13 +424,13 @@
                                                         <div class="ls"><i class="las la-code circle"></i></div>
                                                         <div class="rs">
                                                             <h3 class="_title">Zipcode</h3>
-                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value="{{ $emergencyAddress_zip_code }}">
+                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code[]" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value="{{ $emergencyAddress_zip_code }}">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        @endif
+                                       
                                     </div>
                                 </div>
                             @endforeach
@@ -445,37 +445,45 @@
                                             <div class="row">
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
-                                                        <div class="ls"><i class="las la-portrait circle"></i></div>
+                                                        <div class="ls">
+                                                            <i class="las la-portrait circle"></i>
+                                                        </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Name</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" id="contact_name" placeholder="Name" value="">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="contact_name[]" data-id="contact_name" placeholder="Name" value="">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
-                                                        <div class="ls"><i class="las la-phone circle"></i></div>
+                                                        <div class="ls">
+                                                            <i class="las la-phone circle"></i>
+                                                        </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Home Phone</h3>
-                                                            <input type="text" class="form-control-plaintext _detail phoneNumber emergencyPhone1 phone_format" name="phone1[]" data-id="phone1"  placeholder="Home Phone" value="" maxlength="14">
+                                                            <input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
-                                                        <div class="ls"><i class="las la-phone circle"></i></div>
+                                                        <div class="ls">
+                                                            <i class="las la-phone circle"></i>
+                                                        </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Cell Phone</h3>
-                                                            <input type="text" class="form-control-plaintext _detail phone_format phoneNumber emergencyPhone2" name="phone2[]" data-id="phone2"  placeholder="Cell Phone" value="" maxlength="14">
+                                                                <input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="" maxlength="14">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
-                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                        <div class="ls">
+                                                            <i class="las la-user-nurse circle"></i>
+                                                        </div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Address</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" name="address[]" data-id="address" id="address" placeholder="Address" value="">
+                                                            <h3 class="_title">Relationship</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship" value="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -485,17 +493,63 @@
                                             <div class="row">
                                                 <div class="col-12 col-sm-3 col-md-3">
                                                     <div class="input_box">
-                                                        <div class="ls"><i class="las la-user-nurse circle"></i></div>
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
                                                         <div class="rs">
-                                                            <h3 class="_title">Relationship</h3>
-                                                            <input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" id="relationship_name" placeholder="Relationship" value="">
+                                                            <h3 class="_title">Address Line1</h3>
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress1[]" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Address Line2</h3>
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2[]" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-address-book circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Apt Building</h3>
+                                                            <input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding[]" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-city circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">City</h3>
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city[]" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value="">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="display:flex;justify-content:center;align-items:center">
-                                            <button type="button" class="btn btn-danger remove-tr text-center">Remove</button>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-archway circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">State</h3>
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state[]" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-3 col-md-3">
+                                                    <div class="input_box">
+                                                        <div class="ls"><i class="las la-code circle"></i></div>
+                                                        <div class="rs">
+                                                            <h3 class="_title">Zipcode</h3>
+                                                            <input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code[]" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -830,7 +830,7 @@
                                 <tr>
                                     <th><span class="mendate">*</span> Address Line 1</th>
                                     <th> Address Line 2</th>
-                                    <th><span class="mendate">*</span> Apt#</th>
+                                    <th><span class="mendate"></span> Apt#</th>
                                     <th><span class="mendate">*</span> City</th>
                                     <th><span class="mendate">*</span> State</th>
                                     <th><span class="mendate">*</span> Zipcode</th>

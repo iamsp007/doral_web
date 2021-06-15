@@ -45,6 +45,9 @@
     $('#referral-table').DataTable({
         "processing": true,
         "serverSide": true,
+        "language": {
+            processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
+        },
         ajax: {
             'type': 'POST',
             'url': "{{ route('admin.referral.approval.list') }}",
@@ -101,6 +104,8 @@
             $('#acceptRejectBtn').hide();
         }
     });
+
+    $('#company_id').select2();
 
     function chkmain() {
         var ch = $(".innerallchk").prop("checked");
@@ -184,6 +189,7 @@
                         } else {
                             alertText(data.message,'success');
                             $('#acceptRejectBtn').hide();
+                            $(".mainchk").prop("checked","");
                             refresh();
                         }
                         $("#loader-wrapper").hide();

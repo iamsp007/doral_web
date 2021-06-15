@@ -7,16 +7,9 @@
 
 @section('content')
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">  
-        <!-- @if($partnerstatus === 'pending')
-            <button type="button" onclick="doaction('1')" class="btn btn-primary btn-green shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
-            <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
-        @elseif($partnerstatus === 'active')
-            <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
-        @elseif($partnerstatus === 'rejected')
-            <button type="button" onclick="doaction('1')" class="btn btn-primary btn-green shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
-        @endif -->
-        <button type="button" onclick="doaction('1')" class="btn btn-primary btn-green shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
-        <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
+        <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
+            @include('admin.common.accept_reject_button',['status' => $partnerstatus])
+        </div>
     </div>
   
     <form id="search_form" method="post">
@@ -24,15 +17,18 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-3 col-sm-3 col-md-3">
-                    <div class="input-group">
-                        <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
-                    </div>
-                </div>
-                <div class="col-3 col-sm-3 col-md-3">
                     <select class="form-control form-control-lg" name="role" id="role">
                         <option value="">Select Role</option>
                         @foreach ($roles as $role)
                             <option value="{{$role->id}}">{{$role->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-3 col-sm-3 col-md-3">
+                    <select class="form-control-plaintext _detail" name="company_id" id="company_id">
+                        <option value="">Select Company</option>
+                        @foreach ($companies as $company)
+                            <option value="{{$company->id}}">{{$company->full_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -69,7 +65,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 @endpush
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
         // $(document).ready(function () {
             $('.data-table').DataTable({
@@ -85,10 +81,10 @@
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
                     data: function (d) {
-                        d.user_name = $('select[name="user_name"]').val();
                         d.role = $('select[name="role"]').val();
                         d.email = $('input[name="email"]').val();
                         d.status = $('select[name="status"]').val();
+                        d.company_id = $('select[name="company_id"]').val();
                         d.partnerstatus = $('input[name="partnerstatus"]').val();
                     },
                     'headers': {
@@ -112,28 +108,9 @@
                 // ],
             });
 
-            $('#user_name').select2({
-                minimumInputLength: 3,
-                placeholder: 'Select a name',
-                ajax: {
-                    type: "POST",
-                    url: "{{ route('partner.get-user-data') }}",
-                    dataType: 'json',
-                    delay: 250,
-                    processResults: function (data) {
-                        return {
-                            results:  $.map(data, function (item) {
-                                return {
-                                    text: item.first_name + ' ' + item.last_name,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            });
-
+            $('#role').select2();
+            $('#company_id').select2();
+            
             /*table reload at filter time*/
             $("#filter_btn").click(function () {
                 refresh();
@@ -141,7 +118,6 @@
 
             $("#reset_btn").click(function () {
                 $('#search_form').trigger("reset");
-                $('#user_name').html('');
                 refresh();
             })
           

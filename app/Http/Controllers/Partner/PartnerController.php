@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailJob;
+use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,11 @@ class PartnerController extends Controller
     public function index($partnerstatus)
     {
         $roles = Role::where('guard_name','partner')->get();
-        return view('admin.partner.index',compact('partnerstatus','roles'));
+        $companies = Company::get();
+        $companies = User::where('designation_id',0)->whereHas('roles',function ($q){
+            $q->where('guard_name','partner');
+        })->get();
+        return view('admin.partner.index',compact('partnerstatus','roles','companies'));
     }
 
        /**
@@ -50,11 +55,12 @@ class PartnerController extends Controller
                     $q->where('id',$input['role']);
                 });
             })
-            ->when($input['user_name'], function ($query) use($input){
-                $query->where('id', $input['user_name']);
+            ->when($input['company_id'], function ($query) use($input){
+                $query->where('id',$input['company_id']);
             })
             ->when($input['email'], function ($query) use($input){
-                $query->where('email', $input['email']);
+                $email = $input['email'];
+                $query->where('email','LIKE',"%$email%");
             })
         ->get();
       
@@ -96,9 +102,14 @@ class PartnerController extends Controller
     
     public function profile($id)
     {
-        $user = User::find($id);
-
-        return view('admin.partner.profile',compact('user'));
+        $user = User::with('roles')->find($id);
+        $partners = Role::where('guard_name','=','partner')->get();
+        $role = '';
+        if ($user->roles) {
+            $role = implode(',',$user->roles->pluck('name')->toArray());
+            
+        }
+        return view('admin.partner.profile',compact('user', 'role', 'partners'));
     }
 
     public function getUserData(Request $request)

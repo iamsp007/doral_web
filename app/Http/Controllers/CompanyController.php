@@ -60,7 +60,8 @@ class CompanyController extends Controller
                 $query->where('referal_id', $input['referal_id']);
             })
             ->when($input['email'], function ($query) use($input){
-                $query->where('email', $input['email']);
+                $email = $input['email'];
+                $query->where('email','LIKE',"%$email%");
             })
         ->get();
 

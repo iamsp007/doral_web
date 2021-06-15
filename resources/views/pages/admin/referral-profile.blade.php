@@ -77,7 +77,7 @@ Refferal Profile
                         <ul class="form-data">
                               <input type="hidden" id="user_id" value="{{ $record->id ? $record->id : '' }}">
                            <li>
-                              <label class="label">Administrator Name:</label>
+                              <label class="label">Administrator Name</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="administrator_name"
                                  onkeyup="erroMessage()"
@@ -86,7 +86,7 @@ Refferal Profile
                                  <span class="error-message" id="admin_error_name">Administrator Name is required</span>
                            </li>
                            <li>
-                              <label class="label">Registration Number:</label>
+                              <label class="label">Registration Number</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="registration_no"
                                  onkeyup="erroMessage()"
@@ -95,7 +95,7 @@ Refferal Profile
                                  <span class="error-message" id="registration_error">Registration Number is required</span>
                            </li>
                            <li>
-                              <label class="label">Email:</label>
+                              <label class="label">Email</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="administrator_emailId"
                                  onkeyup="erroMessage()" data-id="i_emailId"
@@ -108,7 +108,7 @@ Refferal Profile
                      <div class="col-12 col-sm-6">
                         <ul class="form-data">
                            <li>
-                              <label class="label">Licence Number:</label>
+                              <label class="label">Licence Number</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="licence_no"
                                  onkeyup="erroMessage()" data-id="licence_no"
@@ -117,7 +117,7 @@ Refferal Profile
                                  <span class="error-message" id="licence_error">Licence Number is required</span>
                            </li>
                            <li>
-                              <label class="label">Phone Number:</label>
+                              <label class="label">Phone Number</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="administrator_phone_no"
                                  onkeyup="erroMessage()" data-id="i_phone_no"
@@ -151,12 +151,12 @@ Refferal Profile
                      <div class="col-12 col-sm-6">
                         <ul class="form-data">
                            <li>
-                              <label class="label">Id:</label>
+                              <label class="label">ID</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="insurance_id"
                                  onkeyup="erroMessageMal()"
                                  data-id="insurance_id" id="insurance_id"
-                                 placeholder="insurance id" value="{{ $record->insurance_id ? $record->insurance_id : '' }}">
+                                 placeholder="Insurance id" value="{{ $record->insurance_id ? $record->insurance_id : '' }}">
                                  <span class="error-message" id="insurance_error">Insurance Id is required</span>
                            </li>
                         </ul>
@@ -164,7 +164,7 @@ Refferal Profile
                      <div class="col-12 col-sm-6">
                         <ul class="form-data">
                            <li>
-                              <label class="label">Expiration Date:</label>
+                              <label class="label">Expiration Date</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="expiration_date"
                                  onkeyup="erroMessageMal()"
@@ -204,7 +204,7 @@ Refferal Profile
                      <div class="col-12 col-sm-6">
                         <ul class="form-data">
                            <li>
-                              <label class="label">Name Of Company:</label>
+                              <label class="label">Name Of Company</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="name_company"
                                  onkeyup="companyerror()"
@@ -213,17 +213,17 @@ Refferal Profile
                                   <span class="error-message" id="company_error">Company Name is required</span>
 
                            </li>
+                     
                            <li>
-                              <label class="label">Addresss:</label>
+                              <label class="label">Fax Number</label>
                               <input type="text" class="form-control-plaintext _detail t5"
-                                 readonly name="addresss" onkeyup="companyerror()"
-                                 data-id="addresss" id="addresss" placeholder="addresss"
-                                 value="{{ $record->address1 ? $record->address1:'' }} ">
-                                 <span class="error-message" id="address_error">Address is required</span>
-
+                                 readonly name="fax_no" onkeyup="companyerror()"
+                                 data-id="fax_no" id="fax_no" placeholder="Fax Number"
+                                 value="{{ $record->fax_no ? $record->fax_no : '' }}">
+                                 <span class="error-message" id="fax_error">Fax Number is required</span>
                            </li>
                            <li>
-                              <label class="label">Phone Number:</label>
+                              <label class="label">Phone Number</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="phone_no" onkeyup="companyerror()"
                                  data-id="phone_no" id="phone_no" placeholder="Phone Number"
@@ -235,7 +235,7 @@ Refferal Profile
                      <div class="col-12 col-sm-6">
                         <ul class="form-data">
                            <li>
-                              <label class="label">Type of Services:</label>
+                              <label class="label">Type of Services</label>
                               <div class="row mt-3">
                                  @if(isset($services)&&!empty($services))
                                     @foreach($services as $s_row)
@@ -256,7 +256,7 @@ Refferal Profile
                               </div>
                            </li>
                            <li>
-                              <label class="label">Email:</label>
+                              <label class="label">Email</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="emailId" onkeyup="companyerror()"
                                  data-id="emailId" id="emailId"
@@ -265,13 +265,21 @@ Refferal Profile
 
                                  <span class="error-message" id="company_email_error">Email is not valid</span>
                            </li>
+                          
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="row mt-3">
+                     <div class="col-12 col-sm-12">
+                        <ul class="form-data">
                            <li>
-                              <label class="label">Fax Number:</label>
+                              <label class="label">Addresss</label>
                               <input type="text" class="form-control-plaintext _detail t5"
-                                 readonly name="fax_no" onkeyup="companyerror()"
-                                 data-id="fax_no" id="fax_no" placeholder="Fax Number"
-                                 value="{{ $record->fax_no ? $record->fax_no : '' }}">
-                                 <span class="error-message" id="fax_error">Fax Number is required</span>
+                                 readonly name="addresss" onkeyup="companyerror()"
+                                 data-id="addresss" id="addresss" placeholder="addresss"
+                                 value="{{ $record->address1 ? $record->address1:'' }} ">
+                                 <span class="error-message" id="address_error">Address is required</span>
+
                            </li>
                         </ul>
                      </div>

@@ -451,10 +451,14 @@ $(function () {
     })
 });
 function editAllProfileField(e) {
+  
     var a = $("#" + e).closest(".app-card").attr("id");
     $(".custom-control-input").each(function() {
         $(this).prop("disabled", !1)
     }), $("#" + e + " [data-id]").removeClass("form-control-plaintext").addClass("form-control"), $("#" + e + " [data-id]").attr("readOnly", !1), $("#" + a).find(".update-icon").show(), $("#" + a).find(".edit-icon").hide()
+       
+    $(document).find('.normal_referralType_div').removeClass('d-block').addClass('d-none');
+    $(document).find('.editable_referralType_div').removeClass('d-none').addClass('d-block');
 }
 
 function updateAllProfileField(e) {

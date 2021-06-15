@@ -14,7 +14,7 @@ Partner Profile
                      srcset="{{asset('assets/img/user/avatar.jpg')}}">
                </div>
                <div class="user-info">
-                  <h1 class="title">{{$user->first_name}}</h1>
+                  <h1 class="title">{{$user->name}}</h1>
                </div>
             </div>
          </div>
@@ -57,26 +57,32 @@ Partner Profile
                            <li>
                               <label class="label">Name Of Partner:</label>
                               <input type="text" class="form-control-plaintext _detail t5"
-                                 readonly name="first_name"
-                                 data-id="first_name" id="first_name"
-                                 placeholder="Name Of Partner" value="{{ $user->first_name ? $user->first_name : '' }}">
-                                  <span class="error-message" id="first_name_error">Partner Name is required</span>
+                                 readonly name="name"
+                                 data-id="name" id="name"
+                                 placeholder="Name Of Partner" value="{{ $user->name ? $user->name : '' }}">
+                                  <span class="error-message" id="name_error">Partner Name is required</span>
                            </li>
                            <li>
                               <label class="label">Partner Type:</label>
-                              <input type="text" class="form-control-plaintext _detail t5"
-                                 readonly name="role" onkeyup="companyerror()"
-                                 data-id="role" id="role" placeholder="Partner Type"
-                                 value="">
-                                 <span class="error-message" id="address_error">Address is required</span>
-
+                              <div class="normal_referralType_div">
+                                 <input type="text" class="form-control-plaintext _detail" readonly name="referralType" data-id="referralType" placeholder="referralType" value="{{ $role }}">
+                              </div>
+                              <div class="input-group editable_referralType_div d-none">
+                                 <select class="form-control" name="referralType" id="referralType">
+                                    <option>Select partner type</option>
+                                    @foreach($partners as $partner)
+                                       <option value="{{ $partner->id }}">{{ $partner->name }}</option>
+                                    @endforeach
+                                 </select>
+                              </div>
+                              <span class="error-message" id="referralType_error">Partner type is required</span>
                            </li>
                            <li>
                               <label class="label">Phone Number:</label>
-                              <input type="text" class="form-control-plaintext _detail t5"
-                                 readonly name="phone_no" onkeyup="companyerror()"
+                              <input type="text" class="form-control-plaintext _detail t5 phone_format"
+                                 readonly name="phone_no"
                                  data-id="phone_no" id="phone_no" placeholder="Phone Number"
-                                 value="{{ $user->phone ? $user->phone : '' }}">
+                                 value="{{ $user->phone ? $user->phone : '' }}" maxlength="14">
                                  <span class="error-message" id="company_phone_error">Phone Number is not valid</span>
                            </li>
                         </ul>
@@ -90,8 +96,13 @@ Partner Profile
       </div>
    </div>
 </div>
+@endsection
+@push('styles')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+@endpush
 @push('scripts')
    <script src="{{ asset('assets/js/app.refferal.profile.min.js') }}"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
    <script>
       $(document).ready(function () {
          $.ajaxSetup({
@@ -99,54 +110,10 @@ Partner Profile
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
          });
-
-         $(".acceptid").click(function() {
-            var company_id = $(this).attr('id');
-            var status = "active";
-
-            $("#loader-wrapper").show();
-            $.ajax({
-               method: 'POST',
-               url: '/admin/referral-status',
-               data: {company_id, status},
-               success: function( response ){
-                  $("#loader-wrapper").hide();
-                  if(response.status == 1)
-                     alertText(response.message,'success');
-                  else
-                     alertText(response.message,'success');
-               },
-               error: function( e ) {
-                  $("#loader-wrapper").hide();
-                  alertText('Something went wrong!','error');
-               }
-            });
-         });
-      
-         $(".rejectid").click(function() {
-            var company_id = $(this).attr('id');
-            var status = "reject";
-
-            $("#loader-wrapper").show();
-            $.ajax({
-               method: 'POST',
-               url: '/admin/referral-status',
-               data: {company_id, status},
-               success: function( response ){
-                  $("#loader-wrapper").hide();
-                  if(response.status == 1)
-                     alertText(response.message,'success');
-                  else
-                     alertText(response.message,'success');
-               },
-               error: function( e ) {
-                  $("#loader-wrapper").hide();
-                  alertText('Something went wrong!','error');
-               }
-            });
-         });
       });
-      
+
+      $('#referralType').select2();
+
       $("#upateCompany").click(function() {
          $.ajaxSetup({
             headers: {
@@ -156,55 +123,37 @@ Partner Profile
 
          var csrf_token = $('meta[name="csrf-token"]').attr('content');
          var id = "{{ request()->route('id') }}";
-         var name = $("#name_company").val();
-         var address1 = $("#addresss").val();
-         var email = $("#emailId").val();
-         var phone = $("#phone_no").val();  
-         var services = new Array();
-
-         $("input[name='services[]']:checked").each(function() {
-            services.push($(this).val());
-         });
-
-         var services = services.toString();
-         var fax_no = $("#fax_no").val();
+         var name = $("#name").val();
+         var referralType = $("#referralType").val();
+         var phone_no = $("#phone_no").val();
+       
          var data_arr = [];
 
          if(id == '') {
             id = $("#user_id").val();
          }
             
-         var phoneno = /^\d{10}$/;
-         var emailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
          var count = 0;
          if(jQuery.trim(name) == '') {
-            $("#company_error").css("display", "block");
+            $("#namey_error").css("display", "block");
             count++;
          }
 
-         if(jQuery.trim(address1) == '') {
-            $("#address_error").css("display", "block");
+         if(jQuery.trim(referralType) == '') {
+            $("#referralType_error").css("display", "block");
             count++;
          }
 
-         if(!(phone.match(phoneno))) {
-            $("#company_phone_error").css("display", "block");
+         if(jQuery.trim(phone_no) == '') {
+            $("#phone_no_error").css("display", "block");
             count++;
          }
-
-         if(!(email.match(emailformat))) {
-            $("#company_email_error").css("display", "block");
-            count++;
-         }
-         if(jQuery.trim(fax_no) == '') {
-            $("#fax_error").css("display", "block");
-               count++;
-            }
+      
          if (count > 0) {
             return false;
          }           
             
-         data_arr.push({'id':id,'name':name,'address1':address1,'email':email,'phone':phone,'services':services,'fax_no':fax_no});
+         data_arr.push({'id':id,'name':name,'referralType':referralType,'phone_no':phone_no});
          if("{{Request::is('admin/*')}}"){
             var url = "{{route('admin.updateProfile')}}";
          } else {
@@ -215,195 +164,20 @@ Partner Profile
          $.ajax({
             url:url,
             method:"POST",
-            data:{'id':id,'name':name,'address1':address1,'email':email,'phone':phone,'services':services,'fax_no':fax_no},
+            data:{'id':id, 'name':name,'referralType':referralType,'phone_no':phone_no},
             dataType:'JSON',
             success:function(response)
             {
                $("#loader-wrapper").hide();
                if(response.status === true) {
                   alertText('Profile Information updated successfully','success');
-                     updateAllProfileField('CompanyInfo')
                } else {
                   alertText('Not saved','error');
                }
             }
          })
       });
-         
-      $("#updateAdministrator").click(function() {
-         $.ajaxSetup({
-            headers: {
-                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-         });
-
-         var csrf_token = $('meta[name="csrf-token"]').attr('content');
-         var id = "{{ request()->route('id') }}";
-         var administrator_name = $("#administrator_name").val();
-         var registration_no = $("#registration_no").val();
-         var administrator_emailId = $("#administrator_emailId").val();
-         var licence_no = $("#licence_no").val();
-         var administrator_phone_no = $("#administrator_phone_no").val();
-         var data_arr = [];
-         var phoneno = /^\d{10}$/;
-         var emailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-         if(id == '') {
-            id = $("#user_id").val();
-         }
-         var count = 0;
-         if(jQuery.trim(administrator_name) == '') {
-            $("#admin_error_name").css("display", "block");
-            count++;
-         }
-
-         if(jQuery.trim(registration_no) == '') {
-         $("#registration_error").css("display", "block");
-            count++;
-         }
-
-         if(!(administrator_emailId.match(emailformat))) {
-         $("#email_error").css("display", "block");
-            count++;
-         }
-
-         if(jQuery.trim(licence_no) == '') {
-            $("#licence_error").css("display", "block");
-            count++;
-         }
-
-         if(!(administrator_phone_no.match(phoneno))) {
-         $("#phone_error").css("display", "block");
-            count++;
-         }
-         
-         if (count > 0) {
-            return false;
-         }
-
-         data_arr.push({'id':id,'administrator_name':administrator_name,'registration_no':registration_no,'administrator_emailId':administrator_emailId,'licence_no':licence_no,'administrator_phone_no':administrator_phone_no});
-         
-         if("{{Request::is('admin/*')}}"){
-            var url = "{{route('admin.updateProfile')}}";
-         } else {
-            var url = "{{route('referral.updateProfile')}}";
-         }
-
-         $("#loader-wrapper").show();
-         $.ajax({
-            url:url,
-            method:"POST",
-            data:{'id':id,'administrator_name':administrator_name,'registration_no':registration_no,'administrator_emailId':administrator_emailId,'licence_no':licence_no,'administrator_phone_no':administrator_phone_no},
-            dataType:'JSON',
-            success:function(response)
-            {
-               $("#loader-wrapper").hide();
-               if(response.status === true) {
-                  alertText('Profile Information updated successfully','success');
-                  updateAllProfileField('AdministratorInfo');
-               }
-               else {
-                  alertText('Not saved','error');
-               }
-            }
-         })
-      });
-      
-      $("#updateInsuranceDetail").click(function() {
-         $.ajaxSetup({
-            headers: {
-               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-         });
-         var csrf_token = $('meta[name="csrf-token"]').attr('content');
-         var id = "{{ request()->route('id') }}";
-         var insurance_id = $("#insurance_id").val();
-         var date_expiration_date = $("#expiration_date").val();
-         var expiration_date = moment(date_expiration_date).format('YYYY-MM-DD');
-
-         var count = 0;
-         if(jQuery.trim(insurance_id) == '') {
-            $("#insurance_error").css("display", "block");
-            count++;
-         } 
-         
-         if(jQuery.trim(expiration_date) == '') {
-            $("#date_error").css("display", "block");
-            count++;
-         }
-         if (count > 0) {
-            return false;
-         }
-            
-         var data_arr = [];
-         if(id == '') {
-            id = $("#user_id").val();
-         }
-         data_arr.push({'id':id,'insurance_id':insurance_id,'expiration_date':expiration_date});
-
-         if("{{Request::is('admin/*')}}"){
-            var url = "{{route('admin.updateProfile')}}";
-         } else {
-            var url = "{{route('referral.updateProfile')}}";
-         }
-         $("#loader-wrapper").show();
-
-         $.ajax({
-            url:url,
-            method:"POST",
-            data:{'id':id,'insurance_id':insurance_id,'expiration_date':expiration_date},
-            dataType:'JSON',
-            success:function(response)
-            {
-               $("#loader-wrapper").hide();
-               if(response.status === true) {
-                  alertText('Profile Information updated successfully','success');
-                  updateAllProfileField('insuranceDetail');
-
-               }
-               else {
-                  alertText('Not saved','error');
-               }
-            }
-         })
-      });
-      
-      // insert / update payment info
-      $(".payment_info").change(function() {
-         $.ajaxSetup({
-            headers: {
-               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-         });
-         var csrf_token = $('meta[name="csrf-token"]').attr('content');
-
-         var company_id = $('#p_details'+this.value).attr('data-company-id');
-         var service_id = $('#p_details'+this.value).attr('data-service-id');
-         var service_payment_plan_id = $('#p_details'+this.value).attr('data-payment-plan-id');
-         var service_payment_plan_details_id = this.value;
-         if("{{Request::is('admin/*')}}"){
-            var url = "{{route('admin.insertUpdateServicePayment')}}";
-         } else {
-            var url = "{{route('referral.insertUpdateServicePayment')}}";
-         }
-         $("#loader-wrapper").show();
-         $.ajax({
-            url:url,
-            method:"POST",
-            data:{'company_id':company_id,'service_id':service_id,'service_payment_plan_id':service_payment_plan_id,'service_payment_plan_details_id':service_payment_plan_details_id},
-            dataType:'JSON',
-            success:function(response)
-            {
-               $("#loader-wrapper").hide();
-               if(response.status === true) {
-                  alertText('Profile Information updated successfully','success');
-               }
-               else {
-                  alertText('Not saved','error');
-               }
-            }
-         })
-      });
-
+     
       function alertText(text,status) {
          const Toast = Swal.mixin({
             toast: true,
@@ -424,4 +198,3 @@ Partner Profile
       }
    </script>
 @endpush
-@stop

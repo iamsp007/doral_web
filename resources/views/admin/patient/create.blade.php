@@ -948,13 +948,13 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input type="text" class="input-small-skin phone_format" name="home_phone">
+                                        <input type="text" class="input-small-skin phone_format" name="home_phone" maxlength="14">
                                     </td>
                                     <td>
-                                        <input type="text" class="input-small-skin phone_format" name="cell_phone">
+                                        <input type="text" class="input-small-skin phone_format" name="cell_phone" maxlength="14">
                                     </td>
                                     <td>
-                                        <input type="text" class="input-small-skin phone_format" name="alternate_phone">
+                                        <input type="text" class="input-small-skin phone_format" name="alternate_phone" maxlength="14">
                                     </td>
                                 </tr>
                             </tbody>

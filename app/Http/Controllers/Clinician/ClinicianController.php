@@ -46,11 +46,9 @@ class ClinicianController extends Controller
             ->when($input['user_name'], function ($query) use($input){
                 $query->where('id', $input['user_name']);
             })
-            ->when($input['date_of_birth'], function ($query) use($input){
-                $query->where('dob', dateFormat($input['date_of_birth']));
-            })
             ->when($input['email'], function ($query) use($input){
-                $query->where('email', $input['email']);
+                $email = $input['email'];
+                $query->where('email','LIKE',"%$email%");
             })
             ->when($input['gender'], function ($query) use($input){
                 $query->where('gender', $input['gender']);
@@ -115,6 +113,22 @@ class ClinicianController extends Controller
             ->rawColumns(['action', 'checkbox_id','name'])
             ->make(true);
     }
+
+    public function getUserData(Request $request)
+    {
+        $data = [];
+        if($request->has('q')){
+            $search = $request->q;
+            $data = User::whereHas('roles', function($q) {
+                $q->where('name','=', 'clinician');
+            })->select("id","first_name", 'last_name')
+            ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
+            ->get();
+        }
+
+        return response()->json($data);
+    }
+
 
      /**
      * Covid 19 data will display

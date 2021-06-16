@@ -14,9 +14,11 @@ use App\Models\State;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Str;
 
 class PatientController extends Controller
 {
@@ -281,5 +283,24 @@ class PatientController extends Controller
                 ]);
             }
         }
+    }
+
+    /** Resend email */
+    public function resendEmail($id) 
+    {
+        $password = Str::random(8);
+        $user = User::find($id);
+        $user->update(['password' => setPassword($password)]);
+
+        $details = [
+            'name' => $user->first_name . ' ' . $user->last_name,
+            'password' => $password,
+            'email' => $user->email,
+            'login_url' => route('login'),
+        ];
+        SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
+
+        $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
+        return \Response::json($responce);
     }
 }

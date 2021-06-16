@@ -142,6 +142,7 @@ table.dataTable thead th, table.dataTable thead td{
             </div>
         </form>
     @endif
+    
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
         @include('admin.common.accept_reject_button',['status' => $serviceStatus])
     </div>
@@ -151,9 +152,9 @@ table.dataTable thead th, table.dataTable thead td{
         <input type="hidden" value="{{ $initial }}" id="initial" name="initial" />
         <thead>
             <tr>
-                @if($serviceStatus === 'pending')
+               
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
-                @endif
+               
                 <th>Sr No.</th>
                 <th>Patient Name</th>
                 <th>Gender</th>
@@ -200,12 +201,13 @@ table.dataTable thead th, table.dataTable thead td{
             var serching = true;
         }
         var columnDaTa = [];
-        if(status === 'pending'){
-            columnDaTa.push(
-                {data:'checkbox_id',"className": "text-center","bSortable": false},
-            );
-        }
+        // if(status === 'pending'){
+        //     columnDaTa.push(
+        //         {data:'checkbox_id',"className": "text-center","bSortable": false},
+        //     );
+        // }
         columnDaTa.push(
+            {data:'checkbox_id',"className": "text-center","bSortable": false},
             {data: 'DT_RowIndex', orderable: false, searchable: false,"className": "text-left"},
             {data: 'full_name',"className": "text-left"},
             {data: 'gender', name:'gender', orderable: true, searchable: true,"className": "text-left"},

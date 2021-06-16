@@ -172,11 +172,11 @@ class CaregiverController extends Controller
         ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports');
             
         $datatble = DataTables::of($patientList->get());
-            if($request['serviceStatus'] === 'pending') {
+            // if($request['serviceStatus'] === 'pending') {
                 $datatble->addColumn('checkbox_id', function($q) use($request) {
                     return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
                 });
-            }
+            // }
             $datatble->addIndexColumn()
             ->addColumn('full_name', function($q) use($request) {
                 if ($request['serviceStatus'] == 'initial') {

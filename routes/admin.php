@@ -51,4 +51,6 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth:web','role:admin']],functi
     Route::post('get-user-data','App\Http\Controllers\Partner\PartnerController@getUserData')->name('partner.get-user-data');
     Route::post('/partner/getList','\App\Http\Controllers\Partner\PartnerController@getList')->name('partner.getList');
     Route::get('/partner/{slug}', 'App\Http\Controllers\Partner\PartnerController@index');
+   
 });
+

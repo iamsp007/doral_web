@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\HHAApiCaregiver;
 use App\Models\CaregiverInfo;
 use App\Models\City;
 use App\Models\Demographic;
@@ -11,19 +10,14 @@ use App\Models\PatientLabReport;
 use App\Models\PatientReport;
 use App\Models\State;
 use App\Models\User;
-use App\Services\AdminService;
 use App\Services\ClinicianService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Storage;
-use Log;
 use ZipArchive;
 
 class CaregiverController extends Controller
@@ -35,7 +29,6 @@ class CaregiverController extends Controller
 
     public function dashboard()
     {
-
         $count['vbc'] = Demographic::where('service_id',[1])->count();
         $count['vbc_active'] = $this->countStatus('1','1');
         $count['vbc_reject'] = $this->countStatus('1','3');
@@ -56,7 +49,7 @@ class CaregiverController extends Controller
         return view('pages.referral.dashboard',compact('count'));
     }
 
-     public function dashboardAjaxPatient(Request $request)
+    public function dashboardAjaxPatient(Request $request)
     {
         $count = Demographic::where('service_id', [3])->count();
         $services = 3;
@@ -69,113 +62,114 @@ class CaregiverController extends Controller
         $result['total'] = $count;
         return  $result;
     }
+
     public static function countStatus($services,$status) 
-        { 
-           return $count = User::whereHas('roles',function ($q){
+    { 
+        return User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })->whereHas('demographic',function ($q) use($services) {
                         $q->where('service_id', $services);
-           })->whereIn('status', [$status])->count();
-        }
+            })->whereIn('status', [$status])->count();
+    }
+
     public function getCaregiverDetail(Request $request)
     {
         $patientList = User::whereHas('roles',function ($q){
-                $q->where('name','=','patient');
-            })
-            ->when($request['serviceStatus'] ,function ($query) use($request) {
-                if ($request['serviceStatus'] == 'vbc') {
+            $q->where('name','=','patient');
+        })
+        ->when($request['serviceStatus'] ,function ($query) use($request) {
+            if ($request['serviceStatus'] == 'vbc') {
+                $query->whereIn('status', ['0', '1', '2', '3', '5']);
+
+                $query->whereHas('demographic',function ($q) use($request) {
+                    $q->where('service_id', 1);
+                });
+            } else if($request['serviceStatus'] == 'md-order') {
+
+                if(! $request['initial']) {
                     $query->whereIn('status', ['0', '1', '2', '3', '5']);
+                } else {
+                    $query->where('status', '4');
+                }
 
-                    $query->whereHas('demographic',function ($q) use($request) {
-                        $q->where('service_id', 1);
-                    });
-                } else if($request['serviceStatus'] == 'md-order') {
-
-                    if(! $request['initial']) {
-                        $query->whereIn('status', ['0', '1', '2', '3', '5']);
-                    } else {
-                        $query->where('status', '4');
+                $query->whereHas('demographic',function ($q) {
+                    $q->where('service_id', '2');
+                    if(Auth::guard('referral')) {
+                        $company_id = Auth::guard('referral')->user()->id;
+                        $q->where('company_id', $company_id);
                     }
-
-                    $query->whereHas('demographic',function ($q) {
-                        $q->where('service_id', '2');
-                        if(Auth::guard('referral')) {
-                            $company_id = Auth::guard('referral')->user()->id;
-                            $q->where('company_id', $company_id);
-                        }
-                    });
-                } else if($request['serviceStatus'] == 'occupational-health') {
-                    
-                    if(! $request['initial']) {
-                        $query->whereIn('status', ['0', '1', '2', '3', '5']);
-                    } else {
-                        $query->where('status', '4');
+                });
+            } else if($request['serviceStatus'] == 'occupational-health') {
+                if(! $request['initial']) {
+                    $query->whereIn('status', ['0', '1', '2', '3', '5']);
+                } else {
+                    $query->where('status', '4');
+                }
+                
+                $query->whereHas('demographic',function ($q) {
+                    $q->where('service_id', '3');
+                    if(Auth::guard('referral')) {
+                        $company_id = Auth::guard('referral')->user()->id;
+                        $q->where('company_id', $company_id);
                     }
-                    
-                    $query->whereHas('demographic',function ($q) {
-                        $q->where('service_id', '3');
-                        if(Auth::guard('referral')) {
-                            $company_id = Auth::guard('referral')->user()->id;
-                            $q->where('company_id', $company_id);
+                });
+            } else if($request['serviceStatus'] == 'covid-19') {
+                $query->where('status', '0');
+
+                $query->whereHas('demographic',function ($query) use($request) {
+                    $query->where('service_id', 6);
+                        if ($request['zip_code']) {
+                                $query->where('address->zip_code',$request['zip_code']);
                         }
-                    });
-                } else if($request['serviceStatus'] == 'covid-19') {
-                    $query->where('status', '0');
+                });
+            } else if ($request['serviceStatus'] == 'pending') {
+                $query->where('status', '0');
+            } 
+            // else if ($request['serviceStatus'] == 'initial') {
+                
+            //     $query->where('status', '4');
 
-                    $query->whereHas('demographic',function ($query) use($request) {
-                        $query->where('service_id', 6);
-                            if ($request['zip_code']) {
-                                    $query->where('address->zip_code',$request['zip_code']);
-                            }
-                    });
-                } else if ($request['serviceStatus'] == 'pending') {
-                    $query->where('status', '0');
-                } 
-                // else if ($request['serviceStatus'] == 'initial') {
-                   
-                //     $query->where('status', '4');
-
-                //     $query->whereHas('demographic',function ($q) {
-                //         $q->where('service_id', '3');
-                //         if(Auth::guard('referral')) {
-                //             $company_id = Auth::guard('referral')->user()->id;
-                //             $q->where('company_id', $company_id);
-                //         }
-                //     });
-                // }
-            })
-            ->when(! $request['serviceStatus'] ,function ($query) use($request) {
-                $query->whereIn('status', ['1', '2', '3', '5']);
-           
-                $query->when($request['service_id'], function ($query) use($request) {
-                    $query->whereHas('demographic',function ($q) use($request) {
-                        $q->where('service_id', $request['service_id']);
-                    });
-                })
-                ->when($request['status'], function ($query) use($request) {
-                    $query->where('status', $request['status']);
-                })
-                ->when($request['user_name'], function ($query) use($request){
-                    $query->where('id', $request['user_name']);
-                })
-                ->when($request['gender'], function ($query) use($request){
-                 
-                    $query->where('gender', $request['gender']);
-                })
-                ->when($request['dob'], function ($query) use($request){
-                    $dob = date('Y-d-m', strtotime($request['dob']));
-                    $query->where('dob', $dob);
-                // })
-                // ->whereHas('patientLabReport',function ($query) use($request) {
-                //     $query->when($request['lab_due_date'], function ($query) use($request){
-                //         $date = explode('-', $request['lab_due_date']);
-                //         $startDate  = date('Y-m-d', strtotime($date[0]));
-                //         $endDate = date('Y-m-d', strtotime($date[1]));
-                //         $query->whereBetween('due_date',[$startDate,$endDate]);
-                //     });
+            //     $query->whereHas('demographic',function ($q) {
+            //         $q->where('service_id', '3');
+            //         if(Auth::guard('referral')) {
+            //             $company_id = Auth::guard('referral')->user()->id;
+            //             $q->where('company_id', $company_id);
+            //         }
+            //     });
+            // }
+        })
+        ->when(! $request['serviceStatus'] ,function ($query) use($request) {
+            $query->whereIn('status', ['1', '2', '3', '5']);
+        
+            $query->when($request['service_id'], function ($query) use($request) {
+                $query->whereHas('demographic',function ($q) use($request) {
+                    $q->where('service_id', $request['service_id']);
                 });
             })
-            ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports');
+            ->when($request['status'], function ($query) use($request) {
+                $query->where('status', $request['status']);
+            })
+            ->when($request['user_name'], function ($query) use($request){
+                $query->where('id', $request['user_name']);
+            })
+            ->when($request['gender'], function ($query) use($request){
+                
+                $query->where('gender', $request['gender']);
+            })
+            ->when($request['dob'], function ($query) use($request){
+                $dob = date('Y-d-m', strtotime($request['dob']));
+                $query->where('dob', $dob);
+            // })
+            // ->whereHas('patientLabReport',function ($query) use($request) {
+            //     $query->when($request['lab_due_date'], function ($query) use($request){
+            //         $date = explode('-', $request['lab_due_date']);
+            //         $startDate  = date('Y-m-d', strtotime($date[0]));
+            //         $endDate = date('Y-m-d', strtotime($date[1]));
+            //         $query->whereBetween('due_date',[$startDate,$endDate]);
+            //     });
+            });
+        })
+        ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports');
             
         $datatble = DataTables::of($patientList->get());
             if($request['serviceStatus'] === 'pending') {
@@ -269,6 +263,7 @@ class CaregiverController extends Controller
                     $btn = '';
                     if ($row->status === '1') {
                         $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                        $btn .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 resendEmail" data-toggle="tooltip" data-placement="left" title="Resend Email Verify Email" data-original-title="Resend Email Verify Email"><i class="las la-redo-alt"></i></a>';
                     } else if ($row->status === '3') {
                         $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
                     } else if ($row->status === '5') {

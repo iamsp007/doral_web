@@ -2,7 +2,12 @@
 
 @section('title','Patient Detail')
 @section('pageTitleSection')
-    {{ ucwords(str_replace("-"," ",$serviceStatus)) }} - Patient
+    @if ($serviceStatus)
+        {{ ucwords(str_replace("-"," ",$serviceStatus)) }} - Patient
+    @else
+        Patient
+    @endif
+ 
 @endsection
 @push('styles')
 <style type="text/css">

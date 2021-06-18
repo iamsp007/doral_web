@@ -4,6 +4,7 @@ namespace App\Http\Controllers\patient;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\SmsController;
 use App\Jobs\SendEmailJob;
 use App\Models\City;
 use App\Models\Company;
@@ -299,6 +300,11 @@ class PatientController extends Controller
             'login_url' => route('login'),
         ];
         SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
+
+        $message = 'Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$value->email." & Password : ".$password;
+
+        $smsController = new SmsController();
+        $smsController->sendsmsToMe($message, $user->phone);
 
         $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
         return \Response::json($responce);

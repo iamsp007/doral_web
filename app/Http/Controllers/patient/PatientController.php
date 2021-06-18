@@ -290,7 +290,7 @@ class PatientController extends Controller
     public function resendEmail($id) 
     {
         $password = Str::random(8);
-        $user = User::find($id);
+        $user = User::with('demographic')->find($id);
         $user->update(['password' => setPassword($password)]);
 
         $details = [
@@ -305,6 +305,22 @@ class PatientController extends Controller
 
         $smsController = new SmsController();
         $smsController->sendsmsToMe($message, $user->phone);
+
+        if ($user->phone) {
+            // Send Message Start
+            $link=env("WEB_URL").'download-application';
+          
+            if ($user->demographic) {
+                if($user->demographic->service_id == 6) {
+                    $message = 'This message is from Doral Health Connect. In order to track your nurse coming to your home for vaccination please click on the link below and download an app. '.$link . "  for login Username : ".$user->email." & Password : ".$password;
+                } else if($user->demographic->service_id == 3) {
+                    $message = 'Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password;
+                }
+                
+                $smsController = new SmsController();
+                $smsController->sendsmsToMe($message, $user->phone);
+            }
+        }
 
         $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
         return \Response::json($responce);

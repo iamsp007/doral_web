@@ -301,7 +301,7 @@ class PatientController extends Controller
         ];
         SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
 
-        $message = 'Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$value->email." & Password : ".$password;
+        $message = "Thank you for Registration with DORAL HEALTH CONNECT. Your email address accepted by admin.You can log in with the login details given below. Username : ".$user->email." & Password : ".$password;
 
         $smsController = new SmsController();
         $smsController->sendsmsToMe($message, $user->phone);

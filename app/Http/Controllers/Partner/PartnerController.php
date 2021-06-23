@@ -150,7 +150,7 @@ class PartnerController extends Controller
                     'name' => $user->first_name,
                     'password' => $password,
                     'email' => $user->email,
-                    'login_url' => route('login'),
+                    'login_url' => route('partner.login'),
                 ];
                 SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
             }

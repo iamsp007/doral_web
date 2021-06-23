@@ -167,43 +167,45 @@
                                     </div>
                                 </div>
                                 <div class="col-3">
-                                    @if($rval->status==='active')
+                                    @if($rval->status==='1')
                                         <button type="button"
                                                 onclick="window.location.href = '{{ route('clinician.start.roadl',['patient_request_id'=>$rval->id]) }}'"
                                                 {{--                                                            onclick="sendLocation(1,'sdfdsfds')"--}}
                                                 class="btn btn-broadcast btn-block ">Pending<span></span>
                                         </button>
-                                    @elseif($rval->status==='accept')
+                                    @elseif($rval->status==='2')
                                         <button type="button"
                                                 onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast">Accepted<span></span>
                                         </button>
-                                    @elseif($rval->status==='prepare')
+                                    @elseif($rval->status==='6')
                                         <button type="button"
                                                 onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast">Prepare Time : {{ $rval->prepare_time }}<span></span>
                                         </button>
-                                    @elseif($rval->status==='start')
+                                    @elseif($rval->status==='7')
                                         <button type="button"
                                                 onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast">On The Way<span></span>
                                         </button>
-                                    @elseif($rval->status==='arrive')
+                                    @elseif($rval->status==='3')
                                         <button type="button"
                                                 onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast">Arrived<span></span>
                                         </button>
-                                    @elseif($rval->status==='complete')
+                                    @elseif($rval->status==='4')
                                         <button type="button"
+                                                onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast">Complete<span></span>
                                         </button>
-                                    @elseif($rval->status==='cancel')
+                                    @elseif($rval->status==='5')
                                         <button type="button"
+                                        onclick="window.location.href = '{{ route('clinician.start.running',['patient_request_id'=>$rval->parent_id]) }}'"
                                                 class="btn btn-broadcast btn-danger">Cancel<span></span>
                                         </button>
                                     @else
                                         <button type="button"
-                                                class="btn btn-broadcast btn-info">Pending<span></span>
+                                                class="btn btn-broadcast btn-info">Searching<span></span>
                                         </button>
                                     @endif
                                 </div>

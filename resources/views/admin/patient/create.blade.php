@@ -41,6 +41,7 @@
                                     <th class="p-0">
                                         <table class="table table-borderless border-0 m-0">
                                             <tbody>
+                                          
                                                 <tr>
                                                     <td style="width: 30%;" class="text-right border-0">
                                                         <span class="mendate">*</span> Referral :
@@ -840,9 +841,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <tr><td><h1>Google Maps API - Autocomplete Address Search Box with Map Example</h1>
+  
+  <input id="searchMapInput" class="mapControls" type="text" placeholder="Enter a location">
+  <div id="map"></div>
+  <ul id="geoData">
+      <li>Full Address: <span id="location-snap"></span></li>
+      <li>Latitude: <span id="lat-span"></span></li>
+      <li>Longitude: <span id="lon-span"></span></li>
+  </ul>
+    </td></tr>
                                 <tr>
                                     <td>
-                                        <input type="text" class="input-small-skin" name="address1">
+                                        <input type="text" class="input-small-skin" name="address1" id="address1" placeholder="Enter a address">
                                     </td>
                                     <td>
                                         <input type="text" class="input-small-skin" name="address2">
@@ -879,7 +890,7 @@
                                     <td style="width: 10%;">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <!-- <div style="width: 49%;"> -->
-                                                <input type="text" maxlength="5" onpaste="return false" class="input-small-skin" name="zip_code">
+                                                <input type="text" maxlength="5" class="input-small-skin" name="zip_code" id="zip_code" value="">
                                             <!-- </div> -->
                                             <!-- <div style="width: 49%;">
                                                 <input type="text" maxlength="4" onpaste="return false" class="input-small-skin" disabled>
@@ -2961,5 +2972,36 @@
                 }
             }
         }
+
+        function initMap() {
+            var input = document.getElementById('address1');
+        
+            var autocomplete = new google.maps.places.Autocomplete(input);
+        
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+              
+                $.each(place.address_components, function (key, value) {
+                    // console.log(value)
+                    if(value.types[0] == "administrative_area_level_2") {
+                        console.log('city:'+value.long_name);
+                    }
+
+                    if(value.types[0] == "administrative_area_level_1") {
+                        console.log('state:'+value.long_name);
+                    }
+
+                    if(value.types[0] == "postal_code") {
+                        document.getElementById('zip_code').innerHTML = place.long_name;
+                    }
+                });
+                document.getElementById('address1').innerHTML = place.formatted_address;
+                
+                //
+                // document.getElementById('lon-span').innerHTML = place.geometry.location.lng();
+            });
+        }
     </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5rTr8rSUyQeKlbaAHW1Xo-ezNoQO0dUE&libraries=places&callback=initMap" async defer></script>
+
 @endpush

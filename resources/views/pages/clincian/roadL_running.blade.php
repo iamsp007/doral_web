@@ -42,66 +42,7 @@
             <div class="_title4 mb-3" id="patient-name">Shashikant Parmar</div>
             <div class="scrollbar100">
                 <ul class="requestBox" id="requestInfo">
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Doral Lab</div>
-                                <div class="role">Role: Lab Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Doral Radiology</div>
-                                <div class="role">Role: Radiology Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Doral Chha</div>
-                                <div class="role">Role: Chha Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Shashikant Parmar</div>
-                                <div class="role">Role: Lab Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Shashikant Parmar</div>
-                                <div class="role">Role: Lab Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
+                    
                 </ul>
             </div>
         </div>

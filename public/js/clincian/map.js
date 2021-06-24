@@ -324,7 +324,7 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 map.setZoom(30)
                 map.setCenter(referral_type[type].marker.getPosition());
             }
-            let distance = leg.distance.value * 0.62137;
+            let distance = computeTotals(response);
             var duration_text='<span class="mr-2">Duration:</span>'+leg.duration.text;
             var distance_text='<span class="mr-2">Distance:</span>'+distance+' mile';
             $('#vendor-duration-'+type).html(duration_text);
@@ -335,6 +335,20 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
         }
     })
 }
+
+function computeTotals(result) {
+    var totalDist = 0;
+    var totalTime = 0;
+    var myroute = result.routes[0];
+    for (i = 0; i < myroute.legs.length; i++) {
+      totalDist += myroute.legs[i].distance.value;
+      totalTime += myroute.legs[i].duration.value;
+    }
+    totalDist = totalDist / 1000;
+    return (totalDist * 0.621371).toFixed(2)
+    // infowindow.setContent(infowindow.getContent() + "<br>total distance=" + totalDist.toFixed(2) + " km (" + (totalDist * 0.621371).toFixed(2) + " miles)<br>total time=" + (totalTime / 60).toFixed(2) + " minutes");
+  }  
+
 //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
 function calcCrow(lat1, lon1, lat2, lon2) {
     var R = 6371; // km

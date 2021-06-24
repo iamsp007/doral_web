@@ -263,7 +263,25 @@ function updateMap(destination, name, id,parent_id) {
         $('#vendor-name-'+data.id).css({'color': color});
         $('#vendor-role-'+data.id).html('Role: '+referrals.roleName+' Technician');
         $('#vendor-status-'+data.id).html('Status: '+getStatusText(referrals.status));
-
+        const lineSymbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            strokeColor: "#393",
+          };        
+        const line = new google.maps.Polyline({
+            path: [
+              { lat: current.lat(), lng: current.lng() },
+              { lat: destination.lat(), lng: destination.lng() },
+            ],
+            icons: [
+              {
+                icon: lineSymbol,
+                offset: "100%",
+              },
+            ],
+            map: map,
+          });
+          animateCircle(line);
 
     })
 }
@@ -308,7 +326,7 @@ $('#re-center').on('click', function (event) {
 function calculateAndDisplayRoute(current, destination, type, referrals) {
     var directionsService = referrals.directionsService;
     var directionsRenderer = referrals.directionsRenderer;
-    console.log(current.lat(),destination.lat(),"update")
+    
     var request = {
         origin: current,
         destination: destination,
@@ -345,13 +363,23 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 map.setZoom(30)
                 map.setCenter(referral_type[type].marker.getPosition());
             }
-            referral_type[type].marker.setAnimation(google.maps.Animation.BOUNCE);
+            // referral_type[type].marker.setAnimation(google.maps.Animation.BOUNCE);
             let distance = computeTotals(response);
             var duration_text='<span class="mr-2">Duration:</span>'+leg.duration.text;
             var distance_text='<span class="mr-2">Distance:</span>'+distance+' mile';
             $('#vendor-duration-'+type).html(duration_text);
             $('#vendor-distance-'+type).html(distance_text);
             // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );
+
+            const lineSymbol = {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 8,
+                strokeColor: "#393",
+              };
+              console.log(current.lat(),destination.lat(),"update")
+              // Create the polyline and add the symbol to it via the 'icons' property.
+              
+
         }else {
             console.log(status)
         }
@@ -390,10 +418,8 @@ function toRad(Value) {
 }
 function animateCircle(line) {
     let count = 0;
-    window.setInterval(() => {
-        count = (count + 1) % 200;
+    count = (count + 1) % 200;
         const icons = line.get("icons");
         icons[0].offset = count / 2 + "%";
         line.set("icons", icons);
-    }, 20);
 }

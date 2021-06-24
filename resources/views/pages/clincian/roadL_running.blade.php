@@ -77,7 +77,7 @@
         .addPermission ._title4{font-style:normal;font-weight:700;font-size:18px;color:#000}
         .addPermission ._title4 span{font-weight:500}
         .addPermission p{font-style:normal;font-weight:400;font-size:14px;color:#AAA7A7;line-height:1.6em}
-        .requestBox{display:block;padding:0;margin:0}
+        .requestBox{display:block;padding:0;margin:0;overflow: scroll;height: 80%;}
         .requestBox li{padding:0;margin:0 0 10px}
         .requestBox li .requestInfo{border:1px solid rgba(21,171,82,1);padding:0;background:rgba(201,255,222,0.15);border-radius:5px;margin:0}
         .requestBox li .requestInfo .name{font-size:18px;font-weight:600;color:#006C76}

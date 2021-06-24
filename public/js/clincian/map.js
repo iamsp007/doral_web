@@ -310,6 +310,7 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 }
             });
             var leg = response.routes[0].legs[0];
+            console.log("direction log",leg)
             if (referral_type[type].marker) {
                 referral_type[type].marker.setMap(null);
             }
@@ -323,8 +324,9 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 map.setZoom(30)
                 map.setCenter(referral_type[type].marker.getPosition());
             }
+            let distance = leg.distance.value * 0.62137;
             var duration_text='<span class="mr-2">Duration:</span>'+leg.duration.text;
-            var distance_text='<span class="mr-2">Distance:</span>'+leg.distance.text;
+            var distance_text='<span class="mr-2">Distance:</span>'+distance+' mile';
             $('#vendor-duration-'+type).html(duration_text);
             $('#vendor-distance-'+type).html(distance_text);
             // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );

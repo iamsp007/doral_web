@@ -36,6 +36,27 @@ function CenterControl(controlDiv, map) {
         map.setCenter(referrals.patient_marker.getPosition());
     });
 }
+
+function getStatusText(status){
+    var status_text='<span class="badge badge-default">Searching...</span>';
+    if(status=='1'){
+        status_text='<span class="badge badge-warning">Pending</span>';
+    }else if(status=='2'){
+        status_text='<span class="badge badge-success">Accepted</span>';
+    }else if(status=='3'){
+        status_text='<span class="badge badge-success">Arrived</span>';
+    }else if(status=='4'){
+        status_text='<span class="badge badge-success">Complete</span>';
+    }else if(status=='5'){
+        status_text='<span class="badge badge-danger">Cancel</span>';
+    }else if(status=='6'){
+        status_text='<span class="badge badge-info">Prepare Time</span>';
+    }else if(status=='7'){
+        status_text='<span class="badge badge-primary">On The Way</span>';
+    }
+console.log(status_text)
+    return status_text;
+}
 function initMap() {
     navigator.geolocation.getCurrentPosition(function (param) {
         var center = new google.maps.LatLng(param.coords.latitude, param.coords.longitude);
@@ -102,6 +123,7 @@ function initMap() {
                     current = new google.maps.LatLng(resp.latitude, resp.longitude);
                     destinationName = response.patient.first_name + ' ' + response.patient.last_name + '  Role : Patient';
                 }
+
                 referral_type[resp.id] = {
                     directionsService: new google.maps.DirectionsService(),
                     directionsRenderer: new google.maps.DirectionsRenderer({ suppressMarkers: true }),
@@ -115,7 +137,7 @@ function initMap() {
                     destinationName: destinationName,
                     destination: destination,
                     current: current,
-                    status:resp.status
+                    status:getStatusText(resp.status)
                 }
               //  html += '<option value="' + resp.id + '">' + originName + '</option>';
                 if (current!==null){
@@ -126,7 +148,7 @@ function initMap() {
                     '                            <div class="p-3 border-bottom">\n' +
                     '                                <div class="name" id="vendor-name-'+resp.id+'" style="color: '+color+'">'+originName+'</div>\n' +
                     '                                <div class="role" id="vendor-role-'+resp.id+'">Role: '+roleName+' Technician</div>\n' +
-                    '                                <div class="role" id="vendor-status-'+resp.id+'">Status: '+resp.status+'</div>\n' +
+                    '                                <div class="role" id="vendor-status-'+resp.id+'">Status: '+getStatusText(resp.status)+'</div>\n' +
                     '                            </div>\n' +
                     '                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">\n' +
                     '                                <div class="status" id="vendor-duration-'+resp.id+'"><span class="mr-2">Duration:</span>0 Mins</div>\n' +
@@ -147,6 +169,8 @@ function initMap() {
         }
     })
 }
+
+
 function makeMarker(position, icon, title, duration = 0, hours = 0, referrals=null) {
     var markers = new google.maps.Marker({
         position: position,

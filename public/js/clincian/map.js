@@ -32,15 +32,15 @@ function CenterControl(controlDiv, map) {
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener("click", () => {
         var referrals = referral_type[default_clinician_id];
-        map.setZoom(8)
-        map.setCenter(referrals.marker.getPosition());
+        map.setZoom(10)
+        map.setCenter(referrals.patient_marker.getPosition());
     });
 }
 function initMap() {
     navigator.geolocation.getCurrentPosition(function (param) {
         var center = new google.maps.LatLng(param.coords.latitude, param.coords.longitude);
         map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 8,
+            zoom: 15,
             center:center,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             mapTypeControl: true,
@@ -182,6 +182,7 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, referrals=nu
 function updateMap(destination, name, id,parent_id) {
 
     socket.on('receive-location-' + parent_id, function (data) {
+        
         var referrals = referral_type[data.id];
         var current = new google.maps.LatLng(data.latitude, data.longitude);
         var role = 'Role:' + data.referral_type;
@@ -230,11 +231,13 @@ function updateMap(destination, name, id,parent_id) {
             referral_type[data.id].status=data.status;
         }
         referrals = referral_type[data.id];
+        console.log("socket",default_clinician_id===data.id)
         if(default_clinician_id===data.id){
             map.setZoom(30)
             map.setCenter(referrals.marker.getPosition());
-            calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
+            
         }
+        calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
         $('#vendor-name-'+data.id).html(referrals.originName);
         $('#vendor-name-'+data.id).css({'color': color});
         $('#vendor-role-'+data.id).html('Role: '+referrals.roleName+' Technician');
@@ -307,6 +310,7 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 }
             });
             var leg = response.routes[0].legs[0];
+            console.log("direction log",leg)
             if (referral_type[type].marker) {
                 referral_type[type].marker.setMap(null);
             }
@@ -320,8 +324,9 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 map.setZoom(30)
                 map.setCenter(referral_type[type].marker.getPosition());
             }
+            let distance = leg.distance.value * 0.62137;
             var duration_text='<span class="mr-2">Duration:</span>'+leg.duration.text;
-            var distance_text='<span class="mr-2">Distance:</span>'+leg.distance.text;
+            var distance_text='<span class="mr-2">Distance:</span>'+distance+' mile';
             $('#vendor-duration-'+type).html(duration_text);
             $('#vendor-distance-'+type).html(distance_text);
             // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );

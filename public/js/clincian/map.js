@@ -347,6 +347,7 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
                 map.setZoom(30)
                 map.setCenter(referral_type[type].marker.getPosition());
             }
+            referral_type[type].marker.setAnimation(google.maps.Animation.BOUNCE);
             let distance = computeTotals(response);
             var duration_text='<span class="mr-2">Duration:</span>'+leg.duration.text;
             var distance_text='<span class="mr-2">Distance:</span>'+distance+' mile';

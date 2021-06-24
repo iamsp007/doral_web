@@ -245,8 +245,6 @@ function updateMap(destination, name, id,parent_id) {
                 '                    </li>';
             $('#requestInfo').append(requestInfo);
         }else{
-            referral_type[data.id].icon=icon;
-            referral_type[data.id].color=color;
             referral_type[data.id].current=current;
             referral_type[data.id].originName=originName;
             referral_type[data.id].role=role;

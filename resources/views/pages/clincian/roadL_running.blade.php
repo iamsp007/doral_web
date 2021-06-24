@@ -124,7 +124,7 @@
         });
     </script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="{{ asset('js/clincian/map.js?vers=8') }}"></script>
+    <script src="{{ asset('js/clincian/map.js?vers=9') }}"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
         defer

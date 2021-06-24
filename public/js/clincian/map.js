@@ -145,7 +145,7 @@ function initMap() {
                 requestInfo+='<li>\n' +
                     '                        <div class="requestInfo labBlock" style="border-color: '+color+'">\n' +
                     '                            <div class="p-3 border-bottom">\n' +
-                    '                                <div class="name" id="vendor-name-'+resp.id+'" style="color: '+color+'">'+originName+'</div>\n' +
+                    '                                <div class="name" id="vendor-name-'+resp.id+'" style="color: '+color+'">'+referral_type[resp.id].originName+'</div>\n' +
                     '                                <div class="role" id="vendor-role-'+resp.id+'">Role: '+roleName+' Technician</div>\n' +
                     '                                <div class="role" id="vendor-status-'+resp.id+'">Status: '+getStatusText(resp.status)+'</div>\n' +
                     '                            </div>\n' +

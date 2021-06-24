@@ -129,8 +129,8 @@ function initMap() {
                     '                                <div class="role" id="vendor-status-'+resp.id+'">Status: '+resp.status+'</div>\n' +
                     '                            </div>\n' +
                     '                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">\n' +
-                    '                                <div class="status" id="vendor-duration-'+resp.id+'"><span class="mr-2">Duration:</span>0KM</div>\n' +
-                    '                                <div class="status mt-1" id="vendor-distance-'+resp.id+'"><span class="mr-2">Distance:</span>0 Mins</div>\n' +
+                    '                                <div class="status" id="vendor-duration-'+resp.id+'"><span class="mr-2">Duration:</span>0 Mins</div>\n' +
+                    '                                <div class="status mt-1" id="vendor-distance-'+resp.id+'"><span class="mr-2">Distance:</span>0 Miles</div>\n' +
                     '                            </div>\n' +
                     '                        </div>\n' +
                     '                    </li>';
@@ -215,8 +215,8 @@ function updateMap(destination, name, id,parent_id) {
                 '                                <div class="role">Status: '+data.status+'</div>\n' +
                 '                            </div>\n' +
                 '                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">\n' +
-                '                                <div class="status" id="vendor-duration-'+data.id+'"><span class="mr-2">Duration:</span>0KM</div>\n' +
-                '                                <div class="status mt-1" id="vendor-distance-'+data.id+'"><span class="mr-2">Distance:</span>0 Mins</div>\n' +
+                '                                <div class="status" id="vendor-duration-'+data.id+'"><span class="mr-2">Duration:</span>0 Mins</div>\n' +
+                '                                <div class="status mt-1" id="vendor-distance-'+data.id+'"><span class="mr-2">Distance:</span>0 Miles</div>\n' +
                 '                            </div>\n' +
                 '                        </div>\n' +
                 '                    </li>';

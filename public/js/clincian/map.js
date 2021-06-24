@@ -254,7 +254,7 @@ function updateMap(destination, name, id,parent_id) {
             referral_type[data.id].status=data.status;
         }
         referrals = referral_type[data.id];
-        console.log("socket",default_clinician_id===data.id)
+        console.log("socket",data)
         if(default_clinician_id===data.id){
             map.setZoom(30)
             map.setCenter(referrals.marker.getPosition());
@@ -264,7 +264,7 @@ function updateMap(destination, name, id,parent_id) {
         $('#vendor-name-'+data.id).html(referrals.originName);
         $('#vendor-name-'+data.id).css({'color': color});
         $('#vendor-role-'+data.id).html('Role: '+referrals.roleName+' Technician');
-        $('#vendor-status-'+data.id).html('Status: '+referrals.status);
+        $('#vendor-status-'+data.id).html('Status: '+getStatusText(referrals.status));
 
 
     })

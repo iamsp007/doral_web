@@ -54,7 +54,6 @@ function getStatusText(status){
     }else if(status=='7'){
         status_text='<span class="badge badge-primary">On The Way</span>';
     }
-console.log(status_text)
     return status_text;
 }
 function initMap() {
@@ -131,7 +130,7 @@ function initMap() {
                     color: color,
                     icon: icon,
                     start_icon: base_url + 'assets/img/icons/icons_patient.svg',
-                    originName: originName,
+                    originName: originName==null?'Not Assign':originName,
                     role: role,
                     roleName: roleName,
                     destinationName: destinationName,

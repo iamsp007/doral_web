@@ -29,7 +29,7 @@ class AcceptedMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Email Accepted By Admin')
+        return $this->subject('Doral Account Credentials')
         ->view('emails.accepted_mail');
     }
 }

@@ -411,5 +411,6 @@
                 title: text
             })
         }
+      
     </script>
 @endpush

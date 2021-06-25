@@ -42,11 +42,14 @@
                                             <tr>
                                                 <td height="30" class="hc_height">&nbsp;</td>
                                             </tr>
+                                           @if(isset($details['login_url']))
+                                          
                                             <tr>
                                                 <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:18px; line-height:22px; font-weight: 700; color:#24272A;">
                                                 Login Url : <a href="{{ $details['login_url'] }}" target="_blank" style="color: #006C76;text-decoration: underline;">{{ $details['login_url'] }}</a>
                                                 </td>
                                             </tr>
+                                            @endif
                                             <tr>
                                                 <td height="20" style="font-size:1px; line-height:1px;">&nbsp;</td>
                                             </tr>

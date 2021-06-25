@@ -304,7 +304,7 @@ class PatientController extends Controller
         $message = "Thank you for Registration with DORAL HEALTH CONNECT. Your email address accepted by admin.You can log in with the login details given below. Username : ".$user->email." & Password : ".$password;
 
         $smsController = new SmsController();
-        $smsController->sendsmsToMe($message, $user->phone);
+        $smsController->sendsmsToMe($message, setPhone($user->phone));
 
         if ($user->phone) {
             // Send Message Start
@@ -318,7 +318,7 @@ class PatientController extends Controller
                 }
                 
                 $smsController = new SmsController();
-                $smsController->sendsmsToMe($message, $user->phone);
+                $smsController->sendsmsToMe($message, setPhone($user->phone));
             }
         }
 

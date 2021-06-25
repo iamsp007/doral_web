@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
-
+use Illuminate\Support\Facades\Log;
 class EmployeeController extends Controller
 {
     /**
@@ -230,12 +230,14 @@ class EmployeeController extends Controller
                 ]);
 
                 if (! isset($input["id_for_update"])) {
-                    $first_name = Auth::user()->first_name;
+                    $company_name = Auth::user()->first_name;
+                    $employee_name = $user->first_name . ' ' .$user->last_name;
             
                     $url = route('partnerEmailVerified', base64_encode($user->id));
                     $details = [
-                        'name' => $first_name,
-                        'href' => $url,
+                         'name' => $employee_name,
+                         'href' => $url,
+                         'company_name' => $company_name,
                     ];
                 
                     SendEmailJob::dispatch($request->email,$details,'WelcomeEmail');
@@ -338,27 +340,31 @@ class EmployeeController extends Controller
         $users->update(['status' => $input['status']]);
        
         $user_message = 'Employee status change  successfully.';
-        $link=env("WEB_URL").'download-application';
+        $link=env("APP_URL").'download-partner-application';
         if ($input['status'] === '1') {
             foreach ($users->get() as $user) {
                 $password = Str::random(8);
+                $company_name = Auth::user()->first_name;
                 $user->update(['password' => setPassword($password)]);
                 $details = [
                     'name' => $user->first_name,
                     'password' => $password,
                     'email' => $user->email,
-                    'login_url' => route('login'),
+                   // 'login_url' => route('login'),
+                   // 'phone' => '5166000122',
                     'phone' => setPhone($user->phone),
                     'type' => 'Employee',
-                    'message' => 'Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password,
+                    'message' => 'Congratulation! Your employer '. $company_name .' home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password,
                 ];
                 SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
+                 
             }
         }
         $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
         return \Response::json($responce);
     }
 
+   
     /** Resend email */
     public function resendEmail($id) 
     {
@@ -367,14 +373,20 @@ class EmployeeController extends Controller
 
         $user = User::find($id);
         $user->update(['password' => setPassword($password)]);
-
-        $url = route('partnerEmailVerified', base64_encode($user->id));
-            $details = [
-                'name' => $first_name,
-                'href' => $url,
-            ];
-        
-            SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
+	$company_name = Auth::user()->first_name;
+        $employee_name = $user->first_name . ' ' .$user->last_name;
+         $link=env("APP_URL").'download-partner-application';
+           $details = [
+                    'name' => $employee_name,
+                    'password' => $password,
+                    'email' => $user->email,
+                   // 'login_url' => route('login'),
+                   // 'phone' => '5166000122',
+                    'phone' => setPhone($user->phone),
+                    'type' => 'Employee',
+                    'message' => 'Congratulation! Your employer '. $company_name .' home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password,
+                ];
+                SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
 
         $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
         return \Response::json($responce);

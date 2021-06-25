@@ -841,7 +841,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr><td><h1>Google Maps API - Autocomplete Address Search Box with Map Example</h1>
+                            <!-- <tr><td><h1>Google Maps API - Autocomplete Address Search Box with Map Example</h1>
   
   <input id="searchMapInput" class="mapControls" type="text" placeholder="Enter a location">
   <div id="map"></div>
@@ -850,13 +850,13 @@
       <li>Latitude: <span id="lat-span"></span></li>
       <li>Longitude: <span id="lon-span"></span></li>
   </ul>
-    </td></tr>
+    </td></tr> -->
                                 <tr>
                                     <td>
-                                        <input type="text" class="input-small-skin" name="address1" id="address1" placeholder="Enter a address">
+                                        <input type="text" class="input-small-skin" name="address1" id="address1" placeholder="Enter a address" />
                                     </td>
                                     <td>
-                                        <input type="text" class="input-small-skin" name="address2">
+                                        <input type="text" class="input-small-skin" name="address2" id="address2" />
                                     </td>
                                     <td>
                                         <input type="text" class="input-small-skin" name="apt_building">
@@ -865,21 +865,25 @@
                                         <select name="city" class="input-small-skin cityStateValue">
                                             <option value="">Select a city</option>
                                         </select>
+                                        
                                     </td>
                                     <td class="selectedCity"> 
                                         <select name="city" class="input-small-skin cityValue">
                                             <option value="">Select a city</option>
                                         </select>
+                                        <input type="hidden" class="cityByGoogle" value="">
                                     </td>
                                     <td style="display:none" class="selectedStateCity"> 
                                         <select class="input-small-skin stateCityValue" name="state">
                                             <option value="">Select a state</option>
                                         </select>
+                                        
                                     </td>
                                     <td class="selectedState"> 
                                         <select class="input-small-skin stateValue" name="state">
                                             <option value="">Select a state</option>
                                         </select>
+                                        <input type="hidden" class="stateCodeByGoogle" value="">
                                     </td>
                                     <!-- <td>
                                         <select name="country" class="input-small-skin select2" name="country">
@@ -1210,7 +1214,7 @@
                             <tr>
                                 <th style="width: 30%;" class="text-right"><span class="mendate">*</span> Address Line 1 :</th>
                                 <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin" name="emergency_address1">
+                                    <input type="text" class="input-small-skin" name="emergency_address1" id="emergency_address1">
                                 </td>
                             </tr>
                             <tr>
@@ -1305,7 +1309,7 @@
                             <tr>
                                 <th style="width: 30%;" class="text-right"><span class="mendate">*</span> ZipCode :</th>
                                 <td style="width: 70%;">
-                                    <input type="text" class="input-small-skin" name="emergency_zip_code">
+                                    <input type="text" class="input-small-skin" name="emergency_zip_code" id="emergency_zip_code">
                                 </td>
                             </tr>
                             <!-- <tr>
@@ -2975,31 +2979,71 @@
 
         function initMap() {
             var input = document.getElementById('address1');
-        
             var autocomplete = new google.maps.places.Autocomplete(input);
         
             autocomplete.addListener('place_changed', function() {
                 var place = autocomplete.getPlace();
-              
+                $("#address1").val(place.formatted_address);
                 $.each(place.address_components, function (key, value) {
-                    // console.log(value)
-                    if(value.types[0] == "administrative_area_level_2") {
-                        console.log('city:'+value.long_name);
+                    if(value.types[0] == "sublocality_level_1") {
+                        $(".cityByGoogle").val(value.long_name);
                     }
 
                     if(value.types[0] == "administrative_area_level_1") {
-                        console.log('state:'+value.long_name);
+                        $(".stateCodeByGoogle").val(value.short_name);
                     }
-
+                  
                     if(value.types[0] == "postal_code") {
-                        document.getElementById('zip_code').innerHTML = place.long_name;
+                        $("#zip_code").val(value.long_name);
                     }
                 });
-                document.getElementById('address1').innerHTML = place.formatted_address;
-                
-                //
-                // document.getElementById('lon-span').innerHTML = place.geometry.location.lng();
+                getCityData();
             });
+        }
+
+        function getCityData(item_type_is,state_code)
+        {
+            var cityByGoogle = $(".cityByGoogle").val();
+            var stateCodeByGoogle = $(".stateCodeByGoogle").val();
+           
+            if (stateCodeByGoogle != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "{{url('get-city')}}/" + cityByGoogle,
+                    dataType: "JSON",
+                    data:{state_code:stateCodeByGoogle},
+                    success: function (data) {
+                        $(document).find('.selectedCityState').css({"display" : "block"});
+                        $(document).find('.selectedCity').css({"display" : "none"});
+                        $(document).find('.cityStateValue').html('');
+
+                        $(document).find('.selectedStateCity').css({"display" : "block"});
+                        $(document).find('.selectedState').css({"display" : "none"});
+                        $(document).find('.stateCityValue').html('');
+
+                        $(document).find('.stateValue').html('');
+                        if (data.status == 200) {
+                            
+                            if (data.cities != '') {
+                                $.each(data.cities, function (key, value) {
+                                    var id = value['state_code'];
+                                    var name = value['city'];
+                                    $(document).find('.cityStateValue').append('<option value="' + name + '">' + name + '-' + id + '</option>');
+                                });
+                            }
+
+                            if (data.states != '') {
+                                $.each(data.states, function (key, value) {
+                                    var id = value['state_code'];
+                                    var name = value['state'];
+                                    $(document).find('.stateCityValue').append('<option value="' + name + '">' + name + '</option>');
+                                });
+                            }
+                        }
+                      
+                    },
+                });
+            } 
         }
     </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5rTr8rSUyQeKlbaAHW1Xo-ezNoQO0dUE&libraries=places&callback=initMap" async defer></script>

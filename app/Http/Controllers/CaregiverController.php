@@ -501,6 +501,20 @@ class CaregiverController extends Controller
         }
         return \Response::json($arr);
     }
+    public function getCity($city_name,Request $request)
+    {
+        $input = $request->all();
+        $city = City::select('id', 'city', 'state_code')->where([['city', '=',$city_name],['state_code', '=', $input['state_code']]])->orderBy('city','ASC')->get();
+        $state =   $state = State::select('id','state','state_code')->where('state_code', $input['state_code'])->orderBy('state','ASC')->get();
+        
+        if (count($city) > 0) {
+            $arr = array("status" => 200, "msg" => "Success", "cities" => $city ,"states" => $state);
+        } else {
+            $arr = array("status" => 400, "msg" => "This item has no any types.", "users" => []);
+        }
+        return \Response::json($arr);
+    }
+    
 
     public function getStateData($state_code)
     {

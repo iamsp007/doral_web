@@ -40,7 +40,7 @@ class RoadLController extends Controller
                 //         });
                 // })
                 ->groupBy('parent_id')
-                ->orderBy('id','asc')
+                ->orderBy('id','desc')
                 ->get();
                 // dd($patientRequestLists);
         // $clinicianService = new ClinicianService();

@@ -34,6 +34,7 @@ function CenterControl(controlDiv, map) {
         var referrals = referral_type[default_clinician_id];
         map.setZoom(20)
         map.setCenter(referrals.patient_marker.getPosition());
+        vendorBtnActive('all')
     });
 }
 
@@ -98,11 +99,11 @@ function initMap() {
             const sources = response;
             var html = '';
             var requestInfo = '';
-            html+='<button type="button" class="btn btn-outline-info font-weight-bold active mr-2" onclick="buttonVendorClick(0)">All</button>';
+            html+='<button type="button" id="btn-roadl-all" class="btn btn-outline-info font-weight-bold active mr-2" onclick="buttonVendorClick(0)">All</button>';
             sources.clinicians.map(function (resp,key) {
                 default_clinician_id = resp.id;
                 var roleName = resp.referral_type;
-                html+='<button type="button" class="btn btn-outline-info font-weight-bold mr-2" onclick="buttonVendorClick('+resp.id+')" style="border-color: '+resp.color+'">'+roleName+'</button>';
+                html+='<button id="btn-roadl-'+resp.id+'" type="button" class="btn btn-outline-info font-weight-bold mr-2" onclick="buttonVendorClick('+resp.id+')" style="border-color: '+resp.color+'">'+roleName+'</button>';
                 var destination = '';
                 var role = 'Role:' + roleName;
                 var color = resp.color;
@@ -184,23 +185,30 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, referrals=nu
         '</div>' +
         '<div style="background:#fff;padding:10px;color:#008591">' ;
 
-        if (referrals){
+        if (referrals!==null){
             contentString+= '<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Services Type:</span>' + referrals.role + '</div>';
             contentString+= '<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Status:</span>' + referrals.status + '</div>';
+
+            contentString+='<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Distance:</span>' + duration + '</div>' +
+            '<div style="font-size:16px;font-weight:600"><span style="font-size:14px;color:#000;margin-right:10px">Duration:</span>' + hours + '</div>' +
+            '</div>';
         }
 
-       contentString+='<div style="font-size:16px;font-weight:600;margin-bottom:5px"><span style="font-size:14px;color:#000;margin-right:10px">Duration:</span>' + duration + '</div>' +
-        '<div style="font-size:16px;font-weight:600"><span style="font-size:14px;color:#000;margin-right:10px">Distance:</span>' + hours + '</div>' +
-        '</div>';
+        
+
+       
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
     });
     markers.addListener("click", () => {
         infowindow.open(map, markers);
+        console.log('====================================');
+        console.log('btn-roadl-',default_clinician_id);
+        console.log('====================================');
         if (referrals){
             default_clinician_id=referrals.id;
         }
-        
+        vendorBtnActive(referrals?default_clinician_id:'all')
         map.setZoom(30)
         map.setCenter(markers.getPosition());
     });
@@ -217,7 +225,7 @@ function updateMap(destination, name, id,parent_id) {
         var icon = data.icon;
         var originName = data.first_name + ' ' + data.last_name;
         if (referrals===undefined){
-            var html='<button type="button" class="btn btn-outline-info font-weight-bold mr-2" onclick="buttonVendorClick('+data.id+')" style="border-color: '+data.color+'">'+data.referral_type+'</button>';
+            var html='<button id="btn-roadl-'+data.id+'" type="button" class="btn btn-outline-info font-weight-bold mr-2" onclick="buttonVendorClick('+data.id+')" style="border-color: '+data.color+'">'+data.referral_type+'</button>';
             $('#btn-roadl-group').append(html);
             referral_type[data.id] = {
                 directionsService: new google.maps.DirectionsService(),
@@ -282,9 +290,13 @@ $('#referral_type').on('change', function (event) {
     }
 })
 
-function buttonVendorClick(id) {
+function vendorBtnActive(type){
     $('#btn-roadl-group').find('.active').removeClass('active');
-    $(this).addClass('active');
+    $('#btn-roadl-group').find('#btn-roadl-'+type).addClass('active');
+}
+
+function buttonVendorClick(id) {
+    vendorBtnActive(id===0?'all':id)
     var referrals = referral_type[id];
     if (referrals!==undefined){
         if (referrals.status!=='active'){
@@ -300,6 +312,7 @@ function buttonVendorClick(id) {
 }
 
 $('#re-center').on('click', function (event) {
+    vendorBtnActive('all')
     var referrals = referral_type[default_clinician_id];
     map.setZoom(8)
     map.setCenter(referrals.marker.getPosition());
@@ -338,17 +351,20 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
             if (referral_type[type].patient_marker) {
                 referral_type[type].patient_marker.setMap(null);
             }
+            let distance = computeTotals(response);
+            var duration_text='<span class="mr-2">Duration:</span>'+leg.duration.text;
+            var distance_text='<span class="mr-2">Distance:</span>'+distance+' mile';
+
             referral_type[type].patient_marker = makeMarker(leg.end_location, referrals.start_icon, referrals.destinationName, leg.distance.text, leg.duration.text);
-            referral_type[type].marker = makeMarker(leg.start_location, referrals.icon, referrals.originName, leg.distance.text, leg.duration.text,referrals);
+            referral_type[type].marker = makeMarker(leg.start_location, referrals.icon, referrals.originName, distance+' mile ', leg.duration.text,referrals);
             if (default_clinician_id === type) {
                 var referral = referral_type[default_clinician_id];
                 map.setZoom(30)
                 map.setCenter(referral_type[type].marker.getPosition());
             }
             // referral_type[type].marker.setAnimation(google.maps.Animation.BOUNCE);
-            let distance = computeTotals(response);
-            var duration_text='<span class="mr-2">Duration:</span>'+leg.duration.text;
-            var distance_text='<span class="mr-2">Distance:</span>'+distance+' mile';
+            
+            
             $('#vendor-duration-'+type).html(duration_text);
             $('#vendor-distance-'+type).html(distance_text);
             // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );

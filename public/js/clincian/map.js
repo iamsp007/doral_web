@@ -197,6 +197,10 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, referrals=nu
     });
     markers.addListener("click", () => {
         infowindow.open(map, markers);
+        if (referrals){
+            default_clinician_id=referrals.id;
+        }
+        
         map.setZoom(30)
         map.setCenter(markers.getPosition());
     });
@@ -263,26 +267,7 @@ function updateMap(destination, name, id,parent_id) {
         $('#vendor-name-'+data.id).css({'color': color});
         $('#vendor-role-'+data.id).html('Role: '+referrals.roleName+' Technician');
         $('#vendor-status-'+data.id).html('Status: '+getStatusText(referrals.status));
-        const lineSymbol = {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 8,
-            strokeColor: "#393",
-          };        
-        const line = new google.maps.Polyline({
-            path: [
-              { lat: current.lat(), lng: current.lng() },
-              { lat: destination.lat(), lng: destination.lng() },
-            ],
-            icons: [
-              {
-                icon: lineSymbol,
-                offset: "100%",
-              },
-            ],
-            map: map,
-          });
-          animateCircle(line);
-
+       
     })
 }
 $('#referral_type').on('change', function (event) {
@@ -370,15 +355,6 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
             $('#vendor-duration-'+type).html(duration_text);
             $('#vendor-distance-'+type).html(distance_text);
             // makeMarker( leg.end_location, referrals.start_icon, referrals.destinationName );
-
-            const lineSymbol = {
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 8,
-                strokeColor: "#393",
-              };
-              console.log(current.lat(),destination.lat(),"update")
-              // Create the polyline and add the symbol to it via the 'icons' property.
-              
 
         }else {
             console.log(status)

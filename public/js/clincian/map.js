@@ -32,7 +32,7 @@ function CenterControl(controlDiv, map) {
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener("click", () => {
         var referrals = referral_type[default_clinician_id];
-        map.setZoom(20)
+        map.setZoom(15)
         map.setCenter(referrals.patient_marker.getPosition());
         vendorBtnActive('all')
     });
@@ -202,9 +202,6 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, referrals=nu
     });
     markers.addListener("click", () => {
         infowindow.open(map, markers);
-        console.log('====================================');
-        console.log('btn-roadl-',default_clinician_id);
-        console.log('====================================');
         if (referrals){
             default_clinician_id=referrals.id;
         }
@@ -306,7 +303,7 @@ function buttonVendorClick(id) {
         }
     }else {
         var referrals = referral_type[default_clinician_id];
-        map.setZoom(20)
+        map.setZoom(15)
         map.setCenter(referrals.patient_marker.getPosition());
     }
 }

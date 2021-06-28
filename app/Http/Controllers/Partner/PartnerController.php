@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Employee\EmployeeController;
 use App\Jobs\SendEmailJob;
 use App\Models\Company;
 use App\Models\Role;
@@ -87,6 +88,7 @@ class PartnerController extends Controller
                     $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
                 } else if ($row->status === '1') {
                     $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                    $action .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 resendEmail" data-toggle="tooltip" data-placement="left" title="Resend Email Verify Email" data-original-title="Resend Email Verify Email"><i class="las la-redo-alt"></i></a>';
                 } else if ($row->status === '3') {
                     $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
                 }
@@ -158,5 +160,12 @@ class PartnerController extends Controller
        
         $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
         return \Response::json($responce);
+    }
+
+     /** Resend email */
+    public function resendEmail($id) 
+    {
+       $employeeController = new EmployeeController();
+       $employeeController->resendEmail($id);
     }
 }

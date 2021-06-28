@@ -120,7 +120,60 @@
                 $('#search_form').trigger("reset");
                 refresh();
             })
-          
+              /*@ Resend email */
+              $("body").on('click', '.resendEmail', function (event) {
+                var t = $(this);
+                var id = t.attr("id");
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: true,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    buttonsStyling: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                title: 'Are you sure?',
+                text: "Are you sure want to resend verification email?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, change it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#loader-wrapper").show();
+                        $.ajax({
+                            'type': 'get',
+                            'url': '{{url("admin/partner/resend")}}/' + id,
+                            'headers': {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            'success': function (data) {
+                                if (data.status == 400) {
+                                    alertText(data.message,'error');
+                                } else {
+                                    refresh()
+                                    alertText(data.message,'success');
+                                }
+                                $("#loader-wrapper").hide();
+                            },
+                            "error": function () {
+                                swal("Server Timeout!", "Please try again", "warning");
+                                $("#loader-wrapper").hide();
+                            }
+                        });
+                    } else if (result.dismiss === 'cancel') {
+                        alertText("Your record is safe :)",'cancelled');
+                    }
+                });
+            });
             $('body').on('click', '.update-status', function () {
                 var status = $(this).attr("data-status");
                 $(".innerallchk, .mainchk").prop("checked","");

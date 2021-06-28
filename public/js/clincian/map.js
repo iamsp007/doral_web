@@ -33,6 +33,7 @@ function CenterControl(controlDiv, map) {
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener("click", () => {
         if(patient_marker!==null){
+            zoom=15;
             map.setZoom(15)
             map.setCenter(patient_marker.getPosition());
             vendorBtnActive('all')
@@ -63,7 +64,7 @@ function initMap() {
     navigator.geolocation.getCurrentPosition(function (param) {
         var center = new google.maps.LatLng(param.coords.latitude, param.coords.longitude);
         map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 15,
+            zoom: zoom,
             center:center,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             mapTypeControl: true,
@@ -208,7 +209,8 @@ function makeMarker(position, icon, title, duration = 0, hours = 0, referrals=nu
             default_clinician_id=referrals.id;
         }
         vendorBtnActive(referrals?default_clinician_id:'all')
-        map.setZoom(30)
+        zoom=30;
+        map.setZoom(zoom)
         map.setCenter(markers.getPosition());
     });
     return markers;
@@ -265,7 +267,7 @@ function updateMap(destination, name, id,parent_id) {
         referrals = referral_type[data.id];
         console.log("socket",data)
         if(default_clinician_id===data.id){
-            map.setZoom(30)
+            map.setZoom(zoom)
             map.setCenter(referrals.marker.getPosition());
         }
         calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
@@ -282,7 +284,8 @@ $('#referral_type').on('change', function (event) {
     if (referrals!==undefined){
         if (referrals.status!=='active'){
             default_clinician_id = id;
-            map.setZoom(30)
+            zoom=30;
+            map.setZoom(zoom)
             map.setCenter(referrals.marker.getPosition());
         }
     }
@@ -299,12 +302,14 @@ function buttonVendorClick(id) {
     if (referrals!==undefined){
         if (referrals.status!=='active'){
             default_clinician_id = id;
-            map.setZoom(30)
+            zoom=30;
+            map.setZoom(zoom)
             map.setCenter(referrals.marker.getPosition());
         }
     }else {
         var referrals = referral_type[default_clinician_id];
-        map.setZoom(15)
+        zoom=15;
+        map.setZoom(zoom)
         map.setCenter(referrals.patient_marker.getPosition());
     }
 }
@@ -358,7 +363,7 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
             referral_type[type].marker = makeMarker(leg.start_location, referrals.icon, referrals.originName, distance+' mile ', leg.duration.text,referrals);
             if (default_clinician_id === type) {
                 var referral = referral_type[default_clinician_id];
-                map.setZoom(30)
+                map.setZoom(zoom)
                 map.setCenter(referral_type[type].marker.getPosition());
             }
             // referral_type[type].marker.setAnimation(google.maps.Animation.BOUNCE);

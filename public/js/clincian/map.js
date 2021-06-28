@@ -266,10 +266,10 @@ function updateMap(destination, name, id,parent_id) {
         }
         referrals = referral_type[data.id];
         console.log("socket",data)
-        if(default_clinician_id===data.id){
-            map.setZoom(zoom)
-            map.setCenter(referrals.marker.getPosition());
-        }
+        // if(default_clinician_id===data.id){
+        //     map.setZoom(zoom)
+        //     map.setCenter(referrals.marker.getPosition());
+        // }
         calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
         $('#vendor-name-'+data.id).html(referrals.originName);
         $('#vendor-name-'+data.id).css({'color': color});

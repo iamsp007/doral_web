@@ -6,6 +6,7 @@ var referral_type = [];
 var marker = [];
 var zoom = 10;
 var default_clinician_id = null;
+var patient_marker=null;
 function CenterControl(controlDiv, map) {
     // Set CSS for the control border.
     const controlUI = document.createElement("div");
@@ -31,10 +32,11 @@ function CenterControl(controlDiv, map) {
     controlUI.appendChild(controlText);
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener("click", () => {
-        var referrals = referral_type[default_clinician_id];
-        map.setZoom(15)
-        map.setCenter(referrals.patient_marker.getPosition());
-        vendorBtnActive('all')
+        if(patient_marker!==null){
+            map.setZoom(15)
+            map.setCenter(patient_marker.getPosition());
+            vendorBtnActive('all')
+        }
     });
 }
 
@@ -265,7 +267,6 @@ function updateMap(destination, name, id,parent_id) {
         if(default_clinician_id===data.id){
             map.setZoom(30)
             map.setCenter(referrals.marker.getPosition());
-            
         }
         calculateAndDisplayRoute(current, referrals.destination, data.id, referrals)
         $('#vendor-name-'+data.id).html(referrals.originName);
@@ -308,12 +309,12 @@ function buttonVendorClick(id) {
     }
 }
 
-$('#re-center').on('click', function (event) {
-    vendorBtnActive('all')
-    var referrals = referral_type[default_clinician_id];
-    map.setZoom(8)
-    map.setCenter(referrals.marker.getPosition());
-})
+// $('#re-center').on('click', function (event) {
+//     vendorBtnActive('all')
+//     var referrals = referral_type[default_clinician_id];
+//     map.setZoom(8)
+//     map.setCenter(referrals.marker.getPosition());
+// })
 //
 function calculateAndDisplayRoute(current, destination, type, referrals) {
     var directionsService = referrals.directionsService;
@@ -352,7 +353,8 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
             var duration_text='<span class="mr-2">Duration:</span>'+leg.duration.text;
             var distance_text='<span class="mr-2">Distance:</span>'+distance+' mile';
 
-            referral_type[type].patient_marker = makeMarker(leg.end_location, referrals.start_icon, referrals.destinationName, leg.distance.text, leg.duration.text);
+            patient_marker = makeMarker(leg.end_location, referrals.start_icon, referrals.destinationName, leg.distance.text, leg.duration.text);
+            referral_type[type].patient_marker = patient_marker
             referral_type[type].marker = makeMarker(leg.start_location, referrals.icon, referrals.originName, distance+' mile ', leg.duration.text,referrals);
             if (default_clinician_id === type) {
                 var referral = referral_type[default_clinician_id];

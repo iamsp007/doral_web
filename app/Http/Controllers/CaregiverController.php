@@ -672,18 +672,18 @@ class CaregiverController extends Controller
             $phone_number = $demographicDetails['NotificationPreferences']['MobileOrSMS'];
         }
 
-        if ($phone_number == '') {
-            $status = '4';
-        } else {
-            $phone_number = str_replace("-","",$phone_number);
-            $status = '0';
+        // if ($phone_number == '') {
+        //     $status = '4';
+        // } else {
+        //     $phone_number = str_replace("-","",$phone_number);
+        //     $status = '0';
 
-            $userDuplicatePhone = User::whereNotNull('phone')->where('phone', $phone_number)->first();
-            if ($userDuplicatePhone) {
-                return;
-            }
-        }
-
+        //     $userDuplicatePhone = User::whereNotNull('phone')->where('phone', $phone_number)->first();
+        //     if ($userDuplicatePhone) {
+        //         return;
+        //     }
+        // }
+        $status = '0';
         $gender = '';
         if ($demographicDetails['Gender'] == 'MALE') {
             $gender = 1;

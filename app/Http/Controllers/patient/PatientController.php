@@ -128,20 +128,23 @@ class PatientController extends Controller
                 }
 
                 $phone_number = $input['home_phone'] ? $input['home_phone'] : '';
-                if ($phone_number != '') {
+                // if ($phone_number != '') {
            
-                    $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
+                //     $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
               
-                    if (empty($userDuplicatePhone)) {
-                        $user->phone = setPhone($phone_number);
-                        $user->phone_verified_at = now();
-                        $status = '0';
-                    } else {
-                        $status = '4';
-                    }
-                } else {
-                    $status = '4';
-                }
+                //     if (empty($userDuplicatePhone)) {
+                //         $user->phone = setPhone($phone_number);
+                //         $user->phone_verified_at = now();
+                //         $status = '0';
+                //     } else {
+                //         $status = '4';
+                //     }
+                // } else {
+                //     $status = '4';
+                // }
+                $status = '0';
+                $user->phone = setPhone($phone_number);
+                $user->phone_verified_at = now();
                 $user->first_name = $input['first_name'];
                 $user->last_name = $input['last_name'];
                 $user->email = $input['email'];

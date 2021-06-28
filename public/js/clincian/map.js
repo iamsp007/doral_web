@@ -361,11 +361,15 @@ function calculateAndDisplayRoute(current, destination, type, referrals) {
             patient_marker = makeMarker(leg.end_location, referrals.start_icon, referrals.destinationName, leg.distance.text, leg.duration.text);
             referral_type[type].patient_marker = patient_marker
             referral_type[type].marker = makeMarker(leg.start_location, referrals.icon, referrals.originName, distance+' mile ', leg.duration.text,referrals);
-            // if (default_clinician_id === type) {
-            //     var referral = referral_type[default_clinician_id];
-            //     map.setZoom(zoom)
-            //     map.setCenter(referral_type[type].marker.getPosition());
-            // }
+            if (default_clinician_id === type) {
+                
+                var referral = referral_type[default_clinician_id];
+                console.log('====================================');
+                console.log(default_clinician_id , type,zoom,referral);
+                console.log('====================================');
+                map.setZoom(zoom)
+                map.setCenter(referral_type[type].marker.getPosition());
+            }
             // referral_type[type].marker.setAnimation(google.maps.Animation.BOUNCE);
             
             

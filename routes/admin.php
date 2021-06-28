@@ -52,5 +52,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth:web','role:admin']],functi
     Route::post('/partner/getList','\App\Http\Controllers\Partner\PartnerController@getList')->name('partner.getList');
     Route::get('/partner/{slug}', 'App\Http\Controllers\Partner\PartnerController@index');
    
+    Route::get('/partner/resend/{id}', '\App\Http\Controllers\Employee\EmployeeController@resendEmail');
+
 });
 

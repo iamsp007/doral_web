@@ -373,20 +373,18 @@ class EmployeeController extends Controller
 
         $user = User::find($id);
         $user->update(['password' => setPassword($password)]);
-	$company_name = Auth::user()->first_name;
+	    $company_name = Auth::user()->first_name;
         $employee_name = $user->first_name . ' ' .$user->last_name;
-         $link=env("APP_URL").'download-partner-application';
-           $details = [
-                    'name' => $employee_name,
-                    'password' => $password,
-                    'email' => $user->email,
-                   // 'login_url' => route('login'),
-                   // 'phone' => '5166000122',
-                    'phone' => setPhone($user->phone),
-                    'type' => 'Employee',
-                    'message' => 'Congratulation! Your employer '. $company_name .' home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password,
-                ];
-                SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
+        $link=env("APP_URL").'download-partner-application';
+            $details = [
+                'name' => $employee_name,
+                'password' => $password,
+                'email' => $user->email,
+                'phone' => setPhone($user->phone),
+                'type' => 'Employee',
+                'message' => 'Congratulation! Your employer '. $company_name .' home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password,
+            ];
+            SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
 
         $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
         return \Response::json($responce);

@@ -841,16 +841,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <!-- <tr><td><h1>Google Maps API - Autocomplete Address Search Box with Map Example</h1>
-  
-  <input id="searchMapInput" class="mapControls" type="text" placeholder="Enter a location">
-  <div id="map"></div>
-  <ul id="geoData">
-      <li>Full Address: <span id="location-snap"></span></li>
-      <li>Latitude: <span id="lat-span"></span></li>
-      <li>Longitude: <span id="lon-span"></span></li>
-  </ul>
-    </td></tr> -->
                                 <tr>
                                     <td>
                                         <input type="text" class="input-small-skin" name="address1" id="address1" placeholder="Enter a address" />

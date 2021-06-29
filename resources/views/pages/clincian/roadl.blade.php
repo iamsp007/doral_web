@@ -2,16 +2,33 @@
 @section('title','Patient RoadL Request')
 @section('pageTitleSection','Roadl')
 @section('upload-btn')
-    <div class="d-flex">
-        <select class="form-control" name="filter" id="filter">
-            <option value="0" {{ request()->type==="0"?"selected":"" }}>All</option>
-            <option value="1" {{ request()->type==="1"?"selected":"" }}>Pending</option>
-            <option value="2" {{ request()->type==="2"?"selected":"" }}>Accepted</option>
-            <option value="3" {{ request()->type==="3"?"selected":"" }}>Arrive</option>
-            <option value="4" {{ request()->type==="4"?"selected":"" }}>Complete</option>
-            <option value="5" {{ request()->type==="5"?"selected":"" }}>Cancel</option>
-        </select>
-    </div>
+    
+       
+        
+        <div class="form-group">
+            <div class="row">
+                <div class="col-3 col-sm-3 col-md-3">
+                    <div class="input-group">
+                        <select style="width:300px;" class="form-control select2_dropdown filter" id="user_name" name="user_name"></select>
+                    </div>
+                </div>
+                <div class="col-3 col-sm-3 col-md-3">
+                    <div class="input-group">
+                        <select style="width:300px;" class="form-control select2_dropdown filter" id="clinician_name" name="clinician_name"></select>
+                    </div>
+                </div>
+                <div class="col-3 col-sm-3 col-md-3">
+                    <select class="form-control filter" name="filter" id="filter">
+                        <option value="0" {{ request()->type==="0"?"selected":"" }}>All</option>
+                        <option value="1" {{ request()->type==="1"?"selected":"" }}>Pending</option>
+                        <option value="2" {{ request()->type==="2"?"selected":"" }}>Accepted</option>
+                        <option value="3" {{ request()->type==="3"?"selected":"" }}>Arrive</option>
+                        <option value="4" {{ request()->type==="4"?"selected":"" }}>Complete</option>
+                        <option value="5" {{ request()->type==="5"?"selected":"" }}>Cancel</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 @endsection
 @section('content')
     <ul class="boradcast-list">
@@ -573,6 +590,7 @@
 @endsection
 
 @push('styles')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 
     <style>
         .app .app-content .app-body .app-broadcasting .rside ._lside {width: 300px;}
@@ -586,11 +604,87 @@
     <script src="{{ asset('js/new/validation.js') }}"></script>
     <script src="{{ asset('js/new/selectpure.min.js') }}"></script>
     <script src="{{ asset('js/new/patientSearch.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
-        var patientRequestList='{{ route('clinician.roadl.patientRequestList') }}';
+        var patientRequestList="{{ route('clinician.roadl.patientRequestList') }}";
         $('#filter').on('change',function (event) {
             event.preventDefault();
-            window.location.href='{{ url("/clinician/roadl/") }}'+'?type='+event.target.value;
+            var url = window.location.href;
+           
+            if (url.indexOf('?') > -1) {
+                url = url + '&';
+                window.location.href=url+'type='+event.target.value;
+            } else {
+                window.location.href=url+'?type='+event.target.value;
+            }
         })
+
+        $('#user_name').on('change',function (event) {
+            event.preventDefault();
+            var item_type_is =  $(this).val();
+            var url = window.location.href;
+            if (url.indexOf('?') > -1) {
+                url = url + '&';
+                window.location.href=url+'user='+item_type_is;
+            } else {
+                window.location.href=url+'?user='+item_type_is;
+            }
+        })  
+
+        $('#user_name').select2({
+            minimumInputLength: 3,
+            placeholder: 'Select a patient',
+            ajax: {
+                type: "POST",
+                url: "{{ route('clinician.get-request-user') }}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.first_name + ' ' + item.last_name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+        
+        $('#clinician_name').on('change',function (event) {
+            event.preventDefault();
+            var item_type_is =  $(this).val();
+            var url = window.location.href;
+            if (url.indexOf('?') > -1) {
+                url = url + '&';
+                window.location.href=url+'clinician='+item_type_is;
+            } else {
+                window.location.href=url+'?clinician='+item_type_is;
+            }
+        })  
+
+        $('#clinician_name').select2({
+            minimumInputLength: 3,
+            placeholder: 'Select a clinician',
+            ajax: {
+                type: "POST",
+                url: "{{ route('clinician.get-request-clinician') }}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.first_name + ' ' + item.last_name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
     </script>
 @endpush

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
 use App\Models\PatientRequest;
+use App\Models\User;
 use App\Services\ClinicianService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoadLController extends Controller
 {
@@ -18,33 +20,45 @@ class RoadLController extends Controller
    
     public function index(Request $request)
     {
+        $user_id = '0';
+        if ($request->has('user')){
+            $user_id = $request->user;
+        }
+
+        $clinician_id = '0';
+        if ($request->has('clinician')){
+            $clinician_id = $request->clinician;
+        }
+        
         $type='0';
         if ($request->has('type')){
             $type = $request->type;
         }
         $status = explode(",",$type);
-        $roles = \Auth::user()->roles->pluck('id');
-            $patientRequestLists = PatientRequest::with(['requests','detail','patient','requestType','patient_detail','ccrm'])
-                ->where(function ($q) use ($status,$type){
-                    if ($type!=='0'){
-                        $q->whereIn('status',$status);
-                    }
-                })
-                // ->whereIn('status',$status)
-                ->whereNotNull('parent_id')
-                // ->where(function ($q){
-                //     $q->where('clincial_id','=',\Auth::user()->id)
-                //         ->orWhere(function ($q){
-                //            $q->whereNull('clincial_id')
-                //                ->where('type_id','=',\Auth::user()->designation_id);
-                //         });
-                // })
-                ->groupBy('parent_id')
-                ->orderBy('id','desc')
-                ->get();
-                // dd($patientRequestLists);
-        // $clinicianService = new ClinicianService();
-        // $response = $clinicianService->getPatientRequestList($type);
+        $roles = Auth::user()->roles->pluck('id');
+        $patientRequestLists = PatientRequest::with(['requests','detail','patient','requestType','patient_detail','ccrm'])
+            ->where(function ($q) use ($status,$type){
+                if ($type!=='0'){
+                    $q->whereIn('status',$status);
+                }
+            })
+            ->whereNotNull('parent_id')
+            ->where(function ($q) use ($user_id){
+                if ($user_id !== '0'){
+                    $q->where('user_id','=',$user_id);
+                }
+            })
+            ->where(function ($q) use ($clinician_id){
+                if ($clinician_id !== '0'){
+                    $q->where('clincial_id','=',$clinician_id);
+                }
+            })
+            ->groupBy('parent_id')
+            ->orderBy('id','desc')
+            ->get();
+            
+            // $clinicianService = new ClinicianService();
+            // $response = $clinicianService->getPatientRequestList($type);
         
         $patientRequestList=array();
         if (count($patientRequestLists)>0){
@@ -109,5 +123,39 @@ class RoadLController extends Controller
             return response()->json($clinicianList,200);
         }
         return response()->json($response,422);
+    }
+
+    public function getUserData(Request $request)
+    {
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            
+            $data = User::whereHas('roles',function ($q){
+                    $q->where('name','=','patient');
+                })->whereHas('patientRequest')->select("id","first_name", 'last_name')
+                ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
+                ->get();
+        }
+       
+        return response()->json($data);
+    }
+
+    public function getClinicianData(Request $request)
+    {
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            
+            $data = User::whereHas('roles',function ($q){
+                    $q->where('name','=','clinician');
+                })->whereHas('clinicianRequest')->select("id","first_name", 'last_name')
+                ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
+                ->get();
+        }
+       
+        return response()->json($data);
     }
 }

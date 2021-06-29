@@ -49,4 +49,8 @@ Route::group(['prefix'=>'/clinician','middleware'=>['auth:web','role:clinician']
     Route::post('/covid-19/send-message','\App\Http\Controllers\Clinician\PatientController@sendMessage')->name('clinician.covid-19.send-message');
     
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
+
+    Route::post('get-request-user','App\Http\Controllers\Clinician\RoadLController@getUserData')->name('clinician.get-request-user');
+
+    Route::post('get-request-clinician','App\Http\Controllers\Clinician\RoadLController@getClinicianData')->name('clinician.get-request-clinician');
 });

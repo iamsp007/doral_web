@@ -21,13 +21,13 @@ class RoadLController extends Controller
     public function index(Request $request)
     {
         $user_id = '0';
-        if ($request->has('user')){
-            $user_id = $request->user;
+        if ($request->has('user_id')){
+            $user_id = $request->user_id;
         }
 
         $clinician_id = '0';
-        if ($request->has('clinician')){
-            $clinician_id = $request->clinician;
+        if ($request->has('clinician_id')){
+            $clinician_id = $request->clinician_id;
         }
         
         $type='0';

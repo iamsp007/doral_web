@@ -607,13 +607,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
         var patientRequestList="{{ route('clinician.roadl.patientRequestList') }}";
+
+        var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+
         $('#filter').on('change',function (event) {
             event.preventDefault();
             var url = window.location.href;
            
             if (url.indexOf('?') > -1) {
-                url = url + '&';
-                window.location.href=url+'type='+event.target.value;
+                if (url.indexOf('type') > -1) {
+                    var typeUrl = getUrlParameter('type');
+                    url = url.replace('type='+typeUrl, 'type='+event.target.value);
+                    window.location.href=url;
+                } else {
+                    url = url + '&';
+                    window.location.href=url+'type='+event.target.value;
+                }
+               
             } else {
                 window.location.href=url+'?type='+event.target.value;
             }
@@ -621,13 +645,20 @@
 
         $('#user_name').on('change',function (event) {
             event.preventDefault();
-            var item_type_is =  $(this).val();
+          
             var url = window.location.href;
+
             if (url.indexOf('?') > -1) {
-                url = url + '&';
-                window.location.href=url+'user='+item_type_is;
+                if (url.indexOf('user_id') > -1) {
+                    var typeUrl = getUrlParameter('user_id');
+                    url = url.replace('user_id='+typeUrl, 'user_id='+event.target.value);
+                    window.location.href=url;
+                } else {
+                    url = url + '&';
+                    window.location.href=url+'user_id='+event.target.value;
+                }
             } else {
-                window.location.href=url+'?user='+item_type_is;
+                window.location.href=url+'?user_id='+event.target.value;
             }
         })  
 
@@ -655,15 +686,22 @@
         
         $('#clinician_name').on('change',function (event) {
             event.preventDefault();
-            var item_type_is =  $(this).val();
+          
             var url = window.location.href;
+           
             if (url.indexOf('?') > -1) {
-                url = url + '&';
-                window.location.href=url+'clinician='+item_type_is;
+                if (url.indexOf('clinician_id') > -1) {
+                    var typeUrl = getUrlParameter('clinician_id');
+                    url = url.replace('clinician_id='+typeUrl, 'clinician_id='+event.target.value);
+                    window.location.href=url;
+                } else {
+                    url = url + '&';
+                    window.location.href=url+'clinician_id='+event.target.value;
+                }
             } else {
-                window.location.href=url+'?clinician='+item_type_is;
+                window.location.href=url+'?clinician_id='+event.target.value;
             }
-        })  
+        })
 
         $('#clinician_name').select2({
             minimumInputLength: 3,

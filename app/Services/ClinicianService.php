@@ -319,7 +319,7 @@ class ClinicianService
 
             $response = $this->client->request(
                 'POST',
-                '/patient-request',
+                '/patient-request-multi',
                 [
                     'json'=>$data
                 ]

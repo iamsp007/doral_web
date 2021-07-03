@@ -517,10 +517,14 @@ table.dataTable thead th, table.dataTable thead td{
                 var val = $('.innerallchk:checked').map(function () {
                     return this.value;
                 }).get();
-                postdataforaction(status, val);
+                if (status === 'roadL') {
+                    onBroadCastOpen(val);
+                } else {
+                    postdataforaction(status, val);
+                }
             }
         }
-            
+        
         function postdataforaction(status,val) {
            
             const Toast = Swal.mixin({

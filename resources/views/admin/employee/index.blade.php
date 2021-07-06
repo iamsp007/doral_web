@@ -6,7 +6,10 @@
 @endsection
 
 @section('content')
-    
+    <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">  
+        <button type="button" onclick="doaction('1')" class="btn btn-primary btn-green shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Accept</button>
+        <button type="button" onclick="doaction('3')" class="btn btn-danger text-capitalize shadow-sm btn--sm mr-2 reject-item" data-toggle="tooltip" data-placement="left" title="" data-original-title="Reject">Reject</button>
+    </div>
     <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">

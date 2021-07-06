@@ -7,9 +7,7 @@
 
 @section('content')
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">  
-        <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
-            @include('admin.common.accept_reject_button',['status' => $partnerstatus])
-        </div>
+        @include('admin.common.accept_reject_button',['status' => $partnerstatus])
     </div>
   
     <form id="search_form" method="post">

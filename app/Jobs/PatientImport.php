@@ -147,29 +147,38 @@ class PatientImport implements ShouldQueue
         $phone_number = $demographics['HomePhone'] ? $demographics['HomePhone'] : '';
         $tele_phone = $demographics['Phone2'] ? $demographics['Phone2'] : '';
         
-        // if ($phone_number != '') {
+        if ($phone_number != '') {
            
-        //     $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
+            $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
            
-        //     if (empty($userDuplicatePhone)) {
-        //         $user->phone = setPhone($phone_number);
-        //         $user->phone_verified_at = now();
-        //         $status = '0';
-        //     } else {
-        //         $status = '4';
-        //     }
-           
-        // } else {
-        //     $status = '4';
-        // }
-        $status = '4';
+            // if (empty($userDuplicatePhone)) {
+            //     $user->phone = setPhone($phone_number);
+            //     $user->phone_verified_at = now();
+            //     $status = '0';
+            // } else {
+            //     $status = '4';
+            // }
+            $status = '0';
+        } else {
+            $status = '4';
+        }
+       
         $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
-        $password = Str::random(8);
+        $password = str_replace("-", "@",$doral_id);
             
+        if (isset($demographics['email'])) {
+            $email = $demographics['email'];
+                
+            $userDuplicateEmail = User::where('email', $email)->first();
+    
+            if (empty($userDuplicateEmail)) {
+                $user->email = $email;
+            } 
+        }
+        
         $user->first_name = $first_name;
         $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
         $user->password = setPassword($password);
-        //$user->email = $demographics['email'];
         $user->status = $status;
         $user->gender = setGender($demographics['Gender']);
         $user->phone = setPhone($phone_number);

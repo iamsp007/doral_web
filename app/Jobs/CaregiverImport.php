@@ -158,24 +158,24 @@ class CaregiverImport implements ShouldQueue
         $phone_number = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
         $tele_phone = $demographics['Address']['Phone2'] ? $demographics['Address']['Phone2']: '';
 
-        // if ($phone_number != '') {
+        if ($phone_number != '') {
            
-        //     $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
+            // $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
            
-        //     if (empty($userDuplicatePhone)) {
-        //         $user->phone = setPhone($phone_number);
-        //         $user->phone_verified_at = now();
-        //         $status = '0';
-        //     } else {
-        //         $status = '4';
-        //     }
-           
-        // } else {
-        //     $status = '4';
-        // }
-        $status = '4';
+            // if (empty($userDuplicatePhone)) {
+            //     $user->phone = setPhone($phone_number);
+            //     $user->phone_verified_at = now();
+            //     $status = '0';
+            // } else {
+            //     $status = '4';
+            // }
+            $status = '0';
+        } else {
+            $status = '4';
+        }
+      
         $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
-        $password = str_replace(" ", "",$first_name) . '@' . $doral_id;
+        $password = str_replace("-", "@",$doral_id);
             
         $user->first_name = $first_name;
         $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';

@@ -20,7 +20,6 @@ table.dataTable thead th, table.dataTable thead td{
     @section('upload-btn')
         @if (request()->segment(count(request()->segments())) == "occupational-health")
             <div class="d-flex">
-           
                 <a href="{{ url('referral/service/occupational-health/initial') }}" class="bulk-upload-btn">
                     <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
                     Pending Patients</a>
@@ -73,24 +72,26 @@ table.dataTable thead th, table.dataTable thead td{
 @endrole
 
 @section('content')
-    @if(!$serviceStatus)
+   
         <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <div class="input-group">
-                            <select name="status" id="status" class="form-control form-control-lg">
-                                <option value="">Select a status</option>
-                                @foreach (config('select.userStatus') as $key => $value)
-                                <option value="{{ $key }}">{{ $value }}</option>
-                                @endforeach
-                            </select>
+                    @if(!$serviceStatus)
+                        <div class="col-3 col-sm-3 col-md-3">
+                            <div class="input-group">
+                                <select name="status" id="status" class="form-control form-control-lg">
+                                    <option value="">Select a status</option>
+                                    @foreach (config('select.userStatus') as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="col-3 col-sm-3 col-md-3">
                         <div class="input-group">
-                            <x-text name="lab_due_date" class="lab_due_date" id="lab_due_date" placeholder="Due Date"/></td>
+                            <input type="text" class="form-control" name="between_date" id="between_date" placeholder="Due Date"></td>
                         </div>
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
@@ -120,7 +121,7 @@ table.dataTable thead th, table.dataTable thead td{
                         </select>
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
-                        <input type="text" class="form-control" name="dob" id="dob" placeholder="DOB">
+                        <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" placeholder="DOB">
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
                         <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
@@ -129,7 +130,7 @@ table.dataTable thead th, table.dataTable thead td{
                 </div>
             </div>
         </form>
-    @elseif($serviceStatus === 'covid-19')
+    @if($serviceStatus === 'covid-19')
         <form id="search_form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
@@ -248,11 +249,11 @@ table.dataTable thead th, table.dataTable thead td{
                 data: function (d) {
                     d.due_date = $('input[name="daterange"]').val();
                     d.status = $('select[name="status"]').val();
-                    d.lab_due_date = $('input[name="lab_due_date"]').val();
+                    d.between_date = $('input[name="between_date"]').val();
                     d.user_name = $('select[name="user_name"]').val();
                     d.service_id = $('select[name="service_id"]').val();
                     d.gender = $('select[name="gender"]').val();
-                    d.dob = $('input[name="dob"]').val();
+                    d.dob = $('input[name="date_of_birth"]').val();
                     d.serviceStatus = $('input[name="serviceStatus"]').val();
                     d.initial = $('input[name="initial"]').val();
                     d.zip_code = $('input[name="zip_code"]').val();
@@ -311,24 +312,21 @@ table.dataTable thead th, table.dataTable thead td{
              refresh();
         })
 
-        $('input[name="lab_due_date"]').daterangepicker({
+        $('input[name="between_date"]').daterangepicker({
             autoUpdateInput: false,
         });
 
-        $('input[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('MM-DD-YYYY') + ' - ' + picker.endDate.format('MM-DD-YYYY'));
+        $('input[name="between_date"]').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
         });
 
-        $('input[name="dob"]').daterangepicker({
+        $('input[name="date_of_birth"]').daterangepicker({
             autoUpdateInput: false,
             singleDatePicker: true,
-            // showDropdowns: true,
-            // minYear: 1901,
-            // maxYear: parseInt(moment().format('YYYY'), 10)
         });
 
-        $('input[name="dob"]').on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('MM-DD-YYYY'));
+        $('input[name="date_of_birth"]').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY'));
         });
 
         $('#user_name').select2({

@@ -118,7 +118,6 @@ class CaregiverController extends Controller
                     }
                 });
             } else if($request['serviceStatus'] == 'covid-19') {
-                $query->where('status', '0');
 
                 $query->whereHas('demographic',function ($query) use($request) {
                     $query->where('service_id', '6');
@@ -133,48 +132,35 @@ class CaregiverController extends Controller
             } else if ($request['serviceStatus'] == 'pending') {
                 $query->where('status', '0');
             } 
-            // else if ($request['serviceStatus'] == 'initial') {
-                
-            //     $query->where('status', '4');
-
-            //     $query->whereHas('demographic',function ($q) {
-            //         $q->where('service_id', '3');
-            //         if(Auth::guard('referral')) {
-            //             $company_id = Auth::guard('referral')->user()->id;
-            //             $q->where('company_id', $company_id);
-            //         }
-            //     });
-            // }
         })
         ->when(! $request['serviceStatus'] ,function ($query) use($request) {
             $query->whereIn('status', ['1', '2', '3', '5']);
-        
-            $query->when($request['service_id'], function ($query) use($request) {
-                $query->whereHas('demographic',function ($q) use($request) {
-                    $q->where('service_id', $request['service_id']);
-                });
-            })
-            ->when($request['status'], function ($query) use($request) {
-                $query->where('status', $request['status']);
-            })
-            ->when($request['user_name'], function ($query) use($request){
-                $query->where('id', $request['user_name']);
-            })
-            ->when($request['gender'], function ($query) use($request){
-                
-                $query->where('gender', $request['gender']);
-            })
-            ->when($request['dob'], function ($query) use($request){
-                $dob = date('Y-d-m', strtotime($request['dob']));
-                $query->where('dob', $dob);
-            })
-            ->when($request['between_date'], function ($query) use($request){
-                $query->whereHas('patientLabReport',function ($query) use($request) {
-                    $date = explode('-', $request['between_date']);
-                    $startDate  = date('Y-m-d', strtotime($date[0]));
-                    $endDate = date('Y-m-d', strtotime($date[1]));
-                    $query->whereBetween('due_date',[$startDate,$endDate]);
-                });
+        })
+        ->when($request['service_id'], function ($query) use($request) {
+            $query->whereHas('demographic',function ($q) use($request) {
+                $q->where('service_id', $request['service_id']);
+            });
+        })
+        ->when($request['status'], function ($query) use($request) {
+            $query->where('status', $request['status']);
+        })
+        ->when($request['user_name'], function ($query) use($request){
+            $query->where('id', $request['user_name']);
+        })
+        ->when($request['gender'], function ($query) use($request){
+            
+            $query->where('gender', $request['gender']);
+        })
+        ->when($request['dob'], function ($query) use($request){
+            $dob = date('Y-m-d', strtotime($request['dob']));
+            $query->where('dob', $dob);
+        })
+        ->when($request['between_date'], function ($query) use($request){
+            $query->whereHas('patientLabReport',function ($query) use($request) {
+                $date = explode('-', $request['between_date']);
+                $startDate  = date('Y-m-d', strtotime($date[0]));
+                $endDate = date('Y-m-d', strtotime($date[1]));
+                $query->whereBetween('due_date',[$startDate,$endDate]);
             });
         })
         ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports');

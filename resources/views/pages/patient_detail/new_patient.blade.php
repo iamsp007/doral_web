@@ -20,59 +20,36 @@ table.dataTable thead th, table.dataTable thead td{
     @section('upload-btn')
         @if (request()->segment(count(request()->segments())) == "occupational-health")
             <div class="d-flex">
-                <a href="{{ url('referral/service/occupational-health/initial') }}" class="bulk-upload-btn">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Pending Patients</a>
-                <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Import Patients</a>
-                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Auto Import</a>
+                <a href="{{ url('referral/service/occupational-health/initial') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Pending Patients</a>
+                <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Import Patients</a>
+                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "initial")
             <div class="d-flex">
-                <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    ACTIVE Patients</a>
-                <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Import Patients</a>
+                <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" /> ACTIVE Patients</a>
+                <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Import Patients</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "occupational-health-upload-bulk-data")
             <div class="d-flex">
-                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Pending Patients</a>
-                <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    ACTIVE Patients</a>
-                  
+                <a href="{{ url('referral/service/initial') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" /> Pending Patients</a>
+                <a href="{{ url('referral/service/occupational-health') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />ACTIVE Patients</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "covid-19")
             <div class="d-flex">
-                <a href="{{ url('search-caregivers') }}" class="bulk-upload-btn">
-                        <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                        Pending Patients</a>
-                <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                        Import Patients</a>
+                <a href="{{ url('search-caregivers') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Pending Patients</a>
+                <a href="{{ route('referral.covid-19') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Import Patients</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "md-order")
             <div class="d-flex">
-                <a href="{{ url('referral/service/md-order/initial') }}" class="bulk-upload-btn">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Pending Patients</a>
-                    <!-- {{ url('hha-exchange') }} -->
-                    <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-patient-from-hha') }}">
-                    <img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />
-                    Auto Import</a>
+                <a href="{{ url('referral/service/md-order/initial') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Pending Patients</a>
+                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-patient-from-hha') }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
             </div>
         @endif
     @endsection
 @endrole
 
 @section('content')
-   
+    @if($serviceStatus != 'covid-19')
         <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
@@ -130,7 +107,7 @@ table.dataTable thead th, table.dataTable thead td{
                 </div>
             </div>
         </form>
-    @if($serviceStatus === 'covid-19')
+    @elseif($serviceStatus === 'covid-19')
         <form id="search_form" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
@@ -158,22 +135,20 @@ table.dataTable thead th, table.dataTable thead td{
         <input type="hidden" value="{{ $initial }}" id="initial" name="initial" />
         <thead>
             <tr>
-               
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
-               
                 <th>Sr No.</th>
                 <th>Patient Name</th>
                 <th>Gender</th>
                 <th>SSN</th>
                 <th>Home Phone</th>
                 @if(!$serviceStatus || $serviceStatus === 'pending')
-                <th>Services</th>
+                    <th>Services</th>
                 @endif
                 <th>Doral Id</th>
                 <th>City - State</th>
                 <th>DOB</th>
                 @if(!$serviceStatus)
-                <th>Status</th>
+                    <th>Status</th>
                 @endif
                 <th>Action</th>
             </tr>
@@ -321,12 +296,10 @@ table.dataTable thead th, table.dataTable thead td{
         });
 
         $('input[name="date_of_birth"]').daterangepicker({
-            autoUpdateInput: false,
             singleDatePicker: true,
-        });
-
-        $('input[name="date_of_birth"]').on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('MM/DD/YYYY'));
+            showDropdowns: true,
+            minYear: 1901,
+            maxYear: parseInt(moment().format('YYYY'), 10)
         });
 
         $('#user_name').select2({
@@ -471,6 +444,7 @@ table.dataTable thead th, table.dataTable thead td{
 
         $(".mainchk").click(function () {
             var ch = $(this).prop("checked");
+            
             if(ch == true) {
                 $(".innerallchk").prop("checked","checked");
                 $('#acceptRejectBtn').show();

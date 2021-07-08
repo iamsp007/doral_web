@@ -439,10 +439,24 @@
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td>
-                                                        <p>City: <span> {{ isset($emergency_detail['city_id']) ? \App\Models\City::find($emergency_detail['city_id'])->city : '' }}</span></p>
+                                                        <p>City: <span> 
+                                                        @if (is_numeric($emergency_detail['city_id']))
+                                                         		{{ isset($emergency_detail['city_id']) ? \App\Models\City::find($emergency_detail['city_id'])->city : '' }}
+                                                         	@else
+                                                         		{{ isset($emergency_detail['city_id']) ? $emergency_detail['city_id'] : '' }}
+                                                        	@endif
+                                                        	
+                                                        	</span></p>
                                                     </td>
                                                     <td>
-                                                        <p>State: <span>{{ isset($emergency_detail['state_id']) ? \App\Models\State::find($emergency_detail['state_id'])->state : '' }}</span></p>
+                                                        <p>State: <span>
+                                                          @if (is_numeric($emergency_detail['state_id']))
+                                                         		{{ isset($emergency_detail['state_id']) ? \App\Models\State::find($emergency_detail['state_id'])->state : '' }}
+                                                         	@else
+                                                         		{{ isset($emergency_detail['state_id']) ? $emergency_detail['state_id'] : '' }}
+                                                        	@endif
+                                                        	
+                                                        	</span></p>
                                                     </td>
                                                     <td>
                                                         <p>Zip: <span>{{ isset($emergency_detail['zipcode']) ? $emergency_detail['zipcode'] : '' }}</span></p>
@@ -555,9 +569,16 @@
                                                         {{ $employer_detail['companyName']}}
                                                     @endif
                                                     </td>
-                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['address']}} </td>
+                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
+                                                    @if (isset($employer_detail['address']))
+                                                        {{ $employer_detail['address']}}
+
+                                                    @elseif (isset($employer_detail['address1']))
+                                                        {{ $employer_detail['address1']}}
+                                                    @endif
+                                                   </td>
                                                     <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['phoneNo']}}</td>
-                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['supervisor']}}</td>
+                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ isset($employer_detail['supervisor']) ? $employer_detail['supervisor'] : '' }}</td>
                                                 </tr>
                                                 @php $counter++ @endphp
                                             @endforeach
@@ -604,10 +625,22 @@
                                         @foreach ($users->education_detail as $education_detail)
                                             <tr style="background: #f8f8f8;">
                                                 <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{$counter}}</td>
-                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['address'] }}</td>
-                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['year'] }}</td>
-                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['isGraduate'] }}</td>
-                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $education_detail['Degree'] }}</td>
+                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
+                                                	@if(isset($education_detail['address'])) 
+                                                		{{ $education_detail['address'] }}
+                                                	@elseif(isset($education_detail['address_line_1']))
+                                                		{{ $education_detail['address_line_1'] }}
+                                                	@endif
+                                                	</td>
+                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ isset($education_detail['year']) ? $education_detail['year'] : '' }}</td>
+                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ isset($education_detail['isGraduate']) ? $education_detail['isGraduate']  : '' }}</td>
+                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
+                                                	@if(isset($education_detail['Degree'])) 
+                                                		{{ $education_detail['Degree'] }}
+                                                	@elseif(isset($education_detail['degree']))
+                                                		{{ $education_detail['degree'] }}
+                                                	@endif
+                                                	</td>
                                             </tr>
                                             @php $counter++ @endphp
                                         @endforeach
@@ -933,7 +966,19 @@
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td>
-                                                        <p>Address:  <span>{{ $reference_detail['address_line_1'] }} {{ $reference_detail['address_line_2'] }} {{ $reference_detail['building'] }} {{ isset($reference_detail['city_id']) ? \App\Models\City::find($reference_detail['city_id'])->city : '' }} {{ isset($reference_detail['zipcode']) ? $reference_detail['zipcode'] : '' }} </span></p>
+                                                        <p>Address:  <span>{{ $reference_detail['address_line_1'] }}
+                                                          @if (isset($reference_detail['address_line_2']))
+                                                           {{ $reference_detail['address_line_2'] }}
+                                                         @endif  
+                                                           {{ isset($reference_detail['building']) ? $reference_detail['building'] : '' }}
+                                                        @if (isset($reference_detail['city_id']))
+                                                         	@if (is_numeric($reference_detail['city_id']))
+                                                         		{{ isset($reference_detail['city_id']) ? \App\Models\City::find($reference_detail['city_id'])->city : '' }}
+                                                         	@else
+                                                         		{{ isset($reference_detail['city_id']) ? $reference_detail['city_id'] : '' }}
+                                                        	@endif
+                                                        @endif
+                                                          {{ isset($reference_detail['zipcode']) ? $reference_detail['zipcode'] : '' }} </span></p>
                                                     </td>
                                                 </tr>
                                             </table>

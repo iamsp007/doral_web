@@ -296,6 +296,7 @@ table.dataTable thead th, table.dataTable thead td{
         });
 
         $('input[name="date_of_birth"]').daterangepicker({
+            autoUpdateInput: false,
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 1901,

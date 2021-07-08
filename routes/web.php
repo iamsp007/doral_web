@@ -147,5 +147,5 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::get('import-patient-from-hha','App\Http\Controllers\Admin\PatientImportController@importPatient');
     Route::get('import-caregiver-from-hha','App\Http\Controllers\Admin\PatientImportController@importCaregiver');
     
-    Route::post('/call-view', 'App\Http\Controllers\VoiceController@index')->name('call-view');
+    Route::get('/call-view', 'App\Http\Controllers\VoiceController@index')->name('call-view');
     Route::post('/call', 'App\Http\Controllers\VoiceController@initiateCall')->name('initiate_call');

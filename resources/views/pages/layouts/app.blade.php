@@ -478,7 +478,44 @@
                                                             </tr></tbody></table>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr id="test_name_list_tr" style="display: none;">
+                                                        <td colspan="4">
+                                                            <table style="width: 100%;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="width: 30%;" class="text-right border-0">
+                                                                            Test Name :
+                                                                        </td>
+                                                                        <td style="width: 70%;" class="border-0">
+                                                                        <select onchange="getSubNameList()" name="test_name[]" class="input-small-skin js-example-basic-multiple" multiple="multiple">
+                                                                            <option selected="selected" value="">Select a test</option>
+                                                                        </select>
+                                                                      
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr id="sub_test_name_list_tr" style="display: none;">
+                                                        <td colspan="4">
+                                                            <table style="width: 100%;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="width: 30%;" class="text-right border-0">
+                                                                            Sub Test Name :
+                                                                        </td>
+                                                                        <td style="width: 70%;" class="border-0">
+                                                                            <select name="sub_test_name[]" class="input-small-skin sub_test_id" multiple="multiple">
+                                                                                <option selected="selected" value="">Select a sub test</option>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- <tr>
                                                         <td colspan="4">
                                                             <table style="width: 100%;">
                                                                 <tbody>
@@ -491,7 +528,7 @@
                                                                 </td>
                                                             </tr></tbody></table>
                                                         </td>
-                                                    </tr>
+                                                    </tr> -->
                                                     <tr>
                                                         <td colspan="4">
                                                             <table style="width: 100%;">

@@ -58,10 +58,12 @@ function onBroadCastOpen(patient_id) {
         }
     })
 }
-
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+    $('.sub_test_id').select2();
+});
 function getClinicianList(role_id) {
    
-    if(role_id == 1 || role_id == 2) {
         $.ajax({
             beforeSend: function(){
                 $("#loader-wrapper").show();
@@ -76,26 +78,70 @@ function getClinicianList(role_id) {
             },
             dataType:'json',
             success:function (response) {
+             
                 $("#loader-wrapper").hide();
-                var html='';
-                html+='<option value="0">Select Clinician</option>';
-                response.map(function (value) {
-                    html+='<option value="'+value.id+'">'+value.first_name+' '+value.last_name+'</option>';
-                })
-                html+='<option value="0">Broadcast</option>';
-                $('#roadl-request-modal').find('#clinician_role_list_tr').show();
-                $('#roadl-request-modal').find('#clinician_list_id').html(html);
+
+                if(role_id == 1 || role_id == 2) {
+                    var html='';
+                    html+='<option value="0">Select Clinician</option>';
+                    response.clinicianList.map(function (value) {
+                        html+='<option value="'+value.id+'">'+value.first_name+' '+value.last_name+'</option>';
+                    })
+                    html+='<option value="0">Broadcast</option>';
+                    $('#roadl-request-modal').find('#clinician_role_list_tr').show();
+                    $('#roadl-request-modal').find('#clinician_list_id').html(html);
+                } else {
+                    $('#roadl-request-modal').find('#clinician_list_id').val('');
+                    $('#roadl-request-modal').find('#clinician_role_list_tr').hide();
+
+                    var testnameHtml='';
+                    testnameHtml+='<option value="0">Select Test</option>';
+                    response.categories.map(function (value) {
+                        testnameHtml+='<option value="'+value.id+'">'+value.name+'</option>';
+                    })
+                    $('#roadl-request-modal').find('#test_name_list_tr').show();
+                    $('#roadl-request-modal').find('.js-example-basic-multiple').html(testnameHtml);
+                }
             },
             error:function (error,responseText) {
                 $("#loader-wrapper").hide();
             }
         })
-    }else {
-        $('#roadl-request-modal').find('#clinician_list_id').val('');
-        $('#roadl-request-modal').find('#clinician_role_list_tr').hide();
-    }
+   
 }
 
+function getSubNameList() {
+    var test_id = $(".js-example-basic-multiple").val();
+    
+    $.ajax({
+        beforeSend: function(){
+            $("#loader-wrapper").show();
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:base_url+'sub-test-list',
+        method:'GET',
+        data:{
+            category_id:test_id
+        },
+        dataType:'json',
+        success:function (response) {
+       
+            $("#loader-wrapper").hide();
+            var testnameHtml='';
+            testnameHtml+='<option value="0">Select Test</option>';
+            response.map(function (value) {
+                testnameHtml+='<option value="'+value.id+'">'+value.name+'('+ value.sub_test_name.name +')</option>';
+            })
+            $('#roadl-request-modal').find('#sub_test_name_list_tr').show();
+            $('#roadl-request-modal').find('.sub_test_id').html(testnameHtml);
+        },
+        error:function (error,responseText) {
+            $("#loader-wrapper").hide();
+        }
+    })
+}
 
 function onAppointmentBroadCastSubmit() {
     var data = $('#broadcast_form').serializeArray();

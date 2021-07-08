@@ -423,6 +423,24 @@ class ClinicianService
         }
     }
 
+    public function getSubTestNameList($data){
+        try {
+
+            $response = $this->client->request(
+                'POST',
+                '/multi-name-list',
+                [
+                    'json'=>$data
+                ]
+            );
+            $response = $response->getBody()->getContents();
+            $data = json_decode($response);
+            return $data;
+        }catch (\Exception $exception){
+            Log::info($exception);
+        }
+    }
+    
     /**
      * getCovid19PatientList
      * 

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\CovidForm;
 use App\Models\Patient;
 use App\Models\PatientReferral;
+use App\Models\Test;
 use App\Models\User;
 use App\Services\ClinicianService;
 use Illuminate\Http\Request;
@@ -202,6 +204,17 @@ class PatientController extends Controller
     }
 
     public function patientRequest(Request $request){
+       
+        $test_name = Category::whereIn('id',$request->test_name)->get()->pluck('name')->toArray();
+        if ($test_name) {
+            $request['test_name'] = implode(",",$test_name);
+        }
+
+        $sub_test_name = Test::whereIn('id',$request->sub_test_name)->get()->pluck('name')->toArray();
+        if ($sub_test_name) {
+            $request['sub_test_name'] = implode(",",$sub_test_name);
+        }
+       
         $clinicianService = new ClinicianService();
         $response = $clinicianService->patientRequest($request->all());
         if ($response->status===true){

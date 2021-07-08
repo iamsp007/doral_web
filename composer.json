@@ -25,6 +25,7 @@
         "opentok/opentok": "^4.6",
         "predis/predis": "^1.1",
         "spatie/laravel-permission": "^3.18",
+        "twilio/sdk": "^6.26",
         "yajra/laravel-datatables-oracle": "^9.15"
     },
     "require-dev": {

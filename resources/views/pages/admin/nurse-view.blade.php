@@ -15,7 +15,7 @@
     Clinician Details
 @endsection
 @php
-$count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = 1;
+$count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = $count19 = $count20 = $count21 = 1;
 @endphp
 @foreach($data->documents as $document)
 @if($document->type == 1)
@@ -48,6 +48,12 @@ $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 
    @php $type17 = $count17++; @endphp
 @elseif($document->type == 18)
    @php $type18 = $count18++; @endphp
+   @elseif($document->type == 19)
+   @php $type19 = $count19++; @endphp
+@elseif($document->type == 20)
+   @php $type20 = $count20++; @endphp
+@elseif($document->type == 21)
+   @php $type21 = $count21++; @endphp
 @endif
 @endforeach
 
@@ -1618,6 +1624,79 @@ $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 
           @endif
           @endforeach
           </tr> 
+          
+      </table> 
+      @endisset
+      </td>
+    </tr>
+     <tr>
+      <td>16</td>
+      <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="19" id="w4document-tab" data-toggle="tab" href="#w4document" role="tab" aria-controls="w4document" aria-selected="false">w4document {{isset($type19)  ? '('.$type19.')' : ''}}</a>
+      </td>
+      <td>
+      @isset($data->documents)
+      <table><tr>
+          @php
+             $type = '';
+          @endphp
+          @foreach($data->documents as $document)
+             @if($document->type == 19)
+                @php $type = $document->type; @endphp
+                <td>
+                <button type="button" class="btn btn-outline-green d-flex align-items-center btn-sm ml-1"  name=""><i class="las la-binoculars sm-2x mr-2"></i><a href="{{$document->file_url}}" target="_blank"> View Documents</a></button>
+                </td>
+          @endif
+          @endforeach
+          </tr> 
+          
+      </table> 
+      @endisset
+      </td>
+    </tr>
+     <tr>
+      <td>17</td>
+      <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="20" id="idProofBack-tab" data-toggle="tab" href="#idProofBack" role="tab" aria-controls="idProofBack" aria-selected="false">Id Proof Back {{isset($type20)  ? '('.$type20.')' : ''}}</a>
+      </td>
+      <td>
+      @isset($data->documents)
+      <table><tr>
+          @php
+             $type = '';
+          @endphp
+          @foreach($data->documents as $document)
+             @if($document->type == 20)
+                @php $type = $document->type; @endphp
+                <td>
+                <button type="button" class="btn btn-outline-green d-flex align-items-center btn-sm ml-1"  name=""><i class="las la-binoculars sm-2x mr-2"></i><a href="{{$document->file_url}}" target="_blank"> View Documents</a></button>
+                </td>
+          @endif
+          @endforeach
+          </tr> 
+          
+      </table> 
+      @endisset
+      </td>
+    </tr>
+     <tr>
+      <td>18</td>
+      <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="21" id="socialSecurityBack-tab" data-toggle="tab" href="#socialSecurityBack" role="tab" aria-controls="socialSecurityBack" aria-selected="false">Social Security Back {{isset($type21)  ? '('.$type21.')' : ''}}</a>
+      </td>
+      <td>
+      @isset($data->documents)
+      <table><tr>
+          @php
+             $type = '';
+          @endphp
+          @foreach($data->documents as $document)
+             @if($document->type == 21)
+                @php $type = $document->type; @endphp
+                <td>
+                <button type="button" class="btn btn-outline-green d-flex align-items-center btn-sm ml-1"  name=""><i class="las la-binoculars sm-2x mr-2"></i><a href="{{$document->file_url}}" target="_blank"> View Documents</a></button>
+                </td>
+          @endif
+          @endforeach
+          </tr> 
+          
       </table> 
       @endisset
       </td>

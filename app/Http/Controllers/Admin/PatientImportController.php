@@ -45,7 +45,7 @@ class PatientImportController extends Controller
         try {
             $company_id='';
             if(Auth::guard('referral')) {
-                $company_id = Auth::guard('referral')->user()->id;
+                $company_id = Auth::guard('referral')->user();
             } 
             CaregiverImport::dispatch($company_id);
 

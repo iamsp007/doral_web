@@ -353,7 +353,7 @@ class EmployeeController extends Controller
                    // 'login_url' => route('login'),
                    // 'phone' => '5166000122',
                     'phone' => setPhone($user->phone),
-                    'type' => 'Employee',
+                    'type' => 'sendsms',
                     'message' => 'Congratulation! Your employer '. $company_name .' home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password,
                 ];
                 SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
@@ -381,7 +381,7 @@ class EmployeeController extends Controller
                 'password' => $password,
                 'email' => $user->email,
                 'phone' => setPhone($user->phone),
-                'type' => 'Employee',
+                'type' => 'sendsms',
                 'message' => 'Congratulation! Your employer '. $company_name .' home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password,
             ];
             SendEmailJob::dispatch($user->email,$details,'AcceptedMail');

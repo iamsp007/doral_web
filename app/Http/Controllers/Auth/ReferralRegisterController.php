@@ -178,7 +178,7 @@ class ReferralRegisterController extends Controller
             'referralType' => ['required'],
             'company' => ['required'],
             'email' => ['required', 'email', 'unique:users'],
-            'phone' => ['required', 'regex:/[0-9]{9}/','unique:users']
+            'phone' => ['required', 'regex:/[0-9]{9}/']
         ],[
             'referralType.required' => 'Please select partner type.',
             'company.required' => 'Please enter company name.',

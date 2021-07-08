@@ -89,6 +89,7 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
 
     Route::get('/roadl-vendor-list','App\Http\Controllers\Clinician\RoadLController@getVendorList')->name('roadl.vendor.list');
     Route::get('/clinician-role-list','App\Http\Controllers\Clinician\RoadLController@getClinicianList')->name('clinician.role.list');
+    Route::get('/sub-test-list','App\Http\Controllers\Clinician\RoadLController@getSubTestNameList')->name('clinician.sub-test-list');
     Route::post('/save-token','\App\Http\Controllers\HomeController@saveToken')->name('save-token');
     Route::get('/all-patient-list','\App\Http\Controllers\HomeController@allPatientList')->name('all.patient.list');
 

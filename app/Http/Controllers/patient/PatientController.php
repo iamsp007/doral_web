@@ -4,7 +4,6 @@ namespace App\Http\Controllers\patient;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\SmsController;
 use App\Jobs\SendEmailJob;
 use App\Models\City;
 use App\Models\Company;
@@ -15,7 +14,6 @@ use App\Models\State;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
@@ -296,24 +294,12 @@ class PatientController extends Controller
         $user = User::with('demographic')->find($id);
         $user->update(['password' => setPassword($password)]);
 
-        $details = [
-            'name' => $user->first_name . ' ' . $user->last_name,
-            'password' => $password,
-            'email' => $user->email,
-            'login_url' => route('login'),
-        ];
-        SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
-
-        // $message = "Thank you for Registration with DORAL HEALTH CONNECT. Your email address accepted by admin.You can log in with the login details given below. Username : ".$user->email." & Password : ".$password;
-
-        // $smsController = new SmsController();
-        // $smsController->sendsmsToMe($message, setPhone($user->phone));
-
         if ($user->phone) {
             // Send Message Start
             $link=env("WEB_URL").'download-application';
           
             if ($user->demographic) {
+                $message = '';
                 if($user->demographic->service_id == 6) {
                     $message = 'This message is from Doral Health Connect. In order to track your nurse coming to your home for vaccination please click on the link below and download an app. '.$link . "  for login Username : ".$user->email." & Password : ".$password;
                 } else if($user->demographic->service_id == 3) {
@@ -321,9 +307,17 @@ class PatientController extends Controller
                 } else {
                     $message = 'Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password;
                 }
-                
-                $smsController = new SmsController();
-                $smsController->sendsmsToMe($message, setPhone($user->phone));
+               
+                $details = [
+                    'name' =>$user->first_name . ' ' . $user->last_name,
+                    'password' => $password,
+                    'email' => $user->email,
+                    'phone' => setPhone($user->phone),
+                    'type' => 'sendsms',
+                    'login_url' => route('login'),
+                    'message' => $message,
+                ];
+                SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
             }
         }
 

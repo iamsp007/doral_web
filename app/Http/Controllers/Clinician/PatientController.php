@@ -203,16 +203,24 @@ class PatientController extends Controller
         return response()->json($response,422);
     }
 
-    public function patientRequest(Request $request){
-       
-        $test_name = Category::whereIn('id',$request->test_name)->get()->pluck('name')->toArray();
-        if ($test_name) {
-            $request['test_name'] = implode(",",$test_name);
+    public function patientRequest(Request $request)
+    {
+        if (isset($request->test_name)) {
+            $test_name = Category::whereIn('id',$request->test_name)->get()->pluck('name')->toArray();
+            if ($test_name) {
+                $request['test_name'] = implode(",",$test_name);
+            }
+        } else {
+            $request['test_name'] = '';
         }
-
-        $sub_test_name = Test::whereIn('id',$request->sub_test_name)->get()->pluck('name')->toArray();
-        if ($sub_test_name) {
-            $request['sub_test_name'] = implode(",",$sub_test_name);
+       
+        if (isset($request->sub_test_name)) {
+            $sub_test_name = Test::whereIn('id',$request->sub_test_name)->get()->pluck('name')->toArray();
+            if ($sub_test_name) {
+                $request['sub_test_name'] = implode(",",$sub_test_name);
+            }
+        } else {
+            $request['sub_test_name'] = '';
         }
        
         $clinicianService = new ClinicianService();

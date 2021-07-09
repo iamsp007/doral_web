@@ -41,6 +41,7 @@ function onBroadCastOpen(patient_id) {
         success:function (response) {
             $("#loader-wrapper").hide();
             var html='';
+            html+='<option value="">Select type</option>';
             response.map(function (value) {
                 html+='<option value="'+value.role_id+'">'+value.name+'</option>';
             })
@@ -83,7 +84,7 @@ function getClinicianList(role_id) {
 
                 if(role_id == 1 || role_id == 2) {
                     var html='';
-                    html+='<option value="0">Select Clinician</option>';
+                    html+='<option value="">Select Clinician</option>';
                     response.clinicianList.map(function (value) {
                         html+='<option value="'+value.id+'">'+value.first_name+' '+value.last_name+'</option>';
                     })
@@ -112,7 +113,7 @@ function getClinicianList(role_id) {
 
 function getSubNameList() {
     var test_id = $(".js-example-basic-multiple").val();
-    
+  
     $.ajax({
         beforeSend: function(){
             $("#loader-wrapper").show();
@@ -145,6 +146,7 @@ function getSubNameList() {
 
 function onAppointmentBroadCastSubmit() {
     var data = $('#broadcast_form').serializeArray();
+   
     var confirm = window.confirm('Are you sure Create your RoadL Request?');
     if (confirm){
         $.ajax({
@@ -168,7 +170,7 @@ function onAppointmentBroadCastSubmit() {
 
                 $('#roadl-request-modal').find(".js-example-basic-multiple").empty().trigger('change');
                 $('#roadl-request-modal').find(".sub_test_id").empty().trigger('change');
- 
+
                 $('#broadcast_form')[0].reset();
                 $('#roadl-request-modal').modal('hide')
             },

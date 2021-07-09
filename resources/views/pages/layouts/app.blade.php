@@ -488,7 +488,6 @@
                                                                         </td>
                                                                         <td style="width: 70%;" class="border-0">
                                                                         <select onchange="getSubNameList()" name="test_name[]" class="input-small-skin js-example-basic-multiple" multiple="multiple">
-                                                                            <option selected="selected" value="">Select a test</option>
                                                                         </select>
                                                                       
                                                                         </td>
@@ -507,7 +506,7 @@
                                                                         </td>
                                                                         <td style="width: 70%;" class="border-0">
                                                                             <select name="sub_test_name[]" class="input-small-skin sub_test_id" multiple="multiple">
-                                                                                <option selected="selected" value="">Select a sub test</option>
+                                                                               
                                                                             </select>
                                                                         </td>
                                                                     </tr>

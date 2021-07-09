@@ -26,3 +26,7 @@ img.update-icon {display: none;}
 span.note_error {
     color: red;
 }
+
+.select2-container {
+    min-width: 100%!important;
+}

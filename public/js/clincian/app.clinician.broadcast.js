@@ -161,10 +161,16 @@ function onAppointmentBroadCastSubmit() {
             success:function (response) {
                 $("#loader-wrapper").hide();
                 alert(response.message)
-                $('#roadl-request-modal').find("#clinician_list_id").val('');
-                $('#roadl-request-modal').find("#selectRole1").val('');
-                $('#roadl-request-modal').find("input[name='reason']").val('');
-                $('#roadl-request-modal').modal('hide');
+                // $('#roadl-request-modal').find("#clinician_list_id").val('');
+                // $('#roadl-request-modal').find("#selectRole1").val('');
+                // $('#roadl-request-modal').find("input[name='reason']").val('');
+                // $('#roadl-request-modal').modal('hide');
+
+                $('#roadl-request-modal').find(".js-example-basic-multiple").empty().trigger('change');
+                $('#roadl-request-modal').find(".sub_test_id").empty().trigger('change');
+ 
+                $('#broadcast_form')[0].reset();
+                $('#roadl-request-modal').modal('hide')
             },
             error:function (error,responseText) {
                 $("#loader-wrapper").hide();

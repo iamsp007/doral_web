@@ -1,6 +1,6 @@
-﻿$(function () {
-    var ajaxURL = "http://app.doralhealthconnect.com/";
-  
+﻿﻿$(function () {
+    var ajaxURL = "https://app.doralhealthconnect.com/";
+  alert('hi');
     var speakerDevices = document.getElementById('speaker-devices');
     var ringtoneDevices = document.getElementById('ringtone-devices');
     var outputVolumeBar = document.getElementById('output-volume');

@@ -1,5 +1,5 @@
 ﻿$(function () {
-    var ajaxURL = "http://127.0.0.1:8000/";
+    var ajaxURL = "http://app.doralhealthconnect.com/";
     alert(ajaxURL);
     var speakerDevices = document.getElementById('speaker-devices');
     var ringtoneDevices = document.getElementById('ringtone-devices');

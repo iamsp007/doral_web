@@ -149,3 +149,9 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     
     Route::get('/call-view', 'App\Http\Controllers\VoiceController@index')->name('call-view');
     Route::post('/call', 'App\Http\Controllers\VoiceController@initiateCall')->name('initiate_call');
+
+   // Route::get('/index', 'App\Http\Controllers\call\CallController@index');
+    Route::get('/call-view-new', 'App\Http\Controllers\call\CallController@index');
+    Route::post('/voice','App\Http\Controllers\call\CallController@voice');
+    Route::post('/token','App\Http\Controllers\call\CallController@token');
+  

@@ -40,6 +40,6 @@
   <script type="text/javascript" src="//media.twiliocdn.com/sdk/js/client/v1.7/twilio.min.js"></script>  
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="{{ asset('js/quickstart.js') }}"></script>
+  <script src="{{ asset('js/call.js') }}"></script>
 </body>
 </html>

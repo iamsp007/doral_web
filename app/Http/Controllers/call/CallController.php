@@ -19,7 +19,7 @@ class CallController extends Controller
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function index(){
-    	return view("index");
+    	return view("admin.call.call_new");
     }
 
     public function token(Request $request){

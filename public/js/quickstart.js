@@ -1,6 +1,6 @@
 ﻿$(function () {
     var ajaxURL = "http://app.doralhealthconnect.com/";
-    alert(ajaxURL);
+  
     var speakerDevices = document.getElementById('speaker-devices');
     var ringtoneDevices = document.getElementById('ringtone-devices');
     var outputVolumeBar = document.getElementById('output-volume');
@@ -31,7 +31,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
+            alert(ajaxURL+"token");
             $.ajax({
                 url : ajaxURL+"token", // route
                 type : "post",

@@ -81,8 +81,20 @@ function getClinicianList(role_id) {
             success:function (response) {
              
                 $("#loader-wrapper").hide();
+              
+                if(role_id == 1 || role_id == 2 || role_id == 4) {
 
-                if(role_id == 1 || role_id == 2) {
+                    var testnameHtml='';
+                    testnameHtml+='<option value="0">Select Test</option>';
+                    response.dieses.map(function (value) {
+                        testnameHtml+='<option value="'+value.id+'">'+value.name+'</option>';
+                    })
+                    $('#roadl-request-modal').find('.js-example-basic-multiple').removeAttr("multiple");
+
+                    $('#roadl-request-modal').find('#test_name_list_tr').show();
+                    $('#roadl-request-modal').find('.js-example-basic-multiple').html(testnameHtml);
+
+                    $("#patient_roles_name").val('patient_roles_name');
                     var html='';
                     html+='<option value="">Select Clinician</option>';
                     response.clinicianList.map(function (value) {
@@ -113,7 +125,8 @@ function getClinicianList(role_id) {
 
 function getSubNameList() {
     var test_id = $(".js-example-basic-multiple").val();
-  
+    var patient_roles_name = $("#patient_roles_name").val();
+   
     $.ajax({
         beforeSend: function(){
             $("#loader-wrapper").show();
@@ -124,16 +137,26 @@ function getSubNameList() {
         url:base_url+'sub-test-list',
         method:'GET',
         data:{
-            category_id:test_id
+            category_id:test_id,
+            patient_roles_name: patient_roles_name
         },
         dataType:'json',
         success:function (response) {
-       
+          
             $("#loader-wrapper").hide();
+            if (patient_roles_name != '') {
+                $('#roadl-request-modal').find('.sub_test_id').removeAttr("multiple");
+            }
+            
             var testnameHtml='';
             testnameHtml+='<option value="0">Select Test</option>';
             response.map(function (value) {
-                testnameHtml+='<option value="'+value.id+'">'+value.name+'('+ value.sub_test_name.name +')</option>';
+                if (value.sub_test_name) {
+                    testnameHtml+='<option value="'+value.id+'">'+value.name+'('+ value.sub_test_name.name +')</option>';
+                } else {
+                    testnameHtml+='<option value="'+value.id+'">'+value.name+'</option>';
+                }
+               
             })
             $('#roadl-request-modal').find('#sub_test_name_list_tr').show();
             $('#roadl-request-modal').find('.sub_test_id').html(testnameHtml);

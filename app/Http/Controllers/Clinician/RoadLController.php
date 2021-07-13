@@ -126,7 +126,7 @@ class RoadLController extends Controller
     }
 
     public function getSubTestNameList(Request $request){
-      
+     
         $response = $this->clinicianService->getSubTestNameList($request->all());
         if ($response->status===true){
             $clinicianList = $response->data;

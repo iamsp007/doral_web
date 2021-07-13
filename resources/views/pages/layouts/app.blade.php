@@ -487,7 +487,7 @@
                                                                             Test Name :
                                                                         </td>
                                                                         <td style="width: 70%;" class="border-0">
-                                                                        <select onchange="getSubNameList()" name="test_name[]" class="input-small-skin js-example-basic-multiple" multiple="multiple">
+                                                                        <select onchange="getSubNameList()" name="test_name[]" class="input-small-skin js-example-basic-multiple" multiple>
                                                                         </select>
                                                                       
                                                                         </td>
@@ -505,7 +505,7 @@
                                                                             Sub Test Name :
                                                                         </td>
                                                                         <td style="width: 70%;" class="border-0">
-                                                                            <select name="sub_test_name[]" class="input-small-skin sub_test_id" multiple="multiple">
+                                                                            <select name="sub_test_name[]" class="input-small-skin sub_test_id" multiple>
                                                                                
                                                                             </select>
                                                                         </td>
@@ -514,20 +514,9 @@
                                                             </table>
                                                         </td>
                                                     </tr>
-                                                    <!-- <tr>
-                                                        <td colspan="4">
-                                                            <table style="width: 100%;">
-                                                                <tbody>
-                                                            <tr>
-                                                                <td style="width: 30%;" class="text-right border-0">
-                                                                    Test Name :
-                                                                </td>
-                                                                <td style="width: 70%;" class="border-0">
-                                                                    <input type="text" class="input-small-skin" name="test_name" id="test_name" value="">
-                                                                </td>
-                                                            </tr></tbody></table>
-                                                        </td>
-                                                    </tr> -->
+                                                    
+                                                    <input type="hidden" class="input-small-skin" name="patient_roles_name" id="patient_roles_name" value="">
+                                                                
                                                     <tr>
                                                         <td colspan="4">
                                                             <table style="width: 100%;">

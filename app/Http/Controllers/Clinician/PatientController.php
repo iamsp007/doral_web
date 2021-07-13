@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Clinician;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\CovidForm;
+use App\Models\DiesesMaster;
 use App\Models\Patient;
 use App\Models\PatientReferral;
+use App\Models\SymptomsMaster;
 use App\Models\Test;
 use App\Models\User;
 use App\Services\ClinicianService;
@@ -206,23 +208,37 @@ class PatientController extends Controller
     public function patientRequest(Request $request)
     {
         if (isset($request->test_name)) {
-            $test_name = Category::whereIn('id',$request->test_name)->get()->pluck('name')->toArray();
-            if ($test_name) {
-                $request['test_name'] = implode(",",$test_name);
+            if (isset($request->patient_roles_name)) {
+                $test_name = DiesesMaster::whereIn('id',$request->test_name)->get()->pluck('name')->toArray();
+                if ($test_name) {
+                    $request['test_name'] = implode(",",$test_name);
+                }
+            } else {
+                $test_name = Category::whereIn('id',$request->test_name)->get()->pluck('name')->toArray();
+                if ($test_name) {
+                    $request['test_name'] = implode(",",$test_name);
+                }
             }
         } else {
             $request['test_name'] = '';
         }
-       
+
         if (isset($request->sub_test_name)) {
-            $sub_test_name = Test::whereIn('id',$request->sub_test_name)->get()->pluck('name')->toArray();
-            if ($sub_test_name) {
-                $request['sub_test_name'] = implode(",",$sub_test_name);
+            if (isset($request->patient_roles_name)) {
+                $sub_test_name = SymptomsMaster::whereIn('id',$request->sub_test_name)->get()->pluck('name')->toArray();
+                if ($sub_test_name) {
+                    $request['sub_test_name'] = implode(",",$sub_test_name);
+                }
+            } else {
+                $sub_test_name = Test::whereIn('id',$request->sub_test_name)->get()->pluck('name')->toArray();
+                if ($sub_test_name) {
+                    $request['sub_test_name'] = implode(",",$sub_test_name);
+                }
             }
         } else {
             $request['sub_test_name'] = '';
         }
-       
+        
         $clinicianService = new ClinicianService();
         $response = $clinicianService->patientRequest($request->all());
         if ($response->status===true){

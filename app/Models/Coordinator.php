@@ -17,13 +17,4 @@ class Coordinator extends Model
     protected $fillable = [
         'name', 'coordinator_id', 
     ];
-
-    
-    /**
-     * The roles that belong to the user.
-     */
-    public function patientCoordinator()
-    {
-        return $this->belongsToMany(PatientCoordinator::class);
-    }
 }

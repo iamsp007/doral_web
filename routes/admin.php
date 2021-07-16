@@ -37,12 +37,9 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth:web','role:admin']],functi
     Route::post('clinician-list','App\Http\Controllers\Clinician\ClinicianController@getList')->name('admin.clinician-list');
     Route::post('clinician-data-get','App\Http\Controllers\Clinician\ClinicianController@getClinicianData')->name('admin.clinician-data-get');
     Route::get('clinician-detail/{id}','App\Http\Controllers\Clinician\ClinicianController@getClinicianDetail')->name('admin.clinician-detail');
-    // Route::get('/clinician/{status}', 'App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician.approval');
     Route::get('/clinician-approval/{id}/detail','\App\Http\Controllers\Clinician\ClinicianController@clinicianInfo')->name('clinician.info');
     /** Clinician Section Route end */
   
-   
-
     Route::post('send-address-notification', 'App\Http\Controllers\NotificationController@store')->name('notification.send');
     
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');

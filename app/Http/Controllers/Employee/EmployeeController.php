@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Log;
 class EmployeeController extends Controller
 {
     /**

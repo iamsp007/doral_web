@@ -70,15 +70,6 @@ class PatientDetail extends Model
         'secondary_language',
         'status',
     ];
-
-    public function patientAddress() {
-        return $this->hasOne(PatientAddress::class,'patient_id','id');
-    }
-
-    public function alternateBilling() {
-        return $this->hasOne(AlternateBilling::class,'patient_id','id');
-    }
-
     
     public function PatientEmergency() {
         return $this->hasOne(PatientEmergencyContact::class,'patient_id','id');
@@ -102,34 +93,6 @@ class PatientDetail extends Model
             'patient_coordinators',
             'patient_id',
             'coordinator_id');
-    }
-
-   /**
-     * Relation with referances
-     */
-    public function acceptedServices()
-    {
-        return $this->hasMany('App\Models\AcceptedService', 'patient_id', 'id');
-    }
-
-    /**
-     * Relation with nurse
-     */
-    public function emergencyPreparednes()
-    {
-        return $this->hasOne(EmergencyPreparedness::class,'patient_id','id');
-    }
-  
-    public function visitorDetail() {
-        return $this->hasOne(VisitorDetail::class,'patient_id','id')->orderBy('id','DESC');
-    }
-
-    /**
-     * Relation with nurse
-     */
-    public function patientReferralInfo()
-    {
-        return $this->hasOne(PatientReferralInfo::class,'patient_id','id');
     }
 
     /**

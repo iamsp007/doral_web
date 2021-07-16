@@ -179,10 +179,6 @@
                      @include('pages.patient_detail.clinical')
                   <!-- Clinical End -->
 
-                   <!-- Clinical Start -->
-                   <!-- @include('pages.patient_detail.clinical-info') -->
-                  <!-- Clinical End -->
-
                   <!-- Physician Start -->
                      @include('pages.patient_detail.physician')
                   <!-- Physician End -->

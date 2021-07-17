@@ -434,7 +434,12 @@ return [
                 ]
             ],
             ['name'=>'Calendar','url'=>env('APP_URL').'partner/calendar','route'=>'partner/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
-        ]
+        ],
+        [
+            'name'=>'Patients',
+            'url'=>env('APP_URL').'patients/roadl-request',
+            'route'=>'patients','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Patients',
+        ],
     ],
     
 ];

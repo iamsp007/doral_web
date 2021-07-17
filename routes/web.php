@@ -1,80 +1,56 @@
 <?php
 
-use App\Jobs\testQueue;
-use App\Mail\TestMail;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-Route::get('/clear-route', function() {
-    Artisan::call('route:clear');
-    return "route is cleared";
-});
-Route::get('/download-application',function (){
-    return view('home');
-});
+    Route::get('/download-application',function (){
+        return view('home');
+    });
 
-Route::get('/download-partner-application',function (){
-    return view('apk');
-});
+    Route::get('/download-partner-application',function (){
+        return view('apk');
+    });
 
-Route::get('/check-queue',function (){
-    testQueue::dispatch();
+    \Illuminate\Support\Facades\Auth::routes();
+    Route::get('/', function () {
+        return redirect()->route('home');
+    });
+    Route::post('/provider/login','\App\Http\Controllers\Auth\ReferralLoginController@login')->name('referral.login');
+    Route::get('/register','\App\Http\Controllers\Auth\ReferralRegisterController@showRegistrationForm')->name('referral.showRegistrationForm');
+    Route::post('/register','\App\Http\Controllers\Auth\ReferralRegisterController@register')->name('referral.register');
 
-    return 'working';
-});
+    Route::get('company_email_verified/{user_id}', 'App\Http\Controllers\Email\EmailVerifyController@companyEmailVerified')->name('companyEmailVerified');
+    Route::get('partner_email_verified/{user_id}', 'App\Http\Controllers\Email\EmailVerifyController@partnerEmailVerified')->name('partnerEmailVerified');
 
-\Illuminate\Support\Facades\Auth::routes();
-Route::get('/', function () {
-    return redirect()->route('home');
-});
-Route::post('/provider/login','\App\Http\Controllers\Auth\ReferralLoginController@login')->name('referral.login');
-Route::get('/register','\App\Http\Controllers\Auth\ReferralRegisterController@showRegistrationForm')->name('referral.showRegistrationForm');
-Route::post('/register','\App\Http\Controllers\Auth\ReferralRegisterController@register')->name('referral.register');
+    /**
+     *  Public covid-19 form
+     */
+    Route::get('/covid-19/{id}/detail','\App\Http\Controllers\Clinician\PatientController@covid19Info');
 
-Route::get('company_email_verified/{user_id}', 'App\Http\Controllers\Email\EmailVerifyController@companyEmailVerified')->name('companyEmailVerified');
-Route::get('partner_email_verified/{user_id}', 'App\Http\Controllers\Email\EmailVerifyController@partnerEmailVerified')->name('partnerEmailVerified');
+    Route::group(['middleware'=>'auth:partner,referral,web'],function (){
+        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('check');
+        Route::post('/add-insurance','\App\Http\Controllers\PatientController@addInsurance')->name('patient.addInsurance');
+        // Add New Patient Form
+        Route::get('add-new-patient',[\App\Http\Controllers\Clinician\PatientController::class,'addNewPatient'])->name('add.new.patient');
 
-/**
- *  Public covid-19 form
- */
-Route::get('/covid-19/{id}/detail','\App\Http\Controllers\Clinician\PatientController@covid19Info');
+        Route::get('/patient-details/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@show')->name('patient.details');
 
-Route::group(['middleware'=>'auth:partner,referral,web'],function (){
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('check');
-    // Route::get('/patient-detail/{patient_id}','\App\Http\Controllers\HomeController@getPatientDetail')->name('patient.detail');
-    Route::post('/add-insurance','\App\Http\Controllers\PatientController@addInsurance')->name('patient.addInsurance');
-    // Add New Patient Form
-    Route::get('add-new-patient',[\App\Http\Controllers\Clinician\PatientController::class,'addNewPatient'])->name('add.new.patient');
-});
+        Route::post('/lab-report/store', 'App\Http\Controllers\PatientLabReportController@store')->name('lab-report.store');
+    });
 
-Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
+    Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
 
-// Admin Panel
     Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
     Route::get('/caregiver/2', 'App\Http\Controllers\Admin\HomeController@clinicianResponse');
     Route::get('/caregiver/3', 'App\Http\Controllers\Admin\HomeController@caregiverforGluco');
     Route::get('/caregiver/4', 'App\Http\Controllers\Admin\HomeController@caregiverforGlucoHigh');
     Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
 
-// get medicine list
     Route::get('/patient-medicine-list/{patient_id}','\App\Http\Controllers\PatientController@patientMedicineList')->name('patient.medician.list');
-
 
     Route::get('appointment', 'App\Http\Controllers\AppointmentController@index');
     Route::get('appointment/create', 'App\Http\Controllers\AppointmentController@create')->name('appointment.create');
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
 
-    Route::get('/patient-details/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@show')->name('patient.details');
     Route::post('/lab-report-referral','\App\Http\Controllers\GetPatientDetailsController@getLabReportReferral')->name('patient.lab.report.referral');
     Route::post('/lab-report-upload','\App\Http\Controllers\GetPatientDetailsController@labReportUpload')->name('patient.lab.report.upload');
     Route::post('/view-lab-report','\App\Http\Controllers\GetPatientDetailsController@viewLabReport')->name('patient.lab.report.view');
@@ -106,8 +82,9 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
 
     Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searchCaregivers');
 
-    Route::group(['middleware'=>['auth:web','role:clinician']],function (){
-    Route::get('/patients/{status?}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
+    Route::group(['middleware'=>['auth:web,partner']],function (){
+        Route::get('/patients/{status?}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
+        Route::post('/patient-request-list','App\Http\Controllers\CaregiverController@getPatientRequestDetail')->name('clinician.patient-request-list');
     });
 
     Route::get('/patients/resend/{id}', '\App\Http\Controllers\patient\PatientController@resendEmail')->name('resend.mail');
@@ -118,7 +95,7 @@ Route::post('/demographyData-update','\App\Http\Controllers\PatientController@de
     Route::get('download-lab-report/{user_id}', 'App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
     // Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
     Route::post('/get-due-detail','App\Http\Controllers\CaregiverController@getDueDetail')->name('clinician.due-detail.ajax');
-
+    
     Route::get('/get-due-detail','App\Http\Controllers\CaregiverController@duePatientView')->name('clinician.due-detail');
     Route::post('/get-patient-due-detail','App\Http\Controllers\CaregiverController@getDuePatients')->name('clinician.due-patient-detail.ajax');
     Route::get('/get-patient-due-detail/{id}', 'App\Http\Controllers\CaregiverController@getDuePatientDetail');

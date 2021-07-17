@@ -52,7 +52,6 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
     Route::post('/referral-profile-update', 'App\Http\Controllers\CompanyController@updateProfile')->name('referral.updateProfile');
     Route::post('/service-payment-insert-update', 'App\Http\Controllers\CompanyController@insertUpdateServicePayment')->name('referral.insertUpdateServicePayment');
 
-    Route::post('/lab-report/store', 'App\Http\Controllers\PatientLabReportController@store')->name('lab-report.store');
     Route::post('/lab-report-note/store', 'App\Http\Controllers\PatientLabReportController@addNote')->name('lab-report-note.store');
     Route::delete('lab-report/destroy', 'App\Http\Controllers\PatientLabReportController@destroy')->name('lab-report.destroy');
     Route::get('/employee-physical-examination-report-pdf/{id}','App\Http\Controllers\PatientReferralController@getEmployeePhysicalExaminationReport')->name('referral.get-employee-physical-examination-report');

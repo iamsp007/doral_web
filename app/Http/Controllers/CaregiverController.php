@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CaregiverInfo;
 use App\Models\City;
 use App\Models\Demographic;
-use App\Models\PatientEmergencyContact;
 use App\Models\PatientLabReport;
 use App\Models\PatientReport;
+use App\Models\PatientRequest;
 use App\Models\State;
 use App\Models\User;
 use App\Services\ClinicianService;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -131,7 +127,13 @@ class CaregiverController extends Controller
                 });
             } else if ($request['serviceStatus'] == 'pending') {
                 $query->where('status', '0');
-            } 
+            } else if ($request['serviceStatus'] == 'roadl-request') {
+                $user_id = Auth::guard('partner')->user()->id;
+              
+                $query->whereHas('patientRequest',function ($query) use($user_id) {
+                    $query->where('clincial_id', $user_id);
+                });
+            }
         })
         ->when(! $request['serviceStatus'] ,function ($query) use($request) {
             $query->whereIn('status', ['1', '2', '3', '5']);
@@ -163,14 +165,12 @@ class CaregiverController extends Controller
                 $query->whereBetween('due_date',[$startDate,$endDate]);
             });
         })
-        ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports');
+        ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports','patientRequest');
             
         $datatble = DataTables::of($patientList->get());
-            // if($request['serviceStatus'] === 'pending') {
-                $datatble->addColumn('checkbox_id', function($q) use($request) {
-                    return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
-                });
-            // }
+            $datatble->addColumn('checkbox_id', function($q) use($request) {
+                return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
+            });
             $datatble->addIndexColumn()
             ->addColumn('full_name', function($q) use($request) {
                 if ($request['serviceStatus'] == 'initial') {
@@ -265,11 +265,10 @@ class CaregiverController extends Controller
                     }
                     return $btn;
                 });
-            }
-            
+            }       
             $datatble->addColumn('action', function($row) use($request){
                 $btn = '';
-                if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial') {
+                if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial' || $request['serviceStatus'] == 'roadl-request') {
                     if ($request['serviceStatus'] == 'initial') {
                         $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff;">Edit</a></div> ';
                         $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff; margin-right: 10px;">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
@@ -302,7 +301,7 @@ class CaregiverController extends Controller
         return view('pages.patient_detail.due_patients');
     }
 
-    public function getDuePatients(Request $request)
+    public function getDuePatients()
     {
         $dateBetween['today'] =  date('Y-m-d');
         
@@ -378,20 +377,16 @@ class CaregiverController extends Controller
             return $datatble->make(true);
     }
 
-
     public function getDueDetail(Request $request)
     {
         $dateBetween['today'] =  date('Y-m-d');
-        
         $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
-  
         $dateBetween['newDate'] = $date->format('Y-m-d');
 
         $patientList = PatientLabReport::where('user_id', $request['due_user_id'])->with('user','user.demographic','labReportType');
          
         $datatble = DataTables::of($patientList->get())
             ->addIndexColumn()
-          
             ->addColumn('report_type', function($row){
                 $report_type = '';
                     if ($row->labReportType) {
@@ -403,9 +398,49 @@ class CaregiverController extends Controller
             return $datatble->make(true);
     }
 
+    public function getPatientRequestDetail(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        
+        $patientRequestList = PatientRequest::where('user_id', $request['patient_id'])->whereNotNull('parent_id')->with('detail','requestType');
+            
+        $datatble = DataTables::of($patientRequestList->get())
+            ->addIndexColumn()
+            ->addColumn('clinician_name', function($row){
+                $full_name = '';
+                if ($row->detail) {
+                    $full_name = $row->detail->first_name . ' ' . $row->detail->last_name;
+                }
+                return $full_name;
+            })
+            ->addColumn('type_id', function($row){
+                $type = '';
+                if ($row->requestType) {
+                    $type = $row->requestType->name;
+                }
+                return $type;
+            })
+            ->addColumn('status', function($row){
+                return $row->status_data;
+            })
+            ->addColumn('action', function($row) use($user_id){
+                $btn = '';
+              
+                if($row->clincial_id != '') {
+                    if($row->clincial_id = $user_id) {
+                        $btn .= '<a class="nav-link  d-flex align-items-center" id="clinical-tab" data-toggle="pill"
+                        href="#clinical" role="tab" aria-controls="clinical" aria-selected="false">Upload Report</a>';
+                    }
+                } 
+                
+               return $btn;
+            });
+          
+            return $datatble->rawColumns(['status','action'])->make(true);
+    }
+
     public function getDuePatientDetail($id)
     {
-        
         $patientData = User::where('id', $id)->with('patientLabReport','patientLabReport.labReportType')->first();
        
         return view('pages.patient_detail.view_patient_due_report', compact('patientData'));
@@ -435,7 +470,6 @@ class CaregiverController extends Controller
     public function downloadLabReport($id)
     {
         $patientReports = PatientReport::where('user_id', $id)->get();
-
      
         $public_dir=public_path();
         $zipFileName = 'invoicezipfile-'.$id.'.zip';
@@ -451,7 +485,6 @@ class CaregiverController extends Controller
                 $invoice_file = $patientReport->file_name;
                 $zip->addFile($public_dir . '/patient_report/'.$invoice_file,$invoice_file);
             }
-            // $zip->close();
         }
        
         // Set Header
@@ -469,15 +502,15 @@ class CaregiverController extends Controller
 
     public function getUserData(Request $request)
     {
-        
         $data = [];
-
         if($request->has('q')){
             $search = $request->q;
            
-            $data =User::whereIn('status', ['1', '2', '3', '5'])->select("id","first_name", 'last_name')
-                    ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
-                    ->get();
+            $data = User::whereHas('roles',function ($q){
+                $q->where('name','clinician');
+            })->whereIn('status', ['1', '2', '3', '5'])->select("id","first_name", 'last_name')
+                ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
+                ->get();
         }
        
         return response()->json($data);
@@ -485,7 +518,6 @@ class CaregiverController extends Controller
 
     public function getCityData($state_code)
     {
-     
         $city = City::select('id', 'city', 'state_code')->where('state_code', $state_code)->orderBy('city','ASC')->get();
       
         if (count($city) > 0) {
@@ -495,6 +527,7 @@ class CaregiverController extends Controller
         }
         return \Response::json($arr);
     }
+
     public function getCity($city_name,Request $request)
     {
         $input = $request->all();
@@ -509,10 +542,8 @@ class CaregiverController extends Controller
         return \Response::json($arr);
     }
     
-
     public function getStateData($state_code)
     {
-        
         $state_code = explode("-",$state_code);
 
         $state = State::select('id','state','state_code')->where('state_code', $state_code[1])->orderBy('state','ASC')->get();
@@ -523,7 +554,6 @@ class CaregiverController extends Controller
             $arr = array("status" => 400, "msg" => "This item has no any types.", "users" => []);
         }
 
-       
         return \Response::json($arr);
     }
 
@@ -551,363 +581,5 @@ class CaregiverController extends Controller
         }
         
         return response()->json($data);
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function searchCaregivers()
-    {
-        // $demographic = Demographic::get();
-        // foreach ($demographic as $key => $value) {
-        //     // $relation = $value->language;
-        //     $language_decode = json_decode($value->language, true);
-        //     if (isset($language_decode[0])) {
-        //         PatientEmergencyContact::find($value->id)->update([
-        //             'relation' => $language_decode[0]['Name']
-        //         ]);
-        //     }
-        // }
-
-        $searchCaregiverIds = $this->searchCaregiverDetails();
-        $caregiverArray = $searchCaregiverIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
-        dump(count($caregiverArray));
-
-        foreach (array_slice($caregiverArray, 0 , 500) as $cargiver_id) {
-
-            // foreach ($caregiverArray as $cargiver_id) {
-            /** Store patirnt demographic detail */
-            $userCaregiver = Demographic::where('caregiver_id' , $cargiver_id)->first();
-
-            if (! $userCaregiver) {
-                $getdemographicDetails = $this->getDemographicDetails($cargiver_id);
-                $demographicDetails = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-
-                self::saveUser($demographicDetails);
-            }
-
-
-            $getChangesV2 = $this->getChangesV2();
-            $changesV2 = $getChangesV2['soapBody']['GetCaregiverChangesV2Response']['GetCaregiverChangesV2Result']['GetCaregiverChangesV2Info'];
-
-            $createMedical = $this->createMedical($cargiver_id);
-        }
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function searchCaregiverDetails()
-    {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchCaregivers xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><Status>Active</Status><EmployeeType>Employee</EmployeeType></SearchFilters></SearchCaregivers></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-
-        //<FirstName>string</FirstName><LastName>string</LastName><PhoneNumber>string</PhoneNumber><CaregiverCode>string</CaregiverCode><EmployeeType>string</EmployeeType><SSN>string</SSN>Employee/Applicant
-
-        $method = 'POST';
-        $getPatientDetailsController = new GetPatientDetailsController();
-        return $getPatientDetailsController->curlCall($data, $method);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getDemographicDetails($cargiver_id)
-    {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetCaregiverDemographics xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><CaregiverInfo><ID>' . $cargiver_id . '</ID></CaregiverInfo></GetCaregiverDemographics></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-
-        $method = 'POST';
-        $getPatientDetailsController = new GetPatientDetailsController();
-        return $getPatientDetailsController->curlCall($data, $method);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getChangesV2()
-    {
-        $date = Carbon::now();// will get you the current date, time
-        $today = $date->format("Y-m-d");
-
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetCaregiverChangesV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><ModifiedAfter>2015-03-19T04:31:57.077</ModifiedAfter></GetCaregiverChangesV2></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-
-        $method = 'POST';
-        $getPatientDetailsController = new GetPatientDetailsController();
-        return $getPatientDetailsController->curlCall($data, $method);
-    }
-
-   
-    public static function saveUser($demographicDetails)
-    {
-        $email = null;
-        if ($demographicDetails['NotificationPreferences']['Email']) {
-            $email = $demographicDetails['NotificationPreferences']['Email'];
-        }
-
-        $userDuplicateEmail = User::whereNotNull('email')->where('email', $email)->first();
-
-        if ($userDuplicateEmail) {
-            return;
-        }
-
-        $phone_number = null;
-        if ($demographicDetails['Address']['HomePhone']) {
-            $phone_number = $demographicDetails['Address']['HomePhone'];
-        } else if($demographicDetails['Address']['Phone2']) {
-            $phone_number = $demographicDetails['Address']['Phone2'];
-        } else if($demographicDetails['Address']['Phone3']) {
-            $phone_number = $demographicDetails['Address']['Phone3'];
-        } else if($demographicDetails['NotificationPreferences']['MobileOrSMS']) {
-            $phone_number = $demographicDetails['NotificationPreferences']['MobileOrSMS'];
-        }
-
-        // if ($phone_number == '') {
-        //     $status = '4';
-        // } else {
-        //     $phone_number = str_replace("-","",$phone_number);
-        //     $status = '0';
-
-        //     $userDuplicatePhone = User::whereNotNull('phone')->where('phone', $phone_number)->first();
-        //     if ($userDuplicatePhone) {
-        //         return;
-        //     }
-        // }
-        $status = '0';
-        $gender = '';
-        if ($demographicDetails['Gender'] == 'MALE') {
-            $gender = 1;
-        } else if ($demographicDetails['Gender'] == 'FEMALE') {
-            $gender = 2;
-        } else {
-            $gender = 3;
-        }
-
-        $user = DB::table('users')->insert([
-            'gender' => $gender,
-            'first_name' => $demographicDetails['FirstName'],
-            'last_name' => $demographicDetails['LastName'],
-            'dob' => $demographicDetails['BirthDate'],
-            'status' => $status,
-            'email' => $email,
-            'phone' => $phone_number,
-            'password' => Hash::make('Patient@doral'),
-        ]);
-
-        $user_id = DB::getPdo()->lastInsertId();
-
-        $user = User::find($user_id);
-
-        $user->assignRole('patient')->syncPermissions(Permission::all());
-
-        self::saveCaregiverInfo($demographicDetails, $user_id);
-
-        self::saveDemographic($demographicDetails, $user_id);
-
-        self::storeEmergencyContact($demographicDetails, $user_id);
-
-    }
-
-    public static function saveCaregiverInfo($demographicDetails, $userId)
-    {
-        $caregiverInfo = new CaregiverInfo();
-
-        $caregiverInfo->user_id = $userId;
-        $caregiverInfo->company_id = '9';
-        $caregiverInfo->service_id = '3';
-
-        $caregiverInfo->caregiver_id = ($demographicDetails['ID']) ? $demographicDetails['ID'] : '';
-        $caregiverInfo->intials = ($demographicDetails['Intials']) ? $demographicDetails['Intials'] : '';
-        $caregiverInfo->caregiver_gender_id = ($demographicDetails['CaregiverGenderID']) ? $demographicDetails['CaregiverGenderID'] : '';
-        $caregiverInfo->caregiver_code = ($demographicDetails['CaregiverCode']) ? $demographicDetails['CaregiverCode'] : '';
-        $caregiverInfo->alternate_caregiver_code = ($demographicDetails['AlternateCaregiverCode']) ? $demographicDetails['AlternateCaregiverCode'] : '';
-        $caregiverInfo->time_attendance_pin = ($demographicDetails['TimeAndAttendancePIN']) ? $demographicDetails['TimeAndAttendancePIN'] : '';
-
-        $mobile = [];
-        if ($demographicDetails['MobileID'] || $demographicDetails['MobileIDTypeDescription']) {
-            $mobile = [
-                'MobileID' => ($demographicDetails['MobileID']) ? $demographicDetails['MobileID'] : '',
-                'MobileIDTypeDescription' => ($demographicDetails['MobileIDTypeDescription']) ? $demographicDetails['MobileIDTypeDescription'] : '',
-            ];
-        }
-        $caregiverInfo->mobile = json_encode($mobile);
-
-        $ethnicity = [];
-        if ($demographicDetails['Ethnicity']) {
-            $ethnicity = [
-                $demographicDetails['Ethnicity'],
-            ];
-        }
-        $caregiverInfo->ethnicity = json_encode($ethnicity);
-
-        $caregiverInfo->country_of_birth = ($demographicDetails['CountryOfBirth']) ? $demographicDetails['CountryOfBirth'] : '';
-        $caregiverInfo->employee_type = ($demographicDetails['EmployeeType']) ? $demographicDetails['EmployeeType'] : '';
-
-        $maritalStatus = [];
-        if ($demographicDetails['MaritalStatus']) {
-            $maritalStatus = [
-                $demographicDetails['MaritalStatus'],
-            ];
-        }
-        $caregiverInfo->marital_status = json_encode($maritalStatus);
-
-        $caregiverInfo->dependents = ($demographicDetails['Dependents']) ? $demographicDetails['Dependents'] : '';
-
-        $status = [];
-        if ($demographicDetails['Status']) {
-            $status = [
-                $demographicDetails['Status'],
-            ];
-        }
-        $caregiverInfo->status = json_encode($status);
-
-        $caregiverInfo->employee_id = ($demographicDetails['EmployeeID']) ? $demographicDetails['EmployeeID'] : '';
-        $caregiverInfo->application_date = ($demographicDetails['ApplicationDate']) ? $demographicDetails['ApplicationDate'] : '';
-        $caregiverInfo->hire_date = ($demographicDetails['HireDate']) ? $demographicDetails['HireDate'] : '';
-        $caregiverInfo->rehire_date = ($demographicDetails['RehireDate']) ? $demographicDetails['RehireDate'] : '';
-        $caregiverInfo->first_work_date = ($demographicDetails['FirstWorkDate']) ? $demographicDetails['FirstWorkDate'] : '';
-        $caregiverInfo->last_work_date = ($demographicDetails['LastWorkDate']) ? $demographicDetails['LastWorkDate'] : '';
-        $caregiverInfo->registry_number = ($demographicDetails['RegistryNumber']) ? $demographicDetails['RegistryNumber'] : '';
-        $caregiverInfo->registry_checked_date = ($demographicDetails['RegistryCheckedDate']) ? $demographicDetails['RegistryCheckedDate'] : '';
-
-        $referralSource = [];
-        if ($demographicDetails['ReferralSource']) {
-            $referralSource = [
-                $demographicDetails['ReferralSource'],
-            ];
-        }
-        $caregiverInfo->referral_source = json_encode($referralSource);
-
-        $caregiverInfo->referral_person = ($demographicDetails['ReferralPerson']) ? $demographicDetails['ReferralPerson'] : '';
-
-        $notificationPreferences = [];
-        if ($demographicDetails['NotificationPreferences']) {
-            $notificationPreferences = [
-                $demographicDetails['NotificationPreferences'],
-            ];
-        }
-        $caregiverInfo->notification_preferences = json_encode($notificationPreferences);;
-
-        $caregiverOffices = [];
-        if ($demographicDetails['CaregiverOffices']) {
-            $caregiverOffices = [
-                $demographicDetails['CaregiverOffices'],
-            ];
-        }
-        $caregiverInfo->caregiver_offices = json_encode($caregiverOffices);
-
-        $inactiveReasonDetail = json_encode([
-            ($demographicDetails['InactiveReasonID']) ? $demographicDetails['InactiveReasonID'] : '',
-            ($demographicDetails['InactiveReason']) ? $demographicDetails['InactiveReason'] : '',
-            ($demographicDetails['InactiveNote']) ? $demographicDetails['InactiveNote'] : '',
-        ]);
-        $inactiveReasonDetail = [];
-        if ($demographicDetails['InactiveReasonID'] || $demographicDetails['InactiveReason'] || $demographicDetails['InactiveNote']) {
-            $inactiveReasonDetail = [
-                'InactiveReasonID' => ($demographicDetails['InactiveReasonID']) ? $demographicDetails['InactiveReasonID'] : '',
-                'InactiveReason' => ($demographicDetails['InactiveReason']) ? $demographicDetails['InactiveReason'] : '',
-                'InactiveNote' => ($demographicDetails['InactiveNote']) ? $demographicDetails['InactiveNote'] : '',
-            ];
-        }
-        $caregiverInfo->inactive_reason_detail = json_encode($inactiveReasonDetail);
-        $caregiverInfo->professional_licensenumber = ($demographicDetails['ProfessionalLicensenumber']) ? $demographicDetails['ProfessionalLicensenumber'] : '';
-        $caregiverInfo->npi_number = ($demographicDetails['NPINumber']) ? $demographicDetails['NPINumber'] : '';
-        $caregiverInfo->signed_payroll_agreement_date = ($demographicDetails['SignedPayrollAgreementDate']) ? $demographicDetails['SignedPayrollAgreementDate'] : '';
-
-        $caregiverInfo->save();
-    }
-
-    public static function saveDemographic($demographicDetails, $userId)
-    {
-        $demographic = new Demographic();
-
-        $demographic->user_id = $userId;
-        $demographic->doral_id = 'DOR-' . mt_rand(100000, 999999);
-        $demographic->ssn = ($demographicDetails['SSN']) ? $demographicDetails['SSN'] : '';
-
-        $team = [];
-        if ($demographicDetails['Team'] && $demographicDetails['Team']['Name']) {
-            $team = [
-                $demographicDetails['Team'],
-            ];
-        }
-        $demographic->team = json_encode($team);
-
-        $location = [];
-        if ($demographicDetails['Location'] && $demographicDetails['Location']['Name']) {
-            $location = [
-                $demographicDetails['Location'],
-            ];
-        }
-        $demographic->location = json_encode($location);
-
-        $branch = [];
-        if ($demographicDetails['Branch'] && $demographicDetails['Branch']['Name']) {
-            $branch = [
-                $demographicDetails['Branch'],
-            ];
-        }
-        $demographic->branch = json_encode($branch);
-
-        $employmentTypes = [];
-        if ($demographicDetails['EmploymentTypes']) {
-            $employmentTypes = [
-                $demographicDetails['EmploymentTypes'],
-            ];
-        }
-        $demographic->accepted_services = json_encode($employmentTypes);
-
-        $address = [];
-        if ($demographicDetails['Address']) {
-            $address = [
-                $demographicDetails['Address'],
-            ];
-        }
-        $demographic->address = json_encode($address);
-
-        $language = [];
-        if ($demographicDetails['LanguageID1'] || $demographicDetails['Language1'] || $demographicDetails['LanguageID2'] || $demographicDetails['Language2'] || $demographicDetails['LanguageID3'] || $demographicDetails['Language3'] || $demographicDetails['LanguageID4'] || $demographicDetails['Language4']) {
-            $language[] = [
-                'LanguageID1' => ($demographicDetails['LanguageID1']) ? $demographicDetails['LanguageID1'] : '',
-                'Language1' => ($demographicDetails['Language1']) ? $demographicDetails['Language1'] : '',
-                'LanguageID2' => ($demographicDetails['LanguageID2']) ? $demographicDetails['LanguageID2'] : '',
-                'Language2' => ($demographicDetails['Language2']) ? $demographicDetails['Language2'] : '',
-                'LanguageID3' =>($demographicDetails['LanguageID3']) ? $demographicDetails['LanguageID3'] : '',
-                'Language3' => ($demographicDetails['Language3']) ? $demographicDetails['Language3'] : '',
-                'LanguageID4' => ($demographicDetails['LanguageID4']) ? $demographicDetails['LanguageID4'] : '',
-                'Language4' => ($demographicDetails['Language4']) ? $demographicDetails['Language4'] : '',
-            ];
-        }
-        $demographic->language = json_encode($language);
-        $demographic->type = '2';
-
-        $demographic->save();
-    }
-    public static function storeEmergencyContact($demographicDetails, $user_id)
-    {
-        foreach ($demographicDetails['EmergencyContacts']['EmergencyContact'] as $emergencyContact) {
-            if($emergencyContact['Name']) {
-                $relationship = [];
-                if ($emergencyContact['Relationship'] && $emergencyContact['Relationship']['Name']) {
-                    $relationship = [
-                        $emergencyContact['Relationship']
-                    ];
-                }
-                $relationshipJson = json_encode($relationship);
-                $patientEmergencyContact = new PatientEmergencyContact();
-
-                $patientEmergencyContact->user_id = $user_id;
-                $patientEmergencyContact->name = $emergencyContact['Name'];
-                $patientEmergencyContact->relation = $relationshipJson;
-                $patientEmergencyContact->phone1 = ($emergencyContact['Phone1']) ? $emergencyContact['Phone1'] : '';
-                $patientEmergencyContact->phone2 = ($emergencyContact['Phone2']) ? $emergencyContact['Phone2'] : '';
-                $patientEmergencyContact->address = ($emergencyContact['Address']) ? $emergencyContact['Address'] : '';
-                $patientEmergencyContact->save();
-            }
-        }
     }
 }

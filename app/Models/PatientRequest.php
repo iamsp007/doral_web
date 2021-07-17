@@ -87,4 +87,28 @@ class PatientRequest extends Model
         }
         return '-';
     }
+
+     /**
+     * Create full name with combine first name and last name
+     */
+    public function getStatusDataAttribute()
+    {
+        if ($this->status === '1') {
+            $statusData = '<p class="text-primary">Active</p>';
+        } else if ($this->status === '2') {
+            $statusData = '<p class="text-secondary">Accept</p>';
+        } else if ($this->status === '3') {
+            $statusData = '<p class="text-info">Arrive</p>';
+        } else if ($this->status === '4') {
+            $statusData = '<p class="text-success">Complete</p>';
+        } else if ($this->status === '5') {
+            $statusData = '<p class="text-danger">Cancel</p>';
+        } else if ($this->status === '6') {
+            $statusData = '<p class="text-warning">Prepare</p>';
+        } else if ($this->status === '7') {
+            $statusData = '<p class="text-dark">Start</p>';
+        }
+
+        return $statusData;
+    }
 }

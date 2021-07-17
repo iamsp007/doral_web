@@ -122,7 +122,7 @@ class PartnerController extends Controller
         if($request->has('q')){
             $search = $request->q;
            
-            $data =User::whereHas('roles',function ($q){
+            $data = User::whereHas('roles',function ($q){
                     $q->where('guard_name','partner');
                 })->whereIn('status', ['1', '2', '3', '5'])->select("id","first_name", 'last_name')
                 ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")

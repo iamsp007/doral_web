@@ -796,7 +796,6 @@ class GetPatientDetailsController extends Controller
                 $file = $request->file('files');
                 $name = time() .'.'.$file->getClientOriginalExtension();
                 $filePath = 'patient_report';
-//                Storage::disk('s3')->put($filePath, file_get_contents($file));
                 $file->move($filePath,$name);
                 $patientReport = new PatientReport();
                 $patientReport->file_name = $name;

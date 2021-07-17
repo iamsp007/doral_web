@@ -2042,19 +2042,16 @@
                     </button>
                 </div>
                 <div class="modal-body pb-4">
-                    <!-- <form class="add_patient_form"> -->
-                      
-                        <div class="form-group">
-                            <label for="notes" class="label">Notes</label>
-                            <textarea name="notes" class="input-skin" id="notes" cols="30" rows="10"></textarea>
-                            <p>Note: Upto 500 Characters.</p>
-                            <span class="note_error"></span>
-                        </div>
-                        <div class="d-flex mt-4 justify-content-end">
-                            <input type="submit" value="Submit" id="add_note" class="btn btn--submit btn-lg">
-                            <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
-                        </div>
-                    <!-- </form> -->
+                    <div class="form-group">
+                        <label for="notes" class="label">Notes</label>
+                        <textarea name="notes" class="input-skin" id="notes" cols="30" rows="10"></textarea>
+                        <p>Note: Upto 500 Characters.</p>
+                        <span class="note_error"></span>
+                    </div>
+                    <div class="d-flex mt-4 justify-content-end">
+                        <input type="submit" value="Submit" id="add_note" class="btn btn--submit btn-lg">
+                        <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
+                    </div>
                 </div>
             </div>
         </div>

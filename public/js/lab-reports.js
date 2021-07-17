@@ -256,6 +256,7 @@ function viewFile(id) {
 
 function singleLabReportUpload(e,id) {
     var formData = new FormData();
+    
     formData.append('lab_report_id',id);
     formData.append('patient_id',patient_id);
     formData.append('files', $(e)[0].files[0]);

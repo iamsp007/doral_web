@@ -17,9 +17,9 @@
                             <th scope="col" style="width: 11%">Expiry Date</th>
                             <th scope="col">Titer</th>
                             <th scope="col">Result</th>
-                            @role('clinician')
+                            @if(\Illuminate\Support\Facades\Auth::guard('partner')->check() || \Illuminate\Support\Facades\Auth::user()->roles->pluck('name')->toArray()[0] === 'clinician')
                                 <th width="11%">Reports</th>
-                            @endrole
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -35,18 +35,18 @@
                                     <td>{{ $immunizationLabReportType->expiry_date }}</td>
                                     <td>{{ $immunizationLabReportType->titer }}</td>
                                     <td>{{ $immunizationLabReportType->result }}</td>
-                                    @role('clinician')
+                                    @if(\Illuminate\Support\Facades\Auth::guard('partner')->check() || \Illuminate\Support\Facades\Auth::user()->roles->pluck('name')->toArray()[0] === 'clinician')
                                         <td class='text-center'>
                                             <input type="file" class="uploadLabResult" id="{{ $immunizationLabReportType->labReportType->id }}" data-id="{{ $immunizationLabReportType->lab_report_type_id }}"></input>
                                         </td>
-                                    @endrole
+                                    @endif
                                 </tr>
                                 @php $number++; @endphp
                             @endforeach
                         @else
                             <tr class="tb-main-tr no-record-tr"><td colspan="5" scope="row">No data available in table</td></tr>
                         @endif
-                    @role('clinician')
+                    @if(\Illuminate\Support\Facades\Auth::guard('partner')->check() || \Illuminate\Support\Facades\Auth::user()->roles->pluck('name')->toArray()[0] === 'clinician')
                         <tr>
                             <form id="immunizationForm">
                                 @csrf
@@ -77,16 +77,16 @@
                                 <td></td>
                             </form>
                         </tr>
-                    @endrole
+                    @endif
                     </tbody>
                 </table>
             </div>
             <div class="col-12 col-sm-1"></div>
         </div>
-        @role('clinician')
+        @if(\Illuminate\Support\Facades\Auth::guard('partner')->check() || \Illuminate\Support\Facades\Auth::user()->roles->pluck('name')->toArray()[0] === 'clinician')
             <div class="d-flex pt-4 justify-content-center">
                 <button type="submit" class="btn btn-outline-green patient-detail-lab-report" name="Save">Save</button>
             </div>
-        @endrole
+        @endif
     </div>
 </div>

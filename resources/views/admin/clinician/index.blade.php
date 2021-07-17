@@ -51,12 +51,11 @@
     </div>
     <div class="form-group">
         <div class="row">
-            <!-- <div class="col-3 col-sm-3 col-md-3">
+            <div class="col-3 col-sm-3 col-md-3">
                 <div class="input-group">
                     <x-text name="date_of_birth" class="date_of_birth" id="date_of_birth" placeholder="Date of birth"/></td>
                 </div>
-            </div> -->
-            
+            </div>
             <div class="col-3 col-sm-3 col-md-3">
                 <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
                 <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>

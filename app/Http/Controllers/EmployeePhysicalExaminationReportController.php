@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Exception, PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class EmployeePhysicalExaminationReportController extends Controller
 {

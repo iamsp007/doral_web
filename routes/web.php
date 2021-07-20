@@ -35,6 +35,12 @@ use Illuminate\Support\Facades\Route;
         Route::get('/patient-details/{patient_id}','\App\Http\Controllers\GetPatientDetailsController@show')->name('patient.details');
 
         Route::post('/lab-report/store', 'App\Http\Controllers\PatientLabReportController@store')->name('lab-report.store');
+
+        Route::post('/lab-report-upload','\App\Http\Controllers\GetPatientDetailsController@labReportUpload')->name('patient.lab.report.upload');
+
+        Route::get('notification-history','App\Http\Controllers\NotificationHistoryController@index')->name('notification-history');
+        Route::post('/notification-history','App\Http\Controllers\NotificationHistoryController@getNotification')->name('notification.getList');
+        Route::post('/notification/status', '\App\Http\Controllers\NotificationHistoryController@updateStatus')->name('notification.status');
     });
 
     Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
@@ -52,7 +58,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
 
     Route::post('/lab-report-referral','\App\Http\Controllers\GetPatientDetailsController@getLabReportReferral')->name('patient.lab.report.referral');
-    Route::post('/lab-report-upload','\App\Http\Controllers\GetPatientDetailsController@labReportUpload')->name('patient.lab.report.upload');
+   
     Route::post('/view-lab-report','\App\Http\Controllers\GetPatientDetailsController@viewLabReport')->name('patient.lab.report.view');
     Route::post('/lab-report-data','\App\Http\Controllers\GetPatientDetailsController@labReportData')->name('patient.lab.report.data');
     Route::delete('/remove-lab-report','\App\Http\Controllers\GetPatientDetailsController@removeLabReport')->name('patient.lab.report.remove');

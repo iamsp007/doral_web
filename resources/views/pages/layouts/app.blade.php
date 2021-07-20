@@ -200,7 +200,7 @@
                         <li>
                             <a href="javascript:void(0)" class="notify">
                                 <i class="las la-bell la-3x white"></i>
-                                <span class="number">6</span>
+                                <span class="number">{{App\Models\NotificationHistory::where([['is_read','=','0']])->count()}}</span>
                             </a>
                         </li>
                         <li>

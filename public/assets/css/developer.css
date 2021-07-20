@@ -30,3 +30,11 @@ span.note_error {
 .select2-container {
     min-width: 100%!important;
 }
+
+tr.unread {
+    background-color: #aeb7cc !important;
+}
+
+tr.read {
+    background-color: #fff !important;
+}

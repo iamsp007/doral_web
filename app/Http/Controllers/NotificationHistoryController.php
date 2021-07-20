@@ -110,7 +110,7 @@ class NotificationHistoryController extends Controller
            $users = NotificationHistory::whereIn('id',$input['id']);
            $users->update(['is_read' => $input['is_read']]);
           
-           $user_message = 'Message read successfully.';
+           $user_message = 'Message ' . $input['status']  . ' successfully.';
      
            $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
            return \Response::json($responce);

@@ -187,6 +187,11 @@
             
             function postdataforaction(is_read,val) {
             
+                if (is_read === '0'){
+                    var status = 'Unread';
+                } else {
+                    var status = 'Read';
+                }
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -202,7 +207,7 @@
 
                 Toast.fire({
                     title: 'Are you sure?',
-                    text: "Are you sure want to update status of this patient? 1",
+                    text: "Are you sure want to "+ status + " notification?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, change it!',
@@ -219,7 +224,8 @@
                                 },
                                 data: {
                                     "id": val,
-                                    "is_read" : is_read
+                                    "is_read" : is_read,
+                                    "status" : status
                                 },
                                 'success': function (data) {
                                     if(data.status == 400) {

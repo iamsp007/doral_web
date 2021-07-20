@@ -36,11 +36,7 @@ return [
                     'url'=>env('APP_URL').'clinician/patient/create',
                     'route'=>'patient.create','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Add patient',
                 ],
-                // [
-                //     'name'=>'Due Reports',
-                //     'url'=>env('APP_URL').'get-due-detail',
-                //     'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
-                // ]
+               
             ]
         ],
         // ['name'=>'Patient Details Update','url'=>env('APP_URL').'get-patient-detail','route'=>'get-patient-detail','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Patient Details Update'],
@@ -109,6 +105,11 @@ return [
             ]
         ],
         ['name'=>'Calendar','url'=>env('APP_URL').'clinician/calendar','route'=>'clinician/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
+        [
+            'name'=>'Notification',
+            'url'=>env('APP_URL').'notification-history',
+            'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Notification',
+        ]
     ],
     'referral'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'referral/dashboard','route'=>'referral/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],

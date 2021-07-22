@@ -41,6 +41,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('notification-history','App\Http\Controllers\NotificationHistoryController@index')->name('notification-history');
         Route::post('/notification-history','App\Http\Controllers\NotificationHistoryController@getNotification')->name('notification.getList');
         Route::post('/notification/status', '\App\Http\Controllers\NotificationHistoryController@updateStatus')->name('notification.status');
+        Route::post('send-mail','App\Http\Controllers\NotificationHistoryController@sendemail')->name('send-email');
+        
     });
 
     Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
@@ -129,6 +131,7 @@ use Illuminate\Support\Facades\Route;
     
     Route::get('import-patient-from-hha','App\Http\Controllers\Admin\PatientImportController@importPatient');
     Route::get('import-caregiver-from-hha','App\Http\Controllers\Admin\PatientImportController@importCaregiver');
+    Route::get('import-visitor-from-hha','App\Http\Controllers\Admin\PatientImportController@importVisitor');
     
     Route::get('/call-view', 'App\Http\Controllers\VoiceController@index')->name('call-view');
     Route::post('/call', 'App\Http\Controllers\VoiceController@initiateCall')->name('initiate_call');

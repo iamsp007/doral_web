@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\GetPatientDetailsController;
 use App\Jobs\CaregiverImport;
 use App\Jobs\PatientImport;
+use App\Jobs\VisitorImport;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +52,30 @@ class PatientImportController extends Controller
             CaregiverImport::dispatch($company_id);
 
             $arr = array('status' => 200, 'message' => 'Please be patient, the import patient process is taking place in the background.', 'data' => []);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+        } catch (Exception $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+        }
+
+        return \Response::json($arr);
+    }
+
+    public function importVisitor()
+    {
+        try {
+           
+            VisitorImport::dispatch();
+
+            $arr = array('status' => 200, 'message' => 'Please be patient, the import visitor process is taking place in the background.', 'data' => []);
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
             if (isset($ex->errorInfo[2])) {

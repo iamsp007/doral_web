@@ -48,8 +48,8 @@ class VisitorImport implements ShouldQueue
         
         $data = [];
         $stored_visit_id = [];
-        // foreach ($visitIDs as $visitID) {
-        foreach (array_slice($visitIDs, 0 , 1) as $visitID) {
+        foreach ($visitIDs as $visitID) {
+        // foreach (array_slice($visitIDs, 0 , 1) as $visitID) {
             // if (! in_array($visitID, $missing_visitor_id)) {
             // }
             $scheduleInfo = $this->getVisitInfo($visitID);
@@ -81,27 +81,27 @@ class VisitorImport implements ShouldQueue
 
         $visitorDetail->visitor_id = ($getVisitorInfo['ID']) ? $getVisitorInfo['ID'] : '' ;
         $visitorDetail->visit_date = ($getVisitorInfo['VisitDate']) ? $getVisitorInfo['VisitDate'] : '' ;
-        if ($visitorDetail['Patient']) {
+        if ($getVisitorInfo['Patient']) {
             $patientData = [
-                'id' => ($visitorDetail['Patient']['ID']) ? $visitorDetail['Patient']['ID'] : '',
-                'admission_number' => ($visitorDetail['Patient']['AdmissionNumber']) ? $visitorDetail['Patient']['AdmissionNumber'] : '',
-                'first_name' => ($visitorDetail['Patient']['FirstName']) ? $visitorDetail['Patient']['FirstName'] : '',
-                'last_name' => ($visitorDetail['Patient']['LastName']) ? $visitorDetail['Patient']['LastName'] : '',
+                'id' => ($getVisitorInfo['Patient']['ID']) ? $getVisitorInfo['Patient']['ID'] : '',
+                'admission_number' => ($getVisitorInfo['Patient']['AdmissionNumber']) ? $getVisitorInfo['Patient']['AdmissionNumber'] : '',
+                'first_name' => ($getVisitorInfo['Patient']['FirstName']) ? $getVisitorInfo['Patient']['FirstName'] : '',
+                'last_name' => ($getVisitorInfo['Patient']['LastName']) ? $getVisitorInfo['Patient']['LastName'] : '',
             ];
 
             $visitorDetail->patient_detail = $patientData;
         }
 
-        if ($visitorDetail['Caregiver']) {
+        if ($getVisitorInfo['Caregiver']) {
             $caregiverData = [
-                'id' => ($visitorDetail['Caregiver']['ID']) ? $visitorDetail['Caregiver']['ID'] : '',
-                'caregiver_code' => ($visitorDetail['Caregiver']['CaregiverCode']) ? $visitorDetail['Caregiver']['CaregiverCode'] : '',
-                'first_name' => ($visitorDetail['Caregiver']['FirstName']) ? $visitorDetail['Caregiver']['FirstName'] : '',
-                'last_name' => ($visitorDetail['Caregiver']['LastName']) ? $visitorDetail['Caregiver']['LastName'] : '',
-                'time_and_attendance_PIN' => ($visitorDetail['Caregiver']['TimeAndAttendancePIN']) ? $visitorDetail['Caregiver']['TimeAndAttendancePIN'] : '',
+                'id' => ($getVisitorInfo['Caregiver']['ID']) ? $getVisitorInfo['Caregiver']['ID'] : '',
+                'caregiver_code' => ($getVisitorInfo['Caregiver']['CaregiverCode']) ? $getVisitorInfo['Caregiver']['CaregiverCode'] : '',
+                'first_name' => ($getVisitorInfo['Caregiver']['FirstName']) ? $getVisitorInfo['Caregiver']['FirstName'] : '',
+                'last_name' => ($getVisitorInfo['Caregiver']['LastName']) ? $getVisitorInfo['Caregiver']['LastName'] : '',
+                'time_and_attendance_PIN' => ($getVisitorInfo['Caregiver']['TimeAndAttendancePIN']) ? $getVisitorInfo['Caregiver']['TimeAndAttendancePIN'] : '',
                 'pay_code' => [
-                    'id' => ($visitorDetail['Caregiver']['PayCode']['ID']) ? $visitorDetail['Caregiver']['PayCode']['ID'] : '',
-                    'name' => ($visitorDetail['Caregiver']['PayCode']['Name']) ? $visitorDetail['Caregiver']['PayCode']['Name'] : '',
+                    'id' => ($getVisitorInfo['Caregiver']['PayCode']['ID']) ? $getVisitorInfo['Caregiver']['PayCode']['ID'] : '',
+                    'name' => ($getVisitorInfo['Caregiver']['PayCode']['Name']) ? $getVisitorInfo['Caregiver']['PayCode']['Name'] : '',
                 ],
             ];
 
@@ -121,7 +121,7 @@ class VisitorImport implements ShouldQueue
 
         $visitorDetail->is_missed_visit = ($getVisitorInfo['IsMissedVisit']) ? $getVisitorInfo['IsMissedVisit'] : '' ;
 
-        if ($visitorDetail['TTOT']) {
+        if ($getVisitorInfo['TTOT']) {
             $TTOTData = [
                 'hours' => ($getVisitorInfo['TTOT']['Hours']) ? $getVisitorInfo['TTOT']['Hours']   : '' ,
                 'minutes' => ($getVisitorInfo['TTOT']['Minutes']) ? $getVisitorInfo['TTOT']['Minutes']   : '' ,
@@ -130,7 +130,7 @@ class VisitorImport implements ShouldQueue
             $visitorDetail->ttot_detail = $TTOTData;
         }
 
-        if ($visitorDetail['Verification']) {
+        if ($getVisitorInfo['Verification']) {
             $verificationData = [
                 'verified_By' => ($getVisitorInfo['Verification']['VerifiedBy']) ? $getVisitorInfo['Verification']['VerifiedBy']   : '',
                 'notes' => ($getVisitorInfo['Verification']['Notes']) ? $getVisitorInfo['Verification']['Notes']   : '',
@@ -142,7 +142,7 @@ class VisitorImport implements ShouldQueue
             $visitorDetail->verification_detail = $verificationData;
         }
 
-        if ($visitorDetail['Timesheet']) {
+        if ($getVisitorInfo['Timesheet']) {
             $verificationData = [
                 'required' => ($getVisitorInfo['Timesheet']['Required']) ? $getVisitorInfo['Timesheet']['Required']   : '',
                 'Approved' => ($getVisitorInfo['Timesheet']['Approved']) ? $getVisitorInfo['Timesheet']['approved']   : '',

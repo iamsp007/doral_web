@@ -60,6 +60,8 @@ class Applicant extends Model
         'skill_detail' => 'array',
         'emergency_detail' => 'array',
         'payroll_details' => 'array',
+        'workHistory_detail' => 'array',
+        'professional_detail' => 'array'
     ];
 
     protected $appends = ['signature_url'];

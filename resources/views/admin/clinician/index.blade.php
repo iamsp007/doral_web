@@ -133,9 +133,7 @@
                     d.gender = $('select[name="gender"]').val();
                     
                 },
-                'headers': {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
+               
             },
             columns:[
                 {data:'checkbox_id',"className": "text-center","bSortable": false},

@@ -6,6 +6,7 @@ use App\Mail\WelcomeEmail;
 use App\Mail\AcceptedMail;
 use App\Mail\SendErrorEmail;
 use App\Mail\SendPatientImpotNotification;
+use App\Mail\SendReportEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -52,6 +53,8 @@ class SendEmailJob implements ShouldQueue
             Mail::to($this->email)->send(new SendPatientImpotNotification($this->detail));
         } elseif ($this->mailType === 'sendSms') { 
             $this->sendsmsToMe($this->detail['message'], $this->detail['phone']);
+        } elseif ($this->mailType === 'SendReportEmail') { 
+            Mail::to($this->email)->send(new SendReportEmail($this->detail));
         }
     }
 

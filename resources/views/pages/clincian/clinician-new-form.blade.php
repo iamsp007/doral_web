@@ -224,7 +224,35 @@
                                                 <p>Name: <span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
                                             </td>
                                             <td>
-                                                <p>SNN: <span>{{ ($users->ssn) ? $users->ssn : ''}}</span></p>
+                                                <p>SNN: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['ssn']  : ''}}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>Date: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['date']  : ''}}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Us Citizen: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['us_citizen']  : ''}}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>Immigration Id: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['immigration_id']  : ''}}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Emergency Phone: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['emergency_phone']  : ''}}</span></p>
                                             </td>
                                         </tr>
                                     </table>
@@ -236,23 +264,6 @@
                                     style="display: block;width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;">{{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}</span></p>
                                 </td>
                             </tr>
-                            <!-- <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>Address line 1: <span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}}</span></p>
-                                            </td>
-                                            <td>
-                                                <p>Address line 2: <span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}}</span></p>
-                                            </td>
-                                            <td>
-                                                <p>Apt/Building#: <span> {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}</span></p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr> -->
                             <tr>
                                 <td>
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -265,7 +276,7 @@
                                             </td>
                                         
                                             <td>
-                                                <p>Zip: <span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['zipcode'] : ''}}</span></p>
+                                                <p>Zipcode: <span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['zipcode'] : ''}}</span></p>
                                             </td>
                                         </tr>
                                     </table>
@@ -276,7 +287,7 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
+                                                <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>   
                                             </td>
                                             <td>
                                                 <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']['how_long_resident']) ? $users->address_detail['address']['how_long_resident'] : ''}}</span></p>
@@ -297,23 +308,6 @@
                                     </table>
                                 </td>
                             </tr>
-                            <!-- <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>Prior Address line 1: <span>{{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['address1']  : ''}}</span></p>
-                                            </td>
-                                            <td>
-                                                <p>Prior Address line 2: <span>{{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['address2']  : ''}}</span></p>
-                                            </td>
-                                            <td>
-                                                <p>Apt/Building#: <span> {{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['building']  : ''}}</span></p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr> -->
                             <tr>
                                 <td>
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -331,21 +325,7 @@
                                     </table>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                            <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
-                                            </td>
-                                            <td>
-                                                <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']['how_long_resident']) ? $users->address_detail['address']['how_long_resident'] : ''}}</span></p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
+                           <tr>
                                 <td>
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
@@ -371,29 +351,37 @@
                                     </table>
                                 </td>
                             </tr>
+                            @php
+                                $medicalInstitute = $residencyInstitute = $fellowshipInstitute = '';
+                                if (isset($users->education_detail['medicalInstitute'])):
+                                    $medicalInstitute = $users->education_detail['medicalInstitute'];
+                                    $residencyInstitute = $users->education_detail['residencyInstitute'];
+                                    $fellowshipInstitute = $users->education_detail['fellowshipInstitute'];
+                                endif;
+                            @endphp
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Education Detail(Medical Institute)</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p style="font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none;">Address: <span  value="Shashikant"
+                                    style="display: block;width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;">{{ isset($medicalInstitute['medical_address1']) ? $medicalInstitute['medical_address1'] : '' }} {{ isset($medicalInstitute['medical_address2']) ? $medicalInstitute['medical_address2'] : '' }} {{ isset($medicalInstitute['medical_building']) ? $medicalInstitute['medical_building'] : '' }}</span></p>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <p>Have you worked for this company in the past
-                                                    <span>
-                                                        <input type="checkbox">Yes
-                                                        <input type="checkbox" >No
-                                                    </span>
-                                                    <span>If so,when?</span>
-                                                </p>
+                                                <p>City: <span>{{ isset($medicalInstitute['medical_cityId']) ? \App\Models\City::find($medicalInstitute['medical_cityId'])->city : '' }}</span></p>
                                             </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>  
-                                <td>                                         
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
                                             <td>
-                                                <p> Names of friends or relatives who presently work for this company:<span></span></p>
+                                                <p>State: <span>{{ isset($medicalInstitute['medical_stateId']) ? \App\Models\State::find($medicalInstitute['medical_stateId'])->state : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Zipcode: <span>{{ isset($medicalInstitute['medical_zipcode']) ? $medicalInstitute['medical_zipcode'] : '' }}</span></p>
                                             </td>
                                         </tr>
                                     </table>
@@ -401,34 +389,245 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Emergency Contact Information</h1>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>Institute Name: <span>{{ isset($medicalInstitute['medical_instituteName']) ? $medicalInstitute['medical_instituteName'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Year Started: <span>{{ isset($medicalInstitute['medical_yearStarted']) ? $medicalInstitute['medical_yearStarted'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Year Ended: <span>{{ isset($medicalInstitute['medical_yearEnded']) ? $medicalInstitute['medical_yearEnded'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </td>
                             </tr>
-                            @if (isset($users->emergency_detail))
-                                @foreach ($users->emergency_detail as $emergency_detail)
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Education Detail(Residency Institute)</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p style="font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none;">Address: <span  value="Shashikant"
+                                    style="display: block;width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;">{{ isset($residencyInstitute['medical_address1']) ? $residencyInstitute['medical_address1'] : '' }} {{ isset($residencyInstitute['medical_address2']) ? $residencyInstitute['medical_address2'] : '' }} {{ isset($residencyInstitute['medical_building']) ? $residencyInstitute['medical_building'] : '' }}</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>City: <span>{{ isset($residencyInstitute['medical_cityId']) ? \App\Models\City::find($residencyInstitute['medical_cityId'])->city : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>State: <span>{{ isset($residencyInstitute['medical_stateId']) ? \App\Models\State::find($residencyInstitute['medical_stateId'])->state : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Zipcode: <span>{{ isset($residencyInstitute['medical_zipcode']) ? $residencyInstitute['medical_zipcode'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>Institute Name: <span>{{ isset($residencyInstitute['medical_instituteName']) ? $residencyInstitute['medical_instituteName'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Year Started: <span>{{ isset($residencyInstitute['medical_yearStarted']) ? $residencyInstitute['medical_yearStarted'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Year Ended: <span>{{ isset($residencyInstitute['medical_yearEnded']) ? $residencyInstitute['medical_yearEnded'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Education Detail(Fellowship Institute)</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p style="font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none;">sAddress: <span  value="Shashikant"
+                                    style="display: block;width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;">{{ isset($fellowshipInstitute['medical_address1']) ? $fellowshipInstitute['medical_address1'] : '' }} {{ isset($fellowshipInstitute['medical_address2']) ? $fellowshipInstitute['medical_address2'] : '' }} {{ isset($fellowshipInstitute['medical_building']) ? $fellowshipInstitute['medical_building'] : '' }}</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>City: <span>{{ isset($fellowshipInstitute['medical_cityId']) ? \App\Models\City::find($fellowshipInstitute['medical_cityId'])->city : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>State: <span>{{ isset($fellowshipInstitute['medical_stateId']) ? \App\Models\State::find($fellowshipInstitute['medical_stateId'])->state : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Zipcode: <span>{{ isset($fellowshipInstitute['medical_zipcode']) ? $fellowshipInstitute['medical_zipcode'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>Institute Name: <span>{{ isset($fellowshipInstitute['medical_instituteName']) ? $fellowshipInstitute['medical_instituteName'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Year Started: <span>{{ isset($fellowshipInstitute['medical_yearStarted']) ? $fellowshipInstitute['medical_yearStarted'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Year Ended: <span>{{ isset($fellowshipInstitute['medical_yearEnded']) ? $fellowshipInstitute['medical_yearEnded'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            @php
+                                $payroll_details = '';
+                                if (isset($users->payroll_details)):
+                                    $payroll_details = $users->payroll_details;
+                                endif;
+                            @endphp
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Payroll Detail</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p style="font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none;">Address: <span  value="Shashikant"
+                                    style="display: block;width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;">{{ isset($payroll_details['address_line_1']) ? $payroll_details['address_line_1'] : '' }} {{ isset($payroll_details['address_line_2']) ? $payroll_details['address_line_2'] : '' }} {{ isset($payroll_details['building']) ? $payroll_details['building'] : '' }}</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>City: <span>{{ isset($payroll_details['city_id']) ? \App\Models\City::find($payroll_details['city_id'])->city : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>State: <span>{{ isset($payroll_details['state_id']) ? \App\Models\State::find($payroll_details['state_id'])->state : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Zipcode: <span>{{ isset($payroll_details['zip_code']) ? $payroll_details['zip_code'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>Name Of Bank: <span>{{ isset($payroll_details['nameOfBank']) ? $payroll_details['nameOfBank'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Type Of Account: <span>{{ isset($payroll_details['typeOfAccount']) ? $payroll_details['typeOfAccount'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Account Number: <span>{{ isset($payroll_details['accountNumber']) ? $payroll_details['accountNumber'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>Name Of Account: <span>{{ isset($payroll_details['nameOfAccount']) ? $payroll_details['nameOfAccount'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Dependents: <span>{{ isset($payroll_details['dependents']) ? $payroll_details['dependents'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Other Dependents: <span>{{ isset($payroll_details['otherdependents']) ? $payroll_details['otherdependents'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Children Dependents: <span>{{ isset($payroll_details['childrendependents']) ? $payroll_details['childrendependents'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Routing Number: <span>{{ isset($payroll_details['routingNumber']) ? $payroll_details['routingNumber'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>Files Tax: <span>{{ isset($payroll_details['filesTax']) ? $payroll_details['filesTax'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Tax Payer Id Number: <span>{{ isset($payroll_details['taxpayer_id_number']) ? $payroll_details['taxpayer_id_number'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Files your Tax: <span>{{ isset($payroll_details['filesyourtax']) ? $payroll_details['filesyourtax'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>Legal Entity: <span>{{ isset($payroll_details['legal_entity']) ? $payroll_details['legal_entity'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Send Tax Doc: <span>{{ isset($payroll_details['send_tax_doc']) ? $payroll_details['send_tax_doc'] : '' }}</span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            
+                            @php
+                                $number=1;
+                            @endphp
+                           
+                            @if (isset($users->workHistory_detail) && count($users->workHistory_detail['list']) > 0)
+                                @foreach ($users->workHistory_detail['list'] as $workHistory_detail)
+                                    <tr>
+                                        <td>
+                                            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Work History Information {{ $number}}</h1>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td>
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td>
-                                                        <p>Name: <span>{{ isset($emergency_detail['name']) ? $emergency_detail['name'] : ''}}</span></p>
+                                                        <p>Company Name: <span>{{ isset($workHistory_detail['companyName']) ? $workHistory_detail['companyName'] : '' }}</span></p>
                                                     </td>
                                                     <td>
-                                                        <p>Home Phone: <span>{{ isset($emergency_detail['phoneNo']) ? $emergency_detail['phoneNo'] : '' }}</span></p>
+                                                        <p>Position: <span>{{ isset($workHistory_detail['position']) ? $workHistory_detail['position'] : '' }}</span></p>
                                                     </td>
                                                 </tr>
-                                            </table>
-                                        </td>
-                                    </tr> 
-                                    <tr>
-                                        <td>
-                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td>
-                                                        <p>Address: <span>{{ isset($emergency_detail['address_line_1']) ? $emergency_detail['address_line_1'] : '' }} {{ isset($emergency_detail['address_line_2']) ? $emergency_detail['address_line_2'] : ''}} {{ isset($emergency_detail['building']) ? $emergency_detail['building'] : '' }} </span></p>
+                                                        <p>Reason: <span>{{ isset($workHistory_detail['reason']) ? $workHistory_detail['reason'] : '' }}</span></p>
                                                     </td>
                                                     <td>
-                                                        <p>Work Phone: <span></span></p>
+                                                        <p>Record Id: <span>{{ isset($workHistory_detail['recordId']) ? $workHistory_detail['recordId'] : '' }}</span></p>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -439,29 +638,33 @@
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td>
-                                                        <p>City: <span> 
-                                                            @if (isset($emergency_detail['city_id']))
-                                                                @if (is_numeric($emergency_detail['city_id']))
-                                                                    {{ isset($emergency_detail['city_id']) ? \App\Models\City::find($emergency_detail['city_id'])->city : '' }}
-                                                                @else
-                                                                    {{ isset($emergency_detail['city_id']) ? $emergency_detail['city_id'] : '' }}
-                                                                @endif  
-                                                            @endif
-                                                        	</span></p>
+                                                        <p>Start Date: <span>{{ isset($workHistory_detail['startDate']) ? $workHistory_detail['startDate'] : '' }}</span></p>
                                                     </td>
                                                     <td>
-                                                        <p>State: <span>
-                                                        @if (isset($emergency_detail['state_id']))
-                                                          @if (is_numeric($emergency_detail['state_id']))
-                                                         		{{ isset($emergency_detail['state_id']) ? \App\Models\State::find($emergency_detail['state_id'])->state : '' }}
-                                                         	@else
-                                                         		{{ isset($emergency_detail['state_id']) ? $emergency_detail['state_id'] : '' }}
-                                                        	@endif
-                                                        	@endif
-                                                        	</span></p>
+                                                        <p>End Date: <span>{{ isset($workHistory_detail['endDate']) ? $workHistory_detail['endDate'] : '' }}</span></p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p style="font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none;">Address: <span  value="Shashikant"
+                                            style="display: block;width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;">{{ isset($workHistory_detail['address_line_1']) ? $workHistory_detail['address_line_1'] : '' }} {{ isset($workHistory_detail['address_line_2']) ? $workHistory_detail['address_line_2'] : '' }} {{ isset($workHistory_detail['building']) ? $workHistory_detail['building'] : '' }}</span></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td>
+                                                        <p>City: <span>{{ isset($workHistory_detail['city_id']) ? \App\Models\City::find($workHistory_detail['city_id'])->city : '' }}</span></p>
                                                     </td>
                                                     <td>
-                                                        <p>Zip: <span>{{ isset($emergency_detail['zipcode']) ? $emergency_detail['zipcode'] : '' }}</span></p>
+                                                        <p>State: <span>{{ isset($workHistory_detail['state_id']) ? \App\Models\State::find($workHistory_detail['state_id'])->state : '' }}</span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Zipcode: <span>{{ isset($workHistory_detail['zipCode']) ? $workHistory_detail['zipCode'] : '' }}</span></p>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -472,17 +675,26 @@
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td>
-                                                        <p>How is the person is related to you: <span>{{ isset($emergency_detail['relation']) ? $emergency_detail['relation'] : '' }}</span></p>
+                                                        <p>Emergency Contact Phone Home #: <span>{{ isset($reference_detail['phoneNo']) ? $reference_detail['phoneNo'] : '' }}</span></p>
                                                     </td>
                                                 </tr>
                                             </table>
                                         </td>
                                     </tr>
+                                @php $number++; @endphp
                                 @endforeach
                             @endif
                             <tr>
                                 <td>
-                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Position Desired:</h1>
+                                    <p>Gap Reason: <span>{{ isset($users->workHistory_detail['gapReason']) ? $users->workHistory_detail['gapReason'] : '' }}</span></p>
+                                </td>
+                            </tr>
+                            @php
+                                $professional_detail = $users->professional_detail;
+                            @endphp
+                            <tr>
+                                <td>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Professional Information</h1>
                                 </td>
                             </tr>
                             <tr>
@@ -490,10 +702,24 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <p>Position: <span>{{ isset($users->employer_detail['position']) ? $users->employer_detail['position']['position'] : '' }}</span></p>
+                                                <p>Federal DEA Id: <span>{{ isset($professional_detail['federal_DEA_id']) ? $professional_detail['federal_DEA_id'] : '' }}</span></p>
                                             </td>
                                             <td>
-                                                <p>Date you can start work: <span>{{ isset($users->employer_detail['position']) ? viewDateFormat($users->employer_detail['position']['date']) : '' }}</span></p>
+                                                <p>Age range treated: <span>
+                                                    @if ($professional_detail['age_0_9'] == true)
+                                                        0 to 9
+                                                    @elseif ($professional_detail['age_10_13'] == true)
+                                                        10 to 13
+                                                    @elseif ($professional_detail['age_14_21'] == true)
+                                                        14 to 21
+                                                    @elseif ($professional_detail['age_22_40'] == true)
+                                                        22 to 40
+                                                    @elseif ($professional_detail['age_41_65'] == true)
+                                                        40 to 65
+                                                    @elseif ($professional_detail['age_65Plus'] == true)
+                                                        65+
+                                                    @endif
+                                                    </span></p>
                                             </td>
                                         </tr>
                                     </table>
@@ -504,28 +730,18 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <p>Are you currently employed? 
-                                                    <span>
-                                                        <input type="checkbox" {{ isset($users->employer_detail['position']['isCurrentEmployee']) ? 'checked' : '' }}>Yes
-                                                        <input type="checkbox" {{ isset($users->employer_detail['position']['isCurrentEmployee']) ? '' : 'checked' }}>No
-                                                    </span>
-                                                </p>
+                                                <p>Medicaid Enrolled: <span>{{ isset($professional_detail['medicaidEnrolled']) ? $professional_detail['medicaidEnrolled'] : '' }}</span></p>
                                             </td>
                                             <td>
-                                                <p>If so, may we contact your current employer?
-                                                    <span>
-                                                        <input type="checkbox" {{ isset($users->employer_detail['position']['isAllowContactToEmployer']) ? 'checked' : '' }}>Yes
-                                                        <input type="checkbox" {{ isset($users->employer_detail['position']['isAllowContactToEmployer']) ? '' : 'checked' }}>No
-                                                    </span>
-                                                </p>
-                                            </td>  
+                                                <p>Medicaid Enrolled Number: <span>{{ isset($professional_detail['medicaidEnrolled_Number']) ? $professional_detail['medicaidEnrolled_Number'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Medicare Enrolled: <span>{{ isset($professional_detail['medicaidEnrolled_StateId']) ? $professional_detail['medicaidEnrolled_StateId'] : '' }}
+                                                {{ isset($professional_detail['medicaidEnrolled_StateId']) ? \App\Models\State::find($professional_detail['medicaidEnrolled_StateId'])->state : '' }}
+                                                </span></p>
+                                            </td>
                                         </tr>
                                     </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Employment History and Educational Background:</h1>
                                 </td>
                             </tr>
                             <tr>
@@ -533,7 +749,26 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <p>List your past three (3) employers, beginning with the most recent: <span></span></p>
+                                                <p>Medicare Enrolled: <span>{{ isset($professional_detail['medicareEnrolled']) ? $professional_detail['medicareEnrolled'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Medicare Enrolled Number: <span>{{ isset($professional_detail['medicareEnrolled_Number']) ? $professional_detail['medicareEnrolled_Number'] : '' }}</span></p>
+                                            </td>
+                                            <td>
+                                                <p>Medicare Enrolled: <span>{{ isset($professional_detail['medicareEnrolled_StateId']) ? $professional_detail['medicareEnrolled_StateId'] : '' }}
+                                                {{ isset($professional_detail['medicareEnrolled_StateId']) ? \App\Models\State::find($professional_detail['medicareEnrolled_StateId'])->state : '' }}
+                                                </span></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <p>List your professional state license: <span></span></p>
                                             </td>
                                         </tr>
                                     </table>
@@ -546,41 +781,23 @@
                                             <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: left;border-bottom: 1px solid #a5a5a5;">#
                                             </th>
                                             <th style="width: 20%;">
-                                                <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;"> Company</h1>
+                                                <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;"> State</h1>
                                             </th>
                                             <th style="width: 20%;">
-                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Address</h1>
-                                            </th>
-                                            <th style="width: 20%;">
-                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Phone</h1>
-                                            </th>
-                                            <th style="width: 20%;">
-                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Supervisor</h1>
+                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Number</h1>
                                             </th>
                                         </tr>
                                         @php $counter = 1 @endphp
-                                        @if (isset($users->employer_detail) && count($users->employer_detail['employer']) > 0)
-                                            @foreach ($users->employer_detail['employer'] as $employer_detail)
+                                        @if (isset($users->professional_detail) && count($users->professional_detail['stateLicense']) > 0)
+                                            @foreach ($users->professional_detail['stateLicense'] as $stateLicense)
                                                 <tr style="background: #f8f8f8;">
                                                     <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{ $counter }}</td>
                                                     <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
-                                                    @if (isset($employer_detail['company']))
-                                                        {{ $employer_detail['company']}}
-
-                                                    @elseif (isset($employer_detail['companyName']))
-                                                        {{ $employer_detail['companyName']}}
-                                                    @endif
+                                                    {{ isset($stateLicense['State']) ? $stateLicense['State'] : '' }}
                                                     </td>
                                                     <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
-                                                    @if (isset($employer_detail['address']))
-                                                        {{ $employer_detail['address']}}
-
-                                                    @elseif (isset($employer_detail['address1']))
-                                                        {{ $employer_detail['address1']}}
-                                                    @endif
+                                                    {{ isset($stateLicense['Number']) ? $stateLicense['Number'] : '' }}
                                                    </td>
-                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['phoneNo']}}</td>
-                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ isset($employer_detail['supervisor']) ? $employer_detail['supervisor'] : '' }}</td>
                                                 </tr>
                                                 @php $counter++ @endphp
                                             @endforeach
@@ -597,7 +814,7 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <p>List your past three (3) schools you attended, beginning with the most recent. <span></span></p>
+                                                <p>List your professional board certificate: <span></span></p>
                                             </td>
                                         </tr>
                                     </table>
@@ -607,265 +824,34 @@
                                 <td>
                                     <table style="width: 100%;border: 1px solid #a5a5a5;margin-top: 20px;">
                                         <tr>
-                                            <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: left;border-bottom: 1px solid #a5a5a5;"> #
+                                            <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: left;border-bottom: 1px solid #a5a5a5;">#
                                             </th>
                                             <th style="width: 20%;">
-                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Name and address</h1>
+                                                <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;"> State</h1>
                                             </th>
                                             <th style="width: 20%;">
-                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Years completed</h1>
-                                            </th>
-                                            <th style="width: 20%;">
-                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Did you graduate?</h1>
-                                            </th>
-                                            <th style="width: 20%;">
-                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;"> Major/Degree</h1>
+                                                <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: left;border-bottom: 1px solid #a5a5a5;">Number</h1>
                                             </th>
                                         </tr>
                                         @php $counter = 1 @endphp
-                                        @if (isset($users->education_detail) && count($users->education_detail) > 0)
-                                        @foreach ($users->education_detail as $education_detail)
-                                            <tr style="background: #f8f8f8;">
-                                                <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{$counter}}</td>
-                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
-                                                	@if(isset($education_detail['address'])) 
-                                                		{{ $education_detail['address'] }}
-                                                	@elseif(isset($education_detail['address_line_1']))
-                                                		{{ $education_detail['address_line_1'] }}
-                                                	@endif
-                                                	</td>
-                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ isset($education_detail['year']) ? $education_detail['year'] : '' }}</td>
-                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ isset($education_detail['isGraduate']) ? $education_detail['isGraduate']  : '' }}</td>
-                                                <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
-                                                	@if(isset($education_detail['Degree'])) 
-                                                		{{ $education_detail['Degree'] }}
-                                                	@elseif(isset($education_detail['degree']))
-                                                		{{ $education_detail['degree'] }}
-                                                	@endif
-                                                	</td>
-                                            </tr>
-                                            @php $counter++ @endphp
-                                        @endforeach
+                                        @if (isset($users->professional_detail) && count($users->professional_detail['boardCertificate']) > 0)
+                                            @foreach ($users->professional_detail['boardCertificate'] as $boardCertificate)
+                                                <tr style="background: #f8f8f8;">
+                                                    <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{ $counter }}</td>
+                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
+                                                    {{ isset($boardCertificate['status']) ? $boardCertificate['status'] : '' }}
+                                                    </td>
+                                                    <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
+                                                    {{ isset($boardCertificate['certificate']) ? $boardCertificate['certificate'] : '' }}
+                                                   </td>
+                                                </tr>
+                                                @php $counter++ @endphp
+                                            @endforeach
                                         @else 
                                             <tr style="background: #f8f8f8;">
                                                 <td colspan="5" style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">Record(s) Not Found</td>
-                                            </tr>      
+                                            </tr>                                                          
                                         @endif
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">General:</h1>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>List any foreign languages you speak and check your level of fluency. </p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            @if(isset($users->language_detail['language']))
-                                @foreach ($users->language_detail['language'] as $language_detail)
-                                    <tr>
-                                        <td>
-                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <p><span>{{ $language_detail['name'] }}</span></p>
-                                                        </td>
-                                                        <td>
-                                                            <p><input type="checkbox" {{ ($language_detail['minimal']) ? 'checked' : '' }}>Minimal</p>
-                                                        </td>
-                                                        <td>
-                                                            <p><input type="checkbox" {{ ($language_detail['fluent']) ? 'checked' : '' }}>Fluent</p>
-                                                        </td>
-                                                        <td>
-                                                            <p><input type="checkbox" {{ ($language_detail['read']) ? 'checked' : '' }}>Read</p>
-                                                        </td>
-                                                        <td>
-                                                            <p><input type="checkbox" {{ ($language_detail['write']) ? 'checked' : '' }}>Write</p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else 
-                                <tr>
-                                    <td>
-                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        Record(s) Not Found
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            @endif
-                            <tr>
-                                <td>
-                                    <p>List any special skills/abilitys you have that can be applied to this position. <span>{{ $users->language_detail ? $users->language_detail['skill'] : '' }}</span></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Security:</h1>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>Have you ever been bonded? 
-                                        <span>
-                                            <input type="checkbox" {{ ($users->security_detail && $users->security_detail['bond']) ? 'checked' : '' }}>Yes
-                                            <input type="checkbox" {{ ($users->security_detail && $users->security_detail['bond']) ? '' : 'checked' }} }}>No
-                                        </span>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>If so, explain:<span>{{ $users->security_detail ? $users->security_detail['bond_explain'] : '' }}</span></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>Have you been convicted of a felony within the past 5 years?     
-                                        <span>
-                                            <input type="checkbox" {{ ($users->security_detail && $users->security_detail['convict']) ? 'checked' : '' }}>Yes
-                                            <input type="checkbox" {{ ($users->security_detail && $users->security_detail['convict']) ? '' : 'checked' }}>No
-                                        </span>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>If so, explain (this will not necessarily exclude you from consideration:<span>{{ $users->security_detail ? $users->security_detail['convict_explain'] : '' }}</span></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Military:</h1>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>Have you served in the military?
-                                                    <span>
-                                                        <input type="checkbox" {{ isset($users->military_detail['isMilitary']) ? 'checked' : '' }}>Yes
-                                                        <input type="checkbox"{{ isset($users->military_detail['isMilitary']) ? '' : 'checked' }}>No
-                                                    </span>
-                                                </p>
-                                            </td>
-                                            <td>
-                                                <p>Branch: <span>{{ isset($users->military_detail['branch']) ? $users->military_detail['branch'] : '' }}</span></p>
-                                            </td>  
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>Served Served from:<span>{{ isset($users->military_detail['serve_start_date']) ? $users->military_detail['serve_start_date'] : '' }} to {{ isset($users->military_detail['serve_end_date']) ? $users->military_detail['serve_end_date'] : '' }}</span></p>
-                                            </td>
-                                            <td>
-                                                <p>Rank:<span></span></p>
-                                            </td>     
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>Do you have any military commitment, including National Guard service that would influence your work schedule?  
-                                                    <span>
-                                                        <input type="checkbox" {{ isset($users->military_detail['isCommited']) ? 'checked' : '' }}>Yes
-                                                        <input type="checkbox" {{ isset($users->military_detail['isCommited']) ? '' : 'checked' }}>No
-                                                    </span>
-                                                </p>
-                                            </td> 
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>If so, explain: <span>{{ isset($users->military_detail['isCommited_explain']) ? $users->military_detail['isCommited_explain'] : ''}}</span></p>
-                                            </td> 
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>Are you a Vietnam veteran?  
-                                                    <span>
-                                                        <input type="checkbox" {{ isset($users->military_detail['isVietnam']) ? 'checked' : '' }}>Yes
-                                                        <input type="checkbox"{{ isset($users->military_detail['isVietnam']) ? '' : 'checked' }}>No
-                                                    </span>
-                                                </p>
-                                            </td> 
-                                            <td>
-                                                <p>Are you a disabled veteran? 
-                                                    <span>
-                                                        <input type="checkbox" {{ isset($users->military_detail['isDisableVetran']) ? 'checked' : '' }}>Yes
-                                                        <input type="checkbox" {{ isset($users->military_detail['isDisableVetran']) ? '' : 'checked' }}>No
-                                                    </span>
-                                                </p>
-                                            </td> 
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>Are you a special disabled veteran?
-                                                    <span>
-                                                        <input type="checkbox" {{ isset($users->military_detail['isSpecialDisableVereran']) ? 'checked' : '' }}>Yes
-                                                        <input type="checkbox" {{ isset($users->military_detail['isSpecialDisableVereran']) ? '' : 'checked' }}>No
-                                                    </span>
-                                                </p>
-                                            </td> 
-                                        </tr>
-                                    </table>
-                                </td>   
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p style="white-space:normal">REASONABLE ACCOMMODATIONS: In the event you believe you will need reasonable accommodations to assist you inperforming your job,please contact your supervisor or<br> human resources coordinator.</p>
-                                            </td> 
-                                        </tr>
                                     </table>
                                 </td>
                             </tr>
@@ -924,21 +910,56 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>Employee Name: <span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Reference Basic Information</h1>
                                 </td>
                             </tr>
                             @php $number=1; @endphp
-                            @if (isset($users->reference_detail) && count($users->reference_detail) > 0)
-                                @foreach ($users->reference_detail as $reference_detail)
+                            @if (isset($users->reference_detail) && count($users->reference_detail['reference_list']) > 0)
+                                @foreach ($users->reference_detail['reference_list'] as $reference_detail)
+                                    @php
+                                        $haveYouEverBeenBonded = $haveYouEverBeenRefusedBond = $haveYouOverBeenConvicatedOfaCrime = '';
+                                        if($users->reference_detail['reference_list']):
+                                            $haveYouEverBeenBonded = $users->reference_detail['haveYouEverBeenBonded'];
+                                            $haveYouEverBeenRefusedBond = $users->reference_detail['haveYouEverBeenRefusedBond'];
+                                            $haveYouOverBeenConvicatedOfaCrime = $users->reference_detail['haveYouOverBeenConvicatedOfaCrime'];
+                                        endif;
+                                    @endphp
                                     <tr>
                                         <td>
-                                            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Contact Information {{ $number}}</h1>
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td>
+                                                        <p>Have You Ever Been Bonded: <span>{{ $haveYouEverBeenBonded }}</span></p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td>
+                                                        <p>Have You Ever Been Refused Bond: <span>{{ $haveYouEverBeenRefusedBond }}</span></p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td>
+                                                        <p>Have You Ever Been Refused Bond: <span>{{ $haveYouOverBeenConvicatedOfaCrime }}</span></p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Reference Information {{ $number}}</h1>
                                         </td>
                                     </tr>
                                     <tr>
@@ -957,7 +978,7 @@
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td>
-                                                        <p>Relationship to Employee: <span>{{ isset($reference_detail['personRelation']) ? $reference_detail['personRelation'] : '' }}</span></p>
+                                                        <p>Relationship: <span>{{ isset($reference_detail['relation']) ? $reference_detail['relation'] : '' }}</span></p>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -965,22 +986,22 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <p style="font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none;">Current Address: <span  value="Shashikant"
+                                            style="display: block;width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;">{{ isset($reference_detail['address_line_1']) ? $reference_detail['address_line_1'] : '' }} {{ isset($reference_detail['address_line_2']) ? $reference_detail['address_line_2'] : '' }} {{ isset($reference_detail['building']) ? $reference_detail['building'] : '' }}</span></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
                                                     <td>
-                                                        <p>Address:  <span>{{ $reference_detail['address_line_1'] }}
-                                                          @if (isset($reference_detail['address_line_2']))
-                                                           {{ $reference_detail['address_line_2'] }}
-                                                         @endif  
-                                                           {{ isset($reference_detail['building']) ? $reference_detail['building'] : '' }}
-                                                        @if (isset($reference_detail['city_id']))
-                                                         	@if (is_numeric($reference_detail['city_id']))
-                                                         		{{ isset($reference_detail['city_id']) ? \App\Models\City::find($reference_detail['city_id'])->city : '' }}
-                                                         	@else
-                                                         		{{ isset($reference_detail['city_id']) ? $reference_detail['city_id'] : '' }}
-                                                        	@endif
-                                                        @endif
-                                                          {{ isset($reference_detail['zipcode']) ? $reference_detail['zipcode'] : '' }} </span></p>
+                                                        <p>City: <span>{{ isset($reference_detail['city_id']) ? \App\Models\City::find($reference_detail['city_id'])->city : '' }}</span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>State: <span>{{ isset($reference_detail['state_id']) ? \App\Models\State::find($reference_detail['state_id'])->state : '' }}</span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p>Zipcode: <span>{{ isset($reference_detail['zipcode']) ? $reference_detail['zipcode'] : '' }}</span></p>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -992,17 +1013,6 @@
                                                 <tr>
                                                     <td>
                                                         <p>Emergency Contact Phone Home #: <span>{{ isset($reference_detail['phoneNo']) ? $reference_detail['phoneNo'] : '' }}</span></p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                <tr>
-                                                    <td>
-                                                        <p>Emergency Contact Cell Phone #: <span></span></p>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -1058,20 +1068,7 @@
                                     </table>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>POSITION:<span>{{ isset($users->employer_detail['position']) ? $users->employer_detail['position']['position'] : '' }}</span></p>
-                                            </td>
-                                            <td>
-                                                <p>DEPARTMENT:<span>{{ ($users->user && $users->user->designation) ? $users->user->designation->name : '' }}</span></p>
-                                            </td>   
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
+                           
                             <tr>
                                 <td>
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -1107,83 +1104,6 @@
                                             <td>
                                                 <p>(HOME AND CELL PHONE NUMBER ARE MANDATED BY THIS NEW YORK STATE DEPARTMENT OF HEALTH)</p>
                                             </td>   
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">INFORMATION NEEDED FOR FMLA AND BEREAVEMENT LEAVE:</h1>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>SPOUSE'S NAME:<span>{{ ($users->family_detail) ? $users->family_detail['spouse_name'] : '' }}</span></p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>MOTHER'S NAME:<span>{{ ($users->family_detail) ? $users->family_detail['mother_name'] : '' }}</span></p>
-                                            </td>
-                                            <td>
-                                                <p>FATHER'S NAME:<span>{{ ($users->family_detail) ? $users->family_detail['father_name'] : '' }}</span></p>
-                                            </td>   
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>MOTHER-IN-LAW'S NAME:<span>{{ ($users->family_detail) ? $users->family_detail['mother_in_low_name'] : '' }}</span></p>
-                                            </td>
-                                            <td>
-                                                <p>FATHER-IN-LAW'S NAME:<span>{{ ($users->family_detail) ? $users->family_detail['father_in_low_name'] : '' }}</span></p>
-                                            </td>   
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>SIBLINGS: <span>{{ ($users->family_detail) ? $users->family_detail['siblings_name'] : '' }}</span></p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>GRANDPARENTS:<span>{{ ($users->family_detail) ? $users->family_detail['parents_name'] : '' }}</span></p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td>
-                                                <p>CHILDREN: <span>{{ ($users->family_detail) ? $users->family_detail['children_name'] : '' }}</span></p>
-                                            </td>
                                         </tr>
                                     </table>
                                 </td>
@@ -1300,30 +1220,6 @@
                                                 </td>
                                                 <td>
                                                     <p>SSN:<span>{{ ($users->ssn) ? $users->ssn : ''}}</span></p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p>Name of Company:
-                                                        <span>
-                                                            @if(isset($users->employer_detail['employer'][0]))
-                                                                @if (isset($users->employer_detail['employer'][0]['company']))
-                                                                    {{ $users->employer_detail['employer'][0]['company']}}
-
-                                                                @elseif (isset($users->employer_detail['employer'][0]['companyName']))
-                                                                    {{ $users->employer_detail['employer'][0]['companyName']}}
-                                                                @endif
-                                                            @endif
-                                                        </span>
-                                                    </p>
                                                 </td>
                                             </tr>
                                         </tbody>

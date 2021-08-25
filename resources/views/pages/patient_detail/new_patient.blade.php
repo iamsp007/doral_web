@@ -18,9 +18,7 @@ table.dataTable thead th, table.dataTable thead td{
 @endpush
 @hasrole('referral')
     @section('upload-btn')
-        <div class="d-flex">
-            <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-visitor-from-hha') }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Visit Import</a>
-        </div>
+      
         @if (request()->segment(count(request()->segments())) == "occupational-health")
             <div class="d-flex">
                 <a href="{{ url('referral/service/occupational-health/initial') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Pending Patients</a>

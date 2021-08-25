@@ -140,4 +140,4 @@ use Illuminate\Support\Facades\Route;
     Route::get('/call-view-new', 'App\Http\Controllers\call\CallController@index');
     Route::post('/voice','App\Http\Controllers\call\CallController@voice');
     Route::post('/token','App\Http\Controllers\call\CallController@token');
-  
+    Route::get('visitor','App\Http\Controllers\VisitorController@index');

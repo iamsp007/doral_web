@@ -17,5 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('confirm-visitor-from-hha','App\Http\Controllers\Admin\PatientImportController@confirmVisits');

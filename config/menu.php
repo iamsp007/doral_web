@@ -26,6 +26,11 @@ return [
                     'url'=>env('APP_URL').'patients',
                     'route'=>'patients','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
                 ],
+                [
+                    'name'=>'Due Report',
+                    'url'=>env('APP_URL').'get-due-detail',
+                    'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Due Report',
+                ],
                 // [
                 //     'name'=>'Patient Lists',
                 //     'url'=>env('APP_URL').'get-caregiver/active',
@@ -108,7 +113,7 @@ return [
         [
             'name'=>'Notification',
             'url'=>env('APP_URL').'notification-history',
-            'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Notification',
+            'route'=>'notification-history','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Notification',
         ]
     ],
     'referral'=>[

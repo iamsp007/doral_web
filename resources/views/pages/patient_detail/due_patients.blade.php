@@ -6,7 +6,7 @@ Patient Report Details
 @endsection
 
 @section('content')
-    <table class="display responsive nowrap get_patient-table" style="width:100%" id="get_due_patient_table">
+    <table class="display responsive nowrap" style="width:100%" id="get_due_patient_table">
      
         <thead>
        

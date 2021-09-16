@@ -536,8 +536,9 @@
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                data: {
-                  due_user_id: $(document).find(".due_user_id").val(),
+                data: function (d) {
+                    d.due_user_id = $(document).find(".due_user_id").val(),
+                    d.duereport = $('input[name="duereport"]').val();
                 },
             },
             columns:[
@@ -570,6 +571,7 @@
             //],
         });
 
+
         $('#patient_request_list').DataTable({
             "processing": true,
             "serverSide": true,
@@ -598,6 +600,7 @@
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
 
         });
+        
         $(document).ready(function() {
             $('.insurance_company').hide();
             
@@ -611,6 +614,19 @@
                 $(".lab-expiry-date").text(expirydate);
                 // $("#lab_expiry_date").val(expirydate);
             });
+            
+
+            /*table reload at filter time*/
+            $("#filter_due_report").click(function () {
+                $('input[name="duereport"]').val('duereport');
+                $("#due_patient_list").DataTable().ajax.reload(null, false);
+            });
+
+            $("#reset_btn").click(function () {
+                $('#search_report_form').trigger("reset");
+                $('input[name="duereport"]').val('')
+                $("#due_patient_list").DataTable().ajax.reload(null, false);
+            })
 
             $(document).on('click','.patient-detail-lab-report',function(event) {
                 event.preventDefault();
@@ -847,6 +863,62 @@
                     }
                 });
             });
+
+            // $('body').on('click', '.upload-report', function () {
+            //     var t = $(this);
+            //     var id = t.attr("id");
+            //     var patient_referral_id = $(this).data("id") ;
+
+            //     const Toast = Swal.mixin({
+            //         toast: true,
+            //         position: 'top-end',
+            //         showConfirmButton: true,
+            //         timer: 3000,
+            //         timerProgressBar: true,
+            //         buttonsStyling: true,
+            //         didOpen: (toast) => {
+            //             toast.addEventListener('mouseenter', Swal.stopTimer)
+            //             toast.addEventListener('mouseleave', Swal.resumeTimer)
+            //         }
+            //     })
+            //     Toast.fire({
+            //         title: 'Are you sure?',
+            //         text: "Are you sure want to upload report?",
+            //         icon: 'warning',
+            //         showCancelButton: true,
+            //         confirmButtonText: 'Yes, change it!',
+            //         cancelButtonText: 'No, cancel!',
+            //         reverseButtons: true
+            //     }).then((result) => {
+            //         if (result.isConfirmed) {
+            //             $.ajax({
+            //                 'type': 'POST',
+            //                 'url': "{{ route('send-email') }}",
+            //                 'headers': {
+            //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //                 },
+            //                 data: {
+            //                 "id": id,
+            //                 },
+            //                 'success': function (data) {
+            //                 if(data.status == 400) {
+            //                     alertText(data.message,'error');
+            //                 } else {
+            //                     alertText(data.message,'success');
+            //                 }
+                          
+            //                 },
+            //                 "error":function () {
+            //                 alertText("Server Timeout! Please try again",'warning');
+                            
+            //                 }
+            //             });
+            //         } else if (result.dismiss === Swal.DismissReason.cancel) {
+            //             alertText("Your record is safe :)",'cancelled');
+            //         }
+            //     });
+            // });
+
         });
 
      // var i =0;

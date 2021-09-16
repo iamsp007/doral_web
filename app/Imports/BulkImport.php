@@ -158,16 +158,17 @@ class BulkImport implements ToModel, WithHeadingRow, WithValidation,SkipsOnFailu
                             ]);
                         } 
                     } else {
-                        
-                        $patientLabReport = new PatientLabReport();
-                        $patientLabReport->lab_report_type_id = $labReportType->id;
-                        $patientLabReport->user_id = $userCaregiver->user_id;
-                        $patientLabReport->due_date = date('Y-m-d', strtotime($row['compliance_due_date']));
-                        $patientLabReport->perform_date = date('Y-m-d', strtotime($row['compliance_completion_date']));
-                        $patientLabReport->expiry_date = date('Y-m-d', strtotime($row['compliance_due_date']));
-                        $patientLabReport->result = $row['compliance_result'];
+                        if (date('Y', strtotime($row['compliance_due_date'])) >= 2000) {
+                            $patientLabReport = new PatientLabReport();
+                            $patientLabReport->lab_report_type_id = $labReportType->id;
+                            $patientLabReport->user_id = $userCaregiver->user_id;
+                            $patientLabReport->due_date = date('Y-m-d', strtotime($row['compliance_due_date']));
+                            $patientLabReport->perform_date = date('Y-m-d', strtotime($row['compliance_completion_date']));
+                            $patientLabReport->expiry_date = date('Y-m-d', strtotime($row['compliance_due_date']));
+                            $patientLabReport->result = $row['compliance_result'];
 
-                        $patientLabReport->save();
+                            $patientLabReport->save();
+                        }
                     }
                 }
             }

@@ -305,17 +305,16 @@ class CaregiverController extends Controller
     {
         $dateBetween['today'] =  date('Y-m-d');
         
-        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
-  
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
         $dateBetween['newDate'] = $date->format('Y-m-d');
-
+       
         $patientList = User::whereHas('roles',function ($q) {
             $q->where('name','=','patient');
         })->whereHas('patientLabReport',function ($q) use($dateBetween) {
             $q->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
-        })->with('demographic')->orderBy('id', 'DESC');
-
-        $datatble = DataTables::of($patientList)
+        })->with('demographic');
+      
+        return DataTables::of($patientList->get())
             ->addIndexColumn()
             ->addColumn('full_name', function($q) {
                 return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $q->full_name . '</a>';
@@ -354,14 +353,13 @@ class CaregiverController extends Controller
             ->addColumn('city_state', function($q) {
                 $city_state = '';
                 if ($q->demographic) {
-                    $city_state_json =  json_decode($q->demographic->address);
-
+                    $city_state_json =  $q->demographic->address;
                     if ($city_state_json) {
-                        if ($city_state_json->City) {
-                            $city_state .= $city_state_json->City;
+                        if ($city_state_json['city']) {
+                            $city_state .= $city_state_json['city'];
                         }
-                        if ($city_state_json->State) {
-                            $city_state .= ' - ' . $city_state_json->State;
+                        if ($city_state_json['state']) {
+                            $city_state .= ' - ' . $city_state_json['state'];
                         }
 
                     }
@@ -371,21 +369,24 @@ class CaregiverController extends Controller
             })
             ->addColumn('action', function($row){
                 return '<a href="javascript:void(0)" data-toggle="tooltip" id="' . $row->id . '" data-original-title="Due Report" class="btn btn-sm viewMessage" style="background: #006c76; color: #fff">Due Report</a>';
-            });
-          
-            $datatble->rawColumns(['full_name','action']);
-            return $datatble->make(true);
+            })
+            ->rawColumns(['full_name','action'])
+            ->make(true);
     }
 
     public function getDueDetail(Request $request)
     {
-        $dateBetween['today'] =  date('Y-m-d');
-        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
-        $dateBetween['newDate'] = $date->format('Y-m-d');
+        $patientList = PatientLabReport::
+            when($request['duereport'] ,function ($query) use($request) {
+                $dateBetween['today'] =  date('Y-m-d');
+                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+                $dateBetween['newDate'] = $date->format('Y-m-d');
+                $query->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
+                
+            })
+            ->where('user_id', $request['due_user_id'])->with('user','user.demographic','labReportType');
 
-        $patientList = PatientLabReport::where('user_id', $request['due_user_id'])->with('user','user.demographic','labReportType');
-         
-        $datatble = DataTables::of($patientList->get())
+        return DataTables::of($patientList->get())
             ->addIndexColumn()
             ->addColumn('report_type', function($row){
                 $report_type = '';
@@ -393,9 +394,7 @@ class CaregiverController extends Controller
                         $report_type = $row->labReportType->name;
                     }
                     return $report_type;
-            });
-          
-            return $datatble->make(true);
+            })->make(true);
     }
 
     public function getPatientRequestDetail(Request $request)
@@ -403,7 +402,7 @@ class CaregiverController extends Controller
         $user_id = Auth::user()->id;
         
         $patientRequestList = PatientRequest::where('user_id', $request['patient_id'])->whereNotNull('parent_id')->with('detail','requestType');
-            
+        
         $datatble = DataTables::of($patientRequestList->get())
             ->addIndexColumn()
             ->addColumn('clinician_name', function($row){
@@ -430,6 +429,7 @@ class CaregiverController extends Controller
                     if($row->clincial_id = $user_id) {
                         $btn .= '<a class="nav-link  d-flex align-items-center" id="clinical-tab" data-toggle="pill"
                         href="#clinical" role="tab" aria-controls="clinical" aria-selected="false">Upload Report</a>';
+                        // $btn .= '<a class="upload-report" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart" id="' . $row->id . '">Upload Report</a>';
                     }
                 } 
                 
@@ -441,7 +441,14 @@ class CaregiverController extends Controller
 
     public function getDuePatientDetail($id)
     {
-        $patientData = User::where('id', $id)->with('patientLabReport','patientLabReport.labReportType')->first();
+        $dateBetween['today'] =  date('Y-m-d');
+        
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+        $dateBetween['newDate'] = $date->format('Y-m-d');
+
+        $patientData = User::where('id', $id)->with('patientLabReport',function ($q) use($dateBetween) {
+            $q->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
+        },'patientLabReport.labReportType')->first();
        
         return view('pages.patient_detail.view_patient_due_report', compact('patientData'));
     }

@@ -28,7 +28,7 @@ return [
                 ],
                 [
                     'name'=>'Due Report',
-                    'url'=>env('APP_URL').'get-due-detail',
+                    'url'=>env('APP_URL').'patients/due-reports',
                     'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Due Report',
                 ],
                 // [

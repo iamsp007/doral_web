@@ -84,6 +84,8 @@ table.dataTable thead th, table.dataTable thead td{
                             <option value="2">MD Order</option>
                             <option value="3">Occupational Health</option>
                             <option value="6">Covid-19</option>
+                            <option value="due_patient" @if($serviceStatus == 'due-reports') selected @endif>Due Patients</option>
+                            
                         </select>
                     </div>
                 </div>
@@ -158,7 +160,7 @@ table.dataTable thead th, table.dataTable thead td{
         </tbody>
     </table>
   
-    <div class="modal fade messageViewModel" id="modal" role="dialog"></div>
+    
 @endsection
 
 @push('styles')
@@ -387,6 +389,30 @@ table.dataTable thead th, table.dataTable thead td{
             $(".innerallchk, .mainchk").prop("checked","");
             $(this).parents("tr").find(".innerallchk").prop("checked",true);
             doaction(status) 
+        });
+
+
+        /*Open message in model */
+        $("body").on('click','.viewMessage',function () {
+            var user_id = $(this).attr('id');
+            var url = '{{url("get-patient-due-detail")}}/' + user_id;
+          
+            $.ajax({
+               url : url,
+               type: 'GET',
+               headers: {
+                  'X_CSRF_TOKEN':'{{ csrf_token() }}',
+               },  
+               success:function(data, textStatus, jqXHR){
+                 
+                  $(document).find(".messageViewModel").html(data);
+                  $(document).find(".messageViewModel").modal('show');
+               },
+               error: function(jqXHR, textStatus, errorThrown){
+                 
+                 alert('error');
+               }
+            });
         });
 
         /*@ Resend email */

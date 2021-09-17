@@ -133,15 +133,35 @@ class CaregiverController extends Controller
                 $query->whereHas('patientRequest',function ($query) use($user_id) {
                     $query->where('clincial_id', $user_id);
                 });
+            } else if ($request['serviceStatus'] == 'due-reports') {
+                $dateBetween['today'] =  date('Y-m-d');
+        
+                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+                $dateBetween['newDate'] = $date->format('Y-m-d');
+                
+                $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
+                    $q->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
+                });
             }
         })
         ->when(! $request['serviceStatus'] ,function ($query) use($request) {
             $query->whereIn('status', ['1', '2', '3', '5']);
         })
         ->when($request['service_id'], function ($query) use($request) {
-            $query->whereHas('demographic',function ($q) use($request) {
-                $q->where('service_id', $request['service_id']);
-            });
+            if ($request['service_id'] == 'due_patient') {
+                $dateBetween['today'] =  date('Y-m-d');
+        
+                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+                $dateBetween['newDate'] = $date->format('Y-m-d');
+                
+                $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
+                    $q->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
+                });
+            } else {
+                $query->whereHas('demographic',function ($q) use($request) {
+                    $q->where('service_id', $request['service_id']);
+                });
+            }
         })
         ->when($request['status'], function ($query) use($request) {
             $query->where('status', $request['status']);
@@ -281,6 +301,8 @@ class CaregiverController extends Controller
                             $btn .= $row->status_data;
                         }
                     }
+                } else if ($request['serviceStatus'] == 'due-reports') {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" id="' . $row->id . '" data-original-title="Due Report" class="btn btn-sm viewMessage" style="background: #006c76; color: #fff">Due Report</a>';
                 } else {
                     if ($row->status === '0') {
                         $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';

@@ -47,9 +47,9 @@ class SendDueReportNotification extends Command
 
         $dateBetween['today'] =  date('Y-m-d');
         
-        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
         $dateBetween['newDate'] = $date->format('Y-m-d');
-        
+       
         $patients = User::whereHas('patientLabReport',function ($q) use($dateBetween) {
             $q->where('due_date',$dateBetween['newDate']);
         })->get();
@@ -59,7 +59,7 @@ class SendDueReportNotification extends Command
      
         foreach ($patients as $patient) {
            
-            $patientList = PatientLabReport::whereBetween('due_date',[$dateBetween['newDate'],$dateBetween['twomonthdate']])->where('user_id', $patient->id)->with('labReportType')->orderBy('due_date', 'ASC')->get();
+            $patientList = PatientLabReport::whereBetween('due_date',[$dateBetween['today'],$dateBetween['twomonthdate']])->where('user_id', $patient->id)->with('labReportType')->orderBy('due_date', 'ASC')->get();
            
             if (!$patientList->isEmpty()) {
                 if($patient->email) {

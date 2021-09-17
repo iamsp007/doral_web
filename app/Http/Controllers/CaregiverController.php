@@ -139,7 +139,7 @@ class CaregiverController extends Controller
             } else if ($request['serviceStatus'] == 'due-reports') {
                 $dateBetween['today'] =  date('Y-m-d');
         
-                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
+                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
                 $dateBetween['newDate'] = $date->format('Y-m-d');
                 $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
                     $q->where('due_date',$dateBetween['newDate']);
@@ -153,7 +153,7 @@ class CaregiverController extends Controller
             if ($request['service_id'] == 'due_patient') {
                 $dateBetween['today'] =  date('Y-m-d');
         
-                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
+                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
                 $dateBetween['newDate'] = $date->format('Y-m-d');
                
                 $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
@@ -329,7 +329,7 @@ class CaregiverController extends Controller
     {
         $dateBetween['today'] =  date('Y-m-d');
         
-        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
         $dateBetween['newDate'] = $date->format('Y-m-d');
        
         $patientList = User::whereHas('roles',function ($q) {
@@ -467,13 +467,10 @@ class CaregiverController extends Controller
     {
         $dateBetween['today'] =  date('Y-m-d');
         
-        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
         $dateBetween['newDate'] = $date->format('Y-m-d');
 
-        $twomonthdate = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
-        $dateBetween['twomonthdate'] = $twomonthdate->format('Y-m-d');
-
-        $patientData = PatientLabReport::whereBetween('due_date',[$dateBetween['newDate'],$dateBetween['twomonthdate']])->where('user_id', $id)->with('labReportType')->orderBy('due_date', 'ASC')->get();
+        $patientData = PatientLabReport::whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']])->where('user_id', $id)->with('labReportType')->orderBy('due_date', 'ASC')->get();
 
         return view('pages.patient_detail.view_patient_due_report', compact('patientData'));
     }

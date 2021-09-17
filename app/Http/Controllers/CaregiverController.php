@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DueReportNotification;
 use App\Models\City;
 use App\Models\Demographic;
 use App\Models\PatientLabReport;
@@ -14,13 +15,41 @@ use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use ZipArchive;
 
 class CaregiverController extends Controller
 {
     public function index($serviceStatus = null,$initial = null)
     {
-        return view('pages.patient_detail.new_patient', compact('serviceStatus', 'initial'));
+        Log::info('Send notification for due report of patients starts');
+
+        $dateBetween['today'] =  date('Y-m-d');
+        
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
+        $dateBetween['newDate'] = $date->format('Y-m-d');
+        
+        $patients = User::whereHas('patientLabReport',function ($q) use($dateBetween) {
+            $q->where('due_date',$dateBetween['newDate']);
+        })->get();
+       
+        $twomonthdate = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+        $dateBetween['twomonthdate'] = $twomonthdate->format('Y-m-d');
+     
+        foreach ($patients as $patient) {
+           
+            $patientList = PatientLabReport::whereBetween('due_date',[$dateBetween['newDate'],$dateBetween['twomonthdate']])->where('user_id', $patient->id)->with('labReportType')->orderBy('due_date', 'ASC')->get();
+           
+            if (!$patientList->isEmpty()) {
+                if($patient->email) {
+                    Mail::to($patient->email)->send(new DueReportNotification($patientList, $patient->full_name));
+                } 
+            }
+        }
+
+        Log::info('Send notification for due report of patients end');
+        //return view('pages.patient_detail.new_patient', compact('serviceStatus', 'initial'));
     }
 
     public function dashboard()
@@ -136,11 +165,10 @@ class CaregiverController extends Controller
             } else if ($request['serviceStatus'] == 'due-reports') {
                 $dateBetween['today'] =  date('Y-m-d');
         
-                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
                 $dateBetween['newDate'] = $date->format('Y-m-d');
-                
                 $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
-                    $q->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
+                    $q->where('due_date',$dateBetween['newDate']);
                 });
             }
         })
@@ -151,11 +179,11 @@ class CaregiverController extends Controller
             if ($request['service_id'] == 'due_patient') {
                 $dateBetween['today'] =  date('Y-m-d');
         
-                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+                $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
                 $dateBetween['newDate'] = $date->format('Y-m-d');
-                
+               
                 $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
-                    $q->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
+                    $q->where('due_date',$dateBetween['newDate']);
                 });
             } else {
                 $query->whereHas('demographic',function ($q) use($request) {
@@ -327,13 +355,13 @@ class CaregiverController extends Controller
     {
         $dateBetween['today'] =  date('Y-m-d');
         
-        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
         $dateBetween['newDate'] = $date->format('Y-m-d');
        
         $patientList = User::whereHas('roles',function ($q) {
             $q->where('name','=','patient');
         })->whereHas('patientLabReport',function ($q) use($dateBetween) {
-            $q->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
+            $q->where('due_date',$dateBetween['newDate']);
         })->with('demographic');
       
         return DataTables::of($patientList->get())
@@ -465,13 +493,14 @@ class CaregiverController extends Controller
     {
         $dateBetween['today'] =  date('Y-m-d');
         
-        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+        $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->subMonth();
         $dateBetween['newDate'] = $date->format('Y-m-d');
 
-        $patientData = User::where('id', $id)->with('patientLabReport',function ($q) use($dateBetween) {
-            $q->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
-        },'patientLabReport.labReportType')->first();
-       
+        $twomonthdate = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
+        $dateBetween['twomonthdate'] = $twomonthdate->format('Y-m-d');
+
+        $patientData = PatientLabReport::whereBetween('due_date',[$dateBetween['newDate'],$dateBetween['twomonthdate']])->where('user_id', $id)->with('labReportType')->orderBy('due_date', 'ASC')->get();
+
         return view('pages.patient_detail.view_patient_due_report', compact('patientData'));
     }
     public function updatePatientStatus(Request $request)

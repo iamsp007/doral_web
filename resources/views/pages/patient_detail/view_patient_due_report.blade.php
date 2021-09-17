@@ -16,7 +16,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($patientData->patientLabReport as $data)
+                @foreach($patientData as $data)
                     <tr>
                         <td>{{$data->labReportType->name}}</td>
                         <td>{{$data->due_date}}</td>

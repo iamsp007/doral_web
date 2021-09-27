@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\LabReportType;
 use App\Models\PatientLabReport;
+use App\Models\UserDeviceLog;
 
 class PatientController extends Controller
 {
@@ -101,6 +102,7 @@ class PatientController extends Controller
     {
         try {
             $response = $this->adminServices->ccmReadingLevelHigh();
+           
             if ($response->status===true){
                 return response()->json($response,200);
             }

@@ -65,6 +65,7 @@ table.dataTable thead th, table.dataTable thead td{
 @endsection
 
 @push('styles')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
     <style>
     input, .label {
         color: black;
@@ -77,6 +78,7 @@ table.dataTable thead th, table.dataTable thead td{
 
 @push('scripts')
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script>
         var columnDaTa = [];
        
@@ -141,7 +143,7 @@ table.dataTable thead th, table.dataTable thead td{
             placeholder: 'Select a name',
             ajax: {
                 type: "POST",
-                url: "{{ route('clinician.get-user-data') }}",
+                url: "{{ route('clinician.get-request-user') }}",
                 dataType: 'json',
                 delay: 250,
                 processResults: function (data) {
@@ -159,7 +161,7 @@ table.dataTable thead th, table.dataTable thead td{
         });
 
         function refresh() {
-            $("#get_patient-table").DataTable().ajax.reload(null, false);
+            $("#get-data-table").DataTable().ajax.reload(null, false);
         }
 
         function alertText(text,status) {

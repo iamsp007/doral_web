@@ -100,7 +100,7 @@ table.dataTable thead th, table.dataTable thead td{
             },
             ajax: {
                 'type': 'POST',
-                'url': "{{ route('clinician.user-devide-log.ajax') }}",
+                'url': "{{ route('clinician.ccm.ajax') }}",
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },

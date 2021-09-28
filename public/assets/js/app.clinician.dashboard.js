@@ -181,7 +181,7 @@ function bloodPressure(high_level, selector1,low_midium_level, selector2, label)
                         '<div class="emergency-detail p-20">' +
                         '<h3 class="title">'+label+'</h3>' +
                         '<h1 class="counts">'+val.value+'</h1>' +
-                        '<a href="javascript:void(0)" class="roadl-btn">' +
+                        '<a href="javascript:void(0)" onclick="onBroadCastOpen('+ val.user_device.patient_id +')" class="roadl-btn">' +
                         '<span></span>' +
                         '</a>' +
                         '</div>' +

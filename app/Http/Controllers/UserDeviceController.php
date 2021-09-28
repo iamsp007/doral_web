@@ -29,17 +29,19 @@ class UserDeviceController extends Controller
             $query->whereHas('userDevice',function ($query) use($request) {
                 $query->where('device_type', $request['device_type']);
             });
-        });
+        })->orderBy('id','desc');
             
         $datatble = DataTables::of($patientList->get())
             ->addIndexColumn()
             ->addColumn('full_name', function($q) use($request) {
                 $full_name = '';
+                $id = '';
                 if ($q->userDevice && $q->userDevice->user) {
                     $full_name = $q->userDevice->user->full_name;
+                    $id = $q->userDevice->patient_id;
                 }
 
-                return '<a href="' . route('patient.details', ['patient_id' => $q->id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $full_name . '</a>';
+                return '<a href="' . route('patient.details', ['patient_id' => $id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $full_name . '</a>';
             })
             ->addColumn('level', function($q) use($request) {
                 return $q->view_level;
@@ -57,7 +59,7 @@ class UserDeviceController extends Controller
             })
             ->addColumn('action', function($q) use($request) {
                 $btn = '';
-                if ($q->level == '3') {
+                if ($q->level == '3' && !is_null($q->note)) {
                     $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" id="' . $q->id . '" data-original-title="Due Report" class="btn btn-sm viewNote" style="background: #006c76; color: #fff">View Note</a>';
                 }
 
@@ -74,16 +76,17 @@ class UserDeviceController extends Controller
 
         if ($userDeviceLog->userDevice->device_type == 1) {
             $readingLevel = 1;
+	$level_message= $recomdation = '';
             if (Str::contains($userDeviceLog->value, ['/'])) {
                 $explodeValue = explode("/",$userDeviceLog->value);
             } else if (Str::contains($userDeviceLog->value, [':'])) {
                 $explodeValue = explode(":",$userDeviceLog->value);
             }
-            if($explodeValue[0] >= 140) {
+            if($explodeValue[0] >= 140 || $explodeValue[1] >= 90) {
                 $readingLevel = 3;
                 $level_message = 'blood pressure is higher';
                 $recomdation = '<p class="t5"><b class="f-20">&bull;</b> Take medications as prescribed by your doctor</p><p class="t5"><b class="f-20">&bull;</b> Drink an 8 oz glass of water</p><p class="t5"><b class="f-20">&bull;</b> Sit quietly for 15 minutes</p><p class="t5"><b class="f-20">&bull;</b> Recheck your blood pressure in 20 minutes</p>';
-            } else if($explodeValue[0] <= 100) {
+            } else if($explodeValue[0] <= 100 || $explodeValue[1] <= 60) {
                 $readingLevel = 3;
                 $level_message = 'blood pressure is lower';
                 $recomdation = '<p class="t5"><b class="f-20">&bull;</b> Get up slowly from a sitting position</p><p class="t5"><b class="f-20">&bull;</b> Drink an 8 oz glass of water</p><p class="t5"><b class="f-20">&bull;</b> Eat some saltime crackers</p><p class="t5"><b class="f-20">&bull;</b> Recheck your blood pressure in 20 minutes</p>';

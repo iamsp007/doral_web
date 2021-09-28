@@ -44,6 +44,12 @@
                                             <input type="hidden" value="{{$userDeviceLog->id}}" name="id" id="id">
                                             <p class="t5">{{ $patient_name }}</p>
                                         </div>
+                                       <div class="form-group">
+                                            <label for="patient_name" class="label">Reading:</label>
+                                            
+                                            <p class="t5">{{ $userDeviceLog->value }}</p>
+                                        </div>
+                                       
                                         <div class="form-group">
                                             <label class="label">Generated Time:</label>
                                             <p class="t5">{{ viewDateTimeFormat($userDeviceLog->reading_time) }}</p>

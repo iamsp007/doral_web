@@ -30,4 +30,22 @@ class UserDeviceLog extends Model
     {
         return $this->belongsTo('App\Models\UserDevice', 'user_device_id', 'id');
     }
+
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getViewLevelAttribute()
+    {
+        $statusData = '';
+        if ($this->level === '1') {
+            $statusData = '<p class="text-success">Level 1</p>';
+        } else if ($this->level === '2') {
+            $statusData = '<p class="text-primary">Level 2</p>';
+        } else if ($this->level === '3') {
+            $statusData = '<p class="text-danger">Level 3</p>';
+        } 
+
+        return $statusData;
+    }
+    
 }

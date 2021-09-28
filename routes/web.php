@@ -98,6 +98,7 @@ use Illuminate\Support\Facades\Route;
    
     Route::post('/ccm/getAll','App\Http\Controllers\UserDeviceController@getAll')->name('clinician.ccm.ajax');
     Route::get('/ccm/{id}','App\Http\Controllers\UserDeviceController@edit');
+    Route::get('/ccm/getnote/{id}', [UserDeviceController::class, 'show']);
     Route::resource('ccm', UserDeviceController::class)->only(['index', 'update']);
 
     Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');

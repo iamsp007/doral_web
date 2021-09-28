@@ -55,6 +55,7 @@ table.dataTable thead th, table.dataTable thead td{
                 <th>Device Type</th>
                 <th>Readning Time</th>
                 <th>Level</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -89,6 +90,7 @@ table.dataTable thead th, table.dataTable thead td{
             {data: 'device_type', orderable: true, searchable: true,"className": "text-left"},
             {data: 'reading_time', orderable: true, searchable: true,"className": "text-left"},
             {data: 'level', orderable: true, searchable: true,"className": "text-left"},
+            {data: 'action',"className": "text-left"},
         );
        
         $('#get-data-table').DataTable({
@@ -158,6 +160,29 @@ table.dataTable thead th, table.dataTable thead td{
                 },
                 cache: true
             }
+        });
+
+        /*Open message in model */
+        $("body").on('click','.viewNote',function () {
+            var log_id = $(this).attr('id');
+            var url = '{{url("ccm/getnote")}}/' + log_id;
+            $("#loader-wrapper").show();
+            $.ajax({
+                url : url,
+                type: 'GET',
+                headers: {
+                    'X_CSRF_TOKEN':'{{ csrf_token() }}',
+                },  
+                success:function(data, textStatus, jqXHR){
+                    $("#loader-wrapper").hide();
+                    $(".messageViewModel").html(data);
+                    $(".messageViewModel").modal('show');
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    swal("Server Timeout!", "Please try again", "warning");
+                    $("#loader-wrapper").hide();
+                }
+            });
         });
 
         function refresh() {

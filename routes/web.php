@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserDeviceController;
 use Illuminate\Support\Facades\Route;
 
     Route::get('/download-application',function (){
@@ -47,10 +48,6 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
 
-    Route::get('/caregiver/1', 'App\Http\Controllers\Admin\HomeController@caregiverResponse');
-    Route::get('/caregiver/2', 'App\Http\Controllers\Admin\HomeController@clinicianResponse');
-    Route::get('/caregiver/3', 'App\Http\Controllers\Admin\HomeController@caregiverforGluco');
-    Route::get('/caregiver/4', 'App\Http\Controllers\Admin\HomeController@caregiverforGlucoHigh');
     Route::post('/caregiverResponseSubmit', 'App\Http\Controllers\Admin\HomeController@caregiverResponseSubmit');
 
     Route::get('/patient-medicine-list/{patient_id}','\App\Http\Controllers\PatientController@patientMedicineList')->name('patient.medician.list');
@@ -98,9 +95,11 @@ use Illuminate\Support\Facades\Route;
     Route::get('/patients/resend/{id}', '\App\Http\Controllers\patient\PatientController@resendEmail')->name('resend.mail');
 
     Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
-    Route::get('/user-devide-log','App\Http\Controllers\UserDeviceController@index')->name('clinician.user-devide-log');
-    Route::post('/get-user-devide-log-list','App\Http\Controllers\UserDeviceController@getAll')->name('clinician.user-devide-log.ajax');
-    
+   
+    Route::post('/ccm/getAll','App\Http\Controllers\UserDeviceController@getAll')->name('clinician.ccm.ajax');
+    Route::get('/ccm/{id}','App\Http\Controllers\UserDeviceController@edit');
+    Route::resource('ccm', UserDeviceController::class)->only(['index', 'update']);
+
     Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');
     // Route::post('/download-lab-report','App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
     Route::get('download-lab-report/{user_id}', 'App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');

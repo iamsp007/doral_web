@@ -14,109 +14,59 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
     <title>Doral Health Connect | Caregiver</title>
 </head>
-
 <body>
-    <!-- Header Section Start -->
     <header class="header">
         <div class="container">
             <div class="block">
                 <div>
-                    <!-- Logo Start -->
                     <a href="../landing/index.html" title="Welcome to Doral"  class="logo">
-                        <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral"
-                            srcset="{{ asset('assets/img/logo-white.svg') }}">
+                        <img src="{{ asset('assets/img/logo-white.svg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}">
                     </a>
-                    <!-- Logo End -->
                 </div>
-               
             </div>
         </div>
     </header>
-    <!-- Header Section End -->
-    <!-- Middle Section Start -->
     <section>
         <div class="middle">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-5 col-md-8">
-                        <!-- caregiver response Form Start -->
                         <div class="caregiver_response">
                             <div class="top_back"></div>
                             <div class="mid">
                                 <div class="p50">
-                                   <h1 class="t2">Note</h1>
-                                   <hr class="hr_border">
-                                   <form class="mt-4" id="ResponseForm">
-                                        <!-- Patient Name -->
+                                    <h1 class="t2">Note</h1>
+                                    <hr class="hr_border">
+                                    <form class="mt-4" id="ResponseForm">
+                                        @csrf
                                         <div class="form-group">
-                                                <label for="patient_name" class="label">Patient Name:</label>
-                                                <input type="hidden" value="1" name="patientId" id="patientId">
-                                                <input type="hidden" value="caregiver/1" name="url" id="url">
-                                                <p class="t5">John Doe</p>
+                                            <label for="patient_name" class="label">Patient Name:</label>
+                                            <input type="hidden" value="{{$userDeviceLog->id}}" name="id" id="id">
+                                            <p class="t5">{{ $patient_name }}</p>
                                         </div>
-                                        <!-- Generated Time -->
                                         <div class="form-group">
-                                                <label class="label">Generated Time:</label>
-                                                <p class="t5">12.00AM</p>
+                                            <label class="label">Generated Time:</label>
+                                            <p class="t5">{{ viewDateTimeFormat($userDeviceLog->reading_time) }}</p>
                                         </div>
-                                       
-                                         <!-- Reason -->
-                                         <div class="form-group">
-                                                <label class="label">Reason we approached:</label>
-                                                <p class="t5">Your patient's blood pressure is slightly higher than regular kindly follow recommend actions below</p>
-                                                
+                                        <div class="form-group">
+                                            <label class="label">Reason we approached:</label>
+                                            <p class="t5">{{ $message }}</p>
                                         </div>
-                                          <!-- Recommendation -->
-                                          <div class="form-group">
+                                        <div class="form-group">
                                             <label for="recommendation" class="label">Recommendation:</label>
-                                            <p class="t5"><b class="f-20">&bull;</b> Play calm music</p>
-                                            <p class="t5"><b class="f-20">&bull;</b> Offer water to patient</p>
-                                            <p class="t5"><b class="f-20">&bull;</b> Engage Patient Pleasant conversation</p>
-                                            <p class="t5"><b class="f-20">&bull;</b> Ensure Patient medication was taken today</p>
-                                           
-                                    </div>
-                                          <!-- Recommendation -->
+                                            {!! $recomdation !!}
+                                        </div>
                                         <div class="form-group">
-                                            <label for="recommendation" class="label">Please select your action taken.</label>
-                                            <select class="form-group recommendation" name="actionTaken" id="actionTaken">
-                                                <option disabled selected>--Select--</option>
-                                                <option>Play calm music</option>
-                                                <option>Offer water to patient</option>
-                                                <option>Engage Patient Pleasant conversation</option>
-                                                <option>Ensure Patient medication was taken today</option>
-                                            </select>
-                                    </div>
-<!--                                        Reason 
-                                       <div class="form-group">
-                                        <label class="label">Caregiver Recommendation:</label>
-                                        <p class="t5">Observe patient closely. If you see following symptoms:</p>
-                                       
-                                    </div>
-                                
-                                  Reason 
-                                 <div class="form-group">
-                                    <label class="label">what are the symptoms you see:</label>
-                                    <div class="input-group-prepend mr-2">
-                                        <select class="select" multiple id="department">
-                                            <option>Is patient sweating Heavy?</option>
-                                            <option>Is patient complaining Dizzines or Vomiting?</option>
-                                            <option>Patient Head hurts?</option>
-                                            <option>Patient feeling of lightheadedness or dizziness, or other signs?</option>
-                                            
-                                        </select>
-                                    </div>
-                                   
-                            </div>-->
-                                       
-                                        <!-- Submit Btn -->
-                                        <button type="button" class="btn btn-primary btn-pink btn-block"
-                                                name="signup" id="caregiverResponse">Submit</button>
-                                        </form>
+                                            <label for="recommendation" class="label">Note:</label>
+                                            <textarea class="form-control" rows="10" name="note">{!! $userDeviceLog->note !!}</textarea>
+                                        </div>
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <button type="submit" id="caregiverResponse" class="btn btn-primary btn-pink btn-block" data-url="{{ Route('ccm.update',[$userDeviceLog]) }} ">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="btm_back"></div>
                         </div>
-                        <!-- caregiver response Form End -->
                     </div>
                 </div>
             </div>
@@ -130,6 +80,7 @@
     <script src="{{ asset('assets/js/tail.select-full.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.clinician.caregiver.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         $(document).ready(function () {
 
@@ -138,39 +89,78 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-            $("#caregiverResponse").click(function () {
-                //window.location = "http://doralhealthconnect.com";
-                $("#loader-wrapper").show();
-                var patientId = $("#patientId").val();
-                var actionTaken = $("#actionTaken").val();
-                var url = $("#url").val();
-                   $.ajax({
-                    method: 'POST',
-                    url: '/caregiverResponseSubmit',
-                    data: {patientId, actionTaken, url},
-                    success: function (response) {
-                        $("#loader-wrapper").hide();
-                        if (response.status == 1) {
-                            window.location = "/";
-                        } else {
-                            $(".alert").show();
-                            $("#response").text(response.message);
-                            setTimeout(function () {
-                                $(".alert").hide();
-                            }, 1000);
-                        }
-                        
+            var val = $("#ResponseForm").validate({
+                ignore: [],
+                rules: {
+                    note: {
+                        required: true
                     },
-                       error: function (e) {
-                        $("#loader-wrapper").hide();
-                        alert('Something went wrong!');
-                    }
-                });
-
+                },
+            
+                messages : {
+                    note: {
+                        required : "Please enter note."
+                    },
+                },
             });
 
+            /*add and edit user data*/
+            $("#caregiverResponse").on('click',function (e) {
+                e.preventDefault();
+                var t = $(this);
+             
+                if(val.form() != false) {
+                    var formdata = new FormData($("#ResponseForm")[0]);
+                    var url = $(this).attr("data-url");
+                
+                    $("#loader-wrapper").show();
+                    $.ajax({
+                        type:"POST", 
+                        url:url,
+                        data: formdata,
+                        contentType: false,
+                        processData: false,
+                        success:function (data) {
+                            if(data.status == 200) {
+                                alertText(data.message,'success');
+
+                                setTimeout(function () {
+                                    location.href = "https://doralhealthconnect.com/";
+                                },2000);
+                            } else {
+                                alertText(data.message,'error');
+                            }
+                            
+                            $("#loader-wrapper").hide();
+                        },
+                        error:function () {
+                            alertText("Server Timeout! Please try again",'error');
+                            $("#loader-wrapper").hide();
+                        }
+                    });
+                } else {
+                    return false;
+                }
+            });
         });
+        function alertText(text,status) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: status,
+                title: text
+            })
+        }
     </script>
 </body>
 

@@ -20,6 +20,7 @@ class UserDeviceLog extends Model
         'reading_time',
         'level',
         'status',
+        'note'
     ];
 
     /**

@@ -97,19 +97,20 @@
     </div><!-- /.modal -->
    
 <script>
-var phpVar = <?php echo json_encode($userDeviceLogs); ?>;
-var columnDaTa = [];
+        var phpVar = <?php echo json_encode($userDeviceLogs); ?>;
+        var columnDaTa = [];
 
-$.each(phpVar, function (key, value) {
-    columnDaTa.push(
-        {
-            id: value['id'],
-            title: value['user_device']['device_result'],
-            start: value['view_date']
-        },
-    );
-});
-
+        $.each(phpVar, function (key, value) {
+            columnDaTa.push(
+                {
+                    id: value['id'],
+                    url: value['user_device']['patient_id'],
+                    title: value['user_device']['device_result'] + '(' + value['value'] + ')',
+                    start: value['view_date']
+                },
+            );
+        });
+       
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar2');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -127,15 +128,13 @@ $.each(phpVar, function (key, value) {
                 },
                 initialDate: '2021-09-01',
                 expandRows: true,
-                navLinks: true, // can click day/week names to navigate views
+                navLinks: true,
                 selectable: true,
                 selectMirror: true,
                 selectHelper: true,
                 businessHours: false,
                 eventColor: '#008591',
-//                select: function (arg, start, end, allDay) {
-//                    $('.dialogue').modal('show');
-//                },
+
                 buttonText: {
                     today: 'Today',
                     month: 'Month',
@@ -144,18 +143,22 @@ $.each(phpVar, function (key, value) {
                     list: 'List'
                 },
                 views: {
-                    dayGridMonth: { // name of view
+                    dayGridMonth: {
                         titleFormat: { year: 'numeric', month: 'short', day: 'numeric' }
-                        // other view-specific options here
                     },
-//                    timeGridFourDay: {
-//                        type: 'timeGrid',
-//                        duration: { days: 6 },
-//                        buttonText: '4 day'
-//                    }
                 },
-                eventClick: function (arg, event, element) {
-
+                eventClick: function(info) {
+                    // var eventObj = info.event;
+                    // location.href = "{{ Route('ccm.index') }}";
+                    // alert("{{url('ccm')}}/" + eventObj.url + "/" + eventObj.start);
+                    // $.ajax({
+                    //     type: "GET",
+                    //     url: "{{url('ccm')}}",
+                      
+                    //     // success: function (data) {
+                    //     //    alert(data);
+                    //     // },
+                    // });
                 },
                 eventRender: function (event, element) {
                 },
@@ -163,61 +166,10 @@ $.each(phpVar, function (key, value) {
                     console.log(info.el.innerText)
                 },
                 editable: true,
-                dayMaxEvents: true, // allow "more" link when too many events
+                dayMaxEvents: true,
                 events: 
                     columnDaTa
-//                    
-//                    {
-//                        title: 'Long Event',
-//                        start: '2021-02-07',
-//                        end: '2021-02-10'
-//                    },
-                    // {
-                    //     groupId: 1,
-                    //     title: 'Repeating Event',
-                    //     start: '2020-09-09T16:00:00'
-                    // },
-                    // {
-                    //     groupId: 1,
-                    //     title: 'Repeating Event',
-                    //     start: '2020-09-16T16:00:00'
-                    // },
-                    // {
-                    //     title: 'Conference',
-                    //     start: '2020-09-11',
-                    //     end: '2020-09-13'
-                    // },
-                    // {
-                    //     title: 'Meeting',
-                    //     start: '2020-09-12T10:30:00',
-                    //     end: '2020-09-12T12:30:00'
-                    // },
-                    // {
-                    //     title: 'Lunch',
-                    //     start: '2020-09-12T12:00:00'
-                    // },
-                    // {
-                    //     title: 'Meeting',
-                    //     start: '2020-09-12T14:30:00'
-                    // },
-                    // {
-                    //     title: 'Happy Hour',
-                    //     start: '2020-09-12T17:30:00'
-                    // },
-                    // {
-                    //     title: 'Dinner',
-                    //     start: '2020-09-12T20:00:00'
-                    // },
-                    // {
-                    //     title: 'Birthday Party',
-                    //     start: '2020-09-13T07:00:00'
-                    // },
-                    // {
-                    //     title: 'Click for Google',
-                    //     url: 'http://google.com/',
-                    //     start: '2020-09-28'
-                    // }
-                
+                    
             });
             calendar.render();
         });

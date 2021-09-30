@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="recommendation" class="label">Note:</label>
-                                            <textarea class="form-control" rows="10" name="note">{!! $userDeviceLog->note !!}</textarea>
+                                            <textarea class="form-control" rows="10" id="note" name="note">{!! $userDeviceLog->note !!}</textarea>
                                         </div>
                                         <input type="hidden" name="_method" value="PUT">
                                         <button type="submit" id="caregiverResponse" class="btn btn-primary btn-pink btn-block" data-url="{{ Route('ccm.update',[$userDeviceLog]) }} ">Submit</button>
@@ -109,7 +109,19 @@
                     },
                 },
             });
-
+            
+            /*add and edit user data*/
+            $(".noteappend").on('click',function (e) {
+                value = $(this).attr("value");
+                var ch = $(this).prop("checked");
+                if(ch == true) {
+                    $("#note").append(value);
+                }
+             
+                // var data = '<p class="t5"><b class="f-20">&bull;</b>' + value + '</p>';
+                
+                // $("#note").append(value);
+            });
             /*add and edit user data*/
             $("#caregiverResponse").on('click',function (e) {
                 e.preventDefault();

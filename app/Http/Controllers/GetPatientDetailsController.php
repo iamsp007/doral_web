@@ -23,10 +23,13 @@ use App\Models\PatientReport;
 use App\Models\Services;
 use App\Models\State;
 use App\Models\User;
+use App\Models\UserDevice;
+use App\Models\UserDeviceLog;
 use App\Models\VisitorDetail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 class GetPatientDetailsController extends Controller
@@ -118,8 +121,15 @@ class GetPatientDetailsController extends Controller
                 $emergencyAddress = $patient->patientEmergency;
             }
         }
-
-        return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress'));
+        $userDeviceLogs = UserDeviceLog::with('userDevice')->whereHas('userDevice',function ($q) use($paient_id) {
+            $q->where('patient_id', $paient_id);
+        })
+        ->orderBy('created_at', 'DESC')
+        ->select('*',DB::raw('DATE(created_at) as date'))
+        ->groupBy('user_device_id','date')
+        ->get()->toArray();
+       
+        return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs'));
     }
 
     /**

@@ -21,6 +21,14 @@ class UserDevice extends Model
         'status',
     ];
 
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['view_device_type', 'device_result'];
+
     /**
      * Relation with user
      */
@@ -51,6 +59,25 @@ class UserDevice extends Model
             $statusData = '<p class="text-secondary">Digital Weight Machine</p>';
         } else if ($this->device_type === '4') {
             $statusData = '<p class="text-primary">Pulse oxymeter</p>';
+        }
+
+        return $statusData;
+    }
+
+    /**
+     * Create full name with combine first name and last name
+     */
+    public function getDeviceResultAttribute()
+    {
+        $statusData = '';
+        if ($this->device_type === '1') {
+            $statusData = 'Blood Pressure';
+        } else if ($this->device_type === '2') {
+            $statusData = 'Blood Sugar';
+        } else if ($this->device_type === '3') {
+            $statusData = 'Weight';
+        } else if ($this->device_type === '4') {
+            $statusData = 'Pulse oxymeter';
         }
 
         return $statusData;

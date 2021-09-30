@@ -1,4 +1,5 @@
 @include('includes.calendar.head')
+
 <div id='calendar2'></div>
 <div class="modal fade fade2 dialogue" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -94,7 +95,21 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+   
 <script>
+var phpVar = <?php echo json_encode($userDeviceLogs); ?>;
+var columnDaTa = [];
+
+$.each(phpVar, function (key, value) {
+    columnDaTa.push(
+        {
+            id: value['id'],
+            title: value['user_device']['device_result'],
+            start: value['view_date']
+        },
+    );
+});
+
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar2');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -110,7 +125,7 @@
                     center: '',
                     right: 'dayGridMonth timeGridDay today prev,next'
                 },
-                initialDate: '2021-04-07',
+                initialDate: '2021-09-01',
                 expandRows: true,
                 navLinks: true, // can click day/week names to navigate views
                 selectable: true,
@@ -149,25 +164,8 @@
                 },
                 editable: true,
                 dayMaxEvents: true, // allow "more" link when too many events
-                events: [
-                    {
-                        id: 'a',
-                        title: 'Blood Pressure',
-                        start: '2021-04-09'
-                    },
-                    {
-                        id: 'b',
-                        title: 'Blood Sugar',
-                        start: '2021-04-09'
-                    },{
-                        id: 'c',
-                        title: 'Plus Oxymeter',
-                        start: '2021-04-09'
-                    },{
-                        id: 'd',
-                        title: 'ECG',
-                        start: '2021-04-09'
-                    },
+                events: 
+                    columnDaTa
 //                    
 //                    {
 //                        title: 'Long Event',
@@ -219,7 +217,7 @@
                     //     url: 'http://google.com/',
                     //     start: '2020-09-28'
                     // }
-                ]
+                
             });
             calendar.render();
         });

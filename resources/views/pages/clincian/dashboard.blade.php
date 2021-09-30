@@ -81,15 +81,15 @@
                     </div>
                     <!-- Blood Sugar Tab Start -->
                     <div class="tab-pane show" id="bloodSugardailyupdate" role="tabpanel"
-                        aria-labelledby="v-pills-home-tab">
-                    </div>
-                    <!-- Pulse Oximeter Tab Start -->
-                    <div class="tab-pane show" id="pulseOxymeterdailyupdate" role="tabpanel"
-                        aria-labelledby="v-pills-home-tab">
+                        aria-labelledby="bloodSugardailyupdate">
                     </div>
                     <!-- Weight Tab Start -->
                     <div class="tab-pane show" id="weightdailyupdate" role="tabpanel"
-                        aria-labelledby="v-pills-home-tab">
+                        aria-labelledby="weightdailyupdate">
+                    </div>
+                    <!-- Pulse Oximeter Tab Start -->
+                    <div class="tab-pane show" id="pulseOxymeterdailyupdate" role="tabpanel"
+                        aria-labelledby="pulseOxymeterdailyupdate">
                     </div>
                     <!-- EKG Tab Start -->
                     <div class="tab-pane show" id="EKGdailyupdate" role="tabpanel"

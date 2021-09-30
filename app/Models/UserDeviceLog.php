@@ -24,6 +24,13 @@ class UserDeviceLog extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['view_date'];
+
+    /**
      * Relation with user
      */
     public function userDevice()
@@ -48,4 +55,11 @@ class UserDeviceLog extends Model
         return $statusData;
     }
     
+      /**
+     * Create full name with combine first name and last name
+     */
+    public function getViewDateAttribute()
+    {
+        return dateFormat($this->created_at);
+    }
 }

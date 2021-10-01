@@ -121,14 +121,14 @@ class GetPatientDetailsController extends Controller
                 $emergencyAddress = $patient->patientEmergency;
             }
         }
+       
         $userDeviceLogs = UserDeviceLog::with('userDevice')->whereHas('userDevice',function ($q) use($paient_id) {
             $q->where('patient_id', $paient_id);
         })
-        ->orderBy('created_at', 'DESC')
-        ->select('*',DB::raw('DATE(created_at) as date'))
+        ->select('*', DB::raw('MAX(id) as id, DATE(created_at) as date'))
         ->groupBy('user_device_id','date')
         ->get()->toArray();
-       
+        
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs'));
     }
 

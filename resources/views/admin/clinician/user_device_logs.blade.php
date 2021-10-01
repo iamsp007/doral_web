@@ -38,6 +38,8 @@ table.dataTable thead th, table.dataTable thead td{
                         <option value="4">Pulse oxymeter</option>
                     </select>	
                 </div>
+                <input type="hidden" name="patient_id" value="{{ $patient_id }}">
+
                 <div class="col-3 col-sm-3 col-md-3">
                     <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
                     <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
@@ -111,6 +113,7 @@ table.dataTable thead th, table.dataTable thead td{
                     d.user_name = $('select[name="user_name"]').val();
                     d.level = $('select[name="level"]').val();
                     d.device_type = $('select[name="device_type"]').val();
+                    d.patient_id = $('input[name="patient_id"]').val();
                 },
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'

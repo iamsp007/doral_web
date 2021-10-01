@@ -104,7 +104,7 @@
             columnDaTa.push(
                 {
                     id: value['id'],
-                    url: value['user_device']['patient_id'],
+                    url: 'http://127.0.0.1:8000/ccm/patient/' + value['user_device']['patient_id'],
                     title: value['user_device']['device_result'] + '(' + value['value'] + ')',
                     start: value['view_date']
                 },
@@ -148,22 +148,11 @@
                     },
                 },
                 eventClick: function(info) {
-                    // var eventObj = info.event;
-                    // location.href = "{{ Route('ccm.index') }}";
-                    // alert("{{url('ccm')}}/" + eventObj.url + "/" + eventObj.start);
-                    // $.ajax({
-                    //     type: "GET",
-                    //     url: "{{url('ccm')}}",
-                      
-                    //     // success: function (data) {
-                    //     //    alert(data);
-                    //     // },
-                    // });
                 },
                 eventRender: function (event, element) {
                 },
                 eventDidMount: function (info) {
-                    console.log(info.el.innerText)
+                    // console.log(info.el.innerText)
                 },
                 editable: true,
                 dayMaxEvents: true,

@@ -14,12 +14,22 @@ class UserDeviceController extends Controller
         return view('admin.clinician.user_device_logs', compact('serviceStatus', 'initial'));
     }
 
+    public function getccm($patient_id)
+    {
+        return view('admin.clinician.user_device_logs', compact('patient_id'));
+    }
+    
     public function getAll(Request $request)
     {
         $patientList = UserDeviceLog::with('userDevice','userDevice.user')
         ->when($request['user_name'], function ($query) use($request){
             $query->whereHas('userDevice.user',function ($query) use($request) {
                 $query->where('id', $request['user_name']);
+            });
+        })
+        ->when($request['patient_id'], function ($query) use($request){
+            $query->whereHas('userDevice',function ($query) use($request) {
+                $query->where('patient_id', $request['patient_id']);
             });
         })
         ->when($request['level'], function ($query) use($request){
@@ -73,7 +83,7 @@ class UserDeviceController extends Controller
     public function edit($id)
     {
         $userDeviceLog = UserDeviceLog::where('id',$id)->with('userDevice','userDevice.user')->first();
-
+        
         if ($userDeviceLog->userDevice->device_type == 1) {
             $readingLevel = 1;
 	        $level_message= $recomdation = '';
@@ -85,11 +95,11 @@ class UserDeviceController extends Controller
             if($explodeValue[0] >= 140 || $explodeValue[1] >= 90) {
                 $readingLevel = 3;
                 $level_message = 'blood pressure is higher';
-                $recomdation = '<p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Take medications as prescribed by your doctor" /><span></span></label></div> Take medications as prescribed by your doctor</p><p class="t5"><b class="f-20">&bull;<div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Drink an 8 oz glass of water" /><span></span></label></div> Drink an 8 oz glass of water</p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value=" Sit quietly for 15 minutes" /><span></span></label></div> Sit quietly for 15 minutes</p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Recheck your blood pressure in 20 minutes" /><span></span></label></div> Recheck your blood pressure in 20 minutes</p>';
+                $recomdation = '<p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Take medications as prescribed by your doctor&bull;" /><span></span></label></div> Take medications as prescribed by your doctor</p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Drink an 8 oz glass of water&bull;" /><span></span></label></div> Drink an 8 oz glass of water</p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value=" Sit quietly for 15 minutes&bull;" /><span></span></label></div> Sit quietly for 15 minutes</p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Recheck your blood pressure in 20 minutes&bull;" /><span></span></label></div> Recheck your blood pressure in 20 minutes</p>';
             } else if($explodeValue[0] <= 100 || $explodeValue[1] <= 60) {
                 $readingLevel = 3;
                 $level_message = 'blood pressure is lower';
-                $recomdation = '<p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Get up slowly from a sitting position&bull;" /><span></span></label></div> Get up slowly from a sitting position</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Drink an 8 oz glass of water" /><span></span></label></div> Drink an 8 oz glass of water</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Eat some saltime crackers" /><span></span></label></div> Eat some saltime crackers</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Recheck your blood pressure in 20 minutes" /><span></span></label></div> Recheck your blood pressure in 20 minutes</p>';
+                $recomdation = '<p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Get up slowly from a sitting position&bull;" /><span></span></label></div> Get up slowly from a sitting position</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Drink an 8 oz glass of water&bull;" /><span></span></label></div> Drink an 8 oz glass of water</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Eat some saltime crackers&bull;" /><span></span></label></div> Eat some saltime crackers</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Recheck your blood pressure in 20 minutes&bull;" /><span></span></label></div> Recheck your blood pressure in 20 minutes</p>';
             }
         } else if ($userDeviceLog->userDevice->device_type == 2) {
             $readingLevel = 1;
@@ -97,11 +107,11 @@ class UserDeviceController extends Controller
             if($userDeviceLog->value >= 300) {
                 $readingLevel = 3;
                 $level_message = 'blood sugar is higher';
-                $recomdation = '<p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Administer insulin or oral medications as prescribed by your doctor" /><span></span></label></div> Administer insulin or oral medications as prescribed by your doctor </p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Drink an 8 oz glass of water" /><span></span></label></div> Drink an 8 oz glass of water</p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Recheck your blood sugar level in 30 minutes" /><span></span></label></div> Recheck your blood sugar level in 30 minutes</p>';
+                $recomdation = '<p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Administer insulin or oral medications as prescribed by your doctor&bull;" /><span></span></label></div> Administer insulin or oral medications as prescribed by your doctor </p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Drink an 8 oz glass of water&bull;" /><span></span></label></div> Drink an 8 oz glass of water</p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Recheck your blood sugar level in 30 minutes&bull;" /><span></span></label></div> Recheck your blood sugar level in 30 minutes</p>';
             } else if($userDeviceLog->value <= 60) {
                 $readingLevel = 3;
                 $level_message = 'blood sugar is lower';
-                $recomdation = '<p class="t5"><b class="f-20">&bull;</b> Drink an 4 oz fruit juice</p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Eat a small snack(cookies, 1/2 sandwich)" /><span></span></label></div> Eat a small snack(cookies, 1/2 sandwich)</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Do not tame any insulin or diabetic pills" /><span></span></label></div>Do not tame any insulin or diabetic pills</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Recheck your blood sugar level in 20 minutes" /><span></span></label></div>Recheck your blood sugar level in 20 minutes</p>';
+                $recomdation = '<p class="t5"><b class="f-20">&bull;</b> Drink an 4 oz fruit juice</p><p class="t5"><b class="f-20">&bull;</b><div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Eat a small snack(cookies, 1/2 sandwich)&bull;" /><span></span></label></div> Eat a small snack(cookies, 1/2 sandwich)</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Do not tame any insulin or diabetic pills&bull;" /><span></span></label></div>Do not tame any insulin or diabetic pills</p><p class="t5"><b class="f-20">&bull;</b> <div class="checkbox"><label><input class="noteappend" type="checkbox" name="note[]" value="Recheck your blood sugar level in 20 minutes&bull;" /><span></span></label></div>Recheck your blood sugar level in 20 minutes</p>';
             }
         } 
 

@@ -14,8 +14,11 @@ class UserDeviceController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
-        $user = User::where('id',$input['patient_id'])->select('id','first_name', 'last_name')->first();
-        $full_name = $user->first_name . ' ' . $user->last_name;
+        $full_name = '';
+        if ($input) {
+            $user = User::where('id',$input['patient_id'])->select('id','first_name', 'last_name')->first();
+            $full_name = $user->first_name . ' ' . $user->last_name;
+        }
 
         return view('admin.clinician.user_device_logs', compact('input','full_name'));
     }

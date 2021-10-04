@@ -11,6 +11,16 @@ table.dataTable thead th, table.dataTable thead td{
 @endpush
 
 @section('content')
+@php    
+    $bloodPressure = $glucometer = $digitalWeight = $pulseoxymeter = $date = '';
+    if($input):
+        $bloodPressure = ($input['device_type'] == '1') ? 'selected=""' : '';
+        $glucometer = ($input['device_type'] == '2') ? 'selected=""' : '';
+        $digitalWeight = ($input['device_type'] == '3') ? 'selected=""' : '';
+        $pulseoxymeter = ($input['device_type'] == '4') ? 'selected=""' : '';
+        $date = $input['date'];
+    endif;
+@endphp
     <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group">
@@ -34,15 +44,15 @@ table.dataTable thead th, table.dataTable thead td{
                 <div class="col-3 col-sm-3 col-md-3">
                     <select class="form-control" name="device_type" id="device_type">
                         <option value="">Select a device type</option>
-                        <option value="1" {{( $input['device_type'] == '1') ? 'selected=""' : ''}}>BloodPressure</option>
-                        <option value="2" {{( $input['device_type'] == '2') ? 'selected=""' : ''}}>Glucometer</option>
-                        <option value="3" {{( $input['device_type'] == '3') ? 'selected=""' : ''}}>Digital Weight Machine</option>
-                        <option value="4" {{( $input['device_type'] == '4') ? 'selected=""' : ''}}>Pulse oxymeter</option>
+                        <option value="1" {{ $bloodPressure }}>BloodPressure</option>
+                        <option value="2" {{ $glucometer }}>Glucometer</option>
+                        <option value="3" {{ $digitalWeight }}>Digital Weight Machine</option>
+                        <option value="4" {{ $pulseoxymeter }}>Pulse oxymeter</option>
                     </select>	
                 </div>
                 <div class="col-3 col-sm-3 col-md-3">
                     <!-- <input type="text" class="form-control" name="reading_time" id="reading_time"> -->
-                    <input type="text" class="form-control" name="reading_time" id="reading_time" value="{{ $input['date'] }}">
+                    <input type="text" class="form-control" name="reading_time" id="reading_time" value="{{ $date }}">
                 </div>
                 <div class="col-3 col-sm-3 col-md-3">
                     <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>

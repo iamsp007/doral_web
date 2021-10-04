@@ -1,4 +1,8 @@
 @include('includes.calendar.head')
+<input type="hidden" name="today" id="today" value="{{ $today }}">
+<input type="hidden" id="patient_id" value="{{ $patient->id }}">
+<input type="hidden" id="first_name" value="{{ $patient->first_name }}">
+<input type="hidden" id="last_name" value="{{ $patient->last_name }}">
 
 <div id='calendar2'></div>
 <div class="modal fade fade2 dialogue" tabindex="-1" role="dialog">
@@ -99,14 +103,17 @@
 <script>
         var phpVar = <?php echo json_encode($userDeviceLogs); ?>;
         var columnDaTa = [];
-
+        var today = $("#today").val();
+        var patient_id = $("#patient_id").val();
+        var first_name = $("#first_name").val();
+        var last_name = $("#last_name").val();
         $.each(phpVar, function (key, value) {
             columnDaTa.push(
                 {
-                    id: value['id'],
-                    url: 'http://127.0.0.1:8000/ccm/patient/' + value['user_device']['patient_id'],
+                    id: value['user_device']['device_type'],
+                    url: "{{url('ccm') }}?patient_id=" + value['user_device']['patient_id'] + "&&date=" + value['view_reading_date'] + "&&device_type=" + value['user_device']['device_type'],
                     title: value['user_device']['device_result'] + '(' + value['value'] + ')',
-                    start: value['view_date']
+                    start: value['view_reading_date']
                 },
             );
         });
@@ -126,7 +133,7 @@
                     center: '',
                     right: 'dayGridMonth timeGridDay today prev,next'
                 },
-                initialDate: '2021-09-01',
+                initialDate: today,
                 expandRows: true,
                 navLinks: true,
                 selectable: true,
@@ -147,9 +154,8 @@
                         titleFormat: { year: 'numeric', month: 'short', day: 'numeric' }
                     },
                 },
-                eventClick: function(info) {
-                },
                 eventRender: function (event, element) {
+
                 },
                 eventDidMount: function (info) {
                     // console.log(info.el.innerText)

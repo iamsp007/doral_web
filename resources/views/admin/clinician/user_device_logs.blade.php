@@ -17,7 +17,9 @@ table.dataTable thead th, table.dataTable thead td{
             <div class="row">
                 <div class="col-3 col-sm-3 col-md-3">
                     <div class="input-group">
-                        <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
+                        <select class="user_name form-control" id="user_name" name="user_name"></select>
+                        <input type="hidden" id="patient_id" name="patient_id" value="{{ $input['patient_id'] ?? '' }}">
+                        <input type="hidden" id="patient_name" name="patient_name" value="{{ $full_name }}">
                     </div>
                 </div>
                 <div class="col-3 col-sm-3 col-md-3">
@@ -32,14 +34,16 @@ table.dataTable thead th, table.dataTable thead td{
                 <div class="col-3 col-sm-3 col-md-3">
                     <select class="form-control" name="device_type" id="device_type">
                         <option value="">Select a device type</option>
-                        <option value="1">BloodPressure</option>
-                        <option value="2">Glucometer</option>
-                        <option value="3">Digital Weight Machine</option>
-                        <option value="4">Pulse oxymeter</option>
+                        <option value="1" {{( $input['device_type'] == '1') ? 'selected=""' : ''}}>BloodPressure</option>
+                        <option value="2" {{( $input['device_type'] == '2') ? 'selected=""' : ''}}>Glucometer</option>
+                        <option value="3" {{( $input['device_type'] == '3') ? 'selected=""' : ''}}>Digital Weight Machine</option>
+                        <option value="4" {{( $input['device_type'] == '4') ? 'selected=""' : ''}}>Pulse oxymeter</option>
                     </select>	
                 </div>
-                <input type="hidden" name="patient_id" value="{{ $patient_id }}">
-
+                <div class="col-3 col-sm-3 col-md-3">
+                    <!-- <input type="text" class="form-control" name="reading_time" id="reading_time"> -->
+                    <input type="text" class="form-control" name="reading_time" id="reading_time" value="{{ $input['date'] }}">
+                </div>
                 <div class="col-3 col-sm-3 col-md-3">
                     <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
                     <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>
@@ -56,6 +60,7 @@ table.dataTable thead th, table.dataTable thead td{
                 <th>Value</th>
                 <th>Device Type</th>
                 <th>Readning Time</th>
+                <th>Created At</th>
                 <th>Level</th>
                 <th>Action</th>
             </tr>
@@ -91,6 +96,7 @@ table.dataTable thead th, table.dataTable thead td{
             {data: 'value', name:'value', orderable: true, searchable: true,"className": "text-left"},
             {data: 'device_type', orderable: true, searchable: true,"className": "text-left"},
             {data: 'reading_time', orderable: true, searchable: true,"className": "text-left"},
+            {data: 'created_at', orderable: true, searchable: true,"className": "text-left"},
             {data: 'level', orderable: true, searchable: true,"className": "text-left"},
             {data: 'action',"className": "text-left"},
         );
@@ -114,12 +120,20 @@ table.dataTable thead th, table.dataTable thead td{
                     d.level = $('select[name="level"]').val();
                     d.device_type = $('select[name="device_type"]').val();
                     d.patient_id = $('input[name="patient_id"]').val();
+                    d.reading_time = $('input[name="reading_time"]').val();
                 },
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
             },
             columns:columnDaTa,
+            "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                console.log(aData);
+                    if (aData['level'] == '<p class="text-danger">Level 3</p>') {
+                        $('td', nRow).css({'border': '1px solid red', 'color': 'red'});
+                    }
+                
+            },
        
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
             'columnDefs': [
@@ -143,6 +157,19 @@ table.dataTable thead th, table.dataTable thead td{
              refresh();
         })
 
+        $('input[name="reading_time"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxYear: parseInt(moment().format('YYYY'), 10)
+        });
+
+        var patient_id = $('#patient_id').val();
+        var full_name = $('#patient_name').val();
+        var $newOption = $("<option selected='selected'></option>").val(patient_id).text(full_name)
+ 
+        $("#user_name").append($newOption).trigger('change');
+
         $('#user_name').select2({
             minimumInputLength: 3,
             placeholder: 'Select a name',
@@ -164,6 +191,8 @@ table.dataTable thead th, table.dataTable thead td{
                 cache: true
             }
         });
+       
+       
 
         /*Open message in model */
         $("body").on('click','.viewNote',function () {

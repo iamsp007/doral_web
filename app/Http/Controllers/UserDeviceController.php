@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserDeviceLog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
 
 class UserDeviceController extends Controller
 {
-    public function index($serviceStatus = null,$initial = null)
+    public function index(Request $request)
     {
-        return view('admin.clinician.user_device_logs', compact('serviceStatus', 'initial'));
+        $input = $request->all();
+        $user = User::where('id',$input['patient_id'])->select('id','first_name', 'last_name')->first();
+        $full_name = $user->first_name . ' ' . $user->last_name;
+
+        return view('admin.clinician.user_device_logs', compact('input','full_name'));
     }
 
-    public function getccm($patient_id)
-    {
-        return view('admin.clinician.user_device_logs', compact('patient_id'));
-    }
-    
     public function getAll(Request $request)
     {
         $patientList = UserDeviceLog::with('userDevice','userDevice.user')
@@ -34,6 +35,11 @@ class UserDeviceController extends Controller
         })
         ->when($request['level'], function ($query) use($request){
             $query->where('level', $request['level']);
+        })
+        ->when($request['reading_time'], function ($query) use($request){
+            $date = date('Y-m-d', strtotime($request['reading_time']));
+           
+            $query->whereDate('reading_time',$date);
         })
         ->when($request['device_type'], function ($query) use($request){
             $query->whereHas('userDevice',function ($query) use($request) {
@@ -65,7 +71,10 @@ class UserDeviceController extends Controller
                 return $device_type;
             })
             ->addColumn('reading_time', function($q) use($request) {
-                return date('m-d-Y', strtotime($q->reading_time));
+                return $q->view_reading_date_time;
+            })
+            ->addColumn('created_at', function($q) use($request) {
+                return $q->view_date;
             })
             ->addColumn('action', function($q) use($request) {
                 $btn = '';

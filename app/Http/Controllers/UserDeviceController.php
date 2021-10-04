@@ -74,10 +74,10 @@ class UserDeviceController extends Controller
                 return $device_type;
             })
             ->addColumn('reading_time', function($q) use($request) {
-                return $q->view_reading_date_time;
+                return viewDateTimeFormat($q->reading_time);
             })
             ->addColumn('created_at', function($q) use($request) {
-                return $q->view_date;
+                return viewDateFormat($q->created_at);
             })
             ->addColumn('action', function($q) use($request) {
                 $btn = '';

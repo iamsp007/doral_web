@@ -28,7 +28,7 @@ class UserDeviceLog extends Model
      *
      * @var array
      */
-    protected $appends = ['view_level', 'view_date', 'view_reading_date','view_reading_date_time'];
+    protected $appends = ['view_level', 'view_reading_date','date_format'];
 
     /**
      * Relation with user
@@ -54,15 +54,7 @@ class UserDeviceLog extends Model
 
         return $statusData;
     }
-    
-    /**
-     * Create full name with combine first name and last name
-     */
-    public function getViewDateAttribute()
-    {
-        return dateFormat($this->created_at);
-    }
-
+  
     /**
      * Create full name with combine first name and last name
      */
@@ -70,12 +62,12 @@ class UserDeviceLog extends Model
     {
         return  date('m/d/Y', strtotime($this->reading_time));
     }
-    
+ 
     /**
      * Create full name with combine first name and last name
      */
-    public function getViewReadingDateTimeAttribute()
+    public function getDateFormatAttribute()
     {
-        return viewDateTimeFormat($this->reading_time);
+        return dateFormat($this->reading_time);
     }
 }

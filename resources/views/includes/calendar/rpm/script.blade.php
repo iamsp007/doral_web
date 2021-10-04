@@ -113,7 +113,7 @@
                     id: value['user_device']['device_type'],
                     url: "{{url('ccm') }}?patient_id=" + value['user_device']['patient_id'] + "&&date=" + value['view_reading_date'] + "&&device_type=" + value['user_device']['device_type'],
                     title: value['user_device']['device_result'] + '(' + value['value'] + ')',
-                    start: value['view_reading_date']
+                    start: value['date_format']
                 },
             );
         });

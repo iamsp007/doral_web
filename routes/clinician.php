@@ -28,6 +28,7 @@ Route::group(['prefix'=>'/clinician','middleware'=>['auth:web','role:clinician']
     Route::get('/running-roadl/{patient_request_id}','\App\Http\Controllers\Clinician\RoadLController@runningRoadLRequest')->name('clinician.start.running');
     Route::post('/patient-request-list','\App\Http\Controllers\Clinician\RoadLController@getPatientRequestList')->name('clinician.roadl.patientRequestList');
     Route::post('/patient-roladl-proccess','\App\Http\Controllers\Clinician\RoadLController@getRoadLProccess')->name('clinician.roadl.process');
+    Route::post('/update-drive-mode','\App\Http\Controllers\Clinician\RoadLController@updateDriveMode')->name('clinician.update-drive-mode');
     Route::get("/room/{id}", '\App\Http\Controllers\Clinician\RoomController@showClassRoom')
         ->where('id', '[0-9]+')
         ->name('room');

@@ -87,6 +87,11 @@ class RoadLController extends Controller
     public function runningRoadLRequest(Request $request,$patient_request_id){
         return view($this->view_path.'roadL_running',compact('patient_request_id'));
     }
+    
+    public function updateDriveMode(Request $request){
+        $patientRequest = PatientRequest::find($request['id'])->update(['driving_mode' => $request['$request']]);
+        return response()->json($patientRequest,200);
+    }
 
     public function getRoadLProccess(Request $request){
         $response = $this->clinicianService->getRoadlProccessList($request->patient_request_id);

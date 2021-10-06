@@ -26,7 +26,7 @@ function appointments(date) {
         },
         error:function (error) {
             $("#loader-wrapper").hide();
-            alert(error)
+            console.log(error)
         }
     });
 }
@@ -144,7 +144,7 @@ $(document).ready(function(){
             }
 
             if (typeof response.data['high'][3] !== undefined || response.data['low_midium'][3] !== undefined) {
-                bloodPressure(response.data['high'][3], 'weight', esponse.data['low_midium'][3], 'weightdailyupdate', 'Weight');
+                bloodPressure(response.data['high'][3], 'weight', response.data['low_midium'][3], 'weightdailyupdate', 'Weight');
             } else {
                 $('#weight').html('No data found!');
             }
@@ -154,10 +154,11 @@ $(document).ready(function(){
             } else {
                 $('#pulseOxymeter').html('No data found!');
             }
+            
         },
         error:function (error) {
             $("#loader-wrapper").hide();
-            alert(error)
+            console.log(error)
         }
     });
 });
@@ -193,31 +194,31 @@ function bloodPressure(high_level, selector1,low_midium_level, selector2, label)
             $('#'+selector1).html(html);
             owlCarousel();
         }
-        if (typeof low_midium_level !== undefined) {
-            html = '';
-            html += '<div>' +
-                '<div class="form-group"><div class="row"><div class="col-6 col-sm-6 col-md-6"><h1 class="reports-title">'+label+'</h1></div><div class="col-6 col-sm-6 col-md-6"><div class="d-flex"><a href="'+user_device_url+'" class="bulk-upload-btn float-right">View All</a></div></div></div></div>' +
-                '<div class="detail">' +
-                '<ul>';
-            $.each(low_midium_level , function(index, val) {
-                html += '<li>' +
-                    '<div class="Level-2">' +
-                    '<div class="img-30">' +
-                    '<img src="'+val.user_device.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user_device.user.avatar_image+'" class="img-fluid">' +
-                    '</div>' +
-                    '<h1 class="patient-name">'+val.user_device.user.first_name+' '+val.user_device.user.last_name+'</h1>' +
-                    '<h3 class="title">'+label+': '+val.value+'</h3>' +
-                    '<a href="javascript:void(0)" class="Level-2-btn">Level '+val.level+'</a>' +
-                    '<a href="javascript:void(0)" class="level2-btn">Seek emergency care</a>' +
-                    '</div>' +
-                    '</li>';
-            });
-            html += '</ul>' +
+    }
+    if (typeof low_midium_level !== undefined) {
+        html = '';
+        html += '<div>' +
+            '<div class="form-group"><div class="row"><div class="col-6 col-sm-6 col-md-6"><h1 class="reports-title">'+label+'</h1></div><div class="col-6 col-sm-6 col-md-6"><div class="d-flex"><a href="'+user_device_url+'" class="bulk-upload-btn float-right">View All</a></div></div></div></div>' +
+            '<div class="detail">' +
+            '<ul>';
+        $.each(low_midium_level , function(index, val) {
+            html += '<li>' +
+                '<div class="Level-2">' +
+                '<div class="img-30">' +
+                '<img src="'+val.user_device.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user_device.user.avatar_image+'" class="img-fluid">' +
                 '</div>' +
-                '</div>';                     
-            $('#'+selector2).html(html);
-            owlCarousel();
-        }
+                '<h1 class="patient-name">'+val.user_device.user.first_name+' '+val.user_device.user.last_name+'</h1>' +
+                '<h3 class="title">'+label+': '+val.value+'</h3>' +
+                '<a href="javascript:void(0)" class="Level-2-btn">Level '+val.level+'</a>' +
+                '<a href="javascript:void(0)" class="level2-btn">Seek emergency care</a>' +
+                '</div>' +
+                '</li>';
+        });
+        html += '</ul>' +
+            '</div>' +
+            '</div>';                     
+        $('#'+selector2).html(html);
+        owlCarousel();
     }
 }
 

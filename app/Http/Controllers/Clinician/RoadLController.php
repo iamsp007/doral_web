@@ -89,7 +89,7 @@ class RoadLController extends Controller
     }
     
     public function updateDriveMode(Request $request){
-        $patientRequest = PatientRequest::find($request['id'])->update(['driving_mode' => $request['$request']]);
+        $patientRequest = PatientRequest::find($request['id'])->update(['driving_mode' => $request['driving_mode']]);
         return response()->json($patientRequest,200);
     }
 

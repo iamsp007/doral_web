@@ -112,9 +112,7 @@ function initMap() {
                 var color = resp.color;
                 var icon = resp.icon;
                 var driving_mode = resp.driving_mode;
-                console.log('driving_mode start');
-                console.log(driving_mode);
-                console.log('driving_mode end');
+               
                 // var icon = base_url + 'assets/img/icons/icons_patient.svg';
                 var destinationName = response.patient.first_name + ' ' + response.patient.last_name + '  Role : Patient';
                 var originName = null;
@@ -161,7 +159,8 @@ function initMap() {
                     '                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">\n' +
                     '                                <div class="status" id="vendor-duration-'+resp.id+'"><span class="mr-2">Duration:</span>0 Mins</div>\n' +
                     '                                <div class="status mt-1" id="vendor-distance-'+resp.id+'"><span class="mr-2">Distance:</span>0 Miles</div>\n' +
-                    '                            </div>\n' +
+            	     '				       <div class="drining" id="vendor-drining-mode-'+resp.id+'"><span class="mr-2">Driving Mode :</span>' + driving_mode + '</div>\n' +
+                    '                            </div>\n' +                          
                     '                        </div>\n' +
                     '                    </li>';
 
@@ -261,6 +260,7 @@ function updateMap(destination, name, id,parent_id, curStatus) {
                 '                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">\n' +
                 '                                <div class="status" id="vendor-duration-'+data.id+'"><span class="mr-2">Duration:</span>0 Mins</div>\n' +
                 '                                <div class="status mt-1" id="vendor-distance-'+data.id+'"><span class="mr-2">Distance:</span>0 Miles</div>\n' +
+                '                                <div class="drining" id="vendor-drining-mode-'+data.id+'"><span class="mr-2">Driving Mode :</span>' + data.driving_mode + '</div>\n' +
                 '                            </div>\n' +
                 '                        </div>\n' +
                 '                    </li>';
@@ -297,7 +297,8 @@ function updateDriveMode(data){
         },
         url: base_url + 'clinician/update-drive-mode',
         data: {
-            data: data
+            id: data.id,
+            driving_mode: data.driving_mode
         },
         method: 'POST',
         success: function (response) {

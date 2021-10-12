@@ -14,7 +14,7 @@
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
         @include('admin.common.accept_reject_button',['status' => $status])
     </div>
-
+   
     <form id="search_form" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="form-group">
@@ -89,6 +89,7 @@
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.2/jQuery.print.js" integrity="sha512-BaXrDZSVGt+DvByw0xuYdsGJgzhIXNgES0E9B+Pgfe13XlZQvmiCkQ9GXpjVeLWEGLxqHzhPjNSBs4osiuNZyg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $('#user_name').select2({
             minimumInputLength: 3,
@@ -184,6 +185,28 @@
                 $(".innerallchk").prop("checked","");
                 $('#acceptRejectBtn').hide();
             }
+        });
+        
+       
+        $('body').on('click', '#print', function () {
+            var id = $(this).attr("data-id");
+           
+            $.ajaxSetup({
+                url: "{{ url('admin/clinician-approval')}}/" + id + "/detail",
+                type: 'POST',
+                beforeSend: function() {
+                    console.log('printing ...');
+                },
+                complete: function() {
+                    console.log('printed!');
+                }
+            });
+
+            $.ajax({
+                success: function(viewContent) {
+                    $.print(viewContent); // This is where the script calls the printer to print the viwe's content.
+                }
+            });
         });
 
         function chkmain() {

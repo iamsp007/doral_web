@@ -12,6 +12,7 @@ use App\Services\AdminService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use ZipArchive;
 use PDF;
 
@@ -107,7 +108,7 @@ class ClinicianController extends Controller
                 }
                 
                 $action .= '<a id="print" data-id="'.$row->id.'" class="btn btn-primary btn-sm mr-2">Print</a>';
-
+                // $action .= '<a href="'.route('clinician.info',['id' => $row->id]).'" class="btn btn-primary btn-sm mr-2">Print</a>';
                 return $action;
             })
             ->rawColumns(['action', 'checkbox_id','name'])
@@ -138,50 +139,127 @@ class ClinicianController extends Controller
     public function clinicianInfo($id)
     { 
         try {
-            $users = Applicant::where('user_id', $id)->with('user', 'documents', 'user.designation')->first();
-             
+            $users = Applicant::where('user_id', $id)->with('user', 'documents', 'user.designation')
+            ->withCount([
+                'documents', 
+                'documents as idProof_count' => function ($query) {
+                    $query->where('type', 1);
+                },
+                'documents as degreeProof_count' => function ($query) {
+                    $query->where('type', 2);
+                },
+                'documents as medicalReport_count' => function ($query) {
+                    $query->where('type', 3);
+                },
+                'documents as insuranceReport_count' => function ($query) {
+                    $query->where('type', 4);
+                },
+                'documents as socialSecurity_count' => function ($query) {
+                    $query->where('type', 5);
+                },
+                'documents as professionalReferrance_count' => function ($query) {
+                    $query->where('type', 6);
+                },
+                'documents as nycNurseCertificate_count' => function ($query) {
+                    $query->where('type', 8);
+                },
+                'documents as CPR_count' => function ($query) {
+                    $query->where('type', 9);
+                },
+                'documents as physical_count' => function ($query) {
+                    $query->where('type', 10);
+                },
+                'documents as forensicDrugScreen_count' => function ($query) {
+                    $query->where('type', 11);
+                },
+                'documents as RubellaImmunization_count' => function ($query) {
+                    $query->where('type', 12);
+                },
+                'documents as RubellaMeasiesImmunization_count' => function ($query) {
+                    $query->where('type', 13);
+                },
+                'documents as malpracticeInsurance_count' => function ($query) {
+                    $query->where('type', 14);
+                },
+                'documents as flu_count' => function ($query) {
+                    $query->where('type', 15);
+                },
+                'documents as annualPPD_count' => function ($query) {
+                    $query->where('type', 16);
+                },
+                'documents as chestXRay_count' => function ($query) {
+                    $query->where('type', 17);
+                },
+                'documents as annualTubeScreening_count' => function ($query) {
+                    $query->where('type', 18);
+                },
+                'documents as w4document_count' => function ($query) {
+                    $query->where('type', 19);
+                },
+                'documents as pictureIdentification_count' => function ($query) {
+                    $query->where('type', 25);
+                },
+                'documents as currentCV_count' => function ($query) {
+                    $query->where('type', 26);
+                },
+                'documents as ProfessionalLicense_count' => function ($query) {
+                    $query->where('type', 27);
+                },
+                'documents as StateRegistrationCertificate_count' => function ($query) {
+                    $query->where('type', 28);
+                },
+                'documents as DEALicense_count' => function ($query) {
+                    $query->where('type', 29);
+                },
+                'documents as ControlledSubstanceStateLicense_count' => function ($query) {
+                    $query->where('type', 30);
+                },
+                'documents as MalpracticeCertificateOfInsurance_count' => function ($query) {
+                    $query->where('type', 31);
+                },
+                'documents as ExplanationOfAllMalpractice_count' => function ($query) {
+                    $query->where('type', 32);
+                },
+                'documents as MedicalSchoolDiploma_count' => function ($query) {
+                    $query->where('type', 33);
+                },
+                'documents as ResidencyCertificate_count' => function ($query) {
+                    $query->where('type', 34);
+                },
+                'documents as FellowshipCertificate_count' => function ($query) {
+                    $query->where('type', 35);
+                },
+                'documents as IntershipCertificate_count' => function ($query) {
+                    $query->where('type', 35);
+                },
+                'documents as ECFMGCertificate_count' => function ($query) {
+                    $query->where('type', 36);
+                },
+                'documents as BoardCertificate_count' => function ($query) {
+                    $query->where('type', 37);
+                },
+                'documents as HospitalAffiliationLetter_count' => function ($query) {
+                    $query->where('type', 38);
+                },
+                'documents as SanctionsQueries_count' => function ($query) {
+                    $query->where('type', 39);
+                },
+                'documents as MedicalWelcomeLetter_count' => function ($query) {
+                    $query->where('type', 40);
+                },
+                'documents as SignedW9_count' => function ($query) {
+                    $query->where('type', 41);
+                },
+                'documents as SignedESignatureForm_count' => function ($query) {
+                    $query->where('type', 42);
+                },
+                ])
+            ->first(); 
+               
             if ($users) {
-                $idProof = $socialSecurity = $professionalReferrance = $nycNurseCertificate = $insuranceReport = $cpr = $physical = $forensicDrugScreen = $rubellaImmunization = $rubellaMeasiesImmunization = $annualPPD = $flu = '';
-                if ($users->documents) {
-                    $idProof = $users->documents->where('type', 1)->count();
-                    $socialSecurity = $users->documents->where('type', 5)->count();
-                    $professionalReferrance = $users->documents->where('type', 6)->count();
-                    $nycNurseCertificate = $users->documents->where('type', 8)->count();
-                    $insuranceReport = $users->documents->where('type', 4)->count();
-                    $cpr = $users->documents->where('type', 9)->count();
-                    $physical = $users->documents->where('type', 10)->count();
-                    $forensicDrugScreen = $users->documents->where('type', 11)->count();
-                    $rubellaImmunization = $users->documents->where('type', 12)->count();
-                    $rubellaMeasiesImmunization = $users->documents->where('type', 13)->count();
-                    $annualPPD = $users->documents->where('type', 16)->count();
-                    $flu = $users->documents->where('type', 15)->count();
-                    
-                }
-
-                $data = [
-                    'users' => $users, 
-                    'idProof' => $idProof,
-                    'socialSecurity' => $socialSecurity,
-                    'professionalReferrance' => $professionalReferrance,
-                    'nycNurseCertificate' => $nycNurseCertificate,
-                    'insuranceReport' => $insuranceReport,
-                    'cpr' => $cpr,
-                    'physical' => $physical,
-                    'forensicDrugScreen' => $forensicDrugScreen,
-                    'rubellaImmunization' => $rubellaImmunization,
-                    'rubellaMeasiesImmunization' => $rubellaMeasiesImmunization,
-                    'annualPPD' => $annualPPD,
-                    'flu' => $flu,
-                ];
-
                 // $pdf = PDF::loadView('pages.clincian.clinician-form', $data);
                 // return $pdf->stream($users->full_name .'.pdf');
-
-                if ($users->user->designation_id == '2') {
-                    return view('pages.clincian.clinician-form', compact('users','idProof', 'socialSecurity', 'professionalReferrance', 'nycNurseCertificate', 'insuranceReport', 'cpr', 'physical', 'forensicDrugScreen', 'rubellaImmunization', 'rubellaMeasiesImmunization', 'annualPPD', 'flu'));
-                } else {
-                    return view('pages.clincian.clinician-new-form', compact('users','idProof', 'socialSecurity', 'professionalReferrance', 'nycNurseCertificate', 'insuranceReport', 'cpr', 'physical', 'forensicDrugScreen', 'rubellaImmunization', 'rubellaMeasiesImmunization', 'annualPPD', 'flu'));
-                }
+                return view('pages.clincian.clinician-form', compact('users'));
             }  
         } catch (Exception $e) {
             dd("Error: ". $e->getMessage());

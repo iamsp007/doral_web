@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\DueReportNotification;
 use App\Models\City;
 use App\Models\Demographic;
 use App\Models\PatientLabReport;
@@ -15,15 +14,16 @@ use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use ZipArchive;
+use Illuminate\Support\Facades\Route;
 
 class CaregiverController extends Controller
 {
     public function index($serviceStatus = null,$initial = null)
     {
-        return view('pages.patient_detail.new_patient', compact('serviceStatus', 'initial'));
+        $role = Auth::user()->roles->pluck('name')[0];
+        $url = url()->previous();
+        return view('pages.patient_detail.new_patient', compact('serviceStatus', 'initial','role','url'));
     }
 
     public function dashboard()
@@ -73,6 +73,7 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
+        $url = url()->previous();
         $patientList = User::whereHas('roles',function ($q){
             $q->where('name','=','patient');
         })
@@ -146,8 +147,17 @@ class CaregiverController extends Controller
                 });
             }
         })
-        ->when(! $request['serviceStatus'] ,function ($query) use($request) {
-            $query->whereIn('status', ['1', '2', '3', '5']);
+        ->when(! $request['serviceStatus'] ,function ($query) use($url) {
+            if (Auth::user()->hasRole('supervisor')){
+  
+                if (str_contains($url, 'assigned-patients')){
+                    $query->whereHas('caseManagement');
+                } else {
+                    $query->whereIn('status', ['1']);
+                }
+            } else {
+                $query->whereIn('status', ['1', '2', '3', '5']);
+            }
         })
         ->when($request['service_id'], function ($query) use($request) {
             if ($request['service_id'] == 'due_patient') {
@@ -187,7 +197,7 @@ class CaregiverController extends Controller
                 $query->whereBetween('due_date',[$startDate,$endDate]);
             });
         })
-        ->with('demographic', 'demographic.services', 'patientReport', 'patientReport.labReports','patientRequest');
+        ->with('demographic', 'caseManagement', 'demographic.services', 'patientReport', 'patientReport.labReports','patientRequest');
             
         $datatble = DataTables::of($patientList->get());
             $datatble->addColumn('checkbox_id', function($q) use($request) {
@@ -278,8 +288,14 @@ class CaregiverController extends Controller
                 $datatble->addColumn('status', function($row) use($request){
                     $btn = '';
                     if ($row->status === '1') {
-                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
-                        $btn .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 resendEmail" data-toggle="tooltip" data-placement="left" title="Resend Email Verify Email" data-original-title="Resend Email Verify Email"><i class="las la-redo-alt"></i></a>';
+                        if (Auth::user()->hasRole('supervisor')){
+                            $btn .= '<div class="d-flex">';
+                            // $btn .= '<a href="employee_user_profile.html"class="btn btn-primary btn-view shadow-sm btn--sm mr-2"data-toggle="tooltip" data-placement="left" title="View Patient"><i class="las la-binoculars"></i></a><a href="employee_add.html" class="btn btn-add shadow-sm btn--sm mr-2"data-toggle="tooltip" data-placement="left" title="Edit Patient"><i class="las la-user-edit"></i></a><button type="button" class="btn btn-danger shadow-sm btn--sm mr-2"data-toggle="tooltip" data-placement="left" title="Deactivate Patient"><i class="las la-user-times"></i></button>';
+                            $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" id="' . $row->id . '" data-original-title="Due Report" class="btn btn-danger text-capitalize btn--sm assign" style="background: #006c76; color: #fff">Assign Clinician</a></div>';
+                        } else {
+                            $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                            $btn .= '<a id="' . $row->id . '" class="btn btn-danger btn-view shadow-sm btn--sm mr-2 resendEmail" data-toggle="tooltip" data-placement="left" title="Resend Email Verify Email" data-original-title="Resend Email Verify Email"><i class="las la-redo-alt"></i></a>';
+                        }
                     } else if ($row->status === '3') {
                         $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
                     } else if ($row->status === '5') {
@@ -287,35 +303,37 @@ class CaregiverController extends Controller
                     }
                     return $btn;
                 });
-            }       
-            $datatble->addColumn('action', function($row) use($request){
-                $btn = '';
-                if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial' || $request['serviceStatus'] == 'roadl-request') {
-                    if ($request['serviceStatus'] == 'initial') {
-                        $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff;">Edit</a></div> ';
-                        $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff; margin-right: 10px;">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
-                    } else if($request['serviceStatus'] == 'covid-19') {
-                        $btn .= '<button type="button" class="btn btn-danger text-capitalize btn--sm assign" data-toggle="modal" data-target="#exampleModal" title="">Assign Clinician</button>';
-                    } else {
-                        if ($row->status === '5') {
-                            $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
+            }
+            if (! Auth::user()->hasRole('supervisor')){
+                $datatble->addColumn('action', function($row) use($request){
+                    $btn = '';
+                    if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial' || $request['serviceStatus'] == 'roadl-request') {
+                        if ($request['serviceStatus'] == 'initial') {
+                            $btn .= '<div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff;">Edit</a></div> ';
+                            $btn .= '<div class="while_edit"><a class="save_btn btn btn-sm" data-id="'.$row->id.'" title="Save" style="background: #626a6b; color: #fff; margin-right: 10px;">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div>';
+                        } else if($request['serviceStatus'] == 'covid-19') {
+                            $btn .= '<button type="button" class="btn btn-danger text-capitalize btn--sm assign" data-toggle="modal" data-target="#exampleModal" title="">Assign Clinician</button>';
                         } else {
-                            $btn .= $row->status_data;
+                            if ($row->status === '5') {
+                                $btn .= '<a href="' . route('caregiver.downloadLabReport', ['user_id' => $row->id]) . '"><img src="'.asset("assets/img/icons/download-icon.svg").'"></a>';
+                            } else {
+                                $btn .= $row->status_data;
+                            }
+                        }
+                    } else if ($request['serviceStatus'] == 'due-reports') {
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip" id="' . $row->id . '" data-original-title="Due Report" class="btn btn-sm viewMessage" style="background: #006c76; color: #fff">Due Report</a>';
+                    } else {
+                        if ($row->status === '0') {
+                            $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
+
+                            $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                        } else {
+                            $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn w-600 d-table mr-auto ml-auto" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"><img src="https://app.doralhealthconnect.com/assets/img/icons/Request_RoadL.svg" alt="RoadL Request" class="icon_90 selected"><span></span></button>';
                         }
                     }
-                } else if ($request['serviceStatus'] == 'due-reports') {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip" id="' . $row->id . '" data-original-title="Due Report" class="btn btn-sm viewMessage" style="background: #006c76; color: #fff">Due Report</a>';
-                } else {
-                    if ($row->status === '0') {
-                        $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
-
-                        $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
-                    } else {
-                        $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn w-600 d-table mr-auto ml-auto" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"><img src="https://app.doralhealthconnect.com/assets/img/icons/Request_RoadL.svg" alt="RoadL Request" class="icon_90 selected"><span></span></button>';
-                    }
-                }
-                return $btn;
-            });
+                    return $btn;
+                });
+            }
             $datatble->rawColumns(['full_name', 'ssn_data', 'city_state', 'action', 'checkbox_id', 'phone','status']);
             return $datatble->make(true);
     }

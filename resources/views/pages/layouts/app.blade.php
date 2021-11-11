@@ -40,10 +40,6 @@
     <title>@yield('title','Welcome to Doral')</title>
 </head>
 <body>
-    @if (\Request::is('supervisor/*'))
-        @include('pages.supervisor.popup')
-    @endif
-
     <div id="loader-wrapper">
         <div class="overlay"></div>
         <div class="pulse"></div>

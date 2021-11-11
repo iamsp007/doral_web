@@ -80,6 +80,11 @@ class User extends Authenticatable
         return $this->hasOne(Demographic::class,'user_id','id');
     }
 
+    public function caseManagement()
+    {
+        return $this->hasOne(CaseManagement::class,'patient_id','id');
+    }
+
     public function patientLabReport()
     {
         return $this->hasMany(PatientLabReport::class,'user_id','id');

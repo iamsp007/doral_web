@@ -5,6 +5,7 @@ use App\Jobs\SendEmailJob;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
+use Carbon\Carbon;
 
 if (!function_exists('curlCall')) {
         function curlCall($data, $method)
@@ -57,6 +58,22 @@ if (!function_exists('curlCall')) {
      *
      * @return \Illuminate\Http\Response
      */
+    if (!function_exists('getPatientClinicalInfo')) {
+        function getPatientClinicalInfo($patientID)
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientClinicalInfo xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<PatientID>' .$patientID. '</PatientID></GetPatientClinicalInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+            $method = 'POST';
+
+            return curlCall($data, $method);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     if (!function_exists('getScheduleInfo')) {
         function getScheduleInfo($visitorID)
         {
@@ -82,7 +99,151 @@ if (!function_exists('curlCall')) {
             return curlCall($data, $method);
         }
     }
-    
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('createCaregiverMedical')) {
+        function createCaregiverMedical($cargiver_id)
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><CreateCaregiverMedical xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<CaregiverMedicalInfo><CaregiverID>' . $cargiver_id . '</CaregiverID><MedicalID>int</MedicalID><DueDate>dateTime</DueDate><DateCompleted>dateTime</DateCompleted><Notes>string</Notes><ResultID>int</ResultID></CaregiverMedicalInfo>67467</CreateCaregiverMedical></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+            $method = 'POST';
+            return curlCall($data, $method);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('SearchCaregivers')) {
+        function SearchCaregivers()
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchCaregivers xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<SearchFilters><Status>Active</Status><EmployeeType>Employee</EmployeeType></SearchFilters></SearchCaregivers></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+            //<FirstName>string</FirstName><LastName>string</LastName><PhoneNumber>string</PhoneNumber><CaregiverCode>string</CaregiverCode><EmployeeType>string</EmployeeType><SSN>string</SSN>Employee/Applicant
+
+            $method = 'POST';
+            return curlCall($data, $method);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('getVisitInfo')) {
+        function getVisitInfo($visitorID,$input = '')
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetVisitInfo xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication($input). '<VisitInfo><ID>' . $visitorID . '</ID></VisitInfo></GetVisitInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+            $method = 'POST';
+
+            return curlCall($data, $method);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('confirmVisits')) {
+        function confirmVisits($input)
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><ConfirmVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication($input). '<VisitInfo><VisitID>' . $input['visitId'] . '</VisitID><VisitStartTime>' . $input['startTime']. '</VisitStartTime><VisitEndTime>' . $input['endTime']. '</VisitEndTime><ReasonCode>100</ReasonCode><ActionCode>10</ActionCode></VisitInfo></ConfirmVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+            
+            $method = 'POST';
+            return curlCall($data, $method);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('searchPatients')) {
+        function searchPatients()
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchPatients xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<SearchFilters><FirstName></FirstName><LastName></LastName><Status></Status><PhoneNumber></PhoneNumber><AdmissionID></AdmissionID><MRNumber></MRNumber><SSN></SSN></SearchFilters></SearchPatients></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+            $method = 'POST';
+            return curlCall($data, $method);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('getPatientDemographics')) {
+        function getPatientDemographics($patientId)
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientDemographics xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<PatientInfo><ID>'.$patientId.'</ID></PatientInfo></GetPatientDemographics></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+            $method = 'POST';
+
+            return curlCall($data, $method);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('getPatientChangesV2')) {
+        function getPatientChangesV2()
+        {
+            $date = Carbon::now();// will get you the current date, time
+            $today = $date->format("Y-m-d");
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientChangesV2 xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<ModifiedAfter>' . $today . '</ModifiedAfter></GetPatientChangesV2></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+            $method = 'POST';
+
+            return curlCall($data, $method);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('getPatientReferralInfo')) {
+        function getPatientReferralInfo($patientId)
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientReferralInfo xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<PatientID>' . $patientId . '</PatientID></GetPatientReferralInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+            $method = 'POST';
+
+            return curlCall($data, $method);
+        }
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('getReferralProfile')) {
+        function getReferralProfile($referralId)
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetReferralProfile xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<SearchFilters><ReferralID>' . $referralId . '</ReferralID></SearchFilters></GetReferralProfile></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+            // <SearchFilters><ReferralID>string</ReferralID><LastName>string</LastName><FirstName>string</FirstName><OfficeID>int</OfficeID><ReferralStatusID>int</ReferralStatusID><ReferralSourceID>int</ReferralSourceID><ReferralDateFrom>string</ReferralDateFrom><ReferralDateTo>string</ReferralDateTo><SalesStaffID>int</SalesStaffID><ReferralContractID>int</ReferralContractID><AdmittedDateFrom>string</AdmittedDateFrom><AdmittedDateTo>string</AdmittedDateTo></SearchFilters>
+
+            $method = 'POST';
+
+            return curlCall($data, $method);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -90,11 +251,17 @@ if (!function_exists('curlCall')) {
      */
     if (!function_exists('authentication')) {
         
-        function authentication()
+        function authentication($input = '')
         {
-            $appName = config('patientDetailAuthentication.AppName');
-            $appSecret = config('patientDetailAuthentication.AppSecret');
-            $appKey = config('patientDetailAuthentication.AppKey');
+            if (isset($input['AppName']) && isset($input['AppSecret']) && isset($input['AppKey'])) {
+                $appName = $input['AppName'];
+                $appSecret = $input['AppSecret'];
+                $appKey = $input['AppKey'];
+            } else {
+                $appName = config('patientDetailAuthentication.AppName');
+                $appSecret = config('patientDetailAuthentication.AppSecret');
+                $appKey = config('patientDetailAuthentication.AppKey');
+            }
 
             return '<Authentication><AppName>' . $appName . '</AppName><AppSecret>' . $appSecret . '</AppSecret><AppKey>' . $appKey. '</AppKey></Authentication>';
         }

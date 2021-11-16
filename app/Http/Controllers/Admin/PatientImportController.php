@@ -189,24 +189,20 @@ class PatientImportController extends Controller
 
             $searchPatientIds = searchVisits($input);
             $visitIDs = $searchPatientIds['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
-		 $data = [];
-            //
-	   // if ($request['from'] == 0 && $request['to'] == 0) {
-	    //	foreach ($visitIDs as $visitID) {
-	    //} else {
-		foreach (array_slice($visitIDs, $request['from'] , $request['to']) as $visitID) {
-	   // }
-	    
-                $scheduleInfo = $this->getVisitInfo($visitID, $input);
+		    $data = [];
+          
+		    foreach (array_slice($visitIDs, $request['from'] , $request['to']) as $visitID) {
+                $scheduleInfo = getVisitInfo($visitID,$input);
+                
                 $getVisitorInfo = $scheduleInfo['soapBody']['GetVisitInfoResponse']['GetVisitInfoResult']['VisitInfo'];
                 $data[] = [
-		        'VisitID' => ($getVisitorInfo['ID']) ? $getVisitorInfo['ID'] : '',
-		        'VisitDate' => ($getVisitorInfo['VisitDate']) ? $getVisitorInfo['VisitDate'] : '',
-		        'PatientID' => ($getVisitorInfo['Patient']['ID']) ? $getVisitorInfo['Patient']['ID'] : '',
-			'PatientAdmissionNumber' => ($getVisitorInfo['Patient']['AdmissionNumber']) ? $getVisitorInfo['Patient']['AdmissionNumber'] : '',
-			'CaregiverID' => ($getVisitorInfo['Caregiver']['ID']) ? $getVisitorInfo['Caregiver']['ID'] : '',
-			'CaregiverCode' => ($getVisitorInfo['Caregiver']['CaregiverCode']) ? $getVisitorInfo['Caregiver']['CaregiverCode'] : '',
-		 ];
+                    'VisitID' => ($getVisitorInfo['ID']) ? $getVisitorInfo['ID'] : '',
+                    'VisitDate' => ($getVisitorInfo['VisitDate']) ? $getVisitorInfo['VisitDate'] : '',
+                    'PatientID' => ($getVisitorInfo['Patient']['ID']) ? $getVisitorInfo['Patient']['ID'] : '',
+                    'PatientAdmissionNumber' => ($getVisitorInfo['Patient']['AdmissionNumber']) ? $getVisitorInfo['Patient']['AdmissionNumber'] : '',
+                    'CaregiverID' => ($getVisitorInfo['Caregiver']['ID']) ? $getVisitorInfo['Caregiver']['ID'] : '',
+                    'CaregiverCode' => ($getVisitorInfo['Caregiver']['CaregiverCode']) ? $getVisitorInfo['Caregiver']['CaregiverCode'] : '',
+                ];
             }
             $arr = $data;
         } catch (\Illuminate\Database\QueryException $ex) {
@@ -226,19 +222,6 @@ class PatientImportController extends Controller
         return \Response::json($arr);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getVisitInfo($visitorID,$input)
-    {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetVisitInfo xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>' . $input['AppName']. '</AppName><AppSecret>' . $input['AppSecret']. '</AppSecret><AppKey>' . $input['AppKey']. '</AppKey></Authentication><VisitInfo><ID>' . $visitorID . '</ID></VisitInfo></GetVisitInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-        $method = 'POST';
-
-        return curlCall($data, $method);
-    }
-
    /**
      * Display a listing of the resource.
      *
@@ -247,14 +230,12 @@ class PatientImportController extends Controller
     public function confirmVisits(Request $request)
     {
     	try {
-       $input = $request->all();
-//	$duties = explode(',' ,$input['duties']);
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><ConfirmVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>' . $input['AppName']. '</AppName><AppSecret>' . $input['AppSecret']. '</AppSecret><AppKey>' . $input['AppKey']. '</AppKey></Authentication><VisitInfo><VisitID>' . $input['visitId'] . '</VisitID><VisitStartTime>' . $input['startTime']. '</VisitStartTime><VisitEndTime>' . $input['endTime']. '</VisitEndTime><ReasonCode>100</ReasonCode><ActionCode>10</ActionCode></VisitInfo></ConfirmVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-     	
-        $method = 'POST';
-        $result =  curlCall($data, $method);
-        
-        $arr = $result;
+            $input = $request->all();
+            //	$duties = explode(',' ,$input['duties']);
+           
+            $result = confirmVisits($input);
+            
+            $arr = $result;
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
             if (isset($ex->errorInfo[2])) {

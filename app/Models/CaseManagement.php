@@ -28,6 +28,10 @@ class CaseManagement extends Model
         return $this->hasOne(FileTypeMaster::class,'id','file_type');
     }
 
+    public function clinician(){
+        return $this->hasOne(User::class,'id','clinician_id');
+    }
+
     public static function getAccepted(){
         return PatientReferral::select("patient_referrals.*","patient_referrals.id as pr_id","case_management.id as id","case_management.clinician_id as clinician_id", \DB::raw("CONCAT(patient_referrals.first_name,' ',patient_referrals.last_name) as full_name"))->with('service','filetype')->Join('case_management', 'case_management.patient_id', '=', 'patient_referrals.id')->where('status','accept')->get();
     }

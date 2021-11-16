@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CareTeamController;
 use App\Http\Controllers\UserDeviceController;
 use Illuminate\Support\Facades\Route;
 
@@ -118,8 +119,8 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('get-state-data','App\Http\Controllers\CaregiverController@getSelectStateData')->name('get-state-data');
 
-    Route::get('/search-caregivers','App\Http\Controllers\Admin\HHAExchangeController@searchCaregivers')->name('search-caregivers');
-    Route::resource('hha-exchange','App\Http\Controllers\Admin\HHAExchangeController');
+    // Route::get('/search-caregivers','App\Http\Controllers\Admin\HHAExchangeController@searchCaregivers')->name('search-caregivers');
+    //Route::resource('hha-exchange','App\Http\Controllers\Admin\HHAExchangeController');
 
     // Convert Address to Lat-Long
     Route::get('lat-long','App\Http\Controllers\HomeController@convertLatLongFromAddress');
@@ -144,3 +145,5 @@ use Illuminate\Support\Facades\Route;
     Route::post('/voice','App\Http\Controllers\call\CallController@voice');
     Route::post('/token','App\Http\Controllers\call\CallController@token');
     Route::get('visitor','App\Http\Controllers\VisitorController@index');
+
+    Route::resource('care-team', CareTeamController::class);

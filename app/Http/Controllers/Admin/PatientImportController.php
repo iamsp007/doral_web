@@ -7,10 +7,12 @@ use App\Http\Controllers\GetPatientDetailsController;
 use App\Jobs\CaregiverImport;
 use App\Jobs\PatientImport;
 use App\Jobs\VisitorImport;
+use App\Models\Demographic;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Nexmo\Laravel\Facade\Nexmo;
 
 class PatientImportController extends Controller
 {
@@ -24,8 +26,8 @@ class PatientImportController extends Controller
             } 
             PatientImport::dispatch($company);
 
-            $arr = array('status' => 200, 'message' => 'Please be patient, the import patient process is taking place in the background.', 'data' => []);
-            //Please be patient, the import patient process is taking place in the background. You will receive mail after the all patient imported successfully.
+            $arr = array('status' => 200, 'message' => 'Please be patient, the import patient process is taking place in the background. You will receive mail after the all patient imported successfully.', 'data' => []);
+        
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
             if (isset($ex->errorInfo[2])) {
@@ -43,16 +45,61 @@ class PatientImportController extends Controller
         return \Response::json($arr);
     }
 
-    public function importCaregiver()
+    public function importCaregiver(Request $reqtest)
     {
         try {
+
             $company_id='';
             if(Auth::guard('referral')) {
                 $company_id = Auth::guard('referral')->user();
             } 
-            CaregiverImport::dispatch($company_id);
+            
+            if ($reqtest['action'] = 'check-caregiver') {
 
-            $arr = array('status' => 200, 'message' => 'Please be patient, the import patient process is taking place in the background.', 'data' => []);
+                $input['patient_id'] = $reqtest['patient_id'];
+                $date = Carbon::now();// will get you the current date, time
+                $today = $date->format("Y-m-d");
+
+                $input['from_date'] = $today;
+                $input['to_date'] = $today;
+
+                $curlFunc = searchVisits($input);
+
+                if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
+                    $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+                  
+                    foreach ($visitID as $viId) {
+                        $scheduleInfo = getScheduleInfo($viId);
+                        $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
+
+                        $caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
+                        $getdemographicDetails = getCaregiverDemographics($caregiver_id);
+
+                        $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+
+                        $doral_id = createDoralId();
+
+                        $user_id = storeUser($demographics, $doral_id);
+
+                        if ($user_id) {
+                            
+                            storeDemographic($demographics, $user_id, $company_id, $doral_id);
+
+                            storeEmergencyContact($demographics, $user_id);
+                        }
+                    }
+                }
+                dump($getScheduleInfo);
+                $arr = array('status' => 200, 'message' => 'Get current caregiver', 'data' => $getScheduleInfo);
+            } else {
+               
+                CaregiverImport::dispatch($company_id);
+
+                $message = 'Please be patient, the import patient process is taking place in the background.';
+
+                $arr = array('status' => 200, 'message' => $message, 'data' => []);
+            }
+           
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
             if (isset($ex->errorInfo[2])) {
@@ -70,13 +117,77 @@ class PatientImportController extends Controller
         return \Response::json($arr);
     }
 
+
+    public static function storeUser($demographics, $doral_id)
+    {      
+        $user = new User();
+           
+        if ($demographics['NotificationPreferences'] && isset($demographics['NotificationPreferences']['Email'])) {
+            $email = $demographics['NotificationPreferences']['Email'];
+                
+            $userDuplicateEmail = User::where('email', $email)->first();
+    
+            if (empty($userDuplicateEmail)) {
+                $user->email = $email;
+            } 
+        }
+        
+        $phone_number = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
+        $tele_phone = $demographics['Address']['Phone2'] ? $demographics['Address']['Phone2']: '';
+
+        if ($phone_number != '') {
+           
+            // $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
+           
+            // if (empty($userDuplicatePhone)) {
+            //     $user->phone = setPhone($phone_number);
+            //     $user->phone_verified_at = now();
+            //     $status = '0';
+            // } else {
+            //     $status = '4';
+            // }
+            $status = '0';
+        } else {
+            $status = '4';
+        }
+      
+        $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
+        $password = str_replace("-", "@",$doral_id);
+            
+        $user->first_name = $first_name;
+        $user->last_name = ($demographics['LastName']) ? $demographics['LastName'] : '';
+        $user->password = setPassword($password);
+        $user->phone = setPhone($phone_number);
+        $user->phone_verified_at = now();
+        $user->status = $status;
+        $user->gender = setGender($demographics['Gender']);
+        
+        $user->dob = dateFormat($demographics['BirthDate']);
+
+        if ($tele_phone != '') {
+            $user->tele_phone = setPhone($tele_phone);
+        }
+       
+        $user->save();
+        $user->assignRole('patient')->syncPermissions(Permission::all());
+        $url = route('partnerEmailVerified', base64_encode($user->id));
+        $details = [
+            'name' => $user->first_name,
+            'href' => $url,
+        ];
+
+        if (isset($user->email)) {
+            SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
+        }
+        return $user->id;
+    }
     public function importVisitor(Request $request)
     {
         try {
            	$input = $request->all();
             //VisitorImport::dispatch();
 
-            $searchPatientIds = $this->searchVisitorDetails($input);
+            $searchPatientIds = searchVisits($input);
             $visitIDs = $searchPatientIds['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
 		 $data = [];
             //
@@ -115,21 +226,6 @@ class PatientImportController extends Controller
         return \Response::json($arr);
     }
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function searchVisitorDetails($input)
-    {
-        //$date = Carbon::now();
-        //$today = date('Y-m-d', strtotime('-1 day', time()));
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>' . $input['AppName']. '</AppName><AppSecret>' . $input['AppSecret']. '</AppSecret><AppKey>' . $input['AppKey']. '</AppKey></Authentication><SearchFilters><StartDate>' . $input['from_date'] .'</StartDate><EndDate>' . $input['to_date']  . '</EndDate></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-     
-        $method = 'POST';
-        return $this->curlCall($data, $method);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -140,7 +236,7 @@ class PatientImportController extends Controller
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetVisitInfo xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>' . $input['AppName']. '</AppName><AppSecret>' . $input['AppSecret']. '</AppSecret><AppKey>' . $input['AppKey']. '</AppKey></Authentication><VisitInfo><ID>' . $visitorID . '</ID></VisitInfo></GetVisitInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>';
         $method = 'POST';
 
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
    /**
@@ -156,7 +252,7 @@ class PatientImportController extends Controller
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><ConfirmVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>' . $input['AppName']. '</AppName><AppSecret>' . $input['AppSecret']. '</AppSecret><AppKey>' . $input['AppKey']. '</AppKey></Authentication><VisitInfo><VisitID>' . $input['visitId'] . '</VisitID><VisitStartTime>' . $input['startTime']. '</VisitStartTime><VisitEndTime>' . $input['endTime']. '</VisitEndTime><ReasonCode>100</ReasonCode><ActionCode>10</ActionCode></VisitInfo></ConfirmVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
      	
         $method = 'POST';
-        $result =  $this->curlCall($data, $method);
+        $result =  curlCall($data, $method);
         
         $arr = $result;
         } catch (\Illuminate\Database\QueryException $ex) {
@@ -174,29 +270,5 @@ class PatientImportController extends Controller
         }
 
         return \Response::json($arr);
-    }
-    
-    public function curlCall($data, $method)
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => config('patientDetailAuthentication.AppUrl'),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => array(
-               'Content-Type: text/xml'
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
-        $xml = new \SimpleXMLElement($response);
-        return json_decode(json_encode((array)$xml), TRUE);
     }
 }

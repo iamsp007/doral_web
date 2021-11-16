@@ -153,7 +153,7 @@ class CaregiverController extends Controller
                 if (str_contains($url, 'assigned-patients')){
                     $query->whereHas('caseManagement');
                 } else {
-                    $query->whereIn('status', ['1']);
+                    $query->whereIn('status', ['1'])->doesntHave('caseManagement');
                 }
             } else {
                 $query->whereIn('status', ['1', '2', '3', '5']);

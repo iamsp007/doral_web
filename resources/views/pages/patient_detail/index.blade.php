@@ -72,8 +72,7 @@
                         href="#homecare" role="tab" aria-controls="homecare" aria-selected="false">
                         <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_home_care_active.svg') }}" alt=""
-                           class="mr-2 activeIcon">Home
-                        Care</a>
+                           class="mr-2 activeIcon">Care Team</a>
                   </li>
                   <li>
                      <a class="nav-link d-flex align-items-center" id="ccm-tab" data-toggle="pill"
@@ -998,5 +997,6 @@
 {{--        defer--}}
 {{--    ></script>--}}
    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
+   <script src="{{ asset('assets/developer/js/import.js') }}"></script>
    @stack('patient-detail-js')
 @endpush

@@ -1,7 +1,7 @@
 <div class="tab-pane fade" id="homecare" role="tabpanel" aria-labelledby="homecare-tab">
    <div class="app-card app-card-custom" data-name="home_care">
       <div class="app-card-header">
-         <h1 class="title mr-2">Home Care</h1>
+         <h1 class="title mr-2">Care team</h1>
          @role('clinician')
             <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('homecare')">
             <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('homecare')">
@@ -117,6 +117,537 @@
                      </div>
                   </div>
                @endif
+
+               <!-- Caregiver Start -->
+               <div class="app-card app-card-custom no-minHeight box-shadow-none">
+                  <div class="app-card-header">
+                     <h1 class="title mr-2">Caregiver Details</h1>
+                     <a class="add_new_company" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Family Detail"><i class="las la-plus-circle la-2x"></i></a>
+                     <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="check-caregiver" data-id="{{$patient->id}}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Check Current Caregiver</a>
+                  </div>
+                  <div class="card-body text-info">
+                     <table class="table m-0 family-list-order">
+                        <thead class="thead-light">
+                           <tr>
+                              <th>Phone</th>
+                              <th>Schedule Start</th>
+                              <th>Schedule End</th>
+                              <th>Coordinator Name</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           @if(isset($careTeams['family_detail']))
+                              @foreach($careTeams['family_detail'] as $family)
+                                 <tr>
+                                    <form class="family_form">
+                                       <input type="hidden" name="family_id" value="{{ $family->id }}">
+                                       
+                                       <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                                       <td>
+                                          <span class='label'>{{ $family->name }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" name="family_detail['name']" aria-describedby="nameHelp" placeholder="Enter Family Company Name" value="{{ $family->name }}">
+                                             <span class="name-invalid-feedback text-danger" role="alert"></span>
+                                          </div>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $family->relation }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" id="relation" name="family_detail['relation']" aria-describedby="relationHelp" placeholder="Enter relation" value="{{ $family->relation }}">
+                                          </div>
+                                          <span class="relation-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $family->phone }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg phone_format" name="family_detail['phone']" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $family->phone }}" maxlength="14">
+                                          </div>
+                                          <span class="phone-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $family->hcp }}</span>
+                                          $careTeams['family_detail']         <label>
+                                                      <input type="checkbox" name="family_detail['hcp']">
+                                                      <span
+                                                         style="font-size:12px; padding-left: 25px;">HCP</span>
+                                                </label>
+                                             </div>
+                                          <span class="hcp-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <div class="normal">
+                                             <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
+                                          </div>
+                                          <div class="while_edit">
+                                             <a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
+                                          </div>
+                                       </td>
+                                    </form>
+                                 </tr>
+                              @endforeach
+                           @else
+                              <tr><td>Data not found.</td></td>
+                           @endif
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <!-- Caregiver end -->
+
+               <!-- Family Start -->
+               <div class="app-card app-card-custom no-minHeight box-shadow-none">
+                  <div class="app-card-header">
+                     <h1 class="title mr-2">Family Details</h1>
+                     <a class="_add_family_company" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Family Detail"><i class="las la-plus-circle la-2x"></i></a>
+                  </div>
+                  <div class="card-body text-info">
+                     <table class="table m-0 family-list-order">
+                        <thead class="thead-light">
+                           <tr>
+                              <th>Name</th>
+                              <th>Relation</th>
+                              <th>Phone</th>
+                              <th>HCP</th>
+                              <th>Action</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           @if(isset($careTeams['family_detail']))
+                              @foreach($careTeams['family_detail'] as $family)
+                                 <tr>
+                                    <form class="family_form">
+                                       <input type="hidden" name="family_id" value="{{ $family->id }}">
+                                       
+                                       <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                                       <td>
+                                          <span class='label'>{{ $family->name }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" name="family_detail['name']" aria-describedby="nameHelp" placeholder="Enter Family Company Name" value="{{ $family->name }}">
+                                             <span class="name-invalid-feedback text-danger" role="alert"></span>
+                                          </div>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $family->relation }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" id="relation" name="family_detail['relation']" aria-describedby="relationHelp" placeholder="Enter relation" value="{{ $family->relation }}">
+                                          </div>
+                                          <span class="relation-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $family->phone }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg phone_format" name="family_detail['phone']" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $family->phone }}" maxlength="14">
+                                          </div>
+                                          <span class="phone-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $family->hcp }}</span>
+                                          $careTeams['family_detail']         <label>
+                                                      <input type="checkbox" name="family_detail['hcp']">
+                                                      <span
+                                                         style="font-size:12px; padding-left: 25px;">HCP</span>
+                                                </label>
+                                             </div>
+                                          <span class="hcp-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <div class="normal">
+                                             <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
+                                          </div>
+                                          <div class="while_edit">
+                                             <a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
+                                          </div>
+                                       </td>
+                                    </form>
+                                 </tr>
+                              @endforeach
+                           @else
+                              <tr><td>Data not found.</td></td>
+                           @endif
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
+                  <form class="family_form">
+                     <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                     <input type="hidden" name="section" value="family">
+                     <span class="name-invalid-feedback text-danger" role="alert"></span>
+                     <div class="head">
+                        <div class="p-3">
+                           <div class="row">
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Name</h3>
+                                       <div class="_detail">
+                                          <input type="text" class="form-control form-control-lg" name="name" 
+                                          aria-describedby="nameHelp" placeholder="Enter Name">
+                                          <span class="name-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Relation</h3>
+                                       <div class="_detail">
+                                          <input type="text" class="form-control form-control-lg" id="relation" name="relation" aria-describedby="relationHelp" placeholder="Enter relation">
+                                          <span class="relation-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-phone circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Phone</h3>
+                                       <div class="_detail">
+                                          <input type="text" class="form-control form-control-lg phone_format" name="phone" id="family_detail_phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" maxlength="14">
+                                          <span class="phone-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="p-3">
+                           <div class="row">
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">HCP</h3>
+                                       <div class="_detail">
+                                          <label>
+                                                <input type="checkbox" name="hcp">
+                                                <span style="font-size:12px; padding-left: 25px;"></span>
+                                          </label>
+                                          <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class=" d-flex justify-content-end">
+                              <button type="submit" id="add" class="btn btn-outline-green" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}"><i class="fa fa-save"></i> Save</button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <!-- Family End -->
+               
+               <!-- Case Manager Start -->
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3" data-name="croley_family_and_financial">
+                  <div class="app-card-header">
+                     <h1 class="title mr-2">Case Manager Details</h1>
+                  </div>
+                  <div class="card-body text-info">
+                     <table class="table m-0">
+                        <thead class="thead-light">
+                           <tr>
+                              <th>Name</th>
+                              <th>Phone</th>
+                              <th>FAX</th>
+                              <th>Address</th>
+                              <th>NPI</th>
+                              <th>Primary</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           @if(isset($caseManagements))
+                              @foreach($caseManagements as $caseManager)
+                                 <tr>
+                                    <td>
+                                       {{ $caseManager->clinician->full_name }}
+                                    </td>
+                                    <td>
+                                       {{ $caseManager->clinician->phone }}
+                                    </td>
+                                    <td>
+                                       
+                                    </td>
+                                    <td>
+                                       
+                                    </td>
+                                    <td>
+                                       
+                                    </td>
+                                    <td>
+                                       
+                                    </td>
+                                 </tr>
+                              @endforeach
+                           @else
+                              <tr><td>Data not found.</td></td>
+                           @endif
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <!-- Case Manager End -->
+
+               <!-- Physician Start -->
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3" data-name="croley_family_and_financial">
+                  <div class="app-card-header">
+                     <h1 class="title mr-2">Physician Details</h1>
+                  </div>
+                  <div class="card-body text-info">
+                     <table class="table m-0">
+                        <thead class="thead-light">
+                           <tr>
+                              <th>Name</th>
+                              <th>Phone</th>
+                              <th>FAX</th>
+                              <th>Address</th>
+                              <th>NPI</th>
+                              <th>Primary</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           @if(isset($careTeams['physician_detail']))
+                              @foreach($careTeams['physician_detail'] as $physician)
+                                 <tr>
+                                    <td>
+                                       {{ $physician->name }}
+                                    </td>
+                                    <td>
+                                       {{ $physician->phone }}
+                                    </td>
+                                    <td>
+                                       {{ $physician->fax }}
+                                    </td>
+                                    <td>
+                                       {{ $physician->address }}
+                                    </td>
+                                    <td>
+                                       {{ $physician->npi }}
+                                    </td>
+                                    <td>
+                                       {{ $physician->primary }}
+                                    </td>
+                                 </tr>
+                              @endforeach
+                           @endif
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
+                  <form class="family_form">
+                     <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                     <input type="hidden" name="section" value="physician">
+                     <span class="name-invalid-feedback text-danger" role="alert"></span>
+                     <div class="head">
+                        <div class="p-3">
+                           <div class="row">
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Name</h3>
+                                       <div class="_detail">
+                                          <input type="text" class="form-control form-control-lg" name="name" 
+                                          aria-describedby="nameHelp" placeholder="Enter Name">
+                                          <span class="name-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-phone circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Phone</h3>
+                                       <div class="_detail">
+                                          <input type="text" class="form-control form-control-lg phone_format" name="phone" id="family_detail_phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" maxlength="14">
+                                          <span class="phone-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Fax</h3>
+                                       <div class="_detail">
+                                          <input type="text" class="form-control form-control-lg" id="fax" name="fax" aria-describedby="faxHelp" placeholder="Enter fax">
+                                          <span class="fax-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Address</h3>
+                                       <div class="_detail">
+                                          <textarea id="address" data-id="address" name="address" rows="4" cols="62" class="form-control-plaintext _detail" readonly placeholder="address"></textarea>
+                                          <span class="fax-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">NPI</h3>
+                                       <div class="_detail">
+                                          <input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi">
+                                          <span class="npi-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="p-3">
+                           <div class="row">
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Primary</h3>
+                                       <div class="_detail">
+                                          <label>
+                                                <input type="checkbox" name="primary">
+                                                <span style="font-size:12px; padding-left: 25px;"></span>
+                                          </label>
+                                          <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class=" d-flex justify-content-end">
+                              <button type="submit" id="add" class="btn btn-outline-green" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}"><i class="fa fa-save"></i> Save</button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <!-- Physician End -->
+
+               <!-- Pharmacy Start -->
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3" data-name="croley_family_and_financial">
+                  <div class="app-card-header">
+                     <h1 class="title mr-2">Pharmacy Details</h1>
+                  </div>
+                  <div class="card-body text-info">
+                     <table class="table m-0">
+                        <thead class="thead-light">
+                           <tr>
+                              <th>Name</th>
+                              <th>Phone</th>
+                              <th>Address</th>
+                              <th>Status</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           @if(isset($careTeams['pharmacy_detail']))
+                              @foreach($careTeams['pharmacy_detail'] as $physician)
+                                 <tr>
+                                    <td>
+                                       {{ $physician->name }}
+                                    </td>
+                                    <td>
+                                       {{ $physician->phone }}
+                                    </td>
+                                    <td>
+                                       {{ $physician->address }}
+                                    </td>
+                                    <td>
+                                       {{ $physician->status }}
+                                    </td>
+                                 </tr>
+                              @endforeach
+                           @endif
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
+                  <form class="family_form">
+                     <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                     <input type="hidden" name="section" value="pharmacy">
+                     <span class="name-invalid-feedback text-danger" role="alert"></span>
+                     <div class="head">
+                        <div class="p-3">
+                           <div class="row">
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Name</h3>
+                                       <div class="_detail">
+                                          <input type="text" class="form-control form-control-lg" name="name" 
+                                          aria-describedby="nameHelp" placeholder="Enter Name">
+                                          <span class="name-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-phone circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Phone</h3>
+                                       <div class="_detail">
+                                          <input type="text" class="form-control form-control-lg phone_format" name="phone" id="family_detail_phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" maxlength="14">
+                                          <span class="phone-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Address</h3>
+                                       <div class="_detail">
+                                          <textarea id="address" data-id="address" name="address" rows="4" cols="62" class="form-control-plaintext _detail" readonly placeholder="address"></textarea>
+                                          <span class="fax-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="p-3">
+                           <div class="row">
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Active</h3>
+                                       <div class="_detail">
+                                          <label>
+                                                <input type="checkbox" name="active">
+                                                <span style="font-size:12px; padding-left: 25px;"></span>
+                                          </label>
+                                          <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class=" d-flex justify-content-end">
+                              <button type="submit" id="add" class="btn btn-outline-green" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}"><i class="fa fa-save"></i> Save</button>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <!-- Pharmacy End -->
+
                <div class="app-card app-card-custom box-shadow-none no-minHeight mt-3"
                   data-name="administrator_detail">
                   <div class="app-card-header">

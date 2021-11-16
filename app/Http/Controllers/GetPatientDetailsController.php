@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\AcceptedService;
 use App\Models\AlternateBilling;
+use App\Models\CareTeam;
+use App\Models\CaseManagement;
 use App\Models\City;
 use App\Models\Coordinator;
 use App\Models\Country;
@@ -90,6 +92,8 @@ class GetPatientDetailsController extends Controller
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
         $patient = User::with('demographic', 'patientEmergency')->find($paient_id);
+        $caseManagements = CaseManagement::with('clinician')->where('patient_id', $paient_id)->get();
+        $careTeams = CareTeam::where('patient_id', $paient_id)->get();
         $payment = array();
         if(isset($patient->demographic->service_id) and isset($patient->demographic->company_id)){
             $payment = CompanyPaymentPlanInfo::where('service_id',$patient->demographic->service_id)->where('company_id',$patient->demographic->company_id)->get();
@@ -131,7 +135,7 @@ class GetPatientDetailsController extends Controller
         ->groupBy('user_device_id','date')
         ->get()->toArray();
         
-        return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs','today'));
+        return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs','today', 'caseManagements','careTeams'));
     }
 
     /**
@@ -144,7 +148,7 @@ class GetPatientDetailsController extends Controller
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchPatients xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><FirstName></FirstName><LastName></LastName><Status></Status><PhoneNumber></PhoneNumber><AdmissionID></AdmissionID><MRNumber></MRNumber><SSN></SSN></SearchFilters></SearchPatients></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         $method = 'POST';
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
     /**
@@ -158,7 +162,7 @@ class GetPatientDetailsController extends Controller
 
         $method = 'POST';
 
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
     /**
@@ -174,7 +178,7 @@ class GetPatientDetailsController extends Controller
 
         $method = 'POST';
 
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
     /**
@@ -188,7 +192,7 @@ class GetPatientDetailsController extends Controller
 
         $method = 'POST';
 
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
     /**
@@ -204,7 +208,7 @@ class GetPatientDetailsController extends Controller
 
         $method = 'POST';
 
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
     /**
@@ -221,21 +225,7 @@ class GetPatientDetailsController extends Controller
 
         $method = 'POST';
 
-        return $this->curlCall($data, $method);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getScheduleInfo($visitorID)
-    {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetScheduleInfo xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><ScheduleInfo><ID>' . $visitorID . '</ID></ScheduleInfo></GetScheduleInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-
-        $method = 'POST';
-
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
     /**
@@ -249,7 +239,7 @@ class GetPatientDetailsController extends Controller
 
         $method = 'POST';
 
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
     public function checkCurrentVisitorDetails(Request $request)
@@ -259,13 +249,13 @@ class GetPatientDetailsController extends Controller
         $today = $date->format("Y-m-d");
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><StartDate>' . $today .'</StartDate><EndDate>' . $today . '</EndDate><PatientID>' . $patientId . '</PatientID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
         $method = 'POST';
-        $curlFunc = $this->curlCall($data, $method);
+        $curlFunc = curlCall($data, $method);
         if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
             $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
             $patientForeignId = PatientDetail::where('patient_id',$patientId)->first();
             foreach ($visitID as $viId) {
                 $vid = $viId;
-                $scheduleInfo = $this->getScheduleInfo($viId);
+                $scheduleInfo = getScheduleInfo($viId);
                 $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
 
                 $visitorDetail = new VisitorDetail();
@@ -301,35 +291,12 @@ class GetPatientDetailsController extends Controller
 
         $method = 'POST';
 
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
 
 
-    public function curlCall($data, $method)
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => config('patientDetailAuthentication.AppUrl'),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => array(
-               'Content-Type: text/xml'
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
-        $xml = new \SimpleXMLElement($response);
-        return json_decode(json_encode((array)$xml), TRUE);
-    }
-
+   
     /**
      * Display a listing of the resource.
      *
@@ -346,8 +313,11 @@ class GetPatientDetailsController extends Controller
         $counter = 0;
         foreach ($patientArray as $patient_id) {
             if ($counter < 5) {
-
-                $searchVisitorId = $this->getSearchVisitorDetails($patient_id);
+                $date = Carbon::now();// will get you the current date, time
+                $today = $date->format("Y-m-d");
+                $input['from_date'] = $today;
+                $input['to_date'] = $today;
+                $searchVisitorId = searchVisits($input);
                 if (isset($searchVisitorId['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
 
                     /** Store patirnt demographic detail */

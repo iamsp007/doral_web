@@ -66,22 +66,30 @@ class PatientImportController extends Controller
 
                 if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
                     $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
-                  
+                    $data = [];
                     foreach ($visitID as $viId) {
                         $scheduleInfo = getScheduleInfo($viId);
                         $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
                         $caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
 
-                        $getdemographicDetails = getCaregiverDemographics($caregiver_id);
-                        $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-
-                        $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
+                        $demographic = Demographic::select('id','user_id','patient_id')->where('patient_id', $caregiver_id)->with(['user' => function($q) {
+                            $q->select('id', 'email', 'phone');
+                        }])->first();
+                        if ($demographic) {
+                            $phoneNumber = $demographic->user->phone;
+                        } else {
+                            $getdemographicDetails = getCaregiverDemographics($caregiver_id);
+                            $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+    
+                            $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
+                        }
+                        
                         $scheduleStartTime = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ;
                         $scheduleEndTime = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ;
                         $firstName = ($getScheduleInfo['Caregiver']['FirstName']) ? $getScheduleInfo['Caregiver']['FirstName'] : '' ;
                         $lastName = ($getScheduleInfo['Caregiver']['LastName']) ? $getScheduleInfo['Caregiver']['LastName'] : '' ;
 
-                        $data = [
+                        $data[] = [
                             'phoneNumber' => $phoneNumber,
                             'scheduleStartTime' => $scheduleStartTime,
                             'scheduleEndTime' => $scheduleEndTime,

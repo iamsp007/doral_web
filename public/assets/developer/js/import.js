@@ -15,9 +15,14 @@ $(".autoImportPatient").click(function () {
                     console.log('get caregiver data');
                     console.log(data.data);
                     console.log('get caregiver data');
-                    var html = '<tr><td>' + data.data.phoneNumber + '</td><td>' + data.data.scheduleStartTime + '</td><td>' + data.data.scheduleEndTime + '</td><td>' + data.data.name + '</td></tr>';
 
-                    $('.caregiver-list-order tr:last').before(html);
+                    if (data.data != '') {
+                        $.each(data.data, function (key, value) {
+                            var html = '<tr><td>' + value.phoneNumber + '</td><td>' + value.scheduleStartTime + '</td><td>' + value.scheduleEndTime + '</td><td>' + value.name + '</td></tr>';
+
+                            $('.caregiver-list-order tr:last').before(html);
+                        });
+                    }
                 }
                 alertText(data.message,'success');
             

@@ -74,18 +74,29 @@ class SuperVisorController extends Controller
     
     public function add_case_management(Request $request){
         try {
-            $patients = explode(',',$request->patient_id);
+            if (isset($request['section'])) {
+                CaseManagement::where('patient_id', $request['patient_id'])->update([
+                    'flag' => '2',
+                ]);
 
-            foreach ($patients as $patient) {
-                $caseManagement = new CaseManagement();
-                $caseManagement->patient_id = $patient;
-                $caseManagement->clinician_id = $request->clinician_id;
+                CaseManagement::where('id', $request['care_team_id'])->update([
+                    'flag' => '1',
+                ]);
 
-                $caseManagement->save();
+                $arr = ['status' => 200, 'message' => 'Change priority successfully.'];
+            } else {
+                $patients = explode(',',$request->patient_id);
+
+                foreach ($patients as $patient) {
+                    $caseManagement = new CaseManagement();
+                    $caseManagement->patient_id = $patient;
+                    $caseManagement->clinician_id = $request->clinician_id;
+    
+                    $caseManagement->save();
+                }
+                
+                $arr = ['status' => 200, 'message' => 'Sucessfully assigned.'];
             }
-            
-            $arr = ['status' => 200, 'message' => 'Sucessfully assigned.'];
-               
         } catch(Exception $e) {
             $arr = ["status" => 400, "message" => $e->getMessage()];
         }

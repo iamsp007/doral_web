@@ -72,8 +72,7 @@
                         href="#homecare" role="tab" aria-controls="homecare" aria-selected="false">
                         <img src="{{ asset('assets/img/icons/icons_home_care.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_home_care_active.svg') }}" alt=""
-                           class="mr-2 activeIcon">Home
-                        Care</a>
+                           class="mr-2 activeIcon">Care Team</a>
                   </li>
                   <li>
                      <a class="nav-link d-flex align-items-center" id="ccm-tab" data-toggle="pill"
@@ -602,7 +601,7 @@
         });
         
         $(document).ready(function() {
-            $('.insurance_company').hide();
+            $('.form_div').hide();
             
             $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
                 var selectedDate = new Date($('[name="lab_due_date"]').val());
@@ -704,65 +703,147 @@
         
             $(document).on('click','.save_record',function(event) {
                 event.preventDefault();
-                $('.insurance_company').hide();
+               // $('.form_div').hide();
                 var t = $(this);
                 var action = t.attr('data-action');
                 if (action === 'add') {
-                var data = $(this).parents('.insurance_company').find('form').serializeArray();//$(".insurance_form").serializeArray();
+                    var formdata = $(this).parents('.form_div').find('form').serializeArray();
                 } else if (action === 'edit') {
-                var data = $(this).parents("tr").find('form').serializeArray();
+                    var formdata = $(this).parents("tr").find('form').serializeArray();
                 }
-
-                var url = "{{ Route('insurance.store') }}";
+                var url = t.attr('data-url');
 
                 $.ajax({
-                type:"POST",
-                url:url,
-                data:data,
-                headers: {
+                    type:"POST",
+                    url:url,
+                    data:formdata,
+                    headers: {
                         'X_CSRF_TOKEN': '{{ csrf_token() }}',
-                },
-                success: function(data) {
-                    if(data.status == 400) {
-                    
-                        $.each( data.message, function( key, value ) {
+                    },
+                    success: function(data) {
+                        if(data.status == 400) {
+                            $.each(data.message, function( key, value ) {
+                                if (data.action === 'add') {
+                                    t.parents('.form_div').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
+                                } else if (data.action === 'edit') {
+                                    t.parents("tr").find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
+                                }
+                            });
+                        } else {
+                            var insurane_html = insuranceAppend(data);
+                            var family_html = familyAppend(data)
+                           
                             if (data.action === 'add') {
-                            t.parents('.insurance_company').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
+                                if (data.modal === 'insurance') {
+                                    $('.insurance-list-order tr:last').after(insurane_html);
+                                } else if(data.modal === 'family') {
+                                    $('.family-list-order tr:last').after(family_html);
+                                } 
                             } else if (data.action === 'edit') {
-                            t.parents("tr").find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
+                                if (data.modal === 'insurance') {
+                                    t.parents("tr").replaceWith(insurane_html);
+                                } else if(data.modal === 'family') {
+                                    t.parents("tr").replaceWith(family_html);
+                                } 
                             }
-                        });
-                    } else {
-                        var html = '<tr><form class="insurance_form5"><input type="hidden" name="insurance_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.name + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="' + data.resultdata.name + '"></div></td><td><span class="label">' + data.resultdata.payer_id + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" aria-describedby="payerIdHelp" placeholder="Enter Payer ID" value="' + data.resultdata.payer_id + '"></div></td><td><span class="label">' + data.resultdata.phone + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.phone + '"></div></td><td><span class="label">' + data.resultdata.policy_no + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="' + data.resultdata.policy_no + '"></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
-
-                        if (data.action === 'add') {
-                            $('.insurance-list-order tr:last').after(html);
-                        } else if (data.action === 'edit') {
-                            t.parents("tr").replaceWith(html);
+                            $('.form_div').hide();
+                            t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
+                            t.parents("tr").find("span, .normal").css("display",'block');
+                            alertText(data.message,'success');
                         }
-                        $('.insurance_company').hide();
-                        t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
-                        t.parents("tr").find("span, .normal").css("display",'block');
-                        alertText(data.message,'success');
+                    },
+                    error: function()
+                    {
+                        alertText("Server Timeout! Please try again",'warning');
                     }
-                },
-                error: function()
-                {
-                    alertText("Server Timeout! Please try again",'warning');
-                }
                 });
             });
 
             $("body").on('click','.edit_btn',function () {
                 $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
-                $(this).parents("tr").find("span, .normal").css("display",'none');
-                $('.insurance_company').hide();
+                $(this).parents("tr").find("span.label, .normal").css("display",'none');
+                $('.form_div').hide();
             });
 
             $("body").on('click','.cancel_edit',function () {
                 $(this).parents("tr").find(".phone-text, .while_edit").css("display",'none');
                 $(this).parents("tr").find("span, .normal").css("display",'block');
-                $('.insurance_company').hide();
+                $('.form_div').hide();
+            });
+
+            $(".careteam_check").change(function() {
+                var val = $(this).attr('data-id');
+                var patientId = $(this).attr('data-patientId');
+                var url = $(this).attr('data-url');
+                var action = $(this).attr('data-action');
+                var field = $(this).attr('data-field');
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: true,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    buttonsStyling: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    title: 'Are you sure?',
+                    text: "Are you sure want to change priority?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, change it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#loader-wrapper").show();
+                            $.ajax({
+                                'type': 'POST',
+                                'url': url,
+                                'headers': {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                data: {
+                                    "care_team_id": val,
+                                    "patient_id": patientId,
+                                    "section" : action,
+                                    "field" : field,
+                                },
+                                'success': function (data) {
+                                    if(data.status == 400) {
+                                        alertText(data.message,'error');
+                                    } else {
+                                        if (data.modal === 'physician') {
+                                            var family_html = physicianAppend(data)
+                                            $('.physician-list-order tr:last').after(insurane_html);
+                                        } else if(data.modal === 'family') {
+                                            var family_html = familyAppend(data)
+                                            $('.family-list-order tr:last').after(family_html);
+                                        } else if(data.modal === 'pharmacy') {
+                                            var family_html = pharmacyAppend(data)
+                                            $('.pharmacy-list-order tr:last').after(family_html);
+                                        }
+
+                                        alertText(data.message,'success');
+                                    }
+                                    $("#loader-wrapper").hide();
+                                },
+                                "error":function () {
+                                    alertText("Server Timeout! Please try again",'error');
+                                    $("#loader-wrapper").hide();
+                                }
+                            });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            alertText("Your file file is safe :)",'warning');
+                            $(".innerallchk, .mainchk").prop("checked","");
+                            $('#acceptRejectBtn').hide();
+                        }
+                });
             });
 
             $("body").on('click','.save_btn',function () {
@@ -784,7 +865,6 @@
                             alertText(data.message,'error');
                         } else {
                             alertText(data.message,'success');
-                            refresh();
                         }
                         $("#loader-wrapper").hide();
                     },
@@ -864,126 +944,67 @@
                 });
             });
 
-            // $('body').on('click', '.upload-report', function () {
-            //     var t = $(this);
-            //     var id = t.attr("id");
-            //     var patient_referral_id = $(this).data("id") ;
-
-            //     const Toast = Swal.mixin({
-            //         toast: true,
-            //         position: 'top-end',
-            //         showConfirmButton: true,
-            //         timer: 3000,
-            //         timerProgressBar: true,
-            //         buttonsStyling: true,
-            //         didOpen: (toast) => {
-            //             toast.addEventListener('mouseenter', Swal.stopTimer)
-            //             toast.addEventListener('mouseleave', Swal.resumeTimer)
-            //         }
-            //     })
-            //     Toast.fire({
-            //         title: 'Are you sure?',
-            //         text: "Are you sure want to upload report?",
-            //         icon: 'warning',
-            //         showCancelButton: true,
-            //         confirmButtonText: 'Yes, change it!',
-            //         cancelButtonText: 'No, cancel!',
-            //         reverseButtons: true
-            //     }).then((result) => {
-            //         if (result.isConfirmed) {
-            //             $.ajax({
-            //                 'type': 'POST',
-            //                 'url': "{{ route('send-email') }}",
-            //                 'headers': {
-            //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            //                 },
-            //                 data: {
-            //                 "id": id,
-            //                 },
-            //                 'success': function (data) {
-            //                 if(data.status == 400) {
-            //                     alertText(data.message,'error');
-            //                 } else {
-            //                     alertText(data.message,'success');
-            //                 }
-                          
-            //                 },
-            //                 "error":function () {
-            //                 alertText("Server Timeout! Please try again",'warning');
-                            
-            //                 }
-            //             });
-            //         } else if (result.dismiss === Swal.DismissReason.cancel) {
-            //             alertText("Your record is safe :)",'cancelled');
-            //         }
-            //     });
-            // });
-
+            $('.add_care_team').on('click', function (e) {
+                e.preventDefault();
+                $(this).parents('.app-card').next('.form_div').toggle();
+            });
         });
 
-     // var i =0;
-      var i = "<?php echo sizeof($patient->patientEmergency);?>";
-      if(i){
-          i = i;
-      }
-      else{
-          i = 0;
-      }
+        var i = "<?php echo sizeof($patient->patientEmergency);?>";
+        if(i){
+            i = i;
+        }
+        else{
+            i = 0;
+        }
       
-      $(document).find("#add").click(function(){
-         i++;
-         $(".add_more_contact_div").append('<div class="main_div"><div class="app-card-header"><h1 class="title">Emergency Contact Detail '+i+'</h1></div><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Name</h3><input type="text" class="form-control-plaintext _detail " readonly name="contact_name[]" data-id="contact_name" placeholder="Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Home Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Cell Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship</h3><input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address Line1</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress1[]" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address Line2</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2[]" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Apt Building</h3><input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding[]" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-city circle"></i></div><div class="rs"><h3 class="_title">City</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city[]" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-archway circle"></i></div><div class="rs"><h3 class="_title">State</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state[]" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-code circle"></i></div><div class="rs"><h3 class="_title">Zipcode</h3><input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code[]" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value=""></div></div></div></div></div><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div>');
-      
-         $(document).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
-         $(document).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
-      });
+        $(document).find("#add").click(function(){
+            i++;
+            $(".add_more_contact_div").append('<div class="main_div"><div class="app-card-header"><h1 class="title">Emergency Contact Detail '+i+'</h1></div><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Name</h3><input type="text" class="form-control-plaintext _detail " readonly name="contact_name[]" data-id="contact_name" placeholder="Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Home Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Cell Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship</h3><input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address Line1</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress1[]" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address Line2</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2[]" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Apt Building</h3><input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding[]" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-city circle"></i></div><div class="rs"><h3 class="_title">City</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city[]" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-archway circle"></i></div><div class="rs"><h3 class="_title">State</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state[]" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-code circle"></i></div><div class="rs"><h3 class="_title">Zipcode</h3><input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code[]" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value=""></div></div></div></div></div><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div>');
+        
+            $(document).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+            $(document).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+        });
 
-      $(document).on('click', '.remove-tr', function(){ 
-        $(".add_more_contact_div").children("div[class=main_div]:last").remove();
-        i--;
-      });  
+        $(document).on('click', '.remove-tr', function(){ 
+            $(".add_more_contact_div").children("div[class=main_div]:last").remove();
+            i--;
+        });  
 
-      // $('body').on('blur', '.note-area', function(e){
-      //    e.preventDefault();
-      //    var txtAval=$(this).val();
+    function insuranceAppend(data) {
+        return '<tr><form class="insurance_form5"><input type="hidden" name="insurance_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.name + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="name" name="name" aria-describedby="nameHelp" placeholder="Enter Insurance Company Name" value="' + data.resultdata.name + '"></div></td><td><span class="label">' + data.resultdata.payer_id + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="payer_id" name="payer_id" aria-describedby="payerIdHelp" placeholder="Enter Payer ID" value="' + data.resultdata.payer_id + '"></div></td><td><span class="label">' + data.resultdata.phone + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="phone" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.phone + '"></div></td><td><span class="label">' + data.resultdata.policy_no + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="policy_no" name="policy_no" aria-describedby="policyNoHelp" placeholder="Enter Policy No" value="' + data.resultdata.policy_no + '"></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+    }
 
-      //    var patient_lab_report_id = $(this).next("input[name=patient_lab_report_id]").val();
+    function familyAppend(data) {
+        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter Family Name" value="' + data.resultdata.detail['name'] + '"></div></td><td><span class="label">' + data.resultdata.detail['relation'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="relation" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['relation'] + '"></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['relation'] + '" maxlength="14"></div></td><td><label><input type="checkbox" name="hcp" value="' + data.resultdata.detail['relation'] + '"><span style="font-size:12px; padding-left: 25px;">HCP</span></label></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+    }
 
-      //    $.ajax({
-      //       headers: {
-      //          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      //       },
-      //       type: "POST",
-      //       url: "{{ route('lab-report-note.store') }}",
-      //       data: { note:txtAval, patient_lab_report_id:patient_lab_report_id },
-      //       dataType: "json",
-      //       success: function(response) {
-      //          $('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
-      //       },
-      //       error: function(error) {
-      //          alert('Something went wrong');
-      //       }
-      //    });
-      // });
+    function physicianAppend(data) {
+        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="physician"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['fax'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="fax" aria-describedby="faxHelp" placeholder="Enter fax" value="' + data.resultdata.detail['fax'] + '"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="' + data.resultdata.detail['address'] + '"></div><span class="address-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['npi'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="' + data.resultdata.detail['npi'] + '"></div><span class="npi-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="primary" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="primary" data-url="" data-patientId="{{ $patient->id }}" ><span style="font-size:12px; padding-left: 25px;">Primary</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+    }
 
-      function alertText(text,status) {
-         const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-         })
+    function pharmacyAppend(data) {
+        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="pharmacy"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="address" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['address'] + '"></div><span class="relation-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="active" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="active" data-url="" data-patientId=""><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b;color:#fff">Save<a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+    }
+    
+    function alertText(text,status) {
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
 
-         Toast.fire({
-            icon: status,
-            title: text
-         })
-      }
+        Toast.fire({
+        icon: status,
+        title: text
+        })
+    }
 
       function printErrorMsg (msg) {
          $(".print-error-msg").find("ul").html('');
@@ -998,5 +1019,6 @@
 {{--        defer--}}
 {{--    ></script>--}}
    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
+   <script src="{{ asset('assets/developer/js/import.js') }}"></script>
    @stack('patient-detail-js')
 @endpush

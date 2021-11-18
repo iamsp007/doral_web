@@ -918,7 +918,7 @@
                                                 </form>
 
                                             <!-- Insurance Company Form Start -->
-                                                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 insurance_company">
+                                                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
                                                     <form id="insurance_company_form">
                                                         <div class="app-card-header">
                                                             <input type="hidden" name="patient_id" id="patient_id" value="{{ $details->id }}">

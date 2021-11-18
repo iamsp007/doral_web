@@ -17,3 +17,4 @@ Route::group(['prefix'=>'/supervisor','middleware'=>['auth:web','role:supervisor
     Route::get('/view-clinician/{id}','\App\Http\Controllers\Supervisor\SuperVisorController@viewClinician');
     Route::get('/get-clinician/{id}','\App\Http\Controllers\Supervisor\SuperVisorController@getClinician');
 });
+Route::post('supervisor/add-case-management','\App\Http\Controllers\Supervisor\SuperVisorController@add_case_management')->name('add-case-management');

@@ -54,6 +54,8 @@ class CaregiverController extends Controller
         $services = 3;
         $avg = User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
+            })->whereHas('demographic', function($q) {
+                $q->where('flag','1');
             })->whereHas('patientLabReport',function ($q) use($request) {
                 $q->where('lab_report_type_id','=',$request['type_services']);
             })->whereIn('status', [$request['status']])->get()->count();
@@ -67,7 +69,7 @@ class CaregiverController extends Controller
         return User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })->whereHas('demographic',function ($q) use($services) {
-                        $q->where('service_id', $services);
+                $q->where([['service_id', '=', $services],['flag', '=', '1']]);
             })->whereIn('status', [$status])->count();
     }
 
@@ -82,7 +84,7 @@ class CaregiverController extends Controller
                 $query->whereIn('status', ['0', '1', '2', '3', '5']);
 
                 $query->whereHas('demographic',function ($q) {
-                    $q->where('service_id', '1');
+                    $q->where([['service_id', '=', '1'],['flag', '=', '1']]);
                     if(Auth::guard('referral')) {
                         $company_id = Auth::guard('referral')->user()->id;
                         $q->where('company_id', $company_id);
@@ -153,7 +155,7 @@ class CaregiverController extends Controller
                 if (str_contains($url, 'assigned-patients')){
                     $query->whereHas('caseManagement');
                 } else {
-                    $query->whereIn('status', ['1']);
+                    $query->whereIn('status', ['1'])->doesntHave('caseManagement');
                 }
             } else {
                 $query->whereIn('status', ['1', '2', '3', '5']);
@@ -354,6 +356,8 @@ class CaregiverController extends Controller
             $q->where('name','=','patient');
         })->whereHas('patientLabReport',function ($q) use($dateBetween) {
             $q->where('due_date',$dateBetween['newDate']);
+        })->whereHas('demographic', function($q) {
+            $q->where('flag','1');
         })->with('demographic');
       
         return DataTables::of($patientList->get())

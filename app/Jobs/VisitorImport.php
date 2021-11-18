@@ -34,12 +34,16 @@ class VisitorImport implements ShouldQueue
      */
     public function handle()
     {
+        $date = Carbon::now();// will get you the current date, time
+        $today = $date->format("Y-m-d");
+        $input['from_date'] = $today;
+        $input['to_date'] = $today;
+        $searchPatientIds = searchVisits($input);
 
-         $searchPatientIds = $this->searchVisitorDetails();
-         $visitIDs = $searchPatientIds['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+        $visitIDs = $searchPatientIds['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
 
-         log::info('hha exchange search visitor detail start');
-         log::info('total hha count'.count($visitIDs));
+        log::info('hha exchange search visitor detail start');
+        log::info('total hha count'.count($visitIDs));
 
         //  $missing_visitor_id = [];
         //  $visitors = VisitorDetail::get();
@@ -49,7 +53,8 @@ class VisitorImport implements ShouldQueue
         $data = [];
          $stored_visit_id = [];
          foreach ($visitIDs as $visitID) {
-             $scheduleInfo = $this->getVisitInfo($visitID);
+             $scheduleInfo = getVisitInfo($visitID);
+             
              $getVisitorInfo = $scheduleInfo['soapBody']['GetVisitInfoResponse']['GetVisitInfoResult']['VisitInfo'];
 
              $data[] = $visitID;
@@ -85,58 +90,5 @@ class VisitorImport implements ShouldQueue
 
      
         $visitorDetail->save();
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function searchVisitorDetails()
-    {
-        $date = Carbon::now();
-        $today = $date->format("Y-m-d");
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><StartDate>' . $today .'</StartDate><EndDate>' . $today . '</EndDate></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-     
-        $method = 'POST';
-        return $this->curlCall($data, $method);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getVisitInfo($visitorID)
-    {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetVisitInfo xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><VisitInfo><ID>' . $visitorID . '</ID></VisitInfo></GetVisitInfo></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-        $method = 'POST';
-
-        return $this->curlCall($data, $method);
-    }
-
-    public function curlCall($data, $method)
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => config('patientDetailAuthentication.AppUrl'),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => array(
-               'Content-Type: text/xml'
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        //return $response;
-        $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
-       $xml = new \SimpleXMLElement($response);
-        return json_decode(json_encode((array)$response), TRUE);
     }
 }

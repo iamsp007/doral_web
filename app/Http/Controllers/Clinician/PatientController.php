@@ -51,6 +51,8 @@ class PatientController extends Controller
         $patientList = User::with('patientDetail','roles')
             ->whereHas('roles',function ($q){
                 $q->where('name','=','patient');
+            })->whereHas('demographic', function($q) {
+                $q->where('flag','1');
             })
             ->where('status','=','1')
             ->get();
@@ -104,6 +106,8 @@ class PatientController extends Controller
         $patientList = User::with('patientDetail','roles')
             ->whereHas('roles',function ($q){
                 $q->where('name','=','patient');
+            })->whereHas('demographic', function($q) {
+                $q->where('flag','1');
             })
             ->whereHas('patientDetail',function ($q){
                 $q->where('status','=','pending')->whereNotNull('first_name');

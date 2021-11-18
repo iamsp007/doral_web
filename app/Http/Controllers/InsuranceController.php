@@ -54,10 +54,9 @@ class InsuranceController extends Controller
             $arr = array('status' => 400, 'message' => $validator->getMessageBag()->toArray(), 'result' => array(), 'action' => $action);
         } else {
             try {
-              
                 $patientInsurance->save();              
                 
-                $arr = array('status' => 200, 'message' => $message, 'resultdata' => $patientInsurance, 'action' => $action);
+                $arr = array('status' => 200, 'message' => $message, 'resultdata' => $patientInsurance, 'action' => $action, 'modal' => 'insurance');
             } catch (\Illuminate\Database\QueryException $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {

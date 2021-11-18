@@ -601,7 +601,7 @@
         });
         
         $(document).ready(function() {
-            $('.insurance_company').hide();
+            $('.form_div').hide();
             
             $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
                 var selectedDate = new Date($('[name="lab_due_date"]').val());
@@ -703,21 +703,20 @@
         
             $(document).on('click','.save_record',function(event) {
                 event.preventDefault();
-                $('.form_div').hide();
+               // $('.form_div').hide();
                 var t = $(this);
                 var action = t.attr('data-action');
                 if (action === 'add') {
-                    var data = $(this).parents('.form_div').find('form').serializeArray();
+                    var formdata = $(this).parents('.form_div').find('form').serializeArray();
                 } else if (action === 'edit') {
-                    var data = $(this).parents("tr").find('form').serializeArray();
+                    var formdata = $(this).parents("tr").find('form').serializeArray();
                 }
-
                 var url = t.attr('data-url');
-                
+
                 $.ajax({
                     type:"POST",
                     url:url,
-                    data:data,
+                    data:formdata,
                     headers: {
                         'X_CSRF_TOKEN': '{{ csrf_token() }}',
                     },
@@ -733,20 +732,21 @@
                         } else {
                             var insurane_html = insuranceAppend(data);
                             var family_html = familyAppend(data)
-
+                           
                             if (data.action === 'add') {
                                 if (data.modal === 'insurance') {
                                     $('.insurance-list-order tr:last').after(insurane_html);
                                 } else if(data.modal === 'family') {
                                     $('.family-list-order tr:last').after(family_html);
-                                } else if(data.modal === 'family') {
-                                    $('.family-list-order tr:last').after(insurane_html);
-                                }
-                                
+                                } 
                             } else if (data.action === 'edit') {
-                                t.parents("tr").replaceWith(insurane_html);
+                                if (data.modal === 'insurance') {
+                                    t.parents("tr").replaceWith(insurane_html);
+                                } else if(data.modal === 'family') {
+                                    t.parents("tr").replaceWith(family_html);
+                                } 
                             }
-                            $('.insurance_company').hide();
+                            $('.form_div').hide();
                             t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
                             t.parents("tr").find("span, .normal").css("display",'block');
                             alertText(data.message,'success');
@@ -761,14 +761,89 @@
 
             $("body").on('click','.edit_btn',function () {
                 $(this).parents("tr").find(".phone-text, .while_edit").css("display",'block');
-                $(this).parents("tr").find("span, .normal").css("display",'none');
-                $('.insurance_company').hide();
+                $(this).parents("tr").find("span.label, .normal").css("display",'none');
+                $('.form_div').hide();
             });
 
             $("body").on('click','.cancel_edit',function () {
                 $(this).parents("tr").find(".phone-text, .while_edit").css("display",'none');
                 $(this).parents("tr").find("span, .normal").css("display",'block');
-                $('.insurance_company').hide();
+                $('.form_div').hide();
+            });
+
+            $(".careteam_check").change(function() {
+                var val = $(this).attr('data-id');
+                var patientId = $(this).attr('data-patientId');
+                var url = $(this).attr('data-url');
+                var action = $(this).attr('data-action');
+                var field = $(this).attr('data-field');
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: true,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    buttonsStyling: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    title: 'Are you sure?',
+                    text: "Are you sure want to change priority?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, change it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $("#loader-wrapper").show();
+                            $.ajax({
+                                'type': 'POST',
+                                'url': url,
+                                'headers': {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                data: {
+                                    "care_team_id": val,
+                                    "patient_id": patientId,
+                                    "section" : action,
+                                    "field" : field,
+                                },
+                                'success': function (data) {
+                                    if(data.status == 400) {
+                                        alertText(data.message,'error');
+                                    } else {
+                                        if (data.modal === 'physician') {
+                                            var family_html = physicianAppend(data)
+                                            $('.physician-list-order tr:last').after(insurane_html);
+                                        } else if(data.modal === 'family') {
+                                            var family_html = familyAppend(data)
+                                            $('.family-list-order tr:last').after(family_html);
+                                        } else if(data.modal === 'pharmacy') {
+                                            var family_html = pharmacyAppend(data)
+                                            $('.pharmacy-list-order tr:last').after(family_html);
+                                        }
+
+                                        alertText(data.message,'success');
+                                    }
+                                    $("#loader-wrapper").hide();
+                                },
+                                "error":function () {
+                                    alertText("Server Timeout! Please try again",'error');
+                                    $("#loader-wrapper").hide();
+                                }
+                            });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            alertText("Your file file is safe :)",'warning');
+                            $(".innerallchk, .mainchk").prop("checked","");
+                            $('#acceptRejectBtn').hide();
+                        }
+                });
             });
 
             $("body").on('click','.save_btn',function () {
@@ -790,7 +865,6 @@
                             alertText(data.message,'error');
                         } else {
                             alertText(data.message,'success');
-                            refresh();
                         }
                         $("#loader-wrapper").hide();
                     },
@@ -869,6 +943,11 @@
                     }
                 });
             });
+
+            $('.add_care_team').on('click', function (e) {
+                e.preventDefault();
+                $(this).parents('.app-card').next('.form_div').toggle();
+            });
         });
 
         var i = "<?php echo sizeof($patient->patientEmergency);?>";
@@ -897,27 +976,35 @@
     }
 
     function familyAppend(data) {
-        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.family_detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter Family Name" value="' + data.resultdata.family_detail['name'] + '"></div></td><td><span class="label">' + data.resultdata.family_detail['relation'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="relation" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.family_detail['relation'] + '"></div></td><td><span class="label">' + data.resultdata.family_detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.family_detail['relation'] + '" maxlength="14"></div></td><td><span class="label">' + data.resultdata.family_detail['hcp'] + '</span>HCP<label><input type="checkbox" name="hcp"><span style="font-size:12px; padding-left: 25px;">HCP</span></label></div><span class="hcp-invalid-feedback text-danger" role="alert"></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter Family Name" value="' + data.resultdata.detail['name'] + '"></div></td><td><span class="label">' + data.resultdata.detail['relation'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="relation" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['relation'] + '"></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['relation'] + '" maxlength="14"></div></td><td><label><input type="checkbox" name="hcp" value="' + data.resultdata.detail['relation'] + '"><span style="font-size:12px; padding-left: 25px;">HCP</span></label></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
     }
 
-      function alertText(text,status) {
-         const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-         })
+    function physicianAppend(data) {
+        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="physician"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['fax'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="fax" aria-describedby="faxHelp" placeholder="Enter fax" value="' + data.resultdata.detail['fax'] + '"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="' + data.resultdata.detail['address'] + '"></div><span class="address-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['npi'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="' + data.resultdata.detail['npi'] + '"></div><span class="npi-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="primary" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="primary" data-url="" data-patientId="{{ $patient->id }}" ><span style="font-size:12px; padding-left: 25px;">Primary</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+    }
 
-         Toast.fire({
-            icon: status,
-            title: text
-         })
-      }
+    function pharmacyAppend(data) {
+        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="pharmacy"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="address" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['address'] + '"></div><span class="relation-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="active" data-id="{{ $careTeam->id }}" data-action="careTeamUpdate" data-field="active" data-url="" data-patientId="{{ $patient->id }}"><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b;color:#fff">Save<a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+    }
+    
+    function alertText(text,status) {
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        Toast.fire({
+        icon: status,
+        title: text
+        })
+    }
 
       function printErrorMsg (msg) {
          $(".print-error-msg").find("ul").html('');

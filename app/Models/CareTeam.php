@@ -16,7 +16,7 @@ class CareTeam extends Model
      * @var array
      */
     protected static $logAttributes = [
-        'patient_id', 'family_detail', 'physician_detail', 'pharmacy_detail',
+        'patient_id', 'detail',
     ];
 
     public function getDescriptionForEvent(string $eventName): string
@@ -31,7 +31,7 @@ class CareTeam extends Model
     protected static $submitEmptyLogs = false;
 
     protected $fillable = [
-        'patient_id', 'family_detail', 'physician_detail', 'pharmacy_detail',
+        'patient_id', 'detail',
     ];
 
     /**
@@ -40,9 +40,7 @@ class CareTeam extends Model
      * @var array
      */
     protected $casts = [
-        'family_detail' => 'array',
-        'physician_detail' => 'array',
-        'pharmacy_detail' => 'array',
+        'detail' => 'array',
     ];
 
     public function user()

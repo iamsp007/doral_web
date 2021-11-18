@@ -117,9 +117,9 @@
                      </div>
                   </div>
                @endif
-
+            </form>
                <!-- Caregiver Start -->
-               <div class="app-card app-card-custom no-minHeight box-shadow-none">
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Caregiver Details</h1>
                      <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="check-caregiver" data-id="{{$patient->id}}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Check Current Caregiver</a>
@@ -143,10 +143,10 @@
                <!-- Caregiver end -->
 
                <!-- Family Start -->
-               <div class="app-card app-card-custom no-minHeight box-shadow-none">
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Family Details</h1>
-                     <a class="_add_family_company" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Family Detail"><i class="las la-plus-circle la-2x"></i></a>
+                     <a class="add_care_team" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Family Detail"><i class="las la-plus-circle la-2x"></i></a>
                   </div>
                   <div class="card-body text-info">
                      <table class="table m-0 family-list-order">
@@ -160,50 +160,55 @@
                            </tr>
                         </thead>
                         <tbody>
-                           @if(isset($careTeams['family_detail']))
-                              @foreach($careTeams['family_detail'] as $family)
+                           @if(isset($family_detail))
+                              @foreach($family_detail as $careTeam)
                                  <tr>
                                     <form class="family_form">
-                                       <input type="hidden" name="family_id" value="{{ $family->id }}">
-                                       
-                                       <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                                       <input type="hidden" name="care_team_id" value="{{ $careTeam->id }}">
+                                       <input type="hidden" name="section" value="family">
+                                       <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                                        <td>
-                                          <span class='label'>{{ $family->name }}</span>
+                                          <span class='label'>{{ $careTeam['detail']['name'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" name="family_detail['name']" aria-describedby="nameHelp" placeholder="Enter Family Company Name" value="{{ $family->name }}">
+                                             <input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter Family Company Name" value="{{ $careTeam['detail']['name'] }}">
                                              <span class="name-invalid-feedback text-danger" role="alert"></span>
                                           </div>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $family->relation }}</span>
+                                          <span class='label'>{{ $careTeam['detail']['relation'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" id="relation" name="family_detail['relation']" aria-describedby="relationHelp" placeholder="Enter relation" value="{{ $family->relation }}">
+                                             <input type="text" class="form-control form-control-lg" id="relation" name="relation" aria-describedby="relationHelp" placeholder="Enter relation" value="{{ $careTeam['detail']['relation'] }}">
                                           </div>
                                           <span class="relation-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $family->phone }}</span>
+                                          <span class='label'>{{ $careTeam['detail']['phone'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg phone_format" name="family_detail['phone']" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $family->phone }}" maxlength="14">
+                                             <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $careTeam['detail']['phone'] }}" maxlength="14">
                                           </div>
                                           <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $family->hcp }}</span>
-                                          $careTeams['family_detail']         <label>
-                                                      <input type="checkbox" name="family_detail['hcp']">
-                                                      <span
-                                                         style="font-size:12px; padding-left: 25px;">HCP</span>
-                                                </label>
-                                             </div>
-                                          <span class="hcp-invalid-feedback text-danger" role="alert"></span>
+                                          <span class='label'>
+                                             <label>
+                                                <input class="careteam_check" type="checkbox" name="hcp" data-id="{{ $careTeam->id }}" data-action="careTeamUpdate" data-field="hcp" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($careTeam['detail']['hcp']) === 'on' ? 'checked' : '' }}>
+                                                <span style="font-size:12px; padding-left: 25px;">HCP</span>
+                                             </label>
+                                          </span>
+                                          <!-- <div class='phone-text'>
+                                          <label>
+                                             <input type="checkbox" name="hcp" {{ ($careTeam['detail']['hcp']) === 'on' ? 'checked' : '' }}>
+                                             <span style="font-size:12px; padding-left: 25px;">HCP</span>
+                                          </label>
+                                          </div> -->
                                        </td>
                                        <td>
                                           <div class="normal">
                                              <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
                                           </div>
                                           <div class="while_edit">
-                                             <a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
+                                             <button type="submit" class="btn btn-sm save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="edit"><i class="fa fa-save"></i> Save</button>
+                                            <a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
                                           </div>
                                        </td>
                                     </form>
@@ -217,10 +222,9 @@
                   </div>
                </div>
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
-                  <form>
-                     <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                  <form id="family_detail">
+                     <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                      <input type="hidden" name="section" value="family">
-                     <span class="name-invalid-feedback text-danger" role="alert"></span>
                      <div class="head">
                         <div class="p-3">
                            <div class="row">
@@ -275,7 +279,6 @@
                                                 <input type="checkbox" name="hcp">
                                                 <span style="font-size:12px; padding-left: 25px;"></span>
                                           </label>
-                                          <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
                                        </div>
                                     </div>
                                  </div>
@@ -327,7 +330,10 @@
                                        
                                     </td>
                                     <td>
-                                       
+                                       <label>
+                                          <input class="careteam_check" type="checkbox" name="flag" data-id="{{ $caseManager->id }}" data-action="casemanager" data-url="{{ Route('add-case-management') }}" data-patientId="{{ $patient->id }}" data-action="case-manager" {{ ($caseManager->flag) === '1' ? 'checked' : '' }}>
+                                          <span style="font-size:12px; padding-left: 25px;">Primary</span>
+                                       </label>
                                     </td>
                                  </tr>
                               @endforeach
@@ -344,9 +350,10 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3" data-name="croley_family_and_financial">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Physician Details</h1>
+                     <a class="add_care_team" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Physician Detail"><i class="las la-plus-circle la-2x"></i></a>
                   </div>
                   <div class="card-body text-info">
-                     <table class="table m-0">
+                     <table class="table m-0 physician-list-order">
                         <thead class="thead-light">
                            <tr>
                               <th>Name</th>
@@ -358,54 +365,55 @@
                            </tr>
                         </thead>
                         <tbody>
-                           @if(isset($careTeams['physician_detail']))
-                              @foreach($careTeams['physician_detail'] as $physician)
+                           @if(isset($physician_detail))
+                              @foreach($physician_detail as $physician)
                                  <tr>
                                     <form class="family_form">
-                                       <input type="hidden" name="family_id" value="{{ $physician->id }}">
-                                       
-                                       <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                                       <input type="hidden" name="care_team_id" value="{{ $physician->id }}">
+                                       <input type="hidden" name="section" value="physician">
+                                       <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                                        <td>
-                                          <span class='label'>{{ $physician->name }}</span>
+                                          <span class='label'>{{ $physician['detail']['name'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="{{ $physician->name }}">
+                                             <input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="{{ $physician['detail']['name'] }}">
                                              <span class="name-invalid-feedback text-danger" role="alert"></span>
                                           </div>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $physician->phone }}</span>
+                                          <span class='label'>{{ $physician['detail']['phone'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $physician->phone }}" maxlength="14">
+                                             <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $physician['detail']['phone'] }}" maxlength="14">
                                           </div>
                                           <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $physician->fax }}</span>
-                                          <div class='fax-text'>
-                                             <input type="text" class="form-control form-control-lg" name="fax" aria-describedby="faxHelp" placeholder="Enter fax" value="{{ $physician->fax }}">
+                                          <span class='label'>{{ $physician['detail']['fax'] }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" name="fax" aria-describedby="faxHelp" placeholder="Enter fax" value="{{ $physician['detail']['fax'] }}">
                                           </div>
                                           <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $physician->address }}</span>
+                                          <span class='label'>{{ $physician['detail']['address'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="{{ $physician->address }}">
+                                             <input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="{{ $physician['detail']['address'] }}">
                                           </div>
                                           <span class="address-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $physician->npi }}</span>
+                                          <span class='label'>{{ $physician['detail']['npi'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="{{ $physician->npi }}">
+                                             <input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="{{ $physician['detail']['npi'] }}">
                                           </div>
                                           <span class="npi-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $physician->primary }}</span>
-                                          <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" id="primary" name="primary" aria-describedby="primaryHelp" placeholder="Enter primary" value="{{ $physician->primary }}">
-                                          </div>
-                                          <span class="primary-invalid-feedback text-danger" role="alert"></span>
+                                          <span class='label'>
+                                             <label>
+                                                <input class="careteam_check" type="checkbox" name="primary" data-id="{{ $careTeam->id }}" data-action="careTeamUpdate" data-field="primary" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($physician['detail']['primary']) === 'on' ? 'checked' : '' }}>
+                                                <span style="font-size:12px; padding-left: 25px;">Primary</span>
+                                             </label>
+                                          </span>
                                        </td>
                                        <td>
                                           <div class="normal">
@@ -425,9 +433,8 @@
                </div>
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
                   <form class="family_form">
-                     <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                     <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                      <input type="hidden" name="section" value="physician">
-                     <span class="name-invalid-feedback text-danger" role="alert"></span>
                      <div class="head">
                         <div class="p-3">
                            <div class="row">
@@ -468,14 +475,18 @@
                                     </div>
                                  </div>
                               </div>
+                           </div>
+                        </div>
+                        <div class="p-3">
+                           <div class="row">
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">
                                     <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                     <div class="rs">
                                        <h3 class="_title">Address</h3>
                                        <div class="_detail">
-                                          <textarea id="address" data-id="address" name="address" rows="4" cols="62" class="form-control-plaintext _detail" readonly placeholder="address"></textarea>
-                                          <span class="fax-invalid-feedback text-danger" role="alert"></span>
+                                          <textarea name="address" rows="4" cols="62" class="form-control-plaintext _detail" placeholder="address"></textarea>
+                                          <span class="address-invalid-feedback text-danger" role="alert"></span>
                                        </div>
                                     </div>
                                  </div>
@@ -492,10 +503,6 @@
                                     </div>
                                  </div>
                               </div>
-                           </div>
-                        </div>
-                        <div class="p-3">
-                           <div class="row">
                               <div class="col-12 col-sm-4">
                                  <div class="input_box">
                                     <div class="ls"><i class="las la-angle-double-right circle"></i></div>
@@ -506,14 +513,15 @@
                                                 <input type="checkbox" name="primary">
                                                 <span style="font-size:12px; padding-left: 25px;"></span>
                                           </label>
-                                          <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
                                        </div>
                                     </div>
                                  </div>
                               </div>
                            </div>
+                        </div>
+                        <div class="p-3">
                            <div class=" d-flex justify-content-end">
-                              <button type="submit" id="add" class="btn btn-outline-green" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}"><i class="fa fa-save"></i> Save</button>
+                              <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
                            </div>
                         </div>
                      </div>
@@ -525,9 +533,10 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3" data-name="croley_family_and_financial">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Pharmacy Details</h1>
+                     <a class="add_care_team" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Physician Detail"><i class="las la-plus-circle la-2x"></i></a>
                   </div>
                   <div class="card-body text-info">
-                     <table class="table m-0">
+                     <table class="table m-0 pharmacy-list-order">
                         <thead class="thead-light">
                            <tr>
                               <th>Name</th>
@@ -538,40 +547,41 @@
                            </tr>
                         </thead>
                         <tbody>
-                           @if(isset($careTeams['pharmacy_detail']))
-                              @foreach($careTeams['pharmacy_detail'] as $physician)
+                           @if(isset($pharmacy_detail))
+                              @foreach($pharmacy_detail as $pharmacy)
                                  <tr>
                                     <form class="family_form">
-                                       <input type="hidden" name="family_id" value="{{ $physician->id }}">
-                                       
-                                       <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                                       <input type="hidden" name="care_team_id" value="{{ $pharmacy->id }}">
+                                       <input type="hidden" name="section" value="pharmacy">
+                                       <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                                        <td>
-                                          <span class='label'>{{ $physician->name }}</span>
+                                          <span class='label'>{{ $pharmacy['detail']['name'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="{{ $physician->name }}">
+                                             <input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="{{ $pharmacy['detail']['name'] }}">
                                              <span class="name-invalid-feedback text-danger" role="alert"></span>
                                           </div>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $physician->phone }}</span>
+                                          <span class='label'>{{ $pharmacy['detail']['phone'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $physician->phone }}" maxlength="14">
+                                             <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $pharmacy['detail']['phone'] }}" maxlength="14">
                                           </div>
                                           <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $physician->address }}</span>
+                                          <span class='label'>{{ $pharmacy['detail']['address'] }}</span>
                                           <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" id="relation" name="address" aria-describedby="relationHelp" placeholder="Enter relation" value="{{ $physician->address }}">
+                                             <input type="text" class="form-control form-control-lg" id="relation" name="address" aria-describedby="relationHelp" placeholder="Enter relation" value="{{ $pharmacy['detail']['address'] }}">
                                           </div>
                                           <span class="relation-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $physician->status }}</span>
-                                          <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" id="status" name="status" aria-describedby="statusHelp" placeholder="Enter status" value="{{ $physician->status }}">
-                                          </div>
-                                          <span class="status-invalid-feedback text-danger" role="alert"></span>
+                                          <span class='label'>
+                                             <label>
+                                                <input class="careteam_check" type="checkbox" name="active" data-id="{{ $careTeam->id }}" data-action="careTeamUpdate" data-field="active" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($pharmacy['detail']['active']) === 'on' ? 'checked' : '' }}>
+                                                <span style="font-size:12px; padding-left: 25px;">Active</span>
+                                             </label>
+                                          </span>
                                        </td>
                                        <td>
                                           <div class="normal">
@@ -591,9 +601,8 @@
                </div>
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
                   <form class="family_form">
-                     <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                     <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                      <input type="hidden" name="section" value="pharmacy">
-                     <span class="name-invalid-feedback text-danger" role="alert"></span>
                      <div class="head">
                         <div class="p-3">
                            <div class="row">
@@ -628,7 +637,7 @@
                                     <div class="rs">
                                        <h3 class="_title">Address</h3>
                                        <div class="_detail">
-                                          <textarea id="address" data-id="address" name="address" rows="4" cols="62" class="form-control-plaintext _detail" readonly placeholder="address"></textarea>
+                                          <textarea id="address" data-id="address" name="address" rows="4" cols="62" class="form-control-plaintext _detail" placeholder="address"></textarea>
                                           <span class="fax-invalid-feedback text-danger" role="alert"></span>
                                        </div>
                                     </div>
@@ -648,7 +657,6 @@
                                                 <input type="checkbox" name="active">
                                                 <span style="font-size:12px; padding-left: 25px;"></span>
                                           </label>
-                                          <span class="policy_no-invalid-feedback text-danger" role="alert"></span>
                                        </div>
                                     </div>
                                  </div>
@@ -764,7 +772,7 @@
                      </div>
                   </div>
                </div>
-            </form>
+           
          </div>
       </div>
    </div>

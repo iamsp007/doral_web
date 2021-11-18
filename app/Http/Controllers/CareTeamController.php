@@ -19,7 +19,7 @@ class CareTeamController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-       
+        $rules = $messages = [];
         if ($input['section'] === 'family') {
             $rules = [
                 'name' => 'required',
@@ -71,34 +71,34 @@ class CareTeamController extends Controller
         }
 
         $careTeam->patient_id = $input['patient_id'];
+        $detail = $type = '';
         if ($input['section'] === 'family') {
-            $family_detail = [
+            $detail = [
                 'name' => $input['name'],
                 'relation' => $input['relation'],
                 'phone' => $input['phone'],
-                'hcp' => $input['hcp'],
+                'hcp' => (isset($input['hcp'])) ? $input['hcp'] : '',
             ];
-            $careTeam->family_detail = $family_detail;
-          
+            $type = "1";
         } else if ($input['section'] === 'physician') {
-            $physician_detail = [
+            $detail = [
                 'name' => $input['name'],
                 'fax' => $input['fax'],
                 'phone' => $input['phone'],
                 'address' => $input['address'],
                 'npi' => $input['address'],
-                'primary' => $input['primary']
+                'primary' => (isset($input['primary'])) ? $input['primary'] : '',
             ];
-            $careTeam->physician_detail = $physician_detail;
+            $type = "2";
         } else if ($input['section'] === 'pharmacy') {
-            $physician_detail = [
+            $detail = [
                 'name' => $input['name'],
                 'phone' => $input['phone'],
                 'address' => $input['address'],
-                'active' => $input['active'],
+                'active' => (isset($input['active'])) ? $input['active'] : '',
             ];
-            $careTeam->physician_detail = $physician_detail;
-        }
+            $type = "3";
+        } 
 
         $validator = Validator::make($input, $rules, $messages);
 
@@ -106,9 +106,23 @@ class CareTeamController extends Controller
             $arr = array('status' => 400, 'message' => $validator->getMessageBag()->toArray(), 'result' => array(), 'action' => $action);
         } else {
             try {
-                $careTeam->fill($input)->save();           
+                if ($input['section'] === 'careTeamUpdate') {
+                    CareTeam::where('patient_id',$input['patient_id'])->update([
+                        'detail->'.$input['field'] => ''
+                    ]);
+
+                    CareTeam::where('id', $input['care_team_id'])->update([
+                        'detail->'.$input['field'] => 'on'
+                    ]);
+                        
+                    $arr = array('status' => 200, 'message' => 'Change priority successfully.','resultdata' => $careTeam, 'modal' => $input['section']);
+                } else {
+                    $careTeam->detail = $detail;
+                    $careTeam->type = $type;
+                    $careTeam->fill($input)->save();           
                 
-                $arr = array('status' => 200, 'message' => $message, 'resultdata' => $careTeam, 'action' => $action, 'modal' => $input['section']);
+                    $arr = array('status' => 200, 'message' => $message, 'resultdata' => $careTeam, 'action' => $action, 'modal' => $input['section']);
+                }
             } catch (\Illuminate\Database\QueryException $ex) {
                 $message = $ex->getMessage();
                 if (isset($ex->errorInfo[2])) {
@@ -125,4 +139,15 @@ class CareTeamController extends Controller
         }
         return \Response::json($arr);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    // public function destroy($id)
+    // {
+    //     dd($id);
+    // }
 }

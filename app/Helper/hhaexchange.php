@@ -6,6 +6,7 @@ use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\User;
 use Carbon\Carbon;
+use Spatie\Permission\Models\Permission;
 
 if (!function_exists('curlCall')) {
         function curlCall($data, $method)
@@ -338,7 +339,7 @@ if (!function_exists('curlCall')) {
         }
     }
     if (!function_exists('storeDemographic')) {
-        function storeDemographic($demographics, $user_id, $company_id, $doral_id)
+        function storeDemographic($demographics, $user_id, $company_id, $doral_id, $action = '')
         {
             $demographic = new Demographic();
             
@@ -346,6 +347,9 @@ if (!function_exists('curlCall')) {
             $demographic->user_id = $user_id;
             $demographic->company_id = $company_id;
         
+            if ($action == 'caregiver-check') {
+                $demographic->flag = '2';  
+            }
             $demographic->service_id = config('constant.OccupationalHealth');
             $demographic->patient_id = $demographics['ID'] ? $demographics['ID'] : '';
             $demographic->ethnicity = $demographics['Ethnicity'] && $demographics['Ethnicity']['Name'] ? $demographics['Ethnicity']['Name'] : '';

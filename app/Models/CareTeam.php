@@ -44,4 +44,9 @@ class CareTeam extends Model
         'physician_detail' => 'array',
         'pharmacy_detail' => 'array',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class,'id','patient_id');
+    }
 }

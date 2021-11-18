@@ -73,6 +73,8 @@ class HomeController extends Controller
         $patientList = User::with('patientDetail','roles')
             ->whereHas('roles',function ($q){
                 $q->where('name','=','patient');
+            })->whereHas('demographic', function($q) {
+                $q->where('flag','1');
             });
         return DataTables::of($patientList)
             ->editColumn('dob', function ($contact){

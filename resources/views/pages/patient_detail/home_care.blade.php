@@ -122,11 +122,10 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Caregiver Details</h1>
-                     <a class="add_new_company" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Family Detail"><i class="las la-plus-circle la-2x"></i></a>
                      <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="check-caregiver" data-id="{{$patient->id}}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Check Current Caregiver</a>
                   </div>
                   <div class="card-body text-info">
-                     <table class="table m-0 family-list-order">
+                     <table class="table m-0 ">
                         <thead class="thead-light">
                            <tr>
                               <th>Phone</th>
@@ -135,59 +134,8 @@
                               <th>Coordinator Name</th>
                            </tr>
                         </thead>
-                        <tbody>
-                           @if(isset($careTeams['family_detail']))
-                              @foreach($careTeams['family_detail'] as $family)
-                                 <tr>
-                                    <form class="family_form">
-                                       <input type="hidden" name="family_id" value="{{ $family->id }}">
-                                       
-                                       <input type="hidden" name="user_id" value="{{ $patient->id }}">
-                                       <td>
-                                          <span class='label'>{{ $family->name }}</span>
-                                          <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" name="family_detail['name']" aria-describedby="nameHelp" placeholder="Enter Family Company Name" value="{{ $family->name }}">
-                                             <span class="name-invalid-feedback text-danger" role="alert"></span>
-                                          </div>
-                                       </td>
-                                       <td>
-                                          <span class='label'>{{ $family->relation }}</span>
-                                          <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" id="relation" name="family_detail['relation']" aria-describedby="relationHelp" placeholder="Enter relation" value="{{ $family->relation }}">
-                                          </div>
-                                          <span class="relation-invalid-feedback text-danger" role="alert"></span>
-                                       </td>
-                                       <td>
-                                          <span class='label'>{{ $family->phone }}</span>
-                                          <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg phone_format" name="family_detail['phone']" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $family->phone }}" maxlength="14">
-                                          </div>
-                                          <span class="phone-invalid-feedback text-danger" role="alert"></span>
-                                       </td>
-                                       <td>
-                                          <span class='label'>{{ $family->hcp }}</span>
-                                          $careTeams['family_detail']         <label>
-                                                      <input type="checkbox" name="family_detail['hcp']">
-                                                      <span
-                                                         style="font-size:12px; padding-left: 25px;">HCP</span>
-                                                </label>
-                                             </div>
-                                          <span class="hcp-invalid-feedback text-danger" role="alert"></span>
-                                       </td>
-                                       <td>
-                                          <div class="normal">
-                                             <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
-                                          </div>
-                                          <div class="while_edit">
-                                             <a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
-                                          </div>
-                                       </td>
-                                    </form>
-                                 </tr>
-                              @endforeach
-                           @else
-                              <tr><td>Data not found.</td></td>
-                           @endif
+                        <tbody class="caregiver-list-order">
+                             
                         </tbody>
                      </table>
                   </div>
@@ -268,8 +216,8 @@
                      </table>
                   </div>
                </div>
-               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
-                  <form class="family_form">
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
+                  <form>
                      <input type="hidden" name="user_id" value="{{ $patient->id }}">
                      <input type="hidden" name="section" value="family">
                      <span class="name-invalid-feedback text-danger" role="alert"></span>
@@ -334,7 +282,7 @@
                               </div>
                            </div>
                            <div class=" d-flex justify-content-end">
-                              <button type="submit" id="add" class="btn btn-outline-green" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}"><i class="fa fa-save"></i> Save</button>
+                              <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
                            </div>
                         </div>
                      </div>
@@ -413,24 +361,61 @@
                            @if(isset($careTeams['physician_detail']))
                               @foreach($careTeams['physician_detail'] as $physician)
                                  <tr>
-                                    <td>
-                                       {{ $physician->name }}
-                                    </td>
-                                    <td>
-                                       {{ $physician->phone }}
-                                    </td>
-                                    <td>
-                                       {{ $physician->fax }}
-                                    </td>
-                                    <td>
-                                       {{ $physician->address }}
-                                    </td>
-                                    <td>
-                                       {{ $physician->npi }}
-                                    </td>
-                                    <td>
-                                       {{ $physician->primary }}
-                                    </td>
+                                    <form class="family_form">
+                                       <input type="hidden" name="family_id" value="{{ $physician->id }}">
+                                       
+                                       <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                                       <td>
+                                          <span class='label'>{{ $physician->name }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="{{ $physician->name }}">
+                                             <span class="name-invalid-feedback text-danger" role="alert"></span>
+                                          </div>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $physician->phone }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $physician->phone }}" maxlength="14">
+                                          </div>
+                                          <span class="phone-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $physician->fax }}</span>
+                                          <div class='fax-text'>
+                                             <input type="text" class="form-control form-control-lg" name="fax" aria-describedby="faxHelp" placeholder="Enter fax" value="{{ $physician->fax }}">
+                                          </div>
+                                          <span class="phone-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $physician->address }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="{{ $physician->address }}">
+                                          </div>
+                                          <span class="address-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $physician->npi }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="{{ $physician->npi }}">
+                                          </div>
+                                          <span class="npi-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $physician->primary }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" id="primary" name="primary" aria-describedby="primaryHelp" placeholder="Enter primary" value="{{ $physician->primary }}">
+                                          </div>
+                                          <span class="primary-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <div class="normal">
+                                             <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
+                                          </div>
+                                          <div class="while_edit">
+                                             <a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
+                                          </div>
+                                       </td>
+                                    </form>
                                  </tr>
                               @endforeach
                            @endif
@@ -438,7 +423,7 @@
                      </table>
                   </div>
                </div>
-               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
                   <form class="family_form">
                      <input type="hidden" name="user_id" value="{{ $patient->id }}">
                      <input type="hidden" name="section" value="physician">
@@ -549,24 +534,54 @@
                               <th>Phone</th>
                               <th>Address</th>
                               <th>Status</th>
+                              <th>Action</th>
                            </tr>
                         </thead>
                         <tbody>
                            @if(isset($careTeams['pharmacy_detail']))
                               @foreach($careTeams['pharmacy_detail'] as $physician)
                                  <tr>
-                                    <td>
-                                       {{ $physician->name }}
-                                    </td>
-                                    <td>
-                                       {{ $physician->phone }}
-                                    </td>
-                                    <td>
-                                       {{ $physician->address }}
-                                    </td>
-                                    <td>
-                                       {{ $physician->status }}
-                                    </td>
+                                    <form class="family_form">
+                                       <input type="hidden" name="family_id" value="{{ $physician->id }}">
+                                       
+                                       <input type="hidden" name="user_id" value="{{ $patient->id }}">
+                                       <td>
+                                          <span class='label'>{{ $physician->name }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="{{ $physician->name }}">
+                                             <span class="name-invalid-feedback text-danger" role="alert"></span>
+                                          </div>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $physician->phone }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="{{ $physician->phone }}" maxlength="14">
+                                          </div>
+                                          <span class="phone-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $physician->address }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" id="relation" name="address" aria-describedby="relationHelp" placeholder="Enter relation" value="{{ $physician->address }}">
+                                          </div>
+                                          <span class="relation-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $physician->status }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" id="status" name="status" aria-describedby="statusHelp" placeholder="Enter status" value="{{ $physician->status }}">
+                                          </div>
+                                          <span class="status-invalid-feedback text-danger" role="alert"></span>
+                                       </td>
+                                       <td>
+                                          <div class="normal">
+                                             <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
+                                          </div>
+                                          <div class="while_edit">
+                                             <a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
+                                          </div>
+                                       </td>
+                                    </form>
                                  </tr>
                               @endforeach
                            @endif
@@ -574,7 +589,7 @@
                      </table>
                   </div>
                </div>
-               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
+               <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
                   <form class="family_form">
                      <input type="hidden" name="user_id" value="{{ $patient->id }}">
                      <input type="hidden" name="section" value="pharmacy">
@@ -640,7 +655,7 @@
                               </div>
                            </div>
                            <div class=" d-flex justify-content-end">
-                              <button type="submit" id="add" class="btn btn-outline-green" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}"><i class="fa fa-save"></i> Save</button>
+                              <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
                            </div>
                         </div>
                      </div>

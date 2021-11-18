@@ -9,8 +9,18 @@ $(".autoImportPatient").click(function () {
         url:url,
         data:{action:action},
         success: function(data) {
+          
             if(data.status == 200) {
+                if (action == 'check-caregiver') {
+                    console.log('get caregiver data');
+                    console.log(data.data);
+                    console.log('get caregiver data');
+                    var html = '<tr><td>' + data.data.phoneNumber + '</td><td>' + data.data.scheduleStartTime + '</td><td>' + data.data.scheduleEndTime + '</td><td>' + data.data.name + '</td></tr>';
+
+                    $('.caregiver-list-order tr:last').before(html);
+                }
                 alertText(data.message,'success');
+            
                 refresh();
             } else {
                 alertText(data.message,'error');

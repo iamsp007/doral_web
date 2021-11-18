@@ -362,6 +362,7 @@
                               <th>Address</th>
                               <th>NPI</th>
                               <th>Primary</th>
+                              <th>Action</th>
                            </tr>
                         </thead>
                         <tbody>

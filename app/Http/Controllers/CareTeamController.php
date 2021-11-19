@@ -73,29 +73,49 @@ class CareTeamController extends Controller
         $careTeam->patient_id = $input['patient_id'];
         $detail = $type = '';
         if ($input['section'] === 'family') {
+            $hcp = '';
+            if (isset($input['hcp'])) {
+                $input['field'] = 'hcp';
+                self::updateData($input);
+                $hcp =  $input['hcp'];
+            }
             $detail = [
                 'name' => $input['name'],
                 'relation' => $input['relation'],
                 'phone' => $input['phone'],
-                'hcp' => (isset($input['hcp'])) ? $input['hcp'] : '',
+                'hcp' => $hcp,
             ];
             $type = "1";
         } else if ($input['section'] === 'physician') {
+            $primary = '';
+            if (isset($input['primary'])) {
+                $input['field'] = 'primary';
+                self::updateData($input);
+                $primary =  $input['primary'];
+            }
+
             $detail = [
                 'name' => $input['name'],
                 'fax' => $input['fax'],
                 'phone' => $input['phone'],
                 'address' => $input['address'],
                 'npi' => $input['address'],
-                'primary' => (isset($input['primary'])) ? $input['primary'] : '',
+                'primary' => $primary,
             ];
             $type = "2";
         } else if ($input['section'] === 'pharmacy') {
+            $active = '';
+            if (isset($input['active'])) {
+                $input['field'] = 'active';
+                self::updateData($input);
+                $active =  $input['active'];
+            }
+
             $detail = [
                 'name' => $input['name'],
                 'phone' => $input['phone'],
                 'address' => $input['address'],
-                'active' => (isset($input['active'])) ? $input['active'] : '',
+                'active' => $active,
             ];
             $type = "3";
         } 
@@ -107,14 +127,8 @@ class CareTeamController extends Controller
         } else {
             try {
                 if ($input['section'] === 'careTeamUpdate') {
-                    CareTeam::where('patient_id',$input['patient_id'])->update([
-                        'detail->'.$input['field'] => ''
-                    ]);
-
-                    CareTeam::where('id', $input['care_team_id'])->update([
-                        'detail->'.$input['field'] => 'on'
-                    ]);
-                        
+                   
+                    self::updateData($input);
                     $arr = array('status' => 200, 'message' => 'Change priority successfully.','resultdata' => $careTeam, 'modal' => $input['section']);
                 } else {
                     $careTeam->detail = $detail;
@@ -140,6 +154,16 @@ class CareTeamController extends Controller
         return \Response::json($arr);
     }
 
+    public static function updateData($input)
+    {
+        CareTeam::where('patient_id',$input['patient_id'])->update([
+            'detail->'.$input['field'] => ''
+        ]);
+
+        CareTeam::where('id', $input['care_team_id'])->update([
+            'detail->'.$input['field'] => 'on'
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *

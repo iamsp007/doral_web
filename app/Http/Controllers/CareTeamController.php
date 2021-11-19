@@ -74,9 +74,9 @@ class CareTeamController extends Controller
         $detail = $type = '';
         if ($input['section'] === 'family') {
             $hcp = '';
+            $input['field'] = '';
             if (isset($input['hcp'])) {
                 $input['field'] = 'hcp';
-                self::updateData($input);
                 $hcp =  $input['hcp'];
             }
             $detail = [
@@ -90,7 +90,6 @@ class CareTeamController extends Controller
             $primary = '';
             if (isset($input['primary'])) {
                 $input['field'] = 'primary';
-                self::updateData($input);
                 $primary =  $input['primary'];
             }
 
@@ -107,7 +106,6 @@ class CareTeamController extends Controller
             $active = '';
             if (isset($input['active'])) {
                 $input['field'] = 'active';
-                self::updateData($input);
                 $active =  $input['active'];
             }
 
@@ -131,10 +129,14 @@ class CareTeamController extends Controller
                     self::updateData($input);
                     $arr = array('status' => 200, 'message' => 'Change priority successfully.','resultdata' => $careTeam, 'modal' => $input['section']);
                 } else {
+                   
                     $careTeam->detail = $detail;
                     $careTeam->type = $type;
-                    $careTeam->fill($input)->save();           
-                
+                    $careTeam->fill($input)->save();
+
+                    $input['care_team_id'] = $careTeam->id;
+                    self::updateData($input);
+
                     $arr = array('status' => 200, 'message' => $message, 'resultdata' => $careTeam, 'action' => $action, 'modal' => $input['section']);
                 }
             } catch (\Illuminate\Database\QueryException $ex) {

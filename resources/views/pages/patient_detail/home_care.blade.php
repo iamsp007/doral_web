@@ -1,7 +1,7 @@
 <div class="tab-pane fade" id="homecare" role="tabpanel" aria-labelledby="homecare-tab">
    <div class="app-card app-card-custom" data-name="home_care">
       <div class="app-card-header">
-         <h1 class="title mr-2">Care team</h1>
+         <h1 class="title mr-2">Home care</h1>
          @role('clinician')
             <!-- <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('homecare')">
             <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('homecare')"> -->
@@ -57,7 +57,7 @@
                            </div>
                         </div>
                      @endif
-                     <div class="col-12 col-sm-4">
+                     {{-- <div class="col-12 col-sm-4">
                         <div class="input_box">
                            <div class="ls"><i class="lab la-servicestack circle"></i></div>
                            <div class="rs">
@@ -79,7 +79,7 @@
                               @endif
                            </div>
                         </div>
-                     </div>
+                     </div> --}}
                      @if(!empty($patient->demographic) && (!empty($patient->demographic->company)))
                         <div class="col-12 col-sm-4">
                            <div class="input_box">
@@ -128,15 +128,33 @@
                      <table class="table m-0 ">
                         <thead class="thead-light">
                            <tr>
+                              <th>Coordinator Name</th>
                               <th>Phone</th>
                               <th>Schedule Start</th>
                               <th>Schedule End</th>
-                              <th>Coordinator Name</th>
                            </tr>
                         </thead>
-                        <tbody class="caregiver-list-order">
-                             
-                        </tbody>
+                        @if(isset($caregiver))
+                           <tbody class="caregiver-list-old">
+                              <tr>
+                                 <td>
+                                    {{ $caregiver->name }}
+                                 </td>
+                                 <td>
+                                    {{ $caregiver->phone }}
+                                 </td>
+                                 <td>
+                                    {{ $caregiver->start_time }}
+                                 </td>
+                                 <td>
+                                    {{ $caregiver->end_time }}
+                                 </td>
+                              </tr>
+                           </tbody>
+                        @else
+                           <tbody class="caregiver-list-order">
+                           </tbody>
+                       @endif
                      </table>
                   </div>
                </div>
@@ -188,7 +206,7 @@
                                           </div>
                                           <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                        </td>
-                                       <td>
+                                       <td class="ms-lastCell">
                                           <span class='label'>
                                              <label>
                                                 <input class="careteam_check" type="checkbox" name="hcp" data-id="{{ $careTeam->id }}" data-action="careTeamUpdate" data-field="hcp" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($careTeam['detail']['hcp']) === 'on' ? 'checked' : '' }}>

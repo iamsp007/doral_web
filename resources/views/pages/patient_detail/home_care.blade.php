@@ -134,8 +134,8 @@
                               <th>Schedule End</th>
                            </tr>
                         </thead>
-                        @if(isset($caregiver))
-                           <tbody class="caregiver-list-old">
+                        <tbody class="caregiver-list-order">
+                           @if(isset($caregiver))
                               <tr>
                                  <td>
                                     {{ $caregiver->name }}
@@ -150,11 +150,8 @@
                                     {{ $caregiver->end_time }}
                                  </td>
                               </tr>
-                           </tbody>
-                        @else
-                           <tbody class="caregiver-list-order">
-                           </tbody>
-                       @endif
+                           @endif
+                        </tbody>
                      </table>
                   </div>
                </div>
@@ -439,7 +436,7 @@
                                              <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
                                           </div>
                                           <div class="while_edit">
-                                             <a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
+                                          <button type="submit" class="btn btn-sm save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
                                           </div>
                                        </td>
                                     </form>
@@ -607,7 +604,7 @@
                                              <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
                                           </div>
                                           <div class="while_edit">
-                                             <a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
+                                          <button type="submit" class="btn btn-sm save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
                                           </div>
                                        </td>
                                     </form>

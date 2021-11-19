@@ -656,7 +656,7 @@
                         var value=data.data;
                         // $.each(data.data, function (key, value) {
                             var html = '<tr><td>' + value.name + '</td><td>' + value.phone + '</td><td>' + value.start_time + '</td><td>' + value.end_time + '</td></tr>';
-                            $(document).find('.caregiver-list-old').hide();
+                            // $(document).find('.caregiver-list-old').hide();
                             $(document).find('.caregiver-list-order').before(html);
                         // });
                     }
@@ -752,7 +752,7 @@
         
             $(document).on('click','.save_record',function(event) {
                 event.preventDefault();
-               // $('.form_div').hide();
+             
                 var t = $(this);
                 var action = t.attr('data-action');
                 if (action === 'add') {
@@ -780,20 +780,30 @@
                             });
                         } else {
                             var insurane_html = insuranceAppend(data);
-                            var family_html = familyAppend(data)
-                           
+                            var family_html = familyAppend(data);
+                            var physician_html = physicianAppend(data);
+                            var pharmacy_html = pharmacyAppend(data);
                             if (data.action === 'add') {
                                 if (data.modal === 'insurance') {
                                     $('.insurance-list-order tr:last').after(insurane_html);
                                 } else if(data.modal === 'family') {
                                     $('.family-list-order tr:last').after(family_html);
-                                } 
+                                } else if (data.modal === 'physician') {
+                                    alert(data.modal);
+                                    $('.physician-list-order tr:last').after(physician_html);
+                                } else if(data.modal === 'pharmacy') {
+                                    $('.pharmacy-list-order tr:last').after(pharmacy_html);
+                                }
                             } else if (data.action === 'edit') {
                                 if (data.modal === 'insurance') {
                                     t.parents("tr").replaceWith(insurane_html);
                                 } else if(data.modal === 'family') {
                                     t.parents("tr").replaceWith(family_html);
-                                } 
+                                } else if (data.modal === 'physician') {
+                                    t.parents("tr").replaceWith(physician_html);
+                                } else if(data.modal === 'pharmacy') {
+                                    t.parents("tr").replaceWith(pharmacy_html);
+                                }
                             }
                             $('.form_div').hide();
                             t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
@@ -868,14 +878,15 @@
                                         alertText(data.message,'error');
                                     } else {
                                         if (data.modal === 'physician') {
-                                            var family_html = physicianAppend(data)
-                                            $('.physician-list-order tr:last').after(insurane_html);
+                                            alert(data.modal);
+                                            var physician_html = physicianAppend(data)
+                                            $('.physician-list-order tr:last').after(physician_html);
                                         } else if(data.modal === 'family') {
                                             var family_html = familyAppend(data)
                                             $('.family-list-order tr:last').after(family_html);
                                         } else if(data.modal === 'pharmacy') {
-                                            var family_html = pharmacyAppend(data)
-                                            $('.pharmacy-list-order tr:last').after(family_html);
+                                            var pharmacy_html = pharmacyAppend(data)
+                                            $('.pharmacy-list-order tr:last').after(pharmacy_html);
                                         }
 
                                         alertText(data.message,'success');

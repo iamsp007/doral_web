@@ -2,14 +2,18 @@ $(".autoImportPatient").click(function () {
           
     var url = $(this).attr('data-url');
     var action = $(this).attr('data-action');
-    
+     var patientId = $(this).attr('data-id');
+     alert(patient_id);
     $("#loader-wrapper").show();
     $.ajax({
         type:"GET",
         url:url,
-        data:{action:action},
+        data:{
+        "action":action,
+        "patient_id":patient_id
+        },
         success: function(data) {
-          
+          	alert(data.status);
             if(data.status == 200) {
                 if (action == 'check-caregiver') {
                     console.log('get caregiver data');

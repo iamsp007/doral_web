@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AcceptedService;
 use App\Models\AlternateBilling;
+use App\Models\Caregivers;
 use App\Models\CareTeam;
 use App\Models\CaseManagement;
 use App\Models\City;
@@ -97,7 +98,7 @@ class GetPatientDetailsController extends Controller
         $family_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','1']])->get();
         $physician_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','2']])->get();
         $pharmacy_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','3']])->get();
-      
+        $caregiver = Caregivers::where('patient_id', $paient_id)->orderBy('id','DESC')->first();
         $payment = array();
         if(isset($patient->demographic->service_id) and isset($patient->demographic->company_id)){
             $payment = CompanyPaymentPlanInfo::where('service_id',$patient->demographic->service_id)->where('company_id',$patient->demographic->company_id)->get();
@@ -139,7 +140,7 @@ class GetPatientDetailsController extends Controller
         ->groupBy('user_device_id','date')
         ->get()->toArray();
         
-        return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs','today', 'caseManagements','family_detail','physician_detail','pharmacy_detail'));
+        return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs','today', 'caseManagements','family_detail','physician_detail','pharmacy_detail','caregiver'));
     }
 
     public function checkCurrentVisitorDetails(Request $request)

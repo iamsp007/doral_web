@@ -22,6 +22,7 @@
                   <li>Status: <span>{{ isset($patient->demographic) ? $patient->demographic->status : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->demographic) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Service: <span>{{ ($patient->demographic && $patient->demographic->services) ? $patient->demographic->services->name : '' }}</span></li>
+
                   <li>Gender: <span>{{ $patient->gender_data }}</span></li>
                   <li>DOB: <span>{{ ($patient->dob) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
 <!--                  <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center">
@@ -153,7 +154,9 @@
             <div class="col-12 col-sm-10">
                <div class="tab-content" id="v-pills-tabContent">
                   <!-- Demographics Start -->
+
                      @include('pages.patient_detail.caregiver_demographic')
+
                   <!-- Demographics End -->
 
                   <!-- Patient Referral Start -->
@@ -626,6 +629,52 @@
                 $('input[name="duereport"]').val('')
                 $("#due_patient_list").DataTable().ajax.reload(null, false);
             })
+            
+            $(".autoImportPatient").click(function () {
+          
+    var url = $(this).attr('data-url');
+    var action = $(this).attr('data-action');
+   var patientId = $(this).attr('data-id');
+     
+    $("#loader-wrapper").show();
+    $.ajax({
+        type:"GET",
+        url:url,
+         data:{
+        "action":action,
+        "patient_id":patient_id
+        },
+        success: function(data) {
+          	
+            if(data.status == 200) {
+                if (action == 'check-caregiver') {
+                    console.log('get caregiver data');
+                    console.log(data.data);
+                    console.log('get caregiver data');
+
+                    if (data.data != '') {
+                        var value=data.data;
+                        // $.each(data.data, function (key, value) {
+                            var html = '<tr><td>' + value.name + '</td><td>' + value.phone + '</td><td>' + value.start_time + '</td><td>' + value.end_time + '</td></tr>';
+                            $(document).find('.caregiver-list-old').hide();
+                            $(document).find('.caregiver-list-order').before(html);
+                        // });
+                    }
+                }
+                alertText(data.message,'success');
+            
+            } else {
+                alertText(data.message,'error');
+            }
+            $("#loader-wrapper").hide();
+        },
+        error: function()
+        {
+            alertText("Server Timeout! Please try again",'warning');
+            $("#loader-wrapper").hide();
+        }
+    });
+});
 
             $(document).on('click','.patient-detail-lab-report',function(event) {
                 event.preventDefault();
@@ -1014,11 +1063,8 @@
          });
       }
    </script>
-{{--    <script--}}
-{{--        src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"--}}
-{{--        defer--}}
-{{--    ></script>--}}
+{{-- <script src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly" defer></script> --}}
    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
-   <script src="{{ asset('assets/developer/js/import.js') }}"></script>
+   {{-- <script src="{{ asset('assets/developer/js/import.js') }}"></script> --}}
    @stack('patient-detail-js')
 @endpush

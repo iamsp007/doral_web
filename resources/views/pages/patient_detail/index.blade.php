@@ -1059,7 +1059,7 @@ $(this).replaceWith(replaceValue);
         if (data.resultdata.detail['hcp'] === 'on') {
             html+= 'checked';
         } 
-        html+= '><span style="font-size:12px; padding-left: 25px;">HCP</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>'
+        html+= '><span style="font-size:12px; padding-left: 25px;">HCP</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
       
      
         return html;
@@ -1084,27 +1084,30 @@ $(this).replaceWith(replaceValue);
         if (data.resultdata.detail['primary'] === 'on') {
             html+= 'checked';
         }
-        html+= '><span style="font-size:12px; padding-left: 25px;">Primary</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>'
+        html+= '><span style="font-size:12px; padding-left: 25px;">Primary</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+
+        return html;
     }
 
     function pharmacyAppend(data) {
         var url = "{{ Route('care-team.store') }}";
+       
+        var url = "{{ Route('care-team.store') }}";
         if (data.resultdata.detail['active'] === 'on') { 	
         	$('.ms-lastCell').each(function() {
                 var lastColumn = $(this).html();
-                var replaceValue = '<td><span class="label"><label><input class="careteam_check" type="checkbox" name="active" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="active" data-url="' + url + '" data-patientId="'+patient_id+'"';
-                if (data.resultdata.detail['active'] === 'on') {
-                    html+= 'checked';
-                }
-                html+= '><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td>';
+                var replaceValue = '<td><span class="label"><label><input class="careteam_check" type="checkbox" name="active" data-id="' + data.resultdata.id + '" data-action="pharmacy-checked" data-field="active" data-url="' + url + '" data-patientId="'+patient_id+'"><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td>';
         
                 $(this).replaceWith(replaceValue);
             });
         }
-        var html = '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="pharmacy"><input type="hidden" name="patient_id" value="'+patient_id+'"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="address" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['address'] + '"></div><span class="relation-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="active" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="active" data-url="' + url + '" data-patientId="'+patient_id+'"';  if (data.resultdata.detail['active'] === 'on') {
+        var html = '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="pharmacy"><input type="hidden" name="patient_id" value="'+patient_id+'"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="address" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['address'] + '"></div><span class="relation-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="active" data-id="' + data.resultdata.id + '" data-action="pharmacy-checked" data-field="active" data-url="' + url + '" data-patientId="'+patient_id+'"';
+        if (data.resultdata.detail['active'] === 'on') {
             html+= 'checked';
         }
-        html+= '><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>
+        html+= '><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+
+        return html;
     }
     
     

@@ -206,7 +206,7 @@
                                        <td class="ms-lastCell">
                                           <span class='label'>
                                              <label>
-                                                <input class="careteam_check" type="checkbox" name="hcp" data-id="{{ $careTeam->id }}" data-action="careTeamUpdate" data-field="hcp" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($careTeam['detail']['hcp']) === 'on' ? 'checked' : '' }}>
+                                                <input class="careteam_check" type="checkbox" name="hcp" data-id="{{ $careTeam->id }}" data-action="family-checked" data-field="hcp" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($careTeam['detail']['hcp']) === 'on' ? 'checked' : '' }}>
                                                 <span style="font-size:12px; padding-left: 25px;">HCP</span>
                                              </label>
                                           </span>
@@ -420,7 +420,7 @@
                                        <td>
                                           <span class='label'>
                                              <label>
-                                                <input class="careteam_check" type="checkbox" name="primary" data-id="{{ $careTeam->id }}" data-action="careTeamUpdate" data-field="primary" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($physician['detail']['primary']) === 'on' ? 'checked' : '' }}>
+                                                <input class="careteam_check" type="checkbox" name="primary" data-id="{{ $careTeam->id }}" data-action="physician-checked" data-field="primary" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($physician['detail']['primary']) === 'on' ? 'checked' : '' }}>
                                                 <span style="font-size:12px; padding-left: 25px;">Primary</span>
                                              </label>
                                           </span>
@@ -588,7 +588,7 @@
                                        <td>
                                           <span class='label'>
                                              <label>
-                                                <input class="careteam_check" type="checkbox" name="active" data-id="{{ $careTeam->id }}" data-action="careTeamUpdate" data-field="active" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($pharmacy['detail']['active']) === 'on' ? 'checked' : '' }}>
+                                                <input class="careteam_check" type="checkbox" name="active" data-id="{{ $careTeam->id }}" data-action="pharmacy-checked" data-field="active" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($pharmacy['detail']['active']) === 'on' ? 'checked' : '' }}>
                                                 <span style="font-size:12px; padding-left: 25px;">Active</span>
                                              </label>
                                           </span>

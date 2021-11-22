@@ -136,7 +136,7 @@ class CareTeamController extends Controller
                     $careTeam->type = $type;
                     $careTeam->fill($input)->save();
 			
-		    if ((isset($careTeam->detail['hcp']) && $careTeam->detail['hcp'] === 'on') || (isset($careTeam->detail['primary']) && $careTeam->detail['primary'] === 'on')) {
+		    if ((isset($careTeam->detail['hcp']) && $careTeam->detail['hcp'] === 'on') || (isset($careTeam->detail['primary']) && $careTeam->detail['primary'] === 'on') || (isset($careTeam->detail['active']) && $careTeam->detail['active'] === 'on')) {
 		  
                     $input['care_team_id'] = $careTeam->id;
                     self::updateData($input);

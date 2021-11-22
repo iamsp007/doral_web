@@ -771,7 +771,9 @@
                         'X_CSRF_TOKEN': '{{ csrf_token() }}',
                     },
                     success: function(data) {
+                   	console.log(data);
                         if(data.status == 400) {
+                        	
                             $.each(data.message, function( key, value ) {
                                 if (data.action === 'add') {
                                     t.parents('.form_div').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
@@ -779,6 +781,7 @@
                                     t.parents("tr").find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
                                 }
                             });
+                            
                         } else {
                             var insurane_html = insuranceAppend(data);
                             var family_html = familyAppend(data);
@@ -787,7 +790,7 @@
                             if (data.action === 'add') {
                                 if (data.modal === 'insurance') {
                                     $('.insurance-list-order tr:last').after(insurane_html);
-                                } else if(data.modal === 'family') {
+                                } else if(data.modal === 'family') {                 
                                     $('.family-list-order tr:last').after(family_html);
                                 } else if (data.modal === 'physician') {
                                     $('.physician-list-order tr:last').after(physician_html);
@@ -839,7 +842,7 @@
                 var url = $(this).attr('data-url');
                 var action = $(this).attr('data-action');
                 var field = $(this).attr('data-field');
-
+		
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -880,13 +883,13 @@
                                     if(data.status == 400) {
                                         alertText(data.message,'error');
                                     } else {
-                                        if (data.modal === 'physician') {
+                                        if (data.modal === 'physician-checked') {
                                             var physician_html = physicianAppend(data)
                                             $('.physician-list-order tr:last').after(physician_html);
-                                        } else if(data.modal === 'family') {
+                                        } else if(data.modal === 'family-checked') {
                                             var family_html = familyAppend(data)
                                             $('.family-list-order tr:last').after(family_html);
-                                        } else if(data.modal === 'pharmacy') {
+                                        } else if(data.modal === 'pharmacy-checked') {
                                             var pharmacy_html = pharmacyAppend(data)
                                             $('.pharmacy-list-order tr:last').after(pharmacy_html);
                                         }
@@ -1038,24 +1041,72 @@
     }
 
     function familyAppend(data) {
+ 
         var url = "{{ Route('care-team.store') }}";
-      
+       if (data.resultdata.detail['hcp'] === 'on') {
+       	
+        	$('.ms-lastCell').each(function() {
+
+		var lastColumn = $(this).html();
+		var replaceValue = '<td><span class="label"><label><input class="careteam_check" type="checkbox" name="hcp" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="hcp" data-url="' + url + '" data-patientId="'+patient_id+'"><span style="font-size:12px; padding-left: 25px;">HCP</span></label></span></td>';
+    
+$(this).replaceWith(replaceValue);
+
+		});
+      }
+    
         var html = '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="family"><input type="hidden" name="patient_id" value="'+patient_id+'"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter Family Company Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['relation'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="relation" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['relation'] + '"></div><span class="relation-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="hcp" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="hcp" data-url="' + url + '" data-patientId="'+patient_id+'"';
         if (data.resultdata.detail['hcp'] === 'on') {
             html+= 'checked';
         } 
         html+= '><span style="font-size:12px; padding-left: 25px;">HCP</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>'
       
+     
         return html;
     }
 
     function physicianAppend(data) {
-        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="physician"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['fax'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="fax" aria-describedby="faxHelp" placeholder="Enter fax" value="' + data.resultdata.detail['fax'] + '"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="' + data.resultdata.detail['address'] + '"></div><span class="address-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['npi'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="' + data.resultdata.detail['npi'] + '"></div><span class="npi-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="primary" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="primary" data-url="" data-patientId="{{ $patient->id }}" ><span style="font-size:12px; padding-left: 25px;">Primary</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+        var url = "{{ Route('care-team.store') }}";
+        if (data.resultdata.detail['primary'] === 'on') { 	
+        	$('.ms-lastCell').each(function() {
+                var lastColumn = $(this).html();
+                var replaceValue = '<td><span class="label"><label><input class="careteam_check" type="checkbox" name="primary" data-id="' + data.resultdata.id + '" data-action="physician-checked" data-field="primary" data-url="' + url + '" data-patientId="'+patient_id+'"';
+                if (data.resultdata.detail['primary'] === 'on') {
+                    html+= 'checked';
+                }
+                html+= '><span style="font-size:12px; padding-left: 25px;">Primary</span></label></span></td>';
+        
+                $(this).replaceWith(replaceValue);
+            });
+        }
+    
+        var html = '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="physician"><input type="hidden" name="patient_id" value="'+patient_id+'"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['fax'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="fax" aria-describedby="faxHelp" placeholder="Enter fax" value="' + data.resultdata.detail['fax'] + '"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="' + data.resultdata.detail['address'] + '"></div><span class="address-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['npi'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="' + data.resultdata.detail['npi'] + '"></div><span class="npi-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="primary" data-id="' + data.resultdata.id + '" data-action="physician-checked" data-field="primary" data-url="' + url + '" data-patientId="'+patient_id+'"';
+        if (data.resultdata.detail['primary'] === 'on') {
+            html+= 'checked';
+        }
+        html+= '><span style="font-size:12px; padding-left: 25px;">Primary</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>'
     }
 
     function pharmacyAppend(data) {
-        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="pharmacy"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="address" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['address'] + '"></div><span class="relation-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="active" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="active" data-url="" data-patientId=""><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b;color:#fff">Save<a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+        var url = "{{ Route('care-team.store') }}";
+        if (data.resultdata.detail['active'] === 'on') { 	
+        	$('.ms-lastCell').each(function() {
+                var lastColumn = $(this).html();
+                var replaceValue = '<td><span class="label"><label><input class="careteam_check" type="checkbox" name="active" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="active" data-url="' + url + '" data-patientId="'+patient_id+'"';
+                if (data.resultdata.detail['active'] === 'on') {
+                    html+= 'checked';
+                }
+                html+= '><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td>';
+        
+                $(this).replaceWith(replaceValue);
+            });
+        }
+        var html = '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="pharmacy"><input type="hidden" name="patient_id" value="'+patient_id+'"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="address" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['address'] + '"></div><span class="relation-invalid-feedback text-danger" role="alert"></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="active" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="active" data-url="' + url + '" data-patientId="'+patient_id+'"';  if (data.resultdata.detail['active'] === 'on') {
+            html+= 'checked';
+        }
+        html+= '><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>
     }
+    
     
     function alertText(text,status) {
         const Toast = Swal.mixin({

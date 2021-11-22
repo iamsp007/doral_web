@@ -121,21 +121,26 @@ class CareTeamController extends Controller
         $validator = Validator::make($input, $rules, $messages);
 
         if ($validator->fails()) {
-            $arr = array('status' => 400, 'message' => $validator->getMessageBag()->toArray(), 'result' => array(), 'action' => $action);
+            $arr = array('status' => 400, 'message' => $validator->getMessageBag()->toArray(), 'resultdata' => array(), 'action' => $action);
         } else {
             try {
-                if ($input['section'] === 'careTeamUpdate') {
-                   
+                if ($input['section'] === 'physician-checked' || $input['section'] === 'pharmacy-checked' || $input['section'] === 'family-checked') {
+                    
                     self::updateData($input);
+                    $careTeam = CareTeam::where('patient_id',$input['patient_id'])->get();
+                   
                     $arr = array('status' => 200, 'message' => 'Change priority successfully.','resultdata' => $careTeam, 'modal' => $input['section']);
                 } else {
                    
                     $careTeam->detail = $detail;
                     $careTeam->type = $type;
                     $careTeam->fill($input)->save();
-
+			
+		    if ((isset($careTeam->detail['hcp']) && $careTeam->detail['hcp'] === 'on') || (isset($careTeam->detail['primary']) && $careTeam->detail['primary'] === 'on')) {
+		  
                     $input['care_team_id'] = $careTeam->id;
                     self::updateData($input);
+                    }
 
                     $arr = array('status' => 200, 'message' => $message, 'resultdata' => $careTeam, 'action' => $action, 'modal' => $input['section']);
                 }
@@ -144,6 +149,7 @@ class CareTeamController extends Controller
                 if (isset($ex->errorInfo[2])) {
                     $message = $ex->errorInfo[2];
                 }
+                
                 $arr = array("status" => 400, "message" => $message, "resultdata" => array());
             } catch (Exception $ex) {
                 $message = $ex->getMessage();
@@ -158,13 +164,15 @@ class CareTeamController extends Controller
 
     public static function updateData($input)
     {
-        CareTeam::where('patient_id',$input['patient_id'])->update([
+        $careTeam = CareTeam::where('patient_id',$input['patient_id'])->update([
             'detail->'.$input['field'] => ''
         ]);
 
         CareTeam::where('id', $input['care_team_id'])->update([
             'detail->'.$input['field'] => 'on'
         ]);
+        
+        return $careTeam;
     }
     /**
      * Remove the specified resource from storage.

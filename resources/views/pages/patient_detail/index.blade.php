@@ -6,6 +6,7 @@
 @endsection
 
 @section('content')
+<input type="hidden" name="patient_id" id="patient_id" value="{{ $patient->id }}">
    <div class="app-clinician-patient-chart">
       <header class="patient-chart-header">
          <div class="leftItem">
@@ -632,49 +633,49 @@
             
             $(".autoImportPatient").click(function () {
           
-    var url = $(this).attr('data-url');
-    var action = $(this).attr('data-action');
-   var patientId = $(this).attr('data-id');
-     
-    $("#loader-wrapper").show();
-    $.ajax({
-        type:"GET",
-        url:url,
-         data:{
-        "action":action,
-        "patient_id":patient_id
-        },
-        success: function(data) {
-          	
-            if(data.status == 200) {
-                if (action == 'check-caregiver') {
-                    console.log('get caregiver data');
-                    console.log(data.data);
-                    console.log('get caregiver data');
+                var url = $(this).attr('data-url');
+                var action = $(this).attr('data-action');
+                var patientId = $(this).attr('data-id');
+                
+                $("#loader-wrapper").show();
+                $.ajax({
+                    type:"GET",
+                    url:url,
+                    data:{
+                    "action":action,
+                    "patient_id":patient_id
+                    },
+                    success: function(data) {
+                        
+                        if(data.status == 200) {
+                            if (action == 'check-caregiver') {
+                                console.log('get caregiver data');
+                                console.log(data.data);
+                                console.log('get caregiver data');
 
-                    if (data.data != '') {
-                        var value=data.data;
-                        // $.each(data.data, function (key, value) {
-                            var html = '<tr><td>' + value.name + '</td><td>' + value.phone + '</td><td>' + value.start_time + '</td><td>' + value.end_time + '</td></tr>';
-                            // $(document).find('.caregiver-list-old').hide();
-                            $(document).find('.caregiver-list-order').before(html);
-                        // });
+                                if (data.data != '') {
+                                    var value=data.data;
+                                    // $.each(data.data, function (key, value) {
+                                        var html = '<tr><td>' + value.name + '</td><td>' + value.phone + '</td><td>' + value.start_time + '</td><td>' + value.end_time + '</td></tr>';
+                                        // $(document).find('.caregiver-list-old').hide();
+                                        $(document).find('.caregiver-list-order').replaceWith(html);
+                                    // });
+                                }
+                            }
+                            alertText(data.message,'success');
+                        
+                        } else {
+                            alertText(data.message,'error');
+                        }
+                        $("#loader-wrapper").hide();
+                    },
+                    error: function()
+                    {
+                        alertText("Server Timeout! Please try again",'warning');
+                        $("#loader-wrapper").hide();
                     }
-                }
-                alertText(data.message,'success');
-            
-            } else {
-                alertText(data.message,'error');
-            }
-            $("#loader-wrapper").hide();
-        },
-        error: function()
-        {
-            alertText("Server Timeout! Please try again",'warning');
-            $("#loader-wrapper").hide();
-        }
-    });
-});
+                });
+            });
 
             $(document).on('click','.patient-detail-lab-report',function(event) {
                 event.preventDefault();
@@ -761,7 +762,7 @@
                     var formdata = $(this).parents("tr").find('form').serializeArray();
                 }
                 var url = t.attr('data-url');
-
+                $("#loader-wrapper").show();
                 $.ajax({
                     type:"POST",
                     url:url,
@@ -789,7 +790,6 @@
                                 } else if(data.modal === 'family') {
                                     $('.family-list-order tr:last').after(family_html);
                                 } else if (data.modal === 'physician') {
-                                    alert(data.modal);
                                     $('.physician-list-order tr:last').after(physician_html);
                                 } else if(data.modal === 'pharmacy') {
                                     $('.pharmacy-list-order tr:last').after(pharmacy_html);
@@ -809,11 +809,14 @@
                             t.parents("tr").find(".phone-text, .while_edit").css("display",'none');
                             t.parents("tr").find("span, .normal").css("display",'block');
                             alertText(data.message,'success');
+                            t.parents('.form_div').find('form').trigger("reset");
                         }
+                        $("#loader-wrapper").hide();
                     },
                     error: function()
                     {
                         alertText("Server Timeout! Please try again",'warning');
+                        $("#loader-wrapper").hide();
                     }
                 });
             });
@@ -878,7 +881,6 @@
                                         alertText(data.message,'error');
                                     } else {
                                         if (data.modal === 'physician') {
-                                            alert(data.modal);
                                             var physician_html = physicianAppend(data)
                                             $('.physician-list-order tr:last').after(physician_html);
                                         } else if(data.modal === 'family') {
@@ -1036,7 +1038,15 @@
     }
 
     function familyAppend(data) {
-        return '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter Family Name" value="' + data.resultdata.detail['name'] + '"></div></td><td><span class="label">' + data.resultdata.detail['relation'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="relation" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['relation'] + '"></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['relation'] + '" maxlength="14"></div></td><td><label><input type="checkbox" name="hcp" value="' + data.resultdata.detail['relation'] + '"><span style="font-size:12px; padding-left: 25px;">HCP</span></label></div></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><a class="save_record btn btn-sm" data-action="edit" title="Save" style="background: #626a6b; color: #fff">Save</a><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+        var url = "{{ Route('care-team.store') }}";
+      
+        var html = '<tr><form class="family_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="family"><input type="hidden" name="patient_id" value="'+patient_id+'"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter Family Company Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['relation'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="relation" name="relation" aria-describedby="relationHelp" placeholder="Enter relation" value="' + data.resultdata.detail['relation'] + '"></div><span class="relation-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="hcp" data-id="' + data.resultdata.id + '" data-action="careTeamUpdate" data-field="hcp" data-url="' + url + '" data-patientId="'+patient_id+'"';
+        if (data.resultdata.detail['hcp'] === 'on') {
+            html+= 'checked';
+        } 
+        html+= '><span style="font-size:12px; padding-left: 25px;">HCP</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>'
+      
+        return html;
     }
 
     function physicianAppend(data) {

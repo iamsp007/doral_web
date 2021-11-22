@@ -210,19 +210,13 @@
                                                 <span style="font-size:12px; padding-left: 25px;">HCP</span>
                                              </label>
                                           </span>
-                                          <!-- <div class='phone-text'>
-                                          <label>
-                                             <input type="checkbox" name="hcp" {{ ($careTeam['detail']['hcp']) === 'on' ? 'checked' : '' }}>
-                                             <span style="font-size:12px; padding-left: 25px;">HCP</span>
-                                          </label>
-                                          </div> -->
                                        </td>
                                        <td>
                                           <div class="normal">
                                              <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
                                           </div>
                                           <div class="while_edit">
-                                             <button type="submit" class="btn btn-sm save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="edit"><i class="fa fa-save"></i> Save</button>
+                                             <button type="submit" class="btn btn-sm save_record" data-url="{{ Route('care-team.store') }}" data-action="edit"><i class="fa fa-save"></i> Save</button>
                                             <a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
                                           </div>
                                        </td>
@@ -300,7 +294,7 @@
                               </div>
                            </div>
                            <div class=" d-flex justify-content-end">
-                              <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
+                              <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
                            </div>
                         </div>
                      </div>
@@ -436,7 +430,7 @@
                                              <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
                                           </div>
                                           <div class="while_edit">
-                                          <button type="submit" class="btn btn-sm save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
+                                          <button type="submit" class="btn btn-sm save_record" data-url="{{ Route('care-team.store') }}" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
                                           </div>
                                        </td>
                                     </form>
@@ -537,7 +531,7 @@
                         </div>
                         <div class="p-3">
                            <div class=" d-flex justify-content-end">
-                              <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
+                              <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
                            </div>
                         </div>
                      </div>
@@ -549,7 +543,7 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3" data-name="croley_family_and_financial">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Pharmacy Details</h1>
-                     <a class="add_care_team" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Physician Detail"><i class="las la-plus-circle la-2x"></i></a>
+                     <a class="add_care_team" href="javascript:void(0)" data-toggle="tooltip" data-placement="left" title="Add New Pharmacy Detail"><i class="las la-plus-circle la-2x"></i></a>
                   </div>
                   <div class="card-body text-info">
                      <table class="table m-0 pharmacy-list-order">
@@ -604,7 +598,7 @@
                                              <a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a>
                                           </div>
                                           <div class="while_edit">
-                                          <button type="submit" class="btn btn-sm save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
+                                          <button type="submit" class="btn btn-sm save_record" data-url="{{ Route('care-team.store') }}" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a>
                                           </div>
                                        </td>
                                     </form>
@@ -679,7 +673,7 @@
                               </div>
                            </div>
                            <div class=" d-flex justify-content-end">
-                              <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
+                              <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
                            </div>
                         </div>
                      </div>

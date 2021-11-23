@@ -171,13 +171,14 @@
                               <th>Relation</th>
                               <th>Phone</th>
                               <th>HCP</th>
+                              <th>Texed</th>
                               <th>Action</th>
                            </tr>
                         </thead>
                         <tbody>
                            @if(isset($family_detail))
                               @foreach($family_detail as $careTeam)
-                                 <tr>
+                                 <tr class="family-tr">
                                     <form class="family_form">
                                        <input type="hidden" name="care_team_id" value="{{ $careTeam->id }}">
                                        <input type="hidden" name="section" value="family">
@@ -208,6 +209,14 @@
                                              <label>
                                                 <input class="careteam_check" type="checkbox" name="hcp" data-id="{{ $careTeam->id }}" data-action="family-checked" data-field="hcp" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($careTeam['detail']['hcp']) === 'on' ? 'checked' : '' }}>
                                                 <span style="font-size:12px; padding-left: 25px;">HCP</span>
+                                             </label>
+                                          </span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>
+                                             <label>
+                                                <input type="checkbox" name="texed" {{ ($careTeam['detail']['texed']) === 'on' ? 'checked' : '' }}>
+                                                <span style="font-size:12px; padding-left: 25px;" readonly>Texed</span>
                                              </label>
                                           </span>
                                        </td>
@@ -292,6 +301,20 @@
                                     </div>
                                  </div>
                               </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Yes want text message</h3>
+                                       <div class="_detail">
+                                          <label>
+                                                <input type="checkbox" name="texed">
+                                                <span style="font-size:12px; padding-left: 25px;"></span>
+                                          </label>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
                            </div>
                            <div class=" d-flex justify-content-end">
                               <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('care-team.store') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
@@ -368,9 +391,10 @@
                               <th>Name</th>
                               <th>Phone</th>
                               <th>FAX</th>
-                              <th>Address</th>
                               <th>NPI</th>
                               <th>Primary</th>
+                              <th>Texed</th>
+                              <th>Address</th>
                               <th>Action</th>
                            </tr>
                         </thead>
@@ -378,7 +402,7 @@
                            @if(isset($physician_detail))
                               @foreach($physician_detail as $physician)
                                  <tr>
-                                    <form class="family_form">
+                                    <form class="physician_form">
                                        <input type="hidden" name="care_team_id" value="{{ $physician->id }}">
                                        <input type="hidden" name="section" value="physician">
                                        <input type="hidden" name="patient_id" value="{{ $patient->id }}">
@@ -404,13 +428,6 @@
                                           <span class="phone-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
-                                          <span class='label'>{{ $physician['detail']['address'] }}</span>
-                                          <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="{{ $physician['detail']['address'] }}">
-                                          </div>
-                                          <span class="address-invalid-feedback text-danger" role="alert"></span>
-                                       </td>
-                                       <td>
                                           <span class='label'>{{ $physician['detail']['npi'] }}</span>
                                           <div class='phone-text'>
                                              <input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="{{ $physician['detail']['npi'] }}">
@@ -424,6 +441,21 @@
                                                 <span style="font-size:12px; padding-left: 25px;">Primary</span>
                                              </label>
                                           </span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>
+                                             <label>
+                                                <input type="checkbox" name="texed" {{ ($physician['detail']['texed']) === 'on' ? 'checked' : '' }}>
+                                                <span style="font-size:12px; padding-left: 25px;" disabled>Texed</span>
+                                             </label>
+                                          </span>
+                                       </td>
+                                       <td>
+                                          <span class='label'>{{ $physician['detail']['address'] }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="{{ $physician['detail']['address'] }}">
+                                          </div>
+                                          <span class="address-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
                                           <div class="normal">
@@ -442,7 +474,7 @@
                   </div>
                </div>
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
-                  <form class="family_form">
+                  <form class="pharmacy_form">
                      <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                      <input type="hidden" name="section" value="physician">
                      <div class="head">
@@ -493,18 +525,6 @@
                                  <div class="input_box">
                                     <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                     <div class="rs">
-                                       <h3 class="_title">Address</h3>
-                                       <div class="_detail">
-                                          <textarea name="address" rows="4" cols="62" class="form-control-plaintext _detail" placeholder="address"></textarea>
-                                          <span class="address-invalid-feedback text-danger" role="alert"></span>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-12 col-sm-4">
-                                 <div class="input_box">
-                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
-                                    <div class="rs">
                                        <h3 class="_title">NPI</h3>
                                        <div class="_detail">
                                           <input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi">
@@ -523,6 +543,36 @@
                                                 <input type="checkbox" name="primary">
                                                 <span style="font-size:12px; padding-left: 25px;"></span>
                                           </label>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Yes want text message</h3>
+                                       <div class="_detail">
+                                          <label>
+                                                <input type="checkbox" name="texed">
+                                                <span style="font-size:12px; padding-left: 25px;"></span>
+                                          </label>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="p-3">
+                           <div class="row">
+                              <div class="col-12 col-sm-12">
+                                 <div class="input_box">
+                                    <div class="ls"><i class="las la-angle-double-right circle"></i></div>
+                                    <div class="rs">
+                                       <h3 class="_title">Address</h3>
+                                       <div class="_detail">
+                                          <textarea name="address" rows="4" cols="62" class="form-control-plaintext _detail" placeholder="address"></textarea>
+                                          <span class="address-invalid-feedback text-danger" role="alert"></span>
                                        </div>
                                     </div>
                                  </div>
@@ -560,7 +610,7 @@
                            @if(isset($pharmacy_detail))
                               @foreach($pharmacy_detail as $pharmacy)
                                  <tr>
-                                    <form class="family_form">
+                                    <form class="pharmacy_form">
                                        <input type="hidden" name="care_team_id" value="{{ $pharmacy->id }}">
                                        <input type="hidden" name="section" value="pharmacy">
                                        <input type="hidden" name="patient_id" value="{{ $patient->id }}">
@@ -610,7 +660,7 @@
                   </div>
                </div>
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
-                  <form class="family_form">
+                  <form class="pharmacy_form">
                      <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                      <input type="hidden" name="section" value="pharmacy">
                      <div class="head">

@@ -71,7 +71,12 @@ class CareTeamController extends Controller
         }
 
         $careTeam->patient_id = $input['patient_id'];
-        $detail = $type = '';
+        $detail = $type =  $texed ='';
+
+        if (isset($input['texed'])) {
+            $texed =  $input['texed'];
+        }
+
         if ($input['section'] === 'family') {
             $hcp = '';
             $input['field'] = '';
@@ -84,6 +89,7 @@ class CareTeamController extends Controller
                 'relation' => $input['relation'],
                 'phone' => $input['phone'],
                 'hcp' => $hcp,
+                'texed' => $texed,
             ];
             $type = "1";
         } else if ($input['section'] === 'physician') {
@@ -100,6 +106,7 @@ class CareTeamController extends Controller
                 'address' => $input['address'],
                 'npi' => $input['address'],
                 'primary' => $primary,
+                'texed' => $texed,
             ];
             $type = "2";
         } else if ($input['section'] === 'pharmacy') {
@@ -127,7 +134,7 @@ class CareTeamController extends Controller
                 if ($input['section'] === 'physician-checked' || $input['section'] === 'pharmacy-checked' || $input['section'] === 'family-checked') {
                     
                     self::updateData($input);
-                    $careTeam = CareTeam::where('patient_id',$input['patient_id'])->get();
+                    //$careTeam = CareTeam::where('patient_id',$input['patient_id'])->get();
                    
                     $arr = array('status' => 200, 'message' => 'Change priority successfully.','resultdata' => $careTeam, 'modal' => $input['section']);
                 } else {

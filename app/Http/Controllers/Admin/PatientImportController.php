@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GetPatientDetailsController;
 use App\Jobs\CaregiverImport;
+use App\Jobs\CheckCurrentCaregiver;
 use App\Jobs\PatientImport;
 use App\Jobs\VisitorImport;
 use App\Models\Caregivers;
@@ -53,7 +54,8 @@ class PatientImportController extends Controller
             if(Auth::guard('referral')) {
                 $company_id = Auth::guard('referral')->user();
             } 
-            
+
+            CheckCurrentCaregiver::dispatch()->dailyAt('19:00');
             if ($reqtest['action'] == 'check-caregiver') {
 		        $demographic = Demographic::where('user_id',$reqtest['patient_id'])->select('patient_id')->first();
                 $input['patientId'] = $demographic->patient_id;
@@ -89,14 +91,14 @@ class PatientImportController extends Controller
                             
                               $doral_id = createDoralId();
 
-		                $user_id = storeUser($demographics, $doral_id);
+                            $user_id = storeUser($demographics, $doral_id);
 
-		                if ($user_id) {
-		                     $company_id = '16';
-		                    storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
+                            if ($user_id) {
+                                $company_id = '16';
+                                storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
 
-		                    storeEmergencyContact($demographics, $user_id);
-		                }
+                                storeEmergencyContact($demographics, $user_id);
+                            }
                         }                        
                         
                         $scheduleStartTime = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ;
@@ -115,8 +117,9 @@ class PatientImportController extends Controller
                    
                     $arr = array('status' => 200, 'message' => 'Get current caregiver', 'data' => $data);
                 } else {
-                 $arr = array('status' => 200, 'message' => 'Data not found', 'data' => []);
-                 }
+                    $arr = array('status' => 200, 'message' => 'Data not found', 'data' => []);
+                }
+                
             } else {
                
                 CaregiverImport::dispatch($company_id);

@@ -340,6 +340,7 @@
                               <th>Address</th>
                               <th>NPI</th>
                               <th>Primary</th>
+                              <th>Texed</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -363,7 +364,13 @@
                                     </td>
                                     <td class="ms-lastCell">
                                        <label>
-                                          <input class="careteam_check" type="checkbox" name="flag" data-id="{{ $caseManager->id }}" data-action="casemanager" data-url="{{ Route('add-case-management') }}" data-patientId="{{ $patient->id }}" data-action="case-manager" {{ ($caseManager->flag) === '1' ? 'checked' : '' }}>
+                                          <input class="careteam_check" type="checkbox" name="flag" data-id="{{ $caseManager->id }}" data-action="casemanager" data-url="{{ Route('add-case-management') }}" data-patientId="{{ $patient->id }}" {{ ($caseManager->flag) === '1' ? 'checked' : '' }}>
+                                          <span style="font-size:12px; padding-left: 25px;">Primary</span>
+                                       </label>
+                                    </td>
+                                    <td class="ms-lastCell">
+                                       <label>
+                                          <input class="careteam_check" type="checkbox" name="texed" data-id="{{ $caseManager->id }}" data-action="casemanager-texted" data-url="{{ Route('add-case-management') }}" data-patientId="{{ $patient->id }}" {{ ($caseManager->texed) === '1' ? 'checked' : '' }}>
                                           <span style="font-size:12px; padding-left: 25px;">Primary</span>
                                        </label>
                                     </td>

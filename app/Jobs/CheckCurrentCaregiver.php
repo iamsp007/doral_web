@@ -43,15 +43,15 @@ class CheckCurrentCaregiver implements ShouldQueue
         $input['from_date'] = $today;
         $input['to_date'] = $today;
         
-        foreach ($demographics as $key => $demographic) {
-            $input['patientId'] = $demographic->patient_id;
-            Log::info('input data start');
-            Log::info($input);
-            Log::info('input data end');
-            $curlFunc = searchVisits($input);
-            Log::info('input data start');
-            Log::info($curlFunc);
-            Log::info('input data end');
+        // foreach ($demographics as $key => $demographic) {
+        //     $input['patientId'] = $demographic->patient_id;
+        //     Log::info('input data start');
+        //     Log::info($input);
+        //     Log::info('input data end');
+        //     $curlFunc = searchVisits($input);
+        //     Log::info('input data start');
+        //     Log::info($curlFunc);
+        //     Log::info('input data end');
             //SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
 
             // if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
@@ -129,7 +129,7 @@ class CheckCurrentCaregiver implements ShouldQueue
             //         Log::info($exception->getMessage());
             //     }
             // }
-        }
+        // }
 
         $details = [
             'message' => 'success message',

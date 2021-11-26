@@ -34,28 +34,97 @@
                         <td height="20" style="font-size:1px; line-height:1px;">&nbsp;</td>
                       </tr>
                       <tr>
-                        <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">Your patient import background process is complete!.</td>
-                      </tr>
-                      <tr>
-                        <td height="30" class="hc_height">&nbsp;</td>
-                      </tr>
-                      <tr>
-                        <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">Thank you for choosing HHAExchange for the patient import process.</td>
-                      </tr>
-                      <tr>
-                        <td height="30" class="hc_height">&nbsp;</td>
-                      </tr>
-                      <tr>
-                        <td valign="top" align="center">
-                          <table width="280" border="0" cellspacing="0" cellpadding="0" align="center">
-                            <tbody>
-                              <tr>     
-                                <td valign="middle" align="center" height="35" bgcolor="#006C76" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; font-weight:700; color:#ffffff;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;">Total users are imported into the system are: {{ $details['total'] }}</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                        <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">
+                        @if(isset($details['action']) && $details['action'] === 'CurrentCaregiverCheck')
+                          Get Current Caregiver background process is complete!.
+                        @else
+                          Your patient import background process is complete!.
+                        @endif
                         </td>
                       </tr>
+                      <tr>
+                        <td height="30" class="hc_height">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">
+                          @if(isset($details['action']) && $details['action'] === 'CurrentCaregiverCheck')
+                            {{ $details['message'] }}
+                          @else
+                            Thank you for choosing HHAExchange for the patient import process.
+                          @endif
+                       </td>
+                      </tr>
+                      <tr>
+                        <td height="30" class="hc_height">&nbsp;</td>
+                      </tr>
+                      @if(isset($details['action']) && $details['action'] === 'CurrentCaregiverCheck')
+                        <tr>
+                          <td valign="top" class="hc_aside">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                              <tbody>
+                                <tr>
+                                  <td height="20" style="font-size:1px; line-height:1px;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                  <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:18px; line-height:22px; font-weight: 700; color:#24272A;">
+                                  Patient ID : <span style="color: #006C76;">{{ $details['data']['patient_id'] }}</span> &nbsp; &nbsp; <span class="hc_block"></span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:18px; line-height:22px; font-weight: 700; color:#24272A;">
+                                  Patient Name : <span style="color: #006C76;">{{ $details['data']['name'] }}</span> &nbsp; &nbsp; <span class="hc_block"></span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td height="20" style="font-size:1px; line-height:1px;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                  <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:18px; line-height:22px; font-weight: 700; color:#24272A;">
+                                  Phone : <span style="color: #006C76;">{{ $details['data']['phone'] }}</span> &nbsp; &nbsp; <span class="hc_block"></span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td height="30" class="hc_height">&nbsp;</td>
+                                </tr>
+                                @if(isset($details['data']['start_time']))
+                                  <tr>
+                                    <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:18px; line-height:22px; font-weight: 700; color:#24272A;">
+                                    Schedule Start Time : <span style="color: #006C76;">{{ $details['data']['start_time'] }}</span> &nbsp; &nbsp; <span class="hc_block"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                      <td height="30" class="hc_height">&nbsp;</td>
+                                  </tr>
+                                  @endif
+                                  @if(isset($details['data']['end_time']))
+                                  <tr>
+                                    <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:18px; line-height:22px; font-weight: 700; color:#24272A;">
+                                    Schedule End Time : <span style="color: #006C76;">{{ $details['data']['end_time'] }}</span> &nbsp; &nbsp; <span class="hc_block"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td height="30" class="hc_height">&nbsp;</td>
+                                  </tr>
+                                @endif
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      @else
+                        <tr>
+                          <td valign="top" align="center">
+                            <table width="280" border="0" cellspacing="0" cellpadding="0" align="center">
+                              <tbody>
+                                <tr>     
+                                  <td valign="middle" align="center" height="35" bgcolor="#006C76" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; font-weight:700; color:#ffffff;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;">
+                                    Total users are imported into the system are: {{ $details['total'] }}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      @endif
                       <tr>
                         <td height="30" class="hc_height">&nbsp;</td>
                       </tr>

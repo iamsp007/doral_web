@@ -54,8 +54,7 @@ class PatientImportController extends Controller
             if(Auth::guard('referral')) {
                 $company_id = Auth::guard('referral')->user();
             } 
-
-            CheckCurrentCaregiver::dispatch()->dailyAt('19:00');
+           
             if ($reqtest['action'] == 'check-caregiver') {
 		        $demographic = Demographic::where('user_id',$reqtest['patient_id'])->select('patient_id')->first();
                 $input['patientId'] = $demographic->patient_id;
@@ -120,7 +119,9 @@ class PatientImportController extends Controller
                     $arr = array('status' => 200, 'message' => 'Data not found', 'data' => []);
                 }
                 
-            } else {
+            } else if($reqtest['action'] == 'check-caregiver-queue') {
+                CheckCurrentCaregiver::dispatch($reqtest['patient_id']);
+            }else {
                
                 CaregiverImport::dispatch($company_id);
 

@@ -605,6 +605,11 @@
         });
         
         $(document).ready(function() {
+            var import_url = "{{ url('import-caregiver-from-hha') }}";
+            var action_import_url = 'check-caregiver-queue';
+            
+            importAjaxCall(import_url,action_import_url,patient_id);
+
             $('.form_div').hide();
             
             $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
@@ -637,44 +642,7 @@
                 var action = $(this).attr('data-action');
                 var patientId = $(this).attr('data-id');
                 
-                $("#loader-wrapper").show();
-                $.ajax({
-                    type:"GET",
-                    url:url,
-                    data:{
-                    "action":action,
-                    "patient_id":patient_id
-                    },
-                    success: function(data) {
-                        
-                        if(data.status == 200) {
-                            if (action == 'check-caregiver') {
-                                console.log('get caregiver data');
-                                console.log(data.data);
-                                console.log('get caregiver data');
-
-                                if (data.data != '') {
-                                    var value=data.data;
-                                    // $.each(data.data, function (key, value) {
-                                        var html = '<tr><td>' + value.name + '</td><td>' + value.phone + '</td><td>' + value.start_time + '</td><td>' + value.end_time + '</td></tr>';
-                                        // $(document).find('.caregiver-list-old').hide();
-                                        $(document).find('.caregiver-list-order').replaceWith(html);
-                                    // });
-                                }
-                            }
-                            alertText(data.message,'success');
-                        
-                        } else {
-                            alertText(data.message,'error');
-                        }
-                        $("#loader-wrapper").hide();
-                    },
-                    error: function()
-                    {
-                        alertText("Server Timeout! Please try again",'warning');
-                        $("#loader-wrapper").hide();
-                    }
-                });
+                importAjaxCall(url,action,patientId);
             });
 
             $(document).on('click','.patient-detail-lab-report',function(event) {
@@ -1131,8 +1099,7 @@
         html+= '><span style="font-size:12px; padding-left: 25px;">Active</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
 
         return html;
-    }
-    
+    }    
     
     function alertText(text,status) {
         const Toast = Swal.mixin({
@@ -1153,15 +1120,56 @@
         })
     }
 
-      function printErrorMsg (msg) {
-         $(".print-error-msg").find("ul").html('');
-         $(".print-error-msg").css('display','block');
-         $.each( msg, function( key, value ) {
-            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-         });
-      }
-   </script>
-{{-- <script src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly" defer></script> --}}
+    function printErrorMsg (msg) {
+        $(".print-error-msg").find("ul").html('');
+        $(".print-error-msg").css('display','block');
+        $.each( msg, function( key, value ) {
+        $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+        });
+    }
+
+    function importAjaxCall() {
+        $("#loader-wrapper").show();
+        $.ajax({
+            type:"GET",
+            url:url,
+            data:{
+            "action":action,
+            "patient_id":patient_id
+            },
+            success: function(data) {
+                
+                if(data.status == 200) {
+                    if (action == 'check-caregiver') {
+                        console.log('get caregiver data');
+                        console.log(data.data);
+                        console.log('get caregiver data');
+
+                        if (data.data != '') {
+                            var value=data.data;
+                            // $.each(data.data, function (key, value) {
+                                var html = '<tr><td>' + value.name + '</td><td>' + value.phone + '</td><td>' + value.start_time + '</td><td>' + value.end_time + '</td></tr>';
+                                // $(document).find('.caregiver-list-old').hide();
+                                $(document).find('.caregiver-list-order').replaceWith(html);
+                            // });
+                        }
+                    }
+                    alertText(data.message,'success');
+                
+                } else {
+                    alertText(data.message,'error');
+                }
+                $("#loader-wrapper").hide();
+            },
+            error: function()
+            {
+                alertText("Server Timeout! Please try again",'warning');
+                $("#loader-wrapper").hide();
+            }
+        });
+    }
+    </script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly" defer></script> --}}
    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
    {{-- <script src="{{ asset('assets/developer/js/import.js') }}"></script> --}}
    @stack('patient-detail-js')

@@ -1128,7 +1128,8 @@
         });
     }
 
-    function importAjaxCall() {
+    function importAjaxCall(url,action,patientId) {
+    
         $("#loader-wrapper").show();
         $.ajax({
             type:"GET",

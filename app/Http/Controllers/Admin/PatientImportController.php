@@ -121,6 +121,7 @@ class PatientImportController extends Controller
                 
             } else if($reqtest['action'] == 'check-caregiver-queue') {
                 CheckCurrentCaregiver::dispatch($reqtest['patient_id']);
+                 $arr = array('status' => 200, 'message' => '', 'data' => []);
             }else {
                
                 CaregiverImport::dispatch($company_id);

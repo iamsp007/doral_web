@@ -38,9 +38,9 @@ class CheckCurrentCaregiver implements ShouldQueue
      */
     public function handle()
     {
-        $demographic = Demographic::with('user', function($q){
+        $demographic = Demographic::with(['user'=> function($q){
             $q->select('id','first_name', 'last_name');
-        })->where('user_id',$this->patient_id)->select('id', 'user_id', 'patient_id')->first();
+        }])->where('user_id',$this->patient_id)->select('id', 'user_id', 'patient_id')->first();
         $input['patientId'] = $this->patient_id;
         $date = Carbon::now();// will get you the current date, time
         $today = $date->format("Y-m-d");
@@ -52,6 +52,7 @@ class CheckCurrentCaregiver implements ShouldQueue
 		
         if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
             $viId = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+            
             // $data = [];
             
             //foreach ($visitID as $viId) {

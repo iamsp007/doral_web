@@ -94,9 +94,9 @@ use Illuminate\Support\Facades\Route;
     });
 
     Route::get('/patients/resend/{id}', '\App\Http\Controllers\patient\PatientController@resendEmail')->name('resend.mail');
-
-    Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
-   
+    Route::group(['middleware'=>['auth:web,referral']],function (){
+        Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
+    });
     Route::post('/ccm/getAll','App\Http\Controllers\UserDeviceController@getAll')->name('clinician.ccm.ajax');
     Route::get('/ccm/{id}','App\Http\Controllers\UserDeviceController@edit');
     Route::get('/ccm/getnote/{id}', [UserDeviceController::class, 'show']);

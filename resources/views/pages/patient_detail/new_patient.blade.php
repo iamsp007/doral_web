@@ -23,7 +23,7 @@ table.dataTable thead th, table.dataTable thead td{
             <div class="d-flex">
                 <a href="{{ url('referral/service/occupational-health/initial') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Pending Patients</a>
                 <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Import Patients</a>
-                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="import-caregiver" data-id="{{$patient->id}}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
+                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="import-caregiver" data-id="{{ $patient->id ?? '' }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "initial")
             <div class="d-flex">
@@ -43,10 +43,10 @@ table.dataTable thead th, table.dataTable thead td{
         @elseif (request()->segment(count(request()->segments())) == "md-order")
             <div class="d-flex">
                 <a href="{{ url('referral/service/md-order/initial') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Pending Patients</a>
-                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-patient-from-hha') }}" data-action="import-caregiver" data-id="{{$patient->id}}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
+                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-patient-from-hha') }}" data-action="import-caregiver" data-id="{{ $patient->id ?? '' }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
             </div>
         @endif
-    @endsection
+    @endsection 
 @endrole
 
 @section('content')

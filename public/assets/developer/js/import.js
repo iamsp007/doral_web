@@ -3,7 +3,7 @@ $(".autoImportPatient").click(function () {
     var url = $(this).attr('data-url');
     var action = $(this).attr('data-action');
      var patientId = $(this).attr('data-id');
-     alert(patient_id);
+   
     $("#loader-wrapper").show();
     $.ajax({
         type:"GET",

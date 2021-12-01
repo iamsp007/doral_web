@@ -292,32 +292,32 @@ table.dataTable thead th, table.dataTable thead td{
             });
         }
 
-        // $(".autoImportPatient").click(function () {
+        $(".autoImportPatient").click(function () {
           
-        //     var url = $(this).attr('data-url');
-        //     var action = $(this).attr('data-action');
+            var url = $(this).attr('data-url');
+            var action = $(this).attr('data-action');
            
-        //     $("#loader-wrapper").show();
-        //     $.ajax({
-        //         type:"GET",
-        //         url:url,
-        //         data:{action:action},
-        //         success: function(data) {
-        //             if(data.status == 200) {
-        //                 alertText(data.message,'success');
-        //                 refresh();
-        //             } else {
-        //                 alertText(data.message,'error');
-        //             }
-        //             $("#loader-wrapper").hide();
-        //         },
-        //         error: function()
-        //         {
-        //             alertText("Server Timeout! Please try again",'warning');
-        //             $("#loader-wrapper").hide();
-        //         }
-        //     });
-        // });
+            $("#loader-wrapper").show();
+            $.ajax({
+                type:"GET",
+                url:url,
+                data:{action:action},
+                success: function(data) {
+                    if(data.status == 200) {
+                        alertText(data.message,'success');
+                        refresh();
+                    } else {
+                        alertText(data.message,'error');
+                    }
+                    $("#loader-wrapper").hide();
+                },
+                error: function()
+                {
+                    alertText("Server Timeout! Please try again",'warning');
+                    $("#loader-wrapper").hide();
+                }
+            });
+        });
 
         /*table reload at filter time*/
         $("#filter_btn").click(function () {
@@ -649,6 +649,4 @@ table.dataTable thead th, table.dataTable thead td{
             })
         }
     </script>
-
-    <script src="{{ asset('assets/developer/js/import.js') }}"></script>
 @endpush

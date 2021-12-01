@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Mail\DueReportNotification;
+use App\Models\CareTeam;
+use App\Models\CaseManagement;
 use App\Models\PatientLabReport;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -61,10 +63,31 @@ class SendDueReportNotification extends Command
            
             $patientList = PatientLabReport::whereBetween('due_date',[$dateBetween['today'],$dateBetween['twomonthdate']])->where('user_id', $patient->id)->with('labReportType')->orderBy('due_date', 'ASC')->get();
            
-            if (!$patientList->isEmpty()) {
-                if($patient->email) {
-                    Mail::to($patient->email)->send(new DueReportNotification($patientList, $patient->full_name));
-                } 
+            if ($patient->email != '') {
+                Mail::to($patient->email)->send(new DueReportNotification($patientList, $patient->full_name));
+            }
+
+            if ($patient->phone != '') {
+                $report_types = $patientList->pluck('labReportType.name')->toArray();
+                $report_name = implode(", ",$report_types);
+
+                $message = 'The report ' . $report_name . ' are getting expired. Please renew your medical reports.';
+                sendsmsToMe($message, $patient->phone);
+            }
+
+            $caseManagers = CaseManagement::with('clinician','patient')->where([['patient_id', '=' ,$patient->id],['texed', '=', '1']])->get();
+            foreach ($caseManagers as $key => $caseManager) {
+                Log::info('case manager message send start');
+                Mail::to($caseManager->clinician->email)->send(new DueReportNotification($patientList, $patient->full_name));
+                Log::info('case manager message send end');
+            }
+
+            $familyPhone = CareTeam::where([['patient_id', '=' ,$patient->id],['detail->texed', '=', 'on']])->whereIn('type',['2'])->get();
+      	
+            foreach ($familyPhone as $key => $value) {
+                Log::info('care team message send start');
+                Mail::to($caseManager->clinician->email)->send(new DueReportNotification($patientList, $patient->full_name));
+                Log::info('care team message send end');
             }
         }
 

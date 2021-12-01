@@ -41,7 +41,7 @@ class CheckCurrentCaregiver implements ShouldQueue
         $demographic = Demographic::with(['user'=> function($q){
             $q->select('id','first_name', 'last_name');
         }])->where('user_id',$this->patient_id)->select('id', 'user_id', 'patient_id')->first();
-        $input['patientId'] = $this->patient_id;
+        $input['patientId'] = $demographic->patient_id;
         $date = Carbon::now();// will get you the current date, time
         $today = $date->format("Y-m-d");
 
@@ -116,6 +116,6 @@ class CheckCurrentCaregiver implements ShouldQueue
             'name' => 'Doral',
         ];
 
-        Mail::to('koladaramanisha176@hcbspro.com')->send(new SendPatientImpotNotification($details));
+        Mail::to('manishak@hcbspro.com')->send(new SendPatientImpotNotification($details));
     }
 }

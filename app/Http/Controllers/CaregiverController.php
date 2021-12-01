@@ -145,7 +145,7 @@ class CaregiverController extends Controller
                 $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
                 $dateBetween['newDate'] = $date->format('Y-m-d');
                 $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
-                    $q->where('due_date',$dateBetween['newDate']);
+                    $q->whereBetween('due_date', [$dateBetween['today'], $dateBetween['newDate']]);
                 });
             }
         })
@@ -169,7 +169,7 @@ class CaregiverController extends Controller
                 $dateBetween['newDate'] = $date->format('Y-m-d');
                
                 $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
-                    $q->where('due_date',$dateBetween['newDate']);
+                    $q->whereBetween('due_date', [$dateBetween['today'], $dateBetween['newDate']]);
                 });
             } else {
                 $query->whereHas('demographic',function ($q) use($request) {
@@ -355,7 +355,7 @@ class CaregiverController extends Controller
         $patientList = User::whereHas('roles',function ($q) {
             $q->where('name','=','patient');
         })->whereHas('patientLabReport',function ($q) use($dateBetween) {
-            $q->where('due_date',$dateBetween['newDate']);
+            $q->whereBetween('due_date', [$dateBetween['today'], $dateBetween['newDate']]);
         })->whereHas('demographic', function($q) {
             $q->where('flag','1');
         })->with('demographic');

@@ -16,11 +16,6 @@ return [
                     'url'=>env('APP_URL').'patients/pending',
                     'route'=>'clinician/new-patient-list','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Services',
                 ],
-                // [
-                //     'name'=>'Patient Lists',
-                //     'url'=>env('APP_URL').'clinician/patient-list',
-                //     'route'=>'clinician/patient-list','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
-                // ],
                 [
                     'name'=>'Search Patient',
                     'url'=>env('APP_URL').'patients',
@@ -31,11 +26,11 @@ return [
                     'url'=>env('APP_URL').'patients/due-reports',
                     'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Due Report',
                 ],
-                // [
-                //     'name'=>'Patient Lists',
-                //     'url'=>env('APP_URL').'get-caregiver/active',
-                //     'route'=>'get-caregiver/active','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Services',
-                // ],
+                [
+                    'name'=>'Assigned Patient',
+                    'url'=>env('APP_URL').'patients/assigned-patients',
+                    'route'=>'get-due-detail','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Due Report',
+                ],
                 [
                     'name'=>'Add Patient',
                     'url'=>env('APP_URL').'clinician/patient/create',

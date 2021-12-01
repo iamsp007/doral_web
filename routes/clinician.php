@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Clinician\ClinicianController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'/clinician','middleware'=>['auth:web','role:clinician']],function (){
@@ -54,4 +56,7 @@ Route::group(['prefix'=>'/clinician','middleware'=>['auth:web','role:clinician']
     Route::post('get-request-user','App\Http\Controllers\Clinician\RoadLController@getUserData')->name('clinician.get-request-user');
 
     Route::post('get-request-clinician','App\Http\Controllers\Clinician\RoadLController@getClinicianData')->name('clinician.get-request-clinician');
+
+    Route::get('profile/{id}', [ClinicianController::class, 'profileView'])->name('clinician.profile');
+    Route::post('update-profile', [ClinicianController::class, 'profileUpdate'])->name('clinician.edit.profile');
 });

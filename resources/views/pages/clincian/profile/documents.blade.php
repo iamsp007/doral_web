@@ -127,6 +127,12 @@
                                         <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; "></td>
                                         <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $users->w4document_count }}</td>
                                     </tr>
+                                    <tr>
+                                        <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">16</td>
+                                        <td style="width: 45%;text-align: left; padding-left: 10px; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5;">CPR ACLS</td>
+                                        <td style="width: 25%;text-align: left; text-align: center; border-right: 1px solid #a5a5a5;border-top: 1px solid #a5a5a5; "></td>
+                                        <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $users->CPR_ACLS_count }}</td>
+                                    </tr>
                                 @else
                                     <tr>
                                         <td style="width: 10%;text-align: left;padding: 15px; border-right: 1px solid #a5a5a5;font-weight: bold; border-top: 1px solid #a5a5a5;">3</td>
@@ -261,7 +267,6 @@
                                         <td style="width: 20%;text-align: left;text-align: center; border-top: 1px solid #a5a5a5; ">{{ $users->SignedESignatureForm_count }}</td>
                                     </tr>
                                 @endif
-                                
                             </table>
                         </td>
                     </tr>          

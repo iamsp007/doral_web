@@ -12,7 +12,7 @@
    </style>
 @endpush
 @php
-   $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = $count19 = $count20 = $count21 = $count23 = $count24 = $count25 = $count26 = $count27 = $count28 = $count29 = $count30 = $count31 = $count32 = $count33 = $count34 = $count35 = $count36 = $count37 = $count38 = $count39 = $count40 = $count41 = 1;
+   $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = $count19 = $count20 = $count21 = $count23 = $count24 = $count25 = $count26 = $count27 = $count28 = $count29 = $count30 = $count31 = $count32 = $count33 = $count34 = $count35 = $count36 = $count37 = $count38 = $count39 = $count40 = $count41 = $count42 = 1;
 @endphp
 @foreach($data->documents as $document)
    @if($document->type == 1)
@@ -91,6 +91,8 @@
       @php $type40 = $count40++; @endphp
    @elseif($document->type == 41)
       @php $type41 = $count41++; @endphp
+   @elseif($document->type == 42)
+      @php $type42 = $count42++; @endphp
    @endif
 @endforeach
 
@@ -1527,6 +1529,25 @@
                                           @endisset
                                        </td>
                                     </tr>
+                                    <tr>
+                                       <td>39</td>
+                                       <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="42" id="CPR_ACLS-tab" data-toggle="tab" href="#CPR_ACLS" role="tab" aria-controls="CPR_ACLS" aria-selected="false">CPR ACLS {{isset($type42)  ? '('.$type42.')' : ''}}</a></td>
+                                       <td>
+                                          @isset($data->documents)
+                                             <table>
+                                                <tr>
+                                                   @foreach($data->documents as $document)
+                                                      @if($document->type == 45)
+                                                         <td>
+                                                            <button type="button" class="btn btn-outline-green d-flex align-items-center btn-sm ml-1"  name=""><i class="las la-binoculars sm-2x mr-2"></i><a href="{{$document->file_url}}" target="_blank"> View Documents</a></button>
+                                                         </td>
+                                                      @endif
+                                                   @endforeach
+                                                </tr> 
+                                             </table> 
+                                          @endisset
+                                       </td>
+                                    </tr>
                                  </tbody>
                               </table>
                            </td>
@@ -1930,6 +1951,7 @@
                                           @endisset
                                        </td>
                                     </tr>
+                                    
                                  </tbody>
                               </table>
                            </td>

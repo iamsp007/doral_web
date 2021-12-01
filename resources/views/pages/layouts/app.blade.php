@@ -239,7 +239,10 @@
                                             @csrf
                                         </form>
                                     @else
-                                        <a class="dropdown-item" href="{{ url('/profile') }}"
+                                        @php
+                                        $authuser = Auth::user();
+                                        @endphp
+                                        <a class="dropdown-item" href="{{ route('clinician.profile',['id' => $authuser->id]) }}"
                                         >Profile</a>
                                         <a class="dropdown-item" href="{{ url('logout') }}"
                                            onclick="event.preventDefault();

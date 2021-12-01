@@ -253,6 +253,9 @@ class ClinicianController extends Controller
                 'documents as SignedESignatureForm_count' => function ($query) {
                     $query->where('type', 42);
                 },
+                'documents as CPR_ACLS_count' => function ($query) {
+                    $query->where('type', 45);
+                },
                 ])
             ->first(); 
                
@@ -417,4 +420,16 @@ class ClinicianController extends Controller
             return response()->download($filetopath,$zipFileName,$headers);
         }
     }
+
+    public function profileView($id)
+    {
+        $user = User::find($id)->first();
+        return view('admin.clinician.profile',compact('user'));
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        
+    }
+
 }

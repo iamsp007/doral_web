@@ -147,6 +147,12 @@ class CaregiverController extends Controller
                 $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
                     $q->whereBetween('due_date', [$dateBetween['today'], $dateBetween['newDate']]);
                 });
+            } else if ($request['serviceStatus'] == 'assigned-patients') {
+                $user_id = Auth::user()->id;
+             
+                $query->whereHas('caseManagement',function ($query) use($user_id) {
+                    $query->where('clinician_id', $user_id);
+                });
             }
         })
         ->when(! $request['serviceStatus'] ,function ($query) use($url) {

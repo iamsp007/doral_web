@@ -12,9 +12,11 @@ use App\Services\AdminService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use ZipArchive;
 use PDF;
+use Illuminate\Support\Facades\Validator;
 
 class ClinicianController extends Controller
 {
@@ -253,7 +255,7 @@ class ClinicianController extends Controller
                 'documents as SignedESignatureForm_count' => function ($query) {
                     $query->where('type', 42);
                 },
-                'documents as CPR_ACLS_count' => function ($query) {
+                'documents as CPRACLS_count' => function ($query) {
                     $query->where('type', 45);
                 },
                 ])
@@ -423,13 +425,63 @@ class ClinicianController extends Controller
 
     public function profileView($id)
     {
-        $user = User::find($id)->first();
+        if ($id != Auth::user()->id) {
+            return view('errors.401');
+        }
+        $user = User::where('id',$id)->first();
+       
         return view('admin.clinician.profile',compact('user'));
     }
 
     public function profileUpdate(Request $request)
     {
-        
-    }
+        $input =  $request->all();
+            dd($input);
+        $rules = [
+            'nickname' => 'required',
+        ];
 
+        $messages = [
+            'nickname.required' => 'Please enter nick name.',
+        ];
+
+        $validator = Validator::make($input, $rules, $messages);
+
+        if ($validator->fails()) {
+            $arr = array('status' => 400, 'message' => $validator->getMessageBag()->toArray(), 'resultdata' => array());
+        } else {
+            try {
+        
+                $user = User::find($input['id_for_update']);
+                $message = 'Profile updated successfully!!';
+
+                if (isset($input["avatar"]) && !empty($input["avatar"])) {
+                    $file = $input['avatar'];
+                    $new_file_name = time(). "_" .$file->getClientOriginalName();
+                    copy($file->getRealPath(),public_path('upload/images/'.$new_file_name));
+                    $user->avatar = $new_file_name;
+                }
+
+                $user->nickname = $input['nickname'];
+                $user->save();
+
+                $arr = array('status' => 200, 'message' => $message, 'resultdata' => $user);
+
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $message = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) {
+                    $message = $ex->errorInfo[2];
+                }
+                
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+            } catch (Exception $ex) {
+                $message = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) {
+                    $message = $ex->errorInfo[2];
+                }
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+            }
+        }
+        return \Response::json($arr);
+    }
 }

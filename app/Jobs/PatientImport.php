@@ -41,18 +41,19 @@ class PatientImport implements ShouldQueue
     {
         $searchPatientIds = searchPatients();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        log::info('hha exchange search patient detail start');
-        log::info('total hha count'.count($patientArray));
+        Log::info('hha exchange search patient detail start');
+        Log::info('total hha count'.count($patientArray));
 
         $missing_patient_id = [];
         $userCaregiver1 = Demographic::get();
         foreach ($userCaregiver1 as $userCaregivers) { 
             $missing_patient_id[] = $userCaregivers->patient_id;
         }
-        
+         
         $data = [];
         $stored_user_id = [];
         foreach ($patientArray as $patient_id) {
+        //foreach (array_slice($patientArray, 0 , 500) as $patient_id) {
             if (! in_array($patient_id, $missing_patient_id)) {
                
                 $apiResponse = getPatientDemographics($patient_id);
@@ -70,13 +71,13 @@ class PatientImport implements ShouldQueue
                 }
             }
         }
-        log::info('stored user id'.count($stored_user_id));
-        log::info('missing patient count'.count($data));
-        log::info('hha exchange search patient detail end');
+        Log::info('stored user id'.count($stored_user_id));
+        Log::info('missing patient count'.count($data));
+        Log::info('hha exchange search patient detail end');
 
         try {
             $company_email = $this->company->email;
-           
+           $company_email = 'manishak@hcbspro.com';
             $details = [
                 'name' => $this->company->name,
                 'total' => count($stored_user_id),
@@ -171,15 +172,18 @@ class PatientImport implements ShouldQueue
 
         $language = $demographics['PrimaryLanguage'] ? $demographics['PrimaryLanguage'] : '';
 
-        $address = $demographics['Addresses']['Address'];
-        $zip = '';
-        if(isset($address['Zip5']) && $address['Zip5'] != ''){
-            $zip = $address['Zip4'];
-        } else if(isset($address['Zip4']) && $address['Zip4'] != ''){
-            $zip = $address['Zip4'];
-        }
+       
+        $addressData = [];
       
-        $addressData = [
+      	if (count($demographics['Addresses']) > 0) { 
+      	   $address = $demographics['Addresses']['Address'];
+           $zip = '';
+           if(isset($address['Zip5']) && $address['Zip5'] != ''){
+              $zip = $address['Zip4'];
+           } else if(isset($address['Zip4']) && $address['Zip4'] != ''){
+            $zip = $address['Zip4'];
+           }
+      	   $addressData = [
             'address1' => isset($address['Address1']) ? $address['Address1'] : '',
             'address2' => isset($address['Address2']) ? $address['Address2'] : '',
             'crossStreet' => isset($address['CrossStreet']) ? $address['CrossStreet'] : '',
@@ -189,7 +193,9 @@ class PatientImport implements ShouldQueue
             'zip_code' => $zip,
             'isPrimaryAddress' => isset($address['IsPrimaryAddress']) ? $address['IsPrimaryAddress'] : '',
             'addressTypes' => isset($address['AddressTypes']) ? $address['AddressTypes'] : '',
-        ];
+          ];
+      	}
+        
        
        
         $demographic->ssn = setSsn($demographics['SSN'] ? $demographics['SSN'] : '');
@@ -286,6 +292,6 @@ class PatientImport implements ShouldQueue
      */
     public function failed(Exception $exception)
     {
-        log::info($exception);
+        Log::info($exception);
     }
 }

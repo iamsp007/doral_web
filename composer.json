@@ -60,7 +60,8 @@
         },
         "files": [
             "app/Helper/format.php",
-            "app/Helper/hhaexchange.php"
+            "app/Helper/hhaexchange.php",
+            "app/Helper/sms.php"
         ]
     },
     "minimum-stability": "dev",

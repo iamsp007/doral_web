@@ -436,7 +436,7 @@ class ClinicianController extends Controller
     public function profileUpdate(Request $request)
     {
         $input =  $request->all();
-            dd($input);
+          
         $rules = [
             'nickname' => 'required',
         ];

@@ -54,8 +54,7 @@ class PatientImport implements ShouldQueue
         $stored_user_id = [];
         foreach ($patientArray as $patient_id) {
         //foreach (array_slice($patientArray, 0 , 500) as $patient_id) {
-            if (! in_array($patient_id, $missing_patient_id)) {
-               
+            if (! in_array($patient_id, $missing_patient_id)) {               
                 $apiResponse = getPatientDemographics($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
                 $doral_id = createDoralId();
@@ -69,7 +68,7 @@ class PatientImport implements ShouldQueue
 
                     self::storeEmergencyContact($demographics, $user_id);
                 }
-            }
+            } 
         }
         Log::info('stored user id'.count($stored_user_id));
         Log::info('missing patient count'.count($data));
@@ -77,13 +76,15 @@ class PatientImport implements ShouldQueue
 
         try {
             $company_email = $this->company->email;
-           $company_email = 'manishak@hcbspro.com';
+           
             $details = [
                 'name' => $this->company->name,
                 'total' => count($stored_user_id),
             ];
-            
+
+            SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');
             SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
+            
         }catch (\Exception $exception){
             Log::info($exception->getMessage());
         }

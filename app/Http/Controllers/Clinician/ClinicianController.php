@@ -255,6 +255,9 @@ class ClinicianController extends Controller
                 'documents as SignedESignatureForm_count' => function ($query) {
                     $query->where('type', 42);
                 },
+                'documents as CovidCertificate_count' => function ($query) {
+                    $query->where('type', 44);
+                },
                 'documents as CPRACLS_count' => function ($query) {
                     $query->where('type', 45);
                 },

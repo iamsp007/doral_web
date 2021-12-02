@@ -110,6 +110,8 @@ class UploadDocuments extends Model
                 $directory = 'SignedW9';
             } elseif ($this->type === "43") {
                 $directory = 'SignedESignatureForm';
+            } elseif ($this->type === "44") {
+                $directory = 'CovidCertificate';
             } elseif ($this->type === "45") {
                 $directory = 'CPRACLS';
             } 

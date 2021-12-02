@@ -12,7 +12,7 @@
    </style>
 @endpush
 @php
-   $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = $count19 = $count20 = $count21 = $count23 = $count24 = $count25 = $count26 = $count27 = $count28 = $count29 = $count30 = $count31 = $count32 = $count33 = $count34 = $count35 = $count36 = $count37 = $count38 = $count39 = $count40 = $count41 = $count42 = 1;
+   $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = $count19 = $count20 = $count21 = $count23 = $count24 = $count25 = $count26 = $count27 = $count28 = $count29 = $count30 = $count31 = $count32 = $count33 = $count34 = $count35 = $count36 = $count37 = $count38 = $count39 = $count40 = $count41 = $count42 = $count43 = 1;
 @endphp
 @foreach($data->documents as $document)
    @if($document->type == 1)
@@ -93,7 +93,10 @@
       @php $type41 = $count41++; @endphp
    @elseif($document->type == 42)
       @php $type42 = $count42++; @endphp
+   @elseif($document->type == 43)
+      @php $type43 = $count43++; @endphp
    @endif
+   
 @endforeach
 
 @section('content')
@@ -1951,7 +1954,25 @@
                                           @endisset
                                        </td>
                                     </tr>
-                                    
+                                    <tr>
+                                       <td>40</td>
+                                       <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="43" id="CovidCertificate-tab" data-toggle="tab" href="#CovidCertificate" role="tab" aria-controls="CovidCertificate" aria-selected="false">Covid Certificate {{isset($type43)  ? '('.$type43.')' : ''}}</a></td>
+                                       <td>
+                                          @isset($data->documents)
+                                             <table>
+                                                <tr>
+                                                   @foreach($data->documents as $document)
+                                                      @if($document->type == 44)
+                                                         <td>
+                                                            <button type="button" class="btn btn-outline-green d-flex align-items-center btn-sm ml-1"  name=""><i class="las la-binoculars sm-2x mr-2"></i><a href="{{$document->file_url}}" target="_blank"> View Documents</a></button>
+                                                         </td>
+                                                      @endif
+                                                   @endforeach
+                                                </tr> 
+                                             </table> 
+                                          @endisset
+                                       </td>
+                                    </tr>
                                  </tbody>
                               </table>
                            </td>

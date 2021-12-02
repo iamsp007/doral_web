@@ -111,7 +111,7 @@ class UploadDocuments extends Model
             } elseif ($this->type === "43") {
                 $directory = 'SignedESignatureForm';
             } elseif ($this->type === "45") {
-                $directory = 'CPR_ACLS';
+                $directory = 'CPRACLS';
             } 
 
             return env('API_PUBLIC_URL').'/storage/documents/' . $this->user_id . '/' . $directory . '/' . $this->file_name;

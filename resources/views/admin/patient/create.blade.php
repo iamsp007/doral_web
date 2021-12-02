@@ -2004,7 +2004,7 @@
             </tbody>
         </table>
         <div class="d-flex mt-4 justify-content-end">
-            <input type="submit" value="Submit" class="btn btn--submit btn-lg ">
+            <input type="submit" id="submit" name="submit" value="Submit" class="btn btn--submit btn-lg ">
             <input type="reset" value="Reset" class="btn btn--reset btn-lg ml-4">
         </div>
     </form>
@@ -2853,43 +2853,54 @@
         $('.stateCityValue').select2();
         $('#company_id, #service_id, #Gender, #race, #ethnicity, #relation, #primaryLanguage1, #primaryLanguage, #addressType, #marital_status').select2();
         
-        $('.add_patient_form').on('submit', function(event){
-            event.preventDefault();
-          
-            var url = "{{ Route('patient.store') }}";
-            $("#loader-wrapper").show();
-            $.ajax({
-               type:"POST",
-               url:url,
-               data:new FormData(this),
-               headers: {
-                     'X_CSRF_TOKEN': '{{ csrf_token() }}',
-               },
-                dataType:'JSON',
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    if(data.status == 400) {
-                        alertText(data.message,'error');
-                        //  $.each( data.message, function( key, value ) {
-                        //     if (data.action === 'add') {
-                        //        t.parents('.insurance_company').find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
-                        //     } else if (data.action === 'edit') {
-                        //        t.parents("tr").find("." + key + "-invalid-feedback").append('<strong>' + value[0] + '</strong>');
-                        //     }
-                        //  });
-                    } else {
-                        alertText(data.message,'success');
-                        $('.add_patient_form')[0].reset();
-                    }
-                    $("#loader-wrapper").hide();
+        /*@ Store / Update admin */
+        validator = $(".add_patient_form").validate({
+            rules:{
+                first_name: {required: true},
+            },
+            messages: {
+                first_name: {
+                    required: "Please enter first name."
                 },
-                error: function() {
-                    alertText("Server Timeout! Please try again",'warning');
-                    $("#loader-wrapper").hide();
-                }
-            });
+            },
+            errorPlacement: function(error, element) {
+                var el_id = element.attr("name");
+                $('#'+el_id+'-error').remove();
+                error.insertAfter(element.parents(".input-group")).css({"color" : "red"});
+            },
+            invalidHandler: function (event,validator) {
+                
+            },
+            submitHandler: function (form,event) {
+                event.preventDefault();
+
+                var url = "{{ Route('patient.store') }}";
+                var fdata = new FormData($(".add_patient_form")[0]);
+                $("#loader-wrapper").show();
+                $.ajax({
+                    type:"POST",
+                    url:url,
+                    data:fdata,
+                    headers: {
+                        'X_CSRF_TOKEN': '{{ csrf_token() }}',
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        if(data.status == 400) {
+                            alertText(data.message,'error');
+                        } else {
+                            alertText(data.message,'success');
+                            $('.add_patient_form')[0].reset();
+                        }
+                        $("#loader-wrapper").hide();
+                    },
+                    error: function() {
+                        alertText("Server Timeout! Please try again",'warning');
+                        $("#loader-wrapper").hide();
+                    }
+                });
+            }
         });
   
         $(function () {

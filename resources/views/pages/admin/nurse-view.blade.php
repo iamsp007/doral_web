@@ -1531,7 +1531,7 @@
                                     </tr>
                                     <tr>
                                        <td>39</td>
-                                       <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="42" id="CPR_ACLS-tab" data-toggle="tab" href="#CPR_ACLS" role="tab" aria-controls="CPR_ACLS" aria-selected="false">CPR ACLS {{isset($type42)  ? '('.$type42.')' : ''}}</a></td>
+                                       <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="42" id="CPRACLS-tab" data-toggle="tab" href="#CPRACLS" role="tab" aria-controls="CPRACLS" aria-selected="false">CPR ACLS {{isset($type42)  ? '('.$type42.')' : ''}}</a></td>
                                        <td>
                                           @isset($data->documents)
                                              <table>

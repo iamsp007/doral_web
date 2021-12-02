@@ -83,11 +83,7 @@
                                                     </td>
                                                     <td class="border-0" style="width: 70%;">
                                                         <input type="text" class="input-small-skin" name="first_name" id="first_name">
-                                                        @if ($errors->has('first_name'))
-                                                            <span class="invalid feedback"role="alert">
-                                                                <strong class="alert alert-danger">{{ $errors->first('first_name') }}.</strong>
-                                                            </span>
-                                                        @endif
+                                                        <span class="errorText first_name_error"></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -843,7 +839,7 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input type="text" class="input-small-skin" name="address1" id="address1" placeholder="Enter a address" />
+                                        <input type="text" class="input-small-skin" name="address1" placeholder="Enter a address" />
                                     </td>
                                     <td>
                                         <input type="text" class="input-small-skin" name="address2" id="address2" />
@@ -2727,6 +2723,9 @@
 @push('scripts')
 <link rel="stylesheet" href="{{ asset('assets/css/patient_ref_form.min.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+<style>
+.error { color:red; }
+</style>
 @endpush
 
 @push('scripts')
@@ -2856,17 +2855,98 @@
         /*@ Store / Update admin */
         validator = $(".add_patient_form").validate({
             rules:{
+                company_id: {required: true},
+                service_id: {required: true},
                 first_name: {required: true},
+                last_name: {required: true},
+                email: {required: true},
+                gender: {required: true},
+                dateOfBirth: {required: true},
+                ssn: {required: true},
+                address1: {required: true},
+                city: {required: true},
+                state: {required: true},
+                zip_code: {required: true},
+                home_phone: {required: true},
+                name: {required: true},
+                relation: {required: true},
+                phone1: {required: true},
+                emergency_address1: {required: true},
+                emergency_city: {required: true},
+                emergency_state: {required: true},
+                emergency_zip_code: {required: true},
             },
             messages: {
+                company_id: {
+                    required: "Please select company."
+                },
+                service_id: {
+                    required: "Please select service."
+                },
                 first_name: {
                     required: "Please enter first name."
+                },
+                last_name: {
+                    required:"Please enter last name.."
+                },
+                email: {
+                    required: "Please enter email."
+                },
+                gender: {
+                    required: "Please enter gender."
+                },
+                dateOfBirth: {
+                    required: "Please select date of birth."
+                },
+                ssn: {
+                    required: "Please enter ssn number."
+                },
+                address1: {
+                    required: "Please enter address line 1."
+                },
+                city: {
+                    required: "Please select city."
+                },
+                state: {
+                    required: "Please select state."
+                },
+                zip_code: {
+                    required: "Please enter zipcode."
+                },
+                home_phone: {
+                    required: "Please enter home phone."
+                },
+                name: {
+                    required: "Please enter name."
+                },
+                relation: {
+                    required: "Please select relation."
+                },
+                phone1: {
+                    required: "Please enter phone1."
+                },
+                emergency_address1: {
+                    required: "Please enter first name."
+                },
+                emergency_city: {
+                    required: "Please select city."
+                },
+                emergency_state: {
+                    required: "Please select state."
+                },
+                emergency_zip_code: {
+                    required: "Please enter zipcode."
                 },
             },
             errorPlacement: function(error, element) {
                 var el_id = element.attr("name");
                 $('#'+el_id+'-error').remove();
-                error.insertAfter(element.parents(".input-group")).css({"color" : "red"});
+                //error.insertAfter(element.parents("td")).css({"color" : "red"});
+                 if(element.hasClass('select2') && element.next('.select2-container').length) {
+        error.insertAfter(element.next('.select2-container'));
+    } else {
+                    error.insertAfter(element);
+                }
             },
             invalidHandler: function (event,validator) {
                 

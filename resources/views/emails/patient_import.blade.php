@@ -72,7 +72,7 @@
                                 </tr>
                                 <tr>
                                   <td align="center" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:18px; line-height:22px; font-weight: 700; color:#24272A;">
-                                  Patient Name : <span style="color: #006C76;">{{ $details['data']['name'] }}</span> &nbsp; &nbsp; <span class="hc_block"></span>
+                                  Caregiver Name : <span style="color: #006C76;">{{ $details['data']['name'] }}</span> &nbsp; &nbsp; <span class="hc_block"></span>
                                   </td>
                                 </tr>
                                 <tr>

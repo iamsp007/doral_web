@@ -446,6 +446,7 @@ if (!function_exists('curlCall')) {
     if (!function_exists('getAddressLatlngAttribute')) {
         function getAddressLatlngAttribute($addressData, $user_id)
         {
+            if($addressData != '') {
             $address='';
             if ($addressData['address1']){
                 $address.= $addressData['address1'];
@@ -472,6 +473,7 @@ if (!function_exists('curlCall')) {
                         'longitude' => $latlong->lng,
                     ]);
                 }
+            }
             }
         }
     }

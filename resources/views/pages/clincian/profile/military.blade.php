@@ -29,9 +29,6 @@
                 <td>
                     <p>Served Served from:<span>{{ isset($users->military_detail['serve_start_date']) ? $users->military_detail['serve_start_date'] : '' }} to {{ isset($users->military_detail['serve_end_date']) ? $users->military_detail['serve_end_date'] : '' }}</span></p>
                 </td>
-                <td>
-                    <p>Rank:<span></span></p>
-                </td>     
             </tr>
         </table>
     </td>

@@ -1,6 +1,6 @@
 <!-- page 2 start-->
 <div class="break"></div>
-<table width="100%">
+<table width="100%">/opt/lampp/htdocs/doral/doral_web/resources/views/pages/clincian/profile/professional_detail.blade.php
     <tr>
         <td>
             <table style="width: 100%;">
@@ -12,6 +12,11 @@
                     </tr>
                 </thead>
             </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Professional Detail</h1>
         </td>
     </tr>
     <tr>

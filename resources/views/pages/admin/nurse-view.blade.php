@@ -173,7 +173,13 @@
                   </li>
                   <li class="mb-2">
                      <a href="#EmployerDetails" data-toggle="pill" role="tab">
-                        <img src="/assets/img/icons/professional-clinician.svg" alt="" srcset="/assets/img/icons/professional-clinician.svg" class="_icon mr-2">Professional Details
+                        <img src="/assets/img/icons/professional-clinician.svg" alt="" srcset="/assets/img/icons/professional-clinician.svg" class="_icon mr-2">Employer Details
+                     </a>
+                  </li>
+                  @else
+                  <li class="mb-2">
+                     <a href="#WorkHistoryDetails" data-toggle="pill" role="tab">
+                        <img src="/assets/img/icons/document-clinician.svg" alt="" srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Work History Details
                      </a>
                   </li>
                   <li class="mb-2">
@@ -200,13 +206,6 @@
                         <img src="/assets/img/icons/document-clinician.svg" alt="" srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Documents Verifiaction
                      </a>
                   </li>
-                  @if ($data->designation_id != '2')
-                  <li class="mb-2">
-                     <a href="#WorkHistoryDetails" data-toggle="pill" role="tab">
-                        <img src="/assets/img/icons/document-clinician.svg" alt="" srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Work History Details
-                     </a>
-                  </li>
-                  @endif
                </ul>
             </div>
          </div>
@@ -1974,62 +1973,6 @@
                </div>
             </div>
             <!-- Deposit Details End -->
-            <!-- BackgroundDetails Start -->
-            {{-- <div class="tab-pane fade" id="BackgroundDetails" role="tabpanel" aria-labelledby="v-pills-BackgroundDetails-tab">
-               <div class="app-card" style="min-height: auto;">
-                  <div class="card-header" id="step2">
-                     <div class="d-flex align-items-center">
-                        <img src="/assets/img/icons/background-clinician.svg" alt="" srcset="/assets/img/icons/background-clinician.svg" class="_icon mr-2">Background Details
-                     </div>
-                     <hr>
-                  </div>
-                  <div class="card-body collapse show" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
-                     <div class="_card">
-                        <div class="_card_header"><div class="title-head">TAX INFORMATION</div></div>
-                        <div class="_card_body">
-                           <div class="row mt-3">
-                              <div class="col-12 col-sm-12">
-                                 <div class="form-group">
-                                    <div class="row mt-3">
-                                       <div class="col-12 col-sm-4">
-                                          <div>
-                                             <div class="d-flex align-items-center">
-                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                <div>
-                                                   <h3 class="_title">Send tax documents to</h3>
-                                                   <h1 class="_detail">{{ isset($payroll_details->send_tax_documents_to) ? $payroll_details->send_tax_documents_to : null }}</h1>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-12 col-sm-4">
-                                          <div class="d-flex align-items-center">
-                                             <div><i class="las la-phone circle-icon"></i></div>
-                                             <div>
-                                                <h3 class="_title">Legal entity</h3>
-                                                <h1 class="_detail">{{ isset($payroll_details->legal_entity) ? $payroll_details->legal_entity : null }}</h1>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-12 col-sm-4">
-                                          <div class="d-flex align-items-center ">
-                                             <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                             <div>
-                                                <h3 class="_title">Taxpayer identification Number</h3>
-                                                <h1 class="_detail">{{ isset($payroll_details->tax_payer_id_number) ? $payroll_details->tax_payer_id_number : null }}</h1>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div> --}}
-            <!-- BackgroundDetails End -->
             @if ($data->designation_id != '2')
                <div class="tab-pane fade" id="WorkHistoryDetails" role="tabpanel"  aria-labelledby="v-pills-WorkHistoryDetails-tab">
                   <div class="app-card" style="min-height: auto;">
@@ -2211,6 +2154,7 @@
                      </div>
                   </div>
                </div>
+             
                <div class="tab-pane fade" id="ProfessionalDetails" role="tabpanel"  aria-labelledby="v-pills-ProfessionalDetails-tab">
                   <div class="app-card" style="min-height: auto;">
                      <div class="card-header" id="step2">
@@ -2222,20 +2166,19 @@
                         <div class="tab-content" id="myTabContent">
                            <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
                               <ul>
-                                 @php $count = '1'; @endphp
-                                 @isset($workHistory_detail->list)
-                                    @foreach($workHistory_detail->list as $index => $workHistory)
+
+                                 @isset($professional_detail)
                                     <li>
                                        <div class="_card mt-3">
-                                          <div class="_card_header"><div class="title-head">INSTITUTE {{ $count }}</div></div>
+                                          <div class="_card_header"><div class="title-head">Professional</div></div>
                                           <div class="_card_body">
                                              <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-angle-double-right circle-icon"></i> </div>
                                                       <div>
-                                                         <h3 class="_title">Company Name</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory->companyName) ? $workHistory->companyName : null }}</h1>
+                                                         <h3 class="_title">Npi Orginal Name</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->npiOrgName) ? $professional_detail->npiOrgName : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2243,8 +2186,8 @@
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-angle-double-right circle-icon"></i> </div>
                                                       <div>
-                                                         <h3 class="_title">Record Id</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory->recordId) ? $workHistory->recordId : null }}</h1>
+                                                         <h3 class="_title">Npi Type</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->npiType) ? $professional_detail->npiType : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2252,8 +2195,18 @@
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">Start Date</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory->startDate) ? $workHistory->startDate : null }}</h1>
+                                                         <h3 class="_title">Age</h3>
+                                                         <h1 class="_detail">
+                                                         @if(isset($professional_detail->age_0_18))
+                                                            Age 0 to 18
+                                                         @elseif(isset($professional_detail->age_19_40))
+                                                            Age 19 to 40
+                                                         @elseif(isset($professional_detail->age_41_65))
+                                                            Age 41 to 65
+                                                         @elseif(isset($professional_detail->age_65Plus))
+                                                            Age 65+
+                                                         @endif
+                                                         </h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2263,8 +2216,8 @@
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">End Date</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory->endDate) ? $workHistory->endDate : null }}</h1>
+                                                         <h3 class="_title">Npi Number</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->npiNumber) ? $professional_detail->npiNumber : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2272,8 +2225,8 @@
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">Reason</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory->reason) ? $workHistory->reason : null }}</h1>
+                                                         <h3 class="_title">Federal DEA Id</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->federal_DEA_id) ? $professional_detail->federal_DEA_id : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2281,8 +2234,8 @@
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">Position</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory->position) ? $workHistory->position : null }}</h1>
+                                                         <h3 class="_title">Medicaid Enrolled</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->medicaidEnrolled) ? $professional_detail->medicaidEnrolled : null }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2290,55 +2243,45 @@
                                              <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center mb-3">
-                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">Address1</h3>
+                                                         <h3 class="_title">Medicaid Enrolled Number</h3>
                                                          <h1 class="_detail">
-                                                            {{ isset($workHistory->address1) ? $workHistory->address1 : null }}
-                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                            {{ isset($professional_detail->medicaidEnrolled_Number) ? $professional_detail->medicaidEnrolled_Number : null }}
                                                          </h1>
                                                       </div>
                                                    </div>
                                                 </div>
-                                                <div class="collapse mb-4" id="collapseExample7">
-                                                   <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Medicaid State</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->medicaidEnrolled_StateId) ? \App\Models\State::find($professional_detail->medicaidEnrolled_StateId)->state : '' }}</h1>
+                                                      </div>
                                                    </div>
                                                 </div>
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center mb-3">
-                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">Address2</h3>
+                                                         <h3 class="_title">Medicare Enrolled</h3>
                                                          <h1 class="_detail">
-                                                            {{ isset($workHistory->address2) ? $workHistory->address2 : null }}
-                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                            {{ isset($professional_detail->medicareEnrolled) ? $professional_detail->medicareEnrolled : null }}
                                                          </h1>
                                                       </div>
                                                    </div>
                                                 </div>
-                                                <div class="collapse mb-4" id="collapseExample7">
-                                                   <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                                   </div>
-                                                </div>
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Building</h3>
-                                                         <h1 class="_detail">  {{ isset($workHistory->building) ? $workHistory->building  : ''}}</h1>
-                                                      </div>
-                                                   </div>
-                                                </div>
                                              </div>
                                              <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
+                                                   <div class="d-flex align-items-center mb-3">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">City</h3>
-                                                         <h1 class="_detail"> {{ isset($workHistory->cityId) ? \App\Models\City::find($workHistory->cityId)->city : '' }}</h1>
+                                                         <h3 class="_title">Medicare Enrolled Number</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($professional_detail->medicareEnrolled_Number) ? $professional_detail->medicareEnrolled_Number : null }}
+                                                         </h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2346,8 +2289,8 @@
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory->stateId) ? \App\Models\State::find($workHistory->stateId)->state : '' }}</h1>
+                                                         <h3 class="_title">Medicare State</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->medicareEnrolled_StateId) ? \App\Models\State::find($professional_detail->medicareEnrolled_StateId)->state : '' }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -2355,32 +2298,75 @@
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">Zip Code</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory->zipCode) ? $workHistory->zipCode : ''}}</h1>
+                                                         <h3 class="_title">Medicare State</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->fedExpiredMonthYear) ? $professional_detail->fedExpiredMonthYear : '' }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
                                              </div>
-                                          </div>
-                                       </div>
-                                    </li>
-                                    @php $count++; @endphp
-                                    @endforeach
-                                    <li>
-                                       <div class="_card mt-3">
-                                          <div class="_card_header"><div class="title-head">Other Detail</div></div>
-                                          <div class="_card_body">
-                                             <div class="row mt-3">
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Gap Reason</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory_detail->gapReason) ? $workHistory_detail->gapReason : ''}}</h1>
+                                             @php $child1Count = 1; @endphp
+                                             @foreach($professional_detail->stateLicense as $stateLicense)
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-12"><div class="_card_header"><div class="title-head">State License {{ $child1Count }}</div></div></div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Number</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($stateLicense->Number) ? $stateLicense->Number : null }}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">State</h3>
+                                                            <h1 class="_detail">{{ isset($stateLicense->StateID) ? \App\Models\State::find($stateLicense->StateID)->state : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Category</h3>
+                                                            <h1 class="_detail">{{ isset($stateLicense->Category) ? $stateLicense->Category : '' }}</h1>
+                                                         </div>
                                                       </div>
                                                    </div>
                                                 </div>
-                                             </div>
+                                                @php $child1Count++; @endphp
+                                             @endforeach
+                                             @php $child2Count = 1; @endphp
+                                             @foreach($professional_detail->boardCertificate as $boardCertificate)
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-12"><div class="_card_header"><div class="title-head">Board Certificate {{ $child2Count }}</div></div></div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Status</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($boardCertificate->status) ? $boardCertificate->status : null }}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Certificate</h3>
+                                                            <h1 class="_detail">{{ isset($boardCertificate->Catecertificategory) ? $boardCertificate->certificate : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                @php $child2Count++; @endphp
+                                             @endforeach
                                           </div>
                                        </div>
                                     </li>
@@ -2391,7 +2377,6 @@
                      </div>
                   </div>
                </div>
-               
             @endif
             <!-- Verify Identity Start -->
             <div class="tab-pane fade" id="VerifyIdentity" role="tabpanel" aria-labelledby="v-pills-VerifyIdentity-tab">
@@ -3375,6 +3360,7 @@
                </div>
                <!--  Documents Verifiaction End -->
             </div>
+         </div>
       </section>
    </section>
 @endsection

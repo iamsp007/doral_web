@@ -58,7 +58,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = ['profile_photo_url', 'gender_name', 'avatar_image', 'phone_format', 'full_name', 'age'];
+    protected $appends = ['profile_photo_url', 'gender_name', 'gender_data','avatar_image', 'phone_format', 'full_name', 'age'];
 
     public function designation()
     {

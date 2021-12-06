@@ -66,6 +66,9 @@
                         <td>
                             <p>How is the person is related to you: <span>{{ isset($emergency_detail['relation']) ? $emergency_detail['relation'] : '' }}</span></p>
                         </td>
+                        <td>
+                            <p>Other Relation: <span>{{ isset($emergency_detail['otherRelation']) ? $emergency_detail['otherRelation'] : '' }}</span></p>
+                        </td>
                     </tr>
                 </table>
             </td>

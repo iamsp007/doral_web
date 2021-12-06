@@ -130,7 +130,7 @@
                                 </p>
                             </td>
                             <td>
-                                <p>Send Tax Document:<span>{{ $users->payroll_details['send_tax_doc']}}</span></p>
+                                <p>Are You Filing As A Entity:<span>{{ isset($users->payroll_details['are_you_filing_as_a_entity']) && ($users->payroll_details['are_you_filing_as_a_entity'] === '1') ? 'True' : 'False'}}</span></p>
                             </td>
                         </tr>
                     </tbody>

@@ -18,6 +18,17 @@ class Applicant extends Model
      */
     protected $fillable = [
         'user_id',
+        'family_detail',
+        'military_detail',
+        'security_detail',
+        'address_detail',
+        'prior_detail',
+        'reference_detail',
+        'employer_detail',
+        'education_detail',
+        'language_detail',
+        'skill_detail',
+        'emergency_detail',
         'applicant_name',
         'other_name',
         'ssn',
@@ -40,6 +51,12 @@ class Applicant extends Model
         'emergency_phone',
         'emergency_relationship',
         'signature',
+        'workHistory_detail',
+        'professional_detail',
+        'fedExpiredMonthYear',
+        'npiNumber',
+        'npiType',
+        'npiOrgName',
     ];
 
     /**
@@ -61,7 +78,7 @@ class Applicant extends Model
         'emergency_detail' => 'array',
         'payroll_details' => 'array',
         'workHistory_detail' => 'array',
-        'professional_detail' => 'array'
+        'professional_detail' => 'array',
     ];
 
     protected $appends = ['signature_url'];

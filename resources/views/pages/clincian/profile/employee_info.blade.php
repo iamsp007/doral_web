@@ -31,7 +31,6 @@
                     <td>
                         <p>Name: <span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
                     </td>
-                    
                     <td>
                         <p>SNN: <span>
                             @if (isset($users->address_detail['info']))
@@ -40,6 +39,48 @@
                                 {{ ($users->ssn) ? $users->ssn : ''}}
                             @endif
                         </span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
+                    </td>
+                    <td>
+                        <p>Ethnicity: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['Ethnicity'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Other Ethnicity: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['OtherEthnicity'] : '' }}</span></p>
+                    </td>
+                    <td>
+                        <p>Date Of Birth: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['dateOfBirth'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Salary Desired: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['salaryDesired'] : '' }}</span></p>
+                    </td>
+                    <td>
+                        <p>Date You Can Start Work: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['DateYouCanStartWork'] : '' }}</span></p>
                     </td>
                 </tr>
             </table>
@@ -79,9 +120,6 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
-                    </td>
-                    <td>
                         <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']['how_long_resident']) ? $users->address_detail['address']['how_long_resident'] : ''}}</span></p>
                     </td>
                 </tr>
@@ -114,27 +152,10 @@
                         <p>State: <span>
                         @if (isset($users->address_detail['prior']))
                             {{ isset($users->address_detail['prior']['state_id']) ? \App\Models\State::find($users->address_detail['prior']['state_id'])->state : '' }}
-                        @endif
-                                    </span></p>
+                        @endif</span></p>
                     </td>
-                    
-
                     <td>
                         <p>Zip: <span>{{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['zipcode'] : ''}}</span></p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                    <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
-                    </td>
-                    <td>
-                        <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']['how_long_resident']) ? $users->address_detail['address']['how_long_resident'] : ''}}</span></p>
                     </td>
                 </tr>
             </table>
@@ -161,12 +182,11 @@
                             </span>
                         </p>
                     </td>  
-
                 </tr>
             </table>
         </td>
     </tr>
-    <tr>
+    {{-- <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
@@ -193,7 +213,7 @@
                 </tr>
             </table>
         </td>
-    </tr>
+    </tr> --}}
  
     @if ($users->user->designation_id == '2')
         <!-- Emergency Info Start -->
@@ -201,7 +221,7 @@
         <!-- Emergency Info End -->
 
         <!-- Emergency Info Start -->
-        @include('pages.clincian.profile.position')
+        {{-- @include('pages.clincian.profile.position') --}}
         <!-- Emergency Info End -->
 
         <!-- Education Start -->
@@ -219,7 +239,6 @@
         @include('pages.clincian.profile.other_education')
         @include('pages.clincian.profile.workHistory_detail')
         @include('pages.clincian.profile.professional_detail')
-        
     @endif
     
     <!-- Authorization Start -->

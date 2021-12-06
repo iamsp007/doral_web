@@ -1,4 +1,5 @@
 <!-- page 7 start-->
+
 @if (isset($users->employer_detail) && count($users->employer_detail['employer']) > 0)
     @foreach ($users->employer_detail['employer'] as $employer_detail)
         <div class="break"></div>
@@ -29,9 +30,6 @@
                                 <td style="width: 50%;">
                                     <p>Name of Applicant:<span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
                                 </td>
-                                <td>
-                                    <p>SSN:<span>{{ ($users->ssn) ? $users->ssn : ''}}</span></p>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -49,6 +47,13 @@
                                         </span>
                                     </p>
                                 </td>
+                                <td>
+                                    <p>Supervisor:
+                                        <span>
+                                            {{ $employer_detail['supervisor']}}
+                                        </span>
+                                    </p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -61,9 +66,6 @@
                             <tr>
                                 <td style="width: 50%;">
                                     <p>Phone:<span>{{ $employer_detail['phoneNo']}}</span></p>
-                                </td>
-                                <td>
-                                    <p>Fax:<span></span></p>
                                 </td>
                             </tr>
                         </tbody>

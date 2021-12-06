@@ -160,6 +160,7 @@
                         <img src="/assets/img/icons/education-clinician.svg" alt="" srcset="/assets/img/icons/education-clinician.svg" class="_icon mr-2">Education Details
                      </a>
                   </li>
+                  @if ($data->designation_id == '2')
                   <li class="mb-2">
                      <a href="#SecurityDetails" data-toggle="pill" role="tab">
                         <img src="/assets/img/icons/education-clinician.svg" alt="" srcset="/assets/img/icons/education-clinician.svg" class="_icon mr-2">Security Details
@@ -175,6 +176,7 @@
                         <img src="/assets/img/icons/professional-clinician.svg" alt="" srcset="/assets/img/icons/professional-clinician.svg" class="_icon mr-2">Professional Details
                      </a>
                   </li>
+                  @endif
                   <li class="mb-2">
                      <a href="#DepositDetails" data-toggle="pill" role="tab">
                         <img src="/assets/img/icons/deposit-clinician.svg" alt="" srcset="/assets/img/icons/deposit-clinician.svg" class="_icon mr-2">Payroll Details
@@ -193,6 +195,13 @@
                         <img src="/assets/img/icons/document-clinician.svg" alt="" srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Documents Verifiaction
                      </a>
                   </li>
+                  @if ($data->designation_id != '2')
+                  <li class="mb-2">
+                     <a href="#WorkHistoryDetails" data-toggle="pill" role="tab">
+                        <img src="/assets/img/icons/document-clinician.svg" alt="" srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Work History Details
+                     </a>
+                  </li>
+                  @endif
                </ul>
             </div>
          </div>
@@ -254,7 +263,7 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div><i class="las la-phone  circle-icon"></i></div>
+                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                        <div>
                                           <h3 class="_title">Email</h3>
                                           <h1 class="_detail">{{ isset($data->email) ? $data->email : null }}</h1>
@@ -263,58 +272,185 @@
                                  </div>
                               </div>
                            </div>
+                           <div class="row mt-3">
+                              <div class="col-12 col-sm-4">
+                                 <div>
+                                    <div class="d-flex align-items-center">
+                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                       <div>
+                                          <h3 class="_title">SSN</h3>
+                                          <h1 class="_detail">{{ isset($info->ssn) ? $info->ssn : null }}</h1>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div>
+                                    <div class="d-flex align-items-center">
+                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                       <div>
+                                          <h3 class="_title">Ethnicity</h3>
+                                          <h1 class="_detail">{{ isset($info->Ethnicity) ? $info->Ethnicity : null }}</h1>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div>
+                                    <div class="d-flex align-items-center">
+                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                       <div>
+                                          <h3 class="_title">Date Of Birth</h3>
+                                          <h1 class="_detail">{{ isset($info->dateOfBirth) ? $info->dateOfBirth : null }}</h1>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row mt-3">
+                              <div class="col-12 col-sm-4">
+                                 <div>
+                                    <div class="d-flex align-items-center">
+                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                       <div>
+                                          <h3 class="_title">Salary Desired</h3>
+                                          <h1 class="_detail">{{ isset($info->salaryDesired) ? $info->salaryDesired : null }}</h1>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div>
+                                    <div class="d-flex align-items-center">
+                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                       <div>
+                                          <h3 class="_title">Other Ethnicity</h3>
+                                          <h1 class="_detail">{{ isset($info->OtherEthnicity) ? $info->OtherEthnicity : null }}</h1>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div>
+                                    <div class="d-flex align-items-center">
+                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                       <div>
+                                          <h3 class="_title">Date You Can Start Work</h3>
+                                          <h1 class="_detail">{{ isset($info->DateYouCanStartWork) ? $info->DateYouCanStartWork : null }}</h1>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           @if ($data->designation_id != '2')
+                              <div class="row mt-3">
+                                 <div class="col-12 col-sm-4">
+                                    <div>
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Date</h3>
+                                             <h1 class="_detail">{{ isset($info->date) ? $info->date : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-12 col-sm-4">
+                                    <div>
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Us Citizen</h3>
+                                             <h1 class="_detail">{{ isset($info->us_citizen) && $info->us_citizen == '1' ? 'True' : 'False' }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-12 col-sm-4">
+                                    <div>
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Immigration Id</h3>
+                                             <h1 class="_detail">{{ isset($info->immigration_id) ? $info->immigration_id : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="row mt-3">
+                                 <div class="col-12 col-sm-4">
+                                    <div>
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Emergency Phone</h3>
+                                             <h1 class="_detail">{{ isset($info->emergency_phone) ? $info->emergency_phone : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           @endif
                         </div>
                         <div class="tab-pane fade" id="Address" role="tabpanel" aria-labelledby="Address-tab">
                            <ul>
                               <li>
                                  <div class="_card mt-3">
-                                    <div class="_card_header"><div class="title-head">Address Details</div></div>
+                                    <div class="_card_header"><div class="title-head">Prior Address Details</div></div>
                                     <div class="_card_body">
-                                       <div class="row">
-                                          <div class="col-12 col-sm-12">
+                                       <div class="row mt-3">
+                                          <div class="col-12 col-sm-4">
                                              <div class="d-flex align-items-center mb-3">
                                                 <div><i class="las la-map-marker circle-icon"></i></div>
                                                 <div>
-                                                   <h3 class="_title">Address Line 1</h3>
+                                                   <h3 class="_title">Address1</h3>
                                                    <h1 class="_detail">
-                                                      {{ isset($data->applicant->address_detail->address->address1) ? $data->applicant->address_detail->address->address1 : null }}
+                                                      {{ isset($prior->address1) ? $prior->address1  : ''}}
                                                       <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
                                                    </h1>
                                                 </div>
                                              </div>
                                           </div>
-                                       </div>
-                                       <div class="collapse mb-4" id="collapseExample">
-                                          <div class="card card-body">
-                                             <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                          <div class="collapse mb-4" id="collapseExample">
+                                             <div class="card card-body">
+                                                <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                             </div>
                                           </div>
-                                       </div>
-                                       <div class="row">
-                                          <div class="col-12 col-sm-12">
+                                          <div class="col-12 col-sm-4">
                                              <div class="d-flex align-items-center mb-3">
                                                 <div><i class="las la-map-marker circle-icon"></i></div>
                                                 <div>
-                                                   <h3 class="_title">Address Line 2</h3>
+                                                   <h3 class="_title">Address2</h3>
                                                    <h1 class="_detail">
-                                                      {{ isset($data->applicant->address_detail->address->address2) ? $data->applicant->address_detail->address->address2 : null }}
+                                                   {{ isset($prior->address2) ? $prior->address2  : ''}}
                                                       <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
                                                    </h1>
                                                 </div>
                                              </div>
                                           </div>
-                                       </div>
-                                       <div class="collapse mb-4" id="collapseExample1">
-                                          <div class="card card-body">
-                                             <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                          <div class="collapse mb-4" id="collapseExample1">
+                                             <div class="card card-body">
+                                                <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                             </div>
+                                          </div>
+                                          <div class="col-12 col-sm-4">
+                                             <div class="d-flex align-items-center">
+                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                <div>
+                                                   <h3 class="_title">Building</h3>
+                                                   <h1 class="_detail">  {{ isset($prior->building) ? $prior->building  : ''}}</h1>
+                                                </div>
+                                             </div>
                                           </div>
                                        </div>
-                                       <div class="row">
+                                       <div class="row mt-3">
                                           <div class="col-12 col-sm-4">
                                              <div class="d-flex align-items-center">
                                                 <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                 <div>
                                                    <h3 class="_title">City</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->address_detail->address->city) ? $data->applicant->address_detail->address->city : null }}</h1>
+                                                   <h1 class="_detail"> {{ isset($prior->city_id) ? \App\Models\City::find($prior->city_id)->city : '' }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -323,7 +459,7 @@
                                                 <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                 <div>
                                                    <h3 class="_title">State</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->address_detail->address->state) ? $data->applicant->address_detail->address->state : null }}</h1>
+                                                   <h1 class="_detail">{{ isset($prior->state_id) ? \App\Models\State::find($prior->state_id)->state : '' }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -332,7 +468,88 @@
                                                 <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                 <div>
                                                    <h3 class="_title">Zip Code</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->address_detail->address->zipcode) ? $data->applicant->address_detail->address->zipcode : null }}</h1>
+                                                   <h1 class="_detail">{{ isset($prior->zipcode) ? $prior->zipcode : ''}}</h1>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </li>
+                              <li>
+                                 <div class="_card mt-3">
+                                    <div class="_card_header"><div class="title-head">Address Details</div></div>
+                                    <div class="_card_body">
+                                       <div class="row mt-3">
+                                          <div class="col-12 col-sm-4">
+                                             <div class="d-flex align-items-center mb-3">
+                                                <div><i class="las la-map-marker circle-icon"></i></div>
+                                                <div>
+                                                   <h3 class="_title">Address1</h3>
+                                                   <h1 class="_detail">
+                                                      {{ isset($address->address1) ? $address->address1  : ''}}
+                                                      <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                   </h1>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="collapse mb-4" id="collapseExample">
+                                             <div class="card card-body">
+                                                <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                             </div>
+                                          </div>
+                                          <div class="col-12 col-sm-4">
+                                             <div class="d-flex align-items-center mb-3">
+                                                <div><i class="las la-map-marker circle-icon"></i></div>
+                                                <div>
+                                                   <h3 class="_title">Address2</h3>
+                                                   <h1 class="_detail">
+                                                      {{ isset($address->address2) ? $address->address2  : ''}}
+                                                      <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                   </h1>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="collapse mb-4" id="collapseExample1">
+                                             <div class="card card-body">
+                                                <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                             </div>
+                                          </div>
+                                          <div class="col-12 col-sm-4">
+                                             <div class="d-flex align-items-center">
+                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                <div>
+                                                   <h3 class="_title">Building</h3>
+                                                   <h1 class="_detail">{{ isset($address->building) ? $address->building  : ''}}</h1>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="row mt-3">
+                                          <div class="col-12 col-sm-4">
+                                             <div class="d-flex align-items-center">
+                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                <div>
+                                                   <h3 class="_title">City</h3>
+                                                   <h1 class="_detail">{{ isset($address->city_id) ? \App\Models\City::find($address->city_id)->city : '' }}</h1>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-12 col-sm-4">
+                                             <div class="d-flex align-items-center">
+                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                <div>
+                                                   <h3 class="_title">State</h3>
+                                                   <h1 class="_detail">{{ isset($address->state_id) ? \App\Models\State::find($address->state_id)->state : '' }}</h1>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="col-12 col-sm-4">
+                                             <div class="d-flex align-items-center">
+                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                <div>
+                                                   <h3 class="_title">Zip Code</h3>
+                                                   <h1 class="_detail">{{ isset($address->zipcode) ? $address->zipcode : ''}}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -344,76 +561,184 @@
                         </div>
                         <div class="tab-pane fade" id="Reference" role="tabpanel" aria-labelledby="Reference-tab">
                            <ul>
-                              @isset($data->applicant->reference_detail)
-                                 @foreach($data->applicant->reference_detail as $index => $reference)
-                                 <li>
-                                    <div class="_card mt-3">
-                                       <div class="_card_header"><div class="title-head">Reference {{ $index + 1 }}</div></div>
-                                       <div class="_card_body">
-                                          <div class="row">
-                                             <div class="col-12 col-sm-4">
-                                                <div class="d-flex align-items-center">
-                                                   <div><i class="las la-user-nurse circle-icon"></i></div>
-                                                   <div>
-                                                      <h3 class="_title">Name</h3>
-                                                      <h1 class="_detail">{{ isset($reference->name) ? $reference->name : null }}</h1>
+                              @php $count = '1'; @endphp
+                              @isset($reference_detail->reference_list)
+                                 @foreach($reference_detail->reference_list as $index => $reference)
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header"><div class="title-head">Reference {{ $count }}</div></div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-user-nurse circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Name</h3>
+                                                         <h1 class="_detail">{{ isset($reference->name) ? $reference->name : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-phone  circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Phone No.</h3>
+                                                         <h1 class="_detail">{{ isset($reference->phoneNo) ? $reference->phoneNo : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address1</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($reference->address1) ? $reference->address1 : null }}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample7">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                    </div>
                                                 </div>
                                              </div>
-                                             <div class="col-12 col-sm-4">
-                                                <div class="d-flex align-items-center">
-                                                   <div><i class="las la-phone  circle-icon"></i></div>
-                                                   <div>
-                                                      <h3 class="_title">Phone No.</h3>
-                                                      <h1 class="_detail">{{ isset($reference->phoneNo) ? $reference->phoneNo : null }}</h1>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address2</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($reference->address2) ? $reference->address2 : null }}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample7">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Building</h3>
+                                                         <h1 class="_detail">  {{ isset($reference->building) ? $reference->building  : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">City</h3>
+                                                         <h1 class="_detail"> {{ isset($reference->city_id) ? \App\Models\City::find($reference->city_id)->city : '' }}</h1>
+                                                      </div>
                                                    </div>
                                                 </div>
                                              </div>
-                                             <div class="col-12 col-sm-4">
-                                                <div class="d-flex align-items-center">
-                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                   <div>
-                                                      <h3 class="_title">Relationship</h3>
-                                                      <h1 class="_detail">{{ isset($reference->relation) ? $reference->relation : null }}</h1>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">State</h3>
+                                                         <h1 class="_detail">{{ isset($reference->state_id) ? \App\Models\State::find($reference->state_id)->state : '' }}</h1>
+                                                      </div>
                                                    </div>
                                                 </div>
-                                             </div>
-                                          </div>
-                                          <div class="row mt-3">
-                                             <div class="col-12 col-sm-12">
-                                                <div class="d-flex align-items-center mb-3">
-                                                   <div><i class="las la-map-marker circle-icon"></i></div>
-                                                   <div>
-                                                      <h3 class="_title">Address</h3>
-                                                      <h1 class="_detail">
-                                                         {{ isset($reference->address_line_1) ? $reference->address_line_1 : null }}
-                                                         <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
-                                                      </h1>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Zip Code</h3>
+                                                         <h1 class="_detail">{{ isset($reference->zipcode) ? $reference->zipcode : ''}}</h1>
+                                                      </div>
                                                    </div>
                                                 </div>
-                                             </div>
-                                          </div>
-                                          <div class="collapse mb-4" id="collapseExample7">
-                                             <div class="card card-body">
-                                                <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                              </div>
                                           </div>
                                        </div>
-                                    </div>
-                                 </li>
+                                    </li>
+                                 @php $count++; @endphp
                                  @endforeach
                               @endisset
+                              <li>
+                                 <div class="_card mt-3">
+                                    <div class="_card_header"><div class="title-head">Reference Basic detail</div></div>
+                                    <div class="_card_body">
+                                       <div class="row mt-3">
+                                          <div class="col-12 col-sm-4">
+                                             <div>
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-user-nurse circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Terms</h3>
+                                                      <h1 class="_detail">{{ isset($reference_detail->terms) && $reference_detail->terms == '1' ? 'True' : 'False' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          @if ($data->designation_id != '2')
+                                             <div class="col-12 col-sm-4">
+                                                <div>
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-user-nurse circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Have You Ever Been Bonded</h3>
+                                                         <h1 class="_detail">{{ isset($reference_detail->haveYouEverBeenBonded) && $reference_detail->haveYouEverBeenBonded == '1' ? 'True' : 'False' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div>
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-user-nurse circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Have You Ever Been Refused Bond</h3>
+                                                         <h1 class="_detail">{{ isset($reference_detail->haveYouEverBeenRefusedBond) && $reference_detail->haveYouEverBeenRefusedBond == '1' ? 'True' : 'False' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          @endif
+                                       </div>
+                                       @if ($data->designation_id != '2')
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div>
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-user-nurse circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Have You Over Been Convicated Of a Crime</h3>
+                                                         <h1 class="_detail">{{ isset($reference_detail->haveYouOverBeenConvicatedOfaCrime) && $reference_detail->haveYouOverBeenConvicatedOfaCrime == '1' ? 'True' : 'False' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       @endif
+                                    </div>
+                                 </div>
+                              </li>
                            </ul>
                         </div>
                         <div class="tab-pane fade" id="Emergency" role="tabpanel" aria-labelledby="Emergency-tab">
                            <ul>
-                              @isset($data->applicant->emergency_detail)
-                                 @foreach($data->applicant->emergency_detail as $index => $emergency)
+                              @php $count = '1'; @endphp
+                              @isset($emergency_detail)
+                                 @foreach($emergency_detail as $index => $emergency)
                                  <li>
                                     <div class="_card mt-3">
-                                       <div class="_card_header"><div class="title-head">Emergency Detail {{ $index + 1 }}</div></div>
+                                       <div class="_card_header"><div class="title-head">Emergency Detail {{ $count }}</div></div>
                                        <div class="_card_body">
-                                          <div class="row">
+                                          <div class="row mt-3">
                                              <div class="col-12 col-sm-4">
                                                 <div class="d-flex align-items-center">
                                                    <div><i class="las la-user-nurse circle-icon"></i></div>
@@ -436,34 +761,101 @@
                                                 <div class="d-flex align-items-center">
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
-                                                      <h3 class="_title">Relationship</h3>
+                                                      <h3 class="_title">Relation</h3>
                                                       <h1 class="_detail">{{ isset($emergency->relation) ? $emergency->relation : null }}</h1>
                                                    </div>
                                                 </div>
                                              </div>
                                           </div>
                                           <div class="row mt-3">
-                                             <div class="col-12 col-sm-12">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Other Relation</h3>
+                                                      <h1 class="_detail">{{ isset($emergency->otherRelation) ? $emergency->otherRelation : null }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
                                                 <div class="d-flex align-items-center mb-3">
                                                    <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
-                                                      <h3 class="_title">Address</h3>
+                                                      <h3 class="_title">Address1</h3>
                                                       <h1 class="_detail">
-                                                         {{ isset($emergency->address_line_1) ? $emergency->address_line_1 : null }}
+                                                         {{ isset($emergency->address1) ? $emergency->address1 : null }}
                                                          <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
                                                       </h1>
                                                    </div>
                                                 </div>
                                              </div>
+                                             <div class="collapse mb-4" id="collapseExample7">
+                                                <div class="card card-body">
+                                                   <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Address2</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($emergency->address2) ? $emergency->address2 : null }}
+                                                         <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="collapse mb-4" id="collapseExample7">
+                                                <div class="card card-body">
+                                                   <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                </div>
+                                             </div>
                                           </div>
-                                          <div class="collapse mb-4" id="collapseExample7">
-                                             <div class="card card-body">
-                                                <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Building</h3>
+                                                      <h1 class="_detail">  {{ isset($emergency->building) ? $emergency->building  : ''}}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">City</h3>
+                                                      <h1 class="_detail"> {{ isset($emergency->city_id) ? \App\Models\City::find($emergency->city_id)->city : '' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">State</h3>
+                                                      <h1 class="_detail">{{ isset($emergency->state_id) ? \App\Models\State::find($emergency->state_id)->state : '' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Zip Code</h3>
+                                                      <h1 class="_detail">{{ isset($emergency->zipcode) ? $emergency->zipcode : ''}}</h1>
+                                                   </div>
+                                                </div>
                                              </div>
                                           </div>
                                        </div>
                                     </div>
                                  </li>
+                                 @php $count++; @endphp
                                  @endforeach
                               @endisset
                            </ul>
@@ -480,314 +872,89 @@
                </div>
             </div>
             <!--  Applicant Details End -->
-            <!-- Education Details Start -->
-            <div class="tab-pane fade" id="EducationDetails" role="tabpanel"  aria-labelledby="v-pills-EducationDetails-tab">
-               <div class="app-card" style="min-height: auto;">
-                  <div class="card-header" id="step2">
-                     <div class="d-flex align-items-center">
-                        <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Education Details
+            @if ($data->designation_id != 2)
+               <div class="tab-pane fade" id="EducationDetails" role="tabpanel"  aria-labelledby="v-pills-EducationDetails-tab">
+                  <div class="app-card" style="min-height: auto;">
+                     <div class="card-header" id="step2">
+                        <div class="d-flex align-items-center">
+                           <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Medical Institute Details
+                        </div>
                      </div>
-                  </div>
-                  <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
-                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
-                           <ul>
-                              @isset($data->applicant->education_detail)
-                                 @foreach($data->applicant->education_detail as $index => $education)
+                     <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
+                        <div class="tab-content" id="myTabContent">
+                           <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
+                              <ul>
+                                 @php
+                                    $medicalInstitute = $education_detail->medicalInstitute;
+                                    $residencyInstitute = $education_detail->residencyInstitute;
+                                    $fellowshipInstitute = $education_detail->fellowshipInstitute;
+                                 @endphp
                                  <li>
                                     <div class="_card mt-3">
-                                       <div class="_card_header"><div class="title-head">INSTITUTE {{ $index + 1 }}</div></div>
+                                       <div class="_card_header"><div class="title-head">Medical Institute Details</div></div>
                                        <div class="_card_body">
-                                          <div class="row">
-                                             <div class="col-12 col-sm-4">
-                                                <div class="d-flex align-items-center">
-                                                   <div><i class="las la-angle-double-right circle-icon"></i> </div>
-                                                   <div>
-                                                      <h3 class="_title">Degree</h3>
-                                                      <h1 class="_detail">{{ isset($education->Degree) ? $education->Degree : null }}</h1>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             <div class="col-12 col-sm-4">
-                                                <div class="d-flex align-items-center">
-                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                   <div>
-                                                      <h3 class="_title">Is Graduate?</h3>
-                                                      <h1 class="_detail">{{ isset($education->isGraduate) ? $education->isGraduate : null }}</h1>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             <div class="col-12 col-sm-4">
-                                                <div class="d-flex align-items-center">
-                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                   <div>
-                                                      <h3 class="_title">Year</h3>
-                                                      <h1 class="_detail">{{ isset($education->year) ? $education->year : null }}</h1>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
                                           <div class="row mt-3">
-                                             <div class="col-12 col-sm-12">
+                                             <div class="col-12 col-sm-4">
                                                 <div class="d-flex align-items-center mb-3">
                                                    <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
-                                                      <h3 class="_title">Address</h3>
+                                                      <h3 class="_title">Medical Institute Name</h3>
                                                       <h1 class="_detail">
-                                                         {{ isset($education->address) ? $education->address : null }}
-                                                         <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         {{ isset($medicalInstitute->medical_instituteName) ? $medicalInstitute->medical_instituteName  : ''}}
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Medical Year Started</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($medicalInstitute->medical_yearStarted) ? $medicalInstitute->medical_yearStarted  : ''}}
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Medical Year Ended</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($medicalInstitute->medical_yearEnded) ? $medicalInstitute->medical_yearEnded  : ''}}
                                                       </h1>
                                                    </div>
                                                 </div>
                                              </div>
                                           </div>
-                                          <div class="collapse mb-4" id="collapseExample1">
-                                             <div class="card card-body">
-                                                <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </li>
-                                 @endforeach
-                              @endisset
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="tab-pane fade" id="SecurityDetails" role="tabpanel"  aria-labelledby="v-pills-EducationDetails-tab">
-               <div class="app-card" style="min-height: auto;">
-                  <div class="card-header" id="step2">
-                     <div class="d-flex align-items-center">
-                        <img src="/assets/img/icons/applicant-clinician.svg" alt=""srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Security Details
-                     </div>
-                  </div>
-                  <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
-                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
-                           <ul>
-                              @isset($security_detail)
-                                 <li>
-                                    <div class="_card mt-3">
-                                       <div class="_card_header"><div class="title-head">Security</div></div>
-                                       <div class="_card_body">
                                           <div class="row mt-3">
                                              <div class="col-12 col-sm-4">
-                                                <div class="d-flex align-items-center">
-                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
-                                                      <h3 class="_title">Have you ever been bonded?Bond</h3>
-                                                      <h1 class="_detail">{{ isset($security_detail->bond) ? isBoolean($security_detail->bond) : null }}</h1>
+                                                      <h3 class="_title">Address1</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($medicalInstitute->medical_address1) ? $medicalInstitute->medical_address1  : ''}}
+                                                         <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                      </h1>
                                                    </div>
                                                 </div>
                                              </div>
-                                             @if (isset($security_detail->bond) && $security_detail->bond == '1')
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">If So, Exaplain</h3>
-                                                         <h1 class="_detail">{{ isset($security_detail->bond_explain) ? $security_detail->bond_explain : null }}</h1>
-                                                      </div>
-                                                   </div>
+                                             <div class="collapse mb-4" id="collapseExample">
+                                                <div class="card card-body">
+                                                   <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                 </div>
-                                             @endif
+                                             </div>
                                              <div class="col-12 col-sm-4">
-                                                <div class="d-flex align-items-center">
-                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
-                                                      <h3 class="_title">Have you been convicted of a falcony within the last 5 years?</h3>
-                                                      <h1 class="_detail">{{ isset($security_detail->convict) ? isBoolean($security_detail->convict) : null }}</h1>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="row mt-3">
-                                             @if (isset($security_detail->convict) && $security_detail->convict == '1')
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">If so, exaplain(this will not necessarily exclude you from consideration)</h3>
-                                                         <h1 class="_detail">{{ isset($security_detail->convict_explain) ? $security_detail->convict_explain : null }}</h1>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             @endif
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </li>
-                              @endisset
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="tab-pane fade" id="MilitaryDetails" role="tabpanel"  aria-labelledby="v-pills-EducationDetails-tab">
-               <div class="app-card" style="min-height: auto;">
-                  <div class="card-header" id="step2">
-                     <div class="d-flex align-items-center">
-                        <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Military Details
-                     </div>
-                  </div>
-                  <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
-                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
-                           <ul>
-                              <li>
-                                 <div class="_card mt-3">
-                                    <div class="_card_header"><div class="title-head">Military Detail</div></div>
-                                    <div class="_card_body">
-                                       <div class="row">
-                                          <div class="col-12 col-sm-4">
-                                             <div class="d-flex align-items-center">
-                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                <div>
-                                                   <h3 class="_title">Branch</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->military_detail->branch) ? $data->applicant->military_detail->branch : null }}</h1>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="col-12 col-sm-4">
-                                             <div class="d-flex align-items-center">
-                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                <div>
-                                                   <h3 class="_title">Is Vietnam?</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->military_detail->isVietnam) ? $data->applicant->military_detail->isVietnam : null }}</h1>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="col-12 col-sm-4">
-                                             <div class="d-flex align-items-center">
-                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                <div>
-                                                   <h3 class="_title">Is Cimmited?</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->military_detail->isCommited) ? $data->applicant->military_detail->isCommited : null }}</h1>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="row">
-                                          <div class="col-12 col-sm-4">
-                                             <div class="d-flex align-items-center">
-                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                <div>
-                                                   <h3 class="_title">Is Military?</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->military_detail->isMilitary) ? $data->applicant->military_detail->isMilitary : null }}</h1>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="col-12 col-sm-4">
-                                             <div class="d-flex align-items-center">
-                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                <div>
-                                                   <h3 class="_title">Start Server Date</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->military_detail->serve_start_date) ? $data->applicant->military_detail->serve_start_date : null }}</h1>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="col-12 col-sm-4">
-                                             <div class="d-flex align-items-center">
-                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                <div>
-                                                   <h3 class="_title">Is Disable Vetran?</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->military_detail->isDisableVetran) ? $data->applicant->military_detail->isDisableVetran : null }}</h1>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="row">
-                                          <div class="col-12 col-sm-4">
-                                             <div class="d-flex align-items-center">
-                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                <div>
-                                                   <h3 class="_title">Is Commited Explain?</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->military_detail->isCommited_explain) ? $data->applicant->military_detail->isCommited_explain : null }}</h1>
-                                                </div>
-                                             </div>
-                                          </div>
-                                          <div class="col-12 col-sm-4">
-                                             <div class="d-flex align-items-center">
-                                                <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                <div>
-                                                   <h3 class="_title">Is Special Disable Vereram?</h3>
-                                                   <h1 class="_detail">{{ isset($data->applicant->military_detail->isSpecialDisableVereran) ? $data->applicant->military_detail->isSpecialDisableVereran : null }}</h1>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <!-- Education Details End -->
-            <!-- Professional Details Start -->
-            <div class="tab-pane fade" id="ProfessionalDetails" role="tabpanel" aria-labelledby="v-pills-ProfessionalDetails-tab">
-               <div class="app-card" style="min-height: auto;">
-                  <div class="card-header" id="step2">
-                     <div class="d-flex align-items-center">
-                        <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Professional Details
-                     </div>
-                  </div>
-                  <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
-                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
-                           <ul>
-                              @isset($data->applicant->employer_detail)
-                                 @foreach($data->applicant->employer_detail->employer as $index => $employer)
-                                    <li>
-                                       <div class="_card mt-3">
-                                          <div class="_card_header"><div class="title-head">Company {{ $index + 1 }}</div></div>
-                                          <div class="_card_body">
-                                             <div class="row">
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Company</h3>
-                                                         <h1 class="_detail">{{ isset($employer->company) ? $employer->company : null }}</h1>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Phone Number</h3>
-                                                         <h1 class="_detail">{{ isset($employer->phoneNo) ? $employer->phoneNo : null }}</h1>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Supervisor</h3>
-                                                         <h1 class="_detail">{{ isset($employer->supervisor) ? $employer->supervisor : null }}</h1>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                             <div class="row mt-3">
-                                                <div class="col-12 col-sm-12">
-                                                   <div class="d-flex align-items-center mb-3">
-                                                      <div><i class="las la-map-marker circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Address</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($employer->address) ? $employer->address : null }}
-                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
-                                                         </h1>
-                                                      </div>
+                                                      <h3 class="_title">Address2</h3>
+                                                      <h1 class="_detail">
+                                                      {{ isset($medicalInstitute->medical_address2) ? $medicalInstitute->medical_address2  : ''}}
+                                                         <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                      </h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -796,18 +963,787 @@
                                                    <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                 </div>
                                              </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Building</h3>
+                                                      <h1 class="_detail">  {{ isset($medicalInstitute->medical_building) ? $medicalInstitute->medical_building  : ''}}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">City</h3>
+                                                      <h1 class="_detail"> {{ isset($medicalInstitute->medical_cityId) ? \App\Models\City::find($medicalInstitute->medical_cityId)->city : '' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">State</h3>
+                                                      <h1 class="_detail">{{ isset($medicalInstitute->medical_stateId) ? \App\Models\State::find($medicalInstitute->medical_stateId)->state : '' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Zip Code</h3>
+                                                      <h1 class="_detail">{{ isset($medicalInstitute->medical_zipcode) ? $medicalInstitute->medical_zipcode : ''}}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
                                           </div>
                                        </div>
-                                    </li>
-                                 @endforeach
-                              @endisset
-                           </ul>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    <div class="_card mt-3">
+                                       <div class="_card_header"><div class="title-head">Residency Institute Details</div></div>
+                                       <div class="_card_body">
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Medical Institute Name</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($residencyInstitute->medical_instituteName) ? $residencyInstitute->medical_instituteName  : ''}}
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Medical Year Started</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($residencyInstitute->medical_yearStarted) ? $residencyInstitute->medical_yearStarted  : ''}}
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Medical Year Ended</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($residencyInstitute->medical_yearEnded) ? $residencyInstitute->medical_yearEnded  : ''}}
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Address1</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($residencyInstitute->medical_address1) ? $residencyInstitute->medical_address1  : ''}}
+                                                         <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="collapse mb-4" id="collapseExample">
+                                                <div class="card card-body">
+                                                   <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Address2</h3>
+                                                      <h1 class="_detail">
+                                                      {{ isset($residencyInstitute->medical_address2) ? $residencyInstitute->medical_address2  : ''}}
+                                                         <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="collapse mb-4" id="collapseExample1">
+                                                <div class="card card-body">
+                                                   <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Building</h3>
+                                                      <h1 class="_detail">  {{ isset($residencyInstitute->medical_building) ? $residencyInstitute->medical_building  : ''}}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">City</h3>
+                                                      <h1 class="_detail"> {{ isset($residencyInstitute->medical_cityId) ? \App\Models\City::find($residencyInstitute->medical_cityId)->city : '' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">State</h3>
+                                                      <h1 class="_detail">{{ isset($residencyInstitute->medical_stateId) ? \App\Models\State::find($residencyInstitute->medical_stateId)->state : '' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Zip Code</h3>
+                                                      <h1 class="_detail">{{ isset($residencyInstitute->medical_zipcode) ? $residencyInstitute->medical_zipcode : ''}}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 <li>
+                                    <div class="_card mt-3">
+                                       <div class="_card_header"><div class="title-head">Medical Institute Details</div></div>
+                                       <div class="_card_body">
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Medical Institute Name</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($fellowshipInstitute->medical_instituteName) ? $fellowshipInstitute->medical_instituteName  : ''}}
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Medical Year Started</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($fellowshipInstitute->medical_yearStarted) ? $fellowshipInstitute->medical_yearStarted  : ''}}
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Medical Year Ended</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($fellowshipInstitute->medical_yearEnded) ? $fellowshipInstitute->medical_yearEnded  : ''}}
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Address1</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($fellowshipInstitute->medical_address1) ? $fellowshipInstitute->medical_address1  : ''}}
+                                                         <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="collapse mb-4" id="collapseExample">
+                                                <div class="card card-body">
+                                                   <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Address2</h3>
+                                                      <h1 class="_detail">
+                                                      {{ isset($fellowshipInstitute->medical_address2) ? $fellowshipInstitute->medical_address2  : ''}}
+                                                         <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="collapse mb-4" id="collapseExample1">
+                                                <div class="card card-body">
+                                                   <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Building</h3>
+                                                      <h1 class="_detail">  {{ isset($fellowshipInstitute->medical_building) ? $fellowshipInstitute->medical_building  : ''}}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">City</h3>
+                                                      <h1 class="_detail"> {{ isset($fellowshipInstitute->medical_cityId) ? \App\Models\City::find($fellowshipInstitute->medical_cityId)->city : '' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">State</h3>
+                                                      <h1 class="_detail">{{ isset($fellowshipInstitute->medical_stateId) ? \App\Models\State::find($fellowshipInstitute->medical_stateId)->state : '' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Zip Code</h3>
+                                                      <h1 class="_detail">{{ isset($fellowshipInstitute->medical_zipcode) ? $fellowshipInstitute->medical_zipcode : ''}}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
-            </div>
-            <!-- Professional Details End -->
+            @endif
+            @if ($data->designation_id == '2')
+               <!-- Education Details Start -->
+               <div class="tab-pane fade" id="EducationDetails" role="tabpanel"  aria-labelledby="v-pills-EducationDetails-tab">
+                  <div class="app-card" style="min-height: auto;">
+                     <div class="card-header" id="step2">
+                        <div class="d-flex align-items-center">
+                           <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Education Details
+                        </div>
+                     </div>
+                     <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
+                        <div class="tab-content" id="myTabContent">
+                           <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
+                              <ul>
+                                 @php $count = '1'; @endphp
+                                 @isset($education_detail)
+                                    @foreach($education_detail as $index => $education)
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header"><div class="title-head">INSTITUTE {{ $count }}</div></div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i> </div>
+                                                      <div>
+                                                         <h3 class="_title">Name</h3>
+                                                         <h1 class="_detail">{{ isset($education->name) ? $education->name : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i> </div>
+                                                      <div>
+                                                         <h3 class="_title">Degree</h3>
+                                                         <h1 class="_detail">{{ isset($education->degree) ? $education->degree : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Is Graduate?</h3>
+                                                         <h1 class="_detail">{{ isset($education->isGraduate) ? $education->isGraduate : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Year</h3>
+                                                         <h1 class="_detail">{{ isset($education->year) ? $education->year : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Website</h3>
+                                                         <h1 class="_detail">{{ isset($education->website) ? $education->website : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address1</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($education->address1) ? $education->address1 : null }}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample7">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address2</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($education->address2) ? $education->address2 : null }}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample7">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Building</h3>
+                                                         <h1 class="_detail">  {{ isset($education->building) ? $education->building  : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">City</h3>
+                                                         <h1 class="_detail"> {{ isset($education->city_id) ? \App\Models\City::find($education->city_id)->city : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">State</h3>
+                                                         <h1 class="_detail">{{ isset($education->state_id) ? \App\Models\State::find($education->state_id)->state : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Zip Code</h3>
+                                                         <h1 class="_detail">{{ isset($education->zipcode) ? $education->zipcode : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    @php $count++; @endphp
+                                    @endforeach
+                                 @endisset
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-pane fade" id="SecurityDetails" role="tabpanel"  aria-labelledby="v-pills-SecurityDetails-tab">
+                  <div class="app-card" style="min-height: auto;">
+                     <div class="card-header" id="step2">
+                        <div class="d-flex align-items-center">
+                           <img src="/assets/img/icons/applicant-clinician.svg" alt=""srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Security Details
+                        </div>
+                     </div>
+                     <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
+                        <div class="tab-content" id="myTabContent">
+                           <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
+                              <ul>
+                                 @isset($security_detail)
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header"><div class="title-head">Security</div></div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Have you ever been bonded?Bond</h3>
+                                                         <h1 class="_detail">{{ isset($security_detail->bond) ? isBoolean($security_detail->bond) : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                @if (isset($security_detail->bond) && $security_detail->bond == '1')
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">If So, Exaplain</h3>
+                                                            <h1 class="_detail">{{ isset($security_detail->bond_explain) ? $security_detail->bond_explain : null }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                @endif
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Have you been convicted of a falcony within the last 5 years?</h3>
+                                                         <h1 class="_detail">{{ isset($security_detail->convict) ? isBoolean($security_detail->convict) : 'False' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                @if (isset($security_detail->convict) && $security_detail->convict == '1')
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">If so, exaplain(this will not necessarily exclude you from consideration)</h3>
+                                                            <h1 class="_detail">{{ isset($security_detail->convict_explain) ? $security_detail->convict_explain : null }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                @endif
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 @endisset
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-pane fade" id="MilitaryDetails" role="tabpanel"  aria-labelledby="v-pills-MilitaryDetails-tab">
+                  <div class="app-card" style="min-height: auto;">
+                     <div class="card-header" id="step2">
+                        <div class="d-flex align-items-center">
+                           <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Military
+                        </div>
+                     </div>
+                     <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
+                        <div class="tab-content" id="myTabContent">
+                           <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
+                              <ul>
+                                 <li>
+                                    <div class="_card mt-3">
+                                       <div class="_card_header"><div class="title-head">Military Detail</div></div>
+                                       <div class="_card_body">
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Branch</h3>
+                                                      <h1 class="_detail">{{ isset($military_detail->branch) ? $military_detail->branch : null }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Is Vietnam?</h3>
+                                                      <h1 class="_detail">{{ isset($military_detail->isVietnam) && $military_detail->isVietnam == '1' ? 'True' : 'False' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Is Cimmited?</h3>
+                                                      <h1 class="_detail">{{ isset($military_detail->isCommited) && $military_detail->isCommited == '1' ? 'True' : 'False' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Is Military?</h3>
+                                                      <h1 class="_detail">{{ isset($military_detail->isMilitary) && $military_detail->isMilitary == '1' ? 'True' : 'False' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Server Start Date</h3>
+                                                      <h1 class="_detail">{{ isset($military_detail->serve_start_date) ? $military_detail->serve_start_date : null }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Server End Date</h3>
+                                                      <h1 class="_detail">{{ isset($military_detail->serve_end_date) ? $military_detail->serve_end_date : null }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Is Disable Vetran?</h3>
+                                                      <h1 class="_detail">{{ isset($military_detail->isDisableVetran ) && $military_detail->isDisableVetran == '1' ? 'True' : 'False' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Is Commited Explain?</h3>
+                                                      <h1 class="_detail">{{ isset($military_detail->isCommited_explain) ? $military_detail->isCommited_explain : null }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Is Special Disable Vereram?</h3>
+                                                      <h1 class="_detail">{{ isset($military_detail->isSpecialDisableVereran) && $military_detail->isSpecialDisableVereran == '1' ? 'True' : 'False' }}</h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- Education Details End -->
+               <!-- Professional Details Start -->
+               <div class="tab-pane fade" id="ProfessionalDetails" role="tabpanel" aria-labelledby="v-pills-ProfessionalDetails-tab">
+                  <div class="app-card" style="min-height: auto;">
+                     <div class="card-header" id="step2">
+                        <div class="d-flex align-items-center">
+                           <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Professional Details
+                        </div>
+                     </div>
+                     <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
+                        <div class="tab-content" id="myTabContent">
+                           <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
+                              <ul>
+                                 @php $count = '1'; @endphp                    
+                                 @isset($employer_detail)
+                                    @foreach($employer_detail->employer as $index => $employer)
+                                       <li>
+                                          <div class="_card mt-3">
+                                             <div class="_card_header"><div class="title-head">Company {{ $count }}</div></div>
+                                             <div class="_card_body">
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                            <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                            <div>
+                                                               <h3 class="_title">Company</h3>
+                                                               <h1 class="_detail">{{ isset($employer->companyName) ? $employer->companyName : null }}</h1>
+                                                            </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                            <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                            <div>
+                                                               <h3 class="_title">Phone Number</h3>
+                                                               <h1 class="_detail">{{ isset($employer->phoneNo) ? $employer->phoneNo : null }}</h1>
+                                                            </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                            <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                            <div>
+                                                               <h3 class="_title">Supervisor</h3>
+                                                               <h1 class="_detail">{{ isset($employer->supervisor) ? $employer->supervisor : null }}</h1>
+                                                            </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-map-marker circle-icon"></i></div>
+                                                         <div>
+                                                               <h3 class="_title">Address1</h3>
+                                                               <h1 class="_detail">
+                                                                  {{ isset($employer->address1) ? $employer->address1 : null }}
+                                                                  <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                               </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="collapse mb-4" id="collapseExample7">
+                                                      <div class="card card-body">
+                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-map-marker circle-icon"></i></div>
+                                                         <div>
+                                                               <h3 class="_title">Address2</h3>
+                                                               <h1 class="_detail">
+                                                                  {{ isset($employer->address2) ? $employer->address2 : null }}
+                                                                  <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                               </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="collapse mb-4" id="collapseExample7">
+                                                      <div class="card card-body">
+                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Building</h3>
+                                                            <h1 class="_detail">  {{ isset($employer->building) ? $employer->building  : ''}}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                            <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                            <div>
+                                                               <h3 class="_title">City</h3>
+                                                               <h1 class="_detail"> {{ isset($employer->city_id) ? \App\Models\City::find($employer->city_id)->city : '' }}</h1>
+                                                            </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                            <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                            <div>
+                                                               <h3 class="_title">State</h3>
+                                                               <h1 class="_detail">{{ isset($employer->state_id) ? \App\Models\State::find($employer->state_id)->state : '' }}</h1>
+                                                            </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                            <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                            <div>
+                                                               <h3 class="_title">Zip Code</h3>
+                                                               <h1 class="_detail">{{ isset($employer->zipcode) ? $employer->zipcode : ''}}</h1>
+                                                            </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </li>
+                                       @php $count++; @endphp
+                                    @endforeach
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header"><div class="title-head">Basic Detail</div></div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Position</h3>
+                                                         <h1 class="_detail">{{ isset($employer_detail->position) ? $employer_detail->position : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Is Current Employee</h3>
+                                                         <h1 class="_detail">{{ isset($employer_detail->isCurrentEmployee) && $employer_detail->isCurrentEmployee == 'true' ? 'True' : 'False' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 @endisset
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- Professional Details End -->
+            @endif
             <!-- Deposit Details Start -->
             <div class="tab-pane fade" id="DepositDetails" role="tabpanel" aria-labelledby="v-pills-DepositDetails-tab">
                <div class="app-card" style="min-height: auto;">
@@ -817,18 +1753,18 @@
                      </div>
                   </div>
                   <div class="card-body collapse show" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
-                     <div class="row">
+                     <div class="row mt-3">
                         <div class="col-12 col-sm-12">
                            <div class="_card mt-3">
                               <div class="_card_header"><div class="title-head">DIRECT DEPOSIT INFORMATION FOR YOUR EARNINGS</div></div>
                               <div class="_card_body">
-                                 <div class="row">
+                                 <div class="row mt-3">
                                     <div class="col-12 col-sm-4">
                                        <div class="d-flex align-items-center">
                                           <div><i class="las la-angle-double-right circle-icon"></i></div>
                                           <div>
                                              <h3 class="_title">Name on account</h3>
-                                             <h1 class="_detail">{{ isset($data->applicant->payroll_details->nameOfAccount) ? $data->applicant->payroll_details->nameOfAccount : null }}</h1>
+                                             <h1 class="_detail">{{ isset($payroll_details->nameOfAccount) ? $payroll_details->nameOfAccount : null }}</h1>
                                           </div>
                                        </div>
                                     </div>
@@ -837,69 +1773,172 @@
                                           <div><i class="las la-angle-double-right circle-icon"></i></div>
                                           <div>
                                              <h3 class="_title">Type of account</h3>
-                                             <h1 class="_detail">{{ isset($data->applicant->payroll_details->typeOfAccount) ? $data->applicant->payroll_details->typeOfAccount : null }}</h1>
+                                             <h1 class="_detail">{{ isset($payroll_details->typeOfAccount) ? $payroll_details->typeOfAccount : null }}</h1>
                                           </div>
                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="row mt-3">
-                                    <div class="col-12 col-sm-12">
+                                    <div class="col-12 col-sm-4">
                                        <div class="d-flex align-items-center">
                                           <div><i class="las la-angle-double-right circle-icon"></i></div>
                                           <div>
                                              <h3 class="_title">Rounting number <span class="text-info"></span></h3>
-                                             <h1 class="_detail">{{ isset($data->applicant->payroll_details->routingNumber) ? $data->applicant->payroll_details->routingNumber : null }}</h1>
+                                             <h1 class="_detail">{{ isset($payroll_details->routingNumber) ? $payroll_details->routingNumber : null }}</h1>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
                                  <div class="row mt-3">
-                                    <div class="col-12 col-sm-12">
+                                    <div class="col-12 col-sm-4">
                                        <div class="d-flex align-items-center">
                                           <div><i class="las la-angle-double-right circle-icon"></i></div>
                                           <div>
-                                             <h3 class="_title">Account  number <span class="text-info"></span></h3>
-                                             <h1 class="_detail">{{ isset($data->applicant->payroll_details->accountNumber) ? $data->applicant->payroll_details->accountNumber : null }}</h1>
+                                             <h3 class="_title">Account number <span class="text-info"></span></h3>
+                                             <h1 class="_detail">{{ isset($payroll_details->accountNumber) ? $payroll_details->accountNumber : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Name Of Bank <span class="text-info"></span></h3>
+                                             <h1 class="_detail">{{ isset($payroll_details->nameOfBank) ? $payroll_details->nameOfBank : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Dependents<span class="text-info"></span></h3>
+                                             <h1 class="_detail">{{ isset($payroll_details->dependents) ? $payroll_details->dependents : null }}</h1>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
                                  <div class="row mt-3">
-                                    <div class="col-12 col-sm-12">
+                                    <div class="col-12 col-sm-4">
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Other Dependents <span class="text-info"></span></h3>
+                                             <h1 class="_detail">{{ isset($payroll_details->otherdependents) ? $payroll_details->otherdependents : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Children Dependents<span class="text-info"></span></h3>
+                                             <h1 class="_detail">{{ isset($payroll_details->childrendependents) ? $payroll_details->childrendependents : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Total Dependents<span class="text-info"></span></h3>
+                                             <h1 class="_detail">{{ isset($payroll_details->totaldependents) ? $payroll_details->totaldependents : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 @if ($data->designation_id != '2')
+                                    <div class="row mt-3">
+                                       <div class="col-12 col-sm-4">
+                                          <div class="d-flex align-items-center">
+                                             <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                             <div>
+                                                <h3 class="_title">Legal Entity<span class="text-info"></span></h3>
+                                                <h1 class="_detail">{{ isset($payroll_details->legal_entity) ? $payroll_details->legal_entity : null }}</h1>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-12 col-sm-4">
+                                          <div class="d-flex align-items-center">
+                                             <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                             <div>
+                                                <h3 class="_title">Tax Payer Id Number<span class="text-info"></span></h3>
+                                                <h1 class="_detail">{{ isset($payroll_details->taxpayer_id_number) ? $payroll_details->taxpayer_id_number : null }}</h1>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-12 col-sm-4">
+                                          <div class="d-flex align-items-center">
+                                             <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                             <div>
+                                                <h3 class="_title">Are You Filing As A Entity<span class="text-info"></span></h3>
+                                                <h1 class="_detail">{{ isset($payroll_details->are_you_filing_as_a_entity) ? $payroll_details->are_you_filing_as_a_entity : null }}</h1>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 @endif
+                                 <div class="row mt-3">
+                                    <div class="col-12 col-sm-4">
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Files Your Tax<span class="text-info"></span></h3>
+                                             <h1 class="_detail">{{ isset($payroll_details->filesyourtax) ? $payroll_details->filesyourtax : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
                                        <div class="d-flex align-items-center">
                                           <div><i class="las la-map-marker circle-icon"></i></div>
                                           <div>
                                              <h3 class="_title">Address on account line 1</h3>
                                              <h1 class="_detail">
-                                                {{ isset($data->deposit->address_line_1) ? $data->deposit->address_line_1 : null }}
+                                                {{ isset($payroll_details->address1) ? $payroll_details->address1 : null }}
                                                 <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample16"><i class="las la-map-marker"></i>View Map</a>
                                              </h1>
                                           </div>
                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="collapse mt-4" id="collapseExample16">
-                                    <div class="card card-body">
-                                       <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                    <div class="collapse mt-4" id="collapseExample16">
+                                       <div class="card card-body">
+                                          <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="row mt-3">
-                                    <div class="col-12 col-sm-12">
+                                    <div class="col-12 col-sm-4">
                                        <div class="d-flex align-items-center">
                                           <div><i class="las la-map-marker circle-icon"></i></div>
                                           <div>
                                              <h3 class="_title">Address on account line 2</h3>
                                              <h1 class="_detail">
-                                                {{ isset($data->deposit->address_line_2) ? $data->deposit->address_line_2 : null }}
+                                                {{ isset($payroll_details->address2) ? $payroll_details->address2 : null }}
                                                 <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample17"><i class="las la-map-marker"></i>View Map</a>
                                              </h1>
                                           </div>
                                        </div>
                                     </div>
-                                 </div>
-                                 <div class="collapse mt-4" id="collapseExample17">
-                                    <div class="card card-body">
-                                       <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                    <div class="collapse mt-4" id="collapseExample17">
+                                       <div class="card card-body">
+                                          <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                       </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Building</h3>
+                                             <h1 class="_detail">  {{ isset($payroll_details->building) ? $payroll_details->building  : ''}}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">City</h3>
+                                             <h1 class="_detail"> {{ isset($payroll_details->city_id) ? \App\Models\City::find($payroll_details->city_id)->city : '' }}</h1>
+                                          </div>
+                                       </div>
                                     </div>
                                  </div>
                                  <div class="row mt-3">
@@ -907,17 +1946,8 @@
                                        <div class="d-flex align-items-center">
                                           <div><i class="las la-angle-double-right circle-icon"></i></div>
                                           <div>
-                                             <h3 class="_title">City</h3>
-                                             <h1 class="_detail">{{ isset($data->deposit->city->city) ? $data->deposit->city->city : null }}</h1>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="col-12 col-sm-4">
-                                       <div class="d-flex align-items-center">
-                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                          <div>
                                              <h3 class="_title">State</h3>
-                                             <h1 class="_detail">{{ isset($data->deposit->state->state) ? $data->deposit->state->state : null }}</h1>
+                                             <h1 class="_detail">{{ isset($payroll_details->state_id) ? \App\Models\State::find($payroll_details->state_id)->state : '' }}</h1>
                                           </div>
                                        </div>
                                     </div>
@@ -926,7 +1956,7 @@
                                           <div><i class="las la-angle-double-right circle-icon"></i></div>
                                           <div>
                                              <h3 class="_title">Zip Code</h3>
-                                             <h1 class="_detail">{{ isset($data->deposit->zip) ? $data->deposit->zip : null }}</h1>
+                                             <h1 class="_detail">{{ isset($payroll_details->zip_code) ? $payroll_details->zip_code : null }}</h1>
                                           </div>
                                        </div>
                                     </div>
@@ -940,7 +1970,7 @@
             </div>
             <!-- Deposit Details End -->
             <!-- BackgroundDetails Start -->
-            <div class="tab-pane fade" id="BackgroundDetails" role="tabpanel" aria-labelledby="v-pills-BackgroundDetails-tab">
+            {{-- <div class="tab-pane fade" id="BackgroundDetails" role="tabpanel" aria-labelledby="v-pills-BackgroundDetails-tab">
                <div class="app-card" style="min-height: auto;">
                   <div class="card-header" id="step2">
                      <div class="d-flex align-items-center">
@@ -952,17 +1982,17 @@
                      <div class="_card">
                         <div class="_card_header"><div class="title-head">TAX INFORMATION</div></div>
                         <div class="_card_body">
-                           <div class="row">
+                           <div class="row mt-3">
                               <div class="col-12 col-sm-12">
                                  <div class="form-group">
-                                    <div class="row">
+                                    <div class="row mt-3">
                                        <div class="col-12 col-sm-4">
                                           <div>
                                              <div class="d-flex align-items-center">
                                                 <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                 <div>
                                                    <h3 class="_title">Send tax documents to</h3>
-                                                   <h1 class="_detail">{{ isset($data->deposit->send_tax_documents_to) ? $data->deposit->send_tax_documents_to : null }}</h1>
+                                                   <h1 class="_detail">{{ isset($payroll_details->send_tax_documents_to) ? $payroll_details->send_tax_documents_to : null }}</h1>
                                                 </div>
                                              </div>
                                           </div>
@@ -972,20 +2002,16 @@
                                              <div><i class="las la-phone circle-icon"></i></div>
                                              <div>
                                                 <h3 class="_title">Legal entity</h3>
-                                                <h1 class="_detail">{{ isset($data->deposit->legal_entity) ? $data->deposit->legal_entity : null }}</h1>
+                                                <h1 class="_detail">{{ isset($payroll_details->legal_entity) ? $payroll_details->legal_entity : null }}</h1>
                                              </div>
                                           </div>
                                        </div>
-                                    </div>
-                                 </div>
-                                 <div>
-                                    <div class="row">
-                                       <div class="col-12 col-sm-8">
+                                       <div class="col-12 col-sm-4">
                                           <div class="d-flex align-items-center ">
                                              <div><i class="las la-angle-double-right circle-icon"></i></div>
                                              <div>
                                                 <h3 class="_title">Taxpayer identification Number</h3>
-                                                <h1 class="_detail">{{ isset($data->deposit->tax_payer_id_number) ? $data->deposit->tax_payer_id_number : null }}</h1>
+                                                <h1 class="_detail">{{ isset($payroll_details->tax_payer_id_number) ? $payroll_details->tax_payer_id_number : null }}</h1>
                                              </div>
                                           </div>
                                        </div>
@@ -997,8 +2023,371 @@
                      </div>
                   </div>
                </div>
-            </div>
+            </div> --}}
             <!-- BackgroundDetails End -->
+            @if ($data->designation_id != '2')
+               <div class="tab-pane fade" id="WorkHistoryDetails" role="tabpanel"  aria-labelledby="v-pills-WorkHistoryDetails-tab">
+                  <div class="app-card" style="min-height: auto;">
+                     <div class="card-header" id="step2">
+                        <div class="d-flex align-items-center">
+                           <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Work History Details
+                        </div>
+                     </div>
+                     <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
+                        <div class="tab-content" id="myTabContent">
+                           <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
+                              <ul>
+                                 @php $count = '1'; @endphp
+                                 @isset($workHistory_detail->list)
+                                    @foreach($workHistory_detail->list as $index => $workHistory)
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header"><div class="title-head">INSTITUTE {{ $count }}</div></div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i> </div>
+                                                      <div>
+                                                         <h3 class="_title">Company Name</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->companyName) ? $workHistory->companyName : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i> </div>
+                                                      <div>
+                                                         <h3 class="_title">Record Id</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->recordId) ? $workHistory->recordId : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Start Date</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->startDate) ? $workHistory->startDate : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">End Date</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->endDate) ? $workHistory->endDate : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Reason</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->reason) ? $workHistory->reason : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Position</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->position) ? $workHistory->position : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address1</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($workHistory->address1) ? $workHistory->address1 : null }}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample7">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address2</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($workHistory->address2) ? $workHistory->address2 : null }}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample7">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Building</h3>
+                                                         <h1 class="_detail">  {{ isset($workHistory->building) ? $workHistory->building  : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">City</h3>
+                                                         <h1 class="_detail"> {{ isset($workHistory->cityId) ? \App\Models\City::find($workHistory->cityId)->city : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">State</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->stateId) ? \App\Models\State::find($workHistory->stateId)->state : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Zip Code</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->zipCode) ? $workHistory->zipCode : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    @php $count++; @endphp
+                                    @endforeach
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header"><div class="title-head">Other Detail</div></div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Gap Reason</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory_detail->gapReason) ? $workHistory_detail->gapReason : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 @endisset
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-pane fade" id="ProfessionalDetails" role="tabpanel"  aria-labelledby="v-pills-ProfessionalDetails-tab">
+                  <div class="app-card" style="min-height: auto;">
+                     <div class="card-header" id="step2">
+                        <div class="d-flex align-items-center">
+                           <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Professional Details
+                        </div>
+                     </div>
+                     <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
+                        <div class="tab-content" id="myTabContent">
+                           <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
+                              <ul>
+                                 @php $count = '1'; @endphp
+                                 @isset($workHistory_detail->list)
+                                    @foreach($workHistory_detail->list as $index => $workHistory)
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header"><div class="title-head">INSTITUTE {{ $count }}</div></div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i> </div>
+                                                      <div>
+                                                         <h3 class="_title">Company Name</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->companyName) ? $workHistory->companyName : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i> </div>
+                                                      <div>
+                                                         <h3 class="_title">Record Id</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->recordId) ? $workHistory->recordId : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Start Date</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->startDate) ? $workHistory->startDate : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">End Date</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->endDate) ? $workHistory->endDate : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Reason</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->reason) ? $workHistory->reason : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Position</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->position) ? $workHistory->position : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address1</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($workHistory->address1) ? $workHistory->address1 : null }}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample7">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address2</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($workHistory->address2) ? $workHistory->address2 : null }}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample7" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample7">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Building</h3>
+                                                         <h1 class="_detail">  {{ isset($workHistory->building) ? $workHistory->building  : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">City</h3>
+                                                         <h1 class="_detail"> {{ isset($workHistory->cityId) ? \App\Models\City::find($workHistory->cityId)->city : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">State</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->stateId) ? \App\Models\State::find($workHistory->stateId)->state : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Zip Code</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory->zipCode) ? $workHistory->zipCode : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                    @php $count++; @endphp
+                                    @endforeach
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header"><div class="title-head">Other Detail</div></div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Gap Reason</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory_detail->gapReason) ? $workHistory_detail->gapReason : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 @endisset
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               
+            @endif
             <!-- Verify Identity Start -->
             <div class="tab-pane fade" id="VerifyIdentity" role="tabpanel" aria-labelledby="v-pills-VerifyIdentity-tab">
                <div class="app-card" style="min-height: auto;">
@@ -1026,10 +2415,10 @@
                                        <div class="title-head">INFORMATION TO VERIFY YOUR IDENTITY</div>
                                     </div>
                                     <div class="_card_body">
-                                       <div class="row">
+                                       <div class="row mt-3">
                                           <div class="col-12 col-sm-12">
                                              <div class="form-group">
-                                                <div class="row">
+                                                <div class="row mt-3">
                                                    <div class="col-12 col-sm-4">
                                                       <div>
                                                          <div class="d-flex align-items-center">
@@ -1061,7 +2450,6 @@
                                                    </div>
                                                 </div>
                                              </div>
-                                             <div></div>
                                           </div>
                                        </div>
                                     </div>

@@ -172,6 +172,11 @@
                      </a>
                   </li>
                   <li class="mb-2">
+                     <a href="#EmployerDetails" data-toggle="pill" role="tab">
+                        <img src="/assets/img/icons/professional-clinician.svg" alt="" srcset="/assets/img/icons/professional-clinician.svg" class="_icon mr-2">Professional Details
+                     </a>
+                  </li>
+                  <li class="mb-2">
                      <a href="#ProfessionalDetails" data-toggle="pill" role="tab">
                         <img src="/assets/img/icons/professional-clinician.svg" alt="" srcset="/assets/img/icons/professional-clinician.svg" class="_icon mr-2">Professional Details
                      </a>
@@ -1582,11 +1587,11 @@
                </div>
                <!-- Education Details End -->
                <!-- Professional Details Start -->
-               <div class="tab-pane fade" id="ProfessionalDetails" role="tabpanel" aria-labelledby="v-pills-ProfessionalDetails-tab">
+               <div class="tab-pane fade" id="EmployerDetails" role="tabpanel" aria-labelledby="v-pills-EmployerDetails-tab">
                   <div class="app-card" style="min-height: auto;">
                      <div class="card-header" id="step2">
                         <div class="d-flex align-items-center">
-                           <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Professional Details
+                           <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Employer Details
                         </div>
                      </div>
                      <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">

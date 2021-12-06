@@ -16,6 +16,11 @@
     </tr>
     <tr>
         <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Reference detail</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
@@ -35,17 +40,6 @@
                 </tr>
             </table>
         </td>
-        @if ($users->user->designation_id != '2')
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <p>Have You Ever Been Bonded: <span>{{ isset($users->reference_detail['haveYouEverBeenBonded']) && $users->reference_detail['haveYouEverBeenBonded'] == '1' ? 'True' : 'False' }}</span></p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        @endif
     </tr>
     @if ($users->user->designation_id != '2')
         <tr>
@@ -53,11 +47,16 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
+                            <p>Have You Ever Been Bonded: <span>{{ isset($users->reference_detail['haveYouEverBeenBonded']) && $users->reference_detail['haveYouEverBeenBonded'] == '1' ? 'True' : 'False' }}</span></p>
+                        </td>
+                        <td>
                             <p>Have You Ever Been Refused Bond: <span>{{ isset($users->reference_detail['haveYouEverBeenRefusedBond']) && $users->reference_detail['haveYouEverBeenRefusedBond'] == '1' ? 'True' : 'False' }}</span></p>
                         </td>
                     </tr>
                 </table>
             </td>
+        </tr>
+        <tr>
             <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
@@ -74,7 +73,7 @@
         @foreach ($users->reference_detail['reference_list'] as $reference_detail)
             <tr>
                 <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Contact Information {{ $number}}:</h1>
+                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Contact Information {{ $number}}</h1>
                 </td>
             </tr>
             <tr>

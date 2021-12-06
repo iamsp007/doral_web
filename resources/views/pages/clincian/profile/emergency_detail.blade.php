@@ -1,9 +1,15 @@
+
+<tr>
+    <td>
+        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Emergency Contact Information</h1>
+    </td>
+    </tr>
 @php $counter = 1 @endphp
 @if (isset($users->emergency_detail))
     @foreach ($users->emergency_detail as $emergency_detail)
         <tr>
             <td>
-                <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Emergency Contact Information {{ $counter }}</h1>
+                <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Contact {{ $counter }}</h1>
             </td>
         </tr>
         <tr>

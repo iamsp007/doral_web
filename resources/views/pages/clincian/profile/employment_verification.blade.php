@@ -1,5 +1,4 @@
 <!-- page 7 start-->
-
 @if (isset($users->employer_detail) && count($users->employer_detail['employer']) > 0)
     @foreach ($users->employer_detail['employer'] as $employer_detail)
         <div class="break"></div>

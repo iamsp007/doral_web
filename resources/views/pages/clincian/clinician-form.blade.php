@@ -67,9 +67,11 @@
                             @include('pages.clincian.profile.payroll')
                         <!-- payroll End -->
 
+                        @if ($users->user->designation_id == '2')
                         <!-- Employment Verification Start -->
                             @include('pages.clincian.profile.employment_verification')
                         <!-- Employment Verification End -->
+                        @endif
 
                         <!-- Employment Certificate Start -->
                             @include('pages.clincian.profile.employee_certificate')

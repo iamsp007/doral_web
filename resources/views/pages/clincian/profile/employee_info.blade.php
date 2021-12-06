@@ -44,6 +44,7 @@
             </table>
         </td>
     </tr>
+   
     <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -86,6 +87,36 @@
             </table>
         </td>
     </tr>
+    @if ($users->user->designation_id != '2')
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>Date: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['date']  : ''}}</span></p>
+                        </td>
+                        <td>
+                            <p>Us Citizen: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['us_citizen']  : ''}}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>Immigration Id: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['immigration_id']  : ''}}</span></p>
+                        </td>
+                        <td>
+                            <p>Emergency Phone: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['emergency_phone']  : ''}}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    @endif
     <tr>
         <td>
             <p style="font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none;">Current Address: <span  value="Shashikant"
@@ -221,7 +252,7 @@
         <!-- Emergency Info End -->
 
         <!-- Emergency Info Start -->
-        {{-- @include('pages.clincian.profile.position') --}}
+        @include('pages.clincian.profile.position')
         <!-- Emergency Info End -->
 
         <!-- Education Start -->

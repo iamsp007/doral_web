@@ -40,7 +40,7 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <p>Have You Ever Been Bonded: <span>{{ isset($users->reference_detail['haveYouEverBeenBonded']) && $reference_detail->haveYouEverBeenBonded == '1' ? 'True' : 'False' }}</span></p>
+                            <p>Have You Ever Been Bonded: <span>{{ isset($users->reference_detail['haveYouEverBeenBonded']) && $users->reference_detail['haveYouEverBeenBonded'] == '1' ? 'True' : 'False' }}</span></p>
                         </td>
                     </tr>
                 </table>
@@ -53,7 +53,7 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <p>Have You Ever Been Refused Bond: <span>{{ isset($users->reference_detail['haveYouEverBeenRefusedBond']) && $reference_detail->haveYouEverBeenRefusedBond == '1' ? 'True' : 'False' }}</span></p>
+                            <p>Have You Ever Been Refused Bond: <span>{{ isset($users->reference_detail['haveYouEverBeenRefusedBond']) && $users->reference_detail['haveYouEverBeenRefusedBond'] == '1' ? 'True' : 'False' }}</span></p>
                         </td>
                     </tr>
                 </table>
@@ -62,7 +62,7 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <p>Have You Over Been Convicated Of a Crime: <span>{{ isset($users->reference_detail['haveYouOverBeenConvicatedOfaCrime']) && $reference_detail->haveYouOverBeenConvicatedOfaCrime == '1' ? 'True' : 'False' }}</span></p>
+                            <p>Have You Over Been Convicated Of a Crime: <span>{{ isset($users->reference_detail['haveYouOverBeenConvicatedOfaCrime']) && $users->reference_detail['haveYouOverBeenConvicatedOfaCrime'] == '1' ? 'True' : 'False' }}</span></p>
                         </td>
                     </tr>
                 </table>

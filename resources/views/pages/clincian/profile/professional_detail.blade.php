@@ -122,17 +122,9 @@
                                 <p>Number: <span>{{ isset($stateLicense['Number']) ? $stateLicense['Number'] : '' }}</span></p>
                             </td>
                         </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>Category: <span>{{ isset($stateLicense['Category']) ? $stateLicense['Category'] : '' }}</span></p>
-                            </td>
-                        </tr>
+                        <td>
+                            <p>Category: <span>{{ isset($stateLicense['Category']) ? $stateLicense['Category'] : '' }}</span></p>
+                        </td>
                     </table>
                 </td>
             </tr>

@@ -68,7 +68,7 @@ return [
 //            'route'=>'javascript:void(0)',
 //            'icon'=>'requests-sb.svg',
 //            'icon_hover'=>'requests-sb-select.svg',
-//            'icon_title'=>'Request Section',
+//            'icon_title'=>'Request Source',
 //            'menu'=>[
 //                [
 //                    'name'=>'Clinical Requests',
@@ -165,18 +165,18 @@ return [
     ],
     'admin'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'admin/dashboard','route'=>'admin/dashboard','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
-//        ['name'=>'Dashboard','url'=>env('APP_URL').'admin/roles','route'=>'admin/roles','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg'],
-//        ['name'=>'Dashboard','url'=>env('APP_URL').'admin/employee','route'=>'admin/employee','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg'],
+        //        ['name'=>'Dashboard','url'=>env('APP_URL').'admin/roles','route'=>'admin/roles','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg'],
+        //        ['name'=>'Dashboard','url'=>env('APP_URL').'admin/employee','route'=>'admin/employee','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg'],
         [
-            'name'=>'Referral Section',
+            'name'=>'Referral Source',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',
             'icon'=>'referral-sb.svg',
             'icon_hover'=>'referral-sb-select.svg',
-            'icon_title'=>'Referral Section',
+            'icon_title'=>'Referral Source',
             'menu'=>[
                 [
-                    'name'=>'Pending Referral',
+                    'name'=>'Referral',
                     'url'=>env('APP_URL').'admin/referral/pending',
                     'route'=>'admin/referral/pending',
                     'icon'=>'home-sb-select.svg',
@@ -184,7 +184,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Active Referral',
+                    'name'=>'Active',
                     'url'=>env('APP_URL').'admin/referral/active',
                     'route'=>'admin/referral/active',
                     'icon'=>'home-sb-select.svg',
@@ -192,7 +192,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Reject Referral',
+                    'name'=>'Rejected',
                     'url'=>env('APP_URL').'admin/referral/rejected',
                     'route'=>'admin/referral/rejected',
                     'icon'=>'home-sb-select.svg',
@@ -202,15 +202,15 @@ return [
             ]
         ],
         [
-            'name'=>'Clinician Section',
+            'name'=>'Clinician Source',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',
             'icon'=>'clinician-sb.svg',
             'icon_hover'=>'clinician-sb-select.svg',
-            'icon_title'=>'Clinician Section',
+            'icon_title'=>'Clinician Source',
             'menu'=>[
                 [
-                    'name'=>'Pending Clinician',
+                    'name'=>'Clinician',
                     'url'=>env('APP_URL').'admin/clinician/pending',
                     'route'=>'admin/clinician/pending',
                     'icon'=>'home-sb-select.svg',
@@ -218,7 +218,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Active Clinician',
+                    'name'=>'Active',
                     'url'=>env('APP_URL').'admin/clinician/active',
                     'route'=>'admin/clinician/active',
                     'icon'=>'home-sb-select.svg',
@@ -226,7 +226,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Reject Clinician',
+                    'name'=>'Rejected',
                     'url'=>env('APP_URL').'admin/clinician/rejected',
                     'route'=>'admin/clinician/rejected',
                     'icon'=>'home-sb-select.svg',
@@ -236,15 +236,15 @@ return [
             ]
         ],
         [
-            'name'=>'Partner Section',
+            'name'=>'Partner Source',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',
             'icon'=>'employee-sb.svg',
             'icon_hover'=>'employee-sb-select.svg',
-            'icon_title'=>'Partner Section',
+            'icon_title'=>'Partner Source',
             'menu'=>[
                 [
-                    'name'=>'Pending Partner',
+                    'name'=>'Partner',
                     'url'=>env('APP_URL').'admin/partner/pending',
                     'route'=>'admin/partner/pending',
                     'icon'=>'home-sb-select.svg',
@@ -252,7 +252,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Active Partner',
+                    'name'=>'Active',
                     'url'=>env('APP_URL').'admin/partner/active',
                     'route'=>'admin/partner/active',
                     'icon'=>'home-sb-select.svg',
@@ -260,7 +260,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Reject Partner',
+                    'name'=>'Rejected',
                     'url'=>env('APP_URL').'admin/partner/rejected',
                     'route'=>'admin/partner/rejected',
                     'icon'=>'home-sb-select.svg',
@@ -270,12 +270,12 @@ return [
             ]
         ],
         [
-            'name'=>'Employees Section',
+            'name'=>'Employees Source',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',
             'icon'=>'employee-sb.svg',
             'icon_hover'=>'employee-sb-select.svg',
-            'icon_title'=>'Employees Section',
+            'icon_title'=>'Employees Source',
             'menu'=>[
                 [
                     'name'=>'Add New Employee',
@@ -359,12 +359,12 @@ return [
     'partner'=>[
         ['name'=>'Dashboard','url'=>env('APP_URL').'partner','route'=>'partner','icon'=>'home-sb-select.svg','icon_hover'=>'home-sb.svg','icon_title'=>'Dashboard'],
         [
-            'name'=>'Employees Section',
+            'name'=>'Employees Source',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',
             'icon'=>'employee-sb.svg',
             'icon_hover'=>'employee-sb-select.svg',
-            'icon_title'=>'Employees Section',
+            'icon_title'=>'Employees Source',
             'menu'=>[
                 [
                     'name'=>'Add New Employee',
@@ -410,12 +410,12 @@ return [
             ['name'=>'Calendar','url'=>env('APP_URL').'partner/calendar','route'=>'partner/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
         ],
         [
-            'name'=>'Designation Section',
+            'name'=>'Designation Source',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',
             'icon'=>'designation.svg',
             'icon_hover'=>'designation.svg',
-            'icon_title'=>'Designation Section',
+            'icon_title'=>'Designation Source',
             'menu'=>[
                 [
                     'name'=>'Add New Designation',

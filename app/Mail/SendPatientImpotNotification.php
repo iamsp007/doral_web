@@ -29,7 +29,11 @@ class SendPatientImpotNotification extends Mailable
      */
     public function build()
     {
-        return $this->subject('Patient import successfully.')
+        $subject = 'Patient import successfully.';
+        if(isset($this->details['action']) && $this->details['action'] === 'CurrentCaregiverCheck') {
+            $subject = 'Get current caregiver successfully.';
+        }
+        return $this->subject($subject)
             ->view('emails.patient_import');
     }
 }

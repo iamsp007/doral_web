@@ -40,10 +40,6 @@
     <title>@yield('title','Welcome to Doral')</title>
 </head>
 <body>
-    @if (\Request::is('supervisor/*'))
-        @include('pages.supervisor.popup')
-    @endif
-
     <div id="loader-wrapper">
         <div class="overlay"></div>
         <div class="pulse"></div>
@@ -243,7 +239,10 @@
                                             @csrf
                                         </form>
                                     @else
-                                        <a class="dropdown-item" href="{{ url('/profile') }}"
+                                        @php
+                                        $authuser = Auth::user();
+                                        @endphp
+                                        <a class="dropdown-item" href="{{ route('clinician.profile',['id' => $authuser->id]) }}"
                                         >Profile</a>
                                         <a class="dropdown-item" href="{{ url('logout') }}"
                                            onclick="event.preventDefault();

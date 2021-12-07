@@ -58,7 +58,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = ['profile_photo_url', 'gender_name', 'avatar_image', 'phone_format', 'full_name', 'age'];
+    protected $appends = ['profile_photo_url', 'gender_name', 'gender_data','avatar_image', 'phone_format', 'full_name', 'age'];
 
     public function designation()
     {
@@ -80,9 +80,19 @@ class User extends Authenticatable
         return $this->hasOne(Demographic::class,'user_id','id');
     }
 
+    public function caseManagement()
+    {
+        return $this->hasOne(CaseManagement::class,'patient_id','id');
+    }
+
     public function patientLabReport()
     {
         return $this->hasMany(PatientLabReport::class,'user_id','id');
+    }
+
+    public function careTeam()
+    {
+        return $this->hasMany(CareTeam::class,'patient_id','id');
     }
 
     public function patientRequest()

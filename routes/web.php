@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CareTeamController;
 use App\Http\Controllers\UserDeviceController;
 use Illuminate\Support\Facades\Route;
 
@@ -87,15 +88,15 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/search-caregivers', 'App\Http\Controllers\CaregiverController@searchCaregivers');
 
-    Route::group(['middleware'=>['auth:web,partner']],function (){
+    Route::group(['middleware'=>['auth:web,partner,referral']],function (){
         Route::get('/patients/{status?}','App\Http\Controllers\CaregiverController@index')->name('clinician.new-patient-list');
         Route::post('/patient-request-list','App\Http\Controllers\CaregiverController@getPatientRequestDetail')->name('clinician.patient-request-list');
     });
 
     Route::get('/patients/resend/{id}', '\App\Http\Controllers\patient\PatientController@resendEmail')->name('resend.mail');
-
-    Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
-   
+    Route::group(['middleware'=>['auth:web,referral']],function (){
+        Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
+    });
     Route::post('/ccm/getAll','App\Http\Controllers\UserDeviceController@getAll')->name('clinician.ccm.ajax');
     Route::get('/ccm/{id}','App\Http\Controllers\UserDeviceController@edit');
     Route::get('/ccm/getnote/{id}', [UserDeviceController::class, 'show']);
@@ -118,7 +119,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('get-state-data','App\Http\Controllers\CaregiverController@getSelectStateData')->name('get-state-data');
 
-    Route::get('/search-caregivers','App\Http\Controllers\Admin\HHAExchangeController@searchCaregivers')->name('search-caregivers');
+    // Route::get('/search-caregivers','App\Http\Controllers\Admin\HHAExchangeController@searchCaregivers')->name('search-caregivers');
     Route::resource('hha-exchange','App\Http\Controllers\Admin\HHAExchangeController');
 
     // Convert Address to Lat-Long
@@ -135,12 +136,21 @@ use Illuminate\Support\Facades\Route;
     Route::get('import-patient-from-hha','App\Http\Controllers\Admin\PatientImportController@importPatient');
     Route::get('import-caregiver-from-hha','App\Http\Controllers\Admin\PatientImportController@importCaregiver');
     Route::get('import-visitor-from-hha','App\Http\Controllers\Admin\PatientImportController@importVisitor');
+    Route::get('confirmVisits','App\Http\Controllers\Admin\PatientImportController@confirmVisits');
     
+
+    Route::post('/insurance/store', 'App\Http\Controllers\InsuranceController@store')->name('insurance.store');
+
     Route::get('/call-view', 'App\Http\Controllers\VoiceController@index')->name('call-view');
     Route::post('/call', 'App\Http\Controllers\VoiceController@initiateCall')->name('initiate_call');
+
 
    // Route::get('/index', 'App\Http\Controllers\call\CallController@index');
     Route::get('/call-view-new', 'App\Http\Controllers\call\CallController@index');
     Route::post('/voice','App\Http\Controllers\call\CallController@voice');
     Route::post('/token','App\Http\Controllers\call\CallController@token');
     Route::get('visitor','App\Http\Controllers\VisitorController@index');
+
+    Route::get('visitor','App\Http\Controllers\VisitorController@index');
+
+    Route::resource('care-team', CareTeamController::class);

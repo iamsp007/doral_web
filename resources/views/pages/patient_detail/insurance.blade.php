@@ -130,7 +130,7 @@
                </div>
             </div>
             <!-- Insurance Company Form Start -->
-            <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 insurance_company">
+            <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3 form_div">
                <form class="insurance_form">
                   <input type="hidden" name="user_id" value="{{ $patient->id }}">
                   <span class="name-invalid-feedback text-danger" role="alert"></span>
@@ -193,7 +193,7 @@
                            </div>
                         </div>
                         <div class=" d-flex justify-content-end">
-                           <button type="submit" class="btn btn-outline-green save_record" data-action="add" name="Save">Save</button>
+                           <button type="submit" class="btn btn-outline-green save_record" data-url="{{ Route('insurance.store') }}" data-redirecturl="{{ Route('clinician.new-patient-list') }}" data-action="add"><i class="fa fa-save"></i> Save</button>
                         </div>
                      </div>
                   </div>

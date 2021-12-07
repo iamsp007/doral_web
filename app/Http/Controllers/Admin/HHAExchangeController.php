@@ -8,6 +8,7 @@ use App\Models\PatientEmergencyContact;
 use App\Models\PatientRequest;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
 
 class HHAExchangeController extends Controller
@@ -20,16 +21,16 @@ class HHAExchangeController extends Controller
     public function index()
     {
         try {
-            PatientRequest::find(8)->update([
-                'status' => '4'
-            ]);
+            // PatientRequest::find(8)->update([
+            //     'status' => '4'
+            // ]);
 
-            $patientRequest = PatientRequest::where([['parent_id', 7],['status', '!=', 4]])->get();
-            if(count($patientRequest) == 0) {
-                PatientRequest::find(7)->update([
-                    'status' => '4'
-                ]);
-            };
+            // $patientRequest = PatientRequest::where([['parent_id', 7],['status', '!=', 4]])->get();
+            // if(count($patientRequest) == 0) {
+            //     PatientRequest::find(7)->update([
+            //         'status' => '4'
+            //     ]);
+            // };
             // try {
                 //  $company='';
                 // if(Auth::guard('referral')) {
@@ -119,9 +120,46 @@ class HHAExchangeController extends Controller
             // }
             // $stored_user_id = [];
             // $mail = Mail::to('koladaramanisha176@gmail.com')->send(new SendPatientImpotNotification(count($stored_user_id)));
-          
-
-            $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => count($patientRequest));
+            $searchPatientIds = searchPatients();
+            $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+           
+            Log::info('hha exchange search patient detail start');
+            Log::info('total hha count'.count($patientArray));
+    
+            $missing_patient_id = [];
+            $userCaregiver1 = Demographic::get();
+            foreach ($userCaregiver1 as $userCaregivers) { 
+                $missing_patient_id[] = $userCaregivers->patient_id;
+            }
+            
+            $data = [];
+            $stored_user_id = [];
+            foreach ($patientArray as $patient_id) {
+                if (! in_array($patient_id, $missing_patient_id)) {
+                   
+                   // $apiResponse = getPatientDemographics($patient_id);
+                    //$demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
+                   $data[] = $patient_id;
+      	 
+                    // $doral_id = createDoralId();
+                    // $user_id = self::storeUser($demographics, $doral_id);
+                    
+                    // if ($user_id) {
+                    //     $data[] = $patient_id;
+                    //     $stored_user_id[] = $user_id;
+                    //     $company_id = $this->company->id;
+                    //     self::storeDemographic($demographics, $user_id, $company_id, $doral_id);
+    
+                    //     self::storeEmergencyContact($demographics, $user_id);
+                    // }
+                }
+                
+                
+            }
+dump('total data');
+                dump(count($data));
+               dump('total data');
+            $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
             if (isset($ex->errorInfo[2])) {
@@ -150,31 +188,7 @@ class HHAExchangeController extends Controller
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchPatients xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><FirstName></FirstName><LastName></LastName><Status>Active</Status><PhoneNumber></PhoneNumber><AdmissionID></AdmissionID><MRNumber></MRNumber><SSN></SSN></SearchFilters></SearchPatients></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         $method = 'POST';
-        return $this->curlCall($data, $method);
-    }
-
-    public function curlCall($data, $method)
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => config('patientDetailAuthentication.AppUrl'),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => array(
-               'Content-Type: text/xml'
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
-        $xml = new \SimpleXMLElement($response);
-        return json_decode(json_encode((array)$xml), TRUE);
+        return curlCall($data, $method);
     }
     
     /**
@@ -189,7 +203,7 @@ class HHAExchangeController extends Controller
 
         $method = 'POST';
 
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
     public static function storeUser($demographics, $type)
@@ -475,7 +489,7 @@ class HHAExchangeController extends Controller
         //<FirstName>string</FirstName><LastName>string</LastName><PhoneNumber>string</PhoneNumber><CaregiverCode>string</CaregiverCode><EmployeeType>string</EmployeeType><SSN>string</SSN>Employee/Applicant
 
         $method = 'POST';
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
 
@@ -489,7 +503,7 @@ class HHAExchangeController extends Controller
         $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetCaregiverDemographics xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><CaregiverInfo><ID>' . $cargiver_id . '</ID></CaregiverInfo></GetCaregiverDemographics></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
         $method = 'POST';
-        return $this->curlCall($data, $method);
+        return curlCall($data, $method);
     }
 
 }

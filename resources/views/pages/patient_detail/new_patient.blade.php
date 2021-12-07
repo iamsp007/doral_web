@@ -23,7 +23,7 @@ table.dataTable thead th, table.dataTable thead td{
             <div class="d-flex">
                 <a href="{{ url('referral/service/occupational-health/initial') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Pending Patients</a>
                 <a href="{{ route('referral.occupational-health-upload-bulk-data') }}" class="bulk-upload-btn" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Import Patients</a>
-                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
+                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="import-caregiver" data-id="{{ $patient->id ?? '' }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
             </div>
         @elseif (request()->segment(count(request()->segments())) == "initial")
             <div class="d-flex">
@@ -43,10 +43,10 @@ table.dataTable thead th, table.dataTable thead td{
         @elseif (request()->segment(count(request()->segments())) == "md-order")
             <div class="d-flex">
                 <a href="{{ url('referral/service/md-order/initial') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Pending Patients</a>
-                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-patient-from-hha') }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
+                <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-patient-from-hha') }}" data-action="import-caregiver" data-id="{{ $patient->id ?? '' }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
             </div>
         @endif
-    @endsection
+    @endsection 
 @endrole
 
 @section('content')
@@ -137,6 +137,7 @@ table.dataTable thead th, table.dataTable thead td{
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
         <input type="hidden" value="{{ $serviceStatus }}" id="serviceStatus" name="serviceStatus" />
         <input type="hidden" value="{{ $initial }}" id="initial" name="initial" />
+        <input type="hidden" value="{{ $role }}" id="role" name="role" />
         <thead>
             <tr>
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
@@ -154,14 +155,16 @@ table.dataTable thead th, table.dataTable thead td{
                 @if(!$serviceStatus)
                     <th>Status</th>
                 @endif
-                <th>Action</th>
+                @unlessrole('supervisor')
+                    <th>Action</th>
+                @endif
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
   
-    
+  
 @endsection
 
 @push('styles')
@@ -182,6 +185,8 @@ table.dataTable thead th, table.dataTable thead td{
     <script>
         var serching = false;
         var status = $("#serviceStatus").val();
+        var role = $("#role").val();
+        
         if(status === "pending"){
             var serching = true;
         }
@@ -206,10 +211,14 @@ table.dataTable thead th, table.dataTable thead td{
             {data: 'city_state',"className": "text-left"},
             {data:'dob',name:'dob',"className": "text-left"},
         );
+
         if(status == ""){
             columnDaTa.push({data: 'status',"className": "text-left"},);
         }
-        columnDaTa.push({data: 'action',"className": "text-left"});
+
+        if(role != "supervisor"){
+            columnDaTa.push({data: 'action',"className": "text-left"});
+        }
 
         $('#get_patient-table').DataTable({
             "processing": true,
@@ -255,14 +264,44 @@ table.dataTable thead th, table.dataTable thead td{
             ],
         });
 
-        
+        /*Open assign clinician in model */
+        $("body").on('click','.assign',function () {
+            var patient_id = $(this).attr('id');
+            assignClinicians(patient_id);
+        });
+
+        function assignClinicians(patient_id)
+        {
+            var url = '{{url("supervisor/view-clinician")}}/' + patient_id;
+            $("#loader-wrapper").show();
+            $.ajax({
+                url : url,
+                type: 'GET',
+                headers: {
+                    'X_CSRF_TOKEN':'{{ csrf_token() }}',
+                },
+                success:function(data, textStatus, jqXHR){
+                    $("#loader-wrapper").hide();
+                    $(".messageViewModel").html(data);
+                    $(".messageViewModel").modal('show');
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    swal("Server Timeout!", "Please try again", "warning");
+                    $("#loader-wrapper").hide();
+                }
+            });
+        }
+
         $(".autoImportPatient").click(function () {
           
             var url = $(this).attr('data-url');
+            var action = $(this).attr('data-action');
+           
             $("#loader-wrapper").show();
             $.ajax({
                 type:"GET",
                 url:url,
+                data:{action:action},
                 success: function(data) {
                     if(data.status == 200) {
                         alertText(data.message,'success');
@@ -520,6 +559,8 @@ table.dataTable thead th, table.dataTable thead td{
                 }).get();
                 if (status === 'roadL') {
                     onBroadCastOpen(val);
+                } else if (status === 'assignClinician') {
+                    assignClinicians(val);
                 } else {
                     postdataforaction(status, val);
                 }

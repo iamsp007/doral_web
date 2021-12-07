@@ -16,6 +16,11 @@
     </tr>
     <tr>
         <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Reference detail</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
@@ -25,12 +30,50 @@
             </table>
         </td>
     </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Terms: <span>{{ isset($users->reference_detail['terms']) && ($users->reference_detail['terms'] === '1') ? 'True' : 'False'}}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    @if ($users->user->designation_id != '2')
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>Have You Ever Been Bonded: <span>{{ isset($users->reference_detail['haveYouEverBeenBonded']) && $users->reference_detail['haveYouEverBeenBonded'] == '1' ? 'True' : 'False' }}</span></p>
+                        </td>
+                        <td>
+                            <p>Have You Ever Been Refused Bond: <span>{{ isset($users->reference_detail['haveYouEverBeenRefusedBond']) && $users->reference_detail['haveYouEverBeenRefusedBond'] == '1' ? 'True' : 'False' }}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>Have You Over Been Convicated Of a Crime: <span>{{ isset($users->reference_detail['haveYouOverBeenConvicatedOfaCrime']) && $users->reference_detail['haveYouOverBeenConvicatedOfaCrime'] == '1' ? 'True' : 'False' }}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    @endif
     @php $number=1; @endphp
     @if (isset($users->reference_detail['reference_list']) && count($users->reference_detail['reference_list']) > 0)
         @foreach ($users->reference_detail['reference_list'] as $reference_detail)
             <tr>
                 <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Contact Information {{ $number}}:</h1>
+                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Contact Information {{ $number}}</h1>
                 </td>
             </tr>
             <tr>
@@ -39,17 +82,6 @@
                         <tr>
                             <td>
                                 <p>Contact Name: <span>{{ isset($reference_detail['name']) ? $reference_detail['name'] : '' }}</span></p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>Relationship to Employee: <span>{{ isset($reference_detail['relation']) ? $reference_detail['relation'] : '' }}</span></p>
                             </td>
                         </tr>
                     </table>
@@ -83,17 +115,6 @@
                         <tr>
                             <td>
                                 <p>Emergency Contact Phone Home #: <span>{{ isset($reference_detail['phoneNo']) ? $reference_detail['phoneNo'] : '' }}</span></p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>Emergency Contact Cell Phone #: <span></span></p>
                             </td>
                         </tr>
                     </table>

@@ -149,7 +149,10 @@ class RoadLController extends Controller
             
             $data = User::whereHas('roles',function ($q){
                     $q->where('name','=','patient');
-                })->whereHas('patientRequest')->select("id","first_name", 'last_name')
+                })->whereHas('patientRequest')
+                ->whereHas('demographic', function($q) {
+                    $q->where('flag','1');
+                })->select("id","first_name", 'last_name')
                 ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
                 ->get();
         }

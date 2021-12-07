@@ -12,9 +12,11 @@ use App\Services\AdminService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use ZipArchive;
 use PDF;
+use Illuminate\Support\Facades\Validator;
 
 class ClinicianController extends Controller
 {
@@ -253,6 +255,12 @@ class ClinicianController extends Controller
                 'documents as SignedESignatureForm_count' => function ($query) {
                     $query->where('type', 42);
                 },
+                'documents as CovidCertificate_count' => function ($query) {
+                    $query->where('type', 44);
+                },
+                'documents as CPRACLS_count' => function ($query) {
+                    $query->where('type', 45);
+                },
                 ])
             ->first(); 
                
@@ -274,11 +282,11 @@ class ClinicianController extends Controller
         $data = [];
         if ($response != null && $response->status === true) {
             $data = $response->data;
-          
-            $family_detail = $military_detail = $security_detail = $address_detail = $reference_detail = $employer_detail = $education_detail = $language_detail = $skill_detail = $emergency_detail = $payroll_details = $position_detail = [];
+          	
+                 $workHistory_detail = $military_detail = $security_detail = $prior = $address = $info = $reference_detail = $employer_detail = $education_detail = $emergency_detail = $payroll_details = $professional_detail = [];
             if ($data->applicant) {
-                if ($data->applicant->family_detail) {
-                    $family_detail = $data->applicant->family_detail;
+                if ($data->applicant->workHistory_detail) {
+                    $workHistory_detail = $data->applicant->workHistory_detail;
                 }
 
                 if ($data->applicant->military_detail) {
@@ -289,32 +297,22 @@ class ClinicianController extends Controller
                     $security_detail = $data->applicant->security_detail;
                 }
 
-                if ($data->applicant->address_detail && $data->applicant->address_detail->address) {
-                    $address_detail = $data->applicant->address_detail->address;
+                if ($data->applicant->address_detail) {
+                    $prior = $data->applicant->address_detail->prior;
+                    $address = $data->applicant->address_detail->address;
+                    $info = $data->applicant->address_detail->info;
                 }
 
                 if ($data->applicant->reference_detail) {
                     $reference_detail = $data->applicant->reference_detail;
                 }
 
-                if ($data->applicant->employer_detail && $data->applicant->employer_detail->employer) {
-                    $employer_detail = $data->applicant->employer_detail->employer;
+                if ($data->applicant->employer_detail) {
+                    $employer_detail = $data->applicant->employer_detail;
                 }
 
-                if ($data->applicant->employer_detail && $data->applicant->employer_detail->position) {
-                    $position_detail = $data->applicant->employer_detail->position;
-                }
-                
                 if ($data->applicant->education_detail) {
                     $education_detail = $data->applicant->education_detail;
-                }
-
-                if ($data->applicant->language_detail) {
-                    $language_detail = $data->applicant->language_detail;
-                }
-
-                if ($data->applicant->skill_detail) {
-                    $skill_detail = $data->applicant->skill_detail;
                 }
 
                 if ($data->applicant->emergency_detail) {
@@ -324,25 +322,19 @@ class ClinicianController extends Controller
                 if ($data->applicant->payroll_details) {
                     $payroll_details = $data->applicant->payroll_details;
                 }
-            }
 
-            // return view('pages.admin.clinician-view', compact(
-            //     'data',
-            //     'family_detail',
-            //     'military_detail',
-            //     'security_detail',
-            //     'address_detail',
-            //     'reference_detail',
-            //     'employer_detail',
-            //     'position_detail',
-            //     'education_detail',
-            //     'language_detail',
-            //     'skill_detail',
-            //     'emergency_detail',
-            //     'payroll_details')
-            // );
+                if ($data->applicant->payroll_details) {
+                    $payroll_details = $data->applicant->payroll_details;
+                }
+
+                if ($data->applicant->professional_detail) {
+                    $professional_detail = $data->applicant->professional_detail;
+                }
+            }
+          
+	
 //            if ($data->designation_id == 1) {
-                return view('pages.admin.nurse-view', compact('data', 'security_detail'));
+              return view('pages.admin.nurse-view', compact('data', 'prior','address','info','reference_detail','emergency_detail','education_detail','security_detail','military_detail','employer_detail','payroll_details','workHistory_detail','professional_detail'));
 //            } else if ($data->designation_id == 2) {
 //                return view('pages.admin.rn-view', compact('data'));
 //            } else {
@@ -416,5 +408,67 @@ class ClinicianController extends Controller
         if(file_exists($filetopath)){
             return response()->download($filetopath,$zipFileName,$headers);
         }
+    }
+
+    public function profileView($id)
+    {
+        if ($id != Auth::user()->id) {
+            return view('errors.401');
+        }
+        $user = User::where('id',$id)->first();
+       
+        return view('admin.clinician.profile',compact('user'));
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $input =  $request->all();
+          
+        $rules = [
+            'nickname' => 'required',
+        ];
+
+        $messages = [
+            'nickname.required' => 'Please enter nick name.',
+        ];
+
+        $validator = Validator::make($input, $rules, $messages);
+
+        if ($validator->fails()) {
+            $arr = array('status' => 400, 'message' => $validator->getMessageBag()->toArray(), 'resultdata' => array());
+        } else {
+            try {
+        
+                $user = User::find($input['id_for_update']);
+                $message = 'Profile updated successfully!!';
+
+                if (isset($input["avatar"]) && !empty($input["avatar"])) {
+                    $file = $input['avatar'];
+                    $new_file_name = time(). "_" .$file->getClientOriginalName();
+                    copy($file->getRealPath(),public_path('upload/images/'.$new_file_name));
+                    $user->avatar = $new_file_name;
+                }
+
+                $user->nickname = $input['nickname'];
+                $user->save();
+
+                $arr = array('status' => 200, 'message' => $message, 'resultdata' => $user);
+
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $message = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) {
+                    $message = $ex->errorInfo[2];
+                }
+                
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+            } catch (Exception $ex) {
+                $message = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) {
+                    $message = $ex->errorInfo[2];
+                }
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+            }
+        }
+        return \Response::json($arr);
     }
 }

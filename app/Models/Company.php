@@ -7,16 +7,38 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
-
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Company extends Authenticatable
 {
-    use HasFactory,Notifiable,HasRoles;
+    use HasFactory,Notifiable,HasRoles, LogsActivity;
+    
 
     protected $guard = 'referral';
 
     protected $table='companies';
     protected $primaryKey='id';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected static $logAttributes = [
+        'name', 'dob', 'phone', 'email', 'email_verified', 'status', 'remember_token', 'level', 'api_token','referal_id',
+    ];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "You have {$eventName} referral";
+    }
+
+    protected static $logName = 'Referral';
+
+    protected static $logOnlyDirty = true;
+
+    protected static $submitEmptyLogs = false;
+
 
     protected $fillable = [
         'name', 'dob', 'phone', 'email', 'email_verified', 'password', 'status', 'remember_token', 'level', 'api_token','referal_id',

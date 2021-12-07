@@ -2,8 +2,13 @@
 
 namespace App\Console;
 
+use App\Jobs\CaregiverImport;
+use App\Jobs\CheckCurrentCaregiver;
+use App\Jobs\PatientImport;
+use App\Models\Company;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Auth;
 
 class Kernel extends ConsoleKernel
 {
@@ -25,7 +30,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('send:dueReportNotification')->daily();
+        $schedule->command('send:dueReportNotification')->timezone('America/New_York')->at('24:30');
+
+        $company = Company::where('id','9')->first();
+        $schedule->job(new PatientImport($company))->timezone('America/New_York')->at('24:30');
+        $schedule->job(new CaregiverImport($company))->timezone('America/New_York')->at('24:30');
     }
 
     /**

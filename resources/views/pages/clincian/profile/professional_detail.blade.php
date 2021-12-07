@@ -1,6 +1,6 @@
 <!-- page 2 start-->
 <div class="break"></div>
-<table width="100%">
+<table width="100%">/opt/lampp/htdocs/doral/doral_web/resources/views/pages/clincian/profile/professional_detail.blade.php
     <tr>
         <td>
             <table style="width: 100%;">
@@ -16,22 +16,24 @@
     </tr>
     <tr>
         <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Professional Detail</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td style="width: 50%;">
                         <p>Age:
                             <span>
-                                <input type="checkbox" {{ ($users->professional_detail['age_0_9']) ? 'checked' : '' }}> Age 0 to 9
-                                <input type="checkbox" {{ ($users->professional_detail['age_10_13']) ? 'checked' : '' }}> Age 10 to 13
-                                <input type="checkbox" {{ ($users->professional_detail['age_14_21']) ? 'checked' : '' }}> Age 14 to 21
-                                
+                                <input type="checkbox" {{ ($users->professional_detail['age_0_18']) ? 'checked' : '' }}> Age 0 to 18
+                                <input type="checkbox" {{ ($users->professional_detail['age_19_40']) ? 'checked' : '' }}> Age 19 to 40
                             </span>
                         </p>
                     </td>
                     <td>
                         <p>
                             <span>
-                                <input type="checkbox" {{ ($users->professional_detail['age_22_40']) ? 'checked' : '' }}> Age 22 to 40
                                 <input type="checkbox" {{ ($users->professional_detail['age_41_65']) ? 'checked' : '' }}> Age 41 to 65
                                 <input type="checkbox" {{ ($users->professional_detail['age_65Plus']) ? 'checked' : '' }}> Age 65+
                                 </span>
@@ -85,6 +87,22 @@
                                     @endif</span></p>
                     </td>
                 </tr>
+                <tr>
+                    <td style="width: 50%;">
+                        <p>Fed Expired Month Year:<span>{{ $users->professional_detail['fedExpiredMonthYear']}}</span></p>
+                    </td>
+                     <td style="width: 50%;">
+                        <p>Npi Number:<span>{{ $users->professional_detail['npiNumber']}}</span></p>
+                    </td>
+                   </tr>
+                   <tr>
+                    <td style="width: 50%;">
+                        <p>Npi Type:<span>{{ $users->professional_detail['npiType']}}</span></p>
+                    </td>
+                     <td style="width: 50%;">
+                        <p>Npi OrgName:<span>{{ $users->professional_detail['npiOrgName']}}</span></p>
+                    </td>
+                   </tr>
             </table>
         </td>
     </tr>
@@ -104,6 +122,9 @@
                                 <p>Number: <span>{{ isset($stateLicense['Number']) ? $stateLicense['Number'] : '' }}</span></p>
                             </td>
                         </tr>
+                        <td>
+                            <p>Category: <span>{{ isset($stateLicense['Category']) ? $stateLicense['Category'] : '' }}</span></p>
+                        </td>
                     </table>
                 </td>
             </tr>

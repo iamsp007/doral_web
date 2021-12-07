@@ -14,11 +14,7 @@
             </table>
         </td>
     </tr>
-    <tr>
-        <td>
-            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">New Employee Information</h1>
-        </td>
-    </tr>
+   
     <tr>
         <td>
             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Employee Data</h1>
@@ -31,7 +27,6 @@
                     <td>
                         <p>Name: <span>{{ ($users->user) ? $users->user->full_name : ''}}</span></p>
                     </td>
-                    
                     <td>
                         <p>SNN: <span>
                             @if (isset($users->address_detail['info']))
@@ -47,8 +42,123 @@
     </tr>
     <tr>
         <td>
-            <p style="font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none;">Current Address: <span  value="Shashikant"
-            style="display: block;width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;">{{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}} {{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}</span></p>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
+                    </td>
+                    <td>
+                        <p>Are you over 18 years of age?: 
+                            <span>
+                                <input type="checkbox" {{ ($users->user && $users->user->age == 'Yes') ? 'checked' : '' }}>Yes
+                                <input type="checkbox" {{ ($users->user && $users->user->age == 'No') ? 'checked' : '' }}>No
+                            </span>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Sex: 
+                            <span>
+                                <input type="checkbox" {{ ($users->user) && $users->user->gender === '1' ? 'checked' : '' }} >Male
+                                <input type="checkbox" {{ ($users->user) && $users->user->gender === '2' ? 'checked' : '' }}>Female
+                                <input type="checkbox" {{ ($users->user) && $users->user->gender === '3' ? 'checked' : '' }}>Other
+                            </span>
+                        </p>
+                    </td> 
+                    <td>
+                        <p>Ethnicity: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['Ethnicity'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Other Ethnicity: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['OtherEthnicity'] : '' }}</span></p>
+                    </td>
+                    <td>
+                        <p>Date Of Birth: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['dateOfBirth'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Salary Desired: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['salaryDesired'] : '' }}</span></p>
+                    </td>
+                    <td>
+                        <p>Date You Can Start Work: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['DateYouCanStartWork'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    @if ($users->user->designation_id != '2')
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>Date: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['date']  : ''}}</span></p>
+                        </td>
+                        <td>
+                            <p>Us Citizen: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['us_citizen']  : ''}}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>Immigration Id: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['immigration_id']  : ''}}</span></p>
+                        </td>
+                        <td>
+                            <p>Emergency Phone: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['emergency_phone']  : ''}}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    @endif
+    <tr>
+        <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Current Address</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Address1: <span>  
+                        {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address1']  : ''}}</span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                        {{ isset($users->address_detail['address']) ? $users->address_detail['address']['address2']  : ''}}</span></p>
+                    </td>
+                    <td>
+                        <p>Building: <span>{{ isset($users->address_detail['address']) ? $users->address_detail['address']['building']  : ''}}</span></p>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
     <tr>
@@ -79,9 +189,6 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
-                    </td>
-                    <td>
                         <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']['how_long_resident']) ? $users->address_detail['address']['how_long_resident'] : ''}}</span></p>
                     </td>
                 </tr>
@@ -90,11 +197,23 @@
     </tr>
     <tr>
         <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Prior Address</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p style="font-weight: bold;font-size: 14px; width:100%; text-align: left;box-shadow: none;">Prior Address: <span  value="Shashikant"
-                        style="display: block;width: 100%;font-size: 1rem; display:inline-block;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;display: inline;width: inherit;border: none;border-bottom: 2px solid;border-radius: 0px;outline: none;">{{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['address1']  : ''}} {{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['address2']  : ''}} {{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['building']  : ''}}</span></p>
+                        <p>Address1: <span>  
+                        {{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['address1']  : ''}}</span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                        {{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['address2']  : ''}}</span></p>
+                    </td>
+                    <td>
+                        <p>Building: <span>{{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['building']  : ''}}</span></p>
                     </td>
                 </tr>
             </table>
@@ -114,11 +233,8 @@
                         <p>State: <span>
                         @if (isset($users->address_detail['prior']))
                             {{ isset($users->address_detail['prior']['state_id']) ? \App\Models\State::find($users->address_detail['prior']['state_id'])->state : '' }}
-                        @endif
-                                    </span></p>
+                        @endif</span></p>
                     </td>
-                    
-
                     <td>
                         <p>Zip: <span>{{ isset($users->address_detail['prior']) ? $users->address_detail['prior']['zipcode'] : ''}}</span></p>
                     </td>
@@ -126,47 +242,8 @@
             </table>
         </td>
     </tr>
-    <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                    <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
-                    </td>
-                    <td>
-                        <p>How long have you resided at current address? <span>{{ isset($users->address_detail['address']['how_long_resident']) ? $users->address_detail['address']['how_long_resident'] : ''}}</span></p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                        <p>Are you over 18 years of age?: 
-                            <span>
-                                <input type="checkbox" {{ ($users->user && $users->user->age == 'Yes') ? 'checked' : '' }}>Yes
-                                <input type="checkbox" {{ ($users->user && $users->user->age == 'No') ? 'checked' : '' }}>No
-                            </span>
-                        </p>
-                    </td>
-                    <td>
-                        <p>Sex: 
-                            <span>
-                                <input type="checkbox" {{ ($users->user) && $users->user->gender === '1' ? 'checked' : '' }} >Male
-                                <input type="checkbox" {{ ($users->user) && $users->user->gender === '2' ? 'checked' : '' }}>Female
-                                <input type="checkbox" {{ ($users->user) && $users->user->gender === '3' ? 'checked' : '' }}>Other
-                            </span>
-                        </p>
-                    </td>  
-
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
+  
+    {{-- <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
@@ -193,7 +270,7 @@
                 </tr>
             </table>
         </td>
-    </tr>
+    </tr> --}}
  
     @if ($users->user->designation_id == '2')
         <!-- Emergency Info Start -->
@@ -201,7 +278,7 @@
         <!-- Emergency Info End -->
 
         <!-- Emergency Info Start -->
-        @include('pages.clincian.profile.position')
+        {{-- @include('pages.clincian.profile.position') --}}
         <!-- Emergency Info End -->
 
         <!-- Education Start -->
@@ -219,7 +296,6 @@
         @include('pages.clincian.profile.other_education')
         @include('pages.clincian.profile.workHistory_detail')
         @include('pages.clincian.profile.professional_detail')
-        
     @endif
     
     <!-- Authorization Start -->

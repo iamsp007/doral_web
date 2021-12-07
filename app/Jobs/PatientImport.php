@@ -39,23 +39,23 @@ class PatientImport implements ShouldQueue
      */
     public function handle()
     {
-        $searchPatientIds = $this->searchPatientDetails();
+        $searchPatientIds = searchPatients();
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-        log::info('hha exchange search patient detail start');
-        log::info('total hha count'.count($patientArray));
+        Log::info('hha exchange search patient detail start');
+        Log::info('total hha count'.count($patientArray));
 
         $missing_patient_id = [];
         $userCaregiver1 = Demographic::get();
         foreach ($userCaregiver1 as $userCaregivers) { 
             $missing_patient_id[] = $userCaregivers->patient_id;
         }
-        
+         
         $data = [];
         $stored_user_id = [];
         foreach ($patientArray as $patient_id) {
-            if (! in_array($patient_id, $missing_patient_id)) {
-                
-                $apiResponse = $this->getDemographicDetails($patient_id);
+        //foreach (array_slice($patientArray, 0 , 500) as $patient_id) {
+            if (! in_array($patient_id, $missing_patient_id)) {               
+                $apiResponse = getPatientDemographics($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
                 $doral_id = createDoralId();
                 $user_id = self::storeUser($demographics, $doral_id);
@@ -68,11 +68,11 @@ class PatientImport implements ShouldQueue
 
                     self::storeEmergencyContact($demographics, $user_id);
                 }
-            }
+            } 
         }
-        log::info('stored user id'.count($stored_user_id));
-        log::info('missing patient count'.count($data));
-        log::info('hha exchange search patient detail end');
+        Log::info('stored user id'.count($stored_user_id));
+        Log::info('missing patient count'.count($data));
+        Log::info('hha exchange search patient detail end');
 
         try {
             $company_email = $this->company->email;
@@ -81,63 +81,13 @@ class PatientImport implements ShouldQueue
                 'name' => $this->company->name,
                 'total' => count($stored_user_id),
             ];
-            
+
+            SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');
             SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
+            
         }catch (\Exception $exception){
             Log::info($exception->getMessage());
         }
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function searchPatientDetails()
-    {
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchPatients xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><SearchFilters><FirstName></FirstName><LastName></LastName><Status>Active</Status><PhoneNumber></PhoneNumber><AdmissionID></AdmissionID><MRNumber></MRNumber><SSN></SSN></SearchFilters></SearchPatients></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-
-        $method = 'POST';
-        return $this->curlCall($data, $method);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getDemographicDetails($patientId)
-    {
-        
-        $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><GetPatientDemographics xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>HCHS257</AppName><AppSecret>99473456-2939-459c-a5e7-f2ab47a5db2f</AppSecret><AppKey>MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=</AppKey></Authentication><PatientInfo><ID>'.$patientId.'</ID></PatientInfo></GetPatientDemographics></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-
-        $method = 'POST';
-
-        return $this->curlCall($data, $method);
-    }
-
-    public function curlCall($data, $method)
-    {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => config('patientDetailAuthentication.AppUrl'),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $method,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => array(
-               'Content-Type: text/xml'
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
-        $xml = new \SimpleXMLElement($response);
-        return json_decode(json_encode((array)$xml), TRUE);
     }
 
     public static function storeUser($demographics, $doral_id)
@@ -149,7 +99,7 @@ class PatientImport implements ShouldQueue
         
         if ($phone_number != '') {
            
-            $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
+            // $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
            
             // if (empty($userDuplicatePhone)) {
             //     $user->phone = setPhone($phone_number);
@@ -223,15 +173,18 @@ class PatientImport implements ShouldQueue
 
         $language = $demographics['PrimaryLanguage'] ? $demographics['PrimaryLanguage'] : '';
 
-        $address = $demographics['Addresses']['Address'];
-        $zip = '';
-        if(isset($address['Zip5']) && $address['Zip5'] != ''){
-            $zip = $address['Zip4'];
-        } else if(isset($address['Zip4']) && $address['Zip4'] != ''){
-            $zip = $address['Zip4'];
-        }
+       
+        $addressData = [];
       
-        $addressData = [
+      	if (count($demographics['Addresses']) > 0) { 
+      	   $address = $demographics['Addresses']['Address'];
+           $zip = '';
+           if(isset($address['Zip5']) && $address['Zip5'] != ''){
+              $zip = $address['Zip4'];
+           } else if(isset($address['Zip4']) && $address['Zip4'] != ''){
+            $zip = $address['Zip4'];
+           }
+      	   $addressData = [
             'address1' => isset($address['Address1']) ? $address['Address1'] : '',
             'address2' => isset($address['Address2']) ? $address['Address2'] : '',
             'crossStreet' => isset($address['CrossStreet']) ? $address['CrossStreet'] : '',
@@ -241,7 +194,9 @@ class PatientImport implements ShouldQueue
             'zip_code' => $zip,
             'isPrimaryAddress' => isset($address['IsPrimaryAddress']) ? $address['IsPrimaryAddress'] : '',
             'addressTypes' => isset($address['AddressTypes']) ? $address['AddressTypes'] : '',
-        ];
+          ];
+      	}
+        
        
        
         $demographic->ssn = setSsn($demographics['SSN'] ? $demographics['SSN'] : '');
@@ -338,6 +293,6 @@ class PatientImport implements ShouldQueue
      */
     public function failed(Exception $exception)
     {
-        log::info($exception);
+        Log::info($exception);
     }
 }

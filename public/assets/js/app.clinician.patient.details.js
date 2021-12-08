@@ -114,7 +114,6 @@ function editAllField(sectionId) {
     }
 }
 function updateAllField(sectionId) {
-    
     $("#"+activeTab).find("input[name='dob']").attr("disabled", false);
     $("#"+activeTab).find("input[name='expiration_date']").attr("disabled", false);  
     if (sectionId==="demographic"){
@@ -150,6 +149,10 @@ function updateAllField(sectionId) {
             return false;
         }
         
+    } else if (sectionId==="patientCDOC"){
+        var data = $('#cdoc_form').serializeArray(); 
+        data.push({name: 'type', value: 4});
+        demographyDataUpdate(data,sectionId)
     }
     var activeTab = "#"+sectionId;
     if (activeTab) {

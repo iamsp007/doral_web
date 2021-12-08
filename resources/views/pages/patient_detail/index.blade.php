@@ -23,12 +23,8 @@
                   <li>Status: <span>{{ isset($patient->demographic) ? $patient->demographic->status : '' }}</span></li>
                   <li>Doral ID: <span>{{ ($patient->demographic) ? $patient->demographic->doral_id : '' }}</span></li>
                   <li>Service: <span>{{ ($patient->demographic && $patient->demographic->services) ? $patient->demographic->services->name : '' }}</span></li>
-
                   <li>Gender: <span>{{ $patient->gender_data }}</span></li>
                   <li>DOB: <span>{{ ($patient->dob) ? date('m-d-Y', strtotime($patient->dob)) : '' }}</span></li>
-<!--                  <button type="button" class="btn btn-outline-green mr-3 d-flex align-items-center">
-                      <i class="las la-file-upload la-2x mr-2"></i>
-                      <a target="_blank" href="{{route('get-employee-physical-examination-report', ['id' => $patient->id])}}">Employee Physical Form</a></button>-->
                </ul>
             </div>
          </div>
@@ -47,14 +43,14 @@
                            class="mr-2 activeIcon">Demographics
                      </a>
                   </li>
-                  <!-- <li>
-                     <a class="nav-link d-flex align-items-center" id="patient-referral-tab" data-toggle="pill"
-                        href="#patient-referral" role="tab" aria-controls="patient-referral" aria-selected="true">
+                  <li>
+                     <a class="nav-link d-flex align-items-center" id="patientCDOC-tab" data-toggle="pill"
+                        href="#patientCDOC" role="tab" aria-controls="patientCDOC" aria-selected="true">
                         <img src="{{ asset('assets/img/icons/icons_demographics.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_demographics_active.svg') }}" alt=""
-                           class="mr-2 activeIcon">Patient Referral
+                           class="mr-2 activeIcon">CDOC
                      </a>
-                  </li> -->
+                  </li>
                   <li>
                      <a class="nav-link d-flex align-items-center" id="insurance-tab" data-toggle="pill"
                         href="#insurance" role="tab" aria-controls="insurance" aria-selected="false">
@@ -154,11 +150,13 @@
             </div>
             <div class="col-12 col-sm-10">
                <div class="tab-content" id="v-pills-tabContent">
-                  <!-- Demographics Start -->
+                    <!-- Demographics Start -->
+                        @include('pages.patient_detail.caregiver_demographic')
+                    <!-- Demographics End -->
 
-                     @include('pages.patient_detail.caregiver_demographic')
-
-                  <!-- Demographics End -->
+                    <!-- Demographics Start -->
+                        @include('pages.patient_detail.cdoc')
+                    <!-- Demographics End -->
 
                   <!-- Patient Referral Start -->
                    <!-- @include('pages.patient_detail.patient_referral') -->
@@ -1015,7 +1013,7 @@
       
         $(document).find("#add").click(function(){
             i++;
-            $(".add_more_contact_div").append('<div class="main_div"><div class="app-card-header"><h1 class="title">Emergency Contact Detail '+i+'</h1></div><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Name</h3><input type="text" class="form-control-plaintext _detail " readonly name="contact_name[]" data-id="contact_name" placeholder="Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Home Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone1[]" data-id="phone1" placeholder="Phone1" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Cell Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" readonly name="phone2[]" data-id="phone2" placeholder="Phone2" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship</h3><input type="text" class="form-control-plaintext _detail" readonly name="relationship_name[]" data-id="relationship_name" placeholder="Relationship" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address Line1</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress1[]" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address Line2</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress2[]" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Apt Building</h3><input type="text" class="form-control-plaintext _detail" readonly name="emergencyAptBuilding[]" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-city circle"></i></div><div class="rs"><h3 class="_title">City</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_city[]" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-archway circle"></i></div><div class="rs"><h3 class="_title">State</h3><input type="text" class="form-control-plaintext _detail " readonly name="emergencyAddress_state[]" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-code circle"></i></div><div class="rs"><h3 class="_title">Zipcode</h3><input type="text" class="form-control-plaintext _detail zip " readonly name="emergencyAddress_zip_code[]" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value=""></div></div></div></div></div><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div>');
+            $(".add_more_contact_div").append('<div class="main_div"><div class="app-card-header"><h1 class="title">Emergency Contact Detail '+i+'</h1></div><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Name</h3><input type="text" class="form-control-plaintext _detail" name="contact_name[]" data-id="contact_name" placeholder="Name" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Home Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" name="phone1[]" data-id="phone1" placeholder="Phone1" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Cell Phone</h3><input type="text" class="form-control-plaintext _detail phoneNumber phone_format emergencyPhone1" name="phone2[]" data-id="phone2" placeholder="Phone2" value="" maxlength="14"></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-user-nurse circle"></i></div><div class="rs"><h3 class="_title">Relationship</h3><input type="text" class="form-control-plaintext _detail" name="relationship_name[]" data-id="relationship_name" placeholder="Relationship" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address Line1</h3><input type="text" class="form-control-plaintext _detail" name="emergencyAddress1[]" data-id="emergencyAddress1" id="emergencyAddress1" placeholder="Address1" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Address Line2</h3><input type="text" class="form-control-plaintext _detail" name="emergencyAddress2[]" data-id="emergencyAddress2" id="emergencyAddress2" placeholder="Address2" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-address-book circle"></i></div><div class="rs"><h3 class="_title">Apt Building</h3><input type="text" class="form-control-plaintext _detail" name="emergencyAptBuilding[]" data-id="emergencyAptBuilding" id="emergencyAptBuilding" placeholder="Apt Building" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-city circle"></i></div><div class="rs"><h3 class="_title">City</h3><input type="text" class="form-control-plaintext _detail" name="emergencyAddress_city[]" data-id="emergencyAddress_city" id="emergencyAddress_city" placeholder="City" value=""></div></div></div></div></div><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-archway circle"></i></div><div class="rs"><h3 class="_title">State</h3><input type="text" class="form-control-plaintext _detail" name="emergencyAddress_state[]" data-id="emergencyAddress_state" id="emergencyAddress_state" placeholder="State" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-code circle"></i></div><div class="rs"><h3 class="_title">Zipcode</h3><input type="text" class="form-control-plaintext _detail zip" name="emergencyAddress_zip_code[]" data-id="emergencyAddress_zip_code" id="emergencyAddress_zip_code" placeholder="Zipcode" value=""></div></div></div></div></div><button type="button" class="btn btn-danger remove-tr text-center">Remove</button></div></div>');
         
             $(document).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
             $(document).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
@@ -1024,6 +1022,27 @@
         $(document).on('click', '.remove-tr', function(){ 
             $(".add_more_contact_div").children("div[class=main_div]:last").remove();
             i--;
+        });  
+
+        var adddoc = "<?php echo sizeof($patient->userDevices);?>";
+        if(adddoc){
+            adddoc = adddoc;
+        }
+        else{
+            adddoc = 0;
+        }
+      
+        $(document).find("#addDoc").click(function(){
+            adddoc++;
+            $(".add_more_cdoc_div").append('<div class="main_div"><div class="app-card-header"><h1 class="title">CDOC Detail '+adddoc+'</h1></div><div class="p-3"><div class="form-group"><div class="row"><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-portrait circle"></i></div><div class="rs"><h3 class="_title">Name</h3><input type="text" class="form-control-plaintext _detail" name="user_id[]" data-id="user_id" placeholder="CDOC Id" value=""></div></div></div><div class="col-12 col-sm-3 col-md-3"><div class="input_box"><div class="ls"><i class="las la-phone circle"></i></div><div class="rs"><h3 class="_title">Device</h3><select class="form-control" name="device_id[]" data-id="device_id"><option>Select a device</option><option value="1">Blood Pressure</option><option value="2">Glucometer</option><option value="3">Digital Weight Machine</option><option value="4">Pulse Oxymeter</option></select></div></div></div></div></div><button type="button" class="btn btn-danger remove-doc-tr text-center">Remove</button></div></div>');
+
+            $(document).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
+            $(document).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
+        });
+
+        $(document).on('click', '.remove-doc-tr', function(){ 
+            $(this).parents('.main_div').remove();
+            adddoc--;
         });  
 
     function insuranceAppend(data) {

@@ -31,11 +31,6 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
     Route::get('/vbc-get-fail-data', 'App\Http\Controllers\PatientReferralController@vbcGetFaileData')->name('referral.vbc-get-fail-data');
     Route::get('/md-order-get-fail-data', 'App\Http\Controllers\PatientReferralController@mdorderGetFaileData')->name('referral.md-order-get-fail-data');
 
-
-
-
-
-
     Route::get('/occupational-health-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthUploadBulk')->name('referral.occupational-health-upload-bulk-data');
     Route::get('/occupational-health-failed-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthFailData')->name('referral.occupational-health-failed-data');
     Route::get('/vbc-failed-data', 'App\Http\Controllers\PatientReferralController@vbcFailData')->name('referral.vbc-failed-data');

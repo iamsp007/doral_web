@@ -160,9 +160,7 @@ class PatientImport implements ShouldQueue
         
         $demographic->doral_id = $doral_id;
         $demographic->user_id = $user_id;
-       
         $demographic->company_id = $company_id;
-     
         $demographic->service_id = config('constant.MDOrder');
 
         $demographic->patient_id = $demographics['PatientID'] ? $demographics['PatientID'] : '';
@@ -195,9 +193,7 @@ class PatientImport implements ShouldQueue
             'isPrimaryAddress' => isset($address['IsPrimaryAddress']) ? $address['IsPrimaryAddress'] : '',
             'addressTypes' => isset($address['AddressTypes']) ? $address['AddressTypes'] : '',
           ];
-      	}
-        
-       
+      	}      
        
         $demographic->ssn = setSsn($demographics['SSN'] ? $demographics['SSN'] : '');
         $demographic->address = $addressData;
@@ -207,45 +203,7 @@ class PatientImport implements ShouldQueue
 
         $demographic->save();
 
-        self::getAddressLatlngAttribute($addressData, $user_id);
-    }
-
-    /**
-     * Get the user's Date Of Birth.
-     *
-     * @return string
-     */
-    public static function getAddressLatlngAttribute($addressData, $user_id)
-    {
-        $address='';
-        if ($addressData['address1']){
-            $address.= $addressData['address1'];
-        }
-        if ($addressData['city']){
-            $address.=', '.$addressData['city'];
-        }
-        if ($addressData['state']){
-            $address.=', '.$addressData['state'];
-        }
-        if ($addressData['county']){
-            $address.=', '.$addressData['county'];
-        }
-        if ($addressData['zip_code']){
-            $address.=', '.$addressData['zip_code'];
-        }
-
-        if ($address){
-            $helper = new Helper();
-            $response = $helper->getLatLngFromAddress($address);
-            if ($response->status === "OK"){
-                $latlong =  $response->results[0]->geometry->location;
-
-                User::find($user_id)->update([
-                    'latitude' => $latlong->lat,
-                    'longitude' => $latlong->lng,
-                ]);
-            }
-        }
+        getAddressLatlngAttribute($addressData, $user_id);
     }
 
     public static function storeEmergencyContact($demographics, $user_id)

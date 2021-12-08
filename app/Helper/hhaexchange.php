@@ -447,33 +447,34 @@ if (!function_exists('curlCall')) {
         function getAddressLatlngAttribute($addressData, $user_id)
         {
             if($addressData != '') {
-            $address='';
-            if ($addressData['address1']){
-                $address.= $addressData['address1'];
-            }
-            if ($addressData['city']){
-                $address.=', '.$addressData['city'];
-            }
-            if ($addressData['state']){
-                $address.=', '.$addressData['state'];
-            }
-        
-            if ($addressData['zip_code']){
-                $address.=', '.$addressData['zip_code'];
-            }
-
-            if ($address){
-                $helper = new Helper();
-                $response = $helper->getLatLngFromAddress($address);
-                if ($response->status === "OK"){
-                    $latlong =  $response->results[0]->geometry->location;
-
-                    User::find($user_id)->update([
-                        'latitude' => $latlong->lat,
-                        'longitude' => $latlong->lng,
-                    ]);
+                $address='';
+                if ($addressData['address1']){
+                    $address.= $addressData['address1'];
                 }
-            }
+                if ($addressData['city']){
+                    $address.=', '.$addressData['city'];
+                }
+                if ($addressData['state']){
+                    $address.=', '.$addressData['state'];
+                }
+            
+                if ($addressData['zip_code']){
+                    $address.=', '.$addressData['zip_code'];
+                }
+
+                if ($address){
+                    $helper = new Helper();
+                    $response = $helper->getLatLngFromAddress($address);
+                    if ($response->status === "OK"){
+                        $latlong =  $response->results[0]->geometry->location;
+
+                        User::find($user_id)->update([
+                            'latitude' => $latlong->lat,
+                            'longitude' => $latlong->lng,
+                        ]);
+                    }
+                }
             }
         }
     }
+    

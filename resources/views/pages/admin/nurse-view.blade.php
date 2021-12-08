@@ -2198,13 +2198,16 @@
                                                          <h3 class="_title">Age</h3>
                                                          <h1 class="_detail">
                                                          @if(isset($professional_detail->age_0_18))
-                                                            Age 0 to 18
-                                                         @elseif(isset($professional_detail->age_19_40))
-                                                            Age 19 to 40
-                                                         @elseif(isset($professional_detail->age_41_65))
-                                                            Age 41 to 65
-                                                         @elseif(isset($professional_detail->age_65Plus))
-                                                            Age 65+
+                                                            Age 0 to 18,
+                                                         @endif
+                                                         @if(isset($professional_detail->age_19_40))
+                                                            Age 19 to 40,
+                                                         @endif
+                                                         @if(isset($professional_detail->age_41_65))
+                                                            Age 41 to 65,
+                                                         @endif
+                                                         @if(isset($professional_detail->age_65Plus))
+                                                            Age 65+,
                                                          @endif
                                                          </h1>
                                                       </div>
@@ -2245,26 +2248,6 @@
                                                    <div class="d-flex align-items-center mb-3">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">Medicaid Enrolled Number</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($professional_detail->medicaidEnrolled_Number) ? $professional_detail->medicaidEnrolled_Number : null }}
-                                                         </h1>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Medicaid State</h3>
-                                                         <h1 class="_detail">{{ isset($professional_detail->medicaidEnrolled_StateId) ? \App\Models\State::find($professional_detail->medicaidEnrolled_StateId)->state : '' }}</h1>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center mb-3">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
                                                          <h3 class="_title">Medicare Enrolled</h3>
                                                          <h1 class="_detail">
                                                             {{ isset($professional_detail->medicareEnrolled) ? $professional_detail->medicareEnrolled : null }}
@@ -2272,42 +2255,166 @@
                                                       </div>
                                                    </div>
                                                 </div>
-                                             </div>
-                                             <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center mb-3">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">Medicare Enrolled Number</h3>
+                                                         <h3 class="_title">Taxonomy Description</h3>
                                                          <h1 class="_detail">
-                                                            {{ isset($professional_detail->medicareEnrolled_Number) ? $professional_detail->medicareEnrolled_Number : null }}
+                                                            {{ isset($professional_detail->taxonomyDescription) ? $professional_detail->taxonomyDescription : null }}
                                                          </h1>
                                                       </div>
                                                    </div>
                                                 </div>
+                                             </div>
+                                             <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
-                                                         <h3 class="_title">Medicare State</h3>
-                                                         <h1 class="_detail">{{ isset($professional_detail->medicareEnrolled_StateId) ? \App\Models\State::find($professional_detail->medicareEnrolled_StateId)->state : '' }}</h1>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Medicare State</h3>
+                                                         <h3 class="_title">Fed Expired</h3>
                                                          <h1 class="_detail">{{ isset($professional_detail->fedExpiredMonthYear) ? $professional_detail->fedExpiredMonthYear : '' }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
                                              </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address1</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($professional_detail->npa_address1) ? $professional_detail->npa_address1  : ''}}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address2</h3>
+                                                         <h1 class="_detail">
+                                                         {{ isset($professional_detail->npa_address2) ? $professional_detail->npa_address2  : ''}}
+                                                            <a class="btn btn-info btn-sm ml-2" data-toggle="collapse" href="#collapseExample1" aria-expanded="true"><i class="las la-map-marker"></i>View Map</a>
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="collapse mb-4" id="collapseExample1">
+                                                   <div class="card card-body">
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=Malet%20St,%20London%20WC1E%207HU,%20United%20Kingdom+(Your%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Building</h3>
+                                                         <h1 class="_detail">  {{ isset($professional_detail->npa_building) ? $professional_detail->npa_building  : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+
+
+
+
+
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">City</h3>
+                                                         <h1 class="_detail"> {{ isset($professional_detail->npa_cityId) ? \App\Models\City::find($professional_detail->npa_cityId)->city : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">State</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->npa_stateId) ? \App\Models\State::find($professional_detail->npa_stateId)->state : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Zip Code</h3>
+                                                         <h1 class="_detail">{{ isset($professional_detail->npa_zipCode) ? $professional_detail->npa_zipCode : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
                                              @php $child1Count = 1; @endphp
+                                             @foreach($professional_detail->medicare as $medicare)
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-12"><div class="_card_header"><div class="title-head">Medicare {{ $child1Count }}</div></div></div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Number</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($medicare->Number) ? $medicare->Number : null }}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">State</h3>
+                                                            <h1 class="_detail">{{ isset($medicare->StateID) ? \App\Models\State::find($medicare->StateID)->state : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                @php $child1Count++; @endphp
+                                             @endforeach
+                                             @php $child2Count = 1; @endphp
+                                             @foreach($professional_detail->medicaid as $medicaid)
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-12"><div class="_card_header"><div class="title-head">Medicaid {{ $child2Count }}</div></div></div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Number</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($medicaid->Number) ? $medicaid->Number : null }}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">State</h3>
+                                                            <h1 class="_detail">{{ isset($medicaid->StateID) ? \App\Models\State::find($medicaid->StateID)->state : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                @php $child2Count++; @endphp
+                                             @endforeach
+                                             @php $child3Count = 1; @endphp
                                              @foreach($professional_detail->stateLicense as $stateLicense)
                                                 <div class="row mt-3">
-                                                   <div class="col-12 col-sm-12"><div class="_card_header"><div class="title-head">State License {{ $child1Count }}</div></div></div>
+                                                   <div class="col-12 col-sm-12"><div class="_card_header"><div class="title-head">State License {{ $child3Count }}</div></div></div>
                                                    <div class="col-12 col-sm-4">
                                                       <div class="d-flex align-items-center mb-3">
                                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
@@ -2338,12 +2445,12 @@
                                                       </div>
                                                    </div>
                                                 </div>
-                                                @php $child1Count++; @endphp
+                                                @php $child3Count++; @endphp
                                              @endforeach
-                                             @php $child2Count = 1; @endphp
+                                             @php $child4Count = 1; @endphp
                                              @foreach($professional_detail->boardCertificate as $boardCertificate)
                                                 <div class="row mt-3">
-                                                   <div class="col-12 col-sm-12"><div class="_card_header"><div class="title-head">Board Certificate {{ $child2Count }}</div></div></div>
+                                                   <div class="col-12 col-sm-12"><div class="_card_header"><div class="title-head">Board Certificate {{ $child4Count }}</div></div></div>
                                                    <div class="col-12 col-sm-4">
                                                       <div class="d-flex align-items-center mb-3">
                                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
@@ -2365,7 +2472,7 @@
                                                       </div>
                                                    </div>
                                                 </div>
-                                                @php $child2Count++; @endphp
+                                                @php $child4Count++; @endphp
                                              @endforeach
                                           </div>
                                        </div>

@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\SendEmailJob;
 use App\Models\Patient;
 use App\Models\PatientReferral;
 use App\Models\PatientReferralNotSsn;
@@ -19,6 +20,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Spatie\Permission\Models\Permission;
@@ -49,13 +51,13 @@ class BulkImport implements ToModel, WithHeadingRow, WithValidation,SkipsOnFailu
     public $file_name = null;
     private $row = 0;
 
-    public function __construct($rid, $sid, $ftype, $fid,$file_name) {
+    public function __construct($rid, $sid, $ftype, $fid,$file_name,$company_id) {
        $this->referral_id = $rid;
        $this->service_id = $sid;
        $this->file_type = $ftype;
        $this->form_id = $fid;
        $this->file_name = $file_name;
-    //    $this->company_id = $company_id;
+        $this->company_id = $company_id;
     }
 
     public function model(array $row)
@@ -70,8 +72,7 @@ class BulkImport implements ToModel, WithHeadingRow, WithValidation,SkipsOnFailu
                 $dob = date('Y-m-d', strtotime($row['dob']));
             }
             
-            // \Log::info('covid-19 start: '.$this->file_type);
-            
+            Log::info('covid-19 start: '.$this->file_type);
             if ($this->file_type === '6') {
                 $ssn = str_replace("-","",$row['ssn']);
                 $demographic = Demographic::where('ssn', $ssn)->first();
@@ -119,9 +120,9 @@ class BulkImport implements ToModel, WithHeadingRow, WithValidation,SkipsOnFailu
                 $demographicModel->status = 'Active';
                 $demographicModel->save();
             }
-            // \Log::info('covid-19 end');
+            Log::info('covid-19 end');
             
-            \Log::info('due report start');
+            Log::info('due report start');
             if (isset($row['caregiver_code']) && isset($row['compliance_item'])) {
                 $caregiver_code = str_replace("HSC-", "",$row['caregiver_code']);
                 $userCaregiver = Demographic::where('caregiver_code', $caregiver_code)->first();
@@ -172,7 +173,106 @@ class BulkImport implements ToModel, WithHeadingRow, WithValidation,SkipsOnFailu
                     }
                 }
             }
-            \Log::info('due report end');
+            Log::info('md order start');
+            if ($this->file_type === '2' || $this->file_type === '3') {
+                $patient = Demographic::where(['ssn'=>$row['ssn']])->first();
+                if ($patient) {
+                    $user = User::find($patient->user_id);
+                    $demographic = Demographic::where('patient_id', $patient->user_id);
+                } else {
+                    $user = new User();
+                    $demographic = new Demographic();
+                }
+                $password = str_replace("-", "@",$doral_id);
+
+                $user->email = $row['email'];
+
+                $user->first_name = $row['first_name'];
+                $user->last_name = ($row['last_name']) ? $row['last_name'] : '';
+                $user->password = setPassword($password);
+                $user->status = '0';
+                $user->gender = setGender($row['gender']);
+                $user->phone = setPhone($row['phone_number']);
+                $user->phone_verified_at = now();
+                $user->dob = dateFormat($row['date_of_birth']);
+            
+                $user->save();
+                $user->assignRole('patient')->syncPermissions(Permission::all());
+                $url = route('partnerEmailVerified', base64_encode($user->id));
+                $details = [
+                    'name' => $user->first_name,
+                    'href' => $url
+                ];
+            
+                if (isset($user->email)) {
+                    SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
+                }
+
+                $doral_id = createDoralId();
+
+                $demographic->doral_id = $doral_id;
+                $demographic->user_id = $user->id;
+            
+                $demographic->company_id = $this->company_id;
+                if ($this->file_type === '2') {
+                    $demographic->service_id = config('constant.MDOrder');
+                } else if ($this->file_type === '3') {
+                    $demographic->service_id = config('constant.OccupationalHealth');
+                }
+           
+                $addressData = [
+                    'address1' => isset($row['address1']) ? $row['address1'] : '',
+                    'address2' => isset($row['address2']) ? $row['address2'] : '',
+                    'crossStreet' => isset($row['cross_street']) ? $row['cross_street'] : '',
+                    'city' => isset($row['city']) ? $row['city'] : '',
+                    'state' => isset($row['state']) ? $row['state'] : '',
+                    'county' => isset($row['county']) ? $row['county'] : '',
+                    'zip_code' => isset($row['zip_code']) ? $row['zip_code'] : '',
+                    'isPrimaryAddress' => isset($row['is_primary_address']) ? $row['is_primary_address'] : '',
+                    'addressTypes' => isset($row['address_types']) ? $row['address_types'] : '',
+                ];
+       
+                $demographic->ssn = setSsn($row['SSN'] ? $row['SSN'] : '');
+                $demographic->address = $addressData;
+                $demographic->status = 'Active';
+                $demographic->language = $row['language'];
+                $demographic->type = '1';
+
+                $demographic->save();
+
+                getAddressLatlngAttribute($addressData, $user->id);
+
+                $relationship = '';
+                if ($emergencyContact['Relationship'] && $emergencyContact['Relationship']['Name']) {
+                    $relationship = $emergencyContact['Relationship']['Name'];
+                }
+                    
+                    $patientEmergencyContact = new PatientEmergencyContact();
+    
+                    $patientEmergencyContact->user_id = $user->id;
+                    $patientEmergencyContact->name = $row['name'];
+                    $patientEmergencyContact->relation = $row['relation'];
+                    
+                    $patientEmergencyContact->lives_with_patient = ($row['lives_with_patient']) ? $row['lives_with_patient'] : '';
+                    $patientEmergencyContact->have_keys = ($row['have_keys']) ? $row['have_keys'] : '';
+                    
+                    $patientEmergencyContact->phone1 = setPhone($row['phone1'] ? $row['phone1'] : '');
+                    $patientEmergencyContact->phone2 = setPhone($row['phone2'] ? $row['phone2'] : '');
+                    
+                    if ($emergencyContact['Address']) {
+                        $addressData = [
+                            'address1' => ($row['address']) ? $row['address'] : ''
+                        ];
+    
+                        $patientEmergencyContact->address = $addressData;
+                    }
+                    
+                    $patientEmergencyContact->save();
+                }
+                   
+            }
+            Log::info('md order end');
+            
             // if ((isset($row['ssn']) && !empty($row['ssn'])) && (!empty($dob))) {
             //     $patient = PatientReferral::where(['ssn'=>$row['ssn']])->first();
 

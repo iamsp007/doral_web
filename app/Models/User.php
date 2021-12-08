@@ -90,6 +90,12 @@ class User extends Authenticatable
         return $this->hasMany(PatientLabReport::class,'user_id','id');
     }
 
+    public function userDevices()
+    {
+        return $this->hasMany(UserDevice::class,'patient_id','id');
+    }
+
+    
     public function careTeam()
     {
         return $this->hasMany(CareTeam::class,'patient_id','id');

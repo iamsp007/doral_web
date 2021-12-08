@@ -92,7 +92,7 @@ class GetPatientDetailsController extends Controller
 
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
-        $patient = User::with('demographic', 'patientEmergency')->find($paient_id);
+        $patient = User::with('demographic', 'patientEmergency','userDevices')->find($paient_id);
         $caseManagements = CaseManagement::with('clinician')->where('patient_id', $paient_id)->get();
         
         $family_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','1']])->get();

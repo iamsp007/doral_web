@@ -1,6 +1,6 @@
 <!-- page 2 start-->
 <div class="break"></div>
-<table width="100%">/opt/lampp/htdocs/doral/doral_web/resources/views/pages/clincian/profile/professional_detail.blade.php
+<table width="100%">
     <tr>
         <td>
             <table style="width: 100%;">
@@ -55,20 +55,6 @@
                 </tr>
                 <tr>
                     <td style="width: 50%;">
-                        <p>Medicaid Enrolled State:
-                            <span>@if (isset($users->professional_detail['medicaidEnrolled_StateId']))
-                                        {{ \App\Models\State::find($users->professional_detail['medicaidEnrolled_StateId'])->state }}
-                                    @endif</span></p>
-                    </td>
-                    <td>
-                        <p>Medicaid Enrolled Number:
-                            <span>{{ $users->professional_detail['medicaidEnrolled_Number']}}</span></p>
-                    </td>
-                    
-                   
-                </tr>
-                <tr>
-                    <td style="width: 50%;">
                         <p>Medicare Enrolled:
                             <span>
                                 <input type="checkbox" {{ isset($users->professional_detail['medicareEnrolled']) ? 'checked' : '' }}> Yes
@@ -76,15 +62,31 @@
                                
                             </span>
                         </p>
-                      
                     </td>
+                </tr>
+                <tr>
                     <td>
-                        <p>Medicare Enrolled Number:
-                            <span>{{ $users->professional_detail['medicareEnrolled_Number']}}</span></p>
-                        <p>Medicare Enrolled State:
-                            <span>@if (isset($users->professional_detail['medicareEnrolled_StateId']))
-                                        {{ \App\Models\State::find($users->professional_detail['medicareEnrolled_StateId'])->state }}
-                                    @endif</span></p>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>
+                                    <p>Address:  <span>
+                                        @if (isset($users->professional_detail['npa_address1']))
+                                        {{ $users->professional_detail['npa_address1'] }}
+                                        @endif  
+                                        @if (isset($users->professional_detail['npa_address2']))
+                                        {{ $users->professional_detail['npa_address2'] }}
+                                        @endif  
+                                        {{ isset($users->professional_detail['npa_building']) ? $users->professional_detail['npa_building'] : '' }}
+                                    @if (isset($users->professional_detail['npa_cityId']))
+                                        {{ \App\Models\City::find($users->professional_detail['npa_cityId'])->city }}
+                                    @endif
+                                    @if (isset($users->professional_detail['npa_stateId']))
+                                        {{ \App\Models\State::find($users->professional_detail['npa_stateId'])->state }}
+                                        @endif
+                                        {{ isset($users->professional_detail['npa_zipCode']) ? $users->professional_detail['npa_zipCode'] : '' }} </span></p>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -94,18 +96,87 @@
                      <td style="width: 50%;">
                         <p>Npi Number:<span>{{ $users->professional_detail['npiNumber']}}</span></p>
                     </td>
-                   </tr>
-                   <tr>
+                </tr>
+                <tr>
                     <td style="width: 50%;">
                         <p>Npi Type:<span>{{ $users->professional_detail['npiType']}}</span></p>
                     </td>
                      <td style="width: 50%;">
                         <p>Npi OrgName:<span>{{ $users->professional_detail['npiOrgName']}}</span></p>
                     </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%;">
+                        <p>Taxonomy Description:<span>
+                        @if (isset($users->professional_detail['taxonomyDescription']))
+                            {{ $users->professional_detail['taxonomyDescription']}}
+                        @endif</span></p>
+                    </td>
+                    
                    </tr>
             </table>
         </td>
     </tr>
+    @php $number=1; @endphp
+    @if (isset($users->professional_detail['medicare']) && count($users->professional_detail['medicare']) > 0)
+        @foreach ($users->professional_detail['medicare'] as $medicare)
+            <tr>
+                <td>
+                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Medicare Information {{ $number}}:</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                <p>Number: <span>{{ isset($medicare['Number']) ? $medicare['Number'] : '' }}</span></p>
+                            </td>
+                            <td>
+                                <p>State:  <span>
+                                    @if (isset($medicare['StateID']))
+                                        {{ \App\Models\State::find($medicare['StateID'])->state }}
+                                    @endif
+                                </span></p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        @php $number++; @endphp
+        @endforeach
+    @endif
+
+    @php $number=1; @endphp
+    @if (isset($users->professional_detail['medicaid']) && count($users->professional_detail['medicaid']) > 0)
+        @foreach ($users->professional_detail['medicaid'] as $medicaid)
+            <tr>
+                <td>
+                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Medicaid Information {{ $number}}:</h1>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                <p>Number: <span>{{ isset($medicaid['Number']) ? $medicaid['Number'] : '' }}</span></p>
+                            </td>
+                            <td>
+                                <p>State:  <span>
+                                    @if (isset($medicaid['StateID']))
+                                        {{ \App\Models\State::find($medicaid['StateID'])->state }}
+                                    @endif
+                                </span></p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        @php $number++; @endphp
+        @endforeach
+    @endif
+
     @php $number=1; @endphp
     @if (isset($users->professional_detail['stateLicense']) && count($users->professional_detail['stateLicense']) > 0)
         @foreach ($users->professional_detail['stateLicense'] as $stateLicense)
@@ -145,18 +216,6 @@
             </tr>
         @php $number++; @endphp
         @endforeach
-    @else
-        <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <p>Record(s) not found <span></span></p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
     @endif
 
     @php $number=1; @endphp
@@ -191,18 +250,6 @@
             </tr>
         @php $number++; @endphp
         @endforeach
-    @else
-        <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <p>Record(s) not found <span></span></p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
     @endif
 </table>
 <!-- page 2 end-->

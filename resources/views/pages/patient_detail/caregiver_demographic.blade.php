@@ -218,7 +218,6 @@
                     </div>
 
                     <!-- Address Detail -->
-                  
                     <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
                     data-name="emergency_contact_detail">
                         <div class="app-card-header">

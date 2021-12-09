@@ -112,10 +112,10 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>Salary Desired: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['salaryDesired'] : '' }}</span></p>
+                        <p>Date You Can Start Work: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['DateYouCanStartWork'] : '' }}</span></p>
                     </td>
                     <td>
-                        <p>Date You Can Start Work: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['DateYouCanStartWork'] : '' }}</span></p>
+                        <p>Salary Desired: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['salaryDesired'] : '' }}</span></p>
                     </td>
                 </tr>
             </table>

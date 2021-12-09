@@ -15,6 +15,14 @@
                         </span>
                     </p>
                 </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
                 <td>
                     <p>Do you have any military commitment, including National Guard service that would influence your work schedule?  
                         <span>

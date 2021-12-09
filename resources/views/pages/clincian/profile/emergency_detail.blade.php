@@ -12,6 +12,12 @@
                 <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Contact {{ $counter }}</h1>
             </td>
         </tr>
+        @php
+            $phoneData = '';
+            if(isset($emergency_detail['phoneNo'])):
+             $phoneData = "+".substr($emergency_detail['phoneNo'], 0, 1)." ". "(".substr($emergency_detail['phoneNo'], 1, 3).") ".substr($emergency_detail['phoneNo'], 4, 3)."-".substr($emergency_detail['phoneNo'],7);
+             endif;
+            @endphp
         <tr>
             <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -20,7 +26,7 @@
                             <p>Name: <span>{{ isset($emergency_detail['name']) ? $emergency_detail['name'] : ''}}</span></p>
                         </td>
                         <td>
-                            <p>Home Phone: <span>{{ isset($emergency_detail['phoneNo']) ? $emergency_detail['phoneNo'] : '' }}</span></p>
+                            <p>Home Phone: <span>{{ $phoneData }}</span></p>
                         </td>
                     </tr>
                 </table>

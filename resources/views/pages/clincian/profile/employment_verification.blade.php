@@ -58,13 +58,19 @@
                     </table>
                 </td>
             </tr>
+            @php
+            $phoneData = '';
+            if(isset($employer_detail['phoneNo'])):
+             $phoneData = "+".substr($employer_detail['phoneNo'], 0, 1)." ". "(".substr($employer_detail['phoneNo'], 1, 3).") ".substr($employer_detail['phoneNo'], 4, 3)."-".substr($employer_detail['phoneNo'],7);
+             endif;
+            @endphp
             <tr>
                 <td>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tbody>
                             <tr>
                                 <td style="width: 50%;">
-                                    <p>Phone:<span>{{ $employer_detail['phoneNo']}}</span></p>
+                                    <p>Phone:<span>{{ $phoneData }}</span></p>
                                 </td>
                             </tr>
                         </tbody>

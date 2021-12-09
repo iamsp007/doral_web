@@ -149,8 +149,7 @@ class Helper extends BaseController
     public function sendNotification($token,$title,$data){
         $path_to_fcm='https://fcm.googleapis.com/fcm/send';
         $server_key=env('FIREBASE_CREDENTIALS');
-        $user_token = User::where('id','=',3)->get();
-        $key = $user_token[0]->web_token;
+        $key= $token;
         $headers=array(
             'Authorization:key='.$server_key,
             'Content-Type:application/json'
@@ -193,7 +192,8 @@ class Helper extends BaseController
     function sendSpecialNotification($token,$data){
         $path_to_fcm='https://fcm.googleapis.com/fcm/send';
         $server_key="AAAAX1u3Ca0:APA91bG13OgsGlpQqFcZSSWO566LoADEr8wJEzSSsIpwhwurOLO7vOksqHygf2o9gkmGNXaM7_uDIYk0A2QGtwUHbm8pvUbKtWTx9qpSv-0l4HweeIKABh0QepaSOQhdqHl9pwY-Midm";
-        $key= $token;
+        $user_token = User::where('id','=',3)->get();
+        $key = $user_token[0]->web_token;
         $headers=array(
             'Authorization:key='.$server_key,
             'Content-Type:application/json'

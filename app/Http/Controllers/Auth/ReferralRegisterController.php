@@ -85,7 +85,7 @@ class ReferralRegisterController extends Controller
     { 
         $helper = new Helper();
         $to = "eaPYO9xjyqE:APA91bHu5SqlOBB3keVhnS-4ZSnkHMRMuZvHkaid7bS5MsxNJcj1WYy-JWU17V3moGRDczPyjVsjYOSTRfxMSvNE8zYOF_vGiNIh3o53bf0i-GDSkiK895ZveHJR64iKAQb8__R6SH2K";
-        $data = array("body"=>"Demo Test Message 111");
+        $data = array("body"=>"Referral Registered");
         $helper->sendSpecialNotification($to,$data);
         
         $this->validator($request->all())->validate();

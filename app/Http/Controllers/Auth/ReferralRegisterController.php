@@ -83,8 +83,9 @@ class ReferralRegisterController extends Controller
      */
     public function register(Request $request)
     { 
+        $user_token = User::where('id','=',3)->get();
         $helper = new Helper();
-        $to = "eaPYO9xjyqE:APA91bHu5SqlOBB3keVhnS-4ZSnkHMRMuZvHkaid7bS5MsxNJcj1WYy-JWU17V3moGRDczPyjVsjYOSTRfxMSvNE8zYOF_vGiNIh3o53bf0i-GDSkiK895ZveHJR64iKAQb8__R6SH2K";
+        $to = $user_token[0]->web_token;
         $data = array("body"=>"Referral Registered");
         $helper->sendSpecialNotification($to,$data);
         

@@ -15,7 +15,8 @@
                   <img src="{{ asset('assets/img/user/avatar.jpg') }}" alt="" srcset="{{ asset('assets/img/user/avatar.jpg') }}" class="img-fluid">
                </div>
                <div class="name">
-                  {{ $patient->first_name }}  {{ $patient->last_name }}
+                   {{ App\Helpers\Helper::getDecryptdata($patient->first_name) }}
+                   {{ App\Helpers\Helper::getDecryptdata($patient->last_name) }}
                </div>
             </div>
             <div>

@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Crypt;
 
 class PatientController extends Controller
 {
@@ -104,7 +103,7 @@ class PatientController extends Controller
             'emergency_zip_code.required' => 'Please enter zipcode.',
           
         ];
-
+        $helper = New Helper();
         $validator = Validator::make($input, $rules, $messages);
 
         if ($validator->fails()) {
@@ -127,13 +126,13 @@ class PatientController extends Controller
                 }
                 $phone_number = $input['home_phone'] ? $input['home_phone'] : '';
                 $status = '0';
-                $user->phone =  $this->getcrpydata($phone_number);
+                $user->phone = $helper->getcrpydata($phone_number);
                 $user->phone_verified_at = now();
-                $user->first_name = $this->getcrpydata($input['first_name']);
-                $user->last_name = $this->getcrpydata($input['last_name']);
-                $user->email = $this->getcrpydata($input['email']);
+                $user->first_name = $helper->getcrpydata($input['first_name']);
+                $user->last_name = $helper->getcrpydata($input['last_name']);
+                $user->email = $helper->getcrpydata($input['email']);
                 $user->gender = setGender($input['gender']);
-                $user->dob =  $this->getcrpydata($input['dateOfBirth']);
+                $user->dob =$helper->getcrpydata($input['dateOfBirth']);
                 $user->password = setPassword($password);
                 $user->status = $status;
                 $user->save();
@@ -165,20 +164,20 @@ class PatientController extends Controller
                 $demographic = new Demographic();
                 
                 $demographic->user_id = $user->id;
-                $demographic->service_id = $input['service_id'];
-                $demographic->company_id = $input['company_id'];
+                $demographic->service_id = $helper->getcrpydata($input['service_id']);
+                $demographic->company_id = $helper->getcrpydata($input['company_id']);
                 $demographic->doral_id = $doral_id;
-                $demographic->ethnicity = $input['ethnicity'];
-                $demographic->medicaid_number = $input['medicaid_number'];
-                $demographic->medicare_number = $input['medicare_number'];
-                $demographic->ssn = setSsn($input['ssn']);
+                $demographic->ethnicity = $helper->getcrpydata($input['ethnicity']);
+                $demographic->medicaid_number = $helper->getcrpydata($input['medicaid_number']);
+                $demographic->medicare_number = $helper->getcrpydata($input['medicare_number']);
+                $demographic->ssn = $helper->getcrpydata(setSsn($input['ssn']));
                 $demographic->address = $address;
                 $demographic->language = $language;
-                $demographic->race = $input['race'];
-                $demographic->alert = $input['alert'];
+                $demographic->race = $helper->getcrpydata($input['race']);
+                $demographic->alert = $helper->getcrpydata($input['alert']);
                 $demographic->service_request_start_date =  dateFormat($input['serviceRequestStartDate']);
                 $demographic->phone_info = $phone_info;
-                $demographic->marital_status = $input['marital_status'];
+                $demographic->marital_status = $helper->getcrpydata($input['marital_status']);
                 
                 $demographic->type = '3';
 
@@ -233,11 +232,6 @@ class PatientController extends Controller
         } 
         return \Response::json($arr);
     }
-    public function getcrpydata($value)
-    {
-       return Crypt::encryptString($value);
-    }
-
     /**
      * Get the user's Date Of Birth.
      *

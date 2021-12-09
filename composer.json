@@ -61,7 +61,8 @@
         "files": [
             "app/Helper/format.php",
             "app/Helper/hhaexchange.php",
-            "app/Helper/sms.php"
+            "app/Helper/sms.php",
+            "app/Helpers/Helper.php"
         ]
     },
     "minimum-stability": "dev",

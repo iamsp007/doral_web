@@ -12,6 +12,9 @@ use GuzzleHttp\Client;
 use Illuminate\Routing\Controller as BaseController;
 Use \Carbon\Carbon;
 use Nexmo\Laravel\Facade\Nexmo;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+
 
 class Helper extends BaseController
 {
@@ -188,6 +191,20 @@ class Helper extends BaseController
         $string = strtolower($string);
         
         return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+    }
+    
+     public static function getcrpydata($value)
+    {
+       return Crypt::encryptString($value);
+    }
+     public static function getDecryptdata($value)
+    {
+        try {
+            return Crypt::decryptString($value);
+        } catch (DecryptException $e) {
+                return $value;
+        }
+        
     }
  
 }

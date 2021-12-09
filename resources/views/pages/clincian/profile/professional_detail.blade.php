@@ -47,8 +47,8 @@
                     <td>
                         <p>Medicaid Enrolled:
                             <span>
-                                <input type="checkbox" {{ isset($users->professional_detail['medicaidEnrolled']) ? 'checked' : '' }}> Yes
-                                <input type="checkbox" {{ isset($users->professional_detail['medicaidEnrolled']) ? '' : 'checked' }}> No
+                                <input type="radio" {{ isset($users->professional_detail['medicaidEnrolled']) ? 'checked' : '' }}> Yes
+                                <input type="radio" {{ isset($users->professional_detail['medicaidEnrolled']) ? '' : 'checked' }}> No
                             </span>
                         </p>
                     </td>
@@ -57,8 +57,8 @@
                     <td style="width: 50%;">
                         <p>Medicare Enrolled:
                             <span>
-                                <input type="checkbox" {{ isset($users->professional_detail['medicareEnrolled']) ? 'checked' : '' }}> Yes
-                                <input type="checkbox" {{ isset($users->professional_detail['medicareEnrolled']) ? '' : 'checked' }}> No
+                                <input type="radio" {{ isset($users->professional_detail['medicareEnrolled']) ? 'checked' : '' }}> Yes
+                                <input type="radio" {{ isset($users->professional_detail['medicareEnrolled']) ? '' : 'checked' }}> No
                                
                             </span>
                         </p>

@@ -114,7 +114,7 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
-                                <p>Emergency Contact Phone Home #: <span>{{ isset($reference_detail['phoneNo']) ? $reference_detail['phoneNo'] : '' }}</span></p>
+                                <p>Phone Home #: <span>{{ isset($reference_detail['phoneNo']) ? $reference_detail['phoneNo'] : '' }}</span></p>
                             </td>
                         </tr>
                     </table>

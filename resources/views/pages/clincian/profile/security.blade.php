@@ -7,29 +7,33 @@
     <td>
         <p>Have you ever been bonded? 
             <span>
-                <input type="checkbox" {{ ($users->security_detail && $users->security_detail['bond']) ? 'checked' : '' }}>Yes
-                <input type="checkbox" {{ ($users->security_detail && $users->security_detail['bond']) ? '' : 'checked' }} }}>No
+                <input type="radio" {{ ($users->security_detail && $users->security_detail['bond']) ? 'checked' : '' }}>Yes
+                <input type="radio" {{ ($users->security_detail && $users->security_detail['bond']) ? '' : 'checked' }} }}>No
             </span>
         </p>
     </td>
 </tr>
+@if($users->security_detail['bond'])
 <tr>
     <td>
         <p>If so, explain:<span>{{ $users->security_detail ? $users->security_detail['bond_explain'] : '' }}</span></p>
     </td>
 </tr>
+@endif
 <tr>
     <td>
-        <p>Have you been convicted of a felony within the past 5 years?     
+        <p>Have you been convicted of a falcony within the last 5 years?     
             <span>
-                <input type="checkbox" {{ ($users->security_detail && $users->security_detail['convict']) ? 'checked' : '' }}>Yes
-                <input type="checkbox" {{ ($users->security_detail && $users->security_detail['convict']) ? '' : 'checked' }}>No
+                <input type="radio" {{ ($users->security_detail && $users->security_detail['convict']) ? 'checked' : '' }}>Yes
+                <input type="radio" {{ ($users->security_detail && $users->security_detail['convict']) ? '' : 'checked' }}>No
             </span>
         </p>
     </td>
 </tr>
+@if($users->security_detail['convict'])
 <tr>
     <td>
         <p>If so, explain (this will not necessarily exclude you from consideration:<span>{{ $users->security_detail ? $users->security_detail['convict_explain'] : '' }}</span></p>
     </td>
 </tr>
+@endif

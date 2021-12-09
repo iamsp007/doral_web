@@ -45,13 +45,28 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>Phone: <span>{{ ($users->user) ? $users->user->phone : ''}}</span></p>
+                        <p>Cell Phone: <span>{{ ($users->phone) ? $users->phone : ''}}</span></p>
+                    </td>
+                    <td>
+                        <p>Home Phone: <span>{{ ($users->home_phone) ? $users->home_phone : ''}}</span></p>
+                    </td>
+                    
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Date Of Birth: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['dateOfBirth'] : '' }}</span></p>
                     </td>
                     <td>
                         <p>Are you over 18 years of age?: 
                             <span>
-                                <input type="checkbox" {{ ($users->user && $users->user->age == 'Yes') ? 'checked' : '' }}>Yes
-                                <input type="checkbox" {{ ($users->user && $users->user->age == 'No') ? 'checked' : '' }}>No
+                                <input type="radio" {{ ($users->user && $users->user->age == 'Yes') ? 'checked' : '' }}>Yes
+                                <input type="radio" {{ ($users->user && $users->user->age == 'No') ? 'checked' : '' }}>No
                             </span>
                         </p>
                     </td>
@@ -66,9 +81,9 @@
                     <td>
                         <p>Sex: 
                             <span>
-                                <input type="checkbox" {{ ($users->user) && $users->user->gender === '1' ? 'checked' : '' }} >Male
-                                <input type="checkbox" {{ ($users->user) && $users->user->gender === '2' ? 'checked' : '' }}>Female
-                                <input type="checkbox" {{ ($users->user) && $users->user->gender === '3' ? 'checked' : '' }}>Other
+                                <input type="radio" {{ ($users->user) && $users->user->gender === '1' ? 'checked' : '' }} >Male
+                                <input type="radio" {{ ($users->user) && $users->user->gender === '2' ? 'checked' : '' }}>Female
+                                <input type="radio" {{ ($users->user) && $users->user->gender === '3' ? 'checked' : '' }}>Other
                             </span>
                         </p>
                     </td> 
@@ -79,6 +94,7 @@
             </table>
         </td>
     </tr>
+    @if($users->address_detail['info']['Ethnicity'] == 'Other')
     <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -86,13 +102,11 @@
                     <td>
                         <p>Other Ethnicity: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['OtherEthnicity'] : '' }}</span></p>
                     </td>
-                    <td>
-                        <p>Date Of Birth: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['dateOfBirth'] : '' }}</span></p>
-                    </td>
                 </tr>
             </table>
         </td>
     </tr>
+    @endif
     <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -250,8 +264,8 @@
                     <td>
                         <p>Have you worked for this company in the past
                             <span>
-                                <input type="checkbox">Yes
-                                <input type="checkbox" >No
+                                <input type="radio">Yes
+                                <input type="radio" >No
                             </span>
                             <span>If so,when?</span>
                         </p>

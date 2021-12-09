@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Events\SendingSMS;
 use App\Models\Otp;
+use App\Models\User;
 use Faker\Provider\Address;
 use GuzzleHttp\Cookie\CookieJar as GuzzleHttpCookie;
 use GuzzleHttp\Exception\ClientException;

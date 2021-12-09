@@ -26,10 +26,89 @@
                     <tbody>
                         <tr>
                             <td style="width: 50%;">
-                                <p>Name Of Bank:<span> {{ $users->payroll_details['nameOfBank']}}</span></p>
+                                <p>How do you files your tax?:
+                                    <span>
+                                        {{ $users->payroll_details['filesyourtax']}}
+                                    </span>
+                                </p>
+                            </td>                           
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <!-- <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="width: 50%;">
+                                <p>Dependents:
+                                    <span>
+                                        {{ $users->payroll_details['dependents']}}
+                                    </span>
+                                </p>
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr> -->
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="width: 50%;">
+                                <p>No. of dependent children's(under age 17):
+                                    <span>
+                                        {{ $users->payroll_details['childrendependents']}}
+                                    </span>
+                                </p>
                             </td>
                             <td>
-                                <p>Name Of Account:<span> {{ $users->payroll_details['nameOfAccount']}}</span></p>
+                                <p>Any other dependents:<span>{{ $users->payroll_details['otherdependents']}}</span></p>
+                            </td>
+                            <td>
+                                <p>Total dependents:<span>{{ $users->payroll_details['totaldependents']}}</span></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Bank Informatopn</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="width: 50%;">
+                                <p>Bank Name:<span> {{ $users->payroll_details['nameOfBank']}}</span></p>
+                            </td>
+                            <td>
+                                <p>Account Holder Name :<span> {{ $users->payroll_details['nameOfAccount']}}</span></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>Type Of Account:<span>{{ $users->payroll_details['typeOfAccount']}}</span></p>
+                            </td>
+                            <td>
+                                <p>Bank Routing Number:<span>{{ $users->payroll_details['routingNumber']}}</span></p>
                             </td>
                         </tr>
                     </tbody>
@@ -48,74 +127,11 @@
                                     </span>
                                 </p>
                             </td>
-                            <td>
-                                <p>Type Of Account:<span>{{ $users->payroll_details['typeOfAccount']}}</span></p>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
             </td>
-        </tr>
-        <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tbody>
-                        <tr>
-                            <td style="width: 50%;">
-                                <p>Files your Tax:
-                                    <span>
-                                        {{ $users->payroll_details['filesyourtax']}}
-                                    </span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>Routing Number:<span>{{ $users->payroll_details['routingNumber']}}</span></p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tbody>
-                        <tr>
-                            <td style="width: 50%;">
-                                <p>Dependents:
-                                    <span>
-                                        {{ $users->payroll_details['dependents']}}
-                                    </span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>Other dependents:<span>{{ $users->payroll_details['otherdependents']}}</span></p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tbody>
-                        <tr>
-                            <td style="width: 50%;">
-                                <p>Children Dependents:
-                                    <span>
-                                        {{ $users->payroll_details['childrendependents']}}
-                                    </span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>Total Dependents:<span>{{ $users->payroll_details['totaldependents']}}</span></p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
+        </tr>  
         @if ($users->user->designation_id != '2')
         <tr>
             <td>

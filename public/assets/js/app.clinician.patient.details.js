@@ -188,6 +188,7 @@ function demographyDataUpdate(data,sectionId) {
             $("#loader-wrapper").hide();
             $(activeTab).find('.update-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
             alertText(response.message,'success');
+            
         },
         error: function(error) {
             $("#loader-wrapper").hide();

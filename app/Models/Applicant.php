@@ -136,6 +136,23 @@ class Applicant extends Model
         return null;
     }
 
+    public function getHomePhoneAttribute($phone)
+    {
+        $phoneData = '';
+        if ($phone) {
+            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
+        }
+        return $phoneData;
+    }
+
+    public function getPhoneAttribute($phone)
+    {
+        $phoneData = '';
+        if ($phone) {
+            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
+        }
+        return $phoneData;
+    }
 
     public function states() {
         return $this->belongsTo(State::class, 'object->state_id');

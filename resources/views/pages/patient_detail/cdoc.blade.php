@@ -7,6 +7,7 @@
         </div>
         <div class="head">
             <form id="cdoc_form">
+                <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                 <div class="p-3">
                     <!-- Emergency contact Detail -->
                     <div class="app-card app-card-custom no-minHeight mb-3 box-shadow-none"
@@ -16,9 +17,9 @@
                             $i = 1;
                             @endphp
                             @foreach($patient->userDevices as $key => $userDevice)
-                          
+                                <input type="hidden" name="user_device_id" value="{{ $userDevice->id }}">
                                 <div class="app-card-header">
-                                    <h1 class="title">Emergency Contact Detail {{$i++}}</h1>
+                                    <h1 class="title">CDOC Detail {{$i++}}</h1>
                                 </div>
                                 <div class="main_div">
                                     <div class="p-3">
@@ -31,7 +32,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">CDOC Id</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="user_id[]" data-id="user_id" placeholder="CDOC Id" value="{{ $userDevice->user_id }}">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="doc_id[]" data-id="doc_id" placeholder="CDOC Id" value="{{ $userDevice->user_id }}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -45,10 +46,10 @@
                                                             <h3 class="_title">Device</h3>
                                                             <select class="form-control" name="device_id[]" data-id="device_id">
                                                                 <option>Select a device</option>
-                                                                <option value="1" {{ $userDevice->device_id == 1 ? "selected" : null }}>Blood Pressure</option>
-                                                                <option value="2" {{ $userDevice->device_id == 2 ? "selected" : null }}>Glucometer</option>
-                                                                <option value="3" {{ $userDevice->device_id == 3 ? "selected" : null }}>Digital Weight Machine</option>
-                                                                <option value="4" {{ $userDevice->device_id == 4 ? "selected" : null }}>Pulse Oxymeter</option>
+                                                                <option value="1" {{ $userDevice->device_type == 1 ? "selected" : null }}>Blood Pressure</option>
+                                                                <option value="2" {{ $userDevice->device_type == 2 ? "selected" : null }}>Glucometer</option>
+                                                                <option value="3" {{ $userDevice->device_type == 3 ? "selected" : null }}>Digital Weight Machine</option>
+                                                                <option value="4" {{ $userDevice->device_type == 4 ? "selected" : null }}>Pulse Oxymeter</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -64,6 +65,7 @@
                             </div>
                             <div class="">
                                 <div class="main_div">
+                               
                                     <div class="p-3">
                                         <div class="form-group">
                                             <div class="row">
@@ -74,7 +76,7 @@
                                                         </div>
                                                         <div class="rs">
                                                             <h3 class="_title">Name</h3>
-                                                            <input type="text" class="form-control-plaintext _detail " readonly name="user_id[]" data-id="user_id" placeholder="CDOC Id" value="">
+                                                            <input type="text" class="form-control-plaintext _detail " readonly name="doc_id[]" data-id="doc_id" placeholder="CDOC Id" value="">
                                                         </div>
                                                     </div>
                                                 </div>

@@ -70,10 +70,13 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <p>How is the person is related to you: <span>{{ isset($emergency_detail['relation']) ? $emergency_detail['relation'] : '' }}</span></p>
-                        </td>
-                        <td>
-                            <p>Other Relation: <span>{{ isset($emergency_detail['otherRelation']) ? $emergency_detail['otherRelation'] : '' }}</span></p>
+                            <p>How is the person is related to you: <span>
+                                @if($emergency_detail['relation'] != 'Other')
+                                    {{ isset($emergency_detail['relation']) ? $emergency_detail['relation'] : '' }}
+                                @else
+                                    {{ isset($emergency_detail['otherRelation']) ? $emergency_detail['otherRelation'] : '' }}
+                                @endif
+                                </span></p>
                         </td>
                     </tr>
                 </table>

@@ -121,7 +121,7 @@
                 <tr style="background: #f8f8f8;">
                     <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{$counter}}</td>
                     <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">
-                        {{ $education_detail['name'] }}
+                        {{ $education_detail['name'] }},
                         {{ $education_detail['address1'] }}
                         @if (isset($education_detail['address2']))
                             {{ $education_detail['address2'] }}

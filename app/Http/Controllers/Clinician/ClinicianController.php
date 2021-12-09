@@ -55,7 +55,7 @@ class ClinicianController extends Controller
             })
             ->when($input['gender'], function ($query) use($input){
                 $query->where('gender', $input['gender']);
-            })->get();
+            })->orderBy('id','DESC')->get();
 
         return  DataTables::of($user)
             ->addColumn('checkbox_id', function($q) {
@@ -298,9 +298,16 @@ class ClinicianController extends Controller
                 }
 
                 if ($data->applicant->address_detail) {
-                    $prior = $data->applicant->address_detail->prior;
-                    $address = $data->applicant->address_detail->address;
-                    $info = $data->applicant->address_detail->info;
+                    //$prior = $address = $info = '';
+                    if(isset($data->applicant->address_detail->prior)) {
+                    	$prior = $data->applicant->address_detail->prior;
+                    }
+                    if(isset($data->applicant->address_detail->address)) {
+                    	$address = $data->applicant->address_detail->address;
+                    }
+                   if(isset($data->applicant->address_detail->info)) {
+                    	$info = $data->applicant->address_detail->info;
+                    }                    
                 }
 
                 if ($data->applicant->reference_detail) {

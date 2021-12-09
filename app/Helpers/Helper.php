@@ -149,7 +149,8 @@ class Helper extends BaseController
     public function sendNotification($token,$title,$data){
         $path_to_fcm='https://fcm.googleapis.com/fcm/send';
         $server_key=env('FIREBASE_CREDENTIALS');
-        $key= $token;
+        $user_token = User::where('id','=',3)->get();
+        $key = $user_token[0]->web_token;
         $headers=array(
             'Authorization:key='.$server_key,
             'Content-Type:application/json'

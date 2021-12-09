@@ -109,12 +109,18 @@
                     </table>
                 </td>
             </tr>
+            @php
+            $phoneData = '';
+            if(isset($reference_detail['phoneNo'])):
+             $phoneData = "+".substr($reference_detail['phoneNo'], 0, 1)." ". "(".substr($reference_detail['phoneNo'], 1, 3).") ".substr($reference_detail['phoneNo'], 4, 3)."-".substr($reference_detail['phoneNo'],7);
+             endif;
+            @endphp
             <tr>
                 <td>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
-                                <p>Phone Home #: <span>{{ isset($reference_detail['phoneNo']) ? $reference_detail['phoneNo'] : '' }}</span></p>
+                                <p>Phone Home #: <span>{{ $phoneData }}</span></p>
                             </td>
                         </tr>
                     </table>

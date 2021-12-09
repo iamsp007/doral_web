@@ -81,7 +81,7 @@ class Applicant extends Model
         'professional_detail' => 'array',
     ];
 
-    protected $appends = ['signature_url'];
+    protected $appends = ['signature_url','phone_no'];
     /**
      * Relation with referances
      */
@@ -140,7 +140,7 @@ class Applicant extends Model
     {
         $phoneData = '';
         if ($phone) {
-            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
+            $phoneData = "+".substr($phone, 0, 1). " (".substr($phone, 1, 3).") ".substr($phone, 4, 3)."-".substr($phone,7);
         }
         return $phoneData;
     }
@@ -149,10 +149,11 @@ class Applicant extends Model
     {
         $phoneData = '';
         if ($phone) {
-            $phoneData = "(".substr($phone, 0, 3).") ".substr($phone, 3, 3)."-".substr($phone,6);
+            $phoneData = "+".substr($phone, 0, 1). " (".substr($phone, 1, 3).") ".substr($phone, 4, 3)."-".substr($phone,7);
         }
         return $phoneData;
     }
+
 
     public function states() {
         return $this->belongsTo(State::class, 'object->state_id');

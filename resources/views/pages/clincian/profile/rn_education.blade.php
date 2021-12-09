@@ -69,7 +69,13 @@
                         @endif
                         {{ isset($employer_detail['zipcode']) ? $employer_detail['zipcode'] : '' }}
                         </td>
-                        <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $employer_detail['phoneNo']}}</td>
+                        @php
+                        $phoneData = '';
+                        if(isset($employer_detail['phoneNo'])):
+                        $phoneData = "+".substr($employer_detail['phoneNo'], 0, 1)." ". "(".substr($employer_detail['phoneNo'], 1, 3).") ".substr($employer_detail['phoneNo'], 4, 3)."-".substr($employer_detail['phoneNo'],7);
+                        endif;
+                        @endphp
+                        <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $phoneData }}</td>
                         <td style="width: 20%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ isset($employer_detail['supervisor']) ? $employer_detail['supervisor'] : '' }}</td>
                     </tr>
                     @php $counter++ @endphp

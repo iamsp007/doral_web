@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Crypt;
 
 class PatientController extends Controller
 {
@@ -111,7 +112,7 @@ class PatientController extends Controller
         } else {
             try {
                 DB::beginTransaction();
-
+                
                 $user = new User();
 
                 $doral_id = createDoralId();
@@ -124,34 +125,18 @@ class PatientController extends Controller
                   
                     $user->avatar = basename($image_uploaded_path);
                 }
-
                 $phone_number = $input['home_phone'] ? $input['home_phone'] : '';
-                // if ($phone_number != '') {
-           
-                //     $userDuplicatePhone = User::where('phone', setPhone($phone_number))->first();
-              
-                //     if (empty($userDuplicatePhone)) {
-                //         $user->phone = setPhone($phone_number);
-                //         $user->phone_verified_at = now();
-                //         $status = '0';
-                //     } else {
-                //         $status = '4';
-                //     }
-                // } else {
-                //     $status = '4';
-                // }
                 $status = '0';
-                $user->phone = setPhone($phone_number);
+                $user->phone =  $this->getcrpydata($phone_number);
                 $user->phone_verified_at = now();
-                $user->first_name = $input['first_name'];
-                $user->last_name = $input['last_name'];
-                $user->email = $input['email'];
+                $user->first_name = $this->getcrpydata($input['first_name']);
+                $user->last_name = $this->getcrpydata($input['last_name']);
+                $user->email = $this->getcrpydata($input['email']);
                 $user->gender = setGender($input['gender']);
-                $user->dob = dateFormat($input['dateOfBirth']);
+                $user->dob =  $this->getcrpydata($input['dateOfBirth']);
                 $user->password = setPassword($password);
                 $user->status = $status;
                 $user->save();
-
                 $user->assignRole('patient')->syncPermissions(Permission::all());
                 
                 $address = [
@@ -198,9 +183,7 @@ class PatientController extends Controller
                 $demographic->type = '3';
 
                 $demographic->save();
-
-                self::getAddressLatlngAttribute($address, $user->id);
-
+//                self::getAddressLatlngAttribute($address, $user->id);
                 $address = [
                     'address1' => $input['emergency_address1'],
                     'address2' => $input['emergency_address2'],
@@ -209,7 +192,6 @@ class PatientController extends Controller
                     'state' => $input['emergency_state'],
                     'zip_code' => $input['emergency_zip_code'],
                 ];
-
                 PatientEmergencyContact::create([
                     'user_id' => $user->id,
                     'name' => $input['name'],
@@ -250,6 +232,10 @@ class PatientController extends Controller
             }
         } 
         return \Response::json($arr);
+    }
+    public function getcrpydata($value)
+    {
+       return Crypt::encryptString($value);
     }
 
     /**
@@ -320,8 +306,7 @@ class PatientController extends Controller
                 SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
             }
         }
-
-        $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
+      $responce = array('status' => 200, 'message' => 'Resend verification email.Please check your email', 'result' => array());
         return \Response::json($responce);
     }
 }

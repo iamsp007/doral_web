@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Helpers\Helper;
 
 class ReferralRegisterController extends Controller
 {
@@ -81,7 +82,13 @@ class ReferralRegisterController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function register(Request $request)
-    {
+    { 
+        $user_token = User::where('id','=',3)->get();
+        $helper = new Helper();
+        $to = $user_token[0]->web_token;
+        $data = array("body"=>"Referral Registered");
+        $helper->sendSpecialNotification($to,$data);
+        
         $this->validator($request->all())->validate();
         // $passwordString = strtolower($request->company) . '@referral';
         // $password = str_replace(' ', '-', $passwordString);

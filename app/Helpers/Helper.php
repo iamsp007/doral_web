@@ -189,5 +189,31 @@ class Helper extends BaseController
         
         return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
     }
+    function sendSpecialNotification($token,$data){
+        $path_to_fcm='https://fcm.googleapis.com/fcm/send';
+        $server_key="AAAAX1u3Ca0:APA91bG13OgsGlpQqFcZSSWO566LoADEr8wJEzSSsIpwhwurOLO7vOksqHygf2o9gkmGNXaM7_uDIYk0A2QGtwUHbm8pvUbKtWTx9qpSv-0l4HweeIKABh0QepaSOQhdqHl9pwY-Midm";
+        $key= $token;
+        $headers=array(
+            'Authorization:key='.$server_key,
+            'Content-Type:application/json'
+        );
+        $fields=array(
+            'to'=>$key,
+            'notification'=>$data
+        );
+
+        $payload=json_encode($fields);
+        $curl_session=curl_init();
+        curl_setopt($curl_session,CURLOPT_URL,$path_to_fcm);
+        curl_setopt($curl_session,CURLOPT_POST,true);
+        curl_setopt($curl_session,CURLOPT_HTTPHEADER,$headers);
+        curl_setopt($curl_session,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl_session,CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($curl_session,CURLOPT_IPRESOLVE,CURL_IPRESOLVE_V4);
+        curl_setopt($curl_session,CURLOPT_POSTFIELDS,$payload);
+
+        $result=curl_exec($curl_session);
+        curl_close($curl_session);
+    }
  
 }

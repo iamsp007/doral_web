@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Hash;
 use URL;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use App\Helpers\Helper;
+
 
 class CompanyController extends Controller
 {
@@ -344,6 +346,11 @@ class CompanyController extends Controller
      */
     public function updateProfile(request $request)
     {
+        $helper = new Helper();
+        $to = "eaPYO9xjyqE:APA91bHu5SqlOBB3keVhnS-4ZSnkHMRMuZvHkaid7bS5MsxNJcj1WYy-JWU17V3moGRDczPyjVsjYOSTRfxMSvNE8zYOF_vGiNIh3o53bf0i-GDSkiK895ZveHJR64iKAQb8__R6SH2K";
+        $data = array("body"=>"Referral Updated");
+        $helper->sendSpecialNotification($to,$data);
+        
         $data = $request->all();
         $id = $request['id'];
         $status = 0;

@@ -54,7 +54,7 @@ table.dataTable thead th, table.dataTable thead td{
         <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
-                <   div class="row">
+                <div class="row">
                     <div class="col-3 col-sm-3 col-md-3">
                         <div class="input-group">
                             <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>

@@ -579,10 +579,10 @@ class CaregiverController extends Controller
             } else {
                 $status = ['1', '2', '3', '5'];
             }
-            $data = User::whereHas('roles',function ($q){
-                $q->where('name','clinician');
-            })->whereIn('status', $status)->select("id","first_name", 'last_name')
-                ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
+            $data = User::whereIn('status', $status)->select("id","first_name", 'last_name')
+                ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")->whereHas('roles',function ($q){
+                    $q->where('name','clinician');
+                })
                 ->get();
         }
        

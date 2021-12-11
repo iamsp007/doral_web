@@ -256,10 +256,10 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div><i class="las la-phone  circle-icon"></i></div>
+                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                        <div>
-                                          <h3 class="_title">Home Phone</h3>
-                                          <h1 class="_detail">{{ isset($data->phone) ? $data->phone : null }}</h1>
+                                          <h3 class="_title">SSN</h3>
+                                          <h1 class="_detail">{{ isset($info->ssn) ? $info->ssn : null }}</h1>
                                        </div>
                                     </div>
                                  </div>
@@ -280,10 +280,21 @@
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
-                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                       <div><i class="las la-phone  circle-icon"></i></div>
                                        <div>
-                                          <h3 class="_title">SSN</h3>
-                                          <h1 class="_detail">{{ isset($info->ssn) ? $info->ssn : null }}</h1>
+                                          <h3 class="_title">Cell Phone</h3>
+                                          <h1 class="_detail">{{ isset($applicant->phone) ? $applicant->phone : null }}</h1>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-12 col-sm-4">
+                                 <div>
+                                    <div class="d-flex align-items-center">
+                                       <div><i class="las la-phone  circle-icon"></i></div>
+                                       <div>
+                                          <h3 class="_title">Home Phone</h3>
+                                          <h1 class="_detail">{{ isset($applicant->home_phone) ? $applicant->home_phone : null }}</h1>
                                        </div>
                                     </div>
                                  </div>
@@ -298,7 +309,9 @@
                                        </div>
                                     </div>
                                  </div>
-                              </div>
+                              </div>                             
+                           </div>
+                           <div class="row mt-3">
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
@@ -309,9 +322,7 @@
                                        </div>
                                     </div>
                                  </div>
-                              </div>
-                           </div>
-                           <div class="row mt-3">
+                              </div>   
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
@@ -334,6 +345,8 @@
                                     </div>
                                  </div>
                               </div>
+                           </div>
+                           <div class="row mt-3">
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
@@ -582,12 +595,18 @@
                                                       </div>
                                                    </div>
                                                 </div>
+                                                @php
+                                                   $phoneData = '';
+                                                   if(isset($reference->phoneNo)):
+                                                   $phoneData = "+".substr($reference->phoneNo, 0, 1)." ". "(".substr($reference->phoneNo, 1, 3).") ".substr($reference->phoneNo, 4, 3)."-".substr($reference->phoneNo,7);
+                                                   endif;
+                                                @endphp
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center">
                                                       <div><i class="las la-phone  circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Phone No.</h3>
-                                                         <h1 class="_detail">{{ isset($reference->phoneNo) ? $reference->phoneNo : null }}</h1>
+                                                         <h1 class="_detail">{{ $phoneData }}</h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -752,12 +771,18 @@
                                                    </div>
                                                 </div>
                                              </div>
+                                             @php
+                                                $phoneData = '';
+                                                if(isset($emergency->phoneNo)):
+                                                $phoneData = "+".substr($emergency->phoneNo, 0, 1)." ". "(".substr($emergency->phoneNo, 1, 3).") ".substr($emergency->phoneNo, 4, 3)."-".substr($emergency->phoneNo,7);
+                                                endif;
+                                             @endphp
                                              <div class="col-12 col-sm-4">
                                                 <div class="d-flex align-items-center">
                                                    <div><i class="las la-phone  circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Phone No.</h3>
-                                                      <h1 class="_detail">{{ isset($emergency->phoneNo) ? $emergency->phoneNo : null }}</h1>
+                                                      <h1 class="_detail">{{ $phoneData }}</h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -1613,13 +1638,19 @@
                                                                <h1 class="_detail">{{ isset($employer->companyName) ? $employer->companyName : null }}</h1>
                                                             </div>
                                                       </div>
-                                                   </div>
+                                                      </div>
+                                                      @php
+                                                      $phoneData = '';
+                                                      if(isset($employer->phoneNo)):
+                                                      $phoneData = "+".substr($employer->phoneNo, 0, 1)." ". "(".substr($employer->phoneNo, 1, 3).") ".substr($employer->phoneNo, 4, 3)."-".substr($employer->phoneNo,7);
+                                                      endif;
+                                                   @endphp
                                                    <div class="col-12 col-sm-4">
                                                       <div class="d-flex align-items-center">
                                                             <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                             <div>
                                                                <h3 class="_title">Phone Number</h3>
-                                                               <h1 class="_detail">{{ isset($employer->phoneNo) ? $employer->phoneNo : null }}</h1>
+                                                               <h1 class="_detail">{{ $phoneData }}</h1>
                                                             </div>
                                                       </div>
                                                    </div>

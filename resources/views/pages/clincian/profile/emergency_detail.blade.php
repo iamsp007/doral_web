@@ -39,9 +39,6 @@
                         <td>
                             <p>Address: <span>{{ isset($emergency_detail['address1']) ? $emergency_detail['address1'] : '' }} {{ isset($emergency_detail['address2']) ? $emergency_detail['address2'] : ''}} {{ isset($emergency_detail['building']) ? $emergency_detail['building'] : '' }} </span></p>
                         </td>
-                        <td>
-                            <p>Work Phone: <span></span></p>
-                        </td>
                     </tr>
                 </table>
             </td>

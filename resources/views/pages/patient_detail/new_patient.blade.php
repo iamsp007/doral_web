@@ -54,32 +54,35 @@ table.dataTable thead th, table.dataTable thead td{
         <form id="search_form" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
-                <div class="row">
-                    @if(!$serviceStatus)
-                        <div class="col-3 col-sm-3 col-md-3">
-                            <div class="input-group">
-                                <select name="status" id="status" class="form-control form-control-lg">
-                                    <option value="">Select a status</option>
-                                    @foreach (config('select.userStatus') as $key => $value)
-                                    <option value="{{ $key }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    @endif
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="between_date" id="between_date" placeholder="Due Date"></td>
-                        </div>
-                    </div>
+                <   div class="row">
                     <div class="col-3 col-sm-3 col-md-3">
                         <div class="input-group">
                             <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
                         </div>
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
+                        <select class="form-control" name="gender" id="gender">
+                            <option value="">Select gender</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="ssn" placeholder="SSN"></td>
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="phone" placeholder="Home Phone"></td>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-sm-3 col-md-3">
                         <select class="form-control" name="service_id" id="service_id">
-                            <option value="">Select service</option>
+                            <option value="">Service</option>
                             <option value="1">VBC</option>
                             <option value="2">MD Order</option>
                             <option value="3">Occupational Health</option>
@@ -89,18 +92,22 @@ table.dataTable thead th, table.dataTable thead td{
                             @endif
                         </select>
                     </div>
+                    @if(!$serviceStatus)
+                        <div class="col-3 col-sm-3 col-md-3">
+                            <div class="input-group">
+                                <select name="status" id="status" class="form-control form-control-lg">
+                                    <option value="">Status</option>
+                                    @foreach (config('select.userStatus') as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <select class="form-control" name="gender" id="gender">
-                            <option value="">Select gender</option>
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                            <option value="3">Other</option>
-                        </select>
-                    </div>
                     <div class="col-3 col-sm-3 col-md-3">
                         <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" placeholder="DOB">
                     </div>
@@ -242,10 +249,11 @@ table.dataTable thead th, table.dataTable thead td{
                     d.service_id = $('select[name="service_id"]').val();
                     d.gender = $('select[name="gender"]').val();
                     d.dob = $('input[name="date_of_birth"]').val();
+                    d.ssn = $('input[name="ssn"]').val();
+                    d.phone = $('input[name="phone"]').val();
                     d.serviceStatus = $('input[name="serviceStatus"]').val();
                     d.initial = $('input[name="initial"]').val();
                     d.zip_code = $('input[name="zip_code"]').val();
-                    
                 },
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'

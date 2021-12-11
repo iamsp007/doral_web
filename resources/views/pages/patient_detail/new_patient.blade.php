@@ -79,6 +79,8 @@ table.dataTable thead th, table.dataTable thead td{
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="form-group">
                 <div class="row">
                     <div class="col-3 col-sm-3 col-md-3">
                         <select class="form-control" name="service_id" id="service_id">
@@ -104,13 +106,13 @@ table.dataTable thead th, table.dataTable thead td{
                             </div>
                         </div>
                     @endif
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" placeholder="DOB">
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <input type="text" class="form-control" name="date_of_birth" id="date_of_birth" placeholder="DOB">
-                    </div>
                     <div class="col-3 col-sm-3 col-md-3">
                         <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
                         <button class="btn btn-primary reset_btn" type="button" id="reset_btn">Reset</button>

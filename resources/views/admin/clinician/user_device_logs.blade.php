@@ -144,7 +144,7 @@ table.dataTable thead th, table.dataTable thead td{
                     }
                 
             },
-       
+            "pageLength": 50,
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
             'columnDefs': [
                 {

@@ -548,7 +548,7 @@
                {data: 'due_date'},
                {data: 'result'},
             ],
-       
+            "pageLength": 50,
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
                 'columnDefs': [{targets: 3,
                     render: function ( data, type, row ) {
@@ -598,6 +598,7 @@
                 {data: 'status'},
                 {data: 'action'},
             ],
+            "pageLength": 50,
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
 
         });

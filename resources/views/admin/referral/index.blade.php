@@ -71,7 +71,7 @@
             {data:'email',"bSortable": true},
             {data: 'action',name: 'action',"bSortable": false}
         ],
-
+        "pageLength": 50,
         "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
     });
 

@@ -91,6 +91,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.2/jQuery.print.js" integrity="sha512-BaXrDZSVGt+DvByw0xuYdsGJgzhIXNgES0E9B+Pgfe13XlZQvmiCkQ9GXpjVeLWEGLxqHzhPjNSBs4osiuNZyg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+       var clinician_status = "<?php echo $status;?>";
+    
         $('#user_name').select2({
             minimumInputLength: 3,
             placeholder: 'Select a name',
@@ -99,6 +101,14 @@
                 url: "{{ route('clinician.get-user-data') }}",
                 dataType: 'json',
                 delay: 250,
+                data: function (params) {
+                    var query = {
+                        q: params.term,
+                        status: clinician_status,
+                    }
+            
+                    return query;
+                },
                 processResults: function (data) {
                     return {
                         results:  $.map(data, function (item) {
@@ -112,7 +122,6 @@
                 cache: true
             }
         });
-
 
         $('#clinician-table').DataTable({
             "processing": true,

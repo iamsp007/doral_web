@@ -120,16 +120,18 @@ class CaregiverController extends Controller
                     }
                 });
             } else if($request['serviceStatus'] == 'covid-19') {
+		        $query->whereHas('demographic',function ($query) use($request) {
+                    $query->where('service_id', 6);
 
-                $query->whereHas('demographic',function ($query) use($request) {
-                    $query->where('service_id', '6');
                     if(Auth::guard('referral')) {
                         $company_id = Auth::guard('referral')->user()->id;
                         $query->where('company_id', $company_id);
                     }
+
                     if ($request['zip_code']) {
                         $query->where('address->zip_code',$request['zip_code']);
                     }
+
                 });
             } else if ($request['serviceStatus'] == 'pending') {
                 $query->where('status', '0');
@@ -188,6 +190,14 @@ class CaregiverController extends Controller
         })
         ->when($request['user_name'], function ($query) use($request){
             $query->where('id', $request['user_name']);
+        })
+        ->when($request['ssn'], function ($query) use($request){
+            $query->whereHas('demographic',function ($q) use($request) {
+                $q->where('ssn', $request['ssn']);
+            });
+        })
+        ->when($request['phone'], function ($query) use($request) {
+            $query->where('phone', $request['phone']);
         })
         ->when($request['gender'], function ($query) use($request){
             
@@ -311,8 +321,8 @@ class CaregiverController extends Controller
                     }
                     return $btn;
                 });
-            }
-            if (! Auth::user()->hasRole('supervisor')){
+		}
+		   if (! Auth::user()->hasRole('supervisor')){
                 $datatble->addColumn('action', function($row) use($request){
                     $btn = '';
                     if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial' || $request['serviceStatus'] == 'roadl-request') {
@@ -336,7 +346,8 @@ class CaregiverController extends Controller
 
                             $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
                         } else {
-                            $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn w-600 d-table mr-auto ml-auto" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"><img src="https://app.doralhealthconnect.com/assets/img/icons/Request_RoadL.svg" alt="RoadL Request" class="icon_90 selected"><span></span></button>';
+                            $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn w-600 d-table mr-auto ml-auto" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"><img src="https://app.doralhealthconnect.com/assets/img/icons/Request_RoadL.eml" alt="RoadL Request" class="icon_90 selected"><span></span></button>';
+                                
                         }
                     }
                     return $btn;
@@ -562,10 +573,15 @@ class CaregiverController extends Controller
         $data = [];
         if($request->has('q')){
             $search = $request->q;
-           
+            $status = '';
+            if ($request->status === 'pending') {
+                $status = ['0'];
+            } else {
+                $status = ['1', '2', '3', '5'];
+            }
             $data = User::whereHas('roles',function ($q){
                 $q->where('name','clinician');
-            })->whereIn('status', ['1', '2', '3', '5'])->select("id","first_name", 'last_name')
+            })->whereIn('status', $status)->select("id","first_name", 'last_name')
                 ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
                 ->get();
         }

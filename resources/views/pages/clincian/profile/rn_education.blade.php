@@ -22,7 +22,11 @@
                     <p>Position: <span>{{ isset($users->employer_detail['position']) ? $users->employer_detail['position'] : '' }}</span></p>
                 </td>
                 <td>
-                    <p>Are you currently employed? : <span>{{ isset($users->employer_detail['position']) ? viewDateFormat($users->employer_detail['isCurrentEmployee']) : '' }}</span></p>
+                    <p>Are you currently employed? : 
+                    <span>
+                        <input type="radio" {{ isset($users->employer_detail['position']) ? 'checked' : '' }}>Yes
+                        <input type="radio"{{ isset($users->employer_detail['position']) ? '' : 'checked' }}>No
+                    </span></p>
                 </td>
             </tr>
         </table>

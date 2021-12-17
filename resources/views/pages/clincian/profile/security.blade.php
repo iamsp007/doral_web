@@ -5,18 +5,18 @@
 </tr>
 <tr>
     <td>
-        <p>Have you ever been bonded? 
+        <p>Have you ever bonded? 
             <span>
-                <input type="radio" {{ ($users->security_detail && $users->security_detail['bond']) ? 'checked' : '' }}>Yes
-                <input type="radio" {{ ($users->security_detail && $users->security_detail['bond']) ? '' : 'checked' }} }}>No
+                <input type="radio" name="bond" {{ ($users->security_detail && $users->security_detail['bond']) ? 'checked' : '' }} onclick="return false;">Yes
+                <input type="radio" name="bond" {{ ($users->security_detail && $users->security_detail['bond']) ? '' : 'checked' }} }} onclick="return false;">No
             </span>
         </p>
     </td>
 </tr>
-@if($users->security_detail['bond'])
+@if(isset($users->security_detail['bond']) && $users->security_detail['bond'] == 'true')
 <tr>
     <td>
-        <p>If so, explain:<span>{{ $users->security_detail ? $users->security_detail['bond_explain'] : '' }}</span></p>
+        <p>If Yes, Explain:<span>{{ $users->security_detail ? $users->security_detail['bond_explain'] : '' }}</span></p>
     </td>
 </tr>
 @endif
@@ -24,16 +24,16 @@
     <td>
         <p>Have you been convicted of a falcony within the last 5 years?     
             <span>
-                <input type="radio" {{ ($users->security_detail && $users->security_detail['convict']) ? 'checked' : '' }}>Yes
-                <input type="radio" {{ ($users->security_detail && $users->security_detail['convict']) ? '' : 'checked' }}>No
+                <input type="radio" name="convict" {{ ($users->security_detail && $users->security_detail['convict']) ? 'checked' : '' }} onclick="return false;">Yes
+                <input type="radio" name="convict" {{ ($users->security_detail && $users->security_detail['convict']) ? '' : 'checked' }} onclick="return false;">No
             </span>
         </p>
     </td>
 </tr>
-@if($users->security_detail['convict'])
+@if(isset($users->security_detail['convict']) && $users->security_detail['convict'] == 'true')
 <tr>
     <td>
-        <p>If so, explain (this will not necessarily exclude you from consideration:<span>{{ $users->security_detail ? $users->security_detail['convict_explain'] : '' }}</span></p>
+        <p>If so, explain (this will not necessarily exclude you from consideration):<span>{{ $users->security_detail ? $users->security_detail['convict_explain'] : '' }}</span></p>
     </td>
 </tr>
 @endif

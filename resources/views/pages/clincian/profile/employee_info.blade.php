@@ -30,9 +30,9 @@
                     <td>
                         <p>SNN: <span>
                             @if (isset($users->address_detail['info']))
-                                {{ $users->address_detail['info'] ? $users->address_detail['info']['ssn'] : '' }}
+                                {{ $users->address_detail['info'] ? getSsn($users->address_detail['info']['ssn']) : '' }}
                             @else
-                                {{ ($users->ssn) ? $users->ssn : ''}}
+                                {{ ($users->ssn) ? getSsn($users->ssn) : ''}}
                             @endif
                         </span></p>
                     </td>
@@ -65,8 +65,8 @@
                     <td>
                         <p>Are you over 18 years of age?: 
                             <span>
-                                <input type="radio" {{ ($users->user && $users->user->age == 'Yes') ? 'checked' : '' }}>Yes
-                                <input type="radio" {{ ($users->user && $users->user->age == 'No') ? 'checked' : '' }}>No
+                                <input type="radio" name="age18" {{ ($users->user && $users->user->age == 'Yes') ? 'checked' : '' }} onclick="return false;">Yes
+                                <input type="radio" name="age18" {{ ($users->user && $users->user->age == 'No') ? 'checked' : '' }} onclick="return false;">No
                             </span>
                         </p>
                     </td>
@@ -81,32 +81,25 @@
                     <td>
                         <p>Sex: 
                             <span>
-                                <input type="radio" {{ ($users->user) && $users->user->gender === '1' ? 'checked' : '' }} >Male
-                                <input type="radio" {{ ($users->user) && $users->user->gender === '2' ? 'checked' : '' }}>Female
-                                <input type="radio" {{ ($users->user) && $users->user->gender === '3' ? 'checked' : '' }}>Other
+                                <input type="radio" name="gender" {{ ($users->user) && $users->user->gender === '1' ? 'checked' : '' }} onclick="return false;">Male
+                                <input type="radio" name="gender" {{ ($users->user) && $users->user->gender === '2' ? 'checked' : '' }} onclick="return false;">Female
+                                <input type="radio" name="gender" {{ ($users->user) && $users->user->gender === '3' ? 'checked' : '' }} onclick="return false;">Other
                             </span>
                         </p>
                     </td> 
-                    <td>
-                        <p>Ethnicity: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['Ethnicity'] : '' }}</span></p>
+                    <td>                     		
+                        <p>Ethnicity: <span> 
+                        	 @if($users->address_detail['info']['Ethnicity'] != 'Other')
+                                    {{ $users->address_detail['info'] ? $users->address_detail['info']['Ethnicity'] : '' }}
+                                @else
+                                    {{ $users->address_detail['info'] ? $users->address_detail['info']['OtherEthnicity'] : '' }}
+                                @endif</span></p>
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
-    @if($users->address_detail['info']['Ethnicity'] == 'Other')
-    <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                        <p>Other Ethnicity: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['OtherEthnicity'] : '' }}</span></p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    @endif
+   
     <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -114,9 +107,9 @@
                     <td>
                         <p>Date You Can Start Work: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['DateYouCanStartWork'] : '' }}</span></p>
                     </td>
-                    <td>
-                        <p>Salary Desired: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['salaryDesired'] : '' }}</span></p>
-                    </td>
+                    {{-- <td>
+                        <p>Salary Desired $/hr: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['salaryDesired'] : '' }}</span></p>
+                    </td> --}}
                 </tr>
             </table>
         </td>
@@ -127,29 +120,22 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <p>Date: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['date']  : ''}}</span></p>
+                            <p>Us Citizen: <span>
+                            <input type="radio" name="us_citizen" {{ isset($users->address_detail['info']['us_citizen']) && $users->address_detail['info']['us_citizen'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
+                            <input type="radio" name="us_citizen" {{ isset($users->address_detail['info']['us_citizen']) && $users->address_detail['info']['us_citizen'] == 'false' ? '' : 'checked' }} onclick="return false;">No
+                        </span></p>
                         </td>
-                        <td>
-                            <p>Us Citizen: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['us_citizen']  : ''}}</span></p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
+                      
+                         @if($users->address_detail['info']['us_citizen'] === false)
                         <td>
                             <p>Immigration Id: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['immigration_id']  : ''}}</span></p>
                         </td>
-                        <td>
-                            <p>Emergency Phone: <span>{{ isset($users->address_detail['info']) ? $users->address_detail['info']['emergency_phone']  : ''}}</span></p>
-                        </td>
-                    </tr>
+                         @endif
+                    </tr>  
                 </table>
             </td>
         </tr>
+       
     @endif
     <tr>
         <td>
@@ -208,7 +194,8 @@
                 </tr>
             </table>
         </td>
-    </tr>
+    </tr>    
+    @if(isset($users->address_detail['prior']))
     <tr>
         <td>
             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Prior Address</h1>
@@ -233,7 +220,7 @@
             </table>
         </td>
     </tr>
-    <tr>
+       <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
@@ -256,6 +243,8 @@
             </table>
         </td>
     </tr>
+    @endif
+ 
   
     {{-- <tr>
         <td>
@@ -286,10 +275,11 @@
         </td>
     </tr> --}}
  
-    @if ($users->user->designation_id == '2')
         <!-- Emergency Info Start -->
         @include('pages.clincian.profile.emergency_detail')
         <!-- Emergency Info End -->
+        
+    @if ($users->user->designation_id == '2')      
 
         <!-- Emergency Info Start -->
         {{-- @include('pages.clincian.profile.position') --}}

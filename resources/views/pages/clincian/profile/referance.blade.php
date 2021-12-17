@@ -35,8 +35,9 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>Terms: <span>{{ isset($users->reference_detail['terms']) && ($users->reference_detail['terms'] === '1') ? 'True' : 'False'}}</span></p>
+                        <p><span><input type="checkbox" name="terms" {{ isset($users->reference_detail['terms']) && ($users->reference_detail['terms'] == '1') ? 'checked' : '' }} onclick="return false;">I {{ ($users->user) ? $users->user->full_name : ''}} of applicant, agree to the release of the above mentioned information concerning my employment </br>with Doral Medical and Multi-Specialty Center, as may requested by prospective employer.</span></p>
                     </td>
+                    
                 </tr>
             </table>
         </td>
@@ -47,10 +48,17 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <p>Have You Ever Been Bonded: <span>{{ isset($users->reference_detail['haveYouEverBeenBonded']) && $users->reference_detail['haveYouEverBeenBonded'] == '1' ? 'True' : 'False' }}</span></p>
+                            <p>Have You Ever Been Bonded: <span>
+                            <input type="radio" {{ isset($users->reference_detail['haveYouEverBeenBonded']) && $users->reference_detail['haveYouEverBeenBonded'] == 'true' ? 'checked' : '' }}>Yes
+                            <input type="radio"{{ isset($users->reference_detail['haveYouEverBeenBonded']) && $users->reference_detail['haveYouEverBeenBonded'] == 'false' ? '' : 'checked' }}>No
+                        </span></p>
+                           
                         </td>
                         <td>
-                            <p>Have You Ever Been Refused Bond: <span>{{ isset($users->reference_detail['haveYouEverBeenRefusedBond']) && $users->reference_detail['haveYouEverBeenRefusedBond'] == '1' ? 'True' : 'False' }}</span></p>
+                            <p>Have You Ever Been Refused Bond: <span>
+                            <input type="radio" {{ isset($users->reference_detail['haveYouEverBeenRefusedBond']) && $users->reference_detail['haveYouEverBeenRefusedBond'] == 'true' ? 'checked' : '' }}>Yes
+                            <input type="radio"{{ isset($users->reference_detail['haveYouEverBeenRefusedBond']) && $users->reference_detail['haveYouEverBeenRefusedBond'] == 'false' ? '' : 'checked' }}>No
+                        </span></p>
                         </td>
                     </tr>
                 </table>
@@ -61,7 +69,10 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <p>Have You Over Been Convicated Of a Crime: <span>{{ isset($users->reference_detail['haveYouOverBeenConvicatedOfaCrime']) && $users->reference_detail['haveYouOverBeenConvicatedOfaCrime'] == '1' ? 'True' : 'False' }}</span></p>
+                            <p>Have You Over Been Convicated Of a Crime: <span>
+                            <input type="radio" {{ isset($users->reference_detail['haveYouOverBeenConvicatedOfaCrime']) && $users->reference_detail['haveYouOverBeenConvicatedOfaCrime'] == 'true' ? 'checked' : '' }}>Yes
+                            <input type="radio"{{ isset($users->reference_detail['haveYouOverBeenConvicatedOfaCrime']) && $users->reference_detail['haveYouOverBeenConvicatedOfaCrime'] == 'false' ? '' : 'checked' }}>No
+                        </span></p>
                         </td>
                     </tr>
                 </table>
@@ -73,7 +84,7 @@
         @foreach ($users->reference_detail['reference_list'] as $reference_detail)
             <tr>
                 <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Contact Information {{ $number}}</h1>
+                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Reference {{ $number}}</h1>
                 </td>
             </tr>
             <tr>
@@ -87,28 +98,51 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>Address:  <span>{{ $reference_detail['address1'] }}
-                                    @if (isset($reference_detail['address2']))
-                                    {{ $reference_detail['address2'] }}
-                                    @endif  
-                                    {{ isset($reference_detail['building']) ? $reference_detail['building'] : '' }}
-                                @if (isset($reference_detail['city_id']))
+             <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Address1: <span>  
+                        {{ isset($reference_detail['address1']) ? $reference_detail['address1'] : ''}}</span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                        {{ isset($reference_detail) ? $reference_detail['address2']  : ''}}</span></p>
+                      
+                    </td>
+                    <td>
+                        <p>Building: <span>{{ isset($reference_detail['building']) ? $reference_detail['building']  : ''}}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>City: <span>
+                            @if (isset($reference_detail['city_id']))
                                     {{ \App\Models\City::find($reference_detail['city_id'])->city }}
                                 @endif
-                                @if (isset($reference_detail['state_id']))
+                            </span></p>
+                    </td>
+                    <td>
+                        <p>State: <span>
+                        @if (isset($reference_detail['state_id']))
                                     {{ \App\Models\State::find($reference_detail['state_id'])->state }}
-                                    @endif
-                                    {{ isset($reference_detail['zipcode']) ? $reference_detail['zipcode'] : '' }} </span></p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+                                    @endif</span></p>
+                    </td>
+                    <td>
+                        <p>Zip: <span>{{ isset($reference_detail['zipcode']) ? $reference_detail['zipcode'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+           
             @php
             $phoneData = '';
             if(isset($reference_detail['phoneNo'])):
@@ -120,7 +154,7 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
-                                <p>Phone Home #: <span>{{ $phoneData }}</span></p>
+                                <p>Phone No #: <span>{{ $phoneData }}</span></p>
                             </td>
                         </tr>
                     </table>

@@ -91,7 +91,11 @@
                                             </td>
                                             <td style="padding: 3px 15px;width: calc(40% - 40px);display: inline-block;border-bottom: 1px solid #000;">
                                                 <p style="font-weight: normal;">Your Social Security number</p>
-                                                <label>{{ ($users->ssn) ? $users->ssn : ''}}</label>
+                                                <label>@if (isset($users->address_detail['info']))
+                                    {{ $users->address_detail['info'] ? $users->address_detail['info']['ssn'] : '' }}
+                                @else
+                                    {{ ($users->ssn) ? $users->ssn : ''}}
+                                @endif</label>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -155,18 +159,31 @@
                                                             <td valign="top">
                                                                 (C)
                                                             </td>
+                                                            
+                                                            @php
+                                                            	$Single = $Married = $Head = '';
+                                                            	if(isset($users->payroll_details['filesyourtax'])):
+                                                             if($users->payroll_details['filesyourtax'] == 'Single or Married filing separately'):
+	                                                             $Single = 'checked';
+                                                             elseif($users->payroll_details['filesyourtax'] == 'Married filling jointly or Qualifying widow(er)'):
+                                                              $Married = 'checked';
+                                                             elseif($users->payroll_details['filesyourtax'] == 'Head of Household (Check only if you’re unmarried and pay more than half the costs of the keeping up a home for yourself and a qualifying individual)'):
+                                                              $Head = 'checked';
+                                                             endif;
+                                                             endif;
+                                                             @endphp
                                                             <td>
                                                                 <div>
                                                                     <span style="width: 100%; border:0px;display: block;"> 
-                                                                        <input type="checkbox">
+                                                                        <input type="checkbox" {{ $Single}} onclick="return false;">
                                                                             Single or Married filing separately
                                                                     </span>
                                                                     <span style="width: 100%;display: block;  border:0px;">
-                                                                        <input type="checkbox">
+                                                                        <input type="checkbox" {{ $Married}} onclick="return false;">
                                                                             Married filing jointly (or Qualifying widow(err))
                                                                         </span>
                                                                     <span style="width: 100%; border:0px;display: block;">
-                                                                        <input type="checkbox">
+                                                                        <input type="checkbox" {{ $Head}} onclick="return false;">
                                                                         Head of household (Check only if you're unmarried and pay more than half the costs of keeping up a home for yourself and a qualifying individual.
                                                                     </span>
                                                                 </div>
@@ -208,7 +225,7 @@
                                                 <ol type="a" style="list-style: none;">
                                                     <li><b>(a)</b> Use the estimator at www.irs.gov/W4App for most accurate withholding for this step (and Steps 3-4); or</li>
                                                     <li><b>(b)</b> Use the Multiple Jobs Worksheet on page 3 and enter the result in Step 4(c) below for roughly accurate withholding; or</li>
-                                                    <li value="option3"><b>(c)</b> If there are only two jobs total, you may check this box. Do the same on Form W-4 for the other job. This option is accurate for jobs with similar pay; otherwise, more tax than necessary may be withheld......................... <input type="checkbox"></li>
+                                                    <li value="option3"><b>(c)</b> If there are only two jobs total, you may check this box. Do the same on Form W-4 for the other job. This option is accurate for jobs with similar pay; otherwise, more tax than necessary may be withheld......................... <input type="checkbox" onclick="return false;"></li>
                                                 </ol>
                                                 TIP: To be accurate, submit a 2021 Form W-4 for all other jobs. If you (or your spouse) have self-employment income, including as an independent contractor, use the estimator
                                             </td>
@@ -506,12 +523,16 @@
                             <tr>
                                 <td style="border-bottom: 1px solid #000;padding: 5px 15px;line-height: 22px;font-weight: bold;">
                                 Your Social Securitynumber <br>
-                                {{ ($users->ssn) ? $users->ssn : ''}}
+                                @if (isset($users->address_detail['info']))
+                                    {{ $users->address_detail['info'] ? $users->address_detail['info']['ssn'] : '' }}
+                                @else
+                                    {{ ($users->ssn) ? $users->ssn : ''}}
+                                @endif
                                 </td>
                             </tr>
                             <tr>                    
                                 <td style="padding: 5px 15px;line-height: 22px;font-weight: bold;">
-                                Single or Headof householdhold <input type="checkbox"> Married <input type="checkbox">, butwithholdat higher single rate <input type="checkbox"> <br>
+                                Single or Headof householdhold <input type="checkbox" onclick="return false;"> Married <input type="checkbox" onclick="return false;">, butwithholdat higher single rate <input type="checkbox" onclick="return false;"> <br>
                                 Note:If marriedbut legally separated,mark anXinthe Single or Headof householdbox.
                                 </td>
                             </tr>
@@ -526,8 +547,8 @@
             <table border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #000;font-weight: bold;" class="mystyle">
                 <tr>
                     <td width="75%" style="padding:5px 15px;vertical-align: top;">
-                        <label style="width: 100%;display: block;font-size: 14px;line-height: 15px">Are youa resident of New York City?............ <input type="checkbox"> Yes    <input type="checkbox"> No    </label>
-                        <label style="width: 100%;display: block;font-size: 14px;line-height: 15px">Are youa resident of Yonkers?........................ <input type="checkbox"> Yes    <input type="checkbox"> No    </label>
+                        <label style="width: 100%;display: block;font-size: 14px;line-height: 15px">Are youa resident of New York City?............ <input type="checkbox" onclick="return false;"> Yes    <input type="checkbox" onclick="return false;"> No    </label>
+                        <label style="width: 100%;display: block;font-size: 14px;line-height: 15px">Are youa resident of Yonkers?........................ <input type="checkbox" onclick="return false;"> Yes    <input type="checkbox" onclick="return false;"> No    </label>
                         <label style="width: 100%;display: block;font-size: 14px;line-height: 15px;margin-top: 0px; font-weight: bold; margin-bottom: 5px;">Complete theworksheet onpage 4 before makinganyentries.</label>           
                         <label style="width: 100%;display: block;font-size: 14px;line-height: 15px">1 Total number of allowances youare claimingfor New York State andYonkers, if applicable (fromline 20)</label>               
                         <label style="width: 100%;display: block;font-size: 14px;line-height: 15px">2 Total number of allowances for New York City(fromline 35) .....................................................</label>
@@ -610,9 +631,9 @@
                     <td style="line-height: 22px;padding-top: 15px; font-size: 14px;line-height: 25px;font-weight: normal;">
                         <b style="font-weight: bold;">Employer:Keepthis certificatewithyour records.</b> <br>
                         Mark anXinbox Aand/or box Btoindicatewhyyouare sendinga copyof this formtoNew York State (see instructions):<br>
-                        A Employee claimedmore than14 exemptionallowances for NYS.........A <input type="checkbox"><br>
-                        Employee is a new hire or a rehire ...B<input type="checkbox"> First date employee performedservices for pay(mm-dd-yyyy) (see instr.):<span></span><br>
-                        Are dependent healthinsurance benefits available for this employee?.................. Yes <input type="checkbox">   No <input type="checkbox">
+                        A Employee claimedmore than14 exemptionallowances for NYS.........A <input type="checkbox" onclick="return false;"><br>
+                        Employee is a new hire or a rehire ...B<input type="checkbox" onclick="return false;"> First date employee performedservices for pay(mm-dd-yyyy) (see instr.):<span></span><br>
+                        Are dependent healthinsurance benefits available for this employee?.................. Yes <input type="checkbox" onclick="return false;">   No <input type="checkbox" onclick="return false;">
                         <br>
                         If Yes, enter the date the employee qualifies (mm-dd-yyyy): <b><span></span></b>
                         <br>
@@ -741,8 +762,8 @@
                         <tr>
                             <td style="line-height: 15px;padding: 10px 0;font-weight: bold;">
                             2. Notice Given <br>
-                            <input type="checkbox" checked="checked"> At hiring <br>
-                            <input type="checkbox"> Before a change in pay rate(s),
+                            <input type="checkbox" checked="checked" onclick="return false;"> At hiring <br>
+                            <input type="checkbox" onclick="return false;"> Before a change in pay rate(s),
                             allowances claimed or payday
                             </td>
                         </tr>
@@ -755,20 +776,20 @@
                     </div>
                     <div style="margin-bottom: 10px">
                         4. Allowances taken:<br>
-                        <input type="checkbox" checked="checked">None<br>
-                        <input type="checkbox">Tips<span>&nbsp;&nbsp;</span>per hour<br>
-                        <input type="checkbox">Meals<span>&nbsp;&nbsp;</span>per hour<br>
-                        <input type="checkbox">Lodging<span>&nbsp;&nbsp;</span><br>
-                        <input type="checkbox">Other<span>&nbsp;&nbsp;</span>
+                        <input type="checkbox" onclick="return false;" checked="checked">None<br>
+                        <input type="checkbox" onclick="return false;">Tips<span>&nbsp;&nbsp;</span>per hour<br>
+                        <input type="checkbox" onclick="return false;">Meals<span>&nbsp;&nbsp;</span>per hour<br>
+                        <input type="checkbox" onclick="return false;">Lodging<span>&nbsp;&nbsp;</span><br>
+                        <input type="checkbox" onclick="return false;">Other<span>&nbsp;&nbsp;</span>
                     </div>
                     <div style="margin-bottom: 10px">
                         5. Regular payday: <span>Tuesday</span><br>
                     </div>
                     <div style="margin-bottom: 10px">
                         6. Pay is:
-                        <input type="checkbox" checked="checked">Weekly<br>
-                        <input type="checkbox">Bi-Weekly<br>
-                        <input type="checkbox">Other
+                        <input type="checkbox" onclick="return false;"checked="checked">Weekly<br>
+                        <input type="checkbox" onclick="return false;">Bi-Weekly<br>
+                        <input type="checkbox" onclick="return false;">Other
                     </div>
                     <div>
                         7. Overtime Pay Rate:<br>
@@ -786,9 +807,9 @@
                         the date given below. I told my
                         employer what my primary language is.<br><br>
                         Check One:<br>
-                        <input type="checkbox"> I have been given this pay notice in
+                        <input type="checkbox" onclick="return false;"> I have been given this pay notice in
                         English because it is primary language.<br>
-                        <input type="checkbox"> My primary language is<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> API HAS
+                        <input type="checkbox" onclick="return false;"> My primary language is<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> API HAS
                         LANGUAGE ID I have been given this
                         pay notice in English only, because the
                         department of Labor does not yet offer
@@ -906,7 +927,11 @@
                     <tbody>
                         <tr>
                             <td width="50%" style="padding-bottom: 5px;">Your name: <span>{{ ($users->user) ? $users->user->full_name : '' }}</span></td>
-                            <td>Social security number <span>{{ ($users->ssn) ? $users->ssn : '' }}</span></td>
+                            <td>Social security number <span>@if (isset($users->address_detail['info']))
+                                    {{ $users->address_detail['info'] ? $users->address_detail['info']['ssn'] : '' }}
+                                @else
+                                    {{ ($users->ssn) ? $users->ssn : ''}}
+                                @endif</span></td>
                         </tr>
                         <tr>
                             <td width="50%">First date of employment</td>
@@ -1164,7 +1189,7 @@
     <tr>
         <td>
             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">
-                REBEOLA IMMUNITY
+                RUBELLA IMMUNITY
             </h1>
         </td>
     </tr>
@@ -1180,7 +1205,11 @@
                         </td>
                         <td>
                             <p>SSN:<span>
-                            {{ ($users->ssn) ? $users->ssn : ''}}</span>
+                            @if (isset($users->address_detail['info']))
+                                    {{ $users->address_detail['info'] ? $users->address_detail['info']['ssn'] : '' }}
+                                @else
+                                    {{ ($users->ssn) ? $users->ssn : ''}}
+                                @endif</span>
                             </p>
                         </td>
                     </tr>
@@ -1194,8 +1223,7 @@
                 <tbody>
                     <tr>
                         <td style="width: 50%;">
-                            <p>DOE:<span>
-                            {{ ($users->user) ? $users->user->dob : ''}} </span>
+                            <p>DOE:<span></span>
                             </p>
                         </td>
                         <td>
@@ -1364,28 +1392,28 @@
                                 <tbody>
                                     <tr style="font-weight: normal;">
                                         <td>
-                                            <input type="checkbox">I believe I will get influenza if I get the vaccine.
+                                            <input type="checkbox" onclick="return false;">I believe I will get influenza if I get the vaccine.
                                         </td>
                                     </tr>
                                     <tr style="font-weight: normal;">
                                         <td>
-                                            <input type="checkbox">I do not like needles.
+                                            <input type="checkbox" onclick="return false;">I do not like needles.
                                         </td>
                                     </tr>
                                     <tr style="font-weight: normal;">
                                         <td>
-                                            <input type="checkbox">My philosophical or religious beliefs prohibit vaccination
+                                            <input type="checkbox" onclick="return false;">My philosophical or religious beliefs prohibit vaccination
                                         </td>
                                     </tr>
                                     <tr style="font-weight: normal;">
                                         <td>
-                                            <input type="checkbox">I have an allergy or medical contraindication to receiving the vaccine.
+                                            <input type="checkbox" onclick="return false;">I have an allergy or medical contraindication to receiving the vaccine.
                                         </td>
                                     </tr>
                                     <tr style="font-weight: normal;">
                                         <td>
                                             <p style="font-weight: normal; white-space: nowrap; font-size: 13px;">
-                                            <input type="checkbox">Other reason — please tell us:<span>&nbsp; &nbsp; &nbsp;</span></p>
+                                            <input type="checkbox" onclick="return false;">Other reason — please tell us:<span>&nbsp; &nbsp; &nbsp;</span></p>
                                         </td>
                                     </tr>
                                 </tbody>

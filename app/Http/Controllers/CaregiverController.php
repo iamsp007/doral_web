@@ -120,7 +120,8 @@ class CaregiverController extends Controller
                     }
                 });
             } else if($request['serviceStatus'] == 'covid-19') {
-		        $query->whereHas('demographic',function ($query) use($request) {
+		$query->whereHas('demographic',function ($query) use($request) {
+
                     $query->where('service_id', 6);
 
                     if(Auth::guard('referral')) {
@@ -215,7 +216,8 @@ class CaregiverController extends Controller
                 $query->whereBetween('due_date',[$startDate,$endDate]);
             });
         })
-        ->with('demographic', 'caseManagement', 'demographic.services', 'patientReport', 'patientReport.labReports','patientRequest');
+        ->with('demographic', 'caseManagement', 'demographic.services', 'patientReport', 'patientReport.labReports','patientRequest')->orderBy('id', 'DESC');
+            
             
         $datatble = DataTables::of($patientList->get());
             $datatble->addColumn('checkbox_id', function($q) use($request) {

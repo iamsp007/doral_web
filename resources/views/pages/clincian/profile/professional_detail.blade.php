@@ -20,236 +20,315 @@
         </td>
     </tr>
     <tr>
+        <td style="width: 50%;">
+            <p>Medicare Enrolled:
+                <span>
+                 
+                            <input type="radio" name="medicareEnrolled" {{ isset($users->professional_detail['medicareEnrolled']) && $users->professional_detail['medicareEnrolled'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
+                            <input type="radio" name="medicareEnrolled" {{ isset($users->professional_detail['medicareEnrolled']) && $users->professional_detail['medicareEnrolled'] == 'false' ? '' : 'checked' }} onclick="return false;">No
+                      
+                </span>
+            </p>
+        </td>
+    </tr>
+    @if(isset($users->professional_detail['medicareEnrolled']) && $users->professional_detail['medicareEnrolled'] == 'true')
+    <tr>
+        <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Medicare Detail:</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style="width: 100%;border: 1px solid #a5a5a5;margin-bottom: 20px;">
+                <tr>
+                    <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;border: 1px solid #a5a5a5;">#
+                    </th>
+                    <th style="width: 20%;">
+                        <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;"> Number</h1>
+                    </th>
+                    <th style="width: 20%;">
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">State</h1>
+                    </th>
+                </tr>
+                @php $number=1; @endphp
+                @if (isset($users->professional_detail['medicare']) && count($users->professional_detail['medicare']) > 0)
+                    @foreach ($users->professional_detail['medicare'] as $medicare)
+                        <tr style="background: #f8f8f8;">
+                            <td style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">{{ $number }}</td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            {{ isset($medicare['Number']) ? $medicare['Number'] : '' }}
+                            </td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            @if (isset($medicare['StateID']))
+                                            {{ \App\Models\State::find($medicare['StateID'])->state }}
+                                        @endif
+                            </td>
+                        
+                        </tr>
+                        @php $number++; @endphp
+                    @endforeach
+                                                                    
+                @endif
+            </table>
+        </td>
+    </tr>
+    @endif
+    <tr>
+        <td>
+            <p>Medicaid Enrolled:
+                <span>
+                  <input type="radio" name="medicaidEnrolled" {{ isset($users->professional_detail['medicaidEnrolled']) && $users->professional_detail['medicaidEnrolled'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
+                            <input type="radio" name="medicaidEnrolled" {{ isset($users->professional_detail['medicaidEnrolled']) && $users->professional_detail['medicaidEnrolled'] == 'false' ? '' : 'checked' }} onclick="return false;">No
+                   
+                </span>
+            </p>
+        </td>
+    </tr>
+    @if(isset($users->professional_detail['medicaidEnrolled']) && $users->professional_detail['medicareEnrolled'] == 'true')
+    <tr>
+        <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Medicaid Detail:</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style="width: 100%;border: 1px solid #a5a5a5;margin-bottom: 20px;">
+                <tr>
+                    <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;border: 1px solid #a5a5a5;">#
+                    </th>
+                    <th style="width: 20%;">
+                        <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;"> Number</h1>
+                    </th>
+                    <th style="width: 20%;">
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">State</h1>
+                    </th>
+                </tr>
+                @php $number=1; @endphp
+                    @if (isset($users->professional_detail['medicaid']) && count($users->professional_detail['medicaid']) > 0)
+                        @foreach ($users->professional_detail['medicaid'] as $medicaid)
+                        <tr style="background: #f8f8f8;">
+                            <td style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">{{ $number }}</td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            {{ isset($medicaid['Number']) ? $medicaid['Number'] : '' }}
+                            </td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            @if (isset($medicaid['StateID']))
+                                        {{ \App\Models\State::find($medicaid['StateID'])->state }}
+                                    @endif
+                            </td>
+                        
+                        </tr>
+                        @php $number++; @endphp
+                    @endforeach
+                                                                    
+                @endif
+            </table>
+        </td>
+    </tr>
+    @endif
+    <tr>
+        <td style="width: 50%;">
+            <p>Age range you treated:
+                <span>
+                    <input type="checkbox" name="age" {{ ($users->professional_detail['age_0_18']) ? 'checked' : '' }} onclick="return false;"> Age 0 to 18
+                    <input type="checkbox" name="age" {{ ($users->professional_detail['age_19_40']) ? 'checked' : '' }} onclick="return false;"> Age 19 to 40
+                     <input type="checkbox" name="age" {{ ($users->professional_detail['age_41_65']) ? 'checked' : '' }} onclick="return false;"> Age 41 to 65
+                    <input type="checkbox" name="age" {{ ($users->professional_detail['age_65Plus']) ? 'checked' : '' }} onclick="return false;"> Age 65+
+                </span>
+            </p>
+        </td>
+     
+    </tr>
+    <tr>
+        <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">State License Information:</h1>
+        </td>
+        </tr>
+    <tr>
+        <td>
+            <table style="width: 100%;border: 1px solid #a5a5a5;margin-bottom: 20px;">
+                <tr>
+                    <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;border: 1px solid #a5a5a5;">#
+                    </th>
+                    <th style="width: 20%;">
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">State</h1>
+                    </th>
+                    <th style="width: 20%;">
+                        <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">License Number</h1>
+                    </th>
+                    <th style="width: 20%;">
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Category</h1>
+                    </th>
+                
+                </tr>
+                @php $number=1; @endphp
+                    @if (isset($users->professional_detail['stateLicense']) && count($users->professional_detail['stateLicense']) > 0)
+                        @foreach ($users->professional_detail['stateLicense'] as $stateLicense)
+                        <tr style="background: #f8f8f8;">
+                            <td style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">{{ $number }}</td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            @if (isset($stateLicense['StateID']))
+                                        {{ \App\Models\State::find($stateLicense['StateID'])->state }}
+                                    @endif
+                            </td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            {{ isset($stateLicense['Number']) ? $stateLicense['Number'] : '' }}
+                            </td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                        {{ isset($stateLicense['Category']) ? $stateLicense['Category'] : '' }}
+                            </td>
+                        
+                        </tr>
+                        @php $number++; @endphp
+                    @endforeach
+                                                                    
+                @endif
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Board Certificate Information:</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table style="width: 100%;border: 1px solid #a5a5a5;margin-bottom: 20px;">
+                <tr>
+                    <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;border: 1px solid #a5a5a5;">#
+                    </th>
+                
+                    <th style="width: 20%;">
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Certificate</h1>
+                    </th>
+                    <th style="width: 20%;">
+                        <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;"> Status</h1>
+                    </th>
+                </tr>
+                @php $number=1; @endphp
+                    @if (isset($users->professional_detail['boardCertificate']) && count($users->professional_detail['boardCertificate']) > 0)
+                        @foreach ($users->professional_detail['boardCertificate'] as $boardCertificate)
+                        <tr style="background: #f8f8f8;">
+                            <td style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">{{ $number }}</td>
+                        
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                        {{ isset($boardCertificate['certificate']) ? $boardCertificate['certificate'] : '' }}
+                            </td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            {{ isset($boardCertificate['status']) ? $boardCertificate['status'] : '' }}
+                            </td>
+                        </tr>
+                        @php $number++; @endphp
+                    @endforeach
+                                                                    
+                @endif
+            </table>
+        </td>
+    </tr>
+    <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td style="width: 50%;">
-                        <p>Age:
-                            <span>
-                                <input type="checkbox" {{ ($users->professional_detail['age_0_18']) ? 'checked' : '' }}> Age 0 to 18
-                                <input type="checkbox" {{ ($users->professional_detail['age_19_40']) ? 'checked' : '' }}> Age 19 to 40
-                            </span>
-                        </p>
-                    </td>
                     <td>
-                        <p>
-                            <span>
-                                <input type="checkbox" {{ ($users->professional_detail['age_41_65']) ? 'checked' : '' }}> Age 41 to 65
-                                <input type="checkbox" {{ ($users->professional_detail['age_65Plus']) ? 'checked' : '' }}> Age 65+
-                                </span>
-                        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 50%;">
                         <p>Federal DEA Id:<span>{{ $users->professional_detail['federal_DEA_id']}}</span></p>
                     </td>
                     <td>
-                        <p>Medicaid Enrolled:
-                            <span>
-                                <input type="radio" {{ isset($users->professional_detail['medicaidEnrolled']) ? 'checked' : '' }}> Yes
-                                <input type="radio" {{ isset($users->professional_detail['medicaidEnrolled']) ? '' : 'checked' }}> No
-                            </span>
-                        </p>
+                        <p>Expire Month/Year:<span>{{ $users->professional_detail['fedExpiredMonthYear']}}</span></p>
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 50%;">
-                        <p>Medicare Enrolled:
-                            <span>
-                                <input type="radio" {{ isset($users->professional_detail['medicareEnrolled']) ? 'checked' : '' }}> Yes
-                                <input type="radio" {{ isset($users->professional_detail['medicareEnrolled']) ? '' : 'checked' }}> No
-                               
-                            </span>
-                        </p>
-                    </td>
-                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td>
-                                    <p>Address:  <span>
-                                        @if (isset($users->professional_detail['npa_address1']))
-                                        {{ $users->professional_detail['npa_address1'] }}
-                                        @endif  
-                                        @if (isset($users->professional_detail['npa_address2']))
-                                        {{ $users->professional_detail['npa_address2'] }}
-                                        @endif  
-                                        {{ isset($users->professional_detail['npa_building']) ? $users->professional_detail['npa_building'] : '' }}
-                                    @if (isset($users->professional_detail['npa_cityId']))
-                                        {{ \App\Models\City::find($users->professional_detail['npa_cityId'])->city }}
-                                    @endif
-                                    @if (isset($users->professional_detail['npa_stateId']))
-                                        {{ \App\Models\State::find($users->professional_detail['npa_stateId'])->state }}
-                                        @endif
-                                        {{ isset($users->professional_detail['npa_zipCode']) ? $users->professional_detail['npa_zipCode'] : '' }} </span></p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 50%;">
-                        <p>Fed Expired Month Year:<span>{{ $users->professional_detail['fedExpiredMonthYear']}}</span></p>
-                    </td>
-                     <td style="width: 50%;">
                         <p>Npi Number:<span>{{ $users->professional_detail['npiNumber']}}</span></p>
                     </td>
                 </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td style="width: 50%;">
+                    <td>
                         <p>Npi Type:<span>{{ $users->professional_detail['npiType']}}</span></p>
                     </td>
-                     <td style="width: 50%;">
-                        <p>Npi OrgName:<span>{{ $users->professional_detail['npiOrgName']}}</span></p>
+                  
+                    @if(isset($users->professional_detail['npiType']) && ($users->professional_detail['npiType'] == 'Individuan' || $users->professional_detail['npiType'] == 'Organisation'))
+                    <td>
+                        <p>Npi Organization Name:<span>{{ $users->professional_detail['npiOrgName']}}</span></p>
+                    </td>
+                    @endif
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Address1: <span>  
+                        @if (isset($users->professional_detail['npa_address1']))
+                            {{ $users->professional_detail['npa_address1'] }}
+                        @endif </span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                        @if (isset($users->professional_detail['npa_address2']))
+                            {{ $users->professional_detail['npa_address2'] }}
+                        @endif</span></p>
+                    </td>
+                    <td>
+                        <p>Building: <span> {{ isset($users->professional_detail['npa_building']) ? $users->professional_detail['npa_building'] : '' }}</span></p>
                     </td>
                 </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td style="width: 50%;">
-                        <p>Taxonomy Description:<span>
+                    <td>
+                        <p>City: <span> 
+                            @if (isset($users->professional_detail['npa_cityId']))
+                                {{ \App\Models\City::find($users->professional_detail['npa_cityId'])->city }}
+                            @endif
+                        </span></p>
+                    </td>
+                    <td>
+                        <p>State: <span>
+                        @if (isset($users->professional_detail['npa_stateId']))
+                                {{ \App\Models\State::find($users->professional_detail['npa_stateId'])->state }}
+                                @endif
+                        </span></p>
+                    </td>
+                    <td>
+                        <p>Zipcode: <span>{{ isset($users->professional_detail['npa_zipCode']) ? $users->professional_detail['npa_zipCode'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                    <p>Taxonomy Description:<span>
                         @if (isset($users->professional_detail['taxonomyDescription']))
                             {{ $users->professional_detail['taxonomyDescription']}}
                         @endif</span></p>
                     </td>
-                    
-                   </tr>
+                </tr>
             </table>
         </td>
     </tr>
-    @php $number=1; @endphp
-    @if (isset($users->professional_detail['medicare']) && count($users->professional_detail['medicare']) > 0)
-        @foreach ($users->professional_detail['medicare'] as $medicare)
-            <tr>
-                <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Medicare Information {{ $number}}:</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>Number: <span>{{ isset($medicare['Number']) ? $medicare['Number'] : '' }}</span></p>
-                            </td>
-                            <td>
-                                <p>State:  <span>
-                                    @if (isset($medicare['StateID']))
-                                        {{ \App\Models\State::find($medicare['StateID'])->state }}
-                                    @endif
-                                </span></p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        @php $number++; @endphp
-        @endforeach
-    @endif
 
-    @php $number=1; @endphp
-    @if (isset($users->professional_detail['medicaid']) && count($users->professional_detail['medicaid']) > 0)
-        @foreach ($users->professional_detail['medicaid'] as $medicaid)
-            <tr>
-                <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Medicaid Information {{ $number}}:</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>Number: <span>{{ isset($medicaid['Number']) ? $medicaid['Number'] : '' }}</span></p>
-                            </td>
-                            <td>
-                                <p>State:  <span>
-                                    @if (isset($medicaid['StateID']))
-                                        {{ \App\Models\State::find($medicaid['StateID'])->state }}
-                                    @endif
-                                </span></p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        @php $number++; @endphp
-        @endforeach
-    @endif
-
-    @php $number=1; @endphp
-    @if (isset($users->professional_detail['stateLicense']) && count($users->professional_detail['stateLicense']) > 0)
-        @foreach ($users->professional_detail['stateLicense'] as $stateLicense)
-            <tr>
-                <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">State License Information {{ $number}}:</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>Number: <span>{{ isset($stateLicense['Number']) ? $stateLicense['Number'] : '' }}</span></p>
-                            </td>
-                        </tr>
-                        <td>
-                            <p>Category: <span>{{ isset($stateLicense['Category']) ? $stateLicense['Category'] : '' }}</span></p>
-                        </td>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>State:  <span>
-                                    @if (isset($stateLicense['StateID']))
-                                        {{ \App\Models\State::find($stateLicense['StateID'])->state }}
-                                    @endif
-                                </span></p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        @php $number++; @endphp
-        @endforeach
-    @endif
-
-    @php $number=1; @endphp
-    @if (isset($users->professional_detail['boardCertificate']) && count($users->professional_detail['boardCertificate']) > 0)
-        @foreach ($users->professional_detail['boardCertificate'] as $boardCertificate)
-            <tr>
-                <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Board Certificate Information {{ $number}}:</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>Status: <span>{{ isset($boardCertificate['status']) ? $boardCertificate['status'] : '' }}</span></p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                            <p>Certificate: <span>{{ isset($boardCertificate['certificate']) ? $boardCertificate['certificate'] : '' }}</span></p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        @php $number++; @endphp
-        @endforeach
-    @endif
 </table>
 <!-- page 2 end-->

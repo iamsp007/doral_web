@@ -253,6 +253,7 @@ class PatientReferralController extends Controller
 
     public function store(Request $request)
     {
+       
         $user = Auth::guard('referral')->user();
       
         $request['referral_id'] = $user->referal_id;
@@ -260,8 +261,9 @@ class PatientReferralController extends Controller
 
         try {
               $folder = 'csv';
-            if ($request->vbc_select === 1)
+            if ($request->vbc_select === "1")
             {
+                
                 $folder = "demographic";
             }
             elseif ($request->vbc_select === 2)
@@ -276,7 +278,7 @@ class PatientReferralController extends Controller
             {
                 $folder = "previous_md";
             }
-
+          
             if ($request->hasFile('file_name'))
             {
                 $filenameWithExt = $request->file('file_name')
@@ -290,7 +292,12 @@ class PatientReferralController extends Controller
                     ->storeAs($folder, $fileNameToStore);
 
                 $filePath = storage_path('app/' . $path);
-                $import = PatientImportSheet::dispatch($request->referral_id, $request->service_id, $request->vbc_select, $request->formSelect, $filenameWithExt, $filePath);
+                $companyID='';
+                if(Auth::guard('referral')) {
+                    $companyID = Auth::guard('referral')->user()->id;
+                } 
+               
+                $import = PatientImportSheet::dispatch($request->referral_id, $request->service_id, $request->vbc_select, $request->formSelect, $filenameWithExt, $filePath,$companyID);
 
                 $response = [
                     'status' => true,

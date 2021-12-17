@@ -47,7 +47,31 @@ if (!function_exists('curlCall')) {
             if (isset($input['patientId'])) {
                 $patientID = '<PatientID>' . $input['patientId'] . '</PatientID>';
             }
-            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<SearchFilters><StartDate>' . $input['from_date'] .'</StartDate><EndDate>' . $input['to_date']  . '</EndDate>'.$patientID.'</SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+            $caregiverID = '';
+            if (isset($input['caregiverID'])) {
+                $caregiverID = '<CaregiverID>' . $input['caregiverID'] . '</CaregiverID>';
+            }
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<SearchFilters><StartDate>' . $input['from_date'] .'</StartDate><EndDate>' . $input['to_date']  . '</EndDate>'.$patientID.$caregiverID.'</SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        
+            $method = 'POST';
+            return curlCall($data, $method);
+        }
+    }
+    if (!function_exists('searchPatientId')) {
+        
+        function searchPatientId($input)
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchPatients xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<SearchFilters><AdmissionID>' . $input['adminssionId'] .'</AdmissionID></SearchFilters></SearchPatients></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+        
+            $method = 'POST';
+            return curlCall($data, $method);
+        }
+    }
+    if (!function_exists('searchCaregiverId')) {
+        
+        function searchCaregiverId($input)
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchCaregivers xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<SearchFilters><CaregiverCode>' . $input['caregiverCode'] .'</CaregiverCode></SearchFilters></SearchCaregivers></SOAP-ENV:Body></SOAP-ENV:Envelope>';
         
             $method = 'POST';
             return curlCall($data, $method);
@@ -156,7 +180,16 @@ if (!function_exists('curlCall')) {
     if (!function_exists('confirmVisits')) {
         function confirmVisits($input)
         {
-            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><ConfirmVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication($input). '<VisitInfo><VisitID>' . $input['visitId'] . '</VisitID><VisitStartTime>' . $input['startTime']. '</VisitStartTime><VisitEndTime>' . $input['endTime']. '</VisitEndTime><ReasonCode>100</ReasonCode><ActionCode>10</ActionCode></VisitInfo></ConfirmVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+            $duties = '';
+//            if (isset($input['duties'])) {
+//                $dutiesExplode = explode(',' ,$input['duties']);
+//                foreach ($dutiesExplode as $v) {
+////                    $duties .= '<Duty><DutyCode>'.$v.'</DutyCode><AdditionalData>'.$v.'</AdditionalData><Status>Open</Status></Duty>';
+////                    $duties .= '<Duty><DutyCode>'.$v.'</DutyCode><AdditionalData>'.$v.'</AdditionalData><Status>Success</Status></Duty>';
+//                }
+//            }
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><ConfirmVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication($input). ''
+                    . '<VisitInfo><VisitID>' . $input['visitId'] . '</VisitID><VisitStartTime>' . $input['startTime']. '</VisitStartTime><VisitEndTime>' . $input['endTime']. '</VisitEndTime></VisitInfo></ConfirmVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
             
             $method = 'POST';
             return curlCall($data, $method);

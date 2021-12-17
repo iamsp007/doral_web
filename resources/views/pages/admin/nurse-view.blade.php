@@ -323,7 +323,7 @@
                                     </div>
                                  </div>
                               </div>   
-                              <div class="col-12 col-sm-4">
+                              {{-- <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
                                        <div><i class="las la-angle-double-right circle-icon"></i></div>
@@ -333,7 +333,7 @@
                                        </div>
                                     </div>
                                  </div>
-                              </div>
+                              </div> --}}
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">

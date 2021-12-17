@@ -29,6 +29,9 @@
                 <tbody>
                     @php $counter = 1 @endphp
                     @foreach ($users->documents as $document)
+                    <tr style="background: #f8f8f8;">
+                            <td style="width: 100%;text-align: left;border-bottom: 1px solid #a5a5a5;">{{ $document->file_type }}</td>
+                        </tr>
                         <tr style="background: #f8f8f8;">
                             <td style="width: 100%;text-align: left;border-bottom: 1px solid #a5a5a5;"><img style="width: 100%; height: 100%;" src="{{ $document->file_url }}" alt="Welcome to Doral" srcset="{{ $document->file_url }}"></td>
                         </tr>

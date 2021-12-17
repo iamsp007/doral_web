@@ -1,7 +1,7 @@
 
 <tr>
     <td>
-        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Emergency Contact Information</h1>
+        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Emergency Contact</h1>
     </td>
     </tr>
 @php $counter = 1 @endphp
@@ -26,23 +26,32 @@
                             <p>Name: <span>{{ isset($emergency_detail['name']) ? $emergency_detail['name'] : ''}}</span></p>
                         </td>
                         <td>
-                            <p>Home Phone: <span>{{ $phoneData }}</span></p>
+                            <p>Phone No: <span>{{ $phoneData }}</span></p>
                         </td>
                     </tr>
                 </table>
             </td>
         </tr> 
-        <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <p>Address: <span>{{ isset($emergency_detail['address1']) ? $emergency_detail['address1'] : '' }} {{ isset($emergency_detail['address2']) ? $emergency_detail['address2'] : ''}} {{ isset($emergency_detail['building']) ? $emergency_detail['building'] : '' }} </span></p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+      
+         <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Address1: <span>  
+                        {{ isset($emergency_detail['address1']) ? $emergency_detail['address1'] : '' }}</span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                       {{ isset($emergency_detail['address2']) ? $emergency_detail['address2'] : ''}}</span></p>
+                    </td>
+                    <td>
+                        <p>Building: <span>{{ isset($emergency_detail['building']) ? $emergency_detail['building'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
         <tr>
             <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">

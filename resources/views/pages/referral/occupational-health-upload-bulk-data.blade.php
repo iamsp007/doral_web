@@ -100,6 +100,7 @@
     <script src="{{ asset('assets/js/app.referral.vbc.upload.bulk.data.min.js') }}"></script>
     <script>
         var fileType = $('input[name="vbc_select"]').val();
+       
         var myDropzone = new Dropzone("#dropzone-file-vbc", {
             url: "{{ route('referral.vbc-upload-bulk-data-store') }}",
             maxFilesize: 209715200,
@@ -153,6 +154,7 @@
         });
         function chooseFile(event) {
             fileType = $(event).val();
+            return fileType;
         }
     </script>
     <script>

@@ -91,28 +91,53 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <p>Address:  <span>{{ $workHistory['address1'] }}
-                                    @if (isset($workHistory['address2']))
+            
+             <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Address1: <span>  
+                        {{ $workHistory['address1'] }}</span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                        @if (isset($workHistory['address2']))
                                     {{ $workHistory['address2'] }}
-                                    @endif  
-                                    {{ isset($workHistory['building']) ? $workHistory['building'] : '' }}
+                                    @endif</span></p>
+                    </td>
+                    <td>
+                        <p>Building: <span> {{ isset($workHistory['building']) ? $workHistory['building'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>City: <span> 
                                 @if (isset($workHistory['cityId']))
                                     {{ \App\Models\City::find($workHistory['cityId'])->city }}
                                 @endif
-                                @if (isset($workHistory['stateId']))
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>State: <span>
+                                 @if (isset($workHistory['stateId']))
                                     {{ \App\Models\State::find($workHistory['stateId'])->state }}
                                     @endif
-                                    {{ isset($workHistory['zipCode']) ? $workHistory['zipCode'] : '' }} </span></p>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>Zipcode: <span>{{ isset($workHistory['zipCode']) ? $workHistory['zipCode'] : '' }}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
         @php $number++; @endphp
         @endforeach
     @else

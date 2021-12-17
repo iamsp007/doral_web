@@ -118,7 +118,7 @@ return [
         //['name'=>'Occupational Health','url'=>env('APP_URL').'referral/occupational-health','route'=>'referral/occupational-health','icon'=>'occupational-selected-sb.svg','icon_hover'=>'occupational-sb.svg'],
         //['name'=>'Tele Health','url'=>env('APP_URL').'referral/occupational-health','route'=>'referral/occupational-health'],
         [
-            'name'=>'Services',
+            'name'=>'Referral Services',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',
             'icon'=>'service-sb.svg',
@@ -126,7 +126,7 @@ return [
             'icon_title'=>'Services',
             'menu' => [
                 [
-                    'name'=>'1',
+                    'name'=>'VBC',
                     'url'=>env('APP_URL').'referral/service/vbc',
                     'route'=>'referral/vbc',
                     'icon'=>'home-sb-select.svg',
@@ -134,7 +134,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'2',
+                    'name'=>'MD Order',
                     'url'=>env('APP_URL').'referral/service/md-order',
                     'route'=>'referral/md-order',
                     'icon'=>'home-sb-select.svg',
@@ -142,7 +142,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'3',
+                    'name'=>'Occupational Health',
                     'url'=>env('APP_URL').'referral/service/occupational-health',
                     'route'=>'referral/occupational-health',
                     'icon'=>'home-sb-select.svg',
@@ -150,7 +150,7 @@ return [
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'6',
+                    'name'=>'Covid-19',
                     'url'=>env('APP_URL').'referral/service/covid-19',
                     'route'=>'referral/covid-19',
                     'icon'=>'home-sb-select.svg',

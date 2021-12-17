@@ -28,7 +28,10 @@
                             <td style="width: 50%;">
                                 <p>How do you files your tax?:
                                     <span>
-                                        {{ $users->payroll_details['filesyourtax']}}
+                                    	@php
+                                    	$string = Str::of($users->payroll_details['filesyourtax'])->words(15, ' ...');
+                                    	@endphp
+                                        {{ $string}}
                                     </span>
                                 </p>
                             </td>                           
@@ -105,7 +108,10 @@
                     <tbody>
                         <tr>
                             <td>
-                                <p>Type Of Account:<span>{{ $users->payroll_details['typeOfAccount']}}</span></p>
+                                <p>Type Of Account:<span>
+                            <input type="checkbox" name="typeOfAccount" {{ isset($users->payroll_details['typeOfAccount']) && $users->payroll_details['typeOfAccount'] == 'Saving' ? 'checked' : '' }} onclick="return false;">Saving
+                            <input type="checkbox" name="typeOfAccount" {{ isset($users->payroll_details['typeOfAccount']) && $users->payroll_details['typeOfAccount'] == 'Checking' ? 'checked' : '' }} onclick="return false;">Checking
+                        </span></p>
                             </td>
                             <td>
                                 <p>Bank Routing Number:<span>{{ $users->payroll_details['routingNumber']}}</span></p>
@@ -132,25 +138,11 @@
                 </table>
             </td>
         </tr>  
+        
         @if ($users->user->designation_id != '2')
-        <tr>
+         <tr>
             <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tbody>
-                        <tr>
-                            <td style="width: 50%;">
-                                <p>Legal Entity:
-                                    <span>
-                                        {{ $users->payroll_details['legal_entity']}}
-                                    </span>
-                                </p>
-                            </td>
-                            <td>
-                                <p>Are You Filing As A Entity:<span>{{ isset($users->payroll_details['are_you_filing_as_a_entity']) && ($users->payroll_details['are_you_filing_as_a_entity'] === '1') ? 'True' : 'False'}}</span></p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Tax Informatopn</h1>
             </td>
         </tr>
         <tr>
@@ -158,8 +150,35 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tbody>
                         <tr>
+                           
+                            <td>
+                                <p>Are You Filing As A Entity?:<span>    <input type="radio" {{ isset($users->payroll_details['are_you_filing_as_a_entity']) &&$users->payroll_details['are_you_filing_as_a_entity'] == 'true' ? 'checked' : '' }}>Yes
+                            <input type="radio"{{ isset($users->payroll_details['are_you_filing_as_a_entity']) && $users->payroll_details['are_you_filing_as_a_entity'] == 'false' ? '' : 'checked' }}>No
+                        </span></p>
+                            </td>
+                            @if(isset($users->payroll_details['are_you_filing_as_a_entity']) && $users->payroll_details['are_you_filing_as_a_entity'] == 'true')
+                             <td style="width: 50%;">
+                                <p>Legal name of entity Entity:
+                                    <span>
+                                        {{ $users->payroll_details['legal_entity']}}
+                                    </span>
+                                </p>
+                            </td>
+                            @endif
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+         @if(isset($users->payroll_details['are_you_filing_as_a_entity']) && $users->payroll_details['are_you_filing_as_a_entity'] == 'true')
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                        
                             <td style="width: 50%;">
-                                <p>Tax Payer Id Number:
+                                <p>TaxPayer identification Number:
                                     <span>
                                         {{ $users->payroll_details['taxpayer_id_number']}}
                                     </span>
@@ -171,7 +190,8 @@
             </td>
         </tr>
         @endif
-        <tr>
+        @endif
+        {{-- <tr>
             <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tbody>
@@ -209,7 +229,7 @@
                     </tbody>
                 </table>
             </td>
-        </tr>
+        </tr> --}}
     </table>
 @endif
 <!-- page 7 end-->

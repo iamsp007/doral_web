@@ -59,46 +59,53 @@
                         </tbody>
                     </table>
                 </td>
-            </tr>
+            </tr>    
             <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>Address:<span>
-                                    {{ $users->education_detail['medicalInstitute']['medical_address1'] }}
-                                    @if (isset($users->education_detail['medicalInstitute']['medical_address2']))
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Address1: <span>  
+                        {{ $users->education_detail['medicalInstitute']['medical_address1'] }}</span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                         @if (isset($users->education_detail['medicalInstitute']['medical_address2']))
                                         {{ $users->education_detail['medicalInstitute']['medical_address2'] }}
-                                    @endif  
-                                    {{ isset($users->education_detail['medicalInstitute']['medical_building']) ? $users->education_detail['medicalInstitute']['medical_building'] : '' }}
-                                    </span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>City,State,Zipcode:<span>
-                                    @if (isset($users->education_detail['medicalInstitute']['medical_cityId']))
+                                    @endif  </span></p>
+                    </td>
+                    <td>
+                        <p>Building: <span>{{ isset($users->education_detail['medicalInstitute']['medical_building']) ? $users->education_detail['medicalInstitute']['medical_building'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+       <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>City: <span> 
+                                @if (isset($users->education_detail['medicalInstitute']['medical_cityId']))
                                         {{ \App\Models\City::find($users->education_detail['medicalInstitute']['medical_cityId'])->city }}
                                     @endif
-                                    @if (isset($users->education_detail['medicalInstitute']['medical_stateId']))
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>State: <span>
+                               @if (isset($users->education_detail['medicalInstitute']['medical_stateId']))
                                         {{ \App\Models\State::find($users->education_detail['medicalInstitute']['medical_stateId'])->state }}
                                     @endif
-                                    {{ isset($users->education_detail['medicalInstitute']['medical_zipcode']) ? $users->education_detail['medicalInstitute']['medical_zipcode'] : '' }}</span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>Zipcode: <span>{{ isset($users->education_detail['medicalInstitute']['medical_zipcode']) ? $users->education_detail['medicalInstitute']['medical_zipcode'] : '' }}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
         @endif
 
         @if (isset($users->education_detail['residencyInstitute']))
@@ -140,45 +147,54 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>Address:<span>
-                                    {{ $users->education_detail['residencyInstitute']['medical_address1'] }}
-                                    @if (isset($users->education_detail['residencyInstitute']['medical_address2']))
+              <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Address1: <span>  
+                        {{ $users->education_detail['residencyInstitute']['medical_address1'] }}</span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                         @if (isset($users->education_detail['residencyInstitute']['medical_address2']))
                                         {{ $users->education_detail['residencyInstitute']['medical_address2'] }}
-                                    @endif  
-                                    {{ isset($users->education_detail['residencyInstitute']['medical_building']) ? $users->education_detail['residencyInstitute']['medical_building'] : '' }}
-                                    </span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>City,State,Zipcode:<span>
-                                    @if (isset($users->education_detail['residencyInstitute']['medical_cityId']))
+                                    @endif  </span></p>
+                    </td>
+                    <td>
+                        <p>Building: <span>{{ isset($users->education_detail['residencyInstitute']['medical_building']) ? $users->education_detail['residencyInstitute']['medical_building'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+       <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>City: <span> 
+                                @if (isset($users->education_detail['residencyInstitute']['medical_cityId']))
                                         {{ \App\Models\City::find($users->education_detail['residencyInstitute']['medical_cityId'])->city }}
                                     @endif
-                                    @if (isset($users->education_detail['residencyInstitute']['medical_stateId']))
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>State: <span>
+                               @if (isset($users->education_detail['residencyInstitute']['medical_stateId']))
                                         {{ \App\Models\State::find($users->education_detail['residencyInstitute']['medical_stateId'])->state }}
                                     @endif
-                                    {{ isset($users->education_detail['residencyInstitute']['medical_zipcode']) ? $users->education_detail['residencyInstitute']['medical_zipcode'] : '' }}</span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>Zipcode: <span>{{ isset($users->education_detail['residencyInstitute']['medical_zipcode']) ? $users->education_detail['residencyInstitute']['medical_zipcode'] : '' }}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+           
+          
         @endif
 
         @if (isset($users->education_detail['fellowshipInstitute']))
@@ -220,45 +236,54 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>Address:<span>
-                                    {{ $users->education_detail['fellowshipInstitute']['medical_address1'] }}
-                                    @if (isset($users->education_detail['fellowshipInstitute']['medical_address2']))
+           
+              <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Address1: <span>  
+                        {{ $users->education_detail['fellowshipInstitute']['medical_address1'] }}</span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                         @if (isset($users->education_detail['fellowshipInstitute']['medical_address2']))
                                         {{ $users->education_detail['fellowshipInstitute']['medical_address2'] }}
-                                    @endif  
-                                    {{ isset($users->education_detail['fellowshipInstitute']['medical_building']) ? $users->education_detail['fellowshipInstitute']['medical_building'] : '' }}
-                                    </span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>City,State,Zipcode:<span>
-                                    @if (isset($users->education_detail['fellowshipInstitute']['medical_cityId']))
+                                    @endif  </span></p>
+                    </td>
+                    <td>
+                        <p>Building: <span>{{ isset($users->education_detail['fellowshipInstitute']['medical_building']) ? $users->education_detail['fellowshipInstitute']['medical_building'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+       <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>City: <span> 
+                                @if (isset($users->education_detail['fellowshipInstitute']['medical_cityId']))
                                         {{ \App\Models\City::find($users->education_detail['fellowshipInstitute']['medical_cityId'])->city }}
                                     @endif
-                                    @if (isset($users->education_detail['fellowshipInstitute']['medical_stateId']))
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>State: <span>
+                               @if (isset($users->education_detail['fellowshipInstitute']['medical_stateId']))
                                         {{ \App\Models\State::find($users->education_detail['fellowshipInstitute']['medical_stateId'])->state }}
                                     @endif
-                                    {{ isset($users->education_detail['fellowshipInstitute']['medical_zipcode']) ? $users->education_detail['fellowshipInstitute']['medical_zipcode'] : '' }}</span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>Zipcode: <span>{{ isset($users->education_detail['fellowshipInstitute']['medical_zipcode']) ? $users->education_detail['fellowshipInstitute']['medical_zipcode'] : '' }}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+           
         @endif
     </table>
 @endif

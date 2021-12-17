@@ -77,45 +77,52 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>Address:<span>
-                                    {{ $employer_detail['address1'] }}
-                                    @if (isset($employer_detail['address2']))
-                                        {{ $employer_detail['address2'] }}
-                                    @endif  
-                                    {{ isset($employer_detail['building']) ? $employer_detail['building'] : '' }}
-                                    </span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>City,State,Zipcode:<span>
-                                    @if (isset($employer_detail['city_id']))
+             <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>Address1: <span> {{ $employer_detail['address1'] }}</span></p>
+                    </td>
+                    <td>
+                        <p>Address2: <span>
+                        @if (isset($employer_detail['address2']))
+		                {{ $employer_detail['address2'] }}
+		            @endif </span></p>
+                    </td>
+                    <td>
+                        <p>Building: <span>{{ isset($employer_detail['building']) ? $employer_detail['building'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>City: <span> 
+                               @if (isset($employer_detail['city_id']))
                                         {{ \App\Models\City::find($employer_detail['city_id'])->city }}
                                     @endif
-                                    @if (isset($employer_detail['state_id']))
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>State: <span>
+                                @if (isset($employer_detail['state_id']))
                                         {{ \App\Models\State::find($employer_detail['state_id'])->state }}
                                     @endif
-                                    {{ isset($employer_detail['zipcode']) ? $employer_detail['zipcode'] : '' }}</span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
+                                </span></p>
+                        </td>
+                        <td>
+                            <p>Zipcode: <span>{{ isset($employer_detail['zipcode']) ? $employer_detail['zipcode'] : '' }}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+      
             <tr>
                 <td>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -225,16 +232,16 @@
                                     <p>Overall Job Performance:</p>
                                 </td>
                                 <td>
-                                    <p>Excellent <input type="checkbox"></p>
+                                    <p>Excellent <input type="checkbox" onclick="return false;"></p>
                                 </td>
                                 <td>
-                                    <p>Good <input type="checkbox"></p>
+                                    <p>Good <input type="checkbox" onclick="return false;"></p>
                                 </td>
                                 <td>
-                                    <p>Average <input type="checkbox"></p>
+                                    <p>Average <input type="checkbox" onclick="return false;"></p>
                                 </td>
                                 <td>
-                                    <p>Poor <input type="checkbox"></p>
+                                    <p>Poor <input type="checkbox" onclick="return false;"></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -250,16 +257,16 @@
                                     <p>Attendance:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                 </td>
                                 <td>
-                                    <p>Excellent <input type="checkbox"></p>
+                                    <p>Excellent <input type="checkbox" onclick="return false;"></p>
                                 </td>
                                 <td>
-                                    <p>Good <input type="checkbox"></p>
+                                    <p>Good <input type="checkbox" onclick="return false;"></p>
                                 </td>
                                 <td>
-                                    <p>Average <input type="checkbox"></p>
+                                    <p>Average <input type="checkbox" onclick="return false;"></p>
                                 </td>
                                 <td>
-                                    <p>Poor <input type="checkbox"></p>
+                                    <p>Poor <input type="checkbox" onclick="return false;"></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -275,16 +282,16 @@
                                     <p>Punctuality:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                 </td>
                                 <td>
-                                    <p>Excellent <input type="checkbox"></p>
+                                    <p>Excellent <input type="checkbox" onclick="return false;"></p>
                                 </td>
                                 <td>
-                                    <p>Good <input type="checkbox"></p>
+                                    <p>Good <input type="checkbox" onclick="return false;"></p>
                                 </td>
                                 <td>
-                                    <p>Average <input type="checkbox"></p>
+                                    <p>Average <input type="checkbox" onclick="return false;"></p>
                                 </td>
                                 <td>
-                                    <p>Poor <input type="checkbox"></p>
+                                    <p>Poor <input type="checkbox" onclick="return false;"></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -298,8 +305,8 @@
                             <tr>
                                 <td>
                                     <p>Eligible for Rehire:  
-                                        <input type="checkbox">Yes
-                                        <input type="checkbox">No    
+                                        <input type="checkbox" onclick="return false;">Yes
+                                        <input type="checkbox" onclick="return false;">No    
                                     </p>
                                     <p> If No, Please Explain:<span></span></p>
                                 </td>

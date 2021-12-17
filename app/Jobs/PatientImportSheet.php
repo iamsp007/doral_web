@@ -21,7 +21,7 @@ class PatientImportSheet implements ShouldQueue
     public $form_id = null;
     public $filenameWithExt = null;
     public $file = null;
-    // public $company_id = null;
+     public $company_id = null;
     /**
      * Create a new job instance.
      *
@@ -45,7 +45,7 @@ class PatientImportSheet implements ShouldQueue
      */
     public function handle()
     {
-        $import = new BulkImport($this->referral_id, $this->service_id, $this->file_type, $this->form_id, $this->filename,$this->company_id);
+        $import = new BulkImport($this->referral_id, $this->service_id, $this->file_type, $this->form_id, $this->filenameWithExt,$this->company_id);
 
         $import->Import($this->file);
 

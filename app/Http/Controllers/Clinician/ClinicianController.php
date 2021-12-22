@@ -283,8 +283,9 @@ class ClinicianController extends Controller
         if ($response != null && $response->status === true) {
             $data = $response->data;
           	
-                 $workHistory_detail = $military_detail = $security_detail = $prior = $address = $info = $reference_detail = $employer_detail = $education_detail = $emergency_detail = $payroll_details = $professional_detail = [];
+                 $applicant = $workHistory_detail = $military_detail = $security_detail = $prior = $address = $info = $reference_detail = $employer_detail = $education_detail = $emergency_detail = $payroll_details = $professional_detail = [];
             if ($data->applicant) {
+            $applicant = $data->applicant;
                 if ($data->applicant->workHistory_detail) {
                     $workHistory_detail = $data->applicant->workHistory_detail;
                 }

@@ -212,9 +212,6 @@
                     <th style="width: 20%;">
                         <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Board Eligible</h1>
                     </th>
-                    <th style="width: 20%;">
-                        <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;"> Status</h1>
-                    </th>
                 </tr>
                 @php $number=1; @endphp
                     @if (isset($users->professional_detail['boardCertificate']) && count($users->professional_detail['boardCertificate']) > 0)
@@ -232,16 +229,12 @@
                                 {{ isset($boardCertificate['nccpa_certificate_number']) ? $boardCertificate['nccpa_certificate_number'] : '' }}
                             </td>
                             <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
-                                <span>
-                                    <input type="radio" name="isBoardCertified" {{ isset($boardCertificate['isBoardCertified']) && $boardCertificate['isBoardCertified'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
-                                    <input type="radio" name="isBoardCertified" {{ isset($boardCertificate['isBoardCertified']) && $boardCertificate['isBoardCertified'] == 'false' ? '' : 'checked' }} onclick="return false;">No
-                                </span>
+                                <input type="radio" name="isBoardCertified" {{ isset($boardCertificate['isBoardCertified']) && $boardCertificate['isBoardCertified'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
+                                <input type="radio" name="isBoardCertified" {{ isset($boardCertificate['isBoardCertified']) && $boardCertificate['isBoardCertified'] == 'false' ? '' : 'checked' }} onclick="return false;">No
                             </td>   
                             <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
-                                <span>
-                                    <input type="radio" name="isBoardEligible" {{ isset($boardCertificate['isBoardEligible']) && $boardCertificate['isBoardEligible'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
-                                    <input type="radio" name="isBoardEligible" {{ isset($boardCertificate['isBoardEligible']) && $boardCertificate['isBoardEligible'] == 'false' ? '' : 'checked' }} onclick="return false;">No
-                                </span>
+                                <input type="radio" name="isBoardEligible" {{ isset($boardCertificate['isBoardEligible']) && $boardCertificate['isBoardEligible'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
+                                <input type="radio" name="isBoardEligible" {{ isset($boardCertificate['isBoardEligible']) && $boardCertificate['isBoardEligible'] == 'false' ? '' : 'checked' }} onclick="return false;">No
                             </td>   
                         </tr>
                         @php $number++; @endphp
@@ -388,14 +381,6 @@
                     <td>
                         <p>CAQH User:<span>{{ $users->professional_detail['caqh_user']}}</span></p>
                     </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
                     <td>
                         <p>CAQH Password:<span>{{ $users->professional_detail['caqh_password']}}</span></p>
                     </td>

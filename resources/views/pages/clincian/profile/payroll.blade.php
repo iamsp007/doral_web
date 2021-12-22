@@ -73,8 +73,21 @@
                             <td>
                                 <p>Any other dependents:<span>{{ $users->payroll_details['otherdependents']}}</span></p>
                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
                             <td>
                                 <p>Total dependents:<span>{{ $users->payroll_details['totaldependents']}}</span></p>
+                            </td>
+                            <td>
+                                <p>Total Claim Amount:<span>{{ $users->payroll_details['totalClaimAmount']}}</span></p>
                             </td>
                         </tr>
                     </tbody>

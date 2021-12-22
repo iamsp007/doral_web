@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Demographic;
 use App\Models\PatientEmergencyContact;
 use App\Models\PatientRequest;
+use App\Models\PhysicianUsers;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
 
@@ -120,26 +122,26 @@ class HHAExchangeController extends Controller
             // }
             // $stored_user_id = [];
             // $mail = Mail::to('koladaramanisha176@gmail.com')->send(new SendPatientImpotNotification(count($stored_user_id)));
-            $searchPatientIds = searchPatients();
-            $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+            // $searchPatientIds = searchPatients();
+            // $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
            
-            Log::info('hha exchange search patient detail start');
-            Log::info('total hha count'.count($patientArray));
+            // Log::info('hha exchange search patient detail start');
+            // Log::info('total hha count'.count($patientArray));
     
-            $missing_patient_id = [];
-            $userCaregiver1 = Demographic::get();
-            foreach ($userCaregiver1 as $userCaregivers) { 
-                $missing_patient_id[] = $userCaregivers->patient_id;
-            }
+            // $missing_patient_id = [];
+            // $userCaregiver1 = Demographic::get();
+            // foreach ($userCaregiver1 as $userCaregivers) { 
+            //     $missing_patient_id[] = $userCaregivers->patient_id;
+            // }
             
-            $data = [];
-            $stored_user_id = [];
-            foreach ($patientArray as $patient_id) {
-                if (! in_array($patient_id, $missing_patient_id)) {
+            // $data = [];
+            // $stored_user_id = [];
+            // foreach ($patientArray as $patient_id) {
+            //     if (! in_array($patient_id, $missing_patient_id)) {
                    
                    // $apiResponse = getPatientDemographics($patient_id);
                     //$demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
-                   $data[] = $patient_id;
+                //    $data[] = $patient_id;
       	 
                     // $doral_id = createDoralId();
                     // $user_id = self::storeUser($demographics, $doral_id);
@@ -152,13 +154,17 @@ class HHAExchangeController extends Controller
     
                     //     self::storeEmergencyContact($demographics, $user_id);
                     // }
-                }
+                // }
                 
                 
-            }
-dump('total data');
-                dump(count($data));
-               dump('total data');
+            // }
+                  
+//                 dump(count($data));
+//                dump('total data');
+//dd(env('DATABASE_SECOND_URL'));
+$users = DB::connection('mysql2')->table('category')->get();
+            //$dd = PhysicianUsers::get();
+            dd($users);
             $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();

@@ -19,12 +19,21 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>Gap Reason: <span>{{ isset($users->workHistory_detail['gapReason']) ? $users->workHistory_detail['gapReason'] : '' }}</span></p>
+                        <p>Position: <span>{{ isset($users->workHistory_detail['position']) ? $users->workHistory_detail['position'] : '' }}</span></p>
+                    </td>
+                    <td>
+                        <p>Are you currently employed?: 
+                        <span>
+                            <input type="radio" name="isMilitary" {{ isset($users->workHistory_detail['isCurrentEmployee']) && $users->workHistory_detail['isCurrentEmployee'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
+                            <input type="radio" name="isMilitary" {{ isset($users->workHistory_detail['isCurrentEmployee']) && $users->workHistory_detail['isCurrentEmployee'] == 'false' ? '' : 'checked' }} onclick="return false;">No
+                        </span>
+                    </p>
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
+   
     @php $number=1; @endphp
     @if (isset($users->workHistory_detail['list']) && count($users->workHistory_detail['list']) > 0)
         @foreach ($users->workHistory_detail['list'] as $workHistory)
@@ -38,7 +47,60 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
-                                <p>Company Name: <span>{{ isset($workHistory['companyName']) ? $workHistory['companyName'] : '' }}</span></p>
+                                <p>Employer Name: <span>{{ isset($workHistory['companyName']) ? $workHistory['companyName'] : '' }}</span></p>
+                            </td>
+                            <td style="width: 50%;">
+                                <p>Position/Title:
+                                    <span>
+                                        {{ $workHistory['position']}}
+                                    </span>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                <p>Address1: <span>  
+                                {{ $workHistory['address1'] }}</span></p>
+                            </td>
+                            <td>
+                                <p>Address2: <span>
+                                @if (isset($workHistory['address2']))
+                                            {{ $workHistory['address2'] }}
+                                            @endif</span></p>
+                            </td>
+                            <td>
+                                <p>Building: <span> {{ isset($workHistory['building']) ? $workHistory['building'] : '' }}</span></p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td>
+                                <p>City: <span> 
+                                    @if (isset($workHistory['cityId']))
+                                        {{ \App\Models\City::find($workHistory['cityId'])->city }}
+                                    @endif
+                                    </span></p>
+                            </td>
+                            <td>
+                                <p>State: <span>
+                                    @if (isset($workHistory['stateId']))
+                                        {{ \App\Models\State::find($workHistory['stateId'])->state }}
+                                        @endif
+                                    </span></p>
+                            </td>
+                            <td>
+                                <p>Zipcode: <span>{{ isset($workHistory['zipCode']) ? $workHistory['zipCode'] : '' }}</span></p>
                             </td>
                         </tr>
                     </table>
@@ -66,15 +128,8 @@
                 <td>
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td style="width: 50%;">
-                                <p>Position:
-                                    <span>
-                                        {{ $workHistory['position']}}
-                                    </span>
-                                </p>
-                            </td>
                             <td>
-                                <p>Record Id:<span>{{ $workHistory['recordId']}}</span></p>
+                                <p>Reason of separation: <span>{{ isset($workHistory['reason']) ? $workHistory['reason'] : '' }}</span></p>
                             </td>
                         </tr>
                     </table>
@@ -85,59 +140,12 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
-                                <p>Reason: <span>{{ isset($workHistory['reason']) ? $workHistory['reason'] : '' }}</span></p>
+                                <p>Record Id:<span>{{ $workHistory['recordId']}}</span></p>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
-            
-             <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                        <p>Address1: <span>  
-                        {{ $workHistory['address1'] }}</span></p>
-                    </td>
-                    <td>
-                        <p>Address2: <span>
-                        @if (isset($workHistory['address2']))
-                                    {{ $workHistory['address2'] }}
-                                    @endif</span></p>
-                    </td>
-                    <td>
-                        <p>Building: <span> {{ isset($workHistory['building']) ? $workHistory['building'] : '' }}</span></p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-        <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <p>City: <span> 
-                                @if (isset($workHistory['cityId']))
-                                    {{ \App\Models\City::find($workHistory['cityId'])->city }}
-                                @endif
-                                </span></p>
-                        </td>
-                        <td>
-                            <p>State: <span>
-                                 @if (isset($workHistory['stateId']))
-                                    {{ \App\Models\State::find($workHistory['stateId'])->state }}
-                                    @endif
-                                </span></p>
-                        </td>
-                        <td>
-                            <p>Zipcode: <span>{{ isset($workHistory['zipCode']) ? $workHistory['zipCode'] : '' }}</span></p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
         @php $number++; @endphp
         @endforeach
     @else
@@ -153,5 +161,16 @@
             </td>
         </tr>
     @endif
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>It is been noted that the large gap in your work history is due to taking time off: <span>{{ isset($users->workHistory_detail['gapReason']) ? $users->workHistory_detail['gapReason'] : '' }}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 <!-- page 2 end-->

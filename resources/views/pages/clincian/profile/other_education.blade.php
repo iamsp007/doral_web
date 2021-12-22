@@ -140,19 +140,19 @@
     <td>
         <table style="width: 100%;border: 1px solid #a5a5a5;margin-top: 20px;">
             <tr>
-                <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;border: 1px solid #a5a5a5;">#
+                <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;">#
                 </th>
                 <th style="width: 20%;">
-                    <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;"> Institute Name</h1>
+                    <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;"> Institute Name</h1>
                 </th>
                 <th style="width: 20%;">
-                    <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Name of fellowship program</h1>
+                    <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;">Name of fellowship program</h1>
                 </th>
                 <th style="width: 30%;">
-                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Address</h1>
+                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;">Address</h1>
                 </th>
                 <th style="width: 20%;">
-                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Year</h1>
+                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;">Year</h1>
                 </th>
             </tr>
             @php $counter = 1 @endphp

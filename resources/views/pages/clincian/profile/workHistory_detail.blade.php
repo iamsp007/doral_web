@@ -24,8 +24,8 @@
                     <td>
                         <p>Are you currently employed?: 
                         <span>
-                            <input type="radio" name="isMilitary" {{ isset($users->workHistory_detail['isCurrentEmployee']) && $users->workHistory_detail['isCurrentEmployee'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
-                            <input type="radio" name="isMilitary" {{ isset($users->workHistory_detail['isCurrentEmployee']) && $users->workHistory_detail['isCurrentEmployee'] == 'false' ? '' : 'checked' }} onclick="return false;">No
+                            <input type="radio" name="isCurrentEmployee" {{ isset($users->workHistory_detail['isCurrentEmployee']) && $users->workHistory_detail['isCurrentEmployee'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
+                            <input type="radio" name="isCurrentEmployee" {{ isset($users->workHistory_detail['isCurrentEmployee']) && $users->workHistory_detail['isCurrentEmployee'] == 'false' ? '' : 'checked' }} onclick="return false;">No
                         </span>
                     </p>
                     </td>

@@ -197,9 +197,20 @@
                 <tr>
                     <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;border: 1px solid #a5a5a5;">#
                     </th>
-                
                     <th style="width: 20%;">
-                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Certificate</h1>
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Certifing Board</h1>
+                    </th>
+                    <th style="width: 20%;">
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">NCCPA Id</h1>
+                    </th>
+                    <th style="width: 20%;">
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Certification Number</h1>
+                    </th>
+                    <th style="width: 20%;">
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Board Certified</h1>
+                    </th>
+                    <th style="width: 20%;">
+                        <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Board Eligible</h1>
                     </th>
                     <th style="width: 20%;">
                         <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;"> Status</h1>
@@ -212,17 +223,37 @@
                             <td style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">{{ $number }}</td>
                         
                             <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
-                        {{ isset($boardCertificate['certificate']) ? $boardCertificate['certificate'] : '' }}
+                                {{ isset($boardCertificate['certificate']) ? $boardCertificate['certificate'] : '' }}
                             </td>
                             <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
-                            {{ isset($boardCertificate['status']) ? $boardCertificate['status'] : '' }}
+                                {{ isset($boardCertificate['nccpa_id']) ? $boardCertificate['nccpa_id'] : '' }}
                             </td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                                {{ isset($boardCertificate['nccpa_certificate_number']) ? $boardCertificate['nccpa_certificate_number'] : '' }}
+                            </td>
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                                <span>
+                                    <input type="radio" name="isBoardCertified" {{ isset($boardCertificate['isBoardCertified']) && $boardCertificate['isBoardCertified'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
+                                    <input type="radio" name="isBoardCertified" {{ isset($boardCertificate['isBoardCertified']) && $boardCertificate['isBoardCertified'] == 'false' ? '' : 'checked' }} onclick="return false;">No
+                                </span>
+                            </td>   
+                            <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                                <span>
+                                    <input type="radio" name="isBoardEligible" {{ isset($boardCertificate['isBoardEligible']) && $boardCertificate['isBoardEligible'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
+                                    <input type="radio" name="isBoardEligible" {{ isset($boardCertificate['isBoardEligible']) && $boardCertificate['isBoardEligible'] == 'false' ? '' : 'checked' }} onclick="return false;">No
+                                </span>
+                            </td>   
                         </tr>
                         @php $number++; @endphp
                     @endforeach
                                                                     
                 @endif
             </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Federal DEA</h1>
         </td>
     </tr>
     <tr>
@@ -237,6 +268,11 @@
                     </td>
                 </tr>
             </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">NPI</h1>
         </td>
     </tr>
     <tr>
@@ -329,6 +365,43 @@
             </table>
         </td>
     </tr>
-
+    <tr>
+        <td>
+            <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">CAQH</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>CAQH Id:<span>{{ $users->professional_detail['caqh_id']}}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>CAQH User:<span>{{ $users->professional_detail['caqh_user']}}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <p>CAQH Password:<span>{{ $users->professional_detail['caqh_password']}}</span></p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
 </table>
 <!-- page 2 end-->

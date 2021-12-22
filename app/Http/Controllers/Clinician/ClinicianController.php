@@ -231,7 +231,7 @@ class ClinicianController extends Controller
                 'documents as FellowshipCertificate_count' => function ($query) {
                     $query->where('type', 35);
                 },
-                'documents as IntershipCertificate_count' => function ($query) {
+                'documents as InternshipCertificate_count' => function ($query) {
                     $query->where('type', 35);
                 },
                 'documents as ECFMGCertificate_count' => function ($query) {
@@ -246,7 +246,7 @@ class ClinicianController extends Controller
                 'documents as SanctionsQueries_count' => function ($query) {
                     $query->where('type', 39);
                 },
-                'documents as MedicalWelcomeLetter_count' => function ($query) {
+                'documents as MedicareWelcomeLetter_count' => function ($query) {
                     $query->where('type', 40);
                 },
                 'documents as SignedW9_count' => function ($query) {
@@ -337,11 +337,14 @@ class ClinicianController extends Controller
                 if ($data->applicant->professional_detail) {
                     $professional_detail = $data->applicant->professional_detail;
                 }
+                if ($data->applicant->document_Information) {
+                    $document_information = $data->applicant->document_Information;
+                }
             }
           
 	
 //            if ($data->designation_id == 1) {
-              return view('pages.admin.nurse-view', compact('data', 'prior','address','info','reference_detail','emergency_detail','education_detail','security_detail','military_detail','employer_detail','payroll_details','workHistory_detail','professional_detail'));
+              return view('pages.admin.nurse-view', compact('data', 'prior','address','info','reference_detail','emergency_detail','education_detail','security_detail','military_detail','employer_detail','payroll_details','workHistory_detail','professional_detail','document_information'));
 //            } else if ($data->designation_id == 2) {
 //                return view('pages.admin.rn-view', compact('data'));
 //            } else {

@@ -1,290 +1,194 @@
-<!-- page 7 start-->
-@php $counter = 1 @endphp
-@if (isset($users->education_detail))
-    <div class="break"></div>
-    <table width="100%">
-        <tr>
-            <td>
-                <table style="width: 100%;">
-                    <thead style=" background-color: #07737A;padding: 10px;display: block;margin: 0 auto;display: flex;justify-content: center;align-items: center;">
-                        <tr>
-                            <td>
-                                <a href="index.html" title="Welcome to Doral"><img style="width: 180px; height: 84px;" src="{{ asset('assets/img/green_logo.jpg') }}" alt="Welcome to Doral" srcset="{{ asset('assets/img/logo-white.svg') }}"></a>
-                            </td>
-                        </tr>
-                    </thead>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Education Detail</h1>
-            </td>
-        </tr>
-        @if (isset($users->education_detail['medicalInstitute']))
+<tr>
+    <td>
+        <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Education Detail:</h1>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Medical Institute</h1>
+                    <p>Medical Detail: <span></span></p>
                 </td>
             </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table style="width: 100%;border: 1px solid #a5a5a5;margin-top: 20px;">
             <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>Medical Institute Name:
-                                        <span>
-                                            {{ $users->education_detail['medicalInstitute']['medical_instituteName']}}
-                                        </span>
-                                    </p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
+                <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;border: 1px solid #a5a5a5;">#
+                </th>
+                <th style="width: 20%;">
+                    <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;"> Institute Name</h1>
+                </th>
+                <th style="width: 50%;">
+                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Address</h1>
+                </th>
+                <th style="width: 20%;">
+                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Year</h1>
+                </th>
             </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td style="width: 50%;">
-                                    <p>Medical Year Started:<span>{{ $users->education_detail['medicalInstitute']['medical_yearStarted']}}</span></p>
-                                </td>
-                                <td>
-                                    <p>Medical Year Ended:<span>{{ $users->education_detail['medicalInstitute']['medical_yearEnded']}}</span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>    
-            <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                        <p>Address1: <span>  
-                        {{ $users->education_detail['medicalInstitute']['medical_address1'] }}</span></p>
-                    </td>
-                    <td>
-                        <p>Address2: <span>
-                         @if (isset($users->education_detail['medicalInstitute']['medical_address2']))
-                                        {{ $users->education_detail['medicalInstitute']['medical_address2'] }}
-                                    @endif  </span></p>
-                    </td>
-                    <td>
-                        <p>Building: <span>{{ isset($users->education_detail['medicalInstitute']['medical_building']) ? $users->education_detail['medicalInstitute']['medical_building'] : '' }}</span></p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-       <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <p>City: <span> 
-                                @if (isset($users->education_detail['medicalInstitute']['medical_cityId']))
-                                        {{ \App\Models\City::find($users->education_detail['medicalInstitute']['medical_cityId'])->city }}
-                                    @endif
-                                </span></p>
+            @php $counter = 1 @endphp
+            @if (isset($users->education_detail) && count($users->education_detail['medical']) > 0)
+                @foreach ($users->education_detail['medical'] as $education_detail)
+                    <tr style="background: #f8f8f8;">
+                        <td style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">{{ $counter }}</td>
+                        <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            {{ $education_detail['medical_instituteName']}}
                         </td>
-                        <td>
-                            <p>State: <span>
-                               @if (isset($users->education_detail['medicalInstitute']['medical_stateId']))
-                                        {{ \App\Models\State::find($users->education_detail['medicalInstitute']['medical_stateId'])->state }}
-                                    @endif
-                                </span></p>
+                        <td style="width: 50%;text-align: center;border: 1px solid #a5a5a5;">
+                        {{ $education_detail['medical_address1'] }}
+                        @if (isset($education_detail['medical_address2']))
+                            {{ $education_detail['medical_address2'] }}
+                        @endif  
+                        {{ isset($education_detail['medical_building']) ? $education_detail['medical_building'] : '' }}
+                        @if (isset($education_detail['medical_cityId']))
+                            {{ \App\Models\City::find($education_detail['medical_cityId'])->city }}
+                        @endif
+                        @if (isset($education_detail['medical_stateId']))
+                            {{ \App\Models\State::find($education_detail['medical_stateId'])->state }}
+                        @endif
+                        {{ isset($education_detail['medical_zipcode']) ? $education_detail['medical_zipcode'] : '' }}
                         </td>
-                        <td>
-                            <p>Zipcode: <span>{{ isset($users->education_detail['medicalInstitute']['medical_zipcode']) ? $users->education_detail['medicalInstitute']['medical_zipcode'] : '' }}</span></p>
-                        </td>
+                        <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">{{ isset($education_detail['medical_yearStarted']) ? $education_detail['medical_yearStarted'] : '' }} - {{ isset($education_detail['medical_yearEnded']) ? $education_detail['medical_yearEnded'] : '' }}</td>
                     </tr>
-                </table>
-            </td>
-        </tr>
-        @endif
-
-        @if (isset($users->education_detail['residencyInstitute']))
+                    @php $counter++ @endphp
+                @endforeach
+            @else 
+                <tr style="background: #f8f8f8;">
+                    <td colspan="5" style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">Record(s) Not Found</td>
+                </tr>                                                          
+            @endif
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Residency Institute</h1>
+                    <p>Residency Detail: <span></span></p>
                 </td>
             </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table style="width: 100%;border: 1px solid #a5a5a5;margin-top: 20px;">
             <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>Medical Institute Name:
-                                        <span>
-                                            {{ $users->education_detail['residencyInstitute']['medical_instituteName']}}
-                                        </span>
-                                    </p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
+                <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;border: 1px solid #a5a5a5;">#
+                </th>
+                <th style="width: 20%;">
+                    <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;"> Institute Name</h1>
+                </th>
+                <th style="width: 50%;">
+                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Address</h1>
+                </th>
+                <th style="width: 20%;">
+                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Year</h1>
+                </th>
             </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td style="width: 50%;">
-                                    <p>Medical Year Started:<span>{{ $users->education_detail['residencyInstitute']['medical_yearStarted']}}</span></p>
-                                </td>
-                                <td>
-                                    <p>Medical Year Ended:<span>{{ $users->education_detail['residencyInstitute']['medical_yearEnded']}}</span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-              <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                        <p>Address1: <span>  
-                        {{ $users->education_detail['residencyInstitute']['medical_address1'] }}</span></p>
-                    </td>
-                    <td>
-                        <p>Address2: <span>
-                         @if (isset($users->education_detail['residencyInstitute']['medical_address2']))
-                                        {{ $users->education_detail['residencyInstitute']['medical_address2'] }}
-                                    @endif  </span></p>
-                    </td>
-                    <td>
-                        <p>Building: <span>{{ isset($users->education_detail['residencyInstitute']['medical_building']) ? $users->education_detail['residencyInstitute']['medical_building'] : '' }}</span></p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-       <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <p>City: <span> 
-                                @if (isset($users->education_detail['residencyInstitute']['medical_cityId']))
-                                        {{ \App\Models\City::find($users->education_detail['residencyInstitute']['medical_cityId'])->city }}
-                                    @endif
-                                </span></p>
+            @php $counter = 1 @endphp
+            @if (isset($users->education_detail) && count($users->education_detail['residency']) > 0)
+                @foreach ($users->education_detail['residency'] as $education_detail)
+                    <tr style="background: #f8f8f8;">
+                        <td style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">{{ $counter }}</td>
+                        <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            {{ $education_detail['residency_instituteName']}}
                         </td>
-                        <td>
-                            <p>State: <span>
-                               @if (isset($users->education_detail['residencyInstitute']['medical_stateId']))
-                                        {{ \App\Models\State::find($users->education_detail['residencyInstitute']['medical_stateId'])->state }}
-                                    @endif
-                                </span></p>
+                        <td style="width: 50%;text-align: center;border: 1px solid #a5a5a5;">
+                        {{ $education_detail['residency_address1'] }}
+                        @if (isset($education_detail['residency_address2']))
+                            {{ $education_detail['residency_address2'] }}
+                        @endif  
+                        {{ isset($education_detail['residency_building']) ? $education_detail['residency_building'] : '' }}
+                        @if (isset($education_detail['residency_cityId']))
+                            {{ \App\Models\City::find($education_detail['residency_cityId'])->city }}
+                        @endif
+                        @if (isset($education_detail['residency_stateId']))
+                            {{ \App\Models\State::find($education_detail['residency_stateId'])->state }}
+                        @endif
+                        {{ isset($education_detail['residency_zipcode']) ? $education_detail['residency_zipcode'] : '' }}
                         </td>
-                        <td>
-                            <p>Zipcode: <span>{{ isset($users->education_detail['residencyInstitute']['medical_zipcode']) ? $users->education_detail['residencyInstitute']['medical_zipcode'] : '' }}</span></p>
-                        </td>
+                        <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">{{ isset($education_detail['residency_yearStarted']) ? $education_detail['residency_yearStarted'] : '' }} - {{ isset($education_detail['residency_yearEnded']) ? $education_detail['residency_yearEnded'] : '' }}</td>
                     </tr>
-                </table>
-            </td>
-        </tr>
-           
-          
-        @endif
-
-        @if (isset($users->education_detail['fellowshipInstitute']))
+                    @php $counter++ @endphp
+                @endforeach
+            @else 
+                <tr style="background: #f8f8f8;">
+                    <td colspan="5" style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">Record(s) Not Found</td>
+                </tr>                                                          
+            @endif
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td>
-                    <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Fellowship Institute</h1>
+                    <p>Fellowship Detail: <span></span></p>
                 </td>
             </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table style="width: 100%;border: 1px solid #a5a5a5;margin-top: 20px;">
             <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p>Medical Institute Name:
-                                        <span>
-                                            {{ $users->education_detail['fellowshipInstitute']['medical_instituteName']}}
-                                        </span>
-                                    </p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
+                <th style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 15px 15px 15px;width: 2%;text-align: center;border: 1px solid #a5a5a5;">#
+                </th>
+                <th style="width: 20%;">
+                    <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;"> Institute Name</h1>
+                </th>
+                <th style="width: 20%;">
+                    <h1  style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Name of fellowship program</h1>
+                </th>
+                <th style="width: 30%;">
+                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Address</h1>
+                </th>
+                <th style="width: 20%;">
+                    <h1 style="font-weight: 800;font-size: 16px;color: #000;padding: 15px 0 15px 0;text-align: center;border: 1px solid #a5a5a5;">Year</h1>
+                </th>
             </tr>
-            <tr>
-                <td>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <td style="width: 50%;">
-                                    <p>Medical Year Started:<span>{{ $users->education_detail['fellowshipInstitute']['medical_yearStarted']}}</span></p>
-                                </td>
-                                <td>
-                                    <p>Medical Year Ended:<span>{{ $users->education_detail['fellowshipInstitute']['medical_yearEnded']}}</span></p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-           
-              <tr>
-        <td>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                        <p>Address1: <span>  
-                        {{ $users->education_detail['fellowshipInstitute']['medical_address1'] }}</span></p>
-                    </td>
-                    <td>
-                        <p>Address2: <span>
-                         @if (isset($users->education_detail['fellowshipInstitute']['medical_address2']))
-                                        {{ $users->education_detail['fellowshipInstitute']['medical_address2'] }}
-                                    @endif  </span></p>
-                    </td>
-                    <td>
-                        <p>Building: <span>{{ isset($users->education_detail['fellowshipInstitute']['medical_building']) ? $users->education_detail['fellowshipInstitute']['medical_building'] : '' }}</span></p>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-       <tr>
-            <td>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <p>City: <span> 
-                                @if (isset($users->education_detail['fellowshipInstitute']['medical_cityId']))
-                                        {{ \App\Models\City::find($users->education_detail['fellowshipInstitute']['medical_cityId'])->city }}
-                                    @endif
-                                </span></p>
+            @php $counter = 1 @endphp
+            @if (isset($users->education_detail) && count($users->education_detail['fellowship']) > 0)
+                @foreach ($users->education_detail['fellowship'] as $education_detail)
+                    <tr style="background: #f8f8f8;">
+                        <td style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">{{ $counter }}</td>
+                        <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            {{ $education_detail['fellowship_instituteName']}}
                         </td>
-                        <td>
-                            <p>State: <span>
-                               @if (isset($users->education_detail['fellowshipInstitute']['medical_stateId']))
-                                        {{ \App\Models\State::find($users->education_detail['fellowshipInstitute']['medical_stateId'])->state }}
-                                    @endif
-                                </span></p>
+                        <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">
+                            {{ $education_detail['fellowship_nameOfProgram']}}
                         </td>
-                        <td>
-                            <p>Zipcode: <span>{{ isset($users->education_detail['fellowshipInstitute']['medical_zipcode']) ? $users->education_detail['fellowshipInstitute']['medical_zipcode'] : '' }}</span></p>
+                        <td style="width: 30%;text-align: center;border: 1px solid #a5a5a5;">
+                        {{ $education_detail['fellowship_address1'] }}
+                        @if (isset($education_detail['fellowship_address2']))
+                            {{ $education_detail['fellowship_address2'] }}
+                        @endif  
+                        {{ isset($education_detail['fellowship_building']) ? $education_detail['fellowship_building'] : '' }}
+                        @if (isset($education_detail['fellowship_cityId']))
+                            {{ \App\Models\City::find($education_detail['fellowship_cityId'])->city }}
+                        @endif
+                        @if (isset($education_detail['fellowship_stateId']))
+                            {{ \App\Models\State::find($education_detail['fellowship_stateId'])->state }}
+                        @endif
+                        {{ isset($education_detail['fellowship_zipcode']) ? $education_detail['fellowship_zipcode'] : '' }}
                         </td>
+                        <td style="width: 20%;text-align: center;border: 1px solid #a5a5a5;">{{ isset($education_detail['fellowship_yearStarted']) ? $education_detail['fellowship_yearStarted'] : '' }} - {{ isset($education_detail['fellowship_yearEnded']) ? $education_detail['fellowship_yearEnded'] : '' }}</td>
                     </tr>
-                </table>
-            </td>
-        </tr>
-           
-        @endif
-    </table>
-@endif
-<!-- page 7 end-->
+                    @php $counter++ @endphp
+                @endforeach
+            @else 
+                <tr style="background: #f8f8f8;">
+                    <td colspan="5" style="width: 2%;text-align: center;padding: 15px;border: 1px solid #a5a5a5;">Record(s) Not Found</td>
+                </tr>                                                          
+            @endif
+        </table>
+    </td>
+</tr>

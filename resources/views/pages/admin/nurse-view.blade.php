@@ -914,10 +914,11 @@
                            <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
                               <ul>
                                  @php
-                                    $medicalInstitute = $education_detail->medicalInstitute;
-                                    $residencyInstitute = $education_detail->residencyInstitute;
-                                    $fellowshipInstitute = $education_detail->fellowshipInstitute;
+                                    $medicalInstitute = $education_detail->medical;
+                                    $residencyInstitute = $education_detail->residency;
+                                    $fellowshipInstitute = $education_detail->fellowship;
                                  @endphp
+                                 @if($data->designation_id == 4)
                                  <li>
                                     <div class="_card mt-3">
                                        <div class="_card_header"><div class="title-head">Medical Institute Details</div></div>
@@ -1034,6 +1035,7 @@
                                        </div>
                                     </div>
                                  </li>
+                                 @endif
                                  <li>
                                     <div class="_card mt-3">
                                        <div class="_card_header"><div class="title-head">Residency Institute Details</div></div>
@@ -1155,7 +1157,7 @@
                                        <div class="_card_header"><div class="title-head">Medical Institute Details</div></div>
                                        <div class="_card_body">
                                           <div class="row mt-3">
-                                             <div class="col-12 col-sm-4">
+                                             <div class="col-12 col-sm-3">
                                                 <div class="d-flex align-items-center mb-3">
                                                    <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
@@ -1166,7 +1168,8 @@
                                                    </div>
                                                 </div>
                                              </div>
-                                             <div class="col-12 col-sm-4">
+                                            
+                                             <div class="col-12 col-sm-3">
                                                 <div class="d-flex align-items-center mb-3">
                                                    <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
@@ -1177,13 +1180,24 @@
                                                    </div>
                                                 </div>
                                              </div>
-                                             <div class="col-12 col-sm-4">
+                                             <div class="col-12 col-sm-3">
                                                 <div class="d-flex align-items-center mb-3">
                                                    <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Medical Year Ended</h3>
                                                       <h1 class="_detail">
                                                          {{ isset($fellowshipInstitute->medical_yearEnded) ? $fellowshipInstitute->medical_yearEnded  : ''}}
+                                                      </h1>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="col-12 col-sm-3">
+                                                <div class="d-flex align-items-center mb-3">
+                                                   <div><i class="las la-map-marker circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Program Name</h3>
+                                                      <h1 class="_detail">
+                                                         {{ isset($fellowshipInstitute->fellowship_nameOfProgram) ? $fellowshipInstitute->fellowship_nameOfProgram  : ''}}
                                                       </h1>
                                                    </div>
                                                 </div>
@@ -1879,6 +1893,15 @@
                                           </div>
                                        </div>
                                     </div>
+                                    <div class="col-12 col-sm-4">
+                                       <div class="d-flex align-items-center">
+                                          <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                          <div>
+                                             <h3 class="_title">Total Claim Amount<span class="text-info"></span></h3>
+                                             <h1 class="_detail">{{ isset($payroll_details->totalClaimAmount) ? $payroll_details->totalClaimAmount : null }}</h1>
+                                          </div>
+                                       </div>
+                                    </div>
                                  </div>
                                  @if ($data->designation_id != '2')
                                     <div class="row mt-3">
@@ -2174,6 +2197,24 @@
                                                       </div>
                                                    </div>
                                                 </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Is Current Employee</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory_detail->isCurrentEmployee) ? $workHistory_detail->isCurrentEmployee : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Position</h3>
+                                                         <h1 class="_detail">{{ isset($workHistory_detail->position) ? $workHistory_detail->position : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
                                              </div>
                                           </div>
                                        </div>
@@ -2197,7 +2238,6 @@
                         <div class="tab-content" id="myTabContent">
                            <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
                               <ul>
-
                                  @isset($professional_detail)
                                     <li>
                                        <div class="_card mt-3">
@@ -2353,11 +2393,6 @@
                                                       </div>
                                                    </div>
                                                 </div>
-
-
-
-
-
                                              </div>
                                              <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
@@ -2502,7 +2537,17 @@
                                                          </div>
                                                       </div>
                                                    </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">NCCPA Id</h3>
+                                                            <h1 class="_detail">{{ isset($boardCertificate->nccpa_id) ? $boardCertificate->nccpa_id : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
                                                 </div>
+                                                
                                                 @php $child4Count++; @endphp
                                              @endforeach
                                           </div>
@@ -2974,7 +3019,7 @@
                                     </tr>
                                     <tr>
                                        <td>31</td>
-                                       <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="36" id="IntershipCertificate-tab" data-toggle="tab" href="#IntershipCertificate" role="tab" aria-controls="IntershipCertificate" aria-selected="false">Intership Certificate {{isset($type34)  ? '('.$type34.')' : ''}}</a></td>
+                                       <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="36" id="InternshipCertificate-tab" data-toggle="tab" href="#InternshipCertificate" role="tab" aria-controls="InternshipCertificate" aria-selected="false">Intership Certificate {{isset($type34)  ? '('.$type34.')' : ''}}</a></td>
                                        <td>
                                           @isset($data->documents)
                                              <table>
@@ -3434,7 +3479,7 @@
                                     </tr>
                                     <tr>
                                        <td>36</td>
-                                       <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="41" id="MedicalWelcomeLetter-tab" data-toggle="tab" href="#MedicalWelcomeLetter" role="tab" aria-controls="MedicalWelcomeLetter" aria-selected="false">Medical Welcome Letter {{isset($type39)  ? '('.$type39.')' : ''}}</a></td>
+                                       <td><a class="nav-link view_document" data-id="{{ $data->id }}" data-type="41" id="MedicareWelcomeLetter-tab" data-toggle="tab" href="#MedicareWelcomeLetter" role="tab" aria-controls="MedicareWelcomeLetter" aria-selected="false">Medical Welcome Letter {{isset($type39)  ? '('.$type39.')' : ''}}</a></td>
                                        <td>
                                           @isset($data->documents)
                                              <table>

@@ -233,6 +233,7 @@ table.dataTable thead th, table.dataTable thead td{
             "processing": true,
             "serverSide": true,
             "searching": serching,
+            "bSort" : false,
             "language": {
                 processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
             },

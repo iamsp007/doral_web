@@ -96,7 +96,7 @@
         </tr>
         <tr>
             <td>
-                <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Bank Informatopn</h1>
+                <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;text-align: center;color: #006C76;font-weight: 600;">Bank Information</h1>
             </td>
         </tr>
         <tr>

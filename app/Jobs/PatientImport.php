@@ -80,6 +80,7 @@ class PatientImport implements ShouldQueue
             $details = [
                 'name' => $this->company->name,
                 'total' => count($stored_user_id),
+                'type' => 'Patient',
             ];
 
             SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');

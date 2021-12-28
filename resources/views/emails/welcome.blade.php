@@ -46,12 +46,12 @@
                                                         <tbody>
                                                             <tr>     
                                                                 <td valign="middle" align="center" height="35" bgcolor="#006C76" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; font-weight:700; color:#ffffff;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;">
-                                                                    <a href="{{ $details['href'] }}" target="_blank" style="text-decoration:none; color:#ffffff; display:block; line-height:45px;">Confirm Account</a></td>
+                                                                    <a href="{{ isset($details['href']) ? $details['href'] : '' }}" target="_blank" style="text-decoration:none; color:#ffffff; display:block; line-height:45px;">Confirm Account</a>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td height="20" style="font-size:1px; line-height:1px;">&nbsp;</td>
                                                             </tr>
-                                                            
                                                         </tbody>
                                                     </table>
                                                 </td>

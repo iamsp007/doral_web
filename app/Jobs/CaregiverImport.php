@@ -82,6 +82,7 @@ class CaregiverImport implements ShouldQueue
             $details = [
                 'name' => $this->company->name,
                 'total' => count($stored_user_id),
+                'type' => 'Caregiver',
             ];
             
             SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');

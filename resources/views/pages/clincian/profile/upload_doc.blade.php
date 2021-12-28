@@ -1,3 +1,5 @@
+
+
 <!-- page 15 start-->
 <div class="break"></div>
 <table width="100%">
@@ -23,6 +25,7 @@
             </h1>
         </td>
     </tr>
+    @include('pages.clincian.profile.document_information')
     <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">

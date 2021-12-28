@@ -1,13 +1,15 @@
 <table width="100%">
+ @php
+        $malpractice_Insurance = $users->document_Information['malpractice_Insurance'];
+        $ECFMG_Info = $users->document_Information['ECFMG_Info'];
+    @endphp
+    @if($malpractice_Insurance)
     <tr>
         <td>
             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">Malpractice Insurance</h1>
         </td>
     </tr>
-    @php
-        $malpractice_Insurance = $users->document_Information['malpractice_Insurance'];
-        $ECFMG_Info = $users->document_Information['ECFMG_Info'];
-    @endphp
+   
     <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -48,6 +50,7 @@
             <h1 style="padding: 10px;border: 1px solid #006C76;font-size: 20px;margin: 10px 0px;color: #006C76;font-weight: 600;">ECFMG Information</h1>
         </td>
     </tr>
+    @endif
     <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">

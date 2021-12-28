@@ -604,10 +604,10 @@
         });
         
         $(document).ready(function() {
-            var import_url = "{{ url('import-caregiver-from-hha') }}";
-            var action_import_url = 'check-caregiver-queue';
+           // var import_url = "{{ url('import-caregiver-from-hha') }}";
+            //var action_import_url = 'check-caregiver-queue';
             
-            importAjaxCall(import_url,action_import_url,patient_id);
+            //importAjaxCall(import_url,action_import_url,patient_id);
 
             $('.form_div').hide();
             
@@ -1019,6 +1019,13 @@
             $(document).find('.update-icon').fadeIn("slow").removeClass('d-none').addClass('d-block');
             $(document).find('.edit-icon').fadeOut("slow").removeClass('d-block').addClass('d-none');
         });
+        
+            $(document).on('click','#homecare-tab',function(event) {
+                var import_url = "{{ url('import-caregiver-from-hha') }}";
+            	var action_import_url = 'check-caregiver-queue';
+            
+            	importAjaxCall(import_url,action_import_url,patient_id);
+            });
 
         $(document).on('click', '.remove-tr', function(){ 
             $(".add_more_contact_div").children("div[class=main_div]:last").remove();
@@ -1149,7 +1156,7 @@
     }
 
     function importAjaxCall(url,action,patientId) {
-    
+    	
         $("#loader-wrapper").show();
         $.ajax({
             type:"GET",

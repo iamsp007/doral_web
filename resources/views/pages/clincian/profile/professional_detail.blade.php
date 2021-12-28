@@ -78,8 +78,7 @@
             <p>Medicaid Enrolled:
                 <span>
                   <input type="radio" name="medicaidEnrolled" {{ isset($users->professional_detail['medicaidEnrolled']) && $users->professional_detail['medicaidEnrolled'] == 'true' ? 'checked' : '' }} onclick="return false;">Yes
-                            <input type="radio" name="medicaidEnrolled" {{ isset($users->professional_detail['medicaidEnrolled']) && $users->professional_detail['medicaidEnrolled'] == 'false' ? '' : 'checked' }} onclick="return false;">No
-                   
+                    <input type="radio" name="medicaidEnrolled" {{ isset($users->professional_detail['medicaidEnrolled']) && $users->professional_detail['medicaidEnrolled'] == 'false' ? '' : 'checked' }} onclick="return false;">No
                 </span>
             </p>
         </td>

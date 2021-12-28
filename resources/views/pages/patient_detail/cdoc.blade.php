@@ -1,4 +1,4 @@
-<div class="tab-pane fade show active" id="patientCDOC" role="tabpanel" aria-labelledby="demographic">
+<div class="tab-pane fade" id="patientCDOC" role="tabpanel" aria-labelledby="patientCDOC">
     <div class="app-card app-card-custom" data-name="patientCDOC">
         <div class="app-card-header">
             <h1 class="title">CDOC</h1>

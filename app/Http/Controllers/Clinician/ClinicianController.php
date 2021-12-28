@@ -283,7 +283,7 @@ class ClinicianController extends Controller
         if ($response != null && $response->status === true) {
             $data = $response->data;
           	
-                 $applicant = $workHistory_detail = $military_detail = $security_detail = $prior = $address = $info = $reference_detail = $employer_detail = $education_detail = $emergency_detail = $payroll_details = $professional_detail = [];
+                 $applicant = $workHistory_detail = $military_detail = $security_detail = $prior = $address = $info = $reference_detail = $employer_detail = $education_detail = $emergency_detail = $payroll_details = $professional_detail = $document_information = [];
             if ($data->applicant) {
             $applicant = $data->applicant;
                 if ($data->applicant->workHistory_detail) {
@@ -342,10 +342,9 @@ class ClinicianController extends Controller
                     $document_information = $data->applicant->document_Information;
                 }
             }
-          
-	
+         
 //            if ($data->designation_id == 1) {
-              return view('pages.admin.nurse-view', compact('data', 'prior','address','info','reference_detail','emergency_detail','education_detail','security_detail','military_detail','employer_detail','payroll_details','workHistory_detail','professional_detail','document_information'));
+              return view('pages.admin.nurse-view', compact('data', 'prior','address','info','reference_detail','emergency_detail','education_detail','security_detail','military_detail','employer_detail','payroll_details','workHistory_detail','professional_detail','document_information','applicant'));
 //            } else if ($data->designation_id == 2) {
 //                return view('pages.admin.rn-view', compact('data'));
 //            } else {

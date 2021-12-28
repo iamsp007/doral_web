@@ -171,7 +171,7 @@
                             </td>
                             @if(isset($users->payroll_details['are_you_filing_as_a_entity']) && $users->payroll_details['are_you_filing_as_a_entity'] == 'true')
                              <td style="width: 50%;">
-                                <p>Legal name of entity Entity:
+                                <p>Legal name of entity entity:
                                     <span>
                                         {{ $users->payroll_details['legal_entity']}}
                                     </span>
@@ -191,7 +191,7 @@
                         <tr>
                         
                             <td style="width: 50%;">
-                                <p>TaxPayer identification Number:
+                                <p>TaxPayer identification number:
                                     <span>
                                         {{ $users->payroll_details['taxpayer_id_number']}}
                                     </span>

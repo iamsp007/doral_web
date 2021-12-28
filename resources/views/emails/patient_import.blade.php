@@ -38,7 +38,7 @@
                         @if(isset($details['action']) && $details['action'] === 'CurrentCaregiverCheck')
                           Get Current Caregiver background process is complete!.
                         @else
-                          Your patient import background process is complete!.
+                          Your {{ $details['type'] ? $details['type'] : '' }} import background process is complete!.
                         @endif
                         </td>
                       </tr>
@@ -50,7 +50,7 @@
                           @if(isset($details['action']) && $details['action'] === 'CurrentCaregiverCheck')
                             {{ $details['message'] }}
                           @else
-                            Thank you for choosing HHAExchange for the patient import process.
+                            Thank you for choosing HHAExchange for the {{ $details['type'] ? $details['type'] : '' }} import process.
                           @endif
                        </td>
                       </tr>

@@ -30,11 +30,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('send:dueReportNotification')->timezone('America/New_York')->at('24:30');
+        //$schedule->command('send:dueReportNotification')->dailyAt('10:30');
 
         $company = Company::where('id','9')->first();
-        $schedule->job(new PatientImport($company))->timezone('America/New_York')->at('24:30');
-        $schedule->job(new CaregiverImport($company))->timezone('America/New_York')->at('24:30');
+        $schedule->job(new PatientImport($company))->dailyAt('10:30');
+        $schedule->job(new CaregiverImport($company))->dailyAt('10:30');
     }
 
     /**

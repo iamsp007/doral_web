@@ -1,47 +1,27 @@
 <div class="tab-pane fade" id="diagnosis" role="tabpanel" aria-labelledby="diagnosis-tab">
-                     <div class="app-card app-card-custom" data-name="diagnosis">
-                        <div class="app-card-header">
-                           <h1 class="title">Diagnosis</h1>
-                        </div>
-                        <div class="head scrollbar scrollbar12">
-                           <div class="p-3">
-                              <table class="table table-bordered" style="width: 100%;" id="employee-table">
-                                 <thead class="thead-inverse">
-                                    <tr>
-                                       <th>sr_no</th>
-                                       <th>ICD10_code</th>
-                                       <th>desc </th>
-                                       <th>date_of_diagnosis</th>
-                                       <th>historical_as_of</th>
-                                       <th width="11%">Action</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr class="table-success">
-                                       <td>1</td>
-                                       <td class="text-green">56745</td>
-                                       <td>---</td>
-                                       <td>Sunday, 1 October 2020</td>
-                                       <td>---</td>
-                                       <td>
-                                          <a href="#" class="btn btn-info btn-sm btn-block">Set as a Primary
-                                             Diagnosis Code</a>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td>2</td>
-                                       <td>4365</td>
-                                       <td>---</td>
-                                       <td>Sunday, 1 October 2020</td>
-                                       <td>---</td>
-                                       <td>
-                                          <a href="#" class="btn btn-info btn-sm btn-block">Set as a Primary
-                                             Diagnosis Code</a>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+   <div class="app-card app-card-custom" data-name="diagnosis">
+      <div class="app-card-header">
+         <h1 class="title">Diagnosis</h1>
+         <a href="javascript:void(0)" data-toggle="tooltip" id="{{ $patient->id }}" data-original-title="Due Report" class="btn btn-danger text-capitalize btn--sm cdoc_model" style="background: #006c76; color: #fff">Add Diagnosis</a>
+      </div>
+      <div class="head scrollbar scrollbar12">
+         <div class="p-3">
+            <table class="table table-bordered display responsive" id="employee-table" style="width: 100%;">
+                  <x-hidden name="patient_id" class="cdoc_patient" value="{{ $patient->id }}" />
+                  <thead class="thead-light">
+                     <tr>
+                        <th>Sr.No</th>
+                        <th>ICD10 Code</th>
+                        <th>Desc</th>
+                        <th>Date Of Diagnosis</th>
+                        <th>Historical As Of</th>
+                        <th width="11%">Action</th>
+                     </tr>
+                  </thead>
+               <tbody>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>

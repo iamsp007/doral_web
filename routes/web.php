@@ -44,7 +44,11 @@ use Illuminate\Support\Facades\Route;
         Route::post('/notification-history','App\Http\Controllers\NotificationHistoryController@getNotification')->name('notification.getList');
         Route::post('/notification/status', '\App\Http\Controllers\NotificationHistoryController@updateStatus')->name('notification.status');
         Route::post('send-mail','App\Http\Controllers\NotificationHistoryController@sendemail')->name('send-email');
-        
+
+        Route::get('/view-cdoc/{id}','App\Http\Controllers\IcdController@viewCdoc')->name('view-cdoc');
+        Route::get('get-description/{id?}','App\Http\Controllers\IcdController@getDescription')->name('get-description');
+        Route::post('icd/getall','App\Http\Controllers\IcdController@getAll')->name('icd.getall');
+        Route::resource('icd','App\Http\Controllers\IcdController');   
     });
 
     Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');

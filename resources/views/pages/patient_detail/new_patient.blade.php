@@ -52,7 +52,7 @@ table.dataTable thead th, table.dataTable thead td{
 @section('content')
     @if($serviceStatus != 'covid-19')
         <form id="search_form" method="post">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
                 <div class="row">
                     <div class="col-3 col-sm-3 col-md-3">
@@ -278,12 +278,12 @@ table.dataTable thead th, table.dataTable thead td{
         /*Open assign clinician in model */
         $("body").on('click','.assign',function () {
             var patient_id = $(this).attr('id');
-            assignClinicians(patient_id);
+            var url = '{{url("supervisor/view-clinician")}}/' + patient_id;
+            assignClinicians(url);
         });
 
-        function assignClinicians(patient_id)
+        function assignClinicians(url)
         {
-            var url = '{{url("supervisor/view-clinician")}}/' + patient_id;
             $("#loader-wrapper").show();
             $.ajax({
                 url : url,
@@ -571,7 +571,8 @@ table.dataTable thead th, table.dataTable thead td{
                 if (status === 'roadL') {
                     onBroadCastOpen(val);
                 } else if (status === 'assignClinician') {
-                    assignClinicians(val);
+                    var url = '{{url("supervisor/view-clinician")}}/' + val;
+                    assignClinicians(url);
                 } else {
                     postdataforaction(status, val);
                 }

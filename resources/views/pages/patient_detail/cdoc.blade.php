@@ -4,6 +4,7 @@
             <h1 class="title">CDOC</h1>
             <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip" data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt="" onclick="editAllField('patientCDOC')">
             <img src="{{ asset('assets/img/icons/update-icon.svg') }}" style="display:none" data-toggle="tooltip" data-placement="bottom" title="Update" class="cursor-pointer update-icon" alt="" onclick="updateAllField('patientCDOC')">
+            
         </div>
         <div class="head">
             <form id="cdoc_form">

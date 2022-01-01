@@ -31,4 +31,8 @@ class Icd extends Model
     public function patient(){
         return $this->hasOne(User::class,'id','patient_id');
     }
+
+    public function diagnosis(){
+        return $this->hasMany(UserDevice::class,'diagnosis_id','id');
+    }
 }

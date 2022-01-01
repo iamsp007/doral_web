@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Icd;
 use App\Models\IcdCode;
+use App\Models\UserDevice;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +15,7 @@ class IcdController extends Controller
 
     public function getall(Request $request)
     {
-        $patientList = Icd::where('patient_id',$request['patient_id'])->with('icdCode','patient')
+        $patientList = Icd::where('patient_id',$request['patient_id'])->with('icdCode','patient','diagnosis')
         ->when($request['icdCode'], function ($query) use($request){
             $query->whereHas('icdCode',function ($query) use($request) {
                 $query->where('id', $request['icdCode']);
@@ -25,36 +26,43 @@ class IcdController extends Controller
         $datatble = DataTables::of($patientList->get())
             ->addIndexColumn()
         
-            ->addColumn('icdCode', function($q) use($request) {
+            ->addColumn('icdCode', function($q) {
                 $icdCode = '';
                 if ($q->icdCode) {
                     $icdCode = $q->icdCode->ICD10Code;
                 }
                 return $icdCode;
             })
-            ->addColumn('description', function($q) use($request) {
+            ->addColumn('description', function($q) {
                 $icdCode = '';
                 if ($q->icdCode) {
                     $icdCode = $q->icdCode->codeDescription;
                 }
                 return $icdCode;
             })
-            ->addColumn('date', function($q) use($request) {
+            ->addColumn('date', function($q) {
                 return viewDateFormat($q->date);
             })
-            ->addColumn('historical_date', function($q) use($request) {
+            ->addColumn('historical_date', function($q) {
                 return viewDateFormat($q->historical_date);
             })
-            ->addColumn('action', function($q) use($request) {
+            ->addColumn('device', function($q) {
+                $device = [];
+                foreach ($q->diagnosis as $key => $value) {
+                    $device[] = $value->view_device_type;
+                } 
+                return implode(" ",$device);
+            })
+            ->addColumn('action', function($q) {
                 $btn = '<label><input class="careteam_check" type="checkbox" name="active" data-id="' . $q->id . '" data-action="icd-checked" data-field="active" data-url="' . route('icd.store') . '" data-patientId="' . $q->patient_id . '"';
                     if ($q->primary === '1') {
                         $btn.= 'checked';
                     }
-                $btn.= '><span style="font-size:12px; padding-left: 25px;"></span></label>';
-               
+                $btn.= '><span style="font-size:12px; padding-left: 25px;"></span></label> ';
+                $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $q->patient_id . '" id="' . $q->id . '" data-original-title="CDOC Detail" class="btn btn-danger text-capitalize btn--sm cdoc_model" style="background: #006c76; color: #fff">Add CDOC</a></div>';
                 return $btn;               
             })
-            ->rawColumns(['action']);
+            ->rawColumns(['action', 'device']);
             return $datatble->make(true);
     }
 
@@ -149,11 +157,64 @@ class IcdController extends Controller
         } 
     }
 
-    public function viewCdoc($id)
+    public function viewIcd($id)
     {   
         $icdCodes = IcdCode::get();
-        return view('pages.patient_detail.cdoc_popup', compact('id', 'icdCodes'));
+        return view('pages.patient_detail.icd_popup', compact('id', 'icdCodes'));
     }
+    
+    public function viewCdoc(Request $request)
+    {   
+        $input = $request->all();
+        return view('pages.patient_detail.cdoc_popup', compact('input'));
+    }
+
+    public function addCdoc(Request $request)
+    {   
+        $input = $request->all();
+       
+        $rules = [
+            'device_type' => 'required',
+        ];
+
+        $messages = [
+            'device_type.required' => 'Please select device type.',
+        ];
+          
+        $validator = Validator::make($input, $rules, $messages);
+
+        if ($validator->fails()) {
+            $arr = array('status' => 400, 'message' => $validator->getMessageBag()->toArray(), 'resultdata' => array());
+        } else {
+            try {
+
+                $userDevice = UserDevice::updateOrCreate([
+                    'user_id' => $input['user_id'],
+                    'device_type' => $input['device_type'],
+                    'patient_id' =>  $input['patient_id']
+                ],[
+                    'diagnosis_id' =>  $input['diagnosis_id']
+                ]);
+              
+                $arr = array("status" => 200, "message" => 'Cdoc Info added successfully', "resultdata" => $userDevice);
+               
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $message = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) {
+                    $message = $ex->errorInfo[2];
+                }
+                
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+            } catch (Exception $ex) {
+                $message = $ex->getMessage();
+                if (isset($ex->errorInfo[2])) {
+                    $message = $ex->errorInfo[2];
+                }
+                $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+            }
+        }
+        return \Response::json($arr);
+    }    
 
     public function getDescription($id)
     {

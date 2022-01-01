@@ -2,7 +2,7 @@
    <div class="app-card app-card-custom" data-name="diagnosis">
       <div class="app-card-header">
          <h1 class="title">Diagnosis</h1>
-         <a href="javascript:void(0)" data-toggle="tooltip" id="{{ $patient->id }}" data-original-title="Due Report" class="btn btn-danger text-capitalize btn--sm cdoc_model" style="background: #006c76; color: #fff">Add Diagnosis</a>
+         <a href="javascript:void(0)" data-toggle="tooltip" id="{{ $patient->id }}" data-original-title="Due Report" class="btn btn-danger text-capitalize btn--sm icd_model" style="background: #006c76; color: #fff">Add Diagnosis</a>
       </div>
       <div class="head scrollbar scrollbar12">
          <div class="p-3">
@@ -15,6 +15,7 @@
                         <th>Desc</th>
                         <th>Date Of Diagnosis</th>
                         <th>Historical As Of</th>
+                        <th>Device</th>
                         <th width="11%">Action</th>
                      </tr>
                   </thead>

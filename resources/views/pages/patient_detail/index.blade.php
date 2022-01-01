@@ -646,6 +646,7 @@
                 {data: 'description'},
                 {data: 'date'},
                 {data: 'historical_date'},
+                {data: 'device'},
                 {data: 'action'},
             ],
             "pageLength": 50,
@@ -767,14 +768,23 @@
             });
 
             /*Open CDOC Detail in model */
-            $("body").on('click','.cdoc_model',function () {
+            $("body").on('click','.icd_model',function () {
                 var user_id = $(this).attr('id');
-                var url = '{{url("view-cdoc")}}/' + user_id;
+                var url = '{{url("view-icd")}}/' + user_id;
                  
                 cdocModel(url);
             });
 
-            function cdocModel(url)
+              /*Open CDOC Detail in model */
+              $("body").on('click','.cdoc_model',function () {
+                var diagnosis_id = $(this).attr('id');
+                var patient_id = $(this).attr('data-id');
+                var url = '{{url("view-cdoc")}}';
+                 
+                cdocModel(url, diagnosis_id, patient_id);
+            });
+
+            function cdocModel(url, diagnosis_id = '', patient_id = '')
             {
                 $("#loader-wrapper").show();
                 $.ajax({
@@ -782,6 +792,10 @@
                     type: 'GET',
                     headers: {
                         'X_CSRF_TOKEN':'{{ csrf_token() }}',
+                    },
+                    data: {
+                        patient_id: patient_id,
+                        diagnosis_id: diagnosis_id
                     },
                     success:function(data, textStatus, jqXHR){
                         $("#loader-wrapper").hide();

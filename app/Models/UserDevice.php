@@ -16,8 +16,9 @@ class UserDevice extends Model
      */
     protected $fillable = [
         'user_id',
-        'device_id',
+        'patient_id',
         'device_type',
+        'diagnosis_id',
         'status',
     ];
 

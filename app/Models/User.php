@@ -206,8 +206,8 @@ class User extends Authenticatable
      */
     public function getAvatarImageAttribute()
     {
-        if (isset($this->image) && !empty($this->image)) {
-            return env('WEB_URL').'assets/img/user/'. $this->image;
+        if (isset($this->avatar) && !empty($this->avatar)) {
+            return env('WEB_URL').'assets/upload/images/'. $this->avatar;
         } else {
             return env('WEB_URL').'assets/img/user/01.png';
         }

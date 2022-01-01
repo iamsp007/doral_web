@@ -22,7 +22,7 @@
         </div>
     @endif
     <form class="add_patient_form">
-    @csrf
+        @csrf
         <table class="table table-borderless table-sm patientTable shadow">
             <thead>
                 <tr class="table-active">
@@ -2943,8 +2943,8 @@
                 $('#'+el_id+'-error').remove();
                 //error.insertAfter(element.parents("td")).css({"color" : "red"});
                  if(element.hasClass('select2') && element.next('.select2-container').length) {
-        error.insertAfter(element.next('.select2-container'));
-    } else {
+            error.insertAfter(element.next('.select2-container'));
+                } else {
                     error.insertAfter(element);
                 }
             },

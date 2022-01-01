@@ -7,34 +7,28 @@ Patient Report Details
 
 @section('content')
     <table class="display responsive nowrap" style="width:100%" id="get_due_patient_table">
-     
         <thead>
-       
-        <tr>
-            <th>Sr No.</th>
-            <th>Patient Name</th>
-            <th>Gender</th>
-            <th>SSN</th>
-            <th>Home Phone</th>
-            <th>Services</th>
-            <th>Doral Id</th>
-            <th>City - State</th>
-            <th>DOB</th>
-            <th>Action</th>
-         </tr>
+            <tr>
+                <th>Sr No.</th>
+                <th>Patient Name</th>
+                <th>Gender</th>
+                <th>SSN</th>
+                <th>Home Phone</th>
+                <th>Services</th>
+                <th>Doral Id</th>
+                <th>City - State</th>
+                <th>DOB</th>
+                <th>Action</th>
+            </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
-  
-  
 @endsection
-
 @push('scripts')
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script>
-        
-      $('#get_due_patient_table').DataTable({
+        $('#get_due_patient_table').DataTable({
             "processing": true,
             "serverSide": true,
             "language": {
@@ -67,16 +61,12 @@ Patient Report Details
             'columnDefs': [
                 {
                     "order": [ 1, "desc"],
-                    // targets: [0, 8],
-                    // 'searchable': false,
-                    // 'orderable': false,
                 }
             ],
         });
 
-
-         /*Open message in model */
-         $("body").on('click','.viewMessage',function () {
+        /*Open message in model */
+        $("body").on('click','.viewMessage',function () {
             var user_id = $(this).attr('id');
             var url = '{{url("get-patient-due-detail")}}/' + user_id;
           
@@ -87,7 +77,6 @@ Patient Report Details
                   'X_CSRF_TOKEN':'{{ csrf_token() }}',
                },  
                success:function(data, textStatus, jqXHR){
-                 
                   $(document).find(".messageViewModel").html(data);
                   $(document).find(".messageViewModel").modal('show');
                },
@@ -96,6 +85,6 @@ Patient Report Details
                  alert('error');
                }
             });
-      });
+        });
     </script>
 @endpush

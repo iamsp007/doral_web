@@ -506,7 +506,7 @@
 @endsection
 
 @push('styles')
-  
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
    <style>
       input, .label {
          color: black;
@@ -518,13 +518,35 @@
 @endpush
 @push('scripts')
    <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
    <script>
       var lab_referral_url="{{ route('patient.lab.report.referral') }}";
       var lab_report_upload_url="{{ route('patient.lab.report.upload') }}";
       var lab_report_data_url="{{ route('patient.lab.report.data') }}";
       var patient_id='{{ $patient->id }}';
       
+        $('.icd_code').select2();
+        $(document).on('change', '.icd_code', function () {
+            var temp = $(this);
+            var item_type_is = temp.val();
+        
+            if (item_type_is != "") {
+                $.ajax({
+                    type: "GET",
+                    url: "{{url('get-description')}}/" + item_type_is,
+                    dataType: "JSON",
+                    success: function (data) {
+                        $('#description').html('');
+                        if (data.status == 200) {
+                            if (data.result != '') {
+                                $('#description').append(data.result);
+                            }
+                        }
+                    },
+                });
+            } 
+        });
+       
         $('#due_patient_list').DataTable({
             "processing": true,
             "serverSide": true,
@@ -572,7 +594,6 @@
             //],
         });
 
-
         $('#patient_request_list').DataTable({
             "processing": true,
             "serverSide": true,
@@ -601,6 +622,35 @@
             "pageLength": 50,
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
 
+        });
+
+        $('#employee-table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "language": {
+                processing: '<div id="loader-wrapper"><div class=""></div><div class="pulse"></div></div>'
+            },
+            ajax: {
+                'type': 'POST',
+                'url': "{{ route('icd.getall') }}",
+                'headers': {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: function (d) {
+                    d.patient_id = $('input[name="patient_id"]').val();
+                },
+            },
+            columns:[
+                {data: 'DT_RowIndex', orderable: false, searchable: false},
+                {data: 'icdCode'},
+                {data: 'description'},
+                {data: 'date'},
+                {data: 'historical_date'},
+                {data: 'device'},
+                {data: 'action'},
+            ],
+            "pageLength": 50,
+            "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
         });
         
         $(document).ready(function() {
@@ -636,7 +686,6 @@
             })
             
             $(".autoImportPatient").click(function () {
-          
                 var url = $(this).attr('data-url');
                 var action = $(this).attr('data-action');
                 var patientId = $(this).attr('data-id');
@@ -717,7 +766,49 @@
                 }
                 });
             });
-        
+
+            /*Open CDOC Detail in model */
+            $("body").on('click','.icd_model',function () {
+                var user_id = $(this).attr('id');
+                var url = '{{url("view-icd")}}/' + user_id;
+                 
+                cdocModel(url);
+            });
+
+              /*Open CDOC Detail in model */
+              $("body").on('click','.cdoc_model',function () {
+                var diagnosis_id = $(this).attr('id');
+                var patient_id = $(this).attr('data-id');
+                var url = '{{url("view-cdoc")}}';
+                 
+                cdocModel(url, diagnosis_id, patient_id);
+            });
+
+            function cdocModel(url, diagnosis_id = '', patient_id = '')
+            {
+                $("#loader-wrapper").show();
+                $.ajax({
+                    url : url,
+                    type: 'GET',
+                    headers: {
+                        'X_CSRF_TOKEN':'{{ csrf_token() }}',
+                    },
+                    data: {
+                        patient_id: patient_id,
+                        diagnosis_id: diagnosis_id
+                    },
+                    success:function(data, textStatus, jqXHR){
+                        $("#loader-wrapper").hide();
+                        $(".messageViewModel").html(data);
+                        $(".messageViewModel").modal('show');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        swal("Server Timeout!", "Please try again", "warning");
+                        $("#loader-wrapper").hide();
+                    }
+                });
+            }
+            
             $(document).on('click','.save_record',function(event) {
                 event.preventDefault();
              
@@ -803,8 +894,9 @@
                 $('.form_div').hide();
             });
 
-            $(".careteam_check").change(function() {
+            $("body").on('change','.careteam_check',function () {
                 var val = $(this).attr('data-id');
+               
                 var patientId = $(this).attr('data-patientId');
                 var url = $(this).attr('data-url');
                 var action = $(this).attr('data-action');

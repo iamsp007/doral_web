@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Icd;
 use App\Models\IcdCode;
+use App\Models\PatientRequest;
 use App\Models\UserDevice;
 use Exception;
 use Illuminate\Http\Request;
@@ -53,16 +54,20 @@ class IcdController extends Controller
                 } 
                 return implode(" ",$device);
             })
-            ->addColumn('action', function($q) {
+            ->addColumn('primary', function($q) {
                 $btn = '<label><input class="careteam_check" type="checkbox" name="active" data-id="' . $q->id . '" data-action="icd-checked" data-field="active" data-url="' . route('icd.store') . '" data-patientId="' . $q->patient_id . '"';
-                    if ($q->primary === '1') {
-                        $btn.= 'checked';
-                    }
+                if ($q->primary === '1') {
+                    $btn.= 'checked';
+                }
                 $btn.= '><span style="font-size:12px; padding-left: 25px;"></span></label> ';
-                $btn .= '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $q->patient_id . '" id="' . $q->id . '" data-original-title="CDOC Detail" class="btn btn-danger text-capitalize btn--sm cdoc_model" style="background: #006c76; color: #fff">Add CDOC</a></div>';
+
+                return $btn;
+            })
+            ->addColumn('action', function($q) {
+                $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $q->patient_id . '" id="' . $q->id . '" data-original-title="CDOC Detail" class="btn btn-danger text-capitalize btn--sm cdoc_model" style="background: #006c76; color: #fff">Add CDOC</a></div>';
                 return $btn;               
             })
-            ->rawColumns(['action', 'device']);
+            ->rawColumns(['action', 'primary', 'device']);
             return $datatble->make(true);
     }
 
@@ -166,7 +171,9 @@ class IcdController extends Controller
     public function viewCdoc(Request $request)
     {   
         $input = $request->all();
-        return view('pages.patient_detail.cdoc_popup', compact('input'));
+        $userDevice = UserDevice::where([['diagnosis_id', '=', $input['diagnosis_id']],['patient_id', '=', $input['patient_id']]])->first();
+
+        return view('pages.patient_detail.cdoc_popup', compact('input','userDevice'));
     }
 
     public function addCdoc(Request $request)
@@ -191,8 +198,7 @@ class IcdController extends Controller
                 $userDevice = UserDevice::updateOrCreate([
                     'user_id' => $input['user_id'],
                     'device_type' => $input['device_type'],
-                    'patient_id' =>  $input['patient_id']
-                ],[
+                    'patient_id' =>  $input['patient_id'],
                     'diagnosis_id' =>  $input['diagnosis_id']
                 ]);
               

@@ -72,9 +72,8 @@ class SendDueReportNotification extends Command
             }
 
             if ($patient->phone != '') {
-                //sendsmsToMe($message, $patient->phone);
                 Log::info('patient phone start');
-                sendsmsToMe($message, '8511380657');
+                sendsmsToMe($message, setPhone($patient->phone));
                 Log::info('patient phone end');
             }
 
@@ -91,9 +90,8 @@ class SendDueReportNotification extends Command
                     Log::info('casemanager email end');
                 }
                 if ($caseManager->clinician->phone != '') {
-                    //sendsmsToMe($message, $caseManager->clinician->phone);
                     Log::info('casemanager phone start');
-                    sendsmsToMe($message, '8511380657');
+                    sendsmsToMe($message, setPhone($caseManager->clinician->phone));
                     Log::info('casemanager phone end');
                 }
                 Log::info('case manager message send end');
@@ -104,9 +102,8 @@ class SendDueReportNotification extends Command
             foreach ($careTeam as $key => $value) {
                 Log::info('care team message send start');
                 if ($caseManager->clinician->phone != '') {
-                    //sendsmsToMe($message, setPhone($value->detail['phone']));
                     Log::info('care phone start');
-                    sendsmsToMe($message, '8511380657');
+                    sendsmsToMe($message, setPhone($value->detail['phone']));
                     Log::info('care phone end');
                 }
                 Log::info('care team message send end');

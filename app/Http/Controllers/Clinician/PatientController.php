@@ -394,7 +394,7 @@ class PatientController extends Controller
             $patient = CovidForm::find($request->id);
 
             $sendSms = Nexmo::message()->send([
-                'to' => $request->phone,
+                'to' => setPhone($request->phone),
                 'from' => env('APP_NAME'),
                 'text' => 'COVID-19 report of '.$patient->patient_name.'. Here is the report: '.env('APP_URL').'covid-19/'.$patient->id.'/detail'
             ]);

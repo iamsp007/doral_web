@@ -14,7 +14,7 @@
                         <div class="col-12 col-sm-12">
                             <label for="_title" class="label">CDOC Id</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-lg" id="user_id" name="user_id" aria-describedby="_serviceHelp">
+                                <input type="text" class="form-control form-control-lg" id="user_id" name="user_id" aria-describedby="_serviceHelp" value="{{ ($userDevice) ? $userDevice->user_id : '' }}">
                             </div>
                         </div>                       
                     </div>
@@ -49,21 +49,26 @@
     /*@ Store / Update admin */
     validator = $(".add_cdoc_form").validate({
         rules:{
-            icd_code: {required: true},
+            user_id: {required: true},
+            device_type: {required: true},
         },
         messages: {
-            icd_code: {
+            user_id: {
                 required: "Please select icd."
+            },
+            device_type: {
+                required: "Please select device type."
             },
         },
         errorPlacement: function(error, element) {
             var el_id = element.attr("name");
             $('#'+el_id+'-error').remove();
-                if(element.hasClass('select2') && element.next('.select2-container').length) {
-                 error.insertAfter(element.next('.select2-container'));
-            } else {
-                error.insertAfter(element);
-            }
+            // if(element.hasClass('select2') && element.next('.select2-container').length) {
+            //      error.insertAfter(element.next('.select2-container'));
+            // } else {
+            //     error.insertAfter(element);
+            // }
+            error.insertAfter(element);
         },
         invalidHandler: function (event,validator) {
             
@@ -72,8 +77,8 @@
             event.preventDefault();
 
             var url = "{{ Route('cdoc.store') }}";
-            alert(url);
             var fdata = new FormData($(".add_cdoc_form")[0]);
+
             $("#loader-wrapper").show();
             $.ajax({
                 type:"POST",

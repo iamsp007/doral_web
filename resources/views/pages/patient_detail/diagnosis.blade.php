@@ -16,6 +16,7 @@
                         <th>Date Of Diagnosis</th>
                         <th>Historical As Of</th>
                         <th>Device</th>
+                        <th>Primary</th>
                         <th width="11%">Action</th>
                      </tr>
                   </thead>

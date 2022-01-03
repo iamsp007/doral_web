@@ -43,14 +43,14 @@
                            class="mr-2 activeIcon">Demographics
                      </a>
                   </li>
-                  <li>
+                  <!-- <li>
                      <a class="nav-link d-flex align-items-center" id="patientCDOC-tab" data-toggle="pill"
                         href="#patientCDOC" role="tab" aria-controls="patientCDOC" aria-selected="true">
                         <img src="{{ asset('assets/img/icons/icons_demographics.svg') }}" alt="" class="mr-2 inactiveIcon">
                         <img src="{{ asset('assets/img/icons/icons_demographics_active.svg') }}" alt=""
                            class="mr-2 activeIcon">CDOC
                      </a>
-                  </li>
+                  </li> -->
                   <li>
                      <a class="nav-link d-flex align-items-center" id="insurance-tab" data-toggle="pill"
                         href="#insurance" role="tab" aria-controls="insurance" aria-selected="false">
@@ -508,12 +508,15 @@
 @push('styles')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
    <style>
-      input, .label {
-         color: black;
-      }
-      .phone-text, .while_edit {
-         display: none;
-      }
+        input, .label {
+            color: black;
+        }
+        .phone-text, .while_edit {
+            display: none;
+        }
+        label.error {
+            color: red;
+        }
    </style>
 @endpush
 @push('scripts')
@@ -647,6 +650,7 @@
                 {data: 'date'},
                 {data: 'historical_date'},
                 {data: 'device'},
+                {data: 'primary'},
                 {data: 'action'},
             ],
             "pageLength": 50,
@@ -973,8 +977,9 @@
                                         } else if(data.modal === 'pharmacy-checked') {
                                             var pharmacy_html = pharmacyAppend(data)
                                             $('.pharmacy-list-order tr:last').after(pharmacy_html);
+                                        } else {
+                                            $(document).find("#employee-table").DataTable().ajax.reload(null, false);
                                         }
-
                                         alertText(data.message,'success');
                                     }
                                     $("#loader-wrapper").hide();

@@ -56,7 +56,7 @@ class IcdController extends Controller
             })
             ->addColumn('primary', function($q) {
                 $btn = '<label><input class="careteam_check" type="checkbox" name="active" data-id="' . $q->id . '" data-action="icd-checked" data-field="active" data-url="' . route('icd.store') . '" data-patientId="' . $q->patient_id . '"';
-                if ($q->primary === '1') {
+                if ($q->primary === 'on') {
                     $btn.= 'checked';
                 }
                 $btn.= '><span style="font-size:12px; padding-left: 25px;"></span></label> ';
@@ -80,7 +80,7 @@ class IcdController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-       
+      
         $rules = $messages = [];
         if ($input['section'] === 'icd-add') {
             $rules = [
@@ -113,7 +113,10 @@ class IcdController extends Controller
                     $icd->identified_during = $input['identified_during'];
                     $icd->primary = $input['primary'];
                     $icd->fill($input)->save();
-
+                    
+		     $input['care_team_id'] = $icd->id;
+                    self::updateData($input);
+			
                     $arr = array("status" => 200, "message" => 'Patient Diagnosis Info added successfully', "resultdata" => $icd);
                 }
             } catch (\Illuminate\Database\QueryException $ex) {
@@ -137,11 +140,11 @@ class IcdController extends Controller
     public static function updateData($input)
     {
         $icd = Icd::where('patient_id',$input['patient_id'])->update([
-            'primary' => '0'
+            'primary' => ''
         ]);
 
         Icd::where('id', $input['care_team_id'])->update([
-            'primary' => '1'
+            'primary' => 'on'
         ]);
         
         return $icd;
@@ -155,7 +158,7 @@ class IcdController extends Controller
      */
     public function edit($id)
     {
-        $icd = Icd::find($id)->update(['primary' => '1']);
+        $icd = Icd::find($id)->update(['primary' => 'on']);
         
         if(isset($icd)) {
             return view('admin.designation.create_update',compact('designation'));

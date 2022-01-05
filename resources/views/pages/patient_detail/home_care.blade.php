@@ -399,9 +399,9 @@
                               <th>Phone</th>
                               <th>FAX</th>
                               <th>NPI</th>
-                              <th>Primary</th>
-                              <th>Intervention</th>
                               <th>Address</th>
+                              <th>Intervention</th>
+                              <th>Primary</th>
                               <th>Action</th>
                            </tr>
                         </thead>

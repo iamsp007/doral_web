@@ -171,7 +171,7 @@
                               <th>Relation</th>
                               <th>Phone</th>
                               <th>HCP</th>
-                              <th>Texed</th>
+                              <th>Intervention</th>
                               <th>Action</th>
                            </tr>
                         </thead>
@@ -208,7 +208,7 @@
                                           <span class='label'>
                                              <label>
                                                 <input class="careteam_check" type="checkbox" name="hcp" data-id="{{ $careTeam->id }}" data-action="family-checked" data-field="hcp" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($careTeam['detail']['hcp']) === 'on' ? 'checked' : '' }}>
-                                                <span style="font-size:12px; padding-left: 25px;">HCP</span>
+                                                <span style="font-size:12px; padding-left: 25px;"></span>
                                              </label>
                                           </span>
                                        </td>
@@ -216,7 +216,7 @@
                                           <span class='label'>
                                              <label>
                                                 <input type="checkbox" name="texed" {{ ($careTeam['detail']['texed']) === 'on' ? 'checked' : '' }}>
-                                                <span style="font-size:12px; padding-left: 25px;" readonly>Texed</span>
+                                                <span style="font-size:12px; padding-left: 25px;" readonly></span>
                                              </label>
                                           </span>
                                        </td>
@@ -340,7 +340,7 @@
                               <th>Address</th>
                               <th>NPI</th>
                               <th>Primary</th>
-                              <th>Texed</th>
+                              <th>Intervention</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -400,7 +400,7 @@
                               <th>FAX</th>
                               <th>NPI</th>
                               <th>Primary</th>
-                              <th>Texed</th>
+                              <th>Intervention</th>
                               <th>Address</th>
                               <th>Action</th>
                            </tr>
@@ -445,7 +445,7 @@
                                           <span class='label'>
                                              <label>
                                                 <input class="careteam_check" type="checkbox" name="primary" data-id="{{ $physician->id }}" data-action="physician-checked" data-field="primary" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($physician['detail']['primary']) === 'on' ? 'checked' : '' }}>
-                                                <span style="font-size:12px; padding-left: 25px;">Primary</span>
+                                                <span style="font-size:12px; padding-left: 25px;"></span>
                                              </label>
                                           </span>
                                        </td>
@@ -453,7 +453,7 @@
                                           <span class='label'>
                                              <label>
                                                 <input type="checkbox" name="texed" {{ ($physician['detail']['texed']) === 'on' ? 'checked' : '' }}>
-                                                <span style="font-size:12px; padding-left: 25px;" disabled>Texed</span>
+                                                <span style="font-size:12px; padding-left: 25px;" disabled></span>
                                              </label>
                                           </span>
                                        </td>

@@ -952,7 +952,7 @@
                                         } else if(data.modal === 'family-checked') {
                                             $('.family-list-order').find('.ms-lastCell').each(function() {
                                                 var lastColumn = $(this).html();
-                                                var replaceValue = '<td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="hcp" data-id="' + data.resultdata.id + '" data-action="family-checked" data-field="hcp" data-url="' + url + '" data-patientId="'+patient_id+'"><span style="font-size:12px; padding-left: 25px;">HCP</span></label></span></td>';
+                                                var replaceValue = '<td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="hcp" data-id="' + data.resultdata.id + '" data-action="family-checked" data-field="hcp" data-url="' + url + '" data-patientId="'+patient_id+'"><span style="font-size:12px; padding-left: 25px;"></span></label></span></td>';
                                             
                                                 $(this).replaceWith(replaceValue);
                                             });
@@ -968,7 +968,7 @@
                                                     } else {
                                                         html+= 'unchecked';
                                                     }
-                                                    html+= '><span style="font-size:12px; padding-left: 25px;">HCP</span></label></span>';
+                                                    html+= '><span style="font-size:12px; padding-left: 25px;"></span></label></span>';
                                                     console.log(html);
                                                 select.append(val);
                                             });
@@ -1160,7 +1160,7 @@
        if (data.resultdata.detail['hcp'] === 'on') {
         	$('.family-list-order').find('.ms-lastCell').each(function() {
                 var lastColumn = $(this).html();
-                var replaceValue = '<td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="hcp" data-id="' + data.resultdata.id + '" data-action="family-checked" data-field="hcp" data-url="' + url + '" data-patientId="'+patient_id+'"><span style="font-size:12px; padding-left: 25px;">HCP</span></label></span></td>';
+                var replaceValue = '<td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="hcp" data-id="' + data.resultdata.id + '" data-action="family-checked" data-field="hcp" data-url="' + url + '" data-patientId="'+patient_id+'"><span style="font-size:12px; padding-left: 25px;"></span></label></span></td>';
             
                 $(this).replaceWith(replaceValue);
             });
@@ -1170,11 +1170,11 @@
         if (data.resultdata.detail['hcp'] === 'on') {
             html+= 'checked';
         } 
-        html+= '><span style="font-size:12px; padding-left: 25px;">HCP</span></label></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="texed" ';
+        html+= '><span style="font-size:12px; padding-left: 25px;"></span></label></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="texed" ';
         if (data.resultdata.detail['texed'] === 'on') {
             html+= 'checked';
         } 
-        html+= '><span style="font-size:12px; padding-left: 25px;" readonly>Texed</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+        html+= '><span style="font-size:12px; padding-left: 25px;" readonly></span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
       
      
         return html;
@@ -1185,7 +1185,7 @@
         if (data.resultdata.detail['primary'] === 'on') { 	
         	$('.physician-list-order').find('.ms-lastCell').each(function() {
                 var lastColumn = $(this).html();
-                var replaceValue = '<td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="primary" data-id="' + data.resultdata.id + '" data-action="physician-checked" data-field="primary" data-url="' + url + '" data-patientId="'+patient_id+'"><span style="font-size:12px; padding-left: 25px;">Primary</span></label></span></td>';
+                var replaceValue = '<td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="primary" data-id="' + data.resultdata.id + '" data-action="physician-checked" data-field="primary" data-url="' + url + '" data-patientId="'+patient_id+'"><span style="font-size:12px; padding-left: 25px;"></span></label></span></td>';
         
                 $(this).replaceWith(replaceValue);
             });
@@ -1195,11 +1195,11 @@
         if (data.resultdata.detail['primary'] === 'on') {
             html+= 'checked';
         }
-        html+= '><span style="font-size:12px; padding-left: 25px;">Primary</span></label></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="texed" ';
+        html+= '><span style="font-size:12px; padding-left: 25px;"></span></label></span></td><td><span class="label"><label><input class="careteam_check" type="checkbox" name="texed" ';
         if (data.resultdata.detail['texed'] === 'on') {
             html+= 'checked';
         } 
-        html+= '><span style="font-size:12px; padding-left: 25px;" readonly>Texed</span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
+        html+= '><span style="font-size:12px; padding-left: 25px;" readonly></span></label></span></td><td><div class="normal"><a class="edit_btn btn btn-sm" title="Edit" style="background: #006c76; color: #fff">Edit</a></div><div class="while_edit"><button type="submit" class="btn btn-sm save_record" data-url="' + url + '" data-action="edit"><i class="fa fa-save"></i> Save</button><a class="cancel_edit btn btn-sm" title="Cancel" style="background: #bbc2c3; color: #fff">Close</a></div></td></form></tr>';
 
         return html;
     }

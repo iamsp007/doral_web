@@ -29,8 +29,8 @@
 .app .app-content .app-body .details-content .tab-content .circle-icon-small:hover{border: 1px solid #006c76;font-size: 15px;color:#006c76}
 .app .app-content .app-body .details-content .tab-content .card-header ._icon{width: 40px;border: 1px solid #e4e4e4;border-radius: 50%;padding: 6px;}
 .app .app-content .app-body .details-content .tab-content .card-header ._icon:hover{border: 1px solid #006c76;padding: 4px;}
-.app .app-content .app-body .details-content .tab-content ._title{font-size: 12px;color: #505050;margin-bottom: 6px;font-weight:500}
-.app .app-content .app-body .details-content .tab-content ._detail{font-size: 14px;color: var(--secondary-color);text-align: justify;font-weight:600}
+.app .app-content .app-body .details-content .tab-content ._title{font-size: 14px;color: var(--secondary-color);margin-bottom: 6px;font-weight:600}
+.app .app-content .app-body .details-content .tab-content ._detail{font-size: 12px;color: #505050;text-align: justify;font-weight:500}
 .app .app-content .app-body .details-content .tab-content ._detail span{font-weight: 600;}
 .app .app-content .app-body .details-content .tab-content .card-body{padding: 0;}
 .profile-title{color: var(--black);font-size: 14px;font-weight: 600;margin-bottom: 15px;margin-top: 35px;}

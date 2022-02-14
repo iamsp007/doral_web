@@ -21,7 +21,12 @@
         <div class="row">
             <div class="col-3 col-sm-3 col-md-3">
                 <div class="input-group">
-                    <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
+                    <select class="form-control select2_dropdown" id="first_name" name="first_name"></select>
+                </div>
+            </div>
+             <div class="col-3 col-sm-3 col-md-3">
+                <div class="input-group">
+                    <select class="form-control select2_dropdown" id="last_name" name="last_name"></select>
                 </div>
             </div>
             <div class="col-3 col-sm-3 col-md-3">
@@ -42,18 +47,29 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-3 col-sm-3 col-md-3">
-                <div class="input-group">
-                    <x-text name="email" class="email" id="email" placeholder="Email"/></td>
-                </div>
-            </div>
+           
         </div>
     </div>
     <div class="form-group">
         <div class="row">
+        <div class="col-3 col-sm-3 col-md-3">
+                <div class="input-group">
+                    <x-text name="email" class="email" id="email" placeholder="Email"/></td>
+                </div>
+            </div>
             <div class="col-3 col-sm-3 col-md-3">
                 <div class="input-group">
                     <x-text name="date_of_birth" class="date_of_birth" id="date_of_birth" placeholder="Date of birth"/></td>
+                </div>
+            </div>
+            <div class="col-3 col-sm-3 col-md-3">
+                <div class="input-group">
+                    <select name="searchstatus" class="form-control form-control-lg">
+                        <option value="">Select a status</option>
+                        @foreach (config('select.clinicianstatus') as $key => $value)
+                        <option value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="col-3 col-sm-3 col-md-3">
@@ -70,7 +86,7 @@
                 <th><div class="checkbox"><label><input class="mainchk" type="checkbox" /><span class="checkbtn"></span></label></div></th>
                 <th>Applicant Name</th>
                 <th>Gender</th>
-                <th width="80px">Designation</th>
+                <th width="80px">Speciality</th>
                 <th>Email</th>
                 <th>DOB</th>
                 <th>Phone</th>
@@ -91,11 +107,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.2/jQuery.print.js" integrity="sha512-BaXrDZSVGt+DvByw0xuYdsGJgzhIXNgES0E9B+Pgfe13XlZQvmiCkQ9GXpjVeLWEGLxqHzhPjNSBs4osiuNZyg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+
        var clinician_status = "<?php echo $status;?>";
-    
-        $('#user_name').select2({
+
+       $('#first_name').select2({
             minimumInputLength: 3,
-            placeholder: 'Select a name',
+            placeholder: 'Select a first name',
             ajax: {
                 type: "POST",
                 url: "{{ route('clinician.get-user-data') }}",
@@ -105,6 +122,8 @@
                     var query = {
                         q: params.term,
                         status: clinician_status,
+                        view: 'clinician',
+                        field: 'first_name'
                     }
             
                     return query;
@@ -113,7 +132,39 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.first_name + ' ' + item.last_name,
+                                text: item.first_name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
+        $('#last_name').select2({
+            minimumInputLength: 3,
+            placeholder: 'Select a last name',
+            ajax: {
+                type: "POST",
+                url: "{{ route('clinician.get-user-data') }}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    var query = {
+                        q: params.term,
+                        status: clinician_status,
+                        view: 'clinician',
+                        field: 'last_name'
+                    }
+            
+                    return query;
+                },
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.last_name,
                                 id: item.id
                             }
                         })
@@ -137,11 +188,12 @@
                 },
                 data: function (d) {
                     d.status = $('input[name="status"]').val();
-                    d.user_name = $('select[name="user_name"]').val();
+                    d.first_name = $('select[name="first_name"]').val();
+                    d.last_name = $('select[name="last_name"]').val();
                     d.designation_id = $('select[name="designation_id"]').val();
                     d.email = $('input[name="email"]').val();
                     d.gender = $('select[name="gender"]').val();
-                    
+                    d.searchstatus = $('select[name="searchstatus"]').val();
                 },
                
             },
@@ -167,7 +219,8 @@
 
         $("#reset_btn").click(function () {
             $('#search_form').trigger("reset");
-            $('#user_name').html('');
+            $('#first_name').html('');
+            $('#last_name').html('');
             refresh();
         });
 

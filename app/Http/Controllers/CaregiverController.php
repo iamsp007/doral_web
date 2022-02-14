@@ -577,15 +577,27 @@ class CaregiverController extends Controller
             $search = $request->q;
             $status = '';
             if ($request->status === 'pending') {
-                $status = ['0'];
+                if ($request->view === 'clinician') {
+                    $status = ['0','3'];
+                } else {
+                    $status = ['0'];
+                }
             } else {
                 $status = ['1', '2', '3', '5'];
             }
-            $data = User::whereIn('status', $status)->select("id","first_name", 'last_name')
-                ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")->whereHas('roles',function ($q){
-                    $q->where('name','clinician');
-                })
-                ->get();
+
+            $data = User::whereIn('status', $status)->select("id","first_name", 'last_name');
+            if (isset($request->field) && $request->field === 'first_name') {
+                $data->where('first_name','LIKE',"%$search%");
+            }
+
+            if (isset($request->field) && $request->field === 'last_name') {
+                $data->where('last_name', 'LIKE', "%$search%");
+            }
+            
+            $data->whereHas('roles',function ($q){
+                $q->where('name','clinician');
+            })->get();
         }
        
         return response()->json($data);

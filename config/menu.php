@@ -210,29 +210,21 @@ return [
             'icon_title'=>'Clinician Source',
             'menu'=>[
                 [
-                    'name'=>'Clinician',
+                    'name'=>'Applicant',
                     'url'=>env('APP_URL').'admin/clinician/pending',
-                    'route'=>'admin/clinician/pending',
-                    'icon'=>'home-sb-select.svg',
-                    'icon_hover'=>'home-sb.svg',
-                    'icon_title'=>'Services'
-                ],
-                [
-                    'name'=>'Active',
-                    'url'=>env('APP_URL').'admin/clinician/active',
                     'route'=>'admin/clinician/active',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
                 ],
                 [
-                    'name'=>'Rejected',
-                    'url'=>env('APP_URL').'admin/clinician/rejected',
-                    'route'=>'admin/clinician/rejected',
+                    'name'=>'Employee',
+                    'url'=>env('APP_URL').'admin/clinician/active',
+                    'route'=>'admin/clinician/pending',
                     'icon'=>'home-sb-select.svg',
                     'icon_hover'=>'home-sb.svg',
                     'icon_title'=>'Services'
-                ]
+                ],
             ]
         ],
         [
@@ -269,7 +261,7 @@ return [
                 ]
             ]
         ],
-        [
+        /*[
             'name'=>'Employees Source',
             'url'=>'javascript:void(0)',
             'route'=>'javascript:void(0)',
@@ -294,7 +286,7 @@ return [
                     'icon_title'=>'Employees'
                 ]
             ]
-        ],
+        ],*/
         ['name'=>'Add Patient','url'=>env('APP_URL').'admin/patient/create','route'=>'patient.create','icon'=>'create-patient-sb-select.svg','icon_hover'=>'create-patient-sb.svg','icon_title'=>'Add Patient'],
         ['name'=>'Calendar','url'=>env('APP_URL').'admin/calendar','route'=>'admin/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
 

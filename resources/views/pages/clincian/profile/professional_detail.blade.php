@@ -128,12 +128,14 @@
     <tr>
         <td style="width: 50%;">
             <p>Age range you treated:
+	         @if(isset($users->professional_detail))
                 <span>
                     <input type="checkbox" name="age" {{ ($users->professional_detail['age_0_18']) ? 'checked' : '' }} onclick="return false;"> Age 0 to 18
                     <input type="checkbox" name="age" {{ ($users->professional_detail['age_19_40']) ? 'checked' : '' }} onclick="return false;"> Age 19 to 40
                      <input type="checkbox" name="age" {{ ($users->professional_detail['age_41_65']) ? 'checked' : '' }} onclick="return false;"> Age 41 to 65
                     <input type="checkbox" name="age" {{ ($users->professional_detail['age_65Plus']) ? 'checked' : '' }} onclick="return false;"> Age 65+
                 </span>
+                @endif
             </p>
         </td>
      
@@ -253,10 +255,10 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>Federal DEA Id:<span>{{ $users->professional_detail['federal_DEA_id']}}</span></p>
+                        <p>Federal DEA Id:<span>{{ isset($users->professional_detail) ? $users->professional_detail['federal_DEA_id'] : '' }}</span></p>
                     </td>
                     <td>
-                        <p>Expire Month/Year:<span>{{ $users->professional_detail['fedExpiredMonthYear']}}</span></p>
+                        <p>Expire Month/Year:<span>{{ isset($users->professional_detail) ? $users->professional_detail['fedExpiredMonthYear'] : ''}}</span></p>
                     </td>
                 </tr>
             </table>
@@ -272,7 +274,7 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>Npi Number:<span>{{ $users->professional_detail['npiNumber']}}</span></p>
+                        <p>Npi Number:<span>{{ isset($users->professional_detail) ? $users->professional_detail['npiNumber'] : ''}}</span></p>
                     </td>
                 </tr>
             </table>
@@ -283,7 +285,7 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>Npi Type:<span>{{ $users->professional_detail['npiType']}}</span></p>
+                        <p>Npi Type:<span>{{ isset($users->professional_detail) ? $users->professional_detail['npiType'] : ''}}</span></p>
                     </td>
                   
                     @if(isset($users->professional_detail['npiType']) && ($users->professional_detail['npiType'] == 'Individuan' || $users->professional_detail['npiType'] == 'Organisation'))
@@ -367,7 +369,7 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>CAQH Id:<span>{{ $users->professional_detail['caqh_id']}}</span></p>
+                        <p>CAQH Id:<span>{{ isset($users->professional_detail) ? $users->professional_detail['caqh_id'] : ''}}</span></p>
                     </td>
                 </tr>
             </table>
@@ -378,10 +380,10 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
-                        <p>CAQH User:<span>{{ $users->professional_detail['caqh_user']}}</span></p>
+                        <p>CAQH User:<span>{{ isset($users->professional_detail) ? $users->professional_detail['caqh_user'] : ''}}</span></p>
                     </td>
                     <td>
-                        <p>CAQH Password:<span>{{ $users->professional_detail['caqh_password']}}</span></p>
+                        <p>CAQH Password:<span>{{ isset($users->professional_detail) ? $users->professional_detail['caqh_password'] : ''}}</span></p>
                     </td>
                 </tr>
             </table>

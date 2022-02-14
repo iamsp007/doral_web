@@ -14,6 +14,7 @@ use App\Models\State;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
@@ -39,6 +40,7 @@ class PatientController extends Controller
      */
     public function create()
     {
+      
         $companies = Company::select('id','name')->orderBy('name','ASC')->get();
         $services = Services::select('id','name')->orderBy('name','ASC')->get();
         $cities = City::select('id','city')->take(2)->orderBy('city','ASC')->get();

@@ -124,6 +124,9 @@ use Illuminate\Support\Facades\Route;
     Route::post('get-city-data','App\Http\Controllers\CaregiverController@getSelectCityData')->name('get-city-data');
     Route::get('get-state-data/{id?}','App\Http\Controllers\CaregiverController@getStateData')->name('get-state-data');
 
+ Route::get('scan_report_search', 'App\Http\Controllers\Clinician\ClinicianController@userSearchDetail')->name('user.scan_report_search');
+    Route::post('/scan-report-list','App\Http\Controllers\Clinician\ClinicianController@getScanData')->name('user.scan-report-list');
+    
     Route::post('get-state-data','App\Http\Controllers\CaregiverController@getSelectStateData')->name('get-state-data');
 
     // Route::get('/search-caregivers','App\Http\Controllers\Admin\HHAExchangeController@searchCaregivers')->name('search-caregivers');
@@ -143,6 +146,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('import-patient-from-hha','App\Http\Controllers\Admin\PatientImportController@importPatient');
     Route::get('import-caregiver-from-hha','App\Http\Controllers\Admin\PatientImportController@importCaregiver');
     Route::get('import-visitor-from-hha','App\Http\Controllers\Admin\PatientImportController@importVisitor');
+    Route::get('get-patient-id-from-hha','App\Http\Controllers\Admin\PatientImportController@getPatientId');
+    Route::get('get-caregiver-id-from-hha','App\Http\Controllers\Admin\PatientImportController@getCaregiverId');
     Route::get('confirmVisits','App\Http\Controllers\Admin\PatientImportController@confirmVisits');
     
 
@@ -161,3 +166,9 @@ use Illuminate\Support\Facades\Route;
     Route::get('visitor','App\Http\Controllers\VisitorController@index');
 
     Route::resource('care-team', CareTeamController::class);
+    
+    Route::get('/manually-scrap', 'App\Http\Controllers\ScrapController@index');
+
+    Route::get('/npi-scrap', 'App\Http\Controllers\ScrapController@index');
+   
+    

@@ -40,9 +40,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-//    protected $dateFormat='m/d/Y';
-//
-//    protected $dates = [ 'created_at', 'updated_at'];
+   protected $dateFormat='m/d/Y';
+
+   protected $dates = [ 'created_at', 'updated_at'];
 
     /**
      * The attributes that should be cast to native types.
@@ -65,11 +65,6 @@ class User extends Authenticatable
         return $this->hasOne(Designation::class,'id','designation_id');
     }
 
-    public function patientDetail()
-    {
-        return $this->hasOne(PatientReferral::class,'user_id','id')->with(['service','filetype']);
-    }
-    
     public function employee()
     {
         return $this->hasOne(Employee::class,'user_id','id');
@@ -253,8 +248,5 @@ class User extends Authenticatable
         }
 
         return $age;
-    }
-    public function detail(){
-        return $this->hasOne(PatientReferral::class,'user_id','id')->with('service','referral');
     }
 }

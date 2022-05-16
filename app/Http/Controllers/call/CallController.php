@@ -18,11 +18,13 @@ class CallController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function index(){
+    public function index()
+	{
     	return view("admin.call.call_new");
     }
 
-    public function token(Request $request){
+    public function token(Request $request)
+	{
     	$data = $request->all();
 
     	$twilioAccountSid = 'AC2181cacea57e0de4a91a904ed9d9d145'; //env("TWILIO_ACCOUNT_SID");
@@ -41,8 +43,8 @@ class CallController extends Controller
 		    $twilioApiSecret,
 		    3600,
 		    $identity
-		);
-		//dd($token);
+		);		
+		
 		// Create Voice grant
 		$voiceGrant = new VoiceGrant();
 		$voiceGrant->setOutgoingApplicationSid($outgoingApplicationSid);
@@ -57,12 +59,10 @@ class CallController extends Controller
 			"identity" => $data['identity'],
 			"token" => $token->toJWT() 
 		]);
-
-
     }
 
-    public function voice(Request $request){
-
+    public function voice(Request $request)
+	{
     	$data = $request->all();
     	$response = new VoiceResponse();
 
@@ -78,6 +78,5 @@ class CallController extends Controller
         ]);
 
 		return $response;
-
     }
 }

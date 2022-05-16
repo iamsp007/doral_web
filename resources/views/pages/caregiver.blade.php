@@ -47,7 +47,7 @@
                                        <div class="form-group">
                                             <label for="patient_name" class="label">Reading:</label>
                                             
-                                            <p class="t5">{{ $userDeviceLog->value }}</p>
+                                            <p class="t5">{{ ($deviceType) ? $deviceType : '' }}: {{ $userDeviceLog->value }}</p>
                                         </div>
                                        
                                         <div class="form-group">
@@ -64,7 +64,9 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="recommendation" class="label">Note:</label>
-                                            <textarea class="form-control" rows="10" id="note" name="note[]">{!! $notes !!}</textarea>
+                                            
+                                            <textarea class="form-control" rows="10" id="note" name="note[]">{!! $userDeviceLog->note !!}</textarea>
+
                                         </div>
                                         <input type="hidden" name="_method" value="PUT">
                                         <button type="submit" id="caregiverResponse" class="btn btn-primary btn-pink btn-block" data-url="{{ Route('ccm.update',[$userDeviceLog]) }} ">Submit</button>

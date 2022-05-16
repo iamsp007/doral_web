@@ -30,13 +30,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        //$schedule->command('send:dueReportNotification')->dailyAt('10:30');
+        $schedule->command('send:dueReportNotification')->dailyAt('10:30');
 
         $company = Company::where('id','9')->first();
-        $schedule->job(new PatientImport($company))->dailyAt('04:00');
-        $schedule->job(new CaregiverImport($company))->dailyAt('04:00');
+        $schedule->job(new PatientImport($company))->weeklyOn(1, '04:00');
+        $schedule->job(new CaregiverImport($company))->weeklyOn(1, '04:00');
     }
-
+    
     /**
      * Register the commands for the application.
      *

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
-use App\Models\VirtualRoom;
 use App\Models\VonageRoom;
 use App\Services\ClinicianService;
 use Illuminate\Http\Request;
@@ -15,11 +14,8 @@ class RoomController extends Controller
 {
     protected $view_path='pages.voice.';
 
-    public function __construct(){
-
-    }
-
-    public function index(){
+    public function index()
+    {
         return view('pages.Zoom.index');
     }
 
@@ -42,7 +38,8 @@ class RoomController extends Controller
         return view($this->view_path.'create',compact('token', 'user', 'sessionId'));
     }
 
-    public function startArchive(Request $request){
+    public function startArchive(Request $request)
+    {
         $sessionId = $request->sessionId;
 
         $opentok = new OpenTok(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
@@ -56,7 +53,8 @@ class RoomController extends Controller
         return $archive->toJson();
     }
 
-    public function zoomGenerateSignature(Request $request){
+    public function zoomGenerateSignature(Request $request)
+    {
         $api_key = env('ZOOM_API_KEY');
         $api_secret = env('ZOOM_API_SECRET');
         $meeting_number = $request->meetingNumber;
@@ -79,7 +77,8 @@ class RoomController extends Controller
         ],200);
     }
 
-    public function sendVideoMeetingNotification(Request $request){
+    public function sendVideoMeetingNotification(Request $request)
+    {
         $appointment_id = $request->appointment_id;
         $clinicianService = new ClinicianService();
         $response = $clinicianService->sendVideoMeetingNotification($appointment_id);
@@ -94,7 +93,8 @@ class RoomController extends Controller
         return response()->json(['status'=>false,'message'=>$response->message,'data'=>$response->data],422);
     }
 
-    public function leaveVideoMetting(Request $request,$appointment_id){
+    public function leaveVideoMetting(Request $request,$appointment_id)
+    {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->leaveVideoMetting($appointment_id);
         $data=[];
@@ -105,7 +105,8 @@ class RoomController extends Controller
         return redirect()->back();
     }
 
-    public function startVideoMeetingNotification(Request $request,$patient_request_id){
+    public function startVideoMeetingNotification(Request $request,$patient_request_id)
+    {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->startVideoMeetingNotification($patient_request_id);
         $data=[];

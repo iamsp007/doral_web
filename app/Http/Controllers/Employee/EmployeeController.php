@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Facades\Log;
+
 class EmployeeController extends Controller
 {
     /**
@@ -129,6 +129,7 @@ class EmployeeController extends Controller
             ->rawColumns(['action','role_name','status','checkbox_id'])
             ->make(true);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -350,21 +351,18 @@ class EmployeeController extends Controller
                     'name' => $user->first_name,
                     'password' => $password,
                     'email' => $user->email,
-                   // 'login_url' => route('login'),
-                   // 'phone' => '5166000122',
                     'phone' => setPhone($user->phone),
                     'type' => 'sendsms',
                     'message' => 'Congratulation! Your employer '. $company_name .' home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$user->email." & Password : ".$password,
                 ];
+
                 SendEmailJob::dispatch($user->email,$details,'AcceptedMail');
-                 
             }
         }
         $responce = array('status' => 200, 'message' => $user_message, 'result' => array());
         return \Response::json($responce);
     }
 
-   
     /** Resend email */
     public function resendEmail($id) 
     {

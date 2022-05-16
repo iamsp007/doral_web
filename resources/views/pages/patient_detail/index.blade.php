@@ -186,10 +186,6 @@
                      @include('pages.patient_detail.clinical')
                   <!-- Clinical End -->
 
-                   <!-- Clinical Start -->
-                   <!-- @include('pages.patient_detail.clinical-info') -->
-                  <!-- Clinical End -->
-
                   <!-- Physician Start -->
                      @include('pages.patient_detail.physician')
                   <!-- Physician End -->
@@ -1122,7 +1118,7 @@
             $(document).on('click','#homecare-tab',function(event) {
                 var import_url = "{{ url('import-caregiver-from-hha') }}";
             	var action_import_url = 'check-caregiver-queue';
-            
+               
             	importAjaxCall(import_url,action_import_url,patient_id);
             });
 
@@ -1262,7 +1258,7 @@
             url:url,
             data:{
             "action":action,
-            "patient_id":patient_id
+            "patient_id":patientId
             },
             success: function(data) {
                 

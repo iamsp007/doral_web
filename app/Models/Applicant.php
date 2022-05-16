@@ -58,6 +58,7 @@ class Applicant extends Model
         'npiType',
         'npiOrgName',
         'document_Information',
+        'employer_verify',
     ];
 
     /**
@@ -81,16 +82,10 @@ class Applicant extends Model
         'workHistory_detail' => 'array',
         'professional_detail' => 'array',
         'document_Information' => 'array',
+        'employer_verify' => 'array',
     ];
 
-    protected $appends = ['signature_url','phone_no'];
-    /**
-     * Relation with referances
-     */
-    public function references()
-    {
-        return $this->hasMany('App\Models\ApplicantReference', 'applicant_id', 'id');
-    }
+    protected $appends = ['signature_url', 'home_phone', 'phone'];
 
     /**
      * Relation with state
@@ -147,7 +142,7 @@ class Applicant extends Model
         return $phoneData;
     }
 
-    public function getPhoneAttribute($phone)
+    public function getPhoneTextAttribute($phone)
     {
         $phoneData = '';
         if ($phone) {

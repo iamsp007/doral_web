@@ -21,12 +21,13 @@
         <div class="row">
             <div class="col-3 col-sm-3 col-md-3">
                 <div class="input-group">
-                    <select class="form-control select2_dropdown" id="first_name" name="first_name"></select>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Select a first name">
+                    <!-- <select class="form-control" id="first_name" name="first_name" placeholder="Select a first name"></select> -->
                 </div>
             </div>
              <div class="col-3 col-sm-3 col-md-3">
                 <div class="input-group">
-                    <select class="form-control select2_dropdown" id="last_name" name="last_name"></select>
+                    <select class="form-control" id="last_name" name="last_name"></select>
                 </div>
             </div>
             <div class="col-3 col-sm-3 col-md-3">
@@ -57,11 +58,11 @@
                     <x-text name="email" class="email" id="email" placeholder="Email"/></td>
                 </div>
             </div>
-            <div class="col-3 col-sm-3 col-md-3">
+            <!-- <div class="col-3 col-sm-3 col-md-3">
                 <div class="input-group">
                     <x-text name="date_of_birth" class="date_of_birth" id="date_of_birth" placeholder="Date of birth"/></td>
                 </div>
-            </div>
+            </div> -->
             <div class="col-3 col-sm-3 col-md-3">
                 <div class="input-group">
                     <select name="searchstatus" class="form-control form-control-lg">
@@ -101,46 +102,80 @@
 
 @push('styles')
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @endpush
 
 @push('scripts')
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.2/jQuery.print.js" integrity="sha512-BaXrDZSVGt+DvByw0xuYdsGJgzhIXNgES0E9B+Pgfe13XlZQvmiCkQ9GXpjVeLWEGLxqHzhPjNSBs4osiuNZyg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
        var clinician_status = "<?php echo $status;?>";
-
-       $('#first_name').select2({
-            minimumInputLength: 3,
-            placeholder: 'Select a first name',
-            ajax: {
-                type: "POST",
-                url: "{{ route('clinician.get-user-data') }}",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    var query = {
-                        q: params.term,
-                        status: clinician_status,
-                        view: 'clinician',
-                        field: 'first_name'
+       $('#first_name').on('keyup', function(){
+          var q = $(this).val();
+          console.log(q);
+            $.ajax({
+                'type': 'POST',
+                'url': "{{ route('clinician.get-user-data') }}",
+                // 'headers': {
+                //     'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                // },
+                data: {
+                    q: q,
+                    status: clinician_status,
+                    view: 'clinician',
+                    field: 'first_name'
+                },
+                'success': function (data) {
+                    if(data.status == 400) {
+                        alert('error');
+                    } else {
+                        alert('success');
+                        // $('#acceptRejectBtn').hide();
+                        // $(".mainchk").prop("checked","");
+                        // refresh();
+                        
                     }
+                    // $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                    alert("Server Timeout! Please try again",'error');
+                    //$("#loader-wrapper").hide();
+                }
+            });
+       });
+    //    $('#first_name').select2({
+    //         minimumInputLength: 3,
+    //         placeholder: 'Select a first name',
+    //         ajax: {
+    //             type: "POST",
+    //             url: "{{ route('clinician.get-user-data') }}",
+    //             dataType: 'json',
+    //             delay: 250,
+    //             data: function (params) {
+    //                 var query = {
+    //                     q: params.term,
+    //                     status: clinician_status,
+    //                     view: 'clinician',
+    //                     field: 'first_name'
+    //                 }
             
-                    return query;
-                },
-                processResults: function (data) {
-                    return {
-                        results:  $.map(data, function (item) {
-                            return {
-                                text: item.first_name,
-                                id: item.id
-                            }
-                        })
-                    };
-                },
-                cache: true
-            }
-        });
+    //                 return query;
+    //             },
+    //             processResults: function (data) {
+    //                 return {
+    //                     results:  $.map(data, function (item) {
+    //                         return {
+    //                             text: item.first_name,
+    //                             id: item.id
+    //                         }
+    //                     })
+    //                 };
+    //             },
+    //             cache: true
+    //         }
+    //     });
 
         $('#last_name').select2({
             minimumInputLength: 3,
@@ -188,7 +223,7 @@
                 },
                 data: function (d) {
                     d.status = $('input[name="status"]').val();
-                    d.first_name = $('select[name="first_name"]').val();
+                    d.first_name = $('input[name="first_name"]').val();
                     d.last_name = $('select[name="last_name"]').val();
                     d.designation_id = $('select[name="designation_id"]').val();
                     d.email = $('input[name="email"]').val();
@@ -248,27 +283,58 @@
                 $('#acceptRejectBtn').hide();
             }
         });
-        
+
+        var token = $('input[name="_token"]').val();
        
         $('body').on('click', '#print', function () {
             var id = $(this).attr("data-id");
+            var fileType = $(this).attr("data-file");
+            var filename = $(this).attr("data-name") + '.pdf';
+            var t = $(this);
+            if (fileType === 'demograhics' || fileType === 'document') {
+                t.parent('.form-group').find('.loader').show();
+            } else {
+                t.parent('.list-group-item').find('.loader').show();
+            }
            
-            $.ajaxSetup({
-                url: "{{ url('admin/clinician-approval')}}/" + id + "/detail",
-                type: 'POST',
-                beforeSend: function() {
-                    console.log('printing ...');
-                },
-                complete: function() {
-                    console.log('printed!');
-                }
-            });
-
             $.ajax({
-                success: function(viewContent) {
-                    $.print(viewContent); // This is where the script calls the printer to print the viwe's content.
+                type: 'POST',
+                url: "{{ Route('clinician.print')}}",
+                data: {
+                'id':id,
+                'fileType':fileType
+                },
+                headers: {
+                'X-CSRF-Token': token
+                },
+                xhrFields: {
+                responseType: 'blob'
+                },
+                success: function(response){
+                var blob = new Blob([response]);
+                
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+                //refresh();
+                
+                if (fileType === 'demograhics' || fileType === 'document') {
+                    t.parent('.form-group').find('.loader').hide();
+                } else {
+                    t.parent('.list-group-item').find('.loader').hide();
+                }
+                },
+                error: function(blob){
+                console.log(blob);
+                if (fileType === 'demograhics' || fileType === 'document') {
+                    t.parent('.form-group').find('.loader').hide();
+                } else {
+                    t.parent('.list-group-item').find('.loader').hide();
+                }
                 }
             });
+         
         });
 
         function chkmain() {
@@ -372,6 +438,29 @@
             });
         }
 
+        /*Open message in model */
+        $("body").on('click','.viewprintOption',function () {
+            var log_id = $(this).attr('id');
+            var url = '{{url("applicant/getprintoption")}}/' + log_id;
+            $("#loader-wrapper").show();
+            $.ajax({
+                url : url,
+                type: 'GET',
+                headers: {
+                    'X_CSRF_TOKEN':'{{ csrf_token() }}',
+                },  
+                success:function(data, textStatus, jqXHR){
+                    $("#loader-wrapper").hide();
+                    $(".messageViewModel").html(data);
+                    $(".messageViewModel").modal('show');
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    swal("Server Timeout!", "Please try again", "warning");
+                    $("#loader-wrapper").hide();
+                }
+            });
+        });
+        
         function refresh() {
             $("#clinician-table").DataTable().ajax.reload(null, false);
         }

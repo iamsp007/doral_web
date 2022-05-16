@@ -243,99 +243,104 @@ class UploadDocuments extends Model
      */
     public function getTypeNameAttribute()
     {
-        if (isset($this->file_name) && !empty($this->file_name)) {
-            $fileName = 'idProof';
+        if (isset($this->type) && !empty($this->type)) {
+            $directory = 'Id Proof';
             if ($this->type === "1") {
-                $fileName = '<span style="font-weight: bold; text-decoration: underline;">UNEXPIRED:</span><br>*NYS Drivers License<br>*Passport<br>*Permanent Resident Card<br>*Work Authorization Card';
+                $directory = 'Id Proof';
+            } elseif ($this->type === "2") {
+                $directory = 'Degree Proof';
+            } elseif ($this->type === "3") {
+                $directory = 'Medical Report';
+            } elseif ($this->type === "4") {
+                $directory = 'Insurance Report';
             } elseif ($this->type === "5") {
-                $fileName = 'Social Security (original only)';
+                $directory = 'Social Security';
             } elseif ($this->type === "6") {
-                $fileName = 'Professional Reference Letters <span style="font-weight: bold;">must be completed within 3 months: Dated of thisyear, English language, Valid Phone, NO RELATIVES</span>';
+                $directory = 'Professional Referrance';
             } elseif ($this->type === "7") {
-                $fileName = 'mainPracticeInsurance';
+                $directory = 'Main Practice Insurance';
             } elseif ($this->type === "8") {
-                $fileName = 'nycNurseCertificate';
+                $directory = 'Nyc Nurse Certificate';
             } elseif ($this->type === "9") {
-                $fileName = 'CPR';
+                $directory = 'CPR';
             } elseif ($this->type === "10") {
-                $fileName = 'Physical (<span style="font-weight: bold;">completed within 1 year)</span>';
+                $directory = 'Physical';
             } elseif ($this->type === "11") {
-                $fileName = 'Forensic Drug Screen (<span style="font-weight: bold;">completed within 1 year</span>) <span style="text-decoration: underline;">LAB REPORT</span>';
+                $directory = 'Forensic Drug Screen';
             } elseif ($this->type === "12") {
-                $fileName = 'Rubella Immunization <span style="text-decoration: underline;">Lab Report</span>';
+                $directory = 'Rubella Immunization';
             } elseif ($this->type === "13") {
-                $fileName = 'Rubeolla/Measles Immunization *<span style="text-decoration: underline;">Lab Report</span>';
+                $directory = 'Rubella Measies Immunization';
             } elseif ($this->type === "14") {
-                $fileName = 'malpracticeInsurance';
+                $directory = 'Malpractice Insurance';
             } elseif ($this->type === "15") {
-                $fileName = 'Flu Vaccination (Flu Shot) For Current Year';
+                $directory = 'Flu';
             } elseif ($this->type === "16") {
-                $fileName = 'Annual PPD <span style="text-decoration: underline;">OR</span> Quantiferon results (completed within year)';
+                $directory = 'Annual PPD';
             } elseif ($this->type === "17") {
-                $fileName = 'Chest X-Ray';
+                $directory = 'Chest X-Ray';
             } elseif ($this->type === "18") {
-                $fileName = 'Annual Tuberculosis Screening Questionnarie Form';
-             } elseif ($this->type === "19") {
-                $fileName = 'w4document';
+                $directory = 'Annual Tube Screening';
+            } elseif ($this->type === "19") {
+                $directory = 'W4 Document';
             } elseif ($this->type === "20") {
-                $fileName = 'idProofBack';
+                $directory = 'Id Proof Back';
             } elseif ($this->type === "21") {
-                $fileName = 'socialSecurityBack';
+                $directory = 'Social Security Back';
             } elseif ($this->type === "22") {
-                $fileName = 'pdfDoc';
-            } elseif ($this->type === "25") {
-                $fileName = 'pictureIdentification';
+                $directory = 'Pdf Doc';
+            }  elseif ($this->type === "25") {
+                $directory = 'Picture Identification';
             }  elseif ($this->type === "26") {
-                $fileName = 'currentCV';
+                $directory = 'Current CV';
             } elseif ($this->type === "27") {
-                $fileName = 'ProfessionalLicense';
+                $directory = 'Professional License';
             } elseif ($this->type === "28") {
-                $fileName = 'StateRegistrationCertificate';
+                $directory = 'State Registration Certificate';
             } elseif ($this->type === "29") {
-                $fileName = 'DEALicense';
+                $directory = 'DEALicense';
             } elseif ($this->type === "30") {
-                $fileName = 'ControlledSubstanceStateLicense';
+                $directory = 'Controlled Substance State License';
             } elseif ($this->type === "31") {
-                $fileName = 'MalpracticeCertificateOfInsurance';
+                $directory = 'Mal Practice Certificate Of Insurance';
             } elseif ($this->type === "32") {
-                $fileName = 'ExplanationOfAllMalpractice';
+                $directory = 'Explanation Of All Malpractice';
             } elseif ($this->type === "33") {
-                $fileName = 'MedicalSchoolDiploma';
+                $directory = 'Medical School Diploma';
             } elseif ($this->type === "34") {
-                $fileName = 'ResidencyCertificate';
+                $directory = 'Residency Certificate';
             } elseif ($this->type === "35") {
-                $fileName = 'FellowshipCertificate';
+                $directory = 'Fellowship Certificate';
             } elseif ($this->type === "36") {
-                $fileName = 'IntershipCertificate';
+                $directory = 'Intership Certificate';
             } elseif ($this->type === "37") {
-                $fileName = 'ECFMGCertificate';
+                $directory = 'ECFMG Certificate';
             } elseif ($this->type === "38") {
-                $fileName = 'BoardCertificate(c)';
+                $directory = 'Board Certificate(c)';
             } elseif ($this->type === "39") {
-                $fileName = 'HospitalAffiliationLetter';
+                $directory = 'Hospital Affiliation Letter';
             } elseif ($this->type === "40") {
-                $fileName = 'SanctionsQueries';
+                $directory = 'Sanctions Queries';
             } elseif ($this->type === "41") {
-                $fileName = 'MedicalWelcomeLetter';
+                $directory = 'Medical Welcome Letter';
             } elseif ($this->type === "42") {
-                $fileName = 'SignedW9';
+                $directory = 'Signed W9';
             } elseif ($this->type === "43") {
-                $fileName = 'SignedESignatureForm';
+                $directory = 'Signed E-Signature Form';
             } elseif ($this->type === "44") {
-                $fileName = 'CovidCertificate';
+                $directory = 'Covid Certificate';
             } elseif ($this->type === "45") {
-                $fileName = 'CPRACLS';
+                $directory = 'CPRACLS';
             } elseif ($this->type === "46") {
-                $fileName = 'passport';
+                $directory = 'Passport';
             } elseif ($this->type === "47") {
-                $fileName = 'greencard';
+                $directory = 'Greencard';
             } elseif ($this->type === "48") {
-                $fileName = 'workpermit';
+                $directory = 'Workpermit';
             } 
-            return $fileName;
-            // return env('API_PUBLIC_URL').'/storage/documents/' . $this->user_id . '/' . $fileName . '/' . $this->file_name;
+            return $directory;
         } else {
-            return null;
+            return '';
         }
     }
 }

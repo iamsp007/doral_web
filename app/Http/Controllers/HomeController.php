@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PatientReferral;
 use App\Models\User;
 use App\Models\Demographic;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -46,7 +44,7 @@ class HomeController extends Controller
 
     public function getPatientDetail(Request $request,$patient_id){
 
-        $details = User::with('patientDetail')->find($patient_id);
+        $details = User::find($patient_id);
         return view($this->view_path.'patient-detail',compact('details'));
     }
 
@@ -70,7 +68,7 @@ class HomeController extends Controller
 
     public function allPatientList(Request $request){
 
-        $patientList = User::with('patientDetail','roles')
+        $patientList = User::with('roles')
             ->whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })->whereHas('demographic', function($q) {

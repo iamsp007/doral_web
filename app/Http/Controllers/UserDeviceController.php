@@ -62,8 +62,15 @@ class UserDeviceController extends Controller
 
                 return '<a href="' . route('patient.details', ['patient_id' => $id]) . '" class="" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart">' . $full_name . '</a>';
             })
-            ->addColumn('level', function($q) use($request) {
+             ->addColumn('level', function($q) use($request) {
                 return $q->view_level;
+            })
+            ->addColumn('value', function($q) use($request) {
+            	$value = $q->value;
+                if ($q->level === '3') {
+                 $value = '<i style="color:red;">' . $q->value . '</i>';
+		}
+               return $value;
             })
             ->addColumn('device_type', function($q) use($request) {
                 $device_type = '';
@@ -88,17 +95,18 @@ class UserDeviceController extends Controller
                 return $btn;
                
             })
-            ->rawColumns(['full_name', 'device_type','action','level']);
+            ->rawColumns(['full_name', 'device_type','action','level','value']);
             return $datatble->make(true);
     }
 
-    public function edit($id)
+     public function edit($id)
     {
         $userDeviceLog = UserDeviceLog::where('id',$id)->with('userDevice','userDevice.user')->first();
         
         if ($userDeviceLog->userDevice->device_type == 1) {
             $readingLevel = 1;
 	        $level_message= $recomdation = '';
+            $deviceType = 'Blood pressure';
             if (Str::contains($userDeviceLog->value, ['/'])) {
                 $explodeValue = explode("/",$userDeviceLog->value);
             } else if (Str::contains($userDeviceLog->value, [':'])) {
@@ -116,6 +124,7 @@ class UserDeviceController extends Controller
         } else if ($userDeviceLog->userDevice->device_type == 2) {
             $readingLevel = 1;
             $level_message= $recomdation = '';
+            $deviceType = 'Blood sugar';
             if($userDeviceLog->value >= 300) {
                 $readingLevel = 3;
                 $level_message = 'blood sugar is higher';
@@ -133,9 +142,8 @@ class UserDeviceController extends Controller
 
         $message = 'Doral Health Connect | Your patient ' . $patient_name . ' ' . $level_message . ' than regular. Need immediate attention.';
 
-        return view('pages.caregiver',compact('userDeviceLog','patient_name', 'message', 'recomdation'));
+        return view('pages.caregiver',compact('userDeviceLog','patient_name', 'deviceType', 'message', 'recomdation'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -146,7 +154,7 @@ class UserDeviceController extends Controller
     public function update(Request $request, $id)
     {
         $input =  $request->all();
-        $input['note'] = implode(".",$input['note']);
+       $input['note'] = implode(".",$input['note']);
 
         UserDeviceLog::find($id)->update([
             'note' => $input['note']
@@ -163,7 +171,8 @@ class UserDeviceController extends Controller
     {   
         if (isset($id)) {
             $userDeviceLog = UserDeviceLog::where('id',$id)->first();
-            return view('admin.clinician.view_note', compact('userDeviceLog'));
+            $notes = explode('.', $userDeviceLog->note);
+            return view('admin.clinician.view_note', compact('userDeviceLog','notes'));
         }
     }
 }

@@ -1,11 +1,11 @@
-@extends('pages.layouts.app')
+'@extends('pages.layouts.app')
 @section('title','Clinician Details')
 @section('pageTitleSection')
     Clinician Details
 @endsection
 @push('styles')
    <style>
-      .table_doc { 
+      .table_doc {
          border-spacing: 10px;
          border-collapse: separate;
       }
@@ -28,7 +28,7 @@
    @elseif($document->type == 9)
       @php $type9 = $count9++;@endphp
    @elseif($document->type == 10)
-      @php $type10 = $count10++;   @endphp  
+      @php $type10 = $count10++; @endphp
    @elseif($document->type == 11)
       @php $type11 = $count11++;@endphp
    @elseif($document->type == 12)
@@ -96,7 +96,7 @@
    @elseif($document->type == 43)
       @php $type43 = $count43++; @endphp
    @endif
-   
+
 @endforeach
 
 @section('content')
@@ -140,11 +140,11 @@
                      <li class="list-group-item"><span>{{ isset($data->email) ? $data->email : null }}</span></li>
                       <li class="list-group-item">
                         <span>
-                           <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ $data->id }}" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1" data-action="single-action">Accept</a>
-                           <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ $data->id }}" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3" data-action="single-action">REJECT</a>
+                            <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ $data->id }}" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1" data-action="single-action" data-url="{{ route('caregiver.changePatientStatus') }}">Accept</a>
+                           <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ $data->id }}" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3" data-action="single-action" data-url="{{ route('caregiver.changePatientStatus') }}">REJECT</a>
                         </span>
                      </li>
-                     <!--<li class="list-group-item"> 
+                     <!--<li class="list-group-item">
                         <div class="form-check form-check-inline">
                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="TeleHealth">
                            <label class="form-check-label" for="inlineCheckbox1">TeleHealth</label>
@@ -161,7 +161,7 @@
                <ul class="patient-nav nav">
                   <li class="mb-2">
                      <a href="#ApplicantDetail" class="active" data-toggle="pill" role="tab">
-                        <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Applicant Details
+                        <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2">Demographic Details
                      </a>
                   </li>
                   <li class="mb-2">
@@ -221,7 +221,7 @@
                         <img src="/assets/img/icons/document-clinician.svg" alt="" srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Credentialing Detail
                      </a>
                   </li>
-                  
+
                </ul>
             </div>
          </div>
@@ -234,7 +234,7 @@
                <div class="app-card" style="min-height: auto;">
                   <div class="card-header" id="step2">
                      <div class="d-flex align-items-center">
-                        <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2"> Applicant Details
+                        <img src="/assets/img/icons/applicant-clinician.svg" alt="" srcset="/assets/img/icons/applicant-clinician.svg" class="_icon mr-2"> Demographic Details
                      </div>
                   </div>
                   <div class="card-body collapse show mt-3" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
@@ -290,7 +290,7 @@
                                        </div>
                                     </div>
                                  </div>
-                              </div>  
+                              </div>
                            </div>
                            <div class="row mt-3">
                               <div class="col-12 col-sm-4">
@@ -330,7 +330,7 @@
                                        </div>
                                     </div>
                                  </div>
-                              </div>                              
+                              </div>
                            </div>
                            <div class="row mt-3">
                               <div class="col-12 col-sm-4">
@@ -379,7 +379,7 @@
                                        <div>
                                           <h3 class="_title">Ethnicity</h3>
                                           <h1 class="_detail">
-                                             
+
                                              @if(isset($info->Ethnicity) && $info->Ethnicity != 'Other')
                                                 {{ isset($info->Ethnicity) ? $info->Ethnicity : null }}
                                              @elseif(isset($info->OtherEthnicity))
@@ -389,7 +389,7 @@
                                        </div>
                                     </div>
                                  </div>
-                              </div> 
+                              </div>
                               <div class="col-12 col-sm-4">
                                  <div>
                                     <div class="d-flex align-items-center">
@@ -424,7 +424,7 @@
                                     <div class="_card_header">
                                        <div class="title-head">Document Details</div>
                                        <a class="nav-link active view_document" data-id="{{ $data->id }}" data-type="{{$docType}}" href="#" data-action="document" style="color: #ffffff;background-color: #17a2b8;border-color: #dee2e6 #dee2e6 #fff;">Document</a>
-                                      
+
                                     </div>
                                     <div class="_card_body">
                                        <div class="row mt-3">
@@ -437,7 +437,7 @@
                                                    </h1>
                                                 </div>
                                              </div>
-                                          </div>                            
+                                          </div>
                                        </div>
                                     </div>
                                  </div>
@@ -474,7 +474,7 @@
                                                    </h1>
                                                 </div>
                                              </div>
-                                          </div>                            
+                                          </div>
                                           <div class="col-12 col-sm-4">
                                              <div class="d-flex align-items-center mb-3">
                                                 <div><i class="las la-map-marker circle-icon"></i></div>
@@ -639,13 +639,11 @@
                                        </div>
                                     </div>
                                  </li>
-                              @endif                        
+                              @endif
                            </ul>
                         </div>
                         <div class="tab-pane fade" id="Reference" role="tabpanel" aria-labelledby="Reference-tab">
                            <ul>
-                              @php $count = '1'; @endphp
-                              @isset($reference_detail->reference_list)
                               <li>
                                  <div class="_card mt-3">
                                     <div class="_card_header"><div class="title-head">Reference Basic detail</div></div>
@@ -705,20 +703,132 @@
                                     </div>
                                  </div>
                               </li>
-                              @foreach($reference_detail->reference_list as $index => $reference)
-                                 @php
-                                    $referenceaddress1 = isset($reference->address1) ? $reference->address1  : '';
-                                    $referenceaddress2 = isset($reference->address2) ? $reference->address2  : '';
-                                    $referencebuilding = isset($reference->building) ? $reference->building  : '';
-                                    $referencecity = isset($reference->city_id) ? \App\Models\City::find($reference->city_id)->city : '';
-                                    $referencestate = isset($reference->state_id) ? \App\Models\State::find($reference->state_id)->state : '';
-                                    $referencezipcode = isset($reference->zipcode) ? $reference->zipcode : '';
-                                    $referenceaddressMap = $referenceaddress1 .','. $referenceaddress2 .','. $referencebuilding .','. $referencecity .','. $referencestate .','. $referencezipcode;
-                                 @endphp
+                              @php $count = '1'; @endphp
+                              @isset($reference_detail->reference_list)
+                                 @foreach($reference_detail->reference_list as $index => $reference)
+                                    @php
+                                       $referenceaddress1 = isset($reference->address1) ? $reference->address1  : '';
+                                       $referenceaddress2 = isset($reference->address2) ? $reference->address2  : '';
+                                       $referencebuilding = isset($reference->building) ? $reference->building  : '';
+                                       $referencecity = isset($reference->city_id) ? \App\Models\City::find($reference->city_id)->city : '';
+                                       $referencestate = isset($reference->state_id) ? \App\Models\State::find($reference->state_id)->state : '';
+                                       $referencezipcode = isset($reference->zipcode) ? $reference->zipcode : '';
+                                       $referenceaddressMap = $referenceaddress1 .','. $referenceaddress2 .','. $referencebuilding .','. $referencecity .','. $referencestate .','. $referencezipcode;
+                                    @endphp
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header">
+                                             <div class="title-head">Reference {{ $count }}</div>
+                                             <a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a>
+                                          </div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-user-nurse circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Reference 1</h3>
+                                                         <h1 class="_detail">{{ isset($reference->name) ? $reference->name : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                @php
+                                                   $phoneData = '';
+                                                   if(isset($reference->phoneNo)):
+                                                   $phoneData = "+".substr($reference->phoneNo, 0, 1)." ". "(".substr($reference->phoneNo, 1, 3).") ".substr($reference->phoneNo, 4, 3)."-".substr($reference->phoneNo,7);
+                                                   endif;
+                                                @endphp
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address Line 1</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($reference->address1) ? $reference->address1 : null }}
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address Line 2</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($reference->address2) ? $reference->address2 : null }}
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Apt#</h3>
+                                                         <h1 class="_detail">  {{ isset($reference->building) ? $reference->building  : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">City</h3>
+                                                         <h1 class="_detail"> {{ isset($reference->city_id) ? \App\Models\City::find($reference->city_id)->city : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">State</h3>
+                                                         <h1 class="_detail">{{ isset($reference->state_id) ? \App\Models\State::find($reference->state_id)->state : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Zip Code</h3>
+                                                         <h1 class="_detail">{{ isset($reference->zipcode) ? $reference->zipcode : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-phone  circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Phone No.</h3>
+                                                         <h1 class="_detail">{{ $phoneData }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="mb-4 viewMapDiv" style="display:none;">
+                                                   <div class="card card-body">
+                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$referenceaddressMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                   </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 @php $count++; @endphp
+                                 @endforeach
+                              @else
                                  <li>
                                     <div class="_card mt-3">
                                        <div class="_card_header">
-                                          <div class="title-head">Reference {{ $count }}</div>
+                                          <div class="title-head">Reference</div>
                                           <a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a>
                                        </div>
                                        <div class="_card_body">
@@ -728,24 +838,16 @@
                                                    <div><i class="las la-user-nurse circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Reference 1</h3>
-                                                      <h1 class="_detail">{{ isset($reference->name) ? $reference->name : null }}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
-                                             @php
-                                                $phoneData = '';
-                                                if(isset($reference->phoneNo)):
-                                                $phoneData = "+".substr($reference->phoneNo, 0, 1)." ". "(".substr($reference->phoneNo, 1, 3).") ".substr($reference->phoneNo, 4, 3)."-".substr($reference->phoneNo,7);
-                                                endif;
-                                             @endphp
                                              <div class="col-12 col-sm-4">
                                                 <div class="d-flex align-items-center mb-3">
                                                    <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Address Line 1</h3>
-                                                      <h1 class="_detail">
-                                                         {{ isset($reference->address1) ? $reference->address1 : null }}
-                                                      </h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -754,9 +856,7 @@
                                                    <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Address Line 2</h3>
-                                                      <h1 class="_detail">
-                                                         {{ isset($reference->address2) ? $reference->address2 : null }}
-                                                      </h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -767,7 +867,7 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Apt#</h3>
-                                                      <h1 class="_detail">  {{ isset($reference->building) ? $reference->building  : ''}}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -776,7 +876,7 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">City</h3>
-                                                      <h1 class="_detail"> {{ isset($reference->city_id) ? \App\Models\City::find($reference->city_id)->city : '' }}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -785,7 +885,7 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">State</h3>
-                                                      <h1 class="_detail">{{ isset($reference->state_id) ? \App\Models\State::find($reference->state_id)->state : '' }}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -796,7 +896,7 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Zip Code</h3>
-                                                      <h1 class="_detail">{{ isset($reference->zipcode) ? $reference->zipcode : ''}}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -805,7 +905,7 @@
                                                    <div><i class="las la-phone  circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Phone No.</h3>
-                                                      <h1 class="_detail">{{ $phoneData }}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -814,7 +914,7 @@
                                              <div class="col-12 col-sm-4">
                                                 <div class="mb-4 viewMapDiv" style="display:none;">
                                                 <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$referenceaddressMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                 </div>
                                                 </div>
                                              </div>
@@ -822,15 +922,13 @@
                                        </div>
                                     </div>
                                  </li>
-                              @php $count++; @endphp
-                              @endforeach
-                           @endisset
+                              @endisset
                            </ul>
                         </div>
                         <div class="tab-pane fade" id="Emergency" role="tabpanel" aria-labelledby="Emergency-tab">
                            <ul>
                               @php $count = '1'; @endphp
-                              @isset($emergency_detail)
+                              @if($emergency_detail)
                                  @foreach($emergency_detail as $index => $emergency)
                                     @php
                                     $emergencyaddress1 = isset($emergency->address1) ? $emergency->address1  : '';
@@ -841,10 +939,136 @@
                                     $emergencyzipcode = isset($emergency->zipcode) ? $emergency->zipcode : '';
                                     $emergencyaddressMap = $emergencyaddress1 .','. $emergencyaddress2 .','. $emergencybuilding .','. $emergencycity .','. $emergencystate .','. $emergencyzipcode;
                                     @endphp
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header">
+                                             <div class="title-head">Emergency Detail {{ $count }}</div>
+                                             <a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a>
+                                          </div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-user-nurse circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Name</h3>
+                                                         <h1 class="_detail">{{ isset($emergency->name) ? $emergency->name : null }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                @php
+                                                   $phoneData = '';
+                                                   if(isset($emergency->phoneNo)):
+                                                   $phoneData = "+".substr($emergency->phoneNo, 0, 1)." ". "(".substr($emergency->phoneNo, 1, 3).") ".substr($emergency->phoneNo, 4, 3)."-".substr($emergency->phoneNo,7);
+                                                   endif;
+                                                @endphp
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-phone  circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Phone No.</h3>
+                                                         <h1 class="_detail">{{ $phoneData }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address Line 1</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($emergency->address1) ? $emergency->address1 : null }}
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address Line 2</h3>
+                                                         <h1 class="_detail">
+                                                            {{ isset($emergency->address2) ? $emergency->address2 : null }}
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Apt#</h3>
+                                                         <h1 class="_detail">  {{ isset($emergency->building) ? $emergency->building  : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">City</h3>
+                                                         <h1 class="_detail"> {{ isset($emergency->city_id) ? \App\Models\City::find($emergency->city_id)->city : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">State</h3>
+                                                         <h1 class="_detail">{{ isset($emergency->state_id) ? \App\Models\State::find($emergency->state_id)->state : '' }}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Zip Code</h3>
+                                                         <h1 class="_detail">{{ isset($emergency->zipcode) ? $emergency->zipcode : ''}}</h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Relationship</h3>
+                                                         <h1 class="_detail">
+                                                         @if($emergency->relation != 'Other')
+                                                                  {{ isset($emergency->relation) ? $emergency->relation : '' }}
+                                                            @else
+                                                                  {{ isset($emergency->otherRelation) ? $emergency->otherRelation : '' }}
+                                                            @endif
+                                                         </h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="mb-4 viewMapDiv" style="display:none;">
+                                                      <div class="card card-body">
+                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$emergencyaddressMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
+                                 @php $count++; @endphp
+                                 @endforeach
+                              @else
                                  <li>
                                     <div class="_card mt-3">
                                        <div class="_card_header">
-                                          <div class="title-head">Emergency Detail {{ $count }}</div>
+                                          <div class="title-head">Emergency Detail</div>
                                           <a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a>
                                        </div>
                                        <div class="_card_body">
@@ -854,22 +1078,16 @@
                                                    <div><i class="las la-user-nurse circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Name</h3>
-                                                      <h1 class="_detail">{{ isset($emergency->name) ? $emergency->name : null }}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
-                                             @php
-                                                $phoneData = '';
-                                                if(isset($emergency->phoneNo)):
-                                                $phoneData = "+".substr($emergency->phoneNo, 0, 1)." ". "(".substr($emergency->phoneNo, 1, 3).") ".substr($emergency->phoneNo, 4, 3)."-".substr($emergency->phoneNo,7);
-                                                endif;
-                                             @endphp
                                              <div class="col-12 col-sm-4">
                                                 <div class="d-flex align-items-center">
                                                    <div><i class="las la-phone  circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Phone No.</h3>
-                                                      <h1 class="_detail">{{ $phoneData }}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -878,13 +1096,10 @@
                                                    <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Address Line 1</h3>
-                                                      <h1 class="_detail">
-                                                         {{ isset($emergency->address1) ? $emergency->address1 : null }}
-                                                      </h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
-                                             
                                           </div>
                                           <div class="row mt-3">
                                              <div class="col-12 col-sm-4">
@@ -892,9 +1107,7 @@
                                                    <div><i class="las la-map-marker circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Address Line 2</h3>
-                                                      <h1 class="_detail">
-                                                         {{ isset($emergency->address2) ? $emergency->address2 : null }}
-                                                      </h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -903,7 +1116,7 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Apt#</h3>
-                                                      <h1 class="_detail">  {{ isset($emergency->building) ? $emergency->building  : ''}}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -912,7 +1125,7 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">City</h3>
-                                                      <h1 class="_detail"> {{ isset($emergency->city_id) ? \App\Models\City::find($emergency->city_id)->city : '' }}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -923,7 +1136,7 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">State</h3>
-                                                      <h1 class="_detail">{{ isset($emergency->state_id) ? \App\Models\State::find($emergency->state_id)->state : '' }}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -932,7 +1145,7 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Zip Code</h3>
-                                                      <h1 class="_detail">{{ isset($emergency->zipcode) ? $emergency->zipcode : ''}}</h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -941,13 +1154,7 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">Relationship</h3>
-                                                      <h1 class="_detail">
-                                                      @if($emergency->relation != 'Other')
-                                                               {{ isset($emergency->relation) ? $emergency->relation : '' }}
-                                                         @else
-                                                               {{ isset($emergency->otherRelation) ? $emergency->otherRelation : '' }}
-                                                         @endif
-                                                      </h1>
+                                                      <h1 class="_detail"></h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -956,7 +1163,7 @@
                                              <div class="col-12 col-sm-4">
                                                 <div class="mb-4 viewMapDiv" style="display:none;">
                                                    <div class="card card-body">
-                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$emergencyaddressMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                      <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                    </div>
                                                 </div>
                                              </div>
@@ -964,9 +1171,7 @@
                                        </div>
                                     </div>
                                  </li>
-                                 @php $count++; @endphp
-                                 @endforeach
-                              @endisset
+                              @endif
                            </ul>
                         </div>
                         <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
@@ -1002,20 +1207,140 @@
                                     $fellowshipCounter = 1;
                                  @endphp
                                  @if($medicalInstitutes)
-                                 <li>
-                                    <div class="_card mt-3">
-                                       @foreach($medicalInstitutes as $medicalInstitute)
-                                          @php
-                                             $medical_address1 = isset($medicalInstitute->medical_address1) ? $medicalInstitute->medical_address1  : '';
-                                             $medical_address2 = isset($medicalInstitute->medical_address2) ? $medicalInstitute->medical_address2  : '';
-                                             $medical_building = isset($medicalInstitute->medical_building) ? $medicalInstitute->medical_building  : '';
-                                             $medical_city = isset($medicalInstitute->medical_cityId) ? \App\Models\City::find($medicalInstitute->medical_cityId)->city : '';
-                                             $medical_state = isset($medicalInstitute->medical_stateId) ? \App\Models\State::find($medicalInstitute->medical_stateId)->state : '';
-                                             $medical_zipcode = isset($medicalInstitute->medical_zipcode) ? $medicalInstitute->medical_zipcode : '';
-                                             $medicalMap = $medical_address1 .','. $medical_address2 .','. $medical_building .','. $medical_city .','. $medical_state .','. $medical_zipcode;
-                                          @endphp
+                                    <li>
+                                       <div class="_card mt-3">
+                                          @foreach($medicalInstitutes as $medicalInstitute)
+                                             @php
+                                                $medical_address1 = isset($medicalInstitute->medical_address1) ? $medicalInstitute->medical_address1  : '';
+                                                $medical_address2 = isset($medicalInstitute->medical_address2) ? $medicalInstitute->medical_address2  : '';
+                                                $medical_building = isset($medicalInstitute->medical_building) ? $medicalInstitute->medical_building  : '';
+                                                $medical_city = isset($medicalInstitute->medical_cityId) ? \App\Models\City::find($medicalInstitute->medical_cityId)->city : '';
+                                                $medical_state = isset($medicalInstitute->medical_stateId) ? \App\Models\State::find($medicalInstitute->medical_stateId)->state : '';
+                                                $medical_zipcode = isset($medicalInstitute->medical_zipcode) ? $medicalInstitute->medical_zipcode : '';
+                                                $medicalMap = $medical_address1 .','. $medical_address2 .','. $medical_building .','. $medical_city .','. $medical_state .','. $medical_zipcode;
+                                             @endphp
+                                             <div class="_card_header">
+                                                <div class="title-head">Medical School {{$medicalCounter }}</div>
+                                                <a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a>
+                                             </div>
+                                             <div class="_card_body">
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-map-marker circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Name of Institute</h3>
+                                                            <h1 class="_detail">
+                                                               {{ $medicalInstitute->medical_instituteName }}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-map-marker circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Address Line 1</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($medicalInstitute->medical_address1) ? $medicalInstitute->medical_address1  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-map-marker circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Address Line 2</h3>
+                                                            <h1 class="_detail">
+                                                            {{ isset($medicalInstitute->medical_address2) ? $medicalInstitute->medical_address2  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Apt#</h3>
+                                                            <h1 class="_detail">  {{ isset($medicalInstitute->medical_building) ? $medicalInstitute->medical_building  : ''}}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">City</h3>
+                                                            <h1 class="_detail"> {{ isset($medicalInstitute->medical_cityId) ? \App\Models\City::find($medicalInstitute->medical_cityId)->city : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">State</h3>
+                                                            <h1 class="_detail">{{ isset($medicalInstitute->medical_stateId) ? \App\Models\State::find($medicalInstitute->medical_stateId)->state : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Zip Code</h3>
+                                                            <h1 class="_detail">{{ isset($medicalInstitute->medical_zipcode) ? $medicalInstitute->medical_zipcode : ''}}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Year Started</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($medicalInstitute->medical_yearStarted) ? $medicalInstitute->medical_yearStarted  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Year Completed</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($medicalInstitute->medical_yearEnded) ? $medicalInstitute->medical_yearEnded  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="mb-4 viewMapDiv" style="display:none;">
+                                                         <div class="card card-body">
+                                                            <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$medicalMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             @php $medicalCounter++ @endphp
+                                          @endforeach
+                                       </div>
+                                    </li>
+                                 @else
+                                    <li>
+                                       <div class="_card mt-3">
                                           <div class="_card_header">
-                                             <div class="title-head">Medical School {{$medicalCounter }}</div>
+                                             <div class="title-head">Medical School</div>
                                              <a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a>
                                           </div>
                                           <div class="_card_body">
@@ -1025,32 +1350,25 @@
                                                       <div><i class="las la-map-marker circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Name of Institute</h3>
-                                                         <h1 class="_detail">
-                                                            {{ $medicalInstitute->medical_instituteName }}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
-                                                
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center mb-3">
                                                       <div><i class="las la-map-marker circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Address Line 1</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($medicalInstitute->medical_address1) ? $medicalInstitute->medical_address1  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
-                                                </div>                                               
+                                                </div>
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center mb-3">
                                                       <div><i class="las la-map-marker circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Address Line 2</h3>
-                                                         <h1 class="_detail">
-                                                         {{ isset($medicalInstitute->medical_address2) ? $medicalInstitute->medical_address2  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1061,7 +1379,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Apt#</h3>
-                                                         <h1 class="_detail">  {{ isset($medicalInstitute->medical_building) ? $medicalInstitute->medical_building  : ''}}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1070,7 +1388,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">City</h3>
-                                                         <h1 class="_detail"> {{ isset($medicalInstitute->medical_cityId) ? \App\Models\City::find($medicalInstitute->medical_cityId)->city : '' }}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1079,7 +1397,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">{{ isset($medicalInstitute->medical_stateId) ? \App\Models\State::find($medicalInstitute->medical_stateId)->state : '' }}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1090,7 +1408,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Zip Code</h3>
-                                                         <h1 class="_detail">{{ isset($medicalInstitute->medical_zipcode) ? $medicalInstitute->medical_zipcode : ''}}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1099,9 +1417,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Year Started</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($medicalInstitute->medical_yearStarted) ? $medicalInstitute->medical_yearStarted  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1110,9 +1426,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Year Completed</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($medicalInstitute->medical_yearEnded) ? $medicalInstitute->medical_yearEnded  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1121,31 +1435,145 @@
                                                 <div class="col-12 col-sm-4">
                                                    <div class="mb-4 viewMapDiv" style="display:none;">
                                                       <div class="card card-body">
-                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$medicalMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                       </div>
                                                    </div>
                                                 </div>
                                              </div>
                                           </div>
-                                          @php $medicalCounter++ @endphp
-                                       @endforeach
-                                    </div>
-                                 </li>
+                                       </div>
+                                    </li>
                                  @endif
                                  @if($residencyInstitutes)
-                                 <li>
-                                    <div class="_card mt-3">
-                                       @foreach($residencyInstitutes as $residencyInstitute)
-                                          @php
-                                             $residency_address1 = isset($residencyInstitute->residency_address1) ? $residencyInstitute->residency_address1  : '';
-                                             $residency_address2 = isset($residencyInstitute->residency_address2) ? $residencyInstitute->residency_address2  : '';
-                                             $residency_building = isset($residencyInstitute->residency_building) ? $residencyInstitute->residency_building  : '';
-                                             $residency_city = isset($residencyInstitute->residency_cityId) ? \App\Models\City::find($residencyInstitute->residency_cityId)->city : '';
-                                             $residency_state = isset($residencyInstitute->residency_stateId) ? \App\Models\State::find($residencyInstitute->residency_stateId)->state : '';
-                                             $residency_zipcode = isset($residencyInstitute->residency_zipcode) ? $residencyInstitute->residency_zipcode : '';
-                                             $residencyMap = $residency_address1 .','. $residency_address2 .','. $residency_building .','. $residency_city .','. $residency_state .','. $residency_zipcode;
-                                          @endphp
-                                          <div class="_card_header"><div class="title-head">Residency Institute Details {{ $residencyCounter }}</div><a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a></div>
+                                    <li>
+                                       <div class="_card mt-3">
+                                          @foreach($residencyInstitutes as $residencyInstitute)
+                                             @php
+                                                $residency_address1 = isset($residencyInstitute->residency_address1) ? $residencyInstitute->residency_address1  : '';
+                                                $residency_address2 = isset($residencyInstitute->residency_address2) ? $residencyInstitute->residency_address2  : '';
+                                                $residency_building = isset($residencyInstitute->residency_building) ? $residencyInstitute->residency_building  : '';
+                                                $residency_city = isset($residencyInstitute->residency_cityId) ? \App\Models\City::find($residencyInstitute->residency_cityId)->city : '';
+                                                $residency_state = isset($residencyInstitute->residency_stateId) ? \App\Models\State::find($residencyInstitute->residency_stateId)->state : '';
+                                                $residency_zipcode = isset($residencyInstitute->residency_zipcode) ? $residencyInstitute->residency_zipcode : '';
+                                                $residencyMap = $residency_address1 .','. $residency_address2 .','. $residency_building .','. $residency_city .','. $residency_state .','. $residency_zipcode;
+                                             @endphp
+                                             <div class="_card_header"><div class="title-head">Residency Institute Details {{ $residencyCounter }}</div><a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a></div>
+                                             <div class="_card_body">
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Name of Institute</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($residencyInstitute->residency_instituteName) ? $residencyInstitute->residency_instituteName  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-map-marker circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Address Line 1</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($residencyInstitute->residency_address1) ? $residencyInstitute->residency_address1  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-map-marker circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Address Line 2</h3>
+                                                            <h1 class="_detail">
+                                                            {{ isset($residencyInstitute->residency_address2) ? $residencyInstitute->residency_address2  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Apt#</h3>
+                                                            <h1 class="_detail">  {{ isset($residencyInstitute->residency_building) ? $residencyInstitute->residency_building  : ''}}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">City</h3>
+                                                            <h1 class="_detail"> {{ isset($residencyInstitute->residency_cityId) ? \App\Models\City::find($residencyInstitute->residency_cityId)->city : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">State</h3>
+                                                            <h1 class="_detail">{{ isset($residencyInstitute->residency_stateId) ? \App\Models\State::find($residencyInstitute->residency_stateId)->state : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Zip Code</h3>
+                                                            <h1 class="_detail">{{ isset($residencyInstitute->residency_zipcode) ? $residencyInstitute->residency_zipcode : ''}}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Year Started</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($residencyInstitute->residency_yearStarted) ? $residencyInstitute->residency_yearStarted  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Year Completed</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($residencyInstitute->residency_yearEnded) ? $residencyInstitute->residency_yearEnded  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="mb-4 viewMapDiv" style="display:none;">
+                                                         <div class="card card-body">
+                                                            <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$residencyMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             @php $residencyCounter++ @endphp
+                                          @endforeach
+                                       </div>
+                                    </li>
+                                 @else
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header"><div class="title-head">Residency Institute Details</div><a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a></div>
                                           <div class="_card_body">
                                              <div class="row mt-3">
                                                 <div class="col-12 col-sm-4">
@@ -1153,20 +1581,16 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Name of Institute</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($residencyInstitute->residency_instituteName) ? $residencyInstitute->residency_instituteName  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
-                                                </div>                                                
+                                                </div>
                                                 <div class="col-12 col-sm-4">
                                                    <div class="d-flex align-items-center mb-3">
                                                       <div><i class="las la-map-marker circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Address Line 1</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($residencyInstitute->residency_address1) ? $residencyInstitute->residency_address1  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1175,9 +1599,7 @@
                                                       <div><i class="las la-map-marker circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Address Line 2</h3>
-                                                         <h1 class="_detail">
-                                                         {{ isset($residencyInstitute->residency_address2) ? $residencyInstitute->residency_address2  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1188,7 +1610,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Apt#</h3>
-                                                         <h1 class="_detail">  {{ isset($residencyInstitute->residency_building) ? $residencyInstitute->residency_building  : ''}}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1197,7 +1619,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">City</h3>
-                                                         <h1 class="_detail"> {{ isset($residencyInstitute->residency_cityId) ? \App\Models\City::find($residencyInstitute->residency_cityId)->city : '' }}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1206,7 +1628,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">{{ isset($residencyInstitute->residency_stateId) ? \App\Models\State::find($residencyInstitute->residency_stateId)->state : '' }}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1217,7 +1639,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Zip Code</h3>
-                                                         <h1 class="_detail">{{ isset($residencyInstitute->residency_zipcode) ? $residencyInstitute->residency_zipcode : ''}}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1226,9 +1648,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Year Started</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($residencyInstitute->residency_yearStarted) ? $residencyInstitute->residency_yearStarted  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1237,9 +1657,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Year Completed</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($residencyInstitute->residency_yearEnded) ? $residencyInstitute->residency_yearEnded  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1248,32 +1666,162 @@
                                                 <div class="col-12 col-sm-4">
                                                    <div class="mb-4 viewMapDiv" style="display:none;">
                                                       <div class="card card-body">
-                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$residencyMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                       </div>
                                                    </div>
                                                 </div>
                                              </div>
                                           </div>
-                                          @php $residencyCounter++ @endphp
-                                       @endforeach
-                                    </div>
-                                 </li>
+                                       </div>
+                                    </li>
                                  @endif
                                  @if($fellowshipInstitutes)
-                                 <li>
-                                    <div class="_card mt-3">
-                                       @foreach($fellowshipInstitutes as $fellowshipInstitute)
-                                          @php
-                                             $fellowship_address1 = isset($fellowshipInstitute->fellowship_address1) ? $fellowshipInstitute->fellowship_address1  : '';
-                                             $fellowship_address2 = isset($fellowshipInstitute->fellowship_address2) ? $fellowshipInstitute->fellowship_address2  : '';
-                                             $fellowship_building = isset($fellowshipInstitute->fellowship_building) ? $fellowshipInstitute->fellowship_building  : '';
-                                             $fellowship_city = isset($fellowshipInstitute->fellowship_cityId) ? \App\Models\City::find($fellowshipInstitute->fellowship_cityId)->city : '';
-                                             $fellowship_state = isset($fellowshipInstitute->fellowship_stateId) ? \App\Models\State::find($fellowshipInstitute->fellowship_stateId)->state : '';
-                                             $fellowship_zipcode = isset($fellowshipInstitute->fellowship_zipcode) ? $fellowshipInstitute->fellowship_zipcode : '';
-                                             $fellowshipMap = $fellowship_address1 .','. $fellowship_address2 .','. $fellowship_building .','. $fellowship_city .','. $fellowship_state .','. $fellowship_zipcode;
-                                          @endphp
+                                    <li>
+                                       <div class="_card mt-3">
+                                          @foreach($fellowshipInstitutes as $fellowshipInstitute)
+                                             @php
+                                                $fellowship_address1 = isset($fellowshipInstitute->fellowship_address1) ? $fellowshipInstitute->fellowship_address1  : '';
+                                                $fellowship_address2 = isset($fellowshipInstitute->fellowship_address2) ? $fellowshipInstitute->fellowship_address2  : '';
+                                                $fellowship_building = isset($fellowshipInstitute->fellowship_building) ? $fellowshipInstitute->fellowship_building  : '';
+                                                $fellowship_city = isset($fellowshipInstitute->fellowship_cityId) ? \App\Models\City::find($fellowshipInstitute->fellowship_cityId)->city : '';
+                                                $fellowship_state = isset($fellowshipInstitute->fellowship_stateId) ? \App\Models\State::find($fellowshipInstitute->fellowship_stateId)->state : '';
+                                                $fellowship_zipcode = isset($fellowshipInstitute->fellowship_zipcode) ? $fellowshipInstitute->fellowship_zipcode : '';
+                                                $fellowshipMap = $fellowship_address1 .','. $fellowship_address2 .','. $fellowship_building .','. $fellowship_city .','. $fellowship_state .','. $fellowship_zipcode;
+                                             @endphp
+                                             <div class="_card_header">
+                                                <div class="title-head">Fellowship Institute Details {{ $fellowshipCounter}}</div>
+                                                <a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a>
+                                             </div>
+                                             <div class="_card_body">
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Name of Institute</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($fellowshipInstitute->fellowship_instituteName) ? $fellowshipInstitute->fellowship_instituteName  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-map-marker circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Address Line 1</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($fellowshipInstitute->fellowship_address1) ? $fellowshipInstitute->fellowship_address1  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-map-marker circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Address Line 2</h3>
+                                                            <h1 class="_detail">
+                                                            {{ isset($fellowshipInstitute->fellowship_address2) ? $fellowshipInstitute->fellowship_address2  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Apt#</h3>
+                                                            <h1 class="_detail">  {{ isset($fellowshipInstitute->fellowship_building) ? $fellowshipInstitute->fellowship_building  : ''}}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">City</h3>
+                                                            <h1 class="_detail"> {{ isset($fellowshipInstitute->fellowship_cityId) ? \App\Models\City::find($fellowshipInstitute->fellowship_cityId)->city : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">State</h3>
+                                                            <h1 class="_detail">{{ isset($fellowshipInstitute->fellowship_stateId) ? \App\Models\State::find($fellowshipInstitute->fellowship_stateId)->state : '' }}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Zip Code</h3>
+                                                            <h1 class="_detail">{{ isset($fellowshipInstitute->fellowship_zipcode) ? $fellowshipInstitute->fellowship_zipcode : ''}}</h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Name of fellowship program</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($fellowshipInstitute->fellowship_nameOfProgram) ? $fellowshipInstitute->fellowship_nameOfProgram  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Year Started</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($fellowshipInstitute->fellowship_yearStarted) ? $fellowshipInstitute->fellowship_yearStarted  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="d-flex align-items-center mb-3">
+                                                         <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                         <div>
+                                                            <h3 class="_title">Year Completed</h3>
+                                                            <h1 class="_detail">
+                                                               {{ isset($fellowshipInstitute->fellowship_yearEnded) ? $fellowshipInstitute->fellowship_yearEnded  : ''}}
+                                                            </h1>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                   <div class="col-12 col-sm-4">
+                                                      <div class="mb-4 viewMapDiv" style="display:none;">
+                                                         <div class="card card-body">
+                                                            <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$fellowshipMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             @php $fellowshipCounter++ @endphp
+                                          @endforeach
+                                       </div>
+                                    </li>
+                                 @else
+                                    <li>
+                                       <div class="_card mt-3">
                                           <div class="_card_header">
-                                             <div class="title-head">Fellowship Institute Details {{ $fellowshipCounter}}</div>
+                                             <div class="title-head">Fellowship Institute Details</div>
                                              <a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a>
                                           </div>
                                           <div class="_card_body">
@@ -1283,9 +1831,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Name of Institute</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($fellowshipInstitute->fellowship_instituteName) ? $fellowshipInstitute->fellowship_instituteName  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1294,9 +1840,7 @@
                                                       <div><i class="las la-map-marker circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Address Line 1</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($fellowshipInstitute->fellowship_address1) ? $fellowshipInstitute->fellowship_address1  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1305,9 +1849,7 @@
                                                       <div><i class="las la-map-marker circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Address Line 2</h3>
-                                                         <h1 class="_detail">
-                                                         {{ isset($fellowshipInstitute->fellowship_address2) ? $fellowshipInstitute->fellowship_address2  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1318,7 +1860,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Apt#</h3>
-                                                         <h1 class="_detail">  {{ isset($fellowshipInstitute->fellowship_building) ? $fellowshipInstitute->fellowship_building  : ''}}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1327,7 +1869,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">City</h3>
-                                                         <h1 class="_detail"> {{ isset($fellowshipInstitute->fellowship_cityId) ? \App\Models\City::find($fellowshipInstitute->fellowship_cityId)->city : '' }}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1336,7 +1878,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">State</h3>
-                                                         <h1 class="_detail">{{ isset($fellowshipInstitute->fellowship_stateId) ? \App\Models\State::find($fellowshipInstitute->fellowship_stateId)->state : '' }}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1347,7 +1889,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Zip Code</h3>
-                                                         <h1 class="_detail">{{ isset($fellowshipInstitute->fellowship_zipcode) ? $fellowshipInstitute->fellowship_zipcode : ''}}</h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1356,9 +1898,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Name of fellowship program</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($fellowshipInstitute->fellowship_nameOfProgram) ? $fellowshipInstitute->fellowship_nameOfProgram  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1367,9 +1907,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Year Started</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($fellowshipInstitute->fellowship_yearStarted) ? $fellowshipInstitute->fellowship_yearStarted  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1380,9 +1918,7 @@
                                                       <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                       <div>
                                                          <h3 class="_title">Year Completed</h3>
-                                                         <h1 class="_detail">
-                                                            {{ isset($fellowshipInstitute->fellowship_yearEnded) ? $fellowshipInstitute->fellowship_yearEnded  : ''}}
-                                                         </h1>
+                                                         <h1 class="_detail"></h1>
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1391,16 +1927,14 @@
                                                 <div class="col-12 col-sm-4">
                                                    <div class="mb-4 viewMapDiv" style="display:none;">
                                                       <div class="card card-body">
-                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q={{$fellowshipMap}}t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                                                       </div>
                                                    </div>
                                                 </div>
                                              </div>
                                           </div>
-                                          @php $fellowshipCounter++ @endphp
-                                       @endforeach
-                                    </div>
-                                 </li>
+                                       </div>
+                                    </li>
                                  @endif
                               </ul>
                            </div>
@@ -1766,7 +2300,7 @@
                         <div class="tab-content" id="myTabContent">
                            <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
                               <ul>
-                                 @php $count = '1'; @endphp                    
+                                 @php $count = '1'; @endphp
                                  @isset($employer_detail)
                                     <li>
                                        <div class="_card mt-3">
@@ -2108,45 +2642,45 @@
                         <div class="tab-content" id="myTabContent">
                            <div class="tab-pane fade show active" id="MEDICALINSTITUTE" role="tabpanel" aria-labelledby="MEDICALINSTITUTE-tab">
                               <ul>
-                                 @php $count = '1'; @endphp
-                                 @isset($workHistory_detail->list)
-                                    <li>
-                                       <div class="_card mt-3">
-                                          <div class="_card_header"><div class="title-head">Position Desired</div></div>
-                                          <div class="_card_body">
-                                             <div class="row mt-3">
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Position</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory_detail->position) ? $workHistory_detail->position : ''}}</h1>
-                                                      </div>
+                                 <li>
+                                    <div class="_card mt-3">
+                                       <div class="_card_header"><div class="title-head">Position Desired</div></div>
+                                       <div class="_card_body">
+                                          <div class="row mt-3">
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Position</h3>
+                                                      <h1 class="_detail">{{ isset($workHistory_detail->position) ? $workHistory_detail->position : ''}}</h1>
                                                    </div>
                                                 </div>
-                                                <div class="col-12 col-sm-4">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">Are you currently employed?</h3>
-                                                         <h1 class="_detail"> {{ isset($workHistory_detail->isCurrentEmployee) && $workHistory_detail->isCurrentEmployee == 'true' ? 'Yes' : 'No' }}
-                                                            </h1>
-                                                      </div>
+                                             </div>
+                                             <div class="col-12 col-sm-4">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">Are you currently employed?</h3>
+                                                      <h1 class="_detail"> {{ isset($workHistory_detail->isCurrentEmployee) && $workHistory_detail->isCurrentEmployee == 'true' ? 'Yes' : 'No' }}
+                                                         </h1>
                                                    </div>
                                                 </div>
-                                                <div class="col-12 col-sm-12">
-                                                   <div class="d-flex align-items-center">
-                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
-                                                      <div>
-                                                         <h3 class="_title">It is been noted that the large gap in your work history is due to taking time off</h3>
-                                                         <h1 class="_detail">{{ isset($workHistory_detail->gapReason) ? $workHistory_detail->gapReason : ''}}</h1>
-                                                      </div>
+                                             </div>
+                                             <div class="col-12 col-sm-12">
+                                                <div class="d-flex align-items-center">
+                                                   <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                   <div>
+                                                      <h3 class="_title">It is been noted that the large gap in your work history is due to taking time off</h3>
+                                                      <h1 class="_detail">{{ isset($workHistory_detail->gapReason) ? $workHistory_detail->gapReason : ''}}</h1>
                                                    </div>
                                                 </div>
                                              </div>
                                           </div>
                                        </div>
-                                    </li>
+                                    </div>
+                                 </li>
+                                 @php $count = '1'; @endphp
+                                 @isset($workHistory_detail->list)
                                     @foreach($workHistory_detail->list as $index => $workHistory)
                                        @php
                                           $workHistory_address1 = isset($workHistory->address1) ? $workHistory->address1  : '';
@@ -2193,7 +2727,7 @@
                                                             </h1>
                                                          </div>
                                                       </div>
-                                                   </div>                                              
+                                                   </div>
                                                 </div>
                                                 <div class="row mt-3">
                                                    <div class="col-12 col-sm-4">
@@ -2299,15 +2833,142 @@
                                           </div>
                                        </li>
                                        @php $count++; @endphp
-                                    @endforeach                                 
+                                    @endforeach
+                                 @else
+                                    <li>
+                                       <div class="_card mt-3">
+                                          <div class="_card_header">
+                                             <div class="title-head">Work History</div>
+                                             <a class="btn btn-info btn-sm ml-2 viewMap"><i class="las la-map-marker"></i>View Map</a>
+                                          </div>
+                                          <div class="_card_body">
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i> </div>
+                                                      <div>
+                                                         <h3 class="_title">Employer Name</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Position/Title</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address Line 1</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center mb-3">
+                                                      <div><i class="las la-map-marker circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Address Line 2</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Apt#</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">City</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">State</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Zip Code</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Start Date</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">End Date</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="d-flex align-items-center">
+                                                      <div><i class="las la-angle-double-right circle-icon"></i></div>
+                                                      <div>
+                                                         <h3 class="_title">Reason of separation</h3>
+                                                         <h1 class="_detail"></h1>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="row mt-3">
+                                                <div class="col-12 col-sm-4">
+                                                   <div class="mb-4 viewMapDiv" style="display:none;">
+                                                      <div class="card card-body">
+                                                         <iframe style="border-radius: 15px;border: 1px solid #e2dcdc;" width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=200&amp;hl=en&amp;q=t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </li>
                                  @endisset
                               </ul>
                            </div>
                         </div>
                      </div>
                   </div>
-               </div>           
-              
+               </div>
+
             @endif
             <div class="tab-pane fade" id="ProfessionalDetails" role="tabpanel"  aria-labelledby="v-pills-ProfessionalDetails-tab">
                <div class="app-card" style="min-height: auto;">
@@ -2368,7 +3029,7 @@
                                           @endforeach
                                           @endif
                                        </div>
-                                    </div>                                     
+                                    </div>
                                     <div class="_card mt-3">
                                        <div class="_card_header"><div class="title-head">Medicaid Detail</div></div>
                                        <div class="_card_body">
@@ -2425,18 +3086,19 @@
                                                    <div>
                                                       <h3 class="_title">Age range you treated</h3>
                                                       <h1 class="_detail">
-                                                      @if(isset($professional_detail->age_0_18))
+                                                      @if($professional_detail->age_0_18)
                                                          Age 0 to 18,
                                                       @endif
-                                                      @if(isset($professional_detail->age_19_40))
+                                                      @if($professional_detail->age_19_40)
                                                          Age 19 to 40,
                                                       @endif
-                                                      @if(isset($professional_detail->age_41_65))
+                                                      @if($professional_detail->age_41_65)
                                                          Age 41 to 65,
                                                       @endif
-                                                      @if(isset($professional_detail->age_65Plus))
+                                                      @if($professional_detail->age_65Plus)
                                                          Age 65+,
                                                       @endif
+                                                     
                                                       </h1>
                                                    </div>
                                                 </div>
@@ -2606,8 +3268,19 @@
                                        $professional_address1 = isset($professional_detail->npa_address1) ? $professional_detail->npa_address1  : '';
                                        $professional_address2 = isset($professional_detail->npa_address2) ? $professional_detail->npa_address2  : '';
                                        $professional_building = isset($professional_detail->npa_building) ? $professional_detail->npa_building  : '';
-                                       $professional_city = isset($professional_detail->npa_cityId) ? \App\Models\City::find($professional_detail->npa_cityId)->city : '';
-                                       $professional_state = isset($professional_detail->npa_stateId) ? \App\Models\State::find($professional_detail->npa_stateId)->state : '';
+                                     
+                                       if (isset($professional_detail->npa_cityId)):
+                                          $professional_city = \App\Models\City::find($professional_detail->npa_cityId)->city;
+                                       else:
+                                          $professional_city = $professional_detail->npa_city;
+                                       endif;
+
+                                       if (isset($professional_detail->npa_stateId)):
+                                          $professional_state = \App\Models\State::find($professional_detail->npa_stateId)->state;
+                                       else:
+                                          $professional_state = $professional_detail->npa_state;
+                                       endif;
+
                                        $professional_zipcode = isset($professional_detail->npa_zipCode) ? $professional_detail->npa_zipCode : '';
                                        $professionalMap = $professional_address1 .','. $professional_address2 .','. $professional_building .','. $professional_city .','. $professional_state .','. $professional_zipcode;
                                     @endphp
@@ -2709,7 +3382,12 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">City</h3>
-                                                      <h1 class="_detail"> {{ isset($professional_detail->npa_cityId) ? \App\Models\City::find($professional_detail->npa_cityId)->city : '' }}</h1>
+                                                      <h1 class="_detail"> 
+                                                         @if (isset($professional_detail->npa_cityId))
+                                                            {{ \App\Models\City::find($professional_detail->npa_cityId)->city }}
+                                                         @else
+                                                            {{ $professional_detail->npa_city }}
+                                                         @endif</h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -2718,7 +3396,13 @@
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">State</h3>
-                                                      <h1 class="_detail">{{ isset($professional_detail->npa_stateId) ? \App\Models\State::find($professional_detail->npa_stateId)->state : '' }}</h1>
+                                                      <h1 class="_detail">
+                                                         @if (isset($professional_detail->npa_stateId))
+                                                            {{ \App\Models\State::find($professional_detail->npa_stateId)->state }}
+                                                         @else
+                                                            {{ $professional_detail->npa_state }}
+                                                         @endif
+                                                     </h1>
                                                    </div>
                                                 </div>
                                              </div>
@@ -2855,7 +3539,7 @@
                                                          <div><i class="las la-calendar circle-icon"></i></div>
                                                          <div>
                                                             <h3 class="_title">Date of Birth</h3>
-                                                            <h1 class="_detail">{{ isset($data->dob) ? date('m-d-Y', strtotime($data->dob)) : null }}</h1>
+                                                            <h1 class="_detail">{{ isset($data->dob) ? date('m/d/Y', strtotime($data->dob)) : null }}</h1>
                                                          </div>
                                                       </div>
                                                    </div>
@@ -2929,7 +3613,7 @@
                      <hr>
                   </div>
                   <div class="card-body collapse show" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
-                   
+
                      <div class="row mt-3">
                         <div class="col-12 col-sm-12">
                            <div class="_card mt-3">
@@ -3051,7 +3735,7 @@
                         </div>
                      </div>
                   </div>
-               </div>               
+               </div>
             </div>
             <!--  Documents Verifiaction End -->
 
@@ -3061,7 +3745,13 @@
                   <div class="card-header" id="step2">
                      <div class="d-flex align-items-center">
                         <img src="/assets/img/icons/document-clinician.svg" alt="" srcset="/assets/img/icons/document-clinician.svg" class="_icon mr-2">Credentialing Detail
-                        <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ $data->id }}" data-original-title="Scrapping" class="btn btn-primary btn-gray shadow-sm btn--sm mr-2 " >Scrapping</a>
+                        <!-- <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ $data->id }}" data-original-title="Scrapping" class="btn btn-primary btn-gray shadow-sm btn--sm mr-2 " >Scrapping</a> -->
+                        <div class="button-control mt-4 mb-4" id="printBtn">
+                           <button type="button" onclick="doaction()" class="btn btn-primary btn-warning shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Print <i class="fa fa-spinner fa-spin" id="loader" style="display:none;"></i></button>
+                          
+                           <!-- <a class="bulk-upload-btn" href="{{ route('scrapedpdf') }}"style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Print</a> -->
+                        </div>
+                        
                      </div>
                      <hr>
                   </div>
@@ -3074,11 +3764,37 @@
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <div class="form-group">
                                        <div class="row">
-                                          <div class="col-5 col-sm-5 col-md-5">
+                                          <div class="col-2 col-sm-2 col-md-2">
                                              <div class="input-group">
-                                                <input type="text" class="form-control" name="start_date" id="start_date" placeholder="(Year and month only)">
+                                                <input type="text" class="form-control" name="start_date" id="start_date" placeholder="From(Year and month only)" autocomplete="false">
                                              </div>
                                           </div>
+                                          <div class="col-2 col-sm-2 col-md-2">
+                                             <div class="input-group">
+                                                <input type="text" class="form-control" name="end_date" id="end_date" placeholder="To(Year and month only)" autocomplete="false">
+                                             </div>
+                                          </div>
+                                          <div class="col-2 col-sm-2 col-md-2">
+                                             <div class="input-group">
+                                                <select name="month" id="month" class="form-control form-control-lg">
+                                                   <option selected="selected" value="">Select a month</option>
+                                                   @foreach (config('select.month') as $key => $month)
+                                                         <option value="{{ $key }}" {{($key == $currentMonth) ? 'selected=""' : ''}}>{{$month}}</option>
+                                                   @endforeach
+                                                </select>
+                                             </div>
+                                          </div>
+                                          <div class="col-2 col-sm-2 col-md-2">
+                                             <div class="input-group">
+                                                <select name="year" id="year" class="form-control form-control-lg">
+                                                   <option selected="selected" value="">Select a year</option>
+                                                   @foreach (config('select.year') as $key => $year)
+                                                         <option value="{{ $key}}">{{$year}}</option>
+                                                   @endforeach
+                                                </select>
+                                             </div>
+                                          </div>
+                                          <input type="hidden" name="currentMonth" value="current">
                                           <div class="col-2 col-sm-2 col-md-2">
                                              <div class="input-group">
                                                 <div class="card cardId" >
@@ -3097,7 +3813,8 @@
                                           </div>
                                           <div class="col-5 col-sm-5 col-md-5">
                                              <div class="input-group">
-                                                <a href="javascript: ;" class="btn btn-primary" onclick="searchFunData()">Submit</a>
+
+                                                <button class="btn btn-primary" type="button" id="filter_btn">Apply</button>
                                                 <button class="btn btn-primary reset_btn" type="button" id="reset_btn" style="margin-left: 10px;">Reset</button>
                                              </div>
                                           </div>
@@ -3111,59 +3828,37 @@
                   </div>
                   <input type="hidden" name="actual_link" id="actual_link" value="http://3.132.211.119" />
                   <div class="card-body collapse show" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
-                     @if (count($scanArray['dea']) > 0)
                         <div class="row mt-3">
                            <div class="col-12 col-sm-12">
                               <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">Drug Enforcement Administration(DEA)</div></div>
+                                 <div class="_card_header"><div class="title-head">Drug Enforcement Administration(DEA)</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="14">Start</button></div>
                                  <div class="_card_body">
-                                    <table id="dea" class="table">
+                                    <table id="dea" class="table" style="width: 100%;">
                                        <thead>
                                           <tr>
-                                             <th scope="col">Date</th>
-                                             <th scope="col">Dea Number</th>
-                                             <th scope="col">Name</th>
-                                             <th scope="col">Business Activity</th>
-                                             <th scope="col">Screenshot</th>
+                                             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="dea" /><span class="checkbtn"></span></label></div></th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Dea Number</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Business Activity</th>
+                                            <th scope="col">Action</th>
                                           </tr>
                                        </thead>
                                        <tbody id="table-dea">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['dea'] as $key => $value)
-                                             <tr>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>{{ $value->dea_no }}</td>
-                                                <td>{{ $value->name }}</td>
-                                                <td>{{ $value->business_activity }}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                      <!-- <a class="nav-link active view_document" data-id="{{  $value->id }}" data-type="Dea" href="#" data-action="scanReport" data-value="{{ $actual_link }}/{{ $value->screenshot }}" data-field="{{ $scan_field }}">Screenshot</a> -->
-                                                      <!-- <a href="javascript:void(0)" class="btn btn-warning scanview" type="button" data-value="{{ $actual_link }}/{{ $value->screenshot }}">Screenshot</a> -->
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
                                        </tbody>
                                     </table>
                                  </div>
                               </div>
                            </div>
                         </div>
-                     @endif
-                     @if (count($scanArray['omig']) > 0)
                         <div class="row mt-3">
                            <div class="col-12 col-sm-12">
                               <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">Office Medicaid Inspector(OMIG)</div></div>
+                                 <div class="_card_header"><div class="title-head">Office Medicaid Inspector(OMIG)</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="2">Start</button></div>
                                  <div class="_card_body">
-                                    <table id="omig" class="table">
+                                    <table id="omig" class="table" style="width: 100%;">
                                        <thead>
+                                          <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="omig"/><span class="checkbtn"></span></label></div></th>
                                           <th scope="col">Date</th>
                                           <th scope="col">Provider Name</th>
                                           <th scope="col">License Number</th>
@@ -3171,164 +3866,20 @@
                                           <th scope="col">Screenshot</th>
                                        </thead>
                                        <tbody id="table-omig">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['omig'] as $value)
-                                             <tr>
-                                                <td>{{$value->created_at ? date("d-m-Y", strtotime($value->created_at)) : '';}}</td>
-                                                <td>{{ $value->provider_name }}</td>
-                                                <td>{{ $value->license_number }}</td>
-                                                <td>{{ $value->npi_number }}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                   <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   <!-- <a class="nav-link active view_document" data-id="{{  $value->id }}" data-type="Dea" href="javascript:void(0)" data-action="scanReport" data-value="{{ $actual_link }}/{{ $value->screenshot }}" data-field="{{ $scan_field }}">Screenshot</a> -->
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
                                        </tbody>
                                     </table>
                                  </div>
                               </div>
                            </div>
                         </div>
-                     @endif
-                     @if (count($scanArray['abim']) > 0)
                         <div class="row mt-3">
                            <div class="col-12 col-sm-12">
                               <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">American Board of Internal Medicine(ABIM)</div></div>
+                                 <div class="_card_header"><div class="title-head">Office Of Inspector GeneralDetail(OIG)</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="1">Start</button></div>
                                  <div class="_card_body">
-                                    <table id="abim" class="table">
+                                    <table id="oig" class="table" style="width: 100%;">
                                        <thead>
-                                          <th scope="col">Date</th>
-                                          <th scope="col">ABIM Id</th>
-                                          <th scope="col">Certification Status</th>
-                                          <th scope="col">Initial Certi</th>
-                                          <th scope="col">Screenshot</th>
-                                       </thead>
-                                       <tbody id="table-abim">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['abim'] as $value)
-                                             <tr>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>{{ $value->abim_id }}</td>
-                                                <td>{{ $value->certification_status }}</td>
-                                                <td>{{ $value->initial_certi }}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     @endif
-                     @if (count($scanArray['abfm']) > 0)
-                        <div class="row mt-3">
-                           <div class="col-12 col-sm-12">
-                              <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">American Board of Family Medicine(ABFM)</div></div>
-                                 <div class="_card_body">
-                                    <table id="abfm" class="table">
-                                       <thead>
-                                          <th>Date</th>
-                                          <th>Certification</th>
-                                          <th>Certification Status</th>
-                                          <th>Certification History</th>
-                                          <th>Screenshot</th>
-                                       </thead>
-                                       <tbody id="table-abfm">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['abfm'] as $value)
-                                             <tr>
-                                                <td>{{$value->created_at ? date("d-m-Y", strtotime($value->created_at)) : '';}}</td>
-                                                <td>{{ $value->certification }}</td>
-                                                <td>{{ $value->certification_status }}</td>
-                                                <td>{!! $value->cert_history !!}</td>
-                                                <td>
-                                                   @if($value->cert_screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->cert_screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     @endif
-                     @if (count($scanArray['nysed']) > 0)
-                        <div class="row mt-3">
-                           <div class="col-12 col-sm-12">
-                              <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">NYS</div></div>
-                                 <div class="_card_body">
-                                    <table id="nys" class="table">
-                                       <thead>
-                                          <th>Date</th>
-                                          <th>Name</th>
-                                          <th>Address</th>
-                                          <th>Profession</th>
-                                          <th>Action</th>
-                                       </thead>
-                                       <tbody id="table-nys">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['nysed'] as $value)
-                                             <tr>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>{{ $value->name }}</td>
-                                                <td>{{ $value->address }}</td>
-                                                <td>{{ $value->profession }}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     @endif
-                     @if (count($scanArray['oig']) > 0)
-                        <div class="row mt-3">
-                           <div class="col-12 col-sm-12">
-                              <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">Office Of Inspector GeneralDetail(OIG)</div></div>
-                                 <div class="_card_body">
-                                    <table id="oig" class="table">
-                                       <thead>
+                                          <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="oig"/><span class="checkbtn"></span></label></div></th>
                                           <th>Date</th>
                                           <th>NPI Number</th>
                                           <th>Name</th>
@@ -3336,62 +3887,177 @@
                                           <th>Action</th>
                                        </thead>
                                        <tbody id="table-oig">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['oig'] as $value)
-                                             <tr>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>{{ $value->npi_no }}</td>
-                                                <td>{{ $value->name }}</td>
-                                                <td>{{ $value->upin_no }}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
                                        </tbody>
                                     </table>
                                  </div>
                               </div>
                            </div>
                         </div>
-                     @endif
-                     @if (count($scanArray['nccpa']) > 0)
                         <div class="row mt-3">
                            <div class="col-12 col-sm-12">
                               <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">NCCPA</div></div>
+                                 <div class="_card_header"><div class="title-head">National Practitioner Data Bank(NPDB)</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="11">Start</button></div>
                                  <div class="_card_body">
-                                    <table id="nccpa" class="table">
+                                    <table id="npdb" class="table" style="width: 100%;">
                                        <thead>
+                                          <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="npdb"/><span class="checkbtn"></span></label></div></th>
+                                          <th>Date</th>
+                                          <th>Screenshot</th>
+                                       </thead>
+                                       <tbody id="table-npdb">
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row mt-3">
+                           <div class="col-12 col-sm-12">
+                              <div class="_card mt-3">
+                                 <div class="_card_header"><div class="title-head">SAM GOV</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="3">Start</button></div>
+                                 <div class="_card_body">
+                                    <table id="samgov" class="table" style="width: 100%;">
+                                       <thead>
+                                          <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="samgov"/><span class="checkbtn"></span></label></div></th>
+                                          <th>Date</th>
+                                          <th>Screenshot</th>
+                                       </thead>
+                                       <tbody id="table-samgov">
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row mt-3">
+                           <div class="col-12 col-sm-12">
+                              <div class="_card mt-3">
+                                 <div class="_card_header"><div class="title-head">NYS</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="13">Start</button></div>
+                                 <div class="_card_body">
+                                    <table id="nys" class="table" style="width: 100%;">
+                                       <thead>
+                                          <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="nys"/><span class="checkbtn"></span></label></div></th>
+                                          <th>Date</th>
+                                          <th>Name</th>
+                                          <th>Address</th>
+                                          <th>Profession</th>
+                                          <th>Action</th>
+                                       </thead>
+                                       <tbody id="table-nys">
+                                       </tbody>
+                                    </table>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     @if ($scan_field === 'PhysicianUsers')
+                        @if ($board === 'abim')
+                           <div class="row mt-3">
+                              <div class="col-12 col-sm-12">
+                                 <div class="_card mt-3">
+                                    <div class="_card_header"><div class="title-head">American Board of Internal Medicine(ABIM)</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="4">Start</button></div>
+                                    <div class="_card_body">
+                                       <table id="abim" class="table" style="width: 100%;">
+                                          <thead>
+                                             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="abim"/><span class="checkbtn"></span></label></div></th>
+                                             <th>Date</th>
+                                             <th>ABIM Id</th>
+                                             <th>Certification Status</th>
+                                             <th>Initial Certi</th>
+                                             <th>Screenshot</th>
+                                          </thead>
+                                          <tbody id="table-abim">
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        @endif
+                        @if ($board === 'abfm')
+                           <div class="row mt-3">
+                              <div class="col-12 col-sm-12">
+                                 <div class="_card mt-3">
+                                    <div class="_card_header"><div class="title-head">American Board of Family Medicine(ABFM)</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="6">Start</button></div>
+                                    <div class="_card_body">
+                                       <table id="abfm" class="table" style="width: 100%;">
+                                          <thead>
+                                             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="abfm" /><span class="checkbtn"></span></label></div></th>
+                                             <th>Date</th>
+                                             <th>Certification</th>
+                                             <th>Certification Status</th>
+                                             <th>Certification History</th>
+                                             <th>Screenshot</th>
+                                          </thead>
+                                          <tbody id="table-abfm">
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        @endif
+                           <div class="row mt-3">
+                              <div class="col-12 col-sm-12">
+                                 <div class="_card mt-3">
+                                    <div class="_card_header"><div class="title-head">Everify</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="9">Start</button></div>
+                                    <div class="_card_body">
+                                       <table id="everify" class="table" style="width: 100%;">
+                                          <thead>
+                                             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="everify" /><span class="checkbtn"></span></label></div></th>
+                                             <th>Verification Number</th>
+                                             <th>Case status</th>
+                                             <th>Submitted By</th>
+                                             <th>Current case result</th>
+                                             <th>Reason for Closure</th>
+                                             <th>Date</th>
+                                             <th>Screenshot</th>
+                                          </thead>
+                                          <tbody id="table-everify">
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row mt-3">
+                              <div class="col-12 col-sm-12">
+                                 <div class="_card mt-3">
+                                    <div class="_card_header"><div class="title-head">Educational Commission for Foreign Medical Graduates(ECFMG)</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="8">Start</button></div>
+                                    <div class="_card_body">
+                                       <table id="ecfmg" class="table" style="width: 100%;">
+                                          <thead>
+                                             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="ecfmg" /><span class="checkbtn"></span></label></div></th>
+                                             <th>Date</th>
+                                             <th>Requester</th>
+                                             <th>Usmle Id</th>
+                                             <th>Applicant Name</th>
+                                             <th>Request Status</th>
+                                             <th>Created At</th>
+                                             <th>Screenshot</th>
+                                          </thead>
+                                          <tbody id="table-ecfmg">
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                     @endif
+                     @if ($scan_field === 'PhysicianAssistantUsers')
+                        <div class="row mt-3">
+                           <div class="col-12 col-sm-12">
+                              <div class="_card mt-3">
+                                 <div class="_card_header"><div class="title-head">NCCPA</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="10">Start</button></div>
+                                 <div class="_card_body">
+                                    <table id="nccpa" class="table" style="width: 100%;">
+                                       <thead>
+                                          <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="nccpa" /><span class="checkbtn"></span></label></div></th>
                                           <th>Date</th>
                                           <th>NCCPA Detail</th>
                                           <th>Screenshot</th>
                                        </thead>
                                        <tbody id="table-nccpa">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['nccpa'] as $value)
-                                             <tr>
-                                                <td>{{$value->created_at ? date("d-m-Y", strtotime($value->created_at))  : '';}}</td>
-                                                <td>{{ $value->nccpa_detail }}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
                                        </tbody>
                                     </table>
                                  </div>
@@ -3399,114 +4065,62 @@
                            </div>
                         </div>
                      @endif
-                     @if (count($scanArray['aanp']) > 0)
-                        <div class="row mt-3">
-                           <div class="col-12 col-sm-12">
-                              <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">American Academy of Nurse Practitioners(AANP)</div></div>
-                                 <div class="_card_body">
-                                    <table id="aanp" class="table">
-                                       <thead>
-                                          <th>Order Details</th>
-                                          <th>Pdf</th>
-                                          <th>Date</th>
-                                          <th>Screenshot</th>
-                                       </thead>
-                                       <tbody id="table-aanp">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['aanp'] as $value)
-                                             <tr>
-                                                <td>{{ $value->order_num }}</td>
-                                                <td>{{ $value->pdf }}</td>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
+                     @if ($scan_field === 'NursePractitionerUsers')
+                           <div class="row mt-3">
+                              <div class="col-12 col-sm-12">
+                                 <div class="_card mt-3">
+                                    <div class="_card_header"><div class="title-head">American Academy of Nurse Practitioners(AANP)</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="7">Start</button></div>
+                                    <div class="_card_body">
+                                       <table id="aanp" class="table" style="width: 100%;">
+                                          <thead>
+                                             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="aanp" /><span class="checkbtn"></span></label></div></th>
+                                             <th>Order Details</th>
+                                             <th>Pdf</th>
+                                             <th>Date</th>
+                                             <th>Screenshot</th>
+                                          </thead>
+                                          <tbody id="table-aanp">
+                                          </tbody>
+                                       </table>
+                                    </div>
                                  </div>
                               </div>
                            </div>
-                        </div>
-                     @endif
-                     @if (count($scanArray['nursingWorld']) > 0)
-                        <div class="row mt-3">
-                           <div class="col-12 col-sm-12">
-                              <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">Nursing World</div></div>
-                                 <div class="_card_body">
-                                    <table id="nursingWorld" class="table">
-                                       <thead>
-                                          <th>Order Number</th>
-                                          <th>Date</th>
-                                          <th>Screenshot</th>
-                                          <th>PDF File</th>
-                                       </thead>
-                                       <tbody id="table-nursingWorld">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['nursingWorld'] as $value)
-                                             <tr>
-                                                <td>{{ $value->order_id }}</td>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td><a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a></td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
+                           <div class="row mt-3">
+                              <div class="col-12 col-sm-12">
+                                 <div class="_card mt-3">
+                                    <div class="_card_header"><div class="title-head">Nursing World</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="12">Start</button></div>
+                                    <div class="_card_body">
+                                       <table id="nursingWorld" class="table" style="width: 100%;">
+                                          <thead>
+                                             <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="nursingWorld" /><span class="checkbtn"></span></label></div></th>
+                                             <th>Order Number</th>
+                                             <th>Date</th>
+                                             <th>Screenshot</th>
+                                             <th>PDF File</th>
+                                          </thead>
+                                          <tbody id="table-nursingWorld">
+                                          </tbody>
+                                       </table>
+                                    </div>
                                  </div>
                               </div>
                            </div>
-                        </div>
                      @endif
-                     @if (count($scanArray['ama']) > 0)
+                     @if ($scan_field === 'PhysicianAssistantUsers' || $scan_field === 'PhysicianUsers')
                         <div class="row mt-3">
                            <div class="col-12 col-sm-12">
                               <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">Discharge against medical advice(AMA)</div></div>
+                                 <div class="_card_header"><div class="title-head">AMA</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="5">Start</button></div>
                                  <div class="_card_body">
-                                    <table id="ama" class="table">
+                                    <table id="ama" class="table" style="width: 100%;">
                                        <thead>
+                                          <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="ama" /><span class="checkbtn"></span></label></div></th>
                                           <th>Order Number</th>
                                           <th>Date</th>
                                           <th>Screenshot</th>
                                        </thead>
                                        <tbody id="table-ama">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['ama'] as $value)
-                                             <tr>
-                                                <td>{{ $value->order_id }}</td>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
                                        </tbody>
                                     </table>
                                  </div>
@@ -3514,167 +4128,7 @@
                            </div>
                         </div>
                      @endif
-                     @if (count($scanArray['everify']) > 0)
-                        <div class="row mt-3">
-                           <div class="col-12 col-sm-12">
-                              <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">Everify</div></div>
-                                 <div class="_card_body">
-                                    <table id="everify" class="table">
-                                       <thead>
-                                          <th>Verification Number</th>
-                                          <th>Case status</th>
-                                          <th>Submitted By</th>
-                                          <th>Current case result</th>
-                                          <th>Reason for Closure</th>
-                                          <th>Date</th>
-                                          <th>Screenshot</th>
-                                       </thead>
-                                       <tbody id="table-everify">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['everify'] as $value)
-                                             <tr>
-                                                <td>{{ $value->verification_num }}</td>
-                                                <td>{{ $value->case_status }}</td>
-                                                <td>{{ $value->submitted_by }}</td>
-                                                <td>{{ $value->case_result }}</td>
-                                                <td>{{ $value->clouser }}</td>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     @endif
-                     @if (count($scanArray['npdb']) > 0)
-                        <div class="row mt-3">
-                           <div class="col-12 col-sm-12">
-                              <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">National Practitioner Data Bank(NPDB)</div></div>
-                                 <div class="_card_body">
-                                    <table id="npdb" class="table">
-                                       <thead>
-                                          <th>Date</th>
-                                          <th>Screenshot</th>
-                                       </thead>
-                                       <tbody id="table-npdb">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['npdb'] as $value)
-                                             <tr>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     @endif
-                     @if (count($scanArray['sam']) > 0)
-                        <div class="row mt-3">
-                           <div class="col-12 col-sm-12">
-                              <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">Severe Acute Malnutrition.(SAM GOV)</div></div>
-                                 <div class="_card_body">
-                                    <table id="samgov" class="table">
-                                       <thead>
-                                          <th scope="col">Date</th>
-                                          <th scope="col">Screenshot</th>
-                                       </thead>
-                                       <tbody id="table-samgov">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['sam'] as $value)
-                                             <tr>
-                                                <td scope="row">{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     @endif
-                     @if (count($scanArray['ecfmg']) > 0)
-                        <div class="row mt-3">
-                           <div class="col-12 col-sm-12">
-                              <div class="_card mt-3">
-                                 <div class="_card_header"><div class="title-head">Educational Commission for Foreign Medical Graduates(ECFMG)</div></div>
-                                 <div class="_card_body">
-                                    <table id="ecfmg" class="table">
-                                       <thead>
-                                          <th>Date</th>
-                                          <th>Requester</th>
-                                          <th>Usmle Id</th>
-                                          <th>Applicant Name</th>
-                                          <th>Request Status</th>
-                                          <th>Created At</th>
-                                          <th>Screenshot</th>
-                                       </thead>
-                                       <tbody id="table-ecfmg">
-                                          @php 
-                                             $count1 = 1;
-                                             $actual_link = 'http://3.132.211.119'
-                                          @endphp
-                                          @foreach ($scanArray['ecfmg'] as $value)
-                                             <tr>
-                                                <td>{{date("d-m-Y", strtotime($value->date))}}</td>
-                                                <td>{{$value->requester}}</td>
-                                                <td>{{$value->usmle_id}}</td>
-                                                <td>{{$value->applicant_name}}</td>
-                                                <td>{{$value->request_status}}</td>
-                                                <td>{{date("d-m-Y", strtotime($value->created_at))}}</td>
-                                                <td>
-                                                   @if($value->screenshot != '')
-                                                      <a class="nav-link active" href="{{ $actual_link }}/{{ $value->screenshot }}" target="_blank">Screenshot</a>
-                                                   @else
-                                                      Screenshot not available
-                                                   @endif
-                                                </td>
-                                             </tr>
-                                          @endforeach
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     @endif
-                  </div>                                       
+                  </div>
                </div>
             </div>
          </div>
@@ -3682,7 +4136,8 @@
          <input type="hidden" name="user_id" id="user_id" value="{{ $scanId }}">
          <input type="hidden" name="category_id" id="category_id" value="{{ $cat_id }}">
          <input type="hidden" name="scan_field" id="scan_field" value="{{ $scan_field }}">
-         
+         <input type="hidden" name="board" id="board" value="{{ $board }}">
+
       </section>
    </section>
 @endsection
@@ -3710,7 +4165,7 @@
                 </div>
             </div>
         </div>
-@endsection 
+@endsection
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -3724,371 +4179,418 @@
       .scrollbar-detail {
             height: 800px;
          }
-        
+
     </style>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
 @endpush
 
 @push('scripts')
 	<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
-    <script src="{{ asset('js/dropzone.js') }}"></script>
-    <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
-    <script>
+   <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+   <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+   <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+   <script src="{{ asset('assets/js/app.common.min.js') }}"></script>
+   <script src="{{ asset('js/dropzone.js') }}"></script>
+   <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+   <script>
       $(document).ready(function(){
          $('#selectAll').click();
+         setTimeout(refresh, 5000);
+         //setInterval( refresh , 1000 );
       });
 
+      var phpVar = <?php echo json_encode($mapId); ?>;
+      $.each(phpVar, function (key, value) {
+         var columnDaTa = [];
+         columnDaTa.push(
+            {data:'checkbox_id',"className": "text-center","bSortable": false},
+         );
+              
+         if (value.site_info.sites_name === 'dea') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'dea_no', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'name', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'business_activity', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'omig') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'provider_name', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'license_number', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'npi_number', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'oig') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'npi_no', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'name', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'upin_no', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'npdb') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'samgov') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'nys') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'name', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'address', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'profession', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         var board = $("#scan_field").val();
+         if (board === 'abim'){
+            if (value.site_info.sites_name === 'abim') {
+               columnDaTa.push(
+                  {data:'created_at',"className": "text-center","bSortable": false},
+                  {data: 'abim_id', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'certification_status', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'initial_certi', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               );
+            }
+         }
+
+         if (board === 'abfm'){
+            if (value.site_info.sites_name === 'abfm') {
+               columnDaTa.push(
+                     {data:'created_at',"className": "text-center","bSortable": false},
+                     {data: 'certification', orderable: false, searchable: false,"className": "text-left"},
+                     {data: 'cert_status', orderable: false, searchable: false,"className": "text-left"},
+                     {data: 'cert_history', orderable: false, searchable: false,"className": "text-left"},
+                     {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               );
+            }
+         }
+
+         if (value.site_info.sites_name === 'everify') {
+            columnDaTa.push(
+               {data: 'verification_num', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'case_status', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'submitted_by', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'case_result', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'clouser', orderable: false, searchable: false,"className": "text-left"},
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'ecfmg') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'requester', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'usmle_id', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'applicant_name', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'request_status', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'nccpa') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'nccpa_detail', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'aanp') {
+            columnDaTa.push(
+               {data: 'order_num', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'pdf', orderable: false, searchable: false,"className": "text-left"},
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'ama') {
+            columnDaTa.push(
+               {data: 'order_id', orderable: false, searchable: false,"className": "text-left"},
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'nursingworld') {
+            columnDaTa.push(
+               {data: 'order_id', orderable: false, searchable: false,"className": "text-left"},
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         $('#'+value.site_info.sites_name).DataTable({
+            "processing": true,
+            "serverSide": true,
+            "bSort" : false,
+            // "language": {
+            //    processing: '<div id="loader-wrapper"><div class="overlay"></div><div class="pulse"></div></div>'
+            // },
+            ajax: {
+               'type': 'POST',
+               'url': "{{ route('get-scrap-list.ajax') }}",
+               'headers': {
+                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
+               },
+               data: function (d) {
+                     d.month = $('select[name="month"]').val();
+                     d.year = $('select[name="year"]').val();
+                     d.start_date = $('input[name="start_date"]').val();
+                     d.end_date = $('input[name="end_date"]').val();
+                     d.currentMonth = $('input[name="currentMonth"]').val();
+                     d.sites_name = value.site_info.sites_name;
+                     d.scan_field = scan_field = $("#scan_field").val();
+                     d.scanId = $("#user_id").val();
+                     d.board = $("#scan_field").val();
+                     d.category_id = $("#category_id").val();
+               },
+               'headers': {
+                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
+               }
+            },
+            columns:columnDaTa,
+            "pageLength": 5,
+            "lengthMenu": [ [5,10, 20, 50, 100, -1], [5,10, 20, 50, 100, "All"] ],
+            'columnDefs': [
+               {
+                  "order": [ 1, "desc"],
+               }
+            ],
+         });
+      });
+
+      /*table reload at filter time*/
+      $("#filter_btn").click(function () {
+         $('input[name="currentMonth"]').val('filter');
+         refresh();
+      });
+
+      $(".mainchk").click(function () {
+         var ch = $(this).prop("checked");
+         var type = $(this).attr('data-value')
+            
+         if(ch == true) {
+            $(".innerallchk"+type).prop("checked","checked");
+            $('#printBtn').show();
+         } else {
+            $(".innerallchk"+type).prop("checked","");
+            $('#printBtn').hide();
+         }
+      });
+      
+      $(document).ready(function () {
+         $('body').on('click', '.SingleRun', function () {
+            var cat_id = $(this).attr('data-id');
+            var userid = $(this).attr('data-scan');
+            var site_id = $(this).attr('data-site');
+            
+            if(confirm("Are you sure you want to run this user?")){
+               $.ajax({
+                     type: 'GET',
+                     url: "{{Route('manually-scrap') }}",
+                     data: {
+                        categoryid: cat_id,
+                        userid: userid,
+                        siteid: site_id
+                     },
+                     success: function(response) {
+                        console.log(response);
+                        // $('#message').text(response);
+                        // $('#exampleModal').modal('show')
+                     }
+               });
+            } else {
+               console.log('cancelled');
+            }
+         });
+      });
+
+      function chkmain(type) {
+         var ch = $(".innerallchk"+type).prop("checked");
+         if(ch == true) {
+               $('#printBtn').show();
+               var len = $(".innerallchk"+type+":unchecked").length;
+               if(len == 0) {
+                  $(".mainchk").prop("checked","checked");
+               } else {
+                  $(".mainchk").prop("checked","");
+               }
+         } else {
+               var len = $(".innerallchk"+type+":checked").length;
+               if(len == 0) {
+                  $('#printBtn').hide();
+               } else {
+                  $('#printBtn').show();
+                  var len = $(".innerallchk"+type+":unchecked").length;
+                  if(len == 0) {
+                     $(".mainchk").prop("checked","checked");
+                  } else {
+                     $(".mainchk").prop("checked","");
+                  }
+               }
+         }
+      }
+
+      function doaction()
+      {
+         var len = $(".innerallchk1:checked").length;
+         if (len == 0) {
+            alertText('Please select at least one record to continue.','warning');
+         } else {
+            var selectArray = []; 
+            $('.innerallchk1:checked').each(function( i, x ){
+               selectArray.push({"id":x.id, "value":x.value})   
+            });
+         }
+
+         var token = $('input[name="_token"]').val();
+         $('#loader').show();
+         $.ajax({
+            type: 'POST',
+            url: "{{route('scrapedpdf') }}",
+            data: {
+               'data':selectArray,
+            },
+            headers: {
+               'X-CSRF-Token': token
+            },
+            xhrFields: {
+               responseType: 'blob'
+            },
+            success: function(response){
+               var blob = new Blob([response]);
+            
+               var link = document.createElement('a');
+               link.href = window.URL.createObjectURL(blob);
+               link.download = 'sample.pdf';
+               link.click();
+               refresh();
+               $('#loader').hide();
+            },
+            error: function(blob){
+               console.log(blob);
+               $('#loader').hide();
+            }
+         });
+      }
+        
+      function refresh() {
+         $.each(phpVar, function (key, value) {
+            $('#'+value.site_info.sites_name).DataTable().ajax.reload(null, false);
+         });
+      }
+
       $("#selectAll").click(function(){
-         //$("input[type=checkbox]").prop('checked', $(this).prop('checked'));
-         $("input[type=checkbox]").not('#selectAll').click();
+         $(".sites").not('#selectAll').click();
       });
 
       $('.viewMap').on('click', function(e) {
          $(this).parents("li").find('.viewMapDiv').toggle();
-      });            
-
-   function tableshow(item_id, table_id) {
-      if ($('#'+item_id).is(':checked')){
-            $('#'+table_id).show(); 
-      }
-      else{
-            $('#'+table_id).hide(); 
-      }
-   }
-
-   $('input[name="start_date"]').daterangepicker({
-      //singleDatePicker: true,
-      showDropdowns: true,
-      format: 'DD/MM/YYYY'
-      }).on('hide.daterangepicker', function (ev, picker) {
-      $('.table-condensed tbody tr:nth-child(2) td').click();
-    
-      });
-      
-
-   function searchFunData() {
-      var start_date = $("#start_date").val();
-      var user_id = $("#user_id").val();
-      var category_id = $("#category_id").val();
-      var scan_field = $("#scan_field").val();
-      var sitesName = [];
-      $.each($("input[class='sites']:checked"), function (K, V) {   
-            sitesName.push(V.value);        
       });
 
-      $.ajax({
-         type: 'GET',
-         url: "{{ Route('user.scan_report_search') }}",
-         data: {
-            start_date: start_date,
-            user_id: user_id,
-            category_id: category_id,
-            sites:sitesName,
-            scan_field: scan_field,
-         },
-         success: function(response) {
-            item = JSON.parse(response);
-            if (item.dea != '') {
-               $.each(item.dea, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;
-
-                  var deahtml = '<tr><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>' + value.dea_no + '</td><td>' + value.name + '</td><td>' + value.business_activity + '</td><td>';
-                 
-                  if (value.screenshot != null) {
-                     deahtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     deahtml+= 'Screenshot not available';
-                  }
-
-                  deahtml+= '</td></tr>';
-                  $('#table-dea').replaceWith(deahtml);
-               });
-            }
-
-            if(item.omig != '') {
-               $.each(item.omig, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;
-             
-                  var omightml = '<tr><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>' + value.provider_name + '</td><td>' + value.license_number + '</td><td>' + value.npi_number + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     omightml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     omightml+= 'Screenshot not available';
-                  }
-
-                  omightml+= '</td></tr>';
-                  $('#table-omig').replaceWith(omightml);
-               });
-            }
-
-            if(item.abim != '') {
-               $.each(item.abim, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;
-                  
-                  var abimhtml = '<tr><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>' + value.abim_id + '</td><td>' + value.certification_status + '</td><td>' + value.initial_certi + '</td><td>';
-                
-                  if (value.screenshot != null) {
-                     abimhtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     abimhtml+= 'Screenshot not available';
-                  }
-
-                  abimhtml+= '</td></tr>';
-                  $('#table-abim').replaceWith(abimhtml);
-                 
-               });
-            }
-
-            if(item.abfm != ''){
-               $.each(item.abfm, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.cert_screenshot;
-                  
-                  var abfmhtml = '<tr><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>' + value.Certification + '</td><td>' + value.certification_status + '</td><td>' + value.cert_history + '</td><td>';
-
-                  if (value.cert_screenshot != null) {
-                     abfmhtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     abfmhtml+= 'Screenshot not available';
-                  }
-
-                  abfmhtml+= '</td></tr>';
-
-                  $('#table-abfm').replaceWith(abfmhtml);
-               });
-            }
-           
-            if(item.nys != '') {
-               $.each(item.nys, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;
-                  var nyshtml = '<tr><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>' + value.name + '</td><td>' + value.address + '</td><td>' + value.profession + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     nyshtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     nyshtml+= 'Screenshot not available';
-                  }
-
-                  nyshtml+= '</td></tr>';
-
-                  $('#table-nys').replaceWith(nyshtml);
-               });
-            }
-
-            if(item.oig != '') {
-               $.each(item.oig, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;
-
-                  var oightml = '<tr><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>' + value.npi_no + '</td><td>' + value.name + '</td><td>' + value.upin_no + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     oightml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     oightml+= 'Screenshot not available';
-                  }
-
-                  oightml+= '</td></tr>';
-
-                  $('#table-oig').replaceWith(oightml);
-               });
-            }
-
-            if(item.nccpa != '') {
-               $.each(item.nccpa, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;
-
-                  var nccpahtml = '<tr><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>' + value.nccpa_detail + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     nccpahtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     nccpahtml+= 'Screenshot not available';
-                  }
-
-                  nccpahtml+= '</td></tr>';
-
-                  $('#table-nccpa').replaceWith(nccpahtml);
-               });
-            }
-
-            if(item.aanp != '') {
-               $.each(item.aanp, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;               
-
-                  var aanphtml = '<tr><td>' + value.order_num + '</td><td>' + value.pdf + '</td><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     aanphtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     aanphtml+= 'Screenshot not available';
-                  }
-
-                  aanphtml+= '</td></tr>';
-
-                  $('#table-aanp').replaceWith(aanphtml);
-               });
-            }
-
-            if(item.nursingworld != '') {
-               $.each(item.nursingworld, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;               
-
-                  var nursingworldhtml = '<tr><td>' + value.order_id + '</td><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     nursingworldhtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     nursingworldhtml+= 'Screenshot not available';
-                  }
-
-                  nursingworldhtml+= '</td><td><a href="' + value.jsp_file +'" target="_blank"><i class="fa fa-file-pdf-o"></i></a></td></tr>';
-
-                  $('#table-nursingWorld').replaceWith(nursingworldhtml);
-               });
-            }
-
-            if(item.ama != '') {
-               $.each(item.ama, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;               
-
-                  var amahtml = '<tr><td>' + value.order_id + '</td><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     amahtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     amahtml+= 'Screenshot not available';
-                  }
-
-                  amahtml+= '</td></tr>';
-
-                  $('#table-ama').replaceWith(amahtml);
-               });
-            }
-
-            if(item.everify != '') {
-               $.each(item.everify, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;               
-
-                  var everifyhtml = '<tr><td>' + value.verification_num + '</td><td>' + value.case_status + '</td><td>' + value.submitted_by + '</td><td>' + value.case_result + '</td><td>' + value.clouser + '</td><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     everifyhtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     everifyhtml+= 'Screenshot not available';
-                  }
-
-                  everifyhtml+= '</td></tr>';
-
-                  $('#table-everify').replaceWith(everifyhtml);
-               });
-            }
-           
-            if(item.npdb != '') {
-               $.each(item.npdb, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;
-
-                  var npdbhtml = '<tr><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     npdbhtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     npdbhtml+= 'Screenshot not available';
-                  }
-
-                  npdbhtml+= '</td></tr>';
-
-                  $('#table-npdb').replaceWith(npdbhtml);
-               });
-            }
-
-            if(item.samgov != '') {
-               $.each(item.samgov, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;
-
-                  var samgovhtml = '<tr><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     samgovhtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     samgovhtml+= 'Screenshot not available';
-                  }
-
-                  samgovhtml+= '</td></tr>';
-
-                  $('#table-samgov').replaceWith(samgovhtml);
-               });
-            }
-
-            if(item.ecfmg != '') {
-               $.each(item.ecfmg, function(index, value) {
-                  var screenshot = $("#actual_link").val() + '/' + value.screenshot;
-
-                  var ecfmghtml = '<tr><td>' +moment(value.date).format('DD-MM-YYYY') + '</td><td>' + value.requester + '</td><td>' + value.usmle_id + '</td><td>' + value.applicant_name + '</td><td>' + value.request_status + '</td><td>' +moment(value.created_at).format('DD-MM-YYYY') + '</td><td>';
-
-                  if (value.screenshot != null) {
-                     ecfmghtml+= '<a class="nav-link active" href="' + screenshot + '" target="_blank">Screenshot</a>';
-                  } else {
-                     ecfmghtml+= 'Screenshot not available';
-                  }
-
-                  ecfmghtml+= '</td></tr>';
-
-                  $('#table-ecfmg').replaceWith(ecfmghtml);
-               });
-            }
+      function tableshow(item_id, table_id) {
+         if ($('#'+item_id).is(':checked')){
+            $('#'+table_id).show();
          }
+         else{
+            $('#'+table_id).hide();
+         }
+      }
+
+      $(function() {
+         $('#start_date').datepicker({
+            yearRange: "c-100:c",
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            closeText: 'Select',
+            currentText: 'This year',
+            onClose: function(dateText, inst) {
+               var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+               var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+               $(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
+            }
+         }).focus(function() {
+            $(".ui-datepicker-calendar").hide();
+            $(".ui-datepicker-current").hide();
+            $("#ui-datepicker-div").position({
+               my: "left top",
+               at: "left bottom",
+               of: $(this)
+            });
+         }).attr("readonly", false);
+
+         $('#end_date').datepicker({
+            yearRange: "c-100:c",
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            closeText: 'Select',
+            currentText: 'This year',
+            onClose: function(dateText, inst) {
+               var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+               var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+               $(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
+            }
+         }).focus(function() {
+            $(".ui-datepicker-calendar").hide();
+            $(".ui-datepicker-current").hide();
+            $("#ui-datepicker-div").position({
+               my: "left top",
+               at: "left bottom",
+               of: $(this)
+            });
+         }).attr("readonly", false);
       });
-   }
 
-   function RefreshTable() {
-      $("#dea").load(location.href+" #dea");
-      $("#omig").load(location.href+" #omig");
-      $("#abim").load(location.href+" #abim");
-      $("#abfm").load(location.href+" #abfm");
-      $("#nys").load(location.href+" #nys");
-      $("#oig").load(location.href+" #oig");
-      $("#nccpa").load(location.href+" #nccpa");
-      $("#aanp").load(location.href+" #aanp");
-      $("#nursingWorld").load(location.href+" #nursingWorld");
-      $('#ama').load(location.href+" #ama");
-      $('#everify').load(location.href+" #everify");
-      $('#npdb').load(location.href+" #npdb");
-      $('#samgov').load(location.href+" #samgov");
-      $('#ecfmg').load(location.href+" #ecfmg");
-   }
+      $("#reset_btn").click(function () {
+         $('input[name="currentMonth"]').val('current');
+         $('#search_form').trigger("reset");
+         refresh();
+      })
 
-   $("#reset_btn").on("click", RefreshTable);
+      $('body').on('click', '.update-status', function () {
+         var status = $(this).attr('data-status');
+         var val = $(this).attr('data-id');
+         var action = $(this).attr('data-action');
+         var url = $(this).attr('data-url');
 
-   $('body').on('click', '.update-status', function () {
-      var status = $(this).attr('data-status');
-      var val = $(this).attr('data-id');
-      var action = $(this).attr('data-action');
+         postdataforaction(status, val,action,url);
+      });
 
-      postdataforaction(status, val,action);
-   });
-         
-   $('body').on('click', '.scanview', function () {
-      var ss = $(this).attr('data-value');
-      $('#imageShow').empty();
-         $("#MyPopupImage").modal("show");
-         
-         var data = '<img id="firstImage" width="1100" hieght="auto" src="'+ss+'">';
-         $('#imageShow').append(data);
-   });
-   
-      function abmOpenImage(val) {
-            $('#imageShow').empty();
-            $("#MyPopupImage").modal("show");
-           
-            var data = '<img id="firstImage" width="1100" hieght="auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/800px-Laravel.svg.png">';
-            $('#imageShow').append(data);
-        }
-        
-   function postdataforaction(status,val,action) {
-      
+      // $('body').on('click', '.scanview', function () {
+      //    var ss = $(this).attr('data-value');
+      //    $('#imageShow').empty();
+      //       $("#MyPopupImage").modal("show");
+
+      //       var data = '<img id="firstImage" width="1100" hieght="auto" src="'+ss+'">';
+      //       $('#imageShow').append(data);
+      // });
+
+      function postdataforaction(status,val,action,url) {
          const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -4110,107 +4612,106 @@
             confirmButtonText: 'Yes, change it!',
             cancelButtonText: 'No, cancel!',
             reverseButtons: true
-            }).then((result) => {
-               if (result.isConfirmed) {
-                     $("#loader-wrapper").show();
-                     $.ajax({
-                        'type': 'POST',
-                        'url': "{{ route('caregiver.changePatientStatus') }}",
-                        'headers': {
-                           'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        data: {
-                           "id": val,
-                           "status" : status,
-                           "action" : action
-                        },
-                        'success': function (data) {
-                           if(data.status == 400) {
-                                 alertText(data.message,'error');
-                           } else {
-                                 alertText(data.message,'success');
-                                 $('#acceptRejectBtn').hide();
-                           }
-                           $("#loader-wrapper").hide();
-                        },
-                        "error":function () {
-                           alertText("Server Timeout! Please try again",'error');
-                           $("#loader-wrapper").hide();
-                        }
-                     });
-               } else if (result.dismiss === Swal.DismissReason.cancel) {
-                     alertText("Your file file is safe :)",'warning');
-                     $(".innerallchk, .mainchk").prop("checked","");
-                     $('#acceptRejectBtn').hide();
-               }
-         });
-   }
-         /*Open message in model */
-         $("body").on('click','.view_document',function () {
-        
-            var user_id = $(this).attr('data-id');
-            var type_id = $(this).attr('data-type');
-            var action = $(this).attr('data-action');
-            var field = $(this).attr('data-field');
-            var value = $(this).attr('data-value');
-            
-            var url = '{{route("clinician.getDocument")}}';
-            
-            $.ajax({
-               url : url,
-               type: 'POST',
-               data: {
-                  user_id: user_id,
-                  type_id: type_id,
-                  action: action,
-                  field: field,
-                  value: value,
-               },
-               headers: {
-                     'X_CSRF_TOKEN':'{{ csrf_token() }}',
-               },  
-               success:function(data, textStatus, jqXHR){
-               
-                  $(".messageViewModel").html(data);
-                  $(".messageViewModel").modal('show');
+         }).then((result) => {
+            if (result.isConfirmed) {
+               $("#loader-wrapper").show();
+               $.ajax({
+                  'type': 'POST',
+                  'url':url,
+                  'headers': {
+                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                  },
+                  data: {
+                     "id": val,
+                     "status" : status,
+                     "action" : action,
+                  },
+                  'success': function (data) {
+                     if(data.status == 400) {
+                        alertText(data.message,'error');
+                     } else {
+                        refresh()
+                        alertText(data.message,'success');
 
-               },
-               error: function(jqXHR, textStatus, errorThrown){
-               alert('error');
-                  
-               }
-            });
-         });
-        
-         /*Open message in model */
-         $("body").on('click','.send_notification',function () {
-        
-            var user_id = $(this).attr('data-id');
-            var url = '{{route("notification.send")}}';
-            
-            $.ajax({
-               url : url,
-               type: 'POST',
-               data: {
-                  user_id: user_id,
-               },
-               headers: {
-                  'X_CSRF_TOKEN':'{{ csrf_token() }}',
-               },  
-               success:function(data, textStatus, jqXHR){
-                  if(data.status == 400) {
-                     alertText(data.message,'error');
-                  } else {
-                     alertText(data.message,'success');
+                        $('#printBtn').hide();
+                        $('.messageViewModel').modal('hide');
+                     }
+                     $("#loader-wrapper").hide();
+                  },
+                  "error":function () {
+                     alertText("Server Timeout! Please try again",'error');
+                     $("#loader-wrapper").hide();
                   }
-               },
-               error: function(jqXHR, textStatus, errorThrown){
-                  alertText("Server Timeout! Please try again",'warning');
-               }
-            });
+               });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  alertText("Your file file is safe :)",'warning');
+                  $(".innerallchk, .mainchk").prop("checked","");
+                  $('#printBtn').hide();
+            }
          });
-         
-         function alertText(text,status) {
+      }
+
+      /*Open message in model */
+      $("body").on('click','.view_document',function () {
+         var user_id = $(this).attr('data-id');
+         var type_id = $(this).attr('data-type');
+         var action = $(this).attr('data-action');
+         var field = $(this).attr('data-field');
+         var value = $(this).attr('data-value');
+         var url = '{{route("clinician.getDocument")}}';
+
+         $.ajax({
+            url : url,
+            type: 'POST',
+            data: {
+               user_id: user_id,
+               type_id: type_id,
+               action: action,
+               field: field,
+               value: value,
+            },
+            headers: {
+               'X_CSRF_TOKEN':'{{ csrf_token() }}',
+            },
+            success:function(data, textStatus, jqXHR){
+               $(".messageViewModel").html(data);
+               $(".messageViewModel").modal('show');
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+               console.log('error');
+            }
+         });
+      });
+
+      /*Open message in model */
+      $("body").on('click','.send_notification',function () {
+
+         var user_id = $(this).attr('data-id');
+         var url = '{{route("notification.send")}}';
+
+         $.ajax({
+            url : url,
+            type: 'POST',
+            data: {
+               user_id: user_id,
+            },
+            headers: {
+               'X_CSRF_TOKEN':'{{ csrf_token() }}',
+            },
+            success:function(data, textStatus, jqXHR){
+               if(data.status == 400) {
+                  alertText(data.message,'error');
+               } else {
+                  alertText(data.message,'success');
+               }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+               alertText("Server Timeout! Please try again",'warning');
+            }
+         });
+      });
+
+      function alertText(text,status) {
          const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -4228,15 +4729,16 @@
             title: text
          })
       }
-        function openfancy() {
-    $('.fancybox-media').fancybox({
-        openEffect: 'none',
-        closeEffect: 'none',
-        type : "image",
-        helpers: {
-            media: {}
-        }
-    });
-}
-    </script>
-@endpush
+
+      function openfancy() {
+         $('.fancybox-media').fancybox({
+            openEffect: 'none',
+            closeEffect: 'none',
+            type : "image",
+            helpers: {
+                  media: {}
+            }
+         });
+      }
+      </script>
+@endpush'

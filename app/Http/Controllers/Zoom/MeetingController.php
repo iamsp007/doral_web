@@ -16,7 +16,8 @@ class MeetingController extends Controller
     const MEETING_TYPE_RECURRING = 3;
     const MEETING_TYPE_FIXED_RECURRING_FIXED = 8;
 
-    public function list(Request $request) {
+    public function list()
+    {
         $path = 'users/me/meetings';
         $response = $this->zoomGet($path);
 
@@ -31,7 +32,9 @@ class MeetingController extends Controller
             'data' => $data,
         ];
     }
-    public function create(Request $request) {
+
+    public function create(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'topic' => 'required|string',
             'start_time' => 'required|date',
@@ -60,13 +63,14 @@ class MeetingController extends Controller
             ]
         ]);
 
-
         return [
             'success' => $response->status() === 201,
             'data' => json_decode($response->body(), true),
         ];
     }
-    public function get(Request $request, string $id) {
+
+    public function get(string $id)
+    {
         $path = 'meetings/' . $id;
         $response = $this->zoomGet($path);
 
@@ -80,7 +84,9 @@ class MeetingController extends Controller
             'data' => $data,
         ];
     }
-    public function update(Request $request, string $id) {
+
+    public function update(Request $request, string $id)
+    {
         $validator = Validator::make($request->all(), [
             'topic' => 'required|string',
             'start_time' => 'required|date',
@@ -114,7 +120,9 @@ class MeetingController extends Controller
             'data' => json_decode($response->body(), true),
         ];
     }
-    public function delete(Request $request, string $id) {
+
+    public function delete(string $id)
+    {
         $path = 'meetings/' . $id;
         $response = $this->zoomDelete($path);
 

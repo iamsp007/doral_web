@@ -11,12 +11,9 @@ use Illuminate\Http\Request;
 use App\Models\Services;
 use App\Models\ServicePaymentPlan;
 use Exception;
-use Illuminate\Support\Facades\Hash;
-use URL;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use App\Helpers\Helper;
-
 
 class CompanyController extends Controller
 {
@@ -25,7 +22,6 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index($status)
     {
         $referrals = Referral::where('guard_name','=','referral')->get();
@@ -38,7 +34,6 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function getReferralApprovalList(Request $request)
     {
         $input = $request->all();
@@ -108,8 +103,8 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function getReferralData(Request $request) {
+    public function getReferralData(Request $request)
+    {
        $requestData = $request->all();
        $data = [];
         if (isset($requestData['searchTerm']) && $requestData['searchTerm']) {
@@ -352,13 +347,11 @@ class CompanyController extends Controller
         $helper->sendSpecialNotification($to,$data);
         
         $data = $request->all();
-        $id = $request['id'];
-        $status = 0;
-        $message = "";
-        $record = [];
+      
         $adminServices = new AdminService();
         $dataobj = $adminServices->updateProfile($data);
-       return json_encode($dataobj);
+        
+        return json_encode($dataobj);
     }
 
     /**
@@ -369,11 +362,10 @@ class CompanyController extends Controller
     public function insertUpdateServicePayment(request $request)
     {
         $data = $request->all();
-        $status = 0;
-        $message = "";
-        $record = [];
+       
         $adminServices = new AdminService();
         $dataobj = $adminServices->insertUpdateServicePayment($data);
-       return json_encode($dataobj);
+
+        return json_encode($dataobj);
     }
 }

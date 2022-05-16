@@ -16,6 +16,9 @@ table.dataTable thead th, table.dataTable thead td{
 }
 </style>
 @endpush
+@php
+ini_set('memory_limit', '-1');
+@endphp
 @hasrole('referral')
     @section('upload-btn')
       

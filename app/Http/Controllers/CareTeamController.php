@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CareTeamRequest;
 use App\Models\CareTeam;
 use Exception;
 use Illuminate\Http\Request;
@@ -132,9 +131,7 @@ class CareTeamController extends Controller
         } else {
             try {
                 if ($input['section'] === 'physician-checked' || $input['section'] === 'pharmacy-checked' || $input['section'] === 'family-checked') {
-                    
                     self::updateData($input);
-                    //$careTeam = CareTeam::where('patient_id',$input['patient_id'])->get();
                    
                     $arr = array('status' => 200, 'message' => 'Change priority successfully.','resultdata' => $careTeam, 'modal' => $input['section']);
                 } else {
@@ -181,14 +178,4 @@ class CareTeamController extends Controller
         
         return $careTeam;
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy($id)
-    // {
-    //     dd($id);
-    // }
 }

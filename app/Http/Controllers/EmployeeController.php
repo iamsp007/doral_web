@@ -10,7 +10,6 @@ use Exception;
 
 class EmployeeController extends Controller
 {
-    //
     public function index() {
     	$status = 0;
         $message = "";

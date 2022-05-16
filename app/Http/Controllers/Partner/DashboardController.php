@@ -10,10 +10,6 @@ class DashboardController extends Controller
 {
     protected $view_path='pages.partner.';
 
-    public function __construct(){
-
-    }
-
     public function index()
     {
         $query = User::whereHas('roles',function ($q){

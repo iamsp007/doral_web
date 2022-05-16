@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use App\Models\PatientReferral;
-use DB;
 
 class CaseManagement extends Model
 {
@@ -31,9 +29,4 @@ class CaseManagement extends Model
     public function clinician(){
         return $this->hasOne(User::class,'id','clinician_id');
     }
-
-    public static function getAccepted(){
-        return PatientReferral::select("patient_referrals.*","patient_referrals.id as pr_id","case_management.id as id","case_management.clinician_id as clinician_id", \DB::raw("CONCAT(patient_referrals.first_name,' ',patient_referrals.last_name) as full_name"))->with('service','filetype')->Join('case_management', 'case_management.patient_id', '=', 'patient_referrals.id')->where('status','accept')->get();
-    }
-
 }

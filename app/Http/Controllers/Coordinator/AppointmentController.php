@@ -12,13 +12,8 @@ class AppointmentController extends Controller
 {
     protected $view_path = 'pages.coordinator.';
 
-    public function __construct()
-    {
-    }
-
     public function index( $patientId )
     {
-
         $status = 0;
         $message = "";
         $appointments = [];
@@ -27,10 +22,10 @@ class AppointmentController extends Controller
             'patientId' => $patientId,
         );
         return view($this->view_path . 'appointment',compact('appointments','patientId'));
-        //return view('calendar')->with( $data );
     }
 
-    public function getClinicianTimeSlots(Request $request){
+    public function getClinicianTimeSlots(Request $request)
+    {
         try {
             $employeeServices = new EmployeeService();
             $response = $employeeServices->getClinicianTimeSlots($request->all());
@@ -47,7 +42,6 @@ class AppointmentController extends Controller
      */
     public function create( Request $request )
     {
-
         $all_get = $request->all();
         $services = [];
         try {
@@ -74,11 +68,8 @@ class AppointmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-
     public function store(Request $request)
     {
-
         try {
             $employeeServices = new EmployeeService();
             $response = $employeeServices->storeAppointment($request->all());

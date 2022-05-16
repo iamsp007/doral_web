@@ -34,13 +34,4 @@ class PatientClinicalDetail extends Model
         }
         return $MDOrderRequiredValue;
     }
-    
-    /**
-     * Relation with referances
-     */
-    public function patientAllergy()
-    {
-        return $this->hasMany('App\Models\PatientAllergy', 'patient_clinical_detail_id', 'id');
-    }
-
 }

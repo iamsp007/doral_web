@@ -28,7 +28,7 @@
                                 <x-hidden name="patient_lab_report_id" id="patient_lab_report_id" value="{{ $drugLabReport->id }}" />
                                 <tr class="drug-main-tr">
                                     <td scope="row">{{ $number }}</td>
-                                    <td scope="row">{{ ($drugLabReport->labReportType) ? $drugLabReport->labReportType->name : ''}}</th>
+                                    <td scope="row">{{ ($drugLabReport->labReportType) ? $drugLabReport->labReportType->name : ''}}</td>
                                     <td>{{ $drugLabReport->due_date }}</td>
                                     <td>{{ ($drugLabReport->perform_date) ? $drugLabReport->perform_date : 'N/A' }}</td>
                                     <td>{{ $drugLabReport->expiry_date }}</td>

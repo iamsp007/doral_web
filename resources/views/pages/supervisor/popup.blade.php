@@ -49,7 +49,6 @@
     </div>
 </div>
 <script>
-
     $('#clinician_name').select2({
         minimumInputLength: 3,
         placeholder: 'Select a name',
@@ -108,7 +107,8 @@
             });
     });
 
-    function alertText(text,status) {
+    function alertText(text,status)
+    {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -127,7 +127,8 @@
         })
     }
 
-    $(document).on('click', '.appoinment-card', function () {
+    $(document).on('click', '.appoinment-card', function ()
+    {
         var clinician_id = $(this).attr("data-id");
 
         $(document).find("#clinician_id").val(clinician_id);
@@ -138,61 +139,30 @@
     $(document).on('change', '#clinician_name', function () {
         var temp = $(this);
         var item_type_is = temp.val();
-        
+    
         if (item_type_is != "") {
             $.ajax({
                 type: "GET",
-                url: "{{url('supervisor/get-clinician')}}/" + item_type_is,
+                url: "{{url('get-clinician')}}/" + item_type_is,
                 dataType: "JSON",
                 success: function (data) {
-                    console.log(data.result);
-                    // temp.parents('tr').find('.selectedCityState').css({"display" : "block"});
-                    // temp.parents('tr').find('.selectedCity').css({"display" : "none"});
-                    // temp.parents('tr').find('.cityStateValue').html('');
-                    // if (data.status == 200) {
-                        
-                    //     if (data.result != '') {
-                            
-                    //         $.each(data.result, function (key, value) {
-                    //             var id = value['state_code'];
-                    //             var name = value['city'];
-                    //             temp.parents('tr').find('.cityStateValue').append('<option value="' + name + '">' + name + '</option>');
-                    //         });
-                    //     }
-                    // }
+                    temp.parents('tr').find('.selectedStateCity').css({"display" : "block"});
+                    temp.parents('tr').find('.selectedState').css({"display" : "none"});
+                    temp.parents('tr').find('.stateCityValue').html('');
+
+                    temp.parents('tr').find('.stateValue').html('');
+                    if (data.status == 200) {
+                        if (data.result != '') {
+                            $.each(data.result, function (key, value) {
+                                var id = value['state_code'];
+                                var name = value['state'];
+                                temp.parents('tr').find('.stateCityValue').append('<option value="' + name + '">' + name + '</option>');
+                            });
+                        }
+                    }
                     
                 },
             });
         } 
     });
-
-    $(document).on('change', '#clinician_name', function () {
-            var temp = $(this);
-            var item_type_is = temp.val();
-        
-            if (item_type_is != "") {
-                $.ajax({
-                    type: "GET",
-                    url: "{{url('get-clinician')}}/" + item_type_is,
-                    dataType: "JSON",
-                    success: function (data) {
-                        temp.parents('tr').find('.selectedStateCity').css({"display" : "block"});
-                        temp.parents('tr').find('.selectedState').css({"display" : "none"});
-                        temp.parents('tr').find('.stateCityValue').html('');
-
-                        temp.parents('tr').find('.stateValue').html('');
-                        if (data.status == 200) {
-                            if (data.result != '') {
-                                $.each(data.result, function (key, value) {
-                                    var id = value['state_code'];
-                                    var name = value['state'];
-                                    temp.parents('tr').find('.stateCityValue').append('<option value="' + name + '">' + name + '</option>');
-                                });
-                            }
-                        }
-                      
-                    },
-                });
-            } 
-        });
 </script>

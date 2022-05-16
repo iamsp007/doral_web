@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Hash;
 
     /**
      * Remove special character from phone value and store only digit.
-     * 
+     *
      * @return int
      */
     if (!function_exists('setPhone')) {
@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Hash;
 
     /**
      * Change default phone format to USA phone format (xxx) xxx-xxxx
-     * 
+     *
      * @return string
      */
     if (!function_exists('getPhone')) {
@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Hash;
 
     /**
      * Change date format.
-     * 
+     *
      * @return string
      */
     if (!function_exists('dateFormat')) {
@@ -51,7 +51,7 @@ use Illuminate\Support\Facades\Hash;
 
     /**
      * Change date format.
-     * 
+     *
      * @return string
      */
     if (!function_exists('viewDateTimeFormat')) {
@@ -68,7 +68,24 @@ use Illuminate\Support\Facades\Hash;
 
     /**
      * Change date format.
-     * 
+     *
+     * @return string
+     */
+    if (!function_exists('viewDateHM')) {
+        function viewDateHM($value)
+        {
+            $date = '';
+            if ($value) {
+                $date = date('m-d-Y h:i', strtotime($value));
+            }
+
+            return $date;
+        }
+    }
+
+    /**
+     * Change date format.
+     *
      * @return string
      */
     if (!function_exists('viewDateFormat')) {
@@ -85,7 +102,7 @@ use Illuminate\Support\Facades\Hash;
 
     /**
      * Create doral id.
-     * 
+     *
      * @return string
      */
     if (!function_exists('createDoralId')) {
@@ -97,7 +114,7 @@ use Illuminate\Support\Facades\Hash;
 
     /**
      * Create doral id.
-     * 
+     *
      * @return string
      */
     if (!function_exists('createEmployeeId')) {
@@ -110,7 +127,7 @@ use Illuminate\Support\Facades\Hash;
 
     /**
      * Create password.
-     * 
+     *
      * @return string
      */
     if (!function_exists('setPassword')) {
@@ -119,10 +136,10 @@ use Illuminate\Support\Facades\Hash;
             return Hash::make($value);
         }
     }
-    
+
     /**
      * Set Gender field.
-     * 
+     *
      * @return int
      */
     if (!function_exists('setGender')) {
@@ -136,7 +153,7 @@ use Illuminate\Support\Facades\Hash;
                 $genderData = 3;
             }
             return $genderData;
-           
+
         }
     }
 
@@ -170,7 +187,7 @@ use Illuminate\Support\Facades\Hash;
             if ($value) {
                 return 'xxx-xx-' . substr($value, -4);
             }
-    
+
             return $ssnData;
         }
     }
@@ -193,7 +210,7 @@ use Illuminate\Support\Facades\Hash;
             return $genderData;
         }
     }
-    
+
     /**
      * Get the user's gender.
      *
@@ -207,11 +224,11 @@ use Illuminate\Support\Facades\Hash;
                 $boolValue = 'True';
             } else if ($value == '2') {
                 $boolValue = 'False';
-            } 
+            }
             return $boolValue;
         }
     }
-    
+
     if (!function_exists('begin')) {
         function begin() {
             DB::beginTransaction();
@@ -227,5 +244,42 @@ use Illuminate\Support\Facades\Hash;
     if (!function_exists('rollback')) {
         function rollback() {
             DB::rollBack();
+        }
+
+    }
+
+   /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    if (!function_exists('selection')) {
+        function selection(Selection $selection)
+        {
+            $gender = $selection->where('name','Gender')->get();
+            $maritalStatus = $selection->where('name','Marital Status')->get();
+            $ethnicity = $selection->where('name','ethnicity')->get();
+
+        }
+    }
+
+    /**
+     * Change default phone format to USA phone format (xxx) xxx-xxxx
+     *
+     * @return string
+     */
+    if (!function_exists('getstatus')) {
+        function getstatus($status)
+        {
+            $statusData = '';
+            if ($status === '1') {
+                $statusData = '<p class="text-secondary">Verified</p>';
+            } else if ($status === '2') {
+                $statusData = '<p class="text-success">Approved</p>';
+            } else if ($status === '3') {
+                $statusData = '<p class="text-danger">Reject</p>';
+            }
+
+            return $statusData;
         }
     }

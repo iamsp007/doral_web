@@ -140,7 +140,7 @@ table.dataTable thead th, table.dataTable thead td{
             "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                 console.log(aData);
                     if (aData['level'] == '<p class="text-danger">Level 3</p>') {
-                        $('td', nRow).css({'border': '1px solid red', 'color': 'red'});
+                        $('td', nRow).css({'color': 'red'});
                     }
                 
             },

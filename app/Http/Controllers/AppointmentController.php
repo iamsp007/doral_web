@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 use Session,Auth;
-use App\Models\Appointment;
 use Illuminate\Http\Request;
-use App\Models\CurlModel\CurlFunction;
 use App\Services\EmployeeService;
 
 class AppointmentController extends Controller
@@ -16,20 +14,16 @@ class AppointmentController extends Controller
      */
     public function index( $patientId )
     {
-        
-        $status = 0;
-        $message = "";
         $appointments = [];        
         try {
             $employeeServices = new EmployeeService();
             $responseArray = $employeeServices->getAllAppointment();
             if($responseArray['status'] && isset( $responseArray['data']['appointments'] )) {
-                $status = 1;
+               
                 foreach ($responseArray['data']['appointments'] as $app_key => $app_row) {
                     $appointments[ $app_key ]['title'] = $app_row['title'];
                     $appointments[ $app_key ]['start'] = $app_row['start_datetime'];
                     $appointments[ $app_key ]['end'] = $app_row['end_datetime'];
-                    
                 }
             }
 
@@ -81,22 +75,11 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
-        /*$request->validate([
-            'title' => 'required',
-            'start_datetime' => 'required',
-            'end_datetime' => 'required',
-            
-            'patient_id' => 'required',
-            'provider_pa_ma' => 'required', 
-            'provider' => 'required',
-            'service_id' => 'required'            
-        ]);*/
         try {
             $post_data = $request->all();
             $employeeServices = new EmployeeService();
-            return $responseArray = $employeeServices->storeAppointment( $post_data );
+
+            return $employeeServices->storeAppointment( $post_data );
         } catch (\Exception $e) {            
             $response = array(
                 "status" => false,

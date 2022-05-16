@@ -125,7 +125,7 @@
                                                                         <td class="border-0" style="width: 80%;padding-right: 0;">
                                                                             <select class="input-small-skin" name="marital_status" id="marital_status">
                                                                                 <option>Marital Status</option>
-                                                                                <option value="married">Single</option>
+                                                                                <option value="single">Single</option>
                                                                                 <option value="married">Married</option>
                                                                                 <option value="widowed">Widowed</option>
                                                                                 <option value="separated">Separated</option>
@@ -2850,6 +2850,7 @@
 
         $('.cityStateValue').select2();
         $('.stateCityValue').select2();
+        
         $('#company_id, #service_id, #Gender, #race, #ethnicity, #relation, #primaryLanguage1, #primaryLanguage, #addressType, #marital_status').select2();
         
         /*@ Store / Update admin */

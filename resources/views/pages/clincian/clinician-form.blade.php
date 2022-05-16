@@ -78,7 +78,8 @@
                         <!-- Employment Certificate End -->
 
                         <!-- Upload Document Start -->
-                            @include('pages.clincian.profile.upload_doc')
+                            @include('pages.clincian.profile.upload_doc') 
+                            <!-- Final Done -->
                         <!-- Upload Document End -->
                     </td>
                 </tr>

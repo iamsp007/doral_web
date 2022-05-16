@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CareTeamController;
+use App\Http\Controllers\Clinician\ClinicianController;
 use App\Http\Controllers\UserDeviceController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,7 +52,7 @@ use Illuminate\Support\Facades\Route;
 
         Route::get('get-description/{id?}','App\Http\Controllers\IcdController@getDescription')->name('get-description');
         Route::post('icd/getall','App\Http\Controllers\IcdController@getAll')->name('icd.getall');
-        Route::resource('icd','App\Http\Controllers\IcdController');   
+        Route::resource('icd','App\Http\Controllers\IcdController');
     });
 
     Route::post('/demographyData-update','\App\Http\Controllers\PatientController@demographyDataUpdate')->name('patient.demographyData-update');
@@ -65,7 +66,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('appointment/store', 'App\Http\Controllers\AppointmentController@store')->name('appointment.store');
 
     Route::post('/lab-report-referral','\App\Http\Controllers\GetPatientDetailsController@getLabReportReferral')->name('patient.lab.report.referral');
-   
+
     Route::post('/view-lab-report','\App\Http\Controllers\GetPatientDetailsController@viewLabReport')->name('patient.lab.report.view');
     Route::post('/lab-report-data','\App\Http\Controllers\GetPatientDetailsController@labReportData')->name('patient.lab.report.data');
     Route::delete('/remove-lab-report','\App\Http\Controllers\GetPatientDetailsController@removeLabReport')->name('patient.lab.report.remove');
@@ -102,19 +103,23 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/patients/resend/{id}', '\App\Http\Controllers\patient\PatientController@resendEmail')->name('resend.mail');
     Route::group(['middleware'=>['auth:web,referral']],function (){
-        Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
+    Route::post('/get-caregiver-list','App\Http\Controllers\CaregiverController@getCaregiverDetail')->name('clinician.caregiver.ajax');
     });
     Route::post('/ccm/getAll','App\Http\Controllers\UserDeviceController@getAll')->name('clinician.ccm.ajax');
     Route::get('/ccm/{id}','App\Http\Controllers\UserDeviceController@edit');
     Route::get('/ccm/getnote/{id}', [UserDeviceController::class, 'show']);
+    Route::get('/applicant/getprintoption/{id}', [ClinicianController::class, 'getprintoption'])->name('applicant.get-print-option');
     Route::resource('ccm', UserDeviceController::class)->only(['index', 'update']);
 
     Route::post('/changePatientStatus','App\Http\Controllers\CaregiverController@updatePatientStatus')->name('caregiver.changePatientStatus');
+    Route::post('/updatescrapStatus','App\Http\Controllers\Clinician\ClinicianController@updatescrapStatus')->name('clinician.update-scrap-status');
+     Route::post('/get-scrap-list','App\Http\Controllers\Clinician\ClinicianController@getScrapDetail')->name('get-scrap-list.ajax');
+     Route::get('/scrapedpdf','App\Http\Controllers\Clinician\ClinicianController@scrapedpdf')->name('scrapedpdf');
     // Route::post('/download-lab-report','App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
     Route::get('download-lab-report/{user_id}', 'App\Http\Controllers\CaregiverController@downloadLabReport')->name('caregiver.downloadLabReport');
     // Route::get('add-patient', 'App\Http\Controllers\PatientReferralController@addPatient')->name('referral.add-patient');
     Route::post('/get-due-detail','App\Http\Controllers\CaregiverController@getDueDetail')->name('clinician.due-detail.ajax');
-    
+
     Route::get('/get-due-detail','App\Http\Controllers\CaregiverController@duePatientView')->name('clinician.due-detail');
     Route::post('/get-patient-due-detail','App\Http\Controllers\CaregiverController@getDuePatients')->name('clinician.due-patient-detail.ajax');
     Route::get('/get-patient-due-detail/{id}', 'App\Http\Controllers\CaregiverController@getDuePatientDetail');
@@ -125,8 +130,9 @@ use Illuminate\Support\Facades\Route;
     Route::get('get-state-data/{id?}','App\Http\Controllers\CaregiverController@getStateData')->name('get-state-data');
 
  Route::get('scan_report_search', 'App\Http\Controllers\Clinician\ClinicianController@userSearchDetail')->name('user.scan_report_search');
+
     Route::post('/scan-report-list','App\Http\Controllers\Clinician\ClinicianController@getScanData')->name('user.scan-report-list');
-    
+
     Route::post('get-state-data','App\Http\Controllers\CaregiverController@getSelectStateData')->name('get-state-data');
 
     // Route::get('/search-caregivers','App\Http\Controllers\Admin\HHAExchangeController@searchCaregivers')->name('search-caregivers');
@@ -138,18 +144,18 @@ use Illuminate\Support\Facades\Route;
     Route::post('get-document', 'App\Http\Controllers\Clinician\ClinicianController@getDocument')->name('clinician.getDocument');
     Route::get('download-document/{user_id}', 'App\Http\Controllers\Clinician\ClinicianController@downloadDocument')->name('clinician.downloadDocument');
 
-  
+
     Route::get('{role}/patient/create', 'App\Http\Controllers\patient\PatientController@create')->name('patient.create');
     Route::resource('patient', 'App\Http\Controllers\patient\PatientController');
 
-    
+
     Route::get('import-patient-from-hha','App\Http\Controllers\Admin\PatientImportController@importPatient');
     Route::get('import-caregiver-from-hha','App\Http\Controllers\Admin\PatientImportController@importCaregiver');
     Route::get('import-visitor-from-hha','App\Http\Controllers\Admin\PatientImportController@importVisitor');
     Route::get('get-patient-id-from-hha','App\Http\Controllers\Admin\PatientImportController@getPatientId');
     Route::get('get-caregiver-id-from-hha','App\Http\Controllers\Admin\PatientImportController@getCaregiverId');
     Route::get('confirmVisits','App\Http\Controllers\Admin\PatientImportController@confirmVisits');
-    
+
 
     Route::post('/insurance/store', 'App\Http\Controllers\InsuranceController@store')->name('insurance.store');
 
@@ -166,9 +172,10 @@ use Illuminate\Support\Facades\Route;
     Route::get('visitor','App\Http\Controllers\VisitorController@index');
 
     Route::resource('care-team', CareTeamController::class);
-    
+
     Route::get('/manually-scrap', 'App\Http\Controllers\ScrapController@index');
 
-    Route::get('/npi-scrap', 'App\Http\Controllers\ScrapController@index');
-   
+    Route::get('/i9form_verify/{id}','App\Http\Controllers\Clinician\ClinicianController@i9form_verify')->name('i9form_verify');
+
+    Route::post('/i9form_verify/store','App\Http\Controllers\Clinician\ClinicianController@store')->name('store.i9form_verify');
     

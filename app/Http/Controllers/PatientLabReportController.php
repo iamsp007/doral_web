@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PatientLabReportRequest;
 use App\Models\LabReportType;
 use App\Models\PatientLabReport;
-use App\Services\ReferralService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

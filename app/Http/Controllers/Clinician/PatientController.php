@@ -6,12 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\CovidForm;
 use App\Models\DiesesMaster;
-use App\Models\Patient;
-use App\Models\PatientReferral;
 use App\Models\SymptomsMaster;
 use App\Models\Test;
 use App\Models\User;
 use App\Services\ClinicianService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -20,35 +19,31 @@ use Mail;
 
 class PatientController extends Controller
 {
-    //
     protected $view_path='pages.clincian.';
 
-    public function __construct(){
-
-    }
-
-    public function index(){
-
+    public function index()
+    {
         return view($this->view_path.'patient');
     }
 
-    public function newPatientRquest(){
-
+    public function newPatientRquest()
+    {
         return view($this->view_path.'newpatient');
     }
 
-    public function scheduleAppointmentRquest(){
-
+    public function scheduleAppointmentRquest()
+    {
         return view($this->view_path.'schedule');
     }
 
-    public function cancelAppointmentRquest(){
-
+    public function cancelAppointmentRquest()
+    {
         return view($this->view_path.'cancel-schedule');
     }
 
-    public function getPatientList(Request $request){
-        $patientList = User::with('patientDetail','roles')
+    public function getPatientList()
+    {
+        $patientList = User::with('roles')
             ->whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })->whereHas('demographic', function($q) {
@@ -58,22 +53,22 @@ class PatientController extends Controller
             ->get();
 
         return DataTables::of($patientList)
-        ->editColumn('dob', function ($contact){
-                if($contact->dob!='')
-                return date('m-d-Y', strtotime($contact->dob));
-                else
-                return '--';
-            })->editColumn('patient_detail.city', function ($contact){
-                if($contact->city!='')
-                return $contact->city;
-                else
-                return '--';
-            })->editColumn('patient_detail.state', function ($contact){
-                if($contact->state!='')
-                return $contact->state;
-                else
-                return '--';
-        })->editColumn('patient_detail.Zip', function ($contact){
+            ->editColumn('dob', function ($contact){
+                    if($contact->dob!='')
+                    return date('m-d-Y', strtotime($contact->dob));
+                    else
+                    return '--';
+                })->editColumn('patient_detail.city', function ($contact){
+                    if($contact->city!='')
+                    return $contact->city;
+                    else
+                    return '--';
+                })->editColumn('patient_detail.state', function ($contact){
+                    if($contact->state!='')
+                    return $contact->state;
+                    else
+                    return '--';
+            })->editColumn('patient_detail.Zip', function ($contact){
                 if($contact->Zip!='')
                 return $contact->Zip;
                 else
@@ -101,16 +96,13 @@ class PatientController extends Controller
             })->make(true);
     }
 
-    public function getNewPatientList(Request $request){
-
-        $patientList = User::with('patientDetail','roles')
+    public function getNewPatientList()
+    {
+        $patientList = User::with('roles')
             ->whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })->whereHas('demographic', function($q) {
                 $q->where('flag','1');
-            })
-            ->whereHas('patientDetail',function ($q){
-                $q->where('status','=','pending')->whereNotNull('first_name');
             });
 
         return  DataTables::of($patientList)
@@ -147,8 +139,8 @@ class PatientController extends Controller
             })->make(true);
     }
 
-    public function scheduleAppoimentList(Request $request){
-
+    public function scheduleAppoimentList(Request $request)
+    {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->scheduleAppoimentList($request->all());
         $data=[];
@@ -168,8 +160,8 @@ class PatientController extends Controller
             ->make(true);
     }
 
-    public function cancelAppoimentList(Request $request){
-
+    public function cancelAppoimentList(Request $request)
+    {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->cancelAppoimentList($request->all());
         $data=[];
@@ -191,7 +183,8 @@ class PatientController extends Controller
             ->make(true);
     }
 
-    public function changePatientStatus(Request $request){
+    public function changePatientStatus(Request $request)
+    {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->changePatientStatus($request->all());
         if ($response->status===true){
@@ -200,7 +193,8 @@ class PatientController extends Controller
         return response()->json($response,422);
     }
 
-    public function changeAppointmentStatus(Request $request){
+    public function changeAppointmentStatus(Request $request)
+    {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->cancelAppointmentStatus($request->all());
         if ($response->status===true){
@@ -261,17 +255,18 @@ class PatientController extends Controller
         return response()->json($response,422);
     }
 
-   public function getPatientListData(Request $request) {
-     $clinicianService = new ClinicianService();
-         $response = $clinicianService->patientData($request->all());
-         if ($response->status===true){
-            return response()->json($response,200);
-        }
-        return response()->json($response,422);
-   }
+    public function getPatientListData(Request $request)
+    {
+        $clinicianService = new ClinicianService();
+            $response = $clinicianService->patientData($request->all());
+            if ($response->status===true){
+                return response()->json($response,200);
+            }
+            return response()->json($response,422);
+    }
 
-   public function scheduleAppoimentListData(Request $request){
-
+    public function scheduleAppoimentListData(Request $request)
+    {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->scheduleAppoimentListData($request->all());
         if ($response->status===true){
@@ -280,14 +275,15 @@ class PatientController extends Controller
         return response()->json($response,422);
     }
 
- public function cancelAppoimentListData(Request $request) {
-     $clinicianService = new ClinicianService();
-        $response = $clinicianService->cancelAppoimentListData($request->all());
-        if ($response->status===true){
-            return response()->json($response,200);
-        }
-        return response()->json($response,422);
- }
+    public function cancelAppoimentListData(Request $request)
+    {
+        $clinicianService = new ClinicianService();
+            $response = $clinicianService->cancelAppoimentListData($request->all());
+            if ($response->status===true){
+                return response()->json($response,200);
+            }
+            return response()->json($response,422);
+    }
 
     /**
      * Covid 19 data table
@@ -310,9 +306,6 @@ class PatientController extends Controller
      
         return  DataTables::of($patientList)
             ->addIndexColumn()
-            // ->addColumn('pdf', function(){
-            //     return env('APP_URL')."pdf/new.pdf";
-            // })
             ->addColumn('full_name', function($q){
                 $fullName = '';
                 if ($q->clinician) {
@@ -349,7 +342,6 @@ class PatientController extends Controller
     public function covid19Info($id)
     {
         $patient = CovidForm::find($id);
-
         $data = $patient->data;
 
         return view($this->view_path.'covid-form', compact('patient', 'data'));
@@ -408,11 +400,12 @@ class PatientController extends Controller
     }
 
     // Add New Patient Form
-    public function addNewPatient(){
+    public function addNewPatient()
+    {
         return view('pages.patient_detail.add_new');
     }
-    public function calendarAppoimentListData(){
-
+    public function calendarAppoimentListData()
+    {
         $clinicianService = new ClinicianService();
         $response = $clinicianService->calendarAppoimentListData();
         return view($this->view_path.'calendar', compact('response', 'response'));

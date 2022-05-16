@@ -328,6 +328,8 @@
                         <p>City: <span> 
                             @if (isset($users->professional_detail['npa_cityId']))
                                 {{ \App\Models\City::find($users->professional_detail['npa_cityId'])->city }}
+                            @else
+                                {{ $users->professional_detail['npa_city'] }}
                             @endif
                         </span></p>
                     </td>

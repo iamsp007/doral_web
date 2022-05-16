@@ -301,7 +301,7 @@
     </tr> --}}
  
         <!-- Emergency Info Start -->
-        @include('pages.clincian.profile.emergency_detail')
+        <!-- @include('pages.clincian.profile.emergency_detail') -->
         <!-- Emergency Info End -->
         
     @if ($users->user->designation_id == '2')      
@@ -311,24 +311,24 @@
         <!-- Emergency Info End -->
 
         <!-- Education Start -->
-        @include('pages.clincian.profile.rn_education')
+        <!-- @include('pages.clincian.profile.rn_education') -->
         <!-- Education End -->
 
         <!-- Security Start -->
-        @include('pages.clincian.profile.security')
+        <!-- @include('pages.clincian.profile.security') -->
         <!-- Security End -->
 
         <!-- Military Start -->
-        @include('pages.clincian.profile.military')
+        <!-- @include('pages.clincian.profile.military') -->
         <!-- Military End -->
     @else
-        @include('pages.clincian.profile.other_education')
-        @include('pages.clincian.profile.workHistory_detail')
+        <!-- @include('pages.clincian.profile.other_education') -->
+        <!-- @include('pages.clincian.profile.workHistory_detail') -->
         @include('pages.clincian.profile.professional_detail')
     @endif
     
     <!-- Authorization Start -->
-        @include('pages.clincian.profile.authorization')
+        <!-- @include('pages.clincian.profile.authorization') -->
     <!-- Authorization End -->
 </table>
 <!-- page 1 end-->

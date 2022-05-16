@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\PatientImportSheet;
-use App\Models\PatientReferral;
-use App\Models\CurlModel\CurlFunction;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Services\ReferralService;
 use Exception;
-use CURLFile;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\Models\LabReportType;
@@ -17,50 +14,37 @@ use Illuminate\Support\Facades\DB;
 
 class PatientReferralController extends Controller
 {
-    public function index() {
-        return view('pages.referral.md-order');
-    }
-    public function vbc() {
-        return view('pages.referral.vbc');
-    }
-    public function occupationalHealth() {
-        return view('pages.referral.occupational-health');
-    }
-    public function vbcUploadBulk() {
+    public function vbcUploadBulk()
+    {
         return view('pages.referral.vbc-upload-bulk-data');
     }
-    public function occupationalHealthUploadBulk() {
+    public function occupationalHealthUploadBulk()
+    {
         return view('pages.referral.occupational-health-upload-bulk-data');
     }
 
-    public function covid19UploadBulk() {
+    public function covid19UploadBulk()
+    {
         return view('pages.referral.covid19');
     }
 
-
-     public function getEmployeePhysicalExaminationReport($id)
+    public function getEmployeePhysicalExaminationReport($id)
     {
         $labReportTypes = LabReportType::pluck('name', 'id');
         $checkData = DB::table('employee_physical_examination_reports')->where('patient_id',$id)->first();
         if(!empty($checkData)) {
             return view('pages.autofill_employee-physical-examination-report', compact(['labReportTypes', 'checkData']));
         }
-
-
-
     }
-    public function mdOrderUploadBulk() {
-        $status = 0;
-        $message = "";
-        $record = [];
+
+    public function mdOrderUploadBulk()
+    {
         try {
             $referralservice = new ReferralService();
             $response = $referralservice->mdOrderUploadBulk();
             if ($response->status===true){
                 return view('pages.referral.md-order-upload-bulk-data')->with('data', $response->data);
             }
-            $status = 0;
-            $message = $response->message;
         } catch(Exception $e) {
             $status = 0;
             $message = $e->getMessage();
@@ -68,192 +52,9 @@ class PatientReferralController extends Controller
 
         return view('pages.referral.md-order-upload-bulk-data');
     }
-    public function mdOrder() {
-        $record = [];
-        try {
-
-            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
-                ->where('service_id', '=','2')
-                ->whereNotNull('first_name');
-            return DataTables::of($patientReferral)
-            ->editColumn('first_name', function ($contact){
-                return $contact->first_name." ".$contact->last_name;
-            })
-            ->editColumn('ssn', function ($contact){
-                if($contact->ssn)
-                return 'xxx-xx-'.substr($contact->ssn, -4);
-                else
-                return '';
-            })
-            ->editColumn('gender', function ($contact){
-                if($contact->gender === 'MALE'){
-                    $gender = 'Male';
-                } elseif ($contact->gender === 'FEMALE') {
-                    $gender = 'Female';
-                } else if ($contact->gender === '1') {
-                    $gender = 'Male';
-                } else if ($contact->gender === '2') {
-                    $gender = 'Female';
-                } else {
-                    $gender = 'Other';
-                }
-                return $gender;
-            })
-            ->editColumn('dob', function ($contact){
-                if($contact->dob!='')
-                return date('m-d-Y', strtotime($contact->dob) );
-                else
-                return '--';
-            })
-            ->editColumn('created_at', function ($contact){
-                if($contact->created_at!='')
-                return date('m-d-Y', strtotime($contact->created_at) );
-                else
-                return '--';
-            })
-            ->editColumn('cert_next_date', function ($contact){
-                if($contact->cert_next_date!='')
-                return date('m-d-Y', strtotime($contact->cert_next_date) );
-                else
-                return '--';
-            })
-            ->make(true);
-
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-
-    }
-    public function vbcGetData() {
-        $status = 0;
-        $message = "";
-        $record = [];
-        try {
-            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
-                ->where('service_id', '=',1)
-                ->whereNotNull('first_name');
-
-            return DataTables::of($patientReferral)
-            ->editColumn('first_name', function ($contact){
-                return $contact->first_name." ".$contact->last_name;
-            })
-            ->editColumn('ssn', function ($contact){
-                if($contact->ssn)
-                return 'xxx-xx-'.substr($contact->ssn, -4);
-                else
-                return '';
-            })
-            ->editColumn('gender', function ($contact){
-                if($contact->gender === 'MALE'){
-                    $gender = 'Male';
-                } elseif ($contact->gender === 'FEMALE') {
-                    $gender = 'Female';
-                } else if ($contact->gender === '1') {
-                    $gender = 'Male';
-                } else if ($contact->gender === '2') {
-                    $gender = 'Female';
-                } else {
-                    $gender = 'Other';
-                }
-                return $gender;
-            })
-            ->editColumn('dob', function ($contact){
-                if($contact->dob!='')
-                return date('m-d-Y', strtotime($contact->dob) );
-                else
-                return '--';
-            })
-            ->editColumn('created_at', function ($contact){
-                if($contact->created_at!='')
-                return date('m-d-Y', strtotime($contact->created_at) );
-                else
-                return '--';
-            })
-            ->editColumn('cert_next_date', function ($contact){
-                if($contact->cert_next_date!='')
-                return date('m-d-Y', strtotime($contact->cert_next_date) );
-                else
-                return '--';
-            })
-            ->make(true);
-
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-    }
-    public function occupationalHealthGetData() {
-        $status = 0;
-        $message = "";
-        $record = [];
-        try {
-            $patientReferral = PatientReferral::with('detail', 'service', 'filetype', 'mdforms', 'plans')
-                ->where('service_id', '=','3')
-                ->whereNotNull('first_name');
-            return DataTables::of($patientReferral)
-            ->editColumn('first_name', function ($contact){
-                return $contact->first_name." ".$contact->last_name;
-            })
-            ->editColumn('ssn', function ($contact){
-                if($contact->ssn)
-                return 'xxx-xx-'.substr($contact->ssn, -4);
-                else
-                return '';
-            })
-            ->editColumn('gender', function ($contact){
-                if($contact->gender === 'MALE'){
-                    $gender = 'Male';
-                } elseif ($contact->gender === 'FEMALE') {
-                    $gender = 'Female';
-                } else if ($contact->gender === '1') {
-                    $gender = 'Male';
-                } else if ($contact->gender === '2') {
-                    $gender = 'Female';
-                } else {
-                    $gender = 'Other';
-                }
-                return $gender;
-            })
-            ->editColumn('plans.name', function ($contact){
-                if($contact->benefit_plan!='')
-                return $contact->plans->name;
-                else
-                return '--';
-            })
-            ->editColumn('created_at', function ($contact){
-                if($contact->created_at!='')
-                return date('m-d-Y', strtotime($contact->created_at) );
-                else
-                return '--';
-            })
-            ->editColumn('dob', function ($contact){
-                if($contact->dob!='')
-                return date('m-d-Y', strtotime($contact->dob));
-                else
-                return '--';
-            })
-            ->editColumn('cert_next_date', function ($contact){
-                if($contact->cert_next_date!='')
-                return date('m-d-Y', strtotime($contact->cert_next_date) );
-                else
-                return '--';
-            })
-            ->make(true);
-
-
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-    }
-
-
+ 
     public function store(Request $request)
     {
-       
         $user = Auth::guard('referral')->user();
       
         $request['referral_id'] = $user->referal_id;
@@ -332,7 +133,6 @@ class PatientReferralController extends Controller
         $states = json_decode($states->getBody()->getContents());
        
         return view('pages.referral.add-patient',compact('states'));
-    
     }
 
     public function getCities(Request $request)
@@ -394,50 +194,54 @@ class PatientReferralController extends Controller
         return response()->json($response, 201);
     }
 
-    public function occupationalHealthFailData(Request $request) {
+    public function occupationalHealthFailData()
+    {
         return view('pages.referral.occupational-health-failed');
     }
 
-     public function occupationalHealthGetFaileData() {
-
+    public function occupationalHealthGetFaileData()
+    {
         $referralservice = new ReferralService();
         $responseArray = $referralservice->occupationalHealthFailData(3);
         $record = $responseArray['data'];
-       return DataTables::of($record)
-             ->addColumn('action', function($row){
-                        $id = $row['id'];
-                        return '<a href="view-failed-data/'.$id.'"
-                            class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
-                            data-toggle="tooltip" data-placement="left">View Recode
-                        </a>';
-            })
-            ->make(true);
+        return DataTables::of($record)
+            ->addColumn('action', function($row){
+                    $id = $row['id'];
+                    return '<a href="view-failed-data/'.$id.'"
+                        class="btn btn-primary btn-blue shadow-sm btn--sm mr-2"
+                        data-toggle="tooltip" data-placement="left">View Recode
+                    </a>';
+        })
+        ->make(true);
+    }
 
-
-     }
-
-     public function viewoccupationalHealthFailData(Request $request) {
+    public function viewoccupationalHealthFailData(Request $request)
+    {
         $id = $request->id;
         return view('pages.referral.view-occupational-health-failed',compact('id'));
     }
 
-     public function viewoccupationalHealthGetFaileData(Request $request) {
-        $referralservice = new ReferralService($request->id);
-        $responseArray = $referralservice->viewoccupationalHealthGetFaileData($request->id);
-        $record = $responseArray['data'];
-       return DataTables::of($record)
-            ->make(true);
-     }
+    public function viewoccupationalHealthGetFaileData(Request $request)
+    {
+    $referralservice = new ReferralService($request->id);
+    $responseArray = $referralservice->viewoccupationalHealthGetFaileData($request->id);
+    $record = $responseArray['data'];
 
-     public function vbcFailData() {
+    return DataTables::of($record)->make(true);
+    }
+
+    public function vbcFailData()
+    {
         return view('pages.referral.vbc-failed');
-     }
+    }
 
-     public function vbcGetFaileData() {
-         $referralservice = new ReferralService();
+    public function vbcGetFaileData()
+    {
+        $referralservice = new ReferralService();
         $responseArray = $referralservice->occupationalHealthFailData(1);
         $record = $responseArray['data'];
-       return DataTables::of($record)
+        
+        return DataTables::of($record)
              ->addColumn('action', function($row){
                         $id = $row['id'];
                         return '<a href="view-failed-data/'.$id.'"
@@ -446,17 +250,19 @@ class PatientReferralController extends Controller
                         </a>';
             })
             ->make(true);
-     }
+    }
 
-     public function mdorderFailData() {
+    public function mdorderFailData()
+    {
         return view('pages.referral.md-order-failed');
-     }
+    }
 
-     public function mdorderGetFaileData() {
-         $referralservice = new ReferralService();
+    public function mdorderGetFaileData()
+    {
+        $referralservice = new ReferralService();
         $responseArray = $referralservice->occupationalHealthFailData(2);
         $record = $responseArray['data'];
-       return DataTables::of($record)
+        return DataTables::of($record)
              ->addColumn('action', function($row){
                         $id = $row['id'];
                         return '<a href="view-failed-data/'.$id.'"
@@ -465,5 +271,5 @@ class PatientReferralController extends Controller
                         </a>';
             })
             ->make(true);
-     }
+    }
 }

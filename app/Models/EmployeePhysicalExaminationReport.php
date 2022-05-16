@@ -27,12 +27,4 @@ class EmployeePhysicalExaminationReport extends Model
     protected $casts = [
         'report_details' => 'array'
     ];
-
-    /**
-     * Relation with patient
-     */
-    public function patient()
-    {
-        return $this->belongsTo(PatientReferral::class, 'patient_id', 'id');
-    }
 }

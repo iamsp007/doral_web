@@ -99,7 +99,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-   
+
 <script>
         var phpVar = <?php echo json_encode($userDeviceLogs); ?>;
         var columnDaTa = [];
@@ -117,7 +117,7 @@
                 },
             );
         });
-       
+
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar2');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -162,9 +162,9 @@
                 },
                 editable: true,
                 dayMaxEvents: true,
-                events: 
+                events:
                     columnDaTa
-                    
+
             });
             calendar.render();
         });
@@ -179,13 +179,13 @@
             });
         });
         function calendarClick() {
-            setTimeout(function(){ 
+            setTimeout(function(){
                 $(".fc-dayGridMonth-button").trigger('click');
                 $(".fc-timeGridDay-button").prop( "disabled", true );
             }, 1000);
         }
     </script>
-    
+
     <style>
         .fc-non-business{pointer-events: none!important;}
     </style>

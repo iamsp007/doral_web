@@ -10,12 +10,8 @@ class DashboardController extends Controller
 
     protected $view_path='pages.clincian.';
 
-    public function __construct(){
-
-    }
-    //
-    public function index(){
-
+    public function index()
+    {
         return view($this->view_path.'dashboard');
     }
 }

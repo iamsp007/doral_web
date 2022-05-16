@@ -9,7 +9,6 @@ use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 
@@ -30,7 +29,7 @@ class PartnerController extends Controller
         return view('admin.partner.index',compact('partnerstatus','roles','companies'));
     }
 
-       /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

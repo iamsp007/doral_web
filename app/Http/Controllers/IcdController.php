@@ -108,9 +108,9 @@ class IcdController extends Controller
                     $icd->patient_id = $input['patient_id'];
                     $icd->icd_code_id = $input['icd_code'];
                     $icd->date = $input['date'];
-                    $icd->date_type = $input['date_type'];
+                    $icd->date_type = isset($input['date_type']) ? $input['date_type'] : '';
                     $icd->historical_date = $input['historical_date'];
-                    $icd->identified_during = $input['identified_during'];
+                    $icd->identified_during =  isset($input['identified_during']) ? $input['identified_during'] : '';
                     $icd->primary = $input['primary'];
                     $icd->fill($input)->save();
                     

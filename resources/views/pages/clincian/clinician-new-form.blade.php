@@ -604,7 +604,8 @@
                                 $number=1;
                             @endphp
                            
-                            @if (isset($users->workHistory_detail) && count($users->workHistory_detail['list']) > 0)
+                            @if (isset($users->workHistory_detail['list']) && count($users->workHistory_detail['list']) > 0)
+
                                 @foreach ($users->workHistory_detail['list'] as $workHistory_detail)
                                     <tr>
                                         <td>
@@ -706,17 +707,18 @@
                                             </td>
                                             <td>
                                                 <p>Age range treated: <span>
-                                                    @if ($professional_detail['age_0_9'] == true)
+                                                    @if (isset($professional_detail['age_0_9']) && $professional_detail['age_0_9'] == true)
                                                         0 to 9
-                                                    @elseif ($professional_detail['age_10_13'] == true)
+                                                    @elseif (isset($professional_detail['age_10_13']) && $professional_detail['age_10_13'] == true)
                                                         10 to 13
-                                                    @elseif ($professional_detail['age_14_21'] == true)
+                                                    @elseif (isset($professional_detail['age_14_21']) && $professional_detail['age_14_21'] == true)
                                                         14 to 21
-                                                    @elseif ($professional_detail['age_22_40'] == true)
+                                                    @elseif (isset($professional_detail['age_22_40']) && $professional_detail['age_22_40'] == true)
                                                         22 to 40
-                                                    @elseif ($professional_detail['age_41_65'] == true)
+                                                    @elseif (isset($professional_detail['age_41_65']) && $professional_detail['age_41_65'] == true)
                                                         40 to 65
-                                                    @elseif ($professional_detail['age_65Plus'] == true)
+                                                    @elseif (isset($professional_detail['age_65Plus']) && $professional_detail['age_65Plus'] == true)
+
                                                         65+
                                                     @endif
                                                     </span></p>
@@ -788,7 +790,9 @@
                                             </th>
                                         </tr>
                                         @php $counter = 1 @endphp
-                                        @if (isset($users->professional_detail) && count($users->professional_detail['stateLicense']) > 0)
+
+                                        @if (isset($users->professional_detail['stateLicense']) && count($users->professional_detail['stateLicense']) > 0)
+
                                             @foreach ($users->professional_detail['stateLicense'] as $stateLicense)
                                                 <tr style="background: #f8f8f8;">
                                                     <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{ $counter }}</td>
@@ -834,7 +838,8 @@
                                             </th>
                                         </tr>
                                         @php $counter = 1 @endphp
-                                        @if (isset($users->professional_detail) && count($users->professional_detail['boardCertificate']) > 0)
+                                        @if (isset($users->professional_detail['boardCertificate']) && count($users->professional_detail['boardCertificate']) > 0)
+
                                             @foreach ($users->professional_detail['boardCertificate'] as $boardCertificate)
                                                 <tr style="background: #f8f8f8;">
                                                     <td style="width: 2%;text-align: left;padding: 15px;border-bottom: 1px solid #a5a5a5;">{{ $counter }}</td>
@@ -914,7 +919,8 @@
                                 </td>
                             </tr>
                             @php $number=1; @endphp
-                            @if (isset($users->reference_detail) && count($users->reference_detail['reference_list']) > 0)
+                            @if (isset($users->reference_detail) && isset($users->reference_detail['reference_list']))
+                            @if (count($users->reference_detail['reference_list']) > 0)
                                 @foreach ($users->reference_detail['reference_list'] as $reference_detail)
                                     @php
                                         $haveYouEverBeenBonded = $haveYouEverBeenRefusedBond = $haveYouOverBeenConvicatedOfaCrime = '';
@@ -1020,6 +1026,7 @@
                                     </tr>
                                 @php $number++; @endphp
                                 @endforeach
+                            @endif
                             @else
                                 <tr>
                                     <td>
@@ -2459,7 +2466,7 @@
                                                         affidavit or similar statement under penalties
                                                         of perjury and is otherwise a qualified
                                                         employee.</p>
-                                                        <p>A “qualified employee” is an employee who:</p>
+                                                        <p>A “qualified employee�? is an employee who:</p>
                                                         <ul style="list-style-type: disc;">
                                                             <li>begins employment with you after
                                                             February 3, 2010, and before January 1,
@@ -3008,3 +3015,4 @@
         </div>
     </body>
 </html>
+

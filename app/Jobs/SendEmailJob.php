@@ -58,3 +58,4 @@ class SendEmailJob implements ShouldQueue
         }
     }
 }
+

@@ -58,6 +58,7 @@ class Applicant extends Model
         'npiType',
         'npiOrgName',
         'document_Information',
+        'employer_verify',
     ];
 
     /**
@@ -81,6 +82,7 @@ class Applicant extends Model
         'workHistory_detail' => 'array',
         'professional_detail' => 'array',
         'document_Information' => 'array',
+         'employer_verify' => 'array',
     ];
 
     protected $appends = ['signature_url','phone_no'];
@@ -156,6 +158,14 @@ class Applicant extends Model
         return $phoneData;
     }
 
+ public function getPhoneNoAttribute()
+    {
+        $phoneData = '';
+        if ($this->phone) {
+            $phoneData = "+".substr($this->phone, 0, 1). " (".substr($this->phone, 1, 3).") ".substr($this->phone, 4, 3)."-".substr($this->phone,7);
+        }
+        return $phoneData;
+    }
 
     public function states() {
         return $this->belongsTo(State::class, 'object->state_id');

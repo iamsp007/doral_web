@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Nexmo\Laravel\Facade\Nexmo;
+use Spatie\Permission\Models\Permission;
 
 class PatientImportController extends Controller
 {
@@ -48,7 +49,7 @@ class PatientImportController extends Controller
     }
 
     public function importCaregiver(Request $reqtest)
-    {
+    { 
         try {
             $company_id='';
             if(Auth::guard('referral')) {
@@ -57,6 +58,7 @@ class PatientImportController extends Controller
            
             if ($reqtest['action'] == 'check-caregiver') {
 		        $demographic = Demographic::where('user_id',$reqtest['patient_id'])->select('patient_id')->first();
+		       
                 $input['patientId'] = $demographic->patient_id;
                 $date = Carbon::now();// will get you the current date, time
                 $today = $date->format("Y-m-d");
@@ -67,11 +69,55 @@ class PatientImportController extends Controller
                 $curlFunc = searchVisits($input);
 		
                 if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
-                    $viId = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
-                    // $data = [];
-                    
-                    //foreach ($visitID as $viId) {
+                    $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+
+                    if(is_array($visitID)) {
+                        foreach ($visitID as $viId) {
                    
+                            $scheduleInfo = getScheduleInfo($viId);
+                            $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
+                            $caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
+			
+                            $demographic = Demographic::select('id','user_id','patient_id')->where('patient_id', $caregiver_id)->with(['user' => function($q) {
+                                $q->select('id', 'email', 'phone');
+                            }])->first();
+                       	
+                            if ($demographic) {
+                                $phoneNumber = $demographic->user->phone;
+                            } else {
+                                $getdemographicDetails = getCaregiverDemographics($caregiver_id);
+                                if (isset($getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'])) {
+                                    $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+            
+                                    $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
+                                    
+                                    $doral_id = createDoralId();
+                                    $user_id = storeUser($demographics, $doral_id);
+                                    
+                                    if ($user_id) {
+                                        $company_id = '16';
+                                        storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
+                                        storeEmergencyContact($demographics, $user_id);
+                                    }
+                                }
+                            }                        
+                        
+                            $scheduleStartTime = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ;
+                            $scheduleEndTime = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ;
+                            $firstName = ($getScheduleInfo['Caregiver']['FirstName']) ? $getScheduleInfo['Caregiver']['FirstName'] : '' ;
+                            $lastName = ($getScheduleInfo['Caregiver']['LastName']) ? $getScheduleInfo['Caregiver']['LastName'] : '' ;
+
+                            $data = Caregivers::create([
+                                'patient_id' => $reqtest['patient_id'],
+                                'phone' => $phoneNumber,
+                                'start_time' => $scheduleStartTime,
+                                'end_time' => $scheduleEndTime,
+                                'name' => $firstName . ' ' . $lastName,
+                            ]);    
+                        }
+                        $arr = array('status' => 200, 'message' => 'Get current caregiver', 'data' => $data);
+                    } else {
+                        $viId = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
                         $scheduleInfo = getScheduleInfo($viId);
                         $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
                         $caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
@@ -84,19 +130,20 @@ class PatientImportController extends Controller
                             $phoneNumber = $demographic->user->phone;
                         } else {
                             $getdemographicDetails = getCaregiverDemographics($caregiver_id);
-                            $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+                            if (isset($getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'])) {
+                                $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
     
-                            $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
-                            
-                              $doral_id = createDoralId();
+                                $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
+                                
+                                $doral_id = createDoralId();
+                                $user_id = storeUser($demographics, $doral_id);
+                                
+                                if ($user_id) {
+                                    $company_id = '16';
+                                    storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
 
-                            $user_id = storeUser($demographics, $doral_id);
-
-                            if ($user_id) {
-                                $company_id = '16';
-                                storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
-
-                                storeEmergencyContact($demographics, $user_id);
+                                    storeEmergencyContact($demographics, $user_id);
+                                }
                             }
                         }                        
                         
@@ -111,10 +158,9 @@ class PatientImportController extends Controller
                             'start_time' => $scheduleStartTime,
                             'end_time' => $scheduleEndTime,
                             'name' => $firstName . ' ' . $lastName,
-                        ]);    
-                   // }
-                   
-                    $arr = array('status' => 200, 'message' => 'Get current caregiver', 'data' => $data);
+                        ]);
+                        $arr = array('status' => 200, 'message' => 'Get current caregiver', 'data' => $data);
+                    }
                 } else {
                     $arr = array('status' => 200, 'message' => 'Data not found', 'data' => []);
                 }
@@ -212,30 +258,109 @@ class PatientImportController extends Controller
         }
         return $user->id;
     }
+    public function getPatientId(Request $request)
+    {
+        try {
+            $input = $request->all();
+            $searchPatientIds = searchPatientId($input);
+            $patientIDs = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
+            return $patientIDs;
+            $data = [];
+          
+            //foreach (array_slice($visitIDs, $request['from'] , $request['to']) as $visitID) {
+               // $scheduleInfo = getVisitInfo($visitIDs,$input);
+                
+               // $getVisitorInfo = $scheduleInfo['soapBody']['GetVisitInfoResponse']['GetVisitInfoResult']['VisitInfo'];
+                //$data[] = [
+                   // 'VisitID' => ($getVisitorInfo['ID']) ? $getVisitorInfo['ID'] : '',
+                    //'VisitDate' => ($getVisitorInfo['VisitDate']) ? $getVisitorInfo['VisitDate'] : '',
+                    //'PatientID' => ($getVisitorInfo['Patient']['ID']) ? $getVisitorInfo['Patient']['ID'] : '',
+                   // 'PatientAdmissionNumber' => ($getVisitorInfo['Patient']['AdmissionNumber']) ? $getVisitorInfo['Patient']['AdmissionNumber'] : '',
+                   // 'CaregiverID' => ($getVisitorInfo['Caregiver']['ID']) ? $getVisitorInfo['Caregiver']['ID'] : '',
+                   // 'CaregiverCode' => ($getVisitorInfo['Caregiver']['CaregiverCode']) ? $getVisitorInfo['Caregiver']['CaregiverCode'] : '',
+               // ];
+            //}
+            $arr = $visitIDs;
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+        } catch (Exception $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+        }
+
+        return \Response::json($arr);
+    }
+    public function getCaregiverId(Request $request)
+    {
+        try {
+            $input = $request->all();
+            $searchPatientIds = searchCaregiverId($input);
+            $caregiverIDs = $searchPatientIds['soapBody']['SearchCaregiversResponse']['SearchCaregiversResult']['Caregivers']['CaregiverID'];
+            return $caregiverIDs;
+            $data = [];
+          
+            //foreach (array_slice($visitIDs, $request['from'] , $request['to']) as $visitID) {
+               // $scheduleInfo = getVisitInfo($visitIDs,$input);
+                
+               // $getVisitorInfo = $scheduleInfo['soapBody']['GetVisitInfoResponse']['GetVisitInfoResult']['VisitInfo'];
+                //$data[] = [
+                   // 'VisitID' => ($getVisitorInfo['ID']) ? $getVisitorInfo['ID'] : '',
+                    //'VisitDate' => ($getVisitorInfo['VisitDate']) ? $getVisitorInfo['VisitDate'] : '',
+                    //'PatientID' => ($getVisitorInfo['Patient']['ID']) ? $getVisitorInfo['Patient']['ID'] : '',
+                   // 'PatientAdmissionNumber' => ($getVisitorInfo['Patient']['AdmissionNumber']) ? $getVisitorInfo['Patient']['AdmissionNumber'] : '',
+                   // 'CaregiverID' => ($getVisitorInfo['Caregiver']['ID']) ? $getVisitorInfo['Caregiver']['ID'] : '',
+                   // 'CaregiverCode' => ($getVisitorInfo['Caregiver']['CaregiverCode']) ? $getVisitorInfo['Caregiver']['CaregiverCode'] : '',
+               // ];
+            //}
+            $arr = $visitIDs;
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+        } catch (Exception $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+        }
+
+        return \Response::json($arr);
+    }
     public function importVisitor(Request $request)
     {
         try {
-           	$input = $request->all();
-            //VisitorImport::dispatch();
-
+            $input = $request->all();
+            \Log::info($input);
             $searchPatientIds = searchVisits($input);
             $visitIDs = $searchPatientIds['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
-		    $data = [];
+            \Log::info($visitIDs);
+            return $visitIDs;
+            $data = [];
           
-		    foreach (array_slice($visitIDs, $request['from'] , $request['to']) as $visitID) {
-                $scheduleInfo = getVisitInfo($visitID,$input);
+            //foreach (array_slice($visitIDs, $request['from'] , $request['to']) as $visitID) {
+               // $scheduleInfo = getVisitInfo($visitIDs,$input);
                 
-                $getVisitorInfo = $scheduleInfo['soapBody']['GetVisitInfoResponse']['GetVisitInfoResult']['VisitInfo'];
-                $data[] = [
-                    'VisitID' => ($getVisitorInfo['ID']) ? $getVisitorInfo['ID'] : '',
-                    'VisitDate' => ($getVisitorInfo['VisitDate']) ? $getVisitorInfo['VisitDate'] : '',
-                    'PatientID' => ($getVisitorInfo['Patient']['ID']) ? $getVisitorInfo['Patient']['ID'] : '',
-                    'PatientAdmissionNumber' => ($getVisitorInfo['Patient']['AdmissionNumber']) ? $getVisitorInfo['Patient']['AdmissionNumber'] : '',
-                    'CaregiverID' => ($getVisitorInfo['Caregiver']['ID']) ? $getVisitorInfo['Caregiver']['ID'] : '',
-                    'CaregiverCode' => ($getVisitorInfo['Caregiver']['CaregiverCode']) ? $getVisitorInfo['Caregiver']['CaregiverCode'] : '',
-                ];
-            }
-            $arr = $data;
+               // $getVisitorInfo = $scheduleInfo['soapBody']['GetVisitInfoResponse']['GetVisitInfoResult']['VisitInfo'];
+                //$data[] = [
+                   // 'VisitID' => ($getVisitorInfo['ID']) ? $getVisitorInfo['ID'] : '',
+                    //'VisitDate' => ($getVisitorInfo['VisitDate']) ? $getVisitorInfo['VisitDate'] : '',
+                    //'PatientID' => ($getVisitorInfo['Patient']['ID']) ? $getVisitorInfo['Patient']['ID'] : '',
+                   // 'PatientAdmissionNumber' => ($getVisitorInfo['Patient']['AdmissionNumber']) ? $getVisitorInfo['Patient']['AdmissionNumber'] : '',
+                   // 'CaregiverID' => ($getVisitorInfo['Caregiver']['ID']) ? $getVisitorInfo['Caregiver']['ID'] : '',
+                   // 'CaregiverCode' => ($getVisitorInfo['Caregiver']['CaregiverCode']) ? $getVisitorInfo['Caregiver']['CaregiverCode'] : '',
+               // ];
+            //}
+            $arr = $visitIDs;
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
             if (isset($ex->errorInfo[2])) {
@@ -260,10 +385,8 @@ class PatientImportController extends Controller
      */
     public function confirmVisits(Request $request)
     {
-    	try {
+    	try { 
             $input = $request->all();
-            //	$duties = explode(',' ,$input['duties']);
-           
             $result = confirmVisits($input);
             
             $arr = $result;
@@ -282,5 +405,70 @@ class PatientImportController extends Controller
         }
 
         return \Response::json($arr);
+    }
+    public function serchVisitId1(Request $request)
+    {
+    	try {
+            $result = searchVisits();
+            
+            $arr = $result;
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+        } catch (Exception $ex) {
+            $message = $ex->getMessage();
+            if (isset($ex->errorInfo[2])) {
+                $message = $ex->errorInfo[2];
+            }
+            $arr = array("status" => 400, "message" => $message, "resultdata" => array());
+        }
+
+        return \Response::json($arr);
+    }
+    public function serchVisitId() {
+        echo"<pre>";
+        print_r(phpinfo());
+        exit();
+        \Log::info("serchVisitId");
+        $appName = "COTT_1031";
+        $appKey = "MQAyADEAMAA0ADIALQAwADcAQQAxADcAMQBFAEEANQA5AEQANQAzAEYAOAA3ADIARgA2ADEANAA3AEMAOAAyADIAMQA5AEYANQA=";
+        $appSecretKey = "e2bc8653-4f0c-49b7-a161-a6578cdff11f";
+        $patientID = '<PatientID>14680984</PatientID>';
+        $caregiverID = '<CaregiverID>3028555</CaregiverID>';
+        $data = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>COTT_1031</AppName><AppSecret>e2bc8653-4f0c-49b7-a161-a6578cdff11f</AppSecret><AppKey>MQAyADEAMAA0ADIALQAwADcAQQAxADcAMQBFAEEANQA5AEQANQAzAEYAOAA3ADIARgA2ADEANAA3AEMAOAAyADIAMQA5AEYANQA=</AppKey></Authentication><SearchFilters><StartDate>2022-03-20</StartDate><EndDate>2022-03-20</EndDate><PatientID>14680984</PatientID><CaregiverID>3028555</CaregiverID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+        $method = 'POST';
+        $resp = $this->curlCallNew($data, $method);
+        $arr = array("status" => 400, "message" => "Sucess", "resultdata" => $resp);
+        return \Response::json($arr);
+    }
+    
+    function curlCallNew($data, $method) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => config('patientDetailAuthentication.AppUrl'),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => array(
+            'Content-Type: text/xml'
+            ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
+        $xml = new \SimpleXMLElement($response);
+        
+        $searchPatientIds = json_decode(json_encode((array)$xml), TRUE);
+        $visitIDs = $searchPatientIds['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+        return $visitIDs;
     }
 }

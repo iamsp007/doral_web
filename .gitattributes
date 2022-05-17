@@ -3,3 +3,5 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+*.patientDoral.apk filter=lfs diff=lfs merge=lfs -text
+*.patientDoral1.apk filter=lfs diff=lfs merge=lfs -text

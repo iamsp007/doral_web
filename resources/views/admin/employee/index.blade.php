@@ -414,6 +414,6 @@
                 title: text
             })
         }
-      
+
     </script>
 @endpush

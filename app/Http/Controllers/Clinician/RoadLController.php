@@ -177,3 +177,4 @@ class RoadLController extends Controller
         return response()->json($data);
     }
 }
+

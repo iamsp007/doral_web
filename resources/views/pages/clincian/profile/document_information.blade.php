@@ -1,7 +1,7 @@
 <table width="100%">
  @php
-        $malpractice_Insurance = $users->document_Information['malpractice_Insurance'];
-        $ECFMG_Info = $users->document_Information['ECFMG_Info'];
+        $malpractice_Insurance = ($users->document_Information) ? $users->document_Information['malpractice_Insurance'] : '';
+        $ECFMG_Info = ($users->document_Information) ? $users->document_Information['ECFMG_Info'] : '';
     @endphp
     @if($malpractice_Insurance)
     <tr>
@@ -51,6 +51,7 @@
         </td>
     </tr>
     @endif
+    @if($ECFMG_Info)
     <tr>
         <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -64,5 +65,6 @@
             </table>
         </td>
     </tr>
+    @endif
 </table>
 <!-- page 1 end-->

@@ -57,7 +57,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td align="" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">Thank you for Registering with DORAL HEALTH CONNECT. You will get the login details in the mail after receiving approval from the admin.  Please be patient till the admin approved your account.</td>
+                                                <td align="" class="hc_txt_14" style="font-family:Montserrat, Arial, sans-serif; font-size:16px; line-height:22px; font-weight: 400; color:#707070;">Thank you for Registering with DORAL HEALTH CONNECT @if(isset($details['company_name'])) by {{ $details['company_name'] }} @endif. You will get the login details in the mail after receiving approval from the admin.  Please be patient till the admin approved your account.</td>
                                             </tr>
                                             <tr>
                                                 <td height="20" style="font-size:1px; line-height:1px;">&nbsp;</td>

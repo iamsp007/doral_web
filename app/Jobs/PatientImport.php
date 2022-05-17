@@ -206,6 +206,7 @@ class PatientImport implements ShouldQueue
 
         getAddressLatlngAttribute($addressData, $user_id);
     }
+ 
 
     public static function storeEmergencyContact($demographics, $user_id)
     {

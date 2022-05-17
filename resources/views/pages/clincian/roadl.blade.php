@@ -159,9 +159,11 @@
                                             </li>
                                             <li>
                                                 <div class="broadcast_box">
-                                                    <button class="btn btn-broadcast btn-block" type="button" data-toggle="collapse" data-target="#collapseExample{{ $key }}" aria-expanded="false" aria-controls="collapseExample">
+                                                 <button class="btn btn-broadcast btn-block" type="button" data-toggle="collapse" data-target="#collapseExample{{ $key }}" aria-expanded="false" aria-controls="collapseExample">
                                                         BroadCast <span></span>
                                                     </button>
+                                                
+                                                    
                                                 </div>
                                             </li>
                                         </ul>
@@ -171,7 +173,7 @@
                     </div>
                     <div class="collapse" id="collapseExample{{ $key }}">
                         @foreach($value->requests as $rkey=>$rval)
-                            <div class="row mt-3">
+  <div class="row mt-3">
                                 <div class="col-9">
                                     <div class="col-3">
                                         <span>Name : {{ isset($rval->detail->first_name)?$rval->detail->first_name:'Not Accepted' }}</span>
@@ -183,8 +185,8 @@
                                         <span>Status : {{ isset($rval->status)?$rval->status:'Default' }}</span>
                                     </div>
                                 </div>
-                                <div class="col-3">
-                                    @if($rval->status==='1')
+                                <div class="col-3">                             
+       @if($rval->status==='1')
                                         <button type="button"
                                                 onclick="window.location.href = '{{ route('clinician.start.roadl',['patient_request_id'=>$rval->id]) }}'"
                                                 {{--                                                            onclick="sendLocation(1,'sdfdsfds')"--}}

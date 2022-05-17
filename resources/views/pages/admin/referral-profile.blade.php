@@ -181,6 +181,76 @@ Refferal Profile
             <!-- Mal Practitioner Insurance Detail End Here -->
          </div>
       </div>
+      <div class="row mt-3">
+         <div class="col-12">
+            <div class="app-card" id="companyDetail">
+               <div
+                  class="card-header pt-2 pb-2 d-flex justify-content-between align-items-center">
+                  <h1>SMS Detail</h1>
+                  <img src="{{ asset('assets/img/icons/edit-field.svg') }}" data-toggle="tooltip"
+                     data-placement="bottom" title="Edit" class="cursor-pointer edit-icon" alt=""
+                     onclick="editAllProfileField('companyDetail')">
+                  <img src="{{ asset('assets/img/icons/update-icon.svg') }}" data-toggle="tooltip"
+                     data-placement="bottom" title="Update" class="cursor-pointer update-icon"
+                     alt=""  id="updateCompanyDetail">
+               </div>
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-12 col-sm-6">
+                        <ul class="form-data">
+                           <li>
+                              <label class="label">Intervention</label>
+                              <span class='label'>
+                                 <label>
+                                    <input class="careteam_check" type="checkbox" name="texed" data-id="{{ $record->id }}" data-action="company-checked" {{ ($record->texed) === '1' ? 'checked' : '' }}>
+                                    <span style="font-size:12px; padding-left: 25px;"></span>
+                                 </label>
+                              </span>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="col-12 col-sm-6">
+                        <ul class="form-data">
+                           <li>
+                              <label class="label">Account Id</label>
+                              <input type="text" class="form-control-plaintext _detail t5"
+                                 readonly name="account_sid"
+                                 data-id="account_sid" id="account_sid"
+                                 placeholder="Account id" value="{{ $record->account_sid ? $record->account_sid : '' }}">
+                                 <span class="error-message" id="account_sid_error">Account Id is required</span>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="col-12 col-sm-6">
+                        <ul class="form-data">
+                           <li>
+                              <label class="label">Auth Token</label>
+                              <input type="text" class="form-control-plaintext _detail t5"
+                                 readonly name="auth_token"
+                                 data-id="auth_token" id="auth_token"
+                                 placeholder="Auth Token id" value="{{ $record->auth_token ? $record->auth_token : '' }}">
+                                 <span class="error-message" id="auth_token_error">Auth Token Id is required</span>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="col-12 col-sm-6">
+                        <ul class="form-data">
+                           <li>
+                              <label class="label">From SMS</label>
+                              <input type="text" class="form-control-plaintext _detail t5"
+                                 readonly name="from_sms"
+                                 data-id="from_sms" id="from_sms" placeholder="From SMS Number"
+                                 value="{{ $record->from_sms ? $record->from_sms : '' }}">
+                                 <span class="error-message" id="company_phone_error">From SMS Number is not valid</span>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- Mal Practitioner Insurance Detail End Here -->
+         </div>
+      </div>
    </div>
    <div class="col-12 col-sm-8">
       <div class="row">
@@ -207,7 +277,6 @@ Refferal Profile
                               <label class="label">Name Of Company</label>
                               <input type="text" class="form-control-plaintext _detail t5"
                                  readonly name="name_company"
-                                 onkeyup="companyerror()"
                                  data-id="name_company" id="name_company"
                                  placeholder="Name Of Company" value="{{ $record->name ? $record->name : '' }}">
                                   <span class="error-message" id="company_error">Company Name is required</span>
@@ -217,7 +286,7 @@ Refferal Profile
                            <li>
                               <label class="label">Fax Number</label>
                               <input type="text" class="form-control-plaintext _detail t5"
-                                 readonly name="fax_no" onkeyup="companyerror()"
+                                 readonly name="fax_no" 
                                  data-id="fax_no" id="fax_no" placeholder="Fax Number"
                                  value="{{ $record->fax_no ? $record->fax_no : '' }}">
                                  <span class="error-message" id="fax_error">Fax Number is required</span>
@@ -225,7 +294,7 @@ Refferal Profile
                            <li>
                               <label class="label">Phone Number</label>
                               <input type="text" class="form-control-plaintext _detail t5"
-                                 readonly name="phone_no" onkeyup="companyerror()"
+                                 readonly name="phone_no" 
                                  data-id="phone_no" id="phone_no" placeholder="Phone Number"
                                  value="{{ $record->phone ? $record->phone : '' }}">
                                  <span class="error-message" id="company_phone_error">Phone Number is not valid</span>
@@ -258,11 +327,10 @@ Refferal Profile
                            <li>
                               <label class="label">Email</label>
                               <input type="text" class="form-control-plaintext _detail t5"
-                                 readonly name="emailId" onkeyup="companyerror()"
+                                 readonly name="emailId" 
                                  data-id="emailId" id="emailId"
                                  placeholder="example@example.com"
                                  value="{{ $record->email ? $record->email : '' }}">
-
                                  <span class="error-message" id="company_email_error">Email is not valid</span>
                            </li>
                           
@@ -275,7 +343,7 @@ Refferal Profile
                            <li>
                               <label class="label">Addresss</label>
                               <input type="text" class="form-control-plaintext _detail t5"
-                                 readonly name="addresss" onkeyup="companyerror()"
+                                 readonly name="addresss" 
                                  data-id="addresss" id="addresss" placeholder="addresss"
                                  value="{{ $record->address1 ? $record->address1:'' }} ">
                                  <span class="error-message" id="address_error">Address is required</span>
@@ -358,6 +426,75 @@ Refferal Profile
             }
          });
 
+         $("body").on('change','.careteam_check',function () {
+               var val = $(this).attr('data-id');
+               var action = $(this).attr('data-action');
+               if("{{Request::is('admin/*')}}"){
+                  var url = "{{route('admin.updateProfile')}}";
+               } else {
+                  var url = "{{route('referral.updateProfile')}}";
+               }
+               var texed = '0';
+               if ($(this).is(":checked")) {
+                  texed = '1';
+               }
+   
+               const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: true,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  buttonsStyling: true,
+                  didOpen: (toast) => {
+                     toast.addEventListener('mouseenter', Swal.stopTimer)
+                     toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+               })
+
+               Toast.fire({
+                  title: 'Are you sure?',
+                  text: "Are you sure want to change priority?",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes, change it!',
+                  cancelButtonText: 'No, cancel!',
+                  reverseButtons: true
+                  }).then((result) => {
+                     if (result.isConfirmed) {
+                           $("#loader-wrapper").show();
+                           $.ajax({
+                              'type': 'POST',
+                              'url': url,
+                              'headers': {
+                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                              },
+                              data: {
+                                 "id": val,
+                                 "section" : action,
+                                 "texed" : texed,
+                              },
+                              'success': function (data) {
+                                 $("#loader-wrapper").hide();
+                                 if(response.status == 1)
+                                    alertText(response.message,'success');
+                                 else
+                                    alertText(response.message,'success');
+                              },
+                              "error":function () {
+                                 alertText("Server Timeout! Please try again",'error');
+                                 $("#loader-wrapper").hide();
+                              }
+                           });
+                     } else if (result.dismiss === Swal.DismissReason.cancel) {
+                           alertText("Your file file is safe :)",'warning');
+                           $(".innerallchk, .mainchk").prop("checked","");
+                           $('#acceptRejectBtn').hide();
+                     }
+               });
+         });
+
+
          $(".acceptid").click(function() {
             var company_id = $(this).attr('id');
             var status = "active";
@@ -426,7 +563,6 @@ Refferal Profile
 
          var services = services.toString();
          var fax_no = $("#fax_no").val();
-         var data_arr = [];
 
          if(id == '') {
             id = $("#user_id").val();
@@ -462,30 +598,10 @@ Refferal Profile
             return false;
          }           
             
-         data_arr.push({'id':id,'name':name,'address1':address1,'email':email,'phone':phone,'services':services,'fax_no':fax_no});
-         if("{{Request::is('admin/*')}}"){
-            var url = "{{route('admin.updateProfile')}}";
-         } else {
-            var url = "{{route('referral.updateProfile')}}";
-         }
-         $("#loader-wrapper").show();
+         var data_arr = {'id':id,'name':name,'address1':address1,'email':email,'phone':phone,'services':services,'fax_no':fax_no};
 
-         $.ajax({
-            url:url,
-            method:"POST",
-            data:{'id':id,'name':name,'address1':address1,'email':email,'phone':phone,'services':services,'fax_no':fax_no},
-            dataType:'JSON',
-            success:function(response)
-            {
-               $("#loader-wrapper").hide();
-               if(response.status === true) {
-                  alertText('Profile Information updated successfully','success');
-                     updateAllProfileField('CompanyInfo')
-               } else {
-                  alertText('Not saved','error');
-               }
-            }
-         })
+         var section = 'CompanyInfo';
+         ajaxCall(data_arr, section);
       });
          
       $("#updateAdministrator").click(function() {
@@ -502,7 +618,7 @@ Refferal Profile
          var administrator_emailId = $("#administrator_emailId").val();
          var licence_no = $("#licence_no").val();
          var administrator_phone_no = $("#administrator_phone_no").val();
-         var data_arr = [];
+       
          var phoneno = /^\d{10}$/;
          var emailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
          if(id == '') {
@@ -538,32 +654,10 @@ Refferal Profile
             return false;
          }
 
-         data_arr.push({'id':id,'administrator_name':administrator_name,'registration_no':registration_no,'administrator_emailId':administrator_emailId,'licence_no':licence_no,'administrator_phone_no':administrator_phone_no});
-         
-         if("{{Request::is('admin/*')}}"){
-            var url = "{{route('admin.updateProfile')}}";
-         } else {
-            var url = "{{route('referral.updateProfile')}}";
-         }
+         var data_arr = {'id':id,'administrator_name':administrator_name,'registration_no':registration_no,'administrator_emailId':administrator_emailId,'licence_no':licence_no,'administrator_phone_no':administrator_phone_no};
 
-         $("#loader-wrapper").show();
-         $.ajax({
-            url:url,
-            method:"POST",
-            data:{'id':id,'administrator_name':administrator_name,'registration_no':registration_no,'administrator_emailId':administrator_emailId,'licence_no':licence_no,'administrator_phone_no':administrator_phone_no},
-            dataType:'JSON',
-            success:function(response)
-            {
-               $("#loader-wrapper").hide();
-               if(response.status === true) {
-                  alertText('Profile Information updated successfully','success');
-                  updateAllProfileField('AdministratorInfo');
-               }
-               else {
-                  alertText('Not saved','error');
-               }
-            }
-         })
+         var section = 'AdministratorInfo';
+         ajaxCall(data_arr, section);
       });
       
       $("#updateInsuranceDetail").click(function() {
@@ -592,12 +686,59 @@ Refferal Profile
             return false;
          }
             
-         var data_arr = [];
          if(id == '') {
             id = $("#user_id").val();
          }
-         data_arr.push({'id':id,'insurance_id':insurance_id,'expiration_date':expiration_date});
+         var data_arr = {'id':id,'insurance_id':insurance_id,'expiration_date':expiration_date};
 
+         var section = 'insuranceDetail';
+         ajaxCall(data_arr, section);
+      });
+
+      $("#updateCompanyDetail").click(function() {
+         $.ajaxSetup({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+         var csrf_token = $('meta[name="csrf-token"]').attr('content');
+         var id = "{{ request()->route('id') }}";
+         var account_sid = $("#account_sid").val();
+         var auth_token = $("#auth_token").val();
+         var from_sms = $("#from_sms").val();
+
+         var count = 0;
+         if(jQuery.trim(account_sid) == '') {
+            $("#account_sid_error").css("display", "block");
+            count++;
+         } 
+         
+         if(jQuery.trim(auth_token) == '') {
+            $("#auth_token_error").css("display", "block");
+            count++;
+         }
+
+         if(jQuery.trim(from_sms) == '') {
+            $("#from_sms_error").css("display", "block");
+            count++;
+         }
+
+         if (count > 0) {
+            return false;
+         }
+            
+         if(id == '') {
+            id = $("#user_id").val();
+         }
+
+         var data_arr = {'id':id,'account_sid':account_sid,'auth_token':auth_token, 'from_sms': from_sms};
+         var section = 'companyDetail';
+         
+         ajaxCall(data_arr, section);
+      });
+
+      function ajaxCall(data_arr, section)
+      {
          if("{{Request::is('admin/*')}}"){
             var url = "{{route('admin.updateProfile')}}";
          } else {
@@ -608,22 +749,21 @@ Refferal Profile
          $.ajax({
             url:url,
             method:"POST",
-            data:{'id':id,'insurance_id':insurance_id,'expiration_date':expiration_date},
+            data: data_arr,
             dataType:'JSON',
             success:function(response)
             {
                $("#loader-wrapper").hide();
                if(response.status === true) {
                   alertText('Profile Information updated successfully','success');
-                  updateAllProfileField('insuranceDetail');
-
+                  updateAllProfileField(section);
                }
                else {
                   alertText('Not saved','error');
                }
             }
          })
-      });
+      }
       
       // insert / update payment info
       $(".payment_info").change(function() {

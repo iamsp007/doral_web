@@ -16,7 +16,7 @@
                                  <div><i class="las la-angle-double-right circle"></i></div>
                                  <div>
                                     <h3 class="_title">Name</h3>
-                                    <h1 class="_detail">Akshita Dariyani</h1>
+                                    <h1 class="_detail">---</h1>
                                  </div>
                               </div>
                            </div>
@@ -25,8 +25,8 @@
                                  <div><i class="las la-angle-double-right circle"></i></div>
                                  <div>
                                     <h3 class="_title">Email</h3>
-                                    <a href="mailto:akshita@dariyani.com"
-                                       class="_detail">akshita@dariyani.com</a>
+                                    <a href="mailto:---"
+                                       class="_detail">---</a>
                                  </div>
                               </div>
                            </div>
@@ -70,7 +70,7 @@
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                  <div class="rs">
                                     <h3 class="_title">Name</h3>
-                                    <h1 class="_detail">Akshita Dariyani</h1>
+                                    <h1 class="_detail">---</h1>
                                  </div>
                               </div>
                            </div>
@@ -79,8 +79,8 @@
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                  <div class="rs">
                                     <h3 class="_title">Email</h3>
-                                    <a href="mailto:akshita@dariyani.com"
-                                       class="_detail">akshita@dariyani.com</a>
+                                    <a href="mailto:---"
+                                       class="_detail">---</a>
                                  </div>
                               </div>
                            </div>
@@ -124,7 +124,7 @@
                                  <div class="ls"><i class="las la-angle-double-right circle"></i></div>
                                  <div class="rs">
                                     <h3 class="_title">Name</h3>
-                                    <h1 class="_detail">Akshita Dariyani</h1>
+                                    <h1 class="_detail">---</h1>
                                  </div>
                               </div>
                            </div>

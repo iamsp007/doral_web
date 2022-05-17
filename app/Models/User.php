@@ -123,6 +123,14 @@ class User extends Authenticatable
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+    
+    /**
+     * applicant
+     */
+    public function applicant()
+    {
+        return $this->hasOne(Applicant::class, 'user_id', 'id');
+    }
 
     /**
      * Create full name with combine first name and last name
@@ -206,10 +214,10 @@ class User extends Authenticatable
      */
     public function getAvatarImageAttribute()
     {
-        if (isset($this->avatar) && !empty($this->avatar)) {
-            return env('WEB_URL').'assets/upload/images/'. $this->avatar;
+       if (isset($this->avatar) && !empty($this->avatar)) {
+            return env('WEB_URL').'/upload/images/'.$this->avatar;
         } else {
-            return env('WEB_URL').'assets/img/user/01.png';
+            return env('APP_URL').'assets/img/user/avatar.jpg';
         }
     }
 
@@ -255,6 +263,56 @@ class User extends Authenticatable
         return $age;
     }
     public function detail(){
-        return $this->hasOne(PatientReferral::class,'user_id','id')->with('service','referral');
+        return $this->hasOne(PatientReferral::class,'user_id','id')->with('service');
     }
+    
+      /**
+     * education
+     */
+    public function education()
+    {
+        return $this->hasOne(Education::class, 'user_id', 'id');
+    }
+    
+    /**
+     * professional
+     */
+    public function professional()
+    {
+        return $this->hasOne(Certificate::class, 'user_id', 'id');
+    }
+    
+     /**
+     * attestation
+     */
+    public function attestation()
+    {
+        return $this->hasMany(Attestation::class, 'user_id', 'id');
+    }
+    
+    /**
+     * background
+     */
+    public function background()
+    {
+        return $this->hasMany(WorkHistory::class, 'user_id', 'id');
+    }
+    
+     /**
+     * deposit
+     */
+    public function deposit()
+    {
+        return $this->hasOne(BankAccount::class, 'user_id', 'id');
+    }
+
+ /**
+     * documents
+     */
+    public function documents()
+    {
+        return $this->hasMany(UploadDocuments::class, 'user_id', 'id');
+    }
+    
+   
 }

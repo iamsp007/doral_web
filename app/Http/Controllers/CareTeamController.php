@@ -19,6 +19,7 @@ class CareTeamController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        //dd($input);
         $rules = $messages = [];
         if ($input['section'] === 'family') {
             $rules = [

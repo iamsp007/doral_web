@@ -22,7 +22,8 @@ class VisitorController extends Controller
             // if(Auth::guard('referral')) {
             //     $company = Auth::guard('referral')->user();
             // } 
-            VisitorImport::dispatch()->timezone('America/New_York')->everyFiveMinutes();
+            VisitorImport::dispatch();
+            //->timezone('America/New_York')->everyFiveMinutes()
 
             $arr = array('status' => 200, 'message' => 'Please be patient, the import visitor process is taking place in the background. You will receive mail after the all visitor imported successfully.', 'data' => []);
         } catch (\Illuminate\Database\QueryException $ex) {

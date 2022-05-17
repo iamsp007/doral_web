@@ -86,8 +86,12 @@ class BulkImport implements ToModel, WithHeadingRow, WithValidation,SkipsOnFailu
                     $user = new User();
                     $demographicModel = new Demographic();
                     $doral_id = createDoralId();
+                    
+                    $password = str_replace("-", "@",$doral_id);
+                    
+                    $user->password = setPassword($password);
                 }
-                $password = str_replace(" ", "",$row['first_name']) . '@' . $doral_id;
+                
 
                 $user->first_name = $row['first_name'];
                 $user->last_name = $row['last_name'];
@@ -95,8 +99,6 @@ class BulkImport implements ToModel, WithHeadingRow, WithValidation,SkipsOnFailu
                 $user->phone = setPhone($row['phone_number']);
                 $user->dob = dateFormat($row['date_of_birth']);
                 $user->email = isset($row['email']) ? $row['email'] : '';
-                $user->password = setPassword($password);
-
 
                 $user->save();
 
@@ -117,7 +119,7 @@ class BulkImport implements ToModel, WithHeadingRow, WithValidation,SkipsOnFailu
                 $demographicModel->marital_status = $row['marital_status'];
                 $demographicModel->address = $address;
                 $demographicModel->gender_at_birth = setGender($row['gender_at_birth']);
-                
+                $demographicModel->doral_id = $doral_id;
                 $demographicModel->status = 'Active';
                 $demographicModel->save();
                 Log::info('covid-19 end');

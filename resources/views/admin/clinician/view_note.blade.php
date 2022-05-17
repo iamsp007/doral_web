@@ -8,7 +8,13 @@
         </div>
         <div class="modal-body">
            <p class="notification_message">
-                {!! $userDeviceLog->note !!}
+           	
+        		@foreach($notes as $note)
+		        	 {!! $note !!}  </br> </br>
+				
+        		@endforeach
+        	
+               
            </p>
         </div>
     </div>

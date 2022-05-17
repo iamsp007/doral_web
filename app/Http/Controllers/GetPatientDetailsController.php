@@ -27,6 +27,7 @@ use App\Models\Services;
 use App\Models\State;
 use App\Models\User;
 use App\Models\UserDevice;
+use App\Models\UserLatestDeviceLog;
 use App\Models\UserDeviceLog;
 use App\Models\VisitorDetail;
 use Carbon\Carbon;
@@ -140,6 +141,12 @@ class GetPatientDetailsController extends Controller
         ->groupBy('user_device_id','date')
         ->get()->toArray();
         
+        //dump($userDeviceLogs);
+        
+        //$device_logs = UserLatestDeviceLog::with('userDevice','userDevice.user');
+        //$userDeviceLogs = $device_logs->where('patient_id',$paient_id)->orderBy('id','desc')->groupBy('user_device_id')->get()->toArray();
+              //dd($userDeviceLogs);
+                
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs','today', 'caseManagements','family_detail','physician_detail','pharmacy_detail','caregiver'));
     }
 

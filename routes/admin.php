@@ -39,6 +39,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth:web','role:admin']],functi
     Route::get('clinician-detail/{id}','App\Http\Controllers\Clinician\ClinicianController@getClinicianDetail')->name('admin.clinician-detail');
     // Route::get('/clinician/{status}', 'App\Http\Controllers\Clinician\ClinicianController@clinician')->name('admin.clinician.approval');
     Route::get('/clinician-approval/{id}/detail','\App\Http\Controllers\Clinician\ClinicianController@clinicianInfo')->name('clinician.info');
+    Route::Post('/clinician-print','\App\Http\Controllers\Clinician\ClinicianController@clinicianInfo')->name('clinician.print');
     /** Clinician Section Route end */
   
    

@@ -513,3 +513,4 @@ $users = DB::connection('mysql2')->table('category')->get();
     }
 
 }
+

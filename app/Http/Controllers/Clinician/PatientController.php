@@ -245,6 +245,7 @@ class PatientController extends Controller
         
         $clinicianService = new ClinicianService();
         $response = $clinicianService->patientRequest($request->all());
+        
         if ($response->status===true){
             return response()->json($response,200);
         }

@@ -42,66 +42,7 @@
             <div class="_title4 mb-3" id="patient-name">Shashikant Parmar</div>
             <div class="scrollbar100">
                 <ul class="requestBox" id="requestInfo">
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Doral Lab</div>
-                                <div class="role">Role: Lab Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Doral Radiology</div>
-                                <div class="role">Role: Radiology Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Doral Chha</div>
-                                <div class="role">Role: Chha Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Shashikant Parmar</div>
-                                <div class="role">Role: Lab Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="requestInfo labBlock">
-                            <div class="p-3 border-bottom">
-                                <div class="name">Shashikant Parmar</div>
-                                <div class="role">Role: Lab Technician</div>
-                            </div>
-                            <div class="pt-2 pb-3 pl-3 pr-3 bg-white">
-                                <div class="status"><span class="mr-2">Duration:</span>0.6KM</div>
-                                <div class="status mt-1"><span class="mr-2">Distance:</span>2 Mins</div>
-                            </div>
-                        </div>
-                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -136,7 +77,7 @@
         .addPermission ._title4{font-style:normal;font-weight:700;font-size:18px;color:#000}
         .addPermission ._title4 span{font-weight:500}
         .addPermission p{font-style:normal;font-weight:400;font-size:14px;color:#AAA7A7;line-height:1.6em}
-        .requestBox{display:block;padding:0;margin:0}
+        .requestBox{display:block;padding:0;margin:0;overflow: scroll;height: 80%;}
         .requestBox li{padding:0;margin:0 0 10px}
         .requestBox li .requestInfo{border:1px solid rgba(21,171,82,1);padding:0;background:rgba(201,255,222,0.15);border-radius:5px;margin:0}
         .requestBox li .requestInfo .name{font-size:18px;font-weight:600;color:#006C76}
@@ -175,7 +116,8 @@
     </style>
 @endpush
 @push('scripts')
-    <script src="{{ env('SOCKET_IO_URL') }}/socket.io/socket.io.js"></script>
+    {{-- <script src="{{ env('SOCKET_IO_URL') }}/socket.io/socket.io.js"></script> --}}
+    <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         var socket = io(socket_url+'?id=1',{
@@ -183,7 +125,7 @@
         });
     </script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="{{ asset('js/clincian/map.js?vers=4') }}"></script>
+    <script src="{{ asset('js/clincian/map.js?vers=11') }}"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly"
         defer

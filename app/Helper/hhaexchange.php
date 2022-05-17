@@ -30,6 +30,12 @@ if (!function_exists('curlCall')) {
             curl_close($curl);
             $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
             $xml = new \SimpleXMLElement($response);
+            echo"<pre>";
+            print_r($xml);
+            exit();
+            echo"<pre>";
+            print_r(111);
+            exit();
             return json_decode(json_encode((array)$xml), TRUE);
         }
     }
@@ -41,18 +47,15 @@ if (!function_exists('curlCall')) {
      */
     if (!function_exists('searchVisits')) {
         
-        function searchVisits($input)
+        function searchVisits()
         {
-            $patientID = '';
-            if (isset($input['patientId'])) {
-                $patientID = '<PatientID>' . $input['patientId'] . '</PatientID>';
-            }
-            $caregiverID = '';
-            if (isset($input['caregiverID'])) {
-                $caregiverID = '<CaregiverID>' . $input['caregiverID'] . '</CaregiverID>';
-            }
-            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<SearchFilters><StartDate>' . $input['from_date'] .'</StartDate><EndDate>' . $input['to_date']  . '</EndDate>'.$patientID.$caregiverID.'</SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-        
+            $appName = "COTT_1031";
+            $appKey = "MQAyADEAMAA0ADIALQAwADcAQQAxADcAMQBFAEEANQA5AEQANQAzAEYAOAA3ADIARgA2ADEANAA3AEMAOAAyADIAMQA5AEYANQA=";
+            $appSecretKey = "e2bc8653-4f0c-49b7-a161-a6578cdff11f";
+            $patientID = '<PatientID>14680984</PatientID>';
+            $caregiverID = '<CaregiverID>3028555</CaregiverID>';
+            $data = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>COTT_1031</AppName><AppSecret>e2bc8653-4f0c-49b7-a161-a6578cdff11f</AppSecret><AppKey>MQAyADEAMAA0ADIALQAwADcAQQAxADcAMQBFAEEANQA5AEQANQAzAEYAOAA3ADIARgA2ADEANAA3AEMAOAAyADIAMQA5AEYANQA=</AppKey></Authentication><SearchFilters><StartDate>2022-03-20</StartDate><EndDate>2022-03-20</EndDate><PatientID>14680984</PatientID><CaregiverID>3028555</CaregiverID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
             $method = 'POST';
             return curlCall($data, $method);
         }
@@ -191,6 +194,14 @@ if (!function_exists('curlCall')) {
             $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><ConfirmVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication($input). ''
                     . '<VisitInfo><VisitID>' . $input['visitId'] . '</VisitID><VisitStartTime>' . $input['startTime']. '</VisitStartTime><VisitEndTime>' . $input['endTime']. '</VisitEndTime></VisitInfo></ConfirmVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
             
+            $method = 'POST';
+            return curlCall($data, $method);
+        }
+    }
+    if (!function_exists('storeVisitor')) {
+        function storeVisitor()
+        {
+            $data = '<?xml version="1.0" encoding="utf-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><CreateCaregiver xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>COTT_1031</AppName><AppSecret>e2bc8653-4f0c-49b7-a161-a6578cdff11f</AppSecret><AppKey>MQAyADEAMAA0ADIALQAwADcAQQAxADcAMQBFAEEANQA5AEQANQAzAEYAOAA3ADIARgA2ADEANAA3AEMAOAAyADIAMQA5AEYANQA=</AppKey></Authentication><CaregiverInfo><OfficeID>1754</OfficeID><FirstName>Shashikant</FirstName><MiddleName>S</MiddleName><LastName>Parmar</LastName><Initials></Initials><Gender>Male</Gender><Dependents></Dependents><BirthDate>1991-01-19</BirthDate<AlternateCaregiverCode></AlternateCaregiverCode><MobileIDType></MobileIDType><SSN>787-87-8787</SSN><CountryOfBirth></CountryOfBirth><MaritalStatus>Married</MaritalStatus><StatusID>1</StatusID><EmploymentTypes><Discipline>HHA</Discipline><Discipline>PCA</Discipline></EmploymentTypes><EmployeeID></EmployeeID><ApplicationDate>2022-04-13</ApplicationDate><ReferralPerson></ReferralPerson><Address><Street1>833 Meadow Rd</Street1><Street2></Street2><City>Smithtown</City><State>NY</State><Zip5>11787</Zip5><Zip4></Zip4><HomePhone>(777) 777-7777</HomePhone><Phone2>(777) 777-7777</Phone2><Phone3></Phone3></Address><EmergencyContacts><EmergencyContact><Name></Name><EmergencyContact><Name></Na<OtherRelationship></OtherRelationship><Address></Address><Phone1></Phone1><Phone2></Phone2></EmergencyContact><EmergencyContact><Name></Name></OtherRelationship><Address></Address><Phone1></Phone1><Phone2></Phone2></EmergencyContact></EmergencyContacts><NotificationPreferences><Email>shashikant@hcbspro.com</Email><MobileOrSMS>(777) 777-7777</MobileOrSMS><VoiceMessage></VoiceMessage></NotificationPreferences><EmployeeType>Applicant</EmployeeType><ProfessionalLicensenumber></ProfessionalLicensenumber><NPI></NPI><InactiveNote></InactiveNote></CaregiverInfo></CreateCaregiver></SOAP-ENV:Body></SOAP-ENV:Envelope>';
             $method = 'POST';
             return curlCall($data, $method);
         }

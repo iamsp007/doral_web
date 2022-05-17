@@ -107,13 +107,39 @@
                     <td>
                         <p>Date You Can Start Work: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['DateYouCanStartWork'] : '' }}</span></p>
                     </td>
-                    {{-- <td>
+		    {{-- <td>
                         <p>Salary Desired $/hr: <span>{{ $users->address_detail['info'] ? $users->address_detail['info']['salaryDesired'] : '' }}</span></p>
                     </td> --}}
+
                 </tr>
             </table>
         </td>
     </tr>
+    @if(isset($users->address_detail['info']['documentType']))
+        @php
+            if ($users->address_detail['info']['documentType'] === 'passport'):
+                $docId = isset($users->address_detail['info']['passport_id']) ? $users->address_detail['info']['passport_id']  : '';
+                $label = 'Passport';
+            elseif ($users->address_detail['info']['documentType'] === 'greencard'):
+                $docId = isset($users->address_detail['info']['greencard_id']) ? $users->address_detail['info']['greencard_id'] : '';
+                $label = 'Greencard';
+            elseif ($users->address_detail['info']['documentType'] === 'workpermit'):
+                $docId = isset($users->address_detail['info']['workpermit_uscisId']) ? $users->address_detail['info']['workpermit_uscisId'] : '';
+                $label = 'Workpermit';
+            endif;
+        @endphp
+        <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <p>{{$label}}: <span>{{ $docId }}</span></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    @endif
     @if ($users->user->designation_id != '2')
         <tr>
             <td>

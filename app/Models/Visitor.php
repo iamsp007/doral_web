@@ -15,28 +15,11 @@ class Visitor extends Model
      * @var array
      */
     protected $fillable = [
-        'visitor_id',
+       'visitor_id',
         'visit_date',
-        'is_missed_visit',
-        'patient_detail',
-        'caregiver_detail',
-        'schedule_time_detail',
-        'ttot_detail',
-        'verification_detail',
-        'timesheet_detail',
-    ];
-
-    /**
-     * The attributes that are casted.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'patient_detail' => 'array',
-        'caregiver_detail' => 'array',
-        'schedule_time_detail' => 'array',
-        'ttot_detail' => 'array',
-        'verification_detail' => 'array',
-        'timesheet_detail' => 'array',
+        'patient_id',
+        'patient_admission_number',
+        'caregiver_id',
+        'caregiver_code',
     ];
 }

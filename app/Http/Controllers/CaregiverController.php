@@ -64,8 +64,8 @@ class CaregiverController extends Controller
         return  $result;
     }
 
-    public static function countStatus($services,$status) 
-    { 
+    public static function countStatus($services,$status)
+    {
         return User::whereHas('roles',function ($q){
                 $q->where('name','=','patient');
             })->whereHas('demographic',function ($q) use($services) {
@@ -111,7 +111,7 @@ class CaregiverController extends Controller
                 } else {
                     $query->where('status', '4');
                 }
-                
+
                 $query->whereHas('demographic',function ($q) {
                     $q->where('service_id', '3');
                     if(Auth::guard('referral')) {
@@ -120,8 +120,8 @@ class CaregiverController extends Controller
                     }
                 });
             } else if($request['serviceStatus'] == 'covid-19') {
-		$query->whereHas('demographic',function ($query) use($request) {
-
+		        $query->whereHas('demographic',function ($query) use($request) {
+           
                     $query->where('service_id', 6);
 
                     if(Auth::guard('referral')) {
@@ -138,13 +138,13 @@ class CaregiverController extends Controller
                 $query->where('status', '0');
             } else if ($request['serviceStatus'] == 'roadl-request') {
                 $user_id = Auth::guard('partner')->user()->id;
-              
+
                 $query->whereHas('patientRequest',function ($query) use($user_id) {
                     $query->where('clincial_id', $user_id);
                 });
             } else if ($request['serviceStatus'] == 'due-reports') {
                 $dateBetween['today'] =  date('Y-m-d');
-        
+
                 $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
                 $dateBetween['newDate'] = $date->format('Y-m-d');
                 $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
@@ -152,7 +152,7 @@ class CaregiverController extends Controller
                 });
             } else if ($request['serviceStatus'] == 'assigned-patients') {
                 $user_id = Auth::user()->id;
-             
+
                 $query->whereHas('caseManagement',function ($query) use($user_id) {
                     $query->where('clinician_id', $user_id);
                 });
@@ -160,7 +160,7 @@ class CaregiverController extends Controller
         })
         ->when(! $request['serviceStatus'] ,function ($query) use($url) {
             if (Auth::user()->hasRole('supervisor')){
-  
+
                 if (str_contains($url, 'assigned-patients')){
                     $query->whereHas('caseManagement');
                 } else {
@@ -173,10 +173,10 @@ class CaregiverController extends Controller
         ->when($request['service_id'], function ($query) use($request) {
             if ($request['service_id'] == 'due_patient') {
                 $dateBetween['today'] =  date('Y-m-d');
-        
+
                 $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
                 $dateBetween['newDate'] = $date->format('Y-m-d');
-               
+
                 $query->whereHas('patientLabReport',function ($q) use($dateBetween) {
                     $q->whereBetween('due_date', [$dateBetween['today'], $dateBetween['newDate']]);
                 });
@@ -201,7 +201,6 @@ class CaregiverController extends Controller
             $query->where('phone', $request['phone']);
         })
         ->when($request['gender'], function ($query) use($request){
-            
             $query->where('gender', $request['gender']);
         })
         ->when($request['dob'], function ($query) use($request){
@@ -217,8 +216,7 @@ class CaregiverController extends Controller
             });
         })
         ->with('demographic', 'caseManagement', 'demographic.services', 'patientReport', 'patientReport.labReports','patientRequest')->orderBy('id', 'DESC');
-            
-            
+
         $datatble = DataTables::of($patientList->get());
             $datatble->addColumn('checkbox_id', function($q) use($request) {
                 return '<div class="checkbox"><label><input class="innerallchk" onclick="chkmain();" type="checkbox" name="allchk[]" value="' . $q->id . '" /><span></span></label></div>';
@@ -243,10 +241,10 @@ class CaregiverController extends Controller
                     if ($q->demographic) {
                         $ssn_data = getSsn($q->demographic->ssn);
                     }
-                   
+
                     $ssn = "<span class='label'>".$ssn_data."</span>";
                     $ssn .= "<div class='ssn-text'><input class='ssn ssnedit form-control' type='text' name='ssn'  maxlength='11' value='".$ssn_data."'></div>";
-                    
+
                     return $ssn;
                 } else {
                     $ssn_data = '';
@@ -288,7 +286,7 @@ class CaregiverController extends Controller
                 $city_state = '';
                 if ($q->demographic) {
                     $city_state_json =  $q->demographic->address;
-                    
+
                     if ($city_state_json) {
                         if ($city_state_json['city']) {
                             $city_state .= $city_state_json['city'];
@@ -323,8 +321,8 @@ class CaregiverController extends Controller
                     }
                     return $btn;
                 });
-		}
-		   if (! Auth::user()->hasRole('supervisor')){
+            }
+		    if (! Auth::user()->hasRole('supervisor')){
                 $datatble->addColumn('action', function($row) use($request){
                     $btn = '';
                     if ($request['serviceStatus'] == 'occupational-health' || $request['serviceStatus'] == 'md-order' || $request['serviceStatus'] == 'vbc' || $request['serviceStatus'] == 'covid-19' || $request['serviceStatus'] == 'initial' || $request['serviceStatus'] == 'roadl-request') {
@@ -349,7 +347,7 @@ class CaregiverController extends Controller
                             $btn .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $row->id . '" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
                         } else {
                             $btn .= '<button type="button" onclick="onBroadCastOpen(' . $row->id . ')" class="btn w-600 d-table mr-auto ml-auto" style="width: inherit;font-size: 18px;height: 36px;padding-left: 10px;padding-right: 10px;text-transform: uppercase;"><img src="https://app.doralhealthconnect.com/assets/img/icons/Request_RoadL.svg" alt="RoadL Request" class="icon_90 selected"><span></span></button>';
-                                
+
                         }
                     }
                     return $btn;
@@ -358,7 +356,7 @@ class CaregiverController extends Controller
             $datatble->rawColumns(['full_name', 'ssn_data', 'city_state', 'action', 'checkbox_id', 'phone','status']);
             return $datatble->make(true);
     }
-    
+
     public function duePatientView()
     {
         return view('pages.patient_detail.due_patients');
@@ -367,10 +365,10 @@ class CaregiverController extends Controller
     public function getDuePatients()
     {
         $dateBetween['today'] =  date('Y-m-d');
-        
+
         $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth();
         $dateBetween['newDate'] = $date->format('Y-m-d');
-       
+
         $patientList = User::whereHas('roles',function ($q) {
             $q->where('name','=','patient');
         })->whereHas('patientLabReport',function ($q) use($dateBetween) {
@@ -378,7 +376,7 @@ class CaregiverController extends Controller
         })->whereHas('demographic', function($q) {
             $q->where('flag','1');
         })->with('demographic');
-      
+
         return DataTables::of($patientList->get())
             ->addIndexColumn()
             ->addColumn('full_name', function($q) {
@@ -447,7 +445,7 @@ class CaregiverController extends Controller
                 $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
                 $dateBetween['newDate'] = $date->format('Y-m-d');
                 $query->whereBetween('due_date',[$dateBetween['today'],$dateBetween['newDate']]);
-                
+
             })
             ->where('user_id', $request['due_user_id'])->with('user','user.demographic','labReportType');
 
@@ -465,9 +463,9 @@ class CaregiverController extends Controller
     public function getPatientRequestDetail(Request $request)
     {
         $user_id = Auth::user()->id;
-        
+
         $patientRequestList = PatientRequest::where('user_id', $request['patient_id'])->whereNotNull('parent_id')->with('detail','requestType');
-        
+
         $datatble = DataTables::of($patientRequestList->get())
             ->addIndexColumn()
             ->addColumn('clinician_name', function($row){
@@ -489,25 +487,25 @@ class CaregiverController extends Controller
             })
             ->addColumn('action', function($row) use($user_id){
                 $btn = '';
-              
+
                 if($row->clincial_id != '') {
                     if($row->clincial_id = $user_id) {
                         $btn .= '<a class="nav-link  d-flex align-items-center" id="clinical-tab" data-toggle="pill"
                         href="#clinical" role="tab" aria-controls="clinical" aria-selected="false">Upload Report</a>';
                         // $btn .= '<a class="upload-report" data-toggle="tooltip" data-placement="left" title="View Patient" data-original-title="View Patient Chart" id="' . $row->id . '">Upload Report</a>';
                     }
-                } 
-                
+                }
+
                return $btn;
             });
-          
+
             return $datatble->rawColumns(['status','action'])->make(true);
     }
 
     public function getDuePatientDetail($id)
     {
         $dateBetween['today'] =  date('Y-m-d');
-        
+
         $date = Carbon::createFromFormat('Y-m-d', $dateBetween['today'])->addMonth(2);
         $dateBetween['newDate'] = $date->format('Y-m-d');
 
@@ -540,29 +538,29 @@ class CaregiverController extends Controller
     public function downloadLabReport($id)
     {
         $patientReports = PatientReport::where('user_id', $id)->get();
-     
+
         $public_dir=public_path();
         $zipFileName = 'invoicezipfile-'.$id.'.zip';
-       
+
         $zip = new ZipArchive;
 
         if (!file_exists($public_dir.'/zip')) {
             mkdir($public_dir.'/zip', 0777, true);
         }
-        
+
         if ($zip->open($public_dir . '/zip' . '/' . $zipFileName, ZipArchive::CREATE) === TRUE) {
             foreach ($patientReports as $key => $patientReport) {
                 $invoice_file = $patientReport->file_name;
                 $zip->addFile($public_dir . '/patient_report/'.$invoice_file,$invoice_file);
             }
         }
-       
+
         // Set Header
         $headers = array(
             'Content-Type' => 'application/octet-stream',
         );
         $filetopath=$public_dir. '/zip' . '/'.$zipFileName;
-       
+
         // Create Download Response
         if(file_exists($filetopath)){
             return response()->download($filetopath,$zipFileName,$headers);
@@ -572,29 +570,43 @@ class CaregiverController extends Controller
 
     public function getUserData(Request $request)
     {
-        $data = [];
+        $input = $request->all();
+        $user = [];
         if($request->has('q')){
-            $search = $request->q;
             $status = '';
             if ($request->status === 'pending') {
-                $status = ['0'];
+                if ($request->view === 'clinician') {
+                    $status = ['0','3'];
+                } else {
+                    $status = ['0'];
+                }
             } else {
                 $status = ['1', '2', '3', '5'];
             }
-            $data = User::whereIn('status', $status)->select("id","first_name", 'last_name')
-                ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")->whereHas('roles',function ($q){
-                    $q->where('name','clinician');
-                })
-                ->get();
+
+            $user = User::with('designation')
+            ->whereHas('roles', function($q) {
+                $q->where('name','clinician');
+            })
+            ->whereIn('status', $status)
+            ->select("id","first_name", 'last_name')
+            ->when($input['field'] ,function ($query) use($input) {
+                $search = $input['q'];
+                if ($input['field'] === 'first_name') {
+                    $query->where('first_name','LIKE',"%$search%");
+                } else if ($input['field'] === 'last_name') {
+                    $query->where('last_name', 'LIKE', "%$search%");
+                }
+            })->get();
         }
-       
-        return response()->json($data);
+
+        return response()->json($user);
     }
 
     public function getCityData($state_code)
     {
         $city = City::select('id', 'city', 'state_code')->where('state_code', $state_code)->orderBy('city','ASC')->get();
-      
+
         if (count($city) > 0) {
             $arr = array("status" => 200, "msg" => "Success", "result" => $city);
         } else {
@@ -608,7 +620,7 @@ class CaregiverController extends Controller
         $input = $request->all();
         $city = City::select('id', 'city', 'state_code')->where([['city', '=',$city_name],['state_code', '=', $input['state_code']]])->orderBy('city','ASC')->get();
         $state =   $state = State::select('id','state','state_code')->where('state_code', $input['state_code'])->orderBy('state','ASC')->get();
-        
+
         if (count($city) > 0) {
             $arr = array("status" => 200, "msg" => "Success", "cities" => $city ,"states" => $state);
         } else {
@@ -616,13 +628,13 @@ class CaregiverController extends Controller
         }
         return \Response::json($arr);
     }
-    
+
     public function getStateData($state_code)
     {
         $state_code = explode("-",$state_code);
 
         $state = State::select('id','state','state_code')->where('state_code', $state_code[1])->orderBy('state','ASC')->get();
-        
+
         if (count($state) > 0) {
             $arr = array("status" => 200, "msg" => "Success", "result" => $state);
         } else {
@@ -638,23 +650,24 @@ class CaregiverController extends Controller
 
         if($request->has('q')){
             $search = $request->q;
-           
+
             $data =State::select('id','state','state_code')->where('state','LIKE',"%$search%")->get();
         }
-        
+
         return response()->json($data);
     }
-    
+
     public function getSelectCityData(Request $request)
     {
         $data = [];
 
         if($request->has('q')){
             $search = $request->q;
-            
+
             $data =City::select('id','city','state_code')->where('city','LIKE',"%$search%")->get();
         }
-        
+
         return response()->json($data);
     }
 }
+

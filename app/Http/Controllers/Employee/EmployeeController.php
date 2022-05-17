@@ -164,7 +164,7 @@ class EmployeeController extends Controller
             'first_name'=>'required',
             'last_name'=>'required',
             'email'=>'required|email|unique:users,email',
-            'phone'=>'required|unique:users,phone',
+            'phone'=>'required',
             'driving_license'=>'required',
             'dateofbirth'=>'required',
 		);

@@ -137,13 +137,7 @@ table.dataTable thead th, table.dataTable thead td{
                 }
             },
             columns:columnDaTa,
-            "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                console.log(aData);
-                    if (aData['level'] == '<p class="text-danger">Level 3</p>') {
-                        $('td', nRow).css({'border': '1px solid red', 'color': 'red'});
-                    }
-                
-            },
+            
             "pageLength": 50,
             "lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
             'columnDefs': [

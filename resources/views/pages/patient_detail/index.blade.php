@@ -693,7 +693,7 @@
                 var url = $(this).attr('data-url');
                 var action = $(this).attr('data-action');
                 var patientId = $(this).attr('data-id');
-                
+               
                 importAjaxCall(url,action,patientId);
             });
 
@@ -819,7 +819,7 @@
                 var t = $(this);
                
                 var action = t.attr('data-action');
-                alert(action)
+
                 if (action === 'add') {
                     var formdata = $(this).parents('.form_div').find('form').serializeArray();
                 } else if (action === 'edit') {
@@ -1122,7 +1122,7 @@
             $(document).on('click','#homecare-tab',function(event) {
                 var import_url = "{{ url('import-caregiver-from-hha') }}";
             	var action_import_url = 'check-caregiver-queue';
-            
+             
             	importAjaxCall(import_url,action_import_url,patient_id);
             });
 
@@ -1262,7 +1262,7 @@
             url:url,
             data:{
             "action":action,
-            "patient_id":patient_id
+            "patient_id":patientId
             },
             success: function(data) {
                 

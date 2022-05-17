@@ -51,7 +51,7 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
     Route::delete('lab-report/destroy', 'App\Http\Controllers\PatientLabReportController@destroy')->name('lab-report.destroy');
     Route::get('/employee-physical-examination-report-pdf/{id}','App\Http\Controllers\PatientReferralController@getEmployeePhysicalExaminationReport')->name('referral.get-employee-physical-examination-report');
 
-    Route::post('/insurance/store', 'App\Http\Controllers\InsuranceController@store')->name('insurance.store');
+ //   Route::post('/insurance/store', 'App\Http\Controllers\InsuranceController@store')->name('insurance.store');
     Route::post('/edit-insurance', 'App\Http\Controllers\InsuranceController@updateInsurance')->name('insurance.updateInsurance');
     Route::get('/calendar','\App\Http\Controllers\Clinician\PatientController@calendarAppoimentListData')->name('clinician.calendar');
 

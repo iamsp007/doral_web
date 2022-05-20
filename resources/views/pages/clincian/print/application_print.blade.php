@@ -52,7 +52,7 @@
                     <table style="width: 100%; border-bottom: 5px solid #000" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="text-center" style="width: 100px; vertical-align: middle; padding-bottom: 10px;">
-                                <img src="{{ asset('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px" />
+                                <img src="{{ public_path('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px" />
                             </td>        
                             <!-- <td style="text-align: left; vertical-align: middle; width: 180px;">
                                 <table>
@@ -499,7 +499,7 @@
                     <table style="width: 100%; border-bottom: 5px solid #000" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="text-center" style="width: 100px; vertical-align: middle; padding-bottom: 10px;">
-                                <img src="{{ asset('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
+                                <img src="{{ public_path('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
                             </td>     
                         </tr>
                     </table> 
@@ -1122,7 +1122,7 @@
                         <table style="width: 100%; border-bottom: 5px solid #000" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td class="text-center" style="width: 100px; vertical-align: middle; padding-bottom: 10px;">
-                                    <img src="{{ asset('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
+                                    <img src="{{ public_path('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
                                 </td>     
                             </tr>
                         </table> 

@@ -32,9 +32,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         //$schedule->command('send:dueReportNotification')->dailyAt('10:30');
 
-        $company = Company::where('id','9')->first();
-        $schedule->job(new PatientImport($company))->dailyAt('04:00');
-        $schedule->job(new CaregiverImport($company))->dailyAt('04:00');
+        // $company = Company::where('id','9')->first();
+        // $schedule->job(new PatientImport($company))->dailyAt('04:00');
+        // $schedule->job(new CaregiverImport($company))->dailyAt('04:00');
     }
 
     /**

@@ -333,6 +333,7 @@ class ClinicianController extends Controller
                 if($input['fileType'] === 'demograhics') {
                     $pdf = PDF::loadView('pages.clincian.print.application_print', $response);
                 }
+               
                 if($input['fileType'] === 'document') {
                     $pdf = PDF::loadView('pages.clincian.print.documents_print', $response);
                 }

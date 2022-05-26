@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-dialog-centered modal-md" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title">CDOC Info</h4>
+            <h4 class="modal-title">Device Info</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <form class="add_cdoc_form">
@@ -12,9 +12,9 @@
                 <div class="form-group">
                     <div class="row gutter">
                         <div class="col-12 col-sm-12">
-                            <label for="_title" class="label">CDOC Id</label>
+                            <label for="_title" class="label">Device Id</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-lg" id="user_id" name="user_id" aria-describedby="_serviceHelp" value="{{ ($userDevice) ? $userDevice->user_id : '' }}">
+                                <input type="text" class="form-control form-control-lg" id="user_id" name="user_id" aria-describedby="_serviceHelp">
                             </div>
                         </div>                       
                     </div>

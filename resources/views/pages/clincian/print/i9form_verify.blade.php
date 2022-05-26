@@ -329,7 +329,7 @@
                                        <td>
                                           <b>U.S. Social Security Number</b
                                           ><br /><span class="common-checkbox">@if (isset($users->address_detail['info']))
-                                                            {{ $users->address_detail['info'] ? getSsn($users->address_detail['info']['ssn']) : '' }}
+                                                            {{ isset($users->address_detail['info']['ssn']) ? getSsn($users->address_detail['info']['ssn']) : '' }}
                                                         @else
                                                             {{ ($users->ssn) ? getSsn($users->ssn) : ''}}
                                                         @endif</span>

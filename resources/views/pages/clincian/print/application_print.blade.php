@@ -52,7 +52,7 @@
                     <table style="width: 100%; border-bottom: 5px solid #000" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="text-center" style="width: 100px; vertical-align: middle; padding-bottom: 10px;">
-                                <img src="{{ public_path('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px" />
+                                <img src="{{ asset('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px" />
                             </td>        
                             <!-- <td style="text-align: left; vertical-align: middle; width: 180px;">
                                 <table>
@@ -465,7 +465,7 @@
                                                 <td>{{ $phoneData }}</td>
                                                 <td>
                                                     {{ isset($reference_detail['address1']) ? $reference_detail['address1'] : ''}},
-                                                    {{ isset($reference_detail) ? $reference_detail['address2']  : ''}},
+                                                    {{ isset($reference_detail['address2']) ? $reference_detail['address2']  : ''}},
                                                     {{ isset($reference_detail['building']) ? $reference_detail['building']  : ''}},
                                                     @if (isset($reference_detail['city_id']))
                                                         {{ \App\Models\City::find($reference_detail['city_id'])->city }},
@@ -499,7 +499,7 @@
                     <table style="width: 100%; border-bottom: 5px solid #000" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="text-center" style="width: 100px; vertical-align: middle; padding-bottom: 10px;">
-                                <img src="{{ public_path('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
+                                <img src="{{ asset('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
                             </td>     
                         </tr>
                     </table> 
@@ -507,7 +507,7 @@
                         <tr>
                             <td><b class="page-title">Education</b></td>
                         </tr>
-                        @if ($users->user->designation_id == '2')  
+                        @if ($users->user->designation_id == '2')
                             <tr>
                                 <td class="no-border pad-bottom-5">
                                     <h1>Education Details :</h1>
@@ -538,8 +538,8 @@
                                             @foreach ($users->education_detail as $education_detail)
                                             <tr>
                                                 <td>{{$counter}}</td>
-                                                <td>{{ $education_detail['name'] }},</td>
-                                                <td>{{ $education_detail['address1'] }}
+                                                <td>{{ isset($education_detail['name']) ? $education_detail['name'] : '' }},</td>
+                                                <td>{{ isset($education_detail['address1']) ? $education_detail['address1'] : ''}}
                                                     @if (isset($education_detail['address2']))
                                                         {{ $education_detail['address2'] }}
                                                     @endif  
@@ -595,9 +595,9 @@
                                             @foreach ($users->education_detail['medical'] as $education_detail)
                                             <tr>
                                                 <td>{{$counter}}</td>
-                                                <td>{{ $education_detail['medical_instituteName']}}</td>
+                                                <td>{{ isset($education_detail['medical_instituteName']) ? $education_detail['medical_instituteName'] : '' }}</td>
                                                 <td>
-                                                    {{ $education_detail['medical_address1'] }}
+                                                    {{ isset($education_detail['medical_address1']) ? $education_detail['medical_address1'] : '' }}
                                                     @if (isset($education_detail['medical_address2']))
                                                         {{ $education_detail['medical_address2'] }}
                                                     @endif  
@@ -650,9 +650,9 @@
                                             @foreach ($users->education_detail['residency'] as $education_detail)
                                             <tr>
                                                 <td>{{$counter}}</td>
-                                                <td>{{ $education_detail['residency_instituteName']}}</td>
+                                                <td>{{ isset($education_detail['residency_instituteName']) ? $education_detail['residency_instituteName'] : ''}}</td>
                                                 <td>
-                                                    {{ $education_detail['residency_address1'] }}
+                                                    {{ isset($education_detail['residency_address1']) ? $education_detail['residency_address1'] : ''}}
                                                     @if (isset($education_detail['residency_address2']))
                                                         {{ $education_detail['residency_address2'] }}
                                                     @endif  
@@ -706,10 +706,10 @@
                                             @foreach ($users->education_detail['fellowship'] as $education_detail)
                                             <tr>
                                                 <td>{{$counter}}</td>
-                                                <td>{{ $education_detail['fellowship_instituteName']}}</td>
-                                                <td>{{ $education_detail['fellowship_nameOfProgram']}}</td>
+                                                <td>{{ isset($education_detail['fellowship_instituteName']) ? $education_detail['fellowship_instituteName'] : '' }}</td>
+                                                <td>{{ isset($education_detail['fellowship_nameOfProgram']) ? $education_detail['fellowship_nameOfProgram'] : ''}}</td>
                                                 <td>
-                                                    {{ $education_detail['fellowship_address1'] }}
+                                                    {{ isset($education_detail['fellowship_address1']) ? $education_detail['fellowship_address1'] : '' }}
                                                     @if (isset($education_detail['fellowship_address2']))
                                                         {{ $education_detail['fellowship_address2'] }}
                                                     @endif  
@@ -740,10 +740,8 @@
                     </table>
                 </td>
             </tr>
-            <!-- Employment History -->
-            
-            <!-- Employment History End-->
-            @if ($users->user->designation_id == '2') 
+           
+            @if ($users->user->designation_id == '2')
                 <tr style="page-break-before: always !important;">
                     <td style="border: 0">
                         <table>
@@ -993,7 +991,7 @@
                                                     <td>{{ isset($workHistory['companyName']) ? $workHistory['companyName'] : '' }}</td>
                                                     <td>{{ $workHistory['position']}}</td>
                                                     <td>
-                                                        {{ $workHistory['address1'] }},
+                                                        {{ isset($workHistory['address1']) ? $workHistory['address1'] : '' }},
                                                         @if (isset($workHistory['address2']))
                                                             {{ $workHistory['address2'] }},
                                                         @endif
@@ -1006,9 +1004,9 @@
                                                         @endif
                                                         {{ isset($workHistory['zipCode']) ? $workHistory['zipCode'] : '' }}
                                                     </td>
-                                                    <td>{{ $workHistory['recordId']}}</td>
-                                                    <td>{{ $workHistory['startDate']}}</td>
-                                                    <td>{{ $workHistory['endDate']}}</td>
+                                                    <td>{{ isset($workHistory['recordId']) ? $workHistory['recordId'] : ''}}</td>
+                                                    <td>{{ isset($workHistory['startDate']) ? $workHistory['startDate'] : ''}}</td>
+                                                    <td>{{ isset($workHistory['endDate']) ? $workHistory['endDate'] : ''}}</td>
                                                     <td>{{ isset($workHistory['reason']) ? $workHistory['reason'] : '' }}</td>
                                                 </tr>
                                                 @php $counter++; @endphp
@@ -1044,7 +1042,7 @@
                                                     <td>
                                                         <b>How do you files your tax?</b>
                                                         @php
-                                                            $filesyourtax = isset($users->payroll_details['filesyourtax']) ? : '';
+                                                            $filesyourtax = isset($users->payroll_details['filesyourtax']) ? $users->payroll_details['filesyourtax'] : '';
                                                             $string = Str::of($filesyourtax)->words(15, ' ...');
                                                         @endphp
                                                         {{ $string}}
@@ -1116,13 +1114,13 @@
             <tr>
                 <td style="height: 10px"></td>
             </tr>
-            @if ($users->user->designation_id != '2') 
+            @if ($users->user->designation_id != '2')
                 <tr style="page-break-before: always !important;">
                     <td style="border: 0">
                         <table style="width: 100%; border-bottom: 5px solid #000" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td class="text-center" style="width: 100px; vertical-align: middle; padding-bottom: 10px;">
-                                    <img src="{{ public_path('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
+                                    <img src="{{ asset('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
                                 </td>     
                             </tr>
                         </table> 
@@ -1313,19 +1311,20 @@
                                                 @foreach ($users->professional_detail['boardCertificate'] as $boardCertificate)
                                                 <tr>
                                                     <td>{{ $counter }}
-                                                    <td>  {{ isset($boardCertificate['certificate']) ? $boardCertificate['certificate'] : '' }}
+                                                    <td>
+                                                        {{ isset($boardCertificate['certificate']) ? $boardCertificate['certificate'] : '' }}
                                                     </td>
                                                     <td>
-                                                     {{ isset($boardCertificate['nccpa_id']) ? $boardCertificate['nccpa_id'] : '' }}
+                                                        {{ isset($boardCertificate['nccpa_id']) ? $boardCertificate['nccpa_id'] : '' }}
                                                     </td>
                                                     <td>
-                                                          {{ isset($boardCertificate['nccpa_certificate_number']) ? $boardCertificate['nccpa_certificate_number'] : '' }}
+                                                        {{ isset($boardCertificate['nccpa_certificate_number']) ? $boardCertificate['nccpa_certificate_number'] : '' }}
                                                     </td>
                                                     <td>
-                                                    {{ isset($boardCertificate['isBoardCertified']) && $boardCertificate['isBoardCertified'] == 'true' ? 'Yes' : 'No' }}
+                                                        {{ isset($boardCertificate['isBoardCertified']) && $boardCertificate['isBoardCertified'] == 'true' ? 'Yes' : 'No' }}
                                                     </td>
                                                     <td>
-                                                    {{ isset($boardCertificate['isBoardEligible']) && $boardCertificate['isBoardEligible'] == 'true' ? 'Yes' : 'No' }}
+                                                        {{ isset($boardCertificate['isBoardEligible']) && $boardCertificate['isBoardEligible'] == 'true' ? 'Yes' : 'No' }}
                                                     </td>
                                                 </tr>
                                                 @php $counter++; @endphp
@@ -1338,40 +1337,40 @@
                                 </td>
                             </tr>
                             <tr>
-                              <td class="no-border pad-bottom-5">
-                                <h1>Federal DEA:</h1>
-                                 <table class="table-border">
-                                    <tr>
-                                       <td>
-                                          <b>Federal DEA Id :</b>
-                                          {{ isset($users->professional_detail) ? $users->professional_detail['federal_DEA_id'] : '' }}
-                                       </td>
-                                       <td>
-                                          <b>Expire Month/Year:</b>
-                                          {{ isset($users->professional_detail) ? $users->professional_detail['fedExpiredMonthYear'] : ''}}
-                                       </td>
-                                    </tr>
-                                 </table>
-                              </td>
-                           </tr>
+                                <td class="no-border pad-bottom-5">
+                                    <h1>Federal DEA:</h1>
+                                    <table class="table-border">
+                                        <tr>
+                                        <td>
+                                            <b>Federal DEA Id :</b>
+                                            {{ isset($users->professional_detail) ? $users->professional_detail['federal_DEA_id'] : '' }}
+                                        </td>
+                                        <td>
+                                            <b>Expire Month/Year:</b>
+                                            {{ isset($users->professional_detail) ? $users->professional_detail['fedExpiredMonthYear'] : ''}}
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
                             <tr>
                               <td class="no-border pad-bottom-5">
                               <h1>NPI:</h1>
                                  <table class="table-border">
                                     <tr>
-                                       <td>
-                                          <b>Npi Number:</b>
-                                          {{ isset($users->professional_detail) ? $users->professional_detail['npiNumber'] : ''}}
-                                       </td>
-                                       <td>
-                                          <b>Npi Type:</b>
-                                          {{ isset($users->professional_detail) ? $users->professional_detail['npiType'] : ''}}
-                                       </td>
+                                        <td>
+                                            <b>Npi Number:</b>
+                                            {{ isset($users->professional_detail) ? $users->professional_detail['npiNumber'] : ''}}
+                                        </td>
+                                        <td>
+                                            <b>Npi Type:</b>
+                                            {{ isset($users->professional_detail) ? $users->professional_detail['npiType'] : ''}}
+                                        </td>
                                         @if(isset($users->professional_detail['npiType']) && ($users->professional_detail['npiType'] == 'Individuan' || $users->professional_detail['npiType'] == 'Organisation'))
-                                       <td>
-                                          <b>Npi Organization Name:</b>
-                                          {{ $users->professional_detail['npiOrgName']}}
-                                       </td>
+                                            <td>
+                                                <b>Npi Organization Name:</b>
+                                                {{ isset($users->professional_detail['npiOrgName']) ? $users->professional_detail['npiOrgName'] : ''}}
+                                            </td>
                                        @endif
                                     </tr>
                                     <tr>
@@ -1398,7 +1397,7 @@
                                             @if (isset($users->professional_detail['npa_cityId']))
                                                 {{ \App\Models\City::find($users->professional_detail['npa_cityId'])->city }}
                                             @else
-                                                {{ $users->professional_detail['npa_city'] }}
+                                                {{ isset($users->professional_detail['npa_city']) ? $users->professional_detail['npa_city'] : '' }}
                                             @endif
                                        </td>
                                        <td>
@@ -1406,7 +1405,7 @@
                                         @if (isset($users->professional_detail['npa_stateId']))
                                             {{ \App\Models\State::find($users->professional_detail['npa_stateId'])->state }}
                                         @else
-                                            {{ $users->professional_detail['npa_state'] }}
+                                            {{ isset($users->professional_detail['npa_state']) ? $users->professional_detail['npa_state'] : '' }}
                                         @endif
                                        </td>
                                        <td>
@@ -1424,29 +1423,29 @@
                                     </tr>
                                  </table>
                               </td>
-                           </tr>
+                            </tr>
                            
                             <tr>
-                              <td class="no-border pad-bottom-5">
-                                <h1>CAQH:</h1>
-                                 <table class="table-border">
-                                    <tr>
-                                       <td>
-                                          <b>CAQH Id :</b>
-                                          {{ isset($users->professional_detail) ? $users->professional_detail['caqh_id'] : ''}}
-                                       </td>
-                                       <td>
-                                          <b>CAQH User:</b>
-                                          {{ isset($users->professional_detail) ? $users->professional_detail['caqh_user'] : ''}}
-                                       </td>
-                                       <td>
-                                          <b>CAQH Password:</b>
-                                          {{ isset($users->professional_detail) ? $users->professional_detail['caqh_password'] : ''}}
-                                       </td>
-                                    </tr>
-                                 </table>
-                              </td>
-                           </tr>
+                                <td class="no-border pad-bottom-5">
+                                    <h1>CAQH:</h1>
+                                    <table class="table-border">
+                                        <tr>
+                                        <td>
+                                            <b>CAQH Id :</b>
+                                            {{ isset($users->professional_detail) ? $users->professional_detail['caqh_id'] : ''}}
+                                        </td>
+                                        <td>
+                                            <b>CAQH User:</b>
+                                            {{ isset($users->professional_detail) ? $users->professional_detail['caqh_user'] : ''}}
+                                        </td>
+                                        <td>
+                                            <b>CAQH Password:</b>
+                                            {{ isset($users->professional_detail) ? $users->professional_detail['caqh_password'] : ''}}
+                                        </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
                         </table>
                     </td>
                 </tr>

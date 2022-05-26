@@ -330,10 +330,10 @@ class ClinicianController extends Controller
                     'employer_verify' => $employer_verify,
                 ];
 
+
                 if($input['fileType'] === 'demograhics') {
                     $pdf = PDF::loadView('pages.clincian.print.application_print', $response);
                 }
-               
                 if($input['fileType'] === 'document') {
                     $pdf = PDF::loadView('pages.clincian.print.documents_print', $response);
                 }
@@ -414,7 +414,7 @@ class ClinicianController extends Controller
     {
         //$services = new AdminService();
        // $response = $services->getClinicianDetail($id);
-          $response = User::with(['applicant.references', 'applicant.state', 'applicant.city', 'education.medicalInstituteState', 'education.medicalInstituteCity', 'education.residencyInstituteState', 'education.residencyInstituteCity', 'education.fellowshipInstituteState', 'education.fellowshipInstituteCity', 'professional.medicareState', 'professional.medicaidState', 'professional.ageRanges', 'professional.stateLicenses.licenseState', 'professional.boardCertificates', 'attestation', 'background.country', 'background.state', 'background.city', 'deposit.state', 'deposit.city', 'documents','designation','applicant'])->findOrFail($id);
+          $response = User::with(['applicant.references', 'applicant.state', 'applicant.city', 'education.medicalInstituteState', 'education.medicalInstituteCity', 'education.residencyInstituteState', 'education.residencyInstituteCity', 'education.fellowshipInstituteState', 'education.fellowshipInstituteCity', 'professional.medicareState', 'professional.medicaidState', 'professional.ageRanges', 'professional.stateLicenses.licenseState', 'professional.boardCertificates', 'attestation', 'deposit.state', 'deposit.city', 'documents','designation','applicant'])->findOrFail($id);
       	//dd($response->applicant);
         $data = [];
         //if ($response != null && $response->status === true) {
@@ -484,6 +484,7 @@ class ClinicianController extends Controller
                     $employer_verify = $data->applicant->employer_verify;
                 }
             }
+            //dd($reference_detail);
 	
             $scan_field = $scanId = $cat_id = $board = '';
             $today = date('Y-m-d');

@@ -41,8 +41,8 @@
                         <div class="app-broadcasting">
                             <div class="lside">
                                 <div>
-                                    <img src="{{ $value->patient_detail->avatar_image }}" class="user_photo" alt=""
-                                         srcset="{{ $value->patient_detail->avatar_image }}">
+                                     <img src="{{ isset($value->patient_detail) ? $value->patient_detail->avatar_image : '' }}" class="user_photo" alt=""
+                                         srcset="{{ isset($value->patient_detail) ? $value->patient_detail->avatar_image : '' }}">
                                 </div>
                                 <div class="content">
                                     <h1 class="_t11">

@@ -64,7 +64,7 @@ class IcdController extends Controller
                 return $btn;
             })
             ->addColumn('action', function($q) {
-                $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $q->patient_id . '" id="' . $q->id . '" data-original-title="CDOC Detail" class="btn btn-danger text-capitalize btn--sm cdoc_model" style="background: #006c76; color: #fff">Add CDOC</a></div>';
+                $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $q->patient_id . '" id="' . $q->id . '" data-original-title="CDOC Detail" class="btn btn-danger text-capitalize btn--sm cdoc_model" style="background: #006c76; color: #fff">Add Device</a></div>';
                 return $btn;               
             })
             ->rawColumns(['action', 'primary', 'device']);
@@ -205,7 +205,7 @@ class IcdController extends Controller
                     'diagnosis_id' =>  $input['diagnosis_id']
                 ]);
               
-                $arr = array("status" => 200, "message" => 'Cdoc Info added successfully', "resultdata" => $userDevice);
+                $arr = array("status" => 200, "message" => 'Device added successfully', "resultdata" => $userDevice);
                
             } catch (\Illuminate\Database\QueryException $ex) {
                 $message = $ex->getMessage();

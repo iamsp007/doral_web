@@ -162,9 +162,9 @@ class HHAExchangeController extends Controller
 //                 dump(count($data));
 //                dump('total data');
 //dd(env('DATABASE_SECOND_URL'));
-$users = DB::connection('mysql2')->table('category')->get();
+//$users = DB::connection('mysql2')->table('category')->get();
             //$dd = PhysicianUsers::get();
-            dd($users);
+            //dd($users);
             $arr = array('status' => 200, 'message' => 'Patient created successfully.', 'data' => []);
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();

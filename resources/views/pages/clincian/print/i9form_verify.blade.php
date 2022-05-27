@@ -324,12 +324,17 @@
                                        <td>
                                           <b>Date of Birthday</b>
                                           <em>(mm/dd/yyyy)</em><br />
-                                          <span class="common-checkbox">{{ $users->address_detail['info'] ? $users->address_detail['info']['dateOfBirth'] : '' }}</span>
+
+                                          <span class="common-checkbox">@if (isset($users->address_detail['info']))
+                                          {{ isset($users->address_detail['info']['dateOfBirth']) ? $users->address_detail['info']['dateOfBirth'] : '' }}@endif</span>
+
                                        </td>
                                        <td>
                                           <b>U.S. Social Security Number</b
                                           ><br /><span class="common-checkbox">@if (isset($users->address_detail['info']))
-                                                            {{ $users->address_detail['info'] ? getSsn($users->address_detail['info']['ssn']) : '' }}
+
+                                                            {{ isset($users->address_detail['info']['ssn']) ? getSsn($users->address_detail['info']['ssn']) : '' }}
+
                                                         @else
                                                             {{ ($users->ssn) ? getSsn($users->ssn) : ''}}
                                                         @endif</span>

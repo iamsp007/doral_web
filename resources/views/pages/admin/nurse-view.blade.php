@@ -1232,7 +1232,7 @@
                                                          <div>
                                                             <h3 class="_title">Name of Institute</h3>
                                                             <h1 class="_detail">
-                                                               {{ $medicalInstitute['medical_instituteName'] }}
+                                                               {{ isset($medicalInstitute['medical_instituteName']) ? $medicalInstitute['medical_instituteName'] : '' }}
                                                             </h1>
                                                          </div>
                                                       </div>

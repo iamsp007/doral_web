@@ -88,7 +88,9 @@
                         @if(!isset($value['menu']))
 
                             <li title="{{ $value['name'] }}" class="{{ \Request::is($value['route'])?'active':'' }}">
+
                                 <a href="{{ $value['url'] }}" @if($value['name'] === 'Credentialing') target="_blank" @endif>
+
                                     <div class="notify <?php if($value['name'] == 'RoadL Request') { echo 'd-90'; } ?>">
                                         <img src="{{ asset('assets/img/icons/'.$value['icon']) }}" alt="{{ $value['name'] }}" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> selected">
                                         <img src="{{ asset('assets/img/icons/'.$value['icon_hover']) }}" alt="" class="<?php if($value['name'] == 'RoadL Request') { echo 'icon_90'; }else { echo 'icon'; } ?> noselected">

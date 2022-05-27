@@ -41,7 +41,7 @@ class PhysicianUsers extends Model
         'ssn_last_four',
         'profession',
         'license_number',       
-        'npi_no',
+        'user_npi_no',
         'email',        
     ];
 }

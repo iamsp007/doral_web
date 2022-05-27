@@ -71,7 +71,9 @@
                     </ul>
                 </div>
                 <hr>
+
                 @if(count($documents) > 0)
+
                 <div class="form-group">
                     <label for="selectRole" class="label-custom"><span>Document:</label>
                     <a href="javascript:void(0)" id="print" data-file="document" data-id="{{$id}}" class="btn btn-primary btn-sm mr-2" data-name="{{ $file_name }}" style="float: right;">Print<i class="fa fa-spinner fa-spin loader" style="display:none;"></i></a>
@@ -81,7 +83,9 @@
                     @endforeach
                     </ul>
                 </div>
+
                 @endif
+
             </div>
         </div>
         <div class="modal-footer">

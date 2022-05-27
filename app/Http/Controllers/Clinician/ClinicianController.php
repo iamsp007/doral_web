@@ -330,6 +330,10 @@ class ClinicianController extends Controller
                     'employer_verify' => $employer_verify,
                 ];
 
+<<<<<<< HEAD
+                
+=======
+>>>>>>> 8475f48922cbf57d0eda502f9770fdbf1fcd3a30
 
                 if($input['fileType'] === 'demograhics') {
                     $pdf = PDF::loadView('pages.clincian.print.application_print', $response);
@@ -371,6 +375,7 @@ class ClinicianController extends Controller
     }
 
     public function i9form_verify($id)
+<<<<<<< HEAD
     {
         $users = Applicant::where('user_id', $id)->with('user', 'documents', 'user.designation')->first();
 
@@ -391,6 +396,28 @@ class ClinicianController extends Controller
 
             $applicant->save();
 
+=======
+    {
+        $users = Applicant::where('user_id', $id)->with('user', 'documents', 'user.designation')->first();
+
+        return view('pages.clincian.print.i9form_verify', compact('users'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        try {
+            $applicant = Applicant::where('user_id', $request->user_id)->first();
+            $applicant->employer_verify = $request->employer_verify;
+
+            $applicant->save();
+
+>>>>>>> 8475f48922cbf57d0eda502f9770fdbf1fcd3a30
             $arr = array('status' => 200, 'message' => 'form submited successfully.', 'data' => []);
         } catch (\Illuminate\Database\QueryException $ex) {
             $message = $ex->getMessage();
@@ -414,7 +441,11 @@ class ClinicianController extends Controller
     {
         //$services = new AdminService();
        // $response = $services->getClinicianDetail($id);
+<<<<<<< HEAD
+          $response = User::with(['applicant.references', 'applicant.state', 'applicant.city', 'education.medicalInstituteState', 'education.medicalInstituteCity', 'education.residencyInstituteState', 'education.residencyInstituteCity', 'education.fellowshipInstituteState', 'education.fellowshipInstituteCity', 'professional.medicareState', 'professional.medicaidState', 'professional.ageRanges', 'professional.stateLicenses.licenseState', 'professional.boardCertificates', 'attestation', 'background.country', 'background.state', 'background.city', 'deposit.state', 'deposit.city', 'documents','designation','applicant'])->findOrFail($id);
+=======
           $response = User::with(['applicant.references', 'applicant.state', 'applicant.city', 'education.medicalInstituteState', 'education.medicalInstituteCity', 'education.residencyInstituteState', 'education.residencyInstituteCity', 'education.fellowshipInstituteState', 'education.fellowshipInstituteCity', 'professional.medicareState', 'professional.medicaidState', 'professional.ageRanges', 'professional.stateLicenses.licenseState', 'professional.boardCertificates', 'attestation', 'deposit.state', 'deposit.city', 'documents','designation','applicant'])->findOrFail($id);
+>>>>>>> 8475f48922cbf57d0eda502f9770fdbf1fcd3a30
       	//dd($response->applicant);
         $data = [];
         //if ($response != null && $response->status === true) {
@@ -970,3 +1001,7 @@ class ClinicianController extends Controller
         return \Response::json($arr);
     }
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8475f48922cbf57d0eda502f9770fdbf1fcd3a30

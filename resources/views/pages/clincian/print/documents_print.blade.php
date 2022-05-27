@@ -179,121 +179,64 @@
                                 <img src="{{ public_path('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px" />
 
                             </td>        
-                            <!-- <td style="text-align: left; vertical-align: middle; width: 180px;">
-                                <table>
-                                    <tr>
-                                        <td style="width: 28px; text-align: left; vertical-align: middle;">
-                                            <img
-                                            src="./application/pdf-images/home.png"
-                                            style="width: 24px; height: 24px"
-                                        />
-                                        </td>
-                                        <td>
-                                            <h2 style="font-weight: normal; font-size: 11px;">
-                                            Address :
-                                            </h2>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td style="text-align: left; vertical-align: middle;">
-                                <table>
-                                    <tr>
-                                        <td style="width: 20px; text-align: left; vertical-align: middle;">
-                                            <img
-                                            src="./application/pdf-images/phone.png"
-                                            style="width: 18px; height: 18px"
-                                        />
-                                        </td>
-                                        <td style="width: 100px; text-align: left; vertical-align: middle; font-size: 11px;">
-                                           
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: left; vertical-align: middle;">
-                                            <img
-                                            src="./application/pdf-images/fax-machine.png"
-                                            style="width: 18px; height: 18px"
-                                        />
-                                        </td>
-                                        <td style="text-align: left; vertical-align: middle; font-size: 11px;">
-                                            
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td style="text-align: center; vertical-align: middle; width: 100%;">
-                                <table>
-                                    <tr>
-                                        <td style="text-align: center; vertical-align: middle; font-size: 12px;">
-                                            Home Health Aide &nbsp;&nbsp;•&nbsp;&nbsp; Personal Care Aide
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center; vertical-align: middle; font-size: 14px; font-weight: bold;">
-                                            Employee Personal Information
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td> -->
                         </tr>
                     </table>
                     <table>
                         <tr>
                             <td>
                                 <table>
-                                @php
-                                    $malpractice_Insurance = ($users->document_Information) ? $users->document_Information['malpractice_Insurance'] : '';
-                                    $ECFMG_Info = ($users->document_Information) ? $users->document_Information['ECFMG_Info'] : '';
-                                @endphp
-                                @if($malpractice_Insurance)
-                                    <tr>
-                                        <td><b class="page-title">Documentation Information</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="no-border pad-bottom-5">
-                                            <h1>Malpractice Insurance :</h1>
-                                            <table class="table-border">
-                                                <tr>
-                                                    <td>
-                                                        <b>Carrier Name: </b>
-                                                        @if($malpractice_Insurance['carrierName'] != 'Other')
-                                                            {{ isset($malpractice_Insurance['carrierName']) ? $malpractice_Insurance['carrierName'] : '' }}
-                                                        @else
-                                                            {{ isset($malpractice_Insurance['otherCarrierName']) ? $malpractice_Insurance['otherCarrierName'] : '' }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <b>Policy Number: </b>
-                                                        {{ $malpractice_Insurance['policy_number'] }}
-                                                    </td>
-                                                    <td>
-                                                        <b>Effective Date: </b>
-                                                        {{ $malpractice_Insurance['effectiveDate'] }}
-                                                    </td>
-                                                    <td>
-                                                        <b>Termination Date:</b>
-                                                        {{ $malpractice_Insurance['terminationDate'] }}
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                @endif
-                                @if($ECFMG_Info)
-                                    <tr>
-                                        <td class="no-border pad-bottom-5">
-                                            <h1>ECFMG Information :</h1>
-                                            <table class="table-border">
-                                                <tr>
-                                                    <td>
-                                                        <b>ECFMG Id: </b>
-                                                        {{ $ECFMG_Info['ECFMG_id'] }}
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
+                                    @php
+                                        $malpractice_Insurance = ($users->document_Information) ? $users->document_Information['malpractice_Insurance'] : '';
+                                        $ECFMG_Info = ($users->document_Information) ? $users->document_Information['ECFMG_Info'] : '';
+                                    @endphp
+                                    @if($malpractice_Insurance)
+                                        <tr>
+                                            <td><b class="page-title">Documentation Information</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="no-border pad-bottom-5">
+                                                <h1>Malpractice Insurance :</h1>
+                                                <table class="table-border">
+                                                    <tr>
+                                                        <td>
+                                                            <b>Carrier Name: </b>
+                                                            @if($malpractice_Insurance['carrierName'] != 'Other')
+                                                                {{ isset($malpractice_Insurance['carrierName']) ? $malpractice_Insurance['carrierName'] : '' }}
+                                                            @else
+                                                                {{ isset($malpractice_Insurance['otherCarrierName']) ? $malpractice_Insurance['otherCarrierName'] : '' }}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <b>Policy Number: </b>
+                                                            {{ $malpractice_Insurance['policy_number'] }}
+                                                        </td>
+                                                        <td>
+                                                            <b>Effective Date: </b>
+                                                            {{ $malpractice_Insurance['effectiveDate'] }}
+                                                        </td>
+                                                        <td>
+                                                            <b>Termination Date:</b>
+                                                            {{ $malpractice_Insurance['terminationDate'] }}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    @if($ECFMG_Info)
+                                        <tr>
+                                            <td class="no-border pad-bottom-5">
+                                                <h1>ECFMG Information :</h1>
+                                                <table class="table-border">
+                                                    <tr>
+                                                        <td>
+                                                            <b>ECFMG Id: </b>
+                                                            {{ $ECFMG_Info['ECFMG_id'] }}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
                                     @endif
                                 </table>
                             </td>
@@ -305,59 +248,54 @@
                 <td style="height: 10px"></td>
             </tr>
             <tr>
-            <td style="border: 0">
-                @php $i=1; @endphp
-                @foreach ($users->documents as $document)
-                    <table style="page-break-before: always !important;"
-                                style="width: 97%; border-bottom: 5px double #5fd7ff" 
-                                cellspacing="0"
-                                cellpadding="0"
-                                >
-                                <tr>
-                                    <td class="text-left" style="width: 100px; vertical-align: middle; padding-bottom: 10px;">
+                <td style="border: 0">
+                    @php $i=1; @endphp
+                    @foreach ($users->documents as $document)
+                        <table style="page-break-before: always !important;" style="width: 97%; border-bottom: 5px double #5fd7ff" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="text-left" style="width: 100px; vertical-align: middle; padding-bottom: 10px;">
 
-                                        <img src="{{ public_path('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
+                                    <img src="{{ public_path('assets/img/green_logo.jpg') }}" style="width: auto; height: 40px"/>
 
-                                    </td>        
-                                </tr>
-                            </table>
-                            <table>
-                                 <tr>
-                                    <td>
-                                       <b <?php if ($i ==1) { ?> style="border-top: 0px !important;" <?php } ?> class="page-title">{{$i}}. {{$document->type_name}}</b>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                        <td class="no-border pad-bottom-10">
-                                            <table>
-                                                   
-                                                 <tr>
-                                                    <td
-                                                       style="
-                                                          border: 0;
-                                                          padding: 10px;
-                                                          text-align: left;
-                                                          vertical-align: top;
-                                                          padding-bottom: 15px;
-                                                          border-bottom: 1px solid #000;
-                                                       "
-                                                    >
-                                                       <img
-                                                             src="{{ $document->file_url }}"
-                                                             style="display: block; width: 97%; height: 500px;"
-                                                          />
-                                                    </td>
-                                                    <br/>
-                                                 </tr>
-                                            </table>
-                                        </td>
-                                     </tr>
-                            </table>
+                                </td>        
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td>
+                                    <b <?php if ($i ==1) { ?> style="border-top: 0px !important;" <?php } ?> class="page-title">{{$i}}. {{$document->type_name}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-border pad-bottom-10">
+                                    @php
+                                        $opciones_ssl = [
+                                            "ssl" => [
+                                                "verify_peer" => false,
+                                                "verify_peer_name" => false,
+                                            ],
+                                        ];
+                                        $img_path = $document->file_url;
+                                        $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
+                                        $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
+                                        $img_base_64 = base64_encode($data);
+                                        $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
+                                    @endphp     
+                                    <table>
+                                        <tr>
+                                            <td style="border: 0;padding: 10px;text-align: left;vertical-align: top;padding-bottom: 15px;border-bottom: 1px solid #000;">
+                                                <img src="{{ $path_img }}" style="display: block; width: 97%; height: 500px;"/>
+                                            </td>
+                                            <br/>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
                         @php $i++; @endphp
                     @endforeach
-            </td>
-         </tr>
-        <!--Documents End-->
+                </td>
+            </tr>
         </table>
     </body>
 </html>

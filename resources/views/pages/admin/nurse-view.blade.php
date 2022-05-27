@@ -4231,7 +4231,7 @@
          if (value.site_info.sites_name === 'oig') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
-               {data: 'npi_no', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'user_npi_no', orderable: false, searchable: false,"className": "text-left"},
                {data: 'name', orderable: false, searchable: false,"className": "text-left"},
                {data: 'upin_no', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},

@@ -740,7 +740,7 @@ class ClinicianController extends Controller
         }
 
         if (isset($arr['oig'])) {
-            $oig = OfficeInspectorGeneral::whereIn('id',$arr['oig'])->select('id','created_at', 'npi_no','upin_no', 'status', 'screenshot')->get();
+            $oig = OfficeInspectorGeneral::whereIn('id',$arr['oig'])->select('id','created_at', 'user_npi_no','upin_no', 'status', 'screenshot')->get();
         }
 
         if (isset($arr['npdb'])) {

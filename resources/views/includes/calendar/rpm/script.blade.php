@@ -1,10 +1,5 @@
 @include('includes.calendar.head')
-<input type="hidden" name="today" id="today" value="{{ $today }}">
-<input type="hidden" id="patient_id" value="{{ $patient->id }}">
-<input type="hidden" id="first_name" value="{{ $patient->first_name }}">
-<input type="hidden" id="last_name" value="{{ $patient->last_name }}">
-
-<div id='calendar2'></div>
+<div id='calendar1'></div>
 <div class="modal fade fade2 dialogue" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -99,31 +94,16 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-   
+  <script src="{{asset('assets/js/jquery.min.js')}}" type="text/javascript"></script>
+
 <script>
-        var phpVar = <?php echo json_encode($userDeviceLogs); ?>;
-        var columnDaTa = [];
-        var today = $("#today").val();
-        var patient_id = $("#patient_id").val();
-        var first_name = $("#first_name").val();
-        var last_name = $("#last_name").val();
-        $.each(phpVar, function (key, value) {
-            columnDaTa.push(
-                {
-                    id: value['user_device']['device_type'],
-                    url: "{{url('ccm') }}?patient_id=" + value['user_device']['patient_id'] + "&&date=" + value['view_reading_date'] + "&&device_type=" + value['user_device']['device_type'],
-                    title: value['user_device']['device_result'] + '(' + value['value'] + ')',
-                    start: value['date_format']
-                },
-            );
-        });
-       
         document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar2');
+            var calendarEl = document.getElementById('calendar1');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 timeZone: 'IST',
+                defaultView: 'month',
                 initialView: 'timeGridDay',
-                height: '100%',
+                height: '1000px',
                 themeSystem: 'bootstrap4',
                 aspectRatio: 2,
                 windowResizeDelay: 100,
@@ -133,15 +113,17 @@
                     center: '',
                     right: 'dayGridMonth timeGridDay today prev,next'
                 },
-                initialDate: today,
+                initialDate: '2021-04-07',
                 expandRows: true,
-                navLinks: true,
+                navLinks: true, // can click day/week names to navigate views
                 selectable: true,
                 selectMirror: true,
                 selectHelper: true,
                 businessHours: false,
                 eventColor: '#008591',
-
+//                select: function (arg, start, end, allDay) {
+//                    $('.dialogue').modal('show');
+//                },
                 buttonText: {
                     today: 'Today',
                     month: 'Month',
@@ -150,21 +132,97 @@
                     list: 'List'
                 },
                 views: {
-                    dayGridMonth: {
+                    dayGridMonth: { // name of view
                         titleFormat: { year: 'numeric', month: 'short', day: 'numeric' }
+                        // other view-specific options here
                     },
+//                    timeGridFourDay: {
+//                        type: 'timeGrid',
+//                        duration: { days: 6 },
+//                        buttonText: '4 day'
+//                    }
                 },
-                eventRender: function (event, element) {
+                eventClick: function (arg, event, element) {
 
                 },
+                eventRender: function (event, element) {
+                },
                 eventDidMount: function (info) {
-                    // console.log(info.el.innerText)
+                    console.log(info.el.innerText)
                 },
                 editable: true,
-                dayMaxEvents: true,
-                events: 
-                    columnDaTa
-                    
+                dayMaxEvents: true, // allow "more" link when too many events
+                events: [
+                    {
+                        id: 'a',
+                        title: 'Blood Pressure',
+                        start: '2021-04-08'
+                    },
+                    {
+                        id: 'b',
+                        title: 'Blood Sugar',
+                        start: '2021-04-08'
+                    },{
+                        id: 'c',
+                        title: 'Plus Oxymeter',
+                        start: '2021-04-08'
+                    },{
+                        id: 'd',
+                        title: 'ECG',
+                        start: '2021-04-08'
+                    },
+//                    
+//                    {
+//                        title: 'Long Event',
+//                        start: '2021-02-07',
+//                        end: '2021-02-10'
+//                    },
+                    // {
+                    //     groupId: 1,
+                    //     title: 'Repeating Event',
+                    //     start: '2020-09-09T16:00:00'
+                    // },
+                    // {
+                    //     groupId: 1,
+                    //     title: 'Repeating Event',
+                    //     start: '2020-09-16T16:00:00'
+                    // },
+                    // {
+                    //     title: 'Conference',
+                    //     start: '2020-09-11',
+                    //     end: '2020-09-13'
+                    // },
+                    // {
+                    //     title: 'Meeting',
+                    //     start: '2020-09-12T10:30:00',
+                    //     end: '2020-09-12T12:30:00'
+                    // },
+                    // {
+                    //     title: 'Lunch',
+                    //     start: '2020-09-12T12:00:00'
+                    // },
+                    // {
+                    //     title: 'Meeting',
+                    //     start: '2020-09-12T14:30:00'
+                    // },
+                    // {
+                    //     title: 'Happy Hour',
+                    //     start: '2020-09-12T17:30:00'
+                    // },
+                    // {
+                    //     title: 'Dinner',
+                    //     start: '2020-09-12T20:00:00'
+                    // },
+                    // {
+                    //     title: 'Birthday Party',
+                    //     start: '2020-09-13T07:00:00'
+                    // },
+                    // {
+                    //     title: 'Click for Google',
+                    //     url: 'http://google.com/',
+                    //     start: '2020-09-28'
+                    // }
+                ]
             });
             calendar.render();
         });

@@ -65,6 +65,14 @@ class UserDevice extends Model
         return $statusData;
     }
 
+     /**
+     * Create full name with combine first name and last name
+     */
+    public function getViewDeviceIdAttribute()
+    {
+        return '<p>'. $this->user_id .'</p>';
+    }
+
     /**
      * Create full name with combine first name and last name
      */

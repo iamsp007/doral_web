@@ -14,7 +14,7 @@ use Yajra\DataTables\DataTables;
 class IcdController extends Controller
 {
 
-    public function getall(Request $request)
+    public function getAll(Request $request)
     {
         $patientList = Icd::where('patient_id',$request['patient_id'])->with('icdCode','patient','diagnosis')
         ->when($request['icdCode'], function ($query) use($request){
@@ -46,6 +46,13 @@ class IcdController extends Controller
             })
             ->addColumn('historical_date', function($q) {
                 return viewDateFormat($q->historical_date);
+            })
+            ->addColumn('device_id', function($q) {
+                $device = [];
+                foreach ($q->diagnosis as $key => $value) {
+                    $device[] = $value->user_id;
+                } 
+                return implode(" ",$device);
             })
             ->addColumn('device', function($q) {
                 $device = [];

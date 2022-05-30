@@ -15,6 +15,7 @@
                         <th>Desc</th>
                         <th>Date Of Diagnosis</th>
                         <th>Historical As Of</th>
+                        <th>Device Id</th>
                         <th>Device</th>
                         <th>Primary</th>
                         <th width="11%">Action</th>

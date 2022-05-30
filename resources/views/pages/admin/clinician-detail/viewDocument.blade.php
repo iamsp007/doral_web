@@ -16,21 +16,35 @@
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <a href="javascript:void(0)"class="btn btn-danger shadow-sm btn--sm mr-2" >CLOSE</a>
             </button>
-            @if($input['action'] === 'scanReport')
+            {{-- @if($input['action'] === 'scanReport')
                 <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{$input['user_id']}}" data-original-title="Accept" class="btn btn-primary btn-secondary shadow-sm btn--sm mr-2 update-status float-right" data-status="1" data-action="{{ $input['type_id'] }}" data-url="{{ route('clinician.update-scrap-status') }}">Verified</a>
                 <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{$input['user_id']}}" data-original-title="Approved" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="2" data-action="{{$input['type_id']}}" data-url="{{ route('clinician.update-scrap-status') }}">Approved</a>
                 <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{$input['user_id']}}" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3" data-action="{{$input['type_id']}}" data-url="{{ route('clinician.update-scrap-status') }}">REJECT</a>
-            @endif
+            @endif --}}
         </div>
         <div class="modal-body">
             <div class="pb-5">
-                <div class="scrollbar scrollbar9" id="view-lab-report-file">
+                <div class="scrollbar scrollbar9" style="height: 650px;width: 100%;" id="view-lab-report-file">
                     <div class="row">
                         @if($input['action'] === 'scanReport')
+                            @php
+                                $opciones_ssl = [
+                                    "ssl" => [
+                                        "verify_peer" => false,
+                                        "verify_peer_name" => false,
+                                    ],
+                                ];
+                                $img_path = $input['value'];
+                                $extencion = pathinfo($img_path, PATHINFO_EXTENSION);
+                                $data = file_get_contents($img_path, false, stream_context_create($opciones_ssl));
+                                $img_base_64 = base64_encode($data);
+                                $path_img = 'data:image/' . $extencion . ';base64,' . $img_base_64;
+                            @endphp
+                           
                             <div class="col-12 {{$innerClass}}">
                                 <div class="card shadow-sm">
                                     <div class="card-footer file-footer">
-                                       <a href="{{$input['value']}}" target="_blank" class="d-flex align-items-center text-success"><img onclick="openfancy();" src="{{$input['value']}}" alt="Document" srcset="{{$input['value']}}" class="img-fluid img-100"></a>
+                                       <a href="{{$path_img}}" target="_blank" class="d-flex align-items-center text-success"><img onclick="openfancy();" src="{{$path_img}}" alt="Document" srcset="{{$path_img}}" class="img-fluid img-100"></a>
                                     </div>
                                 </div>
                             </div>
@@ -56,5 +70,4 @@
         </div>
     </div>
 </div>
-
 

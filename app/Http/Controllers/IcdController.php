@@ -74,7 +74,7 @@ class IcdController extends Controller
                 $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-id="' . $q->patient_id . '" id="' . $q->id . '" data-original-title="CDOC Detail" class="btn btn-danger text-capitalize btn--sm cdoc_model" style="background: #006c76; color: #fff">Add Device</a></div>';
                 return $btn;               
             })
-            ->rawColumns(['action', 'primary', 'device']);
+            ->rawColumns(['action', 'primary', 'device','device_id']);
             return $datatble->make(true);
     }
 

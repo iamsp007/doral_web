@@ -50,7 +50,7 @@ class IcdController extends Controller
             ->addColumn('device_id', function($q) {
                 $device = [];
                 foreach ($q->diagnosis as $key => $value) {
-                    $device[] = $value->user_id;
+                    $device[] = $value->view_device_id;
                 } 
                 return implode(" ",$device);
             })

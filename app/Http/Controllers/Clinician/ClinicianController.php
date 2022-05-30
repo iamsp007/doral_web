@@ -674,11 +674,12 @@ class ClinicianController extends Controller
             })
             ->orderBy('id','DESC');
 
-             if ($input['currentMonth'] === 'current') {
-                 $data->take(1);
-             }
-            
-            $datatble = DataTables::of($data->get());
+            if ($input['currentMonth'] === 'current') {
+                $data->take(1);
+            }
+            $data->get();
+
+            $datatble = DataTables::of($data);
                 $datatble->addColumn('checkbox_id', function($q) use($input) {
                     return '<div class="checkbox"><label><input class="innerallchk1 innerallchk'.$input['sites_name'].'" onclick="chkmain('.$input['sites_name'].');" type="checkbox" name="allchk[]" value="' . $q->id . '" id="'.$input['sites_name'].'"/><span></span></label></div>';
                 });
@@ -690,9 +691,22 @@ class ClinicianController extends Controller
                         return $row->first_name . ' ' . $row->last_name;
                     });
                 }
+                $datatble->addColumn('frequency', function($row) use($input) {
+                    if ($input['sites_name'] === 'dea' || $input['sites_name'] === 'nys' || $input['sites_name'] === 'ama'|| $input['sites_name'] === 'npdb' || $input['sites_name'] === 'samgov' || $input['sites_name'] === 'abim' || $input['sites_name'] === 'abfm' || $input['sites_name'] === 'nursingworld' || $input['sites_name'] === 'nccpa' || $input['sites_name'] === 'aanp' || $input['sites_name'] === 'ecfmg' || $input['sites_name'] === 'everify') {
+                        return ($row->frequency == 1) ? 'Monthly':(($row->frequency == 2)?'Never Expire':'Upon Expiration');
+                    } else if ($input['sites_name'] === 'dea' || $input['sites_name'] === 'omig') {
+                        return 'Monthly';
+                    }
+                });    
+                if ($input['sites_name'] === 'abim' || $input['sites_name'] === 'abfm') {
+                    $datatble->addColumn('exp_date', function($row){
+                        return '';
+                    });
+                }
+                            
                 $datatble->addColumn('action', function($row) use($input) {
                     $actual_link = 'http://3.132.211.119/'.$row->screenshot;
-                    //$routeurl = 'http://3.132.211.119/user/run';
+                    
                     $btn = '<a class="nav-link active view_document" data-id="'.$row->id .'" data-type="Dea" href="javascript:void(0)" data-action="scanReport" data-value="' . $actual_link .'" data-field="">Print</a>';
 
                     //$btn .= '<button class="btn btn-primary SingleRun" type="button" data-id="' .  $input['category_id'] . '" data-scan="' .  $input['scanId'] . '" data-site="' .  $input['siteId'] . '"  data-url="' . $routeurl . '">Start</button>';
@@ -701,6 +715,21 @@ class ClinicianController extends Controller
                     
                     return $btn;
 
+                });
+                
+                $datatble->addColumn('status', function($row) use($data) {
+                    $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+                    $selected = '';
+                    if ($row->verification_status ==  1) {
+                        $selected = 'Selected';
+                    } elseif ($row->verification_status ==  2) {
+                        $selected = 'Selected';
+                    }
+                    $btn = '<select onchange="approvment('.$row->id.','.$data->id.',this,'.$domain.'/approvment)">';
+                    $btn .= '<option value="0">Pending</option><option value="1" '. $selected .'>Approve</option><option value="2" '. $selected .'>Unapprove</option>';
+                    $btn .= '</select>';
+
+                    return $btn;
                 });
                 $datatble->rawColumns(['checkbox_id', 'action']);
                 return $datatble->make(true);

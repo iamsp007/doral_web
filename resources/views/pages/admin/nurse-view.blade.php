@@ -3839,10 +3839,12 @@
                                           <tr>
                                              <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="dea" /><span class="checkbtn"></span></label></div></th>
                                             <th scope="col">Date</th>
+                                            <th scope="col">Frequency Type</th>
                                             <th scope="col">Dea Number</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Business Activity</th>
                                             <th scope="col">Action</th>
+                                            <th scope="col">Status</th>
                                           </tr>
                                        </thead>
                                        <tbody id="table-dea">
@@ -3861,10 +3863,12 @@
                                        <thead>
                                           <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="omig"/><span class="checkbtn"></span></label></div></th>
                                           <th scope="col">Date</th>
+                                          <th scope="col">Frequency Type</th>
                                           <th scope="col">Provider Name</th>
                                           <th scope="col">License Number</th>
                                           <th scope="col">NPI Number</th>
                                           <th scope="col">Screenshot</th>
+                                          <th scope="col">Status</th>
                                        </thead>
                                        <tbody id="table-omig">
                                        </tbody>
@@ -3882,10 +3886,12 @@
                                        <thead>
                                           <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="oig"/><span class="checkbtn"></span></label></div></th>
                                           <th>Date</th>
+                                          <th>Frequency Type</th>
                                           <th>NPI Number</th>
                                           <th>Name</th>
                                           <th>UPIN Number</th>
                                           <th>Action</th>
+                                          <th>Status</th>
                                        </thead>
                                        <tbody id="table-oig">
                                        </tbody>
@@ -3903,7 +3909,9 @@
                                        <thead>
                                           <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="npdb"/><span class="checkbtn"></span></label></div></th>
                                           <th>Date</th>
+                                          <th>Frequency Type</th>
                                           <th>Screenshot</th>
+                                          <th>Status</th>
                                        </thead>
                                        <tbody id="table-npdb">
                                        </tbody>
@@ -3921,7 +3929,9 @@
                                        <thead>
                                           <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="samgov"/><span class="checkbtn"></span></label></div></th>
                                           <th>Date</th>
+                                          <th>Frequency Type</th>
                                           <th>Screenshot</th>
+                                          <th>Status</th>
                                        </thead>
                                        <tbody id="table-samgov">
                                        </tbody>
@@ -3939,10 +3949,12 @@
                                        <thead>
                                           <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="nys"/><span class="checkbtn"></span></label></div></th>
                                           <th>Date</th>
+                                          <th>Frequency Type</th>
                                           <th>Name</th>
                                           <th>Address</th>
                                           <th>Profession</th>
                                           <th>Action</th>
+                                          <th>Status</th>
                                        </thead>
                                        <tbody id="table-nys">
                                        </tbody>
@@ -3962,10 +3974,13 @@
                                           <thead>
                                              <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="abim"/><span class="checkbtn"></span></label></div></th>
                                              <th>Date</th>
+                                             <th>Frequency Type</th>
+                                             <th>Exp Date</th>
                                              <th>ABIM Id</th>
                                              <th>Certification Status</th>
                                              <th>Initial Certi</th>
                                              <th>Screenshot</th>
+                                             <th>Status</th>
                                           </thead>
                                           <tbody id="table-abim">
                                           </tbody>
@@ -3985,10 +4000,13 @@
                                           <thead>
                                              <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="abfm" /><span class="checkbtn"></span></label></div></th>
                                              <th>Date</th>
+                                             <th>Frequency Type</th>
+                                             <th>Exp Date</th>
                                              <th>Certification</th>
                                              <th>Certification Status</th>
                                              <th>Certification History</th>
                                              <th>Screenshot</th>
+                                             <th>Status</th>
                                           </thead>
                                           <tbody id="table-abfm">
                                           </tbody>
@@ -4006,13 +4024,15 @@
                                        <table id="everify" class="table" style="width: 100%;">
                                           <thead>
                                              <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="everify" /><span class="checkbtn"></span></label></div></th>
-                                             <th>Verification Number</th>
+                                             <th>Date</th>
+                                             <th>Frequency Type</th>
+                                             <th>Verification Number</th>                                             
                                              <th>Case status</th>
                                              <th>Submitted By</th>
                                              <th>Current case result</th>
                                              <th>Reason for Closure</th>
-                                             <th>Date</th>
                                              <th>Screenshot</th>
+                                             <th>Status</th>
                                           </thead>
                                           <tbody id="table-everify">
                                           </tbody>
@@ -4030,12 +4050,14 @@
                                           <thead>
                                              <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="ecfmg" /><span class="checkbtn"></span></label></div></th>
                                              <th>Date</th>
+                                             <th>Frequency Type</th>
                                              <th>Requester</th>
                                              <th>Usmle Id</th>
                                              <th>Applicant Name</th>
                                              <th>Request Status</th>
                                              <th>Created At</th>
                                              <th>Screenshot</th>
+                                             <th>Status</th>
                                           </thead>
                                           <tbody id="table-ecfmg">
                                           </tbody>
@@ -4055,8 +4077,10 @@
                                        <thead>
                                           <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="nccpa" /><span class="checkbtn"></span></label></div></th>
                                           <th>Date</th>
+                                          <th>Frequency Type</th>
                                           <th>NCCPA Detail</th>
                                           <th>Screenshot</th>
+                                          <th>Status</th>
                                        </thead>
                                        <tbody id="table-nccpa">
                                        </tbody>
@@ -4075,10 +4099,12 @@
                                        <table id="aanp" class="table" style="width: 100%;">
                                           <thead>
                                              <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="aanp" /><span class="checkbtn"></span></label></div></th>
+                                             <th>Date</th>
+                                             <th>Frequency Type</th>
                                              <th>Order Details</th>
                                              <th>Pdf</th>
-                                             <th>Date</th>
                                              <th>Screenshot</th>
+                                             <th>Status</th>
                                           </thead>
                                           <tbody id="table-aanp">
                                           </tbody>
@@ -4095,10 +4121,13 @@
                                        <table id="nursingWorld" class="table" style="width: 100%;">
                                           <thead>
                                              <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="nursingWorld" /><span class="checkbtn"></span></label></div></th>
-                                             <th>Order Number</th>
                                              <th>Date</th>
+                                             <th>Frequency Type</th>
+                                             <th>Exp Date</th>
+                                             <th>Order Number</th>
                                              <th>Screenshot</th>
                                              <th>PDF File</th>
+                                             <th>Status</th>
                                           </thead>
                                           <tbody id="table-nursingWorld">
                                           </tbody>
@@ -4117,9 +4146,11 @@
                                     <table id="ama" class="table" style="width: 100%;">
                                        <thead>
                                           <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="ama" /><span class="checkbtn"></span></label></div></th>
-                                          <th>Order Number</th>
                                           <th>Date</th>
+                                          <th>Frequency Type</th>
+                                          <th>Order Number</th>
                                           <th>Screenshot</th>
+                                          <th>Status</th>
                                        </thead>
                                        <tbody id="table-ama">
                                        </tbody>
@@ -4211,54 +4242,66 @@
          if (value.site_info.sites_name === 'dea') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'dea_no', orderable: false, searchable: false,"className": "text-left"},
                {data: 'name', orderable: false, searchable: false,"className": "text-left"},
                {data: 'business_activity', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'omig') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'provider_name', orderable: false, searchable: false,"className": "text-left"},
                {data: 'license_number', orderable: false, searchable: false,"className": "text-left"},
                {data: 'npi_number', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'oig') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'user_npi_no', orderable: false, searchable: false,"className": "text-left"},
                {data: 'name', orderable: false, searchable: false,"className": "text-left"},
                {data: 'upin_no', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'npdb') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'samgov') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'nys') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'name', orderable: false, searchable: false,"className": "text-left"},
                {data: 'address', orderable: false, searchable: false,"className": "text-left"},
                {data: 'profession', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
@@ -4267,10 +4310,13 @@
             if (value.site_info.sites_name === 'abim') {
                columnDaTa.push(
                   {data:'created_at',"className": "text-center","bSortable": false},
+                  {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'exp_date', orderable: false, searchable: false,"className": "text-left"},
                   {data: 'abim_id', orderable: false, searchable: false,"className": "text-left"},
                   {data: 'certification_status', orderable: false, searchable: false,"className": "text-left"},
                   {data: 'initial_certi', orderable: false, searchable: false,"className": "text-left"},
                   {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'status', orderable: false, searchable: false,"className": "text-left"},
                );
             }
          }
@@ -4278,68 +4324,84 @@
          if (board === 'abfm'){
             if (value.site_info.sites_name === 'abfm') {
                columnDaTa.push(
-                     {data:'created_at',"className": "text-center","bSortable": false},
-                     {data: 'certification', orderable: false, searchable: false,"className": "text-left"},
-                     {data: 'cert_status', orderable: false, searchable: false,"className": "text-left"},
-                     {data: 'cert_history', orderable: false, searchable: false,"className": "text-left"},
-                     {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+                  {data:'created_at',"className": "text-center","bSortable": false},
+                  {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'exp_date', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'certification', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'cert_status', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'cert_history', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+                  {data: 'status', orderable: false, searchable: false,"className": "text-left"},
                );
             }
          }
 
          if (value.site_info.sites_name === 'everify') {
             columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'verification_num', orderable: false, searchable: false,"className": "text-left"},
                {data: 'case_status', orderable: false, searchable: false,"className": "text-left"},
                {data: 'submitted_by', orderable: false, searchable: false,"className": "text-left"},
                {data: 'case_result', orderable: false, searchable: false,"className": "text-left"},
                {data: 'clouser', orderable: false, searchable: false,"className": "text-left"},
-               {data:'created_at',"className": "text-center","bSortable": false},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'ecfmg') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'requester', orderable: false, searchable: false,"className": "text-left"},
                {data: 'usmle_id', orderable: false, searchable: false,"className": "text-left"},
                {data: 'applicant_name', orderable: false, searchable: false,"className": "text-left"},
                {data: 'request_status', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'nccpa') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'nccpa_detail', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'aanp') {
             columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'order_num', orderable: false, searchable: false,"className": "text-left"},
                {data: 'pdf', orderable: false, searchable: false,"className": "text-left"},
-               {data:'created_at',"className": "text-center","bSortable": false},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'ama') {
             columnDaTa.push(
                {data: 'order_id', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data:'created_at',"className": "text-center","bSortable": false},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 
          if (value.site_info.sites_name === 'nursingworld') {
             columnDaTa.push(
-               {data: 'order_id', orderable: false, searchable: false,"className": "text-left"},
                {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'exp_date', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'order_id', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
          }
 

@@ -127,30 +127,11 @@
                     </span>
                 </p>
                 <div class="box">
-                    @php
-                        $phoneData = '';
-                        if(isset($employer_detail['phoneNo'])):
-                            $phoneData = "+".substr($employer_detail['phoneNo'], 0, 1)." ". "(".substr($employer_detail['phoneNo'], 1, 3).") ".substr($employer_detail['phoneNo'], 4, 3)."-".substr($employer_detail['phoneNo'],7);
-                        endif;
-                    @endphp
-                    <p><b>Name of Company:</b><span>{{ $employer_detail['companyName']}}</span></p> 
-                    <p><b>Phone:</b><span>{{ $phoneData }}</span> <b> Fax: </b><span></span></p> 
+                    <p><b>Name of Company:</b><span></span></p> 
+                    <p><b>Phone:</b><span></span> <b> Fax: </b><span></span></p> 
                     <p>
                         <b>Address:</b>
-                        <span>
-                            {{ $employer_detail['address1'] }},
-                            @if (isset($employer_detail['address2']))
-                                {{ $employer_detail['address2'] }},
-                            @endif
-                            {{ isset($employer_detail['building']) ? $employer_detail['building'] : '' }},
-                            @if (isset($employer_detail['city_id']))
-                                {{ \App\Models\City::find($employer_detail['city_id'])->city }},
-                            @endif
-                            @if (isset($employer_detail['state_id']))
-                                {{ \App\Models\State::find($employer_detail['state_id'])->state }},
-                            @endif
-                            {{ isset($employer_detail['zipcode']) ? $employer_detail['zipcode'] : '' }}
-                        </span>
+                        <span></span>
                     </p> 
                 </div>
                 <p><b>Applicant's Authorization Release:</b>  I hereby authorize the release of any information requested by Pella Care concerning my employement in your company.</p>

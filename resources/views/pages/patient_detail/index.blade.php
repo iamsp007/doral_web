@@ -650,6 +650,7 @@
                 {data: 'date'},
                 {data: 'historical_date'},
                 {data: 'device'},
+                {data: 'device_id'},
                 {data: 'primary'},
                 {data: 'action'},
             ],

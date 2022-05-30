@@ -569,17 +569,17 @@ class ClinicianController extends Controller
         if ($input['scan_field'] === 'PhysicianUsers') {
             $where = [
                 'physician_user_id' => $input['scanId'],
-                //'cron_status' => '1',
+                'cron_status' => '1',
             ];
         } else if ($input['scan_field'] === 'NursePractitionerUsers') {
             $where = [
                 'nurse_prac_user_id' => $input['scanId'],
-                //'cron_status' => '1',
+                'cron_status' => '1',
             ];
         } else if ($input['scan_field'] === 'PhysicianAssistantUsers') {
             $where = [
                 'phy_assi_user_id' => $input['scanId'],
-                //'cron_status' => '1',
+                'cron_status' => '1',
             ];
         }
 
@@ -676,10 +676,9 @@ class ClinicianController extends Controller
 
             if ($input['currentMonth'] === 'current') {
                 $data->take(1);
-            }
-            $data->get();
+            }           
 
-            $datatble = DataTables::of($data);
+            $datatble = DataTables::of($data->get());
                 $datatble->addColumn('checkbox_id', function($q) use($input) {
                     return '<div class="checkbox"><label><input class="innerallchk1 innerallchk'.$input['sites_name'].'" onclick="chkmain('.$input['sites_name'].');" type="checkbox" name="allchk[]" value="' . $q->id . '" id="'.$input['sites_name'].'"/><span></span></label></div>';
                 });
@@ -717,7 +716,7 @@ class ClinicianController extends Controller
 
                 });
                 
-                $datatble->addColumn('status', function($row) use($data) {
+                $datatble->addColumn('status', function($row) {
                     $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
                     $selected = '';
                     if ($row->verification_status ==  1) {
@@ -725,13 +724,13 @@ class ClinicianController extends Controller
                     } elseif ($row->verification_status ==  2) {
                         $selected = 'Selected';
                     }
-                    $btn = '<select onchange="approvment('.$row->id.','.$data->id.',this,'.$domain.'/approvment)">';
+                    $btn = '<select onchange="approvment('.$row->id.','.$row->id.',this,'.$domain.'/approvment)">';
                     $btn .= '<option value="0">Pending</option><option value="1" '. $selected .'>Approve</option><option value="2" '. $selected .'>Unapprove</option>';
                     $btn .= '</select>';
 
                     return $btn;
                 });
-                $datatble->rawColumns(['checkbox_id', 'action']);
+                $datatble->rawColumns(['checkbox_id', 'action', 'status']);
                 return $datatble->make(true);
     }
 

@@ -98,6 +98,9 @@
    @endif
 
 @endforeach
+@php
+$domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+@endphp
 
 @section('content')
    <section class="details">
@@ -4169,6 +4172,7 @@
          <input type="hidden" name="category_id" id="category_id" value="{{ $cat_id }}">
          <input type="hidden" name="scan_field" id="scan_field" value="{{ $scan_field }}">
          <input type="hidden" name="board" id="board" value="{{ $board }}">
+         <input type="hidden" id="domain" value="{{ $domain }}">
 
       </section>
    </section>
@@ -4439,7 +4443,7 @@
             "lengthMenu": [ [5,10, 20, 50, 100, -1], [5,10, 20, 50, 100, "All"] ],
             'columnDefs': [
                {
-                  "order": [ 1, "desc"],
+                 "order": [ 1, "desc"],
                }
             ],
          });
@@ -4490,6 +4494,49 @@
             }
          });
       });
+      
+        function approvment(id, site, prop,urls='approvment') {
+         let cat_id = ($('#category_id').val())?$('#category_id').val():$(prop).data('cid');
+         let user_id = ($('#user_id').val())?$('#user_id').val():$(prop).data('uid');
+         alert(cat_id);
+         alert(user_id);
+         if (confirm("Are you sure you want to change report?")) {
+            let status = $(prop).val();
+            $.ajax({
+                  type: 'POST',
+                  headers: {
+                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                  },
+                  url: urls,
+                  data: {
+                     id: id,
+                     status: status,
+                     site: site,
+                     user_id:user_id,
+                     cat_id:cat_id
+                  },
+                  success: function (response) {
+                     response = JSON.parse(response);
+                     
+                     console.log(response[0].message);
+                     if(response[0].data){
+                        $('.selection_status').prop('disabled',false);
+                        $("#hire_button").switchClass("btn-secondary", "btn-success"); 
+                     }
+                     else{                    
+                        $('.selection_status').prop('disabled',true);
+                        $("#hire_button").switchClass("btn-success", "btn-secondary"); 
+                     }
+                     open_model_message('Site Verification Status',response[0].message);
+                     $('#exclusion_table').DataTable().ajax.reload();
+                  }
+            });
+         }
+         else {
+
+            return false;
+         }
+      }
 
       function chkmain(type) {
          var ch = $(".innerallchk"+type).prop("checked");
@@ -4805,4 +4852,3 @@
       }
       </script>
 @endpush'
-

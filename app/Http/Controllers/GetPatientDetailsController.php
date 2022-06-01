@@ -136,9 +136,29 @@ class GetPatientDetailsController extends Controller
         $userDeviceLogs = UserDeviceLog::with('userDevice')->whereHas('userDevice',function ($q) use($paient_id) {
             $q->where('patient_id', $paient_id);
         })
-        ->select('*', DB::raw('MAX(id) as id, DATE(created_at) as date'))
-        ->groupBy('id','date')
+        ->select('*', DB::raw('DATE(created_at) as date'))
+        ->WhereIn('user_device_logs.id',DB::table('user_device_logs AS udl')
+            ->join('user_devices','user_devices.id','=','udl.user_device_id' )->where(
+                'user_devices.patient_id',$paient_id
+            )
+            ->groupBy('udl.user_device_id', 'udl.created_at')
+            ->orderBy('udl.id','DESC')->pluck(DB::raw('MAX(udl.id) AS id') )
+        )
         ->get()->toArray();
+        
+        /*
+        $userDeviceLogs = UserDeviceLog::with('userDevice')->whereHas('userDevice',function ($q) use($paient_id) {
+            $q->where('patient_id', $paient_id);
+        })
+        ->select('*', DB::raw('DATE(created_at) as date'))
+        ->WhereIn( 'user_device_logs.id',UserDeviceLog::select('id')->where(
+                'user_device_id',$paient_id
+            )
+            ->groupBy('user_device_id', 'created_at')
+            ->orderBy(`id`,'DESC')->get()->toArray()
+        )
+        ->get()->toArray();
+        */
         
       
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs','today', 'caseManagements','family_detail','physician_detail','pharmacy_detail','caregiver'));

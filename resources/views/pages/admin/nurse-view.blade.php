@@ -4163,6 +4163,66 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                            </div>
                         </div>
                      @endif
+                     <div class="row mt-3">
+                        <div class="col-12 col-sm-12">
+                           <div class="_card mt-3">
+                              <div class="_card_header"><div class="title-head">OPT Out Search</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="12">Start</button></div>
+                              <div class="_card_body">
+                                 <table id="OptOutSrch" class="table" style="width: 100%;">
+                                    <thead>
+                                       <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="OptOutSrch" /><span class="checkbtn"></span></label></div></th>
+                                          <th>Date</th>
+                                          <th>Frequency Type</th>
+                                          <th>Screenshot</th>
+                                          <th>Status</th>
+                                    </thead>
+                                    <tbody id="table-OptOutSrch">
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row mt-3">
+                        <div class="col-12 col-sm-12">
+                           <div class="_card mt-3">
+                              <div class="_card_header"><div class="title-head">Professional Misconduct</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="12">Start</button></div>
+                              <div class="_card_body">
+                                 <table id="prof_misc" class="table" style="width: 100%;">
+                                    <thead>
+                                       <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="prof_misc" /><span class="checkbtn"></span></label></div></th>
+                                          <th>Date</th>
+                                          <th>Frequency Type</th>
+                                          <th>Screenshot</th>
+                                          <th>Status</th>
+                                    </thead>
+                                    <tbody id="table-prof_misc">
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row mt-3">
+                        <div class="col-12 col-sm-12">
+                           <div class="_card mt-3">
+                              <div class="_card_header"><div class="title-head">Professional Misconduct</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="12">Start</button></div>
+                              <div class="_card_body">
+                                 <table id="ofac_search" class="table" style="width: 100%;">
+                                    <thead>
+                                       <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="ofac_search" /><span class="checkbtn"></span></label></div></th>
+                                          <th>Date</th>
+                                          <th>Frequency Type</th>
+                                          <th>Screenshot</th>
+                                          <th>Status</th>
+                                    </thead>
+                                    <tbody id="table-ofac_search">
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>
@@ -4179,28 +4239,27 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
 @endsection
 
 @section('modal')
-<div class="modal fade bd-example-modal-xl" id="MyPopupImage" tabindex="-1" role="dialog"
-            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog modal-xl">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <b>NCCPA Screenshot</b>
-                        <button type="button" class="close" data-dismiss="modal">
-                            &times;</button>
-                        <h4 class="modal-title">
-                        </h4>
-                    </div>
-                    <div class="modal-body" id="imageShow">
+   <div class="modal fade bd-example-modal-xl" id="MyPopupImage" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog modal-xl">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <b>NCCPA Screenshot</b>
+                  <button type="button" class="close" data-dismiss="modal">
+                        &times;</button>
+                  <h4 class="modal-title">
+                  </h4>
+               </div>
+               <div class="modal-body" id="imageShow">
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
-                            Close</button>
-                    </div>
-                </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        Close</button>
+               </div>
             </div>
-        </div>
+      </div>
+   </div>
 @endsection
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
@@ -4325,7 +4384,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
             }
          }
 
-         if (board === 'abfm'){
+         if (board === 'abfm'){  
             if (value.site_info.sites_name === 'abfm') {
                columnDaTa.push(
                   {data:'created_at',"className": "text-center","bSortable": false},
@@ -4404,6 +4463,33 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'exp_date', orderable: false, searchable: false,"className": "text-left"},
                {data: 'order_id', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'OptOutSrch') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'prof_misc') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'action', orderable: false, searchable: false,"className": "text-left"},
+               {data: 'status', orderable: false, searchable: false,"className": "text-left"},
+            );
+         }
+
+         if (value.site_info.sites_name === 'ofac_search') {
+            columnDaTa.push(
+               {data:'created_at',"className": "text-center","bSortable": false},
+               {data: 'frequency', orderable: false, searchable: false,"className": "text-left"},
                {data: 'action', orderable: false, searchable: false,"className": "text-left"},
                {data: 'status', orderable: false, searchable: false,"className": "text-left"},
             );
@@ -4495,48 +4581,11 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
          });
       });
       
-        function approvment(id, site, prop,urls='approvment') {
-         let cat_id = ($('#category_id').val())?$('#category_id').val():$(prop).data('cid');
-         let user_id = ($('#user_id').val())?$('#user_id').val():$(prop).data('uid');
-         alert(cat_id);
-         alert(user_id);
-         if (confirm("Are you sure you want to change report?")) {
-            let status = $(prop).val();
-            $.ajax({
-                  type: 'POST',
-                  headers: {
-                     'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                  },
-                  url: urls,
-                  data: {
-                     id: id,
-                     status: status,
-                     site: site,
-                     user_id:user_id,
-                     cat_id:cat_id
-                  },
-                  success: function (response) {
-                     response = JSON.parse(response);
-                     
-                     console.log(response[0].message);
-                     if(response[0].data){
-                        $('.selection_status').prop('disabled',false);
-                        $("#hire_button").switchClass("btn-secondary", "btn-success"); 
-                     }
-                     else{                    
-                        $('.selection_status').prop('disabled',true);
-                        $("#hire_button").switchClass("btn-success", "btn-secondary"); 
-                     }
-                     open_model_message('Site Verification Status',response[0].message);
-                     $('#exclusion_table').DataTable().ajax.reload();
-                  }
-            });
-         }
-         else {
-
-            return false;
-         }
-      }
+      
+      $('body').on('click', '.approvment_ss', function () {
+         var id = $(this).attr('data-id');
+         alert(id);
+      });
 
       function chkmain(type) {
          var ch = $(".innerallchk"+type).prop("checked");

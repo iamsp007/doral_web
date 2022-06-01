@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\LabReportType;
 use App\Models\PatientLabReport;
 use App\Models\UserDeviceLog;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
@@ -157,14 +159,15 @@ class PatientController extends Controller
     public function appointments(Request $request)
     {
         try {
-            $payload = $request->all();
-            $response = $this->adminServices->appointments($payload);
-            if ($response->status===true){
-                return response()->json($response,200);
+            if (!$request->date) {
+                throw new Exception("Invalid parameter passed");
             }
-            return response()->json($response,422);
-        }catch (\Exception $exception){
-            return response()->json(['status'=>false,'message'=>$exception->getMessage(),'data'=>null],422);
+            $response = Appointment::getAppointments($request);
+            return $this->generateResponse($response['status'], $response['message'], $response['data']);
+        } catch (\Exception $e) {
+            $status = false;
+            $message = $e->getMessage();
+            return $this->generateResponse($status, $message, null);
         }
     }
 }

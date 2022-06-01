@@ -106,7 +106,7 @@ class PatientController extends Controller
             $high = UserDeviceLog::where('level',3)->with('userDevice','userDevice.user')->whereHas('userDevice')
                 ->WhereIn('user_device_logs.id',DB::table('user_device_logs AS udl')
                     ->join('user_devices','user_devices.id','=','udl.user_device_id' )                   
-                    ->groupBy('patient_id')
+                    ->groupBy('patient_id','device_type','udl.level')
                     ->orderBy('udl.id','DESC')->pluck(DB::raw('MAX(udl.id) AS id'))
                 )
                 ->get();
@@ -122,7 +122,7 @@ class PatientController extends Controller
                 ->with('userDevice','userDevice.user')->whereHas('userDevice')
                 ->WhereIn('user_device_logs.id',DB::table('user_device_logs AS udl')
                     ->join('user_devices','user_devices.id','=','udl.user_device_id' )                   
-                    ->groupBy('patient_id','udl.level')
+                    ->groupBy('patient_id','device_type','udl.level')
                     ->orderBy('udl.id','DESC')->pluck(DB::raw('MAX(udl.id) AS id'))
                 )
                 ->get();

@@ -2,8 +2,11 @@
     $mainclass = "modal-large";
     $innerClass = "col-sm-2 mt-4";
     if(isset($input['type_id'])):
-        if($input['type_id'] === '46' || $input['type_id'] === '47' || $input['type_id'] === '48' || $input['action'] === 'scanReport'):
+        if($input['type_id'] === '46' || $input['type_id'] === '47' || $input['type_id'] === '48'):
             $mainclass = "modal-lg";
+            $innerClass = "col-sm-12 mt-12";
+        elseif($input['action'] === 'scanReport')
+            $mainclass = "modal-xl";
             $innerClass = "col-sm-12 mt-12";
         endif;
     endif;
@@ -24,7 +27,7 @@
         </div>
         <div class="modal-body">
             <div class="pb-5">
-                <div class="scrollbar scrollbar9" style="height: 650px;width: 100%;" id="view-lab-report-file">
+                <div class="scrollbar scrollbar9" style="height: 1000px;width: 100%;" id="view-lab-report-file">
                     <div class="row">
                         @if($input['action'] === 'scanReport')
                             @php

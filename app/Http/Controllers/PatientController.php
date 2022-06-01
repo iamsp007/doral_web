@@ -8,6 +8,7 @@ use Yajra\DataTables\DataTables;
 use App\Models\LabReportType;
 use App\Models\PatientLabReport;
 use App\Models\UserDeviceLog;
+use Illuminate\Support\Facades\DB;
 
 class PatientController extends Controller
 {
@@ -100,16 +101,57 @@ class PatientController extends Controller
 
     public function ccmReadingLevelHigh()
     {
-        try {
-            $response = $this->adminServices->ccmReadingLevelHigh();
-           
-            if ($response->status===true){
-                return response()->json($response,200);
+         try {
+            $hignData = [];
+            $high = UserDeviceLog::where('level',3)->with('userDevice','userDevice.user')->whereHas('userDevice')
+                ->WhereIn('user_device_logs.id',DB::table('user_device_logs AS udl')
+                    ->join('user_devices','user_devices.id','=','udl.user_device_id' )                   
+                    ->groupBy('patient_id')
+                    ->orderBy('udl.id','DESC')->pluck(DB::raw('MAX(udl.id) AS id'))
+                )
+                ->get();
+              
+            if ($high) {
+                foreach ($high as $key => $value) {                
+                    $hignData[$value->userDevice->device_type][] = $value;
+                }
             }
-            return response()->json($response,422);
-        }catch (\Exception $exception){
-            return response()->json(['status'=>false,'message'=>$exception->getMessage(),'data'=>null],422);
+
+            $lowMidiumData = [];
+            $low_midium = UserDeviceLog::whereIn('level',['1','2'])->take(10)
+                ->with('userDevice','userDevice.user')->whereHas('userDevice')
+                ->WhereIn('user_device_logs.id',DB::table('user_device_logs AS udl')
+                    ->join('user_devices','user_devices.id','=','udl.user_device_id' )                   
+                    ->groupBy('patient_id','udl.level')
+                    ->orderBy('udl.id','DESC')->pluck(DB::raw('MAX(udl.id) AS id'))
+                )
+                ->get();
+
+            if ($low_midium) {
+                foreach ($low_midium as $key => $value1) {                 
+                    $lowMidiumData[$value1->userDevice->device_type][] = $value1;
+                }
+            }
+		
+            $data = [
+                'high' => $hignData,
+                'low_midium' => $lowMidiumData
+            ];
+
+            return $this->generateResponse(true, 'CCM Readings!', $data, 200);
+        } catch (\Exception $ex) {
+            return $this->generateResponse(false, $ex->getMessage(), null, 200);
         }
+    }
+    
+    public function generateResponse($status = false, $message = NULL,  $data = array(), $statusCode = 200, $error = array(), $url = '')
+    {
+        $response["status"] = $status;
+        $response["code"] = $statusCode;
+        $response["message"] = $message;
+        $response["data"] = $data;
+
+        return response()->json($response, $statusCode);
     }
 
     public function appointments(Request $request)

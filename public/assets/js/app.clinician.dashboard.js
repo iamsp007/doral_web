@@ -131,6 +131,7 @@ $(document).ready(function(){
         method:'GET',
         dataType:'json',
         success:function (response) {
+            //console.log(response.data);
             $("#loader-wrapper").hide();
             if (typeof response.data['high'][1] !== undefined || response.data['low_midium'][1] !== undefined) {
                 bloodPressure(response.data['high'][1], 'bloodPressure', response.data['low_midium'][1], 'bloodPressuredailyupdate', 'Blood Pressure');
@@ -196,6 +197,7 @@ function bloodPressure(high_level, selector1,low_midium_level, selector2, label)
         }
     }
     if (typeof low_midium_level !== undefined) {
+        console.log(low_midium_level);
         html = '';
         html += '<div>' +
             '<div class="form-group"><div class="row"><div class="col-6 col-sm-6 col-md-6"><h1 class="reports-title">'+label+'</h1></div><div class="col-6 col-sm-6 col-md-6"><div class="d-flex"><a href="'+user_device_url+'" class="bulk-upload-btn float-right">View All</a></div></div></div></div>' +

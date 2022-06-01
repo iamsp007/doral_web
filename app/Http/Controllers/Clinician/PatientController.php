@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\Category;
 use App\Models\CovidForm;
 use App\Models\DiesesMaster;
@@ -12,8 +13,10 @@ use App\Models\SymptomsMaster;
 use App\Models\Test;
 use App\Models\User;
 use App\Services\ClinicianService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Nexmo\Laravel\Facade\Nexmo;
 use Mail;
@@ -273,12 +276,26 @@ class PatientController extends Controller
 
    public function scheduleAppoimentListData(Request $request){
 
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->scheduleAppoimentListData($request->all());
-        if ($response->status===true){
-            return response()->json($response,200);
-        }
-        return response()->json($response,422);
+         // patient referral pending status patient list
+         $requestData = $request->all();
+         $appointmentList = Appointment::with(['bookedDetails' => function ($q) {
+                     $q->select('first_name', 'last_name', 'id');
+                 }])
+             ->with(['meeting','service','filetype','roadl'])
+             ->with(['patients' => function ($q) use($requestData) {
+                 $q->where(DB::raw('concat(first_name," ",last_name)'), 'like', '%'.$requestData['searchTerm'].'%');
+             }])
+ 
+             ->with(['provider1Details' => function ($q) {
+                 $q->select('first_name', 'last_name', 'id');
+             }])
+             ->with(['provider2Details' => function ($q) {
+                 $q->select('first_name', 'last_name', 'id');
+             }])
+             ->whereDate('start_datetime','>=',Carbon::now()->format('Y-m-d'))
+             ->orderBy('start_datetime','asc')
+             ->get()->toArray();
+         return $this->generateResponse(true,'get schedule patient list',$appointmentList,200);
     }
 
  public function cancelAppoimentListData(Request $request) {

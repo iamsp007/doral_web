@@ -126,12 +126,15 @@ class ClinicianService
         }
     }
 
-    public function scheduleAppoimentList($data){
+    public function scheduleAppoimentListData($data){
         try {
 
             $response = $this->client->request(
-                'GET',
-                '/get-schedule-appoiment-list'
+                'POST',
+                '/get-schedule-appoiment-list-data',
+                [
+                    'json'=>$data
+                ]
             );
 
 
@@ -142,6 +145,7 @@ class ClinicianService
             return $exception->getMessage();
         }
     }
+
 
     public function cancelAppoimentList($data){
         try {

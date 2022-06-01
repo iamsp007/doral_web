@@ -16,7 +16,6 @@ use App\Services\ClinicianService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Nexmo\Laravel\Facade\Nexmo;
 use Mail;
@@ -152,14 +151,21 @@ class PatientController extends Controller
 
     public function scheduleAppoimentList(Request $request){
 
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->scheduleAppoimentList($request->all());
-        $data=[];
-        if ($response->status===true){
-            $data=$response->data;
-        }
+        $appointmentList = Appointment::with(['bookedDetails' => function ($q) {
+                $q->select('first_name', 'last_name', 'id');
+            }])
+            ->with(['patients','meeting','service','filetype','roadl'])
+            ->with(['provider1Details' => function ($q) {
+                $q->select('first_name', 'last_name', 'id');
+            }])
+            ->with(['provider2Details' => function ($q) {
+                $q->select('first_name', 'last_name', 'id');
+            }])
+            ->whereDate('start_datetime','>=',Carbon::now()->format('Y-m-d'))
+            ->orderBy('start_datetime','asc')
+            ->get()->toArray();
 
-        return  DataTables::of($data)
+        return  DataTables::of($appointmentList)
             ->addColumn('is_provider1', function ($user) {
                 return Auth::user()->id===$user->provider1;
             })->editColumn('patients.dob', function ($user){
@@ -276,26 +282,12 @@ class PatientController extends Controller
 
    public function scheduleAppoimentListData(Request $request){
 
-         // patient referral pending status patient list
-         $requestData = $request->all();
-         $appointmentList = Appointment::with(['bookedDetails' => function ($q) {
-                     $q->select('first_name', 'last_name', 'id');
-                 }])
-             ->with(['meeting','service','filetype','roadl'])
-             ->with(['patients' => function ($q) use($requestData) {
-                 $q->where(DB::raw('concat(first_name," ",last_name)'), 'like', '%'.$requestData['searchTerm'].'%');
-             }])
- 
-             ->with(['provider1Details' => function ($q) {
-                 $q->select('first_name', 'last_name', 'id');
-             }])
-             ->with(['provider2Details' => function ($q) {
-                 $q->select('first_name', 'last_name', 'id');
-             }])
-             ->whereDate('start_datetime','>=',Carbon::now()->format('Y-m-d'))
-             ->orderBy('start_datetime','asc')
-             ->get()->toArray();
-         return $this->generateResponse(true,'get schedule patient list',$appointmentList,200);
+        $clinicianService = new ClinicianService();
+        $response = $clinicianService->scheduleAppoimentListData($request->all());
+        if ($response->status===true){
+            return response()->json($response,200);
+        }
+        return response()->json($response,422);
     }
 
  public function cancelAppoimentListData(Request $request) {

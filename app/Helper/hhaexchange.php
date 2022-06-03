@@ -43,14 +43,9 @@ if (!function_exists('curlCall')) {
      */
     if (!function_exists('searchVisits')) {
         
-        function searchVisits()
+        function searchVisits($input)
         {
-            $appName = "COTT_1031";
-            $appKey = "MQAyADEAMAA0ADIALQAwADcAQQAxADcAMQBFAEEANQA5AEQANQAzAEYAOAA3ADIARgA2ADEANAA3AEMAOAAyADIAMQA5AEYANQA=";
-            $appSecretKey = "e2bc8653-4f0c-49b7-a161-a6578cdff11f";
-            $patientID = '<PatientID>14680984</PatientID>';
-            $caregiverID = '<CaregiverID>3028555</CaregiverID>';
-            $data = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration"><Authentication><AppName>COTT_1031</AppName><AppSecret>e2bc8653-4f0c-49b7-a161-a6578cdff11f</AppSecret><AppKey>MQAyADEAMAA0ADIALQAwADcAQQAxADcAMQBFAEEANQA5AEQANQAzAEYAOAA3ADIARgA2ADEANAA3AEMAOAAyADIAMQA5AEYANQA=</AppKey></Authentication><SearchFilters><StartDate>2022-03-20</StartDate><EndDate>2022-03-20</EndDate><PatientID>14680984</PatientID><CaregiverID>3028555</CaregiverID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+            $data = '<?xml version="1.0" encoding="UTF-8"?><SOAP-ENV:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SearchVisits xmlns="https://www.hhaexchange.com/apis/hhaws.integration">' . authentication(). '<SearchFilters><StartDate>' . $input['from_date'] .'</StartDate><EndDate>' . $input['to_date'] .'</EndDate><PatientID>' . $input['patientId'] .'</PatientID><CaregiverID></CaregiverID></SearchFilters></SearchVisits></SOAP-ENV:Body></SOAP-ENV:Envelope>';
 
             $method = 'POST';
             return curlCall($data, $method);
@@ -299,9 +294,12 @@ if (!function_exists('curlCall')) {
                 $appSecret = $input['AppSecret'];
                 $appKey = $input['AppKey'];
             } else {
-                $appName = config('patientDetailAuthentication.AppName');
-                $appSecret = config('patientDetailAuthentication.AppSecret');
-                $appKey = config('patientDetailAuthentication.AppKey');
+                // $appName = config('patientDetailAuthentication.AppName');
+                // $appSecret = config('patientDetailAuthentication.AppSecret');
+                // $appKey = config('patientDetailAuthentication.AppKey');
+                $appName = 'HCHS257';
+                $appSecret = '99473456-2939-459c-a5e7-f2ab47a5db2f';
+                $appKey = 'MQAwADcAMwAxADMALQAzADEAQwBDADIAQQA4ADUAOQA3AEEARgBDAEYAMwA1AEIARQA0ADQANQAyAEEANQBFADIAQgBDADEAOAA=';
             }
 
             return '<Authentication><AppName>' . $appName . '</AppName><AppSecret>' . $appSecret . '</AppSecret><AppKey>' . $appKey. '</AppKey></Authentication>';

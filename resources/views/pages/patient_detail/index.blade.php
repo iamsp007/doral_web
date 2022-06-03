@@ -689,8 +689,9 @@
                 var url = $(this).attr('data-url');
                 var action = $(this).attr('data-action');
                 var patientId = $(this).attr('data-id');
-               
-                importAjaxCall(url,action,patientId);
+                var type = $(this).attr('data-type');
+                
+                importAjaxCall(url,action,patientId, type);
             });
 
             $(document).on('click','.patient-detail-lab-report',function(event) {
@@ -1118,8 +1119,8 @@
             $(document).on('click','#homecare-tab',function(event) {
                 var import_url = "{{ url('import-caregiver-from-hha') }}";
             	var action_import_url = 'check-caregiver-queue';
-             
-            	importAjaxCall(import_url,action_import_url,patient_id);
+                var type = "on-tab-click";
+            	importAjaxCall(import_url,action_import_url,patient_id,type);
             });
 
         $(document).on('click', '.remove-tr', function(){ 
@@ -1189,7 +1190,7 @@
             });
         }
     
-        var html = '<tr><form class="physician_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="physician"><input type="hidden" name="patient_id" value="'+patient_id+'"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['fax'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="fax" aria-describedby="faxHelp" placeholder="Enter fax" value="' + data.resultdata.detail['fax'] + '"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="' + data.resultdata.detail['address'] + '"></div><span class="address-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['npi'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="' + data.resultdata.detail['npi'] + '"></div><span class="npi-invalid-feedback text-danger" role="alert"></span></td><td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="primary" data-id="' + data.resultdata.id + '" data-action="physician-checked" data-field="primary" data-url="' + url + '" data-patientId="'+patient_id+'"';
+        var html = '<tr><form class="physician_form"><input type="hidden" name="care_team_id" value="' + data.resultdata.id + '"><input type="hidden" name="section" value="physician"><input type="hidden" name="patient_id" value="'+patient_id+'"><td><span class="label">' + data.resultdata.detail['name'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="name" aria-describedby="nameHelp" placeholder="Enter physician Name" value="' + data.resultdata.detail['name'] + '"><span class="name-invalid-feedback text-danger" role="alert"></span></div></td><td><span class="label">' + data.resultdata.detail['phone'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg phone_format" name="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" value="' + data.resultdata.detail['phone'] + '" maxlength="14"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['fax'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" name="fax" aria-describedby="faxHelp" placeholder="Enter fax" value="' + data.resultdata.detail['fax'] + '"></div><span class="phone-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['npi'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="npi" name="npi" aria-describedby="npiHelp" placeholder="Enter npi" value="' + data.resultdata.detail['npi'] + '"></div><span class="npi-invalid-feedback text-danger" role="alert"></span></td><td><span class="label">' + data.resultdata.detail['address'] + '</span><div class="phone-text"><input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="' + data.resultdata.detail['address'] + '"></div><span class="address-invalid-feedback text-danger" role="alert"></span></td><td class="ms-lastCell"><span class="label"><label><input class="careteam_check" type="checkbox" name="primary" data-id="' + data.resultdata.id + '" data-action="physician-checked" data-field="primary" data-url="' + url + '" data-patientId="'+patient_id+'"';
         if (data.resultdata.detail['primary'] === 'on') {
             html+= 'checked';
         }
@@ -1203,8 +1204,6 @@
     }
 
     function pharmacyAppend(data) {
-        var url = "{{ Route('care-team.store') }}";
-       
         var url = "{{ Route('care-team.store') }}";
         if (data.resultdata.detail['active'] === 'on') { 	
         	$('.pharmacy-list-order').find('.ms-lastCell').each(function() {
@@ -1250,15 +1249,16 @@
         });
     }
 
-    function importAjaxCall(url,action,patientId) {
+    function importAjaxCall(url,action,patientId, type) {
     	
         $("#loader-wrapper").show();
         $.ajax({
             type:"GET",
             url:url,
             data:{
-            "action":action,
-            "patient_id":patientId
+                "action":action,
+                "patient_id":patientId,
+                "type": type
             },
             success: function(data) {
                 
@@ -1273,10 +1273,14 @@
                             // });
                         }
                     }
-                    alertText(data.message,'success');
+                    if (type == 'on-button-click') {
+                        alertText(data.message,'success');
+                    }
                 
                 } else {
-                    alertText(data.message,'error');
+                    if (type == 'on-button-click') {
+                        alertText(data.message,'error');
+                    }
                 }
                 $("#loader-wrapper").hide();
             },

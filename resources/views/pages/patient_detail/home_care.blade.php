@@ -122,7 +122,7 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Caregiver Details</h1>
-                     <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="check-caregiver-queue" data-id="{{$patient->id}}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Check Current Caregiver</a>
+                     <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="check-caregiver-queue" data-type="on-button-click" data-id="{{$patient->id}}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Check Current Caregiver</a>
                   </div>
                   <div class="card-body text-info">
                      <table class="table m-0 ">
@@ -441,13 +441,12 @@
                                           </div>
                                           <span class="npi-invalid-feedback text-danger" role="alert"></span>
                                        </td>
-                                       <td class="ms-lastCell">
-                                          <span class='label'>
-                                             <label>
-                                                <input class="careteam_check" type="checkbox" name="primary" data-id="{{ $physician->id }}" data-action="physician-checked" data-field="primary" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($physician['detail']['primary']) === 'on' ? 'checked' : '' }}>
-                                                <span style="font-size:12px; padding-left: 25px;"></span>
-                                             </label>
-                                          </span>
+                                       <td>
+                                          <span class='label'>{{ $physician['detail']['address'] }}</span>
+                                          <div class='phone-text'>
+                                             <input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="{{ $physician['detail']['address'] }}">
+                                          </div>
+                                          <span class="address-invalid-feedback text-danger" role="alert"></span>
                                        </td>
                                        <td>
                                           <span class='label'>
@@ -457,12 +456,13 @@
                                              </label>
                                           </span>
                                        </td>
-                                       <td>
-                                          <span class='label'>{{ $physician['detail']['address'] }}</span>
-                                          <div class='phone-text'>
-                                             <input type="text" class="form-control form-control-lg" id="address" name="address" aria-describedby="addressHelp" placeholder="Enter address" value="{{ $physician['detail']['address'] }}">
-                                          </div>
-                                          <span class="address-invalid-feedback text-danger" role="alert"></span>
+                                       <td class="ms-lastCell">
+                                          <span class='label'>
+                                             <label>
+                                                <input class="careteam_check" type="checkbox" name="primary" data-id="{{ $physician->id }}" data-action="physician-checked" data-field="primary" data-url="{{ Route('care-team.store') }}" data-patientId="{{ $patient->id }}" {{ ($physician['detail']['primary']) === 'on' ? 'checked' : '' }}>
+                                                <span style="font-size:12px; padding-left: 25px;"></span>
+                                             </label>
+                                          </span>
                                        </td>
                                        <td>
                                           <div class="normal">

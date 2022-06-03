@@ -30,7 +30,7 @@ class PatientImportController extends Controller
             if(Auth::guard('referral')) {
                 $company = Auth::guard('referral')->user();
             }
-            
+           
             PatientImport::dispatch($company);
 
             $arr = array('status' => 200, 'message' => 'Please be patient, the import patient process is taking place in the background. You will receive mail after the all patient imported successfully.', 'data' => []);
@@ -61,9 +61,15 @@ class PatientImportController extends Controller
             } 
            
             if($reqtest['action'] == 'check-caregiver-queue') {
-                CheckCurrentCaregiver::dispatch($reqtest['patient_id']);
-                $arr = array('status' => 200, 'message' => '', 'data' => []);
-            }else {
+                // if ($reqtest['type'] == 'on-menu-click') {
+                //     CheckCurrentCaregiver::dispatch($reqtest['patient_id']);
+                //     $arr = array('status' => 200, 'message' => '', 'data' => []);
+                // } else {
+                    $data = self::geCaregiver($reqtest);
+
+                    $arr = array('status' => 200, 'message' => $data['message'], 'data' => $data['data']);
+                // }
+            } else {
               
                 CaregiverImport::dispatch($company_id);
 
@@ -87,6 +93,94 @@ class PatientImportController extends Controller
         }
 
         return \Response::json($arr);
+    }
+
+    public static function geCaregiver($reqtest)
+    {
+        $demographic = Demographic::where('user_id',$reqtest['patient_id'])->select('patient_id')->first();
+		       
+        $input['patientId'] = $demographic->patient_id;
+        $date = Carbon::now();
+        $today = $date->format("Y-m-d");
+
+        $input['from_date'] = $today;
+        $input['to_date'] = $today;
+
+        $curlFunc = searchVisits($input);
+
+        if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
+            $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+            if(is_array($visitID)) {
+                foreach ($visitID as $viId) {
+                    $data = self::getSchedule($viId, $reqtest['patient_id'], $demographic->patient_id);
+                }
+            } else {
+                $viId = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
+                $data = self::getSchedule($viId, $reqtest['patient_id'], $demographic->patient_id);
+            }
+            $message = 'Thank you for choosing HHAExchange for the get current caregiver process.';
+        } else {
+            $message = 'Record not found';
+        }
+
+        return [
+            'data' => $data,
+            'message' => $message
+        ];
+    }
+    
+    public static function getSchedule($viId, $patient_id, $hhaPatientId)
+    {	
+        $scheduleInfo = getScheduleInfo($viId);
+        $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
+        $caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
+        
+        $demographicModal = Demographic::select('id','user_id','patient_id')->where('patient_id', $caregiver_id)->with(['user' => function($q) {
+            $q->select('id', 'email', 'phone');
+        }])->first();
+        $phoneNumber = '';
+        if ($demographicModal && $demographicModal->user->phone != '') {
+            $phoneNumber = $demographicModal->user->phone;
+        } else {
+            $getdemographicDetails = getCaregiverDemographics($caregiver_id);
+            if (isset($getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'])) {
+                $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
+
+                $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
+
+                $doral_id = createDoralId();
+               
+                // $missing_patient_id = [];
+                // $userCaregiver1 = Demographic::get();
+                // foreach ($userCaregiver1 as $userCaregivers) { 
+                //     $missing_patient_id[] = $userCaregivers->patient_id;
+                // }
+                //if (! in_array($hhaPatientId, $missing_patient_id)) {     
+                    $user_id = storeUser($demographics, $doral_id);
+                    
+                    if ($user_id) {
+                        $company_id = '9';
+                        storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
+                        storeEmergencyContact($demographics, $user_id);
+                    }
+                //}
+            }
+        }
+
+        $scheduleStartTime = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ;
+        $scheduleEndTime = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ;
+        $firstName = ($getScheduleInfo['Caregiver']['FirstName']) ? $getScheduleInfo['Caregiver']['FirstName'] : '' ;
+        $lastName = ($getScheduleInfo['Caregiver']['LastName']) ? $getScheduleInfo['Caregiver']['LastName'] : '' ;
+
+        $data = Caregivers::create([
+            'patient_id' => $patient_id,
+            'phone' => $phoneNumber,
+            'start_time' => $scheduleStartTime,
+            'end_time' => $scheduleEndTime,
+            'name' => $firstName . ' ' . $lastName,
+        ]);
+
+        return $data;
     }
 
     public static function storeUser($demographics, $doral_id)

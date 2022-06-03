@@ -74,21 +74,21 @@ class PatientImport implements ShouldQueue
         Log::info('missing patient count'.count($data));
         Log::info('hha exchange search patient detail end');
 
-        try {
-            $company_email = $this->company->email;
+        // try {
+        //     $company_email = $this->company->email;
            
-            $details = [
-                'name' => $this->company->name,
-                'total' => count($stored_user_id),
-                'type' => 'Patient',
-            ];
+        //     $details = [
+        //         'name' => $this->company->name,
+        //         'total' => count($stored_user_id),
+        //         'type' => 'Patient',
+        //     ];
 
             // SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');
             // SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
             
-        }catch (\Exception $exception){
-            Log::info($exception->getMessage());
-        }
+        // }catch (\Exception $exception){
+        //     Log::info($exception->getMessage());
+        // }
     }
 
     public static function storeUser($demographics, $doral_id)

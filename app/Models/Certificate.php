@@ -52,14 +52,6 @@ class Certificate extends Model
     }
 
     /**
-     * Relation with age ranges
-     */
-    public function ageRanges()
-    {
-        return $this->hasMany('App\Models\AgeRange', 'certificate_id', 'id');
-    }
-
-    /**
      * Relation with state licenses
      */
     public function stateLicenses()

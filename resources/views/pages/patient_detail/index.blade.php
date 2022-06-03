@@ -659,11 +659,6 @@
         });
         
         $(document).ready(function() {
-           // var import_url = "{{ url('import-caregiver-from-hha') }}";
-            //var action_import_url = 'check-caregiver-queue';
-            
-            //importAjaxCall(import_url,action_import_url,patient_id);
-
             $('.form_div').hide();
             
             $('[name="lab_due_date"]').on('apply.daterangepicker', function(ev, picker) {
@@ -1268,11 +1263,7 @@
             success: function(data) {
                 
                 if(data.status == 200) {
-                    if (action == 'check-caregiver') {
-                        console.log('get caregiver data');
-                        console.log(data.data);
-                        console.log('get caregiver data');
-
+                    if (action == 'check-caregiver-queue') {
                         if (data.data != '') {
                             var value=data.data;
                             // $.each(data.data, function (key, value) {
@@ -1299,6 +1290,5 @@
     </script>
     {{-- <script src="https://maps.googleapis.com/maps/api/js?key={{env('MAP_API_KEY')}}&callback=initMap&libraries=&v=weekly" defer></script> --}}
    <script src="{{ asset( 'assets/calendar/lib/main.js' ) }}"></script>
-   {{-- <script src="{{ asset('assets/developer/js/import.js') }}"></script> --}}
    @stack('patient-detail-js')
 @endpush

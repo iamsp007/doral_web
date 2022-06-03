@@ -16,6 +16,7 @@ use App\Services\ClinicianService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Nexmo\Laravel\Facade\Nexmo;
 use Mail;
@@ -280,14 +281,28 @@ class PatientController extends Controller
         return response()->json($response,422);
    }
 
-   public function scheduleAppoimentListData(Request $request){
+   public function scheduleAppoimentListData(Request $request)
+   {
+        $requestData = $request->all();
+        $appointmentList = Appointment::with(['bookedDetails' => function ($q) {
+                $q->select('first_name', 'last_name', 'id');
+            }])
+            ->with(['meeting','service','filetype','roadl'])
+            ->with(['patients' => function ($q) use($requestData) {
+                $q->where(DB::raw('concat(first_name," ",last_name)'), 'like', '%'.$requestData['searchTerm'].'%');
+            }])
 
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->scheduleAppoimentListData($request->all());
-        if ($response->status===true){
-            return response()->json($response,200);
-        }
-        return response()->json($response,422);
+            ->with(['provider1Details' => function ($q) {
+                $q->select('first_name', 'last_name', 'id');
+            }])
+            ->with(['provider2Details' => function ($q) {
+                $q->select('first_name', 'last_name', 'id');
+            }])
+            ->whereDate('start_datetime','>=',Carbon::now()->format('Y-m-d'))
+            ->orderBy('start_datetime','asc')
+            ->get()->toArray();
+        
+        return $this->generateResponse(true,'get schedule patient list',$appointmentList,200);
     }
 
  public function cancelAppoimentListData(Request $request) {

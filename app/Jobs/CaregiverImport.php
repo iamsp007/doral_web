@@ -52,6 +52,7 @@ class CaregiverImport implements ShouldQueue
         $data = [];
         $stored_user_id = [];
 
+        //foreach ($caregiverArray as $patient_id) {
         foreach (array_slice($caregiverArray, 0 , 10) as $patient_id) {
             if (! in_array($patient_id, $missing_patient_id)) {
 

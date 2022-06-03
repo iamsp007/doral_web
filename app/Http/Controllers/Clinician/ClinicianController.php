@@ -415,9 +415,7 @@ class ClinicianController extends Controller
     
     public function getClinicianDetail($id)
     {
-        //$services = new AdminService();
-       // $response = $services->getClinicianDetail($id);
-          $response = User::with(['applicant.references', 'applicant.state', 'applicant.city', 'education.medicalInstituteState', 'education.medicalInstituteCity', 'education.residencyInstituteState', 'education.residencyInstituteCity', 'education.fellowshipInstituteState', 'education.fellowshipInstituteCity', 'professional.medicareState', 'professional.medicaidState', 'professional.ageRanges', 'professional.stateLicenses.licenseState', 'professional.boardCertificates', 'attestation', 'deposit.state', 'deposit.city', 'documents','designation','applicant'])->findOrFail($id);
+          $response = User::with(['applicant.references', 'applicant.state', 'applicant.city', 'education.medicalInstituteState', 'education.medicalInstituteCity', 'education.residencyInstituteState', 'education.residencyInstituteCity', 'education.fellowshipInstituteState', 'education.fellowshipInstituteCity', 'professional.medicareState', 'professional.medicaidState', 'professional.stateLicenses.licenseState', 'professional.boardCertificates', 'attestation', 'deposit.state', 'deposit.city', 'documents','designation','applicant'])->findOrFail($id);
       	//dd($response->applicant);
         $data = [];
         //if ($response != null && $response->status === true) {
@@ -732,20 +730,20 @@ class ClinicianController extends Controller
                 return $datatble->make(true);
     }
 
-    public function getClinicianData(Request $request)
-    {
-        $requestData = $request->all();
-        $data = [];
-        if (isset($requestData['searchTerm']) && $requestData['searchTerm']) {
-            $services = new AdminService();
-            $response = $services->getClinicianData($requestData);
-            // print_r($response);die();
-            if ($response != null && $response->status === true) {
-                $data['data'] = $response->data;
-            }
-        }
-        return $data;
-    }
+    // public function getClinicianData(Request $request)
+    // {
+    //     $requestData = $request->all();
+    //     $data = [];
+    //     if (isset($requestData['searchTerm']) && $requestData['searchTerm']) {
+    //         $services = new AdminService();
+    //         $response = $services->getClinicianData($requestData);
+    //         // print_r($response);die();
+    //         if ($response != null && $response->status === true) {
+    //             $data['data'] = $response->data;
+    //         }
+    //     }
+    //     return $data;
+    // }
 
     public function scrapedpdf(Request $request)
     {

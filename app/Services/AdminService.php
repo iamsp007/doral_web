@@ -206,41 +206,26 @@ class AdminService
         }
     }
 
-    public function getClinicianDetail($clinician_id)
-    {
-        try {
-            $response = $this->client->request(
-                'GET',
-                '/auth/get-clinician-detail/'.$clinician_id
-            );
-            $response = $response->getBody()->getContents();
-            $data = json_decode($response);
-            return $data;
-        } catch (\Exception $exception) {
-            \Log::info($exception);
-        }
-    }
-
-    public function getClinicianData($data)
-    {
-        try {
-            $response = $this->client->request(
-                'POST',
-                '/auth/get-clinician-data',
-                [
-                    'json'=>$data
-                ]
-            );
+    // public function getClinicianData($data)
+    // {
+    //     try {
+    //         $response = $this->client->request(
+    //             'POST',
+    //             '/auth/get-clinician-data',
+    //             [
+    //                 'json'=>$data
+    //             ]
+    //         );
 
 
-            $response = $response->getBody()->getContents();
-            $data = json_decode($response);
-            return $data;
-        }catch (\Exception $exception){
-            \Log::info($exception);
-            throw new \Exception($exception->getMessage());
-        }
-    }
+    //         $response = $response->getBody()->getContents();
+    //         $data = json_decode($response);
+    //         return $data;
+    //     }catch (\Exception $exception){
+    //         \Log::info($exception);
+    //         throw new \Exception($exception->getMessage());
+    //     }
+    // }
 
     public function saveToken($data){
         try {
@@ -288,26 +273,6 @@ class AdminService
             $response = $this->client->request(
                 'POST',
                 '/add-medicine',
-                [
-                    'json'=>$data
-                ]
-            );
-
-
-            $response = $response->getBody()->getContents();
-            $data = json_decode($response);
-            return $data;
-        }catch (\Exception $exception){
-            \Log::info($exception);
-            throw new \Exception($exception->getMessage());
-        }
-    }
-    public function demographyDataUpdate($data){
-        try {
-
-            $response = $this->client->request(
-                'POST',
-                '/demographyData-update',
                 [
                     'json'=>$data
                 ]

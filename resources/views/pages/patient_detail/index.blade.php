@@ -814,7 +814,7 @@
                 });
             }
             
-            $(body).on('click','.save_record',function(event) {
+            $('body').on('click','.save_record',function(event) {
                 event.preventDefault();
              
                 var t = $(this);

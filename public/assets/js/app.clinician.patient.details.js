@@ -46,7 +46,7 @@ $("body").on('blur','#medicaid_number',function (event) {
         $(document).find(".medicaid_number-invalid-feedback").append('<strong>Medicaid No Format is invalid.</strong>');
     }
     else{
-        $(document).find(".medicaid_number-invalid-feedback").html('');
+         $(document).find(".medicaid_number-invalid-feedback").remove();
     }
 });
 $(".zip").on('keyup change', function() {
@@ -119,6 +119,7 @@ function updateAllField(sectionId) {
     if (sectionId==="demographic"){
         
         var email_foramt = $("#demographic_form :input[name='email']").val();
+        if(email_foramt) {
         if(/([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{2,4}/.test(email_foramt))
         {
             var data = $('#demographic_form').serializeArray();
@@ -128,6 +129,7 @@ function updateAllField(sectionId) {
         else{
             alertText("Invalid Email Format.",'error');
             return false;
+        }
         }
     }else if (sectionId==="insurance"){
         var data = $('#medicare_form').serializeArray();

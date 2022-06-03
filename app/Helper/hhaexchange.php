@@ -27,16 +27,12 @@ if (!function_exists('curlCall')) {
                 ),
             ));
             $response = curl_exec($curl);
-            curl_close($curl);
-            $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
-            $xml = new \SimpleXMLElement($response);
-            echo"<pre>";
-            print_r($xml);
-            exit();
-            echo"<pre>";
-            print_r(111);
-            exit();
-            return json_decode(json_encode((array)$xml), TRUE);
+        curl_close($curl);
+        $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $response);
+        $xml = new \SimpleXMLElement($response);
+        
+        $searchPatientIds = json_decode(json_encode((array)$xml), TRUE);
+            return $searchPatientIds;
         }
     }
 

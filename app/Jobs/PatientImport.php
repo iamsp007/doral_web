@@ -52,8 +52,8 @@ class PatientImport implements ShouldQueue
          
         $data = [];
         $stored_user_id = [];
-        foreach ($patientArray as $patient_id) {
-        //foreach (array_slice($patientArray, 0 , 500) as $patient_id) {
+        //foreach ($patientArray as $patient_id) {
+        foreach (array_slice($patientArray, 50 , 10) as $patient_id) {
             if (! in_array($patient_id, $missing_patient_id)) {               
                 $apiResponse = getPatientDemographics($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
@@ -83,8 +83,8 @@ class PatientImport implements ShouldQueue
                 'type' => 'Patient',
             ];
 
-            SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');
-            SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
+            // SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');
+            // SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
             
         }catch (\Exception $exception){
             Log::info($exception->getMessage());
@@ -149,7 +149,7 @@ class PatientImport implements ShouldQueue
         ];
     
         if (isset($user->email)) {
-            SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
+            //SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
         }
 
         return $user->id;

@@ -47,6 +47,7 @@ $("body").on('blur','#medicaid_number',function (event) {
     }
     else{
         $(document).find(".medicaid_number-invalid-feedback").html('');
+        $(document).find(".medicaid_number-invalid-feedback").remove();
     }
 });
 $(".zip").on('keyup change', function() {
@@ -70,24 +71,27 @@ $(".zip").on('keyup change', function() {
 function editAllField(sectionId) {
     
     $('input[name="dob"], input[name="lab_due_date"], input[name="lab_perform_date"],input[name="expiration_date"]').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            minYear: 1901,
-            maxDate: new Date(),
-            locale: {
-                    format: 'MM-DD-YYYY'
-            }           
-         });
-    $('.email_format').on('change', function() {
-    var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{2,4}/.test(this.value);
-    if(!re) {
-        $('span.error-keyup-7').remove();
-        $(this).after('<span class="error error-keyup-7"><font color="red">Invalid Email Format.</font></span>');
-    } else {
-        $('span.error-keyup-7').remove();
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 1901,
+        maxDate: new Date(),
+        locale: {
+            format: 'MM-DD-YYYY'
+        }           
+    });
 
-    }
-})
+    $('.email_format').on('change', function() {
+        if(this.value) {
+            var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{2,4}/.test(this.value);
+            if(!re) {
+                $('span.error-keyup-7').remove();
+                $(this).after('<span class="error error-keyup-7"><font color="red">Invalid Email Format.</font></span>');
+            } else {
+                $('span.error-keyup-7').remove();
+
+            }
+        }
+    })
     
    var activeTab = "#"+sectionId;
     $(activeTab).find("input[name='dob']").attr("disabled", true);

@@ -122,7 +122,7 @@
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3">
                   <div class="app-card-header">
                      <h1 class="title mr-2">Caregiver Details</h1>
-                     <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="check-caregiver" data-id="{{$patient->id}}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Check Current Caregiver</a>
+                     <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-caregiver-from-hha') }}" data-action="check-caregiver-queue" data-id="{{$patient->id}}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Check Current Caregiver</a>
                   </div>
                   <div class="card-body text-info">
                      <table class="table m-0 ">

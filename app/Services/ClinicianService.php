@@ -86,26 +86,6 @@ class ClinicianService
         }
     }
 
-    public function getPatientList($data){
-        try {
-
-            $response = $this->client->request(
-                'GET',
-                '/get-patient-list',
-                [
-                    'json'=>$data
-                ]
-            );
-
-
-            $response = $response->getBody()->getContents();
-            $data = json_decode($response);
-            return $data;
-        }catch (\Exception $exception){
-
-        }
-    }
-
     public function getNewPatientList($data){
         try {
 
@@ -125,27 +105,6 @@ class ClinicianService
             return $exception->getMessage();
         }
     }
-
-    public function scheduleAppoimentListData($data){
-        try {
-
-            $response = $this->client->request(
-                'POST',
-                '/get-schedule-appoiment-list-data',
-                [
-                    'json'=>$data
-                ]
-            );
-
-
-            $response = $response->getBody()->getContents();
-            $data = json_decode($response);
-            return $data;
-        }catch (\Exception $exception){
-            return $exception->getMessage();
-        }
-    }
-
 
     public function cancelAppoimentList($data){
         try {

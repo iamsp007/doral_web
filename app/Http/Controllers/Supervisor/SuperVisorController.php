@@ -25,27 +25,6 @@ class SuperVisorController extends Controller
         return view($this->view_path.'dashboard');
     }
 
-    // public function viewNewPatients(){
-    //     //$clinician_list = 
-    //     return view($this->view_path.'new_patients_list');
-    // }
-
-    // public function getPatients(Request $request){
-    //     // $supervisorService = new SupervisorService();
-    //     // $response = $supervisorService->getPatientList($request->all());
-    //     // if ($response->status===true){
-    //     //     return DataTables::of($response->data)
-    //     //     ->editColumn('dob', function ($contact){
-    //     //         if($contact->dob!='')
-    //     //         return date('m-d-Y', strtotime($contact->dob));
-    //     //         else
-    //     //         return '--';
-    //     //     })->make(true);
-    //     // }
-    //     // return DataTables::of($response)->make(true);
-    //     $data = PatientReferral::getAccepted();
-    //     return DataTables::of($data)->make(true);
-    // }
     public function viewClinician($id)
     {   
         $clinicians = User::

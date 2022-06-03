@@ -10,12 +10,15 @@ use App\Jobs\PatientImport;
 use App\Jobs\VisitorImport;
 use App\Models\Caregivers;
 use App\Models\Demographic;
+use App\Models\PatientEmergencyContact;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Nexmo\Laravel\Facade\Nexmo;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Log;
 
 class PatientImportController extends Controller
 {
@@ -26,7 +29,8 @@ class PatientImportController extends Controller
             $company='';
             if(Auth::guard('referral')) {
                 $company = Auth::guard('referral')->user();
-            } 
+            }
+            
             PatientImport::dispatch($company);
 
             $arr = array('status' => 200, 'message' => 'Please be patient, the import patient process is taking place in the background. You will receive mail after the all patient imported successfully.', 'data' => []);
@@ -56,120 +60,11 @@ class PatientImportController extends Controller
                 $company_id = Auth::guard('referral')->user();
             } 
            
-            if ($reqtest['action'] == 'check-caregiver') {
-		        $demographic = Demographic::where('user_id',$reqtest['patient_id'])->select('patient_id')->first();
-		       
-                $input['patientId'] = $demographic->patient_id;
-                $date = Carbon::now();// will get you the current date, time
-                $today = $date->format("Y-m-d");
-
-                $input['from_date'] = $today;
-                $input['to_date'] = $today;
-	
-                $curlFunc = searchVisits($input);
-		
-                if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
-                    $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
-
-                    if(is_array($visitID)) {
-                        foreach ($visitID as $viId) {
-                   
-                            $scheduleInfo = getScheduleInfo($viId);
-                            $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
-                            $caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
-			
-                            $demographic = Demographic::select('id','user_id','patient_id')->where('patient_id', $caregiver_id)->with(['user' => function($q) {
-                                $q->select('id', 'email', 'phone');
-                            }])->first();
-                       	
-                            if ($demographic) {
-                                $phoneNumber = $demographic->user->phone;
-                            } else {
-                                $getdemographicDetails = getCaregiverDemographics($caregiver_id);
-                                if (isset($getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'])) {
-                                    $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-            
-                                    $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
-                                    
-                                    $doral_id = createDoralId();
-                                    $user_id = storeUser($demographics, $doral_id);
-                                    
-                                    if ($user_id) {
-                                        $company_id = '16';
-                                        storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
-                                        storeEmergencyContact($demographics, $user_id);
-                                    }
-                                }
-                            }                        
-                        
-                            $scheduleStartTime = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ;
-                            $scheduleEndTime = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ;
-                            $firstName = ($getScheduleInfo['Caregiver']['FirstName']) ? $getScheduleInfo['Caregiver']['FirstName'] : '' ;
-                            $lastName = ($getScheduleInfo['Caregiver']['LastName']) ? $getScheduleInfo['Caregiver']['LastName'] : '' ;
-
-                            $data = Caregivers::create([
-                                'patient_id' => $reqtest['patient_id'],
-                                'phone' => $phoneNumber,
-                                'start_time' => $scheduleStartTime,
-                                'end_time' => $scheduleEndTime,
-                                'name' => $firstName . ' ' . $lastName,
-                            ]);    
-                        }
-                        $arr = array('status' => 200, 'message' => 'Get current caregiver', 'data' => $data);
-                    } else {
-                        $viId = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
-                        $scheduleInfo = getScheduleInfo($viId);
-                        $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
-                        $caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
-			
-                        $demographic = Demographic::select('id','user_id','patient_id')->where('patient_id', $caregiver_id)->with(['user' => function($q) {
-                            $q->select('id', 'email', 'phone');
-                        }])->first();
-                       	
-                        if ($demographic) {
-                            $phoneNumber = $demographic->user->phone;
-                        } else {
-                            $getdemographicDetails = getCaregiverDemographics($caregiver_id);
-                            if (isset($getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'])) {
-                                $demographics = $getdemographicDetails['soapBody']['GetCaregiverDemographicsResponse']['GetCaregiverDemographicsResult']['CaregiverInfo'];
-    
-                                $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
-                                
-                                $doral_id = createDoralId();
-                                $user_id = storeUser($demographics, $doral_id);
-                                
-                                if ($user_id) {
-                                    $company_id = '16';
-                                    storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
-
-                                    storeEmergencyContact($demographics, $user_id);
-                                }
-                            }
-                        }                        
-                        
-                        $scheduleStartTime = ($getScheduleInfo['ScheduleStartTime']) ? $getScheduleInfo['ScheduleStartTime'] : '' ;
-                        $scheduleEndTime = ($getScheduleInfo['ScheduleEndTime']) ? $getScheduleInfo['ScheduleEndTime'] : '' ;
-                        $firstName = ($getScheduleInfo['Caregiver']['FirstName']) ? $getScheduleInfo['Caregiver']['FirstName'] : '' ;
-                        $lastName = ($getScheduleInfo['Caregiver']['LastName']) ? $getScheduleInfo['Caregiver']['LastName'] : '' ;
-
-                        $data = Caregivers::create([
-                            'patient_id' => $reqtest['patient_id'],
-                            'phone' => $phoneNumber,
-                            'start_time' => $scheduleStartTime,
-                            'end_time' => $scheduleEndTime,
-                            'name' => $firstName . ' ' . $lastName,
-                        ]);
-                        $arr = array('status' => 200, 'message' => 'Get current caregiver', 'data' => $data);
-                    }
-                } else {
-                    $arr = array('status' => 200, 'message' => 'Data not found', 'data' => []);
-                }
-                
-            } else if($reqtest['action'] == 'check-caregiver-queue') {
+            if($reqtest['action'] == 'check-caregiver-queue') {
                 CheckCurrentCaregiver::dispatch($reqtest['patient_id']);
-                 $arr = array('status' => 200, 'message' => '', 'data' => []);
+                $arr = array('status' => 200, 'message' => '', 'data' => []);
             }else {
-               
+              
                 CaregiverImport::dispatch($company_id);
 
                 $message = 'Please be patient, the import patient process is taking place in the background.';
@@ -193,7 +88,6 @@ class PatientImportController extends Controller
 
         return \Response::json($arr);
     }
-
 
     public static function storeUser($demographics, $doral_id)
     {      
@@ -258,6 +152,7 @@ class PatientImportController extends Controller
         }
         return $user->id;
     }
+    
     public function getPatientId(Request $request)
     {
         try {

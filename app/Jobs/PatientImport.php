@@ -52,8 +52,8 @@ class PatientImport implements ShouldQueue
          
         $data = [];
         $stored_user_id = [];
-        foreach ($patientArray as $patient_id) {
-        //foreach (array_slice($patientArray, 0 , 500) as $patient_id) {
+        //foreach ($patientArray as $patient_id) {
+        foreach (array_slice($patientArray, 0 , 10) as $patient_id) {
             if (! in_array($patient_id, $missing_patient_id)) {               
                 $apiResponse = getPatientDemographics($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
@@ -74,21 +74,21 @@ class PatientImport implements ShouldQueue
         Log::info('missing patient count'.count($data));
         Log::info('hha exchange search patient detail end');
 
-        try {
-            $company_email = $this->company->email;
+        // try {
+        //     $company_email = $this->company->email;
            
-            $details = [
-                'name' => $this->company->name,
-                'total' => count($stored_user_id),
-                'type' => 'Patient',
-            ];
+        //     $details = [
+        //         'name' => $this->company->name,
+        //         'total' => count($stored_user_id),
+        //         'type' => 'Patient',
+        //     ];
 
-            SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');
-            SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
+        //     // SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');
+        //     // SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
             
-        }catch (\Exception $exception){
-            Log::info($exception->getMessage());
-        }
+        // }catch (\Exception $exception){
+        //     Log::info($exception->getMessage());
+        // }
     }
 
     public static function storeUser($demographics, $doral_id)
@@ -149,7 +149,7 @@ class PatientImport implements ShouldQueue
         ];
     
         if (isset($user->email)) {
-            SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
+            //SendEmailJob::dispatch($user->email,$details,'WelcomeEmail');
         }
 
         return $user->id;

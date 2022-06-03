@@ -5,7 +5,6 @@ Route::group(['prefix'=>'/supervisor','middleware'=>['auth:web','role:supervisor
     Route::get('/','\App\Http\Controllers\Supervisor\SuperVisorController@index')->name('supervisor.dashboard');
 
     Route::get('/patients','App\Http\Controllers\CaregiverController@index')->name('supervisor.patients');
-    // Route::get('/patient-list','\App\Http\Controllers\Supervisor\SuperVisorController@getPatients')->name('supervisor.patients.ajax');
     Route::post('/add-case-management','\App\Http\Controllers\Supervisor\SuperVisorController@add_case_management')->name('add-case-management');
     Route::get('/assigned-patients','\App\Http\Controllers\CaregiverController@index')->name('supervisor.assigned_patients.ajax');
     Route::get('/assigned-patient-list','\App\Http\Controllers\Supervisor\SuperVisorController@getAssignedPatients')->name('supervisor.assignedpatients.ajax');

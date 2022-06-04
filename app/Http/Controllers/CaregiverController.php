@@ -21,6 +21,7 @@ class CaregiverController extends Controller
 {
     public function index($serviceStatus = null,$initial = null)
     {
+    
         $role = Auth::user()->roles->pluck('name')[0];
         $url = url()->previous();
         return view('pages.patient_detail.new_patient', compact('serviceStatus', 'initial','role','url'));

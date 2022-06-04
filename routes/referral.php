@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:referral']], function () {
+//Route::group(['prefix' => '/referral','middleware' => ['auth:referral']], function () {
     // Route::get('/dashboard', function () {
     //     return view('pages.referral.dashboard');
     // })->name('referral.dashboard');

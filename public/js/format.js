@@ -16,3 +16,4 @@ $('.email_format').on('change', function() {
         }
     }
 });
+

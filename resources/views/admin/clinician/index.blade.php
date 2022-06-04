@@ -92,6 +92,7 @@
                 <th>DOB</th>
                 <th>Phone</th>
                 <th>Created At</th>
+                <th>Scraping Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -145,38 +146,7 @@
                 }
             });
        });
-    //    $('#first_name').select2({
-    //         minimumInputLength: 3,
-    //         placeholder: 'Select a first name',
-    //         ajax: {
-    //             type: "POST",
-    //             url: "{{ route('clinician.get-user-data') }}",
-    //             dataType: 'json',
-    //             delay: 250,
-    //             data: function (params) {
-    //                 var query = {
-    //                     q: params.term,
-    //                     status: clinician_status,
-    //                     view: 'clinician',
-    //                     field: 'first_name'
-    //                 }
-            
-    //                 return query;
-    //             },
-    //             processResults: function (data) {
-    //                 return {
-    //                     results:  $.map(data, function (item) {
-    //                         return {
-    //                             text: item.first_name,
-    //                             id: item.id
-    //                         }
-    //                     })
-    //                 };
-    //             },
-    //             cache: true
-    //         }
-    //     });
-
+   
         $('#last_name').select2({
             minimumInputLength: 3,
             placeholder: 'Select a last name',
@@ -241,6 +211,7 @@
                 {data:'dob',"bSortable":true},
                 {data:'phone',"bSortable":true},
                 {data:'created_at',"bSortable":true},
+                {data: 'status',name: 'status',"bSortable": false},
                 {data: 'action',name: 'action',"bSortable": false}
             ],
             "pageLength": 50,

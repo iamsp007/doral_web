@@ -56,4 +56,14 @@ class Company extends Authenticatable
         }
         return $dateData;
     }
+
+    public function getAdministratorPhoneNoAttribute($phone)
+    {
+        $phoneData = '';
+        if ($phone) {
+            $phoneData = "+".substr($phone, 0, 1). " (".substr($phone, 1, 3).") ".substr($phone, 4, 3)."-".substr($phone,7);
+        }
+        return $phoneData;
+    }
+    
 }

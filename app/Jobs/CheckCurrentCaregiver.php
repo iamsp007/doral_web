@@ -26,8 +26,9 @@ class CheckCurrentCaregiver implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($patient_id)
+    public function __construct($company_id, $patient_id)
     {
+        $this->company_id = $company_id;
         $this->patient_id = $patient_id;
     }
 
@@ -53,16 +54,16 @@ class CheckCurrentCaregiver implements ShouldQueue
             $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
             if(is_array($visitID)) {
                 foreach ($visitID as $viId) {
-                    self::getSchedule($viId, $this->patient_id);
+                    self::getSchedule($viId, $this->patient_id, $this->company_id);
                 }
             } else {
                 $viId = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
-                self::getSchedule($viId, $this->patient_id);
+                self::getSchedule($viId, $this->patient_id, $this->company_id);
             }
         }
     }
 
-    public static function getSchedule($viId, $patient_id)
+    public static function getSchedule($viId, $patient_id, $company_id)
     {	
         $scheduleInfo = getScheduleInfo($viId);
         $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
@@ -82,10 +83,11 @@ class CheckCurrentCaregiver implements ShouldQueue
                 $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
 
                 $doral_id = createDoralId();
+               
                 $user_id = storeUser($demographics, $doral_id);
                 
                 if ($user_id) {
-                    $company_id = '9';
+                    $company_id = $company_id;
                     storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
                     storeEmergencyContact($demographics, $user_id);
                 }

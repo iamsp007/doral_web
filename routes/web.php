@@ -78,7 +78,6 @@ use Illuminate\Support\Facades\Route;
     Route::get('/roadl-vendor-list','App\Http\Controllers\Clinician\RoadLController@getVendorList')->name('roadl.vendor.list');
     Route::get('/clinician-role-list','App\Http\Controllers\Clinician\RoadLController@getClinicianList')->name('clinician.role.list');
     Route::get('/sub-test-list','App\Http\Controllers\Clinician\RoadLController@getSubTestNameList')->name('clinician.sub-test-list');
-
     Route::get('/all-patient-list','\App\Http\Controllers\HomeController@allPatientList')->name('all.patient.list');
 
     Route::post('/start','\App\Http\Controllers\Clinician\RoomController@startArchive');
@@ -177,9 +176,11 @@ use Illuminate\Support\Facades\Route;
     Route::resource('care-team', CareTeamController::class);
 
     Route::get('/manually-scrap', 'App\Http\Controllers\ScrapController@index')->name('manually-scrap');
+    Route::get('/update-scrap-status', 'App\Http\Controllers\ScrapController@updateStatus')->name('update-scrap-status');
+    Route::get('/change-applicant-status', 'App\Http\Controllers\ScrapController@updateApplicantStatus')->name('change-applicant-status');
+    Route::get('/scrapping_status', 'App\Http\Controllers\ScrapController@updateScrappStatus')->name('scrapping_status');
     
     Route::get('/i9form_verify/{id}','App\Http\Controllers\Clinician\ClinicianController@i9form_verify')->name('i9form_verify');
 
     Route::post('/i9form_verify/store','App\Http\Controllers\Clinician\ClinicianController@store')->name('store.i9form_verify');
     
-

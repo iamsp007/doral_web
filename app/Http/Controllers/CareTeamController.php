@@ -105,7 +105,7 @@ class CareTeamController extends Controller
                 'fax' => $input['fax'],
                 'phone' => $input['phone'],
                 'address' => $input['address'],
-                'npi' => $input['address'],
+                'npi' => $input['npi'],
                 'primary' => $primary,
                 'texed' => $texed,
             ];
@@ -144,10 +144,10 @@ class CareTeamController extends Controller
                     $careTeam->type = $type;
                     $careTeam->fill($input)->save();
 			
-		    if ((isset($careTeam->detail['hcp']) && $careTeam->detail['hcp'] === 'on') || (isset($careTeam->detail['primary']) && $careTeam->detail['primary'] === 'on') || (isset($careTeam->detail['active']) && $careTeam->detail['active'] === 'on')) {
+		            if ((isset($careTeam->detail['hcp']) && $careTeam->detail['hcp'] === 'on') || (isset($careTeam->detail['primary']) && $careTeam->detail['primary'] === 'on') || (isset($careTeam->detail['active']) && $careTeam->detail['active'] === 'on')) {
 		  
-                    $input['care_team_id'] = $careTeam->id;
-                    self::updateData($input);
+                        $input['care_team_id'] = $careTeam->id;
+                        self::updateData($input);
                     }
 
                     $arr = array('status' => 200, 'message' => $message, 'resultdata' => $careTeam, 'action' => $action, 'modal' => $input['section']);

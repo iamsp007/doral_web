@@ -53,7 +53,7 @@ class PatientImport implements ShouldQueue
         $data = [];
         $stored_user_id = [];
         //foreach ($patientArray as $patient_id) {
-        foreach (array_slice($patientArray, 50 , 10) as $patient_id) {
+        foreach (array_slice($patientArray, 50 , 100) as $patient_id) {
             if (! in_array($patient_id, $missing_patient_id)) {            
                 $apiResponse = getPatientDemographics($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];

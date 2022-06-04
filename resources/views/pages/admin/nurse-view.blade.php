@@ -13,6 +13,11 @@
 @endpush
 @php
    $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = $count19 = $count20 = $count21 = $count23 = $count24 = $count25 = $count26 = $count27 = $count28 = $count29 = $count30 = $count31 = $count32 = $count33 = $count34 = $count35 = $count36 = $count37 = $count38 = $count39 = $count40 = $count41 = $count42 = $count43 = 1;
+
+   $hired = ($userInfo->selection_status == 1)? 'Hired':'Approve for Hire';
+   // $btn_class = $boolvalues == 'disabled'?'btn-secondary':'btn-success';
+   $btn_class = 'btn-secondary';
+   $rejected = ($userInfo->selection_status == 2)? 'ed':'';
 @endphp
 @foreach($data->documents as $document)
    @if($document->type == 1)
@@ -4166,7 +4171,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                      <div class="row mt-3">
                         <div class="col-12 col-sm-12">
                            <div class="_card mt-3">
-                              <div class="_card_header"><div class="title-head">OPT Out Search</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="12">Start</button></div>
+                              <div class="_card_header"><div class="title-head">OPT Out Search</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="15">Start</button></div>
                               <div class="_card_body">
                                  <table id="OptOutSrch" class="table" style="width: 100%;">
                                     <thead>
@@ -4186,7 +4191,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                      <div class="row mt-3">
                         <div class="col-12 col-sm-12">
                            <div class="_card mt-3">
-                              <div class="_card_header"><div class="title-head">Professional Misconduct</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="12">Start</button></div>
+                              <div class="_card_header"><div class="title-head">Professional Misconduct</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="16">Start</button></div>
                               <div class="_card_body">
                                  <table id="prof_misc" class="table" style="width: 100%;">
                                     <thead>
@@ -4206,7 +4211,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                      <div class="row mt-3">
                         <div class="col-12 col-sm-12">
                            <div class="_card mt-3">
-                              <div class="_card_header"><div class="title-head">Professional Misconduct</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="12">Start</button></div>
+                              <div class="_card_header"><div class="title-head">Professional Misconduct</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="17">Start</button></div>
                               <div class="_card_body">
                                  <table id="ofac_search" class="table" style="width: 100%;">
                                     <thead>
@@ -4223,6 +4228,11 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                            </div>
                         </div>
                      </div>
+                     <div class="row justify-content-center">
+                        <button class="btn {{$btn_class}} selection_status" id="hire_button" value='1' title="Please Approve All for click button" {{ $boolvalues }}>{{ $hired }}</button>&nbsp; &nbsp;
+                        <button class="btn btn-success selection_status" value='2' title="Please unapproved All for click button">Reject{{ $rejected }}</button>
+                     </div>
+
                   </div>
                </div>
             </div>
@@ -4579,12 +4589,67 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                console.log('cancelled');
             }
          });
+      });      
+            
+      $('body').on('click', '.selection_status', function () {
+         var value_of_button = $(this).val();
+         var user_id = $("#user_id").val();
+         var category_id = $("#category_id").val();
+
+         $.ajax({
+            type: 'GET',
+            url: "{{Route('change-applicant-status') }}",
+            data: {
+                category: category_id,
+                userid: user_id,
+                status: value_of_button
+            },
+            success: function (response) {
+               console.log(response);
+            }
+        });		
       });
-      
-      
+
+      $('body').on('click', '.scrapping_status', function () {
+         var value_of_button = $(this).val();
+         var user_id = $("#user_id").val();
+         var category_id = $("#category_id").val();
+
+         $.ajax({
+            type: 'GET',
+            url: "{{Route('scrapping_status') }}",
+            data: {
+                category: category_id,
+                userid: user_id,
+                status: value_of_button
+            },
+            success: function (response) {
+               console.log(response);
+            }
+        });		
+      });
+
       $('body').on('click', '.approvment_ss', function () {
-         var id = $(this).attr('data-id');
-         alert(id);
+         var id_of_site_scrapped_record = $(this).attr('data-id');
+         var selected_status = $(this).val();
+         var site_id = $(this).attr('data-site');
+         var user_id = $(this).attr('data-user');
+         var category_id = $(this).attr('data-cat');
+
+         $.ajax({
+            type: 'GET',
+            url: "{{Route('update-scrap-status') }}",
+            data: {
+               id: id_of_site_scrapped_record,
+               status: selected_status,
+               site: site_id,
+               user_id:user_id,
+               cat_id:category_id
+            },
+            success: function (response) {
+               console.log(response);
+            }
+         });
       });
 
       function chkmain(type) {

@@ -57,7 +57,7 @@ class Company extends Authenticatable
         return $dateData;
     }
 
-    public function getAdministratorOhoneNoAttribute($phone)
+    public function getAdministratorPhoneNoAttribute($phone)
     {
         $phoneData = '';
         if ($phone) {

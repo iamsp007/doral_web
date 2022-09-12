@@ -60,7 +60,14 @@ ini_set('memory_limit', '-1');
                 <div class="row">
                     <div class="col-3 col-sm-3 col-md-3">
                         <div class="input-group">
-                            <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
+                             
+                            <select class="form-control" id="first_name" name="first_name" placeholder="Select a first name"></select>
+                        </div>
+                    </div>
+                     <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+
+                            <select class="form-control" id="last_name" name="last_name" placeholder="Select a first name"></select>
                         </div>
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
@@ -76,15 +83,16 @@ ini_set('memory_limit', '-1');
                             <input type="text" class="form-control" name="ssn" placeholder="SSN"></td>
                         </div>
                     </div>
-                    <div class="col-3 col-sm-3 col-md-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="phone" placeholder="Home Phone"></td>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
+                 <div class="col-3 col-sm-3 col-md-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="phone" placeholder="Home Phone"></td>
+                        </div>
+                    </div>
                     <div class="col-3 col-sm-3 col-md-3">
                         <select class="form-control" name="service_id" id="service_id">
                             <option value="">Service</option>
@@ -188,6 +196,7 @@ ini_set('memory_limit', '-1');
     .phone-text, .fullname-text, .ssn-text, .address-text,  .while_edit {
         display: none;
     }
+   
 </style>
 @endpush
 
@@ -251,7 +260,7 @@ ini_set('memory_limit', '-1');
                     d.due_date = $('input[name="daterange"]').val();
                     d.status = $('select[name="status"]').val();
                     d.between_date = $('input[name="between_date"]').val();
-                    d.user_name = $('select[name="user_name"]').val();
+                 
                     d.service_id = $('select[name="service_id"]').val();
                     d.gender = $('select[name="gender"]').val();
                     d.dob = $('input[name="date_of_birth"]').val();
@@ -260,6 +269,8 @@ ini_set('memory_limit', '-1');
                     d.serviceStatus = $('input[name="serviceStatus"]').val();
                     d.initial = $('input[name="initial"]').val();
                     d.zip_code = $('input[name="zip_code"]').val();
+                    d.first_name = $('input[name="first_name"]').val();
+                    d.last_name = $('input[name="last_name"]').val();
                 },
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -340,7 +351,8 @@ ini_set('memory_limit', '-1');
         
         $("#reset_btn").click(function () {
             $('#search_form').trigger("reset");
-            $('#user_name').html('');
+            $('#first_name').html('');
+            $('#last_name').html('');
              refresh();
         })
 
@@ -360,7 +372,7 @@ ini_set('memory_limit', '-1');
             maxYear: parseInt(moment().format('YYYY'), 10)
         });
 
-        $('#user_name').select2({
+        $('#first_name').select2({
             minimumInputLength: 3,
             placeholder: 'Select a name',
             ajax: {
@@ -368,11 +380,51 @@ ini_set('memory_limit', '-1');
                 url: "{{ route('clinician.get-user-data') }}",
                 dataType: 'json',
                 delay: 250,
+                  data: function (params) {
+                    var query = {
+                        q: params.term,
+                        view: 'patient',
+                        field: 'first_name'
+                    }
+
+                    return query;
+                },
                 processResults: function (data) {
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.first_name + ' ' + item.last_name,
+                                text: item.first_name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+        
+         $('#last_name').select2({
+            minimumInputLength: 3,
+            placeholder: 'Select a name',
+            ajax: {
+                type: "POST",
+                url: "{{ route('clinician.get-user-data') }}",
+                dataType: 'json',
+                delay: 250,
+                  data: function (params) {
+                    var query = {
+                        q: params.term,
+                        view: 'patient',
+                        field: 'last_name'
+                    }
+
+                    return query;
+                },
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.last_name,
                                 id: item.id
                             }
                         })

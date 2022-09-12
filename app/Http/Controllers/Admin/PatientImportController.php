@@ -107,7 +107,7 @@ class PatientImportController extends Controller
         $input['to_date'] = $today;
 
         $curlFunc = searchVisits($input);
-
+	$data = [];
         if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
             $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
             if(is_array($visitID)) {
@@ -120,7 +120,7 @@ class PatientImportController extends Controller
             }
             $message = 'Thank you for choosing HHAExchange for the get current caregiver process.';
         } else {
-            $message = 'Record not found';
+            $message = 'Current caregiver not found';
         }
 
         return [

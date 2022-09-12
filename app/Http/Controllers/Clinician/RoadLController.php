@@ -4,10 +4,15 @@ namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
 use App\Models\PatientRequest;
+use App\Models\Category;
+use App\Models\DiesesMaster;
+use App\Models\Referral;
 use App\Models\User;
 use App\Services\ClinicianService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SymptomsMaster;
+use App\Models\Test;
 
 class RoadLController extends Controller
 {
@@ -113,31 +118,67 @@ class RoadLController extends Controller
     }
 
     public function getVendorList(Request $request){
-        $response = $this->clinicianService->getVendorList($request->all());
-        if ($response->status===true){
-            $clinicianList = $response->data;
-            return response()->json($clinicianList,200);
+       $vendorList = Referral::where('guard_name','=','partner')
+            ->where('status','=','active')
+            ->get();
+        if ($request->has('parent_id')){
+            $vendorList = collect($vendorList)->map(function ($row) use ($request){
+                $check = PatientRequest::where('parent_id', $request->parent_id)
+                    ->whereNotNull('parent_id')
+                    ->where('type_id','=',$row->role_id)
+                    // ->where('status','!=','1')
+                    ->first();
+                $row->check = $check;
+                return $row;
+            });
         }
-        return response()->json($response,422);
+        return $this->generateResponse(true,'Vendor List APi',$vendorList,200);
     }
 
+ public function generateResponse($status = false, $message = NULL,  $data = array(), $statusCode = 200, $error = array(), $url = '')
+    {
+        $response["status"] = $status;
+        $response["code"] = $statusCode;
+        $response["message"] = $message;
+        $response["data"] = $data;
+
+        return response()->json($response, $statusCode);
+    }
+    
     public function getClinicianList(Request $request){
-        $response = $this->clinicianService->getClinicianList($request->all());
-        if ($response->status===true){
-            $clinicianList = $response->data;
-            return response()->json($clinicianList,200);
-        }
-        return response()->json($response,422);
+      
+        $clinicianList = User::where([['designation_id','=',$request->role_id], ['status','=','1']])->get();
+        // $clinicianList = User::where([['designation_id','=',$request->role_id], ['status','=','1'], ['is_available','=','1']])->get();
+
+        $categories = Category::where('type_id',$request->role_id)->where('status',"1")->get();
+
+        $dieses = DiesesMaster::where('status','=',1)->get();
+        $data = [
+            'clinicianList' => $clinicianList,
+            'categories' => $categories,
+            'dieses' => $dieses
+        ];
+        
+        return $this->generateResponse(true,'Clinician List APi',$data,200);
+   
     }
 
     public function getSubTestNameList(Request $request){
      
-        $response = $this->clinicianService->getSubTestNameList($request->all());
-        if ($response->status===true){
-            $clinicianList = $response->data;
-            return response()->json($clinicianList,200);
+     
+        
+        $input = $request->all();
+        $data = '';
+
+        if (isset($input['patient_roles_name']) && isset($input['category_id'])) {
+            $data = SymptomsMaster::where('dieser_id',$input['category_id'])->where('status',1)->get();
+        } else if (isset($input['category_id'])) {
+            $data = Test::with('subTestName')->whereIn('category_id',$input['category_id'])
+            ->where('status',"1")
+            ->get();
         }
-        return response()->json($response,422);
+
+        return $this->generateResponse(true,'Test List',$data,200);
     }
 
     public function getUserData(Request $request)

@@ -120,6 +120,7 @@
     <script>
         var user_device_url = "{{ Route('ccm.index') }}";
     </script>
+  
     <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.clinician.dashboard.js') }}"></script>

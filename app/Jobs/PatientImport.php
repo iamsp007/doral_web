@@ -43,7 +43,7 @@ class PatientImport implements ShouldQueue
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
         Log::info('hha exchange search patient detail start');
         Log::info('total hha count'.count($patientArray));
-
+	//$patientArray = ['327365','327914','328109'];
         $missing_patient_id = [];
         $userCaregiver1 = Demographic::get();
         foreach ($userCaregiver1 as $userCaregivers) { 
@@ -53,7 +53,7 @@ class PatientImport implements ShouldQueue
         $data = [];
         $stored_user_id = [];
         //foreach ($patientArray as $patient_id) {
-        foreach (array_slice($patientArray, 50 , 100) as $patient_id) {
+        foreach (array_slice($patientArray, 150 , 50) as $patient_id) {
             if (! in_array($patient_id, $missing_patient_id)) {            
                 $apiResponse = getPatientDemographics($patient_id);
                 $demographics = $apiResponse['soapBody']['GetPatientDemographicsResponse']['GetPatientDemographicsResult']['PatientInfo'];
@@ -74,21 +74,21 @@ class PatientImport implements ShouldQueue
         Log::info('missing patient count'.count($data));
         Log::info('hha exchange search patient detail end');
 
-        // try {
-        //     $company_email = $this->company->email;
+         try {
+             $company_email = $this->company->email;
            
-        //     $details = [
-        //         'name' => $this->company->name,
-        //         'total' => count($stored_user_id),
-        //         'type' => 'Patient',
-        //     ];
+             $details = [
+                 'name' => $this->company->name,
+                 'total' => count($stored_user_id),
+                 'type' => 'Patient',
+             ];
 
-            // SendEmailJob::dispatch('manishak@hcbspro.com',$details,'SendPatientImpotNotification');
+             SendEmailJob::dispatch('gjoshi@doralhw.org',$details,'SendPatientImpotNotification');
             // SendEmailJob::dispatch($company_email,$details,'SendPatientImpotNotification');
             
-        // }catch (\Exception $exception){
-        //     Log::info($exception->getMessage());
-        // }
+         }catch (\Exception $exception){
+             Log::info($exception->getMessage());
+         }
     }
 
     public static function storeUser($demographics, $doral_id)
@@ -115,7 +115,7 @@ class PatientImport implements ShouldQueue
         }
        
         $first_name = ($demographics['FirstName']) ? $demographics['FirstName'] : '';
-        $password = str_replace("-", "@",$doral_id);
+        $password = 'patient';
             
         if (isset($demographics['email'])) {
             $email = $demographics['email'];

@@ -348,10 +348,14 @@
                               @foreach($caseManagements as $caseManager)
                                  <tr>
                                     <td>
+                                    	@if(isset($caseManagements->clinician)) 
                                        {{ $caseManager->clinician->full_name }}
+                                       @endif
                                     </td>
                                     <td>
+                                    @if(isset($caseManagements->clinician)) 
                                        {{ $caseManager->clinician->phone }}
+                                       @endif
                                     </td>
                                     <td>
                                        

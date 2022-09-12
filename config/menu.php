@@ -106,9 +106,9 @@ return [
         ],
         ['name'=>'Calendar','url'=>env('APP_URL').'clinician/calendar','route'=>'clinician/calendar','icon'=>'calendar-icon.svg','icon_hover'=>'calendar-icon.svg','icon_title'=>'Calendar'],
         [
-            'name'=>'Notification',
+            'name'=>'Notifications',
             'url'=>env('APP_URL').'notification-history',
-            'route'=>'notification-history','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Notification',
+            'route'=>'notification-history','icon'=>'patient-selected-sb.svg','icon_hover'=>'patient-sb.svg','icon_title'=>'Notifications',
         ]
     ],
     'referral'=>[
@@ -227,7 +227,7 @@ return [
                 ],
             ]
         ],
-        ['name'=>'Credentialing','url'=>'http://3.132.211.119/applicant-users','route'=>'','icon'=>'history-selected-sb.svg','icon_hover'=> 'history-sb.svg','icon_title'=>'Credentialing'],
+        ['name'=>'Credentialing','url'=>'http://20.106.235.102/applicant-users','route'=>'','icon'=>'history-selected-sb.svg','icon_hover'=> 'history-sb.svg','icon_title'=>'Credentialing'],
         [
             'name'=>'Partner Source',
             'url'=>'javascript:void(0)',

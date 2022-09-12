@@ -18,7 +18,7 @@ class ScrapController extends Controller
         $curl = curl_init();
 
 		curl_setopt_array($curl, array(
-			CURLOPT_URL => 'http://3.132.211.119/user/run?categoryid='.$input['categoryid'].'&userid='.$input['userid'].'&siteid='.$input['siteid'],
+			CURLOPT_URL => 'http://20.106.235.102/user/run?categoryid='.$input['categoryid'].'&userid='.$input['userid'].'&siteid='.$input['siteid'],
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => '',
 			CURLOPT_MAXREDIRS => 10,
@@ -32,9 +32,10 @@ class ScrapController extends Controller
 		));
 
 		$response = curl_exec($curl);
-
+		dd($response);
 		curl_close($curl);
-		echo $response;
+		
+		return $this->generateResponse(true, 'Site has been started', $response, 200);
    }
 
    	/**
@@ -48,7 +49,7 @@ class ScrapController extends Controller
         $curl = curl_init();
 
 		curl_setopt_array($curl, array(
-			CURLOPT_URL => 'http://3.132.211.119/approvment?id='.$input['id'].'&status='.$input['status'].'&site='.$input['site'].'&user_id='.$input['user_id'].'&cat_id='.$input['cat_id'],
+			CURLOPT_URL => 'http://20.106.235.102/approvment?id='.$input['id'].'&status='.$input['status'].'&site='.$input['site'].'&user_id='.$input['user_id'].'&cat_id='.$input['cat_id'],
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => '',
 			CURLOPT_MAXREDIRS => 10,
@@ -64,7 +65,8 @@ class ScrapController extends Controller
 		$response = curl_exec($curl);
 
 		curl_close($curl);
-		echo $response;
+				
+		return $this->generateResponse(true, 'Status has changed successfully', $response, 200);
    }
    
    /**
@@ -78,7 +80,7 @@ class ScrapController extends Controller
         $curl = curl_init();
 		
 		curl_setopt_array($curl, array(
-			CURLOPT_URL => 'http://3.132.211.119/change_status?category='.$input['category'].'&userid='.$input['userid'].'&status='.$input['status'],
+			CURLOPT_URL => 'http://20.106.235.102/change_status?category='.$input['category'].'&userid='.$input['userid'].'&status='.$input['status'],
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => '',
 			CURLOPT_MAXREDIRS => 10,
@@ -94,7 +96,7 @@ class ScrapController extends Controller
 		$response = curl_exec($curl);
 
 		curl_close($curl);
-		echo $response;
+		return $this->generateResponse(true, 'update status!', $response, 200);
    }
 
     /**
@@ -105,10 +107,11 @@ class ScrapController extends Controller
     public function updateScrappStatus(Request $request)
     {
         $input = $request->all();
+        
         $curl = curl_init();
 		
 		curl_setopt_array($curl, array(
-			CURLOPT_URL => 'http://3.132.211.119/scrapping_status?category='.$input['category'].'&userid='.$input['userid'].'&status='.$input['status'],
+			CURLOPT_URL => 'http://20.106.235.102/scrapping_status?category='.$input['category'].'&userid='.$input['userid'].'&status='.$input['status'],
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => '',
 			CURLOPT_MAXREDIRS => 10,
@@ -124,7 +127,19 @@ class ScrapController extends Controller
 		$response = curl_exec($curl);
 
 		curl_close($curl);
-		echo $response;
+		
+		return $this->generateResponse(true, 'update status!', $response, 200);
    }
+   
+   public function generateResponse($status = false, $message = NULL,  $data = array(), $statusCode = 200, $error = array(), $url = '')
+    {
+        $response["status"] = $status;
+        $response["code"] = $statusCode;
+        $response["message"] = $message;
+        $response["data"] = $data;
+
+        return response()->json($response, $statusCode);
+    }
 }
+
 

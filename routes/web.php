@@ -184,3 +184,7 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('/i9form_verify/store','App\Http\Controllers\Clinician\ClinicianController@store')->name('store.i9form_verify');
     
+    
+     Route::get('terms-and-conditions', 'App\Http\Controllers\PageController@termsAndCondiition');
+     Route::get('privacy-and-policy', 'App\Http\Controllers\PageController@privacyAndPolicy');
+     

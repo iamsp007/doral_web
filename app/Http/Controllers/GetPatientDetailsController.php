@@ -30,6 +30,7 @@ use App\Models\UserDevice;
 use App\Models\UserDeviceLog;
 use App\Models\VisitorDetail;
 use Carbon\Carbon;
+use App\Models\Demographic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -63,7 +64,6 @@ class GetPatientDetailsController extends Controller
 
     public function show($paient_id)
     {
-       
         $labReportTypes = LabReportType::where('status','1')->whereNull('parent_id')->orderBy('sequence', 'asc')->get();
 
         $tbpatientLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['1','2','3','4','5','6'])->get();
@@ -93,8 +93,14 @@ class GetPatientDetailsController extends Controller
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
         $patient = User::with('demographic', 'patientEmergency','userDevices')->find($paient_id);
-        $caseManagements = CaseManagement::with('clinician')->where('patient_id', $paient_id)->get();
         
+         if ($patient->demographic && $patient->demographic->show === '0') {
+        
+            $patient->demographic->update(['show' => '1']);
+        }
+        
+        $caseManagements = CaseManagement::with('clinician')->where('patient_id', $paient_id)->get();
+       
         $family_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','1']])->get();
         $physician_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','2']])->get();
         $pharmacy_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','3']])->get();
@@ -132,34 +138,22 @@ class GetPatientDetailsController extends Controller
         }
 
         $today =  date('Y-m-d');
-      
+
+
+        
         $userDeviceLogs = UserDeviceLog::with('userDevice')->whereHas('userDevice',function ($q) use($paient_id) {
             $q->where('patient_id', $paient_id);
         })
-        ->select('*', DB::raw('DATE(created_at) as date'))
+        ->select('*', DB::raw('DATE(user_device_logs.reading_time) as date'))
         ->WhereIn('user_device_logs.id',DB::table('user_device_logs AS udl')
-            ->join('user_devices','user_devices.id','=','udl.user_device_id' )->where(
+            ->join('user_devices','user_devices.id','=','udl.user_device_id')->where(
                 'user_devices.patient_id',$paient_id
             )
-            ->groupBy('udl.user_device_id', 'udl.created_at')
-            ->orderBy('udl.id','DESC')->pluck(DB::raw('MAX(udl.id) AS id') )
+            ->groupBy('udl.user_device_id', DB::raw('DATE(udl.reading_time)') )
+            ->orderBy('udl.id','DESC')->pluck(DB::raw('MAX(udl.id) AS id'))
         )
         ->get()->toArray();
-        
-        /*
-        $userDeviceLogs = UserDeviceLog::with('userDevice')->whereHas('userDevice',function ($q) use($paient_id) {
-            $q->where('patient_id', $paient_id);
-        })
-        ->select('*', DB::raw('DATE(created_at) as date'))
-        ->WhereIn( 'user_device_logs.id',UserDeviceLog::select('id')->where(
-                'user_device_id',$paient_id
-            )
-            ->groupBy('user_device_id', 'created_at')
-            ->orderBy(`id`,'DESC')->get()->toArray()
-        )
-        ->get()->toArray();
-        */
-        
+       
       
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs','today', 'caseManagements','family_detail','physician_detail','pharmacy_detail','caregiver'));
     }

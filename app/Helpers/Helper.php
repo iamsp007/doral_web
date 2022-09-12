@@ -183,6 +183,43 @@ class Helper extends BaseController
         curl_close($curl_session);
     }
     
+     public function sendWebNotification($token,$title,$message,$data,$notification_type='1',$link=''){
+
+        $SERVER_API_KEY = env('FIREBASE_CREDENTIALS');
+
+        $data = [
+            "registration_ids" => [$token],
+            "priority"=> "high",
+            "notification" => [
+                "title" => $title,
+                "body" => $message,
+                "icon" => asset('images/no-image.jpeg'),
+                "notification_type" => $notification_type,
+                "click_action"=>$link,
+                "sound"=> "default"
+            ],
+            'data'=>$data
+        ];
+        $dataString = json_encode($data);
+
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        $response = curl_exec($ch);
+        
+    }
+    
     function clean($string) {
         
         $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.

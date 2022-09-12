@@ -171,14 +171,15 @@ function bloodPressure(high_level, selector1,low_midium_level, selector2, label)
             html += '<div class="request-roadl">' +
                 '<ul class=" owl-carousel owl-theme">';
             $.each(high_level , function(index, val) {
-               
+               	var url = "patient-details/"+val.user_device.user.id;
+
                 html += '<li class="item">' +
                         '<div class="patient-detail">' +
                         '<div class="p-20">' +
-                        '<div class="img-50">' +
+                        '<a href="'+url+'"><div class="img-50">' +
                         '<img src="'+val.user_device.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user_device.user.avatar_image+'" class="img-fluid">' +
                         '</div>' +
-                        '<h1 class="patient-name">'+val.user_device.user.first_name+' '+val.user_device.user.last_name+'</h1>' +
+                        '<h1 class="patient-name">'+val.user_device.user.first_name+' '+val.user_device.user.last_name+'</h1></a>' +
                         '</div>' +
                         '<div class="emergency-detail p-20">' +
                         '<h3 class="title">'+label+'</h3>' +
@@ -197,19 +198,20 @@ function bloodPressure(high_level, selector1,low_midium_level, selector2, label)
         }
     }
     if (typeof low_midium_level !== undefined) {
-        console.log(low_midium_level);
+        
         html = '';
         html += '<div>' +
             '<div class="form-group"><div class="row"><div class="col-6 col-sm-6 col-md-6"><h1 class="reports-title">'+label+'</h1></div><div class="col-6 col-sm-6 col-md-6"><div class="d-flex"><a href="'+user_device_url+'" class="bulk-upload-btn float-right">View All</a></div></div></div></div>' +
             '<div class="detail">' +
             '<ul>';
         $.each(low_midium_level , function(index, val) {
+        var url = "patient-details/"+val.user_device.user.id;
             html += '<li>' +
                 '<div class="Level-2">' +
                 '<div class="img-30">' +
                 '<img src="'+val.user_device.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user_device.user.avatar_image+'" class="img-fluid">' +
                 '</div>' +
-                '<h1 class="patient-name">'+val.user_device.user.first_name+' '+val.user_device.user.last_name+'</h1>' +
+                '<a href="'+url+'"><h1 class="patient-name">'+val.user_device.user.first_name+' '+val.user_device.user.last_name+'</h1></a>' +
                 '<h3 class="title">'+label+': '+val.value+'</h3>' +
                 '<a href="javascript:void(0)" class="Level-2-btn">Level '+val.level+'</a>' +
                 '<a href="javascript:void(0)" class="level2-btn">Seek emergency care</a>' +

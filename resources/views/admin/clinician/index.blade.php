@@ -21,8 +21,8 @@
         <div class="row">
             <div class="col-3 col-sm-3 col-md-3">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Select a first name">
-                    <!-- <select class="form-control" id="first_name" name="first_name" placeholder="Select a first name"></select> -->
+                    <!-- <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Select a first name"> -->
+                    <select class="form-control" id="first_name" name="first_name" placeholder="Select a first name"></select>
                 </div>
             </div>
              <div class="col-3 col-sm-3 col-md-3">
@@ -113,39 +113,72 @@
     <script>
 
        var clinician_status = "<?php echo $status;?>";
-       $('#first_name').on('keyup', function(){
-          var q = $(this).val();
-          console.log(q);
-            $.ajax({
-                'type': 'POST',
-                'url': "{{ route('clinician.get-user-data') }}",
-                // 'headers': {
-                //     'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                // },
-                data: {
-                    q: q,
-                    status: clinician_status,
-                    view: 'clinician',
-                    field: 'first_name'
-                },
-                'success': function (data) {
-                    if(data.status == 400) {
-                        alert('error');
-                    } else {
-                        alert('success');
-                        // $('#acceptRejectBtn').hide();
-                        // $(".mainchk").prop("checked","");
-                        // refresh();
-                        
+       //    $('#first_name').on('keyup', function(){
+    //       var q = $(this).val();
+
+    //         $.ajax({
+    //             'type': 'POST',
+    //             'url': "{{ route('clinician.get-user-data') }}",
+    //             // 'headers': {
+    //             //     'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    //             // },
+    //             data: {
+    //                 q: q,
+    //                 status: clinician_status,
+    //                 view: 'clinician',
+    //                 field: 'first_name'
+    //             },
+    //             'success': function (data) {
+    //                 console.log(data);
+    //                 if(data.status == 400) {
+    //                    // alert('error');
+    //                 } else {
+    //                     //alert('success');
+    //                     // $('#acceptRejectBtn').hide();
+    //                     // $(".mainchk").prop("checked","");
+    //                     // refresh();
+
+    //                 }
+    //                 // $("#loader-wrapper").hide();
+    //             },
+    //             "error":function () {
+    //                 alert("Server Timeout! Please try again",'error');
+    //                 //$("#loader-wrapper").hide();
+    //             }
+    //         });
+    //    });
+
+        $('#first_name').select2({
+            minimumInputLength: 3,
+            placeholder: 'Select a first name',
+            ajax: {
+                type: "POST",
+                url: "{{ route('clinician.get-user-data') }}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    var query = {
+                        q: params.term,
+                        status: clinician_status,
+                        view: 'clinician',
+                        field: 'first_name'
                     }
-                    // $("#loader-wrapper").hide();
+
+                    return query;
                 },
-                "error":function () {
-                    alert("Server Timeout! Please try again",'error');
-                    //$("#loader-wrapper").hide();
-                }
-            });
-       });
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.first_name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
    
         $('#last_name').select2({
             minimumInputLength: 3,
@@ -193,7 +226,7 @@
                 },
                 data: function (d) {
                     d.status = $('input[name="status"]').val();
-                    d.first_name = $('input[name="first_name"]').val();
+                    d.first_name = $('select[name="first_name"]').val();
                     d.last_name = $('select[name="last_name"]').val();
                     d.designation_id = $('select[name="designation_id"]').val();
                     d.email = $('input[name="email"]').val();
@@ -235,6 +268,55 @@
             showDropdowns: true,
             minYear: 1901,
             maxYear: parseInt(moment().format('YYYY'), 10)
+        });
+
+         // $('body').on('click', '.scrapping_status', function () {
+        //     var value_of_button = $(this).val();
+        //     var user_id = $(this).attr('data-user');
+        //     var category_id = $(this).attr('data-cat');
+
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: "{{Route('scrapping_status') }}",
+        //         data: {
+        //             category: category_id,
+        //             userid: user_id,
+        //             status: value_of_button
+        //         },
+        //         success: function (response) {
+        //             if(data.status == 200) {
+        //                 alertText(data.message,'success');
+        //             } else {
+        //                 alertText(data.message,'error');
+        //             }
+        //         }
+        //     });
+        // });
+
+        $('body').on('click', '.scrapping_status', function () {
+            var categoryid = $(this).attr('data-cat');
+            var userid = $(this).attr('data-user');
+
+            if(confirm("Are you sure you want to run this user?")){
+               $.ajax({
+                     type: 'GET',
+                     url: "{{Route('manually-scrap') }}",
+                     data: {
+                        categoryid: categoryid,
+                        userid: userid,
+                        siteid: '0'
+                     },
+                     success: function(response) {
+                        if(data.status == 200) {
+                            alertText(data.message,'success');
+                        } else {
+                            alertText(data.message,'error');
+                        }
+                     }
+               });
+            } else {
+               console.log('cancelled');
+            }
         });
 
         $('body').on('click', '.update-status', function () {
@@ -457,3 +539,4 @@
 
     </script>
 @endpush
+

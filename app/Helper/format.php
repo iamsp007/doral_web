@@ -76,7 +76,7 @@ use Illuminate\Support\Facades\Hash;
         {
             $date = '';
             if ($value) {
-                $date = date('m-d-Y h:i', strtotime($value));
+                $date = date('m-d-Y H:i', strtotime($value));
             }
 
             return $date;

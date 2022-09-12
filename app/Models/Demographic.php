@@ -35,6 +35,7 @@ class Demographic extends Model
         'type',
         'caregiver_code',
         'phone_info',
+        'show',
     ];
 
     /**

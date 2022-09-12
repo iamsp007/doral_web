@@ -66,7 +66,7 @@ return [
         'mysql2' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST_SECOND', '3.132.211.119'),
+            'host' => env('DB_HOST_SECOND', '20.106.235.102'),
             'port' => env('DB_PORT_SECOND', '3306'),
             'database' => env('DB_DATABASE_SECOND', 'forge'),
             'username' => env('DB_USERNAME_SECOND', 'forge'),

@@ -14,10 +14,10 @@
 @php
    $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = $count19 = $count20 = $count21 = $count23 = $count24 = $count25 = $count26 = $count27 = $count28 = $count29 = $count30 = $count31 = $count32 = $count33 = $count34 = $count35 = $count36 = $count37 = $count38 = $count39 = $count40 = $count41 = $count42 = $count43 = 1;
 
-   $hired = ($userInfo->selection_status == 1)? 'Hired':'Approve for Hire';
-   // $btn_class = $boolvalues == 'disabled'?'btn-secondary':'btn-success';
-   $btn_class = 'btn-secondary';
-   $rejected = ($userInfo->selection_status == 2)? 'ed':'';
+   $hired = (isset($userInfo->selection_status) && $userInfo->selection_status == 1)? 'Hired':'Approve for Hire';
+   $btn_class = $boolvalues == 'disabled'?'btn-secondary':'btn-success';
+   
+   $rejected = (isset($userInfo->selection_status) && $userInfo->selection_status == 2)? 'ed':'';
 @endphp
 @foreach($data->documents as $document)
    @if($document->type == 1)
@@ -3764,7 +3764,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                      </div>
                      <hr>
                   </div>
-                  <div class="card-body collapse show" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
+                  {{-- <div class="card-body collapse show" id="collapseWork" aria-labelledby="collapseWork" data-parent="#profileAccordion">
                      <div class="row mt-3">
                         <div class="col-12 col-sm-12">
                            <div class="_card mt-3">
@@ -4211,7 +4211,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                      <div class="row mt-3">
                         <div class="col-12 col-sm-12">
                            <div class="_card mt-3">
-                              <div class="_card_header"><div class="title-head">Professional Misconduct</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="17">Start</button></div>
+                              <div class="_card_header"><div class="title-head">OFAC SEARCH</div><button class="btn btn-primary SingleRun" type="button" data-id="{{ $cat_id }}" data-scan="{{$scanId}}" data-site="17">Start</button></div>
                               <div class="_card_body">
                                  <table id="ofac_search" class="table" style="width: 100%;">
                                     <thead>
@@ -4233,7 +4233,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                         <button class="btn btn-success selection_status" value='2' title="Please unapproved All for click button">Reject{{ $rejected }}</button>
                      </div>
 
-                  </div>
+                  </div> --}}
                </div>
             </div>
          </div>
@@ -4579,11 +4579,21 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                         userid: userid,
                         siteid: site_id
                      },
-                     success: function(response) {
-                        console.log(response);
-                        // $('#message').text(response);
-                        // $('#exampleModal').modal('show')
-                     }
+                     success: function (response) {
+            
+                 if(response.status == 400) {
+                       alertText(response.message,'error');
+                    } else {                        
+                        alertText(response.message,'success');
+                        refresh();
+                    }
+                    
+                    $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                	alertText("Server Timeout! Please try again",'error');
+                       $("#loader-wrapper").hide();
+                }
                });
             } else {
                console.log('cancelled');
@@ -4604,28 +4614,21 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                 userid: user_id,
                 status: value_of_button
             },
-            success: function (response) {
-               console.log(response);
-            }
-        });		
-      });
-
-      $('body').on('click', '.scrapping_status', function () {
-         var value_of_button = $(this).val();
-         var user_id = $("#user_id").val();
-         var category_id = $("#category_id").val();
-
-         $.ajax({
-            type: 'GET',
-            url: "{{Route('scrapping_status') }}",
-            data: {
-                category: category_id,
-                userid: user_id,
-                status: value_of_button
-            },
-            success: function (response) {
-               console.log(response);
-            }
+             success: function (response) {
+            
+                 if(response.status == 400) {
+                       alertText(response.message,'error');
+                    } else {                        
+                        alertText(response.message,'success');
+                        refresh();
+                    }
+                    
+                    $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                	alertText("Server Timeout! Please try again",'error');
+                       $("#loader-wrapper").hide();
+                }
         });		
       });
 
@@ -4635,7 +4638,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
          var site_id = $(this).attr('data-site');
          var user_id = $(this).attr('data-user');
          var category_id = $(this).attr('data-cat');
-
+ 	if(confirm("Are you sure you want change status?")){
          $.ajax({
             type: 'GET',
             url: "{{Route('update-scrap-status') }}",
@@ -4646,10 +4649,25 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                user_id:user_id,
                cat_id:category_id
             },
-            success: function (response) {
-               console.log(response);
-            }
+             success: function (response) {
+            
+                 if(response.status == 400) {
+                       alertText(response.message,'error');
+                    } else {                        
+                        alertText(response.message,'success');
+                        refresh();
+                    }
+                    
+                    $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                	alertText("Server Timeout! Please try again",'error');
+                       $("#loader-wrapper").hide();
+                }
          });
+          } else {
+               console.log('cancelled');
+            }
       });
 
       function chkmain(type) {
@@ -4966,3 +4984,4 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
       }
       </script>
 @endpush'
+

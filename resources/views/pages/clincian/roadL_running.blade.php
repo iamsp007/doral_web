@@ -116,13 +116,18 @@
     </style>
 @endpush
 @push('scripts')
-    {{-- <script src="{{ env('SOCKET_IO_URL') }}/socket.io/socket.io.js"></script> --}}
-    <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+    
+    <script src="https://socket.doralhealthconnect.com/socket.io/socket.io.js"></script>
+    {{-- <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script> --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
-        var socket = io(socket_url+'?id=1',{
-            transport:['polling']
+        var map_key = "@php echo env('MAP_API_KEY'); @endphp";
+        var socket_url_new = 'https://socket.doralhealthconnect.com/';
+        console.log( map_key );
+        var socket = io(socket_url_new+'?id=1',{
+            transport:['polling' ]
         });
+        console.log( socket );
     </script>
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
     <script src="{{ asset('js/clincian/map.js?vers=11') }}"></script>

@@ -2,7 +2,11 @@
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
-
+    <Files .env>
+        order allow,deny
+        Deny from all
+    </Files>
+    
     RewriteEngine On
 
     # Handle Authorization Header
@@ -18,4 +22,6 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    #RewriteRule ^loginrep/?$ /new [R=302,L,NC]
 </IfModule>

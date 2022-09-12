@@ -44,7 +44,6 @@ class ClinicianController extends Controller
 {
     public function index($status)
     {
-    	
         $designations = Designation::where('role_id', 4)->get();
         return view('admin.clinician.index',compact('status', 'designations'));
     }
@@ -132,19 +131,79 @@ class ClinicianController extends Controller
                 }
                 return $created_at;
             })
-            ->addColumn('status', function ($row) use($input){
-                $selected = '';
-                if ($row->scrpping_status ==  1) {
-                    $selected = 'Selected';
-                } elseif ($row->scrpping_status ==  2) {
-                    $selected = 'Selected';
-                }
-                 
-                $btn = '<select class="scrapping_status" data-id="'.$row->id.'" data-user="' . $input['scanId'] . '" data-cat="' . $input['category_id']. '">';
-                $btn .= '<option value="1" '. $selected .'>Approve for scrapping</option><option value="2" '. $selected .'>Reject for scrapping</option>';
-                $btn .= '</select>';
+            ->addColumn('status', function ($row) use($input){             
 
-                return $btn;
+                // $info = [];
+                // $scanId = $cat_id = '';
+
+                // if(isset($row->applicant->address_detail['info'])) {
+                //     $info = $row->applicant->address_detail['info'];
+                // }
+
+                // if ($row->designation_id == '9') {
+                //     $ssn = $dob ='';
+                //     if (isset($info['ssn']) && isset($info['dateOfBirth'])) {
+                //         $ssn = setSsn($info['ssn']);
+                //         $dob = date("Y-m-d", strtotime($info['dateOfBirth']));
+                //     }
+                   
+                //     if ($ssn != '' && $dob != '') {
+                //         $userInfo = PhysicianUsers::where([['ssn_no','=', $ssn],['date_of_birth', '=' , $dob]])->first();
+    
+                //         if ($userInfo) {
+                //             $scanId = $userInfo->id;
+                //         }
+                //     }
+                //     $cat_id = '1';
+                   
+                // } else if ($row->designation_id == '1') {
+                //     $ssn = $dob ='';
+    
+                //     if (isset($info['ssn']) && isset($info['dateOfBirth'])) {
+                //         $ssn = setSsn($info['ssn']);
+                //         $dob = date("Y-m-d", strtotime($info['dateOfBirth']));
+                //     }
+    
+                //     if ($ssn != '' && $dob != '') {
+                //         $userInfo = NursePractitionerUsers::where([['ssn_no','=', $ssn],['date_of_birth', '=' , $dob]])->first();
+    
+                //         if ($userInfo) {
+                //             $scanId = $userInfo->id;
+                //         }
+                //     }
+                //     $cat_id = '2';
+                // } else if ($row->designation_id == '4') {
+                //     $ssn = $dob ='';
+                //     if (isset($info['ssn']) && isset($info['dateOfBirth'])) {
+                //         $ssn = setSsn($info['ssn']);
+                //           $dob = date("Y-m-d", strtotime($info['dateOfBirth']));
+                //     }
+    
+                //     if ($ssn != '' && $dob != '') {
+                //         $userInfo = PhysicianAssistantUsers::where([['ssn_no','=', setSsn($ssn)],['date_of_birth', '=' , $dob]])->first();
+    
+                //         if ($userInfo) {
+                //             $scanId = $userInfo->id;
+                //         }
+                //     }
+                //     $cat_id = '3';
+                // }
+
+                // $btn = $selected1 = $selected2 = '';
+                // if (isset($userInfo->scrpping_status)) {                
+                //     if ($userInfo->scrpping_status ===  '1') {
+                //         $selected1 = 'Selected';
+                //     } elseif ($userInfo->scrpping_status ===  '2') {
+                //         $selected2 = 'Selected';
+                //     }
+                
+                //     $btn .= '<select class="scrapping_status" data-id="'.$row->id.'" data-user="' . $scanId . '" data-cat="' . $cat_id. '">';
+                //     $btn .= '<option value="">Select a status</option><option value="1" '. $selected1 .'>Approve for scrapping</option><option value="2" '. $selected2 .'>Reject for scrapping</option>';
+                //     $btn .= '</select>';                
+                // }
+               
+
+                return '';
             })            
             ->addColumn('action', function ($row){
 
@@ -165,7 +224,7 @@ class ClinicianController extends Controller
                 //$action .= '<a href="'.route('clinician.info',['id' => $row->id]).'" class="btn btn-primary btn-sm mr-2">Print</a>';
                 return $action;
             })
-            ->rawColumns(['action', 'checkbox_id','name'])
+            ->rawColumns(['action', 'checkbox_id','name', 'status'])
             ->make(true);
     }
 
@@ -513,7 +572,7 @@ class ClinicianController extends Controller
                 }
                
                 if ($ssn != '' && $dob != '') {
-                    $userInfo = PhysicianUsers::where([['ssn_no','=', $ssn],['date_of_birth', '=' , $dob]])->first();
+                    //$userInfo = PhysicianUsers::where([['ssn_no','=', $ssn],['date_of_birth', '=' , $dob]])->first();
 
                     if ($userInfo) {
                         $scanId = $userInfo->id;
@@ -532,7 +591,7 @@ class ClinicianController extends Controller
                 }
 
                 if ($ssn != '' && $dob != '') {
-                    $userInfo = NursePractitionerUsers::where([['ssn_no','=', $ssn],['date_of_birth', '=' , $dob]])->first();
+                    //$userInfo = NursePractitionerUsers::where([['ssn_no','=', $ssn],['date_of_birth', '=' , $dob]])->first();
 
                     if ($userInfo) {
                         $scanId = $userInfo->id;
@@ -548,7 +607,7 @@ class ClinicianController extends Controller
                 }
 
                 if ($ssn != '' && $dob != '') {
-                    $userInfo = PhysicianAssistantUsers::where([['ssn_no','=', setSsn($info['ssn'])],['date_of_birth', '=' , $dob]])->first();
+                   // $userInfo = PhysicianAssistantUsers::where([['ssn_no','=', setSsn($info['ssn'])],['date_of_birth', '=' , $dob]])->first();
 
                     if ($userInfo) {
                         $scanId = $userInfo->id;
@@ -558,22 +617,149 @@ class ClinicianController extends Controller
                 $cat_id = '3';
             }
             
-            $mapId = CategorySiteMapping::with('siteInfo')->where('category_id', $cat_id)->get();
+            $where = [];
+            if ($scan_field === 'PhysicianUsers') {
+                $where = [
+                    'physician_user_id' => $scanId,
+                    'cron_status' => '1',
+                ];
+            } else if ($scan_field === 'NursePractitionerUsers') {
+                $where = [
+                    'nurse_prac_user_id' => $scanId,
+                    'cron_status' => '1',
+                ];
+            } else if ($scan_field === 'PhysicianAssistantUsers') {
+                $where = [
+                    'phy_assi_user_id' => $scanId,
+                    'cron_status' => '1',
+                ];
+            }
+            
+            //$mapId = CategorySiteMapping::with('siteInfo')->where('category_id', $cat_id)->get();
+            $boolval = $mapId = [];
+            $boolvalues = '0';
+            
+            // if($mapId){
+            //     foreach($mapId as $site){
+            //         switch ($site->siteInfo->sites_name) {
+            //             case "dea":
+            //                 $deaDetail = Dea::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($deaDetail) {
+            //                     $boolval[] = $deaDetail->status;
+            //                 }
+            //                 break;
+            //             case "omig":
+            //                 $omigDetail = OfficeMedicaidInspector::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($omigDetail) {
+            //                     $boolval[] = $omigDetail->status;
+            //                 }
+            //                 break;
+            //             case "abim":
+            //                 $abimDetail = Abim::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($abimDetail) {
+            //                     $boolval[] = $abimDetail->status;
+            //                 }
+            //                 break;
+            //             case "abfm":
+            //                 $abfmDetail = Abfm::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($abfmDetail) {
+            //                     $boolval[] = $abfmDetail->status;
+            //                 }
+            //                 break;
+            //             case "nys":
+            //                 $nysmDetail = Nysed::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($nysmDetail) {
+            //                     $boolval[] = $nysmDetail->status;
+            //                 }
+            //                 break;
+            //             case "oig":
+            //                 $oigDetail = OfficeInspectorGeneral::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($oigDetail) {
+            //                     $boolval[] = $oigDetail->status;
+            //                 }
+            //                 break;
+            //             case "nccpa":
+            //                 $nccpaDetail = Nccpa::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($nccpaDetail) {
+            //                     $boolval[] = $nccpaDetail->status;
+            //                 }
+            //                 break;
+            //             case "aanp":
+            //                 $aanpDetail = Aanp::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($aanpDetail) {
+            //                     $boolval[] = $aanpDetail->status;
+            //                 }
+            //                 break;
+            //             case "nursingworld":
+            //                 $nursingworld = NursingWorld::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($nursingworld) {
+            //                     $boolval[] = $nursingworld->status;
+            //                 }
+            //                 break;
+            //             case "ama":
+            //                 $ama_assn = Ama::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($ama_assn) {
+            //                     $boolval[] = $ama_assn->status;
+            //                 }
+            //                 break;
+            //             case "everify":
+            //                 $everify = Everify::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($everify) {
+            //                     $boolval[] = $everify->status;
+            //                 }
+            //                 break;
+            //             case "npdb":
+            //                 $npdb_hrsa = Npdb::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($npdb_hrsa) {
+            //                     $boolval[] = $npdb_hrsa->status;
+            //                 }
+            //                 break;
+            //             case "samgov":
+            //                 $samgov = Sam::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($samgov) {
+            //                     $boolval[] = $samgov->status;
+            //                 }
+            //                 break;
+            //             case "ecfmg":
+            //                 $ecfmg = Ecfmg::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($ecfmg) {
+            //                     $boolval[] = $ecfmg->status;
+            //                 }
+            //                 break;
+            //             case "OptOutSrch":
+            //                 $opt_out = OptOutSearch::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($opt_out) {
+            //                     $boolval[] = $opt_out->status;
+            //                 }
+            //                 break;
+            //             case "prof_misc":
+            //                 $prof_misc = ProfMisconduct::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($prof_misc) {
+            //                     $boolval[] = $prof_misc->status;
+            //                 }
+            //                 break;
+            //             case "ofac_search":
+            //                 $ofac_search = OfacSearch::where($where)->orderBy('created_at', 'DESC')->first();
+            //                 if ($ofac_search) {
+            //                     $boolval[] = $ofac_search->status;
+            //                 }
+            //                 break;
+            //         }
+                        
+            //     }
+               
+            //     $boolvalues = (in_array(false,$boolval)) ? 'disabled' :'';
+            //     $hire_validation = '0';
 
-            // $url = "https://1000logos.net/wp-content/uploads/2016/11/google-logo.jpg";
-            // $contents = file_get_contents($url);
-            // $name = substr($url, strrpos($url, '/') + 1);
-
-            // Storage::put($name, $contents);
-            // $where = [
-            //     'physician_user_id' => 1,
-            //     'cron_status' => '1',
-            // ];
-            // $data = OfficeInspectorGeneral::where($where)->get();
-           // dd();
+            //     if($hire_validation == '1') return (in_array(false,$boolval)) ? false :true;;
+            // }   
+            
+            $boolvalues = '';
+            $hire_validation = '0';
             $currentMonth = Carbon::now()->month;
+            //dd('sadsdsdasdd');
 		
-            return view('pages.admin.nurse-view', compact('data', 'prior','address','info','reference_detail','emergency_detail','education_detail','security_detail','military_detail','employer_detail','payroll_details','workHistory_detail','professional_detail','document_information','applicant', 'scanId', 'cat_id', 'scan_field', 'mapId', 'board', 'currentMonth', 'employer_verify', 'userInfo'));
+            return view('pages.admin.nurse-view', compact('data', 'prior','address','info','reference_detail','emergency_detail','education_detail','security_detail','military_detail','employer_detail','payroll_details','workHistory_detail','professional_detail','document_information','applicant', 'scanId', 'cat_id', 'scan_field', 'mapId', 'board', 'currentMonth', 'employer_verify', 'userInfo', 'boolvalues'));
         }
 
         return redirect()->back();
@@ -600,7 +786,7 @@ class ClinicianController extends Controller
                 'cron_status' => '1',
             ];
         }
-
+       
         if ($input['sites_name'] === 'dea') {
             $data = Dea::query();
             $site = '14';
@@ -734,7 +920,7 @@ class ClinicianController extends Controller
                 }
                             
                 $datatble->addColumn('action', function($row) use($input) {
-                    $actual_link = 'http://3.132.211.119/'.$row->screenshot;
+                    $actual_link = 'http://20.106.235.102/'.$row->screenshot;
                     
                     $btn = '<a class="nav-link active view_document" data-id="'.$row->id .'" data-type="Dea" href="javascript:void(0)" data-action="scanReport" data-value="' . $actual_link .'" data-field="">Print</a>';
 
@@ -745,15 +931,15 @@ class ClinicianController extends Controller
                 });
                 
                 $datatble->addColumn('status', function($row) use($input, $site) {
-                    $selected = '';
+                    $selected1 = $selected2 = '';
                     if ($row->verification_status ==  1) {
-                        $selected = 'Selected';
+                        $selected1 = 'Selected';
                     } elseif ($row->verification_status ==  2) {
-                        $selected = 'Selected';
+                        $selected2 = 'Selected';
                     }
                      
                     $btn = '<select class="approvment_ss" data-id="'.$row->id.'" data-user="' . $input['scanId'] . '" data-site="'.$site.'" data-cat="' . $input['category_id']. '">';
-                    $btn .= '<option value="0">Pending</option><option value="1" '. $selected .'>Approve</option><option value="2" '. $selected .'>Unapprove</option>';
+                    $btn .= '<option value="0">Pending</option><option value="1" '. $selected1 .'>Approve</option><option value="2" '. $selected2 .'>Unapprove</option>';
                     $btn .= '</select>';
 
                     return $btn;

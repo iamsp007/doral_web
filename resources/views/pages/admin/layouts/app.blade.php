@@ -125,6 +125,7 @@
         <section class="app-body">
             @yield('content')
         </section>
+         
     </section>
 </section>
 @yield('popup')
@@ -145,6 +146,7 @@
 <script>
     $("#loader-wrapper").hide();
 </script>
+
 @stack('scripts')
 </body>
 </html>

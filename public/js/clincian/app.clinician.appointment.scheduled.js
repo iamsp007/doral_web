@@ -480,6 +480,7 @@ function selectRoadlRequest(e) {
 }
 
 function onAppointmentBroadCastSubmit() {
+
     var data = $('#broadcast_form').serializeArray();
     var confirm = window.confirm('Are you sure Create your RoadL Request?');
     if (confirm){

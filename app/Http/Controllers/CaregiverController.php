@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AcceptedMail;
 use App\Models\City;
 use App\Models\Demographic;
 use App\Models\PatientLabReport;
@@ -14,6 +15,7 @@ use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use ZipArchive;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +78,7 @@ class CaregiverController extends Controller
 
     public function getCaregiverDetail(Request $request)
     {
+     
         $url = url()->previous();
         $patientList = User::whereHas('roles',function ($q){
             $q->where('name','=','patient');
@@ -190,8 +193,12 @@ class CaregiverController extends Controller
         ->when($request['status'], function ($query) use($request) {
             $query->where('status', $request['status']);
         })
-        ->when($request['user_name'], function ($query) use($request){
-            $query->where('id', $request['user_name']);
+        ->when($request['first_name'], function ($query) use($request){
+       dd($request->all());
+            $query->where('id', $request['first_name']);
+        })
+        ->when($request['last_name'], function ($query) use($request){
+            $query->where('id', $request['last_name']);
         })
         ->when($request['ssn'], function ($query) use($request){
             $query->whereHas('demographic',function ($q) use($request) {
@@ -516,13 +523,78 @@ class CaregiverController extends Controller
     }
     public function updatePatientStatus(Request $request)
     {
-        $clinicianService = new ClinicianService();
-        $response = $clinicianService->updatePatientStatus($request->all());
+        // $clinicianService = new ClinicianService();
+        // $response = $clinicianService->updatePatientStatus($request->all());
 
-        if ($response->status === true){
-            return response()->json($response,200);
+        // if ($response->status === true){
+        //     return response()->json($response,200);
+        // }
+        // return response()->json($response,422);
+
+        $input = $request->all();
+        $status = $input['status'];
+        $ids = $input['id'];
+
+        $statusData = '1';
+        if ($status === '3') {
+            $statusData = '3' ;
         }
-        return response()->json($response,422);
+       
+        if (isset($input['action']) && $input['action'] === 'single-action') {
+            $users = User::where('id',$ids);
+        } else {
+            $users = User::whereIn('id',$ids);
+        }
+        $user = $users->update(['status' => $statusData]);
+      
+        if ($user) {
+            $usersData = $users->with('demographic')->get();
+            foreach ($usersData as $value) {
+                $first_name = ($value->first_name) ? $value->first_name : '';
+                $last_name = ($value->last_name) ? $value->last_name : '';
+                $password = ($value->demographic && $value->demographic->doral_id) ? $value->demographic->doral_id : '';
+                $password = str_replace("-", "@",$password);
+                if ($value->phone) {
+                    // Send Message Start
+                    $link=env("WEB_URL").'download-application';
+                  $message = '';
+                    if ($value->demographic) {
+                        if($value->demographic->service_id == 6) {
+                            $message = 'This message is from Doral Health Connect. In order to track your nurse coming to your home for vaccination please click on the link below and download an app. '.$link . "  for login Username : ".$value->email." & Password : ".$password;
+                        } else if($value->demographic->service_id == 3) {
+                            $message = 'Congratulation! Your employer Housecalls home care has been enrolled to benefit plan where each employees will get certain medical facilities. If you have any medical concern or need annual physical please click on the link below and book your appointment now. '.$link . "  Credentials for this application. Username : ".$value->email." & Password : ".$password;
+                        }
+                        if($message != ''){
+                        $smsController = new SmsController();
+                        $smsController->sendsmsToTwilio($message, setPhone($value->phone));
+                        }
+                    } else {
+                       $message = 'Congratulations! Your profile has been activated with Doral Health Connect and now you can see Doral Patient. By clicking on the link below verify your logins to receive visit requests.Link:https://testflight.apple.com/join/7zBLCZTD';
+
+                        $smsController = new SmsController();
+                        $smsController->sendsmsToTwilio($message, setPhone($value->phone));
+                    }
+                   
+                    // Send Message End
+                }
+
+                if ($value->email) {
+                    if ($statusData === '1') {
+                        $details = [
+                            'name' => $first_name . ' ' . $last_name,
+                            'password' => $password,
+                            'email' => $value->email,
+                            'login_url' => route('login'),
+                        ];
+
+                        Mail::to($value->email)->send(new AcceptedMail($details));
+                    }
+                }
+            }
+            
+            return $this->generateResponse(true, 'Change Status Successfully.', null, 200);
+        }
+        return $this->generateResponse(false, 'Detail not Found', null, 400);
     }
 
     public function updatePhoneNumber(Request $request)
@@ -572,6 +644,7 @@ class CaregiverController extends Controller
     public function getUserData(Request $request)
     {
         $input = $request->all();
+        
         $user = [];
         if($request->has('q')){
             $status = '';
@@ -586,11 +659,17 @@ class CaregiverController extends Controller
             }
 
             $user = User::with('designation')
-            ->whereHas('roles', function($q) {
-                $q->where('name','clinician');
+            ->whereHas('roles', function($q) use($input) {
+           
+	     	if ($input['view'] === 'clinician') {
+	     		$q->where('name','clinician');
+	     	} else if ($input['view'] === 'patient') {
+	     		
+	     		$q->where('name','patient');
+	     	}		    
             })
             ->whereIn('status', $status)
-            ->select("id","first_name", 'last_name')
+            ->select("id","first_name", 'last_name')           
             ->when($input['field'] ,function ($query) use($input) {
                 $search = $input['q'];
                 if ($input['field'] === 'first_name') {
@@ -670,5 +749,17 @@ class CaregiverController extends Controller
 
         return response()->json($data);
     }
+    
+     public function generateResponse($status = false, $message = NULL,  $data = array(), $statusCode = 200, $error = array(), $url = '')
+    {
+        $response["status"] = $status;
+        $response["code"] = $statusCode;
+        $response["message"] = $message;
+        $response["data"] = $data;
+
+        return response()->json($response, $statusCode);
+    }
+
 }
+
 

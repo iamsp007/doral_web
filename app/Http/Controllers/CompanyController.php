@@ -81,7 +81,7 @@ class CompanyController extends Controller
                     return 'Home Care';
                 } elseif ($row['referal_id'] == 3) {
                     return 'Others';
-                } 
+                }
                 return '';
             })
             ->addColumn('action', function($row){
@@ -130,51 +130,51 @@ class CompanyController extends Controller
                     $q->where('name','=','referral');
                 })
                 ->get();
-                
-            $data['data'] = $companies; 
+
+            $data['data'] = $companies;
         }
         return $data;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $status = 0;
-        $message = "";
-        $record = [];
-        try {
-            if(empty($request->email)) {
-                throw new Exception("Please Enter Email");
-            }
-            $data = array(
-                'name' => $request->company,
-                'referral_id' => $request->referralType,
-                'email' => $request->email
-            );
-            $adminServices = new AdminService();
-            $responseArray = $adminServices->storeCompany($data);
-            if($responseArray['status']) {
-                $status = 1;
-                $record = $responseArray['data'];
-            }
-            $message = $responseArray['message'];
+    // /**
+    //  * Store a newly created resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function store(Request $request)
+    // {
+    //     $status = 0;
+    //     $message = "";
+    //     $record = [];
+    //     try {
+    //         if(empty($request->email)) {
+    //             throw new Exception("Please Enter Email");
+    //         }
+    //         $data = array(
+    //             'name' => $request->company,
+    //             'referral_id' => $request->referralType,
+    //             'email' => $request->email
+    //         );
+    //         $adminServices = new AdminService();
+    //         $responseArray = $adminServices->storeCompany($data);
+    //         if($responseArray['status']) {
+    //             $status = 1;
+    //             $record = $responseArray['data'];
+    //         }
+    //         $message = $responseArray['message'];
 
-        } catch(Exception $e) {
-            $status = 0;
-            $message = $e->getMessage();
-        }
-        $response = [
-            'status' => $status,
-            'message' => $message
-        ];
+    //     } catch(Exception $e) {
+    //         $status = 0;
+    //         $message = $e->getMessage();
+    //     }
+    //     $response = [
+    //         'status' => $status,
+    //         'message' => $message
+    //     ];
 
-        return response()->json($response, 201);
-    }
+    //     return response()->json($response, 201);
+    // }
 
     /**
      * Login Company
@@ -200,7 +200,7 @@ class CompanyController extends Controller
             $url = CurlFunction::getURL().'/api/auth/company/login';
             $curlResponse = CurlFunction::withOutToken($url, $data);
             $responseArray = json_decode($curlResponse, true);
-            
+
             if($responseArray['status']) {
                 $status = 1;
                 session(['referral_id' => $responseArray['data']['Company']['referal_id']]);
@@ -252,7 +252,7 @@ class CompanyController extends Controller
             $curlResponse = curl_exec($ch);
             curl_close($ch);
             $responseArray = json_decode($curlResponse, true);
-            
+
             if($responseArray['status'] == 1) {
                 $status = 1;
             }
@@ -279,13 +279,13 @@ class CompanyController extends Controller
     public function updateStatus(Request $request)
     {
         $input = $request->all();
-          
+
         $companies = Company::whereIn('id',$input['id']);
         $companies->update(['status' => $input['status']]);
 
         if ($input['status'] === '1') {
             foreach ($companies->get() as $company) {
-               
+
                 $details = [
                     'name' => $company->first_name,
                     'password' => env('REFERRAL_PASSWORD'),
@@ -305,7 +305,7 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function profile($id = '')
-    {   
+    {
         if($id == '') {
            $id = Auth::user()->id;
         }
@@ -346,12 +346,12 @@ class CompanyController extends Controller
      */
     public function updateProfile(request $request)
     {
-   
+
         $helper = new Helper();
         $to = "eaPYO9xjyqE:APA91bHu5SqlOBB3keVhnS-4ZSnkHMRMuZvHkaid7bS5MsxNJcj1WYy-JWU17V3moGRDczPyjVsjYOSTRfxMSvNE8zYOF_vGiNIh3o53bf0i-GDSkiK895ZveHJR64iKAQb8__R6SH2K";
         $data = array("body"=>"Referral Updated");
         $helper->sendSpecialNotification($to,$data);
-        
+
         $data = $request->all();
         $id = $request['id'];
         $status = 0;

@@ -1,21 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vikasroy
- * Date: 22/03/18
- * Time: 8:53 PM
- */
-
 namespace App\Services;
 
 use App\BaseClient;
-use GuzzleHttp\Exception\ClientException;
-use Illuminate\Support\Facades\Auth;
-use Mockery\Exception;
 
 class AdminService
 {
-
     protected $client;
 
     public function __construct()
@@ -23,63 +12,66 @@ class AdminService
         $this->client = new BaseClient(env('API_URL'), env('API_URL'));
     }
 
-    public function getCompanyReferral($type){
-        try {
+    /** Not used function comment code by manisha*/
+    // public function getCompanyReferral($type){
+    //     try {
 
-            $response = $this->client->request(
-                'GET',
-                '/auth/company/'.$type
-            );
-
-
-            $response = $response->getBody()->getContents();
-            $data = json_decode($response,true);
-            return $data;
-        }catch (\Exception $exception){
-            \Log::info($exception);
-            throw new \Exception($exception->getMessage());
-        }
-    }
-
-    public function storeCompany($data){
-        try {
-
-            $response = $this->client->request(
-                'POST',
-                '/auth/company/store'
-            );
+    //         $response = $this->client->request(
+    //             'GET',
+    //             '/auth/company/'.$type
+    //         );
 
 
-            $response = $response->getBody()->getContents();
+    //         $response = $response->getBody()->getContents();
+    //         $data = json_decode($response,true);
+    //         return $data;
+    //     }catch (\Exception $exception){
+    //         \Log::info($exception);
+    //         throw new \Exception($exception->getMessage());
+    //     }
+    // }
 
-            $data = json_decode($response,true);
-            return $data;
-        }catch (\Exception $exception){
-            \Log::info($exception);
-            throw new \Exception($exception->getMessage());
-        }
-    }
+    /** Not used function comment code by manisha*/
+    // public function storeCompany($data){
+    //     try {
 
-    public function updatestatus($data) {
-        try {
-
-            $response = $this->client->request(
-                'POST',
-                '/auth/company/updatestatus',
-                [
-                    'json'=>$data
-                ]
-            );
+    //         $response = $this->client->request(
+    //             'POST',
+    //             '/auth/company/store'
+    //         );
 
 
-            $response = $response->getBody()->getContents();
-            $data = json_decode($response,true);
-            return $data;
-        }catch (\Exception $exception){
-            \Log::info($exception);
-            throw new \Exception($exception->getMessage());
-        }
-    }
+    //         $response = $response->getBody()->getContents();
+
+    //         $data = json_decode($response,true);
+    //         return $data;
+    //     }catch (\Exception $exception){
+    //         \Log::info($exception);
+    //         throw new \Exception($exception->getMessage());
+    //     }
+    // }
+
+    /** Not used function comment code by manisha*/
+    // public function updatestatus($data) {
+    //     try {
+
+    //         $response = $this->client->request(
+    //             'POST',
+    //             '/auth/company/updatestatus',
+    //             [
+    //                 'json'=>$data
+    //             ]
+    //         );
+
+
+    //         $response = $response->getBody()->getContents();
+    //         $data = json_decode($response,true);
+    //         return $data;
+    //     }catch (\Exception $exception){
+    //         \Log::info($exception);
+    //         throw new \Exception($exception->getMessage());
+    //     }
+    // }
 
     public function getProfile($type){
         try {
@@ -302,7 +294,7 @@ class AdminService
                 $data = json_decode($response);
                 return $data;
             } catch (\Exception $exception) {
-             
+
             \Log::info($exception);
             throw new \Exception($exception->getMessage());
         }

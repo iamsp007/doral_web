@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Clinician;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\DiesesMaster;
 use App\Models\PatientRequest;
+use App\Models\Referral;
 use App\Models\User;
 use App\Services\ClinicianService;
 use Illuminate\Http\Request;
@@ -17,7 +20,7 @@ class RoadLController extends Controller
     public function __construct(ClinicianService $clinicianService){
         $this->clinicianService=$clinicianService;
     }
-   
+
     public function index(Request $request)
     {
         $user_id = '0';
@@ -29,7 +32,7 @@ class RoadLController extends Controller
         if ($request->has('clinician_id')){
             $clinician_id = $request->clinician_id;
         }
-        
+
         $type='0';
         if ($request->has('type')){
             $type = $request->type;
@@ -56,10 +59,10 @@ class RoadLController extends Controller
             ->groupBy('parent_id')
             ->orderBy('id','desc')
             ->get();
-            
+
             // $clinicianService = new ClinicianService();
             // $response = $clinicianService->getPatientRequestList($type);
-        
+
         $patientRequestList=array();
         if (count($patientRequestLists)>0){
             $patientRequestList = $patientRequestLists;
@@ -87,7 +90,7 @@ class RoadLController extends Controller
     public function runningRoadLRequest(Request $request,$patient_request_id){
         return view($this->view_path.'roadL_running',compact('patient_request_id'));
     }
-    
+
     public function updateDriveMode(Request $request){
         $patientRequest = PatientRequest::find($request['id'])->update(['driving_mode' => $request['driving_mode']]);
         return response()->json($patientRequest,200);
@@ -113,25 +116,41 @@ class RoadLController extends Controller
     }
 
     public function getVendorList(Request $request){
-        $response = $this->clinicianService->getVendorList($request->all());
-        if ($response->status===true){
-            $clinicianList = $response->data;
-            return response()->json($clinicianList,200);
+        $vendorList = Referral::where('guard_name','=','partner')
+        ->where('status','=','active')
+        ->get();
+        if ($request->has('parent_id')){
+            $vendorList = collect($vendorList)->map(function ($row) use ($request){
+                $check = PatientRequest::where('parent_id', $request->parent_id)
+                    ->whereNotNull('parent_id')
+                    ->where('type_id','=',$row->role_id)
+                    // ->where('status','!=','1')
+                    ->first();
+                $row->check = $check;
+                return $row;
+            });
         }
-        return response()->json($response,422);
+        return $this->generateResponse(true,'Vendor List APi',$vendorList,200);
     }
 
     public function getClinicianList(Request $request){
-        $response = $this->clinicianService->getClinicianList($request->all());
-        if ($response->status===true){
-            $clinicianList = $response->data;
-            return response()->json($clinicianList,200);
-        }
-        return response()->json($response,422);
+        $clinicianList = User::where([['designation_id','=',$request->role_id], ['status','=','1']])->get();
+        // $clinicianList = User::where([['designation_id','=',$request->role_id], ['status','=','1'], ['is_available','=','1']])->get();
+
+        $categories = Category::where('type_id',$request->role_id)->where('status',"1")->get();
+
+        $dieses = DiesesMaster::where('status','=',1)->get();
+        $data = [
+            'clinicianList' => $clinicianList,
+            'categories' => $categories,
+            'dieses' => $dieses
+        ];
+
+        return $this->generateResponse(true,'Clinician List APi',$data,200);
     }
 
     public function getSubTestNameList(Request $request){
-     
+
         $response = $this->clinicianService->getSubTestNameList($request->all());
         if ($response->status===true){
             $clinicianList = $response->data;
@@ -146,7 +165,7 @@ class RoadLController extends Controller
 
         if($request->has('q')){
             $search = $request->q;
-            
+
             $data = User::whereHas('roles',function ($q){
                     $q->where('name','=','patient');
                 })->whereHas('patientRequest')
@@ -156,7 +175,7 @@ class RoadLController extends Controller
                 ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
                 ->get();
         }
-       
+
         return response()->json($data);
     }
 
@@ -166,14 +185,14 @@ class RoadLController extends Controller
 
         if($request->has('q')){
             $search = $request->q;
-            
+
             $data = User::whereHas('roles',function ($q){
                     $q->where('name','=','clinician');
                 })->whereHas('clinicianRequest')->select("id","first_name", 'last_name')
                 ->where('first_name','LIKE',"%$search%")->orWhere('last_name', 'LIKE', "%$search%")
                 ->get();
         }
-       
+
         return response()->json($data);
     }
 }

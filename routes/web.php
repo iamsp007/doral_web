@@ -179,8 +179,11 @@ use Illuminate\Support\Facades\Route;
     Route::get('/update-scrap-status', 'App\Http\Controllers\ScrapController@updateStatus')->name('update-scrap-status');
     Route::get('/change-applicant-status', 'App\Http\Controllers\ScrapController@updateApplicantStatus')->name('change-applicant-status');
     Route::get('/scrapping_status', 'App\Http\Controllers\ScrapController@updateScrappStatus')->name('scrapping_status');
-    
+
     Route::get('/i9form_verify/{id}','App\Http\Controllers\Clinician\ClinicianController@i9form_verify')->name('i9form_verify');
 
     Route::post('/i9form_verify/store','App\Http\Controllers\Clinician\ClinicianController@store')->name('store.i9form_verify');
-    
+
+
+     Route::get('terms-and-conditions', 'App\Http\Controllers\PageController@termsAndCondiition');
+     Route::get('privacy-and-policy', 'App\Http\Controllers\PageController@privacyAndPolicy');

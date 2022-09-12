@@ -5,7 +5,7 @@
         if($input['type_id'] === '46' || $input['type_id'] === '47' || $input['type_id'] === '48'):
             $mainclass = "modal-lg";
             $innerClass = "col-sm-12 mt-12";
-        elseif($input['action'] === 'scanReport')
+        elseif($input['action'] === 'scanReport'):
             $mainclass = "modal-xl";
             $innerClass = "col-sm-12 mt-12";
         endif;

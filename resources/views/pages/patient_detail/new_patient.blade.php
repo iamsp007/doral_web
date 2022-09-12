@@ -7,7 +7,7 @@
     @else
         Patient
     @endif
- 
+
 @endsection
 @push('styles')
 <style type="text/css">
@@ -21,7 +21,7 @@ ini_set('memory_limit', '-1');
 @endphp
 @hasrole('referral')
     @section('upload-btn')
-      
+
         @if (request()->segment(count(request()->segments())) == "occupational-health")
             <div class="d-flex">
                 <a href="{{ url('referral/service/occupational-health/initial') }}" class="bulk-upload-btn"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Pending Patients</a>
@@ -49,7 +49,7 @@ ini_set('memory_limit', '-1');
                 <a href="javascript:void(0)" class="bulk-upload-btn autoImportPatient" data-url="{{ url('import-patient-from-hha') }}" data-action="import-caregiver" data-id="{{ $patient->id ?? '' }}" style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Auto Import</a>
             </div>
         @endif
-    @endsection 
+    @endsection
 @endrole
 
 @section('content')
@@ -60,7 +60,8 @@ ini_set('memory_limit', '-1');
                 <div class="row">
                     <div class="col-3 col-sm-3 col-md-3">
                         <div class="input-group">
-                            <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select>
+                            {{-- <select class="user_name form-control select2_dropdown" id="user_name" name="user_name"></select> --}}
+                            <select class="form-control" id="first_name" name="first_name" placeholder="Select a first name"></select>
                         </div>
                     </div>
                     <div class="col-3 col-sm-3 col-md-3">
@@ -141,11 +142,11 @@ ini_set('memory_limit', '-1');
             </div>
         </form>
     @endif
-    
+
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
         @include('admin.common.accept_reject_button',['status' => $serviceStatus])
     </div>
-    
+
     <table class="display responsive nowrap" style="width:100%" id="get_patient-table">
         <input type="hidden" value="{{ $serviceStatus }}" id="serviceStatus" name="serviceStatus" />
         <input type="hidden" value="{{ $initial }}" id="initial" name="initial" />
@@ -175,8 +176,8 @@ ini_set('memory_limit', '-1');
         <tbody>
         </tbody>
     </table>
-  
-  
+
+
 @endsection
 
 @push('styles')
@@ -188,17 +189,23 @@ ini_set('memory_limit', '-1');
     .phone-text, .fullname-text, .ssn-text, .address-text,  .while_edit {
         display: none;
     }
+    ul.select2-selection__rendered {
+        display: flex !important
+        flex-direction: row-reverse !important
+        padding-top: 2px !important
+        align-items: center !important
+    }
 </style>
 @endpush
 
 @push('scripts')
     <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <script>
         var serching = false;
         var status = $("#serviceStatus").val();
         var role = $("#role").val();
-        
+
         if(status === "pending"){
             var serching = true;
         }
@@ -246,7 +253,7 @@ ini_set('memory_limit', '-1');
                 'headers': {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                
+
                 data: function (d) {
                     d.due_date = $('input[name="daterange"]').val();
                     d.status = $('select[name="status"]').val();
@@ -307,10 +314,10 @@ ini_set('memory_limit', '-1');
         }
 
         $(".autoImportPatient").click(function () {
-          
+
             var url = $(this).attr('data-url');
             var action = $(this).attr('data-action');
-           
+
             $("#loader-wrapper").show();
             $.ajax({
                 type:"GET",
@@ -337,7 +344,7 @@ ini_set('memory_limit', '-1');
         $("#filter_btn").click(function () {
             refresh();
         });
-        
+
         $("#reset_btn").click(function () {
             $('#search_form').trigger("reset");
             $('#user_name').html('');
@@ -360,7 +367,7 @@ ini_set('memory_limit', '-1');
             maxYear: parseInt(moment().format('YYYY'), 10)
         });
 
-        $('#user_name').select2({
+        $('#first_name').select2({
             minimumInputLength: 3,
             placeholder: 'Select a name',
             ajax: {
@@ -368,11 +375,20 @@ ini_set('memory_limit', '-1');
                 url: "{{ route('clinician.get-user-data') }}",
                 dataType: 'json',
                 delay: 250,
+                data: function (params) {
+                    var query = {
+                        q: params.term,
+                        view: 'patient',
+                        field: 'first_name'
+                    }
+
+                    return query;
+                },
                 processResults: function (data) {
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.first_name + ' ' + item.last_name,
+                                text: item.first_name,
                                 id: item.id
                             }
                         })
@@ -399,13 +415,13 @@ ini_set('memory_limit', '-1');
             var phone = $(document).find('.phone').val();
             var city = $(document).find('.city').val();
             var state = $(document).find('.state').val();
-            
+
             var id = $(this).attr("data-id");
             if (phone == '') {
                 alert('Please enter phone number');
                 return false;
             }
-            
+
             $.ajax({
                 'type': 'POST',
                 'url': "{{ route('referral.updatePhone') }}",
@@ -437,12 +453,12 @@ ini_set('memory_limit', '-1');
                 }
             });
         });
-        
+
         $('body').on('click', '.update-status', function () {
             var status = $(this).attr("data-status");
             $(".innerallchk, .mainchk").prop("checked","");
             $(this).parents("tr").find(".innerallchk").prop("checked",true);
-            doaction(status) 
+            doaction(status)
         });
 
 
@@ -450,20 +466,20 @@ ini_set('memory_limit', '-1');
         $("body").on('click','.viewMessage',function () {
             var user_id = $(this).attr('id');
             var url = '{{url("get-patient-due-detail")}}/' + user_id;
-          
+
             $.ajax({
                url : url,
                type: 'GET',
                headers: {
                   'X_CSRF_TOKEN':'{{ csrf_token() }}',
-               },  
+               },
                success:function(data, textStatus, jqXHR){
-                 
+
                   $(document).find(".messageViewModel").html(data);
                   $(document).find(".messageViewModel").modal('show');
                },
                error: function(jqXHR, textStatus, errorThrown){
-                 
+
                  alert('error');
                }
             });
@@ -526,7 +542,7 @@ ini_set('memory_limit', '-1');
 
         $(".mainchk").click(function () {
             var ch = $(this).prop("checked");
-            
+
             if(ch == true) {
                 $(".innerallchk").prop("checked","checked");
                 $('#acceptRejectBtn').show();
@@ -562,7 +578,7 @@ ini_set('memory_limit', '-1');
             }
         }
 
-        function doaction(status) 
+        function doaction(status)
         {
             var len = $(".innerallchk:checked").length;
             if (len == 0) {
@@ -581,9 +597,9 @@ ini_set('memory_limit', '-1');
                 }
             }
         }
-        
+
         function postdataforaction(status,val) {
-           
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',

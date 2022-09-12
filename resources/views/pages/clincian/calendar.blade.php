@@ -11,7 +11,7 @@
 @php
 $event = array();
 foreach($response as $dt){
-$event[] = array('title'=>'Appoitment Request ('.$dt->total.')','start'=>date('Y-m-d',strtotime($dt->start_datetime)),'end'=>date('Y-m-d',strtotime($dt->end_datetime))); 
+$event[] = array('title'=>'Appoitment Request ('.$dt->total.')','start'=>date('Y-m-d',strtotime($dt->start_datetime)),'end'=>date('Y-m-d',strtotime($dt->end_datetime)));
 }
 $event=json_encode($event);
 @endphp
@@ -80,7 +80,7 @@ $event=json_encode($event);
             $(".fc-dayGridMonth-button").trigger('click');
                 $(".fc-timeGridDay-button").prop( "disabled", true );
         });
-        
+
     </script>
-    
+
 @endpush

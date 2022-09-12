@@ -64,7 +64,7 @@ class Demographic extends Model
     {
         return $this->hasOne(Services::class,'id','service_id');
     }
-    
+
     // /**
     //  * Create ssn number
     //  */
@@ -106,4 +106,4 @@ class Demographic extends Model
     //     }
     //     return $phoneData;
     // }
-} 
+}

@@ -37,6 +37,7 @@ class Appointment extends Model
     {
         return $this->hasOne(User::class, 'id', 'booked_user_id');
     }
+
     /**
      * Get Provider1 details
      */
@@ -370,5 +371,5 @@ class Appointment extends Model
             ];
         }
     }
-    
+
 }

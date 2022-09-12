@@ -252,7 +252,7 @@
                                     <div class="rs">
                                        <h3 class="_title">Name</h3>
                                        <div class="_detail">
-                                          <input type="text" class="form-control form-control-lg" name="name" 
+                                          <input type="text" class="form-control form-control-lg" name="name"
                                           aria-describedby="nameHelp" placeholder="Enter Name">
                                           <span class="name-invalid-feedback text-danger" role="alert"></span>
                                        </div>
@@ -324,7 +324,7 @@
                   </form>
                </div>
                <!-- Family End -->
-               
+
                <!-- Case Manager Start -->
                <div class="app-card app-card-custom no-minHeight box-shadow-none mt-3" data-name="croley_family_and_financial">
                   <div class="app-card-header">
@@ -348,19 +348,23 @@
                               @foreach($caseManagements as $caseManager)
                                  <tr>
                                     <td>
+                                    	@if(isset($caseManagements->clinician))
                                        {{ $caseManager->clinician->full_name }}
+                                       @endif
                                     </td>
                                     <td>
+                                    @if(isset($caseManagements->clinician))
                                        {{ $caseManager->clinician->phone }}
+                                       @endif
                                     </td>
                                     <td>
-                                       
+
                                     </td>
                                     <td>
-                                       
+
                                     </td>
                                     <td>
-                                       
+
                                     </td>
                                     <td class="ms-lastCell">
                                        <label>
@@ -493,7 +497,7 @@
                                     <div class="rs">
                                        <h3 class="_title">Name</h3>
                                        <div class="_detail">
-                                          <input type="text" class="form-control form-control-lg" name="name" 
+                                          <input type="text" class="form-control form-control-lg" name="name"
                                           aria-describedby="nameHelp" placeholder="Enter Name">
                                           <span class="name-invalid-feedback text-danger" role="alert"></span>
                                        </div>
@@ -679,7 +683,7 @@
                                     <div class="rs">
                                        <h3 class="_title">Name</h3>
                                        <div class="_detail">
-                                          <input type="text" class="form-control form-control-lg" name="name" 
+                                          <input type="text" class="form-control form-control-lg" name="name"
                                           aria-describedby="nameHelp" placeholder="Enter Name">
                                           <span class="name-invalid-feedback text-danger" role="alert"></span>
                                        </div>
@@ -839,7 +843,7 @@
                      </div>
                   </div>
                </div>
-           
+
          </div>
       </div>
    </div>
@@ -870,7 +874,7 @@
 //                location.reload();
 
             }
-           
+
 
 
         });

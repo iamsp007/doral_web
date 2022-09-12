@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -15,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
-  
+
     <link rel="stylesheet" href="{{ asset('assets/css/sidebar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tail.select-default.min.css') }}">
@@ -269,6 +270,10 @@
             </div>
         </header>
         <section class="app-body">
+        <div><input type="hidden" class="auth_user_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" class="auth_user_first_name" value="{{ Auth::user()->first_name }}">
+        <input type="hidden" class="auth_user_last_name" value="{{ Auth::user()->last_name }}">
+        <input type="hidden" class="auth_user_email" value="{{ Auth::user()->email }}"></div>
             @yield('content')
         </section>
         <!-- Modal For Med Profile Start -->
@@ -444,7 +449,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="p-0">
-                                            <table class="table table-borderless table-sm m-0">
+                                            <table class="table table-borderless main-table-class table-sm m-0">
                                                 <tbody>
                                                     <tr>
                                                         <td colspan="4">
@@ -473,7 +478,7 @@
                                                                 </td>
                                                                 <td style="width: 70%;" class="border-0">
                                                                     <select name="clinician_list_id" id="clinician_list_id" class="input-small-skin select2" tabindex="0" aria-hidden="false">
-                                                                            
+
                                                                     </select>
                                                                 </td>
                                                             </tr></tbody></table>
@@ -485,12 +490,12 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td style="width: 30%;" class="text-right border-0">
-                                                                            Test Name :
+                                                                            Disease :
                                                                         </td>
                                                                         <td style="width: 70%;" class="border-0">
-                                                                        <select onchange="getSubNameList()" name="test_name[]" class="input-small-skin js-example-basic-multiple" multiple>
+                                                                        <select name="test_name[]" class="input-small-skin js-example-basic-multiple disease_select" multiple>
                                                                         </select>
-                                                                      
+
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -503,11 +508,11 @@
                                                                 <tbody>
                                                                     <tr>
                                                                         <td style="width: 30%;" class="text-right border-0">
-                                                                            Sub Test Name :
+                                                                            Symptoms :
                                                                         </td>
                                                                         <td style="width: 70%;" class="border-0">
                                                                             <select name="sub_test_name[]" class="input-small-skin sub_test_id" multiple>
-                                                                               
+
                                                                             </select>
                                                                         </td>
                                                                     </tr>
@@ -515,9 +520,9 @@
                                                             </table>
                                                         </td>
                                                     </tr>
-                                                    
+
                                                     <input type="hidden" class="input-small-skin" name="patient_roles_name" id="patient_roles_name" value="">
-                                                                
+
                                                     <tr>
                                                         <td colspan="4">
                                                             <table style="width: 100%;">
@@ -595,7 +600,34 @@
 
     <script src="{{ asset('js/clincian/app.clinician.broadcast.js?ver=2') }}"></script>
     <script src="{{ asset('js/global.js') }}"></script>
+  <script>
+    var auth_user_id = $('.auth_user_id').val();
+    var auth_user_name = $('.auth_user_first_name').val() + ' ' + $('.auth_user_last_name').val();
+    var auth_user_email = $('.auth_user_email').val();
+    console.log('auth_user_id=: ' + auth_user_id);
+    console.log('auth_user_name=: ' + auth_user_name);
+    console.log('auth_user_email=: ' + auth_user_email);
+    (function(apiKey){
 
+        (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
+        v=['initialize','identify','updateOptions','pageLoad','track'];for(w=0,x=v.length;w<x;++w)(function(m){
+            o[m]=o[m]||function(){o._q[m===v[0]?'unshift':'push']([m].concat([].slice.call(arguments,0)));};})(v[w]);
+            y=e.createElement(n);y.async=!0;y.src='https://cdn.pendo.io/agent/static/'+apiKey+'/pendo.js';
+            z=e.getElementsByTagName(n)[0];z.parentNode.insertBefore(y,z);})(window,document,'script','pendo');
+
+            pendo.initialize({
+                visitor: {
+                    id: auth_user_id,
+                    name: auth_user_name,
+                    email: auth_user_email,
+                },
+
+                account: {
+                    id: 'ACCOUNT-UNIQUE-ID'
+                }
+            });
+    })('71322162-1bf1-4bcd-72de-1d93c59ab919');
+</script>
 @stack('scripts')
 </body>
 </html>

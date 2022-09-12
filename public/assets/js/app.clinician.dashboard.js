@@ -175,11 +175,11 @@ function bloodPressure(high_level, selector1,low_midium_level, selector2, label)
                 html += '<li class="item">' +
                         '<div class="patient-detail">' +
                         '<div class="p-20">' +
-                        '<div class="img-50">' +
+                        '<a href="#"><div class="img-50">' +
                         '<img src="'+val.user_device.user.avatar_image+'" alt="Welcome to Doral" srcset="'+val.user_device.user.avatar_image+'" class="img-fluid">' +
                         '</div>' +
                         '<h1 class="patient-name">'+val.user_device.user.first_name+' '+val.user_device.user.last_name+'</h1>' +
-                        '</div>' +
+                        '</div></a>' +
                         '<div class="emergency-detail p-20">' +
                         '<h3 class="title">'+label+'</h3>' +
                         '<h1 class="counts">'+val.value+'</h1>' +

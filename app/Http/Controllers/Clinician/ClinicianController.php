@@ -44,7 +44,6 @@ class ClinicianController extends Controller
 {
     public function index($status)
     {
-    	
         $designations = Designation::where('role_id', 4)->get();
         return view('admin.clinician.index',compact('status', 'designations'));
     }
@@ -133,39 +132,95 @@ class ClinicianController extends Controller
                 return $created_at;
             })
             ->addColumn('status', function ($row) use($input){
-                $selected = '';
-                if ($row->scrpping_status ==  1) {
-                    $selected = 'Selected';
-                } elseif ($row->scrpping_status ==  2) {
-                    $selected = 'Selected';
+
+
+                $info = [];
+                $scanId = $cat_id = '';
+
+                if(isset($row->applicant->address_detail['info'])) {
+                    $info = $row->applicant->address_detail['info'];
                 }
-                 
-                $btn = '<select class="scrapping_status" data-id="'.$row->id.'" data-user="' . $input['scanId'] . '" data-cat="' . $input['category_id']. '">';
-                $btn .= '<option value="1" '. $selected .'>Approve for scrapping</option><option value="2" '. $selected .'>Reject for scrapping</option>';
+
+                if ($row->designation_id == '9') {
+                    $ssn = $dob ='';
+                    if (isset($info['ssn']) && isset($info['dateOfBirth'])) {
+                        $ssn = setSsn($info['ssn']);
+                        $dob = date("Y-m-d", strtotime($info['dateOfBirth']));
+                    }
+
+                    if ($ssn != '' && $dob != '') {
+                        $userInfo = PhysicianUsers::where([['ssn_no','=', $ssn],['date_of_birth', '=' , $dob]])->first();
+
+                        if ($userInfo) {
+                            $scanId = $userInfo->id;
+                        }
+                    }
+                    $cat_id = '1';
+
+                } else if ($row->designation_id == '1') {
+                    $ssn = $dob ='';
+
+                    if (isset($info['ssn']) && isset($info['dateOfBirth'])) {
+                        $ssn = setSsn($info['ssn']);
+                        $dob = date("Y-m-d", strtotime($info['dateOfBirth']));
+                    }
+
+                    if ($ssn != '' && $dob != '') {
+                        $userInfo = NursePractitionerUsers::where([['ssn_no','=', $ssn],['date_of_birth', '=' , $dob]])->first();
+
+                        if ($userInfo) {
+                            $scanId = $userInfo->id;
+                        }
+                    }
+                    $cat_id = '2';
+                } else if ($row->designation_id == '4') {
+                    $ssn = $dob ='';
+                    if (isset($info['ssn']) && isset($info['dateOfBirth'])) {
+                        $ssn = setSsn($info['ssn']);
+                          $dob = date("Y-m-d", strtotime($info['dateOfBirth']));
+                    }
+
+                    if ($ssn != '' && $dob != '') {
+                        $userInfo = PhysicianAssistantUsers::where([['ssn_no','=', setSsn($ssn)],['date_of_birth', '=' , $dob]])->first();
+
+                        if ($userInfo) {
+                            $scanId = $userInfo->id;
+                        }
+                    }
+                    $cat_id = '3';
+                }
+
+                  $selected1 = $selected2 = '';
+                if (isset($userInfo->scrpping_status) && $userInfo->scrpping_status ===  '1') {
+                    $selected1 = 'Selected';
+                } elseif (isset($userInfo->scrpping_status) && $userInfo->scrpping_status ===  '2') {
+                    $selected2 = 'Selected';
+                }
+
+                $btn = '<select class="scrapping_status" data-id="'.$row->id.'" data-user="' . $scanId . '" data-cat="' . $cat_id. '">';
+                $btn .= '<option value="">Select a status</option><option value="1" '. $selected1 .'>Approve for scrapping</option><option value="2" '. $selected2 .'>Reject for scrapping</option>';
                 $btn .= '</select>';
 
                 return $btn;
-            })            
+            })
             ->addColumn('action', function ($row){
 
                 $action = '';
-                if ($row->status === '0') {
-                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
-                    $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
-                } else if ($row->status === '1') {
-                    // $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
-                } else if ($row->status === '3') {
-                    $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
-                }
-              if ($row->applicant) {
+                // if ($row->status === '0') {
+                //     $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
+                //     $action .= ' <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Reject" class="btn btn-danger shadow-sm btn--sm mr-2 update-status" data-status="3">Reject</a>';
+                // } else if ($row->status === '3') {
+                //     $action .= '<a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Accept" class="btn btn-primary btn-green shadow-sm btn--sm mr-2 update-status" data-status="1">Accept</a>';
+                // }
+                if ($row->applicant) {
                     $action .= '<a href="javascript:void(0)" data-toggle="tooltip" id="' . $row->id . '" data-original-title="Due Report" class="btn btn-sm viewprintOption" style="background: #006c76; color: #fff">Print</a>';
                 }
-                
+
                 //$action .= '<a id="print" data-id="'.$row->id.'" class="btn btn-primary btn-sm mr-2">Print</a>';
                 //$action .= '<a href="'.route('clinician.info',['id' => $row->id]).'" class="btn btn-primary btn-sm mr-2">Print</a>';
                 return $action;
             })
-            ->rawColumns(['action', 'checkbox_id','name'])
+            ->rawColumns(['action', 'checkbox_id','name', 'status'])
             ->make(true);
     }
 
@@ -183,9 +238,9 @@ class ClinicianController extends Controller
 
         return response()->json($data);
     }
-    
+
     public function getprintoption($id)
-    {   
+    {
         if (isset($id)) {
             // $userDeviceLog = UserDeviceLog::where('id',$id)->first();
             // $notes = explode('.', $userDeviceLog->note);
@@ -341,7 +396,7 @@ class ClinicianController extends Controller
                 // return $pdf->stream($users->full_name .'.pdf');
                 //return view('pages.clincian.clinician-form', compact('users'));
                 // return view('pages.clincian.print.background_check_print', compact('users'));
-                
+
                 $response = [
                     'users' => $users,
                     'employer_verify' => $employer_verify,
@@ -364,7 +419,7 @@ class ClinicianController extends Controller
                     $pdf = PDF::loadView('pages.clincian.print.i9form_print', $response);
                 }
                 if($input['fileType'] === 'i9form_verify') {
-                   
+
                     $pdf = PDF::loadView('pages.clincian.print.i9form_verify', $response);
                 }
                 if($input['fileType'] === 'NoticePay') {
@@ -379,9 +434,9 @@ class ClinicianController extends Controller
             }
 
             $pdf->setPaper('A4');
-       
+
             return $pdf->stream('clinician.pdf');
-            
+
         } catch (Exception $e) {
             dd("Error: ". $e->getMessage());
         }
@@ -421,12 +476,12 @@ class ClinicianController extends Controller
             if (isset($ex->errorInfo[2])) {
                 $message = $ex->errorInfo[2];
             }
-            
+
             $arr = array("status" => 400, "message" => $message, "resultdata" => array());
         }
         return \Response::json($arr);
     }
-    
+
     public function getClinicianDetail($id)
     {
           $response = User::with(['applicant.references', 'applicant.state', 'applicant.city', 'education.medicalInstituteState', 'education.medicalInstituteCity', 'education.residencyInstituteState', 'education.residencyInstituteCity', 'education.fellowshipInstituteState', 'education.fellowshipInstituteCity', 'professional.medicareState', 'professional.medicaidState', 'professional.stateLicenses.licenseState', 'professional.boardCertificates', 'attestation', 'deposit.state', 'deposit.city', 'documents','designation','applicant'])->findOrFail($id);
@@ -438,7 +493,7 @@ class ClinicianController extends Controller
 
                  $applicant = $workHistory_detail = $military_detail = $security_detail = $prior = $address = $info = $reference_detail = $employer_detail = $education_detail = $emergency_detail = $payroll_details = $professional_detail = $document_information = $employer_verify = [];
             if ($data->applicant) {
-            
+
             $applicant = $data->applicant;
                 if ($data->applicant->workHistory_detail) {
                     $workHistory_detail = $data->applicant->workHistory_detail;
@@ -451,7 +506,7 @@ class ClinicianController extends Controller
                 if ($data->applicant->security_detail) {
                     $security_detail = $data->applicant->security_detail;
                 }
-                
+
                 if ($data->applicant->address_detail) {
                     //$prior = $address = $info = '';
                     if(isset($data->applicant->address_detail['prior'])) {
@@ -500,7 +555,7 @@ class ClinicianController extends Controller
                 }
             }
             //dd($reference_detail);
-	
+
             $scan_field = $scanId = $cat_id = $board = '';
             $today = date('Y-m-d');
             $userInfo = [];
@@ -511,7 +566,7 @@ class ClinicianController extends Controller
                     $ssn = setSsn($info['ssn']);
                     $dob = date("Y-m-d", strtotime($info['dateOfBirth']));
                 }
-               
+
                 if ($ssn != '' && $dob != '') {
                     $userInfo = PhysicianUsers::where([['ssn_no','=', $ssn],['date_of_birth', '=' , $dob]])->first();
 
@@ -522,7 +577,7 @@ class ClinicianController extends Controller
                     }
                 }
                 $cat_id = '1';
-               
+
             } else if ($data->designation_id == '1') {
                 $ssn = $dob ='';
 
@@ -557,23 +612,146 @@ class ClinicianController extends Controller
                 }
                 $cat_id = '3';
             }
-            
+
+            $where = [];
+            if ($scan_field === 'PhysicianUsers') {
+                $where = [
+                    'physician_user_id' => $scanId,
+                    'cron_status' => '1',
+                ];
+            } else if ($scan_field === 'NursePractitionerUsers') {
+                $where = [
+                    'nurse_prac_user_id' => $scanId,
+                    'cron_status' => '1',
+                ];
+            } else if ($scan_field === 'PhysicianAssistantUsers') {
+                $where = [
+                    'phy_assi_user_id' => $scanId,
+                    'cron_status' => '1',
+                ];
+            }
+
             $mapId = CategorySiteMapping::with('siteInfo')->where('category_id', $cat_id)->get();
+            $boolval = [];
+            $boolvalues = '0';
 
-            // $url = "https://1000logos.net/wp-content/uploads/2016/11/google-logo.jpg";
-            // $contents = file_get_contents($url);
-            // $name = substr($url, strrpos($url, '/') + 1);
+            if($mapId){
+                foreach($mapId as $site){
+                    switch ($site->siteInfo->sites_name) {
+                        case "dea":
+                            $deaDetail = Dea::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($deaDetail) {
+                                $boolval[] = $deaDetail->status;
+                            }
+                            break;
+                        case "omig":
+                            $omigDetail = OfficeMedicaidInspector::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($omigDetail) {
+                                $boolval[] = $omigDetail->status;
+                            }
+                            break;
+                        case "abim":
+                            $abimDetail = Abim::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($abimDetail) {
+                                $boolval[] = $abimDetail->status;
+                            }
+                            break;
+                        case "abfm":
+                            $abfmDetail = Abfm::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($abfmDetail) {
+                                $boolval[] = $abfmDetail->status;
+                            }
+                            break;
+                        case "nys":
+                            $nysmDetail = Nysed::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($nysmDetail) {
+                                $boolval[] = $nysmDetail->status;
+                            }
+                            break;
+                        case "oig":
+                            $oigDetail = OfficeInspectorGeneral::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($oigDetail) {
+                                $boolval[] = $oigDetail->status;
+                            }
+                            break;
+                        case "nccpa":
+                            $nccpaDetail = Nccpa::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($nccpaDetail) {
+                                $boolval[] = $nccpaDetail->status;
+                            }
+                            break;
+                        case "aanp":
+                            $aanpDetail = Aanp::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($aanpDetail) {
+                                $boolval[] = $aanpDetail->status;
+                            }
+                            break;
+                        case "nursingworld":
+                            $nursingworld = NursingWorld::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($nursingworld) {
+                                $boolval[] = $nursingworld->status;
+                            }
+                            break;
+                        case "ama":
+                            $ama_assn = Ama::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($ama_assn) {
+                                $boolval[] = $ama_assn->status;
+                            }
+                            break;
+                        case "everify":
+                            $everify = Everify::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($everify) {
+                                $boolval[] = $everify->status;
+                            }
+                            break;
+                        case "npdb":
+                            $npdb_hrsa = Npdb::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($npdb_hrsa) {
+                                $boolval[] = $npdb_hrsa->status;
+                            }
+                            break;
+                        case "samgov":
+                            $samgov = Sam::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($samgov) {
+                                $boolval[] = $samgov->status;
+                            }
+                            break;
+                        case "ecfmg":
+                            $ecfmg = Ecfmg::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($ecfmg) {
+                                $boolval[] = $ecfmg->status;
+                            }
+                            break;
+                        case "OptOutSrch":
+                            $opt_out = OptOutSearch::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($opt_out) {
+                                $boolval[] = $opt_out->status;
+                            }
+                            break;
+                        case "prof_misc":
+                            $prof_misc = ProfMisconduct::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($prof_misc) {
+                                $boolval[] = $prof_misc->status;
+                            }
+                            break;
+                        case "ofac_search":
+                            $ofac_search = OfacSearch::where($where)->orderBy('created_at', 'DESC')->first();
+                            if ($ofac_search) {
+                                $boolval[] = $ofac_search->status;
+                            }
+                            break;
+                    }
 
-            // Storage::put($name, $contents);
-            // $where = [
-            //     'physician_user_id' => 1,
-            //     'cron_status' => '1',
-            // ];
-            // $data = OfficeInspectorGeneral::where($where)->get();
-           // dd();
+                }
+
+                $boolvalues = (in_array(false,$boolval)) ? 'disabled' :'';
+                $hire_validation = '0';
+
+                if($hire_validation == '1') return (in_array(false,$boolval)) ? false :true;;
+            }
             $currentMonth = Carbon::now()->month;
-		
-            return view('pages.admin.nurse-view', compact('data', 'prior','address','info','reference_detail','emergency_detail','education_detail','security_detail','military_detail','employer_detail','payroll_details','workHistory_detail','professional_detail','document_information','applicant', 'scanId', 'cat_id', 'scan_field', 'mapId', 'board', 'currentMonth', 'employer_verify', 'userInfo'));
+
+            return view('pages.admin.nurse-view', compact('data', 'prior','address','info','reference_detail','emergency_detail','education_detail','security_detail','military_detail','employer_detail','payroll_details','workHistory_detail','professional_detail','document_information','applicant', 'scanId', 'cat_id', 'scan_field', 'mapId', 'board', 'currentMonth', 'employer_verify', 'userInfo', 'boolvalues'));
         }
 
         return redirect()->back();
@@ -582,7 +760,7 @@ class ClinicianController extends Controller
     public function getScrapDetail(Request $request)
     {
         $input = $request->all();
-      
+
         $where = [];
         if ($input['scan_field'] === 'PhysicianUsers') {
             $where = [
@@ -689,7 +867,7 @@ class ClinicianController extends Controller
             $data = OfacSearch::query();
             $site = '17';
         }
-        
+
         $data
             ->where($where)
             ->when($input['year'] ,function ($query) use($input) {
@@ -706,8 +884,8 @@ class ClinicianController extends Controller
 
             if ($input['currentMonth'] === 'current') {
                 $data->take(1);
-            }           
-        
+            }
+
             $datatble = DataTables::of($data->get());
                 $datatble->addColumn('checkbox_id', function($q) use($input) {
                     return '<div class="checkbox"><label><input class="innerallchk1 innerallchk'.$input['sites_name'].'" onclick="chkmain('.$input['sites_name'].');" type="checkbox" name="allchk[]" value="' . $q->id . '" id="'.$input['sites_name'].'"/><span></span></label></div>';
@@ -726,24 +904,24 @@ class ClinicianController extends Controller
                     } else if ($input['sites_name'] === 'dea' || $input['sites_name'] === 'omig') {
                         return 'Monthly';
                     }
-                });    
+                });
                 if ($input['sites_name'] === 'abim' || $input['sites_name'] === 'abfm') {
                     $datatble->addColumn('exp_date', function($row){
                         return '';
                     });
                 }
-                            
+
                 $datatble->addColumn('action', function($row) use($input) {
-                    $actual_link = 'http://3.132.211.119/'.$row->screenshot;
-                    
+                    $actual_link = 'http://20.106.235.102/'.$row->screenshot;
+
                     $btn = '<a class="nav-link active view_document" data-id="'.$row->id .'" data-type="Dea" href="javascript:void(0)" data-action="scanReport" data-value="' . $actual_link .'" data-field="">Print</a>';
 
                     $btn .= getstatus($row->status);
-                    
+
                     return $btn;
 
                 });
-                
+
                 $datatble->addColumn('status', function($row) use($input, $site) {
                     $selected = '';
                     if ($row->verification_status ==  1) {
@@ -751,7 +929,7 @@ class ClinicianController extends Controller
                     } elseif ($row->verification_status ==  2) {
                         $selected = 'Selected';
                     }
-                     
+
                     $btn = '<select class="approvment_ss" data-id="'.$row->id.'" data-user="' . $input['scanId'] . '" data-site="'.$site.'" data-cat="' . $input['category_id']. '">';
                     $btn .= '<option value="0">Pending</option><option value="1" '. $selected .'>Approve</option><option value="2" '. $selected .'>Unapprove</option>';
                     $btn .= '</select>';
@@ -780,13 +958,13 @@ class ClinicianController extends Controller
     public function scrapedpdf(Request $request)
     {
         $input = $request->all();
-     
+
         foreach ($input['data'] as $element) {
             $arr[$element['id']][] = $element['value'];
         }
 
         $dea = $omig = $oig = $npdb = $samgov = $nys = $abim = $abfm = $everify = $ecfmg = $nccpa = $aanp = $ama = $nursingWorld = '';
-     
+
         if (isset($arr['dea'])) {
             $dea = Dea::whereIn('id',$arr['dea'])->select('id','created_at', 'dea_no', 'name', 'business_activity', 'status', 'screenshot')->get();
         }
@@ -819,7 +997,7 @@ class ClinicianController extends Controller
         if (isset($arr['abfm'])) {
             $abfm = Abfm::whereIn('id',$arr['abfm'])->select('id','created_at', 'certification', 'cert_status', 'cert_history', 'status', 'screenshot')->get();
         }
-        
+
         if (isset($arr['everify'])) {
             $everify = Everify::whereIn('id',$arr['everify'])->select('id','created_at', 'verification_num', 'case_status', 'submitted_by', 'case_result', 'clouser', 'status', 'screenshot')->get();
         }
@@ -830,8 +1008,8 @@ class ClinicianController extends Controller
 
         if (isset($arr['nccpa'])) {
             $nccpa = Nccpa::whereIn('id',$arr['nccpa'])->select('id','created_at', 'nccpa_detail', 'status', 'screenshot')->get();
-        }       
-        
+        }
+
         if (isset($arr['aanp'])) {
             $aanp = Aanp::whereIn('id',$arr['aanp'])->select('id','created_at', 'order_num', 'pdf', 'status', 'screenshot')->get();
         }
@@ -864,7 +1042,7 @@ class ClinicianController extends Controller
 
         $pdf = PDF::loadView('pages.admin.clinician-detail.scrap-pdf', $response);
         $pdf->setPaper('A4');
-       
+
         return $pdf->stream('scraped.pdf');
     }
 
@@ -877,7 +1055,7 @@ class ClinicianController extends Controller
                 'user_id' => $input['user_id'],
                 'type' => $input['type_id']
             ])->get();
-        } 
+        }
 
         return view('pages.admin.clinician-detail.viewDocument', compact('documents', 'input'))->render();
     }

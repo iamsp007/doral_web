@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/fonts/Montserrat.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.css') }}">
-    
+
     <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/calendar/lib/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -125,6 +125,10 @@
         <section class="app-body">
             @yield('content')
         </section>
+        <input type="hidden" class="auth_user_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" class="auth_user_first_name" value="{{ Auth::user()->first_name }}">
+        <input type="hidden" class="auth_user_last_name" value="{{ Auth::user()->last_name }}">
+        <input type="hidden" class="auth_user_email" value="{{ Auth::user()->email }}">
     </section>
 </section>
 @yield('popup')
@@ -134,7 +138,7 @@
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/moment.min.js') }}"></script>
 <script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
-<script src="{{ asset('assets/js/app.common.js') }}"></script>    
+<script src="{{ asset('assets/js/app.common.js') }}"></script>
 <script src="{{ asset('assets/calendar/lib/main.js') }}"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
@@ -144,6 +148,34 @@
 </script>
 <script>
     $("#loader-wrapper").hide();
+</script>
+<script>
+    var auth_user_id = $('.auth_user_id').val();
+    var auth_user_name = $('.auth_user_first_name').val() + ' ' + $('.auth_user_last_name').val();
+    var auth_user_email = $('.auth_user_email').val();
+    console.log('auth_user_id: ' + auth_user_id);
+    console.log('auth_user_id: ' + auth_user_id);
+    console.log('auth_user_id: ' + auth_user_id);
+    (function(apiKey){
+        alert('in pendo');
+        (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
+        v=['initialize','identify','updateOptions','pageLoad','track'];for(w=0,x=v.length;w<x;++w)(function(m){
+            o[m]=o[m]||function(){o._q[m===v[0]?'unshift':'push']([m].concat([].slice.call(arguments,0)));};})(v[w]);
+            y=e.createElement(n);y.async=!0;y.src='https://cdn.pendo.io/agent/static/'+apiKey+'/pendo.js';
+            z=e.getElementsByTagName(n)[0];z.parentNode.insertBefore(y,z);})(window,document,'script','pendo');
+
+            pendo.initialize({
+                visitor: {
+                    id: auth_user_id,
+                    name: auth_user_name,
+                    email: email,
+                },
+
+                account: {
+                    id: 'ACCOUNT-UNIQUE-ID'
+                }
+            });
+    })('71322162-1bf1-4bcd-72de-1d93c59ab919');
 </script>
 @stack('scripts')
 </body>

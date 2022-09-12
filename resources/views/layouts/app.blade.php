@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -86,6 +87,10 @@
             </div>
         </header>
         <main class="py-4">
+         {{-- <div><input type="hidden" class="auth_user_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" class="auth_user_first_name" value="{{ Auth::user()->first_name }}">
+        <input type="hidden" class="auth_user_last_name" value="{{ Auth::user()->last_name }}">
+        <input type="hidden" class="auth_user_email" value="{{ Auth::user()->email }}"></div> --}}
             @yield('content')
         </main>
     </div>
@@ -110,6 +115,34 @@
     <script>
         $("#loader-wrapper").hide();
     </script>
+      {{-- <script>
+	    var auth_user_id = $('.auth_user_id').val();
+	    var auth_user_name = $('.auth_user_first_name').val() + ' ' + $('.auth_user_last_name').val();
+	    var auth_user_email = $('.auth_user_email').val();
+	    console.log('auth_user_id=: ' + auth_user_id);
+	    console.log('auth_user_name=: ' + auth_user_name);
+	    console.log('auth_user_email=: ' + auth_user_email);
+	    (function(apiKey){
+
+		(function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
+		v=['initialize','identify','updateOptions','pageLoad','track'];for(w=0,x=v.length;w<x;++w)(function(m){
+		    o[m]=o[m]||function(){o._q[m===v[0]?'unshift':'push']([m].concat([].slice.call(arguments,0)));};})(v[w]);
+		    y=e.createElement(n);y.async=!0;y.src='https://cdn.pendo.io/agent/static/'+apiKey+'/pendo.js';
+		    z=e.getElementsByTagName(n)[0];z.parentNode.insertBefore(y,z);})(window,document,'script','pendo');
+
+		    pendo.initialize({
+		        visitor: {
+		            id: auth_user_id,
+		            name: auth_user_name,
+		            email: auth_user_email,
+		        },
+
+		        account: {
+		            id: 'ACCOUNT-UNIQUE-ID'
+		        }
+		    });
+	    })('71322162-1bf1-4bcd-72de-1d93c59ab919');
+	</script> --}}
     @stack('scripts')
 </body>
 </html>

@@ -9,7 +9,7 @@
                                 <th>Sr No.</th>
                                 <th>Clinician Name</th>
                                 <th>Test Name</th>
-                                <th>Sub Test Name</th>
+                                <th>Symptoms</th>
                                 <th>Type</th>
                                 <th>Status</th>
                                 <th>Action</th>

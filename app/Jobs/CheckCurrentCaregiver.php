@@ -40,7 +40,7 @@ class CheckCurrentCaregiver implements ShouldQueue
     public function handle()
     {
         $demographic = Demographic::where('user_id',$this->patient_id)->select('patient_id')->first();
-		       
+
         $input['patientId'] = $demographic->patient_id;
         $date = Carbon::now();
         $today = $date->format("Y-m-d");
@@ -48,7 +48,7 @@ class CheckCurrentCaregiver implements ShouldQueue
         $input['from_date'] = $today;
         $input['to_date'] = $today;
 
-        $curlFunc = searchVisits($input);   
+        $curlFunc = searchVisits($input);
 
         if (isset($curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits'])) {
             $visitID = $curlFunc['soapBody']['SearchVisitsResponse']['SearchVisitsResult']['Visits']['VisitID'];
@@ -64,11 +64,11 @@ class CheckCurrentCaregiver implements ShouldQueue
     }
 
     public static function getSchedule($viId, $patient_id, $company_id)
-    {	
+    {
         $scheduleInfo = getScheduleInfo($viId);
         $getScheduleInfo = $scheduleInfo['soapBody']['GetScheduleInfoResponse']['GetScheduleInfoResult']['ScheduleInfo'];
         $caregiver_id = ($getScheduleInfo['Caregiver']['ID']) ? $getScheduleInfo['Caregiver']['ID'] : '' ;
-        
+
         $demographicModal = Demographic::select('id','user_id','patient_id')->where('patient_id', $caregiver_id)->with(['user' => function($q) {
             $q->select('id', 'email', 'phone');
         }])->first();
@@ -83,9 +83,9 @@ class CheckCurrentCaregiver implements ShouldQueue
                 $phoneNumber = $demographics['Address']['HomePhone'] ? $demographics['Address']['HomePhone'] : '';
 
                 $doral_id = createDoralId();
-               
+
                 $user_id = storeUser($demographics, $doral_id);
-                
+
                 if ($user_id) {
                     $company_id = $company_id;
                     storeDemographic($demographics, $user_id, $company_id, $doral_id,'caregiver-check');
@@ -105,6 +105,6 @@ class CheckCurrentCaregiver implements ShouldQueue
             'start_time' => $scheduleStartTime,
             'end_time' => $scheduleEndTime,
             'name' => $firstName . ' ' . $lastName,
-        ]);	
+        ]);
     }
 }

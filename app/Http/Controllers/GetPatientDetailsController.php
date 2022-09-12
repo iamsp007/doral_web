@@ -19,6 +19,7 @@ use App\Models\PatientCoordinator;
 use App\Models\PatientDetail;
 use App\Models\PatientEmergencyContact;
 use App\Models\CompanyPaymentPlanInfo;
+use App\Models\Demographic;
 use App\Models\PatientInsurance;
 use App\Models\PatientLabReport;
 use App\Models\PatientReferralInfo;
@@ -63,14 +64,13 @@ class GetPatientDetailsController extends Controller
 
     public function show($paient_id)
     {
-       
         $labReportTypes = LabReportType::where('status','1')->whereNull('parent_id')->orderBy('sequence', 'asc')->get();
 
         $tbpatientLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['1','2','3','4','5','6'])->get();
         $tbLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
             $query->where('user_id', $paient_id)->whereDate('expiry_date', '>=', date('Y-m-d', strtotime(now())));
            })->where('status','1')->where('parent_id', 1)->orderBy('sequence', 'asc')->get();
-        
+
         $immunizationLabReports = PatientLabReport::with('labReportType')->where('user_id', $paient_id)->whereIn('lab_report_type_id', ['7','8','9','10','11'])->get();
         $immunizationLabReportTypes = LabReportType::doesnthave('patientLabReport','or' ,function($query) use($paient_id) {
             $query->where('user_id', $paient_id)->whereDate('expiry_date', '>=', date('Y-m-d', strtotime(now())));
@@ -93,8 +93,13 @@ class GetPatientDetailsController extends Controller
         $patient = PatientDetail::with('coordinators', 'acceptedServices', 'patientAddress', 'alternateBilling', 'patientEmergencyContact', 'emergencyPreparednes', 'visitorDetail', 'patientClinicalDetail.patientAllergy')->find($paient_id);
 
         $patient = User::with('demographic', 'patientEmergency','userDevices')->find($paient_id);
+
+        if ($patient->demographic && $patient->demographic->show && $patient->demographic->show === '0') {
+            Demographic::find($paient_id)->update(['show' => '1']);
+        }
+
         $caseManagements = CaseManagement::with('clinician')->where('patient_id', $paient_id)->get();
-        
+
         $family_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','1']])->get();
         $physician_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','2']])->get();
         $pharmacy_detail = CareTeam::where([['patient_id', '=',$paient_id],['type', '=','3']])->get();
@@ -117,7 +122,7 @@ class GetPatientDetailsController extends Controller
             if (isset($patient->demographic->notification_preferences)) {
                 $notificationPreferences = $patient->demographic->notification_preferences;
             }
-       
+
             if (isset($patient->demographic->accepted_services)) {
                 $acceptedServices = $patient->demographic->accepted_services;
             }
@@ -132,35 +137,24 @@ class GetPatientDetailsController extends Controller
         }
 
         $today =  date('Y-m-d');
-      
+
+
+
         $userDeviceLogs = UserDeviceLog::with('userDevice')->whereHas('userDevice',function ($q) use($paient_id) {
             $q->where('patient_id', $paient_id);
         })
-        ->select('*', DB::raw('DATE(created_at) as date'))
+
+        ->select('*', DB::raw('DATE(user_device_logs.reading_time) as date'))
         ->WhereIn('user_device_logs.id',DB::table('user_device_logs AS udl')
-            ->join('user_devices','user_devices.id','=','udl.user_device_id' )->where(
+            ->join('user_devices','user_devices.id','=','udl.user_device_id')->where(
                 'user_devices.patient_id',$paient_id
             )
-            ->groupBy('udl.user_device_id', 'udl.created_at')
-            ->orderBy('udl.id','DESC')->pluck(DB::raw('MAX(udl.id) AS id') )
+            ->groupBy('udl.user_device_id', DB::raw('DATE(udl.reading_time)') )
+            ->orderBy('udl.id','DESC')->pluck(DB::raw('MAX(udl.id) AS id'))
         )
         ->get()->toArray();
-        
-        /*
-        $userDeviceLogs = UserDeviceLog::with('userDevice')->whereHas('userDevice',function ($q) use($paient_id) {
-            $q->where('patient_id', $paient_id);
-        })
-        ->select('*', DB::raw('DATE(created_at) as date'))
-        ->WhereIn( 'user_device_logs.id',UserDeviceLog::select('id')->where(
-                'user_device_id',$paient_id
-            )
-            ->groupBy('user_device_id', 'created_at')
-            ->orderBy(`id`,'DESC')->get()->toArray()
-        )
-        ->get()->toArray();
-        */
-        
-      
+
+
         return view('pages.patient_detail.index', compact('patient','payment','labReportTypes', 'labReportTypes', 'tbpatientLabReports', 'tbLabReportTypes', 'immunizationLabReports', 'immunizationLabReportTypes', 'drugLabReports', 'drugLabReportTypes', 'paient_id', 'emergencyPreparednesValue', 'ethnicity', 'mobile', 'maritalStatus', 'status', 'referralSource', 'caregiverOffices', 'inactiveReasonDetail', 'team', 'location', 'branch', 'acceptedServices', 'address', 'language', 'notificationPreferences', 'employeePhysicalForm', 'employeePhysicalFormTypes', 'services', 'insurances', 'emergencyAddress','userDeviceLogs','today', 'caseManagements','family_detail','physician_detail','pharmacy_detail','caregiver'));
     }
 
@@ -214,7 +208,7 @@ class GetPatientDetailsController extends Controller
         $searchPatientIds = searchPatients();
 
         $patientArray = $searchPatientIds['soapBody']['SearchPatientsResponse']['SearchPatientsResult']['Patients']['PatientID'];
-       
+
         $patientArray = ['388069', '404874','394779','395736','488452','488987','488996','490045','504356','516752','517000','518828','532337','540428','541579','542628','1005036','1008858','1009943','1010785','1010967','1015287','1019171','1030319','1031322','1048580','688245','695223','697606','698180','698859','698935','701845','704228','742010','742023','762544','762584','772465','772468','772470','783693','817770','826323','832638','894642','904265','909877','916609','916702','946557','948750','952551','961283','987170','989414','990437','994958','996056','841005','854502','865729','965077'];
 
         $counter = 0;
@@ -229,7 +223,7 @@ class GetPatientDetailsController extends Controller
 
                     /** Store patirnt demographic detail */
                     $getpatientDemographicDetails = getPatientDemographics($patient_id);
-                   
+
                     $patient_detail_id = $this->storePatientDetail($getpatientDemographicDetails, 'add');
 
                     // if($patient_detail_id) {

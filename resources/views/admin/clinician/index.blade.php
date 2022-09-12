@@ -14,7 +14,7 @@
     <div class="button-control mt-4 mb-4" id="acceptRejectBtn" style="display: none;">
         @include('admin.common.accept_reject_button',['status' => $status])
     </div>
-   
+
     <form id="search_form" method="post">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="form-group">
@@ -48,7 +48,7 @@
                     @endforeach
                 </select>
             </div>
-           
+
         </div>
     </div>
     <div class="form-group">
@@ -108,45 +108,78 @@
 
 @push('scripts')
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.2/jQuery.print.js" integrity="sha512-BaXrDZSVGt+DvByw0xuYdsGJgzhIXNgES0E9B+Pgfe13XlZQvmiCkQ9GXpjVeLWEGLxqHzhPjNSBs4osiuNZyg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
        var clinician_status = "<?php echo $status;?>";
-       $('#first_name').on('keyup', function(){
-          var q = $(this).val();
-          console.log(q);
-            $.ajax({
-                'type': 'POST',
-                'url': "{{ route('clinician.get-user-data') }}",
-                // 'headers': {
-                //     'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                // },
-                data: {
-                    q: q,
-                    status: clinician_status,
-                    view: 'clinician',
-                    field: 'first_name'
-                },
-                'success': function (data) {
-                    if(data.status == 400) {
-                        alert('error');
-                    } else {
-                        alert('success');
-                        // $('#acceptRejectBtn').hide();
-                        // $(".mainchk").prop("checked","");
-                        // refresh();
-                        
+    //    $('#first_name').on('keyup', function(){
+    //       var q = $(this).val();
+
+    //         $.ajax({
+    //             'type': 'POST',
+    //             'url': "{{ route('clinician.get-user-data') }}",
+    //             // 'headers': {
+    //             //     'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    //             // },
+    //             data: {
+    //                 q: q,
+    //                 status: clinician_status,
+    //                 view: 'clinician',
+    //                 field: 'first_name'
+    //             },
+    //             'success': function (data) {
+    //                 console.log(data);
+    //                 if(data.status == 400) {
+    //                    // alert('error');
+    //                 } else {
+    //                     //alert('success');
+    //                     // $('#acceptRejectBtn').hide();
+    //                     // $(".mainchk").prop("checked","");
+    //                     // refresh();
+
+    //                 }
+    //                 // $("#loader-wrapper").hide();
+    //             },
+    //             "error":function () {
+    //                 alert("Server Timeout! Please try again",'error');
+    //                 //$("#loader-wrapper").hide();
+    //             }
+    //         });
+    //    });
+
+        $('#first_name').select2({
+            minimumInputLength: 3,
+            placeholder: 'Select a first name',
+            ajax: {
+                type: "POST",
+                url: "{{ route('clinician.get-user-data') }}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    var query = {
+                        q: params.term,
+                        status: clinician_status,
+                        view: 'clinician',
+                        field: 'last_name'
                     }
-                    // $("#loader-wrapper").hide();
+
+                    return query;
                 },
-                "error":function () {
-                    alert("Server Timeout! Please try again",'error');
-                    //$("#loader-wrapper").hide();
-                }
-            });
-       });
-   
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.last_name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
         $('#last_name').select2({
             minimumInputLength: 3,
             placeholder: 'Select a last name',
@@ -162,7 +195,7 @@
                         view: 'clinician',
                         field: 'last_name'
                     }
-            
+
                     return query;
                 },
                 processResults: function (data) {
@@ -200,7 +233,7 @@
                     d.gender = $('select[name="gender"]').val();
                     d.searchstatus = $('select[name="searchstatus"]').val();
                 },
-               
+
             },
             columns:[
                 {data:'checkbox_id',"className": "text-center","bSortable": false},
@@ -237,11 +270,60 @@
             maxYear: parseInt(moment().format('YYYY'), 10)
         });
 
+        // $('body').on('click', '.scrapping_status', function () {
+        //     var value_of_button = $(this).val();
+        //     var user_id = $(this).attr('data-user');
+        //     var category_id = $(this).attr('data-cat');
+
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: "{{Route('scrapping_status') }}",
+        //         data: {
+        //             category: category_id,
+        //             userid: user_id,
+        //             status: value_of_button
+        //         },
+        //         success: function (response) {
+        //             if(data.status == 200) {
+        //                 alertText(data.message,'success');
+        //             } else {
+        //                 alertText(data.message,'error');
+        //             }
+        //         }
+        //     });
+        // });
+
+        $('body').on('click', '.scrapping_status', function () {
+            var categoryid = $(this).attr('data-cat');
+            var userid = $(this).attr('data-user');
+
+            if(confirm("Are you sure you want to run this user?")){
+               $.ajax({
+                     type: 'GET',
+                     url: "{{Route('manually-scrap') }}",
+                     data: {
+                        categoryid: categoryid,
+                        userid: userid,
+                        siteid: 0
+                     },
+                     success: function(response) {
+                        if(data.status == 200) {
+                            alertText(data.message,'success');
+                        } else {
+                            alertText(data.message,'error');
+                        }
+                     }
+               });
+            } else {
+               console.log('cancelled');
+            }
+        });
+
         $('body').on('click', '.update-status', function () {
             var status = $(this).attr("data-status");
             $(".innerallchk, .mainchk").prop("checked","");
             $(this).parents("tr").find(".innerallchk").prop("checked",true);
-            doaction(status) 
+            doaction(status)
         });
 
         $(".mainchk").click(function () {
@@ -256,7 +338,7 @@
         });
 
         var token = $('input[name="_token"]').val();
-       
+
         $('body').on('click', '#print', function () {
             var id = $(this).attr("data-id");
             var fileType = $(this).attr("data-file");
@@ -267,7 +349,7 @@
             } else {
                 t.parent('.list-group-item').find('.loader').show();
             }
-           
+
             $.ajax({
                 type: 'POST',
                 url: "{{ Route('clinician.print')}}",
@@ -283,13 +365,13 @@
                 },
                 success: function(response){
                 var blob = new Blob([response]);
-                
+
                 var link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
                 link.download = filename;
                 link.click();
                 //refresh();
-                
+
                 if (fileType === 'demograhics' || fileType === 'document') {
                     t.parent('.form-group').find('.loader').hide();
                 } else {
@@ -305,7 +387,7 @@
                 }
                 }
             });
-         
+
         });
 
         function chkmain() {
@@ -334,7 +416,7 @@
             }
         }
 
-        function doaction(status) 
+        function doaction(status)
         {
             var len = $(".innerallchk:checked").length;
             if (len == 0) {
@@ -346,9 +428,9 @@
                 postdataforaction(status, val);
             }
         }
-            
+
         function postdataforaction(status,val) {
-           
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -391,7 +473,7 @@
                                     $('#acceptRejectBtn').hide();
                                     $(".mainchk").prop("checked","");
                                     refresh();
-                                    
+
                                 }
                                 $("#loader-wrapper").hide();
                             },
@@ -419,7 +501,7 @@
                 type: 'GET',
                 headers: {
                     'X_CSRF_TOKEN':'{{ csrf_token() }}',
-                },  
+                },
                 success:function(data, textStatus, jqXHR){
                     $("#loader-wrapper").hide();
                     $(".messageViewModel").html(data);
@@ -431,7 +513,7 @@
                 }
             });
         });
-        
+
         function refresh() {
             $("#clinician-table").DataTable().ajax.reload(null, false);
         }

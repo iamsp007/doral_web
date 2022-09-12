@@ -14,10 +14,10 @@
 @php
    $count1 = $count5 = $count6 = $count7 = $count8 = $count9 = $count10 = $count11 = $count12 = $count13 = $count14 = $count15 = $count16 = $count17= $count18 = $count19 = $count20 = $count21 = $count23 = $count24 = $count25 = $count26 = $count27 = $count28 = $count29 = $count30 = $count31 = $count32 = $count33 = $count34 = $count35 = $count36 = $count37 = $count38 = $count39 = $count40 = $count41 = $count42 = $count43 = 1;
 
-   $hired = ($userInfo->selection_status == 1)? 'Hired':'Approve for Hire';
-   // $btn_class = $boolvalues == 'disabled'?'btn-secondary':'btn-success';
-   $btn_class = 'btn-secondary';
-   $rejected = ($userInfo->selection_status == 2)? 'ed':'';
+   $hired = (isset($userInfo->selection_status) && $userInfo->selection_status == 1)? 'Hired':'Approve for Hire';
+   $btn_class = $boolvalues == 'disabled'?'btn-secondary':'btn-success';
+
+   $rejected = (isset($userInfo->selection_status) && $userInfo->selection_status == 2)? 'ed':'';
 @endphp
 @foreach($data->documents as $document)
    @if($document->type == 1)
@@ -140,7 +140,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                               <a href="tel:{{ isset($applicant->phone) ? $applicant->phone : null }}" class="text-body call-text d-flex align-items-center"><img src="/assets/img/icons/phone_green.svg" class="mr-1" alt=""> {{ $cellphone }}</a>
                            @endif
                         </li>
-                       
+
                      @endif
                      <li class="list-group-item"><span>{{ isset($data->email) ? $data->email : null }}</span></li>
                       <li class="list-group-item">
@@ -3095,7 +3095,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                                                    <div>
                                                       <h3 class="_title">Age range you treated</h3>
                                                       <h1 class="_detail">
-                                                    
+
                                                       @if($professional_detail && isset($professional_detail['age_0_18']))
                                                          Age 0 to 18,
                                                       @endif
@@ -3108,7 +3108,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                                                       @if($professional_detail && $professional_detail['age_65Plus'])
                                                          Age 65+,
                                                       @endif
-                                                    
+
                                                       </h1>
                                                    </div>
                                                 </div>
@@ -3278,7 +3278,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                                        $professional_address1 = isset($professional_detail['npa_address1']) ? $professional_detail['npa_address1']  : '';
                                        $professional_address2 = isset($professional_detail['npa_address2']) ? $professional_detail['npa_address2']  : '';
                                        $professional_building = isset($professional_detail['npa_building']) ? $professional_detail['npa_building']  : '';
-                                     
+
                                        if (isset($professional_detail['npa_cityId'])):
                                           $professional_city = \App\Models\City::find($professional_detail['npa_cityId'])->city;
                                        else:
@@ -3392,7 +3392,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                                                    <div><i class="las la-angle-double-right circle-icon"></i></div>
                                                    <div>
                                                       <h3 class="_title">City</h3>
-                                                      <h1 class="_detail"> 
+                                                      <h1 class="_detail">
                                                          @if (isset($professional_detail['npa_cityId']))
                                                             {{ \App\Models\City::find($professional_detail['npa_cityId'])->city }}
                                                          @else
@@ -3757,10 +3757,10 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                         <!-- <a href="javascript:void(0)" data-toggle="tooltip" data-id="{{ $data->id }}" data-original-title="Scrapping" class="btn btn-primary btn-gray shadow-sm btn--sm mr-2 " >Scrapping</a> -->
                         <div class="button-control mt-4 mb-4" id="printBtn">
                            <button type="button" onclick="doaction()" class="btn btn-primary btn-warning shadow-sm btn--sm mr-2" data-toggle="tooltip" data-placement="left" title="" data-original-title="Accept">Print <i class="fa fa-spinner fa-spin" id="loader" style="display:none;"></i></button>
-                          
+
                            <!-- <a class="bulk-upload-btn" href="{{ route('scrapedpdf') }}"style="margin-left: 10px;"><img src="{{ asset('assets/img/icons/bulk-upload-icon.svg') }}" class="icon mr-2" />Print</a> -->
                         </div>
-                        
+
                      </div>
                      <hr>
                   </div>
@@ -4034,7 +4034,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                                              <th><div class="checkbox"><label><input class="mainchk" type="checkbox" data-value="everify" /><span class="checkbtn"></span></label></div></th>
                                              <th>Date</th>
                                              <th>Frequency Type</th>
-                                             <th>Verification Number</th>                                             
+                                             <th>Verification Number</th>
                                              <th>Case status</th>
                                              <th>Submitted By</th>
                                              <th>Current case result</th>
@@ -4311,7 +4311,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
          columnDaTa.push(
             {data:'checkbox_id',"className": "text-center","bSortable": false},
          );
-              
+
          if (value.site_info.sites_name === 'dea') {
             columnDaTa.push(
                {data:'created_at',"className": "text-center","bSortable": false},
@@ -4394,7 +4394,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
             }
          }
 
-         if (board === 'abfm'){  
+         if (board === 'abfm'){
             if (value.site_info.sites_name === 'abfm') {
                columnDaTa.push(
                   {data:'created_at',"className": "text-center","bSortable": false},
@@ -4554,7 +4554,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
       $(".mainchk").click(function () {
          var ch = $(this).prop("checked");
          var type = $(this).attr('data-value')
-            
+
          if(ch == true) {
             $(".innerallchk"+type).prop("checked","checked");
             $('#printBtn').show();
@@ -4563,13 +4563,13 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
             $('#printBtn').hide();
          }
       });
-      
+
       $(document).ready(function () {
          $('body').on('click', '.SingleRun', function () {
             var cat_id = $(this).attr('data-id');
             var userid = $(this).attr('data-scan');
             var site_id = $(this).attr('data-site');
-            
+
             if(confirm("Are you sure you want to run this user?")){
                $.ajax({
                      type: 'GET',
@@ -4589,8 +4589,8 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                console.log('cancelled');
             }
          });
-      });      
-            
+      });
+
       $('body').on('click', '.selection_status', function () {
          var value_of_button = $(this).val();
          var user_id = $("#user_id").val();
@@ -4604,29 +4604,22 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                 userid: user_id,
                 status: value_of_button
             },
-            success: function (response) {
-               console.log(response);
-            }
-        });		
-      });
+             success: function (response) {
 
-      $('body').on('click', '.scrapping_status', function () {
-         var value_of_button = $(this).val();
-         var user_id = $("#user_id").val();
-         var category_id = $("#category_id").val();
+                 if(response.status == 400) {
+                       alertText(response.message,'error');
+                    } else {
+                        alertText(response.message,'success');
+                        refresh();
+                    }
 
-         $.ajax({
-            type: 'GET',
-            url: "{{Route('scrapping_status') }}",
-            data: {
-                category: category_id,
-                userid: user_id,
-                status: value_of_button
-            },
-            success: function (response) {
-               console.log(response);
-            }
-        });		
+                    $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                	alertText("Server Timeout! Please try again",'error');
+                       $("#loader-wrapper").hide();
+                }
+        });
       });
 
       $('body').on('click', '.approvment_ss', function () {
@@ -4646,9 +4639,21 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
                user_id:user_id,
                cat_id:category_id
             },
-            success: function (response) {
-               console.log(response);
-            }
+             success: function (response) {
+
+                 if(response.status == 400) {
+                       alertText(response.message,'error');
+                    } else {
+                        alertText(response.message,'success');
+                        refresh();
+                    }
+
+                    $("#loader-wrapper").hide();
+                },
+                "error":function () {
+                	alertText("Server Timeout! Please try again",'error');
+                       $("#loader-wrapper").hide();
+                }
          });
       });
 
@@ -4684,9 +4689,9 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
          if (len == 0) {
             alertText('Please select at least one record to continue.','warning');
          } else {
-            var selectArray = []; 
+            var selectArray = [];
             $('.innerallchk1:checked').each(function( i, x ){
-               selectArray.push({"id":x.id, "value":x.value})   
+               selectArray.push({"id":x.id, "value":x.value})
             });
          }
 
@@ -4706,7 +4711,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
             },
             success: function(response){
                var blob = new Blob([response]);
-            
+
                var link = document.createElement('a');
                link.href = window.URL.createObjectURL(blob);
                link.download = 'sample.pdf';
@@ -4720,7 +4725,7 @@ $domain = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "h
             }
          });
       }
-        
+
       function refresh() {
          $.each(phpVar, function (key, value) {
             $('#'+value.site_info.sites_name).DataTable().ajax.reload(null, false);

@@ -73,6 +73,7 @@ class AdminService
     //     }
     // }
 
+    /** Not used function comment code by manisha*/
     public function getProfile($type){
         try {
 
@@ -113,24 +114,25 @@ class AdminService
         }
     }
 
-    public function getAppointment(){
-        try {
+    /** Not used function comment code by manisha*/
+    // public function getAppointment(){
+    //     try {
 
-            $response = $this->client->request(
-                'GET',
-                '/auth/appointment'
-            );
+    //         $response = $this->client->request(
+    //             'GET',
+    //             '/auth/appointment'
+    //         );
 
 
-            $response = $response->getBody()->getContents();
+    //         $response = $response->getBody()->getContents();
 
-            $data = json_decode($response,true);
-            return $data;
-        }catch (\Exception $exception){
-            \Log::info($exception);
-            throw new \Exception($exception->getMessage());
-        }
-    }
+    //         $data = json_decode($response,true);
+    //         return $data;
+    //     }catch (\Exception $exception){
+    //         \Log::info($exception);
+    //         throw new \Exception($exception->getMessage());
+    //     }
+    // }
     public function getNewPatientList(){
         try {
 

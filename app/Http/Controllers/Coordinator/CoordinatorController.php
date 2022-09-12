@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Coordinator;
 
 use App\Http\Controllers\Controller;
-use App\Services\AdminService;
-use Illuminate\Http\Request;
+// use App\Services\AdminService;
 use App\Models\PatientReferral;
 use Yajra\DataTables\DataTables;
 
@@ -30,30 +29,23 @@ class CoordinatorController extends Controller
         return view($this->view_path . 'new_patient_list');
     }
 
-    public function getPatientList()
-    {
-        $adminServices = new AdminService();
-        $response = $adminServices->getAppointment();
+    /** Not used function comment code by manisha*/
+    // public function getPatientList()
+    // {
+    //     $adminServices = new AdminService();
+    //     $response = $adminServices->getAppointment();
 
-        $data = array();
-        if ($response != null && $response['status'] === true) {
-            $data = $response['data'];
-            return response()->json($data, 200);
-        }
+    //     $data = array();
+    //     if ($response != null && $response['status'] === true) {
+    //         $data = $response['data'];
+    //         return response()->json($data, 200);
+    //     }
 
-        return response()->json($data, 422);
-    }
+    //     return response()->json($data, 422);
+    // }
+
     public function getNewPatientList()
     {
-
-        /*$adminServices = new AdminService();
-        $response = $adminServices->getNewPatientListForAppointment();
-        $data=array();
-        if ($response != null && $response['status']===true){
-            $data=$response['data'];
-            return response()->json($data,200);
-        }*/
-
         $data = PatientReferral::getAccepted();
         return DataTables::of($data)->editColumn('gender', function ($contact){
                 return $contact->gender_format;
@@ -62,8 +54,5 @@ class CoordinatorController extends Controller
             })->editColumn('dob', function ($contact){
                 return $contact->dob_format;
             })->make(true);
-        //return response()->json($data);
-
-        //return response()->json($data,422);
     }
 }

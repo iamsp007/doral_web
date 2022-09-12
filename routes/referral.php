@@ -16,13 +16,18 @@ Route::group(['prefix' => '/referral','middleware' => ['auth:referral', 'role:re
     Route::get('service/{status?}/{initial?}', 'App\Http\Controllers\CaregiverController@index')->name('referral.new-patient-list');
     // Route::get('service/{occupational-health}', 'App\Http\Controllers\CaregiverController@index')->name('referral.new-patient-list');
     Route::post('/edit-phone', 'App\Http\Controllers\CaregiverController@updatePhoneNumber')->name('referral.updatePhone');
-    // Route::get('/vbc', 'App\Http\Controllers\PatientReferralController@vbc')->name('referral.vbc');
+
     Route::get('/vbc-get-data', 'App\Http\Controllers\PatientReferralController@vbcGetData')->name('referral.vbc-get-data');
-    Route::get('/vbc-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@vbcUploadBulk')->name('referral.vbc-upload-bulk-data');
-    // Route::get('/md-order', 'App\Http\Controllers\PatientReferralController@index')->name('referral.md-order');
+    Route::get('/vbc-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@vbcUploadBulk')->name('');
+
     Route::get('/md-order-get-data', 'App\Http\Controllers\PatientReferralController@mdOrder')->name('referral.md-order-get-data');
     Route::get('/md-order-upload-bulk-data', 'App\Http\Controllers\PatientReferralController@mdOrderUploadBulk')->name('referral.md-order-upload-bulk-data');
+
+    /** Not used function comment code by manisha*/
     // Route::get('/occupational-health', 'App\Http\Controllers\PatientReferralController@occupationalHealth')->name('referral.occupational-health');
+    // Route::get('/md-order', 'App\Http\Controllers\PatientReferralController@index')->name('referral.md-order');
+    // Route::get('/vbc', 'App\Http\Controllers\PatientReferralController@vbc')->name('referral.vbc');
+
     Route::get('/occupational-health-get-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthGetData')->name('referral.occupational-health-get-data');
     Route::get('/occupational-health-get-fail-data', 'App\Http\Controllers\PatientReferralController@occupationalHealthGetFaileData')->name('referral.occupational-health-get-fail-data');
     Route::get('/view-occupational-health-get-fail-data', 'App\Http\Controllers\PatientReferralController@viewoccupationalHealthGetFaileData')->name('referral.view-occupational-health-get-fail-data');

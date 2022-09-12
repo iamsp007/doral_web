@@ -17,15 +17,20 @@ use Illuminate\Support\Facades\DB;
 
 class PatientReferralController extends Controller
 {
-    public function index() {
-        return view('pages.referral.md-order');
-    }
-    public function vbc() {
-        return view('pages.referral.vbc');
-    }
-    public function occupationalHealth() {
-        return view('pages.referral.occupational-health');
-    }
+    /** Not used function comment code by manisha*/
+    // public function index() {
+    //     return view('pages.referral.md-order');
+    // }
+
+    /** Not used function comment code by manisha*/
+    // public function vbc() {
+    //     return view('pages.referral.vbc');
+    // }
+
+    /** Not used function comment code by manisha*/
+    // public function occupationalHealth() {
+    //     return view('pages.referral.occupational-health');
+    // }
     public function vbcUploadBulk() {
         return view('pages.referral.vbc-upload-bulk-data');
     }
@@ -253,9 +258,9 @@ class PatientReferralController extends Controller
 
     public function store(Request $request)
     {
-       
+
         $user = Auth::guard('referral')->user();
-      
+
         $request['referral_id'] = $user->referal_id;
         $this->validate($request, ['file_name' => 'required', 'vbc_select' => 'required', 'referral_id' => 'required', 'service_id' => 'required', ]);
 
@@ -263,7 +268,7 @@ class PatientReferralController extends Controller
               $folder = 'csv';
             if ($request->vbc_select === "1")
             {
-                
+
                 $folder = "demographic";
             }
             elseif ($request->vbc_select === 2)
@@ -278,7 +283,7 @@ class PatientReferralController extends Controller
             {
                 $folder = "previous_md";
             }
-          
+
             if ($request->hasFile('file_name'))
             {
                 $filenameWithExt = $request->file('file_name')
@@ -295,8 +300,8 @@ class PatientReferralController extends Controller
                 $companyID='';
                 if(Auth::guard('referral')) {
                     $companyID = Auth::guard('referral')->user()->id;
-                } 
-               
+                }
+
                 $import = PatientImportSheet::dispatch($request->referral_id, $request->service_id, $request->vbc_select, $request->formSelect, $filenameWithExt, $filePath,$companyID);
 
                 $response = [
@@ -330,9 +335,9 @@ class PatientReferralController extends Controller
         $client = new Client();
         $states = $client->request('GET', env('API_URL').'/auth/states');
         $states = json_decode($states->getBody()->getContents());
-       
+
         return view('pages.referral.add-patient',compact('states'));
-    
+
     }
 
     public function getCities(Request $request)
